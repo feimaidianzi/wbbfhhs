@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 
 const navItems = [
   { name: "首页", href: "#" },
-  { name: "关于翼飞", href: "#about", hasDropdown: true },
+  { name: "关于飞迈", href: "#about", hasDropdown: true },
   { name: "系列产品", href: "#products", hasDropdown: true },
   { name: "行业应用", href: "#applications", hasDropdown: true },
   { name: "软件系统", href: "#software", hasDropdown: true },
@@ -26,9 +26,9 @@ export const Header = () => {
           <a href="#" className="flex items-center gap-2">
             <div className="flex items-center gap-1">
               <div className="w-8 h-8 bg-accent rounded-sm flex items-center justify-center">
-                <span className="text-accent-foreground font-bold text-lg">翼</span>
+                <span className="text-accent-foreground font-bold text-lg">飞</span>
               </div>
-              <span className="text-primary-foreground font-bold text-xl hidden sm:block">翼飞智能</span>
+              <span className="text-primary-foreground font-bold text-xl hidden sm:block">飞迈智能</span>
             </div>
           </a>
 
