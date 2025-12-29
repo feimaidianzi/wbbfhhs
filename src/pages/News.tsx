@@ -4,6 +4,7 @@ import { FloatingContact } from "@/components/FloatingContact";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Calendar, Tag, ChevronLeft, ChevronRight } from "lucide-react";
 import { useState } from "react";
+import { SEO, createArticleStructuredData } from "@/components/SEO";
 
 const categories = ["全部", "公司新闻", "行业动态", "产品资讯", "技术分享"];
 
@@ -87,6 +88,12 @@ const News = () => {
 
   return (
     <div className="min-h-screen">
+      <SEO
+        title="新闻中心"
+        description="长凌电子新闻中心，获取最新无人机行业资讯、公司新闻、产品发布和技术分享。"
+        keywords="无人机新闻,长凌电子新闻,无人机行业资讯,无人机技术分享"
+        url="/news"
+      />
       <Header />
       <main className="pt-16 md:pt-20">
         {/* Hero Section */}

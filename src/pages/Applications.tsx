@@ -4,6 +4,7 @@ import { FloatingContact } from "@/components/FloatingContact";
 import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
 import { Link } from "react-router-dom";
+import { SEO } from "@/components/SEO";
 
 const applications = [
   {
@@ -65,6 +66,12 @@ const applications = [
 const Applications = () => {
   return (
     <div className="min-h-screen">
+      <SEO
+        title="行业应用"
+        description="长凌电子无人机行业应用解决方案，覆盖水利、交通、环保、智慧城市、应急救援、电力巡检等多个领域。"
+        keywords="无人机行业应用,水利无人机,交通无人机,环保监测,智慧城市,应急救援,电力巡检"
+        url="/applications"
+      />
       <Header />
       <main className="pt-16 md:pt-20">
         {/* Hero Section */}

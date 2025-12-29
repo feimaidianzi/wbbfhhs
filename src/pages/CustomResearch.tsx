@@ -3,6 +3,7 @@ import { Footer } from "@/components/Footer";
 import { FloatingContact } from "@/components/FloatingContact";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Lightbulb, Wrench, FileText, Users, CheckCircle } from "lucide-react";
+import { SEO } from "@/components/SEO";
 
 const services = [
   {
@@ -62,6 +63,12 @@ const capabilities = [
 const CustomResearch = () => {
   return (
     <div className="min-h-screen">
+      <SEO
+        title="科研定制"
+        description="长凌电子科研定制服务，为高校、研究院所提供飞控系统、动力系统、机体结构、载荷集成等全方位无人机定制开发服务。"
+        keywords="无人机科研定制,飞控系统定制,无人机平台开发,科研无人机,实验平台定制"
+        url="/custom-research"
+      />
       <Header />
       <main className="pt-16 md:pt-20">
         {/* Hero Section */}
