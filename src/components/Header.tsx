@@ -82,7 +82,7 @@ export const Header = () => {
             item.children && activeDropdown === item.name && (
               <div
                 key={`dropdown-${item.name}`}
-                className="fixed left-0 right-0 top-16 md:top-20 backdrop-blur-xl bg-background/95 shadow-2xl border-t border-b border-border/30 animate-fade-in z-40"
+                className="fixed left-0 right-0 top-16 md:top-20 backdrop-blur-xl bg-background/95 shadow-2xl border-t border-b border-border/30 animate-dropdown-in z-40"
                 onMouseEnter={() => setActiveDropdown(item.name)}
                 onMouseLeave={() => setActiveDropdown(null)}
               >
@@ -91,12 +91,13 @@ export const Header = () => {
                     <h3 className="text-lg font-bold text-foreground">{item.name}</h3>
                   </div>
                   <div className={`grid gap-6 ${item.children.length <= 4 ? 'grid-cols-2 md:grid-cols-4' : 'grid-cols-2 md:grid-cols-3 lg:grid-cols-6'}`}>
-                    {item.children.map((child) => (
+                    {item.children.map((child, index) => (
                       <Link
                         key={child.name}
                         to={child.href}
-                        className="group flex flex-col rounded-xl overflow-hidden bg-card hover:shadow-xl transition-all duration-300 border border-border/50 hover:border-accent/50"
+                        className="group flex flex-col rounded-xl overflow-hidden bg-card hover:shadow-xl transition-all duration-300 border border-border/50 hover:border-accent/50 hover:-translate-y-1"
                         onClick={() => setActiveDropdown(null)}
+                        style={{ animationDelay: `${index * 30}ms` }}
                       >
                         <div className="aspect-[4/3] overflow-hidden bg-muted">
                           <img 
