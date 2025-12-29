@@ -293,10 +293,6 @@ const PowerInspection = () => {
                       className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                     />
                   </div>
-                  <div className="p-4">
-                    <h4 className="font-bold text-card-foreground mb-1">{item.title}</h4>
-                    <p className="text-muted-foreground text-sm">{item.desc}</p>
-                  </div>
                 </div>
               ))}
             </div>
