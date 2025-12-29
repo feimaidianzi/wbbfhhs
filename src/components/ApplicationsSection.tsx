@@ -1,51 +1,37 @@
 import { useState } from "react";
-import { ChevronLeft, ChevronRight } from "lucide-react";
+import { ChevronLeft, ChevronRight, ArrowRight } from "lucide-react";
+import { Link } from "react-router-dom";
 
 const applications = [
   {
     name: "水利",
-    description: "为积极践行水利改革发展总基调和安全、实用水利网络建设...",
+    description: "河道巡检、水库监测、防汛预警，无人机助力水利智能化管理",
     image: "https://images.unsplash.com/photo-1534224039826-c7a0eda0e6b3?w=600&q=80",
   },
   {
     name: "交通",
-    description: "通过无人机系统提高道路交通运输行业运行监测能力，提...",
+    description: "道路监控、交通疏导、事故勘察，提升交通管理效能",
     image: "https://images.unsplash.com/photo-1449824913935-59a10b8d2000?w=600&q=80",
   },
   {
     name: "环保",
-    description: "无人机遥感系统具有成本低、安全性高、机动性强、精度...",
+    description: "大气监测、水质采样、污染溯源，守护绿水青山",
     image: "https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=600&q=80",
   },
   {
-    name: "智慧城市",
-    description: "数字地球和智能地球提出了高效应用资源和环境的口号...",
-    image: "https://images.unsplash.com/photo-1480714378408-67cf0d13bc1b?w=600&q=80",
+    name: "电力",
+    description: "输电线路巡检、变电站监测、故障定位，保障电网安全",
+    image: "https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?w=600&q=80",
   },
   {
     name: "应急",
-    description: "在人员密集、场景复杂的安全监控领域的应用...",
+    description: "灾情侦察、搜救定位、物资投送，快速响应突发事件",
     image: "https://images.unsplash.com/photo-1569863959165-56dae551d4fc?w=600&q=80",
   },
   {
-    name: "5G联网",
-    description: "5G联网无人机，通过5G蜂窝网络取代无人机...",
-    image: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&q=80",
-  },
-  {
-    name: "警用",
-    description: "警用无人机空中平台搭载的图像、红外、激光、气体等多...",
-    image: "https://images.unsplash.com/photo-1551698618-1dfe5d97d256?w=600&q=80",
-  },
-  {
     name: "测绘",
-    description: "垂直起降无人机适合高效率、高精度、大面积航测项目...",
+    description: "地形测绘、三维建模、工程勘察，厘米级精度作业",
     image: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=600&q=80",
-  },
-  {
-    name: "电力",
-    description: "电力工业是国民经济的重要组成部分之一...",
-    image: "https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?w=600&q=80",
   },
 ];
 
@@ -63,21 +49,34 @@ export const ApplicationsSection = () => {
   };
 
   return (
-    <section id="applications" className="py-16 md:py-24 bg-secondary">
+    <section id="applications" className="py-20 md:py-28 bg-secondary">
       <div className="container-custom">
         {/* Section Header */}
-        <div className="text-center mb-12">
-          <h2 className="text-2xl md:text-3xl font-bold text-foreground mb-2">
-            行业应用
-          </h2>
-          <p className="text-muted-foreground">
-            翼飞无人机广泛应用于多个行业领域
-          </p>
+        <div className="flex flex-col md:flex-row items-start md:items-end justify-between mb-12 gap-6">
+          <div>
+            <div className="flex items-center gap-3 mb-4">
+              <span className="text-accent text-2xl font-black">&lt;</span>
+              <h2 className="text-3xl md:text-4xl font-black text-foreground">
+                行业应用
+              </h2>
+              <span className="text-accent text-2xl font-black">\&gt;</span>
+            </div>
+            <p className="text-muted-foreground text-lg max-w-xl">
+              长凌无人机产品广泛应用于水利、交通、环保、电力等多个行业领域
+            </p>
+          </div>
+          <Link 
+            to="/applications"
+            className="inline-flex items-center gap-2 text-accent hover:text-orange-light font-semibold text-lg group"
+          >
+            查看全部应用
+            <ArrowRight className="w-5 h-5 group-hover:translate-x-2 transition-transform" />
+          </Link>
         </div>
 
-        {/* Applications Carousel */}
+        {/* Applications Grid */}
         <div className="relative">
-          <div className="overflow-hidden">
+          <div className="overflow-hidden rounded-2xl">
             <div
               className="flex gap-6 transition-transform duration-500"
               style={{ transform: `translateX(-${currentIndex * (100 / itemsPerPage)}%)` }}
@@ -87,28 +86,31 @@ export const ApplicationsSection = () => {
                   key={index}
                   className="flex-shrink-0 w-full sm:w-1/2 lg:w-1/3"
                 >
-                  <div className="group bg-card rounded-xl overflow-hidden shadow-card hover:shadow-card-hover transition-all duration-300 h-full">
-                    <div className="aspect-video overflow-hidden">
+                  <div className="group bg-card rounded-2xl overflow-hidden shadow-card hover:shadow-card-hover transition-all duration-500 h-full hover:-translate-y-2">
+                    <div className="aspect-[4/3] overflow-hidden relative">
                       <img
                         src={app.image}
                         alt={app.name}
-                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                        className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
                       />
+                      <div className="absolute inset-0 bg-gradient-to-t from-primary/70 via-transparent to-transparent" />
+                      <div className="absolute bottom-4 left-4 right-4">
+                        <h3 className="text-2xl font-bold text-primary-foreground mb-1">
+                          {app.name}
+                        </h3>
+                      </div>
                     </div>
-                    <div className="p-5">
-                      <h3 className="text-xl font-semibold text-card-foreground mb-2 group-hover:text-accent transition-colors">
-                        {app.name}
-                      </h3>
-                      <p className="text-sm text-muted-foreground line-clamp-2 mb-4">
+                    <div className="p-6">
+                      <p className="text-muted-foreground mb-4 line-clamp-2">
                         {app.description}
                       </p>
-                      <a
-                        href="#"
-                        className="inline-flex items-center text-accent hover:text-orange-light font-medium text-sm"
+                      <Link
+                        to="/applications"
+                        className="inline-flex items-center text-accent hover:text-orange-light font-semibold group/link"
                       >
                         了解更多
-                        <ChevronRight className="w-4 h-4 ml-1" />
-                      </a>
+                        <ChevronRight className="w-4 h-4 ml-1 group-hover/link:translate-x-1 transition-transform" />
+                      </Link>
                     </div>
                   </div>
                 </div>
@@ -120,14 +122,14 @@ export const ApplicationsSection = () => {
           <button
             onClick={prev}
             disabled={currentIndex === 0}
-            className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-4 w-10 h-10 rounded-full bg-card shadow-lg flex items-center justify-center text-foreground hover:bg-accent hover:text-accent-foreground transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+            className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-4 w-12 h-12 rounded-full bg-card shadow-card-hover border border-border flex items-center justify-center text-foreground hover:bg-accent hover:text-accent-foreground hover:border-accent transition-all disabled:opacity-50 disabled:cursor-not-allowed"
           >
             <ChevronLeft className="w-5 h-5" />
           </button>
           <button
             onClick={next}
             disabled={currentIndex >= maxIndex}
-            className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-4 w-10 h-10 rounded-full bg-card shadow-lg flex items-center justify-center text-foreground hover:bg-accent hover:text-accent-foreground transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+            className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-4 w-12 h-12 rounded-full bg-card shadow-card-hover border border-border flex items-center justify-center text-foreground hover:bg-accent hover:text-accent-foreground hover:border-accent transition-all disabled:opacity-50 disabled:cursor-not-allowed"
           >
             <ChevronRight className="w-5 h-5" />
           </button>
