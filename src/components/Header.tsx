@@ -73,36 +73,49 @@ export const Header = () => {
                   {item.name}
                   {item.hasDropdown && <ChevronDown className="w-3 h-3" />}
                 </Link>
-
-                {/* Dropdown Menu */}
-                {item.children && activeDropdown === item.name && (
-                  <div className="absolute top-full left-0 w-96 backdrop-blur-xl bg-background/80 rounded-xl shadow-2xl py-4 mt-2 border border-border/50 animate-fade-in z-50">
-                    <div className="grid gap-1 px-2">
-                      {item.children.map((child) => (
-                        <Link
-                          key={child.name}
-                          to={child.href}
-                          className="flex items-center gap-4 px-4 py-4 hover:bg-accent/10 rounded-lg transition-all duration-200 group"
-                        >
-                          <div className="w-20 h-14 rounded-lg overflow-hidden flex-shrink-0 bg-muted shadow-md">
-                            <img 
-                              src={child.image} 
-                              alt={child.name} 
-                              className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
-                            />
-                          </div>
-                          <div className="flex-1 min-w-0">
-                            <div className="font-semibold text-foreground group-hover:text-accent transition-colors text-base">{child.name}</div>
-                            <div className="text-sm text-muted-foreground mt-1">{child.description}</div>
-                          </div>
-                        </Link>
-                      ))}
-                    </div>
-                  </div>
-                )}
               </div>
             ))}
           </nav>
+
+          {/* Full-width Dropdown Menu */}
+          {navItems.map((item) => (
+            item.children && activeDropdown === item.name && (
+              <div
+                key={`dropdown-${item.name}`}
+                className="fixed left-0 right-0 top-16 md:top-20 backdrop-blur-xl bg-background/95 shadow-2xl border-t border-b border-border/30 animate-fade-in z-40"
+                onMouseEnter={() => setActiveDropdown(item.name)}
+                onMouseLeave={() => setActiveDropdown(null)}
+              >
+                <div className="container-custom py-8">
+                  <div className="mb-4">
+                    <h3 className="text-lg font-bold text-foreground">{item.name}</h3>
+                  </div>
+                  <div className={`grid gap-6 ${item.children.length <= 4 ? 'grid-cols-2 md:grid-cols-4' : 'grid-cols-2 md:grid-cols-3 lg:grid-cols-6'}`}>
+                    {item.children.map((child) => (
+                      <Link
+                        key={child.name}
+                        to={child.href}
+                        className="group flex flex-col rounded-xl overflow-hidden bg-card hover:shadow-xl transition-all duration-300 border border-border/50 hover:border-accent/50"
+                        onClick={() => setActiveDropdown(null)}
+                      >
+                        <div className="aspect-[4/3] overflow-hidden bg-muted">
+                          <img 
+                            src={child.image} 
+                            alt={child.name} 
+                            className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                          />
+                        </div>
+                        <div className="p-4">
+                          <div className="font-semibold text-foreground group-hover:text-accent transition-colors text-base mb-1">{child.name}</div>
+                          <div className="text-sm text-muted-foreground line-clamp-2">{child.description}</div>
+                        </div>
+                      </Link>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            )
+          ))}
 
           {/* Phone & Mobile Menu */}
           <div className="flex items-center gap-4">
