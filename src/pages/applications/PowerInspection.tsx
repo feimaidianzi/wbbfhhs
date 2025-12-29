@@ -2,52 +2,57 @@ import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { FloatingContact } from "@/components/FloatingContact";
 import { Button } from "@/components/ui/button";
-import { ArrowRight, CheckCircle, Zap, Eye, Shield, Clock, BarChart, Cpu } from "lucide-react";
+import { ArrowRight, CheckCircle, Zap, Eye, Shield, Clock, BarChart, Cpu, AlertTriangle } from "lucide-react";
 import { Link } from "react-router-dom";
 import { SEO } from "@/components/SEO";
 
-const galleryImages = [
-  "https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?w=400&q=80",
-  "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400&q=80",
-  "https://images.unsplash.com/photo-1509391366360-2e959784a276?w=400&q=80",
-  "https://images.unsplash.com/photo-1497435334941-8c899ee9e8e9?w=400&q=80",
-  "https://images.unsplash.com/photo-1532601224476-15c79f2f7a51?w=400&q=80",
-  "https://images.unsplash.com/photo-1548613053-22087dd8edb8?w=400&q=80",
-  "https://images.unsplash.com/photo-1466611653911-95081537e5b7?w=400&q=80",
-  "https://images.unsplash.com/photo-1413882353314-73f4f25de9f7?w=400&q=80",
+const challenges = [
+  "劳动量大、人工成本高、巡线周期长",
+  "人工线下巡查精度低、死角多",
+  "受自然天气影响大、潜在风险高、安全性低"
+];
+
+const workflowSteps = [
+  { step: "01", title: "巡检航线导入" },
+  { step: "02", title: "航拍任务规划" },
+  { step: "03", title: "航拍" },
+  { step: "04", title: "单基杆塔单一航线制作" },
+  { step: "05", title: "杆塔航线导入" },
+  { step: "06", title: "杆塔精细化巡检" },
+  { step: "07", title: "巡检报告" }
+];
+
+const efficiencyPoints = [
+  "一个机组单架次，每天可飞行15公里-30公里",
+  "单套系统每天可完成10公里的数据处理"
+];
+
+const systemFeatures = [
+  "成熟性：将测绘行业中的成熟技术创新性应用于电力行业，利用远景多年来的核心技术解决树障测量问题",
+  "先进性：利用专利技术解决电力线弧垂测量难题，填补以影像为基础的弧垂测量空白",
+  "实用性：大跨度、高效率、多种飞行载具，设备性价比高，适合班组级的生产组织"
+];
+
+const serviceDescriptions = [
+  {
+    title: "本体设施缺陷",
+    description: "组成线路本体的构件、附件和零部件，包括基础、杆塔、绝缘子、金具、接地装置等"
+  },
+  {
+    title: "人员安全",
+    description: "恶劣环境监测不需要人员靠近监测；杆塔监测不用爬塔即可获取准确数据"
+  },
+  {
+    title: "附属设施缺陷",
+    description: "附加在线路本体上的各类金具、标志牌、警告牌及各种技术监测设备出现的缺陷等"
+  }
 ];
 
 const advantages = [
-  {
-    icon: Clock,
-    title: "高效作业",
-    description: "单次飞行可巡检数十公里线路，效率提升10倍以上"
-  },
-  {
-    icon: Eye,
-    title: "精准检测",
-    description: "搭载高清相机与红外热成像，缺陷无处遁形"
-  },
-  {
-    icon: Cpu,
-    title: "智能识别",
-    description: "AI算法自动识别20+种缺陷类型，准确率超95%"
-  },
-  {
-    icon: Shield,
-    title: "安全可靠",
-    description: "替代人工高空作业，保障巡检人员人身安全"
-  },
-  {
-    icon: BarChart,
-    title: "数据管理",
-    description: "巡检数据云端存储，支持历史对比分析"
-  },
-  {
-    icon: Zap,
-    title: "快速响应",
-    description: "故障快速定位，缩短抢修时间，减少停电损失"
-  }
+  "多旋翼无人机机动灵活、操作简单、全方位3D视角，可以弥补人工巡检的不足",
+  "效率高、成本低：无人机巡线效率是传统人工的20倍以上，可快速、多频次的对输电线路及其走廊进行空中巡视",
+  "人员安全：恶劣环境监测不需要人员靠近监测；杆塔监测不用爬塔即可获取准确数据",
+  "数据结果可靠：无人机巡检数据客观至面，可复核、可备份可追溯"
 ];
 
 const applications = [
@@ -75,9 +80,9 @@ const applications = [
 ];
 
 const stats = [
-  { value: "10倍+", label: "效率提升" },
+  { value: "20倍+", label: "效率提升" },
   { value: "95%+", label: "识别准确率" },
-  { value: "50km", label: "单日巡检里程" },
+  { value: "30km", label: "单日巡检里程" },
   { value: "24h", label: "全天候作业" }
 ];
 
@@ -86,7 +91,7 @@ const PowerInspection = () => {
     <div className="min-h-screen">
       <SEO
         title="电力巡检"
-        description="长凌电子无人机电力巡检解决方案，提供输电线路巡检、变电站巡检、光伏电站检测等专业服务，效率提升10倍以上。"
+        description="长凌电子无人机电力巡检解决方案，提供输电线路巡检、变电站巡检、光伏电站检测等专业服务，效率提升20倍以上。"
         keywords="电力巡检无人机,输电线路巡检,变电站巡检,光伏电站检测,红外热成像,AI智能识别"
         url="/applications/power-inspection"
       />
@@ -126,64 +131,176 @@ const PowerInspection = () => {
           </div>
         </section>
 
-        {/* Introduction */}
+        {/* Industry Status - Pain Points */}
         <section className="py-16 bg-background">
           <div className="container-custom">
-            <div className="max-w-4xl mx-auto">
-              <h2 className="text-2xl md:text-3xl font-bold text-foreground mb-8 text-center">行业背景</h2>
-              <div className="space-y-6 text-foreground/80 leading-relaxed">
-                <p>
-                  电力巡检是指通过对电力设施（如变电站、电力线路、发电设备等）的定期检查与维护，确保电力系统的安全、稳定运行。随着电力设施的规模和复杂性不断增加，传统的人工巡检方式面临效率和安全性等方面的挑战。
-                </p>
-                <p>
-                  无人机在电力巡检中的应用，尤其是电力巡线方面，已经成为一种重要的技术手段。通过搭载高清相机、红外热成像仪等专业设备，无人机可以快速、安全地完成大范围电力设施的巡检任务，及时发现潜在故障隐患，保障电网安全稳定运行。
-                </p>
+            <div className="flex items-center gap-3 mb-8">
+              <div className="w-12 h-12 bg-primary rounded-full flex items-center justify-center text-primary-foreground font-bold">
+                01
+              </div>
+              <h2 className="text-2xl md:text-3xl font-bold text-foreground">电力行业巡检现状</h2>
+            </div>
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
+              <div className="rounded-xl overflow-hidden shadow-lg">
+                <img 
+                  src="/images/power/industry-status.png" 
+                  alt="电力行业巡检现状" 
+                  className="w-full h-auto"
+                />
+              </div>
+              <div>
+                <h3 className="text-xl font-bold text-foreground mb-6 flex items-center gap-2">
+                  <AlertTriangle className="w-6 h-6 text-destructive" />
+                  传统巡检面临的问题
+                </h3>
+                <div className="space-y-4">
+                  {challenges.map((challenge, index) => (
+                    <div key={index} className="flex items-start gap-3 p-4 bg-destructive/5 rounded-lg border border-destructive/20">
+                      <div className="w-6 h-6 rounded-full bg-destructive/20 flex items-center justify-center flex-shrink-0">
+                        <span className="text-destructive text-sm font-bold">{index + 1}</span>
+                      </div>
+                      <p className="text-foreground">{challenge}</p>
+                    </div>
+                  ))}
+                </div>
               </div>
             </div>
           </div>
         </section>
 
-        {/* Image Gallery */}
+        {/* UAV Efficiency */}
         <section className="py-16 bg-muted">
           <div className="container-custom">
-            <h2 className="text-2xl md:text-3xl font-bold text-foreground mb-4 text-center">应用案例展示</h2>
-            <p className="text-muted-foreground text-center mb-10 max-w-2xl mx-auto">
-              长凌电子无人机已在全国多个省市电力公司成功应用，积累了丰富的实战经验
-            </p>
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-              {galleryImages.map((image, index) => (
-                <div 
-                  key={index} 
-                  className="aspect-[4/3] rounded-xl overflow-hidden shadow-md group cursor-pointer"
-                >
-                  <img
-                    src={image}
-                    alt={`电力巡检案例 ${index + 1}`}
-                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
-                  />
+            <div className="flex items-center gap-3 mb-8">
+              <div className="w-12 h-12 bg-primary rounded-full flex items-center justify-center text-primary-foreground font-bold">
+                02
+              </div>
+              <h2 className="text-2xl md:text-3xl font-bold text-foreground">无人机作业与巡检的效能特性</h2>
+            </div>
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+              <div className="bg-card rounded-xl p-8 shadow-card">
+                <h3 className="text-xl font-bold text-card-foreground mb-6 border-l-4 border-accent pl-4">
+                  无人机作业效率
+                </h3>
+                <div className="space-y-4">
+                  {efficiencyPoints.map((point, index) => (
+                    <div key={index} className="flex items-start gap-3">
+                      <CheckCircle className="w-5 h-5 text-accent flex-shrink-0 mt-0.5" />
+                      <p className="text-muted-foreground">{point}</p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+              <div className="bg-card rounded-xl p-8 shadow-card">
+                <h3 className="text-xl font-bold text-card-foreground mb-6 border-l-4 border-accent pl-4">
+                  无人机巡检系统特点
+                </h3>
+                <div className="space-y-4">
+                  {systemFeatures.map((feature, index) => (
+                    <div key={index} className="flex items-start gap-3">
+                      <CheckCircle className="w-5 h-5 text-accent flex-shrink-0 mt-0.5" />
+                      <p className="text-muted-foreground text-sm">{feature}</p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Inspection Workflow */}
+        <section className="py-16 bg-background">
+          <div className="container-custom">
+            <div className="flex items-center gap-3 mb-8">
+              <div className="w-12 h-12 bg-primary rounded-full flex items-center justify-center text-primary-foreground font-bold">
+                03
+              </div>
+              <h2 className="text-2xl md:text-3xl font-bold text-foreground">无人机巡检流程</h2>
+            </div>
+            <div className="rounded-xl overflow-hidden shadow-lg mb-8">
+              <img 
+                src="/images/power/inspection-workflow.png" 
+                alt="无人机巡检流程" 
+                className="w-full h-auto"
+              />
+            </div>
+            <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-7 gap-4">
+              {workflowSteps.map((item, index) => (
+                <div key={index} className="text-center">
+                  <div className="w-10 h-10 bg-primary rounded-full flex items-center justify-center mx-auto mb-2">
+                    <span className="text-primary-foreground font-bold text-sm">{item.step}</span>
+                  </div>
+                  <p className="text-sm text-muted-foreground">{item.title}</p>
                 </div>
               ))}
             </div>
           </div>
         </section>
 
-        {/* Advantages */}
+        {/* Service Details */}
+        <section className="py-16 bg-muted">
+          <div className="container-custom">
+            <div className="flex items-center gap-3 mb-8">
+              <div className="w-12 h-12 bg-primary rounded-full flex items-center justify-center text-primary-foreground font-bold">
+                04
+              </div>
+              <h2 className="text-2xl md:text-3xl font-bold text-foreground">输电线路精细化巡查服务</h2>
+            </div>
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+              <div>
+                <h3 className="text-xl font-bold text-foreground mb-6 bg-primary text-primary-foreground px-4 py-2 inline-block">
+                  提供的服务
+                </h3>
+                <div className="space-y-6">
+                  {serviceDescriptions.map((service, index) => (
+                    <div key={index} className="bg-card p-6 rounded-xl shadow-card">
+                      <h4 className="font-bold text-card-foreground mb-2">{service.title}</h4>
+                      <p className="text-muted-foreground text-sm">{service.description}</p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+              <div>
+                <h3 className="text-xl font-bold text-foreground mb-6 bg-accent text-accent-foreground px-4 py-2 inline-block">
+                  核心优势
+                </h3>
+                <div className="space-y-4">
+                  {advantages.map((advantage, index) => (
+                    <div key={index} className="flex items-start gap-3 bg-card p-4 rounded-lg shadow-sm">
+                      <CheckCircle className="w-5 h-5 text-accent flex-shrink-0 mt-0.5" />
+                      <p className="text-muted-foreground text-sm">{advantage}</p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Case Results Gallery */}
         <section className="py-16 bg-background">
           <div className="container-custom">
-            <h2 className="text-2xl md:text-3xl font-bold text-foreground mb-4 text-center">核心优势</h2>
-            <p className="text-muted-foreground text-center mb-12 max-w-2xl mx-auto">
-              长凌电子无人机电力巡检解决方案，助力电力行业数字化转型升级
-            </p>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {advantages.map((item, index) => (
-                <div key={index} className="bg-card p-6 rounded-xl shadow-card hover:shadow-card-hover transition-shadow">
-                  <div className="w-12 h-12 bg-accent/10 rounded-lg flex items-center justify-center mb-4">
-                    <item.icon className="w-6 h-6 text-accent" />
-                  </div>
-                  <h3 className="text-lg font-bold text-card-foreground mb-2">{item.title}</h3>
-                  <p className="text-muted-foreground text-sm">{item.description}</p>
-                </div>
-              ))}
+            <div className="flex items-center gap-3 mb-8">
+              <div className="w-12 h-12 bg-primary rounded-full flex items-center justify-center text-primary-foreground font-bold">
+                05
+              </div>
+              <h2 className="text-2xl md:text-3xl font-bold text-foreground">服务成果展示</h2>
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+              <div className="rounded-xl overflow-hidden shadow-lg">
+                <img 
+                  src="/images/power/case-result-1.png" 
+                  alt="服务成果 - 塔材编号识别与地线弯曲检测" 
+                  className="w-full h-auto"
+                />
+              </div>
+              <div className="rounded-xl overflow-hidden shadow-lg">
+                <img 
+                  src="/images/power/case-result-2.png" 
+                  alt="服务成果 - 杆塔巡检与插销松动检测" 
+                  className="w-full h-auto"
+                />
+              </div>
             </div>
           </div>
         </section>
@@ -191,8 +308,13 @@ const PowerInspection = () => {
         {/* Application Scenarios */}
         <section className="py-16 bg-muted">
           <div className="container-custom">
-            <h2 className="text-2xl md:text-3xl font-bold text-foreground mb-4 text-center">应用场景</h2>
-            <p className="text-muted-foreground text-center mb-12 max-w-2xl mx-auto">
+            <div className="flex items-center gap-3 mb-4">
+              <div className="w-12 h-12 bg-primary rounded-full flex items-center justify-center text-primary-foreground font-bold">
+                06
+              </div>
+              <h2 className="text-2xl md:text-3xl font-bold text-foreground">应用场景</h2>
+            </div>
+            <p className="text-muted-foreground mb-10 ml-16">
               点击查看详细解决方案，了解更多技术细节和应用案例
             </p>
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
