@@ -481,6 +481,74 @@ const PowerInspection = () => {
                 <span className="text-sm font-medium text-card-foreground">服务管理功能支持查看杆塔的正射影像以及点云模型数据</span>
               </div>
             </div>
+
+            {/* Data Service Section */}
+            <div className="mt-8">
+              <div className="flex items-center gap-3 mb-6">
+                <h3 className="text-xl font-bold text-foreground bg-primary text-primary-foreground px-4 py-2">数据服务</h3>
+              </div>
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
+                <div className="bg-card rounded-xl overflow-hidden shadow-lg">
+                  <img 
+                    src="/images/power/case-data-service.png" 
+                    alt="数据服务" 
+                    className="w-full h-auto"
+                  />
+                </div>
+                <div className="space-y-4">
+                  <p className="text-muted-foreground">数据服务功能模块包括航拍照片管理、飞行视频管理、历史飞行记录管理。</p>
+                  <div className="bg-background p-4 rounded-lg">
+                    <h4 className="font-bold text-foreground mb-2">航拍照片管理</h4>
+                    <p className="text-muted-foreground text-sm">可选择需要查询的无人机，进行按时间查询。查询会显示当前时间段无人机所拍摄上传至平台的照片数据，显示照片名称以照片大小和时间，可选择下载图片至本地。</p>
+                  </div>
+                  <div className="bg-background p-4 rounded-lg">
+                    <h4 className="font-bold text-foreground mb-2">飞行视频管理</h4>
+                    <p className="text-muted-foreground text-sm">可选择无人机按时间段查询无人机视频画面，无人机飞行时地面站app会录制本次飞行视频，飞行结束后会将本次的飞行画面上传至无人机管理平台，即可从平台内查询管理无人机飞行视频。</p>
+                  </div>
+                  <div className="bg-background p-4 rounded-lg">
+                    <h4 className="font-bold text-foreground mb-2">历史飞行记录管理</h4>
+                    <p className="text-muted-foreground text-sm">可按飞机编号及时间查询，这段时间内无人机执行飞行的记录，可点击查看飞行记录详情，详情包含飞行中各时间节点的详细飞机数据并回放，回放可生成飞行轨迹。</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Route Management Section */}
+            <div className="mt-8">
+              <div className="flex items-center gap-3 mb-6">
+                <h3 className="text-xl font-bold text-foreground bg-accent text-accent-foreground px-4 py-2">航线管理</h3>
+              </div>
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
+                <div className="bg-card rounded-xl overflow-hidden shadow-lg">
+                  <img 
+                    src="/images/power/case-route-management.png" 
+                    alt="航线管理" 
+                    className="w-full h-auto"
+                  />
+                </div>
+                <div className="space-y-4">
+                  <p className="text-muted-foreground">航线管理功能模块包括航线管理功能及KMZ航线管理功能。</p>
+                  <div className="bg-background p-4 rounded-lg">
+                    <h4 className="font-bold text-foreground mb-2">航线管理</h4>
+                    <ul className="text-muted-foreground text-sm space-y-1">
+                      <li>• 支持2/3D地图场景下新建航线任务</li>
+                      <li>• 支持任务航线预览、再编辑、删除操作</li>
+                      <li>• 支持航线任务按自定义标签分组</li>
+                      <li>• 支持航线详情设置，包括航点数量、航线总长、预计飞行时间、高度类型、飞行速度、任务执行次数等</li>
+                    </ul>
+                  </div>
+                  <div className="bg-background p-4 rounded-lg">
+                    <h4 className="font-bold text-foreground mb-2">KMZ航线管理</h4>
+                    <ul className="text-muted-foreground text-sm space-y-1">
+                      <li>• 上传完整的KMZ任务航线</li>
+                      <li>• 导出航线任务文件至本地</li>
+                      <li>• 重命名KMZ航线任务</li>
+                      <li>• 删除KMZ航线任务</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </section>
 
