@@ -179,13 +179,13 @@ const LogisticsApp = () => {
               </p>
               <div className="flex flex-wrap gap-4">
                 <Link to="/products/logistics">
-                  <Button size="lg" variant="secondary" className="group">
+                  <Button size="lg" className="bg-white text-primary hover:bg-white/90 font-semibold group">
                     查看产品
                     <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
                   </Button>
                 </Link>
                 <Link to="/contact">
-                  <Button size="lg" variant="outline" className="border-white text-white hover:bg-white/20">
+                  <Button size="lg" variant="outline" className="border-2 border-white text-white hover:bg-white hover:text-primary font-semibold">
                     联系我们
                   </Button>
                 </Link>
