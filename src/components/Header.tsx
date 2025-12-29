@@ -13,17 +13,24 @@ const productCategories = [
   { name: "集群无人机", href: "/products/swarm", description: "智能集群控制系统", image: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=120&q=80" },
 ];
 
+const applicationCategories = [
+  { name: "水利", href: "/applications", description: "河道巡检、水库监测", image: "https://images.unsplash.com/photo-1534224039826-c7a0eda0e6b3?w=120&q=80" },
+  { name: "交通", href: "/applications", description: "交通监控与管理", image: "https://images.unsplash.com/photo-1449824913935-59a10b8d2000?w=120&q=80" },
+  { name: "环保", href: "/applications", description: "环境监测与治理", image: "https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=120&q=80" },
+  { name: "电力", href: "/applications", description: "输电线路巡检", image: "https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?w=120&q=80" },
+];
+
 const navItems = [
   { name: "首页", href: "/" },
-  { name: "关于长凌", href: "#about", hasDropdown: true },
+  { name: "关于长凌", href: "/about" },
   { name: "系列产品", href: "/products", hasDropdown: true, children: productCategories },
-  { name: "行业应用", href: "#applications", hasDropdown: true },
-  { name: "软件系统", href: "#software", hasDropdown: true },
-  { name: "低空经济", href: "#economy", hasDropdown: true },
-  { name: "科研定制", href: "#custom", hasDropdown: true },
-  { name: "FPV", href: "#fpv" },
-  { name: "新闻中心", href: "#news", hasDropdown: true },
-  { name: "联系我们", href: "#contact" },
+  { name: "行业应用", href: "/applications", hasDropdown: true, children: applicationCategories },
+  { name: "软件系统", href: "/software" },
+  { name: "低空经济", href: "/low-altitude" },
+  { name: "科研定制", href: "/custom-research" },
+  { name: "FPV", href: "/fpv" },
+  { name: "新闻中心", href: "/news" },
+  { name: "联系我们", href: "/contact" },
 ];
 
 export const Header = () => {
@@ -53,23 +60,13 @@ export const Header = () => {
                 onMouseEnter={() => item.children && setActiveDropdown(item.name)}
                 onMouseLeave={() => setActiveDropdown(null)}
               >
-                {item.href.startsWith("/") && !item.href.startsWith("/#") ? (
-                  <Link
-                    to={item.href}
-                    className="flex items-center gap-1 px-3 py-2 text-sm text-primary-foreground/90 hover:text-primary-foreground transition-colors"
-                  >
-                    {item.name}
-                    {item.hasDropdown && <ChevronDown className="w-3 h-3" />}
-                  </Link>
-                ) : (
-                  <a
-                    href={item.href}
-                    className="flex items-center gap-1 px-3 py-2 text-sm text-primary-foreground/90 hover:text-primary-foreground transition-colors"
-                  >
-                    {item.name}
-                    {item.hasDropdown && <ChevronDown className="w-3 h-3" />}
-                  </a>
-                )}
+                <Link
+                  to={item.href}
+                  className="flex items-center gap-1 px-3 py-2 text-sm text-primary-foreground/90 hover:text-primary-foreground transition-colors"
+                >
+                  {item.name}
+                  {item.hasDropdown && <ChevronDown className="w-3 h-3" />}
+                </Link>
 
                 {/* Dropdown Menu */}
                 {item.children && activeDropdown === item.name && (
@@ -122,29 +119,18 @@ export const Header = () => {
 
         {/* Mobile Navigation */}
         {isOpen && (
-          <nav className="lg:hidden py-4 border-t border-primary-foreground/10">
+          <nav className="lg:hidden py-4 border-t border-primary-foreground/10 max-h-[70vh] overflow-y-auto">
             <div className="flex flex-col gap-1">
               {navItems.map((item) => (
                 <div key={item.name}>
-                  {item.href.startsWith("/") && !item.href.startsWith("/#") ? (
-                    <Link
-                      to={item.href}
-                      className="flex items-center justify-between px-4 py-3 text-primary-foreground/90 hover:text-primary-foreground hover:bg-primary-foreground/5 rounded-lg transition-colors"
-                      onClick={() => !item.children && setIsOpen(false)}
-                    >
-                      {item.name}
-                      {item.hasDropdown && <ChevronDown className="w-4 h-4" />}
-                    </Link>
-                  ) : (
-                    <a
-                      href={item.href}
-                      className="flex items-center justify-between px-4 py-3 text-primary-foreground/90 hover:text-primary-foreground hover:bg-primary-foreground/5 rounded-lg transition-colors"
-                      onClick={() => setIsOpen(false)}
-                    >
-                      {item.name}
-                      {item.hasDropdown && <ChevronDown className="w-4 h-4" />}
-                    </a>
-                  )}
+                  <Link
+                    to={item.href}
+                    className="flex items-center justify-between px-4 py-3 text-primary-foreground/90 hover:text-primary-foreground hover:bg-primary-foreground/5 rounded-lg transition-colors"
+                    onClick={() => !item.children && setIsOpen(false)}
+                  >
+                    {item.name}
+                    {item.hasDropdown && <ChevronDown className="w-4 h-4" />}
+                  </Link>
                   {/* Mobile Dropdown */}
                   {item.children && (
                     <div className="ml-4 mt-1 space-y-1">
