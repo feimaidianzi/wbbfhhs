@@ -76,26 +76,28 @@ export const Header = () => {
 
                 {/* Dropdown Menu */}
                 {item.children && activeDropdown === item.name && (
-                  <div className="absolute top-full left-0 w-80 bg-card rounded-lg shadow-xl py-3 mt-1 border border-border animate-fade-in z-50">
-                    {item.children.map((child) => (
-                      <Link
-                        key={child.name}
-                        to={child.href}
-                        className="flex items-center gap-3 px-4 py-3 hover:bg-accent/10 transition-colors group"
-                      >
-                        <div className="w-16 h-12 rounded-md overflow-hidden flex-shrink-0 bg-muted">
-                          <img 
-                            src={child.image} 
-                            alt={child.name} 
-                            className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
-                          />
-                        </div>
-                        <div className="flex-1 min-w-0">
-                          <div className="font-medium text-card-foreground group-hover:text-accent transition-colors">{child.name}</div>
-                          <div className="text-xs text-muted-foreground mt-0.5 truncate">{child.description}</div>
-                        </div>
-                      </Link>
-                    ))}
+                  <div className="absolute top-full left-0 w-96 backdrop-blur-xl bg-background/80 rounded-xl shadow-2xl py-4 mt-2 border border-border/50 animate-fade-in z-50">
+                    <div className="grid gap-1 px-2">
+                      {item.children.map((child) => (
+                        <Link
+                          key={child.name}
+                          to={child.href}
+                          className="flex items-center gap-4 px-4 py-4 hover:bg-accent/10 rounded-lg transition-all duration-200 group"
+                        >
+                          <div className="w-20 h-14 rounded-lg overflow-hidden flex-shrink-0 bg-muted shadow-md">
+                            <img 
+                              src={child.image} 
+                              alt={child.name} 
+                              className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
+                            />
+                          </div>
+                          <div className="flex-1 min-w-0">
+                            <div className="font-semibold text-foreground group-hover:text-accent transition-colors text-base">{child.name}</div>
+                            <div className="text-sm text-muted-foreground mt-1">{child.description}</div>
+                          </div>
+                        </Link>
+                      ))}
+                    </div>
                   </div>
                 )}
               </div>
