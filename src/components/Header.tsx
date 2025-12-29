@@ -4,13 +4,13 @@ import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 
 const productCategories = [
-  { name: "长凌机场", href: "/products/airport", description: "全自动无人机起降平台" },
-  { name: "系留无人机", href: "/products/tethered", description: "24小时不间断工作" },
-  { name: "物流无人机", href: "/products/logistics", description: "高效智能配送系统" },
-  { name: "消防救援", href: "/products/firefighting", description: "应急救援解决方案" },
-  { name: "架线无人机", href: "/products/wire-laying", description: "电力架线专用机型" },
-  { name: "多旋翼无人机", href: "/products/multi-rotor", description: "工业级多旋翼平台" },
-  { name: "集群无人机", href: "/products/swarm", description: "智能集群控制系统" },
+  { name: "长凌机场", href: "/products/airport", description: "全自动无人机起降平台", image: "https://images.unsplash.com/photo-1508614589041-895b88991e3e?w=120&q=80" },
+  { name: "系留无人机", href: "/products/tethered", description: "24小时不间断工作", image: "https://images.unsplash.com/photo-1473968512647-3e447244af8f?w=120&q=80" },
+  { name: "物流无人机", href: "/products/logistics", description: "高效智能配送系统", image: "https://images.unsplash.com/photo-1527977966376-1c8408f9f108?w=120&q=80" },
+  { name: "消防救援", href: "/products/firefighting", description: "应急救援解决方案", image: "https://images.unsplash.com/photo-1569863959165-56dae551d4fc?w=120&q=80" },
+  { name: "架线无人机", href: "/products/wire-laying", description: "电力架线专用机型", image: "https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?w=120&q=80" },
+  { name: "多旋翼无人机", href: "/products/multi-rotor", description: "工业级多旋翼平台", image: "https://images.unsplash.com/photo-1506947411487-a56738267384?w=120&q=80" },
+  { name: "集群无人机", href: "/products/swarm", description: "智能集群控制系统", image: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=120&q=80" },
 ];
 
 const navItems = [
@@ -73,15 +73,24 @@ export const Header = () => {
 
                 {/* Dropdown Menu */}
                 {item.children && activeDropdown === item.name && (
-                  <div className="absolute top-full left-0 w-64 bg-card rounded-lg shadow-xl py-2 mt-1 border border-border animate-fade-in">
+                  <div className="absolute top-full left-0 w-80 bg-card rounded-lg shadow-xl py-3 mt-1 border border-border animate-fade-in z-50">
                     {item.children.map((child) => (
                       <Link
                         key={child.name}
                         to={child.href}
-                        className="block px-4 py-3 hover:bg-accent/10 transition-colors"
+                        className="flex items-center gap-3 px-4 py-3 hover:bg-accent/10 transition-colors group"
                       >
-                        <div className="font-medium text-card-foreground">{child.name}</div>
-                        <div className="text-xs text-muted-foreground mt-0.5">{child.description}</div>
+                        <div className="w-16 h-12 rounded-md overflow-hidden flex-shrink-0 bg-muted">
+                          <img 
+                            src={child.image} 
+                            alt={child.name} 
+                            className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
+                          />
+                        </div>
+                        <div className="flex-1 min-w-0">
+                          <div className="font-medium text-card-foreground group-hover:text-accent transition-colors">{child.name}</div>
+                          <div className="text-xs text-muted-foreground mt-0.5 truncate">{child.description}</div>
+                        </div>
                       </Link>
                     ))}
                   </div>
