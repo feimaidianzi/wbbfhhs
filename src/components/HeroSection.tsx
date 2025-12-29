@@ -10,7 +10,7 @@ const slides = [
     cta: "了解更多",
   },
   {
-    title: "长凌智能机场",
+    title: "长凌电子机场",
     subtitle: "全自动起降 · 智能巡检 · 无人值守",
     image: "https://images.unsplash.com/photo-1508614589041-895b88991e3e?w=1920&q=80",
     cta: "查看详情",
