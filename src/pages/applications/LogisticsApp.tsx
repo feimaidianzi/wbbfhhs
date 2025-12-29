@@ -47,30 +47,54 @@ const scenarios = [
   {
     title: "偏远山区配送",
     description: "为交通不便的山区、林区提供快速物资配送服务，解决最后一公里难题",
+    detailDescription: "我国山区面积占国土总面积的三分之二以上，许多偏远山区交通不便，传统物流配送成本高、时效差。无人机物流配送突破地形限制，可以直线飞行到达目的地，将原本需要数天的配送时间缩短到数小时。特别适合为山区村民配送生活必需品、农业物资、医疗用品等，有效解决农村物流最后一公里难题。",
     image: remoteDelivery,
     icon: Mountain,
-    features: ["山区配送", "林区物资", "农村快递"]
+    features: ["山区配送", "林区物资", "农村快递"],
+    highlights: [
+      { label: "配送效率", value: "提升10倍" },
+      { label: "覆盖范围", value: "30km半径" },
+      { label: "成本节约", value: "降低60%" }
+    ]
   },
   {
     title: "海岛物资运输",
     description: "跨越海洋为海岛居民配送生活必需品和紧急物资，突破地理限制",
+    detailDescription: "我国拥有众多海岛，其中有人居住的海岛超过450个。海岛居民的物资供应长期依赖船舶运输，受天气、潮汐等因素影响较大。无人机物流配送可以跨越海洋，在恶劣天气无法通航时仍能保障物资供应。特别适合配送药品、鲜活食品、紧急物资等对时效性要求高的货物，显著改善海岛居民的生活质量。",
     image: islandDelivery,
     icon: Anchor,
-    features: ["海岛配送", "跨海运输", "渔村物资"]
+    features: ["海岛配送", "跨海运输", "渔村物资"],
+    highlights: [
+      { label: "跨海距离", value: "最远50km" },
+      { label: "抗风等级", value: "7级风" },
+      { label: "全天候", value: "24小时响应" }
+    ]
   },
   {
     title: "应急物资投送",
     description: "灾害救援场景下快速投送急需物资和医疗用品，争分夺秒",
+    detailDescription: "在地震、洪水、泥石流等自然灾害发生后，道路往往被毁坏，传统运输方式难以进入灾区。无人机可以快速将急救药品、医疗器械、食品、饮用水等紧急物资送达灾区，为抢救生命争取宝贵时间。同时，无人机还可以配合搜救工作，定点投放救援设备，在应急救援中发挥关键作用。",
     image: emergencyDelivery,
     icon: Shield,
-    features: ["医疗物资", "救灾物品", "应急响应"]
+    features: ["医疗物资", "救灾物品", "应急响应"],
+    highlights: [
+      { label: "响应时间", value: "<30分钟" },
+      { label: "投送精度", value: "厘米级" },
+      { label: "紧急载重", value: "最大30kg" }
+    ]
   },
   {
     title: "城市末端配送",
     description: "解决城市配送最后一公里难题，提升用户体验和配送效率",
+    detailDescription: "随着电商和即时配送的快速发展，城市末端配送需求激增。传统的人工配送面临人力成本高、交通拥堵、配送时效不稳定等问题。无人机末端配送可以避开地面交通，实现点对点快速配送。特别适合商业区、社区、校园等场景，为用户提供更快速、更便捷的配送体验，同时降低物流企业的运营成本。",
     image: urbanDelivery,
     icon: Building,
-    features: ["快递配送", "即时物流", "生鲜配送"]
+    features: ["快递配送", "即时物流", "生鲜配送"],
+    highlights: [
+      { label: "配送时效", value: "<15分钟" },
+      { label: "日配送量", value: "200+单" },
+      { label: "用户满意度", value: "98%" }
+    ]
   }
 ];
 
@@ -281,27 +305,39 @@ const LogisticsApp = () => {
               </p>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <div className="space-y-12">
               {scenarios.map((scenario, index) => (
-                <div key={index} className="bg-card rounded-xl overflow-hidden shadow-card hover:shadow-card-hover transition-all group">
-                  <div className="aspect-video overflow-hidden">
-                    <img
-                      src={scenario.image}
-                      alt={scenario.title}
-                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                    />
-                  </div>
-                  <div className="p-6">
-                    <div className="flex items-center gap-3 mb-4">
-                      <div className="w-10 h-10 bg-primary/10 rounded-lg flex items-center justify-center">
-                        <scenario.icon className="h-5 w-5 text-primary" />
-                      </div>
-                      <h3 className="text-xl font-bold text-card-foreground">{scenario.title}</h3>
+                <div key={index} className={`grid grid-cols-1 lg:grid-cols-2 gap-8 items-center ${index % 2 === 1 ? 'lg:flex-row-reverse' : ''}`}>
+                  <div className={`${index % 2 === 1 ? 'lg:order-2' : ''}`}>
+                    <div className="aspect-video rounded-xl overflow-hidden shadow-card">
+                      <img
+                        src={scenario.image}
+                        alt={scenario.title}
+                        className="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
+                      />
                     </div>
-                    <p className="text-muted-foreground mb-4">{scenario.description}</p>
+                  </div>
+                  <div className={`${index % 2 === 1 ? 'lg:order-1' : ''}`}>
+                    <div className="flex items-center gap-3 mb-4">
+                      <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center">
+                        <scenario.icon className="h-6 w-6 text-primary" />
+                      </div>
+                      <h3 className="text-2xl font-bold text-foreground">{scenario.title}</h3>
+                    </div>
+                    <p className="text-muted-foreground mb-4 leading-relaxed">
+                      {scenario.detailDescription}
+                    </p>
+                    <div className="grid grid-cols-3 gap-4 mb-6">
+                      {scenario.highlights.map((highlight, i) => (
+                        <div key={i} className="text-center p-3 bg-card rounded-lg shadow-sm">
+                          <div className="text-lg font-bold text-primary">{highlight.value}</div>
+                          <div className="text-xs text-muted-foreground">{highlight.label}</div>
+                        </div>
+                      ))}
+                    </div>
                     <div className="flex flex-wrap gap-2">
                       {scenario.features.map((feature, i) => (
-                        <span key={i} className="text-xs bg-primary/10 text-primary px-3 py-1 rounded-full">
+                        <span key={i} className="text-sm bg-primary/10 text-primary px-4 py-2 rounded-full">
                           {feature}
                         </span>
                       ))}
