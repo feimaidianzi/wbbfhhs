@@ -5,6 +5,14 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
+import About from "./pages/About";
+import Applications from "./pages/Applications";
+import Software from "./pages/Software";
+import LowAltitude from "./pages/LowAltitude";
+import CustomResearch from "./pages/CustomResearch";
+import FPV from "./pages/FPV";
+import News from "./pages/News";
+import Contact from "./pages/Contact";
 import Airport from "./pages/products/Airport";
 import Tethered from "./pages/products/Tethered";
 import Logistics from "./pages/products/Logistics";
@@ -23,6 +31,14 @@ const App = () => (
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Index />} />
+          <Route path="/about" element={<About />} />
+          <Route path="/applications" element={<Applications />} />
+          <Route path="/software" element={<Software />} />
+          <Route path="/low-altitude" element={<LowAltitude />} />
+          <Route path="/custom-research" element={<CustomResearch />} />
+          <Route path="/fpv" element={<FPV />} />
+          <Route path="/news" element={<News />} />
+          <Route path="/contact" element={<Contact />} />
           <Route path="/products/airport" element={<Airport />} />
           <Route path="/products/tethered" element={<Tethered />} />
           <Route path="/products/logistics" element={<Logistics />} />
