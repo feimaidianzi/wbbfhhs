@@ -16,18 +16,21 @@ const products = [
     description: "轻量化系留平台，适用于临时性监控、通信中继等应用场景，单人即可完成部署操作。",
     specs: ["有效载荷: 5kg", "升空高度: 100m", "抗风等级: 6级", "供电功率: 1.5kW"],
     image: "https://images.unsplash.com/photo-1473968512647-3e447244af8f?w=600&q=80",
+    link: "/products/tethered/th-100",
   },
   {
     name: "TH-200系留无人机",
     description: "中型系留平台，具备更强的载荷能力和更高的升空高度，适用于长期部署场景。",
     specs: ["有效载荷: 10kg", "升空高度: 200m", "抗风等级: 7级", "供电功率: 3kW"],
     image: "https://images.unsplash.com/photo-1527977966376-1c8408f9f108?w=600&q=80",
+    link: "/products/tethered/th-200",
   },
   {
     name: "TH-300系留无人机",
     description: "重型系留平台，适用于大型活动安保、应急通信等重要场景，支持多载荷同时挂载。",
     specs: ["有效载荷: 15kg", "升空高度: 300m", "抗风等级: 8级", "供电功率: 5kW"],
     image: "https://images.unsplash.com/photo-1559827260-dc66d52bef19?w=600&q=80",
+    link: "/products/tethered/th-300",
   },
 ];
 

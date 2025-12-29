@@ -16,24 +16,28 @@ const products = [
     description: "紧凑型工业无人机，适用于日常巡检和数据采集任务，便携性强，快速部署。",
     specs: ["轴距: 650mm", "最大载重: 2kg", "续航时间: 35分钟", "抗风等级: 5级"],
     image: "https://images.unsplash.com/photo-1506947411487-a56738267384?w=600&q=80",
+    link: "/products/multi-rotor/x650",
   },
   {
     name: "X850多旋翼无人机",
     description: "中型工业无人机，具备更强载荷能力和更长续航时间，满足专业级作业需求。",
     specs: ["轴距: 850mm", "最大载重: 5kg", "续航时间: 45分钟", "抗风等级: 6级"],
     image: "https://images.unsplash.com/photo-1473968512647-3e447244af8f?w=600&q=80",
+    link: "/products/multi-rotor/x850",
   },
   {
     name: "X1200多旋翼无人机",
     description: "大型工业无人机，适用于重型载荷和长航时任务，是专业级应用的理想选择。",
     specs: ["轴距: 1200mm", "最大载重: 10kg", "续航时间: 55分钟", "抗风等级: 7级"],
     image: "https://images.unsplash.com/photo-1579829366248-204fe8413f31?w=600&q=80",
+    link: "/products/multi-rotor/x1200",
   },
   {
     name: "X1600多旋翼无人机",
     description: "超大型工业无人机，满足特殊行业的超重载荷需求，适用于专业测绘、运输等场景。",
     specs: ["轴距: 1600mm", "最大载重: 20kg", "续航时间: 40分钟", "抗风等级: 6级"],
     image: "https://images.unsplash.com/photo-1527977966376-1c8408f9f108?w=600&q=80",
+    link: "/products/multi-rotor/x1600",
   },
 ];
 
