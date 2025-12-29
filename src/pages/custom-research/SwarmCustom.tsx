@@ -2,45 +2,45 @@ import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { FloatingContact } from "@/components/FloatingContact";
 import { Button } from "@/components/ui/button";
-import { ArrowLeft, ArrowRight, CheckCircle, Phone, Mail, Zap, Battery, Settings, Wind, Gauge, Shield } from "lucide-react";
+import { ArrowLeft, ArrowRight, CheckCircle, Phone, Mail, Users, Cpu, Radio, Shield, Zap, Settings } from "lucide-react";
 import { Link } from "react-router-dom";
 
-const PowerSystem = () => {
+const SwarmCustom = () => {
   const features = [
-    { icon: Zap, title: "高效动力", description: "优化动力系统效率" },
-    { icon: Battery, title: "长续航", description: "延长飞行时间" },
-    { icon: Settings, title: "定制电调", description: "电调系统定制开发" },
-    { icon: Wind, title: "螺旋桨优化", description: "专用桨叶设计" },
-    { icon: Gauge, title: "动力匹配", description: "电机与载荷匹配" },
-    { icon: Shield, title: "可靠性", description: "高可靠动力保障" },
+    { icon: Users, title: "集群协同", description: "多机协同控制技术" },
+    { icon: Cpu, title: "智能算法", description: "自研集群智能算法" },
+    { icon: Radio, title: "组网通信", description: "自组网通信系统" },
+    { icon: Shield, title: "高可靠", description: "冗余设计高可靠性" },
+    { icon: Zap, title: "快速响应", description: "毫秒级协同响应" },
+    { icon: Settings, title: "灵活配置", description: "集群规模灵活配置" },
   ];
 
   const services = [
-    "电机选型与定制",
-    "电调系统开发",
-    "螺旋桨设计优化",
-    "电池管理系统",
-    "动力系统集成",
-    "散热系统设计",
-    "效率测试分析",
-    "可靠性验证",
+    "集群控制算法开发",
+    "自组网通信方案",
+    "编队飞行系统",
+    "任务协同规划",
+    "地面站集成开发",
+    "仿真测试平台",
+    "表演编排系统",
+    "安全冗余设计",
   ];
 
   const cases = [
     {
-      title: "长航时动力系统",
-      client: "某航空研究所",
-      description: "定制开发高效动力系统，将续航时间从45分钟提升至70分钟。",
+      title: "无人机灯光秀",
+      client: "某文旅集团",
+      description: "定制开发500架无人机集群表演系统，支持复杂图案和动态编排。",
     },
     {
-      title: "重载动力定制",
-      client: "某物流公司",
-      description: "为30kg载重需求定制大功率动力系统，满足物资运输需求。",
+      title: "农业集群作业",
+      client: "某农业科技公司",
+      description: "开发10架无人机协同植保作业系统，实现大面积高效作业。",
     },
     {
-      title: "高原动力优化",
-      client: "某地质勘察院",
-      description: "针对高海拔作业环境优化动力系统，保障4500米海拔稳定飞行。",
+      title: "科研验证平台",
+      client: "某高校实验室",
+      description: "为集群智能研究定制小型集群验证平台，支持算法快速验证。",
     },
   ];
 
@@ -55,7 +55,7 @@ const PowerSystem = () => {
               <span>/</span>
               <Link to="/custom-research" className="hover:text-accent">科研定制</Link>
               <span>/</span>
-              <span className="text-foreground">动力定制</span>
+              <span className="text-foreground">集群定制</span>
             </div>
           </div>
         </div>
@@ -68,9 +68,9 @@ const PowerSystem = () => {
                   <ArrowLeft className="w-4 h-4 mr-2" />
                   返回科研定制
                 </Link>
-                <h1 className="text-3xl md:text-5xl font-bold mb-6">动力定制</h1>
+                <h1 className="text-3xl md:text-5xl font-bold mb-6">集群定制</h1>
                 <p className="text-lg text-muted-foreground mb-8 leading-relaxed">
-                  提供专业的无人机动力系统定制服务，从电机选型到电调开发，从螺旋桨设计到电池管理，全方位满足特殊动力需求。
+                  提供无人机集群系统的专业定制服务，从集群控制算法到自组网通信，从编队飞行到任务协同，满足表演、农业、科研等多场景需求。
                 </p>
                 <div className="flex flex-col sm:flex-row gap-4">
                   <Button className="bg-accent hover:bg-accent/90 text-accent-foreground px-8 py-6 text-lg">
@@ -82,7 +82,7 @@ const PowerSystem = () => {
                 </div>
               </div>
               <div className="relative">
-                <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&q=80" alt="动力定制" className="rounded-2xl shadow-2xl w-full" />
+                <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&q=80" alt="集群定制" className="rounded-2xl shadow-2xl w-full" />
               </div>
             </div>
           </div>
@@ -123,7 +123,7 @@ const PowerSystem = () => {
           <div className="container-custom">
             <h2 className="text-2xl md:text-4xl font-bold text-center mb-4">案例展示</h2>
             <p className="text-muted-foreground text-center mb-14 max-w-2xl mx-auto">
-              成功为多家企业和科研机构提供动力系统定制服务
+              成功为多家企业和机构提供集群定制服务
             </p>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
               {cases.map((item, index) => (
@@ -139,7 +139,7 @@ const PowerSystem = () => {
 
         <section className="py-20 bg-primary">
           <div className="container-custom text-center">
-            <h2 className="text-2xl md:text-4xl font-bold text-primary-foreground mb-6">开启动力定制项目</h2>
+            <h2 className="text-2xl md:text-4xl font-bold text-primary-foreground mb-6">开启集群定制项目</h2>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Button className="bg-accent hover:bg-accent/90 text-accent-foreground px-10 py-6 text-lg">
                 <Mail className="w-5 h-5 mr-2" /> 立即咨询
@@ -157,4 +157,4 @@ const PowerSystem = () => {
   );
 };
 
-export default PowerSystem;
+export default SwarmCustom;

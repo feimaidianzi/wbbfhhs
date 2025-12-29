@@ -20,12 +20,10 @@ const applicationCategories = [
 ];
 
 const researchCategories = [
-  { name: "飞控定制", href: "/custom-research/flight-control", description: "飞行控制系统定制开发", image: "https://images.unsplash.com/photo-1518770660439-4636190af475?w=120&q=80" },
-  { name: "动力定制", href: "/custom-research/power-system", description: "动力系统优化设计", image: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=120&q=80" },
-  { name: "机身定制", href: "/custom-research/airframe", description: "机体结构定制设计", image: "https://images.unsplash.com/photo-1473968512647-3e447244af8f?w=120&q=80" },
-  { name: "载荷定制", href: "/custom-research/payload", description: "专业载荷集成开发", image: "https://images.unsplash.com/photo-1506947411487-a56738267384?w=120&q=80" },
+  { name: "机场定制", href: "/custom-research/airport", description: "无人机机场系统定制", image: "https://images.unsplash.com/photo-1508614589041-895b88991e3e?w=120&q=80" },
+  { name: "集群定制", href: "/custom-research/swarm", description: "集群无人机系统定制", image: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=120&q=80" },
   { name: "软件定制", href: "/custom-research/software", description: "地面站与算法定制", image: "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=120&q=80" },
-  { name: "整机定制", href: "/custom-research/complete-system", description: "整机系统定制方案", image: "https://images.unsplash.com/photo-1527977966376-1c8408f9f108?w=120&q=80" },
+  { name: "挂载定制", href: "/custom-research/payload", description: "专业挂载载荷定制", image: "https://images.unsplash.com/photo-1506947411487-a56738267384?w=120&q=80" },
 ];
 
 const navItems = [
