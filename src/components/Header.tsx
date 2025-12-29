@@ -147,11 +147,11 @@ export const Header = () => {
           {/* Phone & Mobile Menu */}
           <div className="flex items-center gap-4">
             <a
-              href="tel:18771937458"
+              href="tel:+8617674048404"
               className="hidden md:flex items-center gap-2 text-primary-foreground"
             >
               <Phone className="w-4 h-4" />
-              <span className="text-sm font-medium">18771937458</span>
+              <span className="text-sm font-medium">+8617674048404</span>
             </a>
 
             <Button
