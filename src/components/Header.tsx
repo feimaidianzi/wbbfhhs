@@ -28,7 +28,7 @@ export const Header = () => {
               <div className="w-8 h-8 bg-accent rounded-sm flex items-center justify-center">
                 <span className="text-accent-foreground font-bold text-lg">长</span>
               </div>
-              <span className="text-primary-foreground font-bold text-xl hidden sm:block">长凌智能</span>
+              <span className="text-primary-foreground font-bold text-xl hidden sm:block">长凌电子</span>
             </div>
           </a>
 
