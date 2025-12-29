@@ -6,6 +6,13 @@ import { ArrowRight, CheckCircle, Zap, Shield, Clock, BarChart, AlertTriangle, P
 import { Link } from "react-router-dom";
 import { SEO } from "@/components/SEO";
 
+// 导入AI生成的配图
+import heroPowerGrid from "@/assets/power/hero-power-grid.jpg";
+import uavInspection from "@/assets/power/uav-inspection.jpg";
+import powerEquipment from "@/assets/power/power-equipment.jpg";
+import aerialCorridor from "@/assets/power/aerial-corridor.jpg";
+import substationImg from "@/assets/power/substation.jpg";
+
 const stats = [
   { value: "20倍+", label: "效率提升" },
   { value: "95%+", label: "识别准确率" },
@@ -68,21 +75,21 @@ const applications = [
   {
     title: "输电线路巡检",
     description: "对高压输电线路进行定期巡视，AI智能识别导线损伤、杆塔异常、绝缘子破损等缺陷",
-    image: "/images/power/slide-05.jpg",
+    image: aerialCorridor,
     href: "/applications/power-inspection/transmission-line",
     features: ["导线断股检测", "绝缘子破损识别", "杆塔倾斜监测", "通道隐患排查"]
   },
   {
     title: "变电站巡检",
     description: "对变电站设备进行红外测温和可见光巡检，及时发现设备过热隐患",
-    image: "/images/power/slide-08.jpg",
+    image: substationImg,
     href: "/applications/power-inspection/substation",
     features: ["红外测温检测", "设备外观检查", "渗漏油检测", "表计读数识别"]
   },
   {
     title: "光伏电站检测",
     description: "利用红外热成像快速检测光伏组件热斑、隐裂等故障",
-    image: "/images/power/slide-10.jpg",
+    image: powerEquipment,
     href: "/applications/power-inspection/solar-panel",
     features: ["热斑故障检测", "组件隐裂排查", "积灰遮挡检测", "发电效率评估"]
   }
@@ -103,7 +110,7 @@ const PowerInspection = () => {
         <section className="relative h-[400px] md:h-[500px] overflow-hidden">
           <div
             className="absolute inset-0 bg-cover bg-center"
-            style={{ backgroundImage: "url(/images/power/slide-01.jpg)" }}
+            style={{ backgroundImage: `url(${heroPowerGrid})` }}
           >
             <div className="absolute inset-0 bg-gradient-to-r from-primary/95 via-primary/85 to-transparent" />
           </div>
@@ -159,7 +166,7 @@ const PowerInspection = () => {
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
               <div className="rounded-2xl overflow-hidden shadow-xl">
                 <img 
-                  src="/images/power/slide-03.jpg" 
+                  src={heroPowerGrid} 
                   alt="电力行业巡检现状" 
                   className="w-full h-auto"
                 />
@@ -217,7 +224,7 @@ const PowerInspection = () => {
 
             <div className="rounded-2xl overflow-hidden shadow-xl">
               <img 
-                src="/images/power/slide-04.jpg" 
+                src={uavInspection} 
                 alt="无人机巡检优势" 
                 className="w-full h-auto"
               />
@@ -254,7 +261,7 @@ const PowerInspection = () => {
 
             <div className="rounded-2xl overflow-hidden shadow-xl">
               <img 
-                src="/images/power/slide-05.jpg" 
+                src={aerialCorridor} 
                 alt="无人机巡检流程" 
                 className="w-full h-auto"
               />
