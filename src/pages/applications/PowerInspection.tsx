@@ -277,40 +277,219 @@ const PowerInspection = () => {
           </div>
         </section>
 
-        {/* Case Results Gallery */}
+        {/* Case Results Gallery - 精细化巡查服务成果 */}
         <section className="py-16 bg-background">
           <div className="container-custom">
             <div className="flex items-center gap-3 mb-8">
               <div className="w-12 h-12 bg-primary rounded-full flex items-center justify-center text-primary-foreground font-bold">
                 05
               </div>
-              <h2 className="text-2xl md:text-3xl font-bold text-foreground">服务成果展示</h2>
+              <h2 className="text-2xl md:text-3xl font-bold text-foreground">精细化巡查服务成果</h2>
             </div>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-              <div className="rounded-xl overflow-hidden shadow-lg">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div className="bg-card rounded-xl overflow-hidden shadow-lg">
                 <img 
-                  src="/images/power/case-result-1.png" 
-                  alt="服务成果 - 塔材编号识别与地线弯曲检测" 
+                  src="/images/power/case-cap-damage.png" 
+                  alt="保护帽损坏检测" 
                   className="w-full h-auto"
                 />
+                <div className="p-4 text-center">
+                  <span className="text-sm font-medium text-card-foreground">保护帽损坏检测</span>
+                </div>
               </div>
-              <div className="rounded-xl overflow-hidden shadow-lg">
+              <div className="bg-card rounded-xl overflow-hidden shadow-lg">
                 <img 
-                  src="/images/power/case-result-2.png" 
-                  alt="服务成果 - 杆塔巡检与插销松动检测" 
+                  src="/images/power/case-wire-strand.png" 
+                  alt="导线散股检测" 
                   className="w-full h-auto"
                 />
+                <div className="p-4 text-center">
+                  <span className="text-sm font-medium text-card-foreground">导线散股检测</span>
+                </div>
+              </div>
+              <div className="bg-card rounded-xl overflow-hidden shadow-lg">
+                <img 
+                  src="/images/power/case-damper-shift.png" 
+                  alt="防振锤移位检测" 
+                  className="w-full h-auto"
+                />
+                <div className="p-4 text-center">
+                  <span className="text-sm font-medium text-card-foreground">防振锤移位检测</span>
+                </div>
+              </div>
+              <div className="bg-card rounded-xl overflow-hidden shadow-lg">
+                <img 
+                  src="/images/power/case-wire-break.png" 
+                  alt="导线断股检测" 
+                  className="w-full h-auto"
+                />
+                <div className="p-4 text-center">
+                  <span className="text-sm font-medium text-card-foreground">中间导线断4股 / 导线灼烧断3股</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Tree Hazard Inspection */}
+        <section className="py-16 bg-muted">
+          <div className="container-custom">
+            <div className="flex items-center gap-3 mb-8">
+              <div className="w-12 h-12 bg-primary rounded-full flex items-center justify-center text-primary-foreground font-bold">
+                06
+              </div>
+              <h2 className="text-2xl md:text-3xl font-bold text-foreground">输电线路树木隐患排查服务</h2>
+            </div>
+            <div className="bg-card rounded-xl p-8 shadow-lg mb-8">
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                <div>
+                  <h3 className="text-xl font-bold text-card-foreground mb-4 bg-primary text-primary-foreground px-4 py-2 inline-block">
+                    提供的服务
+                  </h3>
+                  <div className="mt-4">
+                    <h4 className="font-bold text-card-foreground mb-2">概述</h4>
+                    <p className="text-muted-foreground text-sm">
+                      采用多载荷复合翼无人机系统进行输电线路巡检，测量输电线路净空间距离，用来排查输电线路通道的树障隐患。
+                    </p>
+                  </div>
+                </div>
+                <div>
+                  <h4 className="font-bold text-card-foreground mb-4">优势</h4>
+                  <div className="space-y-3">
+                    <div className="flex items-start gap-2">
+                      <CheckCircle className="w-4 h-4 text-accent flex-shrink-0 mt-0.5" />
+                      <p className="text-muted-foreground text-sm"><strong>效率高：</strong>多载荷固定翼无人机单架次每天可对20-30km线路通道进行数据采集，效率是传统人工作业的100倍以上</p>
+                    </div>
+                    <div className="flex items-start gap-2">
+                      <CheckCircle className="w-4 h-4 text-accent flex-shrink-0 mt-0.5" />
+                      <p className="text-muted-foreground text-sm"><strong>操作简单：</strong>集成化设计，航线规划完毕后，可自主进行巡检任务</p>
+                    </div>
+                    <div className="flex items-start gap-2">
+                      <CheckCircle className="w-4 h-4 text-accent flex-shrink-0 mt-0.5" />
+                      <p className="text-muted-foreground text-sm"><strong>适应性强：</strong>不受地形限制，山区、无人区、沙漠等恶劣环境均可作业</p>
+                    </div>
+                    <div className="flex items-start gap-2">
+                      <CheckCircle className="w-4 h-4 text-accent flex-shrink-0 mt-0.5" />
+                      <p className="text-muted-foreground text-sm"><strong>5KM图传：</strong>1.4G专用频段防干扰，5km范围内可实现1080P30帧"零延时"回传</p>
+                    </div>
+                    <div className="flex items-start gap-2">
+                      <CheckCircle className="w-4 h-4 text-accent flex-shrink-0 mt-0.5" />
+                      <p className="text-muted-foreground text-sm"><strong>抗风防雨：</strong>固定翼巡航阶可抗7级大风，降雨≤6mm/min内可安飞行</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div className="bg-card rounded-xl overflow-hidden shadow-lg">
+                <img 
+                  src="/images/power/case-tree-data.png" 
+                  alt="点云数据与可见光数据" 
+                  className="w-full h-auto"
+                />
+                <div className="p-4 text-center">
+                  <span className="text-sm font-medium text-card-foreground">点云数据与可见光数据采集</span>
+                </div>
+              </div>
+              <div className="bg-card rounded-xl overflow-hidden shadow-lg">
+                <img 
+                  src="/images/power/case-tree-analysis.png" 
+                  alt="树木隐患分析" 
+                  className="w-full h-auto"
+                />
+                <div className="p-4 text-center">
+                  <span className="text-sm font-medium text-card-foreground">安全距离分析隐患点列表</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Crossing Hazard Inspection */}
+        <section className="py-16 bg-background">
+          <div className="container-custom">
+            <div className="flex items-center gap-3 mb-8">
+              <div className="w-12 h-12 bg-primary rounded-full flex items-center justify-center text-primary-foreground font-bold">
+                07
+              </div>
+              <h2 className="text-2xl md:text-3xl font-bold text-foreground">输电线路交叉跨越隐患排查服务</h2>
+            </div>
+            <div className="bg-card rounded-xl overflow-hidden shadow-lg">
+              <img 
+                src="/images/power/case-crossing.png" 
+                alt="交叉跨越隐患排查" 
+                className="w-full h-auto"
+              />
+              <div className="p-4 text-center">
+                <span className="text-sm font-medium text-card-foreground">交叉跨越检测报告与分析</span>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Data Query System */}
+        <section className="py-16 bg-muted">
+          <div className="container-custom">
+            <div className="flex items-center gap-3 mb-8">
+              <div className="w-12 h-12 bg-primary rounded-full flex items-center justify-center text-primary-foreground font-bold">
+                08
+              </div>
+              <h2 className="text-2xl md:text-3xl font-bold text-foreground">电力巡检数据查询系统</h2>
+            </div>
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
+              <div className="bg-card rounded-xl overflow-hidden shadow-lg">
+                <img 
+                  src="/images/power/case-system.png" 
+                  alt="电力巡检数据查询系统" 
+                  className="w-full h-auto"
+                />
+                <div className="p-4 text-center">
+                  <span className="text-sm font-medium text-card-foreground">系统平台Web端登录界面</span>
+                </div>
+              </div>
+              <div className="space-y-6">
+                <p className="text-muted-foreground">
+                  电力巡检数据查询系统主要运行于Windows系统，旨在高效存储与预览杆塔巡检数据，功能涵盖正射点云数据、图片媒体资料以及KMZ航线数据等。
+                </p>
+                <div className="space-y-4">
+                  <div className="bg-background p-4 rounded-lg">
+                    <h4 className="font-bold text-foreground mb-2">Kmz管理</h4>
+                    <p className="text-muted-foreground text-sm">Kml航线任务文件分组管理；Kmz航线任务上传管理；对杆塔导线的相关数据进行细致管理，并辅以相应的照片和mz航线任务文件规划调用</p>
+                  </div>
+                  <div className="bg-background p-4 rounded-lg">
+                    <h4 className="font-bold text-foreground mb-2">服务管理</h4>
+                    <p className="text-muted-foreground text-sm">致力于对杆塔及其相关数据进行全面管理，包括杆塔的基础信息、实地照片，以及记录杆塔缺陷的详细照片和视频资料</p>
+                  </div>
+                  <div className="bg-background p-4 rounded-lg">
+                    <h4 className="font-bold text-foreground mb-2">数据服务</h4>
+                    <p className="text-muted-foreground text-sm">无人机拍摄成果的综合管理与展示，涵盖无人机拍摄的高清照片、自动录制的视频资料、精确的正射影像数据</p>
+                  </div>
+                  <div className="bg-background p-4 rounded-lg">
+                    <h4 className="font-bold text-foreground mb-2">分析报告</h4>
+                    <p className="text-muted-foreground text-sm">对杆塔缺陷、树障问题、交叉跨越情况以及导线缺陷报告的全面管理，确保杆塔和导线的安全稳定运行</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div className="mt-8 bg-card rounded-xl overflow-hidden shadow-lg">
+              <img 
+                src="/images/power/case-management.png" 
+                alt="服务管理界面" 
+                className="w-full h-auto"
+              />
+              <div className="p-4 text-center">
+                <span className="text-sm font-medium text-card-foreground">服务管理功能支持查看杆塔的正射影像以及点云模型数据</span>
               </div>
             </div>
           </div>
         </section>
 
         {/* Application Scenarios */}
-        <section className="py-16 bg-muted">
+        <section className="py-16 bg-background">
           <div className="container-custom">
             <div className="flex items-center gap-3 mb-4">
               <div className="w-12 h-12 bg-primary rounded-full flex items-center justify-center text-primary-foreground font-bold">
-                06
+                09
               </div>
               <h2 className="text-2xl md:text-3xl font-bold text-foreground">应用场景</h2>
             </div>
