@@ -14,6 +14,7 @@ import FPV from "./pages/FPV";
 import FPVCategory from "./pages/fpv/FPVCategory";
 import News from "./pages/News";
 import Contact from "./pages/Contact";
+import Products from "./pages/Products";
 import Airport from "./pages/products/Airport";
 import Tethered from "./pages/products/Tethered";
 import Logistics from "./pages/products/Logistics";
@@ -45,6 +46,7 @@ const App = () => (
           <Route path="/fpv/:category" element={<FPVCategory />} />
           <Route path="/news" element={<News />} />
           <Route path="/contact" element={<Contact />} />
+          <Route path="/products" element={<Products />} />
           <Route path="/products/airport" element={<Airport />} />
           <Route path="/products/airport/vehicle-mounted" element={<VehicleMountedAirport />} />
           <Route path="/products/airport/uhs-1000" element={<UHS1000 />} />
