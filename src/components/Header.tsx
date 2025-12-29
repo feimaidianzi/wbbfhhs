@@ -19,6 +19,15 @@ const applicationCategories = [
   { name: "电力", href: "/applications", description: "输电线路巡检", image: "https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?w=120&q=80" },
 ];
 
+const researchCategories = [
+  { name: "飞控定制", href: "/custom-research/flight-control", description: "飞行控制系统定制开发", image: "https://images.unsplash.com/photo-1518770660439-4636190af475?w=120&q=80" },
+  { name: "动力定制", href: "/custom-research/power-system", description: "动力系统优化设计", image: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=120&q=80" },
+  { name: "机身定制", href: "/custom-research/airframe", description: "机体结构定制设计", image: "https://images.unsplash.com/photo-1473968512647-3e447244af8f?w=120&q=80" },
+  { name: "载荷定制", href: "/custom-research/payload", description: "专业载荷集成开发", image: "https://images.unsplash.com/photo-1506947411487-a56738267384?w=120&q=80" },
+  { name: "软件定制", href: "/custom-research/software", description: "地面站与算法定制", image: "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=120&q=80" },
+  { name: "整机定制", href: "/custom-research/complete-system", description: "整机系统定制方案", image: "https://images.unsplash.com/photo-1527977966376-1c8408f9f108?w=120&q=80" },
+];
+
 const navItems = [
   { name: "首页", href: "/" },
   { name: "关于长凌", href: "/about" },
@@ -26,7 +35,7 @@ const navItems = [
   { name: "行业应用", href: "/applications", hasDropdown: true, children: applicationCategories },
   { name: "软件系统", href: "/software" },
   { name: "低空经济", href: "/low-altitude" },
-  { name: "科研定制", href: "/custom-research" },
+  { name: "科研定制", href: "/custom-research", hasDropdown: true, children: researchCategories },
   { name: "FPV", href: "/fpv" },
   { name: "新闻中心", href: "/news" },
   { name: "联系我们", href: "/contact" },
