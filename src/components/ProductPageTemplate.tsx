@@ -200,36 +200,6 @@ const ProductPageTemplate = ({
           </div>
         </section>
 
-        {/* Tech Specs Section */}
-        {techSpecs && techSpecs.length > 0 && (
-          <section className="py-20 bg-secondary">
-            <div className="container-custom">
-              <div className="text-center mb-14">
-                <h2 className="text-2xl md:text-4xl font-bold mb-4">技术参数</h2>
-                <div className="w-20 h-1 bg-accent mx-auto rounded-full" />
-              </div>
-              <div className="max-w-4xl mx-auto">
-                <div className="bg-card rounded-2xl shadow-card overflow-hidden">
-                  <table className="w-full">
-                    <tbody>
-                      {techSpecs.map((spec, index) => (
-                        <tr key={index} className={index % 2 === 0 ? 'bg-secondary/30' : ''}>
-                          <td className="px-6 py-4 font-medium text-card-foreground border-b border-border/50">
-                            {spec.label}
-                          </td>
-                          <td className="px-6 py-4 text-muted-foreground border-b border-border/50">
-                            {spec.value}
-                          </td>
-                        </tr>
-                      ))}
-                    </tbody>
-                  </table>
-                </div>
-              </div>
-            </div>
-          </section>
-        )}
-
         {/* Cases Section */}
         {cases && cases.length > 0 && (
           <section className="py-20 bg-background">
