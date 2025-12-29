@@ -40,6 +40,16 @@ import AirportCustom from "./pages/custom-research/AirportCustom";
 import SwarmCustom from "./pages/custom-research/SwarmCustom";
 import SoftwareCustom from "./pages/custom-research/Software";
 import PayloadCustom from "./pages/custom-research/PayloadCustom";
+// Application detail pages
+import Water from "./pages/applications/Water";
+import Traffic from "./pages/applications/Traffic";
+import Environment from "./pages/applications/Environment";
+import SmartCity from "./pages/applications/SmartCity";
+import Emergency from "./pages/applications/Emergency";
+import FiveG from "./pages/applications/FiveG";
+import Police from "./pages/applications/Police";
+import Surveying from "./pages/applications/Surveying";
+import Power from "./pages/applications/Power";
 
 const queryClient = new QueryClient();
 
@@ -53,6 +63,15 @@ const App = () => (
           <Route path="/" element={<Index />} />
           <Route path="/about" element={<About />} />
           <Route path="/applications" element={<Applications />} />
+          <Route path="/applications/water" element={<Water />} />
+          <Route path="/applications/traffic" element={<Traffic />} />
+          <Route path="/applications/environment" element={<Environment />} />
+          <Route path="/applications/smart-city" element={<SmartCity />} />
+          <Route path="/applications/emergency" element={<Emergency />} />
+          <Route path="/applications/5g" element={<FiveG />} />
+          <Route path="/applications/police" element={<Police />} />
+          <Route path="/applications/surveying" element={<Surveying />} />
+          <Route path="/applications/power" element={<Power />} />
           <Route path="/software" element={<Software />} />
           <Route path="/low-altitude" element={<LowAltitude />} />
           <Route path="/custom-research" element={<CustomResearch />} />
