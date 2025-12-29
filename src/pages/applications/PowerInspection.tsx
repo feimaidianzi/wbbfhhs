@@ -552,12 +552,85 @@ const PowerInspection = () => {
           </div>
         </section>
 
-        {/* Application Scenarios */}
+        {/* Industry Cases */}
         <section className="py-16 bg-background">
+          <div className="container-custom">
+            <div className="flex items-center gap-3 mb-8">
+              <div className="w-12 h-12 bg-primary rounded-full flex items-center justify-center text-primary-foreground font-bold">
+                09
+              </div>
+              <h2 className="text-2xl md:text-3xl font-bold text-foreground">行业案例</h2>
+            </div>
+            
+            {/* Field Operation */}
+            <div className="mb-12">
+              <h3 className="text-xl font-bold text-foreground mb-6 bg-primary text-primary-foreground px-4 py-2 inline-block">
+                外拍航飞
+              </h3>
+              <p className="text-muted-foreground mb-4 mt-4">利用线路规划数据实施无人机空中拍照</p>
+              <div className="bg-card rounded-xl overflow-hidden shadow-lg">
+                <img 
+                  src="/images/power/case-field-operation.png" 
+                  alt="外拍航飞作业现场" 
+                  className="w-full h-auto"
+                />
+              </div>
+            </div>
+
+            {/* Data Processing */}
+            <div className="mb-12">
+              <h3 className="text-xl font-bold text-foreground mb-6 bg-accent text-accent-foreground px-4 py-2 inline-block">
+                数据处理
+              </h3>
+              <p className="text-muted-foreground mb-4 mt-4">缺陷汇总表与隐患分析结果展示</p>
+              <div className="bg-card rounded-xl overflow-hidden shadow-lg">
+                <img 
+                  src="/images/power/case-data-processing.png" 
+                  alt="数据处理结果展示" 
+                  className="w-full h-auto"
+                />
+              </div>
+            </div>
+
+            {/* Cooperation Cases */}
+            <div>
+              <h3 className="text-xl font-bold text-foreground mb-6 bg-primary text-primary-foreground px-4 py-2 inline-block">
+                合作案例
+              </h3>
+              <p className="text-muted-foreground mb-4 mt-4">某线路巡检用户报告 - 统计数据汇总</p>
+              <div className="bg-card rounded-xl overflow-hidden shadow-lg">
+                <img 
+                  src="/images/power/case-cooperation.png" 
+                  alt="合作案例报告" 
+                  className="w-full h-auto"
+                />
+                <div className="p-6 bg-muted">
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-6 text-center">
+                    <div>
+                      <div className="text-2xl font-bold text-foreground">245</div>
+                      <div className="text-sm text-muted-foreground">杆塔缺陷总数</div>
+                    </div>
+                    <div>
+                      <div className="text-2xl font-bold text-foreground">158</div>
+                      <div className="text-sm text-muted-foreground">导线缺陷总数</div>
+                    </div>
+                    <div>
+                      <div className="text-2xl font-bold text-foreground">772</div>
+                      <div className="text-sm text-muted-foreground">树障隐患总数</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Application Scenarios */}
+        <section className="py-16 bg-muted">
           <div className="container-custom">
             <div className="flex items-center gap-3 mb-4">
               <div className="w-12 h-12 bg-primary rounded-full flex items-center justify-center text-primary-foreground font-bold">
-                09
+                10
               </div>
               <h2 className="text-2xl md:text-3xl font-bold text-foreground">应用场景</h2>
             </div>
