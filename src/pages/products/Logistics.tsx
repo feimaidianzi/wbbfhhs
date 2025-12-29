@@ -16,18 +16,21 @@ const products = [
     description: "轻量级物流配送平台，适用于城市最后一公里配送场景，快速响应即时配送需求。",
     specs: ["最大载重: 10kg", "航程: 30km", "巡航速度: 60km/h", "续航时间: 40分钟"],
     image: "https://images.unsplash.com/photo-1527977966376-1c8408f9f108?w=600&q=80",
+    link: "/products/logistics/wl-10",
   },
   {
     name: "WL-20物流无人机",
     description: "中型物流配送平台，适用于城际快递和医疗物资运输，满足中等距离配送需求。",
     specs: ["最大载重: 20kg", "航程: 50km", "巡航速度: 80km/h", "续航时间: 50分钟"],
     image: "https://images.unsplash.com/photo-1473968512647-3e447244af8f?w=600&q=80",
+    link: "/products/logistics/wl-20",
   },
   {
     name: "WL-30物流无人机",
     description: "重型物流配送平台，适用于偏远地区物资投送和应急救援，突破地形限制。",
     specs: ["最大载重: 30kg", "航程: 80km", "巡航速度: 100km/h", "续航时间: 60分钟"],
     image: "https://images.unsplash.com/photo-1559827260-dc66d52bef19?w=600&q=80",
+    link: "/products/logistics/wl-30",
   },
 ];
 

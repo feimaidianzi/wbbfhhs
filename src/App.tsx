@@ -26,6 +26,16 @@ import VehicleMountedAirport from "./pages/products/airport/VehicleMountedAirpor
 import UHS1000 from "./pages/products/airport/UHS1000";
 import UHS600 from "./pages/products/airport/UHS600";
 import UHS400P from "./pages/products/airport/UHS400P";
+import TH100 from "./pages/products/tethered/TH100";
+import TH200 from "./pages/products/tethered/TH200";
+import TH300 from "./pages/products/tethered/TH300";
+import WL10 from "./pages/products/logistics/WL10";
+import WL20 from "./pages/products/logistics/WL20";
+import WL30 from "./pages/products/logistics/WL30";
+import X650 from "./pages/products/multi-rotor/X650";
+import X850 from "./pages/products/multi-rotor/X850";
+import X1200 from "./pages/products/multi-rotor/X1200";
+import X1600 from "./pages/products/multi-rotor/X1600";
 
 const queryClient = new QueryClient();
 
@@ -53,10 +63,20 @@ const App = () => (
           <Route path="/products/airport/uhs-600" element={<UHS600 />} />
           <Route path="/products/airport/uhs-400p" element={<UHS400P />} />
           <Route path="/products/tethered" element={<Tethered />} />
+          <Route path="/products/tethered/th-100" element={<TH100 />} />
+          <Route path="/products/tethered/th-200" element={<TH200 />} />
+          <Route path="/products/tethered/th-300" element={<TH300 />} />
           <Route path="/products/logistics" element={<Logistics />} />
+          <Route path="/products/logistics/wl-10" element={<WL10 />} />
+          <Route path="/products/logistics/wl-20" element={<WL20 />} />
+          <Route path="/products/logistics/wl-30" element={<WL30 />} />
           <Route path="/products/firefighting" element={<Firefighting />} />
           <Route path="/products/wire-laying" element={<WireLaying />} />
           <Route path="/products/multi-rotor" element={<MultiRotor />} />
+          <Route path="/products/multi-rotor/x650" element={<X650 />} />
+          <Route path="/products/multi-rotor/x850" element={<X850 />} />
+          <Route path="/products/multi-rotor/x1200" element={<X1200 />} />
+          <Route path="/products/multi-rotor/x1600" element={<X1600 />} />
           <Route path="/products/swarm" element={<Swarm />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
