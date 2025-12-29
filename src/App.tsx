@@ -36,12 +36,10 @@ import X650 from "./pages/products/multi-rotor/X650";
 import X850 from "./pages/products/multi-rotor/X850";
 import X1200 from "./pages/products/multi-rotor/X1200";
 import X1600 from "./pages/products/multi-rotor/X1600";
-import FlightControl from "./pages/custom-research/FlightControl";
-import PowerSystem from "./pages/custom-research/PowerSystem";
-import Airframe from "./pages/custom-research/Airframe";
-import Payload from "./pages/custom-research/Payload";
-import SoftwareCustom from "./pages/custom-research/SoftwareCustom";
-import CompleteSystem from "./pages/custom-research/CompleteSystem";
+import AirportCustom from "./pages/custom-research/AirportCustom";
+import SwarmCustom from "./pages/custom-research/SwarmCustom";
+import SoftwareCustom from "./pages/custom-research/Software";
+import PayloadCustom from "./pages/custom-research/PayloadCustom";
 
 const queryClient = new QueryClient();
 
@@ -58,12 +56,10 @@ const App = () => (
           <Route path="/software" element={<Software />} />
           <Route path="/low-altitude" element={<LowAltitude />} />
           <Route path="/custom-research" element={<CustomResearch />} />
-          <Route path="/custom-research/flight-control" element={<FlightControl />} />
-          <Route path="/custom-research/power-system" element={<PowerSystem />} />
-          <Route path="/custom-research/airframe" element={<Airframe />} />
-          <Route path="/custom-research/payload" element={<Payload />} />
+          <Route path="/custom-research/airport" element={<AirportCustom />} />
+          <Route path="/custom-research/swarm" element={<SwarmCustom />} />
           <Route path="/custom-research/software" element={<SoftwareCustom />} />
-          <Route path="/custom-research/complete-system" element={<CompleteSystem />} />
+          <Route path="/custom-research/payload" element={<PayloadCustom />} />
           <Route path="/fpv" element={<FPV />} />
           <Route path="/fpv/:category" element={<FPVCategory />} />
           <Route path="/news" element={<News />} />
