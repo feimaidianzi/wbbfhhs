@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { Menu, X, Phone, ChevronDown } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
@@ -42,6 +42,21 @@ const navItems = [
 export const Header = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
+  const timeoutRef = useRef<NodeJS.Timeout | null>(null);
+
+  const handleMouseEnter = (itemName: string) => {
+    if (timeoutRef.current) {
+      clearTimeout(timeoutRef.current);
+      timeoutRef.current = null;
+    }
+    setActiveDropdown(itemName);
+  };
+
+  const handleMouseLeave = () => {
+    timeoutRef.current = setTimeout(() => {
+      setActiveDropdown(null);
+    }, 100);
+  };
 
   return (
     <header className="fixed top-0 left-0 right-0 z-50 bg-primary shadow-lg">
@@ -63,15 +78,23 @@ export const Header = () => {
               <div
                 key={item.name}
                 className="relative"
-                onMouseEnter={() => item.children && setActiveDropdown(item.name)}
-                onMouseLeave={() => setActiveDropdown(null)}
+                onMouseEnter={() => item.children && handleMouseEnter(item.name)}
+                onMouseLeave={handleMouseLeave}
               >
                 <Link
                   to={item.href}
-                  className="flex items-center gap-1 px-3 py-2 text-sm text-primary-foreground/90 hover:text-primary-foreground transition-colors"
+                  className={`flex items-center gap-1 px-3 py-2 text-sm transition-colors ${
+                    activeDropdown === item.name 
+                      ? 'text-primary-foreground' 
+                      : 'text-primary-foreground/90 hover:text-primary-foreground'
+                  }`}
                 >
                   {item.name}
-                  {item.hasDropdown && <ChevronDown className="w-3 h-3" />}
+                  {item.hasDropdown && (
+                    <ChevronDown className={`w-3 h-3 transition-transform duration-200 ${
+                      activeDropdown === item.name ? 'rotate-180' : ''
+                    }`} />
+                  )}
                 </Link>
               </div>
             ))}
@@ -83,8 +106,8 @@ export const Header = () => {
               <div
                 key={`dropdown-${item.name}`}
                 className="fixed left-0 right-0 top-16 md:top-20 backdrop-blur-xl bg-background/95 shadow-2xl border-t border-b border-border/30 animate-dropdown-in z-40"
-                onMouseEnter={() => setActiveDropdown(item.name)}
-                onMouseLeave={() => setActiveDropdown(null)}
+                onMouseEnter={() => handleMouseEnter(item.name)}
+                onMouseLeave={handleMouseLeave}
               >
                 <div className="container-custom py-8">
                   <div className="mb-4">
