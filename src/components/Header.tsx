@@ -13,10 +13,13 @@ const productCategories = [
 ];
 
 const applicationCategories = [
-  { name: "水利", href: "/applications", description: "河道巡检、水库监测", image: "https://images.unsplash.com/photo-1534224039826-c7a0eda0e6b3?w=120&q=80" },
-  { name: "交通", href: "/applications", description: "交通监控与管理", image: "https://images.unsplash.com/photo-1449824913935-59a10b8d2000?w=120&q=80" },
-  { name: "环保", href: "/applications", description: "环境监测与治理", image: "https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=120&q=80" },
-  { name: "电力", href: "/applications", description: "输电线路巡检", image: "https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?w=120&q=80" },
+  { name: "电力巡检", href: "/applications/power-inspection", description: "输电线路智能巡检", image: "https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?w=120&q=80" },
+  { name: "物流应用", href: "/applications/logistics", description: "无人机物流配送", image: "https://images.unsplash.com/photo-1527977966376-1c8408f9f108?w=120&q=80" },
+  { name: "军事应用", href: "/applications/military", description: "侦察监视与通信中继", image: "https://images.unsplash.com/photo-1551698618-1dfe5d97d256?w=120&q=80" },
+  { name: "环保应用", href: "/applications/environment", description: "环境监测与治理", image: "https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=120&q=80" },
+  { name: "消防应急", href: "/applications/firefighting", description: "火情侦察与应急救援", image: "https://images.unsplash.com/photo-1569863959165-56dae551d4fc?w=120&q=80" },
+  { name: "系留应用", href: "/applications/tethered", description: "24小时持续滞空", image: "https://images.unsplash.com/photo-1473968512647-3e447244af8f?w=120&q=80" },
+  { name: "解决方案", href: "/applications/solutions", description: "完整行业解决方案", image: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=120&q=80" },
 ];
 
 const researchCategories = [
