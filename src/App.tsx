@@ -45,6 +45,7 @@ import PowerInspection from "./pages/applications/PowerInspection";
 import TransmissionLine from "./pages/applications/power/TransmissionLine";
 import Substation from "./pages/applications/power/Substation";
 import SolarPanel from "./pages/applications/power/SolarPanel";
+import CaseDetail from "./pages/applications/power/CaseDetail";
 import LogisticsApp from "./pages/applications/LogisticsApp";
 import Military from "./pages/applications/Military";
 import EnvironmentApp from "./pages/applications/EnvironmentApp";
@@ -68,6 +69,7 @@ const App = () => (
           <Route path="/applications/power-inspection/transmission-line" element={<TransmissionLine />} />
           <Route path="/applications/power-inspection/substation" element={<Substation />} />
           <Route path="/applications/power-inspection/solar-panel" element={<SolarPanel />} />
+          <Route path="/applications/power-inspection/case/:caseId" element={<CaseDetail />} />
           <Route path="/applications/logistics" element={<LogisticsApp />} />
           <Route path="/applications/military" element={<Military />} />
           <Route path="/applications/environment" element={<EnvironmentApp />} />
