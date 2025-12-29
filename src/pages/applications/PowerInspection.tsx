@@ -19,6 +19,72 @@ import defectWireStrand from "@/assets/power/defect-wire-strand.jpg";
 import defectDamperShift from "@/assets/power/defect-damper-shift.jpg";
 import defectWireLoose from "@/assets/power/defect-wire-loose.jpg";
 
+// 导入案例配图
+import caseTransmissionInspection from "@/assets/power/case-transmission-inspection.jpg";
+import caseSubstationInspection from "@/assets/power/case-substation-inspection.jpg";
+import caseSolarInspection from "@/assets/power/case-solar-inspection.jpg";
+import caseInsulatorCheck from "@/assets/power/case-insulator-check.jpg";
+import caseCorridorInspection from "@/assets/power/case-corridor-inspection.jpg";
+import caseAutonomousSystem from "@/assets/power/case-autonomous-system.jpg";
+
+// 案例数据
+const inspectionCases = [
+  {
+    id: 1,
+    title: "无人机在电力巡检中的应用，助力建设新时代坚强电网",
+    summary: "随着科技的快速发展，无人机技术已经成为电力行业的重要支持工具，尤其是在电力巡检领域。从最初的人工巡检到现在的智能化无人机巡检，电力行业正在经历一场技术革命。",
+    date: "2024-03-05",
+    category: "行业资讯",
+    image: caseTransmissionInspection,
+    tags: ["无人机自主飞行", "无人机电力巡检", "电力巡检无人机"]
+  },
+  {
+    id: 2,
+    title: "智能巡检无人机在输变电行业的实际应用",
+    summary: "我国输变电线路规模庞大，是电力供应和电能输送的关键通道。然而，由于我国地形复杂，传统的人工巡检面临着效率低下、安全风险高等问题。智能无人机巡检方案有效解决了这些难题。",
+    date: "2024-01-26",
+    category: "行业资讯",
+    image: caseSubstationInspection,
+    tags: ["无人机电力巡检", "电力巡检无人机", "电力巡检"]
+  },
+  {
+    id: 3,
+    title: "电力基础设施巡检新方案——无人机电力巡检",
+    summary: "电力行业是我国经济基础的重要产业之一，电力线路的连接在配电与用电系统中占据着重要地位。电网的安全稳定运行离不开高效的巡检手段，无人机技术为此提供了全新解决方案。",
+    date: "2024-01-25",
+    category: "行业资讯",
+    image: caseSolarInspection,
+    tags: ["无人机电力巡检", "电力巡检无人机", "无人机在电力行业的应用"]
+  },
+  {
+    id: 4,
+    title: "高压输电线路检测有新招，无人机电力巡检技术的应用",
+    summary: "随着我国工业化和城市化不断加速发展，对电力需求持续增加，高压输电线路规模也相应增长。无人机搭载多种传感器，可以快速完成高压线路的全面检测。",
+    date: "2024-01-23",
+    category: "行业资讯",
+    image: caseInsulatorCheck,
+    tags: ["无人机电力巡检", "电力巡检无人机", "无人机在电力行业的应用"]
+  },
+  {
+    id: 5,
+    title: "绝缘子破损检测难？智能电力无人机来解决",
+    summary: "绝缘子是输电线路上不可或缺的组件，其主要功能是稳固支持和固定载流导体，确保载流导体与地之间形成良好的绝缘。AI识别技术可精准检测绝缘子的各类缺陷。",
+    date: "2024-01-23",
+    category: "行业资讯",
+    image: caseCorridorInspection,
+    tags: ["无人机电力巡检", "电力巡检无人机", "无人机在电力行业的应用"]
+  },
+  {
+    id: 6,
+    title: "无人机自动机场在电力巡检中的应用实践",
+    summary: "通过部署无人机自动机场，实现7x24小时全自动巡检，无需人工干预。自动起降、自动充电、自动数据回传，大幅提升巡检效率和响应速度。",
+    date: "2024-01-20",
+    category: "技术应用",
+    image: caseAutonomousSystem,
+    tags: ["自动机场", "无人值守", "智能巡检"]
+  }
+];
+
 const PowerInspection = () => {
   return (
     <div className="min-h-screen bg-background">
@@ -338,6 +404,53 @@ const PowerInspection = () => {
                   </Link>
                 </div>
               </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Typical Cases Section */}
+        <section className="py-20 bg-background">
+          <div className="container-custom">
+            <div className="text-center mb-16">
+              <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
+                无人机电力巡检典型案例
+              </h2>
+              <p className="text-muted-foreground max-w-3xl mx-auto text-lg">
+                了解无人机电力巡检在实际应用中的成功案例与经验
+              </p>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+              {inspectionCases.map((caseItem) => (
+                <div key={caseItem.id} className="bg-card rounded-xl overflow-hidden shadow-card hover:shadow-card-hover transition-all group">
+                  <div className="aspect-video overflow-hidden">
+                    <img 
+                      src={caseItem.image} 
+                      alt={caseItem.title} 
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                    />
+                  </div>
+                  <div className="p-6">
+                    <h3 className="text-lg font-bold text-card-foreground mb-3 line-clamp-2 group-hover:text-primary transition-colors">
+                      {caseItem.title}
+                    </h3>
+                    <p className="text-muted-foreground text-sm mb-4 line-clamp-3">
+                      {caseItem.summary}
+                    </p>
+                    <div className="flex items-center justify-between text-xs text-muted-foreground mb-4">
+                      <span>{caseItem.date}</span>
+                      <span className="bg-primary/10 text-primary px-2 py-1 rounded">{caseItem.category}</span>
+                    </div>
+                    <div className="flex flex-wrap gap-2">
+                      {caseItem.tags.slice(0, 2).map((tag, i) => (
+                        <span key={i} className="text-xs bg-muted text-muted-foreground px-2 py-1 rounded">
+                          {tag}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              ))}
             </div>
           </div>
         </section>
