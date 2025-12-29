@@ -422,7 +422,11 @@ const PowerInspection = () => {
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
               {inspectionCases.map((caseItem) => (
-                <div key={caseItem.id} className="bg-card rounded-xl overflow-hidden shadow-card hover:shadow-card-hover transition-all group">
+                <Link 
+                  key={caseItem.id} 
+                  to={`/applications/power-inspection/case/${caseItem.id}`}
+                  className="bg-card rounded-xl overflow-hidden shadow-card hover:shadow-card-hover transition-all group block"
+                >
                   <div className="aspect-video overflow-hidden">
                     <img 
                       src={caseItem.image} 
@@ -449,7 +453,7 @@ const PowerInspection = () => {
                       ))}
                     </div>
                   </div>
-                </div>
+                </Link>
               ))}
             </div>
           </div>
