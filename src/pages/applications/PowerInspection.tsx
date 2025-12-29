@@ -32,18 +32,21 @@ const features = [
 const scenarios = [
   {
     title: "输电线路巡检",
-    description: "对高压输电线路进行定期巡视检查，发现导线损伤、杆塔异常等问题",
-    image: "https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?w=600&q=80"
+    description: "对高压输电线路进行定期巡视检查，AI智能识别导线损伤、杆塔异常、绝缘子破损等20+种缺陷",
+    image: "https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?w=600&q=80",
+    href: "/applications/power-inspection/transmission-line"
   },
   {
     title: "变电站巡检",
-    description: "对变电站设备进行红外测温和可见光巡检，及时发现过热隐患",
-    image: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&q=80"
+    description: "对变电站设备进行红外测温和可见光巡检，精准检测设备过热隐患，单站巡检时间缩短至30分钟",
+    image: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&q=80",
+    href: "/applications/power-inspection/substation"
   },
   {
     title: "光伏电站检测",
-    description: "利用红外热成像技术快速检测光伏组件热斑故障",
-    image: "https://images.unsplash.com/photo-1509391366360-2e959784a276?w=600&q=80"
+    description: "利用红外热成像技术快速检测光伏组件热斑、隐裂、PID等故障，单日可检测5MW以上电站",
+    image: "https://images.unsplash.com/photo-1509391366360-2e959784a276?w=600&q=80",
+    href: "/applications/power-inspection/solar-panel"
   }
 ];
 
@@ -106,27 +109,40 @@ const PowerInspection = () => {
           </div>
         </section>
 
-        {/* Scenarios Section */}
+        {/* Scenarios Section - Clickable */}
         <section className="py-16 bg-muted">
           <div className="container-custom">
-            <h2 className="text-2xl md:text-3xl font-bold text-foreground text-center mb-12">
+            <h2 className="text-2xl md:text-3xl font-bold text-foreground text-center mb-4">
               应用场景
             </h2>
+            <p className="text-muted-foreground text-center mb-12 max-w-2xl mx-auto">
+              点击查看详细解决方案
+            </p>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
               {scenarios.map((scenario, index) => (
-                <div key={index} className="bg-card rounded-xl overflow-hidden shadow-card">
+                <Link
+                  key={index}
+                  to={scenario.href}
+                  className="group bg-card rounded-xl overflow-hidden shadow-card hover:shadow-card-hover transition-all hover:-translate-y-1"
+                >
                   <div className="aspect-video overflow-hidden">
                     <img
                       src={scenario.image}
                       alt={scenario.title}
-                      className="w-full h-full object-cover"
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                     />
                   </div>
                   <div className="p-6">
-                    <h3 className="text-lg font-bold text-card-foreground mb-2">{scenario.title}</h3>
-                    <p className="text-muted-foreground text-sm">{scenario.description}</p>
+                    <h3 className="text-lg font-bold text-card-foreground mb-2 group-hover:text-accent transition-colors">
+                      {scenario.title}
+                    </h3>
+                    <p className="text-muted-foreground text-sm mb-4">{scenario.description}</p>
+                    <div className="flex items-center text-accent font-medium group-hover:translate-x-1 transition-transform">
+                      查看详情
+                      <ArrowRight className="w-4 h-4 ml-2" />
+                    </div>
                   </div>
-                </div>
+                </Link>
               ))}
             </div>
           </div>
