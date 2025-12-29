@@ -101,9 +101,10 @@ const Applications = () => {
           <div className="container-custom">
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
               {applications.map((app, index) => (
-                <div
+                <Link
                   key={index}
-                  className="group bg-card rounded-xl overflow-hidden shadow-card hover:shadow-card-hover transition-all"
+                  to={app.href}
+                  className="group bg-card rounded-xl overflow-hidden shadow-card hover:shadow-card-hover transition-all hover:-translate-y-1"
                 >
                   <div className="aspect-video overflow-hidden">
                     <img
@@ -119,15 +120,12 @@ const Applications = () => {
                     <p className="text-muted-foreground text-sm mb-4 line-clamp-3">
                       {app.description}
                     </p>
-                    <Button
-                      variant="outline"
-                      className="w-full border-accent text-accent hover:bg-accent hover:text-accent-foreground"
-                    >
+                    <div className="flex items-center text-accent font-medium group-hover:translate-x-1 transition-transform">
                       了解详情
                       <ArrowRight className="w-4 h-4 ml-2" />
-                    </Button>
+                    </div>
                   </div>
-                </div>
+                </Link>
               ))}
             </div>
           </div>
