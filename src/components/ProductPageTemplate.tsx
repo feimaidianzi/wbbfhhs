@@ -4,6 +4,7 @@ import { FloatingContact } from "@/components/FloatingContact";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, CheckCircle, Phone, Mail } from "lucide-react";
 import { LucideIcon } from "lucide-react";
+import { Link } from "react-router-dom";
 
 interface Feature {
   icon: LucideIcon;
@@ -16,6 +17,7 @@ interface Product {
   description: string;
   specs: string[];
   image: string;
+  link?: string;
 }
 
 interface Stat {
@@ -178,10 +180,19 @@ const ProductPageTemplate = ({
                         </div>
                       ))}
                     </div>
-                    <Button variant="outline" className="w-full border-accent text-accent hover:bg-accent hover:text-accent-foreground font-medium">
-                      了解详情
-                      <ArrowRight className="w-4 h-4 ml-2" />
-                    </Button>
+                    {product.link ? (
+                      <Button variant="outline" className="w-full border-accent text-accent hover:bg-accent hover:text-accent-foreground font-medium" asChild>
+                        <Link to={product.link}>
+                          了解详情
+                          <ArrowRight className="w-4 h-4 ml-2" />
+                        </Link>
+                      </Button>
+                    ) : (
+                      <Button variant="outline" className="w-full border-accent text-accent hover:bg-accent hover:text-accent-foreground font-medium">
+                        了解详情
+                        <ArrowRight className="w-4 h-4 ml-2" />
+                      </Button>
+                    )}
                   </div>
                 </div>
               ))}

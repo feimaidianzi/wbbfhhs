@@ -16,24 +16,28 @@ const products = [
     description: "多维跨域，相得益彰。空地跨域协同、人机共融的智能化解决方案，可快速部署于各类车辆平台，实现移动式无人值守巡检。",
     specs: ["载机重量: ≤30kg", "展开时间: <3分钟", "工作温度: -20°C~55°C", "防护等级: IP65"],
     image: "https://images.unsplash.com/photo-1508614589041-895b88991e3e?w=600&q=80",
+    link: "/products/airport/vehicle-mounted",
   },
   {
     name: "UHS 1000自动机场",
     description: "UHS智能停机坪，全自动起降充电，适用于大型工业无人机的自动化作业，支持多种任务载荷快速更换。",
     specs: ["载机重量: ≤50kg", "充电功率: 1000W", "防护等级: IP65", "充电时间: <45分钟"],
     image: "https://images.unsplash.com/photo-1473968512647-3e447244af8f?w=600&q=80",
+    link: "/products/airport/uhs-1000",
   },
   {
     name: "UHS 600自动机场",
     description: "紧凑型自动机场，适用于多种场景，具备快速部署和高效运营能力，是城市级巡检的理想选择。",
     specs: ["载机重量: ≤25kg", "充电功率: 600W", "占地面积: 2m²", "部署时间: <10分钟"],
     image: "https://images.unsplash.com/photo-1527977966376-1c8408f9f108?w=600&q=80",
+    link: "/products/airport/uhs-600",
   },
   {
     name: "UHS 400P自动机场",
     description: "便携式自动机场，快速部署，适合临时性巡检和应急响应场景，单人即可完成搬运和安装。",
     specs: ["载机重量: ≤15kg", "充电功率: 400W", "整机重量: <50kg", "便携设计"],
     image: "https://images.unsplash.com/photo-1559827260-dc66d52bef19?w=600&q=80",
+    link: "/products/airport/uhs-400p",
   },
 ];
 
