@@ -89,7 +89,7 @@ export const HeroSection = () => {
                     </Button>
                   </Link>
                   <Link to="/contact">
-                    <Button variant="outline" className="border-2 border-primary-foreground/30 text-primary-foreground hover:bg-primary-foreground/10 px-8 py-6 text-lg font-semibold backdrop-blur-sm">
+                    <Button className="bg-primary-foreground/10 border-2 border-primary-foreground/40 text-primary-foreground hover:bg-primary-foreground/20 hover:border-primary-foreground/60 px-8 py-6 text-lg font-semibold backdrop-blur-sm transition-all">
                       联系我们
                     </Button>
                   </Link>
