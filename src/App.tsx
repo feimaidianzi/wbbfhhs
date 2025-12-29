@@ -20,6 +20,10 @@ import Firefighting from "./pages/products/Firefighting";
 import WireLaying from "./pages/products/WireLaying";
 import MultiRotor from "./pages/products/MultiRotor";
 import Swarm from "./pages/products/Swarm";
+import VehicleMountedAirport from "./pages/products/airport/VehicleMountedAirport";
+import UHS1000 from "./pages/products/airport/UHS1000";
+import UHS600 from "./pages/products/airport/UHS600";
+import UHS400P from "./pages/products/airport/UHS400P";
 
 const queryClient = new QueryClient();
 
@@ -40,6 +44,10 @@ const App = () => (
           <Route path="/news" element={<News />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/products/airport" element={<Airport />} />
+          <Route path="/products/airport/vehicle-mounted" element={<VehicleMountedAirport />} />
+          <Route path="/products/airport/uhs-1000" element={<UHS1000 />} />
+          <Route path="/products/airport/uhs-600" element={<UHS600 />} />
+          <Route path="/products/airport/uhs-400p" element={<UHS400P />} />
           <Route path="/products/tethered" element={<Tethered />} />
           <Route path="/products/logistics" element={<Logistics />} />
           <Route path="/products/firefighting" element={<Firefighting />} />
