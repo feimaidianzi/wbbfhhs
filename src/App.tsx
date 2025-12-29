@@ -41,15 +41,13 @@ import SwarmCustom from "./pages/custom-research/SwarmCustom";
 import SoftwareCustom from "./pages/custom-research/Software";
 import PayloadCustom from "./pages/custom-research/PayloadCustom";
 // Application detail pages
-import Water from "./pages/applications/Water";
-import Traffic from "./pages/applications/Traffic";
-import Environment from "./pages/applications/Environment";
-import SmartCity from "./pages/applications/SmartCity";
-import Emergency from "./pages/applications/Emergency";
-import FiveG from "./pages/applications/FiveG";
-import Police from "./pages/applications/Police";
-import Surveying from "./pages/applications/Surveying";
-import Power from "./pages/applications/Power";
+import PowerInspection from "./pages/applications/PowerInspection";
+import LogisticsApp from "./pages/applications/LogisticsApp";
+import Military from "./pages/applications/Military";
+import EnvironmentApp from "./pages/applications/EnvironmentApp";
+import FirefightingApp from "./pages/applications/FirefightingApp";
+import TetheredApp from "./pages/applications/TetheredApp";
+import Solutions from "./pages/applications/Solutions";
 
 const queryClient = new QueryClient();
 
@@ -63,15 +61,13 @@ const App = () => (
           <Route path="/" element={<Index />} />
           <Route path="/about" element={<About />} />
           <Route path="/applications" element={<Applications />} />
-          <Route path="/applications/water" element={<Water />} />
-          <Route path="/applications/traffic" element={<Traffic />} />
-          <Route path="/applications/environment" element={<Environment />} />
-          <Route path="/applications/smart-city" element={<SmartCity />} />
-          <Route path="/applications/emergency" element={<Emergency />} />
-          <Route path="/applications/5g" element={<FiveG />} />
-          <Route path="/applications/police" element={<Police />} />
-          <Route path="/applications/surveying" element={<Surveying />} />
-          <Route path="/applications/power" element={<Power />} />
+          <Route path="/applications/power-inspection" element={<PowerInspection />} />
+          <Route path="/applications/logistics" element={<LogisticsApp />} />
+          <Route path="/applications/military" element={<Military />} />
+          <Route path="/applications/environment" element={<EnvironmentApp />} />
+          <Route path="/applications/firefighting" element={<FirefightingApp />} />
+          <Route path="/applications/tethered" element={<TetheredApp />} />
+          <Route path="/applications/solutions" element={<Solutions />} />
           <Route path="/software" element={<Software />} />
           <Route path="/low-altitude" element={<LowAltitude />} />
           <Route path="/custom-research" element={<CustomResearch />} />
