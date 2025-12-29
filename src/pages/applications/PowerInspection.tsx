@@ -13,6 +13,12 @@ import powerEquipment from "@/assets/power/power-equipment.jpg";
 import aerialCorridor from "@/assets/power/aerial-corridor.jpg";
 import substationImg from "@/assets/power/substation.jpg";
 
+// 导入缺陷类型配图
+import defectDamperFall from "@/assets/power/defect-damper-fall.jpg";
+import defectWireStrand from "@/assets/power/defect-wire-strand.jpg";
+import defectDamperShift from "@/assets/power/defect-damper-shift.jpg";
+import defectWireLoose from "@/assets/power/defect-wire-loose.jpg";
+
 const stats = [
   { value: "20倍+", label: "效率提升" },
   { value: "95%+", label: "识别准确率" },
@@ -50,10 +56,10 @@ const fineInspectionServices = [
 ];
 
 const defectTypes = [
-  { image: "/images/power/case-cap-damage.png", title: "保护帽损坏", desc: "杆塔顶部保护帽破损或脱落" },
-  { image: "/images/power/case-wire-strand.png", title: "导线散股", desc: "导线股线松散或断裂" },
-  { image: "/images/power/case-damper-shift.png", title: "防振锤移位", desc: "防振锤位置偏移异常" },
-  { image: "/images/power/case-wire-break.png", title: "导线断股", desc: "导线多股断裂需紧急处理" }
+  { image: defectDamperFall, title: "保护帽损坏", desc: "杆塔顶部保护帽破损或脱落" },
+  { image: defectWireStrand, title: "导线散股", desc: "导线股线松散或断裂" },
+  { image: defectDamperShift, title: "防振锤移位", desc: "防振锤位置偏移异常" },
+  { image: defectWireLoose, title: "导线断股", desc: "导线多股断裂需紧急处理" }
 ];
 
 const treeInspectionFeatures = [
