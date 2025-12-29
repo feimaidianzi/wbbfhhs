@@ -11,6 +11,7 @@ import Software from "./pages/Software";
 import LowAltitude from "./pages/LowAltitude";
 import CustomResearch from "./pages/CustomResearch";
 import FPV from "./pages/FPV";
+import FPVCategory from "./pages/fpv/FPVCategory";
 import News from "./pages/News";
 import Contact from "./pages/Contact";
 import Airport from "./pages/products/Airport";
@@ -41,6 +42,7 @@ const App = () => (
           <Route path="/low-altitude" element={<LowAltitude />} />
           <Route path="/custom-research" element={<CustomResearch />} />
           <Route path="/fpv" element={<FPV />} />
+          <Route path="/fpv/:category" element={<FPVCategory />} />
           <Route path="/news" element={<News />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/products/airport" element={<Airport />} />
