@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Phone, Mail, MapPin, Clock, MessageCircle, Send } from "lucide-react";
 import { useState } from "react";
 import { useToast } from "@/hooks/use-toast";
+import { SEO } from "@/components/SEO";
 
 const contactInfo = [
   { icon: Phone, title: "电话咨询", value: "18771937458", href: "tel:18771937458" },
@@ -50,8 +51,34 @@ const Contact = () => {
     setFormData({ name: "", phone: "", email: "", company: "", message: "" });
   };
 
+  const contactStructuredData = {
+    '@context': 'https://schema.org',
+    '@type': 'ContactPage',
+    name: '联系长凌电子',
+    description: '获取长凌电子的联系方式，咨询无人机产品和定制服务',
+    mainEntity: {
+      '@type': 'Organization',
+      name: '长凌电子科技有限公司',
+      telephone: '+86-18771937458',
+      email: 'info@changling.com',
+      address: {
+        '@type': 'PostalAddress',
+        addressLocality: '武汉',
+        addressRegion: '湖北',
+        addressCountry: 'CN',
+      },
+    },
+  };
+
   return (
     <div className="min-h-screen">
+      <SEO
+        title="联系我们"
+        description="联系长凌电子，获取专业无人机解决方案咨询服务。电话：18771937458，总部地址：湖北省武汉市东湖高新区。"
+        keywords="联系长凌电子,无人机咨询,无人机定制服务,武汉无人机公司"
+        url="/contact"
+        structuredData={contactStructuredData}
+      />
       <Header />
       <main className="pt-16 md:pt-20">
         {/* Hero Section */}

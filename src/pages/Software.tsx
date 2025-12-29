@@ -3,6 +3,7 @@ import { Footer } from "@/components/Footer";
 import { FloatingContact } from "@/components/FloatingContact";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Monitor, Map, Cloud, Shield, Settings, Database } from "lucide-react";
+import { SEO } from "@/components/SEO";
 
 const systems = [
   {
@@ -46,6 +47,12 @@ const systems = [
 const Software = () => {
   return (
     <div className="min-h-screen">
+      <SEO
+        title="软件系统"
+        description="长凌电子无人机软件系统，包括地面站控制系统、航线规划系统、云平台管理系统、数据处理系统等专业软件解决方案。"
+        keywords="无人机软件,地面站系统,航线规划,云平台管理,无人机数据处理,飞控软件"
+        url="/software"
+      />
       <Header />
       <main className="pt-16 md:pt-20">
         {/* Hero Section */}

@@ -2,7 +2,8 @@ import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { FloatingContact } from "@/components/FloatingContact";
 import { Button } from "@/components/ui/button";
-import { Target, Users, Award, Building, History, ArrowRight } from "lucide-react";
+import { Target, Users, Award, ArrowRight } from "lucide-react";
+import { SEO, createBreadcrumbStructuredData } from "@/components/SEO";
 
 const milestones = [
   { year: "2015", title: "公司成立", description: "长凌电子在武汉正式成立，开启无人机研发之路" },
@@ -27,8 +28,20 @@ const stats = [
 ];
 
 const About = () => {
+  const breadcrumbData = createBreadcrumbStructuredData([
+    { name: '首页', url: '/' },
+    { name: '关于长凌', url: '/about' },
+  ]);
+
   return (
     <div className="min-h-screen">
+      <SEO
+        title="关于长凌"
+        description="长凌电子科技有限公司成立于2015年，是一家专注于工业无人机研发、生产和销售的高新技术企业，拥有200+专业员工、50+发明专利。"
+        keywords="长凌电子,关于我们,无人机公司,工业无人机企业,无人机研发"
+        url="/about"
+        structuredData={breadcrumbData}
+      />
       <Header />
       <main className="pt-16 md:pt-20">
         {/* Hero Section */}

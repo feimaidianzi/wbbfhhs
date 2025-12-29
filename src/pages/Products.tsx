@@ -5,6 +5,7 @@ import { FloatingContact } from "@/components/FloatingContact";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Grid3X3, List } from "lucide-react";
 import { Link } from "react-router-dom";
+import { SEO, createBreadcrumbStructuredData } from "@/components/SEO";
 
 const categories = [
   { id: "all", name: "全部产品" },
@@ -203,8 +204,20 @@ const Products = () => {
     ? products 
     : products.filter(p => p.category === activeCategory);
 
+  const breadcrumbData = createBreadcrumbStructuredData([
+    { name: '首页', url: '/' },
+    { name: '系列产品', url: '/products' },
+  ]);
+
   return (
     <div className="min-h-screen">
+      <SEO
+        title="系列产品"
+        description="长凌电子全系列无人机产品，包括多旋翼无人机、自动机场、系留无人机、物流无人机、集群无人机等工业级解决方案。"
+        keywords="无人机产品,多旋翼无人机,自动机场,系留无人机,物流无人机,集群无人机,工业无人机"
+        url="/products"
+        structuredData={breadcrumbData}
+      />
       <Header />
       <main className="pt-16 md:pt-20">
         {/* Hero Banner */}

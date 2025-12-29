@@ -3,6 +3,7 @@ import { Footer } from "@/components/Footer";
 import { FloatingContact } from "@/components/FloatingContact";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Plane, Building, Truck, Camera, Globe, TrendingUp } from "lucide-react";
+import { SEO } from "@/components/SEO";
 
 const sectors = [
   {
@@ -47,6 +48,12 @@ const stats = [
 const LowAltitude = () => {
   return (
     <div className="min-h-screen">
+      <SEO
+        title="低空经济"
+        description="探索低空经济新机遇，长凌电子提供无人机物流、低空旅游、城市空中交通、空域管理等解决方案。"
+        keywords="低空经济,无人机物流,低空旅游,城市空中交通,空域管理,eVTOL"
+        url="/low-altitude"
+      />
       <Header />
       <main className="pt-16 md:pt-20">
         {/* Hero Section */}

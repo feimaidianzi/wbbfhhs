@@ -4,6 +4,7 @@ import { FloatingContact } from "@/components/FloatingContact";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Zap, Eye, Radio, Shield, Package, Gauge, Flower2, Plane, Navigation } from "lucide-react";
 import { Link } from "react-router-dom";
+import { SEO } from "@/components/SEO";
 
 const features = [
   { icon: Zap, title: "极速响应", description: "毫秒级操控响应，畅享飞行乐趣" },
@@ -115,6 +116,12 @@ const articles = [
 const FPV = () => {
   return (
     <div className="min-h-screen">
+      <SEO
+        title="FPV穿越机"
+        description="长凌电子FPV穿越机系列，包括套装系列、竞速系列、花飞系列、远航系列，体验极速飞行的乐趣。"
+        keywords="FPV穿越机,竞速无人机,花飞穿越机,FPV眼镜,穿越机套装"
+        url="/fpv"
+      />
       <Header />
       <main className="pt-16 md:pt-20">
         {/* Hero Section */}
