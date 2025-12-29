@@ -15,7 +15,7 @@ export const FloatingContact = () => {
           <Home className="w-5 h-5" />
         </button>
         <a
-          href="tel:18771937458"
+          href="tel:+8617674048404"
           className="w-12 h-12 bg-primary rounded-lg shadow-lg flex items-center justify-center text-primary-foreground hover:bg-navy-light transition-colors"
           title="电话咨询"
         >
@@ -49,7 +49,7 @@ export const FloatingContact = () => {
 
       {/* Bottom floating call button (mobile) */}
       <a
-        href="tel:18771937458"
+        href="tel:+8617674048404"
         className="fixed left-4 bottom-4 z-40 md:hidden flex items-center gap-2 bg-accent text-accent-foreground px-4 py-3 rounded-full shadow-lg animate-pulse"
       >
         <Phone className="w-5 h-5" />
