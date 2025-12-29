@@ -7,7 +7,6 @@ const productCategories = [
   { name: "长凌机场", href: "/products/airport", description: "全自动无人机起降平台", image: "https://images.unsplash.com/photo-1508614589041-895b88991e3e?w=120&q=80" },
   { name: "系留无人机", href: "/products/tethered", description: "24小时不间断工作", image: "https://images.unsplash.com/photo-1473968512647-3e447244af8f?w=120&q=80" },
   { name: "物流无人机", href: "/products/logistics", description: "高效智能配送系统", image: "https://images.unsplash.com/photo-1527977966376-1c8408f9f108?w=120&q=80" },
-  { name: "消防救援", href: "/products/firefighting", description: "应急救援解决方案", image: "https://images.unsplash.com/photo-1569863959165-56dae551d4fc?w=120&q=80" },
   { name: "架线无人机", href: "/products/wire-laying", description: "电力架线专用机型", image: "https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?w=120&q=80" },
   { name: "多旋翼无人机", href: "/products/multi-rotor", description: "工业级多旋翼平台", image: "https://images.unsplash.com/photo-1506947411487-a56738267384?w=120&q=80" },
   { name: "集群无人机", href: "/products/swarm", description: "智能集群控制系统", image: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=120&q=80" },
