@@ -10,7 +10,7 @@ const slides = [
     cta: "了解更多",
   },
   {
-    title: "翼飞智能机场",
+    title: "飞迈智能机场",
     subtitle: "全自动起降 · 智能巡检 · 无人值守",
     image: "https://images.unsplash.com/photo-1508614589041-895b88991e3e?w=1920&q=80",
     cta: "查看详情",
@@ -30,7 +30,7 @@ const slides = [
 ];
 
 const categories = [
-  "翼飞机场",
+  "飞迈机场",
   "系留无人机",
   "物流无人机",
   "消防救援",

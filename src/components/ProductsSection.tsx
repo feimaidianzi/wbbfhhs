@@ -56,7 +56,7 @@ export const ProductsSection = () => {
         {/* Section Header */}
         <div className="flex items-center justify-between mb-10">
           <h2 className="text-2xl md:text-3xl font-bold text-foreground">
-            翼飞无人机
+            飞迈无人机
           </h2>
           <Button variant="ghost" className="text-accent hover:text-orange-light group">
             查看更多
