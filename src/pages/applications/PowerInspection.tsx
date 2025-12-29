@@ -222,13 +222,6 @@ const PowerInspection = () => {
               ))}
             </div>
 
-            <div className="rounded-2xl overflow-hidden shadow-xl">
-              <img 
-                src={uavInspection} 
-                alt="无人机巡检优势" 
-                className="w-full h-auto"
-              />
-            </div>
           </div>
         </section>
 
