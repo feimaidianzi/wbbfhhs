@@ -18,6 +18,9 @@ const categories = [
   { id: "firefighting", name: "消防无人机" },
   { id: "agriculture", name: "植保无人机" },
   { id: "training", name: "教练无人机" },
+  { id: "work-drone", name: "作业无人机" },
+  { id: "fpv", name: "FPV穿越机" },
+  { id: "accessories", name: "无人机配件" },
   { id: "payload", name: "吊舱载荷" },
 ];
 
@@ -234,6 +237,65 @@ const products = [
     specs: ["轴距: 680mm", "续航: 25min", "载重: 2kg"],
     image: "https://images.unsplash.com/photo-1506947411487-a56738267384?w=600&q=80",
     link: "/products/training",
+  },
+  // 作业无人机
+  {
+    id: 23,
+    name: "TUTU-32E 复合翼无人机",
+    category: "work-drone",
+    description: "电动垂直起降复合翼平台，航时长、速度快、载荷大",
+    specs: ["翼展: 3.2m", "航时: 4h", "载荷: 5kg"],
+    image: "https://images.unsplash.com/photo-1559827260-dc66d52bef19?w=600&q=80",
+    link: "/products/work-drone",
+    hot: true,
+  },
+  {
+    id: 24,
+    name: "YP-T5 垂起固定翼",
+    category: "work-drone",
+    description: "超轻碳纤维机身，结构强度高，适合长距离测绘巡检",
+    specs: ["翼展: 2.5m", "航时: 2.5h", "载荷: 3kg"],
+    image: "https://images.unsplash.com/photo-1508614589041-895b88991e3e?w=600&q=80",
+    link: "/products/work-drone",
+  },
+  // FPV穿越机
+  {
+    id: 25,
+    name: "CL-R5 竞速套装",
+    category: "fpv",
+    description: "专业竞速级FPV无人机，适合赛事训练和极限飞行",
+    specs: ["时速: 160km/h", "延迟: <28ms", "5寸机架"],
+    image: "https://images.unsplash.com/photo-1473968512647-3e447244af8f?w=600&q=80",
+    link: "/fpv",
+    hot: true,
+  },
+  {
+    id: 26,
+    name: "CL-LR7 远航版",
+    category: "fpv",
+    description: "7寸长续航穿越机，探索更远距离",
+    specs: ["续航: 35min", "图传: 15km", "载重: 500g"],
+    image: "https://images.unsplash.com/photo-1506947411487-a56738267384?w=600&q=80",
+    link: "/fpv",
+  },
+  // 无人机配件
+  {
+    id: 27,
+    name: "智能飞行电池",
+    category: "accessories",
+    description: "高能量密度锂聚合物电池，支持智能电量管理",
+    specs: ["容量: 5200mAh", "电压: 22.2V", "循环: 300+"],
+    image: "https://images.unsplash.com/photo-1619641805634-98e5c7f0c8d3?w=600&q=80",
+    link: "/products/accessories",
+  },
+  {
+    id: 28,
+    name: "碳纤维桨叶",
+    category: "accessories",
+    description: "高强度碳纤维复合材料，动力效率提升15%",
+    specs: ["材质: 碳纤维", "适配: 全系列", "效率: +15%"],
+    image: "https://images.unsplash.com/photo-1473968512647-3e447244af8f?w=600&q=80",
+    link: "/products/accessories",
   },
 ];
 
