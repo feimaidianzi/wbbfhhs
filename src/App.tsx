@@ -23,6 +23,8 @@ import WireLaying from "./pages/products/WireLaying";
 import MultiRotor from "./pages/products/MultiRotor";
 import Agriculture from "./pages/products/Agriculture";
 import Training from "./pages/products/Training";
+import WorkDrone from "./pages/products/WorkDrone";
+import Accessories from "./pages/products/Accessories";
 import Swarm from "./pages/products/Swarm";
 import VehicleMountedAirport from "./pages/products/airport/VehicleMountedAirport";
 import UHS1000 from "./pages/products/airport/UHS1000";
@@ -113,6 +115,8 @@ const App = () => (
           <Route path="/products/swarm" element={<Swarm />} />
           <Route path="/products/agriculture" element={<Agriculture />} />
           <Route path="/products/training" element={<Training />} />
+          <Route path="/products/work-drone" element={<WorkDrone />} />
+          <Route path="/products/accessories" element={<Accessories />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>

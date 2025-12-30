@@ -12,6 +12,9 @@ const productCategories = [
   { name: "集群无人机", href: "/products/swarm", description: "智能集群控制系统", image: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=120&q=80" },
   { name: "植保无人机", href: "/products/agriculture", description: "智慧农业喷洒作业", image: "https://images.unsplash.com/photo-1586771107445-d3ca888129ff?w=120&q=80" },
   { name: "教练无人机", href: "/products/training", description: "专业培训教学机型", image: "https://images.unsplash.com/photo-1473968512647-3e447244af8f?w=120&q=80" },
+  { name: "作业无人机", href: "/products/work-drone", description: "复合翼长航时平台", image: "https://images.unsplash.com/photo-1559827260-dc66d52bef19?w=120&q=80" },
+  { name: "FPV穿越机", href: "/fpv", description: "第一视角飞行体验", image: "https://images.unsplash.com/photo-1473968512647-3e447244af8f?w=120&q=80" },
+  { name: "无人机配件", href: "/products/accessories", description: "原装配件与工具", image: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=120&q=80" },
 ];
 
 const applicationCategories = [
@@ -39,7 +42,6 @@ const navItems = [
   { name: "软件系统", href: "/software" },
   { name: "低空经济", href: "/low-altitude" },
   { name: "科研定制", href: "/custom-research", hasDropdown: true, children: researchCategories },
-  { name: "FPV", href: "/fpv" },
   { name: "新闻中心", href: "/news" },
   { name: "联系我们", href: "/contact" },
 ];

@@ -44,6 +44,20 @@ const categories = [
     image: "https://images.unsplash.com/photo-1473968512647-3e447244af8f?w=600&q=80",
     link: "/products/training",
   },
+  {
+    name: "作业无人机",
+    description: "复合翼长航时平台",
+    price: "远距离作业方案",
+    image: "https://images.unsplash.com/photo-1559827260-dc66d52bef19?w=600&q=80",
+    link: "/products/work-drone",
+  },
+  {
+    name: "FPV穿越机",
+    description: "第一视角飞行体验",
+    price: "竞速娱乐方案",
+    image: "https://images.unsplash.com/photo-1473968512647-3e447244af8f?w=600&q=80",
+    link: "/fpv",
+  },
 ];
 
 export const ProductsSection = () => {
