@@ -30,6 +30,20 @@ const categories = [
     image: "https://images.unsplash.com/photo-1506947411487-a56738267384?w=600&q=80",
     link: "/products/multi-rotor",
   },
+  {
+    name: "植保无人机",
+    description: "智慧农业喷洒作业",
+    price: "精准农业方案",
+    image: "https://images.unsplash.com/photo-1586771107445-d3ca888129ff?w=600&q=80",
+    link: "/products/agriculture",
+  },
+  {
+    name: "教练无人机",
+    description: "专业培训教学机型",
+    price: "无人机培训方案",
+    image: "https://images.unsplash.com/photo-1473968512647-3e447244af8f?w=600&q=80",
+    link: "/products/training",
+  },
 ];
 
 export const ProductsSection = () => {

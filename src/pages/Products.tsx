@@ -16,6 +16,8 @@ const categories = [
   { id: "tethered", name: "系留无人机" },
   { id: "logistics", name: "物流无人机" },
   { id: "firefighting", name: "消防无人机" },
+  { id: "agriculture", name: "植保无人机" },
+  { id: "training", name: "教练无人机" },
   { id: "payload", name: "吊舱载荷" },
 ];
 
@@ -193,6 +195,45 @@ const products = [
     specs: ["分辨率: 4K", "变焦: 40倍", "激光测距"],
     image: "https://images.unsplash.com/photo-1485827404703-89b55fcc595e?w=600&q=80",
     link: "/products/multi-rotor",
+  },
+  // 植保无人机
+  {
+    id: 19,
+    name: "ZB-16植保无人机",
+    category: "agriculture",
+    description: "16升药箱容量，适合小型农田精准作业",
+    specs: ["药箱: 16L", "喷幅: 4-6m", "续航: 15min"],
+    image: "https://images.unsplash.com/photo-1586771107445-d3ca888129ff?w=600&q=80",
+    link: "/products/agriculture",
+    hot: true,
+  },
+  {
+    id: 20,
+    name: "ZB-30植保无人机",
+    category: "agriculture",
+    description: "30升大容量药箱，高效大面积作业首选",
+    specs: ["药箱: 30L", "喷幅: 5-8m", "续航: 12min"],
+    image: "https://images.unsplash.com/photo-1625246333195-78d9c38ad449?w=600&q=80",
+    link: "/products/agriculture",
+  },
+  // 教练无人机
+  {
+    id: 21,
+    name: "六轴教练机 Hawk-02",
+    category: "training",
+    description: "入门级六轴教练机，稳定易操控，适合初学者",
+    specs: ["轴距: 450mm", "续航: 20min", "载重: 0.5kg"],
+    image: "https://images.unsplash.com/photo-1473968512647-3e447244af8f?w=600&q=80",
+    link: "/products/training",
+  },
+  {
+    id: 22,
+    name: "八轴教练机 Hawk-01",
+    category: "training",
+    description: "专业级八轴教练机，模拟工业机操控体验",
+    specs: ["轴距: 680mm", "续航: 25min", "载重: 2kg"],
+    image: "https://images.unsplash.com/photo-1506947411487-a56738267384?w=600&q=80",
+    link: "/products/training",
   },
 ];
 

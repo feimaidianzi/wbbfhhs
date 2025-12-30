@@ -21,6 +21,8 @@ import Logistics from "./pages/products/Logistics";
 import Firefighting from "./pages/products/Firefighting";
 import WireLaying from "./pages/products/WireLaying";
 import MultiRotor from "./pages/products/MultiRotor";
+import Agriculture from "./pages/products/Agriculture";
+import Training from "./pages/products/Training";
 import Swarm from "./pages/products/Swarm";
 import VehicleMountedAirport from "./pages/products/airport/VehicleMountedAirport";
 import UHS1000 from "./pages/products/airport/UHS1000";
@@ -109,6 +111,8 @@ const App = () => (
           <Route path="/products/multi-rotor/x1200" element={<X1200 />} />
           <Route path="/products/multi-rotor/x1600" element={<X1600 />} />
           <Route path="/products/swarm" element={<Swarm />} />
+          <Route path="/products/agriculture" element={<Agriculture />} />
+          <Route path="/products/training" element={<Training />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>

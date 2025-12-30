@@ -10,6 +10,8 @@ const productCategories = [
   { name: "架线无人机", href: "/products/wire-laying", description: "电力架线专用机型", image: "https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?w=120&q=80" },
   { name: "多旋翼无人机", href: "/products/multi-rotor", description: "工业级多旋翼平台", image: "https://images.unsplash.com/photo-1506947411487-a56738267384?w=120&q=80" },
   { name: "集群无人机", href: "/products/swarm", description: "智能集群控制系统", image: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=120&q=80" },
+  { name: "植保无人机", href: "/products/agriculture", description: "智慧农业喷洒作业", image: "https://images.unsplash.com/photo-1586771107445-d3ca888129ff?w=120&q=80" },
+  { name: "教练无人机", href: "/products/training", description: "专业培训教学机型", image: "https://images.unsplash.com/photo-1473968512647-3e447244af8f?w=120&q=80" },
 ];
 
 const applicationCategories = [
