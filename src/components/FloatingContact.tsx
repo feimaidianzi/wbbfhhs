@@ -56,17 +56,21 @@ export const FloatingContact = () => {
         <span className="text-sm font-medium">点击拨打电话</span>
       </a>
 
-      {/* Promo banner */}
-      <div className="fixed bottom-4 right-4 z-40 hidden md:block">
-        <div className="bg-accent text-accent-foreground p-4 rounded-xl shadow-xl max-w-xs">
-          <div className="flex items-center gap-2 mb-2">
-            <span className="text-lg">🎉</span>
-            <span className="font-semibold">限时优惠</span>
+      {/* Coming Soon banner */}
+      <div className="fixed bottom-4 right-4 z-40 hidden md:block animate-fade-in">
+        <div className="bg-gradient-to-r from-primary to-primary/90 text-primary-foreground p-4 rounded-xl shadow-xl max-w-xs border border-accent/30 relative overflow-hidden">
+          {/* Animated background glow */}
+          <div className="absolute inset-0 bg-gradient-to-r from-accent/10 via-accent/20 to-accent/10 animate-[pulse_3s_ease-in-out_infinite]" />
+          <div className="relative z-10">
+            <div className="flex items-center gap-2 mb-2">
+              <span className="text-lg animate-[pulse_2s_ease-in-out_infinite]">🚀</span>
+              <span className="font-semibold text-accent">即将上市</span>
+            </div>
+            <h4 className="font-bold mb-1 text-primary-foreground">无人机AI制导模块</h4>
+            <p className="text-sm opacity-90">
+              智能目标识别、自主航迹规划、精准制导控制，敬请期待！
+            </p>
           </div>
-          <h4 className="font-bold mb-1">新品上市 · 钜惠来袭</h4>
-          <p className="text-sm opacity-90">
-            智能无人机快递柜即将推出，立即咨询享优惠!
-          </p>
         </div>
       </div>
     </>
