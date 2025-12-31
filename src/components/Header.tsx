@@ -2,6 +2,7 @@ import { useState, useRef } from "react";
 import { Menu, X, Phone, ChevronDown } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
+import logo from "@/assets/logo.png";
 
 const productCategories = [
   { name: "长凌机场", href: "/products/airport", description: "全自动无人机起降平台", image: "https://images.unsplash.com/photo-1508614589041-895b88991e3e?w=120&q=80" },
@@ -89,12 +90,8 @@ export const Header = () => {
         <div className="flex items-center justify-between h-16 md:h-20">
           {/* Logo */}
           <Link to="/" className="flex items-center gap-2">
-            <div className="flex items-center gap-1">
-              <div className="w-8 h-8 bg-accent rounded-sm flex items-center justify-center">
-                <span className="text-accent-foreground font-bold text-lg">长</span>
-              </div>
-              <span className="text-primary-foreground font-bold text-xl hidden sm:block">长凌电子</span>
-            </div>
+            <img src={logo} alt="长凌电子LOGO" className="h-8 md:h-10 w-auto" />
+            <span className="text-primary-foreground font-bold text-xl hidden sm:block">长凌电子</span>
           </Link>
 
           {/* Desktop Navigation */}

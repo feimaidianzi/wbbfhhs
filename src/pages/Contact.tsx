@@ -8,27 +8,17 @@ import { useToast } from "@/hooks/use-toast";
 import { SEO } from "@/components/SEO";
 
 const contactInfo = [
-  { icon: Phone, title: "电话咨询", value: "18771937458", href: "tel:18771937458" },
-  { icon: Mail, title: "邮箱", value: "info@changling.com", href: "mailto:info@changling.com" },
+  { icon: Phone, title: "电话咨询", value: "+8617674048404", href: "tel:+8617674048404" },
+  { icon: Mail, title: "邮箱", value: "market@chaniuav.com", href: "mailto:market@chaniuav.com" },
   { icon: MessageCircle, title: "QQ客服", value: "123456789", href: "#" },
   { icon: Clock, title: "工作时间", value: "周一至周五 9:00-18:00", href: null },
 ];
 
 const offices = [
   {
-    city: "武汉总部",
-    address: "湖北省武汉市东湖高新区光谷大道XXX号",
-    phone: "027-XXXXXXXX",
-  },
-  {
-    city: "深圳分公司",
-    address: "广东省深圳市南山区科技园XXX号",
-    phone: "0755-XXXXXXXX",
-  },
-  {
-    city: "北京分公司",
-    address: "北京市海淀区中关村XXX号",
-    phone: "010-XXXXXXXX",
+    city: "邵阳总部",
+    address: "湖南省邵阳市",
+    phone: "+8617674048404",
   },
 ];
 
@@ -59,12 +49,12 @@ const Contact = () => {
     mainEntity: {
       '@type': 'Organization',
       name: '长凌电子科技有限公司',
-      telephone: '+86-18771937458',
-      email: 'info@changling.com',
+      telephone: '+8617674048404',
+      email: 'market@chaniuav.com',
       address: {
         '@type': 'PostalAddress',
-        addressLocality: '武汉',
-        addressRegion: '湖北',
+        addressLocality: '邵阳',
+        addressRegion: '湖南',
         addressCountry: 'CN',
       },
     },
@@ -74,8 +64,8 @@ const Contact = () => {
     <div className="min-h-screen">
       <SEO
         title="联系我们"
-        description="联系长凌电子，获取专业无人机解决方案咨询服务。电话：18771937458，总部地址：湖北省武汉市东湖高新区。"
-        keywords="联系长凌电子,无人机咨询,无人机定制服务,武汉无人机公司"
+        description="联系长凌电子，获取专业无人机解决方案咨询服务。电话：+8617674048404，总部地址：湖南省邵阳市。"
+        keywords="联系长凌电子,无人机咨询,无人机定制服务,邵阳无人机公司"
         url="/contact"
         structuredData={contactStructuredData}
       />

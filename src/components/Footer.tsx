@@ -1,4 +1,5 @@
 import { Phone, Mail, MapPin, MessageCircle } from "lucide-react";
+import logo from "@/assets/logo.png";
 
 export const Footer = () => {
   return (
@@ -8,9 +9,7 @@ export const Footer = () => {
           {/* Company Info */}
           <div className="lg:col-span-1">
             <div className="flex items-center gap-2 mb-4">
-              <div className="w-10 h-10 bg-accent rounded-lg flex items-center justify-center">
-                <span className="text-accent-foreground font-bold text-xl">长</span>
-              </div>
+              <img src={logo} alt="长凌电子LOGO" className="h-10 w-auto" />
               <span className="font-bold text-xl">长凌电子</span>
             </div>
             <p className="text-primary-foreground/80 text-sm leading-relaxed mb-4">
@@ -74,7 +73,7 @@ export const Footer = () => {
               </li>
               <li className="flex items-start gap-3">
                 <MapPin className="w-5 h-5 text-accent flex-shrink-0" />
-                <span className="text-sm">湖北省武汉市</span>
+                <span className="text-sm">湖南省邵阳市</span>
               </li>
             </ul>
           </div>
