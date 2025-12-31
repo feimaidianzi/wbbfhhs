@@ -8,7 +8,19 @@ import NotFound from "./pages/NotFound";
 import About from "./pages/About";
 import Applications from "./pages/Applications";
 import Software from "./pages/Software";
-import LowAltitude from "./pages/LowAltitude";
+import ExamSystem from "./pages/software/ExamSystem";
+import PVInspection from "./pages/software/PVInspection";
+import DroneManagement from "./pages/software/DroneManagement";
+import PowerInspectionSystem from "./pages/software/PowerInspectionSystem";
+import PVSystem from "./pages/software/PVSystem";
+import EnvironmentSystem from "./pages/software/EnvironmentSystem";
+import GroundStation from "./pages/software/GroundStation";
+import SwarmGroundStation from "./pages/software/SwarmGroundStation";
+import Projects from "./pages/Projects";
+import ProjectTraining from "./pages/projects/ProjectTraining";
+import DroneShow from "./pages/projects/DroneShow";
+import FlightService from "./pages/projects/FlightService";
+import ProjectCooperation from "./pages/projects/ProjectCooperation";
 import CustomResearch from "./pages/CustomResearch";
 import FPV from "./pages/FPV";
 import FPVCategory from "./pages/fpv/FPVCategory";
@@ -81,7 +93,19 @@ const App = () => (
           <Route path="/applications/tethered" element={<TetheredApp />} />
           <Route path="/applications/solutions" element={<Solutions />} />
           <Route path="/software" element={<Software />} />
-          <Route path="/low-altitude" element={<LowAltitude />} />
+          <Route path="/software/exam-system" element={<ExamSystem />} />
+          <Route path="/software/pv-inspection" element={<PVInspection />} />
+          <Route path="/software/drone-management" element={<DroneManagement />} />
+          <Route path="/software/power-inspection-system" element={<PowerInspectionSystem />} />
+          <Route path="/software/pv-system" element={<PVSystem />} />
+          <Route path="/software/environment-system" element={<EnvironmentSystem />} />
+          <Route path="/software/ground-station" element={<GroundStation />} />
+          <Route path="/software/swarm-ground-station" element={<SwarmGroundStation />} />
+          <Route path="/projects" element={<Projects />} />
+          <Route path="/projects/training" element={<ProjectTraining />} />
+          <Route path="/projects/show" element={<DroneShow />} />
+          <Route path="/projects/flight-service" element={<FlightService />} />
+          <Route path="/projects/cooperation" element={<ProjectCooperation />} />
           <Route path="/custom-research" element={<CustomResearch />} />
           <Route path="/custom-research/airport" element={<AirportCustom />} />
           <Route path="/custom-research/swarm" element={<SwarmCustom />} />

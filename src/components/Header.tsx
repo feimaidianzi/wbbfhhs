@@ -34,13 +34,31 @@ const researchCategories = [
   { name: "挂载定制", href: "/custom-research/payload", description: "专业挂载载荷定制", image: "https://images.unsplash.com/photo-1506947411487-a56738267384?w=120&q=80" },
 ];
 
+const softwareCategories = [
+  { name: "模拟考试系统", href: "/software/exam-system", description: "无人机培训考核平台", image: "https://images.unsplash.com/photo-1434030216411-0b793f4b4173?w=120&q=80" },
+  { name: "光伏巡检识别系统", href: "/software/pv-inspection", description: "AI光伏缺陷识别", image: "https://images.unsplash.com/photo-1509391366360-2e959784a276?w=120&q=80" },
+  { name: "无人机管理平台", href: "/software/drone-management", description: "设备与任务管理", image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=120&q=80" },
+  { name: "电力巡检管理系统", href: "/software/power-inspection-system", description: "输电线路智能巡检", image: "https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?w=120&q=80" },
+  { name: "光伏巡检系统", href: "/software/pv-system", description: "光伏电站运维管理", image: "https://images.unsplash.com/photo-1508514177221-188b1cf16e9d?w=120&q=80" },
+  { name: "环保管理系统", href: "/software/environment-system", description: "环境监测管理平台", image: "https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=120&q=80" },
+  { name: "无人机地面站软件", href: "/software/ground-station", description: "专业飞控地面站", image: "https://images.unsplash.com/photo-1517694712202-14dd9538aa97?w=120&q=80" },
+  { name: "集群地面站软件", href: "/software/swarm-ground-station", description: "集群编队控制", image: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=120&q=80" },
+];
+
+const projectCategories = [
+  { name: "无人机培训", href: "/projects/training", description: "专业飞手培训服务", image: "https://images.unsplash.com/photo-1434030216411-0b793f4b4173?w=120&q=80" },
+  { name: "无人机表演", href: "/projects/show", description: "集群灯光表演服务", image: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=120&q=80" },
+  { name: "飞行服务", href: "/projects/flight-service", description: "专业飞行作业服务", image: "https://images.unsplash.com/photo-1473968512647-3e447244af8f?w=120&q=80" },
+  { name: "项目合作", href: "/projects/cooperation", description: "定制化项目合作", image: "https://images.unsplash.com/photo-1552664730-d307ca884978?w=120&q=80" },
+];
+
 const navItems = [
   { name: "首页", href: "/" },
   { name: "关于长凌", href: "/about" },
   { name: "系列产品", href: "/products", hasDropdown: true, children: productCategories },
   { name: "行业应用", href: "/applications", hasDropdown: true, children: applicationCategories },
-  { name: "软件系统", href: "/software" },
-  { name: "低空经济", href: "/low-altitude" },
+  { name: "软件系统", href: "/software", hasDropdown: true, children: softwareCategories },
+  { name: "项目合作", href: "/projects", hasDropdown: true, children: projectCategories },
   { name: "科研定制", href: "/custom-research", hasDropdown: true, children: researchCategories },
   { name: "新闻中心", href: "/news" },
   { name: "联系我们", href: "/contact" },
