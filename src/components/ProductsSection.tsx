@@ -75,7 +75,7 @@ export const ProductsSection = () => {
               <span className="text-accent text-2xl font-black">\&gt;</span>
             </div>
             <p className="text-muted-foreground text-lg leading-relaxed">
-              晓鸟科技提供全系列工业级无人机产品，从自动机场到系留平台，从物流配送到多旋翼平台，满足各行业应用需求。
+              长凌电子提供全系列工业级无人机产品，从自动机场到系留平台，从物流配送到多旋翼平台，满足各行业应用需求。
             </p>
           </div>
           <div className="flex items-end justify-start lg:justify-end">

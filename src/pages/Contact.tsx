@@ -44,11 +44,11 @@ const Contact = () => {
   const contactStructuredData = {
     '@context': 'https://schema.org',
     '@type': 'ContactPage',
-    name: '联系晓鸟科技',
-    description: '获取晓鸟科技的联系方式，咨询无人机产品和定制服务',
+    name: '联系长凌电子',
+    description: '获取长凌电子的联系方式，咨询无人机产品和定制服务',
     mainEntity: {
       '@type': 'Organization',
-      name: '晓鸟科技有限公司',
+      name: '长凌电子有限公司',
       telephone: '+8617674048404',
       email: 'market@chaniuav.com',
       address: {
@@ -64,8 +64,8 @@ const Contact = () => {
     <div className="min-h-screen">
       <SEO
         title="联系我们"
-        description="联系晓鸟科技，获取专业无人机解决方案咨询服务。电话：+8617674048404，总部地址：湖南省邵阳市。"
-        keywords="联系晓鸟科技,无人机咨询,无人机定制服务,邵阳无人机公司"
+        description="联系长凌电子，获取专业无人机解决方案咨询服务。电话：+8617674048404，总部地址：湖南省邵阳市。"
+        keywords="联系长凌电子,无人机咨询,无人机定制服务,邵阳无人机公司"
         url="/contact"
         structuredData={contactStructuredData}
       />
