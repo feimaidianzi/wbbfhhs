@@ -89,9 +89,8 @@ export const Header = () => {
       <div className="container-custom">
         <div className="flex items-center justify-between h-16 md:h-20">
           {/* Logo */}
-          <Link to="/" className="flex items-center gap-2">
+          <Link to="/" className="flex items-center">
             <img src={logo} alt="长凌电子LOGO" className="h-8 md:h-10 w-auto" />
-            <span className="text-primary-foreground font-bold text-xl hidden sm:block">长凌电子</span>
           </Link>
 
           {/* Desktop Navigation */}
