@@ -17,8 +17,8 @@ const Index = () => {
   const homeStructuredData = {
     '@context': 'https://schema.org',
     '@type': 'Organization',
-    name: '晓鸟科技有限公司',
-    alternateName: '晓鸟科技',
+    name: '长凌电子有限公司',
+    alternateName: '长凌电子',
     url: 'https://www.xiaoniao.com',
     logo: 'https://www.xiaoniao.com/logo.png',
     description: '专业工业无人机研发制造商，提供系留无人机、物流无人机、无人机机场等产品及解决方案',
@@ -40,8 +40,8 @@ const Index = () => {
     <div className="min-h-screen bg-background">
       <SEO
         title="首页"
-        description="晓鸟科技有限公司，专注于工业无人机研发制造，提供系留无人机、物流无人机、无人机机场、集群无人机等产品及行业解决方案。"
-        keywords="无人机,工业无人机,系留无人机,物流无人机,无人机机场,集群无人机,晓鸟科技"
+        description="长凌电子有限公司，专注于工业无人机研发制造，提供系留无人机、物流无人机、无人机机场、集群无人机等产品及行业解决方案。"
+        keywords="无人机,工业无人机,系留无人机,物流无人机,无人机机场,集群无人机,长凌电子"
         url="/"
         structuredData={homeStructuredData}
       />

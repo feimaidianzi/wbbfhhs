@@ -316,7 +316,7 @@ const Products = () => {
     <div className="min-h-screen">
       <SEO
         title="系列产品"
-        description="晓鸟科技全系列无人机产品，包括多旋翼无人机、自动机场、系留无人机、物流无人机、集群无人机等工业级解决方案。"
+        description="长凌电子全系列无人机产品，包括多旋翼无人机、自动机场、系留无人机、物流无人机、集群无人机等工业级解决方案。"
         keywords="无人机产品,多旋翼无人机,自动机场,系留无人机,物流无人机,集群无人机,工业无人机"
         url="/products"
         structuredData={breadcrumbData}
@@ -350,7 +350,7 @@ const Products = () => {
           <div className="relative container-custom h-full flex items-center justify-center text-center">
             <div className="max-w-3xl animate-fade-in">
               <div className="inline-block px-4 py-1 bg-accent/20 rounded-full text-accent text-sm font-medium mb-4">
-                晓鸟科技 · 专业无人机制造商
+                长凌电子 · 专业无人机制造商
               </div>
               <h1 className="text-3xl md:text-5xl lg:text-6xl font-bold text-primary-foreground mb-4 leading-tight">
                 系列产品

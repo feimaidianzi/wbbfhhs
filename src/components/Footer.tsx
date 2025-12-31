@@ -9,8 +9,8 @@ export const Footer = () => {
           {/* Company Info */}
           <div className="lg:col-span-1">
             <div className="flex items-center gap-2 mb-4">
-              <img src={logo} alt="晓鸟科技LOGO" className="h-10 w-auto" />
-              <span className="font-bold text-xl">晓鸟科技</span>
+            <img src={logo} alt="长凌电子LOGO" className="h-10 w-auto" />
+              <span className="font-bold text-xl">长凌电子</span>
             </div>
             <p className="text-primary-foreground/80 text-sm leading-relaxed mb-4">
               专业无人机研发制造商，提供无人机定制、物流无人机、消防无人机、系留无人机等全系列产品和解决方案。
@@ -82,7 +82,7 @@ export const Footer = () => {
         {/* Bottom Bar */}
         <div className="border-t border-primary-foreground/10 mt-10 pt-6 flex flex-col md:flex-row items-center justify-between gap-4">
           <p className="text-primary-foreground/60 text-sm text-center md:text-left">
-            © 2024 晓鸟科技有限公司 版权所有
+            © 2024 长凌电子有限公司 版权所有
           </p>
           <div className="flex items-center gap-4 text-sm text-primary-foreground/60">
             <a href="#" className="hover:text-accent transition-colors">

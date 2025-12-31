@@ -36,7 +36,7 @@ export const CompanyIntroSection = () => {
             <div className="aspect-[4/3] rounded-2xl overflow-hidden shadow-card-hover">
               <img 
                 src="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=800&q=80" 
-                alt="晓鸟科技无人机生产线" 
+                alt="长凌电子无人机生产线" 
                 className="w-full h-full object-cover"
               />
             </div>
@@ -61,17 +61,17 @@ export const CompanyIntroSection = () => {
             <div className="flex items-center gap-3 mb-4">
               <span className="text-accent text-2xl font-black">&lt;</span>
               <h2 className="text-3xl md:text-4xl font-black text-foreground">
-                为什么选择晓鸟科技？
+                为什么选择长凌电子？
               </h2>
               <span className="text-accent text-2xl font-black">\&gt;</span>
             </div>
             
             <p className="text-muted-foreground text-lg leading-relaxed mb-8">
-              晓鸟科技致力于提供高品质的工业级无人机产品和解决方案。我们不仅提供标准化产品，更专注于为客户打造定制化解决方案，助力各行业数字化转型和智能化升级。
+              长凌电子致力于提供高品质的工业级无人机产品和解决方案。我们不仅提供标准化产品，更专注于为客户打造定制化解决方案，助力各行业数字化转型和智能化升级。
             </p>
 
             <p className="text-muted-foreground leading-relaxed mb-8">
-              凭借多年的行业积累和技术沉淀，晓鸟科技已成为众多企业和政府机构的首选合作伙伴。从产品选型到系统集成，从技术培训到售后服务，我们提供全生命周期的专业支持。
+              凭借多年的行业积累和技术沉淀，长凌电子已成为众多企业和政府机构的首选合作伙伴。从产品选型到系统集成，从技术培训到售后服务，我们提供全生命周期的专业支持。
             </p>
 
             <Link to="/about">
