@@ -2,45 +2,66 @@ import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { FloatingContact } from "@/components/FloatingContact";
 import { Button } from "@/components/ui/button";
-import { ArrowRight, Monitor, Map, Cloud, Shield, Settings, Database } from "lucide-react";
+import { ArrowRight, Monitor, Map, Cloud, Shield, Settings, Database, BookOpen, Sun } from "lucide-react";
+import { Link } from "react-router-dom";
 import { SEO } from "@/components/SEO";
 
 const systems = [
   {
-    icon: Monitor,
-    name: "地面站控制系统",
-    description: "专业的地面站软件，支持多机协同控制、航线规划、实时监控等功能。",
-    features: ["多机协同控制", "三维航线规划", "实时视频传输", "飞行数据记录"],
+    icon: BookOpen,
+    name: "模拟考试系统",
+    description: "专业的无人机培训考核平台，支持理论考试、技能评估和证书发放。",
+    features: ["题库管理", "在线考试", "自动阅卷", "证书发放"],
+    link: "/software/exam-system",
   },
   {
-    icon: Map,
-    name: "航线规划系统",
-    description: "智能航线规划软件，支持自动生成最优航线，提高作业效率。",
-    features: ["地形感知规划", "避障路径优化", "分区作业规划", "航线导入导出"],
+    icon: Sun,
+    name: "光伏巡检识别系统",
+    description: "AI驱动的光伏缺陷识别系统，自动检测热斑、隐裂等问题。",
+    features: ["热斑检测", "AI识别", "效率分析", "报告生成"],
+    link: "/software/pv-inspection",
   },
   {
     icon: Cloud,
-    name: "云平台管理系统",
-    description: "基于云端的无人机管理平台，实现设备管理、任务调度、数据分析。",
-    features: ["设备远程管理", "任务智能调度", "数据云端存储", "多端协同访问"],
+    name: "无人机管理平台",
+    description: "一站式无人机资产与作业管理平台，实现设备管理、任务调度、数据分析。",
+    features: ["设备管理", "任务调度", "人员管理", "数据统计"],
+    link: "/software/drone-management",
   },
   {
     icon: Shield,
-    name: "安全监控系统",
-    description: "全方位安全监控系统，保障无人机作业安全，预防潜在风险。",
-    features: ["电子围栏设置", "异常行为检测", "紧急制动功能", "飞行日志审计"],
+    name: "电力巡检管理系统",
+    description: "输电线路智能巡检系统，AI自动识别缺陷，生成标准化报告。",
+    features: ["缺陷识别", "智能巡检", "报告生成", "预警分析"],
+    link: "/software/power-inspection-system",
   },
   {
     icon: Settings,
-    name: "维护管理系统",
-    description: "设备维护管理软件，实现预防性维护，延长设备使用寿命。",
-    features: ["维护计划提醒", "零部件寿命管理", "故障诊断分析", "维护记录追溯"],
+    name: "光伏巡检系统",
+    description: "光伏电站全流程巡检运维管理平台，提升运维效率。",
+    features: ["任务管理", "缺陷台账", "效能分析", "工单系统"],
+    link: "/software/pv-system",
   },
   {
     icon: Database,
-    name: "数据处理系统",
-    description: "专业的数据处理软件，对采集的图像、点云等数据进行处理分析。",
-    features: ["正射影像生成", "三维模型重建", "数据测量分析", "报告自动生成"],
+    name: "环保管理系统",
+    description: "智能环境监测管理系统，支持大气、水质、生态等多维度监测。",
+    features: ["大气监测", "水质监测", "生态监测", "数据分析"],
+    link: "/software/environment-system",
+  },
+  {
+    icon: Monitor,
+    name: "无人机地面站软件",
+    description: "专业的地面站软件，支持多机协同控制、航线规划、实时监控等功能。",
+    features: ["多机控制", "航线规划", "视频传输", "数据记录"],
+    link: "/software/ground-station",
+  },
+  {
+    icon: Map,
+    name: "集群无人机地面站软件",
+    description: "百架级无人机集群控制软件，支持编队表演和协同作战。",
+    features: ["集群控制", "编队管理", "灯光协同", "动画设计"],
+    link: "/software/swarm-ground-station",
   },
 ];
 
@@ -86,14 +107,14 @@ const Software = () => {
                 长凌电子自主研发的软件系统，覆盖无人机作业全流程
               </p>
             </div>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
               {systems.map((system, index) => (
                 <div
                   key={index}
-                  className="bg-card rounded-xl p-6 shadow-card hover:shadow-card-hover transition-all"
+                  className="bg-card rounded-xl p-6 shadow-card hover:shadow-card-hover transition-all hover:-translate-y-1 group"
                 >
                   <system.icon className="w-12 h-12 text-accent mb-4" />
-                  <h3 className="text-xl font-bold text-card-foreground mb-3">
+                  <h3 className="text-lg font-bold text-card-foreground mb-3 group-hover:text-accent transition-colors">
                     {system.name}
                   </h3>
                   <p className="text-muted-foreground text-sm mb-4">
@@ -107,12 +128,15 @@ const Software = () => {
                       </li>
                     ))}
                   </ul>
-                  <Button
-                    variant="outline"
-                    className="w-full border-accent text-accent hover:bg-accent hover:text-accent-foreground"
-                  >
-                    了解更多
-                  </Button>
+                  <Link to={system.link}>
+                    <Button
+                      variant="outline"
+                      className="w-full border-accent text-accent hover:bg-accent hover:text-accent-foreground"
+                    >
+                      了解更多
+                      <ArrowRight className="w-4 h-4 ml-2" />
+                    </Button>
+                  </Link>
                 </div>
               ))}
             </div>
@@ -131,10 +155,12 @@ const Software = () => {
                 <p className="text-muted-foreground mb-6">
                   我们提供开放的API接口和SDK，方便二次开发和系统对接，满足不同客户的个性化需求。
                 </p>
-                <Button className="bg-accent hover:bg-orange-light text-accent-foreground">
-                  获取技术文档
-                  <ArrowRight className="w-4 h-4 ml-2" />
-                </Button>
+                <Link to="/contact">
+                  <Button className="bg-accent hover:bg-orange-light text-accent-foreground">
+                    获取技术文档
+                    <ArrowRight className="w-4 h-4 ml-2" />
+                  </Button>
+                </Link>
               </div>
               <div className="aspect-video rounded-xl overflow-hidden shadow-card">
                 <img
