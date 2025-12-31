@@ -1,5 +1,5 @@
 import ProductPageTemplate from "@/components/ProductPageTemplate";
-import { Package, Zap, Settings, Shield, Wrench, Battery } from "lucide-react";
+import { Package, Zap, Settings, Shield, Wrench, Battery, Cpu, Compass, Camera, Radio, Cog, Box } from "lucide-react";
 
 const features = [
   {
@@ -36,46 +36,81 @@ const features = [
 
 const products = [
   {
-    name: "智能飞行电池",
-    description: "高能量密度锂聚合物电池，支持智能电量管理",
-    specs: ["容量: 5200mAh", "电压: 22.2V", "循环次数: 300+"],
+    name: "其他配件",
+    description: "各类无人机辅助配件，包括支架、保护罩、收纳包等",
+    specs: ["支架配件", "保护配件", "收纳装备"],
     image: "https://images.unsplash.com/photo-1619641805634-98e5c7f0c8d3?w=600&q=80",
+    link: "/products/accessories/others",
+  },
+  {
+    name: "机架系列",
+    description: "碳纤维/铝合金机架，轻量化设计，高强度耐用",
+    specs: ["碳纤维材质", "多轴可选", "模块化设计"],
+    image: "https://images.unsplash.com/photo-1473968512647-3e447244af8f?w=600&q=80",
+    link: "/products/accessories/frame",
+  },
+  {
+    name: "电控系列",
+    description: "高性能电子调速器，精准控制电机转速",
+    specs: ["大电流设计", "低发热", "快速响应"],
+    image: "https://images.unsplash.com/photo-1518770660439-4636190af475?w=600&q=80",
+    link: "/products/accessories/esc",
+  },
+  {
+    name: "电池/充电器",
+    description: "高能量密度锂聚合物电池与智能充电设备",
+    specs: ["大容量电池", "智能充电", "安全保护"],
+    image: "https://images.unsplash.com/photo-1619641805634-98e5c7f0d3?w=600&q=80",
     link: "/products/accessories/battery",
   },
   {
-    name: "多功能充电器",
-    description: "6通道智能充电器，支持多种电池类型",
-    specs: ["通道: 6路", "功率: 1000W", "支持: LiPo/LiHV"],
-    image: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&q=80",
-    link: "/products/accessories/charger",
+    name: "翼飞翼控",
+    description: "专业飞控系统，支持多种飞行模式与智能功能",
+    specs: ["多模式飞行", "GPS定位", "自动返航"],
+    image: "https://images.unsplash.com/photo-1581094794329-c8112a89af12?w=600&q=80",
+    link: "/products/accessories/flight-controller",
   },
   {
-    name: "碳纤维桨叶",
-    description: "高强度碳纤维复合材料，动力效率提升15%",
-    specs: ["材质: 碳纤维", "规格: 多种可选", "适配: 全系列"],
+    name: "螺旋桨",
+    description: "高效碳纤维/尼龙复合螺旋桨，提升动力效率",
+    specs: ["碳纤维材质", "高效设计", "多规格可选"],
     image: "https://images.unsplash.com/photo-1473968512647-3e447244af8f?w=600&q=80",
     link: "/products/accessories/propeller",
   },
   {
-    name: "遥控器套装",
-    description: "专业级遥控器，16通道控制，高清图传",
-    specs: ["通道: 16CH", "图传: 1080P", "延迟: <100ms"],
+    name: "多旋翼电机",
+    description: "高效率无刷电机，大推力低发热持久耐用",
+    specs: ["无刷设计", "高效散热", "长寿命"],
+    image: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&q=80",
+    link: "/products/accessories/motor",
+  },
+  {
+    name: "控制组合",
+    description: "遥控器与接收机套装，稳定可靠的控制链路",
+    specs: ["多通道控制", "远距离传输", "低延迟"],
     image: "https://images.unsplash.com/photo-1527977966376-1c8408f9f108?w=600&q=80",
     link: "/products/accessories/controller",
   },
   {
-    name: "FPV眼镜",
-    description: "沉浸式第一视角飞行体验，高清低延迟显示",
-    specs: ["分辨率: 1920×1080", "延迟: <28ms", "视场角: 46°"],
-    image: "https://images.unsplash.com/photo-1506947411487-a56738267384?w=600&q=80",
-    link: "/products/accessories/fpv-goggles",
+    name: "电机",
+    description: "工业级无人机专用电机，适配多种机型",
+    specs: ["大推力", "高效率", "耐高温"],
+    image: "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=600&q=80",
+    link: "/products/accessories/industrial-motor",
   },
   {
-    name: "专业工具套装",
-    description: "无人机维修保养必备工具，专业级品质",
-    specs: ["工具: 32件", "材质: 铬钒钢", "收纳: 便携盒"],
-    image: "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=600&q=80",
-    link: "/products/accessories/toolkit",
+    name: "电机控制板",
+    description: "电机驱动控制板，精准控制电机运行",
+    specs: ["大电流支持", "多协议兼容", "稳定可靠"],
+    image: "https://images.unsplash.com/photo-1518770660439-4636190af475?w=600&q=80",
+    link: "/products/accessories/motor-driver",
+  },
+  {
+    name: "无人机吊舱",
+    description: "高性能光电吊舱，支持可见光/红外/激光多传感器融合",
+    specs: ["4K高清", "30倍变焦", "AI识别"],
+    image: "https://images.unsplash.com/photo-1506947411487-a56738267384?w=600&q=80",
+    link: "/products/accessories/gimbal",
   },
 ];
 
