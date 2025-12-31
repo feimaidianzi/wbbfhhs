@@ -56,7 +56,7 @@ const Applications = () => {
     <div className="min-h-screen">
       <SEO
         title="行业应用"
-        description="长凌电子无人机行业应用解决方案，覆盖电力巡检、物流配送、军事应用、环保监测、消防应急、系留应用等多个领域。"
+        description="晓鸟科技无人机行业应用解决方案，覆盖电力巡检、物流配送、军事应用、环保监测、消防应急、系留应用等多个领域。"
         keywords="无人机行业应用,电力巡检,物流无人机,军事无人机,环保监测,消防应急,系留无人机"
         url="/applications"
       />
@@ -69,7 +69,7 @@ const Applications = () => {
           <div className="relative container-custom h-full flex items-center">
             <div className="max-w-2xl">
               <h1 className="text-3xl md:text-5xl font-bold text-primary-foreground mb-4">行业应用</h1>
-              <p className="text-lg md:text-xl text-primary-foreground/90">长凌无人机广泛应用于多个行业领域，提供专业化解决方案</p>
+              <p className="text-lg md:text-xl text-primary-foreground/90">晓鸟无人机广泛应用于多个行业领域，提供专业化解决方案</p>
             </div>
           </div>
         </section>
@@ -99,7 +99,7 @@ const Applications = () => {
         <section className="py-16 bg-primary">
           <div className="container-custom text-center">
             <h2 className="text-2xl md:text-3xl font-bold text-primary-foreground mb-4">定制您的行业解决方案</h2>
-            <p className="text-primary-foreground/80 mb-8 max-w-2xl mx-auto">长凌电子拥有丰富的行业经验，可根据您的具体需求提供定制化解决方案</p>
+            <p className="text-primary-foreground/80 mb-8 max-w-2xl mx-auto">晓鸟科技拥有丰富的行业经验，可根据您的具体需求提供定制化解决方案</p>
             <Link to="/contact">
               <Button className="bg-accent hover:bg-orange-light text-accent-foreground px-8 py-3">
                 立即咨询

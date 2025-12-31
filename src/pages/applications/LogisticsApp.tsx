@@ -152,7 +152,7 @@ const LogisticsApp = () => {
     <div className="min-h-screen bg-background">
       <SEO
         title="物流应用 - 无人机物流配送解决方案"
-        description="长凌电子物流无人机解决方案，提供偏远地区配送、海岛物资运输、应急物资投送、城市末端配送等专业服务，最大载重30KG。"
+        description="晓鸟科技物流无人机解决方案，提供偏远地区配送、海岛物资运输、应急物资投送、城市末端配送等专业服务，最大载重30KG。"
         keywords="物流无人机,无人机配送,应急物资投送,末端配送,大载重无人机,海岛配送"
         url="/applications/logistics"
       />
