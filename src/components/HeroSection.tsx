@@ -12,11 +12,11 @@ const slides = [
     link: "/products/tethered",
   },
   {
-    title: "长凌电子机场",
-    subtitle: "全自动起降 · 智能巡检 · 无人值守运营",
-    image: "https://images.unsplash.com/photo-1508614589041-895b88991e3e?w=1920&q=80",
+    title: "集群无人机系统",
+    subtitle: "智能协同编队 · 多机协作 · 集群控制",
+    image: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1920&q=80",
     cta: "查看详情",
-    link: "/products/airport",
+    link: "/products/swarm",
   },
   {
     title: "物流无人机",
