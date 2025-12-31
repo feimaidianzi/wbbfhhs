@@ -6,7 +6,7 @@ import { Target, Users, Award, ArrowRight } from "lucide-react";
 import { SEO, createBreadcrumbStructuredData } from "@/components/SEO";
 
 const milestones = [
-  { year: "2015", title: "公司成立", description: "长凌电子在武汉正式成立，开启无人机研发之路" },
+  { year: "2015", title: "公司成立", description: "晓鸟科技在湖南邵阳正式成立，开启无人机研发之路" },
   { year: "2017", title: "首款产品", description: "成功研发首款工业级多旋翼无人机" },
   { year: "2019", title: "技术突破", description: "系留无人机技术取得重大突破，获得多项专利" },
   { year: "2021", title: "规模扩张", description: "全国服务网络覆盖20+城市，员工超过200人" },
@@ -30,15 +30,15 @@ const stats = [
 const About = () => {
   const breadcrumbData = createBreadcrumbStructuredData([
     { name: '首页', url: '/' },
-    { name: '关于长凌', url: '/about' },
+    { name: '关于晓鸟', url: '/about' },
   ]);
 
   return (
     <div className="min-h-screen">
       <SEO
-        title="关于长凌"
-        description="长凌电子科技有限公司成立于2015年，是一家专注于工业无人机研发、生产和销售的高新技术企业，拥有200+专业员工、50+发明专利。"
-        keywords="长凌电子,关于我们,无人机公司,工业无人机企业,无人机研发"
+        title="关于晓鸟"
+        description="晓鸟科技有限公司成立于2015年，是一家专注于工业无人机研发、生产和销售的高新技术企业，拥有200+专业员工、50+发明专利。"
+        keywords="晓鸟科技,关于我们,无人机公司,工业无人机企业,无人机研发"
         url="/about"
         structuredData={breadcrumbData}
       />
@@ -57,7 +57,7 @@ const About = () => {
           <div className="relative container-custom h-full flex items-center">
             <div className="max-w-2xl">
               <h1 className="text-3xl md:text-5xl font-bold text-primary-foreground mb-4">
-                关于长凌电子
+                关于晓鸟科技
               </h1>
               <p className="text-lg md:text-xl text-primary-foreground/90 mb-6">
                 专业无人机研发制造商，致力于为各行业提供智能化空中解决方案
@@ -73,10 +73,10 @@ const About = () => {
               <div>
                 <h2 className="text-2xl md:text-3xl font-bold mb-6">公司简介</h2>
                 <p className="text-muted-foreground mb-4 leading-relaxed">
-                  长凌电子科技有限公司成立于2015年，是一家专注于工业无人机研发、生产和销售的高新技术企业。公司总部位于湖北武汉，拥有完整的无人机产业链，从飞控系统、动力系统到整机制造均具备自主研发能力。
+                  晓鸟科技有限公司成立于2015年，是一家专注于工业无人机研发、生产和销售的高新技术企业。公司总部位于湖南邵阳，拥有完整的无人机产业链，从飞控系统、动力系统到整机制造均具备自主研发能力。
                 </p>
                 <p className="text-muted-foreground mb-4 leading-relaxed">
-                  经过多年发展，长凌电子已成为国内领先的工业无人机解决方案提供商，产品广泛应用于电力巡检、消防救援、物流配送、农业植保等多个领域，服务客户超过1000家。
+                  经过多年发展，晓鸟科技已成为国内领先的工业无人机解决方案提供商，产品广泛应用于电力巡检、消防救援、物流配送、农业植保等多个领域，服务客户超过1000家。
                 </p>
                 <p className="text-muted-foreground leading-relaxed">
                   公司坚持"创新驱动、品质为本"的发展理念，持续加大研发投入，目前拥有50余项发明专利和软件著作权，是多项行业标准的参与制定单位。
@@ -163,7 +163,7 @@ const About = () => {
               期待与您合作
             </h2>
             <p className="text-primary-foreground/80 mb-8 max-w-2xl mx-auto">
-              长凌电子期待为您提供专业的无人机解决方案，共同推动行业智能化发展
+              晓鸟科技期待为您提供专业的无人机解决方案，共同推动行业智能化发展
             </p>
             <Button className="bg-accent hover:bg-orange-light text-accent-foreground px-8 py-3">
               联系我们

@@ -89,7 +89,7 @@ const Logistics = () => {
       featuresTitle="核心优势"
       products={products}
       productsTitle="产品系列"
-      productsSubtitle="从城市配送到偏远投送，长凌电子物流无人机满足全场景需求"
+      productsSubtitle="从城市配送到偏远投送，晓鸟科技物流无人机满足全场景需求"
       stats={stats}
       applications={applications}
       applicationsTitle="应用场景"
