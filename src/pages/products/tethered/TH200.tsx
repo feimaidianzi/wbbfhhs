@@ -92,9 +92,9 @@ const TH200 = () => {
           <div className="flex justify-center mb-16">
             <div className="relative">
               <img 
-                src="https://images.unsplash.com/photo-1527977966376-1c8408f9f108?w=800&q=80" 
+                src="/src/assets/products/th-200-drone.png" 
                 alt="TH-200系留无人机"
-                className="w-full max-w-2xl rounded-xl shadow-2xl"
+                className="w-full max-w-2xl"
               />
             </div>
           </div>
