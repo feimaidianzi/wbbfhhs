@@ -22,11 +22,23 @@ const TH100 = () => {
     { icon: Truck, title: "紧凑运输", subtitle: "快速部署" },
   ];
 
-  const groundUnitSpecs = [
-    { value: "220V", label: "电压" },
-    { value: "3400W", label: "电源" },
-    { value: "150 bar", label: "额定压力" },
-    { value: "600 L/h", label: "流量" },
+  const leftSpecs = [
+    { label: "重量", value: "15Kg" },
+    { label: "防护等级", value: "IP55" },
+    { label: "工作温度", value: "-30°C 至 55°C" },
+    { label: "工作湿度", value: "5%至95%" },
+    { label: "最大工作海拔高度", value: "5000 米" },
+    { label: "线缆耐久寿命", value: "≥3000 次（收放次数）" },
+  ];
+
+  const rightSpecs = [
+    { label: "作业高度", value: "50米 / 100米" },
+    { label: "最大供电功率", value: "4KW / 6KW" },
+    { label: "工作压力", value: "195 Bar" },
+    { label: "泵机防水", value: "IPX5" },
+    { label: "移动方式", value: "手提 / 拖行 / 车载" },
+    { label: "定制开发", value: "支持OEM和系统界面定制" },
+    { label: "系统开放", value: "开放第三方开发接口" },
   ];
 
   return (
@@ -100,80 +112,40 @@ const TH100 = () => {
       <section className="py-20 bg-gradient-to-b from-gray-800 to-gray-900">
         <div className="container mx-auto px-4">
           <h2 className="text-3xl md:text-4xl font-bold text-center text-white mb-4 animate-fade-in">
-            工业级地面单元-可靠压力源
+            M350 / M400 系留清洗系统
           </h2>
           
-          <div className="flex flex-col lg:flex-row items-center justify-center gap-12 max-w-6xl mx-auto mt-12">
-            {/* 标准配置 */}
-            <div className="animate-fade-in" style={{ animationDelay: "0.1s" }}>
-              <h3 className="text-xl font-semibold text-white text-center mb-4">标准配置</h3>
-              <div className="grid grid-cols-2 gap-4">
-                {groundUnitSpecs.map((spec, index) => (
-                  <div 
-                    key={index}
-                    className="text-center p-4 border border-gray-700 rounded-lg hover:border-blue-500 transition-colors"
-                  >
-                    <div className="text-2xl md:text-3xl font-bold text-white">{spec.value}</div>
-                    <div className="text-gray-400 text-sm mt-1">{spec.label}</div>
+          <div className="max-w-5xl mx-auto mt-8">
+            <p className="text-gray-300 mb-2 animate-fade-in" style={{ animationDelay: "0.1s" }}>
+              基础平台：大疆M350 / M400 /（系留供电可运行12小时）。
+            </p>
+            <p className="text-gray-300 mb-8 animate-fade-in" style={{ animationDelay: "0.15s" }}>
+              适配系统示例：50米 / 100米高度可选，系留供电可实现12小时连续驻空清洗作业。
+            </p>
+            
+            <div className="grid md:grid-cols-2 gap-8 animate-fade-in" style={{ animationDelay: "0.2s" }}>
+              {/* 左侧规格 */}
+              <div className="space-y-1">
+                <div className="flex border-b border-gray-700 py-3">
+                  <span className="text-gray-400 w-40">功能描述</span>
+                  <span className="text-gray-300 flex-1">系统采用大流量高压泵体结合系留供电技术使无人机清洗可以持续作业，单人可视一体化操控喷洒，整机小巧，适合不同作业场景，安全高效完成清洗。</span>
+                </div>
+                {leftSpecs.map((spec, index) => (
+                  <div key={index} className="flex border-b border-gray-700 py-3">
+                    <span className="text-gray-400 w-40">{spec.label}</span>
+                    <span className="text-white">{spec.value}</span>
                   </div>
                 ))}
               </div>
-            </div>
-            
-            <div className="flex-1 max-w-md animate-fade-in" style={{ animationDelay: "0.2s" }}>
-              <img
-                src={th100GroundUnit}
-                alt="工业级地面单元"
-                className="w-full h-auto hover:scale-105 transition-transform duration-500"
-              />
-              <p className="text-center text-amber-500 mt-4 text-lg">120米高压软管</p>
-              <p className="text-center text-gray-400 text-sm mt-2">*高压水泵为选配部件</p>
-            </div>
-          </div>
-
-          {/* 可选配置 */}
-          <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto mt-16">
-            <div className="animate-fade-in bg-gray-800/50 rounded-xl p-6 border border-gray-700 hover:border-amber-500 transition-colors" style={{ animationDelay: "0.3s" }}>
-              <h3 className="text-lg font-semibold text-amber-500 text-center mb-4">可选配置 1</h3>
-              <div className="grid grid-cols-2 gap-4">
-                <div className="text-center p-3 border border-gray-600 rounded-lg">
-                  <div className="text-xl font-bold text-white">200 bar</div>
-                  <div className="text-gray-400 text-xs mt-1">额定压力</div>
-                </div>
-                <div className="text-center p-3 border border-gray-600 rounded-lg">
-                  <div className="text-xl font-bold text-white">900 L/h</div>
-                  <div className="text-gray-400 text-xs mt-1">流量</div>
-                </div>
-                <div className="text-center p-3 border border-gray-600 rounded-lg">
-                  <div className="text-xl font-bold text-white">380V</div>
-                  <div className="text-gray-400 text-xs mt-1">电压</div>
-                </div>
-                <div className="text-center p-3 border border-gray-600 rounded-lg">
-                  <div className="text-xl font-bold text-white">6900W</div>
-                  <div className="text-gray-400 text-xs mt-1">功率</div>
-                </div>
-              </div>
-            </div>
-
-            <div className="animate-fade-in bg-gray-800/50 rounded-xl p-6 border border-gray-700 hover:border-amber-500 transition-colors" style={{ animationDelay: "0.4s" }}>
-              <h3 className="text-lg font-semibold text-amber-500 text-center mb-4">可选配置 2</h3>
-              <div className="grid grid-cols-2 gap-4">
-                <div className="text-center p-3 border border-gray-600 rounded-lg">
-                  <div className="text-xl font-bold text-white">230 bar</div>
-                  <div className="text-gray-400 text-xs mt-1">额定压力</div>
-                </div>
-                <div className="text-center p-3 border border-gray-600 rounded-lg">
-                  <div className="text-xl font-bold text-white">1000 L/h</div>
-                  <div className="text-gray-400 text-xs mt-1">流量</div>
-                </div>
-                <div className="text-center p-3 border border-gray-600 rounded-lg">
-                  <div className="text-xl font-bold text-white">380V</div>
-                  <div className="text-gray-400 text-xs mt-1">电压</div>
-                </div>
-                <div className="text-center p-3 border border-gray-600 rounded-lg">
-                  <div className="text-xl font-bold text-white">9000W</div>
-                  <div className="text-gray-400 text-xs mt-1">功率</div>
-                </div>
+              
+              {/* 右侧规格 */}
+              <div className="space-y-1">
+                {rightSpecs.map((spec, index) => (
+                  <div key={index} className="flex border-b border-gray-700 py-3">
+                    <span className="text-gray-400 w-32">{spec.label}</span>
+                    <span className="text-white">{spec.value}</span>
+                  </div>
+                ))}
               </div>
             </div>
           </div>
