@@ -1,8 +1,17 @@
-import { Phone, MessageCircle, Home, QrCode } from "lucide-react";
-import { useState } from "react";
+import { Phone, MessageCircle, Home, QrCode, X } from "lucide-react";
+import { useState, useEffect } from "react";
 
 export const FloatingContact = () => {
   const [showQR, setShowQR] = useState(false);
+  const [showBanner, setShowBanner] = useState(true);
+
+  // Auto-hide banner after 8 seconds
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setShowBanner(false);
+    }, 8000);
+    return () => clearTimeout(timer);
+  }, []);
 
   return (
     <>
@@ -56,34 +65,46 @@ export const FloatingContact = () => {
         <span className="text-sm font-medium">点击拨打电话</span>
       </a>
 
-      {/* Coming Soon banner */}
-      <div className="fixed bottom-4 left-1/2 -translate-x-1/2 z-30 hidden md:block animate-fade-in">
-        <div className="bg-gradient-to-r from-primary to-primary/90 text-primary-foreground p-4 rounded-xl shadow-xl border border-accent/30 relative overflow-hidden">
-          {/* Animated background glow */}
-          <div className="absolute inset-0 bg-gradient-to-r from-accent/10 via-accent/20 to-accent/10 animate-[pulse_3s_ease-in-out_infinite]" />
-          <div className="relative z-10 flex items-center gap-6">
-            <div className="flex items-center gap-3">
-              <span className="text-2xl animate-[pulse_2s_ease-in-out_infinite]">🚀</span>
-              <div>
-                <div className="flex items-center gap-2 mb-1">
-                  <span className="font-semibold text-accent">即将上市</span>
-                  <span className="text-xs bg-accent/20 text-accent px-2 py-0.5 rounded-full">NEW</span>
-                </div>
-                <h4 className="font-bold text-primary-foreground">无人机AI制导模块</h4>
-              </div>
-            </div>
-            <p className="text-sm opacity-90 max-w-xs">
-              智能目标识别、自主航迹规划、精准制导控制
-            </p>
-            <a
-              href="/products"
-              className="bg-accent hover:bg-accent/90 text-accent-foreground px-4 py-2 rounded-lg font-medium text-sm whitespace-nowrap transition-colors"
+      {/* Coming Soon banner - right side, auto-dismiss */}
+      {showBanner && (
+        <div className="fixed bottom-20 right-4 z-30 hidden md:block animate-fade-in">
+          <div className="bg-gradient-to-r from-primary to-primary/90 text-primary-foreground p-4 rounded-xl shadow-xl border border-accent/30 relative overflow-hidden max-w-xs">
+            {/* Close button */}
+            <button
+              onClick={() => setShowBanner(false)}
+              className="absolute top-2 right-2 z-20 w-6 h-6 rounded-full bg-primary-foreground/10 hover:bg-primary-foreground/20 flex items-center justify-center transition-colors"
+              title="关闭"
             >
-              了解更多
-            </a>
+              <X className="w-4 h-4 text-primary-foreground" />
+            </button>
+            
+            {/* Animated background glow */}
+            <div className="absolute inset-0 bg-gradient-to-r from-accent/10 via-accent/20 to-accent/10 animate-[pulse_3s_ease-in-out_infinite]" />
+            
+            <div className="relative z-10">
+              <div className="flex items-center gap-3 mb-2">
+                <span className="text-2xl animate-[pulse_2s_ease-in-out_infinite]">🚀</span>
+                <div>
+                  <div className="flex items-center gap-2 mb-1">
+                    <span className="font-semibold text-accent">即将上市</span>
+                    <span className="text-xs bg-accent/20 text-accent px-2 py-0.5 rounded-full">NEW</span>
+                  </div>
+                  <h4 className="font-bold text-primary-foreground">无人机AI制导模块</h4>
+                </div>
+              </div>
+              <p className="text-sm opacity-90 mb-3">
+                智能目标识别、自主航迹规划、精准制导控制
+              </p>
+              <a
+                href="/products"
+                className="inline-block bg-accent hover:bg-accent/90 text-accent-foreground px-4 py-2 rounded-lg font-medium text-sm transition-colors"
+              >
+                了解更多
+              </a>
+            </div>
           </div>
         </div>
-      </div>
+      )}
     </>
   );
 };
