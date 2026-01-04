@@ -13,6 +13,9 @@ import payloadSpeaker from "@/assets/products/th-200-payload-speaker.png";
 import payloadSpotlight from "@/assets/products/th-200-payload-spotlight.png";
 import payloadMatrix from "@/assets/products/th-200-payload-matrix.png";
 import th200Hero from "@/assets/products/th-200-hero.png";
+import th200Display1 from "@/assets/products/th-200-display-1.png";
+import th200Display2 from "@/assets/products/th-200-display-2.png";
+import th200Display3 from "@/assets/products/th-200-display-3.png";
 
 const TH200 = () => {
   const highlights = [
@@ -334,12 +337,15 @@ const TH200 = () => {
           </div>
 
           <div className="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
-            {[1, 2, 3].map((_, index) => (
-              <div key={index} className="aspect-square bg-white rounded-xl shadow-lg overflow-hidden flex items-center justify-center">
+            {[th200Display1, th200Display2, th200Display3].map((src, index) => (
+              <div 
+                key={index} 
+                className="aspect-square bg-white rounded-xl shadow-lg overflow-hidden flex items-center justify-center p-4 group hover:shadow-2xl transition-all duration-300"
+              >
                 <img 
-                  src="https://images.unsplash.com/photo-1527977966376-1c8408f9f108?w=400&q=80"
+                  src={src}
                   alt={`产品展示 ${index + 1}`}
-                  className="w-full h-full object-cover"
+                  className="w-full h-full object-contain group-hover:scale-105 transition-transform duration-300"
                 />
               </div>
             ))}
