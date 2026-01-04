@@ -57,19 +57,30 @@ export const FloatingContact = () => {
       </a>
 
       {/* Coming Soon banner */}
-      <div className="fixed bottom-4 right-4 z-40 hidden md:block animate-fade-in">
-        <div className="bg-gradient-to-r from-primary to-primary/90 text-primary-foreground p-4 rounded-xl shadow-xl max-w-xs border border-accent/30 relative overflow-hidden">
+      <div className="fixed bottom-4 left-1/2 -translate-x-1/2 z-30 hidden md:block animate-fade-in">
+        <div className="bg-gradient-to-r from-primary to-primary/90 text-primary-foreground p-4 rounded-xl shadow-xl border border-accent/30 relative overflow-hidden">
           {/* Animated background glow */}
           <div className="absolute inset-0 bg-gradient-to-r from-accent/10 via-accent/20 to-accent/10 animate-[pulse_3s_ease-in-out_infinite]" />
-          <div className="relative z-10">
-            <div className="flex items-center gap-2 mb-2">
-              <span className="text-lg animate-[pulse_2s_ease-in-out_infinite]">🚀</span>
-              <span className="font-semibold text-accent">即将上市</span>
+          <div className="relative z-10 flex items-center gap-6">
+            <div className="flex items-center gap-3">
+              <span className="text-2xl animate-[pulse_2s_ease-in-out_infinite]">🚀</span>
+              <div>
+                <div className="flex items-center gap-2 mb-1">
+                  <span className="font-semibold text-accent">即将上市</span>
+                  <span className="text-xs bg-accent/20 text-accent px-2 py-0.5 rounded-full">NEW</span>
+                </div>
+                <h4 className="font-bold text-primary-foreground">无人机AI制导模块</h4>
+              </div>
             </div>
-            <h4 className="font-bold mb-1 text-primary-foreground">无人机AI制导模块</h4>
-            <p className="text-sm opacity-90">
-              智能目标识别、自主航迹规划、精准制导控制，敬请期待！
+            <p className="text-sm opacity-90 max-w-xs">
+              智能目标识别、自主航迹规划、精准制导控制
             </p>
+            <a
+              href="/products"
+              className="bg-accent hover:bg-accent/90 text-accent-foreground px-4 py-2 rounded-lg font-medium text-sm whitespace-nowrap transition-colors"
+            >
+              了解更多
+            </a>
           </div>
         </div>
       </div>
