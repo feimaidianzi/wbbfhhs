@@ -104,16 +104,20 @@ const TH100 = () => {
           </h2>
           
           <div className="flex flex-col lg:flex-row items-center justify-center gap-12 max-w-6xl mx-auto mt-12">
-            <div className="grid grid-cols-2 gap-6 animate-fade-in" style={{ animationDelay: "0.1s" }}>
-              {groundUnitSpecs.map((spec, index) => (
-                <div 
-                  key={index}
-                  className="text-center p-4 border border-gray-700 rounded-lg hover:border-blue-500 transition-colors"
-                >
-                  <div className="text-3xl md:text-4xl font-bold text-white">{spec.value}</div>
-                  <div className="text-gray-400 text-sm mt-1">{spec.label}</div>
-                </div>
-              ))}
+            {/* 标准配置 */}
+            <div className="animate-fade-in" style={{ animationDelay: "0.1s" }}>
+              <h3 className="text-xl font-semibold text-white text-center mb-4">标准配置</h3>
+              <div className="grid grid-cols-2 gap-4">
+                {groundUnitSpecs.map((spec, index) => (
+                  <div 
+                    key={index}
+                    className="text-center p-4 border border-gray-700 rounded-lg hover:border-blue-500 transition-colors"
+                  >
+                    <div className="text-2xl md:text-3xl font-bold text-white">{spec.value}</div>
+                    <div className="text-gray-400 text-sm mt-1">{spec.label}</div>
+                  </div>
+                ))}
+              </div>
             </div>
             
             <div className="flex-1 max-w-md animate-fade-in" style={{ animationDelay: "0.2s" }}>
@@ -124,6 +128,53 @@ const TH100 = () => {
               />
               <p className="text-center text-amber-500 mt-4 text-lg">120米高压软管</p>
               <p className="text-center text-gray-400 text-sm mt-2">*高压水泵为选配部件</p>
+            </div>
+          </div>
+
+          {/* 可选配置 */}
+          <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto mt-16">
+            <div className="animate-fade-in bg-gray-800/50 rounded-xl p-6 border border-gray-700 hover:border-amber-500 transition-colors" style={{ animationDelay: "0.3s" }}>
+              <h3 className="text-lg font-semibold text-amber-500 text-center mb-4">可选配置 1</h3>
+              <div className="grid grid-cols-2 gap-4">
+                <div className="text-center p-3 border border-gray-600 rounded-lg">
+                  <div className="text-xl font-bold text-white">200 bar</div>
+                  <div className="text-gray-400 text-xs mt-1">额定压力</div>
+                </div>
+                <div className="text-center p-3 border border-gray-600 rounded-lg">
+                  <div className="text-xl font-bold text-white">900 L/h</div>
+                  <div className="text-gray-400 text-xs mt-1">流量</div>
+                </div>
+                <div className="text-center p-3 border border-gray-600 rounded-lg">
+                  <div className="text-xl font-bold text-white">380V</div>
+                  <div className="text-gray-400 text-xs mt-1">电压</div>
+                </div>
+                <div className="text-center p-3 border border-gray-600 rounded-lg">
+                  <div className="text-xl font-bold text-white">6900W</div>
+                  <div className="text-gray-400 text-xs mt-1">功率</div>
+                </div>
+              </div>
+            </div>
+
+            <div className="animate-fade-in bg-gray-800/50 rounded-xl p-6 border border-gray-700 hover:border-amber-500 transition-colors" style={{ animationDelay: "0.4s" }}>
+              <h3 className="text-lg font-semibold text-amber-500 text-center mb-4">可选配置 2</h3>
+              <div className="grid grid-cols-2 gap-4">
+                <div className="text-center p-3 border border-gray-600 rounded-lg">
+                  <div className="text-xl font-bold text-white">230 bar</div>
+                  <div className="text-gray-400 text-xs mt-1">额定压力</div>
+                </div>
+                <div className="text-center p-3 border border-gray-600 rounded-lg">
+                  <div className="text-xl font-bold text-white">1000 L/h</div>
+                  <div className="text-gray-400 text-xs mt-1">流量</div>
+                </div>
+                <div className="text-center p-3 border border-gray-600 rounded-lg">
+                  <div className="text-xl font-bold text-white">380V</div>
+                  <div className="text-gray-400 text-xs mt-1">电压</div>
+                </div>
+                <div className="text-center p-3 border border-gray-600 rounded-lg">
+                  <div className="text-xl font-bold text-white">9000W</div>
+                  <div className="text-gray-400 text-xs mt-1">功率</div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
