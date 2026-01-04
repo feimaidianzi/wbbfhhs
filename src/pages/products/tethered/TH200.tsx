@@ -12,6 +12,7 @@ import payloadTracking from "@/assets/products/th-200-payload-tracking.png";
 import payloadSpeaker from "@/assets/products/th-200-payload-speaker.png";
 import payloadSpotlight from "@/assets/products/th-200-payload-spotlight.png";
 import payloadMatrix from "@/assets/products/th-200-payload-matrix.png";
+import th200Hero from "@/assets/products/th-200-hero.png";
 
 const TH200 = () => {
   const highlights = [
@@ -95,13 +96,13 @@ const TH200 = () => {
             <p className="text-4xl md:text-5xl font-bold text-foreground">TH-200</p>
           </div>
 
-          {/* Product Image Placeholder */}
+          {/* Product Image */}
           <div className="flex justify-center mb-16">
-            <div className="relative">
+            <div className="relative animate-[float_3s_ease-in-out_infinite]">
               <img 
-                src="/src/assets/products/th-200-drone.png" 
+                src={th200Hero}
                 alt="TH-200系留无人机"
-                className="w-full max-w-2xl"
+                className="w-full max-w-3xl drop-shadow-2xl"
               />
             </div>
           </div>
