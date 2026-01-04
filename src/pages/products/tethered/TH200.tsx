@@ -4,7 +4,14 @@ import { FloatingContact } from "@/components/FloatingContact";
 import { SEO } from "@/components/SEO";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
-import { ArrowLeft, Radio, Weight, Clock, Navigation, Layers, Cpu, Thermometer, Zap, Sun, Phone } from "lucide-react";
+import { ArrowLeft, Radio, Weight, Clock, Navigation, Layers, Cpu, Thermometer, Zap, Sun, Phone, Camera } from "lucide-react";
+
+import payloadZoom from "@/assets/products/th-200-payload-zoom.png";
+import payloadIR from "@/assets/products/th-200-payload-ir.png";
+import payloadTracking from "@/assets/products/th-200-payload-tracking.png";
+import payloadSpeaker from "@/assets/products/th-200-payload-speaker.png";
+import payloadSpotlight from "@/assets/products/th-200-payload-spotlight.png";
+import payloadMatrix from "@/assets/products/th-200-payload-matrix.png";
 
 const TH200 = () => {
   const highlights = [
@@ -201,6 +208,42 @@ const TH200 = () => {
                   alt={`应急照明场景 ${index + 1}`}
                   className="w-full h-full object-cover"
                 />
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Payloads Section */}
+      <section className="py-20 bg-gradient-to-b from-gray-900 to-gray-800 text-white">
+        <div className="container mx-auto px-4">
+          <div className="text-center mb-12">
+            <div className="flex items-center justify-center gap-3 mb-6">
+              <Camera className="w-10 h-10 text-primary" />
+              <h2 className="text-4xl font-bold">更多挂载满足不同场景使用</h2>
+            </div>
+            <p className="text-lg text-gray-300 max-w-3xl mx-auto">
+              丰富的挂载选配，满足应急照明、安防监控、消防救援等多种场景需求
+            </p>
+          </div>
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6 max-w-6xl mx-auto">
+            {[
+              { src: payloadZoom, name: "30倍光学变焦模组" },
+              { src: payloadIR, name: "可见光红外测距模组" },
+              { src: payloadTracking, name: "四光云台跟踪测距模组" },
+              { src: payloadSpeaker, name: "喊话照明模块" },
+              { src: payloadSpotlight, name: "云台探照灯" },
+              { src: payloadMatrix, name: "矩阵照明灯" },
+            ].map((payload, index) => (
+              <div key={index} className="flex flex-col items-center group">
+                <div className="aspect-square bg-gray-800 rounded-xl overflow-hidden mb-3 w-full flex items-center justify-center p-4 group-hover:bg-gray-700 transition-colors">
+                  <img 
+                    src={payload.src}
+                    alt={payload.name}
+                    className="w-full h-full object-contain"
+                  />
+                </div>
+                <span className="text-sm text-center text-gray-300 group-hover:text-white transition-colors">{payload.name}</span>
               </div>
             ))}
           </div>
