@@ -142,12 +142,11 @@ const TH200 = () => {
               </p>
             </div>
             <div className="flex justify-center">
-              <div className="w-80 h-60 bg-gray-800 rounded-xl flex items-center justify-center">
-                <div className="text-center">
-                  <Thermometer className="w-16 h-16 text-green-400 mx-auto mb-4" />
-                  <p className="text-gray-400">离心式风冷系统</p>
-                </div>
-              </div>
+              <img 
+                src="/src/assets/products/th-200-cooling.png" 
+                alt="离心式风冷系统"
+                className="w-80 h-60 object-cover rounded-xl"
+              />
             </div>
           </div>
         </div>
