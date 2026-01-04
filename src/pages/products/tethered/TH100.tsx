@@ -8,9 +8,12 @@ import th100GroundUnit from "@/assets/products/th-100-ground-unit.png";
 import th100CleaningModes from "@/assets/products/th-100-cleaning-modes.png";
 import th100Telescopic from "@/assets/products/th-100-telescopic.png";
 import th100Psdk from "@/assets/products/th-100-psdk.png";
-import th100Comparison from "@/assets/products/th-100-comparison.png";
 import th100Radar from "@/assets/products/th-100-radar.png";
 import th100Power from "@/assets/products/th-100-power.png";
+import th100Wash1 from "@/assets/products/th-100-wash-1.png";
+import th100Wash2 from "@/assets/products/th-100-wash-2.png";
+import th100Wash3 from "@/assets/products/th-100-wash-3.png";
+import th100Before from "@/assets/products/th-100-before.png";
 
 const TH100 = () => {
   const highlights = [
@@ -241,24 +244,55 @@ const TH100 = () => {
             专业清洗效果
           </h2>
           
-          <div className="max-w-5xl mx-auto animate-fade-in" style={{ animationDelay: "0.1s" }}>
-            <img
-              src={th100Comparison}
-              alt="清洗效果对比"
-              className="w-full h-auto rounded-xl overflow-hidden"
-            />
-            <div className="grid grid-cols-3 gap-4 mt-8 text-center">
-              <div className="p-4">
+          <div className="max-w-6xl mx-auto animate-fade-in" style={{ animationDelay: "0.1s" }}>
+            {/* 三次清洗过程 */}
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
+              <div className="text-center">
+                <img
+                  src={th100Wash1}
+                  alt="初次清洗"
+                  className="w-full h-48 object-cover rounded-xl mb-4"
+                />
                 <p className="text-gray-400">初次清洗</p>
                 <p className="text-white font-semibold">中性洗涤剂</p>
               </div>
-              <div className="p-4">
+              <div className="text-center">
+                <img
+                  src={th100Wash2}
+                  alt="二次清洗"
+                  className="w-full h-48 object-cover rounded-xl mb-4"
+                />
                 <p className="text-gray-400">二次清洗</p>
                 <p className="text-white font-semibold">玻璃镀膜剂</p>
               </div>
-              <div className="p-4">
+              <div className="text-center">
+                <img
+                  src={th100Wash3}
+                  alt="三次清洗"
+                  className="w-full h-48 object-cover rounded-xl mb-4"
+                />
                 <p className="text-gray-400">三次清洗</p>
                 <p className="text-white font-semibold">清水</p>
+              </div>
+            </div>
+            
+            {/* 清洗前后对比 */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+              <div className="text-center">
+                <img
+                  src={th100Before}
+                  alt="清洗前效果"
+                  className="w-full h-64 object-cover rounded-xl mb-4"
+                />
+                <p className="text-amber-500 font-semibold text-lg">清洗前</p>
+              </div>
+              <div className="text-center">
+                <img
+                  src={th100Before}
+                  alt="清洗后效果"
+                  className="w-full h-64 object-cover rounded-xl mb-4"
+                />
+                <p className="text-green-500 font-semibold text-lg">清洗后</p>
               </div>
             </div>
           </div>
