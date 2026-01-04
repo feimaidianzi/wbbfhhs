@@ -189,11 +189,18 @@ const TH200 = () => {
             </p>
           </div>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-4xl mx-auto">
-            {[1, 2, 3, 4].map((_, index) => (
+            {[
+              "/src/assets/products/th-200-lighting-1.png",
+              "/src/assets/products/th-200-lighting-2.png",
+              "/src/assets/products/th-200-lighting-3.png",
+              "/src/assets/products/th-200-lighting-4.png"
+            ].map((src, index) => (
               <div key={index} className="aspect-[4/5] bg-gray-800 rounded-xl overflow-hidden">
-                <div className="w-full h-full bg-gradient-to-b from-yellow-400/20 to-transparent flex items-center justify-center">
-                  <Sun className="w-12 h-12 text-yellow-400/50" />
-                </div>
+                <img 
+                  src={src}
+                  alt={`应急照明场景 ${index + 1}`}
+                  className="w-full h-full object-cover"
+                />
               </div>
             ))}
           </div>
