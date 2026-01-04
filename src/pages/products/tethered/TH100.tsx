@@ -210,12 +210,22 @@ const TH100 = () => {
             三段式伸缩喷臂，快速展开，便于运输。
           </p>
           
-          <div className="max-w-5xl mx-auto animate-fade-in" style={{ animationDelay: "0.2s" }}>
-            <img
-              src={th100Telescopic}
-              alt="伸缩式设计"
-              className="w-full h-auto"
-            />
+          <div className="max-w-5xl mx-auto animate-fade-in relative" style={{ animationDelay: "0.2s" }}>
+            <div className="relative">
+              <img
+                src={th100Telescopic}
+                alt="伸缩式设计"
+                className="w-full h-auto"
+              />
+              {/* 上方大产品标注 */}
+              <div className="absolute top-[15%] right-[5%] text-right">
+                <p className="text-amber-500 font-semibold text-lg md:text-xl">最大伸展长度: 3.1米</p>
+              </div>
+              {/* 下方小产品标注 */}
+              <div className="absolute bottom-[20%] right-[5%] text-right">
+                <p className="text-amber-500 font-semibold text-lg md:text-xl">最小长度: 2.1米</p>
+              </div>
+            </div>
             <div className="flex flex-col md:flex-row justify-center items-center gap-8 mt-8">
               <div className="text-center">
                 <p className="text-gray-300">最大伸展长度：<span className="text-white font-bold">3.1米</span></p>
