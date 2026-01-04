@@ -157,12 +157,11 @@ const TH200 = () => {
         <div className="container mx-auto px-4">
           <div className="grid md:grid-cols-2 gap-12 items-center">
             <div className="order-2 md:order-1 flex justify-center">
-              <div className="w-80 h-60 bg-gray-800 rounded-xl flex items-center justify-center">
-                <div className="text-center">
-                  <Zap className="w-16 h-16 text-yellow-400 mx-auto mb-4" />
-                  <p className="text-gray-400">Ultra Carbon Pro 碳纤维桨叶</p>
-                </div>
-              </div>
+              <img 
+                src="/src/assets/products/th-200-propeller.png" 
+                alt="Ultra Carbon Pro 碳纤维桨叶"
+                className="w-80 h-60 object-cover rounded-xl"
+              />
             </div>
             <div className="order-1 md:order-2">
               <div className="flex items-center gap-3 mb-6">
