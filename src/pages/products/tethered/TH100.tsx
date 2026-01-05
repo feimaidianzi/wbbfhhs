@@ -2,7 +2,8 @@ import { SEO } from "@/components/SEO";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { Link } from "react-router-dom";
-import { ArrowLeft, LayoutGrid, Droplets, Settings, Cpu, Zap, Truck, Radar, Battery, Monitor } from "lucide-react";
+import { BackButton } from "@/components/BackButton";
+import { LayoutGrid, Droplets, Settings, Cpu, Zap, Truck, Radar, Battery, Monitor } from "lucide-react";
 import th100Hero from "@/assets/products/th-100-hero.png";
 import th100GroundUnit from "@/assets/products/th-100-ground-unit.png";
 import th100CleaningModes from "@/assets/products/th-100-cleaning-modes.png";
@@ -97,14 +98,7 @@ const TH100 = () => {
       <section className="relative min-h-screen bg-gradient-to-b from-gray-900 via-gray-800 to-gray-900 pt-20">
         <div className="absolute inset-0 bg-[url('data:image/svg+xml,...')] opacity-5" />
         
-        {/* Fixed Back Button */}
-        <Link 
-          to="/products/tethered" 
-          className="fixed top-24 left-4 md:left-8 z-40 inline-flex items-center gap-2 px-4 py-2 bg-primary/90 hover:bg-primary text-primary-foreground rounded-full shadow-lg backdrop-blur-sm transition-all hover:scale-105"
-        >
-          <ArrowLeft className="w-4 h-4" />
-          <span className="hidden md:inline">返回系留无人机</span>
-        </Link>
+        <BackButton to="/products/tethered" label="返回系留无人机" />
 
         <div className="container mx-auto px-4 text-center">
           <h1 className="text-3xl md:text-5xl font-bold text-white mb-6 animate-fade-in">

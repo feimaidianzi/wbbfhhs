@@ -2,8 +2,9 @@ import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { FloatingContact } from "@/components/FloatingContact";
 import { Button } from "@/components/ui/button";
-import { ArrowLeft, ArrowRight, CheckCircle, Phone, Mail, Zap, Cloud, Wifi, Settings, Shield, Briefcase } from "lucide-react";
+import { ArrowRight, CheckCircle, Phone, Mail, Zap, Cloud, Wifi, Settings, Shield, Briefcase } from "lucide-react";
 import { Link } from "react-router-dom";
+import { BackButton } from "@/components/BackButton";
 
 const UHS400P = () => {
   const specs = [
@@ -58,10 +59,7 @@ const UHS400P = () => {
           <div className="container-custom">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
               <div>
-                <Link to="/products/airport" className="inline-flex items-center text-accent hover:underline mb-4">
-                  <ArrowLeft className="w-4 h-4 mr-2" />
-                  返回机场系统
-                </Link>
+                <BackButton to="/products/airport" label="返回机场系统" />
                 <h1 className="text-3xl md:text-5xl font-bold mb-6">UHS 400P自动机场</h1>
                 <p className="text-lg text-muted-foreground mb-8 leading-relaxed">
                   便携式自动机场，快速部署，适合临时性巡检和应急响应场景。整机重量不足50kg，单人即可完成搬运和安装，5分钟内即可投入使用。

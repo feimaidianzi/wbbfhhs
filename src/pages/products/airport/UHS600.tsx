@@ -2,8 +2,9 @@ import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { FloatingContact } from "@/components/FloatingContact";
 import { Button } from "@/components/ui/button";
-import { ArrowLeft, ArrowRight, CheckCircle, Phone, Mail, Zap, Cloud, Wifi, Settings, Shield, Box } from "lucide-react";
+import { ArrowRight, CheckCircle, Phone, Mail, Zap, Cloud, Wifi, Settings, Shield, Box } from "lucide-react";
 import { Link } from "react-router-dom";
+import { BackButton } from "@/components/BackButton";
 
 const UHS600 = () => {
   const specs = [
@@ -58,10 +59,7 @@ const UHS600 = () => {
           <div className="container-custom">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
               <div>
-                <Link to="/products/airport" className="inline-flex items-center text-accent hover:underline mb-4">
-                  <ArrowLeft className="w-4 h-4 mr-2" />
-                  返回机场系统
-                </Link>
+                <BackButton to="/products/airport" label="返回机场系统" />
                 <h1 className="text-3xl md:text-5xl font-bold mb-6">UHS 600自动机场</h1>
                 <p className="text-lg text-muted-foreground mb-8 leading-relaxed">
                   紧凑型自动机场，适用于多种场景，具备快速部署和高效运营能力。仅需2平方米占地面积，是城市级巡检和中型工业场景的理想选择。

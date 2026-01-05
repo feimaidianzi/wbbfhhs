@@ -4,7 +4,8 @@ import { FloatingContact } from "@/components/FloatingContact";
 import { SEO } from "@/components/SEO";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
-import { ArrowLeft, Radio, Weight, Clock, Navigation, Layers, Cpu, Thermometer, Zap, Sun, Phone, Camera } from "lucide-react";
+import { BackButton } from "@/components/BackButton";
+import { Radio, Weight, Clock, Navigation, Layers, Cpu, Thermometer, Zap, Sun, Phone, Camera } from "lucide-react";
 
 import payloadZoom from "@/assets/products/th-200-payload-zoom.png";
 import payloadIR from "@/assets/products/th-200-payload-ir.png";
@@ -83,14 +84,7 @@ const TH200 = () => {
       <section className="relative min-h-screen bg-gradient-to-b from-sky-100 to-sky-200 overflow-hidden">
         <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1920&q=80')] bg-cover bg-center opacity-30" />
         <div className="container mx-auto px-4 pt-32 pb-20 relative z-10">
-          {/* Back Link */}
-          <Link 
-            to="/products/tethered" 
-            className="inline-flex items-center gap-2 text-foreground/70 hover:text-primary mb-8 transition-colors"
-          >
-            <ArrowLeft className="w-4 h-4" />
-            返回系留无人机
-          </Link>
+          <BackButton to="/products/tethered" label="返回系留无人机" />
 
           <div className="text-center mb-16">
             <h1 className="text-5xl md:text-7xl font-bold mb-4">

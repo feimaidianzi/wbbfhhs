@@ -2,8 +2,9 @@ import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { FloatingContact } from "@/components/FloatingContact";
 import { Button } from "@/components/ui/button";
-import { ArrowLeft, ArrowRight, CheckCircle, ShoppingCart } from "lucide-react";
+import { ArrowRight, CheckCircle, ShoppingCart } from "lucide-react";
 import { Link, useParams } from "react-router-dom";
+import { BackButton } from "@/components/BackButton";
 
 const categoryData: Record<string, {
   title: string;
@@ -223,10 +224,7 @@ const FPVCategory = () => {
           </div>
           <div className="relative container-custom h-full flex items-center">
             <div className="max-w-2xl">
-              <Link to="/fpv" className="inline-flex items-center text-accent hover:underline mb-4">
-                <ArrowLeft className="w-4 h-4 mr-2" />
-                返回FPV首页
-              </Link>
+              <BackButton to="/fpv" label="返回FPV首页" />
               <h1 className="text-3xl md:text-5xl font-bold text-primary-foreground mb-4">
                 {data.title}
               </h1>

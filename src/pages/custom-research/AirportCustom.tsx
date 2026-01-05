@@ -2,8 +2,9 @@ import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { FloatingContact } from "@/components/FloatingContact";
 import { Button } from "@/components/ui/button";
-import { ArrowLeft, ArrowRight, CheckCircle, Phone, Mail, Box, Settings, Shield, Zap, Radio, Eye } from "lucide-react";
+import { ArrowRight, CheckCircle, Phone, Mail, Box, Settings, Shield, Zap, Radio, Eye } from "lucide-react";
 import { Link } from "react-router-dom";
+import { BackButton } from "@/components/BackButton";
 
 const AirportCustom = () => {
   const features = [
@@ -64,10 +65,7 @@ const AirportCustom = () => {
           <div className="container-custom">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
               <div>
-                <Link to="/custom-research" className="inline-flex items-center text-accent hover:underline mb-4">
-                  <ArrowLeft className="w-4 h-4 mr-2" />
-                  返回科研定制
-                </Link>
+                <BackButton to="/custom-research" label="返回科研定制" />
                 <h1 className="text-3xl md:text-5xl font-bold mb-6">机场定制</h1>
                 <p className="text-lg text-muted-foreground mb-8 leading-relaxed">
                   提供无人机机场系统的全方位定制服务，从起降平台到充电系统，从通信集成到远程管理，满足各行业特殊应用场景需求。

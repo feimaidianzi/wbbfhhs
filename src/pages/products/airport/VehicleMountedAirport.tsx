@@ -2,8 +2,9 @@ import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { FloatingContact } from "@/components/FloatingContact";
 import { Button } from "@/components/ui/button";
-import { ArrowLeft, ArrowRight, CheckCircle, Phone, Mail, Car, Zap, Clock, Shield, Wifi, Settings } from "lucide-react";
+import { ArrowRight, CheckCircle, Phone, Mail, Car, Zap, Clock, Shield, Wifi, Settings } from "lucide-react";
 import { Link } from "react-router-dom";
+import { BackButton } from "@/components/BackButton";
 
 const VehicleMountedAirport = () => {
   const specs = [
@@ -57,10 +58,7 @@ const VehicleMountedAirport = () => {
           <div className="container-custom">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
               <div>
-                <Link to="/products/airport" className="inline-flex items-center text-accent hover:underline mb-4">
-                  <ArrowLeft className="w-4 h-4 mr-2" />
-                  返回机场系统
-                </Link>
+                <BackButton to="/products/airport" label="返回机场系统" />
                 <h1 className="text-3xl md:text-5xl font-bold mb-6">车载自动机场</h1>
                 <p className="text-lg text-muted-foreground mb-8 leading-relaxed">
                   多维跨域，相得益彰。空地跨域协同、人机共融的智能化解决方案，可快速部署于各类车辆平台，实现移动式无人值守巡检。专为应急响应和移动作业场景设计，3分钟内完成全自动展开。
