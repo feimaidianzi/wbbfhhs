@@ -10,6 +10,9 @@ import { Clock, Zap, Shield, Radio, Eye, Settings, Phone, Mail, Plane, Target, V
 
 // Import product images
 import th300Drone from "@/assets/products/th-300-drone.png";
+import th300Aircraft from "@/assets/products/th-300-aircraft.png";
+import th300Controller from "@/assets/products/th-300-controller.png";
+import th300GimbalCamera from "@/assets/products/th-300-gimbal-camera.png";
 const TH300 = () => {
   // 核心亮点
   const highlights = [{
@@ -342,7 +345,10 @@ const TH300 = () => {
             <div className="grid lg:grid-cols-3 gap-8">
               {/* Flight Platform Specs */}
               <div className="lg:col-span-2">
-                <h3 className="text-xl font-bold mb-6 text-orange-400">飞行器参数</h3>
+                <div className="flex items-center gap-4 mb-6">
+                  <img src={th300Aircraft} alt="D420飞行器" className="w-24 h-24 object-contain" />
+                  <h3 className="text-xl font-bold text-orange-400">飞行器参数</h3>
+                </div>
                 <div className="bg-white/5 rounded-2xl overflow-hidden">
                   <table className="w-full">
                     <tbody>
@@ -358,7 +364,10 @@ const TH300 = () => {
               {/* Controller & Camera Specs */}
               <div className="space-y-8">
                 <div>
-                  <h3 className="text-xl font-bold mb-6 text-orange-400">智能一体地面站遥控器</h3>
+                  <div className="flex items-center gap-4 mb-6">
+                    <img src={th300Controller} alt="地面站遥控器" className="w-20 h-20 object-contain" />
+                    <h3 className="text-xl font-bold text-orange-400">智能一体地面站遥控器</h3>
+                  </div>
                   <div className="bg-white/5 rounded-2xl overflow-hidden">
                     <table className="w-full">
                       <tbody>
@@ -372,7 +381,10 @@ const TH300 = () => {
                 </div>
 
                 <div>
-                  <h3 className="text-xl font-bold mb-6 text-orange-400">云台摄像头参数</h3>
+                  <div className="flex items-center gap-4 mb-6">
+                    <img src={th300GimbalCamera} alt="云台摄像头" className="w-20 h-20 object-contain" />
+                    <h3 className="text-xl font-bold text-orange-400">云台摄像头参数</h3>
+                  </div>
                   <div className="bg-white/5 rounded-2xl overflow-hidden">
                     <table className="w-full">
                       <tbody>
