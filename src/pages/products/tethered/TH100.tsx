@@ -10,6 +10,11 @@ import th100Telescopic from "@/assets/products/th-100-telescopic.png";
 import th100Psdk from "@/assets/products/th-100-psdk.png";
 import th100Radar from "@/assets/products/th-100-radar.png";
 import th100Power from "@/assets/products/th-100-power.png";
+import th100CleaningSystem from "@/assets/products/th-100-cleaning-system.png";
+import th100Tower from "@/assets/products/th-100-tower.jpg";
+import th100Insulator from "@/assets/products/th-100-insulator.jpg";
+import th100Building from "@/assets/products/th-100-building.jpg";
+import th100Solar from "@/assets/products/th-100-solar.jpg";
 import th100Wash1 from "@/assets/products/th-100-wash-1.png";
 import th100Wash2 from "@/assets/products/th-100-wash-2.png";
 import th100Wash3 from "@/assets/products/th-100-wash-3.png";
@@ -299,27 +304,65 @@ const TH100 = () => {
         </div>
       </section>
 
-      {/* Radar Safety Section */}
+      {/* Cleaning System Section */}
       <section className="py-20 bg-gradient-to-b from-gray-900 to-gray-800">
         <div className="container mx-auto px-4">
           <h2 className="text-3xl md:text-4xl font-bold text-center text-white mb-4 animate-fade-in">
-            相控阵雷达保障飞行安全与稳定清洁
+            无人机系留清洗系统
           </h2>
-          <p className="text-center text-amber-500 mb-12 animate-fade-in" style={{ animationDelay: "0.1s" }}>
-            前方障碍物检测距离≥3米
+          <p className="text-center text-gray-300 max-w-4xl mx-auto mb-12 animate-fade-in" style={{ animationDelay: "0.1s" }}>
+            清洗吊舱与机身软连接，小巧多能、极致安全，可广泛应用于大厦外墙、光伏板绝缘子串、高塔等各类高空清洁场景，助力行业实现强效降本。
           </p>
           
-          <div className="max-w-4xl mx-auto animate-fade-in" style={{ animationDelay: "0.2s" }}>
-            <div className="relative">
-              <img
-                src={th100Radar}
-                alt="相控阵雷达安全系统"
-                className="w-full h-auto"
-              />
-              <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
-                <div className="w-16 h-16 bg-blue-400/30 rounded-full animate-ping" />
-                <Radar className="w-8 h-8 text-blue-400 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2" />
+          <div className="max-w-4xl mx-auto mb-16 animate-fade-in" style={{ animationDelay: "0.2s" }}>
+            <img
+              src={th100CleaningSystem}
+              alt="无人机系留清洗系统"
+              className="w-full h-auto"
+            />
+          </div>
+
+          {/* Application Scenarios */}
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-6 max-w-6xl mx-auto">
+            <div className="group text-center animate-fade-in" style={{ animationDelay: "0.3s" }}>
+              <div className="overflow-hidden rounded-xl mb-4">
+                <img
+                  src={th100Tower}
+                  alt="高塔清洗"
+                  className="w-full h-48 object-cover group-hover:scale-110 transition-transform duration-500"
+                />
               </div>
+              <p className="text-white font-semibold">高塔</p>
+            </div>
+            <div className="group text-center animate-fade-in" style={{ animationDelay: "0.4s" }}>
+              <div className="overflow-hidden rounded-xl mb-4">
+                <img
+                  src={th100Insulator}
+                  alt="绝缘子串清洗"
+                  className="w-full h-48 object-cover group-hover:scale-110 transition-transform duration-500"
+                />
+              </div>
+              <p className="text-white font-semibold">绝缘子串</p>
+            </div>
+            <div className="group text-center animate-fade-in" style={{ animationDelay: "0.5s" }}>
+              <div className="overflow-hidden rounded-xl mb-4">
+                <img
+                  src={th100Building}
+                  alt="大厦外墙清洗"
+                  className="w-full h-48 object-cover group-hover:scale-110 transition-transform duration-500"
+                />
+              </div>
+              <p className="text-white font-semibold">大厦外墙</p>
+            </div>
+            <div className="group text-center animate-fade-in" style={{ animationDelay: "0.6s" }}>
+              <div className="overflow-hidden rounded-xl mb-4">
+                <img
+                  src={th100Solar}
+                  alt="光伏板清洗"
+                  className="w-full h-48 object-cover group-hover:scale-110 transition-transform duration-500"
+                />
+              </div>
+              <p className="text-white font-semibold">光伏板</p>
             </div>
           </div>
         </div>
