@@ -17,6 +17,12 @@ import th200Hero from "@/assets/products/th-200-hero.png";
 import th200Display1 from "@/assets/products/th-200-display-1.png";
 import th200Display2 from "@/assets/products/th-200-display-2.png";
 import th200Display3 from "@/assets/products/th-200-display-3.png";
+import th200Lighting1 from "@/assets/products/th-200-lighting-1.png";
+import th200Lighting2 from "@/assets/products/th-200-lighting-2.png";
+import th200Lighting3 from "@/assets/products/th-200-lighting-3.png";
+import th200Lighting4 from "@/assets/products/th-200-lighting-4.png";
+import th200Cooling from "@/assets/products/th-200-cooling.png";
+import th200Propeller from "@/assets/products/th-200-propeller.png";
 
 const TH200 = () => {
   const highlights = [
@@ -148,7 +154,7 @@ const TH200 = () => {
             </div>
             <div className="flex justify-center">
               <img 
-                src="/src/assets/products/th-200-cooling.png" 
+                src={th200Cooling} 
                 alt="离心式风冷系统"
                 className="w-80 h-60 object-cover rounded-xl"
               />
@@ -163,7 +169,7 @@ const TH200 = () => {
           <div className="grid md:grid-cols-2 gap-12 items-center">
             <div className="order-2 md:order-1 flex justify-center">
               <img 
-                src="/src/assets/products/th-200-propeller.png" 
+                src={th200Propeller} 
                 alt="Ultra Carbon Pro 碳纤维桨叶"
                 className="w-80 h-60 object-cover rounded-xl"
               />
@@ -194,12 +200,7 @@ const TH200 = () => {
             </p>
           </div>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-4xl mx-auto">
-            {[
-              "/src/assets/products/th-200-lighting-1.png",
-              "/src/assets/products/th-200-lighting-2.png",
-              "/src/assets/products/th-200-lighting-3.png",
-              "/src/assets/products/th-200-lighting-4.png"
-            ].map((src, index) => (
+            {[th200Lighting1, th200Lighting2, th200Lighting3, th200Lighting4].map((src, index) => (
               <div key={index} className="aspect-[4/5] bg-gray-800 rounded-xl overflow-hidden">
                 <img 
                   src={src}
