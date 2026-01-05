@@ -30,24 +30,24 @@ const TH100 = () => {
     subtitle: "高压清洁系统"
   }, {
     icon: Droplets,
-    title: "23 MPa",
-    subtitle: "高压清洁动力系统"
+    title: "195 Bar",
+    subtitle: "工作压力"
   }, {
     icon: Settings,
-    title: "快装伸缩",
-    subtitle: "式设计"
+    title: "IP55",
+    subtitle: "防护等级"
   }, {
     icon: Cpu,
     title: "PSDK",
     subtitle: "嵌入式控制系统"
   }, {
     icon: Zap,
-    title: "16kW",
-    subtitle: "系留供电模块"
+    title: "4-6kW",
+    subtitle: "最大供电功率"
   }, {
     icon: Truck,
-    title: "紧凑运输",
-    subtitle: "快速部署"
+    title: "50-100m",
+    subtitle: "作业高度"
   }];
   const leftSpecs = [{
     label: "重量",
