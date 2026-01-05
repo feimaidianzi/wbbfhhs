@@ -9,7 +9,6 @@ import th100CleaningModes from "@/assets/products/th-100-cleaning-modes.png";
 import th100Telescopic from "@/assets/products/th-100-telescopic.png";
 import th100Psdk from "@/assets/products/th-100-psdk.png";
 import th100Radar from "@/assets/products/th-100-radar.png";
-import th100Power from "@/assets/products/th-100-power.png";
 import th100Wash1 from "@/assets/products/th-100-wash-1.png";
 import th100Wash2 from "@/assets/products/th-100-wash-2.png";
 import th100Wash3 from "@/assets/products/th-100-wash-3.png";
@@ -345,7 +344,7 @@ const TH100 = () => {
           <div className="max-w-5xl mx-auto animate-fade-in" style={{
           animationDelay: "0.2s"
         }}>
-            <img src={th100Power} alt="电源系统" className="w-full h-auto" />
+            <img src={th100GroundUnit} alt="电源系统" className="w-full h-auto" />
             <div className="grid md:grid-cols-2 gap-8 mt-12">
               <div className="flex items-center gap-4 p-6 bg-gray-800/50 rounded-xl border border-gray-700">
                 <Battery className="w-8 h-8 text-blue-400" />
