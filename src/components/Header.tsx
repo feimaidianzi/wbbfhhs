@@ -1,7 +1,7 @@
 import { useState, useRef } from "react";
-import { Menu, X, Phone, ChevronDown, ArrowLeft } from "lucide-react";
+import { Menu, X, Phone, ChevronDown } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import logo from "@/assets/logo.png";
 
 const productCategories = [
@@ -69,10 +69,6 @@ export const Header = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
   const timeoutRef = useRef<NodeJS.Timeout | null>(null);
-  const location = useLocation();
-  const navigate = useNavigate();
-  
-  const isHomePage = location.pathname === "/";
 
   const handleMouseEnter = (itemName: string) => {
     if (timeoutRef.current) {
@@ -92,23 +88,10 @@ export const Header = () => {
     <header className="fixed top-0 left-0 right-0 z-50 bg-primary shadow-lg">
       <div className="container-custom">
         <div className="flex items-center justify-between h-16 md:h-20">
-          {/* Back Button & Logo */}
-          <div className="flex items-center gap-2">
-            {!isHomePage && (
-              <Button
-                variant="ghost"
-                size="icon"
-                className="text-primary-foreground hover:bg-primary-foreground/10"
-                onClick={() => navigate(-1)}
-                aria-label="返回上一页"
-              >
-                <ArrowLeft className="w-5 h-5" />
-              </Button>
-            )}
-            <Link to="/" className="flex items-center">
-              <img src={logo} alt="长凌电子LOGO" className="h-8 md:h-10 w-auto" />
-            </Link>
-          </div>
+          {/* Logo */}
+          <Link to="/" className="flex items-center">
+            <img src={logo} alt="长凌电子LOGO" className="h-8 md:h-10 w-auto" />
+          </Link>
 
           {/* Desktop Navigation */}
           <nav className="hidden lg:flex items-center gap-1">
