@@ -13,6 +13,10 @@ import th300Drone from "@/assets/products/th-300-drone.png";
 import th300Aircraft from "@/assets/products/th-300-aircraft.png";
 import th300Controller from "@/assets/products/th-300-controller.png";
 import th300GimbalCamera from "@/assets/products/th-300-gimbal-camera.png";
+import th300PayloadSpotlight from "@/assets/products/th-300-payload-spotlight.png";
+import th300PayloadSpeaker from "@/assets/products/th-300-payload-speaker.png";
+import th300PayloadFireball from "@/assets/products/th-300-payload-fireball.png";
+import th300PayloadBattery from "@/assets/products/th-300-payload-battery.png";
 const TH300 = () => {
   // 核心亮点
   const highlights = [{
@@ -183,18 +187,22 @@ const TH300 = () => {
   const payloads = [{
     icon: Lightbulb,
     title: "探照灯",
+    image: th300PayloadSpotlight,
     specs: ["功率: 200W", "色温: 5000K-7000K", "照射距离: ≥1000米", "探照角度: ±120°", "工作模式: 常亮/爆闪"]
   }, {
     icon: Volume2,
     title: "智能喊话器",
+    image: th300PayloadSpeaker,
     specs: ["功率: 200W", "声音分贝: 180", "传播距离: ≥600米", "信号接收距离: ≥3KM", "模式: 对讲机实时喊话"]
   }, {
     icon: Flame,
     title: "灭火球抛投设备",
+    image: th300PayloadFireball,
     specs: ["材质: 碳纤维", "搭载数量: 4枚", "灭火弹重量: 1.3KG", "爆破方式: 遇火自爆", "投放方式: 依次投放"]
   }, {
     icon: Battery,
     title: "高压版固态电池",
+    image: th300PayloadBattery,
     specs: ["类型: LiHV 14S", "电压: 61V", "容量: 31000mAh", "能量: 7140Wh", "适应海拔: ≥6000米"]
   }];
 
@@ -319,8 +327,8 @@ const TH300 = () => {
 
             <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
               {payloads.map((payload, index) => <Card key={index} className="p-6 hover:shadow-lg transition-shadow border-2 hover:border-orange-200">
-                  <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-orange-500 to-red-500 flex items-center justify-center mb-4">
-                    <payload.icon className="w-7 h-7 text-white" />
+                  <div className="w-full h-32 mb-4 flex items-center justify-center bg-slate-50 rounded-xl overflow-hidden">
+                    <img src={payload.image} alt={payload.title} className="max-w-full max-h-full object-contain" />
                   </div>
                   <h3 className="text-lg font-bold text-slate-900 mb-3">{payload.title}</h3>
                   <ul className="space-y-1">
