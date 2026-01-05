@@ -209,7 +209,7 @@ const TH300 = () => {
   // 应用场景
   const applications = ["巡查监控", "应急喊话", "夜间照明", "森林消防", "安防巡逻", "搜救行动"];
   return <div className="min-h-screen bg-background">
-      <SEO title="D420 四旋翼无人机 - 巡查/喊话/照明/消防多功能平台" description="D420四旋翼无人机，1380mm轴距，≥20KG载重，40分钟续航，支持探照灯、喊话器、灭火球等多任务载荷" keywords="四旋翼无人机,D420,巡查无人机,喊话无人机,照明无人机,消防无人机,多功能无人机" />
+      <SEO title="TH-300 系留消防无人机 - 巡查/喊话/照明/消防多功能平台" description="TH-300系留消防无人机，1380mm轴距，≥20KG载重，40分钟续航，支持探照灯、喊话器、灭火球等多任务载荷" keywords="系留消防无人机,TH-300,巡查无人机,喊话无人机,照明无人机,消防无人机,多功能无人机" />
       <Header />
       <FloatingContact />
       
@@ -251,7 +251,7 @@ const TH300 = () => {
               {/* Right: Product Image */}
               <div className="relative">
                 <div className="absolute inset-0 bg-gradient-to-r from-orange-500/20 to-red-500/20 rounded-3xl blur-3xl"></div>
-                <img src={th300Drone} alt="D420 四旋翼无人机" className="relative z-10 w-full max-w-lg mx-auto drop-shadow-2xl" />
+                <img src={th300Drone} alt="TH-300 系留消防无人机" className="relative z-10 w-full max-w-lg mx-auto drop-shadow-2xl" />
               </div>
             </div>
           </div>
@@ -354,7 +354,7 @@ const TH300 = () => {
               {/* Flight Platform Specs */}
               <div className="lg:col-span-2">
                 <div className="flex items-center gap-4 mb-6">
-                  <img src={th300Aircraft} alt="D420飞行器" className="w-24 h-24 object-contain" />
+                  <img src={th300Aircraft} alt="TH-300飞行器" className="w-24 h-24 object-contain" />
                   <h3 className="text-xl font-bold text-orange-400">飞行器参数</h3>
                 </div>
                 <div className="bg-white/5 rounded-2xl overflow-hidden">
@@ -432,7 +432,7 @@ const TH300 = () => {
         <section className="py-20 bg-gradient-to-br from-orange-500 to-red-600">
           <div className="container mx-auto px-4 text-center">
             <h2 className="text-3xl md:text-4xl font-bold text-white mb-6">
-              了解更多D420解决方案
+              了解更多TH-300解决方案
             </h2>
             <p className="text-orange-100 mb-8 max-w-2xl mx-auto text-lg">
               联系我们的专业团队，获取定制化配置方案和详细报价
