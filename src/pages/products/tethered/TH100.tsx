@@ -97,12 +97,14 @@ const TH100 = () => {
       <section className="relative min-h-screen bg-gradient-to-b from-gray-900 via-gray-800 to-gray-900 pt-20">
         <div className="absolute inset-0 bg-[url('data:image/svg+xml,...')] opacity-5" />
         
-        <div className="container mx-auto px-4 py-8">
-          <Link to="/products/tethered" className="inline-flex items-center gap-2 text-gray-400 hover:text-white transition-colors mb-8">
-            <ArrowLeft className="w-4 h-4" />
-            返回系留无人机
-          </Link>
-        </div>
+        {/* Fixed Back Button */}
+        <Link 
+          to="/products/tethered" 
+          className="fixed top-24 left-4 md:left-8 z-40 inline-flex items-center gap-2 px-4 py-2 bg-primary/90 hover:bg-primary text-primary-foreground rounded-full shadow-lg backdrop-blur-sm transition-all hover:scale-105"
+        >
+          <ArrowLeft className="w-4 h-4" />
+          <span className="hidden md:inline">返回系留无人机</span>
+        </Link>
 
         <div className="container mx-auto px-4 text-center">
           <h1 className="text-3xl md:text-5xl font-bold text-white mb-6 animate-fade-in">
