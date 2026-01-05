@@ -9,7 +9,10 @@ import th100CleaningModes from "@/assets/products/th-100-cleaning-modes.png";
 import th100Telescopic from "@/assets/products/th-100-telescopic.png";
 import th100Psdk from "@/assets/products/th-100-psdk.png";
 import th100Radar from "@/assets/products/th-100-radar.png";
-import th100Power from "@/assets/products/th-100-power.png";
+import th100Drone from "@/assets/products/th-100-drone.png";
+import th100Controller from "@/assets/products/th-100-controller.png";
+import th100PowerUnit from "@/assets/products/th-100-power-unit.png";
+import th100WashSystem from "@/assets/products/th-100-wash-system.png";
 import th100CleaningSystem from "@/assets/products/th-100-cleaning-system.png";
 import th100Tower from "@/assets/products/th-100-tower.jpg";
 import th100Insulator from "@/assets/products/th-100-insulator.jpg";
@@ -368,37 +371,48 @@ const TH100 = () => {
         </div>
       </section>
 
-      {/* Power System Section */}
+      {/* High-Pressure Tethered Cleaning System Section */}
       <section className="py-20 bg-gradient-to-b from-gray-800 to-gray-900">
         <div className="container mx-auto px-4">
           <h2 className="text-3xl md:text-4xl font-bold text-center text-white mb-4 animate-fade-in">
-            即插即用电源-兼容大疆电池插槽
+            高压系留方案清洗无人机
           </h2>
-          <p className="text-center text-gray-400 max-w-3xl mx-auto mb-12 animate-fade-in" style={{ animationDelay: "0.1s" }}>
-            更换一块电池即可获得16千瓦系留供电—简单又安全。
+          <p className="text-center text-gray-400 max-w-4xl mx-auto mb-12 animate-fade-in leading-relaxed" style={{ animationDelay: "0.1s" }}>
+            高压系留方案清洗无人机以"系留供电+高压清洗"为核心技术，通过双差分精准定位、支持毫米波雷达实时测距，实现全自动清洗功能。快拆式结构支持固定式和摆动式两种清洗挂载快速安装，配合多种角度喷嘴，满足屋面房顶、落叶水槽、玻璃幕墙、石材外墙、光伏板等多场景需求。降低用工成本的同时也大大降低了高空作业的安全风险。
           </p>
           
-          <div className="max-w-5xl mx-auto animate-fade-in" style={{ animationDelay: "0.2s" }}>
-            <img
-              src={th100Power}
-              alt="电源系统"
-              className="w-full h-auto"
-            />
-            <div className="grid md:grid-cols-2 gap-8 mt-12">
-              <div className="flex items-center gap-4 p-6 bg-gray-800/50 rounded-xl border border-gray-700">
-                <Battery className="w-8 h-8 text-blue-400" />
-                <div>
-                  <h4 className="text-white font-semibold">兼容大疆的系留供电模块</h4>
-                  <p className="text-gray-400 text-sm">备用电池无缝接管</p>
-                </div>
-              </div>
-              <div className="flex items-center gap-4 p-6 bg-gray-800/50 rounded-xl border border-gray-700">
-                <Zap className="w-8 h-8 text-amber-400" />
-                <div>
-                  <h4 className="text-white font-semibold">工业级地面单元</h4>
-                  <p className="text-gray-400 text-sm">稳定电源供应</p>
-                </div>
-              </div>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-6 max-w-6xl mx-auto animate-fade-in" style={{ animationDelay: "0.2s" }}>
+            <div className="bg-gray-800/50 rounded-xl p-4 border border-gray-700 hover:border-blue-500 transition-colors">
+              <img
+                src={th100Drone}
+                alt="无人机"
+                className="w-full h-48 object-contain mb-4"
+              />
+              <h4 className="text-white font-semibold text-center">无人机</h4>
+            </div>
+            <div className="bg-gray-800/50 rounded-xl p-4 border border-gray-700 hover:border-blue-500 transition-colors">
+              <img
+                src={th100Controller}
+                alt="遥控器"
+                className="w-full h-48 object-contain mb-4"
+              />
+              <h4 className="text-white font-semibold text-center">遥控器</h4>
+            </div>
+            <div className="bg-gray-800/50 rounded-xl p-4 border border-gray-700 hover:border-blue-500 transition-colors">
+              <img
+                src={th100PowerUnit}
+                alt="电源"
+                className="w-full h-48 object-contain mb-4"
+              />
+              <h4 className="text-white font-semibold text-center">电源</h4>
+            </div>
+            <div className="bg-gray-800/50 rounded-xl p-4 border border-gray-700 hover:border-blue-500 transition-colors">
+              <img
+                src={th100WashSystem}
+                alt="清洗系统"
+                className="w-full h-48 object-contain mb-4"
+              />
+              <h4 className="text-white font-semibold text-center">清洗系统</h4>
             </div>
           </div>
         </div>
