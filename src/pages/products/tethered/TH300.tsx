@@ -342,7 +342,7 @@ const TH300 = () => {
             <div className="grid lg:grid-cols-3 gap-8">
               {/* Flight Platform Specs */}
               <div className="lg:col-span-2">
-                <h3 className="text-xl font-bold mb-6 text-orange-400">飞行器四旋翼 D420 参数</h3>
+                <h3 className="text-xl font-bold mb-6 text-orange-400">飞行器参数</h3>
                 <div className="bg-white/5 rounded-2xl overflow-hidden">
                   <table className="w-full">
                     <tbody>
