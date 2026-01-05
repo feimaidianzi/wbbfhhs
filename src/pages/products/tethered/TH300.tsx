@@ -216,7 +216,7 @@ const TH300 = () => {
       <main>
         {/* Hero Section */}
         <section className="relative bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 pt-20 pb-16 overflow-hidden">
-          <div className="absolute inset-0 bg-[url('data:image/svg+xml,...')] opacity-5"></div>
+          
           
           <BackButton to="/products/tethered" label="返回系留无人机" />
 
