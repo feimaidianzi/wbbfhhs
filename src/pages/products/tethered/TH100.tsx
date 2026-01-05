@@ -140,6 +140,41 @@ const TH100 = () => {
         </div>
       </section>
 
+      {/* High-Pressure Tethered Cleaning System Section */}
+      <section className="py-20 bg-gradient-to-b from-gray-800 to-gray-900">
+        <div className="container mx-auto px-4">
+          <h2 className="text-3xl md:text-4xl font-bold text-center text-white mb-4 animate-fade-in">
+            高压系留方案清洗无人机
+          </h2>
+          <p className="text-center text-gray-400 max-w-4xl mx-auto mb-12 animate-fade-in leading-relaxed" style={{
+          animationDelay: "0.1s"
+        }}>
+            高压系留方案清洗无人机以"系留供电+高压清洗"为核心技术，通过双差分精准定位、支持毫米波雷达实时测距，实现全自动清洗功能。快拆式结构支持固定式和摆动式两种清洗挂载快速安装，配合多种角度喷嘴，满足屋面房顶、落叶水槽、玻璃幕墙、石材外墙、光伏板等多场景需求。降低用工成本的同时也大大降低了高空作业的安全风险。
+          </p>
+          
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-6 max-w-6xl mx-auto animate-fade-in" style={{
+          animationDelay: "0.2s"
+        }}>
+            <div className="bg-gray-800/50 rounded-xl p-4 border border-gray-700 hover:border-blue-500 transition-colors">
+              <img src={th100Drone} alt="无人机" className="w-full h-48 object-contain mb-4" />
+              <h4 className="text-white font-semibold text-center">无人机</h4>
+            </div>
+            <div className="bg-gray-800/50 rounded-xl p-4 border border-gray-700 hover:border-blue-500 transition-colors">
+              <img src={th100Controller} alt="遥控器" className="w-full h-48 object-contain mb-4" />
+              <h4 className="text-white font-semibold text-center">遥控器</h4>
+            </div>
+            <div className="bg-gray-800/50 rounded-xl p-4 border border-gray-700 hover:border-blue-500 transition-colors">
+              <img src={th100PowerUnit} alt="电源" className="w-full h-48 object-contain mb-4" />
+              <h4 className="text-white font-semibold text-center">电源</h4>
+            </div>
+            <div className="bg-gray-800/50 rounded-xl p-4 border border-gray-700 hover:border-blue-500 transition-colors">
+              <img src={th100WashSystem} alt="清洗系统" className="w-full h-48 object-contain mb-4" />
+              <h4 className="text-white font-semibold text-center">清洗系统</h4>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Ground Unit Section */}
       <section className="py-20 bg-gradient-to-b from-gray-800 to-gray-900">
         <div className="container mx-auto px-4">
@@ -358,40 +393,6 @@ const TH100 = () => {
         </div>
       </section>
 
-      {/* High-Pressure Tethered Cleaning System Section */}
-      <section className="py-20 bg-gradient-to-b from-gray-800 to-gray-900">
-        <div className="container mx-auto px-4">
-          <h2 className="text-3xl md:text-4xl font-bold text-center text-white mb-4 animate-fade-in">
-            高压系留方案清洗无人机
-          </h2>
-          <p className="text-center text-gray-400 max-w-4xl mx-auto mb-12 animate-fade-in leading-relaxed" style={{
-          animationDelay: "0.1s"
-        }}>
-            高压系留方案清洗无人机以"系留供电+高压清洗"为核心技术，通过双差分精准定位、支持毫米波雷达实时测距，实现全自动清洗功能。快拆式结构支持固定式和摆动式两种清洗挂载快速安装，配合多种角度喷嘴，满足屋面房顶、落叶水槽、玻璃幕墙、石材外墙、光伏板等多场景需求。降低用工成本的同时也大大降低了高空作业的安全风险。
-          </p>
-          
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6 max-w-6xl mx-auto animate-fade-in" style={{
-          animationDelay: "0.2s"
-        }}>
-            <div className="bg-gray-800/50 rounded-xl p-4 border border-gray-700 hover:border-blue-500 transition-colors">
-              <img src={th100Drone} alt="无人机" className="w-full h-48 object-contain mb-4" />
-              <h4 className="text-white font-semibold text-center">无人机</h4>
-            </div>
-            <div className="bg-gray-800/50 rounded-xl p-4 border border-gray-700 hover:border-blue-500 transition-colors">
-              <img src={th100Controller} alt="遥控器" className="w-full h-48 object-contain mb-4" />
-              <h4 className="text-white font-semibold text-center">遥控器</h4>
-            </div>
-            <div className="bg-gray-800/50 rounded-xl p-4 border border-gray-700 hover:border-blue-500 transition-colors">
-              <img src={th100PowerUnit} alt="电源" className="w-full h-48 object-contain mb-4" />
-              <h4 className="text-white font-semibold text-center">电源</h4>
-            </div>
-            <div className="bg-gray-800/50 rounded-xl p-4 border border-gray-700 hover:border-blue-500 transition-colors">
-              <img src={th100WashSystem} alt="清洗系统" className="w-full h-48 object-contain mb-4" />
-              <h4 className="text-white font-semibold text-center">清洗系统</h4>
-            </div>
-          </div>
-        </div>
-      </section>
 
       {/* CTA Section */}
       <section className="py-20 bg-gradient-to-r from-blue-900 to-gray-900">
