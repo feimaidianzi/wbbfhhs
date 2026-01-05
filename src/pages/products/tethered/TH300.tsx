@@ -242,7 +242,7 @@ const TH300 = () => {
                   <Button asChild size="lg" className="bg-orange-500 hover:bg-orange-600 text-white">
                     <Link to="/contact">获取报价</Link>
                   </Button>
-                  <Button asChild size="lg" variant="outline" className="border-white/30 text-white hover:bg-white/10">
+                  <Button asChild size="lg" className="bg-white/20 border-2 border-white text-white hover:bg-white/30">
                     <a href="#specs">查看参数</a>
                   </Button>
                 </div>
