@@ -2,8 +2,9 @@ import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { FloatingContact } from "@/components/FloatingContact";
 import { Button } from "@/components/ui/button";
-import { ArrowRight, ArrowLeft, Calendar, Tag, CheckCircle, Zap, Shield, TrendingUp, Target } from "lucide-react";
+import { ArrowRight, Calendar, Tag, CheckCircle, Zap, Shield, TrendingUp, Target } from "lucide-react";
 import { Link, useParams, Navigate } from "react-router-dom";
+import { BackButton } from "@/components/BackButton";
 import { SEO } from "@/components/SEO";
 
 // 导入案例配图
@@ -240,13 +241,7 @@ const CaseDetail = () => {
           </div>
           <div className="container-custom relative z-10 h-full flex items-end pb-12">
             <div className="max-w-4xl">
-              <Link 
-                to="/applications/power-inspection" 
-                className="inline-flex items-center text-primary hover:text-primary/80 mb-4 transition-colors"
-              >
-                <ArrowLeft className="mr-2 h-4 w-4" />
-                返回电力巡检
-              </Link>
+              <BackButton to="/applications/power-inspection" label="返回电力巡检" />
               <div className="flex items-center gap-4 mb-4">
                 <span className="bg-primary text-primary-foreground px-3 py-1 rounded-full text-sm">
                   {caseData.category}

@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { ArrowRight, CheckCircle, Phone, Mail, LucideIcon } from "lucide-react";
 import { Link } from "react-router-dom";
 import { SEO } from "@/components/SEO";
+import { BackButton } from "@/components/BackButton";
 
 interface Spec {
   label: string;
@@ -78,7 +79,7 @@ const ProductDetailTemplate = ({
       />
       <Header />
       <FloatingContact />
-
+      <BackButton to={backLink.path} label={backLink.label} />
       <main>
         {/* Hero Section - 参照电力巡检页面风格 */}
         <section className="relative h-[500px] md:h-[600px] overflow-hidden">

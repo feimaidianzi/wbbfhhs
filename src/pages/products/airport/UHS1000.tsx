@@ -2,8 +2,9 @@ import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { FloatingContact } from "@/components/FloatingContact";
 import { Button } from "@/components/ui/button";
-import { ArrowLeft, ArrowRight, CheckCircle, Phone, Mail, Zap, Cloud, Wifi, Settings, Shield, Battery } from "lucide-react";
+import { ArrowRight, CheckCircle, Phone, Mail, Zap, Cloud, Wifi, Settings, Shield, Battery } from "lucide-react";
 import { Link } from "react-router-dom";
+import { BackButton } from "@/components/BackButton";
 
 const UHS1000 = () => {
   const specs = [
@@ -58,10 +59,7 @@ const UHS1000 = () => {
           <div className="container-custom">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
               <div>
-                <Link to="/products/airport" className="inline-flex items-center text-accent hover:underline mb-4">
-                  <ArrowLeft className="w-4 h-4 mr-2" />
-                  返回机场系统
-                </Link>
+                <BackButton to="/products/airport" label="返回机场系统" />
                 <h1 className="text-3xl md:text-5xl font-bold mb-6">UHS 1000自动机场</h1>
                 <p className="text-lg text-muted-foreground mb-8 leading-relaxed">
                   UHS智能停机坪，全自动起降充电，适用于大型工业无人机的自动化作业。1000W大功率充电系统，支持50kg级重载无人机，是大型工业场景的理想选择。
