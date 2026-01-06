@@ -70,7 +70,6 @@ const navItems = [
   { name: "产品中心", href: "/products", hasDropdown: true, children: productCenterCategories },
   { name: "行业应用", href: "/applications", hasDropdown: true, children: applicationCategories },
   { name: "软件系统", href: "/software", hasDropdown: true, children: softwareCategories },
-  { name: "项目合作", href: "/projects", hasDropdown: true, children: projectCategories },
   { name: "科研定制", href: "/custom-research", hasDropdown: true, children: researchCategories },
   { name: "新闻中心", href: "/news" },
   { name: "联系我们", href: "/contact" },
