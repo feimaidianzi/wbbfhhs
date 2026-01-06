@@ -36,6 +36,20 @@ const features = [
 
 const products = [
   {
+    name: "VTX视频发射器",
+    description: "高功率视频发射器，远距离高清图传，FPV飞行必备",
+    specs: ["5.8GHz频段", "可调功率", "低延迟传输"],
+    image: "https://images.unsplash.com/photo-1518770660439-4636190af475?w=600&q=80",
+    link: "/products/accessories/vtx",
+  },
+  {
+    name: "VRX视频接收器",
+    description: "高灵敏度视频接收器，稳定接收图传信号，支持多频道切换",
+    specs: ["多频道支持", "高灵敏度", "OSD显示"],
+    image: "https://images.unsplash.com/photo-1581094794329-c8112a89af12?w=600&q=80",
+    link: "/products/accessories/vrx",
+  },
+  {
     name: "其他配件",
     description: "各类无人机辅助配件，包括支架、保护罩、收纳包等",
     specs: ["支架配件", "保护配件", "收纳装备"],
