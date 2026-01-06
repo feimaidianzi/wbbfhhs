@@ -118,7 +118,7 @@ const FPV = () => {
     <div className="min-h-screen">
       <SEO
         title="FPV穿越机"
-        description="长凌电子FPV穿越机系列，包括套装系列、竞速系列、花飞系列、远航系列，体验极速飞行的乐趣。"
+        description="飞迈科技FPV穿越机系列，包括套装系列、竞速系列、花飞系列、远航系列，体验极速飞行的乐趣。"
         keywords="FPV穿越机,竞速无人机,花飞穿越机,FPV眼镜,穿越机套装"
         url="/fpv"
       />
@@ -137,7 +137,7 @@ const FPV = () => {
           <div className="relative container-custom h-full flex items-center">
             <div className="max-w-2xl animate-fade-in">
               <div className="inline-block px-4 py-1 bg-accent/20 rounded-full text-accent text-sm font-medium mb-4">
-                长凌电子 · FPV穿越机专区
+                飞迈科技 · FPV穿越机专区
               </div>
               <h1 className="text-3xl md:text-5xl lg:text-6xl font-bold text-primary-foreground mb-4 leading-tight">
                 FPV 穿越机
@@ -347,7 +347,7 @@ const FPV = () => {
               开启FPV飞行之旅
             </h2>
             <p className="text-primary-foreground/80 mb-10 max-w-2xl mx-auto">
-              加入长凌FPV玩家社群，交流飞行技巧，分享精彩视频，获取专属优惠
+              加入飞迈FPV玩家社群，交流飞行技巧，分享精彩视频，获取专属优惠
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Button className="bg-accent hover:bg-accent/90 text-accent-foreground px-10 py-6 text-lg shadow-lg">

@@ -18,7 +18,7 @@ const scenarios = ["企业庆典活动", "城市节日庆典", "景区夜游项�
 const DroneShow = () => {
   return (
     <div className="min-h-screen">
-      <SEO title="无人机表演" description="长凌电子专业无人机编队灯光表演服务。" keywords="无人机表演,灯光秀,编队表演" url="/projects/show" />
+      <SEO title="无人机表演" description="飞迈科技专业无人机编队灯光表演服务。" keywords="无人机表演,灯光秀,编队表演" url="/projects/show" />
       <Header />
       <main className="pt-16 md:pt-20">
         <section className="relative h-[400px] overflow-hidden">

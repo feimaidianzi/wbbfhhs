@@ -86,7 +86,7 @@ const Swarm = () => {
       featuresTitle="技术优势"
       products={products}
       productsTitle="解决方案"
-      productsSubtitle="从表演到作业，长凌电子集群系统满足多样化应用需求"
+      productsSubtitle="从表演到作业，飞迈科技集群系统满足多样化应用需求"
       stats={stats}
       applications={applications}
       applicationsTitle="应用场景"

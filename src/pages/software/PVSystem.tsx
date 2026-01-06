@@ -27,7 +27,7 @@ const PVSystem = () => {
     <div className="min-h-screen">
       <SEO
         title="光伏巡检系统"
-        description="长凌电子光伏巡检系统，为光伏电站提供全流程巡检运维管理解决方案。"
+        description="飞迈科技光伏巡检系统，为光伏电站提供全流程巡检运维管理解决方案。"
         keywords="光伏巡检系统,光伏运维,光伏电站管理,光伏数据分析"
         url="/software/pv-system"
       />

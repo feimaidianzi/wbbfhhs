@@ -78,7 +78,7 @@ const ProductPageTemplate = ({
           <div className="relative container-custom h-full flex items-center">
             <div className="max-w-2xl animate-fade-in">
               <div className="inline-block px-4 py-1 bg-accent/20 rounded-full text-accent text-sm font-medium mb-4">
-                长凌电子 · 专业无人机解决方案
+                飞迈科技 · 专业无人机解决方案
               </div>
               <h1 className="text-3xl md:text-5xl lg:text-6xl font-bold text-primary-foreground mb-4 leading-tight">
                 {heroTitle}

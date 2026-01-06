@@ -25,7 +25,7 @@ const courses = [
 const ProjectTraining = () => {
   return (
     <div className="min-h-screen">
-      <SEO title="无人机培训" description="长凌电子提供CAAC认证的无人机驾驶员培训服务。" keywords="无人机培训,CAAC认证,飞手培训" url="/projects/training" />
+      <SEO title="无人机培训" description="飞迈科技提供CAAC认证的无人机驾驶员培训服务。" keywords="无人机培训,CAAC认证,飞手培训" url="/projects/training" />
       <Header />
       <main className="pt-16 md:pt-20">
         <section className="relative h-[400px] overflow-hidden">

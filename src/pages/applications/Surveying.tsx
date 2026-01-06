@@ -18,7 +18,7 @@ const Surveying = () => {
     <div className="min-h-screen">
       <SEO
         title="测绘行业应用"
-        description="长凌电子无人机测绘行业解决方案，应用于航空测绘、地形测量、正射影像等领域。"
+        description="飞迈科技无人机测绘行业解决方案，应用于航空测绘、地形测量、正射影像等领域。"
         keywords="测绘无人机,航空测绘,地形测量,正射影像,三维建模"
         url="/applications/surveying"
       />

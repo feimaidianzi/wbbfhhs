@@ -91,14 +91,14 @@ const cases = [
 const Airport = () => {
   return (
     <ProductPageTemplate
-      heroTitle="长凌机场系统"
+      heroTitle="飞迈机场系统"
       heroSubtitle="全自动无人机起降平台，实现无人值守、智能巡检、自动充电的一体化解决方案，让无人机真正实现7×24小时全天候作业能力"
       heroImage="https://images.unsplash.com/photo-1508614589041-895b88991e3e?w=1920&q=80"
       features={features}
       featuresTitle="核心优势"
       products={products}
       productsTitle="产品系列"
-      productsSubtitle="长凌电子提供多种规格的自动机场解决方案，满足不同场景的应用需求"
+      productsSubtitle="飞迈科技提供多种规格的自动机场解决方案，满足不同场景的应用需求"
       stats={stats}
       applications={applications}
       applicationsTitle="应用场景"

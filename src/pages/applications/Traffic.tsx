@@ -18,7 +18,7 @@ const Traffic = () => {
     <div className="min-h-screen">
       <SEO
         title="交通行业应用"
-        description="长凌电子无人机交通行业解决方案，应用于交通流量监控、事故响应、道路巡检等领域。"
+        description="飞迈科技无人机交通行业解决方案，应用于交通流量监控、事故响应、道路巡检等领域。"
         keywords="交通无人机,交通监控,道路巡检,交通执法,智慧交通"
         url="/applications/traffic"
       />

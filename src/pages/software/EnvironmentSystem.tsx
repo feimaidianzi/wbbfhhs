@@ -27,7 +27,7 @@ const EnvironmentSystem = () => {
     <div className="min-h-screen">
       <SEO
         title="环保管理系统"
-        description="长凌电子环保管理系统，为环境监测与保护提供智能化解决方案。"
+        description="飞迈科技环保管理系统，为环境监测与保护提供智能化解决方案。"
         keywords="环保管理,环境监测,大气监测,水质监测,生态监测"
         url="/software/environment-system"
       />

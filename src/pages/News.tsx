@@ -24,7 +24,7 @@ const newsData = [
     image: "https://images.unsplash.com/photo-1508614589041-895b88991e3e?w=600&q=80",
   },
   {
-    title: "长凌电子 - 打造全球领先的行业无人机与智能化解决方案供应商",
+    title: "飞迈科技 - 打造全球领先的行业无人机与智能化解决方案供应商",
     date: "2025-12-03",
     category: "公司新闻",
     excerpt: "在无人机深度融入城市管理、农业升级、电力巡检的今天...",
@@ -52,10 +52,10 @@ const newsData = [
     image: "https://images.unsplash.com/photo-1579829366248-204fe8413f31?w=600&q=80",
   },
   {
-    title: "长凌电子新品发布：X1200多旋翼无人机正式上市",
+    title: "飞迈科技新品发布：X1200多旋翼无人机正式上市",
     date: "2025-11-20",
     category: "产品资讯",
-    excerpt: "长凌电子最新研发的X1200大型多旋翼无人机正式发布...",
+    excerpt: "飞迈科技最新研发的X1200大型多旋翼无人机正式发布...",
     image: "https://images.unsplash.com/photo-1473968512647-3e447244af8f?w=600&q=80",
   },
   {
@@ -66,10 +66,10 @@ const newsData = [
     image: "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=600&q=80",
   },
   {
-    title: "长凌电子参加2025年深圳无人机展览会",
+    title: "飞迈科技参加2025年深圳无人机展览会",
     date: "2025-11-10",
     category: "公司新闻",
-    excerpt: "长凌电子携全系列产品亮相2025年深圳国际无人机展...",
+    excerpt: "飞迈科技携全系列产品亮相2025年深圳国际无人机展...",
     image: "https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=600&q=80",
   },
 ];
@@ -90,8 +90,8 @@ const News = () => {
     <div className="min-h-screen">
       <SEO
         title="新闻中心"
-        description="长凌电子新闻中心，获取最新无人机行业资讯、公司新闻、产品发布和技术分享。"
-        keywords="无人机新闻,长凌电子新闻,无人机行业资讯,无人机技术分享"
+        description="飞迈科技新闻中心，获取最新无人机行业资讯、公司新闻、产品发布和技术分享。"
+        keywords="无人机新闻,飞迈科技新闻,无人机行业资讯,无人机技术分享"
         url="/news"
       />
       <Header />

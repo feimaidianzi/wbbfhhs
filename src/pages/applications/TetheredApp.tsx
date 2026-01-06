@@ -92,7 +92,7 @@ const TetheredApp = () => {
       scenarios={scenarios}
       products={products}
       ctaTitle="获取系留无人机解决方案"
-      ctaDescription="长凌电子为您提供专业的系留无人机解决方案，满足持续滞空作业需求"
+      ctaDescription="飞迈科技为您提供专业的系留无人机解决方案，满足持续滞空作业需求"
       ctaProductLink="/products/tethered"
     />
   );

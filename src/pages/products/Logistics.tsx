@@ -93,7 +93,7 @@ const Logistics = () => {
   return (
     <div className="min-h-screen bg-background">
       <SEO 
-        title="载重无人机 SY800-2 - 世翼运载无人机 | 长凌电子"
+        title="载重无人机 SY800-2 - 世翼运载无人机 | 飞迈科技"
         description="世翼运载无人机SY800-2，新一代升级版多功能载重无人机。碳纤维机身，可折叠设计，定制运载重量可达1-100斤，续航30分钟，10公里遥控距离。"
       />
       <Header />

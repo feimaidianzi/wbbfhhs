@@ -16,7 +16,7 @@ const services = [
 const FlightService = () => {
   return (
     <div className="min-h-screen">
-      <SEO title="飞行服务" description="长凌电子专业无人机飞行作业服务。" keywords="无人机飞行服务,航拍,电力巡检,植保" url="/projects/flight-service" />
+      <SEO title="飞行服务" description="飞迈科技专业无人机飞行作业服务。" keywords="无人机飞行服务,航拍,电力巡检,植保" url="/projects/flight-service" />
       <Header />
       <main className="pt-16 md:pt-20">
         <section className="relative h-[400px] overflow-hidden">

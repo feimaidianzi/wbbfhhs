@@ -91,7 +91,7 @@ const EnvironmentApp = () => {
       scenarios={scenarios}
       products={products}
       ctaTitle="获取环保监测解决方案"
-      ctaDescription="长凌电子为您提供专业的环保无人机解决方案，助力环境保护事业"
+      ctaDescription="飞迈科技为您提供专业的环保无人机解决方案，助力环境保护事业"
       ctaProductLink="/products/multi-rotor"
     />
   );

@@ -18,7 +18,7 @@ const areas = ["智慧城市建设", "电网巡检项目", "农业现代化", "�
 const ProjectCooperation = () => {
   return (
     <div className="min-h-screen">
-      <SEO title="项目合作" description="长凌电子提供多种形式的无人机项目合作。" keywords="无人机项目合作,政企合作,技术合作" url="/projects/cooperation" />
+      <SEO title="项目合作" description="飞迈科技提供多种形式的无人机项目合作。" keywords="无人机项目合作,政企合作,技术合作" url="/projects/cooperation" />
       <Header />
       <main className="pt-16 md:pt-20">
         <section className="relative h-[400px] overflow-hidden">

@@ -18,7 +18,7 @@ const FiveG = () => {
     <div className="min-h-screen">
       <SEO
         title="5G联网应用"
-        description="长凌电子5G联网无人机解决方案，通过5G蜂窝网络实现远程控制和数据传输。"
+        description="飞迈科技5G联网无人机解决方案，通过5G蜂窝网络实现远程控制和数据传输。"
         keywords="5G无人机,5G联网,远程控制,高清回传,低延迟"
         url="/applications/5g"
       />

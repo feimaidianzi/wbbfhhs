@@ -18,7 +18,7 @@ const Power = () => {
     <div className="min-h-screen">
       <SEO
         title="电力行业应用"
-        description="长凌电子无人机电力行业解决方案，应用于输电线路巡检、故障排查、架线作业等领域。"
+        description="飞迈科技无人机电力行业解决方案，应用于输电线路巡检、故障排查、架线作业等领域。"
         keywords="电力无人机,输电线路巡检,故障排查,架线无人机,红外检测"
         url="/applications/power"
       />

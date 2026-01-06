@@ -27,7 +27,7 @@ const GroundStation = () => {
     <div className="min-h-screen">
       <SEO
         title="无人机地面站软件"
-        description="长凌电子无人机地面站软件，提供专业的无人机控制、航线规划、数据传输功能。"
+        description="飞迈科技无人机地面站软件，提供专业的无人机控制、航线规划、数据传输功能。"
         keywords="地面站软件,无人机控制,航线规划,飞行监控"
         url="/software/ground-station"
       />
