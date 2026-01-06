@@ -20,7 +20,7 @@ export const Footer = () => {
           <div>
             <h4 className="font-semibold text-lg mb-4">产品中心</h4>
             <ul className="space-y-2">
-              {["长凌机场", "系留无人机", "物流无人机", "消防救援", "架线无人机", "多旋翼无人机"].map(
+              {["飞迈机场", "系留无人机", "物流无人机", "消防救援", "架线无人机", "多旋翼无人机"].map(
                 (item) => (
                   <li key={item}>
                     <a
