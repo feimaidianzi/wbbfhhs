@@ -36,9 +36,16 @@ const features = [
 
 const products = [
   {
-    name: "VTX视频发射器",
-    description: "高功率视频发射器，远距离高清图传，FPV飞行必备",
-    specs: ["5.8GHz频段", "可调功率", "低延迟传输"],
+    name: "VTX视频发射器 (4.9-6.1GHz)",
+    description: "4.9-6.1GHz频段视频发射器，2.5W-37W多功率可选，80频道支持",
+    specs: ["4.9-6.1GHz", "2.5W-37W可选", "80频道"],
+    image: "https://images.unsplash.com/photo-1518770660439-4636190af475?w=600&q=80",
+    link: "/products/accessories/vtx",
+  },
+  {
+    name: "VTX视频发射器 (6.1-7.2GHz)",
+    description: "6.1-7.2GHz高频段视频发射器，有效规避干扰，64频道配置",
+    specs: ["6.1-7.2GHz", "10W输出", "64频道"],
     image: "https://images.unsplash.com/photo-1518770660439-4636190af475?w=600&q=80",
     link: "/products/accessories/vtx",
   },
