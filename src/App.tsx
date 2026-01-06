@@ -68,6 +68,8 @@ import EnvironmentApp from "./pages/applications/EnvironmentApp";
 import FirefightingApp from "./pages/applications/FirefightingApp";
 import TetheredApp from "./pages/applications/TetheredApp";
 import Solutions from "./pages/applications/Solutions";
+// Accessories detail pages
+import VTX from "./pages/products/accessories/VTX";
 
 const queryClient = new QueryClient();
 
@@ -141,6 +143,7 @@ const App = () => (
           <Route path="/products/training" element={<Training />} />
           <Route path="/products/work-drone" element={<WorkDrone />} />
           <Route path="/products/accessories" element={<Accessories />} />
+          <Route path="/products/accessories/vtx" element={<VTX />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
