@@ -1,5 +1,5 @@
 import ProductPageTemplate from "@/components/ProductPageTemplate";
-import { Package, Zap, Settings, Shield, Wrench, Battery, Cpu, Compass, Camera, Radio, Cog, Box } from "lucide-react";
+import { Package, Zap, Settings, Shield, Wrench, Battery } from "lucide-react";
 
 const features = [
   {
@@ -64,13 +64,6 @@ const products = [
     link: "/products/accessories/others",
   },
   {
-    name: "机架系列",
-    description: "碳纤维/铝合金机架，轻量化设计，高强度耐用",
-    specs: ["碳纤维材质", "多轴可选", "模块化设计"],
-    image: "https://images.unsplash.com/photo-1473968512647-3e447244af8f?w=600&q=80",
-    link: "/products/accessories/frame",
-  },
-  {
     name: "电控系列",
     description: "高性能电子调速器，精准控制电机转速",
     specs: ["大电流设计", "低发热", "快速响应"],
@@ -85,7 +78,7 @@ const products = [
     link: "/products/accessories/battery",
   },
   {
-    name: "翼飞翼控",
+    name: "飞控",
     description: "专业飞控系统，支持多种飞行模式与智能功能",
     specs: ["多模式飞行", "GPS定位", "自动返航"],
     image: "https://images.unsplash.com/photo-1581094794329-c8112a89af12?w=600&q=80",
@@ -99,32 +92,11 @@ const products = [
     link: "/products/accessories/propeller",
   },
   {
-    name: "多旋翼电机",
-    description: "高效率无刷电机，大推力低发热持久耐用",
-    specs: ["无刷设计", "高效散热", "长寿命"],
-    image: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&q=80",
-    link: "/products/accessories/motor",
-  },
-  {
-    name: "控制组合",
-    description: "遥控器与接收机套装，稳定可靠的控制链路",
-    specs: ["多通道控制", "远距离传输", "低延迟"],
+    name: "ELRS",
+    description: "ExpressLRS远距离控制系统，稳定可靠的控制链路",
+    specs: ["远距离传输", "低延迟", "开源协议"],
     image: "https://images.unsplash.com/photo-1527977966376-1c8408f9f108?w=600&q=80",
-    link: "/products/accessories/controller",
-  },
-  {
-    name: "电机",
-    description: "工业级无人机专用电机，适配多种机型",
-    specs: ["大推力", "高效率", "耐高温"],
-    image: "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=600&q=80",
-    link: "/products/accessories/industrial-motor",
-  },
-  {
-    name: "电机控制板",
-    description: "电机驱动控制板，精准控制电机运行",
-    specs: ["大电流支持", "多协议兼容", "稳定可靠"],
-    image: "https://images.unsplash.com/photo-1518770660439-4636190af475?w=600&q=80",
-    link: "/products/accessories/motor-driver",
+    link: "/products/accessories/elrs",
   },
   {
     name: "无人机吊舱",

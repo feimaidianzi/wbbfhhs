@@ -4,18 +4,24 @@ import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import { Logo } from "@/components/Logo";
 
-const productCategories = [
+const droneCategories = [
   { name: "飞迈机场", href: "/products/airport", description: "全自动无人机起降平台", image: "https://images.unsplash.com/photo-1508614589041-895b88991e3e?w=120&q=80" },
   { name: "系留无人机", href: "/products/tethered", description: "24小时不间断工作", image: "https://images.unsplash.com/photo-1473968512647-3e447244af8f?w=120&q=80" },
   { name: "物流无人机", href: "/products/logistics", description: "高效智能配送系统", image: "https://images.unsplash.com/photo-1527977966376-1c8408f9f108?w=120&q=80" },
-  { name: "架线无人机", href: "/products/wire-laying", description: "电力架线专用机型", image: "https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?w=120&q=80" },
-  { name: "多旋翼无人机", href: "/products/multi-rotor", description: "工业级多旋翼平台", image: "https://images.unsplash.com/photo-1506947411487-a56738267384?w=120&q=80" },
   { name: "集群无人机", href: "/products/swarm", description: "智能集群控制系统", image: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=120&q=80" },
-  { name: "植保无人机", href: "/products/agriculture", description: "智慧农业喷洒作业", image: "https://images.unsplash.com/photo-1586771107445-d3ca888129ff?w=120&q=80" },
-  { name: "教练无人机", href: "/products/training", description: "专业培训教学机型", image: "https://images.unsplash.com/photo-1473968512647-3e447244af8f?w=120&q=80" },
-  { name: "作业无人机", href: "/products/work-drone", description: "复合翼长航时平台", image: "https://images.unsplash.com/photo-1559827260-dc66d52bef19?w=120&q=80" },
   { name: "FPV穿越机", href: "/fpv", description: "第一视角飞行体验", image: "https://images.unsplash.com/photo-1473968512647-3e447244af8f?w=120&q=80" },
-  { name: "无人机配件", href: "/products/accessories", description: "原装配件与工具", image: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=120&q=80" },
+];
+
+const accessoryCategories = [
+  { name: "VTX视频发射器", href: "/products/accessories/vtx", description: "高功率视频发射器", image: "https://images.unsplash.com/photo-1518770660439-4636190af475?w=120&q=80" },
+  { name: "VRX视频接收器", href: "/products/accessories/vrx", description: "高灵敏度视频接收", image: "https://images.unsplash.com/photo-1581094794329-c8112a89af12?w=120&q=80" },
+  { name: "其他配件", href: "/products/accessories/others", description: "辅助配件装备", image: "https://images.unsplash.com/photo-1619641805634-98e5c7f0c8d3?w=120&q=80" },
+  { name: "电控系列", href: "/products/accessories/esc", description: "高性能电子调速器", image: "https://images.unsplash.com/photo-1518770660439-4636190af475?w=120&q=80" },
+  { name: "电池/充电器", href: "/products/accessories/battery", description: "高能量电池与充电设备", image: "https://images.unsplash.com/photo-1619641805634-98e5c7f0d3?w=120&q=80" },
+  { name: "飞控", href: "/products/accessories/flight-controller", description: "专业飞控系统", image: "https://images.unsplash.com/photo-1581094794329-c8112a89af12?w=120&q=80" },
+  { name: "螺旋桨", href: "/products/accessories/propeller", description: "高效碳纤维螺旋桨", image: "https://images.unsplash.com/photo-1473968512647-3e447244af8f?w=120&q=80" },
+  { name: "ELRS", href: "/products/accessories/elrs", description: "远距离控制链路", image: "https://images.unsplash.com/photo-1527977966376-1c8408f9f108?w=120&q=80" },
+  { name: "无人机吊舱", href: "/products/accessories/gimbal", description: "高性能光电吊舱", image: "https://images.unsplash.com/photo-1506947411487-a56738267384?w=120&q=80" },
 ];
 
 const applicationCategories = [
@@ -56,7 +62,8 @@ const projectCategories = [
 const navItems = [
   { name: "首页", href: "/" },
   { name: "关于飞迈", href: "/about" },
-  { name: "系列产品", href: "/products", hasDropdown: true, children: productCategories },
+  { name: "多旋翼无人机", href: "/products", hasDropdown: true, children: droneCategories },
+  { name: "无人机配件", href: "/products/accessories", hasDropdown: true, children: accessoryCategories },
   { name: "行业应用", href: "/applications", hasDropdown: true, children: applicationCategories },
   { name: "软件系统", href: "/software", hasDropdown: true, children: softwareCategories },
   { name: "项目合作", href: "/projects", hasDropdown: true, children: projectCategories },
@@ -132,7 +139,7 @@ export const Header = () => {
                   <div className="mb-4">
                     <h3 className="text-lg font-bold text-foreground">{item.name}</h3>
                   </div>
-                  <div className={`grid gap-6 ${item.children.length <= 4 ? 'grid-cols-2 md:grid-cols-4' : 'grid-cols-2 md:grid-cols-3 lg:grid-cols-6'}`}>
+                  <div className={`grid gap-6 ${item.children.length <= 4 ? 'grid-cols-2 md:grid-cols-4' : 'grid-cols-2 md:grid-cols-3 lg:grid-cols-5'}`}>
                     {item.children.map((child, index) => (
                       <Link
                         key={child.name}
