@@ -3,11 +3,11 @@ import { Link } from "react-router-dom";
 
 const categories = [
   {
-    name: "集群无人机",
-    description: "智能协同编队系统",
-    price: "集群控制方案",
-    image: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&q=80",
-    link: "/products/swarm",
+    name: "飞迈机场",
+    description: "全自动无人机起降平台",
+    price: "自动化巡检方案",
+    image: "https://images.unsplash.com/photo-1508614589041-895b88991e3e?w=600&q=80",
+    link: "/products/airport",
     isNew: true,
   },
   {
@@ -25,32 +25,12 @@ const categories = [
     link: "/products/logistics",
   },
   {
-    name: "多旋翼无人机",
-    description: "工业级多旋翼平台",
-    price: "多场景应用",
-    image: "https://images.unsplash.com/photo-1506947411487-a56738267384?w=600&q=80",
-    link: "/products/multi-rotor",
-  },
-  {
-    name: "植保无人机",
-    description: "智慧农业喷洒作业",
-    price: "精准农业方案",
-    image: "https://images.unsplash.com/photo-1586771107445-d3ca888129ff?w=600&q=80",
-    link: "/products/agriculture",
-  },
-  {
-    name: "教练无人机",
-    description: "专业培训教学机型",
-    price: "无人机培训方案",
-    image: "https://images.unsplash.com/photo-1473968512647-3e447244af8f?w=600&q=80",
-    link: "/products/training",
-  },
-  {
-    name: "作业无人机",
-    description: "复合翼长航时平台",
-    price: "远距离作业方案",
-    image: "https://images.unsplash.com/photo-1559827260-dc66d52bef19?w=600&q=80",
-    link: "/products/work-drone",
+    name: "集群无人机",
+    description: "智能协同编队系统",
+    price: "集群控制方案",
+    image: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&q=80",
+    link: "/products/swarm",
+    isNew: true,
   },
   {
     name: "FPV穿越机",
@@ -71,12 +51,12 @@ export const ProductsSection = () => {
             <div className="flex items-center gap-3 mb-4">
               <span className="text-accent text-2xl font-black">&lt;</span>
               <h2 className="text-3xl md:text-4xl font-black text-foreground">
-                产品系列
+                多旋翼无人机
               </h2>
               <span className="text-accent text-2xl font-black">\&gt;</span>
             </div>
             <p className="text-muted-foreground text-lg leading-relaxed">
-              飞迈科技提供全系列工业级无人机产品，从自动机场到系留平台，从物流配送到多旋翼平台，满足各行业应用需求。
+              飞迈科技提供全系列工业级无人机产品，从自动机场到系留平台，从物流配送到集群编队，满足各行业应用需求。
             </p>
           </div>
           <div className="flex items-end justify-start lg:justify-end animate-fade-in" style={{ animationDelay: '0.1s' }}>
@@ -91,7 +71,7 @@ export const ProductsSection = () => {
         </div>
 
         {/* Products Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6">
           {categories.map((product, index) => (
             <Link
               key={index}
