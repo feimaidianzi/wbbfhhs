@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import { Logo } from "@/components/Logo";
 
 const productCategories = [
-  { name: "长凌机场", href: "/products/airport", description: "全自动无人机起降平台", image: "https://images.unsplash.com/photo-1508614589041-895b88991e3e?w=120&q=80" },
+  { name: "飞迈机场", href: "/products/airport", description: "全自动无人机起降平台", image: "https://images.unsplash.com/photo-1508614589041-895b88991e3e?w=120&q=80" },
   { name: "系留无人机", href: "/products/tethered", description: "24小时不间断工作", image: "https://images.unsplash.com/photo-1473968512647-3e447244af8f?w=120&q=80" },
   { name: "物流无人机", href: "/products/logistics", description: "高效智能配送系统", image: "https://images.unsplash.com/photo-1527977966376-1c8408f9f108?w=120&q=80" },
   { name: "架线无人机", href: "/products/wire-laying", description: "电力架线专用机型", image: "https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?w=120&q=80" },
