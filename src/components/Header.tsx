@@ -59,11 +59,15 @@ const projectCategories = [
   { name: "项目合作", href: "/projects/cooperation", description: "定制化项目合作", image: "https://images.unsplash.com/photo-1552664730-d307ca884978?w=120&q=80" },
 ];
 
+const productCenterCategories = [
+  { name: "多旋翼无人机", href: "/products", description: "专业多旋翼无人机系列", image: "https://images.unsplash.com/photo-1473968512647-3e447244af8f?w=120&q=80", hasSubmenu: true, submenuItems: droneCategories },
+  ...accessoryCategories
+];
+
 const navItems = [
   { name: "首页", href: "/" },
   { name: "关于飞迈", href: "/about" },
-  { name: "多旋翼无人机", href: "/products", hasDropdown: true, children: droneCategories },
-  { name: "无人机配件", href: "/products/accessories", hasDropdown: true, children: accessoryCategories },
+  { name: "产品中心", href: "/products", hasDropdown: true, children: productCenterCategories },
   { name: "行业应用", href: "/applications", hasDropdown: true, children: applicationCategories },
   { name: "软件系统", href: "/software", hasDropdown: true, children: softwareCategories },
   { name: "项目合作", href: "/projects", hasDropdown: true, children: projectCategories },
