@@ -34,11 +34,11 @@ const applicationCategories = [
   { name: "解决方案", href: "/applications/solutions", description: "完整行业解决方案", image: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=120&q=80" },
 ];
 
-const researchCategories = [
-  { name: "机场定制", href: "/custom-research/airport", description: "无人机机场系统定制", image: "https://images.unsplash.com/photo-1508614589041-895b88991e3e?w=120&q=80" },
-  { name: "集群定制", href: "/custom-research/swarm", description: "集群无人机系统定制", image: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=120&q=80" },
-  { name: "软件定制", href: "/custom-research/software", description: "地面站与算法定制", image: "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=120&q=80" },
-  { name: "挂载定制", href: "/custom-research/payload", description: "专业挂载载荷定制", image: "https://images.unsplash.com/photo-1506947411487-a56738267384?w=120&q=80" },
+const customCategories = [
+  { name: "无人机配件定制", href: "/custom-research/accessories", description: "专业配件定制服务", image: "https://images.unsplash.com/photo-1518770660439-4636190af475?w=120&q=80" },
+  { name: "无人机整机定制", href: "/custom-research/drone", description: "整机系统定制开发", image: "https://images.unsplash.com/photo-1473968512647-3e447244af8f?w=120&q=80" },
+  { name: "无人机软件定制", href: "/custom-research/software", description: "地面站与算法定制", image: "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=120&q=80" },
+  { name: "无人机挂载定制", href: "/custom-research/payload", description: "专业挂载载荷定制", image: "https://images.unsplash.com/photo-1506947411487-a56738267384?w=120&q=80" },
 ];
 
 const softwareCategories = [
@@ -70,7 +70,7 @@ const navItems = [
   { name: "产品中心", href: "/products", hasDropdown: true, children: productCenterCategories },
   { name: "行业应用", href: "/applications", hasDropdown: true, children: applicationCategories },
   { name: "软件系统", href: "/software", hasDropdown: true, children: softwareCategories },
-  { name: "科研定制", href: "/custom-research", hasDropdown: true, children: researchCategories },
+  { name: "产品定制", href: "/custom-research", hasDropdown: true, children: customCategories },
   { name: "新闻中心", href: "/news" },
   { name: "联系我们", href: "/contact" },
 ];
