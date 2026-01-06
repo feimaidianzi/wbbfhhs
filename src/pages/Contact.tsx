@@ -9,15 +9,15 @@ import { SEO } from "@/components/SEO";
 
 const contactInfo = [
   { icon: Phone, title: "电话咨询", value: "+8617674048404", href: "tel:+8617674048404" },
-  { icon: Mail, title: "邮箱", value: "market@chaniuav.com", href: "mailto:market@chaniuav.com" },
+  { icon: Mail, title: "邮箱", value: "market@flymind.com", href: "mailto:market@flymind.com" },
   { icon: MessageCircle, title: "QQ客服", value: "123456789", href: "#" },
   { icon: Clock, title: "工作时间", value: "周一至周五 9:00-18:00", href: null },
 ];
 
 const offices = [
   {
-    city: "邵阳总部",
-    address: "湖南省邵阳市",
+    city: "长沙总部",
+    address: "湖南省长沙市",
     phone: "+8617674048404",
   },
 ];
@@ -44,16 +44,16 @@ const Contact = () => {
   const contactStructuredData = {
     '@context': 'https://schema.org',
     '@type': 'ContactPage',
-    name: '联系长凌电子',
-    description: '获取长凌电子的联系方式，咨询无人机产品和定制服务',
+    name: '联系飞迈科技',
+    description: '获取飞迈科技的联系方式，咨询无人机产品和定制服务',
     mainEntity: {
       '@type': 'Organization',
-      name: '长凌电子有限公司',
+      name: '飞迈科技有限公司',
       telephone: '+8617674048404',
-      email: 'market@chaniuav.com',
+      email: 'market@flymind.com',
       address: {
         '@type': 'PostalAddress',
-        addressLocality: '邵阳',
+        addressLocality: '长沙',
         addressRegion: '湖南',
         addressCountry: 'CN',
       },
@@ -64,8 +64,8 @@ const Contact = () => {
     <div className="min-h-screen">
       <SEO
         title="联系我们"
-        description="联系长凌电子，获取专业无人机解决方案咨询服务。电话：+8617674048404，总部地址：湖南省邵阳市。"
-        keywords="联系长凌电子,无人机咨询,无人机定制服务,邵阳无人机公司"
+        description="联系飞迈科技，获取专业无人机解决方案咨询服务。电话：+8617674048404，总部地址：湖南省长沙市。"
+        keywords="联系飞迈,FlyMind,无人机咨询,无人机定制服务,长沙无人机公司"
         url="/contact"
         structuredData={contactStructuredData}
       />

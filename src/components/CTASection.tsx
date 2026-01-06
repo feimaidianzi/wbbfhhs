@@ -55,7 +55,7 @@ export const CTASection = () => {
                 </div>
                 <div>
                   <div className="text-sm text-muted-foreground mb-1">微信咨询</div>
-                  <div className="font-semibold text-card-foreground">changling_uav</div>
+                  <div className="font-semibold text-card-foreground">flymind_uav</div>
                 </div>
               </div>
               <div className="flex items-start gap-4">
@@ -64,7 +64,7 @@ export const CTASection = () => {
                 </div>
                 <div>
                   <div className="text-sm text-muted-foreground mb-1">电子邮箱</div>
-                  <div className="font-semibold text-card-foreground">info@changling.com</div>
+                  <div className="font-semibold text-card-foreground">market@flymind.com</div>
                 </div>
               </div>
               <div className="flex items-start gap-4">
@@ -73,7 +73,7 @@ export const CTASection = () => {
                 </div>
                 <div>
                   <div className="text-sm text-muted-foreground mb-1">公司地址</div>
-                  <div className="font-semibold text-card-foreground">湖北省武汉市东湖高新区</div>
+                  <div className="font-semibold text-card-foreground">湖南省长沙市</div>
                 </div>
               </div>
             </div>
