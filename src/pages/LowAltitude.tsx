@@ -50,7 +50,7 @@ const LowAltitude = () => {
     <div className="min-h-screen">
       <SEO
         title="低空经济"
-        description="探索低空经济新机遇，长凌电子提供无人机物流、低空旅游、城市空中交通、空域管理等解决方案。"
+        description="探索低空经济新机遇，飞迈科技提供无人机物流、低空旅游、城市空中交通、空域管理等解决方案。"
         keywords="低空经济,无人机物流,低空旅游,城市空中交通,空域管理,eVTOL"
         url="/low-altitude"
       />
@@ -146,9 +146,9 @@ const LowAltitude = () => {
                 />
               </div>
               <div>
-                <h2 className="text-2xl md:text-3xl font-bold mb-6">长凌的角色</h2>
+                <h2 className="text-2xl md:text-3xl font-bold mb-6">飞迈的角色</h2>
                 <p className="text-muted-foreground mb-4">
-                  作为工业无人机领域的领先企业，长凌电子深度参与低空经济发展，在无人机物流、城市空中交通、低空监管等多个领域积极布局。
+                  作为工业无人机领域的领先企业，飞迈科技深度参与低空经济发展，在无人机物流、城市空中交通、低空监管等多个领域积极布局。
                 </p>
                 <p className="text-muted-foreground mb-4">
                   我们与政府、企业合作，参与低空经济试点项目，为低空产业发展提供技术支撑和解决方案。

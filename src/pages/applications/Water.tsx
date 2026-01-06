@@ -18,7 +18,7 @@ const Water = () => {
     <div className="min-h-screen">
       <SEO
         title="水利行业应用"
-        description="长凌电子无人机水利行业解决方案，应用于河道巡检、水库监测、防汛抗旱等领域。"
+        description="飞迈科技无人机水利行业解决方案，应用于河道巡检、水库监测、防汛抗旱等领域。"
         keywords="水利无人机,河道巡检,水库监测,防汛无人机,水资源调查"
         url="/applications/water"
       />

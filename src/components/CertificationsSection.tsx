@@ -38,7 +38,7 @@ export const CertificationsSection = () => {
         <div className="text-center mb-12">
           <h3 className="text-2xl md:text-3xl font-bold text-foreground mb-4">资质认证</h3>
           <p className="text-muted-foreground text-base max-w-2xl mx-auto">
-            长凌电子通过多项国际国内权威认证，品质值得信赖
+            飞迈科技通过多项国际国内权威认证，品质值得信赖
           </p>
         </div>
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6">

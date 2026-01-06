@@ -18,7 +18,7 @@ const SmartCity = () => {
     <div className="min-h-screen">
       <SEO
         title="智慧城市应用"
-        description="长凌电子无人机智慧城市解决方案，应用于城市管理、规划测绘、应急指挥等领域。"
+        description="飞迈科技无人机智慧城市解决方案，应用于城市管理、规划测绘、应急指挥等领域。"
         keywords="智慧城市无人机,城市管理,规划测绘,应急指挥,城市监控"
         url="/applications/smart-city"
       />

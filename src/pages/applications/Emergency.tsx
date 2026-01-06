@@ -18,7 +18,7 @@ const Emergency = () => {
     <div className="min-h-screen">
       <SEO
         title="应急救援应用"
-        description="长凌电子无人机应急救援解决方案，应用于应急救援、现场监控、通信中继等领域。"
+        description="飞迈科技无人机应急救援解决方案，应用于应急救援、现场监控、通信中继等领域。"
         keywords="应急无人机,救援无人机,通信中继,灾情评估,应急响应"
         url="/applications/emergency"
       />

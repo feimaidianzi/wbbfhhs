@@ -117,7 +117,7 @@ const Military = () => {
     <div className="min-h-screen">
       <SEO
         title="军事应用"
-        description="长凌电子军事无人机解决方案，提供侦察监视、通信中继、目标定位、电子对抗等专业军事应用服务。"
+        description="飞迈科技军事无人机解决方案，提供侦察监视、通信中继、目标定位、电子对抗等专业军事应用服务。"
         keywords="军事无人机,侦察无人机,通信中继,边境巡逻,战场侦察,电子对抗"
         url="/applications/military"
       />
@@ -162,7 +162,7 @@ const Military = () => {
                 核心能力
               </h2>
               <p className="text-muted-foreground max-w-2xl mx-auto">
-                长凌电子军用无人机具备多种核心作战能力，满足现代战争多样化需求
+                飞迈科技军用无人机具备多种核心作战能力，满足现代战争多样化需求
               </p>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -275,7 +275,7 @@ const Military = () => {
               获取军事应用解决方案
             </h2>
             <p className="text-primary-foreground/80 mb-8 max-w-2xl mx-auto">
-              长凌电子为您提供专业的军事无人机解决方案，助力国防现代化建设
+              飞迈科技为您提供专业的军事无人机解决方案，助力国防现代化建设
             </p>
             <Link to="/contact">
               <Button className="bg-accent hover:bg-orange-light text-accent-foreground px-8 py-3">

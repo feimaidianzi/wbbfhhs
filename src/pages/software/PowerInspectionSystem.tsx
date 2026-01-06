@@ -27,7 +27,7 @@ const PowerInspectionSystem = () => {
     <div className="min-h-screen">
       <SEO
         title="电力巡检管理系统"
-        description="长凌电子电力巡检管理系统，提供输电线路智能巡检、缺陷识别、报告生成等功能。"
+        description="飞迈科技电力巡检管理系统，提供输电线路智能巡检、缺陷识别、报告生成等功能。"
         keywords="电力巡检,输电线路巡检,缺陷识别,智能巡检系统"
         url="/software/power-inspection-system"
       />

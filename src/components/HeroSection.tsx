@@ -102,10 +102,10 @@ export const HeroSection = () => {
                   index === currentSlide ? "opacity-100 translate-x-0" : "opacity-0 -translate-x-10"
                 }`}>
                   <div className="w-12 h-12 bg-accent rounded-lg flex items-center justify-center animate-pulse-glow">
-                    <span className="text-accent-foreground font-black text-2xl">长</span>
+                    <span className="text-accent-foreground font-black text-2xl">飞</span>
                   </div>
                   <div className="h-px w-16 bg-accent/50 animate-expand-width"></div>
-                  <span className="text-primary-foreground/70 text-sm tracking-widest uppercase">Changling Electronics</span>
+                  <span className="text-primary-foreground/70 text-sm tracking-widest uppercase">FlyMind</span>
                 </div>
 
                 {/* Title with stagger animation */}

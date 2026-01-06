@@ -27,7 +27,7 @@ const PVInspection = () => {
     <div className="min-h-screen">
       <SEO
         title="光伏巡检识别系统"
-        description="长凌电子光伏巡检识别系统，采用AI技术实现光伏电站智能巡检与缺陷识别。"
+        description="飞迈科技光伏巡检识别系统，采用AI技术实现光伏电站智能巡检与缺陷识别。"
         keywords="光伏巡检,热斑检测,AI识别,光伏电站巡检,无人机巡检"
         url="/software/pv-inspection"
       />

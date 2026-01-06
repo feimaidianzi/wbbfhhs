@@ -65,7 +65,7 @@ const CustomResearch = () => {
     <div className="min-h-screen">
       <SEO
         title="科研定制"
-        description="长凌电子科研定制服务，为高校、研究院所提供飞控系统、动力系统、机体结构、载荷集成等全方位无人机定制开发服务。"
+        description="飞迈科技科研定制服务，为高校、研究院所提供飞控系统、动力系统、机体结构、载荷集成等全方位无人机定制开发服务。"
         keywords="无人机科研定制,飞控系统定制,无人机平台开发,科研无人机,实验平台定制"
         url="/custom-research"
       />
@@ -123,7 +123,7 @@ const CustomResearch = () => {
               <div>
                 <h2 className="text-2xl md:text-3xl font-bold mb-6">定制能力</h2>
                 <p className="text-muted-foreground mb-6">
-                  长凌电子拥有完整的无人机研发团队和生产能力，可根据科研需求进行深度定制开发。
+                  飞迈科技拥有完整的无人机研发团队和生产能力，可根据科研需求进行深度定制开发。
                 </p>
                 <div className="grid grid-cols-2 gap-4">
                   {capabilities.map((cap, index) => (
@@ -183,7 +183,7 @@ const CustomResearch = () => {
               开启您的定制项目
             </h2>
             <p className="text-primary-foreground/80 mb-8 max-w-2xl mx-auto">
-              无论是基础研究还是应用开发，长凌电子都能为您提供专业的定制服务
+              无论是基础研究还是应用开发，飞迈科技都能为您提供专业的定制服务
             </p>
             <Button className="bg-accent hover:bg-orange-light text-accent-foreground px-8 py-3">
               立即咨询

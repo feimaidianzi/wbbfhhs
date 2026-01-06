@@ -92,7 +92,7 @@ const FirefightingApp = () => {
       scenarios={scenarios}
       products={products}
       ctaTitle="获取消防应急解决方案"
-      ctaDescription="长凌电子为您提供专业的消防应急无人机解决方案，助力应急管理能力提升"
+      ctaDescription="飞迈科技为您提供专业的消防应急无人机解决方案，助力应急管理能力提升"
       ctaProductLink="/products/multi-rotor"
     />
   );

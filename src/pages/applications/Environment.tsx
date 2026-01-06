@@ -18,7 +18,7 @@ const Environment = () => {
     <div className="min-h-screen">
       <SEO
         title="环保行业应用"
-        description="长凌电子无人机环保行业解决方案，应用于环境监测、污染源排查、生态巡护等领域。"
+        description="飞迈科技无人机环保行业解决方案，应用于环境监测、污染源排查、生态巡护等领域。"
         keywords="环保无人机,环境监测,污染源排查,生态巡护,环境执法"
         url="/applications/environment"
       />

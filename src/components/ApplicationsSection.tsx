@@ -62,7 +62,7 @@ export const ApplicationsSection = () => {
               <span className="text-accent text-2xl font-black">\&gt;</span>
             </div>
             <p className="text-muted-foreground text-lg max-w-xl">
-              长凌无人机产品广泛应用于水利、交通、环保、电力等多个行业领域
+              飞迈无人机产品广泛应用于水利、交通、环保、电力等多个行业领域
             </p>
           </div>
           <Link 

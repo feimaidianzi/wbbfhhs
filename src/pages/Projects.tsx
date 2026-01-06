@@ -42,7 +42,7 @@ const Projects = () => {
     <div className="min-h-screen">
       <SEO
         title="项目合作"
-        description="长凌电子提供无人机培训、无人机表演、飞行服务、项目合作等多元化服务。"
+        description="飞迈科技提供无人机培训、无人机表演、飞行服务、项目合作等多元化服务。"
         keywords="无人机培训,无人机表演,飞行服务,项目合作"
         url="/projects"
       />

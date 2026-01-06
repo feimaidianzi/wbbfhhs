@@ -50,7 +50,7 @@ const Substation = () => {
     <div className="min-h-screen">
       <SEO
         title="变电站巡检 - 电力巡检应用"
-        description="长凌电子变电站无人机巡检解决方案，红外测温+可见光双光巡检，高效发现设备隐患。"
+        description="飞迈科技变电站无人机巡检解决方案，红外测温+可见光双光巡检，高效发现设备隐患。"
         keywords="变电站巡检,红外测温无人机,设备巡检,电力无人机"
         url="/applications/power-inspection/substation"
       />
@@ -109,7 +109,7 @@ const Substation = () => {
           <div className="container-custom">
             <h2 className="text-2xl md:text-3xl font-bold text-foreground text-center mb-4">解决方案</h2>
             <p className="text-muted-foreground text-center mb-12 max-w-2xl mx-auto">
-              长凌电子变电站无人机巡检系统，实现精准高效巡检
+              飞迈科技变电站无人机巡检系统，实现精准高效巡检
             </p>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
               {solutions.map((solution, index) => (

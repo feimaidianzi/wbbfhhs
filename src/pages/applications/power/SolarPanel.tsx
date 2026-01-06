@@ -50,7 +50,7 @@ const SolarPanel = () => {
     <div className="min-h-screen">
       <SEO
         title="光伏电站检测 - 电力巡检应用"
-        description="长凌电子光伏电站无人机检测解决方案，红外热斑检测，快速发现组件故障。"
+        description="飞迈科技光伏电站无人机检测解决方案，红外热斑检测，快速发现组件故障。"
         keywords="光伏电站检测,热斑检测,光伏巡检无人机,组件故障检测"
         url="/applications/power-inspection/solar-panel"
       />
@@ -109,7 +109,7 @@ const SolarPanel = () => {
           <div className="container-custom">
             <h2 className="text-2xl md:text-3xl font-bold text-foreground text-center mb-4">解决方案</h2>
             <p className="text-muted-foreground text-center mb-12 max-w-2xl mx-auto">
-              长凌电子光伏无人机检测系统，高效精准运维
+              飞迈科技光伏无人机检测系统，高效精准运维
             </p>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
               {solutions.map((solution, index) => (

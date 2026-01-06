@@ -86,7 +86,7 @@ const Firefighting = () => {
       featuresTitle="核心能力"
       products={products}
       productsTitle="产品系列"
-      productsSubtitle="从火情侦察到灭火救援，长凌电子提供全方位消防无人机解决方案"
+      productsSubtitle="从火情侦察到灭火救援，飞迈科技提供全方位消防无人机解决方案"
       stats={stats}
       applications={applications}
       applicationsTitle="应用场景"

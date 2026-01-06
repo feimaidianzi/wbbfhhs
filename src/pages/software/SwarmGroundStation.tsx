@@ -27,7 +27,7 @@ const SwarmGroundStation = () => {
     <div className="min-h-screen">
       <SEO
         title="集群无人机地面站软件"
-        description="长凌电子集群无人机地面站软件，支持百架级无人机编队控制与表演。"
+        description="飞迈科技集群无人机地面站软件，支持百架级无人机编队控制与表演。"
         keywords="集群控制,无人机编队,地面站软件,无人机表演控制"
         url="/software/swarm-ground-station"
       />

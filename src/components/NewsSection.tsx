@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 const news = [
   {
-    title: "长凌电子发布新一代系留无人机系统",
+    title: "飞迈科技发布新一代系留无人机系统",
     date: "2025-12-23",
     excerpt: "新系统可实现24小时不间断作业，升空高度达350米...",
     image: "https://images.unsplash.com/photo-1473968512647-3e447244af8f?w=400&q=80",
@@ -11,13 +11,13 @@ const news = [
   {
     title: "工业无人机定制服务全面升级",
     date: "2025-12-15",
-    excerpt: "长凌电子推出全新定制服务体系，覆盖机场、集群、软件、挂载四大领域...",
+    excerpt: "飞迈科技推出全新定制服务体系，覆盖机场、集群、软件、挂载四大领域...",
     image: "https://images.unsplash.com/photo-1508614589041-895b88991e3e?w=400&q=80",
   },
   {
     title: "物流无人机助力偏远地区配送",
     date: "2025-12-08",
-    excerpt: "长凌物流无人机在山区实现常态化配送，日均配送量超300单...",
+    excerpt: "飞迈物流无人机在山区实现常态化配送，日均配送量超300单...",
     image: "https://images.unsplash.com/photo-1527977966376-1c8408f9f108?w=400&q=80",
   },
 ];

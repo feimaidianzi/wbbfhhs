@@ -27,7 +27,7 @@ const ExamSystem = () => {
     <div className="min-h-screen">
       <SEO
         title="模拟考试系统"
-        description="长凌电子无人机模拟考试系统，提供专业的无人机理论考试、技能评估和证书发放功能。"
+        description="飞迈科技无人机模拟考试系统，提供专业的无人机理论考试、技能评估和证书发放功能。"
         keywords="无人机考试,模拟考试系统,无人机培训考核,飞行员考试"
         url="/software/exam-system"
       />

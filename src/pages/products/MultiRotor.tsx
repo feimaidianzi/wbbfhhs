@@ -98,7 +98,7 @@ const MultiRotor = () => {
       featuresTitle="平台优势"
       products={products}
       productsTitle="产品系列"
-      productsSubtitle="从轻型到重型，长凌电子多旋翼平台覆盖全尺寸需求"
+      productsSubtitle="从轻型到重型，飞迈科技多旋翼平台覆盖全尺寸需求"
       stats={stats}
       applications={applications}
       applicationsTitle="应用领域"

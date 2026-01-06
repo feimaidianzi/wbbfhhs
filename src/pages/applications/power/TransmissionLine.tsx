@@ -57,7 +57,7 @@ const TransmissionLine = () => {
     <div className="min-h-screen">
       <SEO
         title="输电线路巡检 - 电力巡检应用"
-        description="长凌电子输电线路无人机巡检解决方案，AI智能识别线路缺陷，效率提升10倍以上。"
+        description="飞迈科技输电线路无人机巡检解决方案，AI智能识别线路缺陷，效率提升10倍以上。"
         keywords="输电线路巡检,电力巡检无人机,线路缺陷检测,AI智能巡检"
         url="/applications/power-inspection/transmission-line"
       />
@@ -116,7 +116,7 @@ const TransmissionLine = () => {
           <div className="container-custom">
             <h2 className="text-2xl md:text-3xl font-bold text-foreground text-center mb-4">解决方案</h2>
             <p className="text-muted-foreground text-center mb-12 max-w-2xl mx-auto">
-              长凌电子无人机巡检系统，全面解决传统巡检痛点
+              飞迈科技无人机巡检系统，全面解决传统巡检痛点
             </p>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
               {solutions.map((solution, index) => (

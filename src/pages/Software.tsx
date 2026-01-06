@@ -70,7 +70,7 @@ const Software = () => {
     <div className="min-h-screen">
       <SEO
         title="软件系统"
-        description="长凌电子无人机软件系统，包括地面站控制系统、航线规划系统、云平台管理系统、数据处理系统等专业软件解决方案。"
+        description="飞迈科技无人机软件系统，包括地面站控制系统、航线规划系统、云平台管理系统、数据处理系统等专业软件解决方案。"
         keywords="无人机软件,地面站系统,航线规划,云平台管理,无人机数据处理,飞控软件"
         url="/software"
       />
@@ -104,7 +104,7 @@ const Software = () => {
             <div className="text-center mb-12">
               <h2 className="text-2xl md:text-3xl font-bold mb-4">软件产品</h2>
               <p className="text-muted-foreground max-w-2xl mx-auto">
-                长凌电子自主研发的软件系统，覆盖无人机作业全流程
+                飞迈科技自主研发的软件系统，覆盖无人机作业全流程
               </p>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -150,7 +150,7 @@ const Software = () => {
               <div>
                 <h2 className="text-2xl md:text-3xl font-bold mb-6">系统集成</h2>
                 <p className="text-muted-foreground mb-4">
-                  长凌电子软件系统采用模块化设计，支持灵活组合和定制开发，可与客户现有系统无缝集成。
+                  飞迈科技软件系统采用模块化设计，支持灵活组合和定制开发，可与客户现有系统无缝集成。
                 </p>
                 <p className="text-muted-foreground mb-6">
                   我们提供开放的API接口和SDK，方便二次开发和系统对接，满足不同客户的个性化需求。

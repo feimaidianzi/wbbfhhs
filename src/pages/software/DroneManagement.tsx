@@ -27,7 +27,7 @@ const DroneManagement = () => {
     <div className="min-h-screen">
       <SEO
         title="无人机管理平台"
-        description="长凌电子无人机管理平台，提供无人机设备管理、任务调度、数据分析等全方位管理功能。"
+        description="飞迈科技无人机管理平台，提供无人机设备管理、任务调度、数据分析等全方位管理功能。"
         keywords="无人机管理,设备管理,任务调度,飞行数据管理"
         url="/software/drone-management"
       />

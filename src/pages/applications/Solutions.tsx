@@ -61,7 +61,7 @@ const Solutions = () => {
     <div className="min-h-screen">
       <SEO
         title="解决方案"
-        description="长凌电子提供完整的无人机行业解决方案，包括方案设计、设备集成、培训服务和售后支持。"
+        description="飞迈科技提供完整的无人机行业解决方案，包括方案设计、设备集成、培训服务和售后支持。"
         keywords="无人机解决方案,行业应用方案,定制开发,培训服务,售后支持"
         url="/applications/solutions"
       />
@@ -160,7 +160,7 @@ const Solutions = () => {
               获取专属解决方案
             </h2>
             <p className="text-primary-foreground/80 mb-8 max-w-2xl mx-auto">
-              长凌电子拥有丰富的行业经验，可根据您的具体需求提供定制化解决方案
+              飞迈科技拥有丰富的行业经验，可根据您的具体需求提供定制化解决方案
             </p>
             <Link to="/contact">
               <Button className="bg-accent hover:bg-orange-light text-accent-foreground px-8 py-3">
