@@ -17,14 +17,14 @@ const Index = () => {
   const homeStructuredData = {
     '@context': 'https://schema.org',
     '@type': 'Organization',
-    name: '长凌电子有限公司',
-    alternateName: '长凌电子',
-    url: 'https://www.xiaoniao.com',
-    logo: 'https://www.xiaoniao.com/logo.png',
+    name: '飞迈科技有限公司',
+    alternateName: 'FlyMind',
+    url: 'https://www.flymind.com',
+    logo: 'https://www.flymind.com/logo.png',
     description: '专业工业无人机研发制造商，提供系留无人机、物流无人机、无人机机场等产品及解决方案',
     address: {
       '@type': 'PostalAddress',
-      addressLocality: '邵阳',
+      addressLocality: '长沙',
       addressRegion: '湖南',
       addressCountry: 'CN',
     },
@@ -40,8 +40,8 @@ const Index = () => {
     <div className="min-h-screen bg-background">
       <SEO
         title="首页"
-        description="长凌电子有限公司，专注于工业无人机研发制造，提供系留无人机、物流无人机、无人机机场、集群无人机等产品及行业解决方案。"
-        keywords="无人机,工业无人机,系留无人机,物流无人机,无人机机场,集群无人机,长凌电子"
+        description="飞迈科技有限公司，专注于工业无人机研发制造，提供系留无人机、物流无人机、无人机机场、集群无人机等产品及行业解决方案。"
+        keywords="无人机,工业无人机,系留无人机,物流无人机,无人机机场,集群无人机,飞迈,FlyMind"
         url="/"
         structuredData={homeStructuredData}
       />

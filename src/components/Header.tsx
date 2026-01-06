@@ -2,7 +2,7 @@ import { useState, useRef } from "react";
 import { Menu, X, Phone, ChevronDown } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
-import logo from "@/assets/logo.png";
+import { Logo } from "@/components/Logo";
 
 const productCategories = [
   { name: "长凌机场", href: "/products/airport", description: "全自动无人机起降平台", image: "https://images.unsplash.com/photo-1508614589041-895b88991e3e?w=120&q=80" },
@@ -55,7 +55,7 @@ const projectCategories = [
 
 const navItems = [
   { name: "首页", href: "/" },
-  { name: "关于长凌", href: "/about" },
+  { name: "关于飞迈", href: "/about" },
   { name: "系列产品", href: "/products", hasDropdown: true, children: productCategories },
   { name: "行业应用", href: "/applications", hasDropdown: true, children: applicationCategories },
   { name: "软件系统", href: "/software", hasDropdown: true, children: softwareCategories },
@@ -89,9 +89,7 @@ export const Header = () => {
       <div className="container-custom">
         <div className="flex items-center justify-between h-16 md:h-20">
           {/* Logo */}
-          <Link to="/" className="flex items-center">
-            <img src={logo} alt="长凌电子LOGO" className="h-8 md:h-10 w-auto" />
-          </Link>
+          <Logo />
 
           {/* Desktop Navigation */}
           <nav className="hidden lg:flex items-center gap-1">
