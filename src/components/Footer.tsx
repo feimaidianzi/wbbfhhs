@@ -4,6 +4,12 @@ import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 const productLinks = [{
+  name: "多旋翼无人机",
+  path: "/products/multi-rotor"
+}, {
+  name: "自动机场",
+  path: "/products/airport"
+}, {
   name: "系留无人机",
   path: "/products/tethered"
 }, {
@@ -13,17 +19,14 @@ const productLinks = [{
   name: "消防无人机",
   path: "/products/firefighting"
 }, {
-  name: "飞迈机场",
-  path: "/products/airport"
-}, {
-  name: "多旋翼无人机",
-  path: "/products/multi-rotor"
-}, {
-  name: "架线无人机",
-  path: "/products/wire-laying"
-}, {
   name: "集群无人机",
   path: "/products/swarm"
+}, {
+  name: "植保无人机",
+  path: "/products/agriculture"
+}, {
+  name: "FPV穿越机",
+  path: "/fpv"
 }, {
   name: "无人机配件",
   path: "/products/accessories"
