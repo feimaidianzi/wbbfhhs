@@ -63,21 +63,18 @@ const softwareLinks = [{
   path: "/software/ground-station"
 }];
 
-const serviceLinks = [{
-  name: "飞行服务",
-  path: "/projects/flight-service"
-}, {
-  name: "无人机培训",
-  path: "/projects/training"
-}, {
-  name: "无人机表演",
-  path: "/projects/show"
-}, {
-  name: "项目合作",
-  path: "/projects/cooperation"
-}, {
-  name: "定制研发",
+const customLinks = [{
+  name: "无人机配件定制",
   path: "/custom-research"
+}, {
+  name: "无人机整机定制",
+  path: "/custom-research"
+}, {
+  name: "无人机软件定制",
+  path: "/custom-research/software"
+}, {
+  name: "无人机挂载定制",
+  path: "/custom-research/payload"
 }];
 export const Footer = () => {
   return <footer className="bg-gradient-to-b from-primary to-primary/95 text-primary-foreground relative overflow-hidden">
@@ -185,14 +182,14 @@ export const Footer = () => {
               </ul>
             </div>
 
-            {/* Services */}
+            {/* Custom */}
             <div>
               <h4 className="font-semibold text-lg mb-5 flex items-center gap-2">
                 <span className="w-1 h-5 bg-accent rounded-full"></span>
-                服务支持
+                产品定制
               </h4>
               <ul className="space-y-3">
-                {serviceLinks.map(item => <li key={item.name}>
+                {customLinks.map(item => <li key={item.name}>
                     <Link to={item.path} className="text-primary-foreground/70 hover:text-accent text-sm transition-colors flex items-center gap-1 group">
                       <ArrowRight className="w-3 h-3 opacity-0 -ml-4 group-hover:opacity-100 group-hover:ml-0 transition-all" />
                       {item.name}
