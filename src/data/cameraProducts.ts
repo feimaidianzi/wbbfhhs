@@ -58,67 +58,47 @@ export const cameraProducts: CameraProduct[] = [
       { label: "防水", value: "30M" },
       { label: "续航", value: "90分钟" },
     ],
-    specs: {
-      category: "基本参数",
-      items: [
-        { label: "型号", value: "SJ4000 WIFI" },
-        { label: "尺寸", value: "59.2*41*29.8mm" },
-        { label: "重量", value: "45.5g(不带电池) / 62.5g(带电池)" },
-        { label: "处理器", value: "联咏96655" },
-        { label: "传感器", value: "AR0330" },
-        { label: "显示屏", value: "2.0英寸液晶显示屏" },
-        { label: "电池", value: "900mAh锂电池" },
-        { label: "存储", value: "Micro SD卡(可扩展32GB、64GB)" },
-        { label: "数据连接", value: "USB 2.0 | HDMI | Wi-Fi" },
-        { label: "防水深度", value: "30米" },
-        { label: "视频格式", value: "MOV/MP4" },
-        { label: "视频分辨率", value: "1080P(1920*1080)30fps / 720P(1280*720)60/30fps / WVGA(640*480)30fps" },
-        { label: "充电时间", value: "约3小时" },
-        { label: "照片分辨率", value: "1200万像素" },
-        { label: "照片功能", value: "自拍、连续拍摄(突发)、自动拍摄" },
-        { label: "支持语言", value: "English / 繁体中文 / 俄语等" },
-        { label: "支持配件", value: "电源适配器、USB线、HDMI线、AV线" },
-      ],
-    }[0] ? [{
-      category: "基本参数",
-      items: [
-        { label: "型号", value: "SJ4000 WIFI" },
-        { label: "尺寸", value: "59.2*41*29.8mm" },
-        { label: "重量", value: "45.5g(不带电池) / 62.5g(带电池)" },
-        { label: "处理器", value: "联咏96655" },
-        { label: "传感器", value: "AR0330" },
-        { label: "显示屏", value: "2.0英寸液晶显示屏" },
-        { label: "电池", value: "900mAh锂电池" },
-        { label: "存储", value: "Micro SD卡(可扩展32GB、64GB)" },
-      ],
-    }, {
-      category: "连接与输出",
-      items: [
-        { label: "数据连接", value: "USB 2.0 | HDMI | Wi-Fi" },
-        { label: "防水深度", value: "30米" },
-      ],
-    }, {
-      category: "视频参数",
-      items: [
-        { label: "视频格式", value: "MOV/MP4" },
-        { label: "1080P分辨率", value: "1920*1080 @30fps" },
-        { label: "720P分辨率", value: "1280*720 @60/30fps" },
-        { label: "WVGA分辨率", value: "640*480 @30fps" },
-      ],
-    }, {
-      category: "照片参数",
-      items: [
-        { label: "照片分辨率", value: "1200万像素" },
-        { label: "照片功能", value: "自拍、连续拍摄(突发)、自动拍摄" },
-        { label: "充电时间", value: "约3小时" },
-      ],
-    }, {
-      category: "其他",
-      items: [
-        { label: "支持语言", value: "English / 繁体中文 / 俄语等" },
-        { label: "支持配件", value: "电源适配器、USB线、HDMI线、AV线" },
-      ],
-    }] : [],
+    specs: [
+      {
+        category: "基本参数",
+        items: [
+          { label: "型号", value: "SJ4000 WIFI" },
+          { label: "尺寸", value: "长*宽*高：59.2*41*29.8MM" },
+          { label: "重量", value: "45.5g（不带电池）62.5g（带电池）" },
+          { label: "处理器", value: "联咏96655" },
+          { label: "传感器", value: "AR0330" },
+          { label: "显示屏", value: "2.0英寸液晶显示屏" },
+          { label: "电池", value: "900mAh锂电池" },
+          { label: "存储", value: "Micro SD卡（可扩展32GB、64GB）" },
+        ],
+      },
+      {
+        category: "连接与防护",
+        items: [
+          { label: "数据连接", value: "USB 2.0 | HDMI | Wi-Fi" },
+          { label: "防水深度", value: "30米" },
+        ],
+      },
+      {
+        category: "视频参数",
+        items: [
+          { label: "视频格式", value: "MOV/MP4" },
+          { label: "视频分辨率", value: "1080P (1920*1080) 30 fps" },
+          { label: "", value: "720P (1280*720) 60/30 fps" },
+          { label: "", value: "WVGA (640*480) 30 fps" },
+        ],
+      },
+      {
+        category: "照片与其他",
+        items: [
+          { label: "充电时间", value: "约3小時" },
+          { label: "照片分辨率", value: "1200万像素" },
+          { label: "照片功能", value: "自拍，连续拍摄（突发），自动拍摄" },
+          { label: "支持语言", value: "English / 繁体中文/俄语等" },
+          { label: "支持配件", value: "电源适配器，USB线，HDMI线，AV线" },
+        ],
+      },
+    ],
     features: [
       {
         title: "1200万像素COMS大广角成像",
