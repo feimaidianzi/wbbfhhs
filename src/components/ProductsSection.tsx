@@ -1,47 +1,51 @@
 import { ArrowRight, Sparkles } from "lucide-react";
 import { Link } from "react-router-dom";
+import { useLanguage } from "@/contexts/LanguageContext";
 
-const categories = [
+const getCategoriesData = (language: 'zh' | 'en') => [
   {
-    name: "VTX/VRX",
-    description: "4.9-7.2GHz全频段视频发射器",
-    price: "高清图传方案",
+    name: language === 'zh' ? "VTX/VRX" : "VTX/VRX",
+    description: language === 'zh' ? "4.9-7.2GHz全频段视频发射器" : "4.9-7.2GHz Full Band Video Transmitter",
+    price: language === 'zh' ? "高清图传方案" : "HD Video Solution",
     image: "https://images.unsplash.com/photo-1518770660439-4636190af475?w=600&q=80",
     link: "/products/accessories/vtx-vrx",
     isNew: true,
   },
   {
-    name: "飞控/电调",
-    description: "专业级飞行控制系统",
-    price: "稳定飞行方案",
+    name: language === 'zh' ? "飞控/电调" : "FC/ESC",
+    description: language === 'zh' ? "专业级飞行控制系统" : "Professional Flight Control System",
+    price: language === 'zh' ? "稳定飞行方案" : "Stable Flight Solution",
     image: "https://images.unsplash.com/photo-1581094794329-c8112a89af12?w=600&q=80",
     link: "/products/accessories/fc-esc",
   },
   {
-    name: "吊舱/云台",
-    description: "多轴稳定云台系统",
-    price: "航拍增稳方案",
+    name: language === 'zh' ? "吊舱/云台" : "Gimbal/Pod",
+    description: language === 'zh' ? "多轴稳定云台系统" : "Multi-axis Stabilization System",
+    price: language === 'zh' ? "航拍增稳方案" : "Aerial Stabilization",
     image: "https://images.unsplash.com/photo-1527977966376-1c8408f9f108?w=600&q=80",
     link: "/products/accessories/gimbal",
   },
   {
-    name: "ELRS遥控",
-    description: "ExpressLRS远程控制",
-    price: "超远距离方案",
+    name: language === 'zh' ? "ELRS遥控" : "ELRS Remote",
+    description: language === 'zh' ? "ExpressLRS远程控制" : "ExpressLRS Remote Control",
+    price: language === 'zh' ? "超远距离方案" : "Long Range Solution",
     image: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&q=80",
     link: "/products/accessories/elrs",
     isNew: true,
   },
   {
-    name: "数字图传",
-    description: "高清数字FPV系统",
-    price: "沉浸式体验方案",
+    name: language === 'zh' ? "数字图传" : "Digital FPV",
+    description: language === 'zh' ? "高清数字FPV系统" : "HD Digital FPV System",
+    price: language === 'zh' ? "沉浸式体验方案" : "Immersive Experience",
     image: "https://images.unsplash.com/photo-1473968512647-3e447244af8f?w=600&q=80",
     link: "/products/accessories/digital-fpv",
   },
 ];
 
 export const ProductsSection = () => {
+  const { language, t } = useLanguage();
+  const categories = getCategoriesData(language);
+
   return (
     <section id="products" className="py-20 md:py-28 bg-secondary">
       <div className="container-custom">
@@ -51,12 +55,14 @@ export const ProductsSection = () => {
             <div className="flex items-center gap-3 mb-4">
               <span className="text-accent text-2xl font-black">&lt;</span>
               <h2 className="text-3xl md:text-4xl font-black text-foreground">
-                无人机配件
+                {language === 'zh' ? '无人机配件' : 'Drone Accessories'}
               </h2>
               <span className="text-accent text-2xl font-black">\&gt;</span>
             </div>
             <p className="text-muted-foreground text-lg leading-relaxed">
-              飞迈科技提供全系列专业无人机配件，从视频发射器到飞控系统，从云台吊舱到远程遥控，满足各类飞行需求。
+              {language === 'zh' 
+                ? '飞迈科技提供全系列专业无人机配件，从视频发射器到飞控系统，从云台吊舱到远程遥控，满足各类飞行需求。'
+                : 'FlyMind provides a full range of professional drone accessories, from video transmitters to flight controllers, from gimbals to remote controls, meeting all flight needs.'}
             </p>
           </div>
           <div className="flex items-end justify-start lg:justify-end animate-fade-in" style={{ animationDelay: '0.1s' }}>
@@ -64,7 +70,7 @@ export const ProductsSection = () => {
               to="/products"
               className="inline-flex items-center gap-2 text-accent hover:text-orange-light font-semibold text-lg group"
             >
-              查看全部产品
+              {t('section.products.viewAll')}
               <ArrowRight className="w-5 h-5 group-hover:translate-x-2 transition-transform" />
             </Link>
           </div>
@@ -92,7 +98,6 @@ export const ProductsSection = () => {
                     <span>NEW</span>
                   </div>
                 )}
-                {/* Animated glow effect for new products */}
                 {product.isNew && (
                   <div className="absolute inset-0 bg-gradient-to-r from-accent/20 via-transparent to-accent/20 opacity-0 group-hover:opacity-100 animate-[pulse_2s_ease-in-out_infinite] transition-opacity duration-500" />
                 )}

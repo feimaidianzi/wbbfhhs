@@ -6,23 +6,10 @@ import { Phone, Mail, MapPin, Clock, MessageCircle, Send } from "lucide-react";
 import { useState } from "react";
 import { useToast } from "@/hooks/use-toast";
 import { SEO } from "@/components/SEO";
-
-const contactInfo = [
-  { icon: Phone, title: "电话咨询", value: "+8617674048404", href: "tel:+8617674048404" },
-  { icon: Mail, title: "邮箱", value: "market@flymind.com", href: "mailto:market@flymind.com" },
-  { icon: MessageCircle, title: "QQ客服", value: "123456789", href: "#" },
-  { icon: Clock, title: "工作时间", value: "周一至周五 9:00-18:00", href: null },
-];
-
-const offices = [
-  {
-    city: "长沙总部",
-    address: "湖南省长沙市望城区月亮岛街道罐子岭澳优全球总部大楼",
-    phone: "+8617674048404",
-  },
-];
+import { useLanguage } from "@/contexts/LanguageContext";
 
 const Contact = () => {
+  const { language, t } = useLanguage();
   const { toast } = useToast();
   const [formData, setFormData] = useState({
     name: "",
@@ -32,11 +19,26 @@ const Contact = () => {
     message: "",
   });
 
+  const contactInfo = [
+    { icon: Phone, title: language === 'zh' ? "电话咨询" : "Phone", value: "+8617674048404", href: "tel:+8617674048404" },
+    { icon: Mail, title: language === 'zh' ? "邮箱" : "Email", value: "market@flymind.com", href: "mailto:market@flymind.com" },
+    { icon: MessageCircle, title: language === 'zh' ? "QQ客服" : "QQ Service", value: "123456789", href: "#" },
+    { icon: Clock, title: language === 'zh' ? "工作时间" : "Working Hours", value: language === 'zh' ? "周一至周五 9:00-18:00" : "Mon-Fri 9:00-18:00", href: null },
+  ];
+
+  const offices = [
+    {
+      city: language === 'zh' ? "长沙总部" : "Changsha HQ",
+      address: language === 'zh' ? "湖南省长沙市望城区月亮岛街道罐子岭澳优全球总部大楼" : "Ausnutria Global HQ, Wangcheng District, Changsha, Hunan, China",
+      phone: "+8617674048404",
+    },
+  ];
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     toast({
-      title: "提交成功",
-      description: "我们会尽快与您联系！",
+      title: language === 'zh' ? "提交成功" : "Submitted Successfully",
+      description: language === 'zh' ? "我们会尽快与您联系！" : "We will contact you soon!",
     });
     setFormData({ name: "", phone: "", email: "", company: "", message: "" });
   };
@@ -44,17 +46,17 @@ const Contact = () => {
   const contactStructuredData = {
     '@context': 'https://schema.org',
     '@type': 'ContactPage',
-    name: '联系飞迈科技',
-    description: '获取飞迈科技的联系方式，咨询无人机产品和定制服务',
+    name: language === 'zh' ? '联系飞迈科技' : 'Contact FlyMind',
+    description: language === 'zh' ? '获取飞迈科技的联系方式，咨询无人机产品和定制服务' : 'Get contact info for FlyMind, inquire about drone products and custom services',
     mainEntity: {
       '@type': 'Organization',
-      name: '飞迈科技有限公司',
+      name: 'FlyMind Technology',
       telephone: '+8617674048404',
       email: 'market@flymind.com',
       address: {
         '@type': 'PostalAddress',
-        addressLocality: '长沙',
-        addressRegion: '湖南',
+        addressLocality: 'Changsha',
+        addressRegion: 'Hunan',
         addressCountry: 'CN',
       },
     },
@@ -63,8 +65,8 @@ const Contact = () => {
   return (
     <div className="min-h-screen">
       <SEO
-        title="联系我们"
-        description="联系飞迈科技，获取专业无人机解决方案咨询服务。电话：+8617674048404，总部地址：湖南省长沙市。"
+        title={language === 'zh' ? "联系我们" : "Contact Us"}
+        description={language === 'zh' ? "联系飞迈科技，获取专业无人机解决方案咨询服务。电话：+8617674048404，总部地址：湖南省长沙市。" : "Contact FlyMind for professional drone solution consultation. Phone: +8617674048404, HQ: Changsha, Hunan, China."}
         keywords="联系飞迈,FlyMind,无人机咨询,无人机定制服务,长沙无人机公司"
         url="/contact"
         structuredData={contactStructuredData}
@@ -84,10 +86,10 @@ const Contact = () => {
           <div className="relative container-custom h-full flex items-center">
             <div className="max-w-2xl">
               <h1 className="text-3xl md:text-5xl font-bold text-primary-foreground mb-4">
-                联系我们
+                {language === 'zh' ? '联系我们' : 'Contact Us'}
               </h1>
               <p className="text-lg md:text-xl text-primary-foreground/90">
-                期待与您的合作，为您提供专业的无人机解决方案
+                {language === 'zh' ? '期待与您的合作，为您提供专业的无人机解决方案' : 'Looking forward to working with you, providing professional drone solutions'}
               </p>
             </div>
           </div>
@@ -120,15 +122,17 @@ const Contact = () => {
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
               {/* Contact Form */}
               <div>
-                <h2 className="text-2xl md:text-3xl font-bold mb-6">在线咨询</h2>
+                <h2 className="text-2xl md:text-3xl font-bold mb-6">
+                  {language === 'zh' ? '在线咨询' : 'Online Inquiry'}
+                </h2>
                 <p className="text-muted-foreground mb-8">
-                  填写以下表单，我们的专业团队将尽快与您联系
+                  {language === 'zh' ? '填写以下表单，我们的专业团队将尽快与您联系' : 'Fill in the form below, our professional team will contact you soon'}
                 </p>
                 <form onSubmit={handleSubmit} className="space-y-6">
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div>
                       <label className="block text-sm font-medium text-foreground mb-2">
-                        姓名 *
+                        {language === 'zh' ? '姓名 *' : 'Name *'}
                       </label>
                       <input
                         type="text"
@@ -136,12 +140,12 @@ const Contact = () => {
                         value={formData.name}
                         onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                         className="w-full px-4 py-3 rounded-lg border border-border bg-card text-foreground focus:outline-none focus:ring-2 focus:ring-accent"
-                        placeholder="请输入姓名"
+                        placeholder={language === 'zh' ? "请输入姓名" : "Enter your name"}
                       />
                     </div>
                     <div>
                       <label className="block text-sm font-medium text-foreground mb-2">
-                        电话 *
+                        {language === 'zh' ? '电话 *' : 'Phone *'}
                       </label>
                       <input
                         type="tel"
@@ -149,39 +153,39 @@ const Contact = () => {
                         value={formData.phone}
                         onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
                         className="w-full px-4 py-3 rounded-lg border border-border bg-card text-foreground focus:outline-none focus:ring-2 focus:ring-accent"
-                        placeholder="请输入联系电话"
+                        placeholder={language === 'zh' ? "请输入联系电话" : "Enter phone number"}
                       />
                     </div>
                   </div>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div>
                       <label className="block text-sm font-medium text-foreground mb-2">
-                        邮箱
+                        {language === 'zh' ? '邮箱' : 'Email'}
                       </label>
                       <input
                         type="email"
                         value={formData.email}
                         onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                         className="w-full px-4 py-3 rounded-lg border border-border bg-card text-foreground focus:outline-none focus:ring-2 focus:ring-accent"
-                        placeholder="请输入邮箱地址"
+                        placeholder={language === 'zh' ? "请输入邮箱地址" : "Enter email address"}
                       />
                     </div>
                     <div>
                       <label className="block text-sm font-medium text-foreground mb-2">
-                        公司名称
+                        {language === 'zh' ? '公司名称' : 'Company'}
                       </label>
                       <input
                         type="text"
                         value={formData.company}
                         onChange={(e) => setFormData({ ...formData, company: e.target.value })}
                         className="w-full px-4 py-3 rounded-lg border border-border bg-card text-foreground focus:outline-none focus:ring-2 focus:ring-accent"
-                        placeholder="请输入公司名称"
+                        placeholder={language === 'zh' ? "请输入公司名称" : "Enter company name"}
                       />
                     </div>
                   </div>
                   <div>
                     <label className="block text-sm font-medium text-foreground mb-2">
-                      咨询内容 *
+                      {language === 'zh' ? '咨询内容 *' : 'Message *'}
                     </label>
                     <textarea
                       required
@@ -189,11 +193,11 @@ const Contact = () => {
                       value={formData.message}
                       onChange={(e) => setFormData({ ...formData, message: e.target.value })}
                       className="w-full px-4 py-3 rounded-lg border border-border bg-card text-foreground focus:outline-none focus:ring-2 focus:ring-accent resize-none"
-                      placeholder="请描述您的需求或问题"
+                      placeholder={language === 'zh' ? "请描述您的需求或问题" : "Describe your requirements or questions"}
                     />
                   </div>
                   <Button type="submit" className="w-full bg-accent hover:bg-orange-light text-accent-foreground py-3">
-                    提交咨询
+                    {language === 'zh' ? '提交咨询' : 'Submit Inquiry'}
                     <Send className="w-4 h-4 ml-2" />
                   </Button>
                 </form>
@@ -201,7 +205,9 @@ const Contact = () => {
 
               {/* Offices */}
               <div>
-                <h2 className="text-2xl md:text-3xl font-bold mb-6">办公地址</h2>
+                <h2 className="text-2xl md:text-3xl font-bold mb-6">
+                  {language === 'zh' ? '办公地址' : 'Office Address'}
+                </h2>
                 <div className="space-y-6">
                   {offices.map((office, index) => (
                     <div key={index} className="bg-card rounded-xl p-6 shadow-card">
@@ -225,14 +231,14 @@ const Contact = () => {
                   <iframe
                     src="https://www.openstreetmap.org/export/embed.html?bbox=112.8650%2C28.2550%2C112.8850%2C28.2750&layer=mapnik&marker=28.2655%2C112.8755"
                     className="w-full h-full border-0"
-                    title="公司地址地图"
+                    title={language === 'zh' ? "公司地址地图" : "Company Location Map"}
                     loading="lazy"
                     style={{ minHeight: '300px' }}
                   />
                   <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-card/90 to-transparent p-4">
                     <p className="text-sm text-card-foreground flex items-center gap-2">
                       <MapPin className="w-4 h-4 text-accent" />
-                      湖南省长沙市望城区月亮岛街道罐子岭澳优全球总部大楼
+                      {language === 'zh' ? '湖南省长沙市望城区月亮岛街道罐子岭澳优全球总部大楼' : 'Ausnutria Global HQ, Wangcheng District, Changsha, Hunan, China'}
                     </p>
                   </div>
                 </div>
