@@ -33,11 +33,11 @@ const categories = [
     isNew: true,
   },
   {
-    name: "FPV穿越机",
-    description: "第一视角飞行体验",
-    price: "竞速娱乐方案",
-    image: "https://images.unsplash.com/photo-1473968512647-3e447244af8f?w=600&q=80",
-    link: "/fpv",
+    name: "配件及设备",
+    description: "专业FPV与无人机配件",
+    price: "图传/飞控/云台/ELRS",
+    image: "https://images.unsplash.com/photo-1518770660439-4636190af475?w=600&q=80",
+    link: "/products/accessories",
   },
 ];
 
@@ -51,12 +51,12 @@ export const ProductsSection = () => {
             <div className="flex items-center gap-3 mb-4">
               <span className="text-accent text-2xl font-black">&lt;</span>
               <h2 className="text-3xl md:text-4xl font-black text-foreground">
-                多旋翼无人机
+                产品中心
               </h2>
               <span className="text-accent text-2xl font-black">\&gt;</span>
             </div>
             <p className="text-muted-foreground text-lg leading-relaxed">
-              飞迈科技提供全系列工业级无人机产品，从自动机场到系留平台，从物流配送到集群编队，满足各行业应用需求。
+              飞迈科技提供全系列工业级无人机产品及配件，从自动机场到系留平台，从物流配送到集群编队，满足各行业应用需求。
             </p>
           </div>
           <div className="flex items-end justify-start lg:justify-end animate-fade-in" style={{ animationDelay: '0.1s' }}>
