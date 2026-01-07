@@ -4,14 +4,21 @@ import { useState, useEffect } from "react";
 
 export const FloatingContact = () => {
   const [showQR, setShowQR] = useState(false);
-  const [showBanner, setShowBanner] = useState(true);
+  const [showBanner, setShowBanner] = useState(false);
 
-  // Auto-hide banner after 8 seconds
+  // Only show banner on first visit (session-based)
   useEffect(() => {
-    const timer = setTimeout(() => {
-      setShowBanner(false);
-    }, 8000);
-    return () => clearTimeout(timer);
+    const hasSeenBanner = sessionStorage.getItem('hasSeenBanner');
+    if (!hasSeenBanner) {
+      setShowBanner(true);
+      sessionStorage.setItem('hasSeenBanner', 'true');
+      
+      // Auto-hide banner after 8 seconds
+      const timer = setTimeout(() => {
+        setShowBanner(false);
+      }, 8000);
+      return () => clearTimeout(timer);
+    }
   }, []);
 
   return (
