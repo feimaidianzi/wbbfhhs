@@ -5,59 +5,109 @@ import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
 import { Link } from "react-router-dom";
 import { SEO } from "@/components/SEO";
-
-const applications = [
-  {
-    name: "电力巡检",
-    description: "无人机智能巡检技术，为电力行业提供安全高效的输电线路巡检、变电站巡检、光伏电站检测解决方案。",
-    image: "https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?w=600&q=80",
-    href: "/applications/power-inspection",
-  },
-  {
-    name: "物流应用",
-    description: "无人机物流配送技术，打破传统物流边界，实现偏远地区配送、应急物资投送、城市末端配送。",
-    image: "https://images.unsplash.com/photo-1527977966376-1c8408f9f108?w=600&q=80",
-    href: "/applications/logistics",
-  },
-  {
-    name: "军事应用",
-    description: "专业军用无人机系统，提供侦察监视、通信中继、目标定位等军事应用服务。",
-    image: "https://images.unsplash.com/photo-1551698618-1dfe5d97d256?w=600&q=80",
-    href: "/applications/military",
-  },
-  {
-    name: "环保应用",
-    description: "无人机环境监测技术，守护绿水青山，提供大气监测、水环境监测、生态调查服务。",
-    image: "https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=600&q=80",
-    href: "/applications/environment",
-  },
-  {
-    name: "消防应急",
-    description: "无人机消防应急技术，为生命安全保驾护航，提供火情侦察、通信保障、灭火投弹服务。",
-    image: "https://images.unsplash.com/photo-1569863959165-56dae551d4fc?w=600&q=80",
-    href: "/applications/firefighting",
-  },
-  {
-    name: "系留应用",
-    description: "系留无人机空中平台，24小时不间断持续作业，提供应急通信、安保监控、边境监视服务。",
-    image: "https://images.unsplash.com/photo-1473968512647-3e447244af8f?w=600&q=80",
-    href: "/applications/tethered",
-  },
-  {
-    name: "解决方案",
-    description: "从需求到落地，为您提供完整的无人机行业应用解决方案，包括方案设计、设备集成、培训服务和售后支持。",
-    image: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=600&q=80",
-    href: "/applications/solutions",
-  },
-];
+import { useLanguage } from "@/contexts/LanguageContext";
 
 const Applications = () => {
+  const { language } = useLanguage();
+
+  const applications = language === 'zh' ? [
+    {
+      name: "电力巡检",
+      description: "无人机智能巡检技术，为电力行业提供安全高效的输电线路巡检、变电站巡检、光伏电站检测解决方案。",
+      image: "https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?w=600&q=80",
+      href: "/applications/power-inspection",
+    },
+    {
+      name: "物流应用",
+      description: "无人机物流配送技术，打破传统物流边界，实现偏远地区配送、应急物资投送、城市末端配送。",
+      image: "https://images.unsplash.com/photo-1527977966376-1c8408f9f108?w=600&q=80",
+      href: "/applications/logistics",
+    },
+    {
+      name: "军事应用",
+      description: "专业军用无人机系统，提供侦察监视、通信中继、目标定位等军事应用服务。",
+      image: "https://images.unsplash.com/photo-1551698618-1dfe5d97d256?w=600&q=80",
+      href: "/applications/military",
+    },
+    {
+      name: "环保应用",
+      description: "无人机环境监测技术，守护绿水青山，提供大气监测、水环境监测、生态调查服务。",
+      image: "https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=600&q=80",
+      href: "/applications/environment",
+    },
+    {
+      name: "消防应急",
+      description: "无人机消防应急技术，为生命安全保驾护航，提供火情侦察、通信保障、灭火投弹服务。",
+      image: "https://images.unsplash.com/photo-1569863959165-56dae551d4fc?w=600&q=80",
+      href: "/applications/firefighting",
+    },
+    {
+      name: "系留应用",
+      description: "系留无人机空中平台，24小时不间断持续作业，提供应急通信、安保监控、边境监视服务。",
+      image: "https://images.unsplash.com/photo-1473968512647-3e447244af8f?w=600&q=80",
+      href: "/applications/tethered",
+    },
+    {
+      name: "解决方案",
+      description: "从需求到落地，为您提供完整的无人机行业应用解决方案，包括方案设计、设备集成、培训服务和售后支持。",
+      image: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=600&q=80",
+      href: "/applications/solutions",
+    },
+  ] : [
+    {
+      name: "Power Inspection",
+      description: "Drone intelligent inspection technology, providing safe and efficient transmission line inspection, substation inspection, and solar power plant detection solutions for the power industry.",
+      image: "https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?w=600&q=80",
+      href: "/applications/power-inspection",
+    },
+    {
+      name: "Logistics",
+      description: "Drone logistics delivery technology, breaking traditional logistics boundaries, enabling remote area delivery, emergency material delivery, and urban last-mile delivery.",
+      image: "https://images.unsplash.com/photo-1527977966376-1c8408f9f108?w=600&q=80",
+      href: "/applications/logistics",
+    },
+    {
+      name: "Military",
+      description: "Professional military drone systems, providing reconnaissance, communication relay, target positioning and other military application services.",
+      image: "https://images.unsplash.com/photo-1551698618-1dfe5d97d256?w=600&q=80",
+      href: "/applications/military",
+    },
+    {
+      name: "Environmental",
+      description: "Drone environmental monitoring technology, protecting nature, providing atmospheric monitoring, water environment monitoring, and ecological survey services.",
+      image: "https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=600&q=80",
+      href: "/applications/environment",
+    },
+    {
+      name: "Firefighting & Emergency",
+      description: "Drone firefighting and emergency technology, safeguarding life and safety, providing fire reconnaissance, communication support, and fire suppression services.",
+      image: "https://images.unsplash.com/photo-1569863959165-56dae551d4fc?w=600&q=80",
+      href: "/applications/firefighting",
+    },
+    {
+      name: "Tethered Applications",
+      description: "Tethered drone aerial platform, 24-hour continuous operation, providing emergency communication, security monitoring, and border surveillance services.",
+      image: "https://images.unsplash.com/photo-1473968512647-3e447244af8f?w=600&q=80",
+      href: "/applications/tethered",
+    },
+    {
+      name: "Solutions",
+      description: "From requirements to implementation, providing complete drone industry application solutions, including solution design, equipment integration, training services and after-sales support.",
+      image: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=600&q=80",
+      href: "/applications/solutions",
+    },
+  ];
+
   return (
     <div className="min-h-screen">
       <SEO
-        title="行业应用"
-        description="飞迈科技无人机行业应用解决方案，覆盖电力巡检、物流配送、军事应用、环保监测、消防应急、系留应用等多个领域。"
-        keywords="无人机行业应用,电力巡检,物流无人机,军事无人机,环保监测,消防应急,系留无人机"
+        title={language === 'zh' ? "行业应用" : "Industry Applications"}
+        description={language === 'zh' 
+          ? "飞迈科技无人机行业应用解决方案，覆盖电力巡检、物流配送、军事应用、环保监测、消防应急、系留应用等多个领域。"
+          : "Feimai Technology drone industry application solutions, covering power inspection, logistics delivery, military applications, environmental monitoring, firefighting emergency, tethered applications and more."}
+        keywords={language === 'zh' 
+          ? "无人机行业应用,电力巡检,物流无人机,军事无人机,环保监测,消防应急,系留无人机"
+          : "drone industry applications,power inspection,logistics drone,military drone,environmental monitoring,firefighting emergency,tethered drone"}
         url="/applications"
       />
       <Header />
@@ -68,8 +118,14 @@ const Applications = () => {
           </div>
           <div className="relative container-custom h-full flex items-center">
             <div className="max-w-2xl">
-              <h1 className="text-3xl md:text-5xl font-bold text-primary-foreground mb-4">行业应用</h1>
-              <p className="text-lg md:text-xl text-primary-foreground/90">飞迈无人机广泛应用于多个行业领域，提供专业化解决方案</p>
+              <h1 className="text-3xl md:text-5xl font-bold text-primary-foreground mb-4">
+                {language === 'zh' ? "行业应用" : "Industry Applications"}
+              </h1>
+              <p className="text-lg md:text-xl text-primary-foreground/90">
+                {language === 'zh' 
+                  ? "飞迈无人机广泛应用于多个行业领域，提供专业化解决方案"
+                  : "Feimai drones are widely used in multiple industries, providing professional solutions"}
+              </p>
             </div>
           </div>
         </section>
@@ -86,7 +142,7 @@ const Applications = () => {
                     <h3 className="text-xl font-bold text-card-foreground mb-3 group-hover:text-accent transition-colors">{app.name}</h3>
                     <p className="text-muted-foreground text-sm mb-4 line-clamp-3">{app.description}</p>
                     <div className="flex items-center text-accent font-medium group-hover:translate-x-1 transition-transform">
-                      了解详情
+                      {language === 'zh' ? "了解详情" : "Learn More"}
                       <ArrowRight className="w-4 h-4 ml-2" />
                     </div>
                   </div>
@@ -98,11 +154,17 @@ const Applications = () => {
 
         <section className="py-16 bg-primary">
           <div className="container-custom text-center">
-            <h2 className="text-2xl md:text-3xl font-bold text-primary-foreground mb-4">定制您的行业解决方案</h2>
-            <p className="text-primary-foreground/80 mb-8 max-w-2xl mx-auto">飞迈科技拥有丰富的行业经验，可根据您的具体需求提供定制化解决方案</p>
+            <h2 className="text-2xl md:text-3xl font-bold text-primary-foreground mb-4">
+              {language === 'zh' ? "定制您的行业解决方案" : "Customize Your Industry Solution"}
+            </h2>
+            <p className="text-primary-foreground/80 mb-8 max-w-2xl mx-auto">
+              {language === 'zh' 
+                ? "飞迈科技拥有丰富的行业经验，可根据您的具体需求提供定制化解决方案"
+                : "Feimai Technology has rich industry experience and can provide customized solutions according to your specific needs"}
+            </p>
             <Link to="/contact">
               <Button className="bg-accent hover:bg-orange-light text-accent-foreground px-8 py-3">
-                立即咨询
+                {language === 'zh' ? "立即咨询" : "Contact Us"}
                 <ArrowRight className="w-4 h-4 ml-2" />
               </Button>
             </Link>
