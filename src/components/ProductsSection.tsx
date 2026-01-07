@@ -3,41 +3,41 @@ import { Link } from "react-router-dom";
 
 const categories = [
   {
-    name: "飞迈机场",
-    description: "全自动无人机起降平台",
-    price: "自动化巡检方案",
-    image: "https://images.unsplash.com/photo-1508614589041-895b88991e3e?w=600&q=80",
-    link: "/products/airport",
+    name: "VTX/VRX",
+    description: "4.9-7.2GHz全频段视频发射器",
+    price: "高清图传方案",
+    image: "https://images.unsplash.com/photo-1518770660439-4636190af475?w=600&q=80",
+    link: "/products/accessories/vtx-vrx",
     isNew: true,
   },
   {
-    name: "系留无人机",
-    description: "24小时不间断工作",
-    price: "长时滞空方案",
-    image: "https://images.unsplash.com/photo-1473968512647-3e447244af8f?w=600&q=80",
-    link: "/products/tethered",
+    name: "飞控/电调",
+    description: "专业级飞行控制系统",
+    price: "稳定飞行方案",
+    image: "https://images.unsplash.com/photo-1581094794329-c8112a89af12?w=600&q=80",
+    link: "/products/accessories/fc-esc",
   },
   {
-    name: "物流无人机",
-    description: "高效智能配送系统",
-    price: "空中物流方案",
+    name: "吊舱/云台",
+    description: "多轴稳定云台系统",
+    price: "航拍增稳方案",
     image: "https://images.unsplash.com/photo-1527977966376-1c8408f9f108?w=600&q=80",
-    link: "/products/logistics",
+    link: "/products/accessories/gimbal",
   },
   {
-    name: "集群无人机",
-    description: "智能协同编队系统",
-    price: "集群控制方案",
+    name: "ELRS遥控",
+    description: "ExpressLRS远程控制",
+    price: "超远距离方案",
     image: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&q=80",
-    link: "/products/swarm",
+    link: "/products/accessories/elrs",
     isNew: true,
   },
   {
-    name: "FPV穿越机",
-    description: "第一视角飞行体验",
-    price: "竞速娱乐方案",
+    name: "数字图传",
+    description: "高清数字FPV系统",
+    price: "沉浸式体验方案",
     image: "https://images.unsplash.com/photo-1473968512647-3e447244af8f?w=600&q=80",
-    link: "/fpv",
+    link: "/products/accessories/digital-fpv",
   },
 ];
 
@@ -51,12 +51,12 @@ export const ProductsSection = () => {
             <div className="flex items-center gap-3 mb-4">
               <span className="text-accent text-2xl font-black">&lt;</span>
               <h2 className="text-3xl md:text-4xl font-black text-foreground">
-                多旋翼无人机
+                无人机配件
               </h2>
               <span className="text-accent text-2xl font-black">\&gt;</span>
             </div>
             <p className="text-muted-foreground text-lg leading-relaxed">
-              飞迈科技提供全系列工业级无人机产品，从自动机场到系留平台，从物流配送到集群编队，满足各行业应用需求。
+              飞迈科技提供全系列专业无人机配件，从视频发射器到飞控系统，从云台吊舱到远程遥控，满足各类飞行需求。
             </p>
           </div>
           <div className="flex items-end justify-start lg:justify-end animate-fade-in" style={{ animationDelay: '0.1s' }}>
