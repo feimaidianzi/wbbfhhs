@@ -419,41 +419,41 @@ interface ProductCardProps {
 }
 
 const ProductCard = ({ product }: ProductCardProps) => (
-  <div className="bg-card rounded-xl overflow-hidden border border-border hover:border-primary/50 transition-all duration-300 group">
-    <div className="aspect-square bg-muted/30 p-6 flex items-center justify-center">
-      <img 
-        src={product.image} 
-        alt={product.name}
-        className="max-h-full max-w-full object-contain group-hover:scale-105 transition-transform duration-300"
-      />
-    </div>
-    <div className="p-5">
-      <div className="flex items-center gap-2 mb-2">
-        <span className="px-2 py-0.5 text-xs bg-primary/10 text-primary rounded-full">{product.category}</span>
+  <Link to={`/products/accessories/fc-esc/${product.id}`} className="block">
+    <div className="bg-card rounded-xl overflow-hidden border border-border hover:border-primary/50 transition-all duration-300 group">
+      <div className="aspect-square bg-muted/30 p-6 flex items-center justify-center">
+        <img 
+          src={product.image} 
+          alt={product.name}
+          className="max-h-full max-w-full object-contain group-hover:scale-105 transition-transform duration-300"
+        />
       </div>
-      <h3 className="text-lg font-bold mb-1">{product.name}</h3>
-      <p className="text-xs text-muted-foreground mb-3">{product.model}</p>
-      
-      <ul className="space-y-1 mb-4">
-        {product.highlights.slice(0, 3).map((highlight, idx) => (
-          <li key={idx} className="text-xs text-muted-foreground flex items-start gap-1.5">
-            <span className="text-primary mt-0.5">•</span>
-            <span>{highlight}</span>
-          </li>
-        ))}
-      </ul>
+      <div className="p-5">
+        <div className="flex items-center gap-2 mb-2">
+          <span className="px-2 py-0.5 text-xs bg-primary/10 text-primary rounded-full">{product.category}</span>
+        </div>
+        <h3 className="text-lg font-bold mb-1">{product.name}</h3>
+        <p className="text-xs text-muted-foreground mb-3">{product.model}</p>
+        
+        <ul className="space-y-1 mb-4">
+          {product.highlights.slice(0, 3).map((highlight, idx) => (
+            <li key={idx} className="text-xs text-muted-foreground flex items-start gap-1.5">
+              <span className="text-primary mt-0.5">•</span>
+              <span>{highlight}</span>
+            </li>
+          ))}
+        </ul>
 
-      <div className="flex items-center justify-between pt-3 border-t border-border">
-        <span className="text-lg font-bold text-primary">{product.price}</span>
-        <Button size="sm" variant="outline" className="text-xs" asChild>
-          <Link to="/contact">
-            咨询详情
+        <div className="flex items-center justify-between pt-3 border-t border-border">
+          <span className="text-lg font-bold text-primary">{product.price}</span>
+          <span className="text-xs text-primary flex items-center">
+            查看详情
             <ChevronRight className="w-3 h-3 ml-1" />
-          </Link>
-        </Button>
+          </span>
+        </div>
       </div>
     </div>
-  </div>
+  </Link>
 );
 
 const FcEsc = () => {

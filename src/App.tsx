@@ -72,6 +72,7 @@ import Solutions from "./pages/applications/Solutions";
 import VtxVrx from "./pages/products/accessories/VtxVrx";
 import VtxDetail from "./pages/products/accessories/VtxDetail";
 import FcEsc from "./pages/products/accessories/FcEsc";
+import FcEscDetail from "./pages/products/accessories/FcEscDetail";
 
 const queryClient = new QueryClient();
 
@@ -148,6 +149,7 @@ const App = () => (
           <Route path="/products/accessories/vtx-vrx" element={<VtxVrx />} />
           <Route path="/products/accessories/vtx-vrx/:productId" element={<VtxDetail />} />
           <Route path="/products/accessories/fc-esc" element={<FcEsc />} />
+          <Route path="/products/accessories/fc-esc/:productId" element={<FcEscDetail />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
