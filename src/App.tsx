@@ -79,6 +79,8 @@ import CameraPage from "./pages/products/accessories/Camera";
 import CameraDetail from "./pages/products/accessories/CameraDetail";
 import DigitalFpv from "./pages/fpv/DigitalFpv";
 import DigitalFpvDetail from "./pages/fpv/DigitalFpvDetail";
+import Elrs from "./pages/products/accessories/Elrs";
+import ElrsDetail from "./pages/products/accessories/ElrsDetail";
 
 const queryClient = new QueryClient();
 
@@ -162,6 +164,8 @@ const App = () => (
           <Route path="/products/accessories/camera/:productId" element={<CameraDetail />} />
           <Route path="/products/accessories/digital-fpv" element={<DigitalFpv />} />
           <Route path="/products/accessories/digital-fpv/:productId" element={<DigitalFpvDetail />} />
+          <Route path="/products/accessories/elrs" element={<Elrs />} />
+          <Route path="/products/accessories/elrs/:productId" element={<ElrsDetail />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
