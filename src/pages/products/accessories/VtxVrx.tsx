@@ -4,253 +4,15 @@ import { Footer } from "@/components/Footer";
 import { FloatingContact } from "@/components/FloatingContact";
 import { SEO } from "@/components/SEO";
 import { Button } from "@/components/ui/button";
-import { ArrowLeft, Radio, Zap, Settings, Shield, Thermometer, Cpu } from "lucide-react";
+import { ArrowLeft, Radio, Zap, Settings, Shield, Thermometer, Cpu, ChevronRight } from "lucide-react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-
-import vtxLowPower from "@/assets/vtx/vtx-low-power.png";
-import vtxHighPower from "@/assets/vtx/vtx-high-power.jpg";
-
-// 4.9GHz-6.1GHz 产品系列
-const products49to61 = [
-  {
-    id: "flym-pv02w500-a1",
-    model: "FLYM-PV02W500-A1",
-    name: "2.5W 视频发射器",
-    power: "2.5W",
-    frequency: "4.9-6.1GHz",
-    channels: 80,
-    image: vtxLowPower,
-    specs: {
-      inputVoltage: "12-28V (推荐6S电池)",
-      outputVoltage: "5V",
-      powerLevels: "25mW/2.5W",
-      mountingSize: "30.5×30.5mm",
-      antennaInterface: "MMCX",
-      consumption: "12V@800mA 或 28V@300mA",
-      features: "内置散热风扇 & 散热器",
-      microphone: "不支持",
-      cableInterface: "JST 6针",
-      weight: "23g",
-      size: "36×36×8mm"
-    },
-    highlights: [
-      "采用高性能射频PCB材料（罗杰斯4350B）",
-      "优良的散热设计",
-      "支持80频道，4.8~6.1GHz",
-      "支持SA协议与PIT模式",
-      "高强度CNC铝合金外壳",
-      "轻量化设计，仅23g"
-    ]
-  },
-  {
-    id: "flym-pv03w000-a1",
-    model: "FLYM-PV03W000-A1",
-    name: "3W 视频发射器",
-    power: "3W",
-    frequency: "4.9-6.1GHz",
-    channels: 80,
-    image: vtxLowPower,
-    specs: {
-      inputVoltage: "12-28V (推荐6S电池)",
-      outputVoltage: "5V",
-      powerLevels: "25mW/3W",
-      mountingSize: "30.5×30.5mm",
-      antennaInterface: "MMCX",
-      consumption: "12V@800mA 或 28V@300mA",
-      features: "内置散热风扇 & 散热器",
-      microphone: "不支持",
-      cableInterface: "JST 6针",
-      weight: "23g",
-      size: "36×36×8mm"
-    },
-    highlights: [
-      "采用高性能射频PCB材料（罗杰斯4350B）",
-      "优良的散热设计",
-      "支持80频道，4.8~6.1GHz",
-      "支持SA协议与PIT模式",
-      "高强度CNC铝合金外壳",
-      "轻量化设计，仅23g"
-    ]
-  },
-  {
-    id: "fv10w-a1",
-    model: "FV10W-A1",
-    name: "10W 视频发射器",
-    power: "10W",
-    frequency: "4.9-6.1GHz",
-    channels: 80,
-    image: vtxHighPower,
-    specs: {
-      inputVoltage: "12-28V (推荐6S电池)",
-      outputVoltage: "5V",
-      powerLevels: "1W/3W/5W/7W/10W",
-      mountingSize: "30.5×30.5mm",
-      antennaInterface: "SMA",
-      consumption: "12V/2.8A 或 28V/1.1A",
-      features: "智能音频/内置散热风扇 & 散热器",
-      microphone: "内置",
-      cableInterface: "JST 8针（双输入双接地）",
-      weight: "47g",
-      size: "68×36×15mm"
-    },
-    highlights: [
-      "5档功率可调 (1W/3W/5W/7W/10W)",
-      "内置散热风扇与麦克风",
-      "所有元件均置于散热器保护下",
-      "4个安装孔位，便于固定",
-      "支持Betaflight软件控制",
-      "5秒缓启动保护功能"
-    ]
-  },
-  {
-    id: "fv16w-a1",
-    model: "FV16W-A1",
-    name: "16W 视频发射器",
-    power: "16W",
-    frequency: "4.9-6.1GHz",
-    channels: 80,
-    image: vtxHighPower,
-    specs: {
-      inputVoltage: "12-28V (推荐6S电池)",
-      outputVoltage: "5V",
-      powerLevels: "16W (可定制)",
-      mountingSize: "30.5×30.5mm",
-      antennaInterface: "SMA",
-      consumption: "12V-28V",
-      features: "智能音频/内置散热风扇 & 散热器",
-      microphone: "内置",
-      cableInterface: "JST 8针（双输入双接地）",
-      weight: "47g",
-      size: "68×36×15mm"
-    },
-    highlights: [
-      "16W大功率输出",
-      "内置散热风扇与麦克风",
-      "所有元件均置于散热器保护下",
-      "4个安装孔位，便于固定",
-      "功率档位可定制",
-      "支持Betaflight软件控制"
-    ]
-  },
-  {
-    id: "fv25w-a1",
-    model: "FV25W-A1",
-    name: "25W 视频发射器",
-    power: "25W",
-    frequency: "4.9-6.1GHz",
-    channels: 80,
-    image: vtxHighPower,
-    specs: {
-      inputVoltage: "24-28V (推荐6S电池)",
-      outputVoltage: "5V",
-      powerLevels: "25W (可定制)",
-      mountingSize: "30.5×30.5mm",
-      antennaInterface: "SMA",
-      consumption: "24V-28V",
-      features: "智能音频/内置散热风扇 & 散热器",
-      microphone: "内置",
-      cableInterface: "JST 8针（双输入双接地）",
-      weight: "47g",
-      size: "68×36×15mm"
-    },
-    highlights: [
-      "25W大功率输出，远距离传输",
-      "内置散热风扇与麦克风",
-      "所有元件均置于散热器保护下",
-      "4个安装孔位，便于固定",
-      "功率档位可定制",
-      "支持Betaflight软件控制"
-    ]
-  },
-  {
-    id: "fv37w-a1",
-    model: "FV37W-A1",
-    name: "37W 视频发射器",
-    power: "37W",
-    frequency: "4.9-6.1GHz",
-    channels: 80,
-    image: vtxHighPower,
-    specs: {
-      inputVoltage: "24-28V (推荐6S电池)",
-      outputVoltage: "5V",
-      powerLevels: "37W (可定制)",
-      mountingSize: "30.5×30.5mm",
-      antennaInterface: "SMA",
-      consumption: "24V-28V",
-      features: "智能音频/内置散热风扇 & 散热器",
-      microphone: "内置",
-      cableInterface: "JST 8针（双输入双接地）",
-      weight: "47g",
-      size: "68×36×15mm"
-    },
-    highlights: [
-      "37W超大功率，极限远距离传输",
-      "内置散热风扇与麦克风",
-      "所有元件均置于散热器保护下",
-      "4个安装孔位，便于固定",
-      "功率档位可定制",
-      "支持Betaflight软件控制"
-    ]
-  }
-];
-
-// 6.1GHz-7.2GHz 产品系列 (暂无详细资料，显示占位)
-const products61to72 = [
-  {
-    id: "fv10w-72",
-    model: "FV10W-7.2",
-    name: "10W 视频发射器 (7.2GHz)",
-    power: "10W",
-    frequency: "6.1-7.2GHz",
-    channels: 64,
-    image: vtxHighPower,
-    specs: {
-      inputVoltage: "12-28V (推荐6S电池)",
-      outputVoltage: "5V",
-      powerLevels: "1W/3W/5W/7W/10W",
-      mountingSize: "30.5×30.5mm",
-      antennaInterface: "SMA",
-      consumption: "12V/2.8A 或 28V/1.1A",
-      features: "智能音频/内置散热风扇 & 散热器",
-      microphone: "内置",
-      cableInterface: "JST 8针（双输入双接地）",
-      weight: "47g",
-      size: "68×36×15mm"
-    },
-    highlights: [
-      "7.2GHz高频段，规避干扰",
-      "64频道可选",
-      "5档功率可调 (1W/3W/5W/7W/10W)",
-      "内置散热风扇与麦克风",
-      "所有元件均置于散热器保护下",
-      "支持Betaflight软件控制"
-    ]
-  }
-];
-
-const frequencyTable49to61 = [
-  { band: "Band A", ch1: 5865, ch2: 5845, ch3: 5825, ch4: 5805, ch5: 5785, ch6: 5765, ch7: 5745, ch8: 5725 },
-  { band: "Band b", ch1: 5733, ch2: 5752, ch3: 5771, ch4: 5790, ch5: 5809, ch6: 5828, ch7: 5847, ch8: 5866 },
-  { band: "Band E", ch1: 5705, ch2: 5685, ch3: 5665, ch4: 5645, ch5: 5885, ch6: 5905, ch7: 5925, ch8: 5945 },
-  { band: "Band F", ch1: 5740, ch2: 5760, ch3: 5780, ch4: 5800, ch5: 5820, ch6: 5840, ch7: 5860, ch8: 5880 },
-  { band: "Band r", ch1: 5658, ch2: 5695, ch3: 5732, ch4: 5769, ch5: 5806, ch6: 5843, ch7: 5880, ch8: 5917 },
-  { band: "Band P", ch1: 5653, ch2: 5693, ch3: 5733, ch4: 5773, ch5: 5813, ch6: 5853, ch7: 5893, ch8: 5933 },
-  { band: "Band L", ch1: 5333, ch2: 5373, ch3: 5413, ch4: 5453, ch5: 5493, ch6: 5533, ch7: 5573, ch8: 5613 },
-  { band: "Band U", ch1: 5325, ch2: 5348, ch3: 5366, ch4: 5384, ch5: 5402, ch6: 5420, ch7: 5438, ch8: 5456 },
-  { band: "Band O", ch1: 5474, ch2: 5492, ch3: 5510, ch4: 5528, ch5: 5546, ch6: 5564, ch7: 5582, ch8: 5600 },
-  { band: "Band X", ch1: 4990, ch2: 5020, ch3: 5050, ch4: 5080, ch5: 5110, ch6: 5140, ch7: 5170, ch8: 5200 }
-];
-
-const frequencyTable61to72 = [
-  { band: "Band A", ch1: 6110, ch2: 6130, ch3: 6150, ch4: 6170, ch5: 6190, ch6: 6210, ch7: 6230, ch8: 6250 },
-  { band: "Band B", ch1: 6270, ch2: 6290, ch3: 6310, ch4: 6330, ch5: 6350, ch6: 6370, ch7: 6390, ch8: 6410 },
-  { band: "Band E", ch1: 6430, ch2: 6450, ch3: 6470, ch4: 6490, ch5: 6510, ch6: 6530, ch7: 6550, ch8: 6570 },
-  { band: "Band F", ch1: 6590, ch2: 6610, ch3: 6630, ch4: 6650, ch5: 6670, ch6: 6690, ch7: 6710, ch8: 6730 },
-  { band: "Band R", ch1: 6750, ch2: 6770, ch3: 6790, ch4: 6810, ch5: 6830, ch6: 6850, ch7: 6870, ch8: 6890 },
-  { band: "Band P", ch1: 6910, ch2: 6930, ch3: 6950, ch4: 6970, ch5: 6990, ch6: 7010, ch7: 7030, ch8: 7050 },
-  { band: "Band H", ch1: 7070, ch2: 7090, ch3: 7110, ch4: 7130, ch5: 7150, ch6: 7170, ch7: 7190, ch8: 7210 },
-  { band: "Band U", ch1: 6115, ch2: 6265, ch3: 6425, ch4: 6585, ch5: 6745, ch6: 6905, ch7: 7065, ch8: 7185 }
-];
+import { 
+  getProducts49to61, 
+  getProducts61to72, 
+  frequencyTable49to61, 
+  frequencyTable61to72,
+  VtxProduct 
+} from "@/data/vtxProducts";
 
 const features = [
   {
@@ -285,8 +47,11 @@ const features = [
   }
 ];
 
-const ProductCard = ({ product }: { product: typeof products49to61[0] }) => (
-  <div className="bg-card rounded-xl overflow-hidden border border-border hover:border-primary/50 transition-all duration-300 group">
+const ProductCard = ({ product }: { product: VtxProduct }) => (
+  <Link 
+    to={`/products/accessories/vtx-vrx/${product.id}`}
+    className="bg-card rounded-xl overflow-hidden border border-border hover:border-primary/50 transition-all duration-300 group block"
+  >
     <div className="aspect-video bg-muted/30 p-4 flex items-center justify-center">
       <img 
         src={product.image} 
@@ -319,7 +84,7 @@ const ProductCard = ({ product }: { product: typeof products49to61[0] }) => (
         <div className="grid grid-cols-2 gap-2 text-sm">
           <div>
             <span className="text-muted-foreground">输入电压：</span>
-            <span>{product.specs.inputVoltage.split(' ')[0]}</span>
+            <span>{product.specs.inputVoltage.split('，')[0]}</span>
           </div>
           <div>
             <span className="text-muted-foreground">天线接口：</span>
@@ -335,8 +100,13 @@ const ProductCard = ({ product }: { product: typeof products49to61[0] }) => (
           </div>
         </div>
       </div>
+
+      <div className="mt-4 pt-4 border-t border-border flex items-center justify-between text-primary">
+        <span className="text-sm font-medium">查看详情</span>
+        <ChevronRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+      </div>
     </div>
-  </div>
+  </Link>
 );
 
 const FrequencyTable = ({ data }: { data: typeof frequencyTable49to61 }) => (
@@ -375,6 +145,9 @@ const FrequencyTable = ({ data }: { data: typeof frequencyTable49to61 }) => (
 );
 
 const VtxVrx = () => {
+  const products49to61 = getProducts49to61();
+  const products61to72 = getProducts61to72();
+
   return (
     <>
       <SEO 
@@ -436,7 +209,7 @@ const VtxVrx = () => {
           <div className="container mx-auto px-4">
             <h2 className="text-3xl font-bold text-center mb-4">产品系列</h2>
             <p className="text-center text-muted-foreground mb-12 max-w-2xl mx-auto">
-              根据频段分类，我们提供两大产品线，满足不同应用场景需求
+              根据频段分类，我们提供两大产品线，满足不同应用场景需求。点击产品查看详细规格。
             </p>
 
             <Tabs defaultValue="49-61" className="w-full">

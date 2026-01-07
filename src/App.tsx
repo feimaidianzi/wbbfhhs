@@ -70,6 +70,7 @@ import TetheredApp from "./pages/applications/TetheredApp";
 import Solutions from "./pages/applications/Solutions";
 // Accessories detail pages
 import VtxVrx from "./pages/products/accessories/VtxVrx";
+import VtxDetail from "./pages/products/accessories/VtxDetail";
 
 const queryClient = new QueryClient();
 
@@ -144,6 +145,7 @@ const App = () => (
           <Route path="/products/work-drone" element={<WorkDrone />} />
           <Route path="/products/accessories" element={<Accessories />} />
           <Route path="/products/accessories/vtx-vrx" element={<VtxVrx />} />
+          <Route path="/products/accessories/vtx-vrx/:productId" element={<VtxDetail />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
