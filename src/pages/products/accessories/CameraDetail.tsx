@@ -9,6 +9,7 @@ import { ArrowRight, Check, Camera, Wifi, Droplets, Monitor, Battery, Aperture, 
 import sj4000Lens from "@/assets/camera/sj4000-lens.png";
 import sj4000Colors from "@/assets/camera/sj4000-colors.png";
 import sj4000Accessories from "@/assets/camera/sj4000-accessories.png";
+import sj4000HdQuality from "@/assets/camera/sj4000-hd-quality.png";
 
 const featureIcons: Record<string, React.ReactNode> = {
   "1200万像素COMS大广角成像": <Aperture className="w-8 h-8" />,
@@ -130,6 +131,36 @@ const CameraDetail = () => {
                     <Monitor className="w-8 h-8 text-primary mx-auto mb-2" />
                     <div className="text-sm text-muted-foreground">2.0寸屏幕</div>
                   </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* HD Quality Section */}
+        <section className="py-20 relative overflow-hidden">
+          <div className="absolute inset-0">
+            <img
+              src={sj4000HdQuality}
+              alt="高清画质 影院级享受"
+              className="w-full h-full object-cover"
+            />
+            <div className="absolute inset-0 bg-gradient-to-r from-background/90 via-background/70 to-transparent"></div>
+          </div>
+          <div className="container mx-auto px-4 relative z-10">
+            <div className="max-w-xl">
+              <h2 className="text-3xl font-bold mb-4">高清画质 影院级享受</h2>
+              <p className="text-lg text-muted-foreground">
+                SJ4000 WIFI可以录制1080P高清视频分辨率达到1920*1080，WDR宽动态效果让画质更加真实、自然。
+              </p>
+              <div className="mt-6 flex gap-4">
+                <div className="px-4 py-2 bg-primary/10 rounded-lg border border-primary/20">
+                  <span className="text-primary font-semibold">1080P</span>
+                  <span className="text-sm text-muted-foreground ml-2">高清视频</span>
+                </div>
+                <div className="px-4 py-2 bg-primary/10 rounded-lg border border-primary/20">
+                  <span className="text-primary font-semibold">WDR</span>
+                  <span className="text-sm text-muted-foreground ml-2">宽动态</span>
                 </div>
               </div>
             </div>
