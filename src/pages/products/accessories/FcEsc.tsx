@@ -11,8 +11,8 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 const stacks = [
   {
     id: "stack-mini-f7-55a",
-    name: "阿格斯 Mini F7+55A飞塔",
-    model: "ARGUS Mini 55A F7",
+    name: "FlyMind Mini F7+55A飞塔",
+    model: "FlyMind Mini 55A F7",
     image: "https://ueeshop.ly200-cdn.com/u_file/UPBD/UPBD023/2409/19/products/b67564581a.jpg",
     category: "飞塔",
     highlights: [
@@ -32,8 +32,8 @@ const stacks = [
   },
   {
     id: "stack-f405-55a",
-    name: "阿格斯 F405+55A飞塔",
-    model: "ARGUS F405+55A",
+    name: "FlyMind F405+55A飞塔",
+    model: "FlyMind F405+55A",
     image: "https://ueeshop.ly200-cdn.com/u_file/UPBD/UPBD023/2409/19/products/5b83900071.jpg",
     category: "飞塔",
     highlights: [
@@ -53,8 +53,8 @@ const stacks = [
   },
   {
     id: "stack-f405-60a",
-    name: "阿格斯 F405+60A飞塔",
-    model: "ARGUS F405+60A",
+    name: "FlyMind F405+60A飞塔",
+    model: "FlyMind F405+60A",
     image: "https://ueeshop.ly200-cdn.com/u_file/UPBD/UPBD023/2411/25/products/4b65e095d8.jpg",
     category: "飞塔",
     highlights: [
@@ -74,8 +74,8 @@ const stacks = [
   },
   {
     id: "stack-mini-f7-40a",
-    name: "阿格斯 Mini F7+40A飞塔",
-    model: "ARGUS Mini F7 40A",
+    name: "FlyMind Mini F7+40A飞塔",
+    model: "FlyMind Mini F7 40A",
     image: "https://ueeshop.ly200-cdn.com/u_file/UPBD/UPBD023/2409/19/products/c50b7a84c3.jpg",
     category: "飞塔",
     highlights: [
@@ -95,8 +95,8 @@ const stacks = [
   },
   {
     id: "stack-pro-f722-100a",
-    name: "Argus Pro F722 100A/80A飞塔",
-    model: "Argus Pro F722 100A/80A",
+    name: "FlyMind Pro F722 100A/80A飞塔",
+    model: "FlyMind Pro F722 100A/80A",
     image: "https://ueeshop.ly200-cdn.com/u_file/UPBD/UPBD023/2508/04/products/1-1-1417311ad5.jpg",
     category: "飞塔",
     highlights: [
@@ -120,8 +120,8 @@ const stacks = [
 const sixInOneEscs = [
   {
     id: "6in1-80a",
-    name: "Argus六合一80A电调",
-    model: "ARGUS 6-in-1 80A",
+    name: "FlyMind六合一80A电调",
+    model: "FlyMind 6-in-1 80A",
     image: "https://ueeshop.ly200-cdn.com/u_file/UPBD/UPBD023/2510/31/products/1.jpg",
     category: "六合一电调",
     highlights: [
@@ -142,8 +142,8 @@ const sixInOneEscs = [
   },
   {
     id: "6in1-100a",
-    name: "Argus六合一100A电调",
-    model: "ARGUS 6-in-1 100A",
+    name: "FlyMind六合一100A电调",
+    model: "FlyMind 6-in-1 100A",
     image: "https://ueeshop.ly200-cdn.com/u_file/UPBD/UPBD023/2510/31/products/4.jpg",
     category: "六合一电调",
     highlights: [
@@ -168,8 +168,8 @@ const sixInOneEscs = [
 const flightControllers = [
   {
     id: "fc-f405",
-    name: "AxisFlying F405飞控",
-    model: "ARGUS F405",
+    name: "FlyMind F405飞控",
+    model: "FlyMind F405",
     image: "https://ueeshop.ly200-cdn.com/u_file/UPBD/UPBD023/2509/25/products/2.jpg",
     category: "飞控",
     processor: "STM32F405",
@@ -190,8 +190,8 @@ const flightControllers = [
   },
   {
     id: "fc-f722",
-    name: "ARGUS阿格斯 F7飞控",
-    model: "ARGUS F722",
+    name: "FlyMind F7飞控",
+    model: "FlyMind F722",
     image: "https://ueeshop.ly200-cdn.com/u_file/UPBD/UPBD023/2409/23/products/3360a61357.jpg",
     category: "飞控",
     processor: "STM32F722",
@@ -216,8 +216,8 @@ const flightControllers = [
 const escs = [
   {
     id: "esc-55a",
-    name: "ARGUS阿格斯 55/65A电调",
-    model: "ARGUS 55/65A 4-in-1",
+    name: "FlyMind 55/65A电调",
+    model: "FlyMind 55/65A 4-in-1",
     image: "https://ueeshop.ly200-cdn.com/u_file/UPBD/UPBD023/2409/23/products/c3752e8785.jpg",
     category: "四合一电调",
     current: "55A",
@@ -238,8 +238,8 @@ const escs = [
   },
   {
     id: "esc-60a",
-    name: "Argus ECO 60A V2电调",
-    model: "ARGUS ECO 60A V2",
+    name: "FlyMind ECO 60A V2电调",
+    model: "FlyMind ECO 60A V2",
     image: "https://ueeshop.ly200-cdn.com/u_file/UPBD/UPBD023/2411/09/products/ab393fb2ff.jpg",
     category: "四合一电调",
     current: "60A",
@@ -260,8 +260,8 @@ const escs = [
   },
   {
     id: "esc-80a",
-    name: "Argus Pro 80A电调",
-    model: "ARGUS Pro 80A 4-in-1",
+    name: "FlyMind Pro 80A电调",
+    model: "FlyMind Pro 80A 4-in-1",
     image: "https://ueeshop.ly200-cdn.com/u_file/UPBD/UPBD023/2509/25/products/32.jpg",
     category: "四合一电调",
     current: "80A",
@@ -282,8 +282,8 @@ const escs = [
   },
   {
     id: "esc-100a",
-    name: "Argus Pro 100A电调",
-    model: "ARGUS Pro 100A 4-in-1",
+    name: "FlyMind Pro 100A电调",
+    model: "FlyMind Pro 100A 4-in-1",
     image: "https://ueeshop.ly200-cdn.com/u_file/UPBD/UPBD023/2509/25/products/8.jpg",
     category: "四合一电调",
     current: "100A",
@@ -308,8 +308,8 @@ const escs = [
 const separateEscs = [
   {
     id: "separate-esc-80a",
-    name: "Argus阿格斯80A分体电调",
-    model: "ARGUS 80A SEP",
+    name: "FlyMind 80A分体电调",
+    model: "FlyMind 80A SEP",
     image: "https://ueeshop.ly200-cdn.com/u_file/UPBD/UPBD023/2511/01/products/1--0950563810.jpg",
     category: "分体电调",
     highlights: [
@@ -329,8 +329,8 @@ const separateEscs = [
   },
   {
     id: "separate-esc-100a",
-    name: "Argus阿格斯100A分体电调",
-    model: "ARGUS 100A SEP",
+    name: "FlyMind 100A分体电调",
+    model: "FlyMind 100A SEP",
     image: "https://ueeshop.ly200-cdn.com/u_file/UPBD/UPBD023/2511/01/products/3-095056bd79.jpg",
     category: "分体电调",
     highlights: [
