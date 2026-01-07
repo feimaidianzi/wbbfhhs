@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import { BackButton } from "@/components/BackButton";
 import { Radio, Weight, Clock, Navigation, Layers, Cpu, Thermometer, Zap, Sun, Phone, Camera } from "lucide-react";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 import payloadZoom from "@/assets/products/th-200-payload-zoom.png";
 import payloadIR from "@/assets/products/th-200-payload-ir.png";
@@ -25,63 +26,75 @@ import th200Cooling from "@/assets/products/th-200-cooling.png";
 import th200Propeller from "@/assets/products/th-200-propeller.png";
 
 const TH200 = () => {
+  const { language } = useLanguage();
+  const isEn = language === 'en';
+
   const highlights = [
-    { icon: Radio, label: "通信中继", description: "200米高度5公里覆盖" },
-    { icon: Weight, label: "10kg载荷", description: "支持多种专业载荷" },
-    { icon: Clock, label: "24小时滞空", description: "系留模式不间断工作" },
-    { icon: Navigation, label: "高精度定位", description: "RTK厘米级定位" },
-    { icon: Layers, label: "挂载丰富", description: "多任务载荷适配" },
-    { icon: Cpu, label: "性能稳定", description: "工业级飞控系统" },
+    { icon: Radio, label: isEn ? "Comm Relay" : "通信中继", description: isEn ? "5km coverage at 200m" : "200米高度5公里覆盖" },
+    { icon: Weight, label: isEn ? "10kg Payload" : "10kg载荷", description: isEn ? "Multiple professional payloads" : "支持多种专业载荷" },
+    { icon: Clock, label: isEn ? "24h Flight" : "24小时滞空", description: isEn ? "Continuous tethered operation" : "系留模式不间断工作" },
+    { icon: Navigation, label: isEn ? "High Precision" : "高精度定位", description: isEn ? "RTK cm-level positioning" : "RTK厘米级定位" },
+    { icon: Layers, label: isEn ? "Rich Payloads" : "挂载丰富", description: isEn ? "Multi-mission adaptation" : "多任务载荷适配" },
+    { icon: Cpu, label: isEn ? "Stable Performance" : "性能稳定", description: isEn ? "Industrial flight control" : "工业级飞控系统" },
   ];
 
   const flightPlatformSpecs = [
-    { label: "机翼类型", value: "四旋翼" },
-    { label: "机身材料", value: "碳纤维材料，重量轻，强度高，具备防腐蚀性" },
-    { label: "动力系统", value: "一体化FOC动力系统" },
-    { label: "轴距", value: "1200mm" },
-    { label: "展开尺寸", value: "1000mm×1000mm×600mm" },
-    { label: "折叠尺寸", value: "620mm×620mm×600mm" },
-    { label: "桨叶规格", value: "30寸" },
-    { label: "机身重量", value: "11kg（不含电池）" },
-    { label: "最大载荷量", value: "10kg" },
-    { label: "最大起飞重量", value: "29kg" },
-    { label: "最大飞行速度", value: "上升5m/s 下降3m/s 水平飞行15m/s" },
-    { label: "最大可承受风速", value: "15m/s（7级）" },
-    { label: "最大续航时间", value: "60min-空载/ 20min-10kg负载/系留模式24小时" },
-    { label: "最大飞行高度", value: "1000米" },
-    { label: "最大飞行海拔", value: "5000米" },
-    { label: "最大飞行距离", value: "15km（无干扰、无遮挡）" },
-    { label: "飞行模式", value: "手动、自动、定高、定点、运动、姿态" },
-    { label: "导航卫星系统", value: "GPS L1 L2 / GLONASS L1 L2 / BDS B1 B2" },
-    { label: "定位精度（垂直）", value: "±2.5m (GNSS单点) ±0.8m (DGPS) ±1.5cm+1ppm (RTK)" },
-    { label: "定位精度（水平）", value: "±1.5m (GNSS单点) ±0.4m (DGPS) ±1.0cm+1ppm (RTK)" },
-    { label: "防水等级", value: "机身防中雨" },
-    { label: "工作环境温度", value: "-20°C ~ 55°C" },
+    { label: isEn ? "Wing Type" : "机翼类型", value: isEn ? "Quadrotor" : "四旋翼" },
+    { label: isEn ? "Body Material" : "机身材料", value: isEn ? "Carbon fiber, lightweight, high strength, corrosion resistant" : "碳纤维材料，重量轻，强度高，具备防腐蚀性" },
+    { label: isEn ? "Power System" : "动力系统", value: isEn ? "Integrated FOC power system" : "一体化FOC动力系统" },
+    { label: isEn ? "Wheelbase" : "轴距", value: "1200mm" },
+    { label: isEn ? "Unfolded Size" : "展开尺寸", value: "1000mm×1000mm×600mm" },
+    { label: isEn ? "Folded Size" : "折叠尺寸", value: "620mm×620mm×600mm" },
+    { label: isEn ? "Propeller Size" : "桨叶规格", value: isEn ? "30 inch" : "30寸" },
+    { label: isEn ? "Body Weight" : "机身重量", value: isEn ? "11kg (without battery)" : "11kg（不含电池）" },
+    { label: isEn ? "Max Payload" : "最大载荷量", value: "10kg" },
+    { label: isEn ? "Max Takeoff Weight" : "最大起飞重量", value: "29kg" },
+    { label: isEn ? "Max Flight Speed" : "最大飞行速度", value: isEn ? "Ascent 5m/s, Descent 3m/s, Horizontal 15m/s" : "上升5m/s 下降3m/s 水平飞行15m/s" },
+    { label: isEn ? "Max Wind Resistance" : "最大可承受风速", value: isEn ? "15m/s (Level 7)" : "15m/s（7级）" },
+    { label: isEn ? "Max Endurance" : "最大续航时间", value: isEn ? "60min empty/20min 10kg load/24h tethered" : "60min-空载/ 20min-10kg负载/系留模式24小时" },
+    { label: isEn ? "Max Flight Altitude" : "最大飞行高度", value: isEn ? "1000m" : "1000米" },
+    { label: isEn ? "Max Flight Elevation" : "最大飞行海拔", value: isEn ? "5000m" : "5000米" },
+    { label: isEn ? "Max Flight Range" : "最大飞行距离", value: isEn ? "15km (no interference)" : "15km（无干扰、无遮挡）" },
+    { label: isEn ? "Flight Modes" : "飞行模式", value: isEn ? "Manual, Auto, Altitude Hold, Position, Sport, Attitude" : "手动、自动、定高、定点、运动、姿态" },
+    { label: isEn ? "Navigation System" : "导航卫星系统", value: "GPS L1 L2 / GLONASS L1 L2 / BDS B1 B2" },
+    { label: isEn ? "Vertical Accuracy" : "定位精度（垂直）", value: "±2.5m (GNSS) ±0.8m (DGPS) ±1.5cm+1ppm (RTK)" },
+    { label: isEn ? "Horizontal Accuracy" : "定位精度（水平）", value: "±1.5m (GNSS) ±0.4m (DGPS) ±1.0cm+1ppm (RTK)" },
+    { label: isEn ? "Waterproof Rating" : "防水等级", value: isEn ? "Moderate rain resistant" : "机身防中雨" },
+    { label: isEn ? "Operating Temp" : "工作环境温度", value: "-20°C ~ 55°C" },
   ];
 
   const tetherEquipmentSpecs = [
-    { category: "天空端电源模块", specs: [
-      { label: "输入电压", value: "580~810Vdc宽范围输入" },
-      { label: "输出电压", value: "50Vdc±1%或58Vdc±1%恒定稳压输出" },
-      { label: "输出功率", value: "额定长时输出≥6000W峰值输出≥7000W" },
+    { category: isEn ? "Airborne Power Module" : "天空端电源模块", specs: [
+      { label: isEn ? "Input Voltage" : "输入电压", value: isEn ? "580~810Vdc wide range" : "580~810Vdc宽范围输入" },
+      { label: isEn ? "Output Voltage" : "输出电压", value: isEn ? "50Vdc±1% or 58Vdc±1% regulated" : "50Vdc±1%或58Vdc±1%恒定稳压输出" },
+      { label: isEn ? "Output Power" : "输出功率", value: isEn ? "Rated ≥6000W, Peak ≥7000W" : "额定长时输出≥6000W峰值输出≥7000W" },
     ]},
-    { category: "系留线缆", specs: [
-      { label: "线缆材质", value: "镀银轻质耐高温航空线材，轻质耐高温护套" },
-      { label: "线缆长度", value: "110m/220m两种标准配置" },
+    { category: isEn ? "Tether Cable" : "系留线缆", specs: [
+      { label: isEn ? "Cable Material" : "线缆材质", value: isEn ? "Silver-plated lightweight high-temp aviation cable" : "镀银轻质耐高温航空线材，轻质耐高温护套" },
+      { label: isEn ? "Cable Length" : "线缆长度", value: isEn ? "110m/220m standard options" : "110m/220m两种标准配置" },
     ]},
-    { category: "地面系留箱", specs: [
-      { label: "输入电压", value: "190~240Vac, 单相220Vac, 频率50/60Hz" },
-      { label: "输出电压", value: "600~800Vdc可调, 出厂默认800Vdc" },
-      { label: "输出功率", value: "额定长时输出≥7000W, 峰值输出≥8000W" },
+    { category: isEn ? "Ground Tether Box" : "地面系留箱", specs: [
+      { label: isEn ? "Input Voltage" : "输入电压", value: isEn ? "190~240Vac, Single phase 220Vac, 50/60Hz" : "190~240Vac, 单相220Vac, 频率50/60Hz" },
+      { label: isEn ? "Output Voltage" : "输出电压", value: isEn ? "600~800Vdc adjustable, default 800Vdc" : "600~800Vdc可调, 出厂默认800Vdc" },
+      { label: isEn ? "Output Power" : "输出功率", value: isEn ? "Rated ≥7000W, Peak ≥8000W" : "额定长时输出≥7000W, 峰值输出≥8000W" },
     ]},
+  ];
+
+  const payloads = [
+    { src: payloadZoom, name: isEn ? "30x Optical Zoom Module" : "30倍光学变焦模组" },
+    { src: payloadIR, name: isEn ? "Visible/IR Range Module" : "可见光红外测距模组" },
+    { src: payloadTracking, name: isEn ? "Quad-light Tracking Module" : "四光云台跟踪测距模组" },
+    { src: payloadSpeaker, name: isEn ? "Speaker & Light Module" : "喊话照明模块" },
+    { src: payloadSpotlight, name: isEn ? "Gimbal Searchlight" : "云台探照灯" },
+    { src: payloadMatrix, name: isEn ? "Matrix Light Array" : "矩阵照明灯" },
   ];
 
   return (
     <div className="min-h-screen bg-background">
       <SEO
-        title="TH-200系留照明无人机 - 专业系留平台解决方案"
-        description="TH-200系留照明无人机，200米升空高度，10kg载荷，24小时不间断滞空，适用于应急照明、通信中继等场景"
-        keywords="系留无人机,TH-200,应急照明,通信中继,系留平台"
+        title={isEn ? "TH-200 Tethered Lighting Drone - Professional Tethered Platform" : "TH-200系留照明无人机 - 专业系留平台解决方案"}
+        description={isEn ? "TH-200 tethered lighting drone, 200m altitude, 10kg payload, 24-hour continuous flight for emergency lighting and communication relay" : "TH-200系留照明无人机，200米升空高度，10kg载荷，24小时不间断滞空，适用于应急照明、通信中继等场景"}
+        keywords={isEn ? "tethered drone,TH-200,emergency lighting,communication relay" : "系留无人机,TH-200,应急照明,通信中继,系留平台"}
       />
       <Header />
       <FloatingContact />
@@ -90,11 +103,11 @@ const TH200 = () => {
       <section className="relative min-h-screen bg-gradient-to-b from-sky-100 to-sky-200 overflow-hidden">
         <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1920&q=80')] bg-cover bg-center opacity-30" />
         <div className="container mx-auto px-4 pt-32 pb-20 relative z-10">
-          <BackButton to="/products/tethered" label="返回系留无人机" />
+          <BackButton to="/products/tethered" label={isEn ? "Back to Tethered Drones" : "返回系留无人机"} />
 
           <div className="text-center mb-16">
             <h1 className="text-5xl md:text-7xl font-bold mb-4">
-              系留<span className="text-yellow-500">照明</span>无人机
+              {isEn ? "Tethered " : "系留"}<span className="text-yellow-500">{isEn ? "Lighting" : "照明"}</span>{isEn ? " Drone" : "无人机"}
             </h1>
             <p className="text-4xl md:text-5xl font-bold text-foreground">TH-200</p>
           </div>
@@ -104,7 +117,7 @@ const TH200 = () => {
             <div className="relative animate-[float_3s_ease-in-out_infinite]">
               <img 
                 src={th200Hero}
-                alt="TH-200系留无人机"
+                alt={isEn ? "TH-200 Tethered Drone" : "TH-200系留无人机"}
                 className="w-full max-w-3xl drop-shadow-2xl"
               />
             </div>
@@ -131,9 +144,11 @@ const TH200 = () => {
         </div>
         <div className="container mx-auto px-4 relative z-10">
           <div className="max-w-3xl">
-            <h2 className="text-4xl md:text-5xl font-bold mb-6">工业品质 性能可靠</h2>
+            <h2 className="text-4xl md:text-5xl font-bold mb-6">{isEn ? "Industrial Quality, Reliable Performance" : "工业品质 性能可靠"}</h2>
             <p className="text-lg text-gray-300 leading-relaxed">
-              行业级飞控系统功能强大，双工业级硬件多冗余系统，抗磁干扰航向自动校准算法，保障飞行安全。
+              {isEn 
+                ? "Industrial-grade flight control system with powerful features, dual industrial hardware redundancy, anti-magnetic interference auto-calibration algorithm, ensuring flight safety."
+                : "行业级飞控系统功能强大，双工业级硬件多冗余系统，抗磁干扰航向自动校准算法，保障飞行安全。"}
             </p>
           </div>
         </div>
@@ -146,16 +161,18 @@ const TH200 = () => {
             <div>
               <div className="flex items-center gap-3 mb-6">
                 <Thermometer className="w-10 h-10 text-green-400" />
-                <h2 className="text-4xl font-bold">高效冷却</h2>
+                <h2 className="text-4xl font-bold">{isEn ? "Efficient Cooling" : "高效冷却"}</h2>
               </div>
               <p className="text-lg text-gray-300 leading-relaxed">
-                动力采用离心式风冷系统，内置高效散热阵列，大面积散热片配合旋翼流场，进一步提升了冷却效率，出色的散热性能为系留长时间滞空作业提供了有力的保障。
+                {isEn
+                  ? "Power system uses centrifugal air cooling with built-in high-efficiency heat sink array. Large heat dissipation fins combined with rotor airflow further enhance cooling efficiency, providing reliable support for long-duration tethered operations."
+                  : "动力采用离心式风冷系统，内置高效散热阵列，大面积散热片配合旋翼流场，进一步提升了冷却效率，出色的散热性能为系留长时间滞空作业提供了有力的保障。"}
               </p>
             </div>
             <div className="flex justify-center">
               <img 
                 src={th200Cooling} 
-                alt="离心式风冷系统"
+                alt={isEn ? "Centrifugal Air Cooling System" : "离心式风冷系统"}
                 className="w-80 h-60 object-cover rounded-xl"
               />
             </div>
@@ -170,17 +187,19 @@ const TH200 = () => {
             <div className="order-2 md:order-1 flex justify-center">
               <img 
                 src={th200Propeller} 
-                alt="Ultra Carbon Pro 碳纤维桨叶"
+                alt={isEn ? "Ultra Carbon Pro Propeller" : "Ultra Carbon Pro 碳纤维桨叶"}
                 className="w-80 h-60 object-cover rounded-xl"
               />
             </div>
             <div className="order-1 md:order-2">
               <div className="flex items-center gap-3 mb-6">
                 <Zap className="w-10 h-10 text-yellow-400" />
-                <h2 className="text-4xl font-bold">强劲动力</h2>
+                <h2 className="text-4xl font-bold">{isEn ? "Powerful Propulsion" : "强劲动力"}</h2>
               </div>
               <p className="text-lg text-gray-300 leading-relaxed">
-                螺旋桨采用特种碳纤维复合Ultra carbon pro，在保持极度轻巧之余，仍具有出色的强度和刚度，设计的气动外形，配合协同优化的电机电磁设计，提供更高效的效率，更迅速的响应。
+                {isEn
+                  ? "Propellers use special Ultra Carbon Pro composite material, maintaining extreme lightness while providing excellent strength and rigidity. Aerodynamic design combined with optimized motor electromagnetic design delivers higher efficiency and faster response."
+                  : "螺旋桨采用特种碳纤维复合Ultra carbon pro，在保持极度轻巧之余，仍具有出色的强度和刚度，设计的气动外形，配合协同优化的电机电磁设计，提供更高效的效率，更迅速的响应。"}
               </p>
             </div>
           </div>
@@ -193,10 +212,12 @@ const TH200 = () => {
           <div className="text-center mb-12">
             <div className="flex items-center justify-center gap-3 mb-6">
               <Sun className="w-10 h-10 text-yellow-400" />
-              <h2 className="text-4xl font-bold">应急照明</h2>
+              <h2 className="text-4xl font-bold">{isEn ? "Emergency Lighting" : "应急照明"}</h2>
             </div>
             <p className="text-lg text-gray-300 max-w-3xl mx-auto">
-              无人机搭载4组亮度20000流明矩阵灯，有效照明面积约10000平方米。
+              {isEn
+                ? "Drone equipped with 4 groups of 20,000 lumen matrix lights, effective lighting area approximately 10,000 square meters."
+                : "无人机搭载4组亮度20000流明矩阵灯，有效照明面积约10000平方米。"}
             </p>
           </div>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-4xl mx-auto">
@@ -204,7 +225,7 @@ const TH200 = () => {
               <div key={index} className="aspect-[4/5] bg-gray-800 rounded-xl overflow-hidden">
                 <img 
                   src={src}
-                  alt={`应急照明场景 ${index + 1}`}
+                  alt={isEn ? `Emergency Lighting Scene ${index + 1}` : `应急照明场景 ${index + 1}`}
                   className="w-full h-full object-cover"
                 />
               </div>
@@ -219,21 +240,16 @@ const TH200 = () => {
           <div className="text-center mb-12">
             <div className="flex items-center justify-center gap-3 mb-6">
               <Camera className="w-10 h-10 text-primary" />
-              <h2 className="text-4xl font-bold">更多挂载满足不同场景使用</h2>
+              <h2 className="text-4xl font-bold">{isEn ? "Multiple Payloads for Different Scenarios" : "更多挂载满足不同场景使用"}</h2>
             </div>
             <p className="text-lg text-gray-300 max-w-3xl mx-auto">
-              丰富的挂载选配，满足应急照明、安防监控、消防救援等多种场景需求
+              {isEn
+                ? "Rich payload options to meet emergency lighting, security monitoring, firefighting rescue and other scenario requirements"
+                : "丰富的挂载选配，满足应急照明、安防监控、消防救援等多种场景需求"}
             </p>
           </div>
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6 max-w-6xl mx-auto">
-            {[
-              { src: payloadZoom, name: "30倍光学变焦模组" },
-              { src: payloadIR, name: "可见光红外测距模组" },
-              { src: payloadTracking, name: "四光云台跟踪测距模组" },
-              { src: payloadSpeaker, name: "喊话照明模块" },
-              { src: payloadSpotlight, name: "云台探照灯" },
-              { src: payloadMatrix, name: "矩阵照明灯" },
-            ].map((payload, index) => (
+            {payloads.map((payload, index) => (
               <div key={index} className="flex flex-col items-center group">
                 <div className="aspect-square bg-gray-800 rounded-xl overflow-hidden mb-3 w-full flex items-center justify-center p-4 group-hover:bg-gray-700 transition-colors">
                   <img 
@@ -256,17 +272,19 @@ const TH200 = () => {
             <div>
               <div className="flex items-center gap-3 mb-6">
                 <Radio className="w-10 h-10 text-primary" />
-                <h2 className="text-4xl font-bold text-foreground">通信中继</h2>
+                <h2 className="text-4xl font-bold text-foreground">{isEn ? "Communication Relay" : "通信中继"}</h2>
               </div>
               <p className="text-lg text-muted-foreground leading-relaxed">
-                无人机搭载中继模块，系留供电长时间滞空，200米高度可辐射5公里范围。适用于应急通信、大型活动、偏远地区信号覆盖等场景。
+                {isEn
+                  ? "Drone equipped with relay module, tethered power supply for long-duration hovering, 200m altitude covers 5km range. Suitable for emergency communication, large events, remote area signal coverage and other scenarios."
+                  : "无人机搭载中继模块，系留供电长时间滞空，200米高度可辐射5公里范围。适用于应急通信、大型活动、偏远地区信号覆盖等场景。"}
               </p>
             </div>
             <div className="flex justify-center">
               <div className="w-80 h-60 bg-sky-300/30 rounded-xl flex items-center justify-center">
                 <div className="text-center">
                   <Radio className="w-16 h-16 text-primary mx-auto mb-4" />
-                  <p className="text-muted-foreground">5公里信号覆盖</p>
+                  <p className="text-muted-foreground">{isEn ? "5km Signal Coverage" : "5公里信号覆盖"}</p>
                 </div>
               </div>
             </div>
@@ -278,7 +296,7 @@ const TH200 = () => {
       <section className="py-20 bg-background">
         <div className="container mx-auto px-4">
           <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold text-foreground mb-2">产品参数</h2>
+            <h2 className="text-4xl font-bold text-foreground mb-2">{isEn ? "Specifications" : "产品参数"}</h2>
             <p className="text-muted-foreground">TECHNICAL PARAMETER</p>
           </div>
 
@@ -286,7 +304,7 @@ const TH200 = () => {
             {/* Flight Platform */}
             <div>
               <h3 className="text-2xl font-bold text-foreground mb-6 pb-2 border-b-4 border-primary inline-block">
-                飞行平台
+                {isEn ? "Flight Platform" : "飞行平台"}
               </h3>
               <div className="space-y-3">
                 {flightPlatformSpecs.map((spec, index) => (
@@ -301,7 +319,7 @@ const TH200 = () => {
             {/* Tether Equipment */}
             <div>
               <h3 className="text-2xl font-bold text-foreground mb-6 pb-2 border-b-4 border-primary inline-block">
-                系留设备
+                {isEn ? "Tether Equipment" : "系留设备"}
               </h3>
               <div className="space-y-6">
                 {tetherEquipmentSpecs.map((category, catIndex) => (
@@ -327,7 +345,7 @@ const TH200 = () => {
       <section className="py-20 bg-muted/30">
         <div className="container mx-auto px-4">
           <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold text-foreground mb-2">产品展示</h2>
+            <h2 className="text-4xl font-bold text-foreground mb-2">{isEn ? "Product Gallery" : "产品展示"}</h2>
             <p className="text-muted-foreground">PRODUCT DISPLAY</p>
           </div>
 
@@ -339,7 +357,7 @@ const TH200 = () => {
               >
                 <img 
                   src={src}
-                  alt={`产品展示 ${index + 1}`}
+                  alt={isEn ? `Product Display ${index + 1}` : `产品展示 ${index + 1}`}
                   className="w-full h-full object-contain group-hover:scale-105 transition-transform duration-300"
                 />
               </div>
@@ -351,19 +369,23 @@ const TH200 = () => {
       {/* CTA Section */}
       <section className="py-20 bg-primary text-primary-foreground">
         <div className="container mx-auto px-4 text-center">
-          <h2 className="text-3xl md:text-4xl font-bold mb-6">了解更多TH-200解决方案</h2>
+          <h2 className="text-3xl md:text-4xl font-bold mb-6">{isEn ? "Learn More About TH-200 Solutions" : "了解更多TH-200解决方案"}</h2>
           <p className="text-lg opacity-90 mb-8 max-w-2xl mx-auto">
-            联系我们的专业团队，获取定制化配置方案和详细报价
+            {isEn
+              ? "Contact our professional team for customized configuration plans and detailed quotations"
+              : "联系我们的专业团队，获取定制化配置方案和详细报价"}
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Button asChild size="lg" variant="secondary">
               <Link to="/contact">
                 <Phone className="w-5 h-5 mr-2" />
-                联系我们
+                {isEn ? "Contact Us" : "联系我们"}
               </Link>
             </Button>
-            <Button asChild size="lg" variant="outline" className="border-primary-foreground text-primary-foreground hover:bg-primary-foreground hover:text-primary">
-              <a href="tel:400-123-4567">拨打热线：400-123-4567</a>
+            <Button asChild size="lg" variant="outline" className="border-primary-foreground/50 text-primary-foreground hover:bg-primary-foreground/10">
+              <Link to="/products/tethered">
+                {isEn ? "View All Tethered Drones" : "查看全部系留无人机"}
+              </Link>
             </Button>
           </div>
         </div>

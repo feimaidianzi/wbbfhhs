@@ -8,11 +8,14 @@ import { ArrowLeft, Check, AlertTriangle, Package, Download, Play, HelpCircle } 
 import { getGimbalProductById } from "@/data/gimbalProducts";
 import { useState } from "react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 const GimbalDetail = () => {
   const { productId } = useParams<{ productId: string }>();
   const product = productId ? getGimbalProductById(productId) : null;
   const [selectedImage, setSelectedImage] = useState(0);
+  const { language } = useLanguage();
+  const isEn = language === 'en';
 
   if (!product) {
     return <Navigate to="/products/accessories/gimbal" replace />;
@@ -23,8 +26,8 @@ const GimbalDetail = () => {
   return (
     <>
       <SEO 
-        title={`${product.name} - 飞迈科技`}
-        description={`${product.name}，${product.category}，${product.highlights.slice(0, 3).join('，')}，专业无人机吊舱产品`}
+        title={`${product.name} - ${isEn ? "FeiMai Technology" : "飞迈科技"}`}
+        description={`${product.name}，${product.category}，${product.highlights.slice(0, 3).join('，')}，${isEn ? "Professional drone gimbal products" : "专业无人机吊舱产品"}`}
       />
       <Header />
       <main className="min-h-screen bg-background">
@@ -33,7 +36,7 @@ const GimbalDetail = () => {
           <div className="container mx-auto px-4">
             <Link to="/products/accessories/gimbal" className="inline-flex items-center gap-2 text-primary hover:underline">
               <ArrowLeft className="w-4 h-4" />
-              返回吊舱系列
+              {isEn ? "Back to Gimbal Series" : "返回吊舱系列"}
             </Link>
           </div>
         </section>
@@ -70,10 +73,10 @@ const GimbalDetail = () => {
                   
                   <div className="flex justify-center lg:justify-start gap-4">
                     <Button size="lg" asChild>
-                      <Link to="/contact">获取报价</Link>
+                      <Link to="/contact">{isEn ? "Get Quote" : "获取报价"}</Link>
                     </Button>
                     <Button size="lg" variant="outline" className="border-zinc-600 hover:bg-zinc-800" asChild>
-                      <a href="#specs">查看规格</a>
+                      <a href="#specs">{isEn ? "View Specs" : "查看规格"}</a>
                     </Button>
                   </div>
                 </div>
@@ -133,10 +136,10 @@ const GimbalDetail = () => {
 
                 <div className="flex gap-4">
                   <Button size="lg" asChild>
-                    <Link to="/contact">获取报价</Link>
+                    <Link to="/contact">{isEn ? "Get Quote" : "获取报价"}</Link>
                   </Button>
                   <Button size="lg" variant="outline" asChild>
-                    <a href="#specs">查看规格</a>
+                    <a href="#specs">{isEn ? "View Specs" : "查看规格"}</a>
                   </Button>
                 </div>
               </div>
@@ -153,33 +156,33 @@ const GimbalDetail = () => {
                   value="specs" 
                   className="rounded-none border-b-2 border-transparent data-[state=active]:border-primary data-[state=active]:bg-transparent px-6 py-3"
                 >
-                  技术参数
+                  {isEn ? "Specifications" : "技术参数"}
                 </TabsTrigger>
                 <TabsTrigger 
                   value="features" 
                   className="rounded-none border-b-2 border-transparent data-[state=active]:border-primary data-[state=active]:bg-transparent px-6 py-3"
                 >
-                  产品特色
+                  {isEn ? "Features" : "产品特色"}
                 </TabsTrigger>
                 <TabsTrigger 
                   value="applications" 
                   className="rounded-none border-b-2 border-transparent data-[state=active]:border-primary data-[state=active]:bg-transparent px-6 py-3"
                 >
-                  应用场景
+                  {isEn ? "Applications" : "应用场景"}
                 </TabsTrigger>
                 {product.downloads && product.downloads.length > 0 && (
                   <TabsTrigger 
                     value="downloads" 
                     className="rounded-none border-b-2 border-transparent data-[state=active]:border-primary data-[state=active]:bg-transparent px-6 py-3"
                   >
-                    资料下载
+                    {isEn ? "Downloads" : "资料下载"}
                   </TabsTrigger>
                 )}
                 <TabsTrigger 
                   value="faq" 
                   className="rounded-none border-b-2 border-transparent data-[state=active]:border-primary data-[state=active]:bg-transparent px-6 py-3"
                 >
-                  常见问题
+                  {isEn ? "FAQ" : "常见问题"}
                 </TabsTrigger>
               </TabsList>
 
@@ -235,7 +238,7 @@ const GimbalDetail = () => {
                 <div className="space-y-8">
                   {/* Description */}
                   <div>
-                    <h3 className="text-xl font-bold mb-4">产品描述</h3>
+                    <h3 className="text-xl font-bold mb-4">{isEn ? "Product Description" : "产品描述"}</h3>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                       {product.description.map((desc, idx) => (
                         <div key={idx} className="flex items-start gap-3 p-4 bg-card rounded-lg border border-border">
@@ -249,7 +252,7 @@ const GimbalDetail = () => {
                   {/* Features List */}
                   {product.features && product.features.length > 0 && (
                     <div>
-                      <h3 className="text-xl font-bold mb-4">功能特点</h3>
+                      <h3 className="text-xl font-bold mb-4">{isEn ? "Feature Highlights" : "功能特点"}</h3>
                       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                         {product.features.map((feature, idx) => (
                           <div key={idx} className="flex items-start gap-3 p-4 bg-card rounded-lg border border-border">
@@ -266,7 +269,7 @@ const GimbalDetail = () => {
                     <div>
                       <h3 className="text-xl font-bold mb-4 flex items-center gap-2">
                         <Package className="w-5 h-5 text-primary" />
-                        包装清单
+                        {isEn ? "Package Contents" : "包装清单"}
                       </h3>
                       <div className="bg-card rounded-xl border border-border p-6">
                         <ul className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
@@ -284,7 +287,7 @@ const GimbalDetail = () => {
                   {/* Notes */}
                   {product.notes && product.notes.length > 0 && (
                     <div>
-                      <h3 className="text-xl font-bold mb-4">注意事项</h3>
+                      <h3 className="text-xl font-bold mb-4">{isEn ? "Notes" : "注意事项"}</h3>
                       <div className="space-y-3">
                         {product.notes.map((note, idx) => (
                           <div key={idx} className="flex items-start gap-3 p-4 bg-amber-500/10 rounded-lg border border-amber-500/20">
@@ -317,7 +320,7 @@ const GimbalDetail = () => {
                   </div>
                 ) : (
                   <div className="text-center py-12 text-muted-foreground">
-                    <p>暂无应用场景数据</p>
+                    <p>{isEn ? "No application data available" : "暂无应用场景数据"}</p>
                   </div>
                 )}
               </TabsContent>
@@ -327,8 +330,12 @@ const GimbalDetail = () => {
                 {product.downloads && product.downloads.length > 0 ? (
                   <div className="space-y-6">
                     {/* Group downloads by category */}
-                    {['软件', '文档', '图纸'].map((category) => {
-                      const categoryFiles = product.downloads?.filter(f => f.category === category) || [];
+                    {[isEn ? 'Software' : '软件', isEn ? 'Documents' : '文档', isEn ? 'Drawings' : '图纸'].map((category) => {
+                      const categoryFiles = product.downloads?.filter(f => f.category === category || 
+                        (category === 'Software' && f.category === '软件') ||
+                        (category === 'Documents' && f.category === '文档') ||
+                        (category === 'Drawings' && f.category === '图纸')
+                      ) || [];
                       if (categoryFiles.length === 0) return null;
                       return (
                         <div key={category}>
@@ -356,7 +363,7 @@ const GimbalDetail = () => {
                 ) : (
                   <div className="text-center py-12 text-muted-foreground">
                     <Download className="w-12 h-12 mx-auto mb-4 opacity-50" />
-                    <p>暂无资料下载</p>
+                    <p>{isEn ? "No downloads available" : "暂无资料下载"}</p>
                   </div>
                 )}
               </TabsContent>
@@ -365,8 +372,11 @@ const GimbalDetail = () => {
               <TabsContent value="faq">
                 <div className="text-center py-12 text-muted-foreground">
                   <HelpCircle className="w-12 h-12 mx-auto mb-4 opacity-50" />
-                  <p>暂无常见问题数据</p>
-                  <p className="text-sm mt-2">如有疑问，请联系我们的技术支持团队</p>
+                  <p>{isEn ? "No FAQ data available" : "暂无常见问题数据"}</p>
+                  <p className="mt-2 text-sm">{isEn ? "Contact us for any questions" : "如有疑问，请联系我们"}</p>
+                  <Button asChild className="mt-4">
+                    <Link to="/contact">{isEn ? "Contact Us" : "联系我们"}</Link>
+                  </Button>
                 </div>
               </TabsContent>
             </Tabs>
@@ -376,16 +386,18 @@ const GimbalDetail = () => {
         {/* CTA Section */}
         <section className="py-16 bg-primary text-primary-foreground">
           <div className="container mx-auto px-4 text-center">
-            <h2 className="text-3xl font-bold mb-4">需要定制化吊舱解决方案？</h2>
+            <h2 className="text-3xl font-bold mb-4">{isEn ? "Interested in This Product?" : "对该产品感兴趣？"}</h2>
             <p className="text-lg opacity-90 mb-8 max-w-2xl mx-auto">
-              我们提供OEM/ODM定制服务，可根据您的需求定制传感器配置、接口协议、外观设计等
+              {isEn 
+                ? "Contact our professional team for detailed quotes and customized solutions"
+                : "联系我们的专业团队，获取详细报价和定制方案"}
             </p>
-            <div className="flex justify-center gap-4">
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Button size="lg" variant="secondary" asChild>
-                <Link to="/contact">联系我们</Link>
+                <Link to="/contact">{isEn ? "Get Quote" : "获取报价"}</Link>
               </Button>
-              <Button size="lg" variant="outline" className="border-primary-foreground/30 hover:bg-primary-foreground/10" asChild>
-                <Link to="/products/accessories/gimbal">查看更多产品</Link>
+              <Button size="lg" variant="outline" className="border-primary-foreground/50 text-primary-foreground hover:bg-primary-foreground/10" asChild>
+                <Link to="/products/accessories/gimbal">{isEn ? "View All Gimbals" : "查看全部吊舱"}</Link>
               </Button>
             </div>
           </div>
