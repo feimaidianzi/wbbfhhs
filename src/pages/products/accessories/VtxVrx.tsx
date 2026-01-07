@@ -374,12 +374,12 @@ const FrequencyTable = ({ data }: { data: typeof frequencyTable49to61 }) => (
   </div>
 );
 
-const VTX = () => {
+const VtxVrx = () => {
   return (
     <>
       <SEO 
-        title="VTX视频发射器 - 飞迈科技"
-        description="飞迈科技VTX视频发射器系列，提供4.9-6.1GHz和6.1-7.2GHz两大频段，功率从2.5W到37W全覆盖，专业FPV图传解决方案"
+        title="VTX/VRX 视频发射器与接收器 - 飞迈科技"
+        description="飞迈科技VTX视频发射器与VRX接收器系列，提供4.9-6.1GHz和6.1-7.2GHz两大频段，功率从2.5W到37W全覆盖，专业FPV图传解决方案"
       />
       <Header />
       <main className="min-h-screen bg-background">
@@ -393,10 +393,10 @@ const VTX = () => {
             
             <div className="max-w-4xl">
               <h1 className="text-4xl md:text-5xl font-bold mb-6">
-                VTX视频发射器
+                VTX/VRX 图传系统
               </h1>
               <p className="text-xl text-muted-foreground mb-8">
-                高性能FPV视频发射器系列，采用罗杰斯4350B高性能射频材料，提供从2.5W到37W多档功率选择，
+                高性能FPV视频发射器（VTX）与接收器（VRX）系列，采用罗杰斯4350B高性能射频材料，提供从2.5W到37W多档功率选择，
                 支持4.9-6.1GHz和6.1-7.2GHz两大频段，满足各类远距离高清图传需求。
               </p>
               <div className="flex flex-wrap gap-4">
@@ -559,4 +559,4 @@ const VTX = () => {
   );
 };
 
-export default VTX;
+export default VtxVrx;
