@@ -1,83 +1,105 @@
+import { Building2, GraduationCap, Landmark, Factory, Zap, Rocket, FlaskConical, Fuel } from "lucide-react";
+
 const partners = [
   {
     name: "中船重工",
-    logo: "https://images.unsplash.com/photo-1560179707-f14e90ef3623?w=200&q=80",
+    icon: Factory,
+    color: "bg-blue-500/10 text-blue-600",
   },
   {
     name: "中国铁塔",
-    logo: "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=200&q=80",
+    icon: Building2,
+    color: "bg-red-500/10 text-red-600",
   },
   {
     name: "湖北省民政厅",
-    logo: "https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=200&q=80",
+    icon: Landmark,
+    color: "bg-amber-500/10 text-amber-600",
   },
   {
     name: "青海大学",
-    logo: "https://images.unsplash.com/photo-1562774053-701939374585?w=200&q=80",
+    icon: GraduationCap,
+    color: "bg-green-500/10 text-green-600",
   },
   {
     name: "山东大学",
-    logo: "https://images.unsplash.com/photo-1541339907198-e08756dedf3f?w=200&q=80",
+    icon: GraduationCap,
+    color: "bg-purple-500/10 text-purple-600",
   },
   {
     name: "华中科技大学",
-    logo: "https://images.unsplash.com/photo-1523050854058-8df90110c9f1?w=200&q=80",
+    icon: GraduationCap,
+    color: "bg-blue-500/10 text-blue-600",
   },
   {
     name: "清华大学",
-    logo: "https://images.unsplash.com/photo-1592280771190-3e2e4d571952?w=200&q=80",
+    icon: GraduationCap,
+    color: "bg-violet-500/10 text-violet-600",
   },
   {
     name: "中国科学院",
-    logo: "https://images.unsplash.com/photo-1532094349884-543bc11b234d?w=200&q=80",
+    icon: FlaskConical,
+    color: "bg-cyan-500/10 text-cyan-600",
   },
   {
     name: "中国工程物理研究院",
-    logo: "https://images.unsplash.com/photo-1581094794329-c8112a89af12?w=200&q=80",
+    icon: FlaskConical,
+    color: "bg-indigo-500/10 text-indigo-600",
   },
   {
     name: "湖北省电力公司",
-    logo: "https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?w=200&q=80",
+    icon: Zap,
+    color: "bg-yellow-500/10 text-yellow-600",
   },
   {
     name: "中国运载火箭技术研究院",
-    logo: "https://images.unsplash.com/photo-1517976487492-5750f3195933?w=200&q=80",
+    icon: Rocket,
+    color: "bg-red-500/10 text-red-600",
   },
   {
     name: "合邦电力",
-    logo: "https://images.unsplash.com/photo-1497366216548-37526070297c?w=200&q=80",
+    icon: Zap,
+    color: "bg-orange-500/10 text-orange-600",
   },
   {
     name: "国家管网",
-    logo: "https://images.unsplash.com/photo-1581094651181-35942459ef62?w=200&q=80",
+    icon: Factory,
+    color: "bg-teal-500/10 text-teal-600",
   },
   {
     name: "中国商飞",
-    logo: "https://images.unsplash.com/photo-1540962351504-03099e0a754b?w=200&q=80",
+    icon: Rocket,
+    color: "bg-sky-500/10 text-sky-600",
   },
   {
     name: "航空工业光电所",
-    logo: "https://images.unsplash.com/photo-1516110833967-0b5716ca1387?w=200&q=80",
+    icon: FlaskConical,
+    color: "bg-pink-500/10 text-pink-600",
   },
   {
     name: "中国航天科工集团",
-    logo: "https://images.unsplash.com/photo-1446776811953-b23d57bd21aa?w=200&q=80",
+    icon: Rocket,
+    color: "bg-blue-500/10 text-blue-600",
   },
   {
     name: "武汉大学",
-    logo: "https://images.unsplash.com/photo-1607013407627-6ee814329547?w=200&q=80",
+    icon: GraduationCap,
+    color: "bg-red-500/10 text-red-600",
   },
   {
     name: "国家电投",
-    logo: "https://images.unsplash.com/photo-1509391366360-2e959784a276?w=200&q=80",
+    icon: Zap,
+    color: "bg-emerald-500/10 text-emerald-600",
   },
   {
     name: "中国石化",
-    logo: "https://images.unsplash.com/photo-1545259742-b4fd8fea67e4?w=200&q=80",
+    icon: Fuel,
+    color: "bg-red-500/10 text-red-600",
   },
   {
     name: "中国石油",
-    logo: "https://images.unsplash.com/photo-1513828583688-c52646db42da?w=200&q=80",
+    icon: Fuel,
+    color: "bg-red-500/10 text-red-600",
   },
 ];
 
@@ -96,25 +118,24 @@ export const PartnersSection = () => {
 
         {/* Partner Grid */}
         <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-6 mb-12">
-          {partners.slice(0, 10).map((partner, index) => (
-            <div
-              key={index}
-              className="group bg-card rounded-xl overflow-hidden shadow-sm hover:shadow-card-hover transition-all duration-300 hover:-translate-y-1"
-            >
-              <div className="aspect-video overflow-hidden bg-muted">
-                <img 
-                  src={partner.logo} 
-                  alt={partner.name}
-                  className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500 opacity-80 group-hover:opacity-100"
-                />
+          {partners.slice(0, 10).map((partner, index) => {
+            const IconComponent = partner.icon;
+            return (
+              <div
+                key={index}
+                className="group bg-card rounded-xl overflow-hidden shadow-sm hover:shadow-card-hover transition-all duration-300 hover:-translate-y-1"
+              >
+                <div className={`aspect-video overflow-hidden flex items-center justify-center ${partner.color}`}>
+                  <IconComponent className="w-16 h-16 opacity-80 group-hover:opacity-100 group-hover:scale-110 transition-all duration-500" />
+                </div>
+                <div className="p-3 text-center bg-card">
+                  <span className="text-foreground font-medium text-sm">
+                    {partner.name}
+                  </span>
+                </div>
               </div>
-              <div className="p-3 text-center bg-card">
-                <span className="text-foreground font-medium text-sm">
-                  {partner.name}
-                </span>
-              </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
       </div>
 
@@ -122,27 +143,35 @@ export const PartnersSection = () => {
       <div className="relative">
         <div className="flex animate-scroll">
           {/* First set */}
-          {partners.map((partner, index) => (
-            <div
-              key={`first-${index}`}
-              className="flex-shrink-0 mx-4 px-8 py-4 bg-card rounded-lg shadow-sm hover:shadow-md transition-shadow"
-            >
-              <span className="text-foreground font-medium whitespace-nowrap">
-                {partner.name}
-              </span>
-            </div>
-          ))}
+          {partners.map((partner, index) => {
+            const IconComponent = partner.icon;
+            return (
+              <div
+                key={`first-${index}`}
+                className="flex-shrink-0 mx-4 px-6 py-3 bg-card rounded-lg shadow-sm hover:shadow-md transition-shadow flex items-center gap-3"
+              >
+                <IconComponent className="w-5 h-5 text-accent" />
+                <span className="text-foreground font-medium whitespace-nowrap">
+                  {partner.name}
+                </span>
+              </div>
+            );
+          })}
           {/* Duplicate for seamless scroll */}
-          {partners.map((partner, index) => (
-            <div
-              key={`second-${index}`}
-              className="flex-shrink-0 mx-4 px-8 py-4 bg-card rounded-lg shadow-sm hover:shadow-md transition-shadow"
-            >
-              <span className="text-foreground font-medium whitespace-nowrap">
-                {partner.name}
-              </span>
-            </div>
-          ))}
+          {partners.map((partner, index) => {
+            const IconComponent = partner.icon;
+            return (
+              <div
+                key={`second-${index}`}
+                className="flex-shrink-0 mx-4 px-6 py-3 bg-card rounded-lg shadow-sm hover:shadow-md transition-shadow flex items-center gap-3"
+              >
+                <IconComponent className="w-5 h-5 text-accent" />
+                <span className="text-foreground font-medium whitespace-nowrap">
+                  {partner.name}
+                </span>
+              </div>
+            );
+          })}
         </div>
       </div>
 
