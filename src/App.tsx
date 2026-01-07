@@ -81,6 +81,8 @@ import DigitalFpv from "./pages/fpv/DigitalFpv";
 import DigitalFpvDetail from "./pages/fpv/DigitalFpvDetail";
 import Elrs from "./pages/products/accessories/Elrs";
 import ElrsDetail from "./pages/products/accessories/ElrsDetail";
+import OtherAccessories from "./pages/products/accessories/OtherAccessories";
+import OtherAccessoriesDetail from "./pages/products/accessories/OtherAccessoriesDetail";
 
 const queryClient = new QueryClient();
 
@@ -166,6 +168,8 @@ const App = () => (
           <Route path="/products/accessories/digital-fpv/:productId" element={<DigitalFpvDetail />} />
           <Route path="/products/accessories/elrs" element={<Elrs />} />
           <Route path="/products/accessories/elrs/:productId" element={<ElrsDetail />} />
+          <Route path="/products/accessories/others" element={<OtherAccessories />} />
+          <Route path="/products/accessories/others/:productId" element={<OtherAccessoriesDetail />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
