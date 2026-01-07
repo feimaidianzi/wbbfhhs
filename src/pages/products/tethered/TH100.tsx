@@ -158,7 +158,7 @@ const TH100 = () => {
           <p className="text-center text-gray-400 max-w-4xl mx-auto mb-12 animate-fade-in leading-relaxed" style={{ animationDelay: "0.1s" }}>
             {isEn 
               ? "The high-pressure tethered cleaning drone features 'tethered power + high-pressure cleaning' as its core technology. Through dual differential precise positioning and millimeter-wave radar real-time ranging, it achieves fully automatic cleaning. Quick-release structure supports both fixed and oscillating cleaning mounts for rapid installation, with various angle nozzles to meet diverse cleaning needs including rooftops, gutters, glass curtain walls, stone facades, and solar panels."
-              : "高压系留方案清洗无人机以"系留供电+高压清洗"为核心技术，通过双差分精准定位、支持毫米波雷达实时测距，实现全自动清洗功能。快拆式结构支持固定式和摆动式两种清洗挂载快速安装，配合多种角度喷嘴，满足屋面房顶、落叶水槽、玻璃幕墙、石材外墙、光伏板等多场景需求。降低用工成本的同时也大大降低了高空作业的安全风险。"}
+              : "高压系留方案清洗无人机以「系留供电+高压清洗」为核心技术，通过双差分精准定位、支持毫米波雷达实时测距，实现全自动清洗功能。快拆式结构支持固定式和摆动式两种清洗挂载快速安装，配合多种角度喷嘴，满足屋面房顶、落叶水槽、玻璃幕墙、石材外墙、光伏板等多场景需求。降低用工成本的同时也大大降低了高空作业的安全风险。"}
           </p>
           
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6 max-w-6xl mx-auto animate-fade-in" style={{ animationDelay: "0.2s" }}>
