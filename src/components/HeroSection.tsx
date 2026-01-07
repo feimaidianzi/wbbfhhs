@@ -9,14 +9,14 @@ const slides = [
     subtitle: "4.9-7.2GHz全频段覆盖 · 2.5W-37W多功率可选 · 80频道支持",
     image: "https://images.unsplash.com/photo-1518770660439-4636190af475?w=1920&q=80",
     cta: "了解更多",
-    link: "/products/accessories/vtx",
+    link: "/products/accessories/vtx-vrx",
   },
   {
     title: "专业飞控系统",
     subtitle: "多模式飞行 · GPS精准定位 · 智能自动返航",
     image: "https://images.unsplash.com/photo-1581094794329-c8112a89af12?w=1920&q=80",
     cta: "查看详情",
-    link: "/products/accessories/flight-controller",
+    link: "/products/accessories/fc-esc",
   },
   {
     title: "ELRS远程控制",
