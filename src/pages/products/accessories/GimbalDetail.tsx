@@ -141,17 +141,48 @@ const GimbalDetail = () => {
 
               {/* Specs Tab */}
               <TabsContent value="specs" id="specs">
-                <div className="bg-card rounded-xl border border-border overflow-hidden">
-                  <table className="w-full">
-                    <tbody>
-                      {product.specs.map((spec, idx) => (
-                        <tr key={idx} className="border-b border-border last:border-b-0">
-                          <td className="px-6 py-4 font-medium bg-muted/30 w-1/3">{spec.label}</td>
-                          <td className="px-6 py-4">{spec.value}</td>
-                        </tr>
-                      ))}
-                    </tbody>
-                  </table>
+                <div className="space-y-6">
+                  {/* Group specs by category */}
+                  {(() => {
+                    const categories = [...new Set(product.specs.map(s => s.category).filter(Boolean))];
+                    if (categories.length > 0) {
+                      return categories.map((category) => {
+                        const categorySpecs = product.specs.filter(s => s.category === category);
+                        return (
+                          <div key={category} className="bg-card rounded-xl border border-border overflow-hidden">
+                            <div className="px-6 py-3 bg-muted/50 border-b border-border">
+                              <h4 className="font-semibold">{category}</h4>
+                            </div>
+                            <table className="w-full">
+                              <tbody>
+                                {categorySpecs.map((spec, idx) => (
+                                  <tr key={idx} className="border-b border-border last:border-b-0">
+                                    <td className="px-6 py-4 font-medium bg-muted/30 w-1/3">{spec.label}</td>
+                                    <td className="px-6 py-4">{spec.value}</td>
+                                  </tr>
+                                ))}
+                              </tbody>
+                            </table>
+                          </div>
+                        );
+                      });
+                    }
+                    // Fallback for specs without categories
+                    return (
+                      <div className="bg-card rounded-xl border border-border overflow-hidden">
+                        <table className="w-full">
+                          <tbody>
+                            {product.specs.map((spec, idx) => (
+                              <tr key={idx} className="border-b border-border last:border-b-0">
+                                <td className="px-6 py-4 font-medium bg-muted/30 w-1/3">{spec.label}</td>
+                                <td className="px-6 py-4">{spec.value}</td>
+                              </tr>
+                            ))}
+                          </tbody>
+                        </table>
+                      </div>
+                    );
+                  })()}
                 </div>
               </TabsContent>
 
@@ -250,24 +281,33 @@ const GimbalDetail = () => {
               {/* Downloads Tab */}
               <TabsContent value="downloads">
                 {product.downloads && product.downloads.length > 0 ? (
-                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                    {product.downloads.map((file, idx) => (
-                      <a
-                        key={idx}
-                        href={file.url}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="flex items-center gap-4 p-4 bg-card rounded-xl border border-border hover:border-primary/50 transition-colors group"
-                      >
-                        <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center text-primary">
-                          <Download className="w-6 h-6" />
+                  <div className="space-y-6">
+                    {/* Group downloads by category */}
+                    {['软件', '文档', '图纸'].map((category) => {
+                      const categoryFiles = product.downloads?.filter(f => f.category === category) || [];
+                      if (categoryFiles.length === 0) return null;
+                      return (
+                        <div key={category}>
+                          <h4 className="text-lg font-semibold mb-3">{category}</h4>
+                          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                            {categoryFiles.map((file, idx) => (
+                              <div
+                                key={idx}
+                                className="flex items-center gap-4 p-4 bg-card rounded-xl border border-border hover:border-primary/50 transition-colors group cursor-pointer"
+                              >
+                                <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center text-primary">
+                                  <Download className="w-6 h-6" />
+                                </div>
+                                <div className="flex-1">
+                                  <p className="font-medium group-hover:text-primary transition-colors">{file.name}</p>
+                                  <p className="text-sm text-muted-foreground uppercase">{file.type}</p>
+                                </div>
+                              </div>
+                            ))}
+                          </div>
                         </div>
-                        <div className="flex-1">
-                          <p className="font-medium group-hover:text-primary transition-colors">{file.name}</p>
-                          <p className="text-sm text-muted-foreground">{file.type}</p>
-                        </div>
-                      </a>
-                    ))}
+                      );
+                    })}
                   </div>
                 ) : (
                   <div className="text-center py-12 text-muted-foreground">
