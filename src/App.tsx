@@ -73,6 +73,8 @@ import VtxVrx from "./pages/products/accessories/VtxVrx";
 import VtxDetail from "./pages/products/accessories/VtxDetail";
 import FcEsc from "./pages/products/accessories/FcEsc";
 import FcEscDetail from "./pages/products/accessories/FcEscDetail";
+import Gimbal from "./pages/products/accessories/Gimbal";
+import GimbalDetail from "./pages/products/accessories/GimbalDetail";
 
 const queryClient = new QueryClient();
 
@@ -150,6 +152,8 @@ const App = () => (
           <Route path="/products/accessories/vtx-vrx/:productId" element={<VtxDetail />} />
           <Route path="/products/accessories/fc-esc" element={<FcEsc />} />
           <Route path="/products/accessories/fc-esc/:productId" element={<FcEscDetail />} />
+          <Route path="/products/accessories/gimbal" element={<Gimbal />} />
+          <Route path="/products/accessories/gimbal/:productId" element={<GimbalDetail />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
