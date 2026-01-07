@@ -17,7 +17,7 @@ const contactInfo = [
 const offices = [
   {
     city: "长沙总部",
-    address: "湖南省长沙市",
+    address: "湖南省长沙市望城区月亮岛街道罐子岭澳优全球总部大楼",
     phone: "+8617674048404",
   },
 ];
@@ -220,11 +220,21 @@ const Contact = () => {
                   ))}
                 </div>
 
-                {/* Map placeholder */}
-                <div className="mt-6 aspect-video bg-muted rounded-xl flex items-center justify-center">
-                  <div className="text-center text-muted-foreground">
-                    <MapPin className="w-12 h-12 mx-auto mb-2 opacity-50" />
-                    <p>地图加载区域</p>
+                {/* Map */}
+                <div className="mt-6 aspect-video bg-muted rounded-xl overflow-hidden relative">
+                  <iframe
+                    src="https://uri.amap.com/marker?position=112.875673,28.266449&name=飞迈科技&src=lovable&coordinate=gaode&callnative=0"
+                    className="w-full h-full border-0"
+                    title="公司地址地图"
+                    loading="lazy"
+                    referrerPolicy="no-referrer-when-downgrade"
+                    style={{ minHeight: '300px' }}
+                  />
+                  <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-card/90 to-transparent p-4">
+                    <p className="text-sm text-card-foreground flex items-center gap-2">
+                      <MapPin className="w-4 h-4 text-accent" />
+                      湖南省长沙市望城区月亮岛街道罐子岭澳优全球总部大楼
+                    </p>
                   </div>
                 </div>
               </div>
