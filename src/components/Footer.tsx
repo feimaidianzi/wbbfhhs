@@ -21,32 +21,60 @@ const productLinks = [{
 }, {
   name: "架线无人机",
   path: "/products/wire-laying"
+}, {
+  name: "集群无人机",
+  path: "/products/swarm"
+}, {
+  name: "无人机配件",
+  path: "/products/accessories"
 }];
+
 const applicationLinks = [{
   name: "电力巡检",
-  path: "/applications/power"
+  path: "/applications/power-inspection"
 }, {
-  name: "应急救援",
-  path: "/applications/emergency"
+  name: "无人机物流",
+  path: "/applications/logistics"
 }, {
   name: "环境监测",
   path: "/applications/environment"
 }, {
-  name: "智慧城市",
-  path: "/applications/smart-city"
+  name: "消防应急",
+  path: "/applications/firefighting"
 }, {
-  name: "交通管理",
-  path: "/applications/traffic"
+  name: "系留应用",
+  path: "/applications/tethered"
 }, {
-  name: "水利监测",
-  path: "/applications/water"
+  name: "解决方案",
+  path: "/applications/solutions"
 }];
+
+const softwareLinks = [{
+  name: "考试系统",
+  path: "/software/exam-system"
+}, {
+  name: "光伏巡检",
+  path: "/software/pv-inspection"
+}, {
+  name: "无人机管理",
+  path: "/software/drone-management"
+}, {
+  name: "电力巡检系统",
+  path: "/software/power-inspection-system"
+}, {
+  name: "地面站",
+  path: "/software/ground-station"
+}];
+
 const serviceLinks = [{
   name: "飞行服务",
   path: "/projects/flight-service"
 }, {
   name: "无人机培训",
   path: "/projects/training"
+}, {
+  name: "无人机表演",
+  path: "/projects/show"
 }, {
   name: "项目合作",
   path: "/projects/cooperation"
@@ -82,7 +110,7 @@ export const Footer = () => {
 
         {/* Main Footer Content */}
         <div className="py-12 md:py-16">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-8">
             {/* Company Info */}
             <div className="lg:col-span-2">
               <div className="flex items-center gap-2 mb-6">
@@ -137,6 +165,21 @@ export const Footer = () => {
               </h4>
               <ul className="space-y-3">
                 {applicationLinks.map(item => <li key={item.name}>
+                    <Link to={item.path} className="text-primary-foreground/70 hover:text-accent text-sm transition-colors flex items-center gap-1 group">
+                      <ArrowRight className="w-3 h-3 opacity-0 -ml-4 group-hover:opacity-100 group-hover:ml-0 transition-all" />
+                      {item.name}
+                    </Link>
+                  </li>)}
+              </ul>
+            </div>
+
+            <div>
+              <h4 className="font-semibold text-lg mb-5 flex items-center gap-2">
+                <span className="w-1 h-5 bg-accent rounded-full"></span>
+                软件系统
+              </h4>
+              <ul className="space-y-3">
+                {softwareLinks.map(item => <li key={item.name}>
                     <Link to={item.path} className="text-primary-foreground/70 hover:text-accent text-sm transition-colors flex items-center gap-1 group">
                       <ArrowRight className="w-3 h-3 opacity-0 -ml-4 group-hover:opacity-100 group-hover:ml-0 transition-all" />
                       {item.name}
