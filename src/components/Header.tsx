@@ -15,7 +15,6 @@ const droneCategories = [
 const accessoryCategories = [
   { name: "VTX/VRX", href: "/products/accessories/vtx-vrx", description: "视频发射与接收模块", image: "https://images.unsplash.com/photo-1518770660439-4636190af475?w=120&q=80" },
   { name: "飞控/电调", href: "/products/accessories/fc-esc", description: "飞控与电调系统", image: "https://images.unsplash.com/photo-1581094794329-c8112a89af12?w=120&q=80" },
-  { name: "高清数字相机", href: "/products/accessories/hd-camera", description: "高清数字航拍相机", image: "https://images.unsplash.com/photo-1516035069371-29a1b244cc32?w=120&q=80" },
   { name: "云台", href: "/products/accessories/gimbal", description: "专业稳定云台系统", image: "https://images.unsplash.com/photo-1506947411487-a56738267384?w=120&q=80" },
   { name: "数字图传", href: "/products/accessories/digital-fpv", description: "高清数字图像传输", image: "https://images.unsplash.com/photo-1527977966376-1c8408f9f108?w=120&q=80" },
   { name: "相机", href: "/products/accessories/camera", description: "专业航拍相机", image: "https://images.unsplash.com/photo-1502920917128-1aa500764cbd?w=120&q=80" },
