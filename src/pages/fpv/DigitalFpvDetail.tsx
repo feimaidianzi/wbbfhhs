@@ -81,7 +81,7 @@ const DigitalFpvDetail = () => {
                       <ArrowRight className="w-4 h-4 ml-2" />
                     </Button>
                   </Link>
-                  <Button variant="outline" className="border-primary-foreground/50 text-primary-foreground hover:bg-primary-foreground/10">
+                  <Button variant="outline" className="border-white/50 text-white hover:bg-white/10">
                     <Download className="w-4 h-4 mr-2" />
                     下载手册
                   </Button>
