@@ -7,29 +7,23 @@ const productLinks = [{
   name: "多旋翼无人机",
   path: "/products/multi-rotor"
 }, {
-  name: "自动机场",
-  path: "/products/airport"
+  name: "VTX/VRX",
+  path: "/products/accessories/vtx-vrx"
 }, {
-  name: "系留无人机",
-  path: "/products/tethered"
+  name: "飞控/电调",
+  path: "/products/accessories/fc-esc"
 }, {
-  name: "物流无人机",
-  path: "/products/logistics"
+  name: "吊舱/云台",
+  path: "/products/accessories/gimbal"
 }, {
-  name: "消防无人机",
-  path: "/products/firefighting"
+  name: "数字图传相机",
+  path: "/products/accessories/digital-fpv"
 }, {
-  name: "集群无人机",
-  path: "/products/swarm"
+  name: "ELRS",
+  path: "/products/accessories/elrs"
 }, {
-  name: "植保无人机",
-  path: "/products/agriculture"
-}, {
-  name: "FPV穿越机",
-  path: "/fpv"
-}, {
-  name: "无人机配件",
-  path: "/products/accessories"
+  name: "其他配件",
+  path: "/products/accessories/others"
 }];
 
 const applicationLinks = [{
