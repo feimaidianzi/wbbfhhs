@@ -123,13 +123,13 @@ export const Footer = () => {
                     <p className="text-sm font-medium group-hover:text-accent transition-colors">176-7404-8404</p>
                   </div>
                 </a>
-                <a href="mailto:market@flymind.com" className="flex items-center gap-3 p-3 rounded-lg bg-primary-foreground/5 hover:bg-primary-foreground/10 transition-colors group">
-                  <div className="w-10 h-10 rounded-full bg-accent/20 flex items-center justify-center">
-                    <Mail className="w-5 h-5 text-accent" />
+                <a href="mailto:market@flymind.com" className="flex items-center gap-2 p-3 rounded-lg bg-primary-foreground/5 hover:bg-primary-foreground/10 transition-colors group">
+                  <div className="w-8 h-8 rounded-full bg-accent/20 flex items-center justify-center flex-shrink-0">
+                    <Mail className="w-4 h-4 text-accent" />
                   </div>
-                  <div className="min-w-0 flex-1">
+                  <div className="min-w-0">
                     <p className="text-xs text-primary-foreground/60">商务邮箱</p>
-                    <p className="text-xs font-medium group-hover:text-accent transition-colors break-all">market@flymind.com</p>
+                    <p className="text-xs font-medium group-hover:text-accent transition-colors whitespace-nowrap">market@flymind.com</p>
                   </div>
                 </a>
               </div>
