@@ -7,12 +7,8 @@ import { Button } from "@/components/ui/button";
 import { ArrowLeft, Radio, Zap, Settings, Shield, Thermometer, Cpu } from "lucide-react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
-import vtx2w5 from "@/assets/vtx/vtx-2.5w.png";
-import vtx3w from "@/assets/vtx/vtx-3w.png";
-import vtx10w from "@/assets/vtx/vtx-10w.png";
-import vtx16w from "@/assets/vtx/vtx-16w.png";
-import vtx25w from "@/assets/vtx/vtx-25w.png";
-import vtx37w from "@/assets/vtx/vtx-37w.png";
+import vtxLowPower from "@/assets/vtx/vtx-low-power.png";
+import vtxHighPower from "@/assets/vtx/vtx-high-power.jpg";
 
 // 4.9GHz-6.1GHz 产品系列
 const products49to61 = [
@@ -23,7 +19,7 @@ const products49to61 = [
     power: "2.5W",
     frequency: "4.9-6.1GHz",
     channels: 80,
-    image: vtx2w5,
+    image: vtxLowPower,
     specs: {
       inputVoltage: "12-28V (推荐6S电池)",
       outputVoltage: "5V",
@@ -53,7 +49,7 @@ const products49to61 = [
     power: "3W",
     frequency: "4.9-6.1GHz",
     channels: 80,
-    image: vtx3w,
+    image: vtxLowPower,
     specs: {
       inputVoltage: "12-28V (推荐6S电池)",
       outputVoltage: "5V",
@@ -83,7 +79,7 @@ const products49to61 = [
     power: "10W",
     frequency: "4.9-6.1GHz",
     channels: 80,
-    image: vtx10w,
+    image: vtxHighPower,
     specs: {
       inputVoltage: "12-28V (推荐6S电池)",
       outputVoltage: "5V",
@@ -113,7 +109,7 @@ const products49to61 = [
     power: "16W",
     frequency: "4.9-6.1GHz",
     channels: 80,
-    image: vtx16w,
+    image: vtxHighPower,
     specs: {
       inputVoltage: "12-28V (推荐6S电池)",
       outputVoltage: "5V",
@@ -143,7 +139,7 @@ const products49to61 = [
     power: "25W",
     frequency: "4.9-6.1GHz",
     channels: 80,
-    image: vtx25w,
+    image: vtxHighPower,
     specs: {
       inputVoltage: "24-28V (推荐6S电池)",
       outputVoltage: "5V",
@@ -173,7 +169,7 @@ const products49to61 = [
     power: "37W",
     frequency: "4.9-6.1GHz",
     channels: 80,
-    image: vtx37w,
+    image: vtxHighPower,
     specs: {
       inputVoltage: "24-28V (推荐6S电池)",
       outputVoltage: "5V",
@@ -207,7 +203,7 @@ const products61to72 = [
     power: "10W",
     frequency: "6.1-7.2GHz",
     channels: 64,
-    image: vtx10w,
+    image: vtxHighPower,
     specs: {
       inputVoltage: "12-28V (推荐6S电池)",
       outputVoltage: "5V",
