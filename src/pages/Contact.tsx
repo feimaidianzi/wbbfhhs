@@ -220,14 +220,13 @@ const Contact = () => {
                   ))}
                 </div>
 
-                {/* Map */}
+                {/* Map - OpenStreetMap */}
                 <div className="mt-6 aspect-video bg-muted rounded-xl overflow-hidden relative">
                   <iframe
-                    src="https://uri.amap.com/marker?position=112.875673,28.266449&name=飞迈科技&src=lovable&coordinate=gaode&callnative=0"
+                    src="https://www.openstreetmap.org/export/embed.html?bbox=112.8650%2C28.2550%2C112.8850%2C28.2750&layer=mapnik&marker=28.2655%2C112.8755"
                     className="w-full h-full border-0"
                     title="公司地址地图"
                     loading="lazy"
-                    referrerPolicy="no-referrer-when-downgrade"
                     style={{ minHeight: '300px' }}
                   />
                   <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-card/90 to-transparent p-4">
