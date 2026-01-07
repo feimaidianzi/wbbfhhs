@@ -5,30 +5,61 @@ import { Button } from "@/components/ui/button";
 import { ArrowRight, CheckCircle, BookOpen, Award, Users, Clock } from "lucide-react";
 import { Link } from "react-router-dom";
 import { SEO } from "@/components/SEO";
-
-const features = [
-  { icon: BookOpen, title: "题库丰富", description: "涵盖无人机理论、法规、操作等多科目题库" },
-  { icon: Users, title: "多人同考", description: "支持多人同时在线考试，自动阅卷评分" },
-  { icon: Clock, title: "限时考试", description: "可设置考试时长，自动计时交卷" },
-  { icon: Award, title: "证书发放", description: "考试通过后自动生成电子证书" },
-];
-
-const modules = [
-  "无人机基础理论考试",
-  "飞行法规与空域管理",
-  "气象知识考核",
-  "飞行操作技能评估",
-  "应急处置能力测试",
-  "机型专项考核",
-];
+import { useLanguage } from "@/contexts/LanguageContext";
 
 const ExamSystem = () => {
+  const { language } = useLanguage();
+  const isEn = language === "en";
+
+  const features = [
+    { 
+      icon: BookOpen, 
+      title: isEn ? "Rich Question Bank" : "题库丰富", 
+      description: isEn ? "Comprehensive question bank covering theory, regulations, and operations" : "涵盖无人机理论、法规、操作等多科目题库" 
+    },
+    { 
+      icon: Users, 
+      title: isEn ? "Multi-user Exams" : "多人同考", 
+      description: isEn ? "Support simultaneous online exams with automatic grading" : "支持多人同时在线考试，自动阅卷评分" 
+    },
+    { 
+      icon: Clock, 
+      title: isEn ? "Timed Exams" : "限时考试", 
+      description: isEn ? "Configurable exam duration with automatic submission" : "可设置考试时长，自动计时交卷" 
+    },
+    { 
+      icon: Award, 
+      title: isEn ? "Certificate Issuance" : "证书发放", 
+      description: isEn ? "Automatic electronic certificate generation upon passing" : "考试通过后自动生成电子证书" 
+    },
+  ];
+
+  const modules = isEn ? [
+    "Basic drone theory exam",
+    "Flight regulations and airspace management",
+    "Meteorology knowledge assessment",
+    "Flight operation skills evaluation",
+    "Emergency handling capability test",
+    "Aircraft type-specific assessment",
+  ] : [
+    "无人机基础理论考试",
+    "飞行法规与空域管理",
+    "气象知识考核",
+    "飞行操作技能评估",
+    "应急处置能力测试",
+    "机型专项考核",
+  ];
+
   return (
     <div className="min-h-screen">
       <SEO
-        title="模拟考试系统"
-        description="飞迈科技无人机模拟考试系统，提供专业的无人机理论考试、技能评估和证书发放功能。"
-        keywords="无人机考试,模拟考试系统,无人机培训考核,飞行员考试"
+        title={isEn ? "Simulation Exam System" : "模拟考试系统"}
+        description={isEn 
+          ? "Feimai Technology drone simulation exam system for professional theory testing, skills assessment, and certification."
+          : "飞迈科技无人机模拟考试系统，提供专业的无人机理论考试、技能评估和证书发放功能。"}
+        keywords={isEn 
+          ? "drone exam,simulation exam system,drone training assessment,pilot exam"
+          : "无人机考试,模拟考试系统,无人机培训考核,飞行员考试"}
         url="/software/exam-system"
       />
       <Header />
@@ -46,14 +77,14 @@ const ExamSystem = () => {
           <div className="relative container-custom h-full flex items-center">
             <div className="max-w-2xl">
               <h1 className="text-3xl md:text-5xl font-bold text-primary-foreground mb-4">
-                模拟考试系统
+                {isEn ? "Simulation Exam System" : "模拟考试系统"}
               </h1>
               <p className="text-lg md:text-xl text-primary-foreground/90 mb-8">
-                专业的无人机培训考核平台，助力飞手技能提升
+                {isEn ? "Professional drone training and assessment platform to enhance pilot skills" : "专业的无人机培训考核平台，助力飞手技能提升"}
               </p>
               <Link to="/contact">
                 <Button className="bg-accent hover:bg-orange-light text-accent-foreground px-8 py-3">
-                  免费试用
+                  {isEn ? "Free Trial" : "免费试用"}
                   <ArrowRight className="w-4 h-4 ml-2" />
                 </Button>
               </Link>
@@ -64,7 +95,9 @@ const ExamSystem = () => {
         {/* Features */}
         <section className="py-16 bg-background">
           <div className="container-custom">
-            <h2 className="text-2xl md:text-3xl font-bold text-center mb-12">系统特点</h2>
+            <h2 className="text-2xl md:text-3xl font-bold text-center mb-12">
+              {isEn ? "System Features" : "系统特点"}
+            </h2>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
               {features.map((feature, index) => (
                 <div key={index} className="text-center p-6 bg-card rounded-xl shadow-card">
@@ -84,9 +117,13 @@ const ExamSystem = () => {
           <div className="container-custom">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
               <div>
-                <h2 className="text-2xl md:text-3xl font-bold mb-6">考试模块</h2>
+                <h2 className="text-2xl md:text-3xl font-bold mb-6">
+                  {isEn ? "Exam Modules" : "考试模块"}
+                </h2>
                 <p className="text-muted-foreground mb-6">
-                  系统涵盖无人机培训考核全流程，支持多种考试类型和评估方式。
+                  {isEn 
+                    ? "The system covers the entire drone training and assessment process, supporting various exam types and evaluation methods."
+                    : "系统涵盖无人机培训考核全流程，支持多种考试类型和评估方式。"}
                 </p>
                 <ul className="space-y-4">
                   {modules.map((module, index) => (
@@ -100,7 +137,7 @@ const ExamSystem = () => {
               <div className="aspect-video rounded-xl overflow-hidden shadow-card">
                 <img
                   src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=800&q=80"
-                  alt="考试系统界面"
+                  alt={isEn ? "Exam System Interface" : "考试系统界面"}
                   className="w-full h-full object-cover"
                 />
               </div>
@@ -112,14 +149,16 @@ const ExamSystem = () => {
         <section className="py-16 bg-primary">
           <div className="container-custom text-center">
             <h2 className="text-2xl md:text-3xl font-bold text-primary-foreground mb-4">
-              开始使用模拟考试系统
+              {isEn ? "Start Using the Simulation Exam System" : "开始使用模拟考试系统"}
             </h2>
             <p className="text-primary-foreground/80 mb-8 max-w-2xl mx-auto">
-              联系我们获取系统演示和试用账号
+              {isEn 
+                ? "Contact us for system demo and trial account"
+                : "联系我们获取系统演示和试用账号"}
             </p>
             <Link to="/contact">
               <Button className="bg-accent hover:bg-orange-light text-accent-foreground px-8 py-3">
-                联系我们
+                {isEn ? "Contact Us" : "联系我们"}
                 <ArrowRight className="w-4 h-4 ml-2" />
               </Button>
             </Link>

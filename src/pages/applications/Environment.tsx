@@ -5,21 +5,45 @@ import { Button } from "@/components/ui/button";
 import { ArrowRight, Leaf, Eye, Zap, Shield } from "lucide-react";
 import { Link } from "react-router-dom";
 import { SEO } from "@/components/SEO";
-
-const features = [
-  { icon: Leaf, title: "环境监测", description: "对大气、水体、土壤等进行全方位环境监测" },
-  { icon: Eye, title: "污染源排查", description: "快速定位污染源，为环境治理提供精准数据" },
-  { icon: Zap, title: "生态巡护", description: "对自然保护区、森林草原进行定期生态巡护" },
-  { icon: Shield, title: "环境执法", description: "辅助环保部门进行环境执法和违法取证" },
-];
+import { useLanguage } from "@/contexts/LanguageContext";
 
 const Environment = () => {
+  const { language } = useLanguage();
+  const isEn = language === "en";
+
+  const features = [
+    { 
+      icon: Leaf, 
+      title: isEn ? "Environmental Monitoring" : "环境监测", 
+      description: isEn ? "Comprehensive monitoring of air, water, and soil environments" : "对大气、水体、土壤等进行全方位环境监测" 
+    },
+    { 
+      icon: Eye, 
+      title: isEn ? "Pollution Source Detection" : "污染源排查", 
+      description: isEn ? "Quickly locate pollution sources with precise data for environmental management" : "快速定位污染源，为环境治理提供精准数据" 
+    },
+    { 
+      icon: Zap, 
+      title: isEn ? "Ecological Patrol" : "生态巡护", 
+      description: isEn ? "Regular ecological patrols of nature reserves, forests and grasslands" : "对自然保护区、森林草原进行定期生态巡护" 
+    },
+    { 
+      icon: Shield, 
+      title: isEn ? "Environmental Enforcement" : "环境执法", 
+      description: isEn ? "Assist environmental agencies in law enforcement and evidence collection" : "辅助环保部门进行环境执法和违法取证" 
+    },
+  ];
+
   return (
     <div className="min-h-screen">
       <SEO
-        title="环保行业应用"
-        description="飞迈科技无人机环保行业解决方案，应用于环境监测、污染源排查、生态巡护等领域。"
-        keywords="环保无人机,环境监测,污染源排查,生态巡护,环境执法"
+        title={isEn ? "Environmental Protection Applications" : "环保行业应用"}
+        description={isEn 
+          ? "Feimai Technology drone environmental solutions for monitoring, pollution detection, and ecological patrol."
+          : "飞迈科技无人机环保行业解决方案，应用于环境监测、污染源排查、生态巡护等领域。"}
+        keywords={isEn 
+          ? "environmental drone,environmental monitoring,pollution detection,ecological patrol,environmental enforcement"
+          : "环保无人机,环境监测,污染源排查,生态巡护,环境执法"}
         url="/applications/environment"
       />
       <Header />
@@ -33,10 +57,14 @@ const Environment = () => {
           </div>
           <div className="relative container-custom h-full flex items-center">
             <div className="max-w-2xl">
-              <p className="text-accent font-medium mb-2">行业应用</p>
-              <h1 className="text-3xl md:text-5xl font-bold text-primary-foreground mb-4">环保</h1>
+              <p className="text-accent font-medium mb-2">{isEn ? "Industry Applications" : "行业应用"}</p>
+              <h1 className="text-3xl md:text-5xl font-bold text-primary-foreground mb-4">
+                {isEn ? "Environment" : "环保"}
+              </h1>
               <p className="text-lg text-primary-foreground/90">
-                无人机遥感系统具有成本低、安全性高、机动性强的特点，广泛应用于环境保护领域
+                {isEn 
+                  ? "Drone remote sensing systems offer low cost, high safety, and strong mobility, widely used in environmental protection"
+                  : "无人机遥感系统具有成本低、安全性高、机动性强的特点，广泛应用于环境保护领域"}
               </p>
             </div>
           </div>
@@ -44,7 +72,9 @@ const Environment = () => {
 
         <section className="py-16 bg-background">
           <div className="container-custom">
-            <h2 className="text-2xl md:text-3xl font-bold text-center mb-12">应用场景</h2>
+            <h2 className="text-2xl md:text-3xl font-bold text-center mb-12">
+              {isEn ? "Application Scenarios" : "应用场景"}
+            </h2>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
               {features.map((feature, index) => (
                 <div key={index} className="bg-card rounded-xl p-6 shadow-card text-center">
@@ -59,13 +89,17 @@ const Environment = () => {
 
         <section className="py-16 bg-primary">
           <div className="container-custom text-center">
-            <h2 className="text-2xl md:text-3xl font-bold text-primary-foreground mb-4">获取环保行业解决方案</h2>
+            <h2 className="text-2xl md:text-3xl font-bold text-primary-foreground mb-4">
+              {isEn ? "Get Environmental Solutions" : "获取环保行业解决方案"}
+            </h2>
             <p className="text-primary-foreground/80 mb-8 max-w-2xl mx-auto">
-              联系我们的专业团队，了解更多环保行业无人机应用详情
+              {isEn 
+                ? "Contact our professional team to learn more about environmental drone applications"
+                : "联系我们的专业团队，了解更多环保行业无人机应用详情"}
             </p>
             <Link to="/contact">
               <Button className="bg-accent hover:bg-orange-light text-accent-foreground px-8 py-3">
-                立即咨询
+                {isEn ? "Contact Us" : "立即咨询"}
                 <ArrowRight className="w-4 h-4 ml-2" />
               </Button>
             </Link>
