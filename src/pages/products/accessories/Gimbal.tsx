@@ -4,18 +4,17 @@ import { FloatingContact } from "@/components/FloatingContact";
 import { SEO } from "@/components/SEO";
 import { BackButton } from "@/components/BackButton";
 import { Link } from "react-router-dom";
-import { ArrowRight, Video, Thermometer, Layers, Lightbulb } from "lucide-react";
+import { ArrowRight, Video, Thermometer, Layers } from "lucide-react";
 import { gimbalProducts, gimbalCategories } from "@/data/gimbalProducts";
 
 const categoryIcons: Record<string, React.ReactNode> = {
-  "单光吊舱": <Video className="w-6 h-6" />,
-  "双光吊舱": <Thermometer className="w-6 h-6" />,
-  "多光吊舱": <Layers className="w-6 h-6" />,
-  "专用吊舱": <Lightbulb className="w-6 h-6" />
+  "四光云台相机": <Layers className="w-6 h-6" />,
+  "双光跟踪识别云台相机": <Thermometer className="w-6 h-6" />,
+  "单光追踪识别云台": <Video className="w-6 h-6" />
 };
 
 const Gimbal = () => {
-  const categories = ["单光吊舱", "双光吊舱", "多光吊舱", "专用吊舱"];
+  const categories = ["四光云台相机", "双光跟踪识别云台相机", "单光追踪识别云台"];
 
   return (
     <>
@@ -136,12 +135,6 @@ const Gimbal = () => {
                 className="px-8 py-3 bg-background text-foreground font-medium rounded-lg hover:bg-background/90 transition-colors"
               >
                 联系我们
-              </Link>
-              <Link
-                to="/products/accessories"
-                className="px-8 py-3 border border-primary-foreground/30 font-medium rounded-lg hover:bg-primary-foreground/10 transition-colors"
-              >
-                返回配件中心
               </Link>
             </div>
           </div>
