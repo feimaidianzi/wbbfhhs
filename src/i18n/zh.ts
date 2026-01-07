@@ -1,0 +1,258 @@
+export const zhTranslations: Record<string, string> = {
+  // Navigation
+  'nav.home': '首页',
+  'nav.about': '关于飞迈',
+  'nav.products': '产品中心',
+  'nav.applications': '行业应用',
+  'nav.software': '软件系统',
+  'nav.custom': '产品定制',
+  'nav.news': '新闻中心',
+  'nav.contact': '联系我们',
+
+  // Product Categories
+  'product.airport': '飞迈机场',
+  'product.airport.desc': '全自动无人机起降平台',
+  'product.tethered': '系留无人机',
+  'product.tethered.desc': '24小时不间断工作',
+  'product.logistics': '物流无人机',
+  'product.logistics.desc': '高效智能配送系统',
+  'product.swarm': '集群无人机',
+  'product.swarm.desc': '智能集群控制系统',
+  'product.fpv': 'FPV穿越机',
+  'product.fpv.desc': '第一视角飞行体验',
+  'product.multiRotor': '多旋翼无人机',
+  'product.multiRotor.desc': '专业多旋翼无人机系列',
+
+  // Accessories
+  'accessory.vtx': 'VTX/VRX',
+  'accessory.vtx.desc': '视频发射与接收模块',
+  'accessory.fc': '飞控/电调',
+  'accessory.fc.desc': '飞控与电调系统',
+  'accessory.gimbal': '吊舱/云台',
+  'accessory.gimbal.desc': '专业稳定云台系统',
+  'accessory.digitalFpv': '数字图传',
+  'accessory.digitalFpv.desc': '高清数字图像传输',
+  'accessory.camera': '相机',
+  'accessory.camera.desc': '专业航拍相机',
+  'accessory.elrs': 'ELRS',
+  'accessory.elrs.desc': '远距离控制链路',
+  'accessory.others': '其他配件',
+  'accessory.others.desc': '辅助配件装备',
+
+  // Applications
+  'app.power': '电力巡检',
+  'app.power.desc': '输电线路智能巡检',
+  'app.logistics': '物流应用',
+  'app.logistics.desc': '无人机物流配送',
+  'app.military': '军事应用',
+  'app.military.desc': '侦察监视与通信中继',
+  'app.environment': '环保应用',
+  'app.environment.desc': '环境监测与治理',
+  'app.firefighting': '消防应急',
+  'app.firefighting.desc': '火情侦察与应急救援',
+  'app.tethered': '系留应用',
+  'app.tethered.desc': '24小时持续滞空',
+  'app.solutions': '解决方案',
+  'app.solutions.desc': '完整行业解决方案',
+
+  // Custom Research
+  'custom.accessories': '无人机配件定制',
+  'custom.accessories.desc': '专业配件定制服务',
+  'custom.drone': '无人机整机定制',
+  'custom.drone.desc': '整机系统定制开发',
+  'custom.software': '无人机软件定制',
+  'custom.software.desc': '地面站与算法定制',
+  'custom.payload': '无人机挂载定制',
+  'custom.payload.desc': '专业挂载载荷定制',
+
+  // Software
+  'software.exam': '模拟考试系统',
+  'software.exam.desc': '无人机培训考核平台',
+  'software.pvInspection': '光伏巡检识别系统',
+  'software.pvInspection.desc': 'AI光伏缺陷识别',
+  'software.management': '无人机管理平台',
+  'software.management.desc': '设备与任务管理',
+  'software.powerSystem': '电力巡检管理系统',
+  'software.powerSystem.desc': '输电线路智能巡检',
+  'software.pvSystem': '光伏巡检系统',
+  'software.pvSystem.desc': '光伏电站运维管理',
+  'software.envSystem': '环保管理系统',
+  'software.envSystem.desc': '环境监测管理平台',
+  'software.groundStation': '无人机地面站软件',
+  'software.groundStation.desc': '专业飞控地面站',
+  'software.swarmStation': '集群地面站软件',
+  'software.swarmStation.desc': '集群编队控制',
+
+  // Projects
+  'project.training': '无人机培训',
+  'project.training.desc': '专业飞手培训服务',
+  'project.show': '无人机表演',
+  'project.show.desc': '集群灯光表演服务',
+  'project.flight': '飞行服务',
+  'project.flight.desc': '专业飞行作业服务',
+  'project.cooperation': '项目合作',
+  'project.cooperation.desc': '定制化项目合作',
+
+  // Footer
+  'footer.subscribe': '订阅我们的最新动态',
+  'footer.subscribe.desc': '获取最新产品资讯、行业解决方案和技术分享',
+  'footer.email.placeholder': '请输入您的邮箱',
+  'footer.subscribe.btn': '订阅',
+  'footer.company.desc': '飞迈科技是专业的无人机研发制造商，专注于工业级无人机配件的研发、生产与销售，为电力、物流、消防、应急等行业提供智能化飞行解决方案。',
+  'footer.hotline': '服务热线',
+  'footer.email': '商务邮箱',
+  'footer.products': '产品中心',
+  'footer.applications': '行业应用',
+  'footer.software': '软件系统',
+  'footer.custom': '产品定制',
+  'footer.address': '公司地址',
+  'footer.address.content': '湖南省长沙市望城区月亮岛街道罐子岭澳优全球总部大楼',
+  'footer.copyright': '飞迈科技有限公司',
+  'footer.rights': '版权所有',
+  'footer.aboutUs': '关于我们',
+  'footer.contactUs': '联系我们',
+  'footer.privacy': '隐私政策',
+  'footer.terms': '服务条款',
+
+  // Hero Section
+  'hero.tagline': '飞迈科技 · 专业无人机制造商',
+  'hero.title': '智能飞行 · 无限可能',
+  'hero.subtitle': '专注工业级无人机研发制造，为电力、物流、消防、应急等行业提供智能化飞行解决方案',
+  'hero.products': '查看产品',
+  'hero.contact': '联系我们',
+
+  // Common
+  'common.learnMore': '了解更多',
+  'common.viewAll': '查看全部',
+  'common.contact': '联系咨询',
+  'common.phone': '电话',
+  'common.email': '邮箱',
+  'common.address': '地址',
+
+  // Contact Page
+  'contact.title': '联系我们',
+  'contact.subtitle': '如有任何问题或合作意向，欢迎随时与我们联系',
+  'contact.form.name': '您的姓名',
+  'contact.form.email': '邮箱地址',
+  'contact.form.phone': '联系电话',
+  'contact.form.company': '公司名称',
+  'contact.form.message': '留言内容',
+  'contact.form.submit': '提交留言',
+  'contact.info.title': '联系方式',
+  'contact.map.title': '公司位置',
+
+  // About Page
+  'about.title': '关于飞迈',
+  'about.subtitle': '专注无人机研发制造，引领行业智能飞行新时代',
+  'about.intro.title': '公司简介',
+  'about.intro.content': '飞迈科技是一家专业从事无人机研发、制造与销售的高新技术企业。公司致力于为电力、物流、消防、应急等行业提供专业的无人机解决方案。',
+  'about.vision.title': '企业愿景',
+  'about.vision.content': '成为全球领先的工业级无人机解决方案提供商',
+  'about.mission.title': '企业使命',
+  'about.mission.content': '用科技创新推动行业智能化发展，让无人机服务更多行业',
+
+  // News Page
+  'news.title': '新闻中心',
+  'news.subtitle': '了解飞迈科技最新动态与行业资讯',
+  'news.readMore': '阅读全文',
+  'news.latest': '最新资讯',
+
+  // Products Page
+  'products.title': '系列产品',
+  'products.subtitle': '覆盖工业级多旋翼、自动机场、集群系统、物流配送等全产品线，为各行业提供专业无人机解决方案',
+  'products.all': '全部产品',
+  'products.hot': '热销',
+  'products.count': '共 {count} 款产品',
+
+  // Index Page Sections
+  'index.seo.title': '首页',
+  'index.seo.desc': '飞迈科技有限公司，专注于工业无人机研发制造，提供系留无人机、物流无人机、无人机机场、集群无人机等产品及行业解决方案。',
+
+  // HeroSection
+  'hero.badge': '飞迈科技 · 专业无人机制造商',
+  'hero.title.line1': '智能飞行',
+  'hero.title.line2': '无限可能',
+  'hero.description': '专注工业级无人机研发制造，为电力、物流、消防、应急等行业提供智能化飞行解决方案',
+  'hero.btn.products': '查看产品',
+  'hero.btn.contact': '联系咨询',
+
+  // ProductsSection
+  'section.products.badge': '产品矩阵',
+  'section.products.title': '全系列无人机产品',
+  'section.products.desc': '覆盖工业级多旋翼、自动机场、集群系统等全产品线',
+  'section.products.viewAll': '查看全部产品',
+
+  // CompanyIntroSection
+  'section.company.badge': '关于飞迈',
+  'section.company.title': '专业无人机研发制造商',
+  'section.company.desc1': '飞迈科技是一家专注于工业级无人机研发、生产与销售的高新技术企业。公司致力于为电力、物流、消防、应急等行业提供智能化飞行解决方案。',
+  'section.company.desc2': '凭借强大的研发实力和丰富的行业经验，飞迈科技已成为国内领先的无人机解决方案提供商，产品广泛应用于电力巡检、物流配送、消防救援等多个领域。',
+  'section.company.stat1': '行业经验',
+  'section.company.stat2': '专利技术',
+  'section.company.stat3': '服务客户',
+  'section.company.learnMore': '了解更多',
+
+  // WhyChooseUs
+  'section.why.title': '为什么选择飞迈',
+  'section.why.subtitle': '专业团队、领先技术、优质服务',
+  'section.why.years': '年+',
+  'section.why.experience': '行业经验',
+  'section.why.patents': '项+',
+  'section.why.patentLabel': '发明专利',
+  'section.why.clients': '家+',
+  'section.why.clientLabel': '合作客户',
+  'section.why.cities': '个+',
+  'section.why.cityLabel': '覆盖城市',
+  'section.why.tech': '技术领先',
+  'section.why.techDesc': '拥有50+项发明专利，核心技术自主可控',
+  'section.why.quality': '品质保障',
+  'section.why.qualityDesc': '严格的质量管理体系，通过多项国际认证',
+  'section.why.service': '专业服务',
+  'section.why.serviceDesc': '全国20+城市服务网络，7x24小时响应',
+
+  // SolutionsSection
+  'section.solutions.badge': '行业解决方案',
+  'section.solutions.title': '赋能各行业智能化升级',
+  'section.solutions.desc': '针对不同行业需求，提供定制化无人机解决方案',
+  'section.solutions.viewAll': '查看全部方案',
+
+  // ApplicationsSection
+  'section.apps.badge': '应用场景',
+  'section.apps.title': '广泛应用于各行业',
+  'section.apps.learnMore': '了解更多',
+
+  // NewsSection
+  'section.news.badge': '新闻动态',
+  'section.news.title': '最新资讯',
+  'section.news.viewAll': '查看全部',
+  'section.news.readMore': '阅读全文',
+
+  // PartnersSection
+  'section.partners.badge': '合作伙伴',
+  'section.partners.title': '值得信赖的合作伙伴',
+  'section.partners.desc': '与众多知名企业建立长期战略合作关系',
+
+  // CertificationsSection
+  'section.certs.badge': '资质认证',
+  'section.certs.title': '权威认证保障',
+  'section.certs.desc': '通过多项行业权威认证，品质值得信赖',
+
+  // CTASection
+  'section.cta.title': '开启智能飞行新时代',
+  'section.cta.desc': '无论您是需要成熟产品还是定制解决方案，飞迈科技都将为您提供专业服务',
+  'section.cta.btn.products': '浏览产品',
+  'section.cta.btn.contact': '联系我们',
+
+  // FloatingContact
+  'floating.home': '返回首页',
+  'floating.phone': '电话咨询',
+  'floating.qq': 'QQ客服',
+  'floating.wechat': '微信客服',
+  'floating.scanWechat': '扫码添加微信',
+  'floating.callPhone': '点击拨打电话',
+  'floating.comingSoon': '即将上市',
+  'floating.new': 'NEW',
+  'floating.aiModule': '无人机AI制导模块',
+  'floating.aiDesc': '智能目标识别、自主航迹规划、精准制导控制',
+  'floating.learnMore': '了解更多',
+};

@@ -3,6 +3,8 @@ import { Menu, X, Phone, ChevronDown } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import { Logo } from "@/components/Logo";
+import { LanguageSwitcher } from "@/components/LanguageSwitcher";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 const droneCategories = [
   { name: "飞迈机场", href: "/products/airport", description: "全自动无人机起降平台", image: "https://images.unsplash.com/photo-1508614589041-895b88991e3e?w=120&q=80" },
@@ -62,21 +64,23 @@ const productCenterCategories = [
   ...accessoryCategories
 ];
 
-const navItems = [
-  { name: "首页", href: "/" },
-  { name: "关于飞迈", href: "/about" },
-  { name: "产品中心", href: "/products", hasDropdown: true, children: productCenterCategories },
-  { name: "行业应用", href: "/applications", hasDropdown: true, children: applicationCategories },
-  { name: "软件系统", href: "/software", hasDropdown: true, children: softwareCategories },
-  { name: "产品定制", href: "/custom-research", hasDropdown: true, children: customCategories },
-  { name: "新闻中心", href: "/news" },
-  { name: "联系我们", href: "/contact" },
+const getNavItems = (t: (key: string) => string) => [
+  { name: t('nav.home'), href: "/" },
+  { name: t('nav.about'), href: "/about" },
+  { name: t('nav.products'), href: "/products", hasDropdown: true, children: productCenterCategories },
+  { name: t('nav.applications'), href: "/applications", hasDropdown: true, children: applicationCategories },
+  { name: t('nav.software'), href: "/software", hasDropdown: true, children: softwareCategories },
+  { name: t('nav.custom'), href: "/custom-research", hasDropdown: true, children: customCategories },
+  { name: t('nav.news'), href: "/news" },
+  { name: t('nav.contact'), href: "/contact" },
 ];
 
 export const Header = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
   const timeoutRef = useRef<NodeJS.Timeout | null>(null);
+  const { t } = useLanguage();
+  const navItems = getNavItems(t);
 
   const handleMouseEnter = (itemName: string) => {
     if (timeoutRef.current) {
@@ -161,8 +165,11 @@ export const Header = () => {
             )
           ))}
 
-          {/* Phone & Mobile Menu */}
-          <div className="flex items-center gap-4">
+          {/* Language Switcher, Phone & Mobile Menu */}
+          <div className="flex items-center gap-3">
+            <div className="hidden md:block">
+              <LanguageSwitcher />
+            </div>
             <a
               href="tel:+8617674048404"
               className="hidden md:flex items-center gap-2 text-primary-foreground"
@@ -186,6 +193,9 @@ export const Header = () => {
         {isOpen && (
           <nav className="lg:hidden py-4 border-t border-primary-foreground/10 max-h-[70vh] overflow-y-auto">
             <div className="flex flex-col gap-1">
+              <div className="px-4 py-2 mb-2">
+                <LanguageSwitcher />
+              </div>
               {navItems.map((item) => (
                 <div key={item.name}>
                   <Link

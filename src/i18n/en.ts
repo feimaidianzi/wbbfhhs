@@ -1,0 +1,258 @@
+export const enTranslations: Record<string, string> = {
+  // Navigation
+  'nav.home': 'Home',
+  'nav.about': 'About Us',
+  'nav.products': 'Products',
+  'nav.applications': 'Applications',
+  'nav.software': 'Software',
+  'nav.custom': 'Customization',
+  'nav.news': 'News',
+  'nav.contact': 'Contact',
+
+  // Product Categories
+  'product.airport': 'Drone Airport',
+  'product.airport.desc': 'Automatic drone landing platform',
+  'product.tethered': 'Tethered Drone',
+  'product.tethered.desc': '24-hour continuous operation',
+  'product.logistics': 'Logistics Drone',
+  'product.logistics.desc': 'Efficient smart delivery system',
+  'product.swarm': 'Swarm Drone',
+  'product.swarm.desc': 'Intelligent swarm control system',
+  'product.fpv': 'FPV Drone',
+  'product.fpv.desc': 'First-person view flying experience',
+  'product.multiRotor': 'Multi-Rotor Drone',
+  'product.multiRotor.desc': 'Professional multi-rotor drone series',
+
+  // Accessories
+  'accessory.vtx': 'VTX/VRX',
+  'accessory.vtx.desc': 'Video transmitter & receiver modules',
+  'accessory.fc': 'FC/ESC',
+  'accessory.fc.desc': 'Flight controller & ESC systems',
+  'accessory.gimbal': 'Gimbal/Pod',
+  'accessory.gimbal.desc': 'Professional stabilization system',
+  'accessory.digitalFpv': 'Digital FPV',
+  'accessory.digitalFpv.desc': 'HD digital video transmission',
+  'accessory.camera': 'Camera',
+  'accessory.camera.desc': 'Professional aerial camera',
+  'accessory.elrs': 'ELRS',
+  'accessory.elrs.desc': 'Long-range control link',
+  'accessory.others': 'Other Accessories',
+  'accessory.others.desc': 'Auxiliary equipment',
+
+  // Applications
+  'app.power': 'Power Inspection',
+  'app.power.desc': 'Smart transmission line inspection',
+  'app.logistics': 'Logistics',
+  'app.logistics.desc': 'Drone logistics delivery',
+  'app.military': 'Military',
+  'app.military.desc': 'Reconnaissance & communication relay',
+  'app.environment': 'Environmental',
+  'app.environment.desc': 'Environmental monitoring & treatment',
+  'app.firefighting': 'Firefighting',
+  'app.firefighting.desc': 'Fire reconnaissance & emergency rescue',
+  'app.tethered': 'Tethered Applications',
+  'app.tethered.desc': '24-hour continuous hovering',
+  'app.solutions': 'Solutions',
+  'app.solutions.desc': 'Complete industry solutions',
+
+  // Custom Research
+  'custom.accessories': 'Accessories Customization',
+  'custom.accessories.desc': 'Professional accessory customization',
+  'custom.drone': 'Drone Customization',
+  'custom.drone.desc': 'Complete drone system development',
+  'custom.software': 'Software Customization',
+  'custom.software.desc': 'Ground station & algorithm customization',
+  'custom.payload': 'Payload Customization',
+  'custom.payload.desc': 'Professional payload customization',
+
+  // Software
+  'software.exam': 'Exam System',
+  'software.exam.desc': 'Drone training assessment platform',
+  'software.pvInspection': 'PV Inspection System',
+  'software.pvInspection.desc': 'AI photovoltaic defect detection',
+  'software.management': 'Drone Management',
+  'software.management.desc': 'Device & task management',
+  'software.powerSystem': 'Power Inspection System',
+  'software.powerSystem.desc': 'Smart transmission line inspection',
+  'software.pvSystem': 'PV System',
+  'software.pvSystem.desc': 'Photovoltaic station O&M management',
+  'software.envSystem': 'Environment System',
+  'software.envSystem.desc': 'Environmental monitoring platform',
+  'software.groundStation': 'Ground Station',
+  'software.groundStation.desc': 'Professional flight control station',
+  'software.swarmStation': 'Swarm Station',
+  'software.swarmStation.desc': 'Swarm formation control',
+
+  // Projects
+  'project.training': 'Drone Training',
+  'project.training.desc': 'Professional pilot training service',
+  'project.show': 'Drone Show',
+  'project.show.desc': 'Swarm light show service',
+  'project.flight': 'Flight Service',
+  'project.flight.desc': 'Professional flight operation service',
+  'project.cooperation': 'Cooperation',
+  'project.cooperation.desc': 'Customized project cooperation',
+
+  // Footer
+  'footer.subscribe': 'Subscribe to Our Updates',
+  'footer.subscribe.desc': 'Get the latest product news, industry solutions and technical insights',
+  'footer.email.placeholder': 'Enter your email',
+  'footer.subscribe.btn': 'Subscribe',
+  'footer.company.desc': 'FlyMind Technology is a professional drone R&D manufacturer, focusing on the development, production and sales of industrial-grade drone accessories, providing intelligent flight solutions for power, logistics, firefighting, emergency and other industries.',
+  'footer.hotline': 'Hotline',
+  'footer.email': 'Email',
+  'footer.products': 'Products',
+  'footer.applications': 'Applications',
+  'footer.software': 'Software',
+  'footer.custom': 'Customization',
+  'footer.address': 'Address',
+  'footer.address.content': 'Ausnutria Global Headquarters, Guanziling, Yueliangdao Street, Wangcheng District, Changsha, Hunan, China',
+  'footer.copyright': 'FlyMind Technology Co., Ltd.',
+  'footer.rights': 'All Rights Reserved',
+  'footer.aboutUs': 'About Us',
+  'footer.contactUs': 'Contact Us',
+  'footer.privacy': 'Privacy Policy',
+  'footer.terms': 'Terms of Service',
+
+  // Hero Section
+  'hero.tagline': 'FlyMind · Professional Drone Manufacturer',
+  'hero.title': 'Smart Flight · Unlimited Possibilities',
+  'hero.subtitle': 'Focusing on industrial drone R&D and manufacturing, providing intelligent flight solutions for power, logistics, firefighting, emergency and other industries',
+  'hero.products': 'View Products',
+  'hero.contact': 'Contact Us',
+
+  // Common
+  'common.learnMore': 'Learn More',
+  'common.viewAll': 'View All',
+  'common.contact': 'Contact',
+  'common.phone': 'Phone',
+  'common.email': 'Email',
+  'common.address': 'Address',
+
+  // Contact Page
+  'contact.title': 'Contact Us',
+  'contact.subtitle': 'For any questions or cooperation intentions, please feel free to contact us',
+  'contact.form.name': 'Your Name',
+  'contact.form.email': 'Email Address',
+  'contact.form.phone': 'Phone Number',
+  'contact.form.company': 'Company Name',
+  'contact.form.message': 'Message',
+  'contact.form.submit': 'Submit',
+  'contact.info.title': 'Contact Information',
+  'contact.map.title': 'Our Location',
+
+  // About Page
+  'about.title': 'About FlyMind',
+  'about.subtitle': 'Focusing on drone R&D and manufacturing, leading the new era of intelligent flight',
+  'about.intro.title': 'Company Profile',
+  'about.intro.content': 'FlyMind Technology is a high-tech enterprise specializing in drone R&D, manufacturing and sales. The company is committed to providing professional drone solutions for power, logistics, firefighting, emergency and other industries.',
+  'about.vision.title': 'Vision',
+  'about.vision.content': 'To become the world\'s leading provider of industrial drone solutions',
+  'about.mission.title': 'Mission',
+  'about.mission.content': 'Promote intelligent development of industries through technological innovation, making drones serve more industries',
+
+  // News Page
+  'news.title': 'News Center',
+  'news.subtitle': 'Learn about the latest news and industry information from FlyMind',
+  'news.readMore': 'Read More',
+  'news.latest': 'Latest News',
+
+  // Products Page
+  'products.title': 'Product Series',
+  'products.subtitle': 'Covering industrial multi-rotor, automatic airport, swarm system, logistics delivery and other full product lines, providing professional drone solutions for various industries',
+  'products.all': 'All Products',
+  'products.hot': 'Hot',
+  'products.count': 'Total {count} products',
+
+  // Index Page Sections
+  'index.seo.title': 'Home',
+  'index.seo.desc': 'FlyMind Technology, focusing on industrial drone R&D and manufacturing, providing tethered drones, logistics drones, drone airports, swarm drones and industry solutions.',
+
+  // HeroSection
+  'hero.badge': 'FlyMind · Professional Drone Manufacturer',
+  'hero.title.line1': 'Smart Flight',
+  'hero.title.line2': 'Unlimited Possibilities',
+  'hero.description': 'Focusing on industrial drone R&D and manufacturing, providing intelligent flight solutions for power, logistics, firefighting, emergency and other industries',
+  'hero.btn.products': 'View Products',
+  'hero.btn.contact': 'Contact Us',
+
+  // ProductsSection
+  'section.products.badge': 'Product Matrix',
+  'section.products.title': 'Full Range Drone Products',
+  'section.products.desc': 'Covering industrial multi-rotor, automatic airport, swarm system and more',
+  'section.products.viewAll': 'View All Products',
+
+  // CompanyIntroSection
+  'section.company.badge': 'About FlyMind',
+  'section.company.title': 'Professional Drone R&D Manufacturer',
+  'section.company.desc1': 'FlyMind Technology is a high-tech enterprise focusing on industrial drone R&D, production and sales. The company is committed to providing intelligent flight solutions for power, logistics, firefighting, emergency and other industries.',
+  'section.company.desc2': 'With strong R&D capabilities and rich industry experience, FlyMind has become a leading drone solution provider in China, with products widely used in power inspection, logistics delivery, firefighting rescue and other fields.',
+  'section.company.stat1': 'Years Experience',
+  'section.company.stat2': 'Patents',
+  'section.company.stat3': 'Clients Served',
+  'section.company.learnMore': 'Learn More',
+
+  // WhyChooseUs
+  'section.why.title': 'Why Choose FlyMind',
+  'section.why.subtitle': 'Professional team, leading technology, quality service',
+  'section.why.years': '+',
+  'section.why.experience': 'Years Experience',
+  'section.why.patents': '+',
+  'section.why.patentLabel': 'Patents',
+  'section.why.clients': '+',
+  'section.why.clientLabel': 'Clients',
+  'section.why.cities': '+',
+  'section.why.cityLabel': 'Cities Covered',
+  'section.why.tech': 'Leading Technology',
+  'section.why.techDesc': '50+ patents, independent core technology',
+  'section.why.quality': 'Quality Assurance',
+  'section.why.qualityDesc': 'Strict quality management, international certifications',
+  'section.why.service': 'Professional Service',
+  'section.why.serviceDesc': '20+ cities service network, 24/7 response',
+
+  // SolutionsSection
+  'section.solutions.badge': 'Industry Solutions',
+  'section.solutions.title': 'Empowering Industry Upgrades',
+  'section.solutions.desc': 'Customized drone solutions for different industry needs',
+  'section.solutions.viewAll': 'View All Solutions',
+
+  // ApplicationsSection
+  'section.apps.badge': 'Applications',
+  'section.apps.title': 'Widely Used Across Industries',
+  'section.apps.learnMore': 'Learn More',
+
+  // NewsSection
+  'section.news.badge': 'News',
+  'section.news.title': 'Latest Updates',
+  'section.news.viewAll': 'View All',
+  'section.news.readMore': 'Read More',
+
+  // PartnersSection
+  'section.partners.badge': 'Partners',
+  'section.partners.title': 'Trusted Partners',
+  'section.partners.desc': 'Long-term strategic partnerships with renowned enterprises',
+
+  // CertificationsSection
+  'section.certs.badge': 'Certifications',
+  'section.certs.title': 'Authorized Certifications',
+  'section.certs.desc': 'Multiple industry certifications, trusted quality',
+
+  // CTASection
+  'section.cta.title': 'Start the Era of Smart Flight',
+  'section.cta.desc': 'Whether you need mature products or customized solutions, FlyMind will provide professional services',
+  'section.cta.btn.products': 'Browse Products',
+  'section.cta.btn.contact': 'Contact Us',
+
+  // FloatingContact
+  'floating.home': 'Home',
+  'floating.phone': 'Call Us',
+  'floating.qq': 'QQ Service',
+  'floating.wechat': 'WeChat',
+  'floating.scanWechat': 'Scan to add WeChat',
+  'floating.callPhone': 'Call Now',
+  'floating.comingSoon': 'Coming Soon',
+  'floating.new': 'NEW',
+  'floating.aiModule': 'Drone AI Guidance Module',
+  'floating.aiDesc': 'Intelligent target recognition, autonomous path planning, precise guidance control',
+  'floating.learnMore': 'Learn More',
+};
