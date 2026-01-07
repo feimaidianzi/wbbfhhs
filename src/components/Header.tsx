@@ -151,13 +151,6 @@ export const Header = () => {
                         onClick={() => setActiveDropdown(null)}
                         style={{ animationDelay: `${index * 30}ms` }}
                       >
-                        <div className="aspect-[4/3] overflow-hidden bg-muted">
-                          <img 
-                            src={child.image} 
-                            alt={child.name} 
-                            className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
-                          />
-                        </div>
                         <div className="p-4">
                           <div className="font-semibold text-foreground group-hover:text-accent transition-colors text-base mb-1">{child.name}</div>
                           <div className="text-sm text-muted-foreground line-clamp-2">{child.description}</div>
