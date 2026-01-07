@@ -75,6 +75,8 @@ import FcEsc from "./pages/products/accessories/FcEsc";
 import FcEscDetail from "./pages/products/accessories/FcEscDetail";
 import Gimbal from "./pages/products/accessories/Gimbal";
 import GimbalDetail from "./pages/products/accessories/GimbalDetail";
+import DigitalFpv from "./pages/fpv/DigitalFpv";
+import DigitalFpvDetail from "./pages/fpv/DigitalFpvDetail";
 
 const queryClient = new QueryClient();
 
@@ -154,6 +156,8 @@ const App = () => (
           <Route path="/products/accessories/fc-esc/:productId" element={<FcEscDetail />} />
           <Route path="/products/accessories/gimbal" element={<Gimbal />} />
           <Route path="/products/accessories/gimbal/:productId" element={<GimbalDetail />} />
+          <Route path="/products/accessories/digital-fpv" element={<DigitalFpv />} />
+          <Route path="/products/accessories/digital-fpv/:productId" element={<DigitalFpvDetail />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
