@@ -10,6 +10,7 @@ import sj4000Lens from "@/assets/camera/sj4000-lens.png";
 import sj4000Colors from "@/assets/camera/sj4000-colors.png";
 import sj4000Accessories from "@/assets/camera/sj4000-accessories.png";
 import sj4000HdQuality from "@/assets/camera/sj4000-hd-quality.png";
+import sj4000AppShare from "@/assets/camera/sj4000-app-share.png";
 
 const featureIcons: Record<string, React.ReactNode> = {
   "1200万像素COMS大广角成像": <Aperture className="w-8 h-8" />,
@@ -162,6 +163,49 @@ const CameraDetail = () => {
                   <span className="text-primary font-semibold">WDR</span>
                   <span className="text-sm text-muted-foreground ml-2">宽动态</span>
                 </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* APP Share Section */}
+        <section className="py-20 bg-slate-900 text-white">
+          <div className="container mx-auto px-4">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+              <div>
+                <h2 className="text-3xl font-bold mb-4">智能APP 分享无界</h2>
+                <p className="text-lg text-white/80 mb-6">
+                  FlyMind APP支持快速分享图片、视频到微信、微博、QQ等多种社交平台，同时支持图片和视频编辑。可以和全球百万用户一起分享精美图片和视频。
+                </p>
+                <div className="flex flex-wrap gap-4">
+                  <div className="flex items-center gap-2 px-4 py-2 bg-white/10 rounded-full">
+                    <span className="w-6 h-6 bg-blue-600 rounded-full flex items-center justify-center text-xs">f</span>
+                    <span className="text-sm">Facebook</span>
+                  </div>
+                  <div className="flex items-center gap-2 px-4 py-2 bg-white/10 rounded-full">
+                    <span className="w-6 h-6 bg-sky-500 rounded-full flex items-center justify-center text-xs">t</span>
+                    <span className="text-sm">Twitter</span>
+                  </div>
+                  <div className="flex items-center gap-2 px-4 py-2 bg-white/10 rounded-full">
+                    <span className="w-6 h-6 bg-green-500 rounded-full flex items-center justify-center text-xs">微</span>
+                    <span className="text-sm">微信</span>
+                  </div>
+                  <div className="flex items-center gap-2 px-4 py-2 bg-white/10 rounded-full">
+                    <span className="w-6 h-6 bg-red-500 rounded-full flex items-center justify-center text-xs">微</span>
+                    <span className="text-sm">微博</span>
+                  </div>
+                  <div className="flex items-center gap-2 px-4 py-2 bg-white/10 rounded-full">
+                    <span className="w-6 h-6 bg-blue-500 rounded-full flex items-center justify-center text-xs">Q</span>
+                    <span className="text-sm">QQ</span>
+                  </div>
+                </div>
+              </div>
+              <div>
+                <img
+                  src={sj4000AppShare}
+                  alt="智能APP 分享无界"
+                  className="w-full rounded-xl"
+                />
               </div>
             </div>
           </div>
