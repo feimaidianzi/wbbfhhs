@@ -1,4 +1,5 @@
 import { Phone, MessageCircle, Home, QrCode, X } from "lucide-react";
+import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 
 export const FloatingContact = () => {
@@ -95,12 +96,12 @@ export const FloatingContact = () => {
               <p className="text-sm opacity-90 mb-3">
                 智能目标识别、自主航迹规划、精准制导控制
               </p>
-              <a
-                href="/products"
+              <Link
+                to="/products"
                 className="inline-block bg-accent hover:bg-accent/90 text-accent-foreground px-4 py-2 rounded-lg font-medium text-sm transition-colors"
               >
                 了解更多
-              </a>
+              </Link>
             </div>
           </div>
         </div>
