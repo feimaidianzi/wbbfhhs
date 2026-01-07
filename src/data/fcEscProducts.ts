@@ -354,10 +354,17 @@ export const stackProducts: FcEscProduct[] = [
 export const sixInOneEscProducts: FcEscProduct[] = [
   {
     id: "6in1-80a",
-    name: "六合一80A电调",
-    model: "FM-6IN1-80A",
+    name: "Argus六合一80A电调",
+    model: "ARGUS 6-in-1 80A",
     category: "六合一电调",
-    image: "/placeholder.svg",
+    image: "https://ueeshop.ly200-cdn.com/u_file/UPBD/UPBD023/2510/31/products/1.jpg",
+    images: [
+      "https://ueeshop.ly200-cdn.com/u_file/UPBD/UPBD023/2510/31/products/1.jpg",
+      "https://ueeshop.ly200-cdn.com/u_file/UPBD/UPBD023/2510/31/products/1-.jpg",
+      "https://ueeshop.ly200-cdn.com/u_file/UPBD/UPBD023/2510/31/products/3.jpg",
+      "https://ueeshop.ly200-cdn.com/u_file/UPBD/UPBD023/2510/31/products/4.jpg",
+      "https://ueeshop.ly200-cdn.com/u_file/UPBD/UPBD023/2510/31/products/5.jpg"
+    ],
     price: "¥729",
     highlights: [
       "六合一设计（含2路备用）",
@@ -392,10 +399,14 @@ export const sixInOneEscProducts: FcEscProduct[] = [
   },
   {
     id: "6in1-100a",
-    name: "六合一100A电调",
-    model: "FM-6IN1-100A",
+    name: "Argus六合一100A电调",
+    model: "ARGUS 6-in-1 100A",
     category: "六合一电调",
-    image: "/placeholder.svg",
+    image: "https://ueeshop.ly200-cdn.com/u_file/UPBD/UPBD023/2510/31/products/4.jpg",
+    images: [
+      "https://ueeshop.ly200-cdn.com/u_file/UPBD/UPBD023/2510/31/products/4.jpg",
+      "https://ueeshop.ly200-cdn.com/u_file/UPBD/UPBD023/2510/31/products/5.jpg"
+    ],
     price: "¥899",
     highlights: [
       "六合一设计（含2路备用）",
@@ -433,13 +444,20 @@ export const sixInOneEscProducts: FcEscProduct[] = [
 export const flightControllerProducts: FcEscProduct[] = [
   {
     id: "fc-f405",
-    name: "F405飞控",
-    model: "FM-F405-V2",
+    name: "AxisFlying F405飞控",
+    model: "ARGUS F405",
     category: "飞控",
-    image: "/placeholder.svg",
+    image: "https://ueeshop.ly200-cdn.com/u_file/UPBD/UPBD023/2509/25/products/2.jpg",
+    images: [
+      "https://ueeshop.ly200-cdn.com/u_file/UPBD/UPBD023/2509/25/products/2.jpg",
+      "https://ueeshop.ly200-cdn.com/u_file/UPBD/UPBD023/2509/25/products/1.jpg",
+      "https://ueeshop.ly200-cdn.com/u_file/UPBD/UPBD023/2509/25/products/3.jpg",
+      "https://ueeshop.ly200-cdn.com/u_file/UPBD/UPBD023/2509/25/products/4.jpg"
+    ],
     price: "¥229",
     highlights: [
       "STM32F405处理器，高速运算",
+      "ICM42688陀螺仪",
       "支持Betaflight/INAV固件",
       "板载OSD芯片",
       "3-6S电压输入"
@@ -472,10 +490,18 @@ export const flightControllerProducts: FcEscProduct[] = [
   },
   {
     id: "fc-f722",
-    name: "F7飞控",
-    model: "FM-F722-PRO",
+    name: "ARGUS阿格斯 F7飞控",
+    model: "ARGUS F722",
     category: "飞控",
-    image: "/placeholder.svg",
+    image: "https://ueeshop.ly200-cdn.com/u_file/UPBD/UPBD023/2409/23/products/3360a61357.jpg",
+    images: [
+      "https://ueeshop.ly200-cdn.com/u_file/UPBD/UPBD023/2409/23/products/3360a61357.jpg",
+      "https://ueeshop.ly200-cdn.com/u_file/UPBD/UPBD023/2409/23/products/6a98280f00.jpg",
+      "https://ueeshop.ly200-cdn.com/u_file/UPBD/UPBD023/2409/23/products/ed29dbe500.jpg",
+      "https://ueeshop.ly200-cdn.com/u_file/UPBD/UPBD023/2409/23/products/13a0e0ac03.jpg",
+      "https://ueeshop.ly200-cdn.com/u_file/UPBD/UPBD023/2409/23/products/bd9e0ae648.jpg",
+      "https://ueeshop.ly200-cdn.com/u_file/UPBD/UPBD023/2409/23/products/050fdf3226.jpg"
+    ],
     price: "¥399",
     highlights: [
       "STM32F722处理器，更高性能",
@@ -508,45 +534,6 @@ export const flightControllerProducts: FcEscProduct[] = [
       "F722飞控 x1",
       "线材 x1套"
     ]
-  },
-  {
-    id: "fc-h743",
-    name: "H7飞控",
-    model: "FM-H743-ELITE",
-    category: "飞控",
-    image: "/placeholder.svg",
-    price: "¥599",
-    highlights: [
-      "STM32H743旗舰处理器",
-      "480MHz主频，极致性能",
-      "8个UART + DMA支持",
-      "板载黑匣子存储"
-    ],
-    description: [
-      "旗舰级H7平台",
-      "480MHz超高主频",
-      "8个UART接口"
-    ],
-    fcSpecs: {
-      mcu: "STM32H743",
-      gyro: "BMI270 + ICM42688",
-      osd: "AT7456E",
-      blackbox: "32MB",
-      uart: "8个UART",
-      voltage: "3-8S LiPo",
-      bec: "5V/3A, 9V/3A",
-      size: "30.5×30.5mm (M3)",
-      weight: "10g",
-      firmware: "Betaflight"
-    },
-    features: [
-      "旗舰级性能",
-      "丰富的扩展接口"
-    ],
-    packageIncludes: [
-      "H743飞控 x1",
-      "线材 x1套"
-    ]
   }
 ];
 
@@ -554,10 +541,18 @@ export const flightControllerProducts: FcEscProduct[] = [
 export const escProducts: FcEscProduct[] = [
   {
     id: "esc-55a",
-    name: "55A四合一电调",
-    model: "FM-ESC-55A-4IN1",
+    name: "ARGUS阿格斯 55/65A电调",
+    model: "ARGUS 55/65A 4-in-1",
     category: "四合一电调",
-    image: "/placeholder.svg",
+    image: "https://ueeshop.ly200-cdn.com/u_file/UPBD/UPBD023/2409/23/products/c3752e8785.jpg",
+    images: [
+      "https://ueeshop.ly200-cdn.com/u_file/UPBD/UPBD023/2409/23/products/c3752e8785.jpg",
+      "https://ueeshop.ly200-cdn.com/u_file/UPBD/UPBD023/2411/12/products/2d582af826.jpg",
+      "https://ueeshop.ly200-cdn.com/u_file/UPBD/UPBD023/2409/23/products/b4f0560c14.jpg",
+      "https://ueeshop.ly200-cdn.com/u_file/UPBD/UPBD023/2409/23/products/0f437bc9de.jpg",
+      "https://ueeshop.ly200-cdn.com/u_file/UPBD/UPBD023/2409/23/products/8b9a27ef6c.jpg",
+      "https://ueeshop.ly200-cdn.com/u_file/UPBD/UPBD023/2409/25/products/646d8e03a9.jpg"
+    ],
     price: "¥449",
     highlights: [
       "持续55A，峰值65A",
@@ -591,10 +586,15 @@ export const escProducts: FcEscProduct[] = [
   },
   {
     id: "esc-60a",
-    name: "60A四合一电调",
-    model: "FM-ESC-60A-V2",
+    name: "Argus ECO 60A V2电调",
+    model: "ARGUS ECO 60A V2",
     category: "四合一电调",
-    image: "/placeholder.svg",
+    image: "https://ueeshop.ly200-cdn.com/u_file/UPBD/UPBD023/2411/09/products/ab393fb2ff.jpg",
+    images: [
+      "https://ueeshop.ly200-cdn.com/u_file/UPBD/UPBD023/2411/09/products/ab393fb2ff.jpg",
+      "https://ueeshop.ly200-cdn.com/u_file/UPBD/UPBD023/2411/09/products/09c807f148.jpg",
+      "https://ueeshop.ly200-cdn.com/u_file/UPBD/UPBD023/2411/09/products/fcecd99917.jpg"
+    ],
     price: "¥335",
     highlights: [
       "持续60A，峰值75A",
@@ -628,21 +628,28 @@ export const escProducts: FcEscProduct[] = [
   },
   {
     id: "esc-80a",
-    name: "80A四合一电调",
-    model: "FM-ESC-80A-4IN1",
+    name: "Argus Pro 80A电调",
+    model: "ARGUS Pro 80A 4-in-1",
     category: "四合一电调",
-    image: "/placeholder.svg",
+    image: "https://ueeshop.ly200-cdn.com/u_file/UPBD/UPBD023/2509/25/products/32.jpg",
+    images: [
+      "https://ueeshop.ly200-cdn.com/u_file/UPBD/UPBD023/2509/25/products/32.jpg",
+      "https://ueeshop.ly200-cdn.com/u_file/UPBD/UPBD023/2509/25/products/32-140338e471.jpg",
+      "https://ueeshop.ly200-cdn.com/u_file/UPBD/UPBD023/2509/25/products/5.jpg",
+      "https://ueeshop.ly200-cdn.com/u_file/UPBD/UPBD023/2509/25/products/8.jpg",
+      "https://ueeshop.ly200-cdn.com/u_file/UPBD/UPBD023/2509/25/products/8-140337a484.jpg"
+    ],
     price: "¥759",
     highlights: [
       "持续80A，峰值100A",
       "3-8S宽电压支持",
       "大功率MOS阵列",
-      "铝基板高效散热"
+      "8层PCB高效散热"
     ],
     description: [
       "80A大电流输出",
       "宽电压支持",
-      "铝基板散热"
+      "8层PCB散热"
     ],
     escSpecs: {
       current: "80A (持续)",
@@ -650,12 +657,12 @@ export const escProducts: FcEscProduct[] = [
       voltage: "3-8S LiPo",
       protocol: "DShot1200/600/300",
       mosfet: "大功率MOS阵列",
-      pcbLayers: "6层PCB",
+      pcbLayers: "8层PCB",
       size: "45×45mm",
       weight: "28g"
     },
     features: [
-      "铝基板散热",
+      "8层PCB散热",
       "大载重应用"
     ],
     packageIncludes: [
@@ -665,11 +672,15 @@ export const escProducts: FcEscProduct[] = [
   },
   {
     id: "esc-100a",
-    name: "100A四合一电调",
-    model: "FM-ESC-100A-4IN1",
+    name: "Argus Pro 100A电调",
+    model: "ARGUS Pro 100A 4-in-1",
     category: "四合一电调",
-    image: "/placeholder.svg",
-    price: "¥219",
+    image: "https://ueeshop.ly200-cdn.com/u_file/UPBD/UPBD023/2509/25/products/8.jpg",
+    images: [
+      "https://ueeshop.ly200-cdn.com/u_file/UPBD/UPBD023/2509/25/products/8.jpg",
+      "https://ueeshop.ly200-cdn.com/u_file/UPBD/UPBD023/2509/25/products/8-140337a484.jpg"
+    ],
+    price: "¥959",
     highlights: [
       "持续100A，峰值120A",
       "8层PCB设计",
@@ -706,10 +717,18 @@ export const escProducts: FcEscProduct[] = [
 export const separateEscProducts: FcEscProduct[] = [
   {
     id: "separate-esc-80a",
-    name: "80A分体电调",
-    model: "FM-SEP-ESC-80A",
+    name: "Argus阿格斯80A分体电调",
+    model: "ARGUS 80A SEP",
     category: "分体电调",
-    image: "/placeholder.svg",
+    image: "https://ueeshop.ly200-cdn.com/u_file/UPBD/UPBD023/2511/01/products/1--0950563810.jpg",
+    images: [
+      "https://ueeshop.ly200-cdn.com/u_file/UPBD/UPBD023/2511/01/products/1--0950563810.jpg",
+      "https://ueeshop.ly200-cdn.com/u_file/UPBD/UPBD023/2511/01/products/1-0950568c66.jpg",
+      "https://ueeshop.ly200-cdn.com/u_file/UPBD/UPBD023/2511/01/products/2-095056dae0.jpg",
+      "https://ueeshop.ly200-cdn.com/u_file/UPBD/UPBD023/2511/01/products/3-095056bd79.jpg",
+      "https://ueeshop.ly200-cdn.com/u_file/UPBD/UPBD023/2511/01/products/4-095056336a.jpg",
+      "https://ueeshop.ly200-cdn.com/u_file/UPBD/UPBD023/2511/01/products/5-095057288e.jpg"
+    ],
     price: "¥219",
     highlights: [
       "单臂独立安装",
@@ -741,10 +760,15 @@ export const separateEscProducts: FcEscProduct[] = [
   },
   {
     id: "separate-esc-100a",
-    name: "100A分体电调",
-    model: "FM-SEP-ESC-100A",
+    name: "Argus阿格斯100A分体电调",
+    model: "ARGUS 100A SEP",
     category: "分体电调",
-    image: "/placeholder.svg",
+    image: "https://ueeshop.ly200-cdn.com/u_file/UPBD/UPBD023/2511/01/products/3-095056bd79.jpg",
+    images: [
+      "https://ueeshop.ly200-cdn.com/u_file/UPBD/UPBD023/2511/01/products/3-095056bd79.jpg",
+      "https://ueeshop.ly200-cdn.com/u_file/UPBD/UPBD023/2511/01/products/4-095056336a.jpg",
+      "https://ueeshop.ly200-cdn.com/u_file/UPBD/UPBD023/2511/01/products/5-095057288e.jpg"
+    ],
     price: "¥289",
     highlights: [
       "大载重无人机专用",

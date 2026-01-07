@@ -120,9 +120,9 @@ const stacks = [
 const sixInOneEscs = [
   {
     id: "6in1-80a",
-    name: "六合一80A电调",
-    model: "FM-6IN1-80A",
-    image: "/placeholder.svg",
+    name: "Argus六合一80A电调",
+    model: "ARGUS 6-in-1 80A",
+    image: "https://ueeshop.ly200-cdn.com/u_file/UPBD/UPBD023/2510/31/products/1.jpg",
     category: "六合一电调",
     highlights: [
       "六合一设计（含2路备用）",
@@ -142,9 +142,9 @@ const sixInOneEscs = [
   },
   {
     id: "6in1-100a",
-    name: "六合一100A电调",
-    model: "FM-6IN1-100A",
-    image: "/placeholder.svg",
+    name: "Argus六合一100A电调",
+    model: "ARGUS 6-in-1 100A",
+    image: "https://ueeshop.ly200-cdn.com/u_file/UPBD/UPBD023/2510/31/products/4.jpg",
     category: "六合一电调",
     highlights: [
       "六合一设计（含2路备用）",
@@ -168,16 +168,16 @@ const sixInOneEscs = [
 const flightControllers = [
   {
     id: "fc-f405",
-    name: "F405飞控",
-    model: "FM-F405-V2",
-    image: "/placeholder.svg",
+    name: "AxisFlying F405飞控",
+    model: "ARGUS F405",
+    image: "https://ueeshop.ly200-cdn.com/u_file/UPBD/UPBD023/2509/25/products/2.jpg",
     category: "飞控",
     processor: "STM32F405",
     highlights: [
       "STM32F405处理器，高速运算",
+      "ICM42688陀螺仪",
       "支持Betaflight/INAV固件",
-      "板载OSD芯片",
-      "3-6S电压输入"
+      "板载OSD芯片"
     ],
     specs: {
       mcu: "STM32F405",
@@ -190,9 +190,9 @@ const flightControllers = [
   },
   {
     id: "fc-f722",
-    name: "F7飞控",
-    model: "FM-F722-PRO",
-    image: "/placeholder.svg",
+    name: "ARGUS阿格斯 F7飞控",
+    model: "ARGUS F722",
+    image: "https://ueeshop.ly200-cdn.com/u_file/UPBD/UPBD023/2409/23/products/3360a61357.jpg",
     category: "飞控",
     processor: "STM32F722",
     highlights: [
@@ -209,28 +209,6 @@ const flightControllers = [
       weight: "9g"
     },
     price: "¥399"
-  },
-  {
-    id: "fc-h743",
-    name: "H7飞控",
-    model: "FM-H743-ELITE",
-    image: "/placeholder.svg",
-    category: "飞控",
-    processor: "STM32H743",
-    highlights: [
-      "STM32H743旗舰处理器",
-      "480MHz主频，极致性能",
-      "8个UART + DMA支持",
-      "板载黑匣子存储"
-    ],
-    specs: {
-      mcu: "STM32H743",
-      gyro: "BMI270 + ICM42688",
-      voltage: "3-8S",
-      size: "30.5×30.5mm",
-      weight: "10g"
-    },
-    price: "¥599"
   }
 ];
 
@@ -238,10 +216,10 @@ const flightControllers = [
 const escs = [
   {
     id: "esc-55a",
-    name: "55A四合一电调",
-    model: "FM-ESC-55A-4IN1",
-    image: "/placeholder.svg",
-    category: "电调",
+    name: "ARGUS阿格斯 55/65A电调",
+    model: "ARGUS 55/65A 4-in-1",
+    image: "https://ueeshop.ly200-cdn.com/u_file/UPBD/UPBD023/2409/23/products/c3752e8785.jpg",
+    category: "四合一电调",
     current: "55A",
     highlights: [
       "持续55A，峰值65A",
@@ -260,10 +238,10 @@ const escs = [
   },
   {
     id: "esc-60a",
-    name: "60A四合一电调",
-    model: "FM-ESC-60A-V2",
-    image: "/placeholder.svg",
-    category: "电调",
+    name: "Argus ECO 60A V2电调",
+    model: "ARGUS ECO 60A V2",
+    image: "https://ueeshop.ly200-cdn.com/u_file/UPBD/UPBD023/2411/09/products/ab393fb2ff.jpg",
+    category: "四合一电调",
     current: "60A",
     highlights: [
       "持续60A，峰值75A",
@@ -282,16 +260,16 @@ const escs = [
   },
   {
     id: "esc-80a",
-    name: "80A四合一电调",
-    model: "FM-ESC-80A-4IN1",
-    image: "/placeholder.svg",
-    category: "电调",
+    name: "Argus Pro 80A电调",
+    model: "ARGUS Pro 80A 4-in-1",
+    image: "https://ueeshop.ly200-cdn.com/u_file/UPBD/UPBD023/2509/25/products/32.jpg",
+    category: "四合一电调",
     current: "80A",
     highlights: [
       "持续80A，峰值100A",
       "3-8S宽电压支持",
       "大功率MOS阵列",
-      "铝基板高效散热"
+      "8层PCB高效散热"
     ],
     specs: {
       current: "80A (持续) / 100A (峰值)",
@@ -304,10 +282,10 @@ const escs = [
   },
   {
     id: "esc-100a",
-    name: "100A四合一电调",
-    model: "FM-ESC-100A-4IN1",
-    image: "/placeholder.svg",
-    category: "电调",
+    name: "Argus Pro 100A电调",
+    model: "ARGUS Pro 100A 4-in-1",
+    image: "https://ueeshop.ly200-cdn.com/u_file/UPBD/UPBD023/2509/25/products/8.jpg",
+    category: "四合一电调",
     current: "100A",
     highlights: [
       "持续100A，峰值120A",
@@ -322,7 +300,7 @@ const escs = [
       size: "50×50mm",
       weight: "45g"
     },
-    price: "¥219"
+    price: "¥959"
   }
 ];
 
@@ -330,9 +308,9 @@ const escs = [
 const separateEscs = [
   {
     id: "separate-esc-80a",
-    name: "80A分体电调",
-    model: "FM-SEP-ESC-80A",
-    image: "/placeholder.svg",
+    name: "Argus阿格斯80A分体电调",
+    model: "ARGUS 80A SEP",
+    image: "https://ueeshop.ly200-cdn.com/u_file/UPBD/UPBD023/2511/01/products/1--0950563810.jpg",
     category: "分体电调",
     highlights: [
       "单臂独立安装",
@@ -351,9 +329,9 @@ const separateEscs = [
   },
   {
     id: "separate-esc-100a",
-    name: "100A分体电调",
-    model: "FM-SEP-ESC-100A",
-    image: "/placeholder.svg",
+    name: "Argus阿格斯100A分体电调",
+    model: "ARGUS 100A SEP",
+    image: "https://ueeshop.ly200-cdn.com/u_file/UPBD/UPBD023/2511/01/products/3-095056bd79.jpg",
     category: "分体电调",
     highlights: [
       "大载重无人机专用",
