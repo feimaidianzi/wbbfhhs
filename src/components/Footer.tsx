@@ -3,35 +3,59 @@ import { Logo } from "@/components/Logo";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-
-const productLinks = [
-  { name: "系留无人机", path: "/products/tethered" },
-  { name: "物流无人机", path: "/products/logistics" },
-  { name: "消防无人机", path: "/products/firefighting" },
-  { name: "飞迈机场", path: "/products/airport" },
-  { name: "多旋翼无人机", path: "/products/multi-rotor" },
-  { name: "架线无人机", path: "/products/wire-laying" },
-];
-
-const applicationLinks = [
-  { name: "电力巡检", path: "/applications/power" },
-  { name: "应急救援", path: "/applications/emergency" },
-  { name: "环境监测", path: "/applications/environment" },
-  { name: "智慧城市", path: "/applications/smart-city" },
-  { name: "交通管理", path: "/applications/traffic" },
-  { name: "水利监测", path: "/applications/water" },
-];
-
-const serviceLinks = [
-  { name: "飞行服务", path: "/projects/flight-service" },
-  { name: "无人机培训", path: "/projects/training" },
-  { name: "项目合作", path: "/projects/cooperation" },
-  { name: "定制研发", path: "/custom-research" },
-];
-
+const productLinks = [{
+  name: "系留无人机",
+  path: "/products/tethered"
+}, {
+  name: "物流无人机",
+  path: "/products/logistics"
+}, {
+  name: "消防无人机",
+  path: "/products/firefighting"
+}, {
+  name: "飞迈机场",
+  path: "/products/airport"
+}, {
+  name: "多旋翼无人机",
+  path: "/products/multi-rotor"
+}, {
+  name: "架线无人机",
+  path: "/products/wire-laying"
+}];
+const applicationLinks = [{
+  name: "电力巡检",
+  path: "/applications/power"
+}, {
+  name: "应急救援",
+  path: "/applications/emergency"
+}, {
+  name: "环境监测",
+  path: "/applications/environment"
+}, {
+  name: "智慧城市",
+  path: "/applications/smart-city"
+}, {
+  name: "交通管理",
+  path: "/applications/traffic"
+}, {
+  name: "水利监测",
+  path: "/applications/water"
+}];
+const serviceLinks = [{
+  name: "飞行服务",
+  path: "/projects/flight-service"
+}, {
+  name: "无人机培训",
+  path: "/projects/training"
+}, {
+  name: "项目合作",
+  path: "/projects/cooperation"
+}, {
+  name: "定制研发",
+  path: "/custom-research"
+}];
 export const Footer = () => {
-  return (
-    <footer className="bg-gradient-to-b from-primary to-primary/95 text-primary-foreground relative overflow-hidden">
+  return <footer className="bg-gradient-to-b from-primary to-primary/95 text-primary-foreground relative overflow-hidden">
       {/* Background decoration */}
       <div className="absolute inset-0 opacity-5">
         <div className="absolute top-0 left-1/4 w-96 h-96 bg-accent rounded-full blur-3xl" />
@@ -47,11 +71,7 @@ export const Footer = () => {
               <p className="text-primary-foreground/70 text-sm">获取最新产品资讯、行业解决方案和技术分享</p>
             </div>
             <div className="flex w-full max-w-md gap-2">
-              <Input 
-                type="email" 
-                placeholder="请输入您的邮箱" 
-                className="bg-primary-foreground/10 border-primary-foreground/20 text-primary-foreground placeholder:text-primary-foreground/50 focus:border-accent"
-              />
+              <Input type="email" placeholder="请输入您的邮箱" className="bg-primary-foreground/10 border-primary-foreground/20 text-primary-foreground placeholder:text-primary-foreground/50 focus:border-accent" />
               <Button variant="secondary" className="shrink-0 gap-2">
                 <Send className="w-4 h-4" />
                 订阅
@@ -68,9 +88,7 @@ export const Footer = () => {
               <div className="flex items-center gap-2 mb-6">
                 <Logo showLink={false} />
               </div>
-              <p className="text-primary-foreground/80 text-sm leading-relaxed mb-6 max-w-sm">
-                飞迈科技是专业的无人机研发制造商，专注于工业级无人机系统的研发、生产与销售，为电力、物流、消防、应急等行业提供智能化飞行解决方案。
-              </p>
+              <p className="text-primary-foreground/80 text-sm leading-relaxed mb-6 max-w-sm">飞迈科技是专业的无人机研发制造商，专注于工业级无人机配件的研发、生产与销售，为电力、物流、消防、应急等行业提供智能化飞行解决方案。</p>
               
               {/* Contact Info Cards */}
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
@@ -102,17 +120,12 @@ export const Footer = () => {
                 产品中心
               </h4>
               <ul className="space-y-3">
-                {productLinks.map((item) => (
-                  <li key={item.name}>
-                    <Link
-                      to={item.path}
-                      className="text-primary-foreground/70 hover:text-accent text-sm transition-colors flex items-center gap-1 group"
-                    >
+                {productLinks.map(item => <li key={item.name}>
+                    <Link to={item.path} className="text-primary-foreground/70 hover:text-accent text-sm transition-colors flex items-center gap-1 group">
                       <ArrowRight className="w-3 h-3 opacity-0 -ml-4 group-hover:opacity-100 group-hover:ml-0 transition-all" />
                       {item.name}
                     </Link>
-                  </li>
-                ))}
+                  </li>)}
               </ul>
             </div>
 
@@ -123,17 +136,12 @@ export const Footer = () => {
                 行业应用
               </h4>
               <ul className="space-y-3">
-                {applicationLinks.map((item) => (
-                  <li key={item.name}>
-                    <Link
-                      to={item.path}
-                      className="text-primary-foreground/70 hover:text-accent text-sm transition-colors flex items-center gap-1 group"
-                    >
+                {applicationLinks.map(item => <li key={item.name}>
+                    <Link to={item.path} className="text-primary-foreground/70 hover:text-accent text-sm transition-colors flex items-center gap-1 group">
                       <ArrowRight className="w-3 h-3 opacity-0 -ml-4 group-hover:opacity-100 group-hover:ml-0 transition-all" />
                       {item.name}
                     </Link>
-                  </li>
-                ))}
+                  </li>)}
               </ul>
             </div>
 
@@ -144,17 +152,12 @@ export const Footer = () => {
                 服务支持
               </h4>
               <ul className="space-y-3">
-                {serviceLinks.map((item) => (
-                  <li key={item.name}>
-                    <Link
-                      to={item.path}
-                      className="text-primary-foreground/70 hover:text-accent text-sm transition-colors flex items-center gap-1 group"
-                    >
+                {serviceLinks.map(item => <li key={item.name}>
+                    <Link to={item.path} className="text-primary-foreground/70 hover:text-accent text-sm transition-colors flex items-center gap-1 group">
                       <ArrowRight className="w-3 h-3 opacity-0 -ml-4 group-hover:opacity-100 group-hover:ml-0 transition-all" />
                       {item.name}
                     </Link>
-                  </li>
-                ))}
+                  </li>)}
               </ul>
               
               {/* Address */}
@@ -203,6 +206,5 @@ export const Footer = () => {
           </div>
         </div>
       </div>
-    </footer>
-  );
+    </footer>;
 };
