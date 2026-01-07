@@ -1,3 +1,7 @@
+import k40tImage from "@/assets/gimbal/k40t-gimbal.png";
+import k8tV2Image from "@/assets/gimbal/k8t-v2-gimbal.png";
+import k8V2Image from "@/assets/gimbal/k8-v2-gimbal.png";
+
 export interface GimbalProduct {
   id: string;
   name: string;
@@ -7,6 +11,9 @@ export interface GimbalProduct {
   image: string;
   images?: string[];
   bannerImage?: string;
+  slogan?: string;
+  subSlogan?: string;
+  keyFeatures?: { label: string; value: string }[];
   highlights: string[];
   description: string[];
   features?: string[];
@@ -33,12 +40,15 @@ export const gimbalProducts: GimbalProduct[] = [
     model: "K40T",
     category: "四光云台相机",
     price: "询价",
-    image: "https://hequavtech.com/oss/heq-website/png/36/202511261438_K40T-M.png",
-    bannerImage: "https://hequavtech.com/oss/heq-website/png/36/202506241858_K40tbanner.png",
-    images: [
-      "https://hequavtech.com/oss/heq-website/png/36/202511261438_K40T-M.png",
-      "https://hequavtech.com/oss/heq-website/jpg/36/202503071426_K40T%E4%BA%A7%E5%93%81%E5%B0%BA%E5%AF%B8_%E7%94%BB%E6%9D%BF%201%20%E5%89%AF%E6%9C%AC%202-01.jpg",
-      "https://hequavtech.com/oss/heq-website/jpg/36/202503071426_K40T%E4%BA%A7%E5%93%81%E5%B0%BA%E5%AF%B8_%E7%94%BB%E6%9D%BF%201%20%E5%89%AF%E6%9C%AC%202-02.jpg"
+    image: k40tImage,
+    slogan: "昼夜无界，洞见毫厘",
+    subSlogan: "K40T四光云台相机",
+    keyFeatures: [
+      { label: "四光合一", value: "广角、长焦、红外、激光" },
+      { label: "超清成像", value: "4800W像素，160X混合变焦" },
+      { label: "远距测距", value: "1200m激光测距" },
+      { label: "AI智能识别", value: "多种目标检测，支持个性化模型导入" },
+      { label: "云台重量", value: "290g" }
     ],
     highlights: [
       "可见光+热成像+广角+激光测距",
@@ -68,6 +78,7 @@ export const gimbalProducts: GimbalProduct[] = [
       { category: "云台参数", label: "角度抖动量", value: "±0.005°" },
       { category: "云台参数", label: "尺寸", value: "114×84×95mm" },
       { category: "云台参数", label: "接口", value: "网口/串口/sbus" },
+      { category: "云台参数", label: "重量", value: "290g" },
       // 红外相机参数
       { category: "红外相机参数", label: "探测器类型", value: "氧化钒非制冷红外焦平面探测器" },
       { category: "红外相机参数", label: "分辨率", value: "640×512" },
@@ -85,6 +96,7 @@ export const gimbalProducts: GimbalProduct[] = [
       { category: "变焦相机", label: "有效像素", value: "4800万像素" },
       { category: "变焦相机", label: "可变光圈", value: "F3.7~F4.6" },
       { category: "变焦相机", label: "有效焦距", value: "15.2~50mm" },
+      { category: "变焦相机", label: "混合变焦", value: "160X" },
       // 激光测距仪
       { category: "激光测距仪", label: "测量范围", value: "5-1200m" },
       { category: "激光测距仪", label: "测量精度", value: "±1m" }
@@ -113,18 +125,25 @@ export const gimbalProducts: GimbalProduct[] = [
     model: "K8T-V2",
     category: "双光跟踪识别云台相机",
     price: "询价",
-    image: "https://images.unsplash.com/photo-1527977966376-1c8408f9f108?w=600&q=80",
+    image: k8tV2Image,
+    slogan: "智眼双瞳 昼夜皆掌控",
+    subSlogan: "K8T-V2双光云台相机",
+    keyFeatures: [
+      { label: "算力", value: "4T" },
+      { label: "云台重量", value: "162g" },
+      { label: "数字变焦", value: "40X" }
+    ],
     highlights: [
       "可见光+热成像双光融合",
       "AI智能跟踪识别",
-      "640×512红外分辨率",
+      "4T算力",
       "目标自动追踪"
     ],
     description: [
       "K8T-V2双光云台相机集成可见光与热成像双传感器",
-      "内置AI智能跟踪识别算法，自动锁定追踪目标",
+      "内置4T算力AI智能跟踪识别算法，自动锁定追踪目标",
       "可见光与热成像双光融合，全天候作业",
-      "高分辨率红外探测器，成像清晰细腻",
+      "40倍数字变焦，远距离精准观察",
       "三轴机械稳定云台，确保画面平稳流畅"
     ],
     features: [
@@ -138,18 +157,19 @@ export const gimbalProducts: GimbalProduct[] = [
       { category: "云台参数", label: "轴数", value: "机械三轴" },
       { category: "云台参数", label: "可控角度范围", value: "俯仰-90°至+30°, 航向±180°" },
       { category: "云台参数", label: "稳定精度", value: "±0.01°" },
+      { category: "云台参数", label: "重量", value: "162g" },
       { category: "可见光相机", label: "传感器大小", value: "1/2.8英寸" },
       { category: "可见光相机", label: "有效像素", value: "800万像素" },
-      { category: "可见光相机", label: "光学变焦", value: "30倍" },
+      { category: "可见光相机", label: "数字变焦", value: "40倍" },
       { category: "可见光相机", label: "视频输出", value: "4K@30fps / 1080P@60fps" },
       { category: "红外相机", label: "分辨率", value: "640×512" },
       { category: "红外相机", label: "帧频", value: "30Hz" },
       { category: "红外相机", label: "NETD", value: "≤50mK" },
       { category: "红外相机", label: "测温范围", value: "-20°C~650°C" },
       { category: "红外相机", label: "测温精度", value: "±2°C或±2%" },
+      { category: "AI功能", label: "算力", value: "4T" },
       { category: "AI功能", label: "目标追踪", value: "支持" },
       { category: "AI功能", label: "目标识别", value: "人/车/船等" },
-      { category: "通用参数", label: "重量", value: "820g" },
       { category: "通用参数", label: "防护等级", value: "IP65" },
       { category: "通用参数", label: "工作温度", value: "-20°C~+55°C" }
     ],
@@ -172,10 +192,13 @@ export const gimbalProducts: GimbalProduct[] = [
     model: "K8-V2",
     category: "单光追踪识别云台",
     price: "询价",
-    image: "https://www.hequavtech.com/images/product/k8-v2.jpg",
-    images: [
-      "https://www.hequavtech.com/images/product/k8-v2.jpg",
-      "https://www.hequavtech.com/images/product/k8-v2-2.jpg"
+    image: k8V2Image,
+    slogan: "轻量化AI识别跟踪",
+    subSlogan: "K8-V2单光云台相机",
+    keyFeatures: [
+      { label: "分辨率", value: "4K" },
+      { label: "云台重量", value: "115g" },
+      { label: "AI识别跟踪", value: "支持" }
     ],
     highlights: [
       "4K高清视频输出",
@@ -187,8 +210,7 @@ export const gimbalProducts: GimbalProduct[] = [
       "K8-V2单光追踪识别云台采用4K超高清传感器，提供极致清晰画面",
       "30倍光学变焦，远距离精准观察",
       "内置AI目标追踪算法，自动锁定跟踪目标",
-      "三轴机械增稳，确保画面平稳流畅",
-      "轻量化设计，适配多种无人机平台",
+      "115g超轻量化设计，适配多种无人机平台",
       "IP65防护等级，适应恶劣作业环境"
     ],
     features: [
@@ -204,6 +226,7 @@ export const gimbalProducts: GimbalProduct[] = [
     specs: [
       { category: "相机参数", label: "传感器", value: "Sony 1/2.8\" CMOS" },
       { category: "相机参数", label: "有效像素", value: "800万像素" },
+      { category: "相机参数", label: "分辨率", value: "4K" },
       { category: "相机参数", label: "光学变焦", value: "30倍" },
       { category: "相机参数", label: "数码变焦", value: "8倍" },
       { category: "相机参数", label: "视频分辨率", value: "4K@30fps / 1080P@60fps" },
@@ -212,11 +235,12 @@ export const gimbalProducts: GimbalProduct[] = [
       { category: "云台参数", label: "俯仰范围", value: "-90° ~ +30°" },
       { category: "云台参数", label: "航向范围", value: "360°无限位" },
       { category: "云台参数", label: "稳定精度", value: "±0.01°" },
+      { category: "云台参数", label: "重量", value: "115g" },
       { category: "接口参数", label: "视频输出", value: "HDMI / 网络视频流" },
       { category: "接口参数", label: "控制接口", value: "串口TTL / 网口" },
+      { category: "AI功能", label: "AI识别跟踪", value: "支持" },
       { category: "通用参数", label: "工作电压", value: "DC 12-26V" },
       { category: "通用参数", label: "功耗", value: "≤15W" },
-      { category: "通用参数", label: "重量", value: "450g" },
       { category: "通用参数", label: "防护等级", value: "IP65" },
       { category: "通用参数", label: "工作温度", value: "-20°C ~ +55°C" }
     ],

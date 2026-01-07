@@ -38,7 +38,51 @@ const GimbalDetail = () => {
           </div>
         </section>
 
-        {/* Hero Section */}
+        {/* Hero Section with slogan */}
+        {product.slogan && (
+          <section className="py-16 bg-gradient-to-br from-zinc-900 via-zinc-800 to-zinc-900 text-white">
+            <div className="container mx-auto px-4">
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                {/* Product Image */}
+                <div className="flex items-center justify-center">
+                  <img 
+                    src={images[selectedImage]} 
+                    alt={product.name}
+                    className="max-h-[400px] max-w-full object-contain drop-shadow-2xl"
+                  />
+                </div>
+                
+                {/* Slogan & Key Features */}
+                <div className="text-center lg:text-left">
+                  <h1 className="text-4xl md:text-5xl font-bold mb-2">{product.slogan}</h1>
+                  <p className="text-2xl text-zinc-400 mb-8">{product.subSlogan}</p>
+                  
+                  {product.keyFeatures && (
+                    <div className="grid grid-cols-2 gap-4 mb-8">
+                      {product.keyFeatures.map((feature, idx) => (
+                        <div key={idx} className="text-center p-4 bg-zinc-800/50 rounded-lg border border-zinc-700">
+                          <div className="text-2xl md:text-3xl font-bold text-primary mb-1">{feature.value}</div>
+                          <div className="text-sm text-zinc-400">{feature.label}</div>
+                        </div>
+                      ))}
+                    </div>
+                  )}
+                  
+                  <div className="flex justify-center lg:justify-start gap-4">
+                    <Button size="lg" asChild>
+                      <Link to="/contact">获取报价</Link>
+                    </Button>
+                    <Button size="lg" variant="outline" className="border-zinc-600 hover:bg-zinc-800" asChild>
+                      <a href="#specs">查看规格</a>
+                    </Button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+        )}
+
+        {/* Product Info Section */}
         <section className="py-12 bg-gradient-to-br from-primary/5 via-background to-background">
           <div className="container mx-auto px-4">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
@@ -74,7 +118,7 @@ const GimbalDetail = () => {
                   <span className="px-3 py-1 text-sm bg-primary/10 text-primary rounded-full font-medium">{product.category}</span>
                   <span className="px-3 py-1 text-sm bg-secondary text-secondary-foreground rounded-full">{product.price}</span>
                 </div>
-                <h1 className="text-3xl md:text-4xl font-bold mb-2">{product.name}</h1>
+                <h2 className="text-3xl md:text-4xl font-bold mb-2">{product.name}</h2>
                 <p className="text-xl text-muted-foreground mb-6">{product.model}</p>
                 
                 {/* Highlights */}
