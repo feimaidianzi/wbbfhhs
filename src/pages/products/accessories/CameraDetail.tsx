@@ -66,11 +66,11 @@ const CameraDetail = () => {
                 <p className="text-xl text-white/80 mb-6">{product.subSlogan}</p>
                 
                 {/* Key Features */}
-                <div className="grid grid-cols-3 gap-4 mb-8">
-                  {product.keyFeatures.slice(0, 6).map((feature, idx) => (
+                <div className="grid grid-cols-5 gap-3 mb-8">
+                  {product.keyFeatures.map((feature, idx) => (
                     <div key={idx} className="text-center p-3 bg-white/5 rounded-lg border border-white/10">
-                      <div className="text-2xl font-bold text-primary">{feature.value}</div>
-                      <div className="text-sm text-white/60">{feature.label}</div>
+                      <div className="text-lg font-bold text-primary">{feature.value}</div>
+                      <div className="text-xs text-white/60">{feature.label}</div>
                     </div>
                   ))}
                 </div>

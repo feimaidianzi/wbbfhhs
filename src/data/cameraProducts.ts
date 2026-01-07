@@ -52,10 +52,14 @@ export const cameraProducts: CameraProduct[] = [
     ],
     keyFeatures: [
       { label: "像素", value: "1200万" },
-      { label: "视频", value: "1080P@30fps" },
-      { label: "广角", value: "170°" },
-      { label: "WiFi", value: "支持" },
+      { label: "屏幕", value: "2.0英寸高清屏" },
+      { label: "视频", value: "1080p @30fps" },
+      { label: "输出", value: "HDMI高清输出" },
+      { label: "广角", value: "大广角" },
+      { label: "侦测", value: "移动侦测" },
+      { label: "连接", value: "WiFi" },
       { label: "防水", value: "30M" },
+      { label: "变焦", value: "四倍变焦" },
       { label: "续航", value: "90分钟" },
     ],
     specs: [
