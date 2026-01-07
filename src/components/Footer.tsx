@@ -127,9 +127,9 @@ export const Footer = () => {
                   <div className="w-10 h-10 rounded-full bg-accent/20 flex items-center justify-center">
                     <Mail className="w-5 h-5 text-accent" />
                   </div>
-                  <div>
+                  <div className="min-w-0">
                     <p className="text-xs text-primary-foreground/60">商务邮箱</p>
-                    <p className="text-sm font-medium group-hover:text-accent transition-colors">market@flymind.com</p>
+                    <p className="text-sm font-medium group-hover:text-accent transition-colors truncate">market@flymind.com</p>
                   </div>
                 </a>
               </div>
