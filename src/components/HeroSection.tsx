@@ -5,32 +5,25 @@ import { Link } from "react-router-dom";
 
 const slides = [
   {
-    title: "飞迈机场",
-    subtitle: "全自动无人机起降平台 · 自动充电换电 · 无人值守作业",
-    image: "https://images.unsplash.com/photo-1508614589041-895b88991e3e?w=1920&q=80",
+    title: "VTX视频发射器",
+    subtitle: "4.9-7.2GHz全频段覆盖 · 2.5W-37W多功率可选 · 80频道支持",
+    image: "https://images.unsplash.com/photo-1518770660439-4636190af475?w=1920&q=80",
     cta: "了解更多",
-    link: "/products/airport",
+    link: "/products/accessories/vtx",
   },
   {
-    title: "系留无人机",
-    subtitle: "24小时不间断滞空 · 稳定供电 · 高清图传",
-    image: "https://images.unsplash.com/photo-1473968512647-3e447244af8f?w=1920&q=80",
+    title: "专业飞控系统",
+    subtitle: "多模式飞行 · GPS精准定位 · 智能自动返航",
+    image: "https://images.unsplash.com/photo-1581094794329-c8112a89af12?w=1920&q=80",
     cta: "查看详情",
-    link: "/products/tethered",
+    link: "/products/accessories/flight-controller",
   },
   {
-    title: "物流无人机",
-    subtitle: "高效智能配送 · 远程运输 · 应急物资投递",
+    title: "ELRS远程控制",
+    subtitle: "ExpressLRS协议 · 超远距离传输 · 超低延迟响应",
     image: "https://images.unsplash.com/photo-1527977966376-1c8408f9f108?w=1920&q=80",
     cta: "立即咨询",
-    link: "/products/logistics",
-  },
-  {
-    title: "配件及设备",
-    subtitle: "VTX/VRX · 飞控/电调 · 云台/吊舱 · ELRS遥控",
-    image: "https://images.unsplash.com/photo-1518770660439-4636190af475?w=1920&q=80",
-    cta: "查看全部",
-    link: "/products/accessories",
+    link: "/products/accessories/elrs",
   },
 ];
 
@@ -215,12 +208,12 @@ export const HeroSection = () => {
             <div className="flex items-center gap-4">
               <span className="text-accent text-3xl font-black animate-bounce-subtle">&lt;</span>
               <h2 className="text-xl md:text-2xl font-bold text-primary-foreground">
-                专业工业无人机研发制造商
+                专业无人机配件供应商
               </h2>
               <span className="text-accent text-3xl font-black animate-bounce-subtle" style={{ animationDelay: '0.2s' }}>&gt;</span>
             </div>
-            <Link to="/products" className="text-primary-foreground/80 hover:text-accent transition-colors flex items-center gap-2 group">
-              探索全部产品
+            <Link to="/products/accessories" className="text-primary-foreground/80 hover:text-accent transition-colors flex items-center gap-2 group">
+              探索全部配件
               <ChevronRight className="w-5 h-5 group-hover:translate-x-2 transition-transform" />
             </Link>
           </div>
