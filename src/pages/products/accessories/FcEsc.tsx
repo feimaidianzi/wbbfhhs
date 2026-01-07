@@ -7,6 +7,163 @@ import { Button } from "@/components/ui/button";
 import { ArrowLeft, Cpu, Zap, Shield, Settings, Thermometer, Gauge, ChevronRight } from "lucide-react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
+// 飞塔套装（按用户提供的5款产品更新）
+const stacks = [
+  {
+    id: "stack-mini-f7-55a",
+    name: "阿格斯 Mini F7+55A飞塔",
+    model: "ARGUS Mini 55A F7",
+    image: "https://ueeshop.ly200-cdn.com/u_file/UPBD/UPBD023/2409/19/products/b67564581a.jpg",
+    category: "飞塔",
+    highlights: [
+      "STM32F722高性能处理器",
+      "55A四合一电调，峰值65A",
+      "25.5×25.5mm紧凑尺寸",
+      "适配3-5寸穿越机架"
+    ],
+    specs: {
+      fc: "STM32F722 + ICM42688",
+      esc: "55A×4 BLHeli_32",
+      voltage: "3-6S",
+      size: "25.5×25.5mm",
+      weight: "18g"
+    },
+    price: "¥599"
+  },
+  {
+    id: "stack-f405-55a",
+    name: "阿格斯 F405+55A飞塔",
+    model: "ARGUS F405+55A",
+    image: "https://ueeshop.ly200-cdn.com/u_file/UPBD/UPBD023/2409/19/products/5b83900071.jpg",
+    category: "飞塔",
+    highlights: [
+      "STM32F405处理器，高速运算",
+      "55A四合一电调，峰值65A",
+      "30.5×30.5mm标准孔距",
+      "性价比之选，适配3-5寸机架"
+    ],
+    specs: {
+      fc: "STM32F405 + ICM42688",
+      esc: "55A×4 BLHeli_32",
+      voltage: "3-6S",
+      size: "30.5×30.5mm",
+      weight: "25g"
+    },
+    price: "¥439"
+  },
+  {
+    id: "stack-f405-60a",
+    name: "阿格斯 F405+60A飞塔",
+    model: "ARGUS F405+60A",
+    image: "https://ueeshop.ly200-cdn.com/u_file/UPBD/UPBD023/2411/25/products/4b65e095d8.jpg",
+    category: "飞塔",
+    highlights: [
+      "STM32F405处理器",
+      "60A四合一电调，峰值75A",
+      "优化PCB散热设计",
+      "穿越竞速首选"
+    ],
+    specs: {
+      fc: "STM32F405 + ICM42688",
+      esc: "60A×4 BLHeli_32",
+      voltage: "3-6S",
+      size: "30.5×30.5mm",
+      weight: "28g"
+    },
+    price: "¥489"
+  },
+  {
+    id: "stack-mini-f7-40a",
+    name: "阿格斯 Mini F7+40A飞塔",
+    model: "ARGUS Mini F7 40A",
+    image: "https://ueeshop.ly200-cdn.com/u_file/UPBD/UPBD023/2409/19/products/c50b7a84c3.jpg",
+    category: "飞塔",
+    highlights: [
+      "STM32F722处理器高性能",
+      "40A四合一电调",
+      "20×20mm紧凑孔距设计",
+      "适配2-3寸微型机架"
+    ],
+    specs: {
+      fc: "STM32F722 + BMI270",
+      esc: "40A×4 BLHeli_32",
+      voltage: "3-6S",
+      size: "20×20mm",
+      weight: "12g"
+    },
+    price: "¥579"
+  },
+  {
+    id: "stack-pro-f722-100a",
+    name: "Argus Pro F722 100A/80A飞塔",
+    model: "Argus Pro F722 100A/80A",
+    image: "https://ueeshop.ly200-cdn.com/u_file/UPBD/UPBD023/2508/04/products/1-1-1417311ad5.jpg",
+    category: "飞塔",
+    highlights: [
+      "STM32F722双陀螺仪设计",
+      "100A/80A可选大电流输出",
+      "8层PCB专业级散热",
+      "5-7寸大载重机型首选"
+    ],
+    specs: {
+      fc: "STM32F722 + 双ICM42688",
+      esc: "100A/80A×4 BLHeli_32",
+      voltage: "3-8S",
+      size: "30.5×30.5mm",
+      weight: "42g"
+    },
+    price: "¥959"
+  }
+];
+
+// 六合一电调（新增类目）
+const sixInOneEscs = [
+  {
+    id: "6in1-80a",
+    name: "六合一80A电调",
+    model: "FM-6IN1-80A",
+    image: "/placeholder.svg",
+    category: "六合一电调",
+    highlights: [
+      "六合一设计（含2路备用）",
+      "80A持续电流，峰值100A",
+      "8层PCB大电流设计",
+      "4-8S宽电压支持"
+    ],
+    specs: {
+      current: "80A (持续) / 100A (峰值)",
+      channels: "6通道",
+      voltage: "4-8S",
+      protocol: "DShot1200/600/300",
+      size: "45×45mm",
+      weight: "55g"
+    },
+    price: "¥729"
+  },
+  {
+    id: "6in1-100a",
+    name: "六合一100A电调",
+    model: "FM-6IN1-100A",
+    image: "/placeholder.svg",
+    category: "六合一电调",
+    highlights: [
+      "六合一设计（含2路备用）",
+      "100A持续电流，峰值120A",
+      "多颗并联MOS阵列",
+      "专业级大载重应用"
+    ],
+    specs: {
+      current: "100A (持续) / 120A (峰值)",
+      channels: "6通道",
+      voltage: "4-8S",
+      protocol: "DShot1200/600/300",
+      size: "50×50mm",
+      weight: "65g"
+    },
+    price: "¥899"
+  }
+];
+
 // 飞控产品数据
 const flightControllers = [
   {
@@ -77,11 +234,11 @@ const flightControllers = [
   }
 ];
 
-// 电调产品数据
+// 四合一电调产品数据
 const escs = [
   {
     id: "esc-55a",
-    name: "55A电调",
+    name: "55A四合一电调",
     model: "FM-ESC-55A-4IN1",
     image: "/placeholder.svg",
     category: "电调",
@@ -103,7 +260,7 @@ const escs = [
   },
   {
     id: "esc-60a",
-    name: "60A电调",
+    name: "60A四合一电调",
     model: "FM-ESC-60A-V2",
     image: "/placeholder.svg",
     category: "电调",
@@ -125,7 +282,7 @@ const escs = [
   },
   {
     id: "esc-80a",
-    name: "80A电调",
+    name: "80A四合一电调",
     model: "FM-ESC-80A-4IN1",
     image: "/placeholder.svg",
     category: "电调",
@@ -147,7 +304,7 @@ const escs = [
   },
   {
     id: "esc-100a",
-    name: "100A电调",
+    name: "100A四合一电调",
     model: "FM-ESC-100A-4IN1",
     image: "/placeholder.svg",
     category: "电调",
@@ -166,136 +323,6 @@ const escs = [
       weight: "45g"
     },
     price: "¥219"
-  }
-];
-
-// 飞塔套装
-const stacks = [
-  {
-    id: "stack-f405-55a",
-    name: "F405+55A飞塔",
-    model: "FM-STACK-F405-55A",
-    image: "/placeholder.svg",
-    category: "飞塔",
-    highlights: [
-      "F405飞控+55A四合一电调",
-      "即插即用，线材预配",
-      "完美适配3-5寸机架",
-      "性价比之选"
-    ],
-    specs: {
-      fc: "STM32F405 + ICM42688",
-      esc: "55A×4 BLHeli_32",
-      voltage: "3-6S",
-      size: "30.5×30.5mm",
-      weight: "25g"
-    },
-    price: "¥439"
-  },
-  {
-    id: "stack-f405-60a",
-    name: "F405+60A飞塔",
-    model: "FM-STACK-F405-60A",
-    image: "/placeholder.svg",
-    category: "飞塔",
-    highlights: [
-      "F405飞控+60A四合一电调",
-      "升级版电调模组",
-      "更强散热能力",
-      "穿越竞速首选"
-    ],
-    specs: {
-      fc: "STM32F405 + ICM42688",
-      esc: "60A×4 BLHeli_32",
-      voltage: "3-6S",
-      size: "30.5×30.5mm",
-      weight: "28g"
-    },
-    price: "¥489"
-  },
-  {
-    id: "stack-f7-40a",
-    name: "Mini F7+40A飞塔",
-    model: "FM-STACK-MINI-F7-40A",
-    image: "/placeholder.svg",
-    category: "飞塔",
-    highlights: [
-      "紧凑20mm孔距设计",
-      "F722处理器高性能",
-      "适配2-3寸微型机架",
-      "轻量化设计"
-    ],
-    specs: {
-      fc: "STM32F722 + BMI270",
-      esc: "40A×4 BLHeli_32",
-      voltage: "3-6S",
-      size: "20×20mm",
-      weight: "12g"
-    },
-    price: "¥579"
-  },
-  {
-    id: "stack-f7-55a",
-    name: "Mini F7+55A飞塔",
-    model: "FM-STACK-MINI-F7-55A",
-    image: "/placeholder.svg",
-    category: "飞塔",
-    highlights: [
-      "Mini尺寸大电流",
-      "55A四合一电调",
-      "适配3.5寸机架",
-      "性能与便携兼顾"
-    ],
-    specs: {
-      fc: "STM32F722 + ICM42688",
-      esc: "55A×4 BLHeli_32",
-      voltage: "3-6S",
-      size: "25.5×25.5mm",
-      weight: "18g"
-    },
-    price: "¥629"
-  },
-  {
-    id: "stack-f722-80a",
-    name: "Pro F7+80A飞塔",
-    model: "FM-STACK-PRO-F722-80A",
-    image: "/placeholder.svg",
-    category: "飞塔",
-    highlights: [
-      "专业级大功率飞塔",
-      "80A持续电流",
-      "双陀螺仪抗干扰",
-      "5-7寸机型首选"
-    ],
-    specs: {
-      fc: "STM32F722 + 双ICM42688",
-      esc: "80A×4 BLHeli_32",
-      voltage: "3-8S",
-      size: "30.5×30.5mm",
-      weight: "42g"
-    },
-    price: "¥959"
-  },
-  {
-    id: "stack-6in1-80a",
-    name: "六合一80A/100A电调",
-    model: "FM-6IN1-80A-100A",
-    image: "/placeholder.svg",
-    category: "飞塔",
-    highlights: [
-      "六合一设计（含2路备用）",
-      "80A/100A可选",
-      "8层PCB大电流设计",
-      "专业级可靠性"
-    ],
-    specs: {
-      fc: "-",
-      esc: "80A/100A×6 BLHeli_32",
-      voltage: "4-8S",
-      size: "45×45mm",
-      weight: "55g"
-    },
-    price: "¥729"
   }
 ];
 
@@ -434,7 +461,7 @@ const FcEsc = () => {
     <>
       <SEO 
         title="飞控/电调 - 飞塔系列 - 飞迈科技"
-        description="飞迈科技飞控电调产品系列，包括F405/F722/H743飞控、55A-100A电调、飞塔套装等，专业FPV穿越机电子产品"
+        description="飞迈科技飞控电调产品系列，包括F405/F722/H743飞控、55A-100A电调、飞塔套装、六合一电调等，专业FPV穿越机电子产品"
       />
       <Header />
       <main className="min-h-screen bg-background">
@@ -451,7 +478,7 @@ const FcEsc = () => {
                 飞塔系列
               </h1>
               <p className="text-lg text-muted-foreground mb-6">
-                高性能飞控与电调产品系列，涵盖F405/F722/H743飞控、多规格四合一电调、飞塔套装等，
+                高性能飞控与电调产品系列，涵盖F405/F722/H743飞控、多规格四合一电调、飞塔套装、六合一电调等，
                 满足从入门到专业级穿越机的全面需求。
               </p>
               <div className="flex flex-wrap gap-4">
@@ -495,6 +522,9 @@ const FcEsc = () => {
                 <TabsTrigger value="stacks" className="data-[state=active]:bg-primary data-[state=active]:text-primary-foreground">
                   飞塔套装
                 </TabsTrigger>
+                <TabsTrigger value="6in1" className="data-[state=active]:bg-primary data-[state=active]:text-primary-foreground">
+                  六合一电调
+                </TabsTrigger>
                 <TabsTrigger value="fc" className="data-[state=active]:bg-primary data-[state=active]:text-primary-foreground">
                   飞控
                 </TabsTrigger>
@@ -509,6 +539,14 @@ const FcEsc = () => {
               <TabsContent value="stacks">
                 <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
                   {stacks.map((product) => (
+                    <ProductCard key={product.id} product={product} />
+                  ))}
+                </div>
+              </TabsContent>
+
+              <TabsContent value="6in1">
+                <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+                  {sixInOneEscs.map((product) => (
                     <ProductCard key={product.id} product={product} />
                   ))}
                 </div>
