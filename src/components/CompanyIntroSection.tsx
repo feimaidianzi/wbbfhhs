@@ -1,31 +1,43 @@
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { CheckCircle, Headphones, Truck, Settings, ArrowRight } from "lucide-react";
+import { useLanguage } from "@/contexts/LanguageContext";
 
-const advantages = [
+const getAdvantagesData = (language: 'zh' | 'en') => [
   {
     icon: CheckCircle,
-    title: "强大产品组合",
-    description: "涵盖机场、系留、物流、多旋翼等全系列工业无人机产品，满足各行业需求。",
+    title: language === 'zh' ? "强大产品组合" : "Strong Product Portfolio",
+    description: language === 'zh' 
+      ? "涵盖机场、系留、物流、多旋翼等全系列工业无人机产品，满足各行业需求。"
+      : "Covering airport, tethered, logistics, multi-rotor and other industrial drone products for various industries.",
   },
   {
     icon: Headphones,
-    title: "专业技术支持",
-    description: "资深无人机专家团队，提供选型咨询、技术培训、售后服务全方位支持。",
+    title: language === 'zh' ? "专业技术支持" : "Professional Support",
+    description: language === 'zh' 
+      ? "资深无人机专家团队，提供选型咨询、技术培训、售后服务全方位支持。"
+      : "Senior drone expert team providing consulting, training and after-sales support.",
   },
   {
     icon: Truck,
-    title: "快速交付响应",
-    description: "完善的供应链体系，快速响应客户需求，缩短项目交付周期。",
+    title: language === 'zh' ? "快速交付响应" : "Fast Delivery",
+    description: language === 'zh' 
+      ? "完善的供应链体系，快速响应客户需求，缩短项目交付周期。"
+      : "Complete supply chain system, quick response to customer needs, shortened delivery cycle.",
   },
   {
     icon: Settings,
-    title: "定制化解决方案",
-    description: "提供机场定制、集群定制、软件定制、挂载定制等深度定制服务。",
+    title: language === 'zh' ? "定制化解决方案" : "Customized Solutions",
+    description: language === 'zh' 
+      ? "提供机场定制、集群定制、软件定制、挂载定制等深度定制服务。"
+      : "Providing airport, swarm, software, payload and other deep customization services.",
   },
 ];
 
 export const CompanyIntroSection = () => {
+  const { language, t } = useLanguage();
+  const advantages = getAdvantagesData(language);
+
   return (
     <section className="py-20 md:py-28 bg-background">
       <div className="container-custom">
@@ -36,7 +48,7 @@ export const CompanyIntroSection = () => {
             <div className="aspect-[4/3] rounded-2xl overflow-hidden shadow-card-hover">
               <img 
                 src="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=800&q=80" 
-                alt="飞迈科技无人机生产线" 
+                alt={language === 'zh' ? "飞迈科技无人机生产线" : "FlyMind Drone Production Line"}
                 className="w-full h-full object-cover"
               />
             </div>
@@ -45,12 +57,16 @@ export const CompanyIntroSection = () => {
               <div className="flex items-center gap-6">
                 <div className="text-center">
                   <div className="text-3xl font-black text-accent">200+</div>
-                  <div className="text-sm text-muted-foreground">产品型号</div>
+                  <div className="text-sm text-muted-foreground">
+                    {language === 'zh' ? '产品型号' : 'Product Models'}
+                  </div>
                 </div>
                 <div className="w-px h-12 bg-border"></div>
                 <div className="text-center">
                   <div className="text-3xl font-black text-accent">10+</div>
-                  <div className="text-sm text-muted-foreground">年行业经验</div>
+                  <div className="text-sm text-muted-foreground">
+                    {language === 'zh' ? '年行业经验' : 'Years Experience'}
+                  </div>
                 </div>
               </div>
             </div>
@@ -61,22 +77,26 @@ export const CompanyIntroSection = () => {
             <div className="flex items-center gap-3 mb-4">
               <span className="text-accent text-2xl font-black">&lt;</span>
               <h2 className="text-3xl md:text-4xl font-black text-foreground">
-                为什么选择飞迈科技？
+                {language === 'zh' ? '为什么选择飞迈科技？' : 'Why Choose FlyMind?'}
               </h2>
               <span className="text-accent text-2xl font-black">\&gt;</span>
             </div>
             
             <p className="text-muted-foreground text-lg leading-relaxed mb-8">
-              飞迈科技致力于提供高品质的工业级无人机产品和解决方案。我们不仅提供标准化产品，更专注于为客户打造定制化解决方案，助力各行业数字化转型和智能化升级。
+              {language === 'zh' 
+                ? '飞迈科技致力于提供高品质的工业级无人机产品和解决方案。我们不仅提供标准化产品，更专注于为客户打造定制化解决方案，助力各行业数字化转型和智能化升级。'
+                : 'FlyMind is committed to providing high-quality industrial drone products and solutions. We not only provide standardized products, but also focus on creating customized solutions for customers, helping industries with digital transformation and intelligent upgrading.'}
             </p>
 
             <p className="text-muted-foreground leading-relaxed mb-8">
-              凭借多年的行业积累和技术沉淀，飞迈科技已成为众多企业和政府机构的首选合作伙伴。从产品选型到系统集成，从技术培训到售后服务，我们提供全生命周期的专业支持。
+              {language === 'zh' 
+                ? '凭借多年的行业积累和技术沉淀，飞迈科技已成为众多企业和政府机构的首选合作伙伴。从产品选型到系统集成，从技术培训到售后服务，我们提供全生命周期的专业支持。'
+                : 'With years of industry accumulation and technology precipitation, FlyMind has become the preferred partner of many enterprises and government agencies. From product selection to system integration, from technical training to after-sales service, we provide full lifecycle professional support.'}
             </p>
 
             <Link to="/about">
               <Button className="bg-accent hover:bg-orange-light text-accent-foreground px-8 py-6 text-lg font-semibold shadow-button">
-                了解更多关于我们
+                {language === 'zh' ? '了解更多关于我们' : 'Learn More About Us'}
                 <ArrowRight className="w-5 h-5 ml-2" />
               </Button>
             </Link>

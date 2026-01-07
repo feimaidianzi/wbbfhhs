@@ -2,32 +2,41 @@ import { useState, useEffect } from "react";
 import { ChevronLeft, ChevronRight, Play } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
+import { useLanguage } from "@/contexts/LanguageContext";
 
-const slides = [
+const getSlidesData = (language: 'zh' | 'en') => [
   {
-    title: "VTX视频发射器",
-    subtitle: "4.9-7.2GHz全频段覆盖 · 2.5W-37W多功率可选 · 80频道支持",
+    title: language === 'zh' ? "VTX视频发射器" : "VTX Video Transmitter",
+    subtitle: language === 'zh' 
+      ? "4.9-7.2GHz全频段覆盖 · 2.5W-37W多功率可选 · 80频道支持"
+      : "4.9-7.2GHz Full Band · 2.5W-37W Power Options · 80 Channels",
     image: "https://images.unsplash.com/photo-1518770660439-4636190af475?w=1920&q=80",
-    cta: "了解更多",
+    cta: language === 'zh' ? "了解更多" : "Learn More",
     link: "/products/accessories/vtx-vrx",
   },
   {
-    title: "专业飞控系统",
-    subtitle: "多模式飞行 · GPS精准定位 · 智能自动返航",
+    title: language === 'zh' ? "专业飞控系统" : "Professional Flight Controller",
+    subtitle: language === 'zh' 
+      ? "多模式飞行 · GPS精准定位 · 智能自动返航"
+      : "Multi-mode Flight · GPS Positioning · Smart RTH",
     image: "https://images.unsplash.com/photo-1581094794329-c8112a89af12?w=1920&q=80",
-    cta: "查看详情",
+    cta: language === 'zh' ? "查看详情" : "View Details",
     link: "/products/accessories/fc-esc",
   },
   {
-    title: "ELRS远程控制",
-    subtitle: "ExpressLRS协议 · 超远距离传输 · 超低延迟响应",
+    title: language === 'zh' ? "ELRS远程控制" : "ELRS Remote Control",
+    subtitle: language === 'zh' 
+      ? "ExpressLRS协议 · 超远距离传输 · 超低延迟响应"
+      : "ExpressLRS Protocol · Long Range · Ultra-low Latency",
     image: "https://images.unsplash.com/photo-1527977966376-1c8408f9f108?w=1920&q=80",
-    cta: "立即咨询",
+    cta: language === 'zh' ? "立即咨询" : "Contact Now",
     link: "/products/accessories/elrs",
   },
 ];
 
 export const HeroSection = () => {
+  const { language, t } = useLanguage();
+  const slides = getSlidesData(language);
   const [currentSlide, setCurrentSlide] = useState(0);
   const [isAnimating, setIsAnimating] = useState(false);
 
@@ -36,7 +45,7 @@ export const HeroSection = () => {
       setCurrentSlide((prev) => (prev + 1) % slides.length);
     }, 6000);
     return () => clearInterval(timer);
-  }, []);
+  }, [slides.length]);
 
   const nextSlide = () => {
     if (!isAnimating) {
@@ -102,7 +111,7 @@ export const HeroSection = () => {
                   index === currentSlide ? "opacity-100 translate-x-0" : "opacity-0 -translate-x-10"
                 }`}>
                   <div className="w-12 h-12 bg-accent rounded-lg flex items-center justify-center animate-pulse-glow">
-                    <span className="text-accent-foreground font-black text-2xl">飞</span>
+                    <span className="text-accent-foreground font-black text-2xl">{language === 'zh' ? '飞' : 'F'}</span>
                   </div>
                   <div className="h-px w-16 bg-accent/50 animate-expand-width"></div>
                   <span className="text-primary-foreground/70 text-sm tracking-widest uppercase">FlyMind</span>
@@ -142,7 +151,7 @@ export const HeroSection = () => {
                   </Link>
                   <Link to="/contact">
                     <Button className="bg-primary-foreground/10 border-2 border-primary-foreground/40 text-primary-foreground hover:bg-primary-foreground/20 hover:border-primary-foreground/60 px-8 py-6 text-lg font-semibold backdrop-blur-sm transition-all duration-300 hover:scale-105">
-                      联系我们
+                      {t('hero.btn.contact')}
                     </Button>
                   </Link>
                 </div>
@@ -208,12 +217,12 @@ export const HeroSection = () => {
             <div className="flex items-center gap-4">
               <span className="text-accent text-3xl font-black animate-bounce-subtle">&lt;</span>
               <h2 className="text-xl md:text-2xl font-bold text-primary-foreground">
-                专业无人机配件供应商
+                {language === 'zh' ? '专业无人机配件供应商' : 'Professional Drone Accessories Supplier'}
               </h2>
               <span className="text-accent text-3xl font-black animate-bounce-subtle" style={{ animationDelay: '0.2s' }}>&gt;</span>
             </div>
             <Link to="/products/accessories" className="text-primary-foreground/80 hover:text-accent transition-colors flex items-center gap-2 group">
-              探索全部配件
+              {language === 'zh' ? '探索全部配件' : 'Explore All Accessories'}
               <ChevronRight className="w-5 h-5 group-hover:translate-x-2 transition-transform" />
             </Link>
           </div>
