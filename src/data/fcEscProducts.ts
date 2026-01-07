@@ -1,0 +1,794 @@
+// FC/ESC 产品数据
+
+export interface FcEscProduct {
+  id: string;
+  name: string;
+  model: string;
+  category: "飞塔" | "飞控" | "四合一电调" | "六合一电调" | "分体电调";
+  image: string;
+  images?: string[];
+  price: string;
+  highlights: string[];
+  description: string[];
+  fcSpecs?: {
+    mcu: string;
+    gyro: string;
+    osd?: string;
+    blackbox?: string;
+    uart?: string;
+    voltage: string;
+    bec?: string;
+    size: string;
+    weight: string;
+    firmware?: string;
+  };
+  escSpecs?: {
+    current: string;
+    peakCurrent?: string;
+    voltage: string;
+    protocol: string;
+    mosfet?: string;
+    pcbLayers?: string;
+    size: string;
+    weight: string;
+  };
+  features?: string[];
+  notes?: string[];
+  packageIncludes?: string[];
+}
+
+// 飞塔套装产品
+export const stackProducts: FcEscProduct[] = [
+  {
+    id: "stack-mini-f7-55a",
+    name: "阿格斯 Mini F7+55A飞塔",
+    model: "ARGUS Mini 55A F7",
+    category: "飞塔",
+    image: "https://ueeshop.ly200-cdn.com/u_file/UPBD/UPBD023/2409/19/products/b67564581a.jpg",
+    images: [
+      "https://ueeshop.ly200-cdn.com/u_file/UPBD/UPBD023/2409/19/products/b67564581a.jpg",
+      "https://ueeshop.ly200-cdn.com/u_file/UPBD/UPBD023/2409/23/products/0ecde4a628.jpg",
+      "https://ueeshop.ly200-cdn.com/u_file/UPBD/UPBD023/2409/19/products/b78828fb64.jpg",
+      "https://ueeshop.ly200-cdn.com/u_file/UPBD/UPBD023/2409/19/products/05f45628ec.jpg",
+      "https://ueeshop.ly200-cdn.com/u_file/UPBD/UPBD023/2409/19/products/ba2a10b0ec.jpg",
+      "https://ueeshop.ly200-cdn.com/u_file/UPBD/UPBD023/2409/19/products/f5d88edf91.jpg"
+    ],
+    price: "¥599",
+    highlights: [
+      "STM32F722高性能处理器",
+      "ICM42688 陀螺仪，稳定可靠",
+      "55A四合一电调，峰值65A",
+      "25.5×25.5mm紧凑尺寸",
+      "适配3-5寸穿越机架",
+      "3-6S 宽电压输入"
+    ],
+    description: [
+      "采用STM32F722高性能MCU，运算速度快，响应迅速",
+      "搭载ICM42688陀螺仪，抗震性能优异",
+      "55A持续电流，峰值65A，满足高性能电机需求",
+      "BLHeli_32 固件，支持DShot1200协议",
+      "紧凑的25.5×25.5mm孔距，适配Mini机架",
+      "板载OSD芯片，支持Betaflight OSD",
+      "多层PCB设计，散热性能优秀",
+      "飞塔一体化设计，安装便捷"
+    ],
+    fcSpecs: {
+      mcu: "STM32F722",
+      gyro: "ICM42688",
+      osd: "板载AT7456E",
+      blackbox: "16MB SPI Flash",
+      uart: "4个UART",
+      voltage: "3-6S LiPo",
+      bec: "5V/3A, 9V/2A",
+      size: "25.5×25.5mm (M2)",
+      weight: "5g",
+      firmware: "Betaflight"
+    },
+    escSpecs: {
+      current: "55A (持续)",
+      peakCurrent: "65A (峰值)",
+      voltage: "3-6S LiPo",
+      protocol: "DShot1200/600/300, PWM, Oneshot",
+      mosfet: "低内阻MOS管",
+      pcbLayers: "4层PCB",
+      size: "25.5×25.5mm (M2)",
+      weight: "13g"
+    },
+    features: [
+      "飞控与电调采用插针连接，安装更便捷",
+      "电调采用焊盘设计，可自由选择焊接方式",
+      "支持Betaflight/INAV固件",
+      "支持SmartAudio/Tramp智能音频协议",
+      "过流、过温、欠压多重保护"
+    ],
+    notes: [
+      "首次使用请更新至最新固件",
+      "焊接时请注意电压输入极性，防止反接烧毁",
+      "大功率使用时请确保良好散热"
+    ],
+    packageIncludes: [
+      "Mini F7飞控 x1",
+      "55A四合一电调 x1",
+      "连接插针 x1套",
+      "硅胶线材 x1套",
+      "防震海绵 x4"
+    ]
+  },
+  {
+    id: "stack-f405-55a",
+    name: "阿格斯 F405+55A飞塔",
+    model: "ARGUS F405+55A",
+    category: "飞塔",
+    image: "https://ueeshop.ly200-cdn.com/u_file/UPBD/UPBD023/2409/19/products/5b83900071.jpg",
+    images: [
+      "https://ueeshop.ly200-cdn.com/u_file/UPBD/UPBD023/2409/19/products/5b83900071.jpg"
+    ],
+    price: "¥439",
+    highlights: [
+      "STM32F405处理器，高速运算",
+      "ICM42688 陀螺仪",
+      "55A四合一电调，峰值65A",
+      "30.5×30.5mm标准孔距",
+      "性价比之选，适配3-5寸机架"
+    ],
+    description: [
+      "采用成熟稳定的STM32F405处理器",
+      "ICM42688陀螺仪，响应灵敏",
+      "55A持续电流输出，适合大部分场景",
+      "标准30.5mm孔距，兼容性强",
+      "高性价比选择，入门进阶皆宜"
+    ],
+    fcSpecs: {
+      mcu: "STM32F405",
+      gyro: "ICM42688",
+      osd: "板载AT7456E",
+      blackbox: "8MB SPI Flash",
+      uart: "4个UART",
+      voltage: "3-6S LiPo",
+      bec: "5V/3A, 9V/2A",
+      size: "30.5×30.5mm (M3)",
+      weight: "8g",
+      firmware: "Betaflight"
+    },
+    escSpecs: {
+      current: "55A (持续)",
+      peakCurrent: "65A (峰值)",
+      voltage: "3-6S LiPo",
+      protocol: "DShot1200/600/300",
+      mosfet: "低内阻MOS",
+      pcbLayers: "4层PCB",
+      size: "30.5×30.5mm (M3)",
+      weight: "17g"
+    },
+    features: [
+      "飞控与电调通过排针连接",
+      "支持Betaflight/INAV固件",
+      "板载OSD支持",
+      "LED接口支持"
+    ],
+    packageIncludes: [
+      "F405飞控 x1",
+      "55A四合一电调 x1",
+      "连接线材 x1套"
+    ]
+  },
+  {
+    id: "stack-f405-60a",
+    name: "阿格斯 F405+60A飞塔",
+    model: "ARGUS F405+60A",
+    category: "飞塔",
+    image: "https://ueeshop.ly200-cdn.com/u_file/UPBD/UPBD023/2411/25/products/4b65e095d8.jpg",
+    images: [
+      "https://ueeshop.ly200-cdn.com/u_file/UPBD/UPBD023/2411/25/products/4b65e095d8.jpg"
+    ],
+    price: "¥489",
+    highlights: [
+      "STM32F405处理器",
+      "60A四合一电调，峰值75A",
+      "优化PCB散热设计",
+      "30.5×30.5mm标准孔距",
+      "穿越竞速首选"
+    ],
+    description: [
+      "60A持续电流，峰值75A，动力更强劲",
+      "优化散热路径，长时间飞行更稳定",
+      "适合高强度竞速和花飞玩家",
+      "BLHeli_32固件，响应速度快"
+    ],
+    fcSpecs: {
+      mcu: "STM32F405",
+      gyro: "ICM42688",
+      osd: "板载AT7456E",
+      blackbox: "8MB SPI Flash",
+      uart: "4个UART",
+      voltage: "3-6S LiPo",
+      bec: "5V/3A, 9V/2A",
+      size: "30.5×30.5mm (M3)",
+      weight: "8g",
+      firmware: "Betaflight"
+    },
+    escSpecs: {
+      current: "60A (持续)",
+      peakCurrent: "75A (峰值)",
+      voltage: "3-6S LiPo",
+      protocol: "DShot1200/600/300",
+      mosfet: "低内阻MOS阵列",
+      pcbLayers: "4层PCB",
+      size: "30.5×30.5mm (M3)",
+      weight: "20g"
+    },
+    features: [
+      "优化PCB走线，降低热阻",
+      "支持48KHz PWM频率",
+      "电流传感器内置"
+    ],
+    packageIncludes: [
+      "F405飞控 x1",
+      "60A四合一电调 x1",
+      "连接线材 x1套"
+    ]
+  },
+  {
+    id: "stack-mini-f7-40a",
+    name: "阿格斯 Mini F7+40A飞塔",
+    model: "ARGUS Mini F7 40A",
+    category: "飞塔",
+    image: "https://ueeshop.ly200-cdn.com/u_file/UPBD/UPBD023/2409/19/products/c50b7a84c3.jpg",
+    images: [
+      "https://ueeshop.ly200-cdn.com/u_file/UPBD/UPBD023/2409/19/products/c50b7a84c3.jpg"
+    ],
+    price: "¥579",
+    highlights: [
+      "STM32F722处理器高性能",
+      "BMI270高精度陀螺仪",
+      "40A四合一电调",
+      "20×20mm紧凑孔距设计",
+      "适配2-3寸微型机架"
+    ],
+    description: [
+      "专为2-3寸微型穿越机设计",
+      "20mm超紧凑孔距",
+      "40A电流输出，满足小机需求",
+      "轻量化设计，整体仅12g"
+    ],
+    fcSpecs: {
+      mcu: "STM32F722",
+      gyro: "BMI270",
+      osd: "板载",
+      blackbox: "8MB",
+      uart: "3个UART",
+      voltage: "3-6S LiPo",
+      bec: "5V/2A",
+      size: "20×20mm (M2)",
+      weight: "4g",
+      firmware: "Betaflight"
+    },
+    escSpecs: {
+      current: "40A (持续)",
+      peakCurrent: "50A (峰值)",
+      voltage: "3-6S LiPo",
+      protocol: "DShot600/300",
+      pcbLayers: "4层PCB",
+      size: "20×20mm (M2)",
+      weight: "8g"
+    },
+    features: [
+      "超轻量化设计",
+      "适合Cinewhoop/Toothpick机型"
+    ],
+    packageIncludes: [
+      "Mini F7飞控 x1",
+      "40A电调 x1",
+      "线材 x1套"
+    ]
+  },
+  {
+    id: "stack-pro-f722-100a",
+    name: "Argus Pro F722 100A/80A飞塔",
+    model: "Argus ECO F722 100A/80A",
+    category: "飞塔",
+    image: "https://ueeshop.ly200-cdn.com/u_file/UPBD/UPBD023/2508/04/products/1-1-1417311ad5.jpg",
+    images: [
+      "https://ueeshop.ly200-cdn.com/u_file/UPBD/UPBD023/2508/04/products/1-1-1417311ad5.jpg"
+    ],
+    price: "¥959",
+    highlights: [
+      "STM32F722双陀螺仪设计",
+      "100A/80A可选大电流输出",
+      "8层PCB专业级散热",
+      "30.5×30.5mm标准孔距",
+      "5-7寸大载重机型首选",
+      "3-8S宽电压支持"
+    ],
+    description: [
+      "专业级大功率飞塔套装",
+      "双ICM42688陀螺仪，冗余设计更可靠",
+      "100A/80A两种规格可选",
+      "8层PCB设计，大电流散热无忧",
+      "支持3-8S宽电压输入",
+      "适合5-7寸长续航、大载重机型"
+    ],
+    fcSpecs: {
+      mcu: "STM32F722",
+      gyro: "双ICM42688",
+      osd: "板载AT7456E",
+      blackbox: "32MB SPI Flash",
+      uart: "6个UART",
+      voltage: "3-8S LiPo",
+      bec: "5V/3A, 9V/3A",
+      size: "30.5×30.5mm (M3)",
+      weight: "10g",
+      firmware: "Betaflight"
+    },
+    escSpecs: {
+      current: "100A/80A (持续)",
+      peakCurrent: "120A/100A (峰值)",
+      voltage: "3-8S LiPo",
+      protocol: "DShot1200/600/300",
+      mosfet: "多颗并联MOS阵列",
+      pcbLayers: "8层PCB",
+      size: "30.5×30.5mm (M3)",
+      weight: "32g"
+    },
+    features: [
+      "双陀螺仪冗余设计",
+      "8层PCB专业散热",
+      "大功率应用首选",
+      "支持长续航机型"
+    ],
+    notes: [
+      "大电流使用时请确保接线可靠",
+      "建议使用高品质硅胶线",
+      "首次使用请校准陀螺仪"
+    ],
+    packageIncludes: [
+      "Pro F722飞控 x1",
+      "100A/80A电调 x1",
+      "连接线材 x1套",
+      "说明书 x1"
+    ]
+  }
+];
+
+// 六合一电调
+export const sixInOneEscProducts: FcEscProduct[] = [
+  {
+    id: "6in1-80a",
+    name: "六合一80A电调",
+    model: "FM-6IN1-80A",
+    category: "六合一电调",
+    image: "/placeholder.svg",
+    price: "¥729",
+    highlights: [
+      "六合一设计（含2路备用）",
+      "80A持续电流，峰值100A",
+      "8层PCB大电流设计",
+      "4-8S宽电压支持"
+    ],
+    description: [
+      "六合一设计，含2路备用通道",
+      "80A持续电流，峰值可达100A",
+      "8层PCB设计，散热优秀",
+      "专为六轴大载重机型设计"
+    ],
+    escSpecs: {
+      current: "80A (持续)",
+      peakCurrent: "100A (峰值)",
+      voltage: "4-8S LiPo",
+      protocol: "DShot1200/600/300",
+      mosfet: "并联MOS阵列",
+      pcbLayers: "8层PCB",
+      size: "45×45mm",
+      weight: "55g"
+    },
+    features: [
+      "6通道设计，含2路备用",
+      "过流过温保护"
+    ],
+    packageIncludes: [
+      "六合一电调 x1",
+      "线材 x1套"
+    ]
+  },
+  {
+    id: "6in1-100a",
+    name: "六合一100A电调",
+    model: "FM-6IN1-100A",
+    category: "六合一电调",
+    image: "/placeholder.svg",
+    price: "¥899",
+    highlights: [
+      "六合一设计（含2路备用）",
+      "100A持续电流，峰值120A",
+      "多颗并联MOS阵列",
+      "专业级大载重应用"
+    ],
+    description: [
+      "专业级六合一电调",
+      "100A超大持续电流",
+      "适合工业级六轴无人机"
+    ],
+    escSpecs: {
+      current: "100A (持续)",
+      peakCurrent: "120A (峰值)",
+      voltage: "4-8S LiPo",
+      protocol: "DShot1200/600/300",
+      mosfet: "多颗并联MOS",
+      pcbLayers: "8层PCB",
+      size: "50×50mm",
+      weight: "65g"
+    },
+    features: [
+      "超大电流输出",
+      "工业级可靠性"
+    ],
+    packageIncludes: [
+      "六合一电调 x1",
+      "线材 x1套"
+    ]
+  }
+];
+
+// 飞控产品
+export const flightControllerProducts: FcEscProduct[] = [
+  {
+    id: "fc-f405",
+    name: "F405飞控",
+    model: "FM-F405-V2",
+    category: "飞控",
+    image: "/placeholder.svg",
+    price: "¥229",
+    highlights: [
+      "STM32F405处理器，高速运算",
+      "支持Betaflight/INAV固件",
+      "板载OSD芯片",
+      "3-6S电压输入"
+    ],
+    description: [
+      "成熟稳定的F405平台",
+      "板载OSD芯片",
+      "多UART接口设计"
+    ],
+    fcSpecs: {
+      mcu: "STM32F405",
+      gyro: "ICM42688",
+      osd: "AT7456E",
+      blackbox: "8MB",
+      uart: "4个UART",
+      voltage: "3-6S LiPo",
+      bec: "5V/3A",
+      size: "30.5×30.5mm (M3)",
+      weight: "8g",
+      firmware: "Betaflight/INAV"
+    },
+    features: [
+      "支持多种固件",
+      "稳定可靠"
+    ],
+    packageIncludes: [
+      "F405飞控 x1",
+      "线材 x1套"
+    ]
+  },
+  {
+    id: "fc-f722",
+    name: "F7飞控",
+    model: "FM-F722-PRO",
+    category: "飞控",
+    image: "/placeholder.svg",
+    price: "¥399",
+    highlights: [
+      "STM32F722处理器，更高性能",
+      "双陀螺仪设计，稳定可靠",
+      "5个UART串口",
+      "支持HD VTX控制"
+    ],
+    description: [
+      "高性能F7平台",
+      "双陀螺仪冗余设计",
+      "丰富的UART接口"
+    ],
+    fcSpecs: {
+      mcu: "STM32F722",
+      gyro: "双ICM42688",
+      osd: "AT7456E",
+      blackbox: "16MB",
+      uart: "5个UART",
+      voltage: "3-8S LiPo",
+      bec: "5V/3A, 9V/2A",
+      size: "30.5×30.5mm (M3)",
+      weight: "9g",
+      firmware: "Betaflight"
+    },
+    features: [
+      "双陀螺仪设计",
+      "支持HD数字图传控制"
+    ],
+    packageIncludes: [
+      "F722飞控 x1",
+      "线材 x1套"
+    ]
+  },
+  {
+    id: "fc-h743",
+    name: "H7飞控",
+    model: "FM-H743-ELITE",
+    category: "飞控",
+    image: "/placeholder.svg",
+    price: "¥599",
+    highlights: [
+      "STM32H743旗舰处理器",
+      "480MHz主频，极致性能",
+      "8个UART + DMA支持",
+      "板载黑匣子存储"
+    ],
+    description: [
+      "旗舰级H7平台",
+      "480MHz超高主频",
+      "8个UART接口"
+    ],
+    fcSpecs: {
+      mcu: "STM32H743",
+      gyro: "BMI270 + ICM42688",
+      osd: "AT7456E",
+      blackbox: "32MB",
+      uart: "8个UART",
+      voltage: "3-8S LiPo",
+      bec: "5V/3A, 9V/3A",
+      size: "30.5×30.5mm (M3)",
+      weight: "10g",
+      firmware: "Betaflight"
+    },
+    features: [
+      "旗舰级性能",
+      "丰富的扩展接口"
+    ],
+    packageIncludes: [
+      "H743飞控 x1",
+      "线材 x1套"
+    ]
+  }
+];
+
+// 四合一电调
+export const escProducts: FcEscProduct[] = [
+  {
+    id: "esc-55a",
+    name: "55A四合一电调",
+    model: "FM-ESC-55A-4IN1",
+    category: "四合一电调",
+    image: "/placeholder.svg",
+    price: "¥449",
+    highlights: [
+      "持续55A，峰值65A",
+      "3-6S LiPo支持",
+      "32位处理器，BLHeli_32",
+      "低电阻MOS，高效散热"
+    ],
+    description: [
+      "55A持续输出",
+      "BLHeli_32固件",
+      "多层PCB设计"
+    ],
+    escSpecs: {
+      current: "55A (持续)",
+      peakCurrent: "65A (峰值)",
+      voltage: "3-6S LiPo",
+      protocol: "DShot1200/600/300",
+      mosfet: "低内阻MOS",
+      pcbLayers: "4层PCB",
+      size: "30.5×30.5mm (M3)",
+      weight: "12g"
+    },
+    features: [
+      "BLHeli_32固件",
+      "过流保护"
+    ],
+    packageIncludes: [
+      "55A电调 x1",
+      "线材 x1套"
+    ]
+  },
+  {
+    id: "esc-60a",
+    name: "60A四合一电调",
+    model: "FM-ESC-60A-V2",
+    category: "四合一电调",
+    image: "/placeholder.svg",
+    price: "¥335",
+    highlights: [
+      "持续60A，峰值75A",
+      "优化PCB散热设计",
+      "支持48KHz PWM频率",
+      "电流传感器内置"
+    ],
+    description: [
+      "60A大电流输出",
+      "优化散热设计",
+      "内置电流传感器"
+    ],
+    escSpecs: {
+      current: "60A (持续)",
+      peakCurrent: "75A (峰值)",
+      voltage: "3-6S LiPo",
+      protocol: "DShot1200/600/300",
+      mosfet: "低内阻MOS阵列",
+      pcbLayers: "4层PCB",
+      size: "30.5×30.5mm (M3)",
+      weight: "14g"
+    },
+    features: [
+      "48KHz PWM支持",
+      "电流传感器"
+    ],
+    packageIncludes: [
+      "60A电调 x1",
+      "线材 x1套"
+    ]
+  },
+  {
+    id: "esc-80a",
+    name: "80A四合一电调",
+    model: "FM-ESC-80A-4IN1",
+    category: "四合一电调",
+    image: "/placeholder.svg",
+    price: "¥759",
+    highlights: [
+      "持续80A，峰值100A",
+      "3-8S宽电压支持",
+      "大功率MOS阵列",
+      "铝基板高效散热"
+    ],
+    description: [
+      "80A大电流输出",
+      "宽电压支持",
+      "铝基板散热"
+    ],
+    escSpecs: {
+      current: "80A (持续)",
+      peakCurrent: "100A (峰值)",
+      voltage: "3-8S LiPo",
+      protocol: "DShot1200/600/300",
+      mosfet: "大功率MOS阵列",
+      pcbLayers: "6层PCB",
+      size: "45×45mm",
+      weight: "28g"
+    },
+    features: [
+      "铝基板散热",
+      "大载重应用"
+    ],
+    packageIncludes: [
+      "80A电调 x1",
+      "线材 x1套"
+    ]
+  },
+  {
+    id: "esc-100a",
+    name: "100A四合一电调",
+    model: "FM-ESC-100A-4IN1",
+    category: "四合一电调",
+    image: "/placeholder.svg",
+    price: "¥219",
+    highlights: [
+      "持续100A，峰值120A",
+      "8层PCB设计",
+      "多颗并联MOS",
+      "专业大载重应用"
+    ],
+    description: [
+      "100A超大电流",
+      "8层PCB设计",
+      "专业级应用"
+    ],
+    escSpecs: {
+      current: "100A (持续)",
+      peakCurrent: "120A (峰值)",
+      voltage: "4-8S LiPo",
+      protocol: "DShot1200/600/300",
+      mosfet: "多颗并联MOS",
+      pcbLayers: "8层PCB",
+      size: "50×50mm",
+      weight: "45g"
+    },
+    features: [
+      "超大电流输出",
+      "工业级可靠性"
+    ],
+    packageIncludes: [
+      "100A电调 x1",
+      "线材 x1套"
+    ]
+  }
+];
+
+// 分体电调
+export const separateEscProducts: FcEscProduct[] = [
+  {
+    id: "separate-esc-80a",
+    name: "80A分体电调",
+    model: "FM-SEP-ESC-80A",
+    category: "分体电调",
+    image: "/placeholder.svg",
+    price: "¥219",
+    highlights: [
+      "单臂独立安装",
+      "80A持续输出",
+      "散热效果极佳",
+      "方便维护更换"
+    ],
+    description: [
+      "分体式设计",
+      "单臂独立安装",
+      "便于维护"
+    ],
+    escSpecs: {
+      current: "80A (持续)",
+      peakCurrent: "100A (峰值)",
+      voltage: "4-8S LiPo",
+      protocol: "DShot1200",
+      size: "35×17mm",
+      weight: "12g/个"
+    },
+    features: [
+      "独立安装",
+      "便于更换"
+    ],
+    packageIncludes: [
+      "80A分体电调 x1",
+      "线材 x1套"
+    ]
+  },
+  {
+    id: "separate-esc-100a",
+    name: "100A分体电调",
+    model: "FM-SEP-ESC-100A",
+    category: "分体电调",
+    image: "/placeholder.svg",
+    price: "¥289",
+    highlights: [
+      "大载重无人机专用",
+      "100A持续大电流",
+      "独立散热片",
+      "工业级可靠性"
+    ],
+    description: [
+      "100A大电流分体电调",
+      "工业级应用",
+      "独立散热片"
+    ],
+    escSpecs: {
+      current: "100A (持续)",
+      peakCurrent: "120A (峰值)",
+      voltage: "4-12S LiPo",
+      protocol: "DShot1200",
+      size: "40×22mm",
+      weight: "18g/个"
+    },
+    features: [
+      "工业级可靠性",
+      "宽电压支持"
+    ],
+    packageIncludes: [
+      "100A分体电调 x1",
+      "散热片 x1",
+      "线材 x1套"
+    ]
+  }
+];
+
+// 获取所有产品
+export const getAllFcEscProducts = (): FcEscProduct[] => {
+  return [
+    ...stackProducts,
+    ...sixInOneEscProducts,
+    ...flightControllerProducts,
+    ...escProducts,
+    ...separateEscProducts
+  ];
+};
+
+// 根据ID获取产品
+export const getFcEscProductById = (id: string): FcEscProduct | undefined => {
+  return getAllFcEscProducts().find(product => product.id === id);
+};
