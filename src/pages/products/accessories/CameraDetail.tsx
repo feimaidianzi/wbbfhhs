@@ -59,9 +59,6 @@ const CameraDetail = () => {
             
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center mt-8">
               <div className="order-2 lg:order-1">
-                <span className="inline-block px-3 py-1 bg-primary/20 text-primary rounded-full text-sm mb-4">
-                  {product.model}
-                </span>
                 <h1 className="text-4xl md:text-5xl font-bold mb-4">
                   {product.slogan}
                 </h1>
