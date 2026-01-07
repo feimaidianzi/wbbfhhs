@@ -70,9 +70,9 @@ const CameraDetail = () => {
                 {/* Key Features */}
                 <div className="grid grid-cols-5 gap-3 mb-8">
                   {product.keyFeatures.map((feature, idx) => (
-                    <div key={idx} className="text-center p-3 bg-white/5 rounded-lg border border-white/10">
-                      <div className="text-lg font-bold text-primary">{feature.value}</div>
-                      <div className="text-xs text-white/60">{feature.label}</div>
+                    <div key={idx} className="text-center p-3 bg-white/10 rounded-lg border border-white/20">
+                      <div className="text-lg font-bold text-white">{feature.value}</div>
+                      <div className="text-xs text-white/70">{feature.label}</div>
                     </div>
                   ))}
                 </div>
