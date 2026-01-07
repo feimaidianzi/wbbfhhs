@@ -98,13 +98,6 @@ const products = [
     image: "https://images.unsplash.com/photo-1527977966376-1c8408f9f108?w=600&q=80",
     link: "/products/accessories/elrs",
   },
-  {
-    name: "无人机吊舱",
-    description: "高性能光电吊舱，支持可见光/红外/激光多传感器融合",
-    specs: ["4K高清", "30倍变焦", "AI识别"],
-    image: "https://images.unsplash.com/photo-1506947411487-a56738267384?w=600&q=80",
-    link: "/products/accessories/gimbal",
-  },
 ];
 
 const stats = [
