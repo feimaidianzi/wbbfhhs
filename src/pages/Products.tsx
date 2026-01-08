@@ -198,6 +198,12 @@ const Products = () => {
                   ? '覆盖工业级多旋翼、自动机场、集群系统、物流配送等全产品线，为各行业提供专业无人机解决方案'
                   : 'Covering industrial multi-rotors, drone nests, swarm systems, logistics delivery and full product line, providing professional drone solutions for various industries'}
               </p>
+              <Link to="/products/catalog">
+                <Button size="lg" className="bg-accent text-accent-foreground hover:bg-accent/90 shadow-lg">
+                  {language === 'zh' ? '浏览产品目录' : 'Browse Catalog'}
+                  <ArrowRight className="ml-2 h-4 w-4" />
+                </Button>
+              </Link>
             </div>
           </div>
           <div className="absolute bottom-0 left-0 right-0 h-16 bg-gradient-to-t from-primary to-transparent" />
