@@ -57,6 +57,8 @@ import AirportCustom from "./pages/custom-research/AirportCustom";
 import SwarmCustom from "./pages/custom-research/SwarmCustom";
 import SoftwareCustom from "./pages/custom-research/Software";
 import PayloadCustom from "./pages/custom-research/PayloadCustom";
+import AccessoriesCustom from "./pages/custom-research/AccessoriesCustom";
+import DroneCustom from "./pages/custom-research/DroneCustom";
 // Application detail pages
 import PowerInspection from "./pages/applications/PowerInspection";
 import TransmissionLine from "./pages/applications/power/TransmissionLine";
@@ -128,6 +130,8 @@ const App = () => (
           <Route path="/custom-research/swarm" element={<SwarmCustom />} />
           <Route path="/custom-research/software" element={<SoftwareCustom />} />
           <Route path="/custom-research/payload" element={<PayloadCustom />} />
+          <Route path="/custom-research/accessories" element={<AccessoriesCustom />} />
+          <Route path="/custom-research/drone" element={<DroneCustom />} />
           <Route path="/fpv" element={<FPV />} />
           <Route path="/fpv/:category" element={<FPVCategory />} />
           <Route path="/news" element={<News />} />
