@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import { supabase } from '@/integrations/supabase/client';
 import { Header } from '@/components/Header';
@@ -9,7 +9,7 @@ import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Input } from '@/components/ui/input';
 import { useLanguage } from '@/contexts/LanguageContext';
-import { Grid3X3, List, Search, Loader2, Star, ImageOff, ArrowRight } from 'lucide-react';
+import { Grid3X3, List, Search, Loader2, Star, ImageOff, ArrowRight, ChevronLeft, ChevronRight } from 'lucide-react';
 
 interface Product {
   id: string;
@@ -40,6 +40,8 @@ const CATEGORIES = [
   { value: 'other', label: '其他配件', labelEn: 'Other' },
 ];
 
+const ITEMS_PER_PAGE = 12;
+
 const DatabaseProductList = () => {
   const { language } = useLanguage();
   const isEn = language === 'en';
@@ -49,6 +51,7 @@ const DatabaseProductList = () => {
   const [activeCategory, setActiveCategory] = useState('all');
   const [searchTerm, setSearchTerm] = useState('');
   const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid');
+  const [currentPage, setCurrentPage] = useState(1);
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -73,20 +76,56 @@ const DatabaseProductList = () => {
     fetchProducts();
   }, []);
 
+  // Reset page when filter changes
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [activeCategory, searchTerm]);
+
   // Filter products
-  let filteredProducts = activeCategory === 'all' 
-    ? products 
-    : products.filter(p => p.category === activeCategory);
-  
-  if (searchTerm) {
-    const search = searchTerm.toLowerCase();
-    filteredProducts = filteredProducts.filter(p => 
-      p.name.toLowerCase().includes(search) ||
-      (p.name_en && p.name_en.toLowerCase().includes(search)) ||
-      (p.description && p.description.toLowerCase().includes(search)) ||
-      (p.description_en && p.description_en.toLowerCase().includes(search))
-    );
-  }
+  const filteredProducts = useMemo(() => {
+    let result = activeCategory === 'all' 
+      ? products 
+      : products.filter(p => p.category === activeCategory);
+    
+    if (searchTerm) {
+      const search = searchTerm.toLowerCase();
+      result = result.filter(p => 
+        p.name.toLowerCase().includes(search) ||
+        (p.name_en && p.name_en.toLowerCase().includes(search)) ||
+        (p.description && p.description.toLowerCase().includes(search)) ||
+        (p.description_en && p.description_en.toLowerCase().includes(search))
+      );
+    }
+    return result;
+  }, [products, activeCategory, searchTerm]);
+
+  // Pagination
+  const totalPages = Math.ceil(filteredProducts.length / ITEMS_PER_PAGE);
+  const paginatedProducts = useMemo(() => {
+    const start = (currentPage - 1) * ITEMS_PER_PAGE;
+    return filteredProducts.slice(start, start + ITEMS_PER_PAGE);
+  }, [filteredProducts, currentPage]);
+
+  const goToPage = (page: number) => {
+    setCurrentPage(Math.max(1, Math.min(page, totalPages)));
+    window.scrollTo({ top: 400, behavior: 'smooth' });
+  };
+
+  const getPageNumbers = () => {
+    const pages: (number | 'ellipsis')[] = [];
+    if (totalPages <= 7) {
+      for (let i = 1; i <= totalPages; i++) pages.push(i);
+    } else {
+      pages.push(1);
+      if (currentPage > 3) pages.push('ellipsis');
+      for (let i = Math.max(2, currentPage - 1); i <= Math.min(totalPages - 1, currentPage + 1); i++) {
+        pages.push(i);
+      }
+      if (currentPage < totalPages - 2) pages.push('ellipsis');
+      pages.push(totalPages);
+    }
+    return pages;
+  };
 
   const getCategoryLabel = (cat: typeof CATEGORIES[0]) => isEn ? cat.labelEn : cat.label;
   const getProductName = (p: Product) => isEn && p.name_en ? p.name_en : p.name;
@@ -158,6 +197,11 @@ const DatabaseProductList = () => {
                 {isEn ? 'Showing' : '共'}{' '}
                 <span className="text-foreground font-semibold">{filteredProducts.length}</span>{' '}
                 {isEn ? 'products' : '件产品'}
+                {totalPages > 1 && (
+                  <span className="ml-2">
+                    ({isEn ? `Page ${currentPage} of ${totalPages}` : `第 ${currentPage}/${totalPages} 页`})
+                  </span>
+                )}
               </div>
               <div className="flex items-center gap-2">
                 <Button
@@ -191,7 +235,7 @@ const DatabaseProductList = () => {
               </div>
             ) : viewMode === 'grid' ? (
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-                {filteredProducts.map((product) => (
+                {paginatedProducts.map((product) => (
                   <Link
                     key={product.id}
                     to={`/products/detail/${product.id}`}
@@ -249,7 +293,7 @@ const DatabaseProductList = () => {
               </div>
             ) : (
               <div className="space-y-4">
-                {filteredProducts.map((product) => (
+                {paginatedProducts.map((product) => (
                   <Link
                     key={product.id}
                     to={`/products/detail/${product.id}`}
@@ -299,6 +343,46 @@ const DatabaseProductList = () => {
                     </div>
                   </Link>
                 ))}
+              </div>
+            )}
+
+            {/* Pagination */}
+            {totalPages > 1 && (
+              <div className="flex items-center justify-center gap-2 mt-12">
+                <Button
+                  variant="outline"
+                  size="icon"
+                  onClick={() => goToPage(currentPage - 1)}
+                  disabled={currentPage === 1}
+                  className="h-10 w-10"
+                >
+                  <ChevronLeft className="w-4 h-4" />
+                </Button>
+                
+                {getPageNumbers().map((page, index) => 
+                  page === 'ellipsis' ? (
+                    <span key={`ellipsis-${index}`} className="px-2 text-muted-foreground">...</span>
+                  ) : (
+                    <Button
+                      key={page}
+                      variant={currentPage === page ? 'default' : 'outline'}
+                      onClick={() => goToPage(page)}
+                      className="h-10 w-10"
+                    >
+                      {page}
+                    </Button>
+                  )
+                )}
+                
+                <Button
+                  variant="outline"
+                  size="icon"
+                  onClick={() => goToPage(currentPage + 1)}
+                  disabled={currentPage === totalPages}
+                  className="h-10 w-10"
+                >
+                  <ChevronRight className="w-4 h-4" />
+                </Button>
               </div>
             )}
           </div>
