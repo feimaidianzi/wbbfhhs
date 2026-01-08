@@ -209,6 +209,36 @@ export type Database = {
         }
         Relationships: []
       }
+      specification_templates: {
+        Row: {
+          category: string
+          created_at: string
+          fields: Json
+          id: string
+          is_default: boolean | null
+          name: string
+          updated_at: string
+        }
+        Insert: {
+          category: string
+          created_at?: string
+          fields?: Json
+          id?: string
+          is_default?: boolean | null
+          name: string
+          updated_at?: string
+        }
+        Update: {
+          category?: string
+          created_at?: string
+          fields?: Json
+          id?: string
+          is_default?: boolean | null
+          name?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
       system_settings: {
         Row: {
           created_at: string

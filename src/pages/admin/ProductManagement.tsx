@@ -56,9 +56,26 @@ import {
   EyeOff,
   Star,
   Image,
-  Search
+  Search,
+  FileText,
+  GripVertical
 } from 'lucide-react';
 import ImageUpload from '@/components/admin/ImageUpload';
+import type { Json } from '@/integrations/supabase/types';
+
+interface SpecField {
+  key: string;
+  label: string;
+  value: string;
+  unit?: string;
+}
+
+interface SpecTemplate {
+  id: string;
+  name: string;
+  category: string;
+  fields: { key: string; label: string; unit?: string; defaultValue?: string }[];
+}
 
 interface Product {
   id: string;
@@ -107,6 +124,8 @@ const ProductManagement = () => {
   const [filterCategory, setFilterCategory] = useState<string>('all');
   const [searchTerm, setSearchTerm] = useState('');
 
+  const [specTemplates, setSpecTemplates] = useState<SpecTemplate[]>([]);
+
   const [formData, setFormData] = useState({
     name: '',
     name_en: '',
@@ -118,10 +137,38 @@ const ProductManagement = () => {
     original_price: '',
     images: [] as string[],
     features: '',
+    specifications: [] as SpecField[],
     is_featured: false,
     is_published: true,
     sort_order: 0,
   });
+
+  const fetchSpecTemplates = async () => {
+    try {
+      const { data, error } = await supabase
+        .from('specification_templates')
+        .select('*')
+        .order('name');
+
+      if (error) throw error;
+      
+      const parsed = (data || []).map(t => ({
+        id: t.id,
+        name: t.name,
+        category: t.category,
+        fields: (Array.isArray(t.fields) ? t.fields : []).map((f: any) => ({
+          key: f.key || '',
+          label: f.label || '',
+          unit: f.unit || '',
+          defaultValue: f.defaultValue || '',
+        })),
+      }));
+      
+      setSpecTemplates(parsed);
+    } catch (error) {
+      console.error('Error fetching templates:', error);
+    }
+  };
 
   const fetchProducts = async () => {
     try {
@@ -170,6 +217,7 @@ const ProductManagement = () => {
       }
 
       fetchProducts();
+      fetchSpecTemplates();
     };
 
     checkAdminAccess();
@@ -178,6 +226,28 @@ const ProductManagement = () => {
   const handleLogout = async () => {
     await supabase.auth.signOut();
     navigate('/feimai-admin-login');
+  };
+
+  const parseSpecifications = (specs: any): SpecField[] => {
+    if (!specs) return [];
+    if (Array.isArray(specs)) {
+      return specs.map((s: any, i: number) => ({
+        key: s.key || `field_${i}`,
+        label: s.label || '',
+        value: s.value || '',
+        unit: s.unit || '',
+      }));
+    }
+    // Handle object format (legacy)
+    if (typeof specs === 'object') {
+      return Object.entries(specs).map(([label, value], i) => ({
+        key: `field_${i}`,
+        label,
+        value: String(value),
+        unit: '',
+      }));
+    }
+    return [];
   };
 
   const openCreateDialog = () => {
@@ -193,6 +263,7 @@ const ProductManagement = () => {
       original_price: '',
       images: [],
       features: '',
+      specifications: [],
       is_featured: false,
       is_published: true,
       sort_order: 0,
@@ -213,11 +284,48 @@ const ProductManagement = () => {
       original_price: product.original_price?.toString() || '',
       images: product.images || [],
       features: product.features?.join('\n') || '',
+      specifications: parseSpecifications(product.specifications),
       is_featured: product.is_featured || false,
       is_published: product.is_published ?? true,
       sort_order: product.sort_order || 0,
     });
     setIsDialogOpen(true);
+  };
+
+  const applySpecTemplate = (templateId: string) => {
+    const template = specTemplates.find(t => t.id === templateId);
+    if (!template) return;
+    
+    const specs = template.fields.map(f => ({
+      key: `field_${Date.now()}_${Math.random()}`,
+      label: f.label,
+      value: f.defaultValue || '',
+      unit: f.unit || '',
+    }));
+    
+    setFormData({ ...formData, specifications: specs });
+  };
+
+  const addSpecField = () => {
+    setFormData({
+      ...formData,
+      specifications: [
+        ...formData.specifications,
+        { key: `field_${Date.now()}`, label: '', value: '', unit: '' },
+      ],
+    });
+  };
+
+  const removeSpecField = (index: number) => {
+    const newSpecs = [...formData.specifications];
+    newSpecs.splice(index, 1);
+    setFormData({ ...formData, specifications: newSpecs });
+  };
+
+  const updateSpecField = (index: number, updates: Partial<SpecField>) => {
+    const newSpecs = [...formData.specifications];
+    newSpecs[index] = { ...newSpecs[index], ...updates };
+    setFormData({ ...formData, specifications: newSpecs });
   };
 
   const handleSave = async () => {
@@ -245,6 +353,7 @@ const ProductManagement = () => {
         original_price: formData.original_price ? parseFloat(formData.original_price) : null,
         images: formData.images,
         features: featuresArray,
+        specifications: formData.specifications as unknown as Json,
         is_featured: formData.is_featured,
         is_published: formData.is_published,
         sort_order: formData.sort_order,
@@ -433,6 +542,12 @@ const ProductManagement = () => {
                 ))}
               </SelectContent>
             </Select>
+            <Link to="/feimai-admin-console/specification-templates">
+              <Button variant="outline" className="border-slate-600 text-slate-300 hover:text-white">
+                <FileText className="w-4 h-4 mr-2" />
+                规格模板
+              </Button>
+            </Link>
             <Button onClick={openCreateDialog} className="bg-amber-500 hover:bg-amber-600">
               <Plus className="w-4 h-4 mr-2" />
               添加产品
@@ -703,6 +818,78 @@ const ProductManagement = () => {
                 onImagesChange={(images) => setFormData({ ...formData, images })}
                 maxImages={10}
               />
+            </div>
+
+            {/* Specifications Editor */}
+            <div className="space-y-3">
+              <div className="flex items-center justify-between">
+                <Label className="text-white">规格参数</Label>
+                {specTemplates.filter(t => t.category === formData.category || !formData.category).length > 0 && (
+                  <Select onValueChange={applySpecTemplate}>
+                    <SelectTrigger className="w-40 bg-slate-700 border-slate-600 text-white h-8 text-sm">
+                      <SelectValue placeholder="应用模板" />
+                    </SelectTrigger>
+                    <SelectContent className="bg-slate-800 border-slate-700">
+                      {specTemplates
+                        .filter(t => t.category === formData.category || !formData.category)
+                        .map((t) => (
+                          <SelectItem key={t.id} value={t.id}>
+                            {t.name}
+                          </SelectItem>
+                        ))}
+                    </SelectContent>
+                  </Select>
+                )}
+              </div>
+
+              <div className="space-y-2 max-h-[200px] overflow-y-auto">
+                {formData.specifications.map((spec, index) => (
+                  <div
+                    key={spec.key}
+                    className="flex items-center gap-2 p-2 bg-slate-700/50 rounded-lg"
+                  >
+                    <GripVertical className="w-4 h-4 text-slate-500 flex-shrink-0" />
+                    <Input
+                      value={spec.label}
+                      onChange={(e) => updateSpecField(index, { label: e.target.value })}
+                      placeholder="参数名称"
+                      className="flex-1 bg-slate-700 border-slate-600 h-8 text-sm"
+                    />
+                    <Input
+                      value={spec.value}
+                      onChange={(e) => updateSpecField(index, { value: e.target.value })}
+                      placeholder="参数值"
+                      className="flex-1 bg-slate-700 border-slate-600 h-8 text-sm"
+                    />
+                    <Input
+                      value={spec.unit || ''}
+                      onChange={(e) => updateSpecField(index, { unit: e.target.value })}
+                      placeholder="单位"
+                      className="w-20 bg-slate-700 border-slate-600 h-8 text-sm"
+                    />
+                    <Button
+                      type="button"
+                      variant="ghost"
+                      size="sm"
+                      onClick={() => removeSpecField(index)}
+                      className="text-red-400 hover:text-red-300 h-8 w-8 p-0"
+                    >
+                      <Trash2 className="w-4 h-4" />
+                    </Button>
+                  </div>
+                ))}
+              </div>
+
+              <Button
+                type="button"
+                variant="outline"
+                size="sm"
+                onClick={addSpecField}
+                className="w-full border-dashed border-slate-600 text-slate-400 hover:text-white"
+              >
+                <Plus className="w-4 h-4 mr-2" />
+                添加规格参数
+              </Button>
             </div>
 
             <div className="space-y-2">

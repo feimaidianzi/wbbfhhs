@@ -95,6 +95,7 @@ import ProductManagement from "./pages/admin/ProductManagement";
 import InquiryManagement from "./pages/admin/InquiryManagement";
 import SystemSettings from "./pages/admin/SystemSettings";
 import ActivityLogs from "./pages/admin/ActivityLogs";
+import SpecificationTemplates from "./pages/admin/SpecificationTemplates";
 import NewsDetail from "./pages/NewsDetail";
 const queryClient = new QueryClient();
 
@@ -116,6 +117,7 @@ const App = () => (
             <Route path="/feimai-admin-console/inquiries" element={<InquiryManagement />} />
             <Route path="/feimai-admin-console/settings" element={<SystemSettings />} />
             <Route path="/feimai-admin-console/logs" element={<ActivityLogs />} />
+            <Route path="/feimai-admin-console/specification-templates" element={<SpecificationTemplates />} />
           <Route path="/about" element={<About />} />
           <Route path="/applications" element={<Applications />} />
           <Route path="/applications/power-inspection" element={<PowerInspection />} />
