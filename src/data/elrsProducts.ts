@@ -175,7 +175,7 @@ export const elrsProducts: ElrsProduct[] = [
     subSlogan: "2.4GHz频段 即插即用",
     description: "ELRS Lite 2.4G 接收机是一款轻巧的入门级ExpressLRS接收机，采用2.4GHz频段，重量轻体积小，适合各类小型穿越机和室内飞行使用。",
     price: "¥109",
-    image: "https://inew.foxeer.com//upload/s/goods/2022-10-21/17-13-15-635262ab4b099.images.400x400.jpg",
+    image: "/images/elrs/elrs-lite-2-4g.jpg",
     keyFeatures: [
       "2.4GHz",
       "超轻量",
@@ -236,7 +236,7 @@ export const elrsProducts: ElrsProduct[] = [
       }
     ],
     gallery: [
-      "https://inew.foxeer.com//upload/s/goods/2022-10-21/17-13-15-635262ab4b099.images.400x400.jpg"
+      "/images/elrs/elrs-lite-2-4g.jpg"
     ]
   },
   {
