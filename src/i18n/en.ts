@@ -246,7 +246,7 @@ export const enTranslations: Record<string, string> = {
   // FloatingContact
   'floating.home': 'Home',
   'floating.phone': 'Call Us',
-  'floating.qq': 'QQ Service',
+  'floating.qq': 'WeChat',
   'floating.wechat': 'WeChat',
   'floating.scanWechat': 'Scan to add WeChat',
   'floating.callPhone': 'Call Now',
