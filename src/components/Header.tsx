@@ -1,10 +1,13 @@
-import { useState, useRef } from "react";
-import { Menu, X, Phone, ChevronDown } from "lucide-react";
+import { useState, useRef, useEffect } from "react";
+import { Menu, X, Phone, ChevronDown, User, LogOut } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Logo } from "@/components/Logo";
 import { LanguageSwitcher } from "@/components/LanguageSwitcher";
 import { useLanguage } from "@/contexts/LanguageContext";
+import { supabase } from "@/integrations/supabase/client";
+import { User as SupabaseUser } from "@supabase/supabase-js";
+import { useToast } from "@/hooks/use-toast";
 
 const getDroneCategories = (language: 'zh' | 'en') => [
   { name: language === 'zh' ? "飞迈机场" : "Drone Nest", href: "/products/airport", description: language === 'zh' ? "全自动无人机起降平台" : "Automatic drone take-off and landing platform" },
@@ -62,8 +65,32 @@ const getProjectCategories = (language: 'zh' | 'en') => [
 export const Header = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
+  const [user, setUser] = useState<SupabaseUser | null>(null);
   const timeoutRef = useRef<NodeJS.Timeout | null>(null);
   const { t, language } = useLanguage();
+  const navigate = useNavigate();
+  const { toast } = useToast();
+
+  useEffect(() => {
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((event, session) => {
+      setUser(session?.user ?? null);
+    });
+
+    supabase.auth.getSession().then(({ data: { session } }) => {
+      setUser(session?.user ?? null);
+    });
+
+    return () => subscription.unsubscribe();
+  }, []);
+
+  const handleLogout = async () => {
+    await supabase.auth.signOut();
+    toast({
+      title: t('auth.success'),
+      description: t('auth.logoutSuccess'),
+    });
+    navigate('/');
+  };
 
   const droneCategories = getDroneCategories(language);
   const accessoryCategories = getAccessoryCategories(language);
@@ -171,11 +198,38 @@ export const Header = () => {
             )
           ))}
 
-          {/* Language Switcher, Phone & Mobile Menu */}
+          {/* Language Switcher, Auth, Phone & Mobile Menu */}
           <div className="flex items-center gap-3">
             <div className="hidden md:block">
               <LanguageSwitcher />
             </div>
+            
+            {/* Auth Buttons */}
+            <div className="hidden md:flex items-center gap-2">
+              {user ? (
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  className="text-primary-foreground hover:bg-primary-foreground/10"
+                  onClick={handleLogout}
+                >
+                  <LogOut className="w-4 h-4 mr-1" />
+                  {t('auth.logout')}
+                </Button>
+              ) : (
+                <Link to="/auth">
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    className="text-primary-foreground hover:bg-primary-foreground/10"
+                  >
+                    <User className="w-4 h-4 mr-1" />
+                    {t('auth.login')}
+                  </Button>
+                </Link>
+              )}
+            </div>
+            
             <a
               href="tel:+8617674048404"
               className="hidden md:flex items-center gap-2 text-primary-foreground"
@@ -199,8 +253,33 @@ export const Header = () => {
         {isOpen && (
           <nav className="lg:hidden py-4 border-t border-primary-foreground/10 max-h-[70vh] overflow-y-auto">
             <div className="flex flex-col gap-1">
-              <div className="px-4 py-2 mb-2">
+              <div className="px-4 py-2 mb-2 flex items-center justify-between">
                 <LanguageSwitcher />
+                {user ? (
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    className="text-primary-foreground hover:bg-primary-foreground/10"
+                    onClick={() => {
+                      handleLogout();
+                      setIsOpen(false);
+                    }}
+                  >
+                    <LogOut className="w-4 h-4 mr-1" />
+                    {t('auth.logout')}
+                  </Button>
+                ) : (
+                  <Link to="/auth" onClick={() => setIsOpen(false)}>
+                    <Button
+                      variant="ghost"
+                      size="sm"
+                      className="text-primary-foreground hover:bg-primary-foreground/10"
+                    >
+                      <User className="w-4 h-4 mr-1" />
+                      {t('auth.login')}
+                    </Button>
+                  </Link>
+                )}
               </div>
               {navItems.map((item) => (
                 <div key={item.name}>
