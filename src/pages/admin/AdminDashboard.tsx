@@ -95,7 +95,7 @@ const AdminDashboard = () => {
       icon: Users, 
       title: '用户管理', 
       description: '管理注册用户和权限', 
-      href: '#',
+      href: '/feimai-admin-console/users',
       color: 'from-green-500 to-emerald-500'
     },
     { 
@@ -230,26 +230,26 @@ const AdminDashboard = () => {
           </Card>
         </div>
 
-        {/* Menu Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {menuItems.map((item) => (
-            <Card 
-              key={item.title}
-              className="bg-slate-800 border-slate-700 hover:border-slate-600 transition-all cursor-pointer group"
-            >
-              <CardHeader>
-                <div className={`w-12 h-12 rounded-xl bg-gradient-to-br ${item.color} flex items-center justify-center mb-2 group-hover:scale-110 transition-transform`}>
-                  <item.icon className="w-6 h-6 text-white" />
-                </div>
-                <CardTitle className="text-white">{item.title}</CardTitle>
-                <CardDescription className="text-slate-400">{item.description}</CardDescription>
-              </CardHeader>
-              <CardContent>
-                <Button variant="ghost" className="text-slate-400 hover:text-white p-0">
-                  进入管理 →
-                </Button>
-              </CardContent>
-            </Card>
+            <Link key={item.title} to={item.href}>
+              <Card 
+                className="bg-slate-800 border-slate-700 hover:border-slate-600 transition-all cursor-pointer group h-full"
+              >
+                <CardHeader>
+                  <div className={`w-12 h-12 rounded-xl bg-gradient-to-br ${item.color} flex items-center justify-center mb-2 group-hover:scale-110 transition-transform`}>
+                    <item.icon className="w-6 h-6 text-white" />
+                  </div>
+                  <CardTitle className="text-white">{item.title}</CardTitle>
+                  <CardDescription className="text-slate-400">{item.description}</CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <Button variant="ghost" className="text-slate-400 hover:text-white p-0">
+                    进入管理 →
+                  </Button>
+                </CardContent>
+              </Card>
+            </Link>
           ))}
         </div>
 

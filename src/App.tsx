@@ -89,6 +89,7 @@ import OtherAccessoriesDetail from "./pages/products/accessories/OtherAccessorie
 import Auth from "./pages/Auth";
 import AdminLogin from "./pages/admin/AdminLogin";
 import AdminDashboard from "./pages/admin/AdminDashboard";
+import UserManagement from "./pages/admin/UserManagement";
 
 const queryClient = new QueryClient();
 
@@ -104,6 +105,7 @@ const App = () => (
             <Route path="/auth" element={<Auth />} />
             <Route path="/feimai-admin-login" element={<AdminLogin />} />
             <Route path="/feimai-admin-console" element={<AdminDashboard />} />
+            <Route path="/feimai-admin-console/users" element={<UserManagement />} />
           <Route path="/about" element={<About />} />
           <Route path="/applications" element={<Applications />} />
           <Route path="/applications/power-inspection" element={<PowerInspection />} />
