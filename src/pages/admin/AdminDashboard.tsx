@@ -109,7 +109,7 @@ const AdminDashboard = () => {
       icon: FileText, 
       title: '新闻管理', 
       description: '发布和管理新闻文章', 
-      href: '#',
+      href: '/feimai-admin-console/news',
       color: 'from-orange-500 to-red-500'
     },
     { 
