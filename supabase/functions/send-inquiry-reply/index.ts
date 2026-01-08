@@ -15,6 +15,17 @@ interface ReplyEmailRequest {
   senderName?: string;
 }
 
+// HTML escape function to prevent XSS
+const escapeHtml = (str: string): string => {
+  if (!str) return '';
+  return str
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;');
+};
+
 async function sendEmail(to: string[], subject: string, html: string) {
   const res = await fetch("https://api.resend.com/emails", {
     method: "POST",
@@ -47,11 +58,17 @@ const handler = async (req: Request): Promise<Response> => {
     const data: ReplyEmailRequest = await req.json();
     const { to, customerName, originalSubject, replyContent, senderName = "飞迈科技客服" } = data;
 
+    // Sanitize all user-provided content
+    const safeCustomerName = escapeHtml(customerName);
+    const safeOriginalSubject = escapeHtml(originalSubject);
+    const safeReplyContent = escapeHtml(replyContent);
+    const safeSenderName = escapeHtml(senderName);
+
     console.log("Sending reply email to:", to);
 
     const emailResponse = await sendEmail(
       [to],
-      `回复: ${originalSubject}`,
+      `回复: ${safeOriginalSubject}`,
       `
         <div style="font-family: sans-serif; max-width: 600px; margin: 0 auto;">
           <div style="background: linear-gradient(135deg, #3b82f6 0%, #1e40af 100%); padding: 30px; border-radius: 8px 8px 0 0;">
@@ -60,19 +77,19 @@ const handler = async (req: Request): Promise<Response> => {
           </div>
           
           <div style="background: #ffffff; padding: 30px; border: 1px solid #e2e8f0; border-top: none;">
-            <h2 style="color: #333; margin-top: 0;">尊敬的 ${customerName}，您好！</h2>
+            <h2 style="color: #333; margin-top: 0;">尊敬的 ${safeCustomerName}，您好！</h2>
             
             <p style="color: #666; line-height: 1.6;">感谢您的咨询，以下是我们的回复：</p>
             
             <div style="background: #f8fafc; padding: 20px; border-left: 4px solid #3b82f6; margin: 20px 0; border-radius: 0 8px 8px 0;">
-              <p style="color: #333; white-space: pre-wrap; line-height: 1.8; margin: 0;">${replyContent}</p>
+              <p style="color: #333; white-space: pre-wrap; line-height: 1.8; margin: 0;">${safeReplyContent}</p>
             </div>
             
             <p style="color: #666; line-height: 1.6;">如有其他问题，欢迎随时与我们联系。</p>
             
             <div style="margin-top: 30px; padding-top: 20px; border-top: 1px solid #e2e8f0;">
               <p style="color: #333; margin: 0;">此致</p>
-              <p style="color: #333; font-weight: bold; margin: 5px 0 0 0;">${senderName}</p>
+              <p style="color: #333; font-weight: bold; margin: 5px 0 0 0;">${safeSenderName}</p>
               <p style="color: #666; font-size: 14px; margin: 5px 0 0 0;">飞迈科技</p>
             </div>
           </div>

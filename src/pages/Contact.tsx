@@ -3,16 +3,20 @@ import { Footer } from "@/components/Footer";
 import { FloatingContact } from "@/components/FloatingContact";
 import { Button } from "@/components/ui/button";
 import { Phone, Mail, MapPin, Clock, MessageCircle, Send, Loader2 } from "lucide-react";
-import { useState } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { useToast } from "@/hooks/use-toast";
 import { SEO } from "@/components/SEO";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { supabase } from "@/integrations/supabase/client";
 
+const RATE_LIMIT_SECONDS = 60; // 60 second cooldown between submissions
+
 const Contact = () => {
   const { language, t } = useLanguage();
   const { toast } = useToast();
   const [submitting, setSubmitting] = useState(false);
+  const [canSubmit, setCanSubmit] = useState(true);
+  const [cooldown, setCooldown] = useState(0);
   const [formData, setFormData] = useState({
     name: "",
     phone: "",
@@ -21,6 +25,40 @@ const Contact = () => {
     subject: "",
     message: "",
   });
+
+  // Check localStorage for rate limit on mount
+  useEffect(() => {
+    const lastSubmitTime = localStorage.getItem('lastInquirySubmit');
+    if (lastSubmitTime) {
+      const elapsed = Math.floor((Date.now() - parseInt(lastSubmitTime)) / 1000);
+      const remaining = RATE_LIMIT_SECONDS - elapsed;
+      if (remaining > 0) {
+        setCanSubmit(false);
+        setCooldown(remaining);
+      }
+    }
+  }, []);
+
+  // Countdown timer
+  useEffect(() => {
+    if (cooldown <= 0) {
+      setCanSubmit(true);
+      return;
+    }
+    
+    const timer = setInterval(() => {
+      setCooldown(c => {
+        if (c <= 1) {
+          setCanSubmit(true);
+          clearInterval(timer);
+          return 0;
+        }
+        return c - 1;
+      });
+    }, 1000);
+
+    return () => clearInterval(timer);
+  }, [cooldown]);
 
   const contactInfo = [
     { icon: Phone, title: language === 'zh' ? "电话咨询" : "Phone", value: "+8617674048404", href: "tel:+8617674048404" },
@@ -40,10 +78,30 @@ const Contact = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
+    // Rate limit check
+    if (!canSubmit) {
+      toast({
+        title: language === 'zh' ? "请稍候" : "Please wait",
+        description: language === 'zh' ? `请等待 ${cooldown} 秒后再次提交` : `Please wait ${cooldown} seconds before submitting again`,
+        variant: "destructive",
+      });
+      return;
+    }
+
     if (!formData.name || !formData.email || !formData.message) {
       toast({
         title: language === 'zh' ? "请填写必填项" : "Please fill required fields",
         description: language === 'zh' ? "姓名、邮箱和咨询内容为必填项" : "Name, email and message are required",
+        variant: "destructive",
+      });
+      return;
+    }
+
+    // Basic input validation
+    if (formData.name.length > 100 || formData.email.length > 255 || formData.message.length > 5000) {
+      toast({
+        title: language === 'zh' ? "输入内容过长" : "Input too long",
+        description: language === 'zh' ? "请检查输入内容长度" : "Please check input length",
         variant: "destructive",
       });
       return;
@@ -99,6 +157,11 @@ const Contact = () => {
         console.error('Email notification failed:', emailError);
         // Don't throw - still show success since data was saved
       }
+
+      // Set rate limit
+      localStorage.setItem('lastInquirySubmit', Date.now().toString());
+      setCanSubmit(false);
+      setCooldown(RATE_LIMIT_SECONDS);
 
       toast({
         title: language === 'zh' ? "提交成功" : "Submitted Successfully",
@@ -285,13 +348,18 @@ const Contact = () => {
                   </div>
                   <Button 
                     type="submit" 
-                    disabled={submitting}
+                    disabled={submitting || !canSubmit}
                     className="w-full bg-accent hover:bg-orange-light text-accent-foreground py-3"
                   >
                     {submitting ? (
                       <>
                         <Loader2 className="w-4 h-4 mr-2 animate-spin" />
                         {language === 'zh' ? '提交中...' : 'Submitting...'}
+                      </>
+                    ) : !canSubmit ? (
+                      <>
+                        <Clock className="w-4 h-4 mr-2" />
+                        {language === 'zh' ? `请等待 ${cooldown} 秒` : `Wait ${cooldown}s`}
                       </>
                     ) : (
                       <>
