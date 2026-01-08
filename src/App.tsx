@@ -98,6 +98,7 @@ import ActivityLogs from "./pages/admin/ActivityLogs";
 import SpecificationTemplates from "./pages/admin/SpecificationTemplates";
 import NewsDetail from "./pages/NewsDetail";
 import DatabaseProductDetail from "./pages/products/DatabaseProductDetail";
+import DatabaseProductList from "./pages/products/DatabaseProductList";
 const queryClient = new QueryClient();
 
 const App = () => (
@@ -159,6 +160,7 @@ const App = () => (
           <Route path="/news/:id" element={<NewsDetail />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/products" element={<Products />} />
+          <Route path="/products/catalog" element={<DatabaseProductList />} />
           <Route path="/products/airport" element={<Airport />} />
           <Route path="/products/airport/vehicle-mounted" element={<VehicleMountedAirport />} />
           <Route path="/products/airport/uhs-1000" element={<UHS1000 />} />
