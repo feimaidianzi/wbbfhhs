@@ -37,9 +37,6 @@ const Contact = () => {
     },
   ];
 
-  // Admin email for notifications - can be configured
-  const ADMIN_EMAIL = "market@flymind.com";
-
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
@@ -70,6 +67,21 @@ const Contact = () => {
 
       if (error) throw error;
 
+      // Get admin email from settings
+      let adminEmail = 'market@flymind.com';
+      try {
+        const { data: settingData } = await supabase
+          .from('system_settings')
+          .select('value')
+          .eq('key', 'admin_notification_email')
+          .maybeSingle();
+        if (settingData?.value) {
+          adminEmail = settingData.value;
+        }
+      } catch (e) {
+        console.error('Failed to get admin email setting:', e);
+      }
+
       // Send email notification (don't fail if email fails)
       try {
         await supabase.functions.invoke('send-inquiry-notification', {
@@ -80,7 +92,7 @@ const Contact = () => {
             company: formData.company.trim() || undefined,
             subject: inquirySubject,
             message: formData.message.trim(),
-            adminEmail: ADMIN_EMAIL,
+            adminEmail,
           },
         });
       } catch (emailError) {
