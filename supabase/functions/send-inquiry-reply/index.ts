@@ -1,6 +1,9 @@
 import { serve } from "https://deno.land/std@0.190.0/http/server.ts";
+import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
 
 const RESEND_API_KEY = Deno.env.get("RESEND_API_KEY");
+const SUPABASE_URL = Deno.env.get("SUPABASE_URL")!;
+const SUPABASE_ANON_KEY = Deno.env.get("SUPABASE_ANON_KEY")!;
 
 const corsHeaders = {
   "Access-Control-Allow-Origin": "*",
@@ -55,8 +58,71 @@ const handler = async (req: Request): Promise<Response> => {
   }
 
   try {
+    // Authenticate the request - only admins can send replies
+    const authHeader = req.headers.get("Authorization");
+    if (!authHeader?.startsWith("Bearer ")) {
+      console.log("No authorization header provided");
+      return new Response(
+        JSON.stringify({ error: "Unauthorized - No auth token provided" }),
+        { status: 401, headers: { "Content-Type": "application/json", ...corsHeaders } }
+      );
+    }
+
+    const token = authHeader.replace("Bearer ", "");
+    
+    // Create Supabase client with the user's token
+    const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY, {
+      global: { headers: { Authorization: authHeader } }
+    });
+
+    // Verify the JWT and get claims
+    const { data: claimsData, error: claimsError } = await supabase.auth.getClaims(token);
+    if (claimsError || !claimsData?.claims) {
+      console.log("JWT verification failed:", claimsError?.message);
+      return new Response(
+        JSON.stringify({ error: "Unauthorized - Invalid token" }),
+        { status: 401, headers: { "Content-Type": "application/json", ...corsHeaders } }
+      );
+    }
+
+    const userId = claimsData.claims.sub;
+    console.log("Authenticated user:", userId);
+
+    // Check if user has admin role
+    const { data: isAdmin, error: roleError } = await supabase.rpc('has_role', {
+      _user_id: userId,
+      _role: 'admin'
+    });
+
+    if (roleError || !isAdmin) {
+      console.log("User is not admin:", userId, roleError?.message);
+      return new Response(
+        JSON.stringify({ error: "Forbidden - Admin access required" }),
+        { status: 403, headers: { "Content-Type": "application/json", ...corsHeaders } }
+      );
+    }
+
+    console.log("Admin access verified for user:", userId);
+
     const data: ReplyEmailRequest = await req.json();
     const { to, customerName, originalSubject, replyContent, senderName = "飞迈科技客服" } = data;
+
+    // Validate required fields
+    if (!to || !customerName || !originalSubject || !replyContent) {
+      return new Response(
+        JSON.stringify({ error: "Missing required fields" }),
+        { status: 400, headers: { "Content-Type": "application/json", ...corsHeaders } }
+      );
+    }
+
+    // Validate email format
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(to)) {
+      return new Response(
+        JSON.stringify({ error: "Invalid email address" }),
+        { status: 400, headers: { "Content-Type": "application/json", ...corsHeaders } }
+      );
+    }
 
     // Sanitize all user-provided content
     const safeCustomerName = escapeHtml(customerName);
@@ -64,7 +130,7 @@ const handler = async (req: Request): Promise<Response> => {
     const safeReplyContent = escapeHtml(replyContent);
     const safeSenderName = escapeHtml(senderName);
 
-    console.log("Sending reply email to:", to);
+    console.log("Sending reply email to:", to, "by admin:", userId);
 
     const emailResponse = await sendEmail(
       [to],
@@ -106,7 +172,7 @@ const handler = async (req: Request): Promise<Response> => {
       `
     );
 
-    console.log("Reply email sent:", emailResponse);
+    console.log("Reply email sent successfully:", emailResponse);
 
     return new Response(
       JSON.stringify({ success: true, data: emailResponse }),
@@ -118,7 +184,7 @@ const handler = async (req: Request): Promise<Response> => {
   } catch (error: any) {
     console.error("Error in send-inquiry-reply:", error);
     return new Response(
-      JSON.stringify({ error: error.message }),
+      JSON.stringify({ error: "Failed to send reply" }),
       {
         status: 500,
         headers: { "Content-Type": "application/json", ...corsHeaders },

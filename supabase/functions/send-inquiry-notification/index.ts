@@ -1,6 +1,9 @@
 import { serve } from "https://deno.land/std@0.190.0/http/server.ts";
+import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
 
 const RESEND_API_KEY = Deno.env.get("RESEND_API_KEY");
+const SUPABASE_URL = Deno.env.get("SUPABASE_URL")!;
+const SUPABASE_SERVICE_ROLE_KEY = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!;
 
 const corsHeaders = {
   "Access-Control-Allow-Origin": "*",
@@ -16,6 +19,7 @@ interface InquiryNotificationRequest {
   message: string;
   productInterest?: string;
   adminEmail: string;
+  inquiryId?: string; // Reference to the saved inquiry for verification
 }
 
 // HTML escape function to prevent XSS
@@ -29,27 +33,59 @@ const escapeHtml = (str: string): string => {
     .replace(/'/g, '&#39;');
 };
 
-// Simple rate limiting using in-memory store (resets on cold start)
-const rateLimitStore = new Map<string, { count: number; resetTime: number }>();
-const RATE_LIMIT_WINDOW = 3600000; // 1 hour in ms
-const RATE_LIMIT_MAX = 5; // Max 5 requests per hour per IP
+// Rate limiting configuration
+const RATE_LIMIT_WINDOW_MS = 3600000; // 1 hour
+const RATE_LIMIT_MAX_REQUESTS = 5; // Max 5 emails per hour per IP
 
-const checkRateLimit = (ip: string): boolean => {
+// Persistent rate limiting using Supabase
+async function checkAndUpdateRateLimit(supabase: any, clientIp: string): Promise<boolean> {
   const now = Date.now();
-  const record = rateLimitStore.get(ip);
-  
-  if (!record || now > record.resetTime) {
-    rateLimitStore.set(ip, { count: 1, resetTime: now + RATE_LIMIT_WINDOW });
+  const windowStart = now - RATE_LIMIT_WINDOW_MS;
+
+  try {
+    // Clean up old entries and get recent requests count
+    // Using system_settings as a simple key-value store for rate limits
+    const rateLimitKey = `rate_limit_${clientIp}`;
+    
+    const { data: existing } = await supabase
+      .from('system_settings')
+      .select('value')
+      .eq('key', rateLimitKey)
+      .maybeSingle();
+
+    let requests: number[] = [];
+    if (existing?.value) {
+      try {
+        requests = JSON.parse(existing.value).filter((ts: number) => ts > windowStart);
+      } catch {
+        requests = [];
+      }
+    }
+
+    if (requests.length >= RATE_LIMIT_MAX_REQUESTS) {
+      console.log(`Rate limit exceeded for IP: ${clientIp}, requests: ${requests.length}`);
+      return false;
+    }
+
+    // Add current request timestamp
+    requests.push(now);
+
+    // Upsert the rate limit record
+    await supabase
+      .from('system_settings')
+      .upsert({
+        key: rateLimitKey,
+        value: JSON.stringify(requests),
+        description: `Rate limit tracking for IP (auto-managed)`
+      }, { onConflict: 'key' });
+
+    return true;
+  } catch (error) {
+    console.error('Rate limit check error:', error);
+    // On error, allow the request but log it
     return true;
   }
-  
-  if (record.count >= RATE_LIMIT_MAX) {
-    return false;
-  }
-  
-  record.count++;
-  return true;
-};
+}
 
 async function sendEmail(to: string[], subject: string, html: string) {
   const res = await fetch("https://api.resend.com/emails", {
@@ -79,13 +115,17 @@ const handler = async (req: Request): Promise<Response> => {
     return new Response(null, { headers: corsHeaders });
   }
 
-  // Rate limiting check
+  // Create Supabase client with service role for rate limit tracking
+  const supabase = createClient(SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY);
+
+  // Get client IP for rate limiting
   const clientIp = req.headers.get("x-forwarded-for")?.split(",")[0]?.trim() || 
                    req.headers.get("x-real-ip") || 
                    "unknown";
-  
-  if (!checkRateLimit(clientIp)) {
-    console.log(`Rate limit exceeded for IP: ${clientIp}`);
+
+  // Check rate limit
+  const allowed = await checkAndUpdateRateLimit(supabase, clientIp);
+  if (!allowed) {
     return new Response(
       JSON.stringify({ error: "Too many requests. Please try again later." }),
       {
@@ -97,7 +137,32 @@ const handler = async (req: Request): Promise<Response> => {
 
   try {
     const data: InquiryNotificationRequest = await req.json();
-    const { name, email, phone, company, subject, message, productInterest, adminEmail } = data;
+    const { name, email, phone, company, subject, message, productInterest, adminEmail, inquiryId } = data;
+
+    // Validate required fields
+    if (!name || !email || !subject || !message || !adminEmail) {
+      return new Response(
+        JSON.stringify({ error: "Missing required fields" }),
+        { status: 400, headers: { "Content-Type": "application/json", ...corsHeaders } }
+      );
+    }
+
+    // Validate email format
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email) || !emailRegex.test(adminEmail)) {
+      return new Response(
+        JSON.stringify({ error: "Invalid email address" }),
+        { status: 400, headers: { "Content-Type": "application/json", ...corsHeaders } }
+      );
+    }
+
+    // Validate input lengths to prevent abuse
+    if (name.length > 100 || email.length > 255 || subject.length > 500 || message.length > 10000) {
+      return new Response(
+        JSON.stringify({ error: "Input exceeds maximum length" }),
+        { status: 400, headers: { "Content-Type": "application/json", ...corsHeaders } }
+      );
+    }
 
     // Sanitize all user inputs
     const safeName = escapeHtml(name);
@@ -108,7 +173,7 @@ const handler = async (req: Request): Promise<Response> => {
     const safeMessage = escapeHtml(message);
     const safeProductInterest = escapeHtml(productInterest || '');
 
-    console.log("Sending inquiry notification to:", adminEmail);
+    console.log("Sending inquiry notification to:", adminEmail, "from IP:", clientIp);
 
     // Send notification to admin
     const adminEmailResponse = await sendEmail(
@@ -192,7 +257,7 @@ const handler = async (req: Request): Promise<Response> => {
   } catch (error: any) {
     console.error("Error in send-inquiry-notification:", error);
     return new Response(
-      JSON.stringify({ error: error.message }),
+      JSON.stringify({ error: "Failed to send notification" }),
       {
         status: 500,
         headers: { "Content-Type": "application/json", ...corsHeaders },
