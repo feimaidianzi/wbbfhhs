@@ -5,6 +5,8 @@ import Link from '@tiptap/extension-link';
 import TextAlign from '@tiptap/extension-text-align';
 import Underline from '@tiptap/extension-underline';
 import { Button } from '@/components/ui/button';
+import { supabase } from '@/integrations/supabase/client';
+import { useToast } from '@/hooks/use-toast';
 import { 
   Bold, 
   Italic, 
@@ -23,9 +25,11 @@ import {
   Quote,
   Undo,
   Redo,
-  Code
+  Code,
+  Upload,
+  Loader2
 } from 'lucide-react';
-import { useEffect } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 interface RichTextEditorProps {
   content: string;
@@ -34,6 +38,9 @@ interface RichTextEditorProps {
 }
 
 const RichTextEditor = ({ content, onChange, placeholder }: RichTextEditorProps) => {
+  const { toast } = useToast();
+  const [uploading, setUploading] = useState(false);
+  const fileInputRef = useRef<HTMLInputElement>(null);
   const editor = useEditor({
     extensions: [
       StarterKit.configure({
@@ -78,10 +85,74 @@ const RichTextEditor = ({ content, onChange, placeholder }: RichTextEditorProps)
     return null;
   }
 
-  const addImage = () => {
+  const addImageUrl = () => {
     const url = prompt('请输入图片URL:');
     if (url) {
       editor.chain().focus().setImage({ src: url }).run();
+    }
+  };
+
+  const handleImageUpload = async (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    if (!file) return;
+
+    // Validate file type
+    if (!file.type.startsWith('image/')) {
+      toast({
+        title: '文件类型错误',
+        description: '请选择有效的图片文件',
+        variant: 'destructive',
+      });
+      return;
+    }
+
+    // Validate file size (max 5MB)
+    if (file.size > 5 * 1024 * 1024) {
+      toast({
+        title: '文件过大',
+        description: '图片大小不能超过5MB',
+        variant: 'destructive',
+      });
+      return;
+    }
+
+    setUploading(true);
+    try {
+      // Generate unique filename
+      const fileExt = file.name.split('.').pop();
+      const fileName = `${Date.now()}-${Math.random().toString(36).substring(2)}.${fileExt}`;
+      const filePath = `editor/${fileName}`;
+
+      // Upload to Supabase Storage
+      const { error: uploadError } = await supabase.storage
+        .from('product-images')
+        .upload(filePath, file);
+
+      if (uploadError) {
+        throw uploadError;
+      }
+
+      // Get public URL
+      const { data: { publicUrl } } = supabase.storage
+        .from('product-images')
+        .getPublicUrl(filePath);
+
+      // Insert image into editor
+      editor.chain().focus().setImage({ src: publicUrl }).run();
+      
+      toast({ title: '图片上传成功' });
+    } catch (error: any) {
+      console.error('Upload error:', error);
+      toast({
+        title: '上传失败',
+        description: error.message,
+        variant: 'destructive',
+      });
+    } finally {
+      setUploading(false);
+      if (fileInputRef.current) {
+        fileInputRef.current.value = '';
+      }
     }
   };
 
@@ -236,9 +307,26 @@ const RichTextEditor = ({ content, onChange, placeholder }: RichTextEditorProps)
         >
           <LinkIcon className="w-4 h-4" />
         </ToolbarButton>
+        <input
+          ref={fileInputRef}
+          type="file"
+          accept="image/*"
+          onChange={handleImageUpload}
+          className="hidden"
+        />
         <ToolbarButton
-          onClick={addImage}
-          title="插入图片"
+          onClick={() => fileInputRef.current?.click()}
+          title="上传图片"
+        >
+          {uploading ? (
+            <Loader2 className="w-4 h-4 animate-spin" />
+          ) : (
+            <Upload className="w-4 h-4" />
+          )}
+        </ToolbarButton>
+        <ToolbarButton
+          onClick={addImageUrl}
+          title="图片URL"
         >
           <ImageIcon className="w-4 h-4" />
         </ToolbarButton>
