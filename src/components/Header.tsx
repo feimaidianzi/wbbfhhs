@@ -100,6 +100,7 @@ export const Header = () => {
   const projectCategories = getProjectCategories(language);
 
   const productCenterCategories = [
+    { name: language === 'zh' ? "产品目录" : "Product Catalog", href: "/products/catalog", description: language === 'zh' ? "浏览所有产品" : "Browse all products" },
     { name: language === 'zh' ? "多旋翼无人机" : "Multi-Rotor Drone", href: "/products", description: language === 'zh' ? "专业多旋翼无人机系列" : "Professional multi-rotor drone series", hasSubmenu: true, submenuItems: droneCategories },
     ...accessoryCategories
   ];
