@@ -49,6 +49,7 @@ import {
   EyeOff
 } from 'lucide-react';
 import SingleImageUpload from '@/components/admin/SingleImageUpload';
+import RichTextEditor from '@/components/admin/RichTextEditor';
 
 interface NewsArticle {
   id: string;
@@ -471,13 +472,10 @@ const NewsManagement = () => {
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="content">内容 *</Label>
-              <Textarea
-                id="content"
-                value={formData.content}
-                onChange={(e) => setFormData({ ...formData, content: e.target.value })}
-                placeholder="输入文章内容"
-                className="bg-slate-700 border-slate-600 min-h-[200px]"
+              <Label>内容 *</Label>
+              <RichTextEditor
+                content={formData.content}
+                onChange={(content) => setFormData({ ...formData, content })}
               />
             </div>
 
