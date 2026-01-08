@@ -102,7 +102,7 @@ const AdminDashboard = () => {
       icon: Package, 
       title: '产品管理', 
       description: '添加、编辑产品信息', 
-      href: '#',
+      href: '/feimai-admin-console/products',
       color: 'from-purple-500 to-violet-500'
     },
     { 
