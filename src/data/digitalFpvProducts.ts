@@ -1,4 +1,4 @@
-import wifilink2Image from "@/assets/fpv/wifilink2.jpg";
+import wifilink2Image from "@/assets/fpv/wifilink2-new.jpg";
 import wifilinkRxImage from "@/assets/fpv/wifilink-rx.jpg";
 
 export interface DigitalFpvProduct {
@@ -25,11 +25,11 @@ export interface DigitalFpvProduct {
 export const digitalFpvProducts: DigitalFpvProduct[] = [
   {
     id: "wifilink2",
-    name: "WiFiLink2 数字高清图传",
+    name: "FlyMind Link2 数字高清图传",
     category: "transmitter",
     slogan: "高清数字图传",
     subSlogan: "WiFi数字传输 低延迟高画质",
-    description: "WiFiLink2 是一款高性能数字高清图传发射器，采用WiFi技术实现低延迟高清视频传输，支持1080P 60fps高清画质输出，适用于FPV穿越机、航拍等应用场景。",
+    description: "FlyMind Link2 是一款高性能数字高清图传发射器，采用WiFi技术实现低延迟高清视频传输，支持1080P 60fps高清画质输出，适用于FPV穿越机、航拍等应用场景。",
     price: "¥499",
     image: wifilink2Image,
     keyFeatures: [
@@ -42,7 +42,7 @@ export const digitalFpvProducts: DigitalFpvProduct[] = [
       {
         category: "基本参数",
         items: [
-          { label: "型号", value: "WiFiLink2" },
+          { label: "型号", value: "FlyMind Link2" },
           { label: "频率范围", value: "5180~5885 MHz" },
           { label: "视频输出", value: "1080P 60fps / 720P 60fps" },
           { label: "传输技术", value: "WiFi数字传输" },
@@ -95,11 +95,11 @@ export const digitalFpvProducts: DigitalFpvProduct[] = [
   },
   {
     id: "wifilink-rx",
-    name: "WiFiLink-RX 数字高清接收器",
+    name: "FlyMind Link-RX 数字高清接收器",
     category: "receiver",
     slogan: "数字高清接收",
     subSlogan: "1080P输出 多系统兼容",
-    description: "WiFiLink-RX 是一款专业数字高清接收器，支持1080P 60fps高清HDMI输出，内置32G存储空间，可录制飞行画面。兼容OpenIPC和Ruby FPV系统，满足不同用户需求。",
+    description: "FlyMind Link-RX 是一款专业数字高清接收器，支持1080P 60fps高清HDMI输出，内置32G存储空间，可录制飞行画面。兼容OpenIPC和Ruby FPV系统，满足不同用户需求。",
     price: "¥699",
     image: wifilinkRxImage,
     keyFeatures: [
@@ -112,7 +112,7 @@ export const digitalFpvProducts: DigitalFpvProduct[] = [
       {
         category: "基本参数",
         items: [
-          { label: "型号", value: "WiFiLink-RX" },
+          { label: "型号", value: "FlyMind Link-RX" },
           { label: "频率范围", value: "5180~5885 MHz" },
           { label: "HDMI输出", value: "1080P 60fps / 720P 60fps" },
           { label: "系统支持", value: "OpenIPC (默认) / Ruby FPV" },
