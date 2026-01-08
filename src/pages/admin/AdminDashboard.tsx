@@ -18,11 +18,24 @@ import {
 } from 'lucide-react';
 import { User } from '@supabase/supabase-js';
 
+interface Stats {
+  pendingInquiries: number;
+  totalInquiries: number;
+  publishedProducts: number;
+  publishedNews: number;
+}
+
 const AdminDashboard = () => {
   const navigate = useNavigate();
   const { toast } = useToast();
   const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
+  const [stats, setStats] = useState<Stats>({
+    pendingInquiries: 0,
+    totalInquiries: 0,
+    publishedProducts: 0,
+    publishedNews: 0,
+  });
 
   useEffect(() => {
     const checkAdminAccess = async () => {
@@ -51,6 +64,7 @@ const AdminDashboard = () => {
       }
 
       setUser(session.user);
+      await fetchStats();
       setLoading(false);
     };
 
@@ -65,6 +79,42 @@ const AdminDashboard = () => {
     checkAdminAccess();
     return () => subscription.unsubscribe();
   }, [navigate, toast]);
+
+  const fetchStats = async () => {
+    try {
+      // Fetch pending inquiries count
+      const { count: pendingCount } = await supabase
+        .from('inquiries')
+        .select('*', { count: 'exact', head: true })
+        .eq('status', 'pending');
+
+      // Fetch total inquiries count
+      const { count: totalInquiriesCount } = await supabase
+        .from('inquiries')
+        .select('*', { count: 'exact', head: true });
+
+      // Fetch published products count
+      const { count: productsCount } = await supabase
+        .from('products')
+        .select('*', { count: 'exact', head: true })
+        .eq('is_published', true);
+
+      // Fetch published news count
+      const { count: newsCount } = await supabase
+        .from('news_articles')
+        .select('*', { count: 'exact', head: true })
+        .eq('is_published', true);
+
+      setStats({
+        pendingInquiries: pendingCount || 0,
+        totalInquiries: totalInquiriesCount || 0,
+        publishedProducts: productsCount || 0,
+        publishedNews: newsCount || 0,
+      });
+    } catch (error) {
+      console.error('Failed to fetch stats:', error);
+    }
+  };
 
   const handleLogout = async () => {
     await supabase.auth.signOut();
@@ -180,8 +230,21 @@ const AdminDashboard = () => {
             <CardContent className="p-4">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-slate-400 text-sm">今日访问</p>
-                  <p className="text-2xl font-bold text-white">--</p>
+                  <p className="text-slate-400 text-sm">待处理咨询</p>
+                  <p className="text-2xl font-bold text-white">{stats.pendingInquiries}</p>
+                </div>
+                <div className="w-10 h-10 bg-orange-500/20 rounded-lg flex items-center justify-center">
+                  <MessageSquare className="w-5 h-5 text-orange-500" />
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+          <Card className="bg-slate-800 border-slate-700">
+            <CardContent className="p-4">
+              <div className="flex items-center justify-between">
+                <div>
+                  <p className="text-slate-400 text-sm">总咨询数</p>
+                  <p className="text-2xl font-bold text-white">{stats.totalInquiries}</p>
                 </div>
                 <div className="w-10 h-10 bg-blue-500/20 rounded-lg flex items-center justify-center">
                   <BarChart3 className="w-5 h-5 text-blue-500" />
@@ -193,21 +256,8 @@ const AdminDashboard = () => {
             <CardContent className="p-4">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-slate-400 text-sm">注册用户</p>
-                  <p className="text-2xl font-bold text-white">--</p>
-                </div>
-                <div className="w-10 h-10 bg-green-500/20 rounded-lg flex items-center justify-center">
-                  <Users className="w-5 h-5 text-green-500" />
-                </div>
-              </div>
-            </CardContent>
-          </Card>
-          <Card className="bg-slate-800 border-slate-700">
-            <CardContent className="p-4">
-              <div className="flex items-center justify-between">
-                <div>
-                  <p className="text-slate-400 text-sm">产品数量</p>
-                  <p className="text-2xl font-bold text-white">--</p>
+                  <p className="text-slate-400 text-sm">已发布产品</p>
+                  <p className="text-2xl font-bold text-white">{stats.publishedProducts}</p>
                 </div>
                 <div className="w-10 h-10 bg-purple-500/20 rounded-lg flex items-center justify-center">
                   <Package className="w-5 h-5 text-purple-500" />
@@ -219,11 +269,11 @@ const AdminDashboard = () => {
             <CardContent className="p-4">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-slate-400 text-sm">待处理咨询</p>
-                  <p className="text-2xl font-bold text-white">--</p>
+                  <p className="text-slate-400 text-sm">已发布新闻</p>
+                  <p className="text-2xl font-bold text-white">{stats.publishedNews}</p>
                 </div>
-                <div className="w-10 h-10 bg-orange-500/20 rounded-lg flex items-center justify-center">
-                  <MessageSquare className="w-5 h-5 text-orange-500" />
+                <div className="w-10 h-10 bg-green-500/20 rounded-lg flex items-center justify-center">
+                  <FileText className="w-5 h-5 text-green-500" />
                 </div>
               </div>
             </CardContent>
