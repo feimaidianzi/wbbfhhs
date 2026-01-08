@@ -48,6 +48,7 @@ import {
   Eye,
   EyeOff
 } from 'lucide-react';
+import SingleImageUpload from '@/components/admin/SingleImageUpload';
 
 interface NewsArticle {
   id: string;
@@ -504,13 +505,11 @@ const NewsManagement = () => {
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="cover_image">封面图片 URL</Label>
-              <Input
-                id="cover_image"
-                value={formData.cover_image}
-                onChange={(e) => setFormData({ ...formData, cover_image: e.target.value })}
-                placeholder="输入图片链接（可选）"
-                className="bg-slate-700 border-slate-600"
+              <Label>封面图片</Label>
+              <SingleImageUpload
+                image={formData.cover_image}
+                onImageChange={(image) => setFormData({ ...formData, cover_image: image })}
+                folder="news"
               />
             </div>
 
