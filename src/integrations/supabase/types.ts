@@ -14,6 +14,57 @@ export type Database = {
   }
   public: {
     Tables: {
+      inquiries: {
+        Row: {
+          admin_notes: string | null
+          company: string | null
+          created_at: string
+          email: string
+          id: string
+          message: string
+          name: string
+          phone: string | null
+          product_interest: string | null
+          replied_at: string | null
+          replied_by: string | null
+          status: string | null
+          subject: string
+          updated_at: string
+        }
+        Insert: {
+          admin_notes?: string | null
+          company?: string | null
+          created_at?: string
+          email: string
+          id?: string
+          message: string
+          name: string
+          phone?: string | null
+          product_interest?: string | null
+          replied_at?: string | null
+          replied_by?: string | null
+          status?: string | null
+          subject: string
+          updated_at?: string
+        }
+        Update: {
+          admin_notes?: string | null
+          company?: string | null
+          created_at?: string
+          email?: string
+          id?: string
+          message?: string
+          name?: string
+          phone?: string | null
+          product_interest?: string | null
+          replied_at?: string | null
+          replied_by?: string | null
+          status?: string | null
+          subject?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
       news_articles: {
         Row: {
           author_id: string | null

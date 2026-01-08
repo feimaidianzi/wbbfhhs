@@ -116,7 +116,7 @@ const AdminDashboard = () => {
       icon: MessageSquare, 
       title: '咨询管理', 
       description: '查看和回复用户咨询', 
-      href: '#',
+      href: '/feimai-admin-console/inquiries',
       color: 'from-pink-500 to-rose-500'
     },
     { 
