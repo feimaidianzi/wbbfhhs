@@ -37,6 +37,9 @@ const Contact = () => {
     },
   ];
 
+  // Admin email for notifications - can be configured
+  const ADMIN_EMAIL = "market@flymind.com";
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
@@ -51,6 +54,9 @@ const Contact = () => {
 
     setSubmitting(true);
     try {
+      const inquirySubject = formData.subject.trim() || (language === 'zh' ? '网站咨询' : 'Website Inquiry');
+      
+      // Save to database
       const { error } = await supabase
         .from('inquiries')
         .insert({
@@ -58,11 +64,29 @@ const Contact = () => {
           email: formData.email.trim(),
           phone: formData.phone.trim() || null,
           company: formData.company.trim() || null,
-          subject: formData.subject.trim() || (language === 'zh' ? '网站咨询' : 'Website Inquiry'),
+          subject: inquirySubject,
           message: formData.message.trim(),
         });
 
       if (error) throw error;
+
+      // Send email notification (don't fail if email fails)
+      try {
+        await supabase.functions.invoke('send-inquiry-notification', {
+          body: {
+            name: formData.name.trim(),
+            email: formData.email.trim(),
+            phone: formData.phone.trim() || undefined,
+            company: formData.company.trim() || undefined,
+            subject: inquirySubject,
+            message: formData.message.trim(),
+            adminEmail: ADMIN_EMAIL,
+          },
+        });
+      } catch (emailError) {
+        console.error('Email notification failed:', emailError);
+        // Don't throw - still show success since data was saved
+      }
 
       toast({
         title: language === 'zh' ? "提交成功" : "Submitted Successfully",
