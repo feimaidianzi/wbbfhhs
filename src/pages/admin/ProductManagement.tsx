@@ -57,6 +57,7 @@ import {
   Star,
   Image
 } from 'lucide-react';
+import ImageUpload from '@/components/admin/ImageUpload';
 
 interface Product {
   id: string;
@@ -113,7 +114,7 @@ const ProductManagement = () => {
     subcategory: '',
     price: '',
     original_price: '',
-    images: '',
+    images: [] as string[],
     features: '',
     is_featured: false,
     is_published: true,
@@ -188,7 +189,7 @@ const ProductManagement = () => {
       subcategory: '',
       price: '',
       original_price: '',
-      images: '',
+      images: [],
       features: '',
       is_featured: false,
       is_published: true,
@@ -208,7 +209,7 @@ const ProductManagement = () => {
       subcategory: product.subcategory || '',
       price: product.price?.toString() || '',
       original_price: product.original_price?.toString() || '',
-      images: product.images?.join('\n') || '',
+      images: product.images || [],
       features: product.features?.join('\n') || '',
       is_featured: product.is_featured || false,
       is_published: product.is_published ?? true,
@@ -229,7 +230,6 @@ const ProductManagement = () => {
 
     setSaving(true);
     try {
-      const imagesArray = formData.images.split('\n').filter(url => url.trim());
       const featuresArray = formData.features.split('\n').filter(f => f.trim());
 
       const productData = {
@@ -241,7 +241,7 @@ const ProductManagement = () => {
         subcategory: formData.subcategory.trim() || null,
         price: formData.price ? parseFloat(formData.price) : null,
         original_price: formData.original_price ? parseFloat(formData.original_price) : null,
-        images: imagesArray,
+        images: formData.images,
         features: featuresArray,
         is_featured: formData.is_featured,
         is_published: formData.is_published,
@@ -679,13 +679,11 @@ const ProductManagement = () => {
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="images">产品图片 (每行一个URL)</Label>
-              <Textarea
-                id="images"
-                value={formData.images}
-                onChange={(e) => setFormData({ ...formData, images: e.target.value })}
-                placeholder="https://example.com/image1.jpg&#10;https://example.com/image2.jpg"
-                className="bg-slate-700 border-slate-600 min-h-[80px]"
+              <Label>产品图片</Label>
+              <ImageUpload
+                images={formData.images}
+                onImagesChange={(images) => setFormData({ ...formData, images })}
+                maxImages={10}
               />
             </div>
 
