@@ -121,13 +121,13 @@ export const HeroSection = () => {
                 <h1 className={`text-4xl md:text-5xl lg:text-6xl font-black text-primary-foreground mb-6 leading-tight transition-all duration-700 delay-300 ${
                   index === currentSlide ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
                 }`}>
-                  {slide.title.split('').map((char, charIndex) => (
+                  {slide.title.split(' ').map((word, wordIndex, arr) => (
                     <span 
-                      key={charIndex}
+                      key={wordIndex}
                       className="inline-block animate-text-reveal"
-                      style={{ animationDelay: `${charIndex * 0.05}s` }}
+                      style={{ animationDelay: `${wordIndex * 0.1}s` }}
                     >
-                      {char}
+                      {word}{wordIndex < arr.length - 1 ? '\u00A0' : ''}
                     </span>
                   ))}
                 </h1>
