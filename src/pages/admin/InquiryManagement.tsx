@@ -57,7 +57,9 @@ import {
   Phone,
   Building,
   User,
-  Send
+  Send,
+  Download,
+  FileSpreadsheet
 } from 'lucide-react';
 
 interface Inquiry {
@@ -318,6 +320,92 @@ const InquiryManagement = () => {
 
   const pendingCount = inquiries.filter(i => i.status === 'pending').length;
 
+  const getStatusLabel = (status: string) => {
+    const info = STATUS_OPTIONS.find(s => s.value === status);
+    return info?.label || status;
+  };
+
+  const exportToCSV = () => {
+    const headers = ['姓名', '邮箱', '电话', '公司', '主题', '咨询内容', '状态', '提交时间', '回复时间', '管理备注'];
+    const rows = filteredInquiries.map(inquiry => [
+      inquiry.name,
+      inquiry.email,
+      inquiry.phone || '',
+      inquiry.company || '',
+      inquiry.subject,
+      inquiry.message.replace(/[\n\r]/g, ' '),
+      getStatusLabel(inquiry.status),
+      formatDate(inquiry.created_at),
+      inquiry.replied_at ? formatDate(inquiry.replied_at) : '',
+      (inquiry.admin_notes || '').replace(/[\n\r]/g, ' ')
+    ]);
+
+    const csvContent = [
+      headers.join(','),
+      ...rows.map(row => row.map(cell => `"${String(cell).replace(/"/g, '""')}"`).join(','))
+    ].join('\n');
+
+    const BOM = '\uFEFF';
+    const blob = new Blob([BOM + csvContent], { type: 'text/csv;charset=utf-8;' });
+    const link = document.createElement('a');
+    link.href = URL.createObjectURL(blob);
+    link.download = `咨询记录_${new Date().toISOString().split('T')[0]}.csv`;
+    link.click();
+    URL.revokeObjectURL(link.href);
+
+    toast({ title: '导出成功', description: `已导出 ${filteredInquiries.length} 条记录` });
+  };
+
+  const exportToExcel = () => {
+    const headers = ['姓名', '邮箱', '电话', '公司', '主题', '咨询内容', '状态', '提交时间', '回复时间', '管理备注'];
+    const rows = filteredInquiries.map(inquiry => [
+      inquiry.name,
+      inquiry.email,
+      inquiry.phone || '',
+      inquiry.company || '',
+      inquiry.subject,
+      inquiry.message,
+      getStatusLabel(inquiry.status),
+      formatDate(inquiry.created_at),
+      inquiry.replied_at ? formatDate(inquiry.replied_at) : '',
+      inquiry.admin_notes || ''
+    ]);
+
+    // Create XML for Excel
+    let xml = '<?xml version="1.0" encoding="UTF-8"?>\n';
+    xml += '<?mso-application progid="Excel.Sheet"?>\n';
+    xml += '<Workbook xmlns="urn:schemas-microsoft-com:office:spreadsheet" xmlns:ss="urn:schemas-microsoft-com:office:spreadsheet">\n';
+    xml += '<Worksheet ss:Name="咨询记录"><Table>\n';
+    
+    // Header row
+    xml += '<Row>';
+    headers.forEach(h => {
+      xml += `<Cell><Data ss:Type="String">${h}</Data></Cell>`;
+    });
+    xml += '</Row>\n';
+    
+    // Data rows
+    rows.forEach(row => {
+      xml += '<Row>';
+      row.forEach(cell => {
+        const escaped = String(cell).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+        xml += `<Cell><Data ss:Type="String">${escaped}</Data></Cell>`;
+      });
+      xml += '</Row>\n';
+    });
+    
+    xml += '</Table></Worksheet></Workbook>';
+
+    const blob = new Blob([xml], { type: 'application/vnd.ms-excel' });
+    const link = document.createElement('a');
+    link.href = URL.createObjectURL(blob);
+    link.download = `咨询记录_${new Date().toISOString().split('T')[0]}.xls`;
+    link.click();
+    URL.revokeObjectURL(link.href);
+
+    toast({ title: '导出成功', description: `已导出 ${filteredInquiries.length} 条记录` });
+  };
+
   if (loading) {
     return (
       <div className="min-h-screen bg-slate-900 flex items-center justify-center">
@@ -371,7 +459,7 @@ const InquiryManagement = () => {
               返回管理后台
             </Button>
           </Link>
-          <div className="flex items-center gap-4">
+          <div className="flex items-center gap-3 flex-wrap">
             {pendingCount > 0 && (
               <Badge className="bg-red-500/20 text-red-400 border-red-500/30">
                 {pendingCount} 条待处理
@@ -388,6 +476,28 @@ const InquiryManagement = () => {
                 ))}
               </SelectContent>
             </Select>
+            <div className="flex items-center gap-2">
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={exportToCSV}
+                className="bg-slate-700 border-slate-600 text-slate-300 hover:bg-slate-600 hover:text-white"
+                disabled={filteredInquiries.length === 0}
+              >
+                <Download className="w-4 h-4 mr-1" />
+                CSV
+              </Button>
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={exportToExcel}
+                className="bg-slate-700 border-slate-600 text-slate-300 hover:bg-slate-600 hover:text-white"
+                disabled={filteredInquiries.length === 0}
+              >
+                <FileSpreadsheet className="w-4 h-4 mr-1" />
+                Excel
+              </Button>
+            </div>
           </div>
         </div>
 
