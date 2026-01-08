@@ -90,6 +90,7 @@ import Auth from "./pages/Auth";
 import AdminLogin from "./pages/admin/AdminLogin";
 import AdminDashboard from "./pages/admin/AdminDashboard";
 import UserManagement from "./pages/admin/UserManagement";
+import NewsManagement from "./pages/admin/NewsManagement";
 
 const queryClient = new QueryClient();
 
@@ -106,6 +107,7 @@ const App = () => (
             <Route path="/feimai-admin-login" element={<AdminLogin />} />
             <Route path="/feimai-admin-console" element={<AdminDashboard />} />
             <Route path="/feimai-admin-console/users" element={<UserManagement />} />
+            <Route path="/feimai-admin-console/news" element={<NewsManagement />} />
           <Route path="/about" element={<About />} />
           <Route path="/applications" element={<Applications />} />
           <Route path="/applications/power-inspection" element={<PowerInspection />} />
