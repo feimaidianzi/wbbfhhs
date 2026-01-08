@@ -86,6 +86,7 @@ import Elrs from "./pages/products/accessories/Elrs";
 import ElrsDetail from "./pages/products/accessories/ElrsDetail";
 import OtherAccessories from "./pages/products/accessories/OtherAccessories";
 import OtherAccessoriesDetail from "./pages/products/accessories/OtherAccessoriesDetail";
+import Auth from "./pages/Auth";
 
 const queryClient = new QueryClient();
 
@@ -98,6 +99,7 @@ const App = () => (
         <BrowserRouter>
           <Routes>
             <Route path="/" element={<Index />} />
+            <Route path="/auth" element={<Auth />} />
           <Route path="/about" element={<About />} />
           <Route path="/applications" element={<Applications />} />
           <Route path="/applications/power-inspection" element={<PowerInspection />} />
