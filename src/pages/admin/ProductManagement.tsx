@@ -99,16 +99,16 @@ interface Product {
 
 const CATEGORIES = [
   { value: 'multi-rotor', label: '多旋翼飞行器' },
-  { value: 'vtx-vrx', label: '图传发射/接收' },
+  { value: 'vtx', label: 'VTX图传' },
   { value: 'fc-esc', label: '飞控/电调' },
   { value: 'gimbal', label: '吊舱/云台' },
-  { value: 'camera', label: '相机' },
-  { value: 'digital-fpv', label: '数字FPV' },
-  { value: 'elrs', label: 'ELRS' },
+  { value: 'camera', label: '运动相机' },
+  { value: 'digital-fpv', label: '数字图传' },
+  { value: 'elrs', label: 'ELRS接收机/天线' },
   { value: 'tethered', label: '系留无人机' },
   { value: 'logistics', label: '物流无人机' },
   { value: 'airport', label: '机场' },
-  { value: 'other', label: '其他配件' },
+  { value: 'other-accessories', label: '其他配件(监视器/GPS)' },
 ];
 
 const ProductManagement = () => {

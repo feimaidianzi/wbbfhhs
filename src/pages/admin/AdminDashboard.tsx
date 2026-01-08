@@ -17,7 +17,9 @@ import {
   Loader2,
   History,
   TrendingUp,
-  TrendingDown
+  TrendingDown,
+  Database,
+  Upload
 } from 'lucide-react';
 import { User } from '@supabase/supabase-js';
 import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, BarChart, Bar } from 'recharts';
@@ -248,6 +250,13 @@ const AdminDashboard = () => {
       description: '查看管理员操作记录', 
       href: '/feimai-admin-console/logs',
       color: 'from-indigo-500 to-blue-500'
+    },
+    { 
+      icon: Upload, 
+      title: '数据导入', 
+      description: '导入硬编码产品到数据库', 
+      href: '/feimai-admin-console/data-import',
+      color: 'from-teal-500 to-cyan-500'
     },
     { 
       icon: Settings, 
