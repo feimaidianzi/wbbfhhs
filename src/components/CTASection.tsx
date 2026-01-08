@@ -76,7 +76,7 @@ export const CTASection = () => {
                   <div className="text-sm text-muted-foreground mb-1">
                     {language === 'zh' ? '电子邮箱' : 'Email'}
                   </div>
-                  <div className="font-semibold text-card-foreground">market@flymind.com</div>
+                  <div className="font-semibold text-card-foreground">market@flymind.com.cn</div>
                 </div>
               </div>
               <div className="flex items-start gap-4">
