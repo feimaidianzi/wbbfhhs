@@ -12,36 +12,45 @@ import { PartnersSection } from "@/components/PartnersSection";
 import { Footer } from "@/components/Footer";
 import { FloatingContact } from "@/components/FloatingContact";
 import { SEO } from "@/components/SEO";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 const Index = () => {
+  const { language } = useLanguage();
+
   const homeStructuredData = {
     '@context': 'https://schema.org',
     '@type': 'Organization',
-    name: '飞迈科技有限公司',
+    name: language === 'zh' ? '飞迈科技有限公司' : 'FlyMind Technology Co., Ltd.',
     alternateName: 'FlyMind',
     url: 'https://www.flymind.com',
     logo: 'https://www.flymind.com/logo.png',
-    description: '专业工业无人机研发制造商，提供系留无人机、物流无人机、无人机机场等产品及解决方案',
+    description: language === 'zh' 
+      ? '专业工业无人机研发制造商，提供系留无人机、物流无人机、无人机机场等产品及解决方案'
+      : 'Professional industrial drone R&D manufacturer, providing tethered drones, logistics drones, drone airports and other products and solutions',
     address: {
       '@type': 'PostalAddress',
-      addressLocality: '长沙',
-      addressRegion: '湖南',
+      addressLocality: language === 'zh' ? '长沙' : 'Changsha',
+      addressRegion: language === 'zh' ? '湖南' : 'Hunan',
       addressCountry: 'CN',
     },
     contactPoint: {
       '@type': 'ContactPoint',
       telephone: '+86-17674048404',
       contactType: 'customer service',
-      availableLanguage: 'Chinese',
+      availableLanguage: language === 'zh' ? 'Chinese' : 'English',
     },
   };
 
   return (
     <div className="min-h-screen bg-background">
       <SEO
-        title="首页"
-        description="飞迈科技有限公司，专注于工业无人机研发制造，提供系留无人机、物流无人机、无人机机场、集群无人机等产品及行业解决方案。"
-        keywords="无人机,工业无人机,系留无人机,物流无人机,无人机机场,集群无人机,飞迈,FlyMind"
+        title={language === 'zh' ? "首页" : "Home"}
+        description={language === 'zh' 
+          ? "飞迈科技有限公司，专注于工业无人机研发制造，提供系留无人机、物流无人机、无人机机场、集群无人机等产品及行业解决方案。"
+          : "FlyMind Technology Co., Ltd., focusing on industrial drone R&D and manufacturing, providing tethered drones, logistics drones, drone airports, swarm drones and industry solutions."}
+        keywords={language === 'zh' 
+          ? "无人机,工业无人机,系留无人机,物流无人机,无人机机场,集群无人机,飞迈,FlyMind"
+          : "drone,industrial drone,tethered drone,logistics drone,drone airport,swarm drone,FlyMind"}
         url="/"
         structuredData={homeStructuredData}
       />

@@ -1,118 +1,124 @@
 import { Building2, GraduationCap, Landmark, Factory, Zap, Rocket, FlaskConical, Fuel } from "lucide-react";
+import { useLanguage } from "@/contexts/LanguageContext";
 
-const partners = [
+const getPartnersData = (language: 'zh' | 'en') => [
   {
-    name: "中船重工",
+    name: language === 'zh' ? "中船重工" : "CSIC",
     icon: Factory,
     color: "bg-blue-500/10 text-blue-600",
   },
   {
-    name: "中国铁塔",
+    name: language === 'zh' ? "中国铁塔" : "China Tower",
     icon: Building2,
     color: "bg-red-500/10 text-red-600",
   },
   {
-    name: "湖北省民政厅",
+    name: language === 'zh' ? "湖北省民政厅" : "Hubei Civil Affairs",
     icon: Landmark,
     color: "bg-amber-500/10 text-amber-600",
   },
   {
-    name: "青海大学",
+    name: language === 'zh' ? "青海大学" : "Qinghai University",
     icon: GraduationCap,
     color: "bg-green-500/10 text-green-600",
   },
   {
-    name: "山东大学",
+    name: language === 'zh' ? "山东大学" : "Shandong University",
     icon: GraduationCap,
     color: "bg-purple-500/10 text-purple-600",
   },
   {
-    name: "华中科技大学",
+    name: language === 'zh' ? "华中科技大学" : "HUST",
     icon: GraduationCap,
     color: "bg-blue-500/10 text-blue-600",
   },
   {
-    name: "清华大学",
+    name: language === 'zh' ? "清华大学" : "Tsinghua University",
     icon: GraduationCap,
     color: "bg-violet-500/10 text-violet-600",
   },
   {
-    name: "中国科学院",
+    name: language === 'zh' ? "中国科学院" : "Chinese Academy of Sciences",
     icon: FlaskConical,
     color: "bg-cyan-500/10 text-cyan-600",
   },
   {
-    name: "中国工程物理研究院",
+    name: language === 'zh' ? "中国工程物理研究院" : "CAEP",
     icon: FlaskConical,
     color: "bg-indigo-500/10 text-indigo-600",
   },
   {
-    name: "湖北省电力公司",
+    name: language === 'zh' ? "湖北省电力公司" : "Hubei Power",
     icon: Zap,
     color: "bg-yellow-500/10 text-yellow-600",
   },
   {
-    name: "中国运载火箭技术研究院",
+    name: language === 'zh' ? "中国运载火箭技术研究院" : "CALT",
     icon: Rocket,
     color: "bg-red-500/10 text-red-600",
   },
   {
-    name: "合邦电力",
+    name: language === 'zh' ? "合邦电力" : "Hebang Power",
     icon: Zap,
     color: "bg-orange-500/10 text-orange-600",
   },
   {
-    name: "国家管网",
+    name: language === 'zh' ? "国家管网" : "PipeChina",
     icon: Factory,
     color: "bg-teal-500/10 text-teal-600",
   },
   {
-    name: "中国商飞",
+    name: language === 'zh' ? "中国商飞" : "COMAC",
     icon: Rocket,
     color: "bg-sky-500/10 text-sky-600",
   },
   {
-    name: "航空工业光电所",
+    name: language === 'zh' ? "航空工业光电所" : "AVIC Optronics",
     icon: FlaskConical,
     color: "bg-pink-500/10 text-pink-600",
   },
   {
-    name: "中国航天科工集团",
+    name: language === 'zh' ? "中国航天科工集团" : "CASIC",
     icon: Rocket,
     color: "bg-blue-500/10 text-blue-600",
   },
   {
-    name: "武汉大学",
+    name: language === 'zh' ? "武汉大学" : "Wuhan University",
     icon: GraduationCap,
     color: "bg-red-500/10 text-red-600",
   },
   {
-    name: "国家电投",
+    name: language === 'zh' ? "国家电投" : "SPIC",
     icon: Zap,
     color: "bg-emerald-500/10 text-emerald-600",
   },
   {
-    name: "中国石化",
+    name: language === 'zh' ? "中国石化" : "Sinopec",
     icon: Fuel,
     color: "bg-red-500/10 text-red-600",
   },
   {
-    name: "中国石油",
+    name: language === 'zh' ? "中国石油" : "PetroChina",
     icon: Fuel,
     color: "bg-red-500/10 text-red-600",
   },
 ];
 
 export const PartnersSection = () => {
+  const { language } = useLanguage();
+  const partners = getPartnersData(language);
+
   return (
     <section className="py-16 md:py-24 bg-secondary overflow-hidden">
       <div className="container-custom">
         <div className="text-center mb-12">
           <h2 className="text-2xl md:text-3xl font-bold text-foreground mb-4">
-            合作企业展示
+            {language === 'zh' ? "合作企业展示" : "Partner Showcase"}
           </h2>
           <p className="text-muted-foreground max-w-2xl mx-auto">
-            与众多知名企业及机构建立长期合作关系，共同推动无人机技术发展
+            {language === 'zh' 
+              ? "与众多知名企业及机构建立长期合作关系，共同推动无人机技术发展"
+              : "Established long-term partnerships with many renowned enterprises and institutions, jointly promoting drone technology development"}
           </p>
         </div>
 
@@ -180,19 +186,29 @@ export const PartnersSection = () => {
         <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
           <div className="text-center">
             <div className="text-4xl md:text-5xl font-bold text-accent mb-2">100+</div>
-            <div className="text-muted-foreground">合作企业</div>
+            <div className="text-muted-foreground">
+              {language === 'zh' ? "合作企业" : "Partner Enterprises"}
+            </div>
           </div>
           <div className="text-center">
             <div className="text-4xl md:text-5xl font-bold text-accent mb-2">50+</div>
-            <div className="text-muted-foreground">高校院所</div>
+            <div className="text-muted-foreground">
+              {language === 'zh' ? "高校院所" : "Universities & Institutes"}
+            </div>
           </div>
           <div className="text-center">
             <div className="text-4xl md:text-5xl font-bold text-accent mb-2">30+</div>
-            <div className="text-muted-foreground">政府单位</div>
+            <div className="text-muted-foreground">
+              {language === 'zh' ? "政府单位" : "Government Agencies"}
+            </div>
           </div>
           <div className="text-center">
-            <div className="text-4xl md:text-5xl font-bold text-accent mb-2">15年</div>
-            <div className="text-muted-foreground">行业经验</div>
+            <div className="text-4xl md:text-5xl font-bold text-accent mb-2">
+              {language === 'zh' ? "15年" : "15 Yrs"}
+            </div>
+            <div className="text-muted-foreground">
+              {language === 'zh' ? "行业经验" : "Industry Experience"}
+            </div>
           </div>
         </div>
       </div>
