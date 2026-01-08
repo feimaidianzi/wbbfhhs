@@ -1,5 +1,5 @@
 import wifilink2Image from "@/assets/fpv/wifilink2-new.jpg";
-import wifilinkRxImage from "@/assets/fpv/wifilink-rx.jpg";
+import wifilinkRxImage from "@/assets/fpv/wifilink-rx-new.jpg";
 
 export interface DigitalFpvProduct {
   id: string;
