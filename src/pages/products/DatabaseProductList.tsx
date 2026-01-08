@@ -28,16 +28,16 @@ interface Product {
 const CATEGORIES = [
   { value: 'all', label: '全部产品', labelEn: 'All Products' },
   { value: 'multi-rotor', label: '多旋翼飞行器', labelEn: 'Multi-Rotor' },
-  { value: 'vtx-vrx', label: '图传发射/接收', labelEn: 'VTX/VRX' },
+  { value: 'vtx', label: 'VTX图传', labelEn: 'VTX' },
   { value: 'fc-esc', label: '飞控/电调', labelEn: 'FC/ESC' },
   { value: 'gimbal', label: '吊舱/云台', labelEn: 'Gimbal/Pod' },
-  { value: 'camera', label: '相机', labelEn: 'Camera' },
-  { value: 'digital-fpv', label: '数字FPV', labelEn: 'Digital FPV' },
-  { value: 'elrs', label: 'ELRS', labelEn: 'ELRS' },
+  { value: 'camera', label: '运动相机', labelEn: 'Action Camera' },
+  { value: 'digital-fpv', label: '数字图传', labelEn: 'Digital FPV' },
+  { value: 'elrs', label: 'ELRS接收机/天线', labelEn: 'ELRS Receiver/Antenna' },
   { value: 'tethered', label: '系留无人机', labelEn: 'Tethered' },
   { value: 'logistics', label: '物流无人机', labelEn: 'Logistics' },
   { value: 'airport', label: '机场', labelEn: 'Airport' },
-  { value: 'other', label: '其他配件', labelEn: 'Other' },
+  { value: 'other-accessories', label: '其他配件(监视器/GPS)', labelEn: 'Other (Monitor/GPS)' },
 ];
 
 const ITEMS_PER_PAGE = 12;

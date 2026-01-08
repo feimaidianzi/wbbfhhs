@@ -96,6 +96,7 @@ import InquiryManagement from "./pages/admin/InquiryManagement";
 import SystemSettings from "./pages/admin/SystemSettings";
 import ActivityLogs from "./pages/admin/ActivityLogs";
 import SpecificationTemplates from "./pages/admin/SpecificationTemplates";
+import DataImport from "./pages/admin/DataImport";
 import NewsDetail from "./pages/NewsDetail";
 import DatabaseProductDetail from "./pages/products/DatabaseProductDetail";
 import DatabaseProductList from "./pages/products/DatabaseProductList";
@@ -120,6 +121,7 @@ const App = () => (
             <Route path="/feimai-admin-console/settings" element={<SystemSettings />} />
             <Route path="/feimai-admin-console/logs" element={<ActivityLogs />} />
             <Route path="/feimai-admin-console/specification-templates" element={<SpecificationTemplates />} />
+            <Route path="/feimai-admin-console/data-import" element={<DataImport />} />
           <Route path="/about" element={<About />} />
           <Route path="/applications" element={<Applications />} />
           <Route path="/applications/power-inspection" element={<PowerInspection />} />
