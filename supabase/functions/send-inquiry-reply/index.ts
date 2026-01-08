@@ -165,7 +165,7 @@ const handler = async (req: Request): Promise<Response> => {
               此邮件由飞迈科技客服团队发送
             </p>
             <p style="color: #64748b; font-size: 12px; margin: 5px 0 0 0;">
-              电话: +8617674048404 | 邮箱: market@flymind.com
+              电话: +8617674048404 | 邮箱: market@flymind.com.cn
             </p>
           </div>
         </div>
