@@ -63,7 +63,7 @@ const Contact = () => {
   const contactInfo = [
     { icon: Phone, title: language === 'zh' ? "电话咨询" : "Phone", value: "+8617674048404", href: "tel:+8617674048404" },
     { icon: Mail, title: language === 'zh' ? "邮箱" : "Email", value: "market@flymind.com.cn", href: "mailto:market@flymind.com.cn" },
-    { icon: MessageCircle, title: language === 'zh' ? "QQ客服" : "QQ Service", value: "123456789", href: "#" },
+    { icon: MessageCircle, title: language === 'zh' ? "微信客服" : "WeChat", value: "17674048404", href: "#" },
     { icon: Clock, title: language === 'zh' ? "工作时间" : "Working Hours", value: language === 'zh' ? "周一至周五 9:00-18:00" : "Mon-Fri 9:00-18:00", href: null },
   ];
 
