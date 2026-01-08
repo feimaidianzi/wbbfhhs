@@ -97,6 +97,7 @@ import SystemSettings from "./pages/admin/SystemSettings";
 import ActivityLogs from "./pages/admin/ActivityLogs";
 import SpecificationTemplates from "./pages/admin/SpecificationTemplates";
 import NewsDetail from "./pages/NewsDetail";
+import DatabaseProductDetail from "./pages/products/DatabaseProductDetail";
 const queryClient = new QueryClient();
 
 const App = () => (
@@ -197,6 +198,7 @@ const App = () => (
           <Route path="/products/accessories/elrs/:productId" element={<ElrsDetail />} />
           <Route path="/products/accessories/others" element={<OtherAccessories />} />
           <Route path="/products/accessories/others/:productId" element={<OtherAccessoriesDetail />} />
+          <Route path="/products/detail/:productId" element={<DatabaseProductDetail />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
           </Routes>
