@@ -5,30 +5,47 @@ import { Button } from "@/components/ui/button";
 import { ArrowRight, CheckCircle, Users, Cpu, Network, Zap } from "lucide-react";
 import { Link } from "react-router-dom";
 import { SEO } from "@/components/SEO";
-
-const features = [
-  { icon: Users, title: "集群控制", description: "支持100+无人机同时编队控制" },
-  { icon: Cpu, title: "智能协同", description: "自动避障与队形保持算法" },
-  { icon: Network, title: "组网通信", description: "自组网高可靠通信链路" },
-  { icon: Zap, title: "实时同步", description: "毫秒级同步控制指令" },
-];
-
-const capabilities = [
-  "大规模集群控制",
-  "多种编队队形",
-  "动态队形变换",
-  "灯光协同控制",
-  "编舞动画设计",
-  "任务航迹规划",
-];
+import { useLanguage } from "@/contexts/LanguageContext";
 
 const SwarmGroundStation = () => {
+  const { language } = useLanguage();
+  const isEn = language === 'en';
+
+  const features = [
+    { icon: Users, title: isEn ? "Swarm Control" : "集群控制", description: isEn ? "Support 100+ drones simultaneous formation control" : "支持100+无人机同时编队控制" },
+    { icon: Cpu, title: isEn ? "Smart Coordination" : "智能协同", description: isEn ? "Auto obstacle avoidance and formation keeping" : "自动避障与队形保持算法" },
+    { icon: Network, title: isEn ? "Mesh Network" : "组网通信", description: isEn ? "Self-organizing reliable communication link" : "自组网高可靠通信链路" },
+    { icon: Zap, title: isEn ? "Real-time Sync" : "实时同步", description: isEn ? "Millisecond-level synchronized control" : "毫秒级同步控制指令" },
+  ];
+
+  const capabilities = isEn 
+    ? [
+        "Large-scale swarm control",
+        "Multiple formation patterns",
+        "Dynamic formation changes",
+        "Coordinated lighting control",
+        "Choreography animation design",
+        "Mission route planning",
+      ]
+    : [
+        "大规模集群控制",
+        "多种编队队形",
+        "动态队形变换",
+        "灯光协同控制",
+        "编舞动画设计",
+        "任务航迹规划",
+      ];
+
   return (
     <div className="min-h-screen">
       <SEO
-        title="集群无人机地面站软件"
-        description="飞迈科技集群无人机地面站软件，支持百架级无人机编队控制与表演。"
-        keywords="集群控制,无人机编队,地面站软件,无人机表演控制"
+        title={isEn ? "Swarm Drone Ground Station Software" : "集群无人机地面站软件"}
+        description={isEn 
+          ? "EFUAV swarm drone ground station software, supporting 100+ drone formation control and performances."
+          : "飞迈科技集群无人机地面站软件，支持百架级无人机编队控制与表演。"}
+        keywords={isEn 
+          ? "swarm control,drone formation,ground station software,drone show control"
+          : "集群控制,无人机编队,地面站软件,无人机表演控制"}
         url="/software/swarm-ground-station"
       />
       <Header />
@@ -46,14 +63,14 @@ const SwarmGroundStation = () => {
           <div className="relative container-custom h-full flex items-center">
             <div className="max-w-2xl">
               <h1 className="text-3xl md:text-5xl font-bold text-primary-foreground mb-4">
-                集群无人机地面站软件
+                {isEn ? "Swarm Drone Ground Station" : "集群无人机地面站软件"}
               </h1>
               <p className="text-lg md:text-xl text-primary-foreground/90 mb-8">
-                百架级无人机集群控制，打造震撼视觉盛宴
+                {isEn ? "100+ drone swarm control for stunning visual performances" : "百架级无人机集群控制，打造震撼视觉盛宴"}
               </p>
               <Link to="/contact">
                 <Button className="bg-accent hover:bg-orange-light text-accent-foreground px-8 py-3">
-                  了解更多
+                  {isEn ? "Learn More" : "了解更多"}
                   <ArrowRight className="w-4 h-4 ml-2" />
                 </Button>
               </Link>
@@ -64,7 +81,7 @@ const SwarmGroundStation = () => {
         {/* Features */}
         <section className="py-16 bg-background">
           <div className="container-custom">
-            <h2 className="text-2xl md:text-3xl font-bold text-center mb-12">软件功能</h2>
+            <h2 className="text-2xl md:text-3xl font-bold text-center mb-12">{isEn ? "Software Features" : "软件功能"}</h2>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
               {features.map((feature, index) => (
                 <div key={index} className="text-center p-6 bg-card rounded-xl shadow-card">
@@ -86,14 +103,16 @@ const SwarmGroundStation = () => {
               <div className="aspect-video rounded-xl overflow-hidden shadow-card">
                 <img
                   src="https://images.unsplash.com/photo-1473968512647-3e447244af8f?w=800&q=80"
-                  alt="集群控制"
+                  alt={isEn ? "Swarm Control" : "集群控制"}
                   className="w-full h-full object-cover"
                 />
               </div>
               <div>
-                <h2 className="text-2xl md:text-3xl font-bold mb-6">核心能力</h2>
+                <h2 className="text-2xl md:text-3xl font-bold mb-6">{isEn ? "Core Capabilities" : "核心能力"}</h2>
                 <p className="text-muted-foreground mb-6">
-                  专为大规模无人机集群编队设计，支持复杂编舞动画与实时控制。
+                  {isEn 
+                    ? "Designed for large-scale drone swarm formations, supporting complex choreography animations and real-time control."
+                    : "专为大规模无人机集群编队设计，支持复杂编舞动画与实时控制。"}
                 </p>
                 <ul className="space-y-4">
                   {capabilities.map((cap, index) => (
@@ -112,14 +131,14 @@ const SwarmGroundStation = () => {
         <section className="py-16 bg-primary">
           <div className="container-custom text-center">
             <h2 className="text-2xl md:text-3xl font-bold text-primary-foreground mb-4">
-              开启集群控制新时代
+              {isEn ? "Enter the New Era of Swarm Control" : "开启集群控制新时代"}
             </h2>
             <p className="text-primary-foreground/80 mb-8 max-w-2xl mx-auto">
-              联系我们了解集群控制解决方案
+              {isEn ? "Contact us for swarm control solutions" : "联系我们了解集群控制解决方案"}
             </p>
             <Link to="/contact">
               <Button className="bg-accent hover:bg-orange-light text-accent-foreground px-8 py-3">
-                立即咨询
+                {isEn ? "Contact Us" : "立即咨询"}
                 <ArrowRight className="w-4 h-4 ml-2" />
               </Button>
             </Link>

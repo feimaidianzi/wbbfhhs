@@ -5,30 +5,47 @@ import { Button } from "@/components/ui/button";
 import { ArrowRight, CheckCircle, Zap, Eye, FileText, AlertTriangle } from "lucide-react";
 import { Link } from "react-router-dom";
 import { SEO } from "@/components/SEO";
-
-const features = [
-  { icon: Zap, title: "缺陷识别", description: "AI自动识别输电线路多种缺陷" },
-  { icon: Eye, title: "智能巡检", description: "航线自动规划与智能飞行控制" },
-  { icon: FileText, title: "报告生成", description: "自动生成标准化巡检报告" },
-  { icon: AlertTriangle, title: "预警分析", description: "缺陷趋势分析与预警提醒" },
-];
-
-const defectTypes = [
-  "绝缘子破损/污秽",
-  "导线散股/断股",
-  "金具锈蚀/变形",
-  "防震锤移位/脱落",
-  "鸟巢异物",
-  "杆塔倾斜/基础问题",
-];
+import { useLanguage } from "@/contexts/LanguageContext";
 
 const PowerInspectionSystem = () => {
+  const { language } = useLanguage();
+  const isEn = language === 'en';
+
+  const features = [
+    { icon: Zap, title: isEn ? "Defect Recognition" : "缺陷识别", description: isEn ? "AI auto-recognition of transmission line defects" : "AI自动识别输电线路多种缺陷" },
+    { icon: Eye, title: isEn ? "Smart Inspection" : "智能巡检", description: isEn ? "Auto route planning and smart flight control" : "航线自动规划与智能飞行控制" },
+    { icon: FileText, title: isEn ? "Report Generation" : "报告生成", description: isEn ? "Auto-generate standardized inspection reports" : "自动生成标准化巡检报告" },
+    { icon: AlertTriangle, title: isEn ? "Warning Analysis" : "预警分析", description: isEn ? "Defect trend analysis and early warnings" : "缺陷趋势分析与预警提醒" },
+  ];
+
+  const defectTypes = isEn 
+    ? [
+        "Insulator damage/contamination",
+        "Conductor strand damage",
+        "Hardware corrosion/deformation",
+        "Damper displacement/detachment",
+        "Bird nests and foreign objects",
+        "Tower tilting/foundation issues",
+      ]
+    : [
+        "绝缘子破损/污秽",
+        "导线散股/断股",
+        "金具锈蚀/变形",
+        "防震锤移位/脱落",
+        "鸟巢异物",
+        "杆塔倾斜/基础问题",
+      ];
+
   return (
     <div className="min-h-screen">
       <SEO
-        title="电力巡检管理系统"
-        description="飞迈科技电力巡检管理系统，提供输电线路智能巡检、缺陷识别、报告生成等功能。"
-        keywords="电力巡检,输电线路巡检,缺陷识别,智能巡检系统"
+        title={isEn ? "Power Inspection Management System" : "电力巡检管理系统"}
+        description={isEn 
+          ? "EFUAV power inspection management system with smart inspection, defect recognition, and report generation."
+          : "飞迈科技电力巡检管理系统，提供输电线路智能巡检、缺陷识别、报告生成等功能。"}
+        keywords={isEn 
+          ? "power inspection,transmission line inspection,defect recognition,smart inspection system"
+          : "电力巡检,输电线路巡检,缺陷识别,智能巡检系统"}
         url="/software/power-inspection-system"
       />
       <Header />
@@ -46,14 +63,14 @@ const PowerInspectionSystem = () => {
           <div className="relative container-custom h-full flex items-center">
             <div className="max-w-2xl">
               <h1 className="text-3xl md:text-5xl font-bold text-primary-foreground mb-4">
-                电力巡检管理系统
+                {isEn ? "Power Inspection Management" : "电力巡检管理系统"}
               </h1>
               <p className="text-lg md:text-xl text-primary-foreground/90 mb-8">
-                智能化电力巡检，保障电网安全运行
+                {isEn ? "Intelligent power inspection for safe grid operation" : "智能化电力巡检，保障电网安全运行"}
               </p>
               <Link to="/contact">
                 <Button className="bg-accent hover:bg-orange-light text-accent-foreground px-8 py-3">
-                  了解更多
+                  {isEn ? "Learn More" : "了解更多"}
                   <ArrowRight className="w-4 h-4 ml-2" />
                 </Button>
               </Link>
@@ -64,7 +81,7 @@ const PowerInspectionSystem = () => {
         {/* Features */}
         <section className="py-16 bg-background">
           <div className="container-custom">
-            <h2 className="text-2xl md:text-3xl font-bold text-center mb-12">系统特点</h2>
+            <h2 className="text-2xl md:text-3xl font-bold text-center mb-12">{isEn ? "System Features" : "系统特点"}</h2>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
               {features.map((feature, index) => (
                 <div key={index} className="text-center p-6 bg-card rounded-xl shadow-card">
@@ -86,14 +103,16 @@ const PowerInspectionSystem = () => {
               <div className="aspect-video rounded-xl overflow-hidden shadow-card">
                 <img
                   src="https://images.unsplash.com/photo-1558449028-b53a39d100fc?w=800&q=80"
-                  alt="电力巡检"
+                  alt={isEn ? "Power Inspection" : "电力巡检"}
                   className="w-full h-full object-cover"
                 />
               </div>
               <div>
-                <h2 className="text-2xl md:text-3xl font-bold mb-6">缺陷识别类型</h2>
+                <h2 className="text-2xl md:text-3xl font-bold mb-6">{isEn ? "Defect Recognition Types" : "缺陷识别类型"}</h2>
                 <p className="text-muted-foreground mb-6">
-                  系统可识别输电线路各类缺陷，识别准确率超过92%。
+                  {isEn 
+                    ? "The system can identify various transmission line defects with over 92% accuracy."
+                    : "系统可识别输电线路各类缺陷，识别准确率超过92%。"}
                 </p>
                 <ul className="space-y-4">
                   {defectTypes.map((defect, index) => (
@@ -112,14 +131,14 @@ const PowerInspectionSystem = () => {
         <section className="py-16 bg-primary">
           <div className="container-custom text-center">
             <h2 className="text-2xl md:text-3xl font-bold text-primary-foreground mb-4">
-              提升电力巡检效率
+              {isEn ? "Improve Power Inspection Efficiency" : "提升电力巡检效率"}
             </h2>
             <p className="text-primary-foreground/80 mb-8 max-w-2xl mx-auto">
-              联系我们获取电力巡检解决方案
+              {isEn ? "Contact us for power inspection solutions" : "联系我们获取电力巡检解决方案"}
             </p>
             <Link to="/contact">
               <Button className="bg-accent hover:bg-orange-light text-accent-foreground px-8 py-3">
-                立即咨询
+                {isEn ? "Contact Us" : "立即咨询"}
                 <ArrowRight className="w-4 h-4 ml-2" />
               </Button>
             </Link>
