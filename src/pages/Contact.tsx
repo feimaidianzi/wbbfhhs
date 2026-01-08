@@ -2,20 +2,23 @@ import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { FloatingContact } from "@/components/FloatingContact";
 import { Button } from "@/components/ui/button";
-import { Phone, Mail, MapPin, Clock, MessageCircle, Send } from "lucide-react";
+import { Phone, Mail, MapPin, Clock, MessageCircle, Send, Loader2 } from "lucide-react";
 import { useState } from "react";
 import { useToast } from "@/hooks/use-toast";
 import { SEO } from "@/components/SEO";
 import { useLanguage } from "@/contexts/LanguageContext";
+import { supabase } from "@/integrations/supabase/client";
 
 const Contact = () => {
   const { language, t } = useLanguage();
   const { toast } = useToast();
+  const [submitting, setSubmitting] = useState(false);
   const [formData, setFormData] = useState({
     name: "",
     phone: "",
     email: "",
     company: "",
+    subject: "",
     message: "",
   });
 
@@ -34,13 +37,48 @@ const Contact = () => {
     },
   ];
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    toast({
-      title: language === 'zh' ? "提交成功" : "Submitted Successfully",
-      description: language === 'zh' ? "我们会尽快与您联系！" : "We will contact you soon!",
-    });
-    setFormData({ name: "", phone: "", email: "", company: "", message: "" });
+    
+    if (!formData.name || !formData.email || !formData.message) {
+      toast({
+        title: language === 'zh' ? "请填写必填项" : "Please fill required fields",
+        description: language === 'zh' ? "姓名、邮箱和咨询内容为必填项" : "Name, email and message are required",
+        variant: "destructive",
+      });
+      return;
+    }
+
+    setSubmitting(true);
+    try {
+      const { error } = await supabase
+        .from('inquiries')
+        .insert({
+          name: formData.name.trim(),
+          email: formData.email.trim(),
+          phone: formData.phone.trim() || null,
+          company: formData.company.trim() || null,
+          subject: formData.subject.trim() || (language === 'zh' ? '网站咨询' : 'Website Inquiry'),
+          message: formData.message.trim(),
+        });
+
+      if (error) throw error;
+
+      toast({
+        title: language === 'zh' ? "提交成功" : "Submitted Successfully",
+        description: language === 'zh' ? "我们会尽快与您联系！" : "We will contact you soon!",
+      });
+      setFormData({ name: "", phone: "", email: "", company: "", subject: "", message: "" });
+    } catch (error: any) {
+      console.error('Submit error:', error);
+      toast({
+        title: language === 'zh' ? "提交失败" : "Submission Failed",
+        description: error.message,
+        variant: "destructive",
+      });
+    } finally {
+      setSubmitting(false);
+    }
   };
 
   const contactStructuredData = {
@@ -160,10 +198,11 @@ const Contact = () => {
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div>
                       <label className="block text-sm font-medium text-foreground mb-2">
-                        {language === 'zh' ? '邮箱' : 'Email'}
+                        {language === 'zh' ? '邮箱 *' : 'Email *'}
                       </label>
                       <input
                         type="email"
+                        required
                         value={formData.email}
                         onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                         className="w-full px-4 py-3 rounded-lg border border-border bg-card text-foreground focus:outline-none focus:ring-2 focus:ring-accent"
@@ -185,6 +224,18 @@ const Contact = () => {
                   </div>
                   <div>
                     <label className="block text-sm font-medium text-foreground mb-2">
+                      {language === 'zh' ? '咨询主题' : 'Subject'}
+                    </label>
+                    <input
+                      type="text"
+                      value={formData.subject}
+                      onChange={(e) => setFormData({ ...formData, subject: e.target.value })}
+                      className="w-full px-4 py-3 rounded-lg border border-border bg-card text-foreground focus:outline-none focus:ring-2 focus:ring-accent"
+                      placeholder={language === 'zh' ? "请输入咨询主题" : "Enter subject"}
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-sm font-medium text-foreground mb-2">
                       {language === 'zh' ? '咨询内容 *' : 'Message *'}
                     </label>
                     <textarea
@@ -196,9 +247,22 @@ const Contact = () => {
                       placeholder={language === 'zh' ? "请描述您的需求或问题" : "Describe your requirements or questions"}
                     />
                   </div>
-                  <Button type="submit" className="w-full bg-accent hover:bg-orange-light text-accent-foreground py-3">
-                    {language === 'zh' ? '提交咨询' : 'Submit Inquiry'}
-                    <Send className="w-4 h-4 ml-2" />
+                  <Button 
+                    type="submit" 
+                    disabled={submitting}
+                    className="w-full bg-accent hover:bg-orange-light text-accent-foreground py-3"
+                  >
+                    {submitting ? (
+                      <>
+                        <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+                        {language === 'zh' ? '提交中...' : 'Submitting...'}
+                      </>
+                    ) : (
+                      <>
+                        <Send className="w-4 h-4 mr-2" />
+                        {language === 'zh' ? '提交咨询' : 'Submit Inquiry'}
+                      </>
+                    )}
                   </Button>
                 </form>
               </div>

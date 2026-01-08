@@ -1,0 +1,541 @@
+import { useState, useEffect } from 'react';
+import { useNavigate, Link } from 'react-router-dom';
+import { supabase } from '@/integrations/supabase/client';
+import { Button } from '@/components/ui/button';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Badge } from '@/components/ui/badge';
+import { Textarea } from '@/components/ui/textarea';
+import { Label } from '@/components/ui/label';
+import { useToast } from '@/hooks/use-toast';
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from '@/components/ui/table';
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+} from '@/components/ui/dialog';
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+} from '@/components/ui/alert-dialog';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select';
+import { 
+  Shield, 
+  LogOut, 
+  MessageSquare, 
+  Home,
+  Loader2,
+  ArrowLeft,
+  Eye,
+  Trash2,
+  Clock,
+  CheckCircle,
+  MessageCircle,
+  XCircle,
+  Mail,
+  Phone,
+  Building,
+  User
+} from 'lucide-react';
+
+interface Inquiry {
+  id: string;
+  name: string;
+  email: string;
+  phone: string | null;
+  company: string | null;
+  subject: string;
+  message: string;
+  product_interest: string | null;
+  status: string;
+  admin_notes: string | null;
+  replied_at: string | null;
+  created_at: string;
+  updated_at: string;
+}
+
+const STATUS_OPTIONS = [
+  { value: 'pending', label: '待处理', color: 'bg-yellow-500/20 text-yellow-400 border-yellow-500/30', icon: Clock },
+  { value: 'processing', label: '处理中', color: 'bg-blue-500/20 text-blue-400 border-blue-500/30', icon: MessageCircle },
+  { value: 'replied', label: '已回复', color: 'bg-green-500/20 text-green-400 border-green-500/30', icon: CheckCircle },
+  { value: 'closed', label: '已关闭', color: 'bg-slate-500/20 text-slate-400 border-slate-500/30', icon: XCircle },
+];
+
+const InquiryManagement = () => {
+  const navigate = useNavigate();
+  const { toast } = useToast();
+  const [inquiries, setInquiries] = useState<Inquiry[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [isDetailOpen, setIsDetailOpen] = useState(false);
+  const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
+  const [selectedInquiry, setSelectedInquiry] = useState<Inquiry | null>(null);
+  const [deleteInquiryId, setDeleteInquiryId] = useState<string | null>(null);
+  const [adminNotes, setAdminNotes] = useState('');
+  const [filterStatus, setFilterStatus] = useState<string>('all');
+
+  const fetchInquiries = async () => {
+    try {
+      const { data, error } = await supabase
+        .from('inquiries')
+        .select('*')
+        .order('created_at', { ascending: false });
+
+      if (error) throw error;
+      setInquiries(data || []);
+    } catch (error: any) {
+      console.error('Error fetching inquiries:', error);
+      toast({
+        title: '获取咨询列表失败',
+        description: error.message,
+        variant: 'destructive',
+      });
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    const checkAdminAccess = async () => {
+      const { data: { session } } = await supabase.auth.getSession();
+      
+      if (!session?.user) {
+        navigate('/feimai-admin-login');
+        return;
+      }
+
+      const { data: isAdmin } = await supabase.rpc('has_role', {
+        _user_id: session.user.id,
+        _role: 'admin'
+      });
+
+      if (!isAdmin) {
+        toast({
+          title: '访问拒绝',
+          description: '您没有管理员权限',
+          variant: 'destructive',
+        });
+        navigate('/feimai-admin-login');
+        return;
+      }
+
+      fetchInquiries();
+    };
+
+    checkAdminAccess();
+  }, [navigate, toast]);
+
+  const handleLogout = async () => {
+    await supabase.auth.signOut();
+    navigate('/feimai-admin-login');
+  };
+
+  const openDetail = (inquiry: Inquiry) => {
+    setSelectedInquiry(inquiry);
+    setAdminNotes(inquiry.admin_notes || '');
+    setIsDetailOpen(true);
+  };
+
+  const updateStatus = async (inquiryId: string, newStatus: string) => {
+    try {
+      const updateData: any = { status: newStatus };
+      if (newStatus === 'replied') {
+        updateData.replied_at = new Date().toISOString();
+      }
+
+      const { error } = await supabase
+        .from('inquiries')
+        .update(updateData)
+        .eq('id', inquiryId);
+
+      if (error) throw error;
+      toast({ title: '状态已更新' });
+      fetchInquiries();
+      
+      if (selectedInquiry?.id === inquiryId) {
+        setSelectedInquiry({ ...selectedInquiry, status: newStatus });
+      }
+    } catch (error: any) {
+      toast({
+        title: '更新失败',
+        description: error.message,
+        variant: 'destructive',
+      });
+    }
+  };
+
+  const saveNotes = async () => {
+    if (!selectedInquiry) return;
+
+    try {
+      const { error } = await supabase
+        .from('inquiries')
+        .update({ admin_notes: adminNotes })
+        .eq('id', selectedInquiry.id);
+
+      if (error) throw error;
+      toast({ title: '备注已保存' });
+      fetchInquiries();
+    } catch (error: any) {
+      toast({
+        title: '保存失败',
+        description: error.message,
+        variant: 'destructive',
+      });
+    }
+  };
+
+  const handleDelete = async () => {
+    if (!deleteInquiryId) return;
+
+    try {
+      const { error } = await supabase
+        .from('inquiries')
+        .delete()
+        .eq('id', deleteInquiryId);
+
+      if (error) throw error;
+      toast({ title: '咨询已删除' });
+      fetchInquiries();
+    } catch (error: any) {
+      toast({
+        title: '删除失败',
+        description: error.message,
+        variant: 'destructive',
+      });
+    } finally {
+      setIsDeleteDialogOpen(false);
+      setDeleteInquiryId(null);
+    }
+  };
+
+  const getStatusInfo = (status: string) => {
+    return STATUS_OPTIONS.find(s => s.value === status) || STATUS_OPTIONS[0];
+  };
+
+  const formatDate = (dateString: string) => {
+    return new Date(dateString).toLocaleString('zh-CN');
+  };
+
+  const filteredInquiries = filterStatus === 'all' 
+    ? inquiries 
+    : inquiries.filter(i => i.status === filterStatus);
+
+  const pendingCount = inquiries.filter(i => i.status === 'pending').length;
+
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-slate-900 flex items-center justify-center">
+        <Loader2 className="w-8 h-8 text-amber-500 animate-spin" />
+      </div>
+    );
+  }
+
+  return (
+    <div className="min-h-screen bg-slate-900">
+      {/* Header */}
+      <header className="bg-slate-800 border-b border-slate-700 sticky top-0 z-50">
+        <div className="container mx-auto px-4 py-4 flex items-center justify-between">
+          <div className="flex items-center gap-3">
+            <div className="w-10 h-10 bg-gradient-to-br from-amber-500 to-orange-600 rounded-lg flex items-center justify-center">
+              <Shield className="w-5 h-5 text-white" />
+            </div>
+            <div>
+              <h1 className="text-lg font-bold text-white">咨询管理</h1>
+              <p className="text-xs text-slate-400">Inquiry Management</p>
+            </div>
+          </div>
+          
+          <div className="flex items-center gap-4">
+            <Link to="/">
+              <Button variant="ghost" size="sm" className="text-slate-400 hover:text-white">
+                <Home className="w-4 h-4 mr-2" />
+                返回前台
+              </Button>
+            </Link>
+            <Button 
+              variant="ghost" 
+              size="sm" 
+              className="text-slate-400 hover:text-white"
+              onClick={handleLogout}
+            >
+              <LogOut className="w-4 h-4 mr-2" />
+              退出
+            </Button>
+          </div>
+        </div>
+      </header>
+
+      {/* Main Content */}
+      <main className="container mx-auto px-4 py-8">
+        {/* Back Button & Filters */}
+        <div className="flex items-center justify-between mb-6 flex-wrap gap-4">
+          <Link to="/feimai-admin-console">
+            <Button variant="ghost" className="text-slate-400 hover:text-white">
+              <ArrowLeft className="w-4 h-4 mr-2" />
+              返回管理后台
+            </Button>
+          </Link>
+          <div className="flex items-center gap-4">
+            {pendingCount > 0 && (
+              <Badge className="bg-red-500/20 text-red-400 border-red-500/30">
+                {pendingCount} 条待处理
+              </Badge>
+            )}
+            <Select value={filterStatus} onValueChange={setFilterStatus}>
+              <SelectTrigger className="w-32 bg-slate-700 border-slate-600 text-white">
+                <SelectValue placeholder="筛选状态" />
+              </SelectTrigger>
+              <SelectContent className="bg-slate-800 border-slate-700">
+                <SelectItem value="all">全部状态</SelectItem>
+                {STATUS_OPTIONS.map(status => (
+                  <SelectItem key={status.value} value={status.value}>{status.label}</SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+          </div>
+        </div>
+
+        <Card className="bg-slate-800 border-slate-700">
+          <CardHeader>
+            <CardTitle className="text-white flex items-center gap-2">
+              <MessageSquare className="w-5 h-5" />
+              咨询列表
+              <Badge variant="secondary" className="ml-2">
+                {filteredInquiries.length} 条咨询
+              </Badge>
+            </CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div className="overflow-x-auto">
+              <Table>
+                <TableHeader>
+                  <TableRow className="border-slate-700">
+                    <TableHead className="text-slate-400">联系人</TableHead>
+                    <TableHead className="text-slate-400">主题</TableHead>
+                    <TableHead className="text-slate-400">状态</TableHead>
+                    <TableHead className="text-slate-400">时间</TableHead>
+                    <TableHead className="text-slate-400 text-right">操作</TableHead>
+                  </TableRow>
+                </TableHeader>
+                <TableBody>
+                  {filteredInquiries.map((inquiry) => {
+                    const statusInfo = getStatusInfo(inquiry.status);
+                    const StatusIcon = statusInfo.icon;
+                    return (
+                      <TableRow key={inquiry.id} className="border-slate-700">
+                        <TableCell>
+                          <div>
+                            <p className="text-white font-medium">{inquiry.name}</p>
+                            <p className="text-slate-500 text-xs">{inquiry.email}</p>
+                          </div>
+                        </TableCell>
+                        <TableCell className="text-white max-w-xs truncate">
+                          {inquiry.subject}
+                        </TableCell>
+                        <TableCell>
+                          <Badge className={statusInfo.color}>
+                            <StatusIcon className="w-3 h-3 mr-1" />
+                            {statusInfo.label}
+                          </Badge>
+                        </TableCell>
+                        <TableCell className="text-slate-400 text-sm">
+                          {formatDate(inquiry.created_at)}
+                        </TableCell>
+                        <TableCell className="text-right">
+                          <div className="flex items-center justify-end gap-2">
+                            <Button 
+                              variant="ghost" 
+                              size="sm"
+                              onClick={() => openDetail(inquiry)}
+                              className="text-blue-400 hover:text-blue-300"
+                            >
+                              <Eye className="w-4 h-4" />
+                            </Button>
+                            <Button 
+                              variant="ghost" 
+                              size="sm"
+                              onClick={() => {
+                                setDeleteInquiryId(inquiry.id);
+                                setIsDeleteDialogOpen(true);
+                              }}
+                              className="text-red-400 hover:text-red-300"
+                            >
+                              <Trash2 className="w-4 h-4" />
+                            </Button>
+                          </div>
+                        </TableCell>
+                      </TableRow>
+                    );
+                  })}
+                </TableBody>
+              </Table>
+            </div>
+
+            {filteredInquiries.length === 0 && (
+              <div className="text-center py-12">
+                <MessageSquare className="w-12 h-12 text-slate-600 mx-auto mb-4" />
+                <p className="text-slate-400">暂无咨询</p>
+              </div>
+            )}
+          </CardContent>
+        </Card>
+      </main>
+
+      {/* Detail Dialog */}
+      <Dialog open={isDetailOpen} onOpenChange={setIsDetailOpen}>
+        <DialogContent className="bg-slate-800 border-slate-700 text-white max-w-2xl max-h-[90vh] overflow-y-auto">
+          <DialogHeader>
+            <DialogTitle>咨询详情</DialogTitle>
+            <DialogDescription className="text-slate-400">
+              查看并处理用户咨询
+            </DialogDescription>
+          </DialogHeader>
+
+          {selectedInquiry && (
+            <div className="space-y-4 py-4">
+              {/* Contact Info */}
+              <div className="grid grid-cols-2 gap-4 p-4 bg-slate-700/50 rounded-lg">
+                <div className="flex items-center gap-2">
+                  <User className="w-4 h-4 text-slate-400" />
+                  <span className="text-slate-400">姓名:</span>
+                  <span className="text-white">{selectedInquiry.name}</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <Mail className="w-4 h-4 text-slate-400" />
+                  <span className="text-slate-400">邮箱:</span>
+                  <a href={`mailto:${selectedInquiry.email}`} className="text-blue-400 hover:underline">
+                    {selectedInquiry.email}
+                  </a>
+                </div>
+                {selectedInquiry.phone && (
+                  <div className="flex items-center gap-2">
+                    <Phone className="w-4 h-4 text-slate-400" />
+                    <span className="text-slate-400">电话:</span>
+                    <a href={`tel:${selectedInquiry.phone}`} className="text-blue-400 hover:underline">
+                      {selectedInquiry.phone}
+                    </a>
+                  </div>
+                )}
+                {selectedInquiry.company && (
+                  <div className="flex items-center gap-2">
+                    <Building className="w-4 h-4 text-slate-400" />
+                    <span className="text-slate-400">公司:</span>
+                    <span className="text-white">{selectedInquiry.company}</span>
+                  </div>
+                )}
+              </div>
+
+              {/* Subject */}
+              <div>
+                <Label className="text-slate-400">主题</Label>
+                <p className="text-white mt-1 font-medium">{selectedInquiry.subject}</p>
+              </div>
+
+              {/* Message */}
+              <div>
+                <Label className="text-slate-400">咨询内容</Label>
+                <p className="text-white mt-1 whitespace-pre-wrap p-3 bg-slate-700/50 rounded-lg">
+                  {selectedInquiry.message}
+                </p>
+              </div>
+
+              {selectedInquiry.product_interest && (
+                <div>
+                  <Label className="text-slate-400">感兴趣的产品</Label>
+                  <p className="text-white mt-1">{selectedInquiry.product_interest}</p>
+                </div>
+              )}
+
+              {/* Status */}
+              <div>
+                <Label className="text-slate-400">状态</Label>
+                <Select 
+                  value={selectedInquiry.status} 
+                  onValueChange={(v) => updateStatus(selectedInquiry.id, v)}
+                >
+                  <SelectTrigger className="w-40 mt-1 bg-slate-700 border-slate-600">
+                    <SelectValue />
+                  </SelectTrigger>
+                  <SelectContent className="bg-slate-800 border-slate-700">
+                    {STATUS_OPTIONS.map(status => (
+                      <SelectItem key={status.value} value={status.value}>{status.label}</SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              </div>
+
+              {/* Admin Notes */}
+              <div className="space-y-2">
+                <Label className="text-slate-400">管理备注</Label>
+                <Textarea
+                  value={adminNotes}
+                  onChange={(e) => setAdminNotes(e.target.value)}
+                  placeholder="添加处理备注..."
+                  className="bg-slate-700 border-slate-600 min-h-[100px]"
+                />
+                <Button onClick={saveNotes} size="sm" className="bg-amber-500 hover:bg-amber-600">
+                  保存备注
+                </Button>
+              </div>
+
+              {/* Timestamps */}
+              <div className="text-xs text-slate-500 pt-4 border-t border-slate-700">
+                <p>提交时间: {formatDate(selectedInquiry.created_at)}</p>
+                {selectedInquiry.replied_at && (
+                  <p>回复时间: {formatDate(selectedInquiry.replied_at)}</p>
+                )}
+              </div>
+            </div>
+          )}
+
+          <DialogFooter>
+            <Button variant="ghost" onClick={() => setIsDetailOpen(false)}>
+              关闭
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
+
+      {/* Delete Confirmation Dialog */}
+      <AlertDialog open={isDeleteDialogOpen} onOpenChange={setIsDeleteDialogOpen}>
+        <AlertDialogContent className="bg-slate-800 border-slate-700">
+          <AlertDialogHeader>
+            <AlertDialogTitle className="text-white">确认删除</AlertDialogTitle>
+            <AlertDialogDescription className="text-slate-400">
+              此操作无法撤销，确定要删除这条咨询吗？
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogCancel className="bg-slate-700 text-white border-slate-600">取消</AlertDialogCancel>
+            <AlertDialogAction onClick={handleDelete} className="bg-red-500 hover:bg-red-600">
+              删除
+            </AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
+    </div>
+  );
+};
+
+export default InquiryManagement;
