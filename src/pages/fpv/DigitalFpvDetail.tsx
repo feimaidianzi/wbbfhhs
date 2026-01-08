@@ -186,7 +186,7 @@ const DigitalFpvDetail = () => {
                   </div>
                   <div>
                     <div className="text-primary-foreground/60 text-sm">服务热线</div>
-                    <div className="text-primary-foreground font-bold">400-XXX-XXXX</div>
+                    <div className="text-primary-foreground font-bold">17674048404</div>
                   </div>
                 </div>
                 <div className="flex items-center gap-4">

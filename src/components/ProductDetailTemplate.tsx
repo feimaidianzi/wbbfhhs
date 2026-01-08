@@ -272,10 +272,12 @@ const ProductDetailTemplate = ({
                   <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
                 </Button>
               </Link>
-              <Button size="lg" className="bg-white/95 text-primary hover:bg-white font-bold shadow-lg">
-                <Phone className="mr-2 h-4 w-4" />
-                400-888-8888
-              </Button>
+              <a href="tel:+8617674048404">
+                <Button size="lg" className="bg-white/95 text-primary hover:bg-white font-bold shadow-lg">
+                  <Phone className="mr-2 h-4 w-4" />
+                  17674048404
+                </Button>
+              </a>
             </div>
           </div>
         </section>
