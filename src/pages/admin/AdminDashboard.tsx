@@ -14,15 +14,29 @@ import {
   BarChart3,
   MessageSquare,
   Home,
-  Loader2
+  Loader2,
+  History,
+  TrendingUp,
+  TrendingDown
 } from 'lucide-react';
 import { User } from '@supabase/supabase-js';
+import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, BarChart, Bar } from 'recharts';
 
 interface Stats {
   pendingInquiries: number;
   totalInquiries: number;
   publishedProducts: number;
   publishedNews: number;
+}
+
+interface DailyInquiry {
+  date: string;
+  count: number;
+}
+
+interface StatusCount {
+  status: string;
+  count: number;
 }
 
 const AdminDashboard = () => {
@@ -36,6 +50,8 @@ const AdminDashboard = () => {
     publishedProducts: 0,
     publishedNews: 0,
   });
+  const [dailyInquiries, setDailyInquiries] = useState<DailyInquiry[]>([]);
+  const [statusCounts, setStatusCounts] = useState<StatusCount[]>([]);
 
   useEffect(() => {
     const checkAdminAccess = async () => {
@@ -65,6 +81,7 @@ const AdminDashboard = () => {
 
       setUser(session.user);
       await fetchStats();
+      await fetchChartData();
       setLoading(false);
     };
 
@@ -116,6 +133,61 @@ const AdminDashboard = () => {
     }
   };
 
+  const fetchChartData = async () => {
+    try {
+      // Fetch inquiries for the last 7 days
+      const sevenDaysAgo = new Date();
+      sevenDaysAgo.setDate(sevenDaysAgo.getDate() - 7);
+
+      const { data: inquiries } = await supabase
+        .from('inquiries')
+        .select('created_at, status')
+        .gte('created_at', sevenDaysAgo.toISOString());
+
+      // Process daily counts
+      const dailyCounts: Record<string, number> = {};
+      const statusMap: Record<string, number> = {};
+
+      for (let i = 6; i >= 0; i--) {
+        const date = new Date();
+        date.setDate(date.getDate() - i);
+        const dateStr = date.toLocaleDateString('zh-CN', { month: 'short', day: 'numeric' });
+        dailyCounts[dateStr] = 0;
+      }
+
+      inquiries?.forEach(inquiry => {
+        const date = new Date(inquiry.created_at);
+        const dateStr = date.toLocaleDateString('zh-CN', { month: 'short', day: 'numeric' });
+        if (dailyCounts[dateStr] !== undefined) {
+          dailyCounts[dateStr]++;
+        }
+        
+        const status = inquiry.status || 'pending';
+        statusMap[status] = (statusMap[status] || 0) + 1;
+      });
+
+      setDailyInquiries(
+        Object.entries(dailyCounts).map(([date, count]) => ({ date, count }))
+      );
+
+      const statusLabels: Record<string, string> = {
+        pending: '待处理',
+        processing: '处理中',
+        replied: '已回复',
+        closed: '已关闭',
+      };
+
+      setStatusCounts(
+        Object.entries(statusMap).map(([status, count]) => ({
+          status: statusLabels[status] || status,
+          count,
+        }))
+      );
+    } catch (error) {
+      console.error('Failed to fetch chart data:', error);
+    }
+  };
+
   const handleLogout = async () => {
     await supabase.auth.signOut();
     toast({
@@ -139,7 +211,8 @@ const AdminDashboard = () => {
       title: '数据概览', 
       description: '查看网站访问数据和统计', 
       href: '#',
-      color: 'from-blue-500 to-cyan-500'
+      color: 'from-blue-500 to-cyan-500',
+      disabled: true
     },
     { 
       icon: Users, 
@@ -168,6 +241,13 @@ const AdminDashboard = () => {
       description: '查看和回复用户咨询', 
       href: '/feimai-admin-console/inquiries',
       color: 'from-pink-500 to-rose-500'
+    },
+    { 
+      icon: History, 
+      title: '操作日志', 
+      description: '查看管理员操作记录', 
+      href: '/feimai-admin-console/logs',
+      color: 'from-indigo-500 to-blue-500'
     },
     { 
       icon: Settings, 
@@ -280,9 +360,93 @@ const AdminDashboard = () => {
           </Card>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {/* Charts */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
+          <Card className="bg-slate-800 border-slate-700">
+            <CardHeader>
+              <CardTitle className="text-white flex items-center gap-2">
+                <TrendingUp className="w-5 h-5 text-blue-500" />
+                近7天咨询趋势
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="h-[200px]">
+                <ResponsiveContainer width="100%" height="100%">
+                  <AreaChart data={dailyInquiries}>
+                    <defs>
+                      <linearGradient id="colorCount" x1="0" y1="0" x2="0" y2="1">
+                        <stop offset="5%" stopColor="#3b82f6" stopOpacity={0.3}/>
+                        <stop offset="95%" stopColor="#3b82f6" stopOpacity={0}/>
+                      </linearGradient>
+                    </defs>
+                    <CartesianGrid strokeDasharray="3 3" stroke="#334155" />
+                    <XAxis dataKey="date" stroke="#64748b" fontSize={12} />
+                    <YAxis stroke="#64748b" fontSize={12} allowDecimals={false} />
+                    <Tooltip 
+                      contentStyle={{ 
+                        backgroundColor: '#1e293b', 
+                        border: '1px solid #334155',
+                        borderRadius: '8px',
+                        color: '#fff'
+                      }} 
+                    />
+                    <Area 
+                      type="monotone" 
+                      dataKey="count" 
+                      stroke="#3b82f6" 
+                      fillOpacity={1} 
+                      fill="url(#colorCount)" 
+                      name="咨询数"
+                    />
+                  </AreaChart>
+                </ResponsiveContainer>
+              </div>
+            </CardContent>
+          </Card>
+
+          <Card className="bg-slate-800 border-slate-700">
+            <CardHeader>
+              <CardTitle className="text-white flex items-center gap-2">
+                <BarChart3 className="w-5 h-5 text-purple-500" />
+                咨询状态分布
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="h-[200px]">
+                <ResponsiveContainer width="100%" height="100%">
+                  <BarChart data={statusCounts}>
+                    <CartesianGrid strokeDasharray="3 3" stroke="#334155" />
+                    <XAxis dataKey="status" stroke="#64748b" fontSize={12} />
+                    <YAxis stroke="#64748b" fontSize={12} allowDecimals={false} />
+                    <Tooltip 
+                      contentStyle={{ 
+                        backgroundColor: '#1e293b', 
+                        border: '1px solid #334155',
+                        borderRadius: '8px',
+                        color: '#fff'
+                      }} 
+                    />
+                    <Bar 
+                      dataKey="count" 
+                      fill="#8b5cf6" 
+                      radius={[4, 4, 0, 0]}
+                      name="数量"
+                    />
+                  </BarChart>
+                </ResponsiveContainer>
+              </div>
+            </CardContent>
+          </Card>
+        </div>
+
+        {/* Menu Items */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
           {menuItems.map((item) => (
-            <Link key={item.title} to={item.href}>
+            <Link 
+              key={item.title} 
+              to={item.disabled ? '#' : item.href}
+              className={item.disabled ? 'pointer-events-none opacity-50' : ''}
+            >
               <Card 
                 className="bg-slate-800 border-slate-700 hover:border-slate-600 transition-all cursor-pointer group h-full"
               >
@@ -295,19 +459,12 @@ const AdminDashboard = () => {
                 </CardHeader>
                 <CardContent>
                   <Button variant="ghost" className="text-slate-400 hover:text-white p-0">
-                    进入管理 →
+                    {item.disabled ? '开发中...' : '进入管理 →'}
                   </Button>
                 </CardContent>
               </Card>
             </Link>
           ))}
-        </div>
-
-        {/* Notice */}
-        <div className="mt-8 p-4 bg-amber-500/10 border border-amber-500/20 rounded-lg">
-          <p className="text-amber-500 text-sm">
-            <strong>提示：</strong>管理功能模块正在开发中，如需添加具体功能请告诉我。
-          </p>
         </div>
       </main>
     </div>
