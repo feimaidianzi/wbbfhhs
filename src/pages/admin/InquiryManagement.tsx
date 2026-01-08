@@ -83,6 +83,29 @@ const STATUS_OPTIONS = [
   { value: 'closed', label: '已关闭', color: 'bg-slate-500/20 text-slate-400 border-slate-500/30', icon: XCircle },
 ];
 
+const REPLY_TEMPLATES = [
+  { 
+    label: "感谢咨询 - 通用回复", 
+    content: "感谢您对飞迈科技的关注和咨询！\n\n我们已收到您的信息，相关业务人员会尽快与您联系，为您提供详细的解决方案。\n\n如有紧急需求，您也可以直接拨打我们的服务热线：+8617674048404"
+  },
+  { 
+    label: "产品报价 - 需求确认", 
+    content: "感谢您对我们产品的兴趣！\n\n为了给您提供准确的报价方案，请您补充以下信息：\n1. 具体应用场景\n2. 预计采购数量\n3. 是否需要定制功能\n\n收到您的回复后，我们将在24小时内为您提供详细报价。"
+  },
+  { 
+    label: "技术支持 - 问题跟进", 
+    content: "感谢您的反馈！\n\n我们的技术团队已收到您描述的问题，正在进行分析处理。如需进一步了解情况，技术人员可能会通过电话与您联系。\n\n预计会在1-2个工作日内给您回复处理结果。"
+  },
+  { 
+    label: "定制开发 - 需求沟通", 
+    content: "感谢您对定制开发服务的咨询！\n\n我们提供从需求分析到交付的一站式定制服务。为了更好地评估您的需求，建议安排一次线上或线下沟通会议。\n\n请问您方便的时间段是？我们的技术顾问将与您详细讨论方案。"
+  },
+  { 
+    label: "合作洽谈 - 初步回复", 
+    content: "感谢您的合作意向！\n\n飞迈科技一直致力于与行业伙伴建立长期合作关系。我们对您提出的合作方向很感兴趣。\n\n为了深入探讨合作可能，建议安排一次商务会谈。请问您方便的时间是？"
+  },
+];
+
 const InquiryManagement = () => {
   const navigate = useNavigate();
   const { toast } = useToast();
@@ -538,34 +561,66 @@ const InquiryManagement = () => {
               </div>
 
               {/* Reply Section */}
-              <div className="space-y-2 p-4 bg-blue-500/10 border border-blue-500/30 rounded-lg">
+              <div className="space-y-3 p-4 bg-blue-500/10 border border-blue-500/30 rounded-lg">
                 <Label className="text-blue-400 flex items-center gap-2">
                   <Send className="w-4 h-4" />
                   回复客户
                 </Label>
+                
+                {/* Template Selection */}
+                <div className="space-y-2">
+                  <Label className="text-slate-400 text-xs">快速选择模板</Label>
+                  <div className="flex flex-wrap gap-2">
+                    {REPLY_TEMPLATES.map((template, index) => (
+                      <Button
+                        key={index}
+                        type="button"
+                        variant="outline"
+                        size="sm"
+                        onClick={() => setReplyContent(template.content)}
+                        className="text-xs bg-slate-700 border-slate-600 text-slate-300 hover:bg-slate-600 hover:text-white"
+                      >
+                        {template.label}
+                      </Button>
+                    ))}
+                  </div>
+                </div>
+
                 <Textarea
                   value={replyContent}
                   onChange={(e) => setReplyContent(e.target.value)}
                   placeholder="输入回复内容，发送后客户将收到邮件..."
                   className="bg-slate-700 border-slate-600 min-h-[120px]"
                 />
-                <Button 
-                  onClick={sendReply} 
-                  disabled={sendingReply || !replyContent.trim()}
-                  className="bg-blue-500 hover:bg-blue-600"
-                >
-                  {sendingReply ? (
-                    <>
-                      <Loader2 className="w-4 h-4 mr-2 animate-spin" />
-                      发送中...
-                    </>
-                  ) : (
-                    <>
-                      <Send className="w-4 h-4 mr-2" />
-                      发送回复邮件
-                    </>
+                <div className="flex items-center gap-2">
+                  <Button 
+                    onClick={sendReply} 
+                    disabled={sendingReply || !replyContent.trim()}
+                    className="bg-blue-500 hover:bg-blue-600"
+                  >
+                    {sendingReply ? (
+                      <>
+                        <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+                        发送中...
+                      </>
+                    ) : (
+                      <>
+                        <Send className="w-4 h-4 mr-2" />
+                        发送回复邮件
+                      </>
+                    )}
+                  </Button>
+                  {replyContent && (
+                    <Button 
+                      variant="ghost" 
+                      size="sm"
+                      onClick={() => setReplyContent("")}
+                      className="text-slate-400 hover:text-white"
+                    >
+                      清空
+                    </Button>
                   )}
-                </Button>
+                </div>
               </div>
 
               {/* Admin Notes */}
