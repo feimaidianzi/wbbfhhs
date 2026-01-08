@@ -122,8 +122,8 @@ const AdminDashboard = () => {
     { 
       icon: Settings, 
       title: '系统设置', 
-      description: '网站配置和系统设置', 
-      href: '#',
+      description: '邮件通知等系统配置', 
+      href: '/feimai-admin-console/settings',
       color: 'from-slate-500 to-slate-600'
     },
   ];
