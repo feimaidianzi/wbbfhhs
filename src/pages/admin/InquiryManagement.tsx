@@ -56,7 +56,8 @@ import {
   Mail,
   Phone,
   Building,
-  User
+  User,
+  Send
 } from 'lucide-react';
 
 interface Inquiry {
@@ -93,6 +94,8 @@ const InquiryManagement = () => {
   const [deleteInquiryId, setDeleteInquiryId] = useState<string | null>(null);
   const [adminNotes, setAdminNotes] = useState('');
   const [filterStatus, setFilterStatus] = useState<string>('all');
+  const [replyContent, setReplyContent] = useState('');
+  const [sendingReply, setSendingReply] = useState(false);
 
   const fetchInquiries = async () => {
     try {
@@ -153,7 +156,56 @@ const InquiryManagement = () => {
   const openDetail = (inquiry: Inquiry) => {
     setSelectedInquiry(inquiry);
     setAdminNotes(inquiry.admin_notes || '');
+    setReplyContent('');
     setIsDetailOpen(true);
+  };
+
+  const sendReply = async () => {
+    if (!selectedInquiry || !replyContent.trim()) {
+      toast({
+        title: '请输入回复内容',
+        variant: 'destructive',
+      });
+      return;
+    }
+
+    setSendingReply(true);
+    try {
+      const { error: funcError } = await supabase.functions.invoke('send-inquiry-reply', {
+        body: {
+          to: selectedInquiry.email,
+          customerName: selectedInquiry.name,
+          originalSubject: selectedInquiry.subject,
+          replyContent: replyContent.trim(),
+        },
+      });
+
+      if (funcError) throw funcError;
+
+      // Update status to replied
+      await supabase
+        .from('inquiries')
+        .update({ 
+          status: 'replied', 
+          replied_at: new Date().toISOString(),
+          admin_notes: adminNotes ? `${adminNotes}\n\n---回复内容---\n${replyContent.trim()}` : `---回复内容---\n${replyContent.trim()}`
+        })
+        .eq('id', selectedInquiry.id);
+
+      toast({ title: '回复已发送' });
+      setReplyContent('');
+      setSelectedInquiry({ ...selectedInquiry, status: 'replied', replied_at: new Date().toISOString() });
+      fetchInquiries();
+    } catch (error: any) {
+      console.error('Reply error:', error);
+      toast({
+        title: '发送失败',
+        description: error.message,
+        variant: 'destructive',
+      });
+    } finally {
+      setSendingReply(false);
+    }
   };
 
   const updateStatus = async (inquiryId: string, newStatus: string) => {
@@ -485,9 +537,40 @@ const InquiryManagement = () => {
                 </Select>
               </div>
 
+              {/* Reply Section */}
+              <div className="space-y-2 p-4 bg-blue-500/10 border border-blue-500/30 rounded-lg">
+                <Label className="text-blue-400 flex items-center gap-2">
+                  <Send className="w-4 h-4" />
+                  回复客户
+                </Label>
+                <Textarea
+                  value={replyContent}
+                  onChange={(e) => setReplyContent(e.target.value)}
+                  placeholder="输入回复内容，发送后客户将收到邮件..."
+                  className="bg-slate-700 border-slate-600 min-h-[120px]"
+                />
+                <Button 
+                  onClick={sendReply} 
+                  disabled={sendingReply || !replyContent.trim()}
+                  className="bg-blue-500 hover:bg-blue-600"
+                >
+                  {sendingReply ? (
+                    <>
+                      <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+                      发送中...
+                    </>
+                  ) : (
+                    <>
+                      <Send className="w-4 h-4 mr-2" />
+                      发送回复邮件
+                    </>
+                  )}
+                </Button>
+              </div>
+
               {/* Admin Notes */}
               <div className="space-y-2">
-                <Label className="text-slate-400">管理备注</Label>
+                <Label className="text-slate-400">管理备注（内部可见）</Label>
                 <Textarea
                   value={adminNotes}
                   onChange={(e) => setAdminNotes(e.target.value)}
@@ -503,7 +586,7 @@ const InquiryManagement = () => {
               <div className="text-xs text-slate-500 pt-4 border-t border-slate-700">
                 <p>提交时间: {formatDate(selectedInquiry.created_at)}</p>
                 {selectedInquiry.replied_at && (
-                  <p>回复时间: {formatDate(selectedInquiry.replied_at)}</p>
+                  <p className="text-green-400">✓ 已回复: {formatDate(selectedInquiry.replied_at)}</p>
                 )}
               </div>
             </div>
