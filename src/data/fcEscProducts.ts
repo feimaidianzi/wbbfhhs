@@ -47,7 +47,6 @@ export const stackProducts: FcEscProduct[] = [
     image: "https://ueeshop.ly200-cdn.com/u_file/UPBD/UPBD023/2409/19/products/b67564581a.jpg",
     images: [
       "https://ueeshop.ly200-cdn.com/u_file/UPBD/UPBD023/2409/19/products/b67564581a.jpg",
-      "https://ueeshop.ly200-cdn.com/u_file/UPBD/UPBD023/2409/23/products/0ecde4a628.jpg",
       "https://ueeshop.ly200-cdn.com/u_file/UPBD/UPBD023/2409/19/products/b78828fb64.jpg",
       "https://ueeshop.ly200-cdn.com/u_file/UPBD/UPBD023/2409/19/products/05f45628ec.jpg",
       "https://ueeshop.ly200-cdn.com/u_file/UPBD/UPBD023/2409/19/products/ba2a10b0ec.jpg",
