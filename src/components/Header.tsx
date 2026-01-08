@@ -6,81 +6,87 @@ import { Logo } from "@/components/Logo";
 import { LanguageSwitcher } from "@/components/LanguageSwitcher";
 import { useLanguage } from "@/contexts/LanguageContext";
 
-const droneCategories = [
-  { name: "飞迈机场", href: "/products/airport", description: "全自动无人机起降平台", image: "https://images.unsplash.com/photo-1508614589041-895b88991e3e?w=120&q=80" },
-  { name: "系留无人机", href: "/products/tethered", description: "24小时不间断工作", image: "https://images.unsplash.com/photo-1473968512647-3e447244af8f?w=120&q=80" },
-  { name: "物流无人机", href: "/products/logistics", description: "高效智能配送系统", image: "https://images.unsplash.com/photo-1527977966376-1c8408f9f108?w=120&q=80" },
-  { name: "集群无人机", href: "/products/swarm", description: "智能集群控制系统", image: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=120&q=80" },
-  { name: "FPV穿越机", href: "/fpv", description: "第一视角飞行体验", image: "https://images.unsplash.com/photo-1473968512647-3e447244af8f?w=120&q=80" },
+const getDroneCategories = (language: 'zh' | 'en') => [
+  { name: language === 'zh' ? "飞迈机场" : "Drone Nest", href: "/products/airport", description: language === 'zh' ? "全自动无人机起降平台" : "Automatic drone take-off and landing platform" },
+  { name: language === 'zh' ? "系留无人机" : "Tethered Drone", href: "/products/tethered", description: language === 'zh' ? "24小时不间断工作" : "24-hour continuous operation" },
+  { name: language === 'zh' ? "物流无人机" : "Logistics Drone", href: "/products/logistics", description: language === 'zh' ? "高效智能配送系统" : "Efficient intelligent delivery system" },
+  { name: language === 'zh' ? "集群无人机" : "Swarm Drone", href: "/products/swarm", description: language === 'zh' ? "智能集群控制系统" : "Intelligent swarm control system" },
+  { name: language === 'zh' ? "FPV穿越机" : "FPV Drone", href: "/fpv", description: language === 'zh' ? "第一视角飞行体验" : "First-person view flight experience" },
 ];
 
-const accessoryCategories = [
-  { name: "VTX/VRX", href: "/products/accessories/vtx-vrx", description: "视频发射与接收模块", image: "https://images.unsplash.com/photo-1518770660439-4636190af475?w=120&q=80" },
-  { name: "飞控/电调", href: "/products/accessories/fc-esc", description: "飞控与电调系统", image: "https://images.unsplash.com/photo-1581094794329-c8112a89af12?w=120&q=80" },
-  { name: "吊舱/云台", href: "/products/accessories/gimbal", description: "专业稳定云台系统", image: "https://images.unsplash.com/photo-1506947411487-a56738267384?w=120&q=80" },
-  { name: "数字图传", href: "/products/accessories/digital-fpv", description: "高清数字图像传输", image: "https://images.unsplash.com/photo-1527977966376-1c8408f9f108?w=120&q=80" },
-  { name: "相机", href: "/products/accessories/camera", description: "专业航拍相机", image: "https://images.unsplash.com/photo-1502920917128-1aa500764cbd?w=120&q=80" },
-  { name: "ELRS", href: "/products/accessories/elrs", description: "远距离控制链路", image: "https://images.unsplash.com/photo-1527977966376-1c8408f9f108?w=120&q=80" },
-  { name: "其他配件", href: "/products/accessories/others", description: "辅助配件装备", image: "https://images.unsplash.com/photo-1619641805634-98e5c7f0d3?w=120&q=80" },
+const getAccessoryCategories = (language: 'zh' | 'en') => [
+  { name: "VTX/VRX", href: "/products/accessories/vtx-vrx", description: language === 'zh' ? "视频发射与接收模块" : "Video transmitter and receiver modules" },
+  { name: language === 'zh' ? "飞控/电调" : "FC/ESC", href: "/products/accessories/fc-esc", description: language === 'zh' ? "飞控与电调系统" : "Flight controller and ESC systems" },
+  { name: language === 'zh' ? "吊舱/云台" : "Gimbal/Pod", href: "/products/accessories/gimbal", description: language === 'zh' ? "专业稳定云台系统" : "Professional stabilization gimbal systems" },
+  { name: language === 'zh' ? "数字图传" : "Digital FPV", href: "/products/accessories/digital-fpv", description: language === 'zh' ? "高清数字图像传输" : "HD digital video transmission" },
+  { name: language === 'zh' ? "相机" : "Camera", href: "/products/accessories/camera", description: language === 'zh' ? "专业航拍相机" : "Professional aerial cameras" },
+  { name: "ELRS", href: "/products/accessories/elrs", description: language === 'zh' ? "远距离控制链路" : "Long-range control link" },
+  { name: language === 'zh' ? "其他配件" : "Other Accessories", href: "/products/accessories/others", description: language === 'zh' ? "辅助配件装备" : "Auxiliary accessories and equipment" },
 ];
 
-const applicationCategories = [
-  { name: "电力巡检", href: "/applications/power-inspection", description: "输电线路智能巡检", image: "https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?w=120&q=80" },
-  { name: "物流应用", href: "/applications/logistics", description: "无人机物流配送", image: "https://images.unsplash.com/photo-1527977966376-1c8408f9f108?w=120&q=80" },
-  { name: "军事应用", href: "/applications/military", description: "侦察监视与通信中继", image: "https://images.unsplash.com/photo-1551698618-1dfe5d97d256?w=120&q=80" },
-  { name: "环保应用", href: "/applications/environment", description: "环境监测与治理", image: "https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=120&q=80" },
-  { name: "消防应急", href: "/applications/firefighting", description: "火情侦察与应急救援", image: "https://images.unsplash.com/photo-1569863959165-56dae551d4fc?w=120&q=80" },
-  { name: "系留应用", href: "/applications/tethered", description: "24小时持续滞空", image: "https://images.unsplash.com/photo-1473968512647-3e447244af8f?w=120&q=80" },
-  { name: "解决方案", href: "/applications/solutions", description: "完整行业解决方案", image: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=120&q=80" },
+const getApplicationCategories = (language: 'zh' | 'en') => [
+  { name: language === 'zh' ? "电力巡检" : "Power Inspection", href: "/applications/power-inspection", description: language === 'zh' ? "输电线路智能巡检" : "Smart transmission line inspection" },
+  { name: language === 'zh' ? "物流应用" : "Logistics", href: "/applications/logistics", description: language === 'zh' ? "无人机物流配送" : "Drone logistics delivery" },
+  { name: language === 'zh' ? "军事应用" : "Military", href: "/applications/military", description: language === 'zh' ? "侦察监视与通信中继" : "Reconnaissance and communication relay" },
+  { name: language === 'zh' ? "环保应用" : "Environmental", href: "/applications/environment", description: language === 'zh' ? "环境监测与治理" : "Environmental monitoring and management" },
+  { name: language === 'zh' ? "消防应急" : "Firefighting", href: "/applications/firefighting", description: language === 'zh' ? "火情侦察与应急救援" : "Fire reconnaissance and emergency rescue" },
+  { name: language === 'zh' ? "系留应用" : "Tethered", href: "/applications/tethered", description: language === 'zh' ? "24小时持续滞空" : "24-hour continuous aerial operations" },
+  { name: language === 'zh' ? "解决方案" : "Solutions", href: "/applications/solutions", description: language === 'zh' ? "完整行业解决方案" : "Complete industry solutions" },
 ];
 
-const customCategories = [
-  { name: "无人机配件定制", href: "/custom-research/accessories", description: "专业配件定制服务", image: "https://images.unsplash.com/photo-1518770660439-4636190af475?w=120&q=80" },
-  { name: "无人机整机定制", href: "/custom-research/drone", description: "整机系统定制开发", image: "https://images.unsplash.com/photo-1473968512647-3e447244af8f?w=120&q=80" },
-  { name: "无人机软件定制", href: "/custom-research/software", description: "地面站与算法定制", image: "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=120&q=80" },
-  { name: "无人机挂载定制", href: "/custom-research/payload", description: "专业挂载载荷定制", image: "https://images.unsplash.com/photo-1506947411487-a56738267384?w=120&q=80" },
+const getCustomCategories = (language: 'zh' | 'en') => [
+  { name: language === 'zh' ? "无人机配件定制" : "Accessory Customization", href: "/custom-research/accessories", description: language === 'zh' ? "专业配件定制服务" : "Professional accessory customization" },
+  { name: language === 'zh' ? "无人机整机定制" : "Drone Customization", href: "/custom-research/drone", description: language === 'zh' ? "整机系统定制开发" : "Complete drone system customization" },
+  { name: language === 'zh' ? "无人机软件定制" : "Software Customization", href: "/custom-research/software", description: language === 'zh' ? "地面站与算法定制" : "Ground station and algorithm customization" },
+  { name: language === 'zh' ? "无人机挂载定制" : "Payload Customization", href: "/custom-research/payload", description: language === 'zh' ? "专业挂载载荷定制" : "Professional payload customization" },
 ];
 
-const softwareCategories = [
-  { name: "模拟考试系统", href: "/software/exam-system", description: "无人机培训考核平台", image: "https://images.unsplash.com/photo-1434030216411-0b793f4b4173?w=120&q=80" },
-  { name: "光伏巡检识别系统", href: "/software/pv-inspection", description: "AI光伏缺陷识别", image: "https://images.unsplash.com/photo-1509391366360-2e959784a276?w=120&q=80" },
-  { name: "无人机管理平台", href: "/software/drone-management", description: "设备与任务管理", image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=120&q=80" },
-  { name: "电力巡检管理系统", href: "/software/power-inspection-system", description: "输电线路智能巡检", image: "https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?w=120&q=80" },
-  { name: "光伏巡检系统", href: "/software/pv-system", description: "光伏电站运维管理", image: "https://images.unsplash.com/photo-1508514177221-188b1cf16e9d?w=120&q=80" },
-  { name: "环保管理系统", href: "/software/environment-system", description: "环境监测管理平台", image: "https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=120&q=80" },
-  { name: "无人机地面站软件", href: "/software/ground-station", description: "专业飞控地面站", image: "https://images.unsplash.com/photo-1517694712202-14dd9538aa97?w=120&q=80" },
-  { name: "集群地面站软件", href: "/software/swarm-ground-station", description: "集群编队控制", image: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=120&q=80" },
+const getSoftwareCategories = (language: 'zh' | 'en') => [
+  { name: language === 'zh' ? "模拟考试系统" : "Exam Simulation", href: "/software/exam-system", description: language === 'zh' ? "无人机培训考核平台" : "Drone training assessment platform" },
+  { name: language === 'zh' ? "光伏巡检识别系统" : "PV Inspection AI", href: "/software/pv-inspection", description: language === 'zh' ? "AI光伏缺陷识别" : "AI solar panel defect detection" },
+  { name: language === 'zh' ? "无人机管理平台" : "Drone Management", href: "/software/drone-management", description: language === 'zh' ? "设备与任务管理" : "Equipment and task management" },
+  { name: language === 'zh' ? "电力巡检管理系统" : "Power Inspection", href: "/software/power-inspection-system", description: language === 'zh' ? "输电线路智能巡检" : "Smart transmission line inspection" },
+  { name: language === 'zh' ? "光伏巡检系统" : "PV System", href: "/software/pv-system", description: language === 'zh' ? "光伏电站运维管理" : "Solar plant O&M management" },
+  { name: language === 'zh' ? "环保管理系统" : "Environmental System", href: "/software/environment-system", description: language === 'zh' ? "环境监测管理平台" : "Environmental monitoring platform" },
+  { name: language === 'zh' ? "无人机地面站软件" : "Ground Station", href: "/software/ground-station", description: language === 'zh' ? "专业飞控地面站" : "Professional flight control station" },
+  { name: language === 'zh' ? "集群地面站软件" : "Swarm Station", href: "/software/swarm-ground-station", description: language === 'zh' ? "集群编队控制" : "Swarm formation control" },
 ];
 
-const projectCategories = [
-  { name: "无人机培训", href: "/projects/training", description: "专业飞手培训服务", image: "https://images.unsplash.com/photo-1434030216411-0b793f4b4173?w=120&q=80" },
-  { name: "无人机表演", href: "/projects/show", description: "集群灯光表演服务", image: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=120&q=80" },
-  { name: "飞行服务", href: "/projects/flight-service", description: "专业飞行作业服务", image: "https://images.unsplash.com/photo-1473968512647-3e447244af8f?w=120&q=80" },
-  { name: "项目合作", href: "/projects/cooperation", description: "定制化项目合作", image: "https://images.unsplash.com/photo-1552664730-d307ca884978?w=120&q=80" },
-];
-
-const productCenterCategories = [
-  { name: "多旋翼无人机", href: "/products", description: "专业多旋翼无人机系列", image: "https://images.unsplash.com/photo-1473968512647-3e447244af8f?w=120&q=80", hasSubmenu: true, submenuItems: droneCategories },
-  ...accessoryCategories
-];
-
-const getNavItems = (t: (key: string) => string) => [
-  { name: t('nav.home'), href: "/" },
-  { name: t('nav.about'), href: "/about" },
-  { name: t('nav.products'), href: "/products", hasDropdown: true, children: productCenterCategories },
-  { name: t('nav.applications'), href: "/applications", hasDropdown: true, children: applicationCategories },
-  { name: t('nav.software'), href: "/software", hasDropdown: true, children: softwareCategories },
-  { name: t('nav.custom'), href: "/custom-research", hasDropdown: true, children: customCategories },
-  { name: t('nav.news'), href: "/news" },
-  { name: t('nav.contact'), href: "/contact" },
+const getProjectCategories = (language: 'zh' | 'en') => [
+  { name: language === 'zh' ? "无人机培训" : "Drone Training", href: "/projects/training", description: language === 'zh' ? "专业飞手培训服务" : "Professional pilot training" },
+  { name: language === 'zh' ? "无人机表演" : "Drone Show", href: "/projects/show", description: language === 'zh' ? "集群灯光表演服务" : "Swarm light show services" },
+  { name: language === 'zh' ? "飞行服务" : "Flight Service", href: "/projects/flight-service", description: language === 'zh' ? "专业飞行作业服务" : "Professional flight operation services" },
+  { name: language === 'zh' ? "项目合作" : "Cooperation", href: "/projects/cooperation", description: language === 'zh' ? "定制化项目合作" : "Customized project cooperation" },
 ];
 
 export const Header = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
   const timeoutRef = useRef<NodeJS.Timeout | null>(null);
-  const { t } = useLanguage();
-  const navItems = getNavItems(t);
+  const { t, language } = useLanguage();
+
+  const droneCategories = getDroneCategories(language);
+  const accessoryCategories = getAccessoryCategories(language);
+  const applicationCategories = getApplicationCategories(language);
+  const customCategories = getCustomCategories(language);
+  const softwareCategories = getSoftwareCategories(language);
+  const projectCategories = getProjectCategories(language);
+
+  const productCenterCategories = [
+    { name: language === 'zh' ? "多旋翼无人机" : "Multi-Rotor Drone", href: "/products", description: language === 'zh' ? "专业多旋翼无人机系列" : "Professional multi-rotor drone series", hasSubmenu: true, submenuItems: droneCategories },
+    ...accessoryCategories
+  ];
+
+  const navItems = [
+    { name: t('nav.home'), href: "/" },
+    { name: t('nav.about'), href: "/about" },
+    { name: t('nav.products'), href: "/products", hasDropdown: true, children: productCenterCategories },
+    { name: t('nav.applications'), href: "/applications", hasDropdown: true, children: applicationCategories },
+    { name: t('nav.software'), href: "/software", hasDropdown: true, children: softwareCategories },
+    { name: t('nav.custom'), href: "/custom-research", hasDropdown: true, children: customCategories },
+    { name: t('nav.news'), href: "/news" },
+    { name: t('nav.contact'), href: "/contact" },
+  ];
 
   const handleMouseEnter = (itemName: string) => {
     if (timeoutRef.current) {
