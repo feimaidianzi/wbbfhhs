@@ -246,7 +246,7 @@ export const zhTranslations: Record<string, string> = {
   // FloatingContact
   'floating.home': '返回首页',
   'floating.phone': '电话咨询',
-  'floating.qq': 'QQ客服',
+  'floating.qq': '微信客服',
   'floating.wechat': '微信客服',
   'floating.scanWechat': '扫码添加微信',
   'floating.callPhone': '点击拨打电话',

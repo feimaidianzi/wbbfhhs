@@ -42,12 +42,13 @@ export const FloatingContact = () => {
         >
           <Phone className="w-5 h-5" />
         </a>
-        <button
+        <a
+          href="tel:17674048404"
           className="w-12 h-12 bg-primary rounded-lg shadow-lg flex items-center justify-center text-primary-foreground hover:bg-navy-light transition-colors"
-          title={isEn ? "QQ Service" : "QQ客服"}
+          title={isEn ? "WeChat" : "微信客服: 17674048404"}
         >
           <MessageCircle className="w-5 h-5" />
-        </button>
+        </a>
         <button
           className="w-12 h-12 bg-primary rounded-lg shadow-lg flex items-center justify-center text-primary-foreground hover:bg-navy-light transition-colors relative"
           title={isEn ? "WeChat Service" : "微信客服"}
