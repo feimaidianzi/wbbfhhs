@@ -55,7 +55,8 @@ import {
   Eye,
   EyeOff,
   Star,
-  Image
+  Image,
+  Search
 } from 'lucide-react';
 import ImageUpload from '@/components/admin/ImageUpload';
 
@@ -104,6 +105,7 @@ const ProductManagement = () => {
   const [editingProduct, setEditingProduct] = useState<Product | null>(null);
   const [deleteProductId, setDeleteProductId] = useState<string | null>(null);
   const [filterCategory, setFilterCategory] = useState<string>('all');
+  const [searchTerm, setSearchTerm] = useState('');
 
   const [formData, setFormData] = useState({
     name: '',
@@ -346,9 +348,16 @@ const ProductManagement = () => {
     return CATEGORIES.find(c => c.value === value)?.label || value;
   };
 
-  const filteredProducts = filterCategory === 'all' 
+  let filteredProducts = filterCategory === 'all' 
     ? products 
     : products.filter(p => p.category === filterCategory);
+  
+  if (searchTerm) {
+    filteredProducts = filteredProducts.filter(p => 
+      p.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      (p.name_en && p.name_en.toLowerCase().includes(searchTerm.toLowerCase()))
+    );
+  }
 
   if (loading) {
     return (
@@ -403,7 +412,16 @@ const ProductManagement = () => {
               返回管理后台
             </Button>
           </Link>
-          <div className="flex items-center gap-4">
+          <div className="flex items-center gap-4 flex-wrap">
+            <div className="relative flex-1 min-w-[200px]">
+              <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
+              <Input
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+                placeholder="搜索产品名称..."
+                className="pl-10 bg-slate-700 border-slate-600 text-white"
+              />
+            </div>
             <Select value={filterCategory} onValueChange={setFilterCategory}>
               <SelectTrigger className="w-40 bg-slate-700 border-slate-600 text-white">
                 <SelectValue placeholder="筛选分类" />

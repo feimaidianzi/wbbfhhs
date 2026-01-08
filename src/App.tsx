@@ -94,6 +94,8 @@ import NewsManagement from "./pages/admin/NewsManagement";
 import ProductManagement from "./pages/admin/ProductManagement";
 import InquiryManagement from "./pages/admin/InquiryManagement";
 import SystemSettings from "./pages/admin/SystemSettings";
+import ActivityLogs from "./pages/admin/ActivityLogs";
+import NewsDetail from "./pages/NewsDetail";
 const queryClient = new QueryClient();
 
 const App = () => (
@@ -113,6 +115,7 @@ const App = () => (
             <Route path="/feimai-admin-console/products" element={<ProductManagement />} />
             <Route path="/feimai-admin-console/inquiries" element={<InquiryManagement />} />
             <Route path="/feimai-admin-console/settings" element={<SystemSettings />} />
+            <Route path="/feimai-admin-console/logs" element={<ActivityLogs />} />
           <Route path="/about" element={<About />} />
           <Route path="/applications" element={<Applications />} />
           <Route path="/applications/power-inspection" element={<PowerInspection />} />
@@ -150,6 +153,7 @@ const App = () => (
           <Route path="/fpv" element={<FPV />} />
           <Route path="/fpv/:category" element={<FPVCategory />} />
           <Route path="/news" element={<News />} />
+          <Route path="/news/:id" element={<NewsDetail />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/products" element={<Products />} />
           <Route path="/products/airport" element={<Airport />} />
