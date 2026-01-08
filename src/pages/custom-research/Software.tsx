@@ -5,29 +5,42 @@ import { Button } from "@/components/ui/button";
 import { ArrowRight, CheckCircle, Phone, Mail, Monitor, Code, Map, Database, Cloud, Cpu } from "lucide-react";
 import { Link } from "react-router-dom";
 import { BackButton } from "@/components/BackButton";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 const SoftwareCustom = () => {
+  const { language } = useLanguage();
+  const isEn = language === 'en';
+
   const features = [
-    { icon: Monitor, title: "地面站定制", description: "定制化地面控制站软件" },
-    { icon: Code, title: "算法开发", description: "自主导航与控制算法" },
-    { icon: Map, title: "航线规划", description: "智能航线规划系统" },
-    { icon: Database, title: "数据处理", description: "采集数据处理分析" },
-    { icon: Cloud, title: "云平台", description: "云端管理与监控平台" },
-    { icon: Cpu, title: "AI集成", description: "AI识别与分析功能" },
+    { icon: Monitor, title: isEn ? "Ground Station Custom" : "地面站定制", description: isEn ? "Custom ground control station software" : "定制化地面控制站软件" },
+    { icon: Code, title: isEn ? "Algorithm Development" : "算法开发", description: isEn ? "Autonomous navigation & control algorithms" : "自主导航与控制算法" },
+    { icon: Map, title: isEn ? "Route Planning" : "航线规划", description: isEn ? "Intelligent route planning system" : "智能航线规划系统" },
+    { icon: Database, title: isEn ? "Data Processing" : "数据处理", description: isEn ? "Collected data processing & analysis" : "采集数据处理分析" },
+    { icon: Cloud, title: isEn ? "Cloud Platform" : "云平台", description: isEn ? "Cloud management & monitoring platform" : "云端管理与监控平台" },
+    { icon: Cpu, title: isEn ? "AI Integration" : "AI集成", description: isEn ? "AI recognition & analysis features" : "AI识别与分析功能" },
   ];
 
-  const services = [
-    "地面站软件定制",
-    "移动端APP开发",
-    "航线规划算法",
-    "自主避障算法",
-    "目标识别算法",
-    "数据处理软件",
-    "云平台开发",
-    "API接口开发",
-  ];
+  const services = isEn 
+    ? ["Ground Station Software", "Mobile App Development", "Route Planning Algorithm", "Autonomous Avoidance Algorithm", "Target Recognition Algorithm", "Data Processing Software", "Cloud Platform Development", "API Interface Development"]
+    : ["地面站软件定制", "移动端APP开发", "航线规划算法", "自主避障算法", "目标识别算法", "数据处理软件", "云平台开发", "API接口开发"];
 
-  const cases = [
+  const cases = isEn ? [
+    {
+      title: "Power Inspection Software",
+      client: "Power Company",
+      description: "Custom power inspection ground station with integrated defect recognition AI and inspection report generation.",
+    },
+    {
+      title: "Agricultural Management Platform",
+      client: "Agricultural Tech Company",
+      description: "Developed agricultural drone management cloud platform supporting multi-drone coordination and data analysis.",
+    },
+    {
+      title: "Survey Data Processing",
+      client: "Surveying Institute",
+      description: "Developed aerial survey data auto-processing software for one-click generation from raw data to results.",
+    },
+  ] : [
     {
       title: "电力巡检软件",
       client: "某电力公司",
@@ -52,11 +65,11 @@ const SoftwareCustom = () => {
         <div className="bg-secondary py-4">
           <div className="container-custom">
             <div className="flex items-center gap-2 text-sm text-muted-foreground">
-              <Link to="/" className="hover:text-accent">首页</Link>
+              <Link to="/" className="hover:text-accent">{isEn ? "Home" : "首页"}</Link>
               <span>/</span>
-              <Link to="/custom-research" className="hover:text-accent">科研定制</Link>
+              <Link to="/custom-research" className="hover:text-accent">{isEn ? "R&D Custom" : "科研定制"}</Link>
               <span>/</span>
-              <span className="text-foreground">软件定制</span>
+              <span className="text-foreground">{isEn ? "Software Custom" : "软件定制"}</span>
             </div>
           </div>
         </div>
@@ -65,22 +78,24 @@ const SoftwareCustom = () => {
           <div className="container-custom">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
               <div>
-                <BackButton to="/custom-research" label="返回科研定制" />
-                <h1 className="text-3xl md:text-5xl font-bold mb-6">软件定制</h1>
+                <BackButton to="/custom-research" label={isEn ? "Back to R&D Custom" : "返回科研定制"} />
+                <h1 className="text-3xl md:text-5xl font-bold mb-6">{isEn ? "Software Customization" : "软件定制"}</h1>
                 <p className="text-lg text-muted-foreground mb-8 leading-relaxed">
-                  提供专业的无人机软件系统定制开发服务，包括地面站、移动端、云平台、数据处理等全套软件解决方案。
+                  {isEn 
+                    ? "Providing professional drone software system customization development services, including ground station, mobile apps, cloud platform, data processing and complete software solutions."
+                    : "提供专业的无人机软件系统定制开发服务，包括地面站、移动端、云平台、数据处理等全套软件解决方案。"}
                 </p>
                 <div className="flex flex-col sm:flex-row gap-4">
                   <Button className="bg-accent hover:bg-accent/90 text-accent-foreground px-8 py-6 text-lg">
-                    咨询定制 <ArrowRight className="w-5 h-5 ml-2" />
+                    {isEn ? "Request Custom" : "咨询定制"} <ArrowRight className="w-5 h-5 ml-2" />
                   </Button>
                   <Button className="bg-primary/10 border border-primary/30 text-foreground hover:bg-primary/20 px-8 py-6 text-lg">
-                    <Phone className="w-5 h-5 mr-2" /> 电话咨询
+                    <Phone className="w-5 h-5 mr-2" /> {isEn ? "Call Us" : "电话咨询"}
                   </Button>
                 </div>
               </div>
               <div className="relative">
-                <img src="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=800&q=80" alt="软件定制" className="rounded-2xl shadow-2xl w-full" />
+                <img src="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=800&q=80" alt={isEn ? "Software Custom" : "软件定制"} className="rounded-2xl shadow-2xl w-full" />
               </div>
             </div>
           </div>
@@ -88,7 +103,7 @@ const SoftwareCustom = () => {
 
         <section className="py-20 bg-secondary">
           <div className="container-custom">
-            <h2 className="text-2xl md:text-4xl font-bold text-center mb-14">软件类型</h2>
+            <h2 className="text-2xl md:text-4xl font-bold text-center mb-14">{isEn ? "Software Types" : "软件类型"}</h2>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
               {features.map((feature, index) => (
                 <div key={index} className="bg-card p-8 rounded-2xl shadow-card">
@@ -105,7 +120,7 @@ const SoftwareCustom = () => {
 
         <section className="py-20 bg-background">
           <div className="container-custom">
-            <h2 className="text-2xl md:text-4xl font-bold text-center mb-14">定制服务内容</h2>
+            <h2 className="text-2xl md:text-4xl font-bold text-center mb-14">{isEn ? "Custom Services" : "定制服务内容"}</h2>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-5xl mx-auto">
               {services.map((service, index) => (
                 <div key={index} className="flex items-center gap-3 bg-card p-4 rounded-xl shadow-card">
@@ -119,9 +134,9 @@ const SoftwareCustom = () => {
 
         <section className="py-20 bg-secondary">
           <div className="container-custom">
-            <h2 className="text-2xl md:text-4xl font-bold text-center mb-4">案例展示</h2>
+            <h2 className="text-2xl md:text-4xl font-bold text-center mb-4">{isEn ? "Case Studies" : "案例展示"}</h2>
             <p className="text-muted-foreground text-center mb-14 max-w-2xl mx-auto">
-              成功为多家企业和科研机构提供软件定制服务
+              {isEn ? "Successfully provided software customization services for multiple enterprises and research institutions" : "成功为多家企业和科研机构提供软件定制服务"}
             </p>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
               {cases.map((item, index) => (
@@ -137,10 +152,12 @@ const SoftwareCustom = () => {
 
         <section className="py-20 bg-primary">
           <div className="container-custom text-center">
-            <h2 className="text-2xl md:text-4xl font-bold text-primary-foreground mb-6">开启软件定制项目</h2>
+            <h2 className="text-2xl md:text-4xl font-bold text-primary-foreground mb-6">
+              {isEn ? "Start Your Software Project" : "开启软件定制项目"}
+            </h2>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Button className="bg-accent hover:bg-accent/90 text-accent-foreground px-10 py-6 text-lg">
-                <Mail className="w-5 h-5 mr-2" /> 立即咨询
+                <Mail className="w-5 h-5 mr-2" /> {isEn ? "Contact Now" : "立即咨询"}
               </Button>
               <Button className="bg-primary-foreground/20 border border-primary-foreground/50 text-primary-foreground hover:bg-primary-foreground/30 px-10 py-6 text-lg">
                 <Phone className="w-5 h-5 mr-2" /> 400-888-8888
