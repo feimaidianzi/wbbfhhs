@@ -6,58 +6,39 @@ import { SEO } from "@/components/SEO";
 import { Button } from "@/components/ui/button";
 import { ArrowLeft, Radio, Zap, Settings, Shield, Thermometer, Cpu, ChevronRight } from "lucide-react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { 
-  getProducts49to61, 
-  getProducts61to72, 
-  frequencyTable49to61, 
-  frequencyTable61to72,
-  VtxProduct 
-} from "@/data/vtxProducts";
-
-const features = [
-  {
-    icon: Radio,
-    title: "高性能射频",
-    description: "采用罗杰斯4350B高性能射频PCB材料，确保优秀的射频性能"
-  },
-  {
-    icon: Zap,
-    title: "大功率输出",
-    description: "多档功率可调，最高37W输出，远距离高清图传"
-  },
-  {
-    icon: Thermometer,
-    title: "优异散热",
-    description: "内置散热风扇与散热器，CNC铝合金外壳，严酷环境下稳定工作"
-  },
-  {
-    icon: Settings,
-    title: "灵活配置",
-    description: "支持80频道，任意频点及频率组合定制（step 1MHz）"
-  },
-  {
-    icon: Shield,
-    title: "安全保护",
-    description: "5秒缓启动功能，避免瞬时最大功率烧毁设备"
-  },
-  {
-    icon: Cpu,
-    title: "智能控制",
-    description: "支持SA协议与Betaflight软件控制，支持PIT模式"
-  }
-];
-
-const ProductCard = ({ product }: { product: VtxProduct }) => (
-  <Link 
-    to={`/products/accessories/vtx-vrx/${product.id}`}
-    className="bg-card rounded-xl overflow-hidden border border-border hover:border-primary/50 transition-all duration-300 group block"
-  >
+import { getProducts49to61, getProducts61to72, frequencyTable49to61, frequencyTable61to72, VtxProduct } from "@/data/vtxProducts";
+const features = [{
+  icon: Radio,
+  title: "高性能射频",
+  description: "采用罗杰斯4350B高性能射频PCB材料，确保优秀的射频性能"
+}, {
+  icon: Zap,
+  title: "大功率输出",
+  description: "多档功率可调，最高37W输出，远距离高清图传"
+}, {
+  icon: Thermometer,
+  title: "优异散热",
+  description: "内置散热风扇与散热器，CNC铝合金外壳，严酷环境下稳定工作"
+}, {
+  icon: Settings,
+  title: "灵活配置",
+  description: "支持80频道，任意频点及频率组合定制（step 1MHz）"
+}, {
+  icon: Shield,
+  title: "安全保护",
+  description: "5秒缓启动功能，避免瞬时最大功率烧毁设备"
+}, {
+  icon: Cpu,
+  title: "智能控制",
+  description: "支持SA协议与Betaflight软件控制，支持PIT模式"
+}];
+const ProductCard = ({
+  product
+}: {
+  product: VtxProduct;
+}) => <Link to={`/products/accessories/vtx-vrx/${product.id}`} className="bg-card rounded-xl overflow-hidden border border-border hover:border-primary/50 transition-all duration-300 group block">
     <div className="aspect-video bg-muted/30 p-4 flex items-center justify-center">
-      <img 
-        src={product.image} 
-        alt={product.name}
-        className="max-h-full max-w-full object-contain group-hover:scale-105 transition-transform duration-300"
-      />
+      <img src={product.image} alt={product.name} className="max-h-full max-w-full object-contain group-hover:scale-105 transition-transform duration-300" />
     </div>
     <div className="p-6">
       <div className="flex items-center gap-2 mb-2">
@@ -70,12 +51,10 @@ const ProductCard = ({ product }: { product: VtxProduct }) => (
       <div className="space-y-3">
         <h4 className="font-semibold text-sm text-muted-foreground">产品亮点</h4>
         <ul className="space-y-1">
-          {product.highlights.slice(0, 4).map((highlight, idx) => (
-            <li key={idx} className="text-sm flex items-start gap-2">
+          {product.highlights.slice(0, 4).map((highlight, idx) => <li key={idx} className="text-sm flex items-start gap-2">
               <span className="text-primary mt-1">•</span>
               <span>{highlight}</span>
-            </li>
-          ))}
+            </li>)}
         </ul>
       </div>
 
@@ -106,11 +85,12 @@ const ProductCard = ({ product }: { product: VtxProduct }) => (
         <ChevronRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
       </div>
     </div>
-  </Link>
-);
-
-const FrequencyTable = ({ data }: { data: typeof frequencyTable49to61 }) => (
-  <div className="overflow-x-auto">
+  </Link>;
+const FrequencyTable = ({
+  data
+}: {
+  data: typeof frequencyTable49to61;
+}) => <div className="overflow-x-auto">
     <table className="w-full text-sm">
       <thead>
         <tr className="bg-muted/50">
@@ -126,8 +106,7 @@ const FrequencyTable = ({ data }: { data: typeof frequencyTable49to61 }) => (
         </tr>
       </thead>
       <tbody>
-        {data.map((row, idx) => (
-          <tr key={idx} className={idx % 2 === 0 ? "bg-background" : "bg-muted/20"}>
+        {data.map((row, idx) => <tr key={idx} className={idx % 2 === 0 ? "bg-background" : "bg-muted/20"}>
             <td className="px-4 py-2 font-medium">{row.band}</td>
             <td className="px-4 py-2 text-center">{row.ch1}</td>
             <td className="px-4 py-2 text-center">{row.ch2}</td>
@@ -137,23 +116,15 @@ const FrequencyTable = ({ data }: { data: typeof frequencyTable49to61 }) => (
             <td className="px-4 py-2 text-center">{row.ch6}</td>
             <td className="px-4 py-2 text-center">{row.ch7}</td>
             <td className="px-4 py-2 text-center">{row.ch8}</td>
-          </tr>
-        ))}
+          </tr>)}
       </tbody>
     </table>
-  </div>
-);
-
+  </div>;
 const VtxVrx = () => {
   const products49to61 = getProducts49to61();
   const products61to72 = getProducts61to72();
-
-  return (
-    <>
-      <SEO 
-        title="VTX/VRX 视频发射器与接收器 - 飞迈科技"
-        description="飞迈科技VTX视频发射器与VRX接收器系列，提供4.9-6.1GHz和6.1-7.2GHz两大频段，功率从2.5W到37W全覆盖，专业FPV图传解决方案"
-      />
+  return <>
+      <SEO title="VTX/VRX 视频发射器与接收器 - 飞迈科技" description="飞迈科技VTX视频发射器与VRX接收器系列，提供4.9-6.1GHz和6.1-7.2GHz两大频段，功率从2.5W到37W全覆盖，专业FPV图传解决方案" />
       <Header />
       <main className="min-h-screen bg-background">
         {/* Hero Section */}
@@ -189,8 +160,7 @@ const VtxVrx = () => {
           <div className="container mx-auto px-4">
             <h2 className="text-3xl font-bold text-center mb-12">产品特色</h2>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {features.map((feature, idx) => (
-                <div key={idx} className="flex gap-4 p-6 bg-card rounded-xl border border-border">
+              {features.map((feature, idx) => <div key={idx} className="flex gap-4 p-6 bg-card rounded-xl border border-border">
                   <div className="flex-shrink-0 w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center">
                     <feature.icon className="w-6 h-6 text-primary" />
                   </div>
@@ -198,8 +168,7 @@ const VtxVrx = () => {
                     <h3 className="font-semibold mb-2">{feature.title}</h3>
                     <p className="text-sm text-muted-foreground">{feature.description}</p>
                   </div>
-                </div>
-              ))}
+                </div>)}
             </div>
           </div>
         </section>
@@ -226,9 +195,7 @@ const VtxVrx = () => {
                   </p>
                 </div>
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                  {products49to61.map((product) => (
-                    <ProductCard key={product.id} product={product} />
-                  ))}
+                  {products49to61.map(product => <ProductCard key={product.id} product={product} />)}
                 </div>
 
                 {/* Frequency Table */}
@@ -248,9 +215,7 @@ const VtxVrx = () => {
                   </p>
                 </div>
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                  {products61to72.map((product) => (
-                    <ProductCard key={product.id} product={product} />
-                  ))}
+                  {products61to72.map(product => <ProductCard key={product.id} product={product} />)}
                 </div>
                 
                 <div className="mt-8 p-6 bg-muted/50 rounded-xl text-center">
@@ -303,9 +268,7 @@ const VtxVrx = () => {
               </div>
               <div className="p-4 bg-card rounded-lg border border-border">
                 <h4 className="font-semibold mb-2">🔋 PIT模式操作</h4>
-                <p className="text-sm text-muted-foreground">
-                  通过Betaflight地面站软件可便捷进入/退出PIT模式；长按设备按钮15秒也可退出PIT模式；若未主动退出，下次通电时设备仍保持PIT模式。
-                </p>
+                <p className="text-sm text-muted-foreground">通过Betaflight地面站软件可便捷进入/退出PIT模式；上电前按住按键可进入PIT模式；重启可退出PIT模式。</p>
               </div>
             </div>
           </div>
@@ -328,8 +291,6 @@ const VtxVrx = () => {
       </main>
       <Footer />
       <FloatingContact />
-    </>
-  );
+    </>;
 };
-
 export default VtxVrx;
