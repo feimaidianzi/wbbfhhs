@@ -260,17 +260,6 @@ export const HeroSection = () => {
                 </div>
               </div>
 
-              {/* Floating tech icons */}
-              <div className="absolute right-32 bottom-32 hidden lg:block">
-                <div className="w-16 h-16 bg-primary-foreground/10 backdrop-blur-sm rounded-2xl border border-primary-foreground/20 flex items-center justify-center animate-float-delayed hover:border-accent/50 transition-all duration-300">
-                  <span className="text-2xl">📡</span>
-                </div>
-              </div>
-              <div className="absolute right-48 top-32 hidden lg:block">
-                <div className="w-14 h-14 bg-accent/20 backdrop-blur-sm rounded-xl border border-accent/30 flex items-center justify-center animate-float hover:scale-110 transition-transform duration-300" style={{ animationDelay: '1s' }}>
-                  <span className="text-xl">🎮</span>
-                </div>
-              </div>
             </div>
           </div>
         ))}
