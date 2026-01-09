@@ -6,6 +6,15 @@ import { useLanguage } from "@/contexts/LanguageContext";
 
 const getSlidesData = (language: 'zh' | 'en') => [
   {
+    title: language === 'zh' ? "数字图传系统" : "Digital FPV System",
+    subtitle: language === 'zh' 
+      ? "高清数字图像传输 · 超低延迟 · 抗干扰能力强"
+      : "HD Digital Video · Ultra-low Latency · Strong Anti-interference",
+    image: "https://images.unsplash.com/photo-1531297484001-80022131f5a1?w=1920&q=80",
+    cta: language === 'zh' ? "了解更多" : "Learn More",
+    link: "/products/accessories/digital-fpv",
+  },
+  {
     title: language === 'zh' ? "VTX视频发射器" : "VTX Video Transmitter",
     subtitle: language === 'zh' 
       ? "4.9-7.2GHz全频段覆盖 · 2.5W-37W多功率可选 · 80频道支持"
