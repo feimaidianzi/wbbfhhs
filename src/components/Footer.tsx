@@ -122,9 +122,9 @@ export const Footer = () => {
               <p className="text-primary-foreground/80 text-sm leading-relaxed mb-6 max-w-sm">{t('footer.company.desc')}</p>
               
               {/* Contact Info Cards */}
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              <div className="flex flex-col gap-3">
                 <a href="tel:+8617674048404" className="flex items-center gap-3 p-3 rounded-lg bg-primary-foreground/5 hover:bg-primary-foreground/10 transition-colors group">
-                  <div className="w-10 h-10 rounded-full bg-accent/20 flex items-center justify-center">
+                  <div className="w-10 h-10 rounded-full bg-accent/20 flex items-center justify-center flex-shrink-0">
                     <Phone className="w-5 h-5 text-accent" />
                   </div>
                   <div>
@@ -132,13 +132,13 @@ export const Footer = () => {
                     <p className="text-sm font-medium group-hover:text-accent transition-colors">176-7404-8404</p>
                   </div>
                 </a>
-                <a href="mailto:market@flymind.com.cn" className="flex items-center gap-2 p-3 rounded-lg bg-primary-foreground/5 hover:bg-primary-foreground/10 transition-colors group">
-                  <div className="w-8 h-8 rounded-full bg-accent/20 flex items-center justify-center flex-shrink-0">
-                    <Mail className="w-4 h-4 text-accent" />
+                <a href="mailto:market@flymind.com.cn" className="flex items-center gap-3 p-3 rounded-lg bg-primary-foreground/5 hover:bg-primary-foreground/10 transition-colors group">
+                  <div className="w-10 h-10 rounded-full bg-accent/20 flex items-center justify-center flex-shrink-0">
+                    <Mail className="w-5 h-5 text-accent" />
                   </div>
-                  <div className="min-w-0 flex-1 overflow-hidden">
+                  <div>
                     <p className="text-xs text-primary-foreground/60">{t('footer.email')}</p>
-                    <p className="text-xs font-medium group-hover:text-accent transition-colors truncate">market@flymind.com.cn</p>
+                    <p className="text-sm font-medium group-hover:text-accent transition-colors whitespace-nowrap">market@flymind.com.cn</p>
                   </div>
                 </a>
               </div>
