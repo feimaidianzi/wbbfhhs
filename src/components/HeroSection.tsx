@@ -3,6 +3,7 @@ import { ChevronLeft, ChevronRight, Play } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import { useLanguage } from "@/contexts/LanguageContext";
+import digitalFpvBanner from "@/assets/fpv/digital-fpv-banner.png";
 
 const getSlidesData = (language: 'zh' | 'en') => [
   {
@@ -10,7 +11,7 @@ const getSlidesData = (language: 'zh' | 'en') => [
     subtitle: language === 'zh' 
       ? "高清数字图像传输 · 超低延迟 · 抗干扰能力强"
       : "HD Digital Video · Ultra-low Latency · Strong Anti-interference",
-    image: "https://images.unsplash.com/photo-1531297484001-80022131f5a1?w=1920&q=80",
+    image: digitalFpvBanner,
     cta: language === 'zh' ? "了解更多" : "Learn More",
     link: "/products/accessories/digital-fpv",
   },
