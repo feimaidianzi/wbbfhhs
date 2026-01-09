@@ -105,7 +105,6 @@ export const Header = () => {
   ];
 
   const navItems = [
-    { name: t('nav.home'), href: "/" },
     { name: t('nav.about'), href: "/about" },
     { name: t('nav.products'), href: "/products", hasDropdown: true, children: productCenterCategories },
     { name: t('nav.applications'), href: "/applications", hasDropdown: true, children: applicationCategories },
