@@ -136,9 +136,9 @@ export const Footer = () => {
                   <div className="w-8 h-8 rounded-full bg-accent/20 flex items-center justify-center flex-shrink-0">
                     <Mail className="w-4 h-4 text-accent" />
                   </div>
-                  <div className="min-w-0 flex-1">
+                  <div className="min-w-0 flex-1 overflow-hidden">
                     <p className="text-xs text-primary-foreground/60">{t('footer.email')}</p>
-                    <p className="text-xs font-medium group-hover:text-accent transition-colors break-all">market@flymind.com.cn</p>
+                    <p className="text-xs font-medium group-hover:text-accent transition-colors truncate">market@flymind.com.cn</p>
                   </div>
                 </a>
               </div>
