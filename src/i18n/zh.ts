@@ -98,7 +98,7 @@ export const zhTranslations: Record<string, string> = {
   'footer.subscribe.desc': '获取最新产品资讯、行业解决方案和技术分享',
   'footer.email.placeholder': '请输入您的邮箱',
   'footer.subscribe.btn': '订阅',
-  'footer.company.desc': '飞迈科技是专业的无人机研发制造商，专注于工业级无人机配件的研发、生产与销售，为电力、物流、消防、应急等行业提供智能化飞行解决方案。',
+  'footer.company.desc': '飞迈科技是专业的无人机配件供应商，专注于工业无人机零配件的研发与销售，提供数字图传、VTX视频发射器、飞控电调、云台吊舱、ELRS遥控等专业配件。',
   'footer.hotline': '服务热线',
   'footer.email': '商务邮箱',
   'footer.products': '产品中心',
@@ -115,9 +115,9 @@ export const zhTranslations: Record<string, string> = {
   'footer.terms': '服务条款',
 
   // Hero Section
-  'hero.tagline': '飞迈科技 · 专业无人机制造商',
+  'hero.tagline': '飞迈科技 · 专业无人机配件供应商',
   'hero.title': '智能飞行 · 无限可能',
-  'hero.subtitle': '专注工业级无人机研发制造，为电力、物流、消防、应急等行业提供智能化飞行解决方案',
+  'hero.subtitle': '专注工业无人机零配件，提供数字图传、VTX视频发射器、飞控电调、云台吊舱等专业配件',
   'hero.products': '查看产品',
   'hero.contact': '联系我们',
 
@@ -166,13 +166,13 @@ export const zhTranslations: Record<string, string> = {
 
   // Index Page Sections
   'index.seo.title': '首页',
-  'index.seo.desc': '飞迈科技有限公司，专注于工业无人机研发制造，提供系留无人机、物流无人机、无人机机场、集群无人机等产品及行业解决方案。',
+  'index.seo.desc': '飞迈科技有限公司，专注于工业无人机零配件，提供数字图传、VTX视频发射器、飞控电调、云台吊舱、ELRS遥控等专业无人机配件。',
 
   // HeroSection
-  'hero.badge': '飞迈科技 · 专业无人机制造商',
+  'hero.badge': '飞迈科技 · 专业无人机配件供应商',
   'hero.title.line1': '智能飞行',
   'hero.title.line2': '无限可能',
-  'hero.description': '专注工业级无人机研发制造，为电力、物流、消防、应急等行业提供智能化飞行解决方案',
+  'hero.description': '专注工业无人机零配件，提供数字图传、VTX视频发射器、飞控电调、云台吊舱等专业配件',
   'hero.btn.products': '查看产品',
   'hero.btn.contact': '联系咨询',
 
