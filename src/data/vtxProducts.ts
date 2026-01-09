@@ -1,5 +1,6 @@
 import vtxLowPower from "@/assets/vtx/vtx-low-power.png";
 import vtxHighPower from "@/assets/vtx/vtx-high-power.jpg";
+import vtx25w from "@/assets/vtx/vtx-2.5w.png";
 
 export interface VtxProduct {
   id: string;
@@ -72,7 +73,7 @@ export const vtxProducts: VtxProduct[] = [
     frequency: "4.9-6.1GHz",
     frequencyBand: "49-61",
     channels: 80,
-    image: vtxLowPower,
+    image: vtx25w,
     specs: {
       inputVoltage: "12-28V，推荐使用6S电池",
       outputVoltage: "5V",
