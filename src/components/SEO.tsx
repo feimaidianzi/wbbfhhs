@@ -13,7 +13,7 @@ interface SEOProps {
 export const SEO = ({
   title,
   description,
-  keywords = '无人机,工业无人机,系留无人机,物流无人机,飞迈,FlyMind,无人机机场,无人机定制',
+  keywords = '无人机配件,数字图传,VTX视频发射器,飞控电调,云台吊舱,ELRS遥控,飞迈,FlyMind',
   image = 'https://images.unsplash.com/photo-1473968512647-3e447244af8f?w=1200&q=80',
   url,
   type = 'website',

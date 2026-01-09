@@ -98,7 +98,7 @@ export const enTranslations: Record<string, string> = {
   'footer.subscribe.desc': 'Get the latest product news, industry solutions and technical insights',
   'footer.email.placeholder': 'Enter your email',
   'footer.subscribe.btn': 'Subscribe',
-  'footer.company.desc': 'FlyMind Technology is a professional drone R&D manufacturer, focusing on the development, production and sales of industrial-grade drone accessories, providing intelligent flight solutions for power, logistics, firefighting, emergency and other industries.',
+  'footer.company.desc': 'FlyMind Technology is a professional drone accessories supplier, focusing on industrial drone components, providing digital FPV, VTX video transmitters, flight controllers, gimbals, ELRS remote controls and other professional accessories.',
   'footer.hotline': 'Hotline',
   'footer.email': 'Email',
   'footer.products': 'Products',
@@ -115,9 +115,9 @@ export const enTranslations: Record<string, string> = {
   'footer.terms': 'Terms of Service',
 
   // Hero Section
-  'hero.tagline': 'FlyMind · Professional Drone Manufacturer',
+  'hero.tagline': 'FlyMind · Professional Drone Accessories Supplier',
   'hero.title': 'Smart Flight · Unlimited Possibilities',
-  'hero.subtitle': 'Focusing on industrial drone R&D and manufacturing, providing intelligent flight solutions for power, logistics, firefighting, emergency and other industries',
+  'hero.subtitle': 'Focusing on industrial drone accessories, providing digital FPV, VTX video transmitters, flight controllers, gimbals and other professional accessories',
   'hero.products': 'View Products',
   'hero.contact': 'Contact Us',
 
@@ -166,13 +166,13 @@ export const enTranslations: Record<string, string> = {
 
   // Index Page Sections
   'index.seo.title': 'Home',
-  'index.seo.desc': 'FlyMind Technology, focusing on industrial drone R&D and manufacturing, providing tethered drones, logistics drones, drone airports, swarm drones and industry solutions.',
+  'index.seo.desc': 'FlyMind Technology, focusing on industrial drone accessories, providing digital FPV, VTX video transmitters, flight controllers, gimbals, ELRS remote controls and other professional drone accessories.',
 
   // HeroSection
-  'hero.badge': 'FlyMind · Professional Drone Manufacturer',
+  'hero.badge': 'FlyMind · Professional Drone Accessories Supplier',
   'hero.title.line1': 'Smart Flight',
   'hero.title.line2': 'Unlimited Possibilities',
-  'hero.description': 'Focusing on industrial drone R&D and manufacturing, providing intelligent flight solutions for power, logistics, firefighting, emergency and other industries',
+  'hero.description': 'Focusing on industrial drone accessories, providing digital FPV, VTX video transmitters, flight controllers, gimbals and other professional accessories',
   'hero.btn.products': 'View Products',
   'hero.btn.contact': 'Contact Us',
 

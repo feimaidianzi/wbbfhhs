@@ -25,8 +25,8 @@ const Index = () => {
     url: 'https://www.flymind.com',
     logo: 'https://www.flymind.com/logo.png',
     description: language === 'zh' 
-      ? '专业工业无人机研发制造商，提供系留无人机、物流无人机、无人机机场等产品及解决方案'
-      : 'Professional industrial drone R&D manufacturer, providing tethered drones, logistics drones, drone airports and other products and solutions',
+      ? '专业无人机配件供应商，提供数字图传、VTX视频发射器、飞控电调、云台吊舱等无人机配件'
+      : 'Professional drone accessories supplier, providing digital FPV, VTX video transmitters, flight controllers, gimbals and other drone accessories',
     address: {
       '@type': 'PostalAddress',
       addressLocality: language === 'zh' ? '长沙' : 'Changsha',
@@ -46,11 +46,11 @@ const Index = () => {
       <SEO
         title={language === 'zh' ? "首页" : "Home"}
         description={language === 'zh' 
-          ? "飞迈科技有限公司，专注于工业无人机研发制造，提供系留无人机、物流无人机、无人机机场、集群无人机等产品及行业解决方案。"
-          : "FlyMind Technology Co., Ltd., focusing on industrial drone R&D and manufacturing, providing tethered drones, logistics drones, drone airports, swarm drones and industry solutions."}
+          ? "飞迈科技有限公司，专注于工业无人机零配件，提供数字图传、VTX视频发射器、飞控电调、云台吊舱、ELRS遥控等专业无人机配件。"
+          : "FlyMind Technology Co., Ltd., focusing on industrial drone accessories, providing digital FPV, VTX video transmitters, flight controllers, gimbals, ELRS remote controls and other professional drone accessories."}
         keywords={language === 'zh' 
-          ? "无人机,工业无人机,系留无人机,物流无人机,无人机机场,集群无人机,飞迈,FlyMind"
-          : "drone,industrial drone,tethered drone,logistics drone,drone airport,swarm drone,FlyMind"}
+          ? "无人机配件,数字图传,VTX视频发射器,飞控电调,云台吊舱,ELRS遥控,飞迈,FlyMind"
+          : "drone accessories,digital FPV,VTX video transmitter,flight controller,gimbal,ELRS,FlyMind"}
         url="/"
         structuredData={homeStructuredData}
       />
