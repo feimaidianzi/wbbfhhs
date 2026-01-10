@@ -106,6 +106,7 @@ export type Database = {
       }
       news_articles: {
         Row: {
+          ai_edited: boolean | null
           author_id: string | null
           author_name: string | null
           category: string | null
@@ -113,13 +114,19 @@ export type Database = {
           cover_image: string | null
           created_at: string
           id: string
+          is_auto_generated: boolean | null
           is_published: boolean | null
+          keywords: string[] | null
+          original_title: string | null
           published_at: string | null
+          source_name: string | null
+          source_url: string | null
           summary: string | null
           title: string
           updated_at: string
         }
         Insert: {
+          ai_edited?: boolean | null
           author_id?: string | null
           author_name?: string | null
           category?: string | null
@@ -127,13 +134,19 @@ export type Database = {
           cover_image?: string | null
           created_at?: string
           id?: string
+          is_auto_generated?: boolean | null
           is_published?: boolean | null
+          keywords?: string[] | null
+          original_title?: string | null
           published_at?: string | null
+          source_name?: string | null
+          source_url?: string | null
           summary?: string | null
           title: string
           updated_at?: string
         }
         Update: {
+          ai_edited?: boolean | null
           author_id?: string | null
           author_name?: string | null
           category?: string | null
@@ -141,10 +154,84 @@ export type Database = {
           cover_image?: string | null
           created_at?: string
           id?: string
+          is_auto_generated?: boolean | null
           is_published?: boolean | null
+          keywords?: string[] | null
+          original_title?: string | null
           published_at?: string | null
+          source_name?: string | null
+          source_url?: string | null
           summary?: string | null
           title?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      news_collection_tasks: {
+        Row: {
+          articles_collected: number | null
+          articles_published: number | null
+          category: string
+          completed_at: string | null
+          created_at: string
+          error_message: string | null
+          id: string
+          keyword: string
+          status: string | null
+        }
+        Insert: {
+          articles_collected?: number | null
+          articles_published?: number | null
+          category: string
+          completed_at?: string | null
+          created_at?: string
+          error_message?: string | null
+          id?: string
+          keyword: string
+          status?: string | null
+        }
+        Update: {
+          articles_collected?: number | null
+          articles_published?: number | null
+          category?: string
+          completed_at?: string | null
+          created_at?: string
+          error_message?: string | null
+          id?: string
+          keyword?: string
+          status?: string | null
+        }
+        Relationships: []
+      }
+      news_keywords: {
+        Row: {
+          category: string
+          created_at: string
+          id: string
+          is_active: boolean | null
+          keyword: string
+          keyword_en: string | null
+          priority: number | null
+          updated_at: string
+        }
+        Insert: {
+          category: string
+          created_at?: string
+          id?: string
+          is_active?: boolean | null
+          keyword: string
+          keyword_en?: string | null
+          priority?: number | null
+          updated_at?: string
+        }
+        Update: {
+          category?: string
+          created_at?: string
+          id?: string
+          is_active?: boolean | null
+          keyword?: string
+          keyword_en?: string | null
+          priority?: number | null
           updated_at?: string
         }
         Relationships: []
