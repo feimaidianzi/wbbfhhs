@@ -203,6 +203,51 @@ async function processImageWithGemini(imageData: Uint8Array, contentType: string
   }
 }
 
+// 使用 Gemini 生成无人机相关图片
+async function generateImageWithGemini(prompt: string): Promise<Uint8Array | null> {
+  try {
+    const lovableApiKey = Deno.env.get("LOVABLE_API_KEY");
+    if (!lovableApiKey) return null;
+    
+    console.log("Generating image with Gemini:", prompt.substring(0, 50) + "...");
+    
+    const response = await fetch("https://ai.gateway.lovable.dev/v1/chat/completions", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${lovableApiKey}`,
+      },
+      body: JSON.stringify({
+        model: "google/gemini-3-pro-image-preview",
+        messages: [{
+          role: "user",
+          content: prompt
+        }],
+        modalities: ["image", "text"]
+      }),
+    });
+
+    if (!response.ok) {
+      console.error("Gemini image generation error:", response.status);
+      return null;
+    }
+
+    const data = await response.json();
+    const imageData = data.choices?.[0]?.message?.images?.[0]?.image_url?.url;
+    
+    if (imageData && imageData.startsWith("data:image")) {
+      const base64 = imageData.split(",")[1];
+      console.log("Image generated successfully");
+      return Uint8Array.from(atob(base64), c => c.charCodeAt(0));
+    }
+    
+    return null;
+  } catch (e) {
+    console.error("Gemini image generation error:", e);
+    return null;
+  }
+}
+
 // 上传图片到存储
 async function uploadImageToStorage(supabase: any, imageData: Uint8Array, articleId: string, index: number, contentType: string = "image/jpeg"): Promise<string | null> {
   try {
@@ -232,29 +277,27 @@ async function uploadImageToStorage(supabase: any, imageData: Uint8Array, articl
   }
 }
 
-// 获取并处理文章配图（2-5张，全部经过Gemini处理）
+// 获取并处理文章配图（3-5张，使用Gemini处理或生成）
 async function getArticleImages(
   imageCount: number,
   supabase: any,
-  articleId: string
+  articleId: string,
+  articleTitle: string = "无人机技术"
 ): Promise<string[]> {
   const images: string[] = [];
-  const targetCount = Math.min(Math.max(imageCount, 2), 5); // 2-5张
+  const targetCount = Math.min(Math.max(imageCount, 3), 5); // 3-5张
   
   const localImages = getLocalDroneImages();
   
-  // 为避免超时，每次只处理2张图片
-  const maxImagesToProcess = Math.min(targetCount, 2);
-  
-  for (let i = 0; i < maxImagesToProcess && images.length < maxImagesToProcess; i++) {
+  // 第一阶段：处理现有图片（最多2张）
+  const existingImageCount = Math.min(2, targetCount);
+  for (let i = 0; i < existingImageCount && images.length < existingImageCount; i++) {
     try {
-      // 随机选择一张本地图片
       const randomIndex = Math.floor(Math.random() * localImages.length);
       const selectedImage = localImages[randomIndex];
       
-      console.log(`Processing image ${i + 1}/${maxImagesToProcess}: ${selectedImage.substring(0, 50)}...`);
+      console.log(`Processing image ${i + 1}/${existingImageCount}: ${selectedImage.substring(0, 50)}...`);
       
-      // 下载图片
       const { imageData, contentType } = await downloadImage(selectedImage);
       
       if (!imageData) {
@@ -262,11 +305,10 @@ async function getArticleImages(
         continue;
       }
       
-      // 使用 Gemini 3 Pro Image Preview 处理图片
+      // 使用 Gemini 处理图片
       const processedImage = await processImageWithGemini(imageData, contentType);
       
       if (processedImage) {
-        // 上传处理后的图片
         const uploadedUrl = await uploadImageToStorage(supabase, processedImage, articleId, i, contentType);
         if (uploadedUrl) {
           images.push(uploadedUrl);
@@ -281,14 +323,45 @@ async function getArticleImages(
         }
       }
       
-      // 添加延迟避免API限制
-      await new Promise(resolve => setTimeout(resolve, 2000));
+      await new Promise(resolve => setTimeout(resolve, 1500));
     } catch (e) {
       console.error(`Error processing image ${i}:`, e);
     }
   }
   
-  console.log(`Got ${images.length} processed images via Gemini`);
+  // 第二阶段：如果图片不够，使用Gemini生成新图片
+  const imagePrompts = [
+    `Generate a professional photo of a modern industrial drone with camera gimbal flying over a city skyline. Ultra high resolution, realistic photography style.`,
+    `Generate a close-up photo of drone electronic components, circuit boards, and flight controllers. Professional product photography, clean background.`,
+    `Generate a photo of a professional pilot operating a commercial drone for industrial inspection. Realistic, high quality.`,
+    `Generate a photo of multiple drones performing a coordinated light show at night. Spectacular aerial display.`,
+  ];
+  
+  let generatedCount = 0;
+  while (images.length < targetCount && generatedCount < 2) {
+    try {
+      const prompt = imagePrompts[generatedCount % imagePrompts.length];
+      console.log(`Generating new image ${images.length + 1}...`);
+      
+      const generatedImage = await generateImageWithGemini(prompt);
+      
+      if (generatedImage) {
+        const uploadedUrl = await uploadImageToStorage(supabase, generatedImage, articleId, images.length, "image/png");
+        if (uploadedUrl) {
+          images.push(uploadedUrl);
+          console.log(`Generated image ${images.length} uploaded successfully`);
+        }
+      }
+      
+      generatedCount++;
+      await new Promise(resolve => setTimeout(resolve, 1500));
+    } catch (e) {
+      console.error("Error generating image:", e);
+      generatedCount++;
+    }
+  }
+  
+  console.log(`Got ${images.length} total images (processed + generated)`);
   return images;
 }
 
@@ -344,44 +417,61 @@ function insertImagesIntoContent(content: string, images: string[], title: strin
   return result;
 }
 
-// 安全解析JSON
+// 安全解析JSON并清理内容
 function safeParseJSON(text: string): any {
   try {
-    const cleaned = text
-      .replace(/[\x00-\x1F\x7F]/g, ' ')
-      .replace(/\\n/g, '\\\\n')
-      .replace(/\\r/g, '\\\\r')
-      .replace(/\\t/g, '\\\\t');
+    // 提取JSON部分
+    const jsonMatch = text.match(/\{[\s\S]*\}/);
+    if (!jsonMatch) return null;
     
-    const jsonMatch = cleaned.match(/\{[\s\S]*\}/);
-    if (jsonMatch) {
-      return JSON.parse(jsonMatch[0]);
+    let jsonStr = jsonMatch[0];
+    
+    // 解析JSON
+    const parsed = JSON.parse(jsonStr);
+    
+    // 清理content中的换行符和多余空白
+    if (parsed.content) {
+      parsed.content = parsed.content
+        .replace(/\\n/g, ' ')
+        .replace(/\n/g, ' ')
+        .replace(/\s{2,}/g, ' ')
+        .replace(/<\/p>\s*<p>/g, '</p><p>')
+        .trim();
     }
+    
+    if (parsed.summary) {
+      parsed.summary = parsed.summary
+        .replace(/\\n/g, ' ')
+        .replace(/\n/g, ' ')
+        .replace(/\s{2,}/g, ' ')
+        .trim();
+    }
+    
+    return parsed;
   } catch (e) {
     console.error("JSON parse error, trying fallback:", e);
     try {
       const titleMatch = text.match(/"title"\s*:\s*"([^"]+)"/);
       const summaryMatch = text.match(/"summary"\s*:\s*"([^"]+)"/);
-      const contentStart = text.indexOf('"content"');
       const keywordsMatch = text.match(/"keywords"\s*:\s*\[([^\]]+)\]/);
       
       if (titleMatch && summaryMatch) {
-        let content = "";
-        if (contentStart > -1) {
-          const contentAfter = text.substring(contentStart + 11);
-          const endMatch = contentAfter.match(/",\s*"keywords"/);
-          if (endMatch) {
-            content = contentAfter.substring(0, endMatch.index || 500);
-          } else {
-            content = contentAfter.substring(0, 2000);
-          }
-        }
+        // 提取content部分
+        const contentMatch = text.match(/"content"\s*:\s*"([\s\S]*?)(?:"\s*,\s*"keywords|"\s*\})/);
+        let content = contentMatch ? contentMatch[1] : "";
+        
+        // 清理content
+        content = content
+          .replace(/\\n/g, ' ')
+          .replace(/\\"/g, '"')
+          .replace(/\s{2,}/g, ' ')
+          .trim();
         
         return {
           title: titleMatch[1],
-          summary: summaryMatch[1],
-          content: `<p>${content.replace(/"/g, '').substring(0, 2000)}</p>`,
-          keywords: keywordsMatch ? keywordsMatch[1].split(',').map(k => k.replace(/"/g, '').trim()) : ["无人机", "技术"]
+          summary: summaryMatch[1].replace(/\\n/g, ' ').replace(/\s{2,}/g, ' '),
+          content: content.length > 0 ? `<p>${content.substring(0, 3000)}</p>` : "<p>文章内容生成中...</p>",
+          keywords: keywordsMatch ? keywordsMatch[1].split(',').map(k => k.replace(/"/g, '').trim()) : ["无人机", "技术", "长凌科技"]
         };
       }
     } catch (e2) {
@@ -399,10 +489,14 @@ async function generateTechArticle(topic: { title: string; desc: string }, categ
 方向：${topic.desc}
 类别：${categoryName}
 
-要求：技术科普，What/Why/How结构，1000-1500字，HTML格式，分多个段落。文章中必须体现长凌科技的品牌名称。
+要求：
+1. 技术科普，What/Why/How结构，1000-1500字
+2. 使用HTML格式：<p>段落</p>、<h3>小标题</h3>、<strong>重点</strong>、<ul><li>列表</li></ul>
+3. 文章中必须体现长凌科技（CANI）的品牌名称
+4. 不要使用换行符，段落之间用</p><p>分隔
 
-返回JSON（确保是有效JSON）：
-{"title":"中文标题","summary":"100字摘要","content":"<p>HTML正文，多个段落</p>","keywords":["关键词1","关键词2","关键词3"]}`;
+返回纯净JSON格式（不要markdown代码块）：
+{"title":"中文标题","summary":"100字摘要","content":"<p>HTML正文</p><p>多个段落</p>","keywords":["关键词1","关键词2","关键词3"]}`;
 
   const response = await fetch("https://ai.gateway.lovable.dev/v1/chat/completions", {
     method: "POST",
@@ -433,10 +527,14 @@ async function generateProductNews(product: { name: string; desc: string }, cate
 描述：${product.desc}
 类别：${categoryName}
 
-要求：产品发布风格，800-1200字，HTML格式，分多个段落。文章中必须体现长凌科技的品牌名称。
+要求：
+1. 产品发布风格，800-1200字
+2. 使用HTML格式：<p>段落</p>、<h3>小标题</h3>、<strong>重点</strong>、<ul><li>列表</li></ul>
+3. 文章中必须体现长凌科技（CANI）的品牌名称
+4. 不要使用换行符，段落之间用</p><p>分隔
 
-返回JSON（确保是有效JSON）：
-{"title":"中文标题","summary":"100字摘要","content":"<p>HTML正文，多个段落</p>","keywords":["关键词1","关键词2","关键词3"]}`;
+返回纯净JSON格式（不要markdown代码块）：
+{"title":"中文标题","summary":"100字摘要","content":"<p>HTML正文</p><p>多个段落</p>","keywords":["关键词1","关键词2","关键词3"]}`;
 
   const response = await fetch("https://ai.gateway.lovable.dev/v1/chat/completions", {
     method: "POST",
@@ -476,10 +574,14 @@ async function generateCompanyNews(apiKey: string, newsIndex: number) {
 主题：${topic.title}
 方向：${topic.desc}
 
-要求：正式新闻稿，600-1000字，HTML格式，分多个段落。文章中必须体现长凌科技的品牌名称。
+要求：
+1. 正式新闻稿，600-1000字
+2. 使用HTML格式：<p>段落</p>、<h3>小标题</h3>、<strong>重点</strong>
+3. 文章中必须体现长凌科技（CANI）的品牌名称
+4. 不要使用换行符，段落之间用</p><p>分隔
 
-返回JSON（确保是有效JSON）：
-{"title":"中文标题","summary":"80字摘要","content":"<p>HTML正文，多个段落</p>","keywords":["关键词1","关键词2","关键词3"]}`;
+返回纯净JSON格式（不要markdown代码块）：
+{"title":"中文标题","summary":"80字摘要","content":"<p>HTML正文</p><p>多个段落</p>","keywords":["关键词1","关键词2","关键词3"]}`;
 
   const response = await fetch("https://ai.gateway.lovable.dev/v1/chat/completions", {
     method: "POST",
@@ -531,17 +633,18 @@ Deno.serve(async (req) => {
     const processArticle = async (article: any, category: string) => {
       const articleId = crypto.randomUUID();
       
-      // 获取并处理配图（2张，经过Gemini处理）
+      // 获取并处理配图（3-5张，经过Gemini处理或生成）
       const images = await getArticleImages(
         imageCount,
         supabase,
-        articleId
+        articleId,
+        article.title
       );
       
       // 封面图使用第一张
       const coverImage = images.length > 0 ? images[0] : null;
       
-      // 将图片插入到内容中
+      // 将所有其他图片插入到内容中
       const contentWithImages = insertImagesIntoContent(article.content, images.slice(1), article.title);
       
       const { error } = await supabase.from("news_articles").insert({
