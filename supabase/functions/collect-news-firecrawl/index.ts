@@ -33,18 +33,23 @@ const CATEGORY_MAPPING: Record<string, string[]> = {
   "政策法规": ["政策", "法规", "规定", "标准", "管理", "审批"],
 };
 
-// 使用 Lovable AI 进行内容二次创作
+// 使用 AI 进行内容二次创作（简化版本，如果AI失败则使用原内容）
 async function rewriteContentWithAI(
   originalTitle: string,
   originalContent: string,
   sourceUrl: string,
   category: string
 ): Promise<{ title: string; summary: string; content: string; keywords: string[] }> {
-  const prompt = `你是一位专业的无人机行业资深编辑。请根据以下原始内容进行二次创作，生成一篇适合发布在无人机技术公司网站新闻中心的文章。
+  try {
+    const lovableApiKey = Deno.env.get("LOVABLE_API_KEY");
+    if (!lovableApiKey) {
+      throw new Error("LOVABLE_API_KEY not configured");
+    }
+
+    const prompt = `你是一位专业的无人机行业资深编辑。请根据以下原始内容进行二次创作，生成一篇适合发布在无人机技术公司网站新闻中心的文章。
 
 原始标题：${originalTitle}
 原始内容：${originalContent.substring(0, 3000)}
-来源URL：${sourceUrl}
 目标分类：${category}
 
 要求：
@@ -53,10 +58,7 @@ async function rewriteContentWithAI(
 3. 编写800-1200字的正文，要求：
    - 保持原文核心信息的准确性
    - 用专业的行业视角进行分析和解读
-   - 添加行业背景知识和技术解释
-   - 分析对无人机行业的影响和意义
    - 使用HTML格式（<p>、<h3>、<ul>、<li>等）
-   - 不要出现原始来源的名称
 4. 提取3-5个关键词
 
 请以JSON格式返回：
@@ -67,13 +69,11 @@ async function rewriteContentWithAI(
   "keywords": ["关键词1", "关键词2", "关键词3"]
 }`;
 
-  try {
-    const supabaseUrl = Deno.env.get("SUPABASE_URL")!;
-    const response = await fetch(`${supabaseUrl}/functions/v1/lovable-ai`, {
+    const response = await fetch("https://openrouter.ai/api/v1/chat/completions", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        "Authorization": `Bearer ${Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")}`,
+        "Authorization": `Bearer ${lovableApiKey}`,
       },
       body: JSON.stringify({
         model: "google/gemini-2.5-flash",
@@ -106,14 +106,34 @@ async function rewriteContentWithAI(
     throw new Error("Failed to parse AI response");
   } catch (error) {
     console.error("AI rewrite failed:", error);
-    // 回退到基本处理
+    // 回退到基本处理 - 清理内容并格式化
+    const cleanContent = originalContent
+      .replace(/\[.*?\]/g, '')
+      .replace(/\n{3,}/g, '\n\n')
+      .trim();
+    
+    const paragraphs = cleanContent.split('\n\n').filter(p => p.trim().length > 20);
+    const htmlContent = paragraphs.slice(0, 10).map(p => `<p>${p.trim()}</p>`).join('\n');
+    
     return {
-      title: originalTitle,
-      summary: originalContent.substring(0, 150) + "...",
-      content: `<p>${originalContent}</p>`,
-      keywords: [],
+      title: originalTitle.length > 40 ? originalTitle.substring(0, 40) + '...' : originalTitle,
+      summary: cleanContent.substring(0, 150) + "...",
+      content: htmlContent || `<p>${cleanContent.substring(0, 1000)}</p>`,
+      keywords: extractKeywords(originalTitle + " " + cleanContent),
     };
   }
+}
+
+// 简单的关键词提取
+function extractKeywords(text: string): string[] {
+  const commonKeywords = ["无人机", "电力巡检", "低空经济", "物流配送", "消防救援", "应急", "智能", "自动化"];
+  const found: string[] = [];
+  for (const kw of commonKeywords) {
+    if (text.includes(kw) && found.length < 5) {
+      found.push(kw);
+    }
+  }
+  return found.length > 0 ? found : ["无人机", "行业动态"];
 }
 
 // 根据内容确定分类
