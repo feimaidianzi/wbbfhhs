@@ -186,8 +186,8 @@ const CameraDetail = () => {
                 </h2>
                 <p className="text-lg text-white/80 mb-6">
                   {isEn 
-                    ? "FlyMind APP supports quick sharing of photos and videos to WeChat, Weibo, QQ and other social platforms, with built-in photo and video editing. Share with millions of users worldwide."
-                    : "FlyMind APP支持快速分享图片、视频到微信、微博、QQ等多种社交平台，同时支持图片和视频编辑。可以和全球百万用户一起分享精美图片和视频。"}
+                    ? "CANI APP supports quick sharing of photos and videos to WeChat, Weibo, QQ and other social platforms, with built-in photo and video editing. Share with millions of users worldwide."
+                    : "CANI APP支持快速分享图片、视频到微信、微博、QQ等多种社交平台，同时支持图片和视频编辑。可以和全球百万用户一起分享精美图片和视频。"}
                 </p>
                 <div className="flex flex-wrap gap-4">
                   <div className="flex items-center gap-2 px-4 py-2 bg-white/10 rounded-full">

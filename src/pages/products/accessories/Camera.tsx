@@ -17,9 +17,9 @@ const CameraPage = () => {
   return (
     <>
       <SEO 
-        title="高清数字相机 - 飞迈科技"
+        title="高清数字相机 - 长凌科技"
         description="专业运动相机产品，支持1080P高清录制、WiFi传输、30米防水，适用于FPV航拍、运动摄影等多种场景"
-        keywords="运动相机,高清相机,WiFi相机,防水相机,1080P,FPV相机"
+        keywords="运动相机,高清相机,WiFi相机,防水相机,1080P,FPV相机,长凌,CANI"
       />
       <Header />
       <main className="min-h-screen bg-background">
