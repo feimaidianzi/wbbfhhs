@@ -296,6 +296,48 @@ export type Database = {
         }
         Relationships: []
       }
+      scheduled_tasks: {
+        Row: {
+          created_at: string
+          cron_expression: string
+          description: string | null
+          id: string
+          is_enabled: boolean | null
+          last_error: string | null
+          last_run_at: string | null
+          last_status: string | null
+          name: string
+          next_run_at: string | null
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          cron_expression: string
+          description?: string | null
+          id?: string
+          is_enabled?: boolean | null
+          last_error?: string | null
+          last_run_at?: string | null
+          last_status?: string | null
+          name: string
+          next_run_at?: string | null
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          cron_expression?: string
+          description?: string | null
+          id?: string
+          is_enabled?: boolean | null
+          last_error?: string | null
+          last_run_at?: string | null
+          last_status?: string | null
+          name?: string
+          next_run_at?: string | null
+          updated_at?: string
+        }
+        Relationships: []
+      }
       specification_templates: {
         Row: {
           category: string
@@ -386,6 +428,7 @@ export type Database = {
         }
         Returns: boolean
       }
+      trigger_daily_news_collection: { Args: never; Returns: undefined }
     }
     Enums: {
       app_role: "admin" | "moderator" | "user"

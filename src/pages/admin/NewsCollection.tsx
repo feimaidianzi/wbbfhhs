@@ -85,11 +85,25 @@ interface CollectionTask {
   completed_at: string | null;
 }
 
+interface ScheduledTask {
+  id: string;
+  name: string;
+  description: string | null;
+  cron_expression: string;
+  is_enabled: boolean;
+  last_run_at: string | null;
+  next_run_at: string | null;
+  last_status: string | null;
+  last_error: string | null;
+  created_at: string;
+}
+
 const NewsCollection = () => {
   const navigate = useNavigate();
   const { toast } = useToast();
   const [keywords, setKeywords] = useState<NewsKeyword[]>([]);
   const [tasks, setTasks] = useState<CollectionTask[]>([]);
+  const [scheduledTasks, setScheduledTasks] = useState<ScheduledTask[]>([]);
   const [loading, setLoading] = useState(true);
   const [collecting, setCollecting] = useState(false);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
@@ -112,7 +126,7 @@ const NewsCollection = () => {
 
   const fetchData = async () => {
     try {
-      const [keywordsRes, tasksRes] = await Promise.all([
+      const [keywordsRes, tasksRes, scheduledRes] = await Promise.all([
         supabase
           .from('news_keywords')
           .select('*')
@@ -122,6 +136,10 @@ const NewsCollection = () => {
           .select('*')
           .order('created_at', { ascending: false })
           .limit(20),
+        supabase
+          .from('scheduled_tasks')
+          .select('*')
+          .order('created_at', { ascending: false }),
       ]);
 
       if (keywordsRes.error) throw keywordsRes.error;
@@ -129,6 +147,7 @@ const NewsCollection = () => {
 
       setKeywords(keywordsRes.data || []);
       setTasks(tasksRes.data || []);
+      setScheduledTasks(scheduledRes.data || []);
     } catch (error: any) {
       console.error('Error fetching data:', error);
       toast({
@@ -138,6 +157,56 @@ const NewsCollection = () => {
       });
     } finally {
       setLoading(false);
+    }
+  };
+
+  // 切换定时任务状态
+  const toggleScheduledTask = async (task: ScheduledTask) => {
+    try {
+      const { error } = await supabase
+        .from('scheduled_tasks')
+        .update({ is_enabled: !task.is_enabled })
+        .eq('id', task.id);
+
+      if (error) throw error;
+      toast({ title: task.is_enabled ? '已暂停定时任务' : '已启用定时任务' });
+      fetchData();
+    } catch (error: any) {
+      toast({
+        title: '操作失败',
+        description: error.message,
+        variant: 'destructive',
+      });
+    }
+  };
+
+  // 手动触发定时任务
+  const triggerScheduledTask = async () => {
+    setFirecrawlCollecting(true);
+    try {
+      const response = await supabase.functions.invoke('collect-news-firecrawl', {
+        body: {
+          action: 'collect-daily',
+          targetCount: 10,
+          autoPublish: true,
+        },
+      });
+
+      if (response.error) throw response.error;
+
+      toast({
+        title: '任务执行完成',
+        description: `成功采集 ${response.data.articlesCollected} 篇文章`,
+      });
+      fetchData();
+    } catch (error: any) {
+      toast({
+        title: '执行失败',
+        description: error.message,
+        variant: 'destructive',
+      });
+    } finally {
+      setFirecrawlCollecting(false);
     }
   };
 
@@ -578,6 +647,85 @@ const NewsCollection = () => {
                     )}
                   </div>
                 ))}
+              </div>
+            )}
+          </CardContent>
+        </Card>
+
+        {/* 定时任务配置 */}
+        <Card className="bg-gradient-to-r from-green-900/30 to-teal-900/30 border-green-500/30">
+          <CardHeader>
+            <CardTitle className="text-white flex items-center gap-2">
+              <Clock className="w-5 h-5 text-green-400" />
+              定时任务配置
+              <Badge className="bg-green-500/20 text-green-300 ml-2">自动</Badge>
+            </CardTitle>
+            <CardDescription className="text-slate-400">
+              配置每日自动采集任务，系统将在指定时间自动执行 Firecrawl 采集并发布
+            </CardDescription>
+          </CardHeader>
+          <CardContent>
+            {scheduledTasks.length > 0 ? (
+              <div className="space-y-4">
+                {scheduledTasks.map((task) => (
+                  <div key={task.id} className="p-4 bg-slate-800/50 rounded-lg border border-slate-700">
+                    <div className="flex items-center justify-between mb-3">
+                      <div className="flex items-center gap-3">
+                        <div className={`w-3 h-3 rounded-full ${task.is_enabled ? 'bg-green-500' : 'bg-slate-500'}`} />
+                        <div>
+                          <p className="font-medium text-white">{task.description || task.name}</p>
+                          <p className="text-xs text-slate-400">Cron: {task.cron_expression} (每天早上 8:00)</p>
+                        </div>
+                      </div>
+                      <div className="flex items-center gap-2">
+                        <Button
+                          variant="outline"
+                          size="sm"
+                          onClick={() => toggleScheduledTask(task)}
+                          className={task.is_enabled ? 'border-orange-500/50 text-orange-300' : 'border-green-500/50 text-green-300'}
+                        >
+                          {task.is_enabled ? <Pause className="w-4 h-4 mr-1" /> : <Play className="w-4 h-4 mr-1" />}
+                          {task.is_enabled ? '暂停' : '启用'}
+                        </Button>
+                        <Button
+                          onClick={triggerScheduledTask}
+                          disabled={firecrawlCollecting}
+                          size="sm"
+                          className="bg-green-500 hover:bg-green-600"
+                        >
+                          {firecrawlCollecting ? <Loader2 className="w-4 h-4 mr-1 animate-spin" /> : <Play className="w-4 h-4 mr-1" />}
+                          立即执行
+                        </Button>
+                      </div>
+                    </div>
+                    <div className="grid grid-cols-3 gap-4 text-sm">
+                      <div>
+                        <p className="text-slate-400">上次执行</p>
+                        <p className="text-white">{task.last_run_at ? formatDate(task.last_run_at) : '尚未执行'}</p>
+                      </div>
+                      <div>
+                        <p className="text-slate-400">执行状态</p>
+                        <p className={`${task.last_status === 'completed' ? 'text-green-400' : task.last_status === 'failed' ? 'text-red-400' : 'text-slate-300'}`}>
+                          {task.last_status === 'completed' ? '成功' : task.last_status === 'failed' ? '失败' : task.last_status === 'running' ? '运行中' : '等待中'}
+                        </p>
+                      </div>
+                      <div>
+                        <p className="text-slate-400">下次执行</p>
+                        <p className="text-white">{task.next_run_at ? formatDate(task.next_run_at) : '等待调度'}</p>
+                      </div>
+                    </div>
+                    {task.last_error && (
+                      <div className="mt-2 p-2 bg-red-500/10 rounded text-xs text-red-400">
+                        错误: {task.last_error}
+                      </div>
+                    )}
+                  </div>
+                ))}
+              </div>
+            ) : (
+              <div className="text-center py-8 text-slate-400">
+                <Clock className="w-12 h-12 mx-auto mb-3 opacity-50" />
+                <p>暂无定时任务配置</p>
               </div>
             )}
           </CardContent>
