@@ -41,8 +41,8 @@ const SwarmGroundStation = () => {
       <SEO
         title={isEn ? "Swarm Drone Ground Station Software" : "集群无人机地面站软件"}
         description={isEn 
-          ? "EFUAV swarm drone ground station software, supporting 100+ drone formation control and performances."
-          : "飞迈科技集群无人机地面站软件，支持百架级无人机编队控制与表演。"}
+          ? "CANI swarm drone ground station software, supporting 100+ drone formation control and performances."
+          : "长凌科技集群无人机地面站软件，支持百架级无人机编队控制与表演。"}
         keywords={isEn 
           ? "swarm control,drone formation,ground station software,drone show control"
           : "集群控制,无人机编队,地面站软件,无人机表演控制"}

@@ -62,7 +62,7 @@ const Contact = () => {
 
   const contactInfo = [
     { icon: Phone, title: language === 'zh' ? "电话咨询" : "Phone", value: "+8617674048404", href: "tel:+8617674048404" },
-    { icon: Mail, title: language === 'zh' ? "邮箱" : "Email", value: "market@cani.com.cn", href: "mailto:market@cani.com.cn" },
+    { icon: Mail, title: language === 'zh' ? "邮箱" : "Email", value: "market@caniuav.com", href: "mailto:market@caniuav.com" },
     { icon: MessageCircle, title: language === 'zh' ? "微信客服" : "WeChat", value: "17674048404", href: "#" },
     { icon: Clock, title: language === 'zh' ? "工作时间" : "Working Hours", value: language === 'zh' ? "周一至周五 9:00-18:00" : "Mon-Fri 9:00-18:00", href: null },
   ];
@@ -126,7 +126,7 @@ const Contact = () => {
       if (error) throw error;
 
       // Get admin email from settings
-      let adminEmail = 'market@cani.com';
+      let adminEmail = 'market@caniuav.com';
       try {
         const { data: settingData } = await supabase
           .from('system_settings')
@@ -189,7 +189,7 @@ const Contact = () => {
       '@type': 'Organization',
       name: 'CANI Technology',
       telephone: '+8617674048404',
-      email: 'market@cani.com.cn',
+      email: 'market@caniuav.com',
       address: {
         '@type': 'PostalAddress',
         addressLocality: 'Changsha',

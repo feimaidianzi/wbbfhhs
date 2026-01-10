@@ -95,7 +95,7 @@ async function sendEmail(to: string[], subject: string, html: string) {
       Authorization: `Bearer ${RESEND_API_KEY}`,
     },
     body: JSON.stringify({
-      from: "飞迈科技 <onboarding@resend.dev>",
+      from: "长凌科技 <onboarding@resend.dev>",
       to,
       subject,
       html,
@@ -201,7 +201,7 @@ const handler = async (req: Request): Promise<Response> => {
           </div>
           
           <p style="color: #64748b; font-size: 12px; margin-top: 20px;">
-            此邮件由飞迈科技网站自动发送，请及时处理客户咨询。
+            此邮件由长凌科技网站自动发送，请及时处理客户咨询。
           </p>
         </div>
       `
@@ -212,12 +212,12 @@ const handler = async (req: Request): Promise<Response> => {
     // Send confirmation to customer (use original email for sending, sanitized for display)
     const customerEmailResponse = await sendEmail(
       [email],
-      "感谢您的咨询 - 飞迈科技",
+      "感谢您的咨询 - 长凌科技",
       `
         <div style="font-family: sans-serif; max-width: 600px; margin: 0 auto;">
           <h2 style="color: #333;">尊敬的 ${safeName}，您好！</h2>
           
-          <p>感谢您对飞迈科技的关注！我们已收到您的咨询：</p>
+          <p>感谢您对长凌科技的关注！我们已收到您的咨询：</p>
           
           <div style="background: #f8fafc; padding: 20px; border-radius: 8px; margin: 20px 0;">
             <p><strong>咨询主题：</strong> ${safeSubject}</p>
@@ -229,7 +229,7 @@ const handler = async (req: Request): Promise<Response> => {
           
           <p style="margin-top: 30px;">
             此致<br>
-            <strong>飞迈科技团队</strong>
+            <strong>长凌科技团队</strong>
           </p>
           
           <hr style="border: none; border-top: 1px solid #e2e8f0; margin: 30px 0;">

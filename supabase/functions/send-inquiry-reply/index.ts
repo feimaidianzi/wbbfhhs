@@ -37,7 +37,7 @@ async function sendEmail(to: string[], subject: string, html: string) {
       Authorization: `Bearer ${RESEND_API_KEY}`,
     },
     body: JSON.stringify({
-      from: "飞迈科技 <onboarding@resend.dev>",
+      from: "长凌科技 <onboarding@resend.dev>",
       to,
       subject,
       html,
@@ -105,7 +105,7 @@ const handler = async (req: Request): Promise<Response> => {
     console.log("Admin access verified for user:", userId);
 
     const data: ReplyEmailRequest = await req.json();
-    const { to, customerName, originalSubject, replyContent, senderName = "飞迈科技客服" } = data;
+    const { to, customerName, originalSubject, replyContent, senderName = "长凌科技客服" } = data;
 
     // Validate required fields
     if (!to || !customerName || !originalSubject || !replyContent) {

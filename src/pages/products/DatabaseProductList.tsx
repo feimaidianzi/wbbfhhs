@@ -134,7 +134,7 @@ const DatabaseProductList = () => {
   return (
     <>
       <SEO
-        title={isEn ? 'Product Catalog - FeiMai Technology' : '产品目录 - 飞迈科技'}
+        title={isEn ? 'Product Catalog - CANI Technology' : '产品目录 - 长凌科技'}
         description={isEn ? 'Browse our complete product catalog with detailed specifications' : '浏览我们的完整产品目录，查看详细规格参数'}
       />
       <Header />

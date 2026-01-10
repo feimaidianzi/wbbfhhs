@@ -39,8 +39,8 @@ const SmartCity = () => {
       <SEO
         title={isEn ? "Smart City Applications" : "智慧城市应用"}
         description={isEn 
-          ? "Feimai Technology drone smart city solutions for urban management, planning, and emergency command."
-          : "飞迈科技无人机智慧城市解决方案，应用于城市管理、规划测绘、应急指挥等领域。"}
+          ? "CANI Technology drone smart city solutions for urban management, planning, and emergency command."
+          : "长凌科技无人机智慧城市解决方案，应用于城市管理、规划测绘、应急指挥等领域。"}
         keywords={isEn 
           ? "smart city drone,urban management,planning surveying,emergency command,city monitoring"
           : "智慧城市无人机,城市管理,规划测绘,应急指挥,城市监控"}
