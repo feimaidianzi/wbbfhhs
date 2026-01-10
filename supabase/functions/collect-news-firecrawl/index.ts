@@ -32,8 +32,8 @@ const CATEGORY_CONFIG = {
     style: "详细、技术性、突出产品特点和创新之处，介绍产品功能和应用场景",
   },
   "技术分享": {
-    keywords: ["video transmitter", "flight controller", "drone battery", "ELRS receiver"],
-    style: "专业科普、深入浅出、解释技术原理和应用方法，适合技术爱好者阅读",
+    keywords: ["what is FPV video transmitter", "how flight controller works", "drone gimbal explained", "ELRS vs traditional RC"],
+    style: "专业科普、深入浅出、解释技术原理和工作方式，适合技术爱好者阅读，包含What/Why/How的内容结构",
   },
 };
 
@@ -480,22 +480,30 @@ Deno.serve(async (req) => {
           "thermal imaging payload drone",
         ],
         "技术分享": [
-          // 图传技术
-          "video transmission drone technology explained",
-          "FPV video transmitter types comparison",
-          "long range video link drone",
-          // 飞控技术
-          "drone flight controller technology",
-          "autopilot system drone explained",
-          // 电池与动力
-          "drone battery technology guide",
-          "tethered drone power supply system",
-          // 通信技术
-          "drone communication link technology",
-          "ELRS ExpressLRS drone receiver",
-          // 应用技术
-          "drone photogrammetry technology guide",
-          "thermal imaging drone inspection how to",
+          // 图传技术知识 - 什么是图传、类型对比
+          "what is FPV video transmitter explained",
+          "analog vs digital FPV video transmission",
+          "how does drone video transmitter work",
+          "FPV VTX frequency bands explained 5.8GHz",
+          // 飞控技术知识 - 飞控原理、功能介绍
+          "what is drone flight controller how it works",
+          "flight controller vs autopilot explained",
+          "drone FC gyroscope accelerometer sensor",
+          "Betaflight ArduPilot flight controller guide",
+          // 电调技术知识
+          "what is ESC electronic speed controller drone",
+          "brushless motor ESC how it works",
+          // 云台技术知识
+          "what is drone gimbal stabilizer",
+          "3-axis gimbal how it works stabilization",
+          "thermal camera gimbal drone applications",
+          // 遥控通信技术
+          "ELRS ExpressLRS what is how it works",
+          "drone RC link protocols comparison ELRS",
+          "long range RC control system drone explained",
+          // 其他产品技术
+          "action camera drone mounting guide",
+          "drone battery LiPo technology explained",
         ],
       };
 
