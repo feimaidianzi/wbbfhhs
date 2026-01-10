@@ -135,27 +135,68 @@ async function generateAndUploadImage(prompt: string, apiKey: string, supabase: 
   }
 }
 
+// 安全解析JSON
+function safeParseJSON(text: string): any {
+  try {
+    // 清理可能导致问题的字符
+    const cleaned = text
+      .replace(/[\x00-\x1F\x7F]/g, ' ') // 移除控制字符
+      .replace(/\\n/g, '\\\\n')
+      .replace(/\\r/g, '\\\\r')
+      .replace(/\\t/g, '\\\\t');
+    
+    const jsonMatch = cleaned.match(/\{[\s\S]*\}/);
+    if (jsonMatch) {
+      return JSON.parse(jsonMatch[0]);
+    }
+  } catch (e) {
+    console.error("JSON parse error, trying fallback:", e);
+    // 尝试提取关键字段
+    try {
+      const titleMatch = text.match(/"title"\s*:\s*"([^"]+)"/);
+      const summaryMatch = text.match(/"summary"\s*:\s*"([^"]+)"/);
+      const contentStart = text.indexOf('"content"');
+      const keywordsMatch = text.match(/"keywords"\s*:\s*\[([^\]]+)\]/);
+      
+      if (titleMatch && summaryMatch) {
+        // 提取content（可能很长）
+        let content = "";
+        if (contentStart > -1) {
+          const contentAfter = text.substring(contentStart + 11);
+          const endMatch = contentAfter.match(/",\s*"keywords"/);
+          if (endMatch) {
+            content = contentAfter.substring(0, endMatch.index || 500);
+          } else {
+            content = contentAfter.substring(0, 2000);
+          }
+        }
+        
+        return {
+          title: titleMatch[1],
+          summary: summaryMatch[1],
+          content: `<p>${content.replace(/"/g, '').substring(0, 2000)}</p>`,
+          keywords: keywordsMatch ? keywordsMatch[1].split(',').map(k => k.replace(/"/g, '').trim()) : ["无人机", "技术"]
+        };
+      }
+    } catch (e2) {
+      console.error("Fallback parse also failed:", e2);
+    }
+  }
+  return null;
+}
+
 // 生成技术分享文章
 async function generateTechArticle(topic: { title: string; desc: string }, categoryName: string, imagePrompt: string, apiKey: string) {
-  const prompt = `你是飞迈科技的技术编辑，需要撰写一篇产品技术科普文章。
+  const prompt = `你是飞迈科技的技术编辑，撰写产品技术科普文章。
 
-【文章标题】${topic.title}
-【内容方向】${topic.desc}
-【产品类别】${categoryName}
+标题：${topic.title}
+方向：${topic.desc}
+类别：${categoryName}
 
-【写作要求】
-1. 这是技术科普文章，重点解释产品是什么、技术原理是什么、有什么用途
-2. 文章结构采用What/Why/How模式，深入浅出
-3. 适当引用飞迈科技的相关产品作为例子
-4. 800-1200字，使用HTML标签格式化（<p>, <h3>, <strong>, <ul>, <li>）
-5. 在正文中间适当位置插入一个图片占位符：<div class="article-image-placeholder"></div>
-6. 专业但易懂，适合技术爱好者阅读
-7. 不要包含任何URL链接
-8. 提供100-150字摘要
-9. 提取5个关键词
+要求：技术科普，What/Why/How结构，800-1200字，HTML格式。
 
-以JSON格式返回：
-{"title":"标题","summary":"摘要","content":"HTML格式正文","keywords":["关键词1","关键词2","关键词3","关键词4","关键词5"]}`;
+返回JSON（确保是有效JSON，不要有换行符在字符串内）：
+{"title":"中文标题","summary":"100字摘要","content":"<p>HTML正文</p>","keywords":["关键词1","关键词2","关键词3"]}`;
 
   const response = await fetch("https://ai.gateway.lovable.dev/v1/chat/completions", {
     method: "POST",
@@ -175,10 +216,9 @@ async function generateTechArticle(topic: { title: string; desc: string }, categ
 
   const data = await response.json();
   const aiContent = data.choices?.[0]?.message?.content || "";
-  const jsonMatch = aiContent.match(/\{[\s\S]*\}/);
-  if (jsonMatch) {
-    const result = JSON.parse(jsonMatch[0]);
-    result.imagePrompt = `Technical illustration for article about ${topic.title}, ${imagePrompt}, infographic style, clean modern design`;
+  const result = safeParseJSON(aiContent);
+  if (result) {
+    result.imagePrompt = `Technical illustration: ${imagePrompt}`;
     return result;
   }
   return null;
@@ -186,25 +226,16 @@ async function generateTechArticle(topic: { title: string; desc: string }, categ
 
 // 生成产品资讯文章
 async function generateProductNews(product: { name: string; desc: string }, categoryName: string, imagePrompt: string, apiKey: string) {
-  const prompt = `你是飞迈科技的产品编辑，需要撰写一篇产品资讯/发布文章。
+  const prompt = `你是飞迈科技的产品编辑，撰写产品资讯文章。
 
-【产品名称】${product.name}
-【产品描述】${product.desc}
-【产品类别】${categoryName}
+产品：${product.name}
+描述：${product.desc}
+类别：${categoryName}
 
-【写作要求】
-1. 这是产品资讯文章，重点介绍产品特点、技术亮点、适用场景
-2. 突出产品的核心卖点和技术优势
-3. 模拟新品发布的风格，专业有吸引力
-4. 600-1000字，使用HTML标签格式化
-5. 在正文中间适当位置插入一个图片占位符：<div class="article-image-placeholder"></div>
-6. 适合潜在客户阅读
-7. 不要包含任何URL链接
-8. 提供80-120字摘要
-9. 提取5个关键词
+要求：产品发布风格，600-1000字，HTML格式。
 
-以JSON格式返回：
-{"title":"标题","summary":"摘要","content":"HTML格式正文","keywords":["关键词1","关键词2","关键词3","关键词4","关键词5"]}`;
+返回JSON（确保是有效JSON，不要有换行符在字符串内）：
+{"title":"中文标题","summary":"100字摘要","content":"<p>HTML正文</p>","keywords":["关键词1","关键词2","关键词3"]}`;
 
   const response = await fetch("https://ai.gateway.lovable.dev/v1/chat/completions", {
     method: "POST",
@@ -224,10 +255,9 @@ async function generateProductNews(product: { name: string; desc: string }, cate
 
   const data = await response.json();
   const aiContent = data.choices?.[0]?.message?.content || "";
-  const jsonMatch = aiContent.match(/\{[\s\S]*\}/);
-  if (jsonMatch) {
-    const result = JSON.parse(jsonMatch[0]);
-    result.imagePrompt = `Product photo of ${product.name}, ${imagePrompt}`;
+  const result = safeParseJSON(aiContent);
+  if (result) {
+    result.imagePrompt = `Product: ${imagePrompt}`;
     return result;
   }
   return null;
@@ -236,33 +266,23 @@ async function generateProductNews(product: { name: string; desc: string }, cate
 // 生成公司新闻
 async function generateCompanyNews(apiKey: string, newsIndex: number) {
   const companyNewsTopics = [
-    { title: "飞迈科技完成新一轮产品升级", desc: "全系产品性能提升，服务更多行业客户", imagePrompt: "Corporate technology office, modern drone components factory, professional business environment" },
-    { title: "飞迈科技参加行业展会", desc: "展示最新无人机零配件产品，获得广泛关注", imagePrompt: "Technology trade show booth, drone exhibition, professional display" },
-    { title: "飞迈科技与多家无人机厂商达成合作", desc: "产品应用于多个行业领域", imagePrompt: "Business partnership handshake, corporate meeting, modern office" },
-    { title: "飞迈科技技术团队荣获行业认可", desc: "持续创新，引领无人机配件技术发展", imagePrompt: "R&D team working on drone technology, engineering lab, innovation" },
-    { title: "飞迈科技发布年度产品规划", desc: "更多创新产品即将推出", imagePrompt: "Product roadmap presentation, corporate strategy meeting, modern technology" }
+    { title: "飞迈科技完成新一轮产品升级", desc: "全系产品性能提升", imagePrompt: "Corporate technology office, drone components" },
+    { title: "飞迈科技参加行业展会", desc: "展示最新产品", imagePrompt: "Technology trade show, drone exhibition" },
+    { title: "飞迈科技与无人机厂商达成合作", desc: "拓展行业应用", imagePrompt: "Business partnership, modern office" },
   ];
 
   const topic = companyNewsTopics[newsIndex % companyNewsTopics.length];
   
-  const prompt = `你是飞迈科技的新闻编辑，需要撰写一篇公司新闻稿。
+  const prompt = `你是飞迈科技的新闻编辑，撰写公司新闻稿。
 
-【公司简介】飞迈科技有限公司，专注于工业无人机零配件，提供数字图传、模拟图传、云台相机、飞控电调、ELRS接收机等产品。
+公司：飞迈科技，专注工业无人机零配件（数字图传、云台、飞控电调、ELRS接收机）。
+主题：${topic.title}
+方向：${topic.desc}
 
-【新闻主题】${topic.title}
-【新闻方向】${topic.desc}
+要求：正式新闻稿，500-800字，HTML格式。
 
-【写作要求】
-1. 这是正式的公司新闻稿，体现企业实力和发展动态
-2. 语气专业、正式，突出公司技术实力
-3. 500-800字，使用HTML标签格式化
-4. 在正文中间适当位置插入一个图片占位符：<div class="article-image-placeholder"></div>
-5. 不要包含任何URL链接
-6. 提供80-100字摘要
-7. 提取5个关键词
-
-以JSON格式返回：
-{"title":"标题","summary":"摘要","content":"HTML格式正文","keywords":["关键词1","关键词2","关键词3","关键词4","关键词5"]}`;
+返回JSON（确保是有效JSON）：
+{"title":"中文标题","summary":"80字摘要","content":"<p>HTML正文</p>","keywords":["关键词1","关键词2","关键词3"]}`;
 
   const response = await fetch("https://ai.gateway.lovable.dev/v1/chat/completions", {
     method: "POST",
@@ -282,9 +302,8 @@ async function generateCompanyNews(apiKey: string, newsIndex: number) {
 
   const data = await response.json();
   const aiContent = data.choices?.[0]?.message?.content || "";
-  const jsonMatch = aiContent.match(/\{[\s\S]*\}/);
-  if (jsonMatch) {
-    const result = JSON.parse(jsonMatch[0]);
+  const result = safeParseJSON(aiContent);
+  if (result) {
     result.imagePrompt = topic.imagePrompt;
     return result;
   }
