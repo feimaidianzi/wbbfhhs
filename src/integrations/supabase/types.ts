@@ -428,6 +428,10 @@ export type Database = {
         }
         Returns: boolean
       }
+      trigger_category_news_collection: {
+        Args: { article_count?: number; category_name: string }
+        Returns: undefined
+      }
       trigger_daily_news_collection: { Args: never; Returns: undefined }
     }
     Enums: {
