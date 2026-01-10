@@ -124,7 +124,7 @@ const VtxVrx = () => {
   const products49to61 = getProducts49to61();
   const products61to72 = getProducts61to72();
   return <>
-      <SEO title="VTX/VRX 视频发射器与接收器 - 飞迈科技" description="飞迈科技VTX视频发射器与VRX接收器系列，提供4.9-6.1GHz和6.1-7.2GHz两大频段，功率从2.5W到37W全覆盖，专业FPV图传解决方案" />
+      <SEO title="VTX/VRX 视频发射器与接收器 - 长凌科技" description="长凌科技VTX视频发射器与VRX接收器系列，提供4.9-6.1GHz和6.1-7.2GHz两大频段，功率从2.5W到37W全覆盖，专业FPV图传解决方案" />
       <Header />
       <main className="min-h-screen bg-background">
         {/* Hero Section */}

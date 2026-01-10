@@ -78,8 +78,8 @@ export const ApplicationsSection = () => {
             </div>
             <p className="text-muted-foreground text-lg max-w-xl">
               {language === 'zh' 
-                ? '飞迈无人机产品广泛应用于水利、交通、环保、电力等多个行业领域'
-                : 'FlyMind drones are widely used in water resources, traffic, environment, power and other industries'}
+                ? '长凌无人机产品广泛应用于水利、交通、环保、电力等多个行业领域'
+                : 'CANI drones are widely used in water resources, traffic, environment, power and other industries'}
             </p>
           </div>
           <Link 

@@ -13,22 +13,22 @@ interface SEOProps {
 export const SEO = ({
   title,
   description,
-  keywords = '无人机配件,数字图传,VTX视频发射器,飞控电调,云台吊舱,ELRS遥控,飞迈,FlyMind',
+  keywords = '无人机配件,数字图传,VTX视频发射器,飞控电调,云台吊舱,ELRS遥控,长凌,CANI',
   image = 'https://images.unsplash.com/photo-1473968512647-3e447244af8f?w=1200&q=80',
   url,
   type = 'website',
   structuredData,
 }: SEOProps) => {
-  const siteName = 'FlyMind 飞迈';
+  const siteName = 'CANI 长凌';
   const fullTitle = `${title} | ${siteName}`;
-  const baseUrl = 'https://www.flymind.com';
+  const baseUrl = 'https://www.cani.com';
   const fullUrl = url ? `${baseUrl}${url}` : baseUrl;
 
   const defaultStructuredData = {
     '@context': 'https://schema.org',
     '@type': 'Organization',
-    name: '飞迈科技有限公司',
-    alternateName: 'FlyMind',
+    name: '长凌科技有限公司',
+    alternateName: 'CANI',
     url: baseUrl,
     logo: `${baseUrl}/logo.png`,
     description: '专业工业无人机研发制造商，提供系留无人机、物流无人机、无人机机场等产品及解决方案',
@@ -53,7 +53,7 @@ export const SEO = ({
       <title>{fullTitle}</title>
       <meta name="description" content={description} />
       <meta name="keywords" content={keywords} />
-      <meta name="author" content="飞迈科技有限公司" />
+      <meta name="author" content="长凌科技有限公司" />
       <meta name="robots" content="index, follow" />
       <link rel="canonical" href={fullUrl} />
 
@@ -94,12 +94,12 @@ export const createProductStructuredData = (product: {
   image: product.image,
   brand: {
     '@type': 'Brand',
-    name: 'FlyMind',
+    name: 'CANI',
   },
   category: product.category,
   manufacturer: {
     '@type': 'Organization',
-    name: '飞迈科技有限公司',
+    name: '长凌科技有限公司',
   },
 });
 
@@ -113,7 +113,7 @@ export const createBreadcrumbStructuredData = (
     '@type': 'ListItem',
     position: index + 1,
     name: item.name,
-    item: `https://www.flymind.com${item.url}`,
+    item: `https://www.cani.com${item.url}`,
   })),
 });
 
@@ -134,14 +134,14 @@ export const createArticleStructuredData = (article: {
   dateModified: article.dateModified || article.datePublished,
   author: {
     '@type': 'Organization',
-    name: 'FlyMind',
+    name: 'CANI',
   },
   publisher: {
     '@type': 'Organization',
-    name: '飞迈科技有限公司',
+    name: '长凌科技有限公司',
     logo: {
       '@type': 'ImageObject',
-      url: 'https://www.flymind.com/logo.png',
+      url: 'https://www.cani.com/logo.png',
     },
   },
 });

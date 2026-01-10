@@ -138,8 +138,8 @@ const handler = async (req: Request): Promise<Response> => {
       `
         <div style="font-family: sans-serif; max-width: 600px; margin: 0 auto;">
           <div style="background: linear-gradient(135deg, #3b82f6 0%, #1e40af 100%); padding: 30px; border-radius: 8px 8px 0 0;">
-            <h1 style="color: white; margin: 0; font-size: 24px;">飞迈科技</h1>
-            <p style="color: rgba(255,255,255,0.8); margin: 5px 0 0 0; font-size: 14px;">FlyMind Technology</p>
+            <h1 style="color: white; margin: 0; font-size: 24px;">长凌科技</h1>
+            <p style="color: rgba(255,255,255,0.8); margin: 5px 0 0 0; font-size: 14px;">CANI Technology</p>
           </div>
           
           <div style="background: #ffffff; padding: 30px; border: 1px solid #e2e8f0; border-top: none;">
@@ -156,16 +156,16 @@ const handler = async (req: Request): Promise<Response> => {
             <div style="margin-top: 30px; padding-top: 20px; border-top: 1px solid #e2e8f0;">
               <p style="color: #333; margin: 0;">此致</p>
               <p style="color: #333; font-weight: bold; margin: 5px 0 0 0;">${safeSenderName}</p>
-              <p style="color: #666; font-size: 14px; margin: 5px 0 0 0;">飞迈科技</p>
+              <p style="color: #666; font-size: 14px; margin: 5px 0 0 0;">长凌科技</p>
             </div>
           </div>
           
           <div style="background: #f1f5f9; padding: 20px; border-radius: 0 0 8px 8px; text-align: center;">
             <p style="color: #64748b; font-size: 12px; margin: 0;">
-              此邮件由飞迈科技客服团队发送
+              此邮件由长凌科技客服团队发送
             </p>
             <p style="color: #64748b; font-size: 12px; margin: 5px 0 0 0;">
-              电话: +8617674048404 | 邮箱: market@flymind.com.cn
+              电话: +8617674048404 | 邮箱: market@cani.com.cn
             </p>
           </div>
         </div>
