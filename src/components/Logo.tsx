@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import logoImage from "@/assets/logo-cani.png";
 
 interface LogoProps {
   className?: string;
@@ -7,12 +8,11 @@ interface LogoProps {
 
 export const Logo = ({ className = "", showLink = true }: LogoProps) => {
   const logoContent = (
-    <div className={`flex items-center gap-1 ${className}`}>
-      <span className="font-black text-xl md:text-2xl tracking-tight">
-        <span className="text-accent">CA</span>
-        <span className="text-primary-foreground">NI</span>
-      </span>
-    </div>
+    <img 
+      src={logoImage} 
+      alt="CANI" 
+      className={`h-8 md:h-10 w-auto ${className}`}
+    />
   );
 
   if (showLink) {
@@ -23,10 +23,9 @@ export const Logo = ({ className = "", showLink = true }: LogoProps) => {
 };
 
 export const LogoDark = ({ className = "" }: { className?: string }) => (
-  <div className={`flex items-center gap-1 ${className}`}>
-    <span className="font-black text-xl md:text-2xl tracking-tight">
-      <span className="text-accent">CA</span>
-      <span className="text-foreground">NI</span>
-    </span>
-  </div>
+  <img 
+    src={logoImage} 
+    alt="CANI" 
+    className={`h-8 md:h-10 w-auto ${className}`}
+  />
 );
