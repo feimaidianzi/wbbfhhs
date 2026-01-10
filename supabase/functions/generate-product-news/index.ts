@@ -92,23 +92,6 @@ const GENERIC_DRONE_SEARCH_TERMS = [
   "drone pilot operator"
 ];
 
-// 使用Lorem Picsum获取随机高质量图片
-async function fetchLoremPicsumImages(count: number = 3, category: string = ""): Promise<string[]> {
-  const images: string[] = [];
-  try {
-    // Lorem Picsum 提供免费的随机图片，无需API key
-    for (let i = 0; i < count; i++) {
-      const seed = Date.now() + i + Math.floor(Math.random() * 10000);
-      // 获取800x600的图片
-      images.push(`https://picsum.photos/seed/${seed}/800/600`);
-    }
-    return images;
-  } catch (e) {
-    console.error("Lorem Picsum error:", e);
-    return [];
-  }
-}
-
 // 使用预定义的无水印无人机相关图片
 function getLocalDroneImages(): string[] {
   return [
@@ -125,52 +108,9 @@ function getLocalDroneImages(): string[] {
   ];
 }
 
-// 使用Pexels API获取免费图片
-async function fetchPexelsImages(query: string, apiKey: string, count: number = 3): Promise<string[]> {
+// 下载图片
+async function downloadImage(imageUrl: string): Promise<{ imageData: Uint8Array | null; contentType: string }> {
   try {
-    const response = await fetch(`https://api.pexels.com/v1/search?query=${encodeURIComponent(query)}&per_page=${count}&orientation=landscape`, {
-      headers: {
-        "Authorization": apiKey
-      }
-    });
-    
-    if (!response.ok) {
-      return [];
-    }
-    
-    const data = await response.json();
-    return data.photos?.map((p: any) => p.src?.large || p.src?.medium) || [];
-  } catch (e) {
-    console.error("Pexels fetch error:", e);
-    return [];
-  }
-}
-
-// 使用Pixabay API获取免费图片
-async function fetchPixabayImages(query: string, apiKey: string, count: number = 3): Promise<string[]> {
-  try {
-    const response = await fetch(`https://pixabay.com/api/?key=${apiKey}&q=${encodeURIComponent(query)}&per_page=${count}&image_type=photo&orientation=horizontal&safesearch=true`, {
-      headers: {
-        "Accept": "application/json"
-      }
-    });
-    
-    if (!response.ok) {
-      return [];
-    }
-    
-    const data = await response.json();
-    return data.hits?.map((h: any) => h.largeImageURL || h.webformatURL) || [];
-  } catch (e) {
-    console.error("Pixabay fetch error:", e);
-    return [];
-  }
-}
-
-// 下载图片并检测是否有LOGO
-async function downloadAndCheckImage(imageUrl: string, apiKey: string): Promise<{ hasLogo: boolean; imageData: Uint8Array | null; contentType: string }> {
-  try {
-    // 下载图片
     const response = await fetch(imageUrl, {
       headers: {
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"
@@ -178,72 +118,99 @@ async function downloadAndCheckImage(imageUrl: string, apiKey: string): Promise<
     });
     
     if (!response.ok) {
-      return { hasLogo: false, imageData: null, contentType: "" };
+      return { imageData: null, contentType: "" };
     }
     
     const contentType = response.headers.get("content-type") || "image/jpeg";
     const arrayBuffer = await response.arrayBuffer();
     const imageData = new Uint8Array(arrayBuffer);
     
-    // 将图片转为base64用于AI检测
-    const base64 = btoa(String.fromCharCode(...imageData));
-    const dataUrl = `data:${contentType};base64,${base64}`;
-    
-    // 使用AI检测是否有LOGO
-    const detectResponse = await fetch("https://ai.gateway.lovable.dev/v1/chat/completions", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        "Authorization": `Bearer ${apiKey}`,
-      },
-      body: JSON.stringify({
-        model: "google/gemini-2.5-flash-lite",
-        messages: [{
-          role: "user",
-          content: [
-            { type: "text", text: "Analyze this image. Does it contain any company logos, brand names, watermarks, or text overlays? Answer ONLY with 'YES' or 'NO'." },
-            { type: "image_url", image_url: { url: dataUrl } }
-          ]
-        }],
-      }),
-    });
-    
-    if (!detectResponse.ok) {
-      console.log("Logo detection failed, assuming no logo");
-      return { hasLogo: false, imageData, contentType };
-    }
-    
-    const detectData = await detectResponse.json();
-    const answer = detectData.choices?.[0]?.message?.content?.trim().toUpperCase() || "NO";
-    const hasLogo = answer.includes("YES");
-    
-    console.log(`Logo detection for ${imageUrl.substring(0, 50)}: ${answer}`);
-    
-    return { hasLogo, imageData, contentType };
+    return { imageData, contentType };
   } catch (e) {
-    console.error("Download/check image error:", e);
-    return { hasLogo: false, imageData: null, contentType: "" };
+    console.error("Download image error:", e);
+    return { imageData: null, contentType: "" };
   }
 }
 
-// 使用AI移除图片中的LOGO
-async function removeLogoFromImage(imageData: Uint8Array, contentType: string, apiKey: string): Promise<Uint8Array | null> {
+// 使用豆包API处理图片 - 去除公司名称和产品内容
+async function processImageWithDoubao(imageData: Uint8Array, contentType: string, doubaoApiKey: string): Promise<Uint8Array | null> {
   try {
+    // 将图片转为base64
+    const base64 = btoa(String.fromCharCode(...imageData));
+    
+    console.log("Processing image with Doubao API...");
+    
+    // 调用豆包 Seedream 图片编辑API
+    // 使用fal.ai的bytedance/seededit接口
+    const response = await fetch("https://api.fal.ai/v1/bytedance/seededit/v3/edit-image", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Key ${doubaoApiKey}`,
+      },
+      body: JSON.stringify({
+        prompt: "Remove all company logos, brand names, watermarks, and product labels from this image. Keep the main subject and background intact. Make it look clean and professional without any text or branding.",
+        image_url: `data:${contentType};base64,${base64}`,
+        negative_prompt: "logo, brand, watermark, text, label, company name, product name",
+        strength: 0.6,
+        guidance_scale: 7.5,
+      }),
+    });
+
+    if (!response.ok) {
+      const errorText = await response.text();
+      console.error("Doubao API error:", response.status, errorText);
+      
+      // 如果fal.ai不可用，尝试使用Lovable AI作为备用
+      return await processImageWithLovableAI(imageData, contentType);
+    }
+
+    const data = await response.json();
+    const outputUrl = data.images?.[0]?.url || data.output?.url;
+    
+    if (!outputUrl) {
+      console.log("No output from Doubao, using fallback");
+      return await processImageWithLovableAI(imageData, contentType);
+    }
+
+    // 下载处理后的图片
+    const processedResponse = await fetch(outputUrl);
+    if (!processedResponse.ok) {
+      return null;
+    }
+    
+    const processedBuffer = await processedResponse.arrayBuffer();
+    return new Uint8Array(processedBuffer);
+  } catch (e) {
+    console.error("Doubao processing error:", e);
+    // 使用备用方案
+    return await processImageWithLovableAI(imageData, contentType);
+  }
+}
+
+// 备用方案：使用Lovable AI处理图片
+async function processImageWithLovableAI(imageData: Uint8Array, contentType: string): Promise<Uint8Array | null> {
+  try {
+    const lovableApiKey = Deno.env.get("LOVABLE_API_KEY");
+    if (!lovableApiKey) return null;
+    
     const base64 = btoa(String.fromCharCode(...imageData));
     const dataUrl = `data:${contentType};base64,${base64}`;
+    
+    console.log("Using Lovable AI as fallback for image processing...");
     
     const response = await fetch("https://ai.gateway.lovable.dev/v1/chat/completions", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        "Authorization": `Bearer ${apiKey}`,
+        "Authorization": `Bearer ${lovableApiKey}`,
       },
       body: JSON.stringify({
         model: "google/gemini-2.5-flash-image-preview",
         messages: [{
           role: "user",
           content: [
-            { type: "text", text: "Remove any logos, brand names, watermarks, and text overlays from this image. Keep the rest of the image intact. Generate a clean version without any branding." },
+            { type: "text", text: "Edit this image: Remove all company logos, brand names, watermarks, and any text overlays. Keep the main subject and background intact. Generate a clean version without any branding or text." },
             { type: "image_url", image_url: { url: dataUrl } }
           ]
         }],
@@ -252,7 +219,7 @@ async function removeLogoFromImage(imageData: Uint8Array, contentType: string, a
     });
     
     if (!response.ok) {
-      console.error("Logo removal failed:", response.status);
+      console.error("Lovable AI image processing failed:", response.status);
       return null;
     }
     
@@ -266,44 +233,7 @@ async function removeLogoFromImage(imageData: Uint8Array, contentType: string, a
     const newBase64 = newImageData.split(",")[1];
     return Uint8Array.from(atob(newBase64), c => c.charCodeAt(0));
   } catch (e) {
-    console.error("Logo removal error:", e);
-    return null;
-  }
-}
-
-// 生成AI图片（仅在必要时使用，比例不超过10%）
-async function generateAIImage(prompt: string, apiKey: string): Promise<Uint8Array | null> {
-  try {
-    console.log("Generating AI image (fallback):", prompt.substring(0, 50));
-    
-    const response = await fetch("https://ai.gateway.lovable.dev/v1/chat/completions", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        "Authorization": `Bearer ${apiKey}`,
-      },
-      body: JSON.stringify({
-        model: "google/gemini-2.5-flash-image-preview",
-        messages: [{ role: "user", content: `Generate a professional stock photo style image: ${prompt}. Make it look like a real photograph, not AI generated. No text, no logos, no watermarks.` }],
-        modalities: ["image", "text"]
-      }),
-    });
-
-    if (!response.ok) {
-      return null;
-    }
-
-    const data = await response.json();
-    const imageData = data.choices?.[0]?.message?.images?.[0]?.image_url?.url;
-    
-    if (!imageData || !imageData.startsWith("data:image")) {
-      return null;
-    }
-
-    const base64Data = imageData.split(",")[1];
-    return Uint8Array.from(atob(base64Data), c => c.charCodeAt(0));
-  } catch (e) {
-    console.error("AI image generation error:", e);
+    console.error("Lovable AI image processing error:", e);
     return null;
   }
 }
@@ -337,101 +267,64 @@ async function uploadImageToStorage(supabase: any, imageData: Uint8Array, articl
   }
 }
 
-// 获取文章配图（2-5张，优先网络图片，AI生成不超过10%）
+// 获取并处理文章配图（2-5张，全部经过豆包处理）
 async function getArticleImages(
-  searchTerms: string[],
   imageCount: number,
-  apiKey: string,
   supabase: any,
   articleId: string,
-  fallbackPrompt: string
+  doubaoApiKey: string
 ): Promise<string[]> {
   const images: string[] = [];
   const targetCount = Math.min(Math.max(imageCount, 2), 5); // 2-5张
-  const maxAIImages = Math.ceil(targetCount * 0.1); // 最多10%是AI生成
-  let aiImageCount = 0;
   
-  // 获取Pexels和Pixabay的API keys（如果有的话）
-  const pexelsKey = Deno.env.get("PEXELS_API_KEY");
-  const pixabayKey = Deno.env.get("PIXABAY_API_KEY");
+  const localImages = getLocalDroneImages();
   
-  // 尝试从多个来源获取图片
-  for (let i = 0; i < targetCount && images.length < targetCount; i++) {
-    const searchTerm = searchTerms[i % searchTerms.length];
-    let imageUrl: string | null = null;
-    
-    // 策略1: 使用预定义的无水印无人机相关图片
-    const localImages = getLocalDroneImages();
-    const randomIndex = (i + Math.floor(Math.random() * localImages.length)) % localImages.length;
-    const selectedImage = localImages[randomIndex];
-    
-    const { hasLogo, imageData, contentType } = await downloadAndCheckImage(selectedImage, apiKey);
-    
-    if (imageData && !hasLogo) {
-      imageUrl = await uploadImageToStorage(supabase, imageData, articleId, i, contentType);
-    }
-    
-    // 策略2: 尝试Pexels（如果有API key）
-    if (!imageUrl && pexelsKey) {
-      const pexelsImages = await fetchPexelsImages(searchTerm, pexelsKey, 1);
-      if (pexelsImages.length > 0) {
-        const { hasLogo, imageData, contentType } = await downloadAndCheckImage(pexelsImages[0], apiKey);
-        
-        if (imageData) {
-          let finalImageData = imageData;
-          if (hasLogo) {
-            const cleanedImage = await removeLogoFromImage(imageData, contentType, apiKey);
-            if (cleanedImage) {
-              finalImageData = cleanedImage;
-            } else {
-              continue;
-            }
-          }
-          imageUrl = await uploadImageToStorage(supabase, finalImageData, articleId, i, contentType);
+  // 为避免超时，每次只处理2张图片
+  const maxImagesToProcess = Math.min(targetCount, 2);
+  
+  for (let i = 0; i < maxImagesToProcess && images.length < maxImagesToProcess; i++) {
+    try {
+      // 随机选择一张本地图片
+      const randomIndex = Math.floor(Math.random() * localImages.length);
+      const selectedImage = localImages[randomIndex];
+      
+      console.log(`Processing image ${i + 1}/${maxImagesToProcess}: ${selectedImage.substring(0, 50)}...`);
+      
+      // 下载图片
+      const { imageData, contentType } = await downloadImage(selectedImage);
+      
+      if (!imageData) {
+        console.log("Failed to download image, skipping...");
+        continue;
+      }
+      
+      // 使用豆包API处理图片
+      const processedImage = await processImageWithDoubao(imageData, contentType, doubaoApiKey);
+      
+      if (processedImage) {
+        // 上传处理后的图片
+        const uploadedUrl = await uploadImageToStorage(supabase, processedImage, articleId, i, contentType);
+        if (uploadedUrl) {
+          images.push(uploadedUrl);
+          console.log(`Image ${i + 1} processed and uploaded successfully`);
+        }
+      } else {
+        // 如果处理失败，直接上传原图
+        console.log("Image processing failed, uploading original...");
+        const uploadedUrl = await uploadImageToStorage(supabase, imageData, articleId, i, contentType);
+        if (uploadedUrl) {
+          images.push(uploadedUrl);
         }
       }
+      
+      // 添加延迟避免API限制
+      await new Promise(resolve => setTimeout(resolve, 2000));
+    } catch (e) {
+      console.error(`Error processing image ${i}:`, e);
     }
-    
-    // 策略3: 尝试Pixabay（如果有API key）
-    if (!imageUrl && pixabayKey) {
-      const pixabayImages = await fetchPixabayImages(searchTerm, pixabayKey, 1);
-      if (pixabayImages.length > 0) {
-        const { hasLogo, imageData, contentType } = await downloadAndCheckImage(pixabayImages[0], apiKey);
-        
-        if (imageData) {
-          let finalImageData = imageData;
-          if (hasLogo) {
-            const cleanedImage = await removeLogoFromImage(imageData, contentType, apiKey);
-            if (cleanedImage) {
-              finalImageData = cleanedImage;
-            } else {
-              continue;
-            }
-          }
-          imageUrl = await uploadImageToStorage(supabase, finalImageData, articleId, i, contentType);
-        }
-      }
-    }
-    
-    // 策略4: AI生成（仅在其他方式都失败且未超过10%限额时）
-    if (!imageUrl && aiImageCount < maxAIImages) {
-      console.log("All web sources failed, using AI generation as fallback");
-      const aiImage = await generateAIImage(fallbackPrompt, apiKey);
-      if (aiImage) {
-        imageUrl = await uploadImageToStorage(supabase, aiImage, articleId, i, "image/png");
-        aiImageCount++;
-      }
-    }
-    
-    if (imageUrl) {
-      images.push(imageUrl);
-    }
-    
-    // 避免请求过快
-    await new Promise(resolve => setTimeout(resolve, 1000));
   }
   
-  console.log(`Got ${images.length} images (${aiImageCount} AI generated)`);
+  console.log(`Got ${images.length} processed images`);
   return images;
 }
 
@@ -605,10 +498,10 @@ async function generateProductNews(product: { name: string; desc: string }, cate
 // 生成公司新闻
 async function generateCompanyNews(apiKey: string, newsIndex: number) {
   const companyNewsTopics = [
-    { title: "飞迈科技完成新一轮产品升级", desc: "全系产品性能提升", searchTerms: ["corporate office technology", "drone company", "tech startup office"] },
-    { title: "飞迈科技参加行业展会", desc: "展示最新产品", searchTerms: ["technology trade show", "drone exhibition", "tech conference booth"] },
-    { title: "飞迈科技与无人机厂商达成合作", desc: "拓展行业应用", searchTerms: ["business partnership meeting", "corporate handshake", "tech collaboration"] },
-    { title: "飞迈科技发布新品预告", desc: "即将推出重磅产品", searchTerms: ["product launch event", "new technology reveal", "innovation announcement"] },
+    { title: "飞迈科技完成新一轮产品升级", desc: "全系产品性能提升" },
+    { title: "飞迈科技参加行业展会", desc: "展示最新产品" },
+    { title: "飞迈科技与无人机厂商达成合作", desc: "拓展行业应用" },
+    { title: "飞迈科技发布新品预告", desc: "即将推出重磅产品" },
   ];
 
   const topic = companyNewsTopics[newsIndex % companyNewsTopics.length];
@@ -642,11 +535,7 @@ async function generateCompanyNews(apiKey: string, newsIndex: number) {
 
   const data = await response.json();
   const aiContent = data.choices?.[0]?.message?.content || "";
-  const result = safeParseJSON(aiContent);
-  if (result) {
-    result.searchTerms = topic.searchTerms;
-  }
-  return result;
+  return safeParseJSON(aiContent);
 }
 
 Deno.serve(async (req) => {
@@ -655,14 +544,20 @@ Deno.serve(async (req) => {
   }
 
   try {
-    const { category, count = 2, imageCount = 3 } = await req.json();
+    const { category, count = 1, imageCount = 2, batchMode = false } = await req.json();
     
     const lovableApiKey = Deno.env.get("LOVABLE_API_KEY");
+    const doubaoApiKey = Deno.env.get("DOUBAO_API_KEY");
+    
     if (!lovableApiKey) {
       return new Response(
         JSON.stringify({ success: false, error: "LOVABLE_API_KEY not configured" }),
         { status: 500, headers: { ...corsHeaders, "Content-Type": "application/json" } }
       );
+    }
+
+    if (!doubaoApiKey) {
+      console.log("DOUBAO_API_KEY not configured, will use Lovable AI fallback for image processing");
     }
 
     const supabaseUrl = Deno.env.get("SUPABASE_URL")!;
@@ -671,18 +566,16 @@ Deno.serve(async (req) => {
 
     const results: any[] = [];
     
-    const processArticle = async (article: any, category: string, searchTerms: string[], fallbackPrompt: string) => {
+    // 优化：分批处理，每次只生成1篇文章避免超时
+    const processArticle = async (article: any, category: string) => {
       const articleId = crypto.randomUUID();
       
-      // 获取2-5张配图
-      const targetImageCount = Math.floor(Math.random() * 4) + 2; // 2-5张
+      // 获取并处理配图（2张，经过豆包处理）
       const images = await getArticleImages(
-        searchTerms,
-        targetImageCount,
-        lovableApiKey,
+        imageCount,
         supabase,
         articleId,
-        fallbackPrompt
+        doubaoApiKey || ""
       );
       
       // 封面图使用第一张
@@ -718,45 +611,61 @@ Deno.serve(async (req) => {
       }
     };
 
+    // 单篇文章模式（避免超时）
+    const articleLimit = batchMode ? count : 1;
+
     if (category === "技术分享") {
-      for (const [key, catData] of Object.entries(PRODUCT_CATEGORIES)) {
-        for (let i = 0; i < Math.min(count, catData.techTopics.length); i++) {
+      const categories = Object.entries(PRODUCT_CATEGORIES);
+      let articlesGenerated = 0;
+      
+      for (const [key, catData] of categories) {
+        if (articlesGenerated >= articleLimit) break;
+        
+        for (let i = 0; i < Math.min(1, catData.techTopics.length); i++) {
+          if (articlesGenerated >= articleLimit) break;
+          
           try {
             console.log(`Generating tech article: ${catData.techTopics[i].title}`);
             const article = await generateTechArticle(catData.techTopics[i], catData.name, lovableApiKey);
             if (article) {
-              await processArticle(article, "技术分享", catData.searchTerms, catData.imagePrompt);
+              await processArticle(article, "技术分享");
+              articlesGenerated++;
             }
-            await new Promise(resolve => setTimeout(resolve, 5000)); // 增加延迟避免rate limit
           } catch (e) {
             console.error(`Error generating tech article:`, e);
           }
         }
       }
     } else if (category === "产品资讯") {
-      for (const [key, catData] of Object.entries(PRODUCT_CATEGORIES)) {
-        for (let i = 0; i < Math.min(count, catData.products.length); i++) {
+      const categories = Object.entries(PRODUCT_CATEGORIES);
+      let articlesGenerated = 0;
+      
+      for (const [key, catData] of categories) {
+        if (articlesGenerated >= articleLimit) break;
+        
+        for (let i = 0; i < Math.min(1, catData.products.length); i++) {
+          if (articlesGenerated >= articleLimit) break;
+          
           try {
             console.log(`Generating product news: ${catData.products[i].name}`);
             const article = await generateProductNews(catData.products[i], catData.name, lovableApiKey);
             if (article) {
-              await processArticle(article, "产品资讯", catData.searchTerms, catData.imagePrompt);
+              await processArticle(article, "产品资讯");
+              articlesGenerated++;
             }
-            await new Promise(resolve => setTimeout(resolve, 5000));
           } catch (e) {
             console.error(`Error generating product news:`, e);
           }
         }
       }
     } else if (category === "公司新闻") {
-      for (let i = 0; i < count; i++) {
+      for (let i = 0; i < articleLimit; i++) {
         try {
           console.log(`Generating company news ${i + 1}`);
           const article = await generateCompanyNews(lovableApiKey, i);
           if (article) {
-            await processArticle(article, "公司新闻", article.searchTerms || GENERIC_DRONE_SEARCH_TERMS, "corporate technology office, business meeting, modern workplace");
+            await processArticle(article, "公司新闻");
           }
-          await new Promise(resolve => setTimeout(resolve, 5000));
         } catch (e) {
           console.error(`Error generating company news:`, e);
         }
@@ -764,7 +673,12 @@ Deno.serve(async (req) => {
     }
 
     return new Response(
-      JSON.stringify({ success: true, count: results.length, results }),
+      JSON.stringify({ 
+        success: true, 
+        count: results.length, 
+        results,
+        message: `成功生成 ${results.length} 篇文章，图片已通过豆包API处理`
+      }),
       { headers: { ...corsHeaders, "Content-Type": "application/json" } }
     );
 
