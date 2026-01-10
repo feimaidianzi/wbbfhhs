@@ -5,70 +5,138 @@ const corsHeaders = {
   "Access-Control-Allow-Headers": "authorization, x-client-info, apikey, content-type",
 };
 
-// 无人机行业相关的搜索关键词和目标网站
-const DRONE_INDUSTRY_SOURCES = [
-  // 无人机行业门户
-  { name: "无人机网", domain: "81uav.cn", keywords: ["无人机", "行业应用", "电力巡检"] },
-  { name: "宇辰网", domain: "yuchen360.com", keywords: ["无人机", "航空", "产业"] },
-  { name: "环球无人机", domain: "huanqiuuav.com", keywords: ["无人机", "技术", "应用"] },
-  // 电力行业
-  { name: "北极星电力网", domain: "bjx.com.cn", keywords: ["电力巡检", "无人机", "智能电网"] },
-  { name: "中国电力网", domain: "chinapower.com.cn", keywords: ["电力巡检", "无人机应用"] },
-  // 科技资讯
-  { name: "36氪", domain: "36kr.com", keywords: ["无人机", "低空经济", "eVTOL"] },
-  { name: "虎嗅", domain: "huxiu.com", keywords: ["无人机", "物流", "科技"] },
-  // 物流行业
-  { name: "亿欧网", domain: "iyiou.com", keywords: ["无人机物流", "智慧物流", "配送"] },
-  // 应急救援
-  { name: "应急管理报", domain: "yjglb.cn", keywords: ["应急救援", "无人机", "消防"] },
-];
-
-// 分类映射
-const CATEGORY_MAPPING: Record<string, string[]> = {
-  "行业动态": ["无人机", "行业", "市场", "政策", "标准", "法规"],
-  "技术前沿": ["技术", "研发", "创新", "专利", "突破", "算法", "AI"],
-  "产品资讯": ["产品", "发布", "新品", "型号", "设备", "载荷"],
-  "应用案例": ["案例", "应用", "项目", "方案", "服务", "作业"],
-  "市场分析": ["市场", "分析", "报告", "数据", "趋势", "预测"],
-  "政策法规": ["政策", "法规", "规定", "标准", "管理", "审批"],
+// 网站产品相关的关键词 - 重点是多旋翼之外的产品
+const PRODUCT_KEYWORDS = {
+  "系留无人机": ["系留无人机", "系留式无人机", "有缆无人机", "系留平台", "tethered drone", "系留升空"],
+  "消防无人机": ["消防无人机", "灭火无人机", "森林防火无人机", "应急消防", "firefighting drone", "消防救援无人机"],
+  "物流无人机": ["物流无人机", "配送无人机", "货运无人机", "快递无人机", "delivery drone", "无人机送货"],
+  "巡检无人机": ["电力巡检无人机", "输电线路巡检", "光伏巡检", "风电巡检", "inspection drone", "智能巡检"],
+  "无人机机场": ["无人机机场", "无人机机库", "无人值守机场", "自动机场", "drone airport", "drone nest"],
+  "云台相机": ["无人机云台", "航拍云台", "红外云台", "双光云台", "gimbal camera", "吊舱载荷"],
+  "无人机培训": ["无人机培训", "无人机飞手", "AOPA培训", "无人机驾照", "drone training", "执照考试"],
+  "表演无人机": ["无人机编队", "无人机表演", "灯光秀", "集群表演", "drone show", "无人机蜂群"],
 };
 
-// 使用 AI 进行内容二次创作（简化版本，如果AI失败则使用原内容）
-async function rewriteContentWithAI(
+// 分类配置
+const CATEGORY_CONFIG = {
+  "公司新闻": {
+    keywords: ["无人机公司", "无人机企业", "战略合作", "签约", "发布会", "融资"],
+    style: "正式、专业、强调企业实力",
+  },
+  "行业动态": {
+    keywords: ["无人机行业", "低空经济", "政策法规", "市场分析", "产业发展"],
+    style: "客观、全面、有深度分析",
+  },
+  "产品资讯": {
+    keywords: ["新品发布", "产品升级", "技术参数", "性能测试", "产品评测"],
+    style: "详细、技术性、突出产品特点",
+  },
+  "技术分享": {
+    keywords: ["技术创新", "研发突破", "算法", "专利", "解决方案"],
+    style: "专业、深入、注重技术细节",
+  },
+};
+
+// 清理抓取的内容，移除无用信息
+function cleanContent(rawContent: string): string {
+  if (!rawContent) return "";
+  
+  let content = rawContent
+    // 移除 Markdown 图片和链接
+    .replace(/!\[.*?\]\(.*?\)/g, '')
+    .replace(/\[([^\]]*)\]\([^)]*\)/g, '$1')
+    // 移除 URL
+    .replace(/https?:\/\/[^\s)>\]]+/g, '')
+    // 移除 HTML 标签
+    .replace(/<[^>]+>/g, '')
+    // 移除多余空白
+    .replace(/\n{3,}/g, '\n\n')
+    .replace(/[ \t]{2,}/g, ' ')
+    // 移除常见的网站导航和页脚文字
+    .replace(/首页.*?登录/g, '')
+    .replace(/版权所有.*?备案/g, '')
+    .replace(/关于我们.*?联系我们/g, '')
+    .replace(/上一篇.*?下一篇/g, '')
+    // 移除空行开头的文本
+    .trim();
+
+  // 如果内容太短，返回空
+  if (content.length < 100) return "";
+  
+  return content;
+}
+
+// 使用 AI 进行专业润色和编排
+async function polishAndFormatArticle(
   originalTitle: string,
   originalContent: string,
   sourceUrl: string,
   category: string
-): Promise<{ title: string; summary: string; content: string; keywords: string[] }> {
+): Promise<{ title: string; summary: string; content: string; keywords: string[]; coverImage: string | null } | null> {
   try {
     const lovableApiKey = Deno.env.get("LOVABLE_API_KEY");
     if (!lovableApiKey) {
-      throw new Error("LOVABLE_API_KEY not configured");
+      console.error("LOVABLE_API_KEY not configured");
+      return null;
     }
 
-    const prompt = `你是一位专业的无人机行业资深编辑。请根据以下原始内容进行二次创作，生成一篇适合发布在无人机技术公司网站新闻中心的文章。
+    const categoryConfig = CATEGORY_CONFIG[category as keyof typeof CATEGORY_CONFIG] || CATEGORY_CONFIG["行业动态"];
+    
+    const prompt = `你是一位资深的无人机行业编辑，专门为专业无人机技术公司的官网编写新闻稿。
 
-原始标题：${originalTitle}
-原始内容：${originalContent.substring(0, 3000)}
-目标分类：${category}
+请根据以下原始素材，创作一篇完整、专业、可直接发布的新闻文章。
 
-要求：
-1. 重新编写标题，使其更专业、更有吸引力，不超过40字
-2. 编写100-150字的摘要，概括文章核心内容
-3. 编写800-1200字的正文，要求：
-   - 保持原文核心信息的准确性
-   - 用专业的行业视角进行分析和解读
-   - 使用HTML格式（<p>、<h3>、<ul>、<li>等）
-4. 提取3-5个关键词
+【原始标题】
+${originalTitle}
 
-请以JSON格式返回：
+【原始内容】
+${originalContent.substring(0, 4000)}
+
+【目标分类】
+${category}
+
+【写作风格】
+${categoryConfig.style}
+
+【创作要求】
+1. 标题：
+   - 专业、有吸引力
+   - 不超过35个字
+   - 突出核心信息
+
+2. 摘要：
+   - 100-150字
+   - 概括文章核心观点
+   - 吸引读者继续阅读
+
+3. 正文：
+   - 800-1500字
+   - 结构清晰，分段合理
+   - 使用专业术语但保持可读性
+   - 如有数据要准确引用
+   - 可适当加入行业分析和见解
+   - 输出为干净的HTML格式，只使用以下标签：<p>, <h3>, <h4>, <strong>, <ul>, <li>
+   - 不要包含任何图片、链接或URL
+
+4. 关键词：
+   - 提取5个最相关的关键词
+   - 包含产品类型、应用场景、技术特点等
+
+5. 封面图建议：
+   - 描述一张适合作为封面的图片场景
+   - 便于后续配图
+
+请以JSON格式返回，确保JSON格式正确：
 {
-  "title": "新标题",
+  "title": "文章标题",
   "summary": "摘要内容",
-  "content": "正文内容（HTML格式）",
-  "keywords": ["关键词1", "关键词2", "关键词3"]
+  "content": "HTML格式的正文内容",
+  "keywords": ["关键词1", "关键词2", "关键词3", "关键词4", "关键词5"],
+  "coverImageSuggestion": "封面图片场景描述"
 }`;
 
+    console.log("Calling AI for article polishing...");
+    
     const response = await fetch("https://openrouter.ai/api/v1/chat/completions", {
       method: "POST",
       headers: {
@@ -78,90 +146,72 @@ async function rewriteContentWithAI(
       body: JSON.stringify({
         model: "google/gemini-2.5-flash",
         messages: [{ role: "user", content: prompt }],
-        max_tokens: 3000,
+        max_tokens: 4000,
+        temperature: 0.7,
       }),
     });
 
     if (!response.ok) {
       const errorText = await response.text();
       console.error("AI API error:", errorText);
-      throw new Error("AI API request failed");
+      return null;
     }
 
     const data = await response.json();
     const aiContent = data.choices?.[0]?.message?.content || "";
+    
+    console.log("AI response received, parsing...");
 
-    // 解析 JSON 响应
+    // 提取 JSON
     const jsonMatch = aiContent.match(/\{[\s\S]*\}/);
-    if (jsonMatch) {
+    if (!jsonMatch) {
+      console.error("No JSON found in AI response");
+      return null;
+    }
+
+    try {
       const parsed = JSON.parse(jsonMatch[0]);
-      return {
-        title: parsed.title || originalTitle,
-        summary: parsed.summary || originalContent.substring(0, 150),
-        content: parsed.content || `<p>${originalContent}</p>`,
-        keywords: parsed.keywords || [],
-      };
-    }
-
-    throw new Error("Failed to parse AI response");
-  } catch (error) {
-    console.error("AI rewrite failed:", error);
-    // 回退到基本处理 - 清理内容并格式化
-    const cleanContent = originalContent
-      .replace(/\[.*?\]/g, '')
-      .replace(/\n{3,}/g, '\n\n')
-      .trim();
-    
-    const paragraphs = cleanContent.split('\n\n').filter(p => p.trim().length > 20);
-    const htmlContent = paragraphs.slice(0, 10).map(p => `<p>${p.trim()}</p>`).join('\n');
-    
-    return {
-      title: originalTitle.length > 40 ? originalTitle.substring(0, 40) + '...' : originalTitle,
-      summary: cleanContent.substring(0, 150) + "...",
-      content: htmlContent || `<p>${cleanContent.substring(0, 1000)}</p>`,
-      keywords: extractKeywords(originalTitle + " " + cleanContent),
-    };
-  }
-}
-
-// 简单的关键词提取
-function extractKeywords(text: string): string[] {
-  const commonKeywords = ["无人机", "电力巡检", "低空经济", "物流配送", "消防救援", "应急", "智能", "自动化"];
-  const found: string[] = [];
-  for (const kw of commonKeywords) {
-    if (text.includes(kw) && found.length < 5) {
-      found.push(kw);
-    }
-  }
-  return found.length > 0 ? found : ["无人机", "行业动态"];
-}
-
-// 根据内容确定分类
-function determineCategory(title: string, content: string): string {
-  const text = (title + " " + content).toLowerCase();
-  
-  for (const [category, keywords] of Object.entries(CATEGORY_MAPPING)) {
-    for (const keyword of keywords) {
-      if (text.includes(keyword.toLowerCase())) {
-        return category;
+      
+      // 验证必要字段
+      if (!parsed.title || !parsed.content || parsed.content.length < 200) {
+        console.error("Invalid AI response structure");
+        return null;
       }
+
+      // 二次清理内容
+      const cleanedContent = parsed.content
+        .replace(/!\[.*?\]\(.*?\)/g, '')
+        .replace(/\[([^\]]*)\]\([^)]*\)/g, '$1')
+        .replace(/https?:\/\/[^\s)>\]"']+/g, '');
+
+      return {
+        title: parsed.title.substring(0, 100),
+        summary: (parsed.summary || "").substring(0, 300),
+        content: cleanedContent,
+        keywords: Array.isArray(parsed.keywords) ? parsed.keywords.slice(0, 5) : [],
+        coverImage: null,
+      };
+    } catch (parseError) {
+      console.error("JSON parse error:", parseError);
+      return null;
     }
+  } catch (error) {
+    console.error("AI polishing failed:", error);
+    return null;
   }
-  
-  return "行业动态"; // 默认分类
 }
 
 // 使用 Firecrawl 搜索新闻
 async function searchNews(
   query: string,
-  limit: number = 10
+  limit: number = 5
 ): Promise<Array<{ url: string; title: string; description: string; markdown?: string }>> {
   const apiKey = Deno.env.get("FIRECRAWL_API_KEY");
   if (!apiKey) {
     throw new Error("Firecrawl API key not configured");
   }
 
-  console.log(`Searching for: ${query}`);
+  console.log(`Searching: ${query}`);
 
   const response = await fetch("https://api.firecrawl.dev/v1/search", {
     method: "POST",
@@ -170,11 +220,11 @@ async function searchNews(
       "Content-Type": "application/json",
     },
     body: JSON.stringify({
-      query,
+      query: query + " 新闻 2024 2025 2026",
       limit,
       lang: "zh",
       country: "CN",
-      tbs: "qdr:d", // 过去24小时的新闻
+      tbs: "qdr:w", // 过去一周的新闻
       scrapeOptions: {
         formats: ["markdown"],
         onlyMainContent: true,
@@ -192,15 +242,15 @@ async function searchNews(
   return data.data || [];
 }
 
-// 抓取单个网页内容
-async function scrapeUrl(url: string): Promise<{ title: string; content: string } | null> {
+// 抓取单个网页完整内容
+async function scrapeFullContent(url: string): Promise<{ title: string; content: string } | null> {
   const apiKey = Deno.env.get("FIRECRAWL_API_KEY");
   if (!apiKey) {
     throw new Error("Firecrawl API key not configured");
   }
 
   try {
-    console.log(`Scraping: ${url}`);
+    console.log(`Scraping full content: ${url}`);
     
     const response = await fetch("https://api.firecrawl.dev/v1/scrape", {
       method: "POST",
@@ -212,6 +262,7 @@ async function scrapeUrl(url: string): Promise<{ title: string; content: string 
         url,
         formats: ["markdown"],
         onlyMainContent: true,
+        waitFor: 2000,
       }),
     });
 
@@ -223,9 +274,17 @@ async function scrapeUrl(url: string): Promise<{ title: string; content: string 
     const data = await response.json();
     const scraped = data.data || data;
     
+    const rawContent = scraped.markdown || "";
+    const cleanedContent = cleanContent(rawContent);
+    
+    if (cleanedContent.length < 200) {
+      console.log(`Content too short after cleaning: ${url}`);
+      return null;
+    }
+
     return {
       title: scraped.metadata?.title || "",
-      content: scraped.markdown || "",
+      content: cleanedContent,
     };
   } catch (error) {
     console.error(`Error scraping ${url}:`, error);
@@ -243,185 +302,41 @@ Deno.serve(async (req) => {
     const supabaseServiceKey = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!;
     const supabase = createClient(supabaseUrl, supabaseServiceKey);
 
-const { action, targetCount = 10, autoPublish = false, searchQuery, category: targetCategory, categories } = await req.json();
+    const body = await req.json();
+    const { action, category, count = 5, autoPublish = true } = body;
 
-    // 按分类采集的搜索查询配置
-    const CATEGORY_SEARCH_QUERIES: Record<string, string[]> = {
-      "公司新闻": [
-        "飞迈科技 无人机",
-        "无人机公司 发布会",
-        "无人机企业 新闻",
-        "无人机厂商 合作",
-        "工业无人机 公司动态",
-      ],
-      "行业动态": [
-        "无人机 行业新闻",
-        "低空经济 政策",
-        "无人机 市场分析",
-        "电力巡检 无人机 最新",
-        "无人机物流 发展",
-        "无人机 产业链",
-        "eVTOL 低空飞行",
-        "无人机 监管政策",
-      ],
-      "产品资讯": [
-        "无人机 新品发布",
-        "工业无人机 产品",
-        "系留无人机 设备",
-        "无人机 载荷设备",
-        "无人机 相机云台",
-        "消防无人机 产品",
-        "物流无人机 型号",
-      ],
-      "技术分享": [
-        "无人机 技术创新",
-        "无人机 算法研发",
-        "无人机 飞控技术",
-        "无人机 避障技术",
-        "无人机 AI识别",
-        "无人机 自主飞行",
-        "无人机 通信技术",
-      ],
-    };
+    console.log(`Action: ${action}, Category: ${category}, Count: ${count}`);
 
-    if (action === "collect-by-categories") {
-      // 按分类批量采集
-      console.log("Starting batch collection by categories");
-      
-      const results: Array<{ category: string; collected: number; errors: string[] }> = [];
-      
-      for (const [cat, count] of Object.entries(categories || {})) {
-        const catQueries = CATEGORY_SEARCH_QUERIES[cat] || CATEGORY_SEARCH_QUERIES["行业动态"];
-        let collectedCount = 0;
-        const collectedUrls: string[] = [];
-        const errors: string[] = [];
-        
-        console.log(`Collecting ${count} articles for category: ${cat}`);
-        
-        for (const query of catQueries) {
-          if (collectedCount >= (count as number)) break;
-          
+    if (action === "collect-product-news") {
+      // 采集产品相关新闻
+      const results: Array<{ 
+        productType: string; 
+        title: string; 
+        success: boolean; 
+        error?: string 
+      }> = [];
+
+      // 获取要采集的产品类型
+      const productTypes = body.productTypes || Object.keys(PRODUCT_KEYWORDS);
+      const articlesPerType = Math.ceil(count / productTypes.length);
+
+      for (const productType of productTypes) {
+        const keywords = PRODUCT_KEYWORDS[productType as keyof typeof PRODUCT_KEYWORDS];
+        if (!keywords) continue;
+
+        console.log(`Collecting news for: ${productType}`);
+        let collected = 0;
+
+        for (const keyword of keywords) {
+          if (collected >= articlesPerType) break;
+
           try {
-            const searchResults = await searchNews(query, 10);
+            const searchResults = await searchNews(keyword, 3);
             
             for (const result of searchResults) {
-              if (collectedCount >= (count as number)) break;
-              if (!result.url || collectedUrls.includes(result.url)) continue;
-              
-              try {
-                // 检查是否已存在
-                const { data: existing } = await supabase
-                  .from("news_articles")
-                  .select("id")
-                  .eq("source_url", result.url)
-                  .single();
-                
-                if (existing) continue;
-                
-                let fullContent = result.markdown || result.description || "";
-                let title = result.title || "";
-                
-                if (fullContent.length < 200) {
-                  const scraped = await scrapeUrl(result.url);
-                  if (scraped) {
-                    fullContent = scraped.content || fullContent;
-                    title = scraped.title || title;
-                  }
-                }
-                
-                if (!title || fullContent.length < 100) continue;
-                
-                const rewritten = await rewriteContentWithAI(title, fullContent, result.url, cat);
-                
-                const { error: insertError } = await supabase
-                  .from("news_articles")
-                  .insert({
-                    title: rewritten.title,
-                    summary: rewritten.summary,
-                    content: rewritten.content,
-                    source_url: result.url,
-                    source_name: "Firecrawl",
-                    original_title: title,
-                    is_auto_generated: true,
-                    ai_edited: true,
-                    keywords: rewritten.keywords,
-                    category: cat,
-                    is_published: autoPublish,
-                    published_at: autoPublish ? new Date().toISOString() : null,
-                  });
-                
-                if (!insertError) {
-                  collectedUrls.push(result.url);
-                  collectedCount++;
-                  console.log(`[${cat}] Collected ${collectedCount}/${count}: ${rewritten.title}`);
-                }
-                
-                await new Promise(resolve => setTimeout(resolve, 1500));
-              } catch (itemError) {
-                errors.push(`${result.url}: ${itemError instanceof Error ? itemError.message : 'Unknown error'}`);
-              }
-            }
-          } catch (queryError) {
-            errors.push(`Query "${query}": ${queryError instanceof Error ? queryError.message : 'Unknown error'}`);
-          }
-        }
-        
-        results.push({ category: cat, collected: collectedCount, errors });
-      }
-      
-      return new Response(
-        JSON.stringify({ success: true, results }),
-        { headers: { ...corsHeaders, "Content-Type": "application/json" } }
-      );
-    }
+              if (collected >= articlesPerType) break;
+              if (!result.url) continue;
 
-    if (action === "collect-daily") {
-      // 每日采集任务：采集10篇文章
-      console.log(`Starting daily collection, target: ${targetCount} articles`);
-
-      // 构建搜索查询列表
-      const searchQueries = [
-        "无人机 行业新闻 2024",
-        "电力巡检 无人机 最新",
-        "无人机物流 配送",
-        "工业无人机 应用",
-        "低空经济 政策",
-        "无人机 技术创新",
-        "消防无人机 救援",
-        "农业无人机 植保",
-        "测绘无人机 航测",
-        "无人机 安防监控",
-      ];
-
-      let collectedCount = 0;
-      const collectedUrls: string[] = [];
-      const errors: string[] = [];
-
-      // 遍历搜索查询
-      for (const query of searchQueries) {
-        if (collectedCount >= targetCount) break;
-
-        try {
-          // 创建采集任务记录
-          const { data: task } = await supabase
-            .from("news_collection_tasks")
-            .insert({
-              keyword: query,
-              category: "Firecrawl",
-              status: "processing",
-            })
-            .select()
-            .single();
-
-          // 搜索相关新闻
-          const searchResults = await searchNews(query, 5);
-          let taskCollected = 0;
-
-          for (const result of searchResults) {
-            if (collectedCount >= targetCount) break;
-            if (!result.url || collectedUrls.includes(result.url)) continue;
-
-            try {
               // 检查是否已存在
               const { data: existing } = await supabase
                 .from("news_articles")
@@ -430,165 +345,297 @@ const { action, targetCount = 10, autoPublish = false, searchQuery, category: ta
                 .single();
 
               if (existing) {
-                console.log(`Article already exists: ${result.url}`);
+                console.log(`Already exists: ${result.url}`);
                 continue;
               }
 
               // 获取完整内容
-              let fullContent = result.markdown || result.description || "";
-              let title = result.title || "";
-
-              // 如果 markdown 内容不足，尝试抓取完整页面
-              if (fullContent.length < 200) {
-                const scraped = await scrapeUrl(result.url);
-                if (scraped) {
-                  fullContent = scraped.content || fullContent;
-                  title = scraped.title || title;
-                }
-              }
-
-              if (!title || fullContent.length < 100) {
-                console.log(`Skipping insufficient content: ${result.url}`);
+              const scraped = await scrapeFullContent(result.url);
+              if (!scraped || !scraped.content) {
+                results.push({
+                  productType,
+                  title: result.title || "Unknown",
+                  success: false,
+                  error: "Failed to scrape content",
+                });
                 continue;
               }
 
-              // 确定分类
-              const category = determineCategory(title, fullContent);
-
-              // AI 二次创作
-              const rewritten = await rewriteContentWithAI(
-                title,
-                fullContent,
+              // AI 润色和编排
+              const polished = await polishAndFormatArticle(
+                scraped.title || result.title || "",
+                scraped.content,
                 result.url,
-                category
+                category || "产品资讯"
               );
+
+              if (!polished) {
+                results.push({
+                  productType,
+                  title: scraped.title || "Unknown",
+                  success: false,
+                  error: "AI polishing failed",
+                });
+                continue;
+              }
 
               // 保存到数据库
               const { error: insertError } = await supabase
                 .from("news_articles")
                 .insert({
-                  title: rewritten.title,
-                  summary: rewritten.summary,
-                  content: rewritten.content,
+                  title: polished.title,
+                  summary: polished.summary,
+                  content: polished.content,
                   source_url: result.url,
-                  source_name: "Firecrawl",
-                  original_title: title,
+                  source_name: productType,
+                  original_title: scraped.title,
                   is_auto_generated: true,
                   ai_edited: true,
-                  keywords: rewritten.keywords,
-                  category,
+                  keywords: [...polished.keywords, productType],
+                  category: category || "产品资讯",
                   is_published: autoPublish,
                   published_at: autoPublish ? new Date().toISOString() : null,
                 });
 
               if (insertError) {
                 console.error("Insert error:", insertError);
-                continue;
+                results.push({
+                  productType,
+                  title: polished.title,
+                  success: false,
+                  error: insertError.message,
+                });
+              } else {
+                collected++;
+                results.push({
+                  productType,
+                  title: polished.title,
+                  success: true,
+                });
+                console.log(`✅ Collected: ${polished.title}`);
               }
 
-              collectedUrls.push(result.url);
-              collectedCount++;
-              taskCollected++;
-
-              console.log(`Collected article ${collectedCount}/${targetCount}: ${rewritten.title}`);
-
-              // 添加延迟以避免 API 限制
-              await new Promise(resolve => setTimeout(resolve, 1000));
-            } catch (itemError) {
-              console.error(`Error processing ${result.url}:`, itemError);
-              errors.push(`${result.url}: ${itemError instanceof Error ? itemError.message : 'Unknown error'}`);
+              // 延迟避免 API 限制
+              await new Promise(resolve => setTimeout(resolve, 2000));
             }
+          } catch (error) {
+            console.error(`Error with keyword ${keyword}:`, error);
           }
+        }
+      }
 
-          // 更新任务状态
-          if (task) {
-            await supabase
-              .from("news_collection_tasks")
-              .update({
-                status: "completed",
-                articles_collected: taskCollected,
-                articles_published: autoPublish ? taskCollected : 0,
-                completed_at: new Date().toISOString(),
-              })
-              .eq("id", task.id);
+      return new Response(
+        JSON.stringify({ 
+          success: true, 
+          collected: results.filter(r => r.success).length,
+          results 
+        }),
+        { headers: { ...corsHeaders, "Content-Type": "application/json" } }
+      );
+    }
+
+    if (action === "collect-by-category") {
+      // 按分类采集新闻
+      const categoryKeywords: Record<string, string[]> = {
+        "公司新闻": [
+          "无人机公司 合作签约",
+          "无人机企业 战略发展",
+          "无人机厂商 新产品发布",
+          "工业无人机 企业动态",
+        ],
+        "行业动态": [
+          "低空经济 政策",
+          "无人机 行业发展",
+          "eVTOL 产业动态",
+          "无人机 市场分析",
+          "系留无人机 应用",
+          "消防无人机 市场",
+        ],
+        "产品资讯": [
+          "系留无人机 新品",
+          "消防无人机 设备",
+          "物流无人机 产品",
+          "无人机机场 发布",
+          "无人机云台 相机",
+        ],
+        "技术分享": [
+          "无人机 技术突破",
+          "无人机 飞控算法",
+          "无人机 AI识别",
+          "系留无人机 技术",
+          "无人机 自主飞行",
+        ],
+      };
+
+      const keywords = categoryKeywords[category] || categoryKeywords["行业动态"];
+      const results: Array<{ title: string; success: boolean; error?: string }> = [];
+      let collected = 0;
+
+      for (const keyword of keywords) {
+        if (collected >= count) break;
+
+        try {
+          const searchResults = await searchNews(keyword, 3);
+
+          for (const result of searchResults) {
+            if (collected >= count) break;
+            if (!result.url) continue;
+
+            // 检查是否已存在
+            const { data: existing } = await supabase
+              .from("news_articles")
+              .select("id")
+              .eq("source_url", result.url)
+              .single();
+
+            if (existing) continue;
+
+            // 获取完整内容
+            const scraped = await scrapeFullContent(result.url);
+            if (!scraped || !scraped.content) {
+              results.push({
+                title: result.title || "Unknown",
+                success: false,
+                error: "Content scraping failed",
+              });
+              continue;
+            }
+
+            // AI 润色
+            const polished = await polishAndFormatArticle(
+              scraped.title || result.title || "",
+              scraped.content,
+              result.url,
+              category
+            );
+
+            if (!polished) {
+              results.push({
+                title: scraped.title || "Unknown",
+                success: false,
+                error: "AI polishing failed",
+              });
+              continue;
+            }
+
+            // 保存
+            const { error: insertError } = await supabase
+              .from("news_articles")
+              .insert({
+                title: polished.title,
+                summary: polished.summary,
+                content: polished.content,
+                source_url: result.url,
+                source_name: "Firecrawl",
+                original_title: scraped.title,
+                is_auto_generated: true,
+                ai_edited: true,
+                keywords: polished.keywords,
+                category,
+                is_published: autoPublish,
+                published_at: autoPublish ? new Date().toISOString() : null,
+              });
+
+            if (insertError) {
+              results.push({
+                title: polished.title,
+                success: false,
+                error: insertError.message,
+              });
+            } else {
+              collected++;
+              results.push({
+                title: polished.title,
+                success: true,
+              });
+              console.log(`✅ [${category}] Collected: ${polished.title}`);
+            }
+
+            await new Promise(resolve => setTimeout(resolve, 2000));
           }
-        } catch (queryError) {
-          console.error(`Error with query "${query}":`, queryError);
-          errors.push(`Query "${query}": ${queryError instanceof Error ? queryError.message : 'Unknown error'}`);
+        } catch (error) {
+          console.error(`Error with keyword ${keyword}:`, error);
         }
       }
 
       return new Response(
         JSON.stringify({
           success: true,
-          articlesCollected: collectedCount,
-          articlesPublished: autoPublish ? collectedCount : 0,
-          errors: errors.length > 0 ? errors : undefined,
+          category,
+          collected,
+          results,
         }),
         { headers: { ...corsHeaders, "Content-Type": "application/json" } }
       );
     }
 
-    if (action === "search-custom") {
-      // 自定义搜索
-      if (!searchQuery) {
-        return new Response(
-          JSON.stringify({ success: false, error: "Search query required" }),
-          { status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" } }
-        );
+    // 批量初始化采集 - 为每个分类采集指定数量
+    if (action === "batch-init") {
+      const categories = body.categories || {
+        "公司新闻": 20,
+        "行业动态": 20,
+        "产品资讯": 20,
+        "技术分享": 20,
+      };
+
+      console.log("Starting batch initialization...");
+      
+      const allResults: Record<string, { collected: number; results: Array<{ title: string; success: boolean }> }> = {};
+
+      for (const [cat, targetCount] of Object.entries(categories)) {
+        console.log(`\n=== Collecting ${targetCount} articles for ${cat} ===`);
+        
+        // 递归调用自己
+        const categoryResult = await fetch(req.url, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "Authorization": req.headers.get("Authorization") || "",
+          },
+          body: JSON.stringify({
+            action: "collect-by-category",
+            category: cat,
+            count: targetCount,
+            autoPublish: true,
+          }),
+        });
+
+        const result = await categoryResult.json();
+        allResults[cat] = {
+          collected: result.collected || 0,
+          results: result.results || [],
+        };
+
+        // 分类间延迟
+        await new Promise(resolve => setTimeout(resolve, 3000));
       }
 
-      const results = await searchNews(searchQuery, 20);
+      const totalCollected = Object.values(allResults).reduce((sum, r) => sum + r.collected, 0);
 
       return new Response(
         JSON.stringify({
           success: true,
-          results: results.map(r => ({
-            url: r.url,
-            title: r.title,
-            description: r.description,
-          })),
-        }),
-        { headers: { ...corsHeaders, "Content-Type": "application/json" } }
-      );
-    }
-
-    if (action === "scrape-single") {
-      // 抓取单个 URL
-      const { url } = await req.json();
-      if (!url) {
-        return new Response(
-          JSON.stringify({ success: false, error: "URL required" }),
-          { status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" } }
-        );
-      }
-
-      const scraped = await scrapeUrl(url);
-      if (!scraped) {
-        return new Response(
-          JSON.stringify({ success: false, error: "Failed to scrape URL" }),
-          { status: 500, headers: { ...corsHeaders, "Content-Type": "application/json" } }
-        );
-      }
-
-      return new Response(
-        JSON.stringify({
-          success: true,
-          data: scraped,
+          message: `Batch initialization completed. Total collected: ${totalCollected}`,
+          results: allResults,
         }),
         { headers: { ...corsHeaders, "Content-Type": "application/json" } }
       );
     }
 
     return new Response(
-      JSON.stringify({ error: "Invalid action. Use: collect-daily, search-custom, scrape-single" }),
+      JSON.stringify({ 
+        error: "Invalid action. Use: collect-product-news, collect-by-category, or batch-init" 
+      }),
       { status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" } }
     );
+
   } catch (error) {
     console.error("Error:", error);
-    const errorMessage = error instanceof Error ? error.message : "Unknown error";
     return new Response(
-      JSON.stringify({ error: errorMessage }),
+      JSON.stringify({ 
+        success: false, 
+        error: error instanceof Error ? error.message : "Unknown error" 
+      }),
       { status: 500, headers: { ...corsHeaders, "Content-Type": "application/json" } }
     );
   }
