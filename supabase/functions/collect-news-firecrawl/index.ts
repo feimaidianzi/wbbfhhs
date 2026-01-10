@@ -223,7 +223,137 @@ Deno.serve(async (req) => {
     const supabaseServiceKey = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!;
     const supabase = createClient(supabaseUrl, supabaseServiceKey);
 
-    const { action, targetCount = 10, autoPublish = false, searchQuery } = await req.json();
+const { action, targetCount = 10, autoPublish = false, searchQuery, category: targetCategory, categories } = await req.json();
+
+    // 按分类采集的搜索查询配置
+    const CATEGORY_SEARCH_QUERIES: Record<string, string[]> = {
+      "公司新闻": [
+        "飞迈科技 无人机",
+        "无人机公司 发布会",
+        "无人机企业 新闻",
+        "无人机厂商 合作",
+        "工业无人机 公司动态",
+      ],
+      "行业动态": [
+        "无人机 行业新闻",
+        "低空经济 政策",
+        "无人机 市场分析",
+        "电力巡检 无人机 最新",
+        "无人机物流 发展",
+        "无人机 产业链",
+        "eVTOL 低空飞行",
+        "无人机 监管政策",
+      ],
+      "产品资讯": [
+        "无人机 新品发布",
+        "工业无人机 产品",
+        "系留无人机 设备",
+        "无人机 载荷设备",
+        "无人机 相机云台",
+        "消防无人机 产品",
+        "物流无人机 型号",
+      ],
+      "技术分享": [
+        "无人机 技术创新",
+        "无人机 算法研发",
+        "无人机 飞控技术",
+        "无人机 避障技术",
+        "无人机 AI识别",
+        "无人机 自主飞行",
+        "无人机 通信技术",
+      ],
+    };
+
+    if (action === "collect-by-categories") {
+      // 按分类批量采集
+      console.log("Starting batch collection by categories");
+      
+      const results: Array<{ category: string; collected: number; errors: string[] }> = [];
+      
+      for (const [cat, count] of Object.entries(categories || {})) {
+        const catQueries = CATEGORY_SEARCH_QUERIES[cat] || CATEGORY_SEARCH_QUERIES["行业动态"];
+        let collectedCount = 0;
+        const collectedUrls: string[] = [];
+        const errors: string[] = [];
+        
+        console.log(`Collecting ${count} articles for category: ${cat}`);
+        
+        for (const query of catQueries) {
+          if (collectedCount >= (count as number)) break;
+          
+          try {
+            const searchResults = await searchNews(query, 10);
+            
+            for (const result of searchResults) {
+              if (collectedCount >= (count as number)) break;
+              if (!result.url || collectedUrls.includes(result.url)) continue;
+              
+              try {
+                // 检查是否已存在
+                const { data: existing } = await supabase
+                  .from("news_articles")
+                  .select("id")
+                  .eq("source_url", result.url)
+                  .single();
+                
+                if (existing) continue;
+                
+                let fullContent = result.markdown || result.description || "";
+                let title = result.title || "";
+                
+                if (fullContent.length < 200) {
+                  const scraped = await scrapeUrl(result.url);
+                  if (scraped) {
+                    fullContent = scraped.content || fullContent;
+                    title = scraped.title || title;
+                  }
+                }
+                
+                if (!title || fullContent.length < 100) continue;
+                
+                const rewritten = await rewriteContentWithAI(title, fullContent, result.url, cat);
+                
+                const { error: insertError } = await supabase
+                  .from("news_articles")
+                  .insert({
+                    title: rewritten.title,
+                    summary: rewritten.summary,
+                    content: rewritten.content,
+                    source_url: result.url,
+                    source_name: "Firecrawl",
+                    original_title: title,
+                    is_auto_generated: true,
+                    ai_edited: true,
+                    keywords: rewritten.keywords,
+                    category: cat,
+                    is_published: autoPublish,
+                    published_at: autoPublish ? new Date().toISOString() : null,
+                  });
+                
+                if (!insertError) {
+                  collectedUrls.push(result.url);
+                  collectedCount++;
+                  console.log(`[${cat}] Collected ${collectedCount}/${count}: ${rewritten.title}`);
+                }
+                
+                await new Promise(resolve => setTimeout(resolve, 1500));
+              } catch (itemError) {
+                errors.push(`${result.url}: ${itemError instanceof Error ? itemError.message : 'Unknown error'}`);
+              }
+            }
+          } catch (queryError) {
+            errors.push(`Query "${query}": ${queryError instanceof Error ? queryError.message : 'Unknown error'}`);
+          }
+        }
+        
+        results.push({ category: cat, collected: collectedCount, errors });
+      }
+      
+      return new Response(
+        JSON.stringify({ success: true, results }),
+        { headers: { ...corsHeaders, "Content-Type": "application/json" } }
+      );
+    }
 
     if (action === "collect-daily") {
       // 每日采集任务：采集10篇文章
