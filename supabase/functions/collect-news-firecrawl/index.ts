@@ -66,7 +66,7 @@ function cleanContent(rawContent: string): string {
   return content;
 }
 
-// 使用 AI 进行专业润色和编排
+// 使用 Lovable AI 进行专业润色和编排
 async function polishAndFormatArticle(
   originalTitle: string,
   originalContent: string,
@@ -74,9 +74,11 @@ async function polishAndFormatArticle(
   category: string
 ): Promise<{ title: string; summary: string; content: string; keywords: string[]; coverImage: string | null } | null> {
   try {
-    const lovableApiKey = Deno.env.get("LOVABLE_API_KEY");
-    if (!lovableApiKey) {
-      console.error("LOVABLE_API_KEY not configured");
+    const supabaseUrl = Deno.env.get("SUPABASE_URL");
+    const supabaseServiceKey = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY");
+    
+    if (!supabaseUrl || !supabaseServiceKey) {
+      console.error("Supabase configuration missing");
       return null;
     }
 
@@ -90,7 +92,7 @@ async function polishAndFormatArticle(
 ${originalTitle}
 
 【原始内容】
-${originalContent.substring(0, 4000)}
+${originalContent.substring(0, 3500)}
 
 【目标分类】
 ${category}
@@ -99,106 +101,94 @@ ${category}
 ${categoryConfig.style}
 
 【创作要求】
-1. 标题：
-   - 专业、有吸引力
-   - 不超过35个字
-   - 突出核心信息
+1. 标题：专业、有吸引力，不超过35个字
+2. 摘要：100-150字，概括核心观点
+3. 正文：800-1200字，结构清晰，使用HTML格式（<p>, <h3>, <strong>, <ul>, <li>），不要包含任何图片或链接
+4. 关键词：5个最相关的关键词
 
-2. 摘要：
-   - 100-150字
-   - 概括文章核心观点
-   - 吸引读者继续阅读
-
-3. 正文：
-   - 800-1500字
-   - 结构清晰，分段合理
-   - 使用专业术语但保持可读性
-   - 如有数据要准确引用
-   - 可适当加入行业分析和见解
-   - 输出为干净的HTML格式，只使用以下标签：<p>, <h3>, <h4>, <strong>, <ul>, <li>
-   - 不要包含任何图片、链接或URL
-
-4. 关键词：
-   - 提取5个最相关的关键词
-   - 包含产品类型、应用场景、技术特点等
-
-5. 封面图建议：
-   - 描述一张适合作为封面的图片场景
-   - 便于后续配图
-
-请以JSON格式返回，确保JSON格式正确：
+请以JSON格式返回：
 {
   "title": "文章标题",
   "summary": "摘要内容",
-  "content": "HTML格式的正文内容",
-  "keywords": ["关键词1", "关键词2", "关键词3", "关键词4", "关键词5"],
-  "coverImageSuggestion": "封面图片场景描述"
+  "content": "HTML格式正文",
+  "keywords": ["关键词1", "关键词2", "关键词3", "关键词4", "关键词5"]
 }`;
 
     console.log("Calling AI for article polishing...");
     
-    const response = await fetch("https://openrouter.ai/api/v1/chat/completions", {
+    // 使用自定义 AI 润色函数
+    const response = await fetch(`${supabaseUrl}/functions/v1/ai-rewrite-article`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        "Authorization": `Bearer ${lovableApiKey}`,
+        "Authorization": `Bearer ${supabaseServiceKey}`,
       },
       body: JSON.stringify({
-        model: "google/gemini-2.5-flash",
-        messages: [{ role: "user", content: prompt }],
-        max_tokens: 4000,
-        temperature: 0.7,
+        title: originalTitle,
+        content: originalContent.substring(0, 4000),
+        category,
       }),
     });
 
     if (!response.ok) {
       const errorText = await response.text();
-      console.error("AI API error:", errorText);
-      return null;
+      console.error("AI rewrite error:", errorText);
+      return fallbackProcessing(originalTitle, originalContent, category);
     }
 
-    const data = await response.json();
-    const aiContent = data.choices?.[0]?.message?.content || "";
+    const result = await response.json();
     
-    console.log("AI response received, parsing...");
-
-    // 提取 JSON
-    const jsonMatch = aiContent.match(/\{[\s\S]*\}/);
-    if (!jsonMatch) {
-      console.error("No JSON found in AI response");
-      return null;
+    if (!result.success || !result.data) {
+      console.error("AI rewrite failed");
+      return fallbackProcessing(originalTitle, originalContent, category);
     }
 
-    try {
-      const parsed = JSON.parse(jsonMatch[0]);
-      
-      // 验证必要字段
-      if (!parsed.title || !parsed.content || parsed.content.length < 200) {
-        console.error("Invalid AI response structure");
-        return null;
-      }
+    const data = result.data;
+    console.log("AI rewrite successful:", data.title);
 
-      // 二次清理内容
-      const cleanedContent = parsed.content
-        .replace(/!\[.*?\]\(.*?\)/g, '')
-        .replace(/\[([^\]]*)\]\([^)]*\)/g, '$1')
-        .replace(/https?:\/\/[^\s)>\]"']+/g, '');
-
-      return {
-        title: parsed.title.substring(0, 100),
-        summary: (parsed.summary || "").substring(0, 300),
-        content: cleanedContent,
-        keywords: Array.isArray(parsed.keywords) ? parsed.keywords.slice(0, 5) : [],
-        coverImage: null,
-      };
-    } catch (parseError) {
-      console.error("JSON parse error:", parseError);
-      return null;
-    }
+    return {
+      title: data.title?.substring(0, 100) || originalTitle.substring(0, 35),
+      summary: (data.summary || "").substring(0, 300),
+      content: data.content || "",
+      keywords: Array.isArray(data.keywords) ? data.keywords.slice(0, 5) : [],
+      coverImage: null,
+    };
   } catch (error) {
     console.error("AI polishing failed:", error);
-    return null;
+    return fallbackProcessing(originalTitle, originalContent, category);
   }
+}
+
+// 回退处理 - 基本的内容格式化
+function fallbackProcessing(
+  title: string,
+  content: string,
+  category: string
+): { title: string; summary: string; content: string; keywords: string[]; coverImage: string | null } {
+  const cleanTitle = title.length > 35 ? title.substring(0, 35) + "..." : title;
+  const summary = content.substring(0, 150).replace(/\n/g, ' ') + "...";
+  
+  // 分段处理
+  const paragraphs = content.split(/\n{2,}/).filter(p => p.trim().length > 30);
+  const htmlContent = paragraphs.slice(0, 8).map(p => `<p>${p.trim()}</p>`).join('\n');
+  
+  // 提取关键词
+  const keywords: string[] = [];
+  const keywordList = ["无人机", "系留", "消防", "物流", "巡检", "机场", "云台", "培训", "电力", "应急"];
+  for (const kw of keywordList) {
+    if ((title + content).includes(kw) && keywords.length < 5) {
+      keywords.push(kw);
+    }
+  }
+  if (keywords.length === 0) keywords.push(category);
+  
+  return {
+    title: cleanTitle,
+    summary,
+    content: htmlContent || `<p>${content.substring(0, 800)}</p>`,
+    keywords,
+    coverImage: null,
+  };
 }
 
 // 使用 Firecrawl 搜索新闻
