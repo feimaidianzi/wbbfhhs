@@ -132,73 +132,22 @@ async function downloadImage(imageUrl: string): Promise<{ imageData: Uint8Array 
   }
 }
 
-// 使用豆包API处理图片 - 去除公司名称和产品内容
-async function processImageWithDoubao(imageData: Uint8Array, contentType: string, doubaoApiKey: string): Promise<Uint8Array | null> {
+// 使用 Gemini 3 Pro Image Preview 处理图片 - 去除公司名称和产品内容
+async function processImageWithGemini(imageData: Uint8Array, contentType: string): Promise<Uint8Array | null> {
   try {
-    // 将图片转为base64
-    const base64 = btoa(String.fromCharCode(...imageData));
-    
-    console.log("Processing image with Doubao API...");
-    
-    // 调用豆包 Seedream 图片编辑API
-    // 使用fal.ai的bytedance/seededit接口
-    const response = await fetch("https://api.fal.ai/v1/bytedance/seededit/v3/edit-image", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        "Authorization": `Key ${doubaoApiKey}`,
-      },
-      body: JSON.stringify({
-        prompt: "Remove all company logos, brand names, watermarks, and product labels from this image. Keep the main subject and background intact. Make it look clean and professional without any text or branding.",
-        image_url: `data:${contentType};base64,${base64}`,
-        negative_prompt: "logo, brand, watermark, text, label, company name, product name",
-        strength: 0.6,
-        guidance_scale: 7.5,
-      }),
-    });
-
-    if (!response.ok) {
-      const errorText = await response.text();
-      console.error("Doubao API error:", response.status, errorText);
-      
-      // 如果fal.ai不可用，尝试使用Lovable AI作为备用
-      return await processImageWithLovableAI(imageData, contentType);
-    }
-
-    const data = await response.json();
-    const outputUrl = data.images?.[0]?.url || data.output?.url;
-    
-    if (!outputUrl) {
-      console.log("No output from Doubao, using fallback");
-      return await processImageWithLovableAI(imageData, contentType);
-    }
-
-    // 下载处理后的图片
-    const processedResponse = await fetch(outputUrl);
-    if (!processedResponse.ok) {
+    const lovableApiKey = Deno.env.get("LOVABLE_API_KEY");
+    if (!lovableApiKey) {
+      console.error("LOVABLE_API_KEY not configured");
       return null;
     }
     
-    const processedBuffer = await processedResponse.arrayBuffer();
-    return new Uint8Array(processedBuffer);
-  } catch (e) {
-    console.error("Doubao processing error:", e);
-    // 使用备用方案
-    return await processImageWithLovableAI(imageData, contentType);
-  }
-}
-
-// 备用方案：使用Lovable AI处理图片
-async function processImageWithLovableAI(imageData: Uint8Array, contentType: string): Promise<Uint8Array | null> {
-  try {
-    const lovableApiKey = Deno.env.get("LOVABLE_API_KEY");
-    if (!lovableApiKey) return null;
-    
+    // 将图片转为base64
     const base64 = btoa(String.fromCharCode(...imageData));
     const dataUrl = `data:${contentType};base64,${base64}`;
     
-    console.log("Using Lovable AI as fallback for image processing...");
+    console.log("Processing image with google/gemini-3-pro-image-preview...");
     
+    // 调用 Gemini 3 Pro Image Preview API
     const response = await fetch("https://ai.gateway.lovable.dev/v1/chat/completions", {
       method: "POST",
       headers: {
@@ -206,34 +155,50 @@ async function processImageWithLovableAI(imageData: Uint8Array, contentType: str
         "Authorization": `Bearer ${lovableApiKey}`,
       },
       body: JSON.stringify({
-        model: "google/gemini-2.5-flash-image-preview",
+        model: "google/gemini-3-pro-image-preview",
         messages: [{
           role: "user",
           content: [
-            { type: "text", text: "Edit this image: Remove all company logos, brand names, watermarks, and any text overlays. Keep the main subject and background intact. Generate a clean version without any branding or text." },
+            { 
+              type: "text", 
+              text: "Edit this image: Remove ALL company logos, brand names, watermarks, text overlays, and product labels from this image. Keep the main subject (drone, electronic components, equipment) and background completely intact. Generate a clean professional version without any text, branding, or company identification. Make it suitable for use as a news article illustration."
+            },
             { type: "image_url", image_url: { url: dataUrl } }
           ]
         }],
         modalities: ["image", "text"]
       }),
     });
-    
+
     if (!response.ok) {
-      console.error("Lovable AI image processing failed:", response.status);
+      const errorText = await response.text();
+      console.error("Gemini API error:", response.status, errorText);
       return null;
     }
-    
+
     const data = await response.json();
     const newImageData = data.choices?.[0]?.message?.images?.[0]?.image_url?.url;
     
     if (!newImageData || !newImageData.startsWith("data:image")) {
+      console.log("No valid image output from Gemini");
+      // 尝试从文本内容中提取base64图片
+      const textContent = data.choices?.[0]?.message?.content;
+      if (textContent && typeof textContent === 'string') {
+        const base64Match = textContent.match(/data:image\/[^;]+;base64,[A-Za-z0-9+/=]+/);
+        if (base64Match) {
+          const extractedBase64 = base64Match[0].split(",")[1];
+          console.log("Extracted image from text content");
+          return Uint8Array.from(atob(extractedBase64), c => c.charCodeAt(0));
+        }
+      }
       return null;
     }
     
     const newBase64 = newImageData.split(",")[1];
+    console.log("Image successfully processed with Gemini");
     return Uint8Array.from(atob(newBase64), c => c.charCodeAt(0));
   } catch (e) {
-    console.error("Lovable AI image processing error:", e);
+    console.error("Gemini image processing error:", e);
     return null;
   }
 }
@@ -267,12 +232,11 @@ async function uploadImageToStorage(supabase: any, imageData: Uint8Array, articl
   }
 }
 
-// 获取并处理文章配图（2-5张，全部经过豆包处理）
+// 获取并处理文章配图（2-5张，全部经过Gemini处理）
 async function getArticleImages(
   imageCount: number,
   supabase: any,
-  articleId: string,
-  doubaoApiKey: string
+  articleId: string
 ): Promise<string[]> {
   const images: string[] = [];
   const targetCount = Math.min(Math.max(imageCount, 2), 5); // 2-5张
@@ -298,19 +262,19 @@ async function getArticleImages(
         continue;
       }
       
-      // 使用豆包API处理图片
-      const processedImage = await processImageWithDoubao(imageData, contentType, doubaoApiKey);
+      // 使用 Gemini 3 Pro Image Preview 处理图片
+      const processedImage = await processImageWithGemini(imageData, contentType);
       
       if (processedImage) {
         // 上传处理后的图片
         const uploadedUrl = await uploadImageToStorage(supabase, processedImage, articleId, i, contentType);
         if (uploadedUrl) {
           images.push(uploadedUrl);
-          console.log(`Image ${i + 1} processed and uploaded successfully`);
+          console.log(`Image ${i + 1} processed with Gemini and uploaded successfully`);
         }
       } else {
         // 如果处理失败，直接上传原图
-        console.log("Image processing failed, uploading original...");
+        console.log("Gemini processing failed, uploading original...");
         const uploadedUrl = await uploadImageToStorage(supabase, imageData, articleId, i, contentType);
         if (uploadedUrl) {
           images.push(uploadedUrl);
@@ -324,7 +288,7 @@ async function getArticleImages(
     }
   }
   
-  console.log(`Got ${images.length} processed images`);
+  console.log(`Got ${images.length} processed images via Gemini`);
   return images;
 }
 
@@ -547,7 +511,6 @@ Deno.serve(async (req) => {
     const { category, count = 1, imageCount = 2, batchMode = false } = await req.json();
     
     const lovableApiKey = Deno.env.get("LOVABLE_API_KEY");
-    const doubaoApiKey = Deno.env.get("DOUBAO_API_KEY");
     
     if (!lovableApiKey) {
       return new Response(
@@ -556,9 +519,7 @@ Deno.serve(async (req) => {
       );
     }
 
-    if (!doubaoApiKey) {
-      console.log("DOUBAO_API_KEY not configured, will use Lovable AI fallback for image processing");
-    }
+    console.log("Using google/gemini-3-pro-image-preview for image processing");
 
     const supabaseUrl = Deno.env.get("SUPABASE_URL")!;
     const supabaseKey = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!;
@@ -570,12 +531,11 @@ Deno.serve(async (req) => {
     const processArticle = async (article: any, category: string) => {
       const articleId = crypto.randomUUID();
       
-      // 获取并处理配图（2张，经过豆包处理）
+      // 获取并处理配图（2张，经过Gemini处理）
       const images = await getArticleImages(
         imageCount,
         supabase,
-        articleId,
-        doubaoApiKey || ""
+        articleId
       );
       
       // 封面图使用第一张
@@ -677,7 +637,7 @@ Deno.serve(async (req) => {
         success: true, 
         count: results.length, 
         results,
-        message: `成功生成 ${results.length} 篇文章，图片已通过豆包API处理`
+        message: `成功生成 ${results.length} 篇文章，图片已通过Gemini 3 Pro处理`
       }),
       { headers: { ...corsHeaders, "Content-Type": "application/json" } }
     );
