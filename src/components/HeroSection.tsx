@@ -129,20 +129,20 @@ export const HeroSection = () => {
             
             <div className="relative container-custom h-full flex items-center">
               <div className="max-w-3xl">
-                {/* Brand Logo Mark with enhanced animation */}
-                <div className={`flex items-center gap-3 mb-6 transition-all duration-700 delay-200 ${
+                {/* Brand Logo Mark with enhanced animation - hidden on mobile for cleaner layout */}
+                <div className={`hidden sm:flex items-center gap-3 mb-4 md:mb-6 transition-all duration-700 delay-200 ${
                   index === currentSlide ? "opacity-100 translate-x-0" : "opacity-0 -translate-x-20"
                 }`}>
-                  <div className="w-14 h-14 bg-accent rounded-xl flex items-center justify-center animate-pulse-glow relative overflow-hidden group">
-                    <span className="text-accent-foreground font-black text-2xl relative z-10">{language === 'zh' ? '飞' : 'F'}</span>
+                  <div className="w-10 h-10 md:w-14 md:h-14 bg-accent rounded-xl flex items-center justify-center animate-pulse-glow relative overflow-hidden group">
+                    <span className="text-accent-foreground font-black text-lg md:text-2xl relative z-10">{language === 'zh' ? '飞' : 'F'}</span>
                     <div className="absolute inset-0 bg-gradient-to-tr from-transparent via-white/30 to-transparent -translate-x-full animate-shine" />
                   </div>
-                  <div className="h-px w-20 bg-gradient-to-r from-accent to-transparent animate-expand-width"></div>
-                  <span className="text-primary-foreground/80 text-sm tracking-[0.3em] uppercase font-medium animate-text-glow">FlyMind</span>
+                  <div className="h-px w-12 md:w-20 bg-gradient-to-r from-accent to-transparent animate-expand-width"></div>
+                  <span className="text-primary-foreground/80 text-xs md:text-sm tracking-[0.2em] md:tracking-[0.3em] uppercase font-medium animate-text-glow">FlyMind</span>
                 </div>
 
                 {/* Title with character stagger animation */}
-                <h1 className={`text-4xl md:text-5xl lg:text-7xl font-black text-primary-foreground mb-6 leading-tight transition-all duration-700 delay-300 ${
+                <h1 className={`text-2xl sm:text-3xl md:text-5xl lg:text-7xl font-black text-primary-foreground mb-3 md:mb-6 leading-tight transition-all duration-700 delay-300 ${
                   index === currentSlide ? "opacity-100 translate-y-0" : "opacity-0 translate-y-16"
                 }`}>
                   {language === 'zh' ? (
@@ -169,10 +169,10 @@ export const HeroSection = () => {
                 </h1>
                 
                 {/* Subtitle with typewriter-like animation */}
-                <div className={`mb-8 transition-all duration-700 delay-500 ${
+                <div className={`mb-4 md:mb-8 transition-all duration-700 delay-500 ${
                   index === currentSlide ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
                 }`}>
-                  <p className="text-lg md:text-xl text-primary-foreground/90 leading-relaxed">
+                  <p className="text-sm sm:text-base md:text-xl text-primary-foreground/90 leading-relaxed">
                     {slide.subtitle.split(' · ').map((part, partIndex, arr) => (
                       <span key={partIndex} className="inline-block">
                         <span 
@@ -182,36 +182,36 @@ export const HeroSection = () => {
                           {part}
                         </span>
                         {partIndex < arr.length - 1 && (
-                          <span className="inline-block mx-2 text-accent animate-pulse">·</span>
+                          <span className="inline-block mx-1 md:mx-2 text-accent animate-pulse">·</span>
                         )}
                       </span>
                     ))}
                   </p>
-                  {/* Animated underline */}
-                  <div className="h-0.5 bg-gradient-to-r from-accent via-accent/50 to-transparent mt-4 animate-line-grow" style={{ animationDelay: '1s' }} />
+                  {/* Animated underline - hidden on small mobile */}
+                  <div className="hidden sm:block h-0.5 bg-gradient-to-r from-accent via-accent/50 to-transparent mt-3 md:mt-4 animate-line-grow" style={{ animationDelay: '1s' }} />
                 </div>
                 
                 {/* Buttons with enhanced animation */}
-                <div className={`flex flex-wrap gap-4 transition-all duration-700 delay-700 ${
+                <div className={`flex flex-wrap gap-2 sm:gap-4 transition-all duration-700 delay-700 ${
                   index === currentSlide ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
                 }`}>
                   <Link to={slide.link}>
-                    <Button className="group bg-accent hover:bg-orange-light text-accent-foreground px-8 py-6 text-lg font-semibold shadow-button hover:shadow-glow transition-all duration-300 hover:scale-105 relative overflow-hidden">
+                    <Button className="group bg-accent hover:bg-orange-light text-accent-foreground px-4 sm:px-6 md:px-8 py-3 sm:py-4 md:py-6 text-sm sm:text-base md:text-lg font-semibold shadow-button hover:shadow-glow transition-all duration-300 hover:scale-105 relative overflow-hidden">
                       <span className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700" />
-                      <Play className="w-5 h-5 mr-2 group-hover:scale-125 group-hover:rotate-12 transition-transform duration-300" />
+                      <Play className="w-4 h-4 md:w-5 md:h-5 mr-1 md:mr-2 group-hover:scale-125 group-hover:rotate-12 transition-transform duration-300" />
                       <span className="relative z-10">{slide.cta}</span>
                     </Button>
                   </Link>
                   <Link to="/contact">
-                    <Button className="group bg-primary-foreground/10 border-2 border-primary-foreground/40 text-primary-foreground hover:bg-primary-foreground/20 hover:border-accent px-8 py-6 text-lg font-semibold backdrop-blur-sm transition-all duration-300 hover:scale-105 relative overflow-hidden">
+                    <Button className="group bg-primary-foreground/10 border-2 border-primary-foreground/40 text-primary-foreground hover:bg-primary-foreground/20 hover:border-accent px-4 sm:px-6 md:px-8 py-3 sm:py-4 md:py-6 text-sm sm:text-base md:text-lg font-semibold backdrop-blur-sm transition-all duration-300 hover:scale-105 relative overflow-hidden">
                       <span className="absolute inset-0 bg-gradient-to-r from-accent/0 via-accent/20 to-accent/0 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
                       <span className="relative z-10 group-hover:text-accent transition-colors duration-300">{t('hero.btn.contact')}</span>
                     </Button>
                   </Link>
                 </div>
 
-                {/* Floating stats badges */}
-                <div className={`flex gap-6 mt-10 transition-all duration-700 delay-[900ms] ${
+                {/* Floating stats badges - hidden on mobile, simplified on tablet */}
+                <div className={`hidden md:flex gap-3 lg:gap-6 mt-6 lg:mt-10 transition-all duration-700 delay-[900ms] ${
                   index === currentSlide ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
                 }`}>
                   {[
@@ -221,11 +221,11 @@ export const HeroSection = () => {
                   ].map((stat, statIndex) => (
                     <div 
                       key={statIndex}
-                      className="flex items-center gap-2 px-4 py-2 bg-primary-foreground/10 backdrop-blur-sm rounded-full border border-primary-foreground/20 animate-float hover:border-accent/50 hover:bg-primary-foreground/15 transition-all duration-300 cursor-default"
+                      className="flex items-center gap-1 lg:gap-2 px-3 lg:px-4 py-1.5 lg:py-2 bg-primary-foreground/10 backdrop-blur-sm rounded-full border border-primary-foreground/20 animate-float hover:border-accent/50 hover:bg-primary-foreground/15 transition-all duration-300 cursor-default"
                       style={{ animationDelay: `${statIndex * 0.5}s`, animationDuration: `${3 + statIndex * 0.5}s` }}
                     >
-                      <span className="text-accent font-bold text-lg">{stat.value}</span>
-                      <span className="text-primary-foreground/70 text-sm">{stat.label}</span>
+                      <span className="text-accent font-bold text-base lg:text-lg">{stat.value}</span>
+                      <span className="text-primary-foreground/70 text-xs lg:text-sm">{stat.label}</span>
                     </div>
                   ))}
                 </div>
@@ -264,30 +264,30 @@ export const HeroSection = () => {
           </div>
         ))}
 
-        {/* Enhanced Navigation Arrows */}
+        {/* Enhanced Navigation Arrows - smaller on mobile */}
         <button
           onClick={prevSlide}
-          className="absolute left-6 top-1/2 -translate-y-1/2 w-14 h-14 rounded-full bg-primary-foreground/10 backdrop-blur-md border border-primary-foreground/20 flex items-center justify-center text-primary-foreground hover:bg-accent hover:border-accent transition-all duration-300 group z-20 hover:scale-110"
+          className="absolute left-2 sm:left-4 md:left-6 top-1/2 -translate-y-1/2 w-10 h-10 sm:w-12 sm:h-12 md:w-14 md:h-14 rounded-full bg-primary-foreground/10 backdrop-blur-md border border-primary-foreground/20 flex items-center justify-center text-primary-foreground hover:bg-accent hover:border-accent transition-all duration-300 group z-20 hover:scale-110"
         >
-          <ChevronLeft className="w-6 h-6 group-hover:scale-125 group-hover:-translate-x-0.5 transition-all duration-300" />
+          <ChevronLeft className="w-5 h-5 md:w-6 md:h-6 group-hover:scale-125 group-hover:-translate-x-0.5 transition-all duration-300" />
           <span className="absolute inset-0 rounded-full bg-accent/20 scale-0 group-hover:scale-100 transition-transform duration-300" />
         </button>
         <button
           onClick={nextSlide}
-          className="absolute right-6 top-1/2 -translate-y-1/2 w-14 h-14 rounded-full bg-primary-foreground/10 backdrop-blur-md border border-primary-foreground/20 flex items-center justify-center text-primary-foreground hover:bg-accent hover:border-accent transition-all duration-300 group z-20 hover:scale-110"
+          className="absolute right-2 sm:right-4 md:right-6 top-1/2 -translate-y-1/2 w-10 h-10 sm:w-12 sm:h-12 md:w-14 md:h-14 rounded-full bg-primary-foreground/10 backdrop-blur-md border border-primary-foreground/20 flex items-center justify-center text-primary-foreground hover:bg-accent hover:border-accent transition-all duration-300 group z-20 hover:scale-110"
         >
-          <ChevronRight className="w-6 h-6 group-hover:scale-125 group-hover:translate-x-0.5 transition-all duration-300" />
+          <ChevronRight className="w-5 h-5 md:w-6 md:h-6 group-hover:scale-125 group-hover:translate-x-0.5 transition-all duration-300" />
           <span className="absolute inset-0 rounded-full bg-accent/20 scale-0 group-hover:scale-100 transition-transform duration-300" />
         </button>
 
         {/* Enhanced Progress Dots */}
-        <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex gap-3 z-20">
+        <div className="absolute bottom-4 sm:bottom-6 md:bottom-8 left-1/2 -translate-x-1/2 flex gap-2 sm:gap-3 z-20">
           {slides.map((_, index) => (
             <button
               key={index}
               onClick={() => setCurrentSlide(index)}
               className={`relative rounded-full transition-all duration-500 overflow-hidden group ${
-                index === currentSlide ? 'w-12 h-3' : 'w-3 h-3 hover:w-6'
+                index === currentSlide ? 'w-8 sm:w-10 md:w-12 h-2 sm:h-2.5 md:h-3' : 'w-2 sm:w-2.5 md:w-3 h-2 sm:h-2.5 md:h-3 hover:w-4 sm:hover:w-5 md:hover:w-6'
               }`}
             >
               <div className={`absolute inset-0 rounded-full transition-all duration-300 ${
@@ -303,8 +303,8 @@ export const HeroSection = () => {
           ))}
         </div>
 
-        {/* Enhanced Scroll indicator */}
-        <div className="absolute bottom-8 right-8 flex flex-col items-center gap-2 text-primary-foreground/60 z-20 group cursor-pointer hover:text-accent transition-colors duration-300">
+        {/* Enhanced Scroll indicator - hidden on mobile */}
+        <div className="hidden md:flex absolute bottom-8 right-8 flex-col items-center gap-2 text-primary-foreground/60 z-20 group cursor-pointer hover:text-accent transition-colors duration-300">
           <span className="text-xs tracking-widest rotate-90 origin-center translate-y-8 group-hover:text-accent transition-colors duration-300">SCROLL</span>
           <div className="w-px h-16 bg-gradient-to-b from-primary-foreground/60 to-transparent animate-scroll-indicator group-hover:from-accent transition-colors duration-300" />
           <div className="w-6 h-10 border-2 border-primary-foreground/40 rounded-full flex justify-center pt-2 group-hover:border-accent transition-colors duration-300">
