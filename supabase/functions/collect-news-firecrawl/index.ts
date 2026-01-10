@@ -28,12 +28,12 @@ const CATEGORY_CONFIG = {
     style: "客观、全面、有深度分析，关注国际政策和市场趋势",
   },
   "产品资讯": {
-    keywords: ["new drone release", "drone product launch", "UAV specifications"],
-    style: "详细、技术性、突出产品特点和创新之处",
+    keywords: ["tethered drone", "firefighting drone", "cargo drone", "drone gimbal"],
+    style: "详细、技术性、突出产品特点和创新之处，介绍产品功能和应用场景",
   },
   "技术分享": {
-    keywords: ["drone technology", "UAV innovation", "drone AI", "autonomous flight"],
-    style: "专业、深入、注重技术细节和前沿发展",
+    keywords: ["video transmitter", "flight controller", "drone battery", "ELRS receiver"],
+    style: "专业科普、深入浅出、解释技术原理和应用方法，适合技术爱好者阅读",
   },
 };
 
@@ -458,22 +458,44 @@ Deno.serve(async (req) => {
           "UAV industry market analysis",
           "eVTOL air taxi development",
           "drone airspace management",
-          "tethered drone applications",
-          "firefighting drone deployment",
+          "commercial drone market trends",
+          "urban air mobility development",
         ],
         "产品资讯": [
-          "new drone product launch 2025",
-          "tethered drone system release",
-          "firefighting UAV technology",
-          "drone delivery system",
-          "industrial drone camera gimbal",
+          // 系留无人机产品
+          "tethered drone system specifications",
+          "tethered UAV surveillance platform",
+          "persistent aerial surveillance drone",
+          // 消防无人机产品
+          "firefighting drone payload capacity",
+          "fire suppression UAV system",
+          // 物流无人机产品
+          "cargo drone delivery specifications",
+          "heavy lift drone logistics",
+          // 无人机机场
+          "drone in a box autonomous station",
+          "automatic drone charging station",
+          // 云台相机
+          "drone gimbal stabilizer technology",
+          "thermal imaging payload drone",
         ],
         "技术分享": [
-          "drone AI autonomous flight",
-          "UAV swarm technology",
-          "drone beyond visual line of sight",
-          "tethered drone power system",
-          "drone computer vision innovation",
+          // 图传技术
+          "video transmission drone technology explained",
+          "FPV video transmitter types comparison",
+          "long range video link drone",
+          // 飞控技术
+          "drone flight controller technology",
+          "autopilot system drone explained",
+          // 电池与动力
+          "drone battery technology guide",
+          "tethered drone power supply system",
+          // 通信技术
+          "drone communication link technology",
+          "ELRS ExpressLRS drone receiver",
+          // 应用技术
+          "drone photogrammetry technology guide",
+          "thermal imaging drone inspection how to",
         ],
       };
 
