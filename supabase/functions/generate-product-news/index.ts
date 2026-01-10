@@ -12,8 +12,8 @@ const PRODUCT_CATEGORIES = {
     searchTerms: ["digital FPV video transmitter", "drone video link", "HD drone transmission", "FPV wireless video", "drone fpv system"],
     imagePrompt: "Digital FPV video transmitter module, drone component, high-tech electronics",
     products: [
-      { name: "FlyMind Link2 数字高清图传", desc: "WiFi数字传输，1080P 60fps，低延迟高画质" },
-      { name: "FlyMind Link-RX 数字高清接收器", desc: "1080P HDMI输出，内置32G存储，支持OpenIPC/Ruby FPV" }
+      { name: "CANI Link2 数字高清图传", desc: "WiFi数字传输，1080P 60fps，低延迟高画质" },
+      { name: "CANI Link-RX 数字高清接收器", desc: "1080P HDMI输出，内置32G存储，支持OpenIPC/Ruby FPV" }
     ],
     techTopics: [
       { title: "什么是无人机数字图传？", desc: "数字图传的工作原理、技术特点、与模拟图传的区别" },
@@ -393,13 +393,13 @@ function safeParseJSON(text: string): any {
 
 // 生成技术分享文章
 async function generateTechArticle(topic: { title: string; desc: string }, categoryName: string, apiKey: string) {
-  const prompt = `你是飞迈科技的技术编辑，撰写产品技术科普文章。
+  const prompt = `你是长凌科技（CANI）的技术编辑，撰写产品技术科普文章。
 
 标题：${topic.title}
 方向：${topic.desc}
 类别：${categoryName}
 
-要求：技术科普，What/Why/How结构，1000-1500字，HTML格式，分多个段落。
+要求：技术科普，What/Why/How结构，1000-1500字，HTML格式，分多个段落。文章中必须体现长凌科技的品牌名称。
 
 返回JSON（确保是有效JSON）：
 {"title":"中文标题","summary":"100字摘要","content":"<p>HTML正文，多个段落</p>","keywords":["关键词1","关键词2","关键词3"]}`;
@@ -427,13 +427,13 @@ async function generateTechArticle(topic: { title: string; desc: string }, categ
 
 // 生成产品资讯文章
 async function generateProductNews(product: { name: string; desc: string }, categoryName: string, apiKey: string) {
-  const prompt = `你是飞迈科技的产品编辑，撰写产品资讯文章。
+  const prompt = `你是长凌科技（CANI）的产品编辑，撰写产品资讯文章。
 
 产品：${product.name}
 描述：${product.desc}
 类别：${categoryName}
 
-要求：产品发布风格，800-1200字，HTML格式，分多个段落。
+要求：产品发布风格，800-1200字，HTML格式，分多个段落。文章中必须体现长凌科技的品牌名称。
 
 返回JSON（确保是有效JSON）：
 {"title":"中文标题","summary":"100字摘要","content":"<p>HTML正文，多个段落</p>","keywords":["关键词1","关键词2","关键词3"]}`;
@@ -462,21 +462,21 @@ async function generateProductNews(product: { name: string; desc: string }, cate
 // 生成公司新闻
 async function generateCompanyNews(apiKey: string, newsIndex: number) {
   const companyNewsTopics = [
-    { title: "飞迈科技完成新一轮产品升级", desc: "全系产品性能提升" },
-    { title: "飞迈科技参加行业展会", desc: "展示最新产品" },
-    { title: "飞迈科技与无人机厂商达成合作", desc: "拓展行业应用" },
-    { title: "飞迈科技发布新品预告", desc: "即将推出重磅产品" },
+    { title: "长凌科技完成新一轮产品升级", desc: "全系产品性能提升" },
+    { title: "长凌科技参加行业展会", desc: "展示最新产品" },
+    { title: "长凌科技与无人机厂商达成合作", desc: "拓展行业应用" },
+    { title: "长凌科技发布新品预告", desc: "即将推出重磅产品" },
   ];
 
   const topic = companyNewsTopics[newsIndex % companyNewsTopics.length];
   
-  const prompt = `你是飞迈科技的新闻编辑，撰写公司新闻稿。
+  const prompt = `你是长凌科技（CANI）的新闻编辑，撰写公司新闻稿。
 
-公司：飞迈科技，专注工业无人机零配件（数字图传、云台、飞控电调、ELRS接收机）。
+公司：长凌科技（CANI），专注工业无人机零配件（数字图传、云台、飞控电调、ELRS接收机）。
 主题：${topic.title}
 方向：${topic.desc}
 
-要求：正式新闻稿，600-1000字，HTML格式，分多个段落。
+要求：正式新闻稿，600-1000字，HTML格式，分多个段落。文章中必须体现长凌科技的品牌名称。
 
 返回JSON（确保是有效JSON）：
 {"title":"中文标题","summary":"80字摘要","content":"<p>HTML正文，多个段落</p>","keywords":["关键词1","关键词2","关键词3"]}`;
@@ -556,7 +556,7 @@ Deno.serve(async (req) => {
         is_auto_generated: true,
         ai_edited: true,
         published_at: new Date().toISOString(),
-        source_name: "飞迈科技",
+        source_name: "长凌科技",
       });
       
       if (!error) {

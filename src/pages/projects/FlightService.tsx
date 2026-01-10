@@ -22,7 +22,7 @@ const FlightService = () => {
     <div className="min-h-screen">
       <SEO 
         title={isEn ? "Flight Services" : "飞行服务"} 
-        description={isEn ? "Feimai Technology professional drone flight operation services." : "飞迈科技专业无人机飞行作业服务。"} 
+        description={isEn ? "CANI Technology professional drone flight operation services." : "长凌科技专业无人机飞行作业服务。"} 
         keywords={isEn ? "drone flight service,aerial photography,power inspection,crop spraying" : "无人机飞行服务,航拍,电力巡检,植保"} 
         url="/projects/flight-service" 
       />

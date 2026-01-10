@@ -39,8 +39,8 @@ const Emergency = () => {
       <SEO
         title={isEn ? "Emergency Rescue Applications" : "应急救援应用"}
         description={isEn 
-          ? "Feimai Technology drone emergency rescue solutions for rescue operations, site monitoring, communication relay, and more."
-          : "飞迈科技无人机应急救援解决方案，应用于应急救援、现场监控、通信中继等领域。"}
+          ? "CANI Technology drone emergency rescue solutions for rescue operations, site monitoring, communication relay, and more."
+          : "长凌科技无人机应急救援解决方案，应用于应急救援、现场监控、通信中继等领域。"}
         keywords={isEn 
           ? "emergency drone,rescue drone,communication relay,disaster assessment,emergency response"
           : "应急无人机,救援无人机,通信中继,灾情评估,应急响应"}

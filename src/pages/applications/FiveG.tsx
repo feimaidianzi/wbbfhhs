@@ -39,8 +39,8 @@ const FiveG = () => {
       <SEO
         title={isEn ? "5G Connected Applications" : "5G联网应用"}
         description={isEn 
-          ? "Feimai Technology 5G connected drone solutions for remote control and data transmission via 5G cellular networks."
-          : "飞迈科技5G联网无人机解决方案，通过5G蜂窝网络实现远程控制和数据传输。"}
+          ? "CANI Technology 5G connected drone solutions for remote control and data transmission via 5G cellular networks."
+          : "长凌科技5G联网无人机解决方案，通过5G蜂窝网络实现远程控制和数据传输。"}
         keywords={isEn 
           ? "5G drone,5G connected,remote control,HD streaming,low latency"
           : "5G无人机,5G联网,远程控制,高清回传,低延迟"}

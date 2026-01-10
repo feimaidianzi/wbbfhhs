@@ -40,7 +40,7 @@ const ProjectTraining = () => {
     <div className="min-h-screen">
       <SEO 
         title={isEn ? "Drone Training" : "无人机培训"} 
-        description={isEn ? "Feimai Technology provides CAAC certified drone pilot training services." : "飞迈科技提供CAAC认证的无人机驾驶员培训服务。"} 
+        description={isEn ? "CANI Technology provides CAAC certified drone pilot training services." : "长凌科技提供CAAC认证的无人机驾驶员培训服务。"} 
         keywords={isEn ? "drone training,CAAC certification,pilot training" : "无人机培训,CAAC认证,飞手培训"} 
         url="/projects/training" 
       />

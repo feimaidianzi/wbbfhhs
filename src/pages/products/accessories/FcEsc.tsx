@@ -438,8 +438,8 @@ const FcEsc = () => {
   return (
     <>
       <SEO 
-        title="飞控/电调 - 飞塔系列 - 飞迈科技"
-        description="飞迈科技飞控电调产品系列，包括F405/F722/H743飞控、55A-100A电调、飞塔套装、六合一电调等，专业FPV穿越机电子产品"
+        title="飞控/电调 - 飞塔系列 - 长凌科技"
+        description="长凌科技飞控电调产品系列，包括F405/F722/H743飞控、55A-100A电调、飞塔套装、六合一电调等，专业FPV穿越机电子产品"
       />
       <Header />
       <main className="min-h-screen bg-background">

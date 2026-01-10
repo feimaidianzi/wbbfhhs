@@ -132,13 +132,13 @@ export const Footer = () => {
                     <p className="text-sm font-medium group-hover:text-accent transition-colors">176-7404-8404</p>
                   </div>
                 </a>
-                <a href="mailto:market@cani.com.cn" className="flex items-center gap-3 p-3 rounded-lg bg-primary-foreground/5 hover:bg-primary-foreground/10 transition-colors group">
+                <a href="mailto:market@caniuav.com" className="flex items-center gap-3 p-3 rounded-lg bg-primary-foreground/5 hover:bg-primary-foreground/10 transition-colors group">
                   <div className="w-10 h-10 rounded-full bg-accent/20 flex items-center justify-center flex-shrink-0">
                     <Mail className="w-5 h-5 text-accent" />
                   </div>
                   <div>
                     <p className="text-xs text-primary-foreground/60">{t('footer.email')}</p>
-                    <p className="text-sm font-medium group-hover:text-accent transition-colors whitespace-nowrap">market@cani.com.cn</p>
+                    <p className="text-sm font-medium group-hover:text-accent transition-colors whitespace-nowrap">market@caniuav.com</p>
                   </div>
                 </a>
               </div>

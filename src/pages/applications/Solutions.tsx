@@ -61,7 +61,7 @@ const Solutions = () => {
     <div className="min-h-screen">
       <SEO
         title="解决方案"
-        description="飞迈科技提供完整的无人机行业解决方案，包括方案设计、设备集成、培训服务和售后支持。"
+        description="长凌科技提供完整的无人机行业解决方案，包括方案设计、设备集成、培训服务和售后支持。"
         keywords="无人机解决方案,行业应用方案,定制开发,培训服务,售后支持"
         url="/applications/solutions"
       />

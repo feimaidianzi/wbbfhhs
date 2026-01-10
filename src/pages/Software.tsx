@@ -131,8 +131,8 @@ const Software = () => {
       <SEO
         title={language === 'zh' ? "软件系统" : "Software Systems"}
         description={language === 'zh' 
-          ? "飞迈科技无人机软件系统，包括地面站控制系统、航线规划系统、云平台管理系统、数据处理系统等专业软件解决方案。"
-          : "Feimai Technology drone software systems, including ground control systems, route planning systems, cloud platform management systems, data processing systems and other professional software solutions."}
+          ? "长凌科技无人机软件系统，包括地面站控制系统、航线规划系统、云平台管理系统、数据处理系统等专业软件解决方案。"
+          : "CANI Technology drone software systems, including ground control systems, route planning systems, cloud platform management systems, data processing systems and other professional software solutions."}
         keywords={language === 'zh' 
           ? "无人机软件,地面站系统,航线规划,云平台管理,无人机数据处理,飞控软件"
           : "drone software,ground station system,route planning,cloud platform management,drone data processing,flight control software"}
@@ -173,8 +173,8 @@ const Software = () => {
               </h2>
               <p className="text-muted-foreground max-w-2xl mx-auto">
                 {language === 'zh' 
-                  ? "飞迈科技自主研发的软件系统，覆盖无人机作业全流程"
-                  : "Self-developed software systems by Feimai Technology, covering the entire drone operation process"}
+                  ? "长凌科技自主研发的软件系统，覆盖无人机作业全流程"
+                  : "Self-developed software systems by CANI Technology, covering the entire drone operation process"}
               </p>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -223,8 +223,8 @@ const Software = () => {
                 </h2>
                 <p className="text-muted-foreground mb-4">
                   {language === 'zh' 
-                    ? "飞迈科技软件系统采用模块化设计，支持灵活组合和定制开发，可与客户现有系统无缝集成。"
-                    : "Feimai Technology software systems adopt modular design, supporting flexible combination and custom development, seamlessly integrating with customers' existing systems."}
+                    ? "长凌科技软件系统采用模块化设计，支持灵活组合和定制开发，可与客户现有系统无缝集成。"
+                    : "CANI Technology software systems adopt modular design, supporting flexible combination and custom development, seamlessly integrating with customers' existing systems."}
                 </p>
                 <p className="text-muted-foreground mb-6">
                   {language === 'zh' 
