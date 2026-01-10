@@ -7,7 +7,7 @@ import { SEO, createBreadcrumbStructuredData } from "@/components/SEO";
 import { useLanguage } from "@/contexts/LanguageContext";
 
 const getMilestonesData = (language: 'zh' | 'en') => [
-  { year: "2015", title: language === 'zh' ? "公司成立" : "Founded", description: language === 'zh' ? "飞迈科技在湖南长沙正式成立，开启无人机研发之路" : "FlyMind officially established in Changsha, Hunan, starting the drone R&D journey" },
+  { year: "2015", title: language === 'zh' ? "公司成立" : "Founded", description: language === 'zh' ? "长凌科技在湖南长沙正式成立，开启无人机研发之路" : "CANI officially established in Changsha, Hunan, starting the drone R&D journey" },
   { year: "2017", title: language === 'zh' ? "首款产品" : "First Product", description: language === 'zh' ? "成功研发首款工业级多旋翼无人机" : "Successfully developed the first industrial multi-rotor drone" },
   { year: "2019", title: language === 'zh' ? "技术突破" : "Tech Breakthrough", description: language === 'zh' ? "系留无人机技术取得重大突破，获得多项专利" : "Major breakthrough in tethered drone technology, obtained multiple patents" },
   { year: "2021", title: language === 'zh' ? "规模扩张" : "Expansion", description: language === 'zh' ? "全国服务网络覆盖20+城市，员工超过200人" : "Nationwide service network covering 20+ cities, over 200 employees" },
@@ -36,15 +36,15 @@ const About = () => {
 
   const breadcrumbData = createBreadcrumbStructuredData([
     { name: language === 'zh' ? '首页' : 'Home', url: '/' },
-    { name: language === 'zh' ? '关于飞迈' : 'About Us', url: '/about' },
+    { name: language === 'zh' ? '关于长凌' : 'About Us', url: '/about' },
   ]);
 
   return (
     <div className="min-h-screen">
       <SEO
-        title={language === 'zh' ? "关于飞迈" : "About Us"}
-        description={language === 'zh' ? "飞迈科技有限公司成立于2015年，是一家专注于工业无人机研发、生产和销售的高新技术企业，拥有200+专业员工、50+发明专利。" : "FlyMind Technology, founded in 2015, is a high-tech enterprise focusing on industrial drone R&D, manufacturing and sales, with 200+ professionals and 50+ patents."}
-        keywords="飞迈科技,FlyMind,关于我们,无人机公司,工业无人机企业,无人机研发"
+        title={language === 'zh' ? "关于长凌" : "About Us"}
+        description={language === 'zh' ? "长凌科技有限公司成立于2015年，是一家专注于工业无人机研发、生产和销售的高新技术企业，拥有200+专业员工、50+发明专利。" : "CANI Technology, founded in 2015, is a high-tech enterprise focusing on industrial drone R&D, manufacturing and sales, with 200+ professionals and 50+ patents."}
+        keywords="长凌科技,CANI,关于我们,无人机公司,工业无人机企业,无人机研发"
         url="/about"
         structuredData={breadcrumbData}
       />
@@ -63,7 +63,7 @@ const About = () => {
           <div className="relative container-custom h-full flex items-center">
             <div className="max-w-2xl">
               <h1 className="text-3xl md:text-5xl font-bold text-primary-foreground mb-4">
-                {language === 'zh' ? '关于飞迈科技' : 'About FlyMind'}
+                {language === 'zh' ? '关于长凌科技' : 'About CANI'}
               </h1>
               <p className="text-lg md:text-xl text-primary-foreground/90 mb-6">
                 {language === 'zh' ? '专业无人机研发制造商，致力于为各行业提供智能化空中解决方案' : 'Professional drone R&D manufacturer, committed to providing intelligent aerial solutions for various industries'}
@@ -82,13 +82,13 @@ const About = () => {
                 </h2>
                 <p className="text-muted-foreground mb-4 leading-relaxed">
                   {language === 'zh' 
-                    ? '飞迈科技有限公司成立于2015年，是一家专注于工业无人机研发、生产和销售的高新技术企业。公司总部位于湖南长沙，拥有完整的无人机产业链，从飞控系统、动力系统到整机制造均具备自主研发能力。'
-                    : 'FlyMind Technology, founded in 2015, is a high-tech enterprise focusing on industrial drone R&D, manufacturing and sales. Headquartered in Changsha, Hunan, the company has a complete drone industry chain with independent R&D capabilities from flight control systems to complete aircraft manufacturing.'}
+                    ? '长凌科技有限公司成立于2015年，是一家专注于工业无人机研发、生产和销售的高新技术企业。公司总部位于湖南长沙，拥有完整的无人机产业链，从飞控系统、动力系统到整机制造均具备自主研发能力。'
+                    : 'CANI Technology, founded in 2015, is a high-tech enterprise focusing on industrial drone R&D, manufacturing and sales. Headquartered in Changsha, Hunan, the company has a complete drone industry chain with independent R&D capabilities from flight control systems to complete aircraft manufacturing.'}
                 </p>
                 <p className="text-muted-foreground mb-4 leading-relaxed">
                   {language === 'zh'
-                    ? '经过多年发展，飞迈科技已成为国内领先的工业无人机解决方案提供商，产品广泛应用于电力巡检、消防救援、物流配送、农业植保等多个领域，服务客户超过1000家。'
-                    : 'After years of development, FlyMind has become a leading industrial drone solution provider in China, with products widely used in power inspection, firefighting, logistics, agriculture and other fields, serving over 1000 clients.'}
+                    ? '经过多年发展，长凌科技已成为国内领先的工业无人机解决方案提供商，产品广泛应用于电力巡检、消防救援、物流配送、农业植保等多个领域，服务客户超过1000家。'
+                    : 'After years of development, CANI has become a leading industrial drone solution provider in China, with products widely used in power inspection, firefighting, logistics, agriculture and other fields, serving over 1000 clients.'}
                 </p>
                 <p className="text-muted-foreground leading-relaxed">
                   {language === 'zh'
@@ -182,8 +182,8 @@ const About = () => {
             </h2>
             <p className="text-primary-foreground/80 mb-8 max-w-2xl mx-auto">
               {language === 'zh' 
-                ? '飞迈科技期待为您提供专业的无人机解决方案，共同推动行业智能化发展'
-                : 'FlyMind looks forward to providing you with professional drone solutions, jointly promoting intelligent development of the industry'}
+                ? '长凌科技期待为您提供专业的无人机解决方案，共同推动行业智能化发展'
+                : 'CANI looks forward to providing you with professional drone solutions, jointly promoting intelligent development of the industry'}
             </p>
             <Button className="bg-accent hover:bg-orange-light text-accent-foreground px-8 py-3">
               {language === 'zh' ? '联系我们' : 'Contact Us'}

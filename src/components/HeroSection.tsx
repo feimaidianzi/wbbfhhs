@@ -134,11 +134,11 @@ export const HeroSection = () => {
                   index === currentSlide ? "opacity-100 translate-x-0" : "opacity-0 -translate-x-20"
                 }`}>
                   <div className="w-10 h-10 md:w-14 md:h-14 bg-accent rounded-xl flex items-center justify-center animate-pulse-glow relative overflow-hidden group">
-                    <span className="text-accent-foreground font-black text-lg md:text-2xl relative z-10">{language === 'zh' ? '飞' : 'F'}</span>
+                    <span className="text-accent-foreground font-black text-lg md:text-2xl relative z-10">{language === 'zh' ? '长' : 'C'}</span>
                     <div className="absolute inset-0 bg-gradient-to-tr from-transparent via-white/30 to-transparent -translate-x-full animate-shine" />
                   </div>
                   <div className="h-px w-12 md:w-20 bg-gradient-to-r from-accent to-transparent animate-expand-width"></div>
-                  <span className="text-primary-foreground/80 text-xs md:text-sm tracking-[0.2em] md:tracking-[0.3em] uppercase font-medium animate-text-glow">FlyMind</span>
+                  <span className="text-primary-foreground/80 text-xs md:text-sm tracking-[0.2em] md:tracking-[0.3em] uppercase font-medium animate-text-glow">CANI</span>
                 </div>
 
                 {/* Title with character stagger animation */}

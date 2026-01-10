@@ -20,10 +20,10 @@ const Index = () => {
   const homeStructuredData = {
     '@context': 'https://schema.org',
     '@type': 'Organization',
-    name: language === 'zh' ? '飞迈科技有限公司' : 'FlyMind Technology Co., Ltd.',
-    alternateName: 'FlyMind',
-    url: 'https://www.flymind.com',
-    logo: 'https://www.flymind.com/logo.png',
+    name: language === 'zh' ? '长凌科技有限公司' : 'CANI Technology Co., Ltd.',
+    alternateName: 'CANI',
+    url: 'https://www.cani.com',
+    logo: 'https://www.cani.com/logo.png',
     description: language === 'zh' 
       ? '专业无人机配件供应商，提供数字图传、VTX视频发射器、飞控电调、云台吊舱等无人机配件'
       : 'Professional drone accessories supplier, providing digital FPV, VTX video transmitters, flight controllers, gimbals and other drone accessories',
@@ -46,11 +46,11 @@ const Index = () => {
       <SEO
         title={language === 'zh' ? "首页" : "Home"}
         description={language === 'zh' 
-          ? "飞迈科技有限公司，专注于工业无人机零配件，提供数字图传、VTX视频发射器、飞控电调、云台吊舱、ELRS遥控等专业无人机配件。"
-          : "FlyMind Technology Co., Ltd., focusing on industrial drone accessories, providing digital FPV, VTX video transmitters, flight controllers, gimbals, ELRS remote controls and other professional drone accessories."}
+          ? "长凌科技有限公司，专注于工业无人机零配件，提供数字图传、VTX视频发射器、飞控电调、云台吊舱、ELRS遥控等专业无人机配件。"
+          : "CANI Technology Co., Ltd., focusing on industrial drone accessories, providing digital FPV, VTX video transmitters, flight controllers, gimbals, ELRS remote controls and other professional drone accessories."}
         keywords={language === 'zh' 
-          ? "无人机配件,数字图传,VTX视频发射器,飞控电调,云台吊舱,ELRS遥控,飞迈,FlyMind"
-          : "drone accessories,digital FPV,VTX video transmitter,flight controller,gimbal,ELRS,FlyMind"}
+          ? "无人机配件,数字图传,VTX视频发射器,飞控电调,云台吊舱,ELRS遥控,长凌,CANI"
+          : "drone accessories,digital FPV,VTX video transmitter,flight controller,gimbal,ELRS,CANI"}
         url="/"
         structuredData={homeStructuredData}
       />

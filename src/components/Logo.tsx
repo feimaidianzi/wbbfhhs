@@ -9,8 +9,8 @@ export const Logo = ({ className = "", showLink = true }: LogoProps) => {
   const logoContent = (
     <div className={`flex items-center gap-1 ${className}`}>
       <span className="font-black text-xl md:text-2xl tracking-tight">
-        <span className="text-accent">Fly</span>
-        <span className="text-primary-foreground">Mind</span>
+        <span className="text-accent">CA</span>
+        <span className="text-primary-foreground">NI</span>
       </span>
     </div>
   );
@@ -25,8 +25,8 @@ export const Logo = ({ className = "", showLink = true }: LogoProps) => {
 export const LogoDark = ({ className = "" }: { className?: string }) => (
   <div className={`flex items-center gap-1 ${className}`}>
     <span className="font-black text-xl md:text-2xl tracking-tight">
-      <span className="text-accent">Fly</span>
-      <span className="text-foreground">Mind</span>
+      <span className="text-accent">CA</span>
+      <span className="text-foreground">NI</span>
     </span>
   </div>
 );
