@@ -19,7 +19,8 @@ import {
   TrendingUp,
   TrendingDown,
   Database,
-  Upload
+  Upload,
+  Bot
 } from 'lucide-react';
 import { User } from '@supabase/supabase-js';
 import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, BarChart, Bar } from 'recharts';
@@ -257,6 +258,13 @@ const AdminDashboard = () => {
       description: '导入硬编码产品到数据库', 
       href: '/feimai-admin-console/data-import',
       color: 'from-teal-500 to-cyan-500'
+    },
+    { 
+      icon: Bot, 
+      title: '自动新闻采集', 
+      description: 'AI自动采集编辑行业新闻', 
+      href: '/feimai-admin-console/news-collection',
+      color: 'from-amber-500 to-orange-500'
     },
     { 
       icon: Settings, 
