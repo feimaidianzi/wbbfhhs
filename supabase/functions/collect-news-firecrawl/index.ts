@@ -5,35 +5,35 @@ const corsHeaders = {
   "Access-Control-Allow-Headers": "authorization, x-client-info, apikey, content-type",
 };
 
-// 网站产品相关的关键词 - 重点是多旋翼之外的产品
+// 国际新闻关键词 - 英文搜索，获取国际无人机行业新闻
 const PRODUCT_KEYWORDS = {
-  "系留无人机": ["系留无人机", "系留式无人机", "有缆无人机", "系留平台", "tethered drone", "系留升空"],
-  "消防无人机": ["消防无人机", "灭火无人机", "森林防火无人机", "应急消防", "firefighting drone", "消防救援无人机"],
-  "物流无人机": ["物流无人机", "配送无人机", "货运无人机", "快递无人机", "delivery drone", "无人机送货"],
-  "巡检无人机": ["电力巡检无人机", "输电线路巡检", "光伏巡检", "风电巡检", "inspection drone", "智能巡检"],
-  "无人机机场": ["无人机机场", "无人机机库", "无人值守机场", "自动机场", "drone airport", "drone nest"],
-  "云台相机": ["无人机云台", "航拍云台", "红外云台", "双光云台", "gimbal camera", "吊舱载荷"],
-  "无人机培训": ["无人机培训", "无人机飞手", "AOPA培训", "无人机驾照", "drone training", "执照考试"],
-  "表演无人机": ["无人机编队", "无人机表演", "灯光秀", "集群表演", "drone show", "无人机蜂群"],
+  "系留无人机": ["tethered drone system", "tethered UAV technology", "persistent surveillance drone", "tethered drone power"],
+  "消防无人机": ["firefighting drone", "fire suppression UAV", "wildfire drone", "emergency response drone"],
+  "物流无人机": ["drone delivery service", "cargo drone", "logistics UAV", "last mile drone delivery"],
+  "巡检无人机": ["power line inspection drone", "infrastructure inspection UAV", "solar panel drone inspection", "wind turbine drone"],
+  "无人机机场": ["drone in a box", "autonomous drone station", "drone port", "drone docking station"],
+  "云台相机": ["drone gimbal camera", "aerial thermal camera", "drone payload system", "UAV camera technology"],
+  "无人机培训": ["drone pilot training", "UAV certification program", "commercial drone license", "drone flight school"],
+  "表演无人机": ["drone light show", "drone swarm display", "entertainment drone", "synchronized drone performance"],
 };
 
 // 分类配置
 const CATEGORY_CONFIG = {
   "公司新闻": {
-    keywords: ["无人机公司", "无人机企业", "战略合作", "签约", "发布会", "融资"],
-    style: "正式、专业、强调企业实力",
+    keywords: ["drone company", "UAV manufacturer", "drone startup funding"],
+    style: "正式、专业、强调企业实力和国际影响力",
   },
   "行业动态": {
-    keywords: ["无人机行业", "低空经济", "政策法规", "市场分析", "产业发展"],
-    style: "客观、全面、有深度分析",
+    keywords: ["drone industry", "UAV regulation", "drone market analysis"],
+    style: "客观、全面、有深度分析，关注国际政策和市场趋势",
   },
   "产品资讯": {
-    keywords: ["新品发布", "产品升级", "技术参数", "性能测试", "产品评测"],
-    style: "详细、技术性、突出产品特点",
+    keywords: ["new drone release", "drone product launch", "UAV specifications"],
+    style: "详细、技术性、突出产品特点和创新之处",
   },
   "技术分享": {
-    keywords: ["技术创新", "研发突破", "算法", "专利", "解决方案"],
-    style: "专业、深入、注重技术细节",
+    keywords: ["drone technology", "UAV innovation", "drone AI", "autonomous flight"],
+    style: "专业、深入、注重技术细节和前沿发展",
   },
 };
 
@@ -66,12 +66,13 @@ function cleanContent(rawContent: string): string {
   return content;
 }
 
-// 使用 Lovable AI 进行专业润色和编排
+// 使用 Lovable AI 进行专业润色、翻译和编排
 async function polishAndFormatArticle(
   originalTitle: string,
   originalContent: string,
   sourceUrl: string,
-  category: string
+  category: string,
+  coverImage: string | null = null
 ): Promise<{ title: string; summary: string; content: string; keywords: string[]; coverImage: string | null } | null> {
   try {
     const supabaseUrl = Deno.env.get("SUPABASE_URL");
@@ -82,41 +83,9 @@ async function polishAndFormatArticle(
       return null;
     }
 
-    const categoryConfig = CATEGORY_CONFIG[category as keyof typeof CATEGORY_CONFIG] || CATEGORY_CONFIG["行业动态"];
+    console.log("Calling AI for translation and article polishing...");
     
-    const prompt = `你是一位资深的无人机行业编辑，专门为专业无人机技术公司的官网编写新闻稿。
-
-请根据以下原始素材，创作一篇完整、专业、可直接发布的新闻文章。
-
-【原始标题】
-${originalTitle}
-
-【原始内容】
-${originalContent.substring(0, 3500)}
-
-【目标分类】
-${category}
-
-【写作风格】
-${categoryConfig.style}
-
-【创作要求】
-1. 标题：专业、有吸引力，不超过35个字
-2. 摘要：100-150字，概括核心观点
-3. 正文：800-1200字，结构清晰，使用HTML格式（<p>, <h3>, <strong>, <ul>, <li>），不要包含任何图片或链接
-4. 关键词：5个最相关的关键词
-
-请以JSON格式返回：
-{
-  "title": "文章标题",
-  "summary": "摘要内容",
-  "content": "HTML格式正文",
-  "keywords": ["关键词1", "关键词2", "关键词3", "关键词4", "关键词5"]
-}`;
-
-    console.log("Calling AI for article polishing...");
-    
-    // 使用自定义 AI 润色函数
+    // 使用自定义 AI 润色函数，传入 isEnglish=true 表示需要翻译
     const response = await fetch(`${supabaseUrl}/functions/v1/ai-rewrite-article`, {
       method: "POST",
       headers: {
@@ -125,37 +94,39 @@ ${categoryConfig.style}
       },
       body: JSON.stringify({
         title: originalTitle,
-        content: originalContent.substring(0, 4000),
+        content: originalContent.substring(0, 5000),
         category,
+        coverImage,
+        isEnglish: true, // 国际新闻需要翻译
       }),
     });
 
     if (!response.ok) {
       const errorText = await response.text();
       console.error("AI rewrite error:", errorText);
-      return fallbackProcessing(originalTitle, originalContent, category);
+      return fallbackProcessing(originalTitle, originalContent, category, coverImage);
     }
 
     const result = await response.json();
     
     if (!result.success || !result.data) {
       console.error("AI rewrite failed");
-      return fallbackProcessing(originalTitle, originalContent, category);
+      return fallbackProcessing(originalTitle, originalContent, category, coverImage);
     }
 
     const data = result.data;
-    console.log("AI rewrite successful:", data.title);
+    console.log("AI translation and rewrite successful:", data.title);
 
     return {
       title: data.title?.substring(0, 100) || originalTitle.substring(0, 35),
       summary: (data.summary || "").substring(0, 300),
       content: data.content || "",
       keywords: Array.isArray(data.keywords) ? data.keywords.slice(0, 5) : [],
-      coverImage: null,
+      coverImage: data.coverImage || coverImage,
     };
   } catch (error) {
     console.error("AI polishing failed:", error);
-    return fallbackProcessing(originalTitle, originalContent, category);
+    return fallbackProcessing(originalTitle, originalContent, category, coverImage);
   }
 }
 
@@ -163,7 +134,8 @@ ${categoryConfig.style}
 function fallbackProcessing(
   title: string,
   content: string,
-  category: string
+  category: string,
+  coverImage: string | null = null
 ): { title: string; summary: string; content: string; keywords: string[]; coverImage: string | null } {
   const cleanTitle = title.length > 35 ? title.substring(0, 35) + "..." : title;
   const summary = content.substring(0, 150).replace(/\n/g, ' ') + "...";
@@ -172,11 +144,11 @@ function fallbackProcessing(
   const paragraphs = content.split(/\n{2,}/).filter(p => p.trim().length > 30);
   const htmlContent = paragraphs.slice(0, 8).map(p => `<p>${p.trim()}</p>`).join('\n');
   
-  // 提取关键词
+  // 提取关键词 - 增加英文关键词识别
   const keywords: string[] = [];
-  const keywordList = ["无人机", "系留", "消防", "物流", "巡检", "机场", "云台", "培训", "电力", "应急"];
+  const keywordList = ["drone", "UAV", "tethered", "firefighting", "delivery", "inspection", "无人机", "系留", "消防", "物流", "巡检"];
   for (const kw of keywordList) {
-    if ((title + content).includes(kw) && keywords.length < 5) {
+    if ((title + content).toLowerCase().includes(kw.toLowerCase()) && keywords.length < 5) {
       keywords.push(kw);
     }
   }
@@ -187,11 +159,11 @@ function fallbackProcessing(
     summary,
     content: htmlContent || `<p>${content.substring(0, 800)}</p>`,
     keywords,
-    coverImage: null,
+    coverImage,
   };
 }
 
-// 使用 Firecrawl 搜索新闻
+// 使用 Firecrawl 搜索国际新闻（英文）
 async function searchNews(
   query: string,
   limit: number = 5
@@ -201,7 +173,7 @@ async function searchNews(
     throw new Error("Firecrawl API key not configured");
   }
 
-  console.log(`Searching: ${query}`);
+  console.log(`Searching international news: ${query}`);
 
   const response = await fetch("https://api.firecrawl.dev/v1/search", {
     method: "POST",
@@ -210,10 +182,10 @@ async function searchNews(
       "Content-Type": "application/json",
     },
     body: JSON.stringify({
-      query: query + " 新闻 2024 2025 2026",
+      query: query + " news 2024 2025",
       limit,
-      lang: "zh",
-      country: "CN",
+      lang: "en",
+      country: "US",
       tbs: "qdr:w", // 过去一周的新闻
       scrapeOptions: {
         formats: ["markdown"],
@@ -232,15 +204,15 @@ async function searchNews(
   return data.data || [];
 }
 
-// 抓取单个网页完整内容
-async function scrapeFullContent(url: string): Promise<{ title: string; content: string } | null> {
+// 抓取单个网页完整内容和图片
+async function scrapeFullContent(url: string): Promise<{ title: string; content: string; coverImage: string | null } | null> {
   const apiKey = Deno.env.get("FIRECRAWL_API_KEY");
   if (!apiKey) {
     throw new Error("Firecrawl API key not configured");
   }
 
   try {
-    console.log(`Scraping full content: ${url}`);
+    console.log(`Scraping full content with images: ${url}`);
     
     const response = await fetch("https://api.firecrawl.dev/v1/scrape", {
       method: "POST",
@@ -250,7 +222,7 @@ async function scrapeFullContent(url: string): Promise<{ title: string; content:
       },
       body: JSON.stringify({
         url,
-        formats: ["markdown"],
+        formats: ["markdown", "html"],
         onlyMainContent: true,
         waitFor: 2000,
       }),
@@ -272,9 +244,55 @@ async function scrapeFullContent(url: string): Promise<{ title: string; content:
       return null;
     }
 
+    // 提取文章配图
+    let coverImage: string | null = null;
+    
+    // 从 metadata 中获取 OG 图片
+    if (scraped.metadata?.ogImage) {
+      coverImage = scraped.metadata.ogImage;
+    }
+    
+    // 如果没有 OG 图片，从 HTML 中提取第一张有效图片
+    if (!coverImage && scraped.html) {
+      const imgMatches = scraped.html.match(/<img[^>]+src=["']([^"']+)["'][^>]*>/gi);
+      if (imgMatches) {
+        for (const match of imgMatches) {
+          const srcMatch = match.match(/src=["']([^"']+)["']/i);
+          if (srcMatch && srcMatch[1]) {
+            const imgUrl = srcMatch[1];
+            // 过滤掉小图标、logo、广告等
+            if (imgUrl.includes('logo') || imgUrl.includes('icon') || imgUrl.includes('avatar') ||
+                imgUrl.includes('ads') || imgUrl.includes('banner') || imgUrl.includes('pixel') ||
+                imgUrl.length < 20 || imgUrl.startsWith('data:')) {
+              continue;
+            }
+            // 确保是完整 URL
+            if (imgUrl.startsWith('http')) {
+              coverImage = imgUrl;
+              break;
+            }
+          }
+        }
+      }
+    }
+    
+    // 从 markdown 中提取图片作为备选
+    if (!coverImage && rawContent) {
+      const mdImgMatch = rawContent.match(/!\[.*?\]\((https?:\/\/[^)]+)\)/);
+      if (mdImgMatch && mdImgMatch[1]) {
+        const imgUrl = mdImgMatch[1];
+        if (!imgUrl.includes('logo') && !imgUrl.includes('icon') && !imgUrl.includes('avatar')) {
+          coverImage = imgUrl;
+        }
+      }
+    }
+
+    console.log(`Found cover image: ${coverImage ? 'Yes' : 'No'}`);
+
     return {
       title: scraped.metadata?.title || "",
       content: cleanedContent,
+      coverImage,
     };
   } catch (error) {
     console.error(`Error scraping ${url}:`, error);
@@ -351,12 +369,13 @@ Deno.serve(async (req) => {
                 continue;
               }
 
-              // AI 润色和编排
+              // AI 润色和编排（包含翻译）
               const polished = await polishAndFormatArticle(
                 scraped.title || result.title || "",
                 scraped.content,
                 result.url,
-                category || "产品资讯"
+                category || "产品资讯",
+                scraped.coverImage
               );
 
               if (!polished) {
@@ -369,13 +388,14 @@ Deno.serve(async (req) => {
                 continue;
               }
 
-              // 保存到数据库
+              // 保存到数据库（包含配图）
               const { error: insertError } = await supabase
                 .from("news_articles")
                 .insert({
                   title: polished.title,
                   summary: polished.summary,
                   content: polished.content,
+                  cover_image: polished.coverImage,
                   source_url: result.url,
                   source_name: productType,
                   original_title: scraped.title,
@@ -425,35 +445,35 @@ Deno.serve(async (req) => {
     }
 
     if (action === "collect-by-category") {
-      // 按分类采集新闻
+      // 按分类采集国际新闻（英文搜索）
       const categoryKeywords: Record<string, string[]> = {
         "公司新闻": [
-          "无人机公司 合作签约",
-          "无人机企业 战略发展",
-          "无人机厂商 新产品发布",
-          "工业无人机 企业动态",
+          "drone company acquisition 2025",
+          "UAV manufacturer partnership",
+          "drone startup funding investment",
+          "commercial drone business expansion",
         ],
         "行业动态": [
-          "低空经济 政策",
-          "无人机 行业发展",
-          "eVTOL 产业动态",
-          "无人机 市场分析",
-          "系留无人机 应用",
-          "消防无人机 市场",
+          "drone regulation policy 2025",
+          "UAV industry market analysis",
+          "eVTOL air taxi development",
+          "drone airspace management",
+          "tethered drone applications",
+          "firefighting drone deployment",
         ],
         "产品资讯": [
-          "系留无人机 新品",
-          "消防无人机 设备",
-          "物流无人机 产品",
-          "无人机机场 发布",
-          "无人机云台 相机",
+          "new drone product launch 2025",
+          "tethered drone system release",
+          "firefighting UAV technology",
+          "drone delivery system",
+          "industrial drone camera gimbal",
         ],
         "技术分享": [
-          "无人机 技术突破",
-          "无人机 飞控算法",
-          "无人机 AI识别",
-          "系留无人机 技术",
-          "无人机 自主飞行",
+          "drone AI autonomous flight",
+          "UAV swarm technology",
+          "drone beyond visual line of sight",
+          "tethered drone power system",
+          "drone computer vision innovation",
         ],
       };
 
@@ -491,12 +511,13 @@ Deno.serve(async (req) => {
               continue;
             }
 
-            // AI 润色
+            // AI 润色（包含翻译）
             const polished = await polishAndFormatArticle(
               scraped.title || result.title || "",
               scraped.content,
               result.url,
-              category
+              category,
+              scraped.coverImage
             );
 
             if (!polished) {
@@ -508,15 +529,16 @@ Deno.serve(async (req) => {
               continue;
             }
 
-            // 保存
+            // 保存（包含配图）
             const { error: insertError } = await supabase
               .from("news_articles")
               .insert({
                 title: polished.title,
                 summary: polished.summary,
                 content: polished.content,
+                cover_image: polished.coverImage,
                 source_url: result.url,
-                source_name: "Firecrawl",
+                source_name: "International",
                 original_title: scraped.title,
                 is_auto_generated: true,
                 ai_edited: true,
