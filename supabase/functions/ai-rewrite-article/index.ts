@@ -56,17 +56,15 @@ Deno.serve(async (req) => {
     
     if (lovableApiKey) {
       try {
-        const response = await fetch("https://openrouter.ai/api/v1/chat/completions", {
+        const response = await fetch("https://ai.gateway.lovable.dev/v1/chat/completions", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
             "Authorization": `Bearer ${lovableApiKey}`,
-            "HTTP-Referer": "https://lovable.dev",
           },
           body: JSON.stringify({
-            model: "google/gemini-2.5-flash-lite-preview-06-17",
+            model: "google/gemini-2.5-flash-lite",
             messages: [{ role: "user", content: prompt }],
-            max_tokens: 3000,
           }),
         });
 
@@ -78,6 +76,9 @@ Deno.serve(async (req) => {
           if (jsonMatch) {
             result = JSON.parse(jsonMatch[0]);
           }
+        } else {
+          const errorText = await response.text();
+          console.error("AI API error:", response.status, errorText);
         }
       } catch (aiError) {
         console.error("AI API failed:", aiError);
