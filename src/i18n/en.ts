@@ -98,7 +98,7 @@ export const enTranslations: Record<string, string> = {
   'footer.subscribe.desc': 'Get the latest product news, industry solutions and technical insights',
   'footer.email.placeholder': 'Enter your email',
   'footer.subscribe.btn': 'Subscribe',
-  'footer.company.desc': 'FlyMind Technology is a professional drone accessories supplier, focusing on industrial drone components, providing digital FPV, VTX video transmitters, flight controllers, gimbals, ELRS remote controls and other professional accessories.',
+  'footer.company.desc': 'CANI Technology is a professional drone accessories supplier, focusing on industrial drone components, providing digital FPV, VTX video transmitters, flight controllers, gimbals, ELRS remote controls and other professional accessories.',
   'footer.hotline': 'Hotline',
   'footer.email': 'Email',
   'footer.products': 'Products',
@@ -107,7 +107,7 @@ export const enTranslations: Record<string, string> = {
   'footer.custom': 'Customization',
   'footer.address': 'Address',
   'footer.address.content': 'Ausnutria Global Headquarters, Guanziling, Yueliangdao Street, Wangcheng District, Changsha, Hunan, China',
-  'footer.copyright': 'FlyMind Technology Co., Ltd.',
+  'footer.copyright': 'CANI Technology Co., Ltd.',
   'footer.rights': 'All Rights Reserved',
   'footer.aboutUs': 'About Us',
   'footer.contactUs': 'Contact Us',
@@ -115,7 +115,7 @@ export const enTranslations: Record<string, string> = {
   'footer.terms': 'Terms of Service',
 
   // Hero Section
-  'hero.tagline': 'FlyMind · Professional Drone Accessories Supplier',
+  'hero.tagline': 'CANI · Professional Drone Accessories Supplier',
   'hero.title': 'Smart Flight · Unlimited Possibilities',
   'hero.subtitle': 'Focusing on industrial drone accessories, providing digital FPV, VTX video transmitters, flight controllers, gimbals and other professional accessories',
   'hero.products': 'View Products',
@@ -142,10 +142,10 @@ export const enTranslations: Record<string, string> = {
   'contact.map.title': 'Our Location',
 
   // About Page
-  'about.title': 'About FlyMind',
+  'about.title': 'About CANI',
   'about.subtitle': 'Focusing on drone R&D and manufacturing, leading the new era of intelligent flight',
   'about.intro.title': 'Company Profile',
-  'about.intro.content': 'FlyMind Technology is a high-tech enterprise specializing in drone R&D, manufacturing and sales. The company is committed to providing professional drone solutions for power, logistics, firefighting, emergency and other industries.',
+  'about.intro.content': 'CANI Technology is a high-tech enterprise specializing in drone R&D, manufacturing and sales. The company is committed to providing professional drone solutions for power, logistics, firefighting, emergency and other industries.',
   'about.vision.title': 'Vision',
   'about.vision.content': 'To become the world\'s leading provider of industrial drone solutions',
   'about.mission.title': 'Mission',
@@ -153,7 +153,7 @@ export const enTranslations: Record<string, string> = {
 
   // News Page
   'news.title': 'News Center',
-  'news.subtitle': 'Learn about the latest news and industry information from FlyMind',
+  'news.subtitle': 'Learn about the latest news and industry information from CANI',
   'news.readMore': 'Read More',
   'news.latest': 'Latest News',
 
@@ -166,10 +166,10 @@ export const enTranslations: Record<string, string> = {
 
   // Index Page Sections
   'index.seo.title': 'Home',
-  'index.seo.desc': 'FlyMind Technology, focusing on industrial drone accessories, providing digital FPV, VTX video transmitters, flight controllers, gimbals, ELRS remote controls and other professional drone accessories.',
+  'index.seo.desc': 'CANI Technology, focusing on industrial drone accessories, providing digital FPV, VTX video transmitters, flight controllers, gimbals, ELRS remote controls and other professional drone accessories.',
 
   // HeroSection
-  'hero.badge': 'FlyMind · Professional Drone Accessories Supplier',
+  'hero.badge': 'CANI · Professional Drone Accessories Supplier',
   'hero.title.line1': 'Smart Flight',
   'hero.title.line2': 'Unlimited Possibilities',
   'hero.description': 'Focusing on industrial drone accessories, providing digital FPV, VTX video transmitters, flight controllers, gimbals and other professional accessories',
@@ -183,17 +183,17 @@ export const enTranslations: Record<string, string> = {
   'section.products.viewAll': 'View All Products',
 
   // CompanyIntroSection
-  'section.company.badge': 'About FlyMind',
+  'section.company.badge': 'About CANI',
   'section.company.title': 'Professional Drone R&D Manufacturer',
-  'section.company.desc1': 'FlyMind Technology is a high-tech enterprise focusing on industrial drone R&D, production and sales. The company is committed to providing intelligent flight solutions for power, logistics, firefighting, emergency and other industries.',
-  'section.company.desc2': 'With strong R&D capabilities and rich industry experience, FlyMind has become a leading drone solution provider in China, with products widely used in power inspection, logistics delivery, firefighting rescue and other fields.',
+  'section.company.desc1': 'CANI Technology is a high-tech enterprise focusing on industrial drone R&D, production and sales. The company is committed to providing intelligent flight solutions for power, logistics, firefighting, emergency and other industries.',
+  'section.company.desc2': 'With strong R&D capabilities and rich industry experience, CANI has become a leading drone solution provider in China, with products widely used in power inspection, logistics delivery, firefighting rescue and other fields.',
   'section.company.stat1': 'Years Experience',
   'section.company.stat2': 'Patents',
   'section.company.stat3': 'Clients Served',
   'section.company.learnMore': 'Learn More',
 
   // WhyChooseUs
-  'section.why.title': 'Why Choose FlyMind',
+  'section.why.title': 'Why Choose CANI',
   'section.why.subtitle': 'Professional team, leading technology, quality service',
   'section.why.years': '+',
   'section.why.experience': 'Years Experience',
@@ -239,7 +239,7 @@ export const enTranslations: Record<string, string> = {
 
   // CTASection
   'section.cta.title': 'Start the Era of Smart Flight',
-  'section.cta.desc': 'Whether you need mature products or customized solutions, FlyMind will provide professional services',
+  'section.cta.desc': 'Whether you need mature products or customized solutions, CANI will provide professional services',
   'section.cta.btn.products': 'Browse Products',
   'section.cta.btn.contact': 'Contact Us',
 

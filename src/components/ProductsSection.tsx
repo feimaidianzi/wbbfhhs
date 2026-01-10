@@ -61,8 +61,8 @@ export const ProductsSection = () => {
             </div>
             <p className="text-muted-foreground text-lg leading-relaxed animate-blur-in" style={{ animationDelay: '0.2s' }}>
               {language === 'zh' 
-                ? '飞迈科技提供全系列专业无人机配件，从视频发射器到飞控系统，从云台吊舱到远程遥控，满足各类飞行需求。'
-                : 'FlyMind provides a full range of professional drone accessories, from video transmitters to flight controllers, from gimbals to remote controls, meeting all flight needs.'}
+                ? '长凌科技提供全系列专业无人机配件，从视频发射器到飞控系统，从云台吊舱到远程遥控，满足各类飞行需求。'
+                : 'CANI provides a full range of professional drone accessories, from video transmitters to flight controllers, from gimbals to remote controls, meeting all flight needs.'}
             </p>
           </div>
           <div className="flex items-end justify-start lg:justify-end animate-slide-in-right">

@@ -1,7 +1,7 @@
 export const zhTranslations: Record<string, string> = {
   // Navigation
   'nav.home': '首页',
-  'nav.about': '关于飞迈',
+  'nav.about': '关于长凌',
   'nav.products': '产品中心',
   'nav.applications': '行业应用',
   'nav.software': '软件系统',
@@ -10,7 +10,7 @@ export const zhTranslations: Record<string, string> = {
   'nav.contact': '联系我们',
 
   // Product Categories
-  'product.airport': '飞迈机场',
+  'product.airport': '长凌机场',
   'product.airport.desc': '全自动无人机起降平台',
   'product.tethered': '系留无人机',
   'product.tethered.desc': '24小时不间断工作',
@@ -98,7 +98,7 @@ export const zhTranslations: Record<string, string> = {
   'footer.subscribe.desc': '获取最新产品资讯、行业解决方案和技术分享',
   'footer.email.placeholder': '请输入您的邮箱',
   'footer.subscribe.btn': '订阅',
-  'footer.company.desc': '飞迈科技是专业的无人机配件供应商，专注于工业无人机零配件的研发与销售，提供数字图传、VTX视频发射器、飞控电调、云台吊舱、ELRS遥控等专业配件。',
+  'footer.company.desc': '长凌科技是专业的无人机配件供应商，专注于工业无人机零配件的研发与销售，提供数字图传、VTX视频发射器、飞控电调、云台吊舱、ELRS遥控等专业配件。',
   'footer.hotline': '服务热线',
   'footer.email': '商务邮箱',
   'footer.products': '产品中心',
@@ -107,7 +107,7 @@ export const zhTranslations: Record<string, string> = {
   'footer.custom': '产品定制',
   'footer.address': '公司地址',
   'footer.address.content': '湖南省长沙市望城区月亮岛街道罐子岭澳优全球总部大楼',
-  'footer.copyright': '飞迈科技有限公司',
+  'footer.copyright': '长凌科技有限公司',
   'footer.rights': '版权所有',
   'footer.aboutUs': '关于我们',
   'footer.contactUs': '联系我们',
@@ -115,7 +115,7 @@ export const zhTranslations: Record<string, string> = {
   'footer.terms': '服务条款',
 
   // Hero Section
-  'hero.tagline': '飞迈科技 · 专业无人机配件供应商',
+  'hero.tagline': '长凌科技 · 专业无人机配件供应商',
   'hero.title': '智能飞行 · 无限可能',
   'hero.subtitle': '专注工业无人机零配件，提供数字图传、VTX视频发射器、飞控电调、云台吊舱等专业配件',
   'hero.products': '查看产品',
@@ -142,10 +142,10 @@ export const zhTranslations: Record<string, string> = {
   'contact.map.title': '公司位置',
 
   // About Page
-  'about.title': '关于飞迈',
+  'about.title': '关于长凌',
   'about.subtitle': '专注无人机研发制造，引领行业智能飞行新时代',
   'about.intro.title': '公司简介',
-  'about.intro.content': '飞迈科技是一家专业从事无人机研发、制造与销售的高新技术企业。公司致力于为电力、物流、消防、应急等行业提供专业的无人机解决方案。',
+  'about.intro.content': '长凌科技是一家专业从事无人机研发、制造与销售的高新技术企业。公司致力于为电力、物流、消防、应急等行业提供专业的无人机解决方案。',
   'about.vision.title': '企业愿景',
   'about.vision.content': '成为全球领先的工业级无人机解决方案提供商',
   'about.mission.title': '企业使命',
@@ -153,7 +153,7 @@ export const zhTranslations: Record<string, string> = {
 
   // News Page
   'news.title': '新闻中心',
-  'news.subtitle': '了解飞迈科技最新动态与行业资讯',
+  'news.subtitle': '了解长凌科技最新动态与行业资讯',
   'news.readMore': '阅读全文',
   'news.latest': '最新资讯',
 
@@ -166,10 +166,10 @@ export const zhTranslations: Record<string, string> = {
 
   // Index Page Sections
   'index.seo.title': '首页',
-  'index.seo.desc': '飞迈科技有限公司，专注于工业无人机零配件，提供数字图传、VTX视频发射器、飞控电调、云台吊舱、ELRS遥控等专业无人机配件。',
+  'index.seo.desc': '长凌科技有限公司，专注于工业无人机零配件，提供数字图传、VTX视频发射器、飞控电调、云台吊舱、ELRS遥控等专业无人机配件。',
 
   // HeroSection
-  'hero.badge': '飞迈科技 · 专业无人机配件供应商',
+  'hero.badge': '长凌科技 · 专业无人机配件供应商',
   'hero.title.line1': '智能飞行',
   'hero.title.line2': '无限可能',
   'hero.description': '专注工业无人机零配件，提供数字图传、VTX视频发射器、飞控电调、云台吊舱等专业配件',
@@ -183,17 +183,17 @@ export const zhTranslations: Record<string, string> = {
   'section.products.viewAll': '查看全部产品',
 
   // CompanyIntroSection
-  'section.company.badge': '关于飞迈',
+  'section.company.badge': '关于长凌',
   'section.company.title': '专业无人机研发制造商',
-  'section.company.desc1': '飞迈科技是一家专注于工业级无人机研发、生产与销售的高新技术企业。公司致力于为电力、物流、消防、应急等行业提供智能化飞行解决方案。',
-  'section.company.desc2': '凭借强大的研发实力和丰富的行业经验，飞迈科技已成为国内领先的无人机解决方案提供商，产品广泛应用于电力巡检、物流配送、消防救援等多个领域。',
+  'section.company.desc1': '长凌科技是一家专注于工业级无人机研发、生产与销售的高新技术企业。公司致力于为电力、物流、消防、应急等行业提供智能化飞行解决方案。',
+  'section.company.desc2': '凭借强大的研发实力和丰富的行业经验，长凌科技已成为国内领先的无人机解决方案提供商，产品广泛应用于电力巡检、物流配送、消防救援等多个领域。',
   'section.company.stat1': '行业经验',
   'section.company.stat2': '专利技术',
   'section.company.stat3': '服务客户',
   'section.company.learnMore': '了解更多',
 
   // WhyChooseUs
-  'section.why.title': '为什么选择飞迈',
+  'section.why.title': '为什么选择长凌',
   'section.why.subtitle': '专业团队、领先技术、优质服务',
   'section.why.years': '年+',
   'section.why.experience': '行业经验',
@@ -239,7 +239,7 @@ export const zhTranslations: Record<string, string> = {
 
   // CTASection
   'section.cta.title': '开启智能飞行新时代',
-  'section.cta.desc': '无论您是需要成熟产品还是定制解决方案，飞迈科技都将为您提供专业服务',
+  'section.cta.desc': '无论您是需要成熟产品还是定制解决方案，长凌科技都将为您提供专业服务',
   'section.cta.btn.products': '浏览产品',
   'section.cta.btn.contact': '联系我们',
 

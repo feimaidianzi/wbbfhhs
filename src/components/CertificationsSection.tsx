@@ -46,8 +46,8 @@ export const CertificationsSection = () => {
           </h3>
           <p className="text-muted-foreground text-base max-w-2xl mx-auto">
             {language === 'zh' 
-              ? "飞迈科技通过多项国际国内权威认证，品质值得信赖"
-              : "FlyMind has passed multiple international and domestic authoritative certifications, quality you can trust"}
+              ? "长凌科技通过多项国际国内权威认证，品质值得信赖"
+              : "CANI has passed multiple international and domestic authoritative certifications, quality you can trust"}
           </p>
         </div>
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6">

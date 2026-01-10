@@ -62,7 +62,7 @@ const Contact = () => {
 
   const contactInfo = [
     { icon: Phone, title: language === 'zh' ? "电话咨询" : "Phone", value: "+8617674048404", href: "tel:+8617674048404" },
-    { icon: Mail, title: language === 'zh' ? "邮箱" : "Email", value: "market@flymind.com.cn", href: "mailto:market@flymind.com.cn" },
+    { icon: Mail, title: language === 'zh' ? "邮箱" : "Email", value: "market@cani.com.cn", href: "mailto:market@cani.com.cn" },
     { icon: MessageCircle, title: language === 'zh' ? "微信客服" : "WeChat", value: "17674048404", href: "#" },
     { icon: Clock, title: language === 'zh' ? "工作时间" : "Working Hours", value: language === 'zh' ? "周一至周五 9:00-18:00" : "Mon-Fri 9:00-18:00", href: null },
   ];
@@ -126,7 +126,7 @@ const Contact = () => {
       if (error) throw error;
 
       // Get admin email from settings
-      let adminEmail = 'market@flymind.com';
+      let adminEmail = 'market@cani.com';
       try {
         const { data: settingData } = await supabase
           .from('system_settings')
@@ -183,13 +183,13 @@ const Contact = () => {
   const contactStructuredData = {
     '@context': 'https://schema.org',
     '@type': 'ContactPage',
-    name: language === 'zh' ? '联系飞迈科技' : 'Contact FlyMind',
-    description: language === 'zh' ? '获取飞迈科技的联系方式，咨询无人机产品和定制服务' : 'Get contact info for FlyMind, inquire about drone products and custom services',
+    name: language === 'zh' ? '联系长凌科技' : 'Contact CANI',
+    description: language === 'zh' ? '获取长凌科技的联系方式，咨询无人机产品和定制服务' : 'Get contact info for CANI, inquire about drone products and custom services',
     mainEntity: {
       '@type': 'Organization',
-      name: 'FlyMind Technology',
+      name: 'CANI Technology',
       telephone: '+8617674048404',
-      email: 'market@flymind.com.cn',
+      email: 'market@cani.com.cn',
       address: {
         '@type': 'PostalAddress',
         addressLocality: 'Changsha',
@@ -203,8 +203,8 @@ const Contact = () => {
     <div className="min-h-screen">
       <SEO
         title={language === 'zh' ? "联系我们" : "Contact Us"}
-        description={language === 'zh' ? "联系飞迈科技，获取专业无人机解决方案咨询服务。电话：+8617674048404，总部地址：湖南省长沙市。" : "Contact FlyMind for professional drone solution consultation. Phone: +8617674048404, HQ: Changsha, Hunan, China."}
-        keywords="联系飞迈,FlyMind,无人机咨询,无人机定制服务,长沙无人机公司"
+        description={language === 'zh' ? "联系长凌科技，获取专业无人机解决方案咨询服务。电话：+8617674048404，总部地址：湖南省长沙市。" : "Contact CANI for professional drone solution consultation. Phone: +8617674048404, HQ: Changsha, Hunan, China."}
+        keywords="联系长凌,CANI,无人机咨询,无人机定制服务,长沙无人机公司"
         url="/contact"
         structuredData={contactStructuredData}
       />

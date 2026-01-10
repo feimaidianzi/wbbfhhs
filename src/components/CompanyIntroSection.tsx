@@ -48,7 +48,7 @@ export const CompanyIntroSection = () => {
             <div className="aspect-[4/3] rounded-2xl overflow-hidden shadow-card-hover group">
               <img 
                 src="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=800&q=80" 
-                alt={language === 'zh' ? "飞迈科技无人机生产线" : "FlyMind Drone Production Line"}
+                alt={language === 'zh' ? "长凌科技无人机生产线" : "CANI Drone Production Line"}
                 className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
               />
               {/* Overlay gradient on hover */}
@@ -80,22 +80,22 @@ export const CompanyIntroSection = () => {
           <div className="animate-slide-in-right">
             <div className="flex items-center gap-3 mb-4">
               <span className="text-accent text-2xl font-black animate-wave">&lt;</span>
-              <h2 className="text-3xl md:text-4xl font-black text-foreground">
-                {language === 'zh' ? '为什么选择飞迈科技？' : 'Why Choose FlyMind?'}
+            <h2 className="text-3xl md:text-4xl font-black text-foreground">
+                {language === 'zh' ? '为什么选择长凌科技？' : 'Why Choose CANI?'}
               </h2>
               <span className="text-accent text-2xl font-black animate-wave" style={{ animationDelay: '0.5s' }}>\&gt;</span>
             </div>
             
             <p className="text-muted-foreground text-lg leading-relaxed mb-8 animate-blur-in" style={{ animationDelay: '0.2s' }}>
               {language === 'zh' 
-                ? '飞迈科技致力于提供高品质的工业级无人机产品和解决方案。我们不仅提供标准化产品，更专注于为客户打造定制化解决方案，助力各行业数字化转型和智能化升级。'
-                : 'FlyMind is committed to providing high-quality industrial drone products and solutions. We not only provide standardized products, but also focus on creating customized solutions for customers, helping industries with digital transformation and intelligent upgrading.'}
+                ? '长凌科技致力于提供高品质的工业级无人机产品和解决方案。我们不仅提供标准化产品，更专注于为客户打造定制化解决方案，助力各行业数字化转型和智能化升级。'
+                : 'CANI is committed to providing high-quality industrial drone products and solutions. We not only provide standardized products, but also focus on creating customized solutions for customers, helping industries with digital transformation and intelligent upgrading.'}
             </p>
 
             <p className="text-muted-foreground leading-relaxed mb-8 animate-blur-in" style={{ animationDelay: '0.4s' }}>
               {language === 'zh' 
-                ? '凭借多年的行业积累和技术沉淀，飞迈科技已成为众多企业和政府机构的首选合作伙伴。从产品选型到系统集成，从技术培训到售后服务，我们提供全生命周期的专业支持。'
-                : 'With years of industry accumulation and technology precipitation, FlyMind has become the preferred partner of many enterprises and government agencies. From product selection to system integration, from technical training to after-sales service, we provide full lifecycle professional support.'}
+                ? '凭借多年的行业积累和技术沉淀，长凌科技已成为众多企业和政府机构的首选合作伙伴。从产品选型到系统集成，从技术培训到售后服务，我们提供全生命周期的专业支持。'
+                : 'With years of industry accumulation and technology precipitation, CANI has become the preferred partner of many enterprises and government agencies. From product selection to system integration, from technical training to after-sales service, we provide full lifecycle professional support.'}
             </p>
 
             <Link to="/about" className="inline-block animate-scale-in" style={{ animationDelay: '0.6s' }}>

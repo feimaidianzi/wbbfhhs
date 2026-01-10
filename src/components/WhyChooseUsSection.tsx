@@ -75,7 +75,7 @@ export const WhyChooseUsSection = () => {
           <div className="flex items-center justify-center gap-3 mb-4">
             <span className="text-accent text-2xl font-black animate-bounce-subtle">&lt;</span>
             <h2 className="text-3xl md:text-4xl font-black text-primary-foreground">
-              {language === 'zh' ? "为什么选择飞迈" : "Why Choose FlyMind"}
+              {language === 'zh' ? "为什么选择长凌" : "Why Choose CANI"}
             </h2>
             <span className="text-accent text-2xl font-black animate-bounce-subtle" style={{ animationDelay: '0.2s' }}>\&gt;</span>
           </div>
