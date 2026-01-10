@@ -34,6 +34,12 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
 } from '@/components/ui/alert-dialog';
+import {
+  Tabs,
+  TabsContent,
+  TabsList,
+  TabsTrigger,
+} from '@/components/ui/tabs';
 import { 
   Shield, 
   LogOut, 
@@ -51,7 +57,10 @@ import {
   Clock,
   CheckCircle,
   XCircle,
-  Bot
+  Bot,
+  Globe,
+  Search,
+  Sparkles
 } from 'lucide-react';
 
 interface NewsKeyword {
@@ -95,6 +104,11 @@ const NewsCollection = () => {
     is_active: true,
     priority: 5,
   });
+
+  // Firecrawl 相关状态
+  const [firecrawlCollecting, setFirecrawlCollecting] = useState(false);
+  const [customSearchQuery, setCustomSearchQuery] = useState('');
+  const [searchResults, setSearchResults] = useState<Array<{ url: string; title: string; description: string }>>([]);
 
   const fetchData = async () => {
     try {
@@ -334,6 +348,73 @@ const NewsCollection = () => {
     }
   };
 
+  // Firecrawl 每日采集
+  const collectWithFirecrawl = async (autoPublish: boolean = false) => {
+    setFirecrawlCollecting(true);
+    try {
+      const response = await supabase.functions.invoke('collect-news-firecrawl', {
+        body: {
+          action: 'collect-daily',
+          targetCount: 10,
+          autoPublish,
+        },
+      });
+
+      if (response.error) throw response.error;
+
+      toast({
+        title: 'Firecrawl 采集完成',
+        description: `成功采集 ${response.data.articlesCollected} 篇文章${autoPublish ? `，已发布 ${response.data.articlesPublished} 篇` : ''}`,
+      });
+      fetchData();
+    } catch (error: any) {
+      toast({
+        title: '采集失败',
+        description: error.message,
+        variant: 'destructive',
+      });
+    } finally {
+      setFirecrawlCollecting(false);
+    }
+  };
+
+  // 自定义搜索
+  const handleCustomSearch = async () => {
+    if (!customSearchQuery.trim()) {
+      toast({
+        title: '请输入搜索关键词',
+        variant: 'destructive',
+      });
+      return;
+    }
+
+    setFirecrawlCollecting(true);
+    try {
+      const response = await supabase.functions.invoke('collect-news-firecrawl', {
+        body: {
+          action: 'search-custom',
+          searchQuery: customSearchQuery.trim(),
+        },
+      });
+
+      if (response.error) throw response.error;
+
+      setSearchResults(response.data.results || []);
+      toast({
+        title: '搜索完成',
+        description: `找到 ${response.data.results?.length || 0} 条结果`,
+      });
+    } catch (error: any) {
+      toast({
+        title: '搜索失败',
+        description: error.message,
+        variant: 'destructive',
+      });
+    } finally {
+      setFirecrawlCollecting(false);
+    }
+  };
+
   const formatDate = (dateString: string | null) => {
     if (!dateString) return '-';
     return new Date(dateString).toLocaleString('zh-CN');
@@ -425,6 +506,82 @@ const NewsCollection = () => {
             </Button>
           </div>
         </div>
+
+        {/* Firecrawl 采集区域 */}
+        <Card className="bg-gradient-to-r from-purple-900/30 to-blue-900/30 border-purple-500/30">
+          <CardHeader>
+            <CardTitle className="text-white flex items-center gap-2">
+              <Globe className="w-5 h-5 text-purple-400" />
+              Firecrawl 智能采集
+              <Badge className="bg-purple-500/20 text-purple-300 ml-2">推荐</Badge>
+            </CardTitle>
+            <CardDescription className="text-slate-400">
+              使用 Firecrawl 从全网抓取无人机行业相关新闻，AI 自动二次创作后发布
+            </CardDescription>
+          </CardHeader>
+          <CardContent className="space-y-4">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <Button 
+                onClick={() => collectWithFirecrawl(false)}
+                disabled={firecrawlCollecting}
+                variant="outline"
+                className="border-purple-500/50 text-purple-300 hover:bg-purple-500/20"
+              >
+                {firecrawlCollecting ? <Loader2 className="w-4 h-4 mr-2 animate-spin" /> : <Sparkles className="w-4 h-4 mr-2" />}
+                采集10篇 (草稿)
+              </Button>
+              <Button 
+                onClick={() => collectWithFirecrawl(true)}
+                disabled={firecrawlCollecting}
+                className="bg-gradient-to-r from-purple-500 to-blue-500 hover:from-purple-600 hover:to-blue-600"
+              >
+                {firecrawlCollecting ? <Loader2 className="w-4 h-4 mr-2 animate-spin" /> : <Zap className="w-4 h-4 mr-2" />}
+                采集10篇并发布
+              </Button>
+            </div>
+
+            {/* 自定义搜索 */}
+            <div className="flex gap-2">
+              <Input
+                value={customSearchQuery}
+                onChange={(e) => setCustomSearchQuery(e.target.value)}
+                placeholder="输入自定义搜索关键词，如：电力无人机巡检"
+                className="bg-slate-700/50 border-slate-600"
+                onKeyDown={(e) => e.key === 'Enter' && handleCustomSearch()}
+              />
+              <Button 
+                onClick={handleCustomSearch}
+                disabled={firecrawlCollecting}
+                variant="outline"
+                className="border-slate-600"
+              >
+                {firecrawlCollecting ? <Loader2 className="w-4 h-4" /> : <Search className="w-4 h-4" />}
+              </Button>
+            </div>
+
+            {/* 搜索结果 */}
+            {searchResults.length > 0 && (
+              <div className="space-y-2 max-h-60 overflow-y-auto">
+                <p className="text-sm text-slate-400">搜索结果 ({searchResults.length}):</p>
+                {searchResults.map((result, index) => (
+                  <div key={index} className="p-3 bg-slate-800/50 rounded-lg">
+                    <a 
+                      href={result.url} 
+                      target="_blank" 
+                      rel="noopener noreferrer"
+                      className="text-sm text-blue-400 hover:underline line-clamp-1"
+                    >
+                      {result.title || result.url}
+                    </a>
+                    {result.description && (
+                      <p className="text-xs text-slate-500 mt-1 line-clamp-2">{result.description}</p>
+                    )}
+                  </div>
+                ))}
+              </div>
+            )}
+          </CardContent>
+        </Card>
 
         {/* Stats Cards */}
         <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
