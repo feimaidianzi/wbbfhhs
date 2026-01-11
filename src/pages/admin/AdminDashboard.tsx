@@ -61,7 +61,7 @@ const AdminDashboard = () => {
       const { data: { session } } = await supabase.auth.getSession();
       
       if (!session?.user) {
-        navigate('/feimai-admin-login');
+        navigate('/admin/login');
         return;
       }
 
@@ -78,7 +78,7 @@ const AdminDashboard = () => {
           description: '您没有管理员权限',
           variant: 'destructive',
         });
-        navigate('/feimai-admin-login');
+        navigate('/admin/login');
         return;
       }
 
@@ -90,7 +90,7 @@ const AdminDashboard = () => {
 
     const { data: { subscription } } = supabase.auth.onAuthStateChange((event, session) => {
       if (!session) {
-        navigate('/feimai-admin-login');
+        navigate('/admin/login');
       } else {
         setUser(session.user);
       }
@@ -197,7 +197,7 @@ const AdminDashboard = () => {
       title: '已退出',
       description: '您已成功退出管理后台',
     });
-    navigate('/feimai-admin-login');
+    navigate('/admin/login');
   };
 
   if (loading) {
@@ -221,56 +221,56 @@ const AdminDashboard = () => {
       icon: Users, 
       title: '用户管理', 
       description: '管理注册用户和权限', 
-      href: '/feimai-admin-console/users',
+      href: '/admin/users',
       color: 'from-green-500 to-emerald-500'
     },
     { 
       icon: Package, 
       title: '产品管理', 
       description: '添加、编辑产品信息', 
-      href: '/feimai-admin-console/products',
+      href: '/admin/products',
       color: 'from-purple-500 to-violet-500'
     },
     { 
       icon: FileText, 
       title: '新闻管理', 
       description: '发布和管理新闻文章', 
-      href: '/feimai-admin-console/news',
+      href: '/admin/news',
       color: 'from-orange-500 to-red-500'
     },
     { 
       icon: MessageSquare, 
       title: '咨询管理', 
       description: '查看和回复用户咨询', 
-      href: '/feimai-admin-console/inquiries',
+      href: '/admin/inquiries',
       color: 'from-pink-500 to-rose-500'
     },
     { 
       icon: History, 
       title: '操作日志', 
       description: '查看管理员操作记录', 
-      href: '/feimai-admin-console/logs',
+      href: '/admin/logs',
       color: 'from-indigo-500 to-blue-500'
     },
     { 
       icon: Upload, 
       title: '数据导入', 
       description: '导入硬编码产品到数据库', 
-      href: '/feimai-admin-console/data-import',
+      href: '/admin/data-import',
       color: 'from-teal-500 to-cyan-500'
     },
     { 
       icon: Bot, 
       title: '自动新闻采集', 
       description: 'AI自动采集编辑行业新闻', 
-      href: '/feimai-admin-console/news-collection',
+      href: '/admin/news-collection',
       color: 'from-amber-500 to-orange-500'
     },
     { 
       icon: Settings, 
       title: '系统设置', 
       description: '邮件通知等系统配置', 
-      href: '/feimai-admin-console/settings',
+      href: '/admin/settings',
       color: 'from-slate-500 to-slate-600'
     },
   ];

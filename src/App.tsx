@@ -113,17 +113,17 @@ const App = () => (
           <Routes>
             <Route path="/" element={<Index />} />
             <Route path="/auth" element={<Auth />} />
-            <Route path="/feimai-admin-login" element={<AdminLogin />} />
-            <Route path="/feimai-admin-console" element={<AdminDashboard />} />
-            <Route path="/feimai-admin-console/users" element={<UserManagement />} />
-            <Route path="/feimai-admin-console/news" element={<NewsManagement />} />
-            <Route path="/feimai-admin-console/products" element={<ProductManagement />} />
-            <Route path="/feimai-admin-console/inquiries" element={<InquiryManagement />} />
-            <Route path="/feimai-admin-console/settings" element={<SystemSettings />} />
-            <Route path="/feimai-admin-console/logs" element={<ActivityLogs />} />
-            <Route path="/feimai-admin-console/specification-templates" element={<SpecificationTemplates />} />
-            <Route path="/feimai-admin-console/data-import" element={<DataImport />} />
-            <Route path="/feimai-admin-console/news-collection" element={<NewsCollection />} />
+            <Route path="/admin/login" element={<AdminLogin />} />
+            <Route path="/admin" element={<AdminDashboard />} />
+            <Route path="/admin/users" element={<UserManagement />} />
+            <Route path="/admin/news" element={<NewsManagement />} />
+            <Route path="/admin/products" element={<ProductManagement />} />
+            <Route path="/admin/inquiries" element={<InquiryManagement />} />
+            <Route path="/admin/settings" element={<SystemSettings />} />
+            <Route path="/admin/logs" element={<ActivityLogs />} />
+            <Route path="/admin/specification-templates" element={<SpecificationTemplates />} />
+            <Route path="/admin/data-import" element={<DataImport />} />
+            <Route path="/admin/news-collection" element={<NewsCollection />} />
           <Route path="/about" element={<About />} />
           <Route path="/applications" element={<Applications />} />
           <Route path="/applications/power-inspection" element={<PowerInspection />} />
