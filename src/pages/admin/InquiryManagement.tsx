@@ -148,7 +148,7 @@ const InquiryManagement = () => {
       const { data: { session } } = await supabase.auth.getSession();
       
       if (!session?.user) {
-        navigate('/feimai-admin-login');
+        navigate('/admin/login');
         return;
       }
 
@@ -163,7 +163,7 @@ const InquiryManagement = () => {
           description: '您没有管理员权限',
           variant: 'destructive',
         });
-        navigate('/feimai-admin-login');
+        navigate('/admin/login');
         return;
       }
 
@@ -175,7 +175,7 @@ const InquiryManagement = () => {
 
   const handleLogout = async () => {
     await supabase.auth.signOut();
-    navigate('/feimai-admin-login');
+    navigate('/admin/login');
   };
 
   const openDetail = (inquiry: Inquiry) => {
@@ -453,7 +453,7 @@ const InquiryManagement = () => {
       <main className="container mx-auto px-4 py-8">
         {/* Back Button & Filters */}
         <div className="flex items-center justify-between mb-6 flex-wrap gap-4">
-          <Link to="/feimai-admin-console">
+          <Link to="/admin">
             <Button variant="ghost" className="text-slate-400 hover:text-white">
               <ArrowLeft className="w-4 h-4 mr-2" />
               返回管理后台

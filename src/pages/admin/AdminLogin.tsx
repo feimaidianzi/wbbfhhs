@@ -30,7 +30,7 @@ const AdminLogin = () => {
           _role: 'admin'
         });
         if (data) {
-          navigate('/feimai-admin-console');
+          navigate('/admin');
         }
       }
     };
@@ -117,7 +117,7 @@ const AdminLogin = () => {
         title: '登录成功',
         description: '欢迎进入管理后台',
       });
-      navigate('/feimai-admin-console');
+      navigate('/admin');
     }
     
     setLoading(false);

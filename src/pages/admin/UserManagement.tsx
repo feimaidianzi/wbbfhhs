@@ -54,7 +54,7 @@ const UserManagement = () => {
     try {
       const { data: { session } } = await supabase.auth.getSession();
       if (!session) {
-        navigate('/feimai-admin-login');
+        navigate('/admin/login');
         return;
       }
 
@@ -92,7 +92,7 @@ const UserManagement = () => {
       const { data: { session } } = await supabase.auth.getSession();
       
       if (!session?.user) {
-        navigate('/feimai-admin-login');
+        navigate('/admin/login');
         return;
       }
 
@@ -107,7 +107,7 @@ const UserManagement = () => {
           description: '您没有管理员权限',
           variant: 'destructive',
         });
-        navigate('/feimai-admin-login');
+        navigate('/admin/login');
         return;
       }
 
@@ -164,7 +164,7 @@ const UserManagement = () => {
 
   const handleLogout = async () => {
     await supabase.auth.signOut();
-    navigate('/feimai-admin-login');
+    navigate('/admin/login');
   };
 
   const getRoleBadgeColor = (role: string) => {
@@ -240,7 +240,7 @@ const UserManagement = () => {
       {/* Main Content */}
       <main className="container mx-auto px-4 py-8">
         {/* Back Button */}
-        <Link to="/feimai-admin-console">
+        <Link to="/admin">
           <Button variant="ghost" className="text-slate-400 hover:text-white mb-6">
             <ArrowLeft className="w-4 h-4 mr-2" />
             返回管理后台

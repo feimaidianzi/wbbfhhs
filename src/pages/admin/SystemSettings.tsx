@@ -29,7 +29,7 @@ const SystemSettings = () => {
     try {
       const { data: { user } } = await supabase.auth.getUser();
       if (!user) {
-        navigate('/feimai-admin-login');
+        navigate('/admin/login');
         return;
       }
 
@@ -46,14 +46,14 @@ const SystemSettings = () => {
           description: "您没有管理员权限",
           variant: "destructive",
         });
-        navigate('/feimai-admin-login');
+        navigate('/admin/login');
         return;
       }
 
       await fetchSettings();
     } catch (error) {
       console.error('Auth check error:', error);
-      navigate('/feimai-admin-login');
+      navigate('/admin/login');
     }
   };
 
@@ -137,7 +137,7 @@ const SystemSettings = () => {
             <Button
               variant="ghost"
               size="icon"
-              onClick={() => navigate('/feimai-admin-console')}
+              onClick={() => navigate('/admin')}
             >
               <ArrowLeft className="w-5 h-5" />
             </Button>
