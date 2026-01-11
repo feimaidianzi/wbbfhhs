@@ -73,6 +73,14 @@ interface NewsKeyword {
   created_at: string;
 }
 
+// 固定的四分类
+const NEWS_CATEGORIES = [
+  { value: "公司新闻", label: "公司新闻", description: "企业动态、合作、融资等" },
+  { value: "行业动态", label: "行业动态", description: "政策法规、市场分析、行业趋势" },
+  { value: "产品资讯", label: "产品资讯", description: "新品发布、产品功能、应用场景" },
+  { value: "技术分享", label: "技术分享", description: "技术原理、教程、知识科普" },
+] as const;
+
 interface CollectionTask {
   id: string;
   keyword: string;
@@ -417,23 +425,64 @@ const NewsCollection = () => {
     }
   };
 
-  // Firecrawl 每日采集
+  // Firecrawl 每日采集（四分类）
   const collectWithFirecrawl = async (autoPublish: boolean = false) => {
     setFirecrawlCollecting(true);
     try {
       const response = await supabase.functions.invoke('collect-news-firecrawl', {
         body: {
           action: 'collect-daily',
-          targetCount: 10,
+          dailyConfig: {
+            "公司新闻": 1,
+            "行业动态": 1,
+            "产品资讯": 1,
+            "技术分享": 1,
+          },
           autoPublish,
         },
       });
 
       if (response.error) throw response.error;
 
+      const results = response.data.results || {};
+      const details = Object.entries(results)
+        .map(([cat, data]: [string, any]) => `${cat}: ${data.collected}篇`)
+        .join(', ');
+
       toast({
-        title: 'Firecrawl 采集完成',
-        description: `成功采集 ${response.data.articlesCollected} 篇文章${autoPublish ? `，已发布 ${response.data.articlesPublished} 篇` : ''}`,
+        title: '四分类采集完成',
+        description: details || `成功采集 ${response.data.articlesCollected} 篇文章`,
+      });
+      fetchData();
+    } catch (error: any) {
+      toast({
+        title: '采集失败',
+        description: error.message,
+        variant: 'destructive',
+      });
+    } finally {
+      setFirecrawlCollecting(false);
+    }
+  };
+
+  // 按单个分类采集
+  const collectByCategory = async (category: string, count: number = 3) => {
+    setFirecrawlCollecting(true);
+    try {
+      const response = await supabase.functions.invoke('collect-news-firecrawl', {
+        body: {
+          action: 'collect-by-category',
+          category,
+          count,
+          autoPublish: true,
+        },
+      });
+
+      if (response.error) throw response.error;
+
+      toast({
+        title: `${category} 采集完成`,
+        description: `成功采集 ${response.data.collected} 篇文章`,
       });
       fetchData();
     } catch (error: any) {
@@ -576,19 +625,36 @@ const NewsCollection = () => {
           </div>
         </div>
 
-        {/* Firecrawl 采集区域 */}
+        {/* 四分类智能采集区域 */}
         <Card className="bg-gradient-to-r from-purple-900/30 to-blue-900/30 border-purple-500/30">
           <CardHeader>
             <CardTitle className="text-white flex items-center gap-2">
               <Globe className="w-5 h-5 text-purple-400" />
-              Firecrawl 智能采集
+              四分类智能采集
               <Badge className="bg-purple-500/20 text-purple-300 ml-2">推荐</Badge>
             </CardTitle>
             <CardDescription className="text-slate-400">
-              使用 Firecrawl 从全网抓取无人机行业相关新闻，AI 自动二次创作后发布
+              按公司新闻、行业动态、产品资讯、技术分享四个分类自动采集国际新闻，AI 翻译润色后发布
             </CardDescription>
           </CardHeader>
           <CardContent className="space-y-4">
+            {/* 四分类快捷采集 */}
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+              {NEWS_CATEGORIES.map((cat) => (
+                <Button
+                  key={cat.value}
+                  onClick={() => collectByCategory(cat.value, 3)}
+                  disabled={firecrawlCollecting}
+                  variant="outline"
+                  className="border-purple-500/30 text-purple-200 hover:bg-purple-500/20 flex-col h-auto py-3"
+                >
+                  <span className="text-sm font-medium">{cat.label}</span>
+                  <span className="text-xs text-slate-400 mt-1">采集3篇</span>
+                </Button>
+              ))}
+            </div>
+
+            {/* 一键四分类采集 */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <Button 
                 onClick={() => collectWithFirecrawl(false)}
@@ -597,7 +663,7 @@ const NewsCollection = () => {
                 className="border-purple-500/50 text-purple-300 hover:bg-purple-500/20"
               >
                 {firecrawlCollecting ? <Loader2 className="w-4 h-4 mr-2 animate-spin" /> : <Sparkles className="w-4 h-4 mr-2" />}
-                采集10篇 (草稿)
+                四分类采集 (草稿)
               </Button>
               <Button 
                 onClick={() => collectWithFirecrawl(true)}
@@ -605,7 +671,7 @@ const NewsCollection = () => {
                 className="bg-gradient-to-r from-purple-500 to-blue-500 hover:from-purple-600 hover:to-blue-600"
               >
                 {firecrawlCollecting ? <Loader2 className="w-4 h-4 mr-2 animate-spin" /> : <Zap className="w-4 h-4 mr-2" />}
-                采集10篇并发布
+                四分类采集并发布
               </Button>
             </div>
 
@@ -614,7 +680,7 @@ const NewsCollection = () => {
               <Input
                 value={customSearchQuery}
                 onChange={(e) => setCustomSearchQuery(e.target.value)}
-                placeholder="输入自定义搜索关键词，如：电力无人机巡检"
+                placeholder="输入自定义搜索关键词，如：tethered drone technology"
                 className="bg-slate-700/50 border-slate-600"
                 onKeyDown={(e) => e.key === 'Enter' && handleCustomSearch()}
               />
@@ -968,13 +1034,19 @@ const NewsCollection = () => {
 
             <div className="space-y-2">
               <Label htmlFor="category">分类 *</Label>
-              <Input
+              <select
                 id="category"
                 value={formData.category}
                 onChange={(e) => setFormData({ ...formData, category: e.target.value })}
-                placeholder="例如：无人机、电力巡检、物流配送"
-                className="bg-slate-700 border-slate-600"
-              />
+                className="w-full h-10 px-3 rounded-md bg-slate-700 border border-slate-600 text-white focus:outline-none focus:ring-2 focus:ring-amber-500"
+              >
+                <option value="">请选择分类</option>
+                {NEWS_CATEGORIES.map((cat) => (
+                  <option key={cat.value} value={cat.value}>
+                    {cat.label} - {cat.description}
+                  </option>
+                ))}
+              </select>
             </div>
 
             <div className="space-y-2">

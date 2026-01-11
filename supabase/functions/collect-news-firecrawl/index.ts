@@ -611,6 +611,130 @@ Deno.serve(async (req) => {
       );
     }
 
+    // 每日采集 - 按四分类定时采集
+    if (action === "collect-daily") {
+      console.log("Starting daily collection for all categories...");
+      
+      // 每日采集配额配置
+      const dailyConfig = body.dailyConfig || {
+        "公司新闻": 1,    // 每三天1篇，但每次执行都尝试采集
+        "行业动态": 1,    // 每天1篇
+        "产品资讯": 1,    // 每天1篇
+        "技术分享": 1,    // 每天1篇
+      };
+      
+      const allResults: Record<string, { collected: number; results: Array<{ title: string; success: boolean; error?: string }> }> = {};
+      let totalCollected = 0;
+
+      for (const [cat, targetCount] of Object.entries(dailyConfig)) {
+        console.log(`\n=== Collecting ${targetCount} articles for ${cat} ===`);
+        
+        const categoryConfig = CATEGORY_CONFIG[cat as keyof typeof CATEGORY_CONFIG];
+        if (!categoryConfig) {
+          console.log(`No config found for category: ${cat}`);
+          continue;
+        }
+
+        const results: Array<{ title: string; success: boolean; error?: string }> = [];
+        let collected = 0;
+        const keywords = categoryConfig.keywords;
+
+        for (const keyword of keywords) {
+          if (collected >= (targetCount as number)) break;
+
+          try {
+            console.log(`Searching with keyword: ${keyword}`);
+            const searchResults = await searchNews(keyword, 3);
+
+            for (const result of searchResults) {
+              if (collected >= (targetCount as number)) break;
+              if (!result.url) continue;
+
+              // 检查是否已存在
+              const { data: existing } = await supabase
+                .from("news_articles")
+                .select("id")
+                .eq("source_url", result.url)
+                .single();
+
+              if (existing) {
+                console.log(`Already exists: ${result.url}`);
+                continue;
+              }
+
+              // 抓取完整内容
+              const scraped = await scrapeFullContent(result.url);
+              if (!scraped || !scraped.content) {
+                console.log(`Failed to scrape: ${result.url}`);
+                continue;
+              }
+
+              // AI 润色
+              const polished = await polishAndFormatArticle(
+                scraped.title || result.title || "",
+                scraped.content,
+                result.url,
+                cat,
+                scraped.coverImage
+              );
+
+              if (!polished) {
+                results.push({ title: scraped.title || "Unknown", success: false, error: "AI polishing failed" });
+                continue;
+              }
+
+              // 保存到数据库
+              const { error: insertError } = await supabase
+                .from("news_articles")
+                .insert({
+                  title: polished.title,
+                  summary: polished.summary,
+                  content: polished.content,
+                  cover_image: polished.coverImage,
+                  source_url: result.url,
+                  source_name: "International",
+                  original_title: scraped.title,
+                  is_auto_generated: true,
+                  ai_edited: true,
+                  keywords: polished.keywords,
+                  category: cat,
+                  is_published: body.autoPublish ?? true,
+                  published_at: (body.autoPublish ?? true) ? new Date().toISOString() : null,
+                });
+
+              if (insertError) {
+                results.push({ title: polished.title, success: false, error: insertError.message });
+              } else {
+                collected++;
+                totalCollected++;
+                results.push({ title: polished.title, success: true });
+                console.log(`✅ [${cat}] Collected: ${polished.title}`);
+              }
+
+              await new Promise(resolve => setTimeout(resolve, 2000));
+            }
+          } catch (error) {
+            console.error(`Error with keyword ${keyword}:`, error);
+          }
+        }
+
+        allResults[cat] = { collected, results };
+        
+        // 分类间延迟
+        await new Promise(resolve => setTimeout(resolve, 1000));
+      }
+
+      return new Response(
+        JSON.stringify({
+          success: true,
+          message: `Daily collection completed. Total: ${totalCollected}`,
+          articlesCollected: totalCollected,
+          results: allResults,
+        }),
+        { headers: { ...corsHeaders, "Content-Type": "application/json" } }
+      );
+    }
+
     // 批量初始化采集 - 为每个分类采集指定数量
     if (action === "batch-init") {
       const categories = body.categories || {
@@ -666,7 +790,7 @@ Deno.serve(async (req) => {
 
     return new Response(
       JSON.stringify({ 
-        error: "Invalid action. Use: collect-product-news, collect-by-category, or batch-init" 
+        error: "Invalid action. Use: collect-product-news, collect-by-category, collect-daily, or batch-init" 
       }),
       { status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" } }
     );
