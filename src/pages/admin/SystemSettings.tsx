@@ -27,20 +27,19 @@ const SystemSettings = () => {
 
   const checkAuthAndFetchSettings = async () => {
     try {
-      const { data: { user } } = await supabase.auth.getUser();
-      if (!user) {
+      const { data: { session } } = await supabase.auth.getSession();
+      if (!session?.user) {
         navigate('/admin/login');
         return;
       }
 
-      const { data: roleData } = await supabase
-        .from('user_roles')
-        .select('role')
-        .eq('user_id', user.id)
-        .eq('role', 'admin')
-        .maybeSingle();
+      // Use has_role RPC for consistent authorization check
+      const { data: isAdmin } = await supabase.rpc('has_role', {
+        _user_id: session.user.id,
+        _role: 'admin'
+      });
 
-      if (!roleData) {
+      if (!isAdmin) {
         toast({
           title: "权限不足",
           description: "您没有管理员权限",
