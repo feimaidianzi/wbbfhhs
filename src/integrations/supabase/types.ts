@@ -307,6 +307,10 @@ export type Database = {
       }
       scheduled_tasks: {
         Row: {
+          ai_rules: Json | null
+          article_count: number | null
+          auto_publish: boolean | null
+          category: string | null
           created_at: string
           cron_expression: string
           description: string | null
@@ -320,6 +324,10 @@ export type Database = {
           updated_at: string
         }
         Insert: {
+          ai_rules?: Json | null
+          article_count?: number | null
+          auto_publish?: boolean | null
+          category?: string | null
           created_at?: string
           cron_expression: string
           description?: string | null
@@ -333,6 +341,10 @@ export type Database = {
           updated_at?: string
         }
         Update: {
+          ai_rules?: Json | null
+          article_count?: number | null
+          auto_publish?: boolean | null
+          category?: string | null
           created_at?: string
           cron_expression?: string
           description?: string | null
