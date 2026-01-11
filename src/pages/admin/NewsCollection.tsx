@@ -338,8 +338,9 @@ const NewsCollection = () => {
     try {
       const response = await supabase.functions.invoke('collect-news-firecrawl', {
         body: {
-          action: 'collect-by-categories',
-          categories: { [task.category || '']: task.article_count || 1 },
+          action: 'collect-by-category',
+          category: task.category || '',
+          count: task.article_count || 1,
           autoPublish: task.auto_publish !== false,
           aiRules: task.ai_rules,
         },
