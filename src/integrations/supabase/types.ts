@@ -119,6 +119,8 @@ export type Database = {
           keywords: string[] | null
           original_title: string | null
           published_at: string | null
+          quality_reason: string | null
+          quality_score: number | null
           source_name: string | null
           source_url: string | null
           summary: string | null
@@ -139,6 +141,8 @@ export type Database = {
           keywords?: string[] | null
           original_title?: string | null
           published_at?: string | null
+          quality_reason?: string | null
+          quality_score?: number | null
           source_name?: string | null
           source_url?: string | null
           summary?: string | null
@@ -159,6 +163,8 @@ export type Database = {
           keywords?: string[] | null
           original_title?: string | null
           published_at?: string | null
+          quality_reason?: string | null
+          quality_score?: number | null
           source_name?: string | null
           source_url?: string | null
           summary?: string | null
