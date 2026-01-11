@@ -237,6 +237,38 @@ const NewsCollection = () => {
   const [firecrawlCollecting, setFirecrawlCollecting] = useState(false);
   const [customSearchQuery, setCustomSearchQuery] = useState('');
   const [searchResults, setSearchResults] = useState<Array<{ url: string; title: string; description: string }>>([]);
+  
+  // 翻译状态
+  const [translating, setTranslating] = useState(false);
+
+  // 使用 Gemini 翻译关键词
+  const translateKeyword = async (keyword: string) => {
+    if (!keyword.trim()) return;
+    
+    setTranslating(true);
+    try {
+      const response = await supabase.functions.invoke('translate-keyword', {
+        body: { keyword: keyword.trim() }
+      });
+
+      if (response.error) throw response.error;
+
+      const translatedKeyword = response.data?.translation || '';
+      if (translatedKeyword) {
+        setFormData(prev => ({ ...prev, keyword_en: translatedKeyword }));
+        toast({ title: '翻译成功', description: `${keyword} → ${translatedKeyword}` });
+      }
+    } catch (error: any) {
+      console.error('Translation error:', error);
+      toast({
+        title: '翻译失败',
+        description: error.message || '请手动输入英文关键词',
+        variant: 'destructive',
+      });
+    } finally {
+      setTranslating(false);
+    }
+  };
 
   const fetchData = async () => {
     try {
@@ -1488,24 +1520,47 @@ const NewsCollection = () => {
           <div className="space-y-4 py-4">
             <div className="space-y-2">
               <Label htmlFor="keyword">中文关键词 *</Label>
-              <Input
-                id="keyword"
-                value={formData.keyword}
-                onChange={(e) => setFormData({ ...formData, keyword: e.target.value })}
-                placeholder="例如：无人机、电力巡检"
-                className="bg-slate-700 border-slate-600"
-              />
+              <div className="flex gap-2">
+                <Input
+                  id="keyword"
+                  value={formData.keyword}
+                  onChange={(e) => setFormData({ ...formData, keyword: e.target.value })}
+                  placeholder="例如：无人机、电力巡检"
+                  className="bg-slate-700 border-slate-600 flex-1"
+                />
+                <Button
+                  type="button"
+                  variant="outline"
+                  size="sm"
+                  onClick={() => translateKeyword(formData.keyword)}
+                  disabled={translating || !formData.keyword.trim()}
+                  className="border-amber-500/50 text-amber-400 hover:bg-amber-500/20"
+                >
+                  {translating ? (
+                    <Loader2 className="w-4 h-4 animate-spin" />
+                  ) : (
+                    <>
+                      <Sparkles className="w-4 h-4 mr-1" />
+                      AI翻译
+                    </>
+                  )}
+                </Button>
+              </div>
+              <p className="text-xs text-slate-500">输入中文关键词后点击"AI翻译"自动生成英文</p>
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="keyword_en">英文关键词</Label>
+              <Label htmlFor="keyword_en">英文关键词（用于搜索）</Label>
               <Input
                 id="keyword_en"
                 value={formData.keyword_en}
                 onChange={(e) => setFormData({ ...formData, keyword_en: e.target.value })}
-                placeholder="例如：drone, UAV"
+                placeholder="自动翻译或手动输入"
                 className="bg-slate-700 border-slate-600"
               />
+              {formData.keyword_en && (
+                <p className="text-xs text-green-400">✓ 将使用此关键词进行英文新闻搜索</p>
+              )}
             </div>
 
             <div className="space-y-2">

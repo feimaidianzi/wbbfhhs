@@ -2,3 +2,6 @@ project_id = "tuxslfemwkdmnkldlmmy"
 
 [functions.generate-product-news]
 verify_jwt = false
+
+[functions.translate-keyword]
+verify_jwt = false
