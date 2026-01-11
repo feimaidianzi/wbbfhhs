@@ -20,7 +20,7 @@ Deno.serve(async (req) => {
       );
     }
 
-    const lovableApiKey = Deno.env.get("LOVABLE_API_KEY");
+const geminiApiKey = Deno.env.get("GEMINI_API_KEY");
     
     const categoryStyles: Record<string, string> = {
       "公司新闻": "正式、专业、强调企业实力和国际影响力",
@@ -65,36 +65,38 @@ ${translationInstruction}
 
     let result;
     
-    if (lovableApiKey) {
+    if (geminiApiKey) {
       try {
-        console.log("Calling AI for translation and rewrite...");
-        const response = await fetch("https://ai.gateway.lovable.dev/v1/chat/completions", {
+        console.log("Calling Gemini API for translation and rewrite...");
+        const response = await fetch("https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=" + geminiApiKey, {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
-            "Authorization": `Bearer ${lovableApiKey}`,
           },
           body: JSON.stringify({
-            model: "google/gemini-2.5-flash-lite",
-            messages: [{ role: "user", content: prompt }],
+            contents: [{ parts: [{ text: prompt }] }],
+            generationConfig: {
+              temperature: 0.7,
+              maxOutputTokens: 4096,
+            },
           }),
         });
 
         if (response.ok) {
           const data = await response.json();
-          const aiContent = data.choices?.[0]?.message?.content || "";
+          const aiContent = data.candidates?.[0]?.content?.parts?.[0]?.text || "";
           
           const jsonMatch = aiContent.match(/\{[\s\S]*\}/);
           if (jsonMatch) {
             result = JSON.parse(jsonMatch[0]);
-            console.log("AI translation and rewrite successful");
+            console.log("Gemini translation and rewrite successful");
           }
         } else {
           const errorText = await response.text();
-          console.error("AI API error:", response.status, errorText);
+          console.error("Gemini API error:", response.status, errorText);
         }
       } catch (aiError) {
-        console.error("AI API failed:", aiError);
+        console.error("Gemini API failed:", aiError);
       }
     }
 
