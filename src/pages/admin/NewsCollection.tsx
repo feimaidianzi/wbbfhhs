@@ -60,7 +60,9 @@ import {
   Bot,
   Globe,
   Search,
-  Sparkles
+  Sparkles,
+  Star,
+  Filter
 } from 'lucide-react';
 
 interface NewsKeyword {
@@ -73,13 +75,40 @@ interface NewsKeyword {
   created_at: string;
 }
 
-// 固定的四分类
+// 固定的四分类 - 与新闻中心板块对应
 const NEWS_CATEGORIES = [
-  { value: "公司新闻", label: "公司新闻", description: "企业动态、合作、融资等" },
-  { value: "行业动态", label: "行业动态", description: "政策法规、市场分析、行业趋势" },
-  { value: "产品资讯", label: "产品资讯", description: "新品发布、产品功能、应用场景" },
-  { value: "技术分享", label: "技术分享", description: "技术原理、教程、知识科普" },
+  { 
+    value: "公司新闻", 
+    label: "公司新闻", 
+    description: "企业动态、合作、融资等",
+    color: "text-blue-400",
+    bgColor: "bg-blue-500/20",
+  },
+  { 
+    value: "行业动态", 
+    label: "行业动态", 
+    description: "政策法规、市场分析、行业趋势",
+    color: "text-green-400",
+    bgColor: "bg-green-500/20",
+  },
+  { 
+    value: "产品资讯", 
+    label: "产品资讯", 
+    description: "新品发布、产品功能、应用场景",
+    color: "text-amber-400",
+    bgColor: "bg-amber-500/20",
+  },
+  { 
+    value: "技术分享", 
+    label: "技术分享", 
+    description: "技术原理、教程、知识科普",
+    color: "text-purple-400",
+    bgColor: "bg-purple-500/20",
+  },
 ] as const;
+
+// 质量评分阈值
+const QUALITY_THRESHOLD = 8.0;
 
 interface CollectionTask {
   id: string;
@@ -625,16 +654,46 @@ const NewsCollection = () => {
           </div>
         </div>
 
+        {/* 质量评分说明 */}
+        <Card className="bg-gradient-to-r from-amber-900/30 to-orange-900/30 border-amber-500/30">
+          <CardHeader className="pb-3">
+            <CardTitle className="text-white flex items-center gap-2 text-base">
+              <Star className="w-5 h-5 text-amber-400" />
+              AI 质量评分系统
+              <Badge className="bg-amber-500/20 text-amber-300 ml-2">已启用</Badge>
+            </CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm">
+              <div className="flex items-center gap-2">
+                <Filter className="w-4 h-4 text-amber-400" />
+                <span className="text-slate-300">评分阈值: <span className="text-amber-400 font-bold">{QUALITY_THRESHOLD}</span> 分</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <Star className="w-4 h-4 text-green-400" />
+                <span className="text-slate-300">满分: <span className="text-green-400 font-bold">10</span> 分</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <XCircle className="w-4 h-4 text-red-400" />
+                <span className="text-slate-300">低于 {QUALITY_THRESHOLD} 分自动过滤</span>
+              </div>
+            </div>
+            <p className="text-xs text-slate-500 mt-3">
+              评分维度：内容相关性、信息价值、内容质量、原创深度、可读性（各2分）
+            </p>
+          </CardContent>
+        </Card>
+
         {/* 四分类智能采集区域 */}
         <Card className="bg-gradient-to-r from-purple-900/30 to-blue-900/30 border-purple-500/30">
           <CardHeader>
             <CardTitle className="text-white flex items-center gap-2">
               <Globe className="w-5 h-5 text-purple-400" />
-              四分类智能采集
-              <Badge className="bg-purple-500/20 text-purple-300 ml-2">推荐</Badge>
+              新闻中心板块采集
+              <Badge className="bg-purple-500/20 text-purple-300 ml-2">与前台对应</Badge>
             </CardTitle>
             <CardDescription className="text-slate-400">
-              按公司新闻、行业动态、产品资讯、技术分享四个分类自动采集国际新闻，AI 翻译润色后发布
+              按新闻中心四个板块（公司新闻、行业动态、产品资讯、技术分享）智能采集，AI 评分筛选后发布
             </CardDescription>
           </CardHeader>
           <CardContent className="space-y-4">
@@ -866,7 +925,7 @@ const NewsCollection = () => {
                 采集关键词配置
               </CardTitle>
               <CardDescription className="text-slate-400">
-                配置要自动采集的新闻关键词，系统将从 Google News 获取相关新闻
+                配置关键词对应新闻中心的板块，采集的文章将显示在对应板块中
               </CardDescription>
             </div>
             <Button onClick={openCreateDialog} size="sm" className="bg-amber-500 hover:bg-amber-600">
@@ -874,6 +933,17 @@ const NewsCollection = () => {
               添加关键词
             </Button>
           </CardHeader>
+          {/* 板块说明 */}
+          <div className="px-6 pb-4">
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-2 text-xs">
+              {NEWS_CATEGORIES.map((cat) => (
+                <div key={cat.value} className={`${cat.bgColor} rounded-lg px-3 py-2`}>
+                  <span className={`font-medium ${cat.color}`}>{cat.label}</span>
+                  <p className="text-slate-400 mt-0.5">{cat.description}</p>
+                </div>
+              ))}
+            </div>
+          </div>
           <CardContent>
             <Table>
               <TableHeader>
@@ -892,9 +962,18 @@ const NewsCollection = () => {
                     <TableCell className="text-white font-medium">{kw.keyword}</TableCell>
                     <TableCell className="text-slate-400">{kw.keyword_en || '-'}</TableCell>
                     <TableCell>
-                      <Badge variant="outline" className="text-slate-300 border-slate-500">
-                        {kw.category}
-                      </Badge>
+                      {(() => {
+                        const catConfig = NEWS_CATEGORIES.find(c => c.value === kw.category);
+                        return catConfig ? (
+                          <Badge className={`${catConfig.bgColor} ${catConfig.color}`}>
+                            {kw.category}
+                          </Badge>
+                        ) : (
+                          <Badge variant="outline" className="text-slate-300 border-slate-500">
+                            {kw.category}
+                          </Badge>
+                        );
+                      })()}
                     </TableCell>
                     <TableCell className="text-slate-400">{kw.priority}</TableCell>
                     <TableCell>
@@ -1033,20 +1112,29 @@ const NewsCollection = () => {
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="category">分类 *</Label>
-              <select
-                id="category"
-                value={formData.category}
-                onChange={(e) => setFormData({ ...formData, category: e.target.value })}
-                className="w-full h-10 px-3 rounded-md bg-slate-700 border border-slate-600 text-white focus:outline-none focus:ring-2 focus:ring-amber-500"
-              >
-                <option value="">请选择分类</option>
+              <Label htmlFor="category">对应新闻板块 *</Label>
+              <p className="text-xs text-slate-500 mb-2">
+                选择该关键词采集的文章将发布到新闻中心的哪个板块
+              </p>
+              <div className="grid grid-cols-2 gap-2">
                 {NEWS_CATEGORIES.map((cat) => (
-                  <option key={cat.value} value={cat.value}>
-                    {cat.label} - {cat.description}
-                  </option>
+                  <button
+                    key={cat.value}
+                    type="button"
+                    onClick={() => setFormData({ ...formData, category: cat.value })}
+                    className={`p-3 rounded-lg border text-left transition-all ${
+                      formData.category === cat.value
+                        ? `${cat.bgColor} border-2 ${cat.color.replace('text-', 'border-')}`
+                        : 'bg-slate-700/50 border-slate-600 hover:border-slate-500'
+                    }`}
+                  >
+                    <span className={`font-medium ${formData.category === cat.value ? cat.color : 'text-white'}`}>
+                      {cat.label}
+                    </span>
+                    <p className="text-xs text-slate-400 mt-1">{cat.description}</p>
+                  </button>
                 ))}
-              </select>
+              </div>
             </div>
 
             <div className="space-y-2">
