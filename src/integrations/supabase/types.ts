@@ -211,6 +211,7 @@ export type Database = {
       }
       news_keywords: {
         Row: {
+          ai_rules: Json | null
           category: string
           created_at: string
           id: string
@@ -221,6 +222,7 @@ export type Database = {
           updated_at: string
         }
         Insert: {
+          ai_rules?: Json | null
           category: string
           created_at?: string
           id?: string
@@ -231,6 +233,7 @@ export type Database = {
           updated_at?: string
         }
         Update: {
+          ai_rules?: Json | null
           category?: string
           created_at?: string
           id?: string

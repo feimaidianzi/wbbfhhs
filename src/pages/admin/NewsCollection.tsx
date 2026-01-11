@@ -7,6 +7,7 @@ import { Badge } from '@/components/ui/badge';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Switch } from '@/components/ui/switch';
+import { Textarea } from '@/components/ui/textarea';
 import { useToast } from '@/hooks/use-toast';
 import {
   Table,
@@ -40,6 +41,12 @@ import {
   TabsList,
   TabsTrigger,
 } from '@/components/ui/tabs';
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from '@/components/ui/accordion';
 import { 
   Shield, 
   LogOut, 
@@ -62,8 +69,19 @@ import {
   Search,
   Sparkles,
   Star,
-  Filter
+  Filter,
+  Settings,
+  ChevronRight,
+  LayoutGrid
 } from 'lucide-react';
+
+interface AIRules {
+  scoreThreshold?: number;
+  scoringPrompt?: string;
+  optimizationPrompt?: string;
+  contentRequirements?: string;
+  enabled?: boolean;
+}
 
 interface NewsKeyword {
   id: string;
@@ -73,16 +91,26 @@ interface NewsKeyword {
   is_active: boolean;
   priority: number;
   created_at: string;
+  ai_rules?: AIRules;
 }
 
 // 固定的四分类 - 与新闻中心板块对应
 const NEWS_CATEGORIES = [
+  { 
+    value: "全部", 
+    label: "全部", 
+    description: "显示所有板块的关键词",
+    color: "text-slate-400",
+    bgColor: "bg-slate-500/20",
+    icon: LayoutGrid,
+  },
   { 
     value: "公司新闻", 
     label: "公司新闻", 
     description: "企业动态、合作、融资等",
     color: "text-blue-400",
     bgColor: "bg-blue-500/20",
+    icon: Rss,
   },
   { 
     value: "行业动态", 
@@ -90,6 +118,7 @@ const NEWS_CATEGORIES = [
     description: "政策法规、市场分析、行业趋势",
     color: "text-green-400",
     bgColor: "bg-green-500/20",
+    icon: Globe,
   },
   { 
     value: "产品资讯", 
@@ -97,6 +126,7 @@ const NEWS_CATEGORIES = [
     description: "新品发布、产品功能、应用场景",
     color: "text-amber-400",
     bgColor: "bg-amber-500/20",
+    icon: Sparkles,
   },
   { 
     value: "技术分享", 
@@ -104,8 +134,12 @@ const NEWS_CATEGORIES = [
     description: "技术原理、教程、知识科普",
     color: "text-purple-400",
     bgColor: "bg-purple-500/20",
+    icon: Bot,
   },
 ] as const;
+
+// 用于选择的分类（不含"全部"）
+const SELECTABLE_CATEGORIES = NEWS_CATEGORIES.filter(c => c.value !== "全部");
 
 // 质量评分阈值
 const QUALITY_THRESHOLD = 8.0;
@@ -148,12 +182,24 @@ const NewsCollection = () => {
   const [editingKeyword, setEditingKeyword] = useState<NewsKeyword | null>(null);
   const [deleteKeywordId, setDeleteKeywordId] = useState<string | null>(null);
 
+  // 当前选中的分类过滤
+  const [selectedCategory, setSelectedCategory] = useState<string>("全部");
+  // 关键词搜索
+  const [keywordSearch, setKeywordSearch] = useState<string>("");
+
   const [formData, setFormData] = useState({
     keyword: '',
     keyword_en: '',
     category: '',
     is_active: true,
     priority: 5,
+    ai_rules: {
+      enabled: false,
+      scoreThreshold: 8.0,
+      scoringPrompt: '',
+      optimizationPrompt: '',
+      contentRequirements: '',
+    } as AIRules,
   });
 
   // Firecrawl 相关状态
@@ -182,7 +228,10 @@ const NewsCollection = () => {
       if (keywordsRes.error) throw keywordsRes.error;
       if (tasksRes.error) throw tasksRes.error;
 
-      setKeywords(keywordsRes.data || []);
+      setKeywords((keywordsRes.data || []).map(k => ({
+        ...k,
+        ai_rules: k.ai_rules as AIRules | undefined
+      })));
       setTasks(tasksRes.data || []);
       setScheduledTasks(scheduledRes.data || []);
     } catch (error: any) {
@@ -290,18 +339,33 @@ const NewsCollection = () => {
       category: '',
       is_active: true,
       priority: 5,
+      ai_rules: {
+        enabled: false,
+        scoreThreshold: 8.0,
+        scoringPrompt: '',
+        optimizationPrompt: '',
+        contentRequirements: '',
+      },
     });
     setIsDialogOpen(true);
   };
 
   const openEditDialog = (kw: NewsKeyword) => {
     setEditingKeyword(kw);
+    const aiRules = kw.ai_rules || {};
     setFormData({
       keyword: kw.keyword,
       keyword_en: kw.keyword_en || '',
       category: kw.category,
       is_active: kw.is_active,
       priority: kw.priority,
+      ai_rules: {
+        enabled: aiRules.enabled || false,
+        scoreThreshold: aiRules.scoreThreshold || 8.0,
+        scoringPrompt: aiRules.scoringPrompt || '',
+        optimizationPrompt: aiRules.optimizationPrompt || '',
+        contentRequirements: aiRules.contentRequirements || '',
+      },
     });
     setIsDialogOpen(true);
   };
@@ -317,12 +381,14 @@ const NewsCollection = () => {
     }
 
     try {
+      const aiRulesJson = JSON.parse(JSON.stringify(formData.ai_rules));
       const data = {
         keyword: formData.keyword.trim(),
         keyword_en: formData.keyword_en.trim() || null,
         category: formData.category.trim(),
         is_active: formData.is_active,
         priority: formData.priority,
+        ai_rules: aiRulesJson,
       };
 
       if (editingKeyword) {
@@ -335,7 +401,7 @@ const NewsCollection = () => {
       } else {
         const { error } = await supabase
           .from('news_keywords')
-          .insert(data);
+          .insert([data]);
         if (error) throw error;
         toast({ title: '关键词已添加' });
       }
@@ -404,6 +470,7 @@ const NewsCollection = () => {
           category: kw.category,
           limit: 3,
           autoPublish: false,
+          aiRules: kw.ai_rules, // 传递 AI 规则
         },
       });
 
@@ -580,6 +647,21 @@ const NewsCollection = () => {
     }
   };
 
+  // 过滤后的关键词列表
+  const filteredKeywords = keywords.filter(kw => {
+    const matchesCategory = selectedCategory === "全部" || kw.category === selectedCategory;
+    const matchesSearch = keywordSearch === "" || 
+      kw.keyword.toLowerCase().includes(keywordSearch.toLowerCase()) ||
+      (kw.keyword_en && kw.keyword_en.toLowerCase().includes(keywordSearch.toLowerCase()));
+    return matchesCategory && matchesSearch;
+  });
+
+  // 获取分类统计
+  const getCategoryCount = (category: string) => {
+    if (category === "全部") return keywords.length;
+    return keywords.filter(k => k.category === category).length;
+  };
+
   if (loading) {
     return (
       <div className="min-h-screen bg-slate-900 flex items-center justify-center">
@@ -684,6 +766,66 @@ const NewsCollection = () => {
           </CardContent>
         </Card>
 
+        {/* 新闻板块分类导航 - 可点击 */}
+        <Card className="bg-slate-800 border-slate-700">
+          <CardHeader className="pb-3">
+            <CardTitle className="text-white flex items-center gap-2 text-base">
+              <LayoutGrid className="w-5 h-5 text-purple-400" />
+              新闻中心板块
+            </CardTitle>
+            <CardDescription className="text-slate-400">
+              点击板块查看对应关键词，快速采集指定板块新闻
+            </CardDescription>
+          </CardHeader>
+          <CardContent>
+            <div className="grid grid-cols-2 md:grid-cols-5 gap-3">
+              {NEWS_CATEGORIES.map((cat) => {
+                const Icon = cat.icon;
+                const isActive = selectedCategory === cat.value;
+                const count = getCategoryCount(cat.value);
+                
+                return (
+                  <button
+                    key={cat.value}
+                    onClick={() => setSelectedCategory(cat.value)}
+                    className={`p-4 rounded-lg border text-left transition-all hover:scale-[1.02] ${
+                      isActive
+                        ? `${cat.bgColor} border-2 ${cat.color.replace('text-', 'border-')}`
+                        : 'bg-slate-700/50 border-slate-600 hover:border-slate-500'
+                    }`}
+                  >
+                    <div className="flex items-center justify-between mb-2">
+                      <Icon className={`w-5 h-5 ${isActive ? cat.color : 'text-slate-400'}`} />
+                      <Badge variant="secondary" className="text-xs">
+                        {count}
+                      </Badge>
+                    </div>
+                    <span className={`font-medium text-sm ${isActive ? cat.color : 'text-white'}`}>
+                      {cat.label}
+                    </span>
+                    <p className="text-xs text-slate-400 mt-1 line-clamp-1">{cat.description}</p>
+                    {cat.value !== "全部" && (
+                      <Button
+                        variant="ghost"
+                        size="sm"
+                        className={`mt-2 w-full text-xs h-7 ${cat.color} hover:${cat.bgColor}`}
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          collectByCategory(cat.value, 3);
+                        }}
+                        disabled={firecrawlCollecting}
+                      >
+                        {firecrawlCollecting ? <Loader2 className="w-3 h-3 animate-spin" /> : <Zap className="w-3 h-3 mr-1" />}
+                        采集3篇
+                      </Button>
+                    )}
+                  </button>
+                );
+              })}
+            </div>
+          </CardContent>
+        </Card>
+
         {/* 四分类智能采集区域 */}
         <Card className="bg-gradient-to-r from-purple-900/30 to-blue-900/30 border-purple-500/30">
           <CardHeader>
@@ -697,22 +839,6 @@ const NewsCollection = () => {
             </CardDescription>
           </CardHeader>
           <CardContent className="space-y-4">
-            {/* 四分类快捷采集 */}
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
-              {NEWS_CATEGORIES.map((cat) => (
-                <Button
-                  key={cat.value}
-                  onClick={() => collectByCategory(cat.value, 3)}
-                  disabled={firecrawlCollecting}
-                  variant="outline"
-                  className="border-purple-500/30 text-purple-200 hover:bg-purple-500/20 flex-col h-auto py-3"
-                >
-                  <span className="text-sm font-medium">{cat.label}</span>
-                  <span className="text-xs text-slate-400 mt-1">采集3篇</span>
-                </Button>
-              ))}
-            </div>
-
             {/* 一键四分类采集 */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <Button 
@@ -903,7 +1029,7 @@ const NewsCollection = () => {
             <CardContent className="pt-6">
               <div className="flex items-center gap-4">
                 <div className="w-12 h-12 bg-purple-500/20 rounded-lg flex items-center justify-center">
-                  <Bot className="w-6 h-6 text-purple-400" />
+                  <Zap className="w-6 h-6 text-purple-400" />
                 </div>
                 <div>
                   <p className="text-2xl font-bold text-white">
@@ -918,114 +1044,143 @@ const NewsCollection = () => {
 
         {/* Keywords Management */}
         <Card className="bg-slate-800 border-slate-700">
-          <CardHeader className="flex flex-row items-center justify-between">
-            <div>
-              <CardTitle className="text-white flex items-center gap-2">
-                <Rss className="w-5 h-5" />
-                采集关键词配置
-              </CardTitle>
-              <CardDescription className="text-slate-400">
-                配置关键词对应新闻中心的板块，采集的文章将显示在对应板块中
-              </CardDescription>
+          <CardHeader>
+            <div className="flex items-center justify-between">
+              <div>
+                <CardTitle className="text-white flex items-center gap-2">
+                  <Rss className="w-5 h-5" />
+                  采集关键词配置
+                  {selectedCategory !== "全部" && (
+                    <Badge className={NEWS_CATEGORIES.find(c => c.value === selectedCategory)?.bgColor}>
+                      {selectedCategory}
+                    </Badge>
+                  )}
+                </CardTitle>
+                <CardDescription className="text-slate-400 mt-1">
+                  配置并管理自动采集的关键词，每个关键词可单独配置 Gemini AI 规则
+                </CardDescription>
+              </div>
+              <Button onClick={openCreateDialog} className="bg-amber-500 hover:bg-amber-600">
+                <Plus className="w-4 h-4 mr-2" />
+                添加关键词
+              </Button>
             </div>
-            <Button onClick={openCreateDialog} size="sm" className="bg-amber-500 hover:bg-amber-600">
-              <Plus className="w-4 h-4 mr-2" />
-              添加关键词
-            </Button>
+            {/* 关键词搜索框 */}
+            <div className="mt-4 flex gap-2">
+              <div className="relative flex-1">
+                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-slate-400" />
+                <Input
+                  value={keywordSearch}
+                  onChange={(e) => setKeywordSearch(e.target.value)}
+                  placeholder="搜索关键词..."
+                  className="bg-slate-700/50 border-slate-600 pl-10"
+                />
+              </div>
+              {keywordSearch && (
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  onClick={() => setKeywordSearch('')}
+                  className="text-slate-400"
+                >
+                  清除
+                </Button>
+              )}
+            </div>
           </CardHeader>
-          {/* 板块说明 */}
-          <div className="px-6 pb-4">
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-2 text-xs">
-              {NEWS_CATEGORIES.map((cat) => (
-                <div key={cat.value} className={`${cat.bgColor} rounded-lg px-3 py-2`}>
-                  <span className={`font-medium ${cat.color}`}>{cat.label}</span>
-                  <p className="text-slate-400 mt-0.5">{cat.description}</p>
-                </div>
-              ))}
-            </div>
-          </div>
           <CardContent>
             <Table>
               <TableHeader>
                 <TableRow className="border-slate-700">
                   <TableHead className="text-slate-400">关键词</TableHead>
                   <TableHead className="text-slate-400">英文关键词</TableHead>
-                  <TableHead className="text-slate-400">分类</TableHead>
+                  <TableHead className="text-slate-400">对应板块</TableHead>
+                  <TableHead className="text-slate-400">AI规则</TableHead>
                   <TableHead className="text-slate-400">优先级</TableHead>
                   <TableHead className="text-slate-400">状态</TableHead>
                   <TableHead className="text-slate-400 text-right">操作</TableHead>
                 </TableRow>
               </TableHeader>
               <TableBody>
-                {keywords.map((kw) => (
-                  <TableRow key={kw.id} className="border-slate-700">
-                    <TableCell className="text-white font-medium">{kw.keyword}</TableCell>
-                    <TableCell className="text-slate-400">{kw.keyword_en || '-'}</TableCell>
-                    <TableCell>
-                      {(() => {
-                        const catConfig = NEWS_CATEGORIES.find(c => c.value === kw.category);
-                        return catConfig ? (
-                          <Badge className={`${catConfig.bgColor} ${catConfig.color}`}>
-                            {kw.category}
+                {filteredKeywords.map((kw) => {
+                  const catConfig = NEWS_CATEGORIES.find(c => c.value === kw.category);
+                  const hasAiRules = kw.ai_rules?.enabled;
+                  return (
+                    <TableRow key={kw.id} className="border-slate-700">
+                      <TableCell className="text-white font-medium">{kw.keyword}</TableCell>
+                      <TableCell className="text-slate-400">{kw.keyword_en || '-'}</TableCell>
+                      <TableCell>
+                        <Badge className={`${catConfig?.bgColor || 'bg-slate-500/20'} ${catConfig?.color || 'text-slate-400'}`}>
+                          {kw.category}
+                        </Badge>
+                      </TableCell>
+                      <TableCell>
+                        {hasAiRules ? (
+                          <Badge className="bg-purple-500/20 text-purple-400">
+                            <Settings className="w-3 h-3 mr-1" />
+                            已配置
                           </Badge>
                         ) : (
-                          <Badge variant="outline" className="text-slate-300 border-slate-500">
-                            {kw.category}
-                          </Badge>
-                        );
-                      })()}
-                    </TableCell>
-                    <TableCell className="text-slate-400">{kw.priority}</TableCell>
-                    <TableCell>
-                      {kw.is_active ? (
-                        <Badge className="bg-green-500/20 text-green-400">启用</Badge>
-                      ) : (
-                        <Badge variant="outline" className="text-slate-400 border-slate-500">暂停</Badge>
-                      )}
-                    </TableCell>
-                    <TableCell className="text-right">
-                      <div className="flex items-center justify-end gap-1">
-                        <Button
-                          variant="ghost"
-                          size="sm"
-                          onClick={() => collectSingleKeyword(kw)}
-                          disabled={collecting}
-                          className="text-amber-400 hover:text-amber-300"
-                          title="立即采集"
-                        >
-                          <RefreshCw className="w-4 h-4" />
-                        </Button>
-                        <Button
-                          variant="ghost"
-                          size="sm"
-                          onClick={() => toggleKeywordActive(kw)}
-                          className={kw.is_active ? 'text-orange-400 hover:text-orange-300' : 'text-green-400 hover:text-green-300'}
-                        >
-                          {kw.is_active ? <Pause className="w-4 h-4" /> : <Play className="w-4 h-4" />}
-                        </Button>
-                        <Button
-                          variant="ghost"
-                          size="sm"
-                          onClick={() => openEditDialog(kw)}
-                          className="text-blue-400 hover:text-blue-300"
-                        >
-                          <Edit className="w-4 h-4" />
-                        </Button>
-                        <Button
-                          variant="ghost"
-                          size="sm"
-                          onClick={() => {
-                            setDeleteKeywordId(kw.id);
-                            setIsDeleteDialogOpen(true);
-                          }}
-                          className="text-red-400 hover:text-red-300"
-                        >
-                          <Trash2 className="w-4 h-4" />
-                        </Button>
-                      </div>
+                          <span className="text-slate-500 text-xs">默认规则</span>
+                        )}
+                      </TableCell>
+                      <TableCell className="text-slate-400">{kw.priority}</TableCell>
+                      <TableCell>
+                        <Badge className={kw.is_active ? 'bg-green-500/20 text-green-400' : 'bg-slate-500/20 text-slate-400'}>
+                          {kw.is_active ? '活跃' : '暂停'}
+                        </Badge>
+                      </TableCell>
+                      <TableCell>
+                        <div className="flex items-center justify-end gap-1">
+                          <Button
+                            variant="ghost"
+                            size="sm"
+                            onClick={() => collectSingleKeyword(kw)}
+                            disabled={collecting}
+                            className="text-amber-400 hover:text-amber-300"
+                            title="采集此关键词"
+                          >
+                            {collecting ? <Loader2 className="w-4 h-4 animate-spin" /> : <RefreshCw className="w-4 h-4" />}
+                          </Button>
+                          <Button
+                            variant="ghost"
+                            size="sm"
+                            onClick={() => toggleKeywordActive(kw)}
+                            className={kw.is_active ? 'text-orange-400 hover:text-orange-300' : 'text-green-400 hover:text-green-300'}
+                          >
+                            {kw.is_active ? <Pause className="w-4 h-4" /> : <Play className="w-4 h-4" />}
+                          </Button>
+                          <Button
+                            variant="ghost"
+                            size="sm"
+                            onClick={() => openEditDialog(kw)}
+                            className="text-blue-400 hover:text-blue-300"
+                          >
+                            <Edit className="w-4 h-4" />
+                          </Button>
+                          <Button
+                            variant="ghost"
+                            size="sm"
+                            onClick={() => {
+                              setDeleteKeywordId(kw.id);
+                              setIsDeleteDialogOpen(true);
+                            }}
+                            className="text-red-400 hover:text-red-300"
+                          >
+                            <Trash2 className="w-4 h-4" />
+                          </Button>
+                        </div>
+                      </TableCell>
+                    </TableRow>
+                  );
+                })}
+                {filteredKeywords.length === 0 && (
+                  <TableRow>
+                    <TableCell colSpan={7} className="text-center text-slate-400 py-8">
+                      {keywordSearch ? '没有找到匹配的关键词' : '暂无采集关键词，点击"添加关键词"开始配置'}
                     </TableCell>
                   </TableRow>
-                ))}
+                )}
               </TableBody>
             </Table>
           </CardContent>
@@ -1080,11 +1235,11 @@ const NewsCollection = () => {
 
       {/* Add/Edit Keyword Dialog */}
       <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
-        <DialogContent className="bg-slate-800 border-slate-700 text-white">
+        <DialogContent className="bg-slate-800 border-slate-700 text-white max-w-2xl max-h-[90vh] overflow-y-auto">
           <DialogHeader>
             <DialogTitle>{editingKeyword ? '编辑关键词' : '添加关键词'}</DialogTitle>
             <DialogDescription className="text-slate-400">
-              配置要自动采集的新闻关键词
+              配置要自动采集的新闻关键词，可单独设置 Gemini AI 规则
             </DialogDescription>
           </DialogHeader>
 
@@ -1117,7 +1272,7 @@ const NewsCollection = () => {
                 选择该关键词采集的文章将发布到新闻中心的哪个板块
               </p>
               <div className="grid grid-cols-2 gap-2">
-                {NEWS_CATEGORIES.map((cat) => (
+                {SELECTABLE_CATEGORIES.map((cat) => (
                   <button
                     key={cat.value}
                     type="button"
@@ -1158,6 +1313,104 @@ const NewsCollection = () => {
                 onCheckedChange={(checked) => setFormData({ ...formData, is_active: checked })}
               />
             </div>
+
+            {/* AI 规则配置 */}
+            <Accordion type="single" collapsible className="w-full">
+              <AccordionItem value="ai-rules" className="border-slate-600">
+                <AccordionTrigger className="text-white hover:text-amber-400">
+                  <div className="flex items-center gap-2">
+                    <Settings className="w-4 h-4" />
+                    Gemini AI 规则配置
+                    {formData.ai_rules.enabled && (
+                      <Badge className="bg-purple-500/20 text-purple-400 ml-2">已启用</Badge>
+                    )}
+                  </div>
+                </AccordionTrigger>
+                <AccordionContent className="space-y-4 pt-4">
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <Label htmlFor="ai_enabled">启用自定义 AI 规则</Label>
+                      <p className="text-xs text-slate-500">启用后将使用自定义规则替代全局规则</p>
+                    </div>
+                    <Switch
+                      id="ai_enabled"
+                      checked={formData.ai_rules.enabled}
+                      onCheckedChange={(checked) => setFormData({ 
+                        ...formData, 
+                        ai_rules: { ...formData.ai_rules, enabled: checked }
+                      })}
+                    />
+                  </div>
+
+                  {formData.ai_rules.enabled && (
+                    <>
+                      <div className="space-y-2">
+                        <Label htmlFor="scoreThreshold">评分阈值 (1-10)</Label>
+                        <Input
+                          id="scoreThreshold"
+                          type="number"
+                          min="1"
+                          max="10"
+                          step="0.5"
+                          value={formData.ai_rules.scoreThreshold}
+                          onChange={(e) => setFormData({ 
+                            ...formData, 
+                            ai_rules: { ...formData.ai_rules, scoreThreshold: parseFloat(e.target.value) || 8.0 }
+                          })}
+                          className="bg-slate-700 border-slate-600"
+                        />
+                        <p className="text-xs text-slate-500">低于此分数的文章将被自动过滤</p>
+                      </div>
+
+                      <div className="space-y-2">
+                        <Label htmlFor="scoringPrompt">评分规则提示词</Label>
+                        <Textarea
+                          id="scoringPrompt"
+                          value={formData.ai_rules.scoringPrompt}
+                          onChange={(e) => setFormData({ 
+                            ...formData, 
+                            ai_rules: { ...formData.ai_rules, scoringPrompt: e.target.value }
+                          })}
+                          placeholder="自定义评分规则，例如：重点关注技术深度和实用性..."
+                          className="bg-slate-700 border-slate-600 min-h-[80px]"
+                        />
+                        <p className="text-xs text-slate-500">自定义 AI 评分时的关注点和标准</p>
+                      </div>
+
+                      <div className="space-y-2">
+                        <Label htmlFor="optimizationPrompt">文章优化提示词</Label>
+                        <Textarea
+                          id="optimizationPrompt"
+                          value={formData.ai_rules.optimizationPrompt}
+                          onChange={(e) => setFormData({ 
+                            ...formData, 
+                            ai_rules: { ...formData.ai_rules, optimizationPrompt: e.target.value }
+                          })}
+                          placeholder="自定义文章优化规则，例如：保持专业性，添加行业数据支撑..."
+                          className="bg-slate-700 border-slate-600 min-h-[80px]"
+                        />
+                        <p className="text-xs text-slate-500">AI 润色和优化文章时的指导规则</p>
+                      </div>
+
+                      <div className="space-y-2">
+                        <Label htmlFor="contentRequirements">内容要求</Label>
+                        <Textarea
+                          id="contentRequirements"
+                          value={formData.ai_rules.contentRequirements}
+                          onChange={(e) => setFormData({ 
+                            ...formData, 
+                            ai_rules: { ...formData.ai_rules, contentRequirements: e.target.value }
+                          })}
+                          placeholder="文章内容要求，例如：必须包含数据支撑、需要有实际案例..."
+                          className="bg-slate-700 border-slate-600 min-h-[80px]"
+                        />
+                        <p className="text-xs text-slate-500">对采集文章内容的特殊要求</p>
+                      </div>
+                    </>
+                  )}
+                </AccordionContent>
+              </AccordionItem>
+            </Accordion>
           </div>
 
           <DialogFooter>
