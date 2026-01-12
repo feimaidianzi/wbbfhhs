@@ -239,6 +239,11 @@ const NewsCollection = () => {
   const [customSearchQuery, setCustomSearchQuery] = useState('');
   const [searchResults, setSearchResults] = useState<Array<{ url: string; title: string; description: string }>>([]);
 
+  // AI生成关键词状态
+  const [generatingKeywords, setGeneratingKeywords] = useState(false);
+  const [generatedKeywords, setGeneratedKeywords] = useState<Record<string, string[]> | null>(null);
+  const [isKeywordResultDialogOpen, setIsKeywordResultDialogOpen] = useState(false);
+
   // 翻译状态
   const [translating, setTranslating] = useState(false);
 
@@ -310,6 +315,81 @@ const NewsCollection = () => {
       });
     } finally {
       setLoading(false);
+    }
+  };
+
+  // 使用AI生成热门关键词
+  const generateHotKeywords = async () => {
+    setGeneratingKeywords(true);
+    try {
+      const response = await supabase.functions.invoke('collect-news-firecrawl', {
+        body: { action: 'generate-keywords' },
+      });
+
+      if (response.error) throw response.error;
+
+      if (response.data?.keywords) {
+        setGeneratedKeywords(response.data.keywords);
+        setIsKeywordResultDialogOpen(true);
+        toast({
+          title: 'AI关键词生成成功',
+          description: '已根据产品线和当前热点生成各分类关键词',
+        });
+      }
+    } catch (error: any) {
+      console.error('Generate keywords error:', error);
+      toast({
+        title: '生成失败',
+        description: error.message || '请稍后重试',
+        variant: 'destructive',
+      });
+    } finally {
+      setGeneratingKeywords(false);
+    }
+  };
+
+  // 将生成的关键词添加到数据库
+  const addGeneratedKeyword = async (keyword: string, category: string) => {
+    try {
+      // 检查是否已存在
+      const { data: existing } = await supabase
+        .from('news_keywords')
+        .select('id')
+        .eq('keyword', keyword)
+        .single();
+
+      if (existing) {
+        toast({
+          title: '关键词已存在',
+          description: `"${keyword}" 已在关键词列表中`,
+          variant: 'destructive',
+        });
+        return;
+      }
+
+      const { error } = await supabase
+        .from('news_keywords')
+        .insert({
+          keyword,
+          keyword_en: keyword, // AI生成的通常是英文或中英混合
+          category,
+          is_active: true,
+          priority: 50,
+        });
+
+      if (error) throw error;
+
+      toast({
+        title: '添加成功',
+        description: `关键词 "${keyword}" 已添加到 ${category}`,
+      });
+      fetchData();
+    } catch (error: any) {
+      toast({
+        title: '添加失败',
+        description: error.message,
+        variant: 'destructive',
+      });
     }
   };
 
@@ -932,6 +1012,15 @@ const NewsCollection = () => {
             </Button>
           </Link>
           <div className="flex items-center gap-2">
+            <Button
+              onClick={generateHotKeywords}
+              disabled={generatingKeywords}
+              variant="outline"
+              className="border-purple-500/50 text-purple-400 hover:bg-purple-500/20"
+            >
+              {generatingKeywords ? <Loader2 className="w-4 h-4 mr-2 animate-spin" /> : <Sparkles className="w-4 h-4 mr-2" />}
+              AI生成关键词
+            </Button>
             <Button 
               onClick={() => collectAllKeywords(false)}
               disabled={collecting}
@@ -1957,6 +2046,76 @@ const NewsCollection = () => {
             </Button>
             <Button onClick={handleSaveTask} className="bg-green-500 hover:bg-green-600">
               {editingTask ? '保存修改' : '创建任务'}
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
+
+      {/* AI生成关键词结果对话框 */}
+      <Dialog open={isKeywordResultDialogOpen} onOpenChange={setIsKeywordResultDialogOpen}>
+        <DialogContent className="bg-slate-800 border-slate-700 max-w-4xl max-h-[80vh] overflow-y-auto">
+          <DialogHeader>
+            <DialogTitle className="text-white flex items-center gap-2">
+              <Sparkles className="w-5 h-5 text-purple-400" />
+              AI 生成的热门关键词
+            </DialogTitle>
+            <DialogDescription className="text-slate-400">
+              根据当前无人机行业热点和产品线生成，点击关键词可添加到采集列表
+            </DialogDescription>
+          </DialogHeader>
+
+          <div className="space-y-6 py-4">
+            {generatedKeywords && Object.entries(generatedKeywords).map(([category, keywords]) => {
+              const catConfig = NEWS_CATEGORIES.find(c => c.value === category);
+              const Icon = catConfig?.icon || Rss;
+              const color = catConfig?.color || 'text-slate-400';
+              const bgColor = catConfig?.bgColor || 'bg-slate-500/20';
+
+              return (
+                <div key={category} className="space-y-3">
+                  <div className="flex items-center gap-2">
+                    <div className={`p-2 rounded-lg ${bgColor}`}>
+                      <Icon className={`w-4 h-4 ${color}`} />
+                    </div>
+                    <h3 className={`font-semibold ${color}`}>{category}</h3>
+                    <Badge variant="outline" className="text-slate-400 border-slate-600">
+                      {keywords.length} 个关键词
+                    </Badge>
+                  </div>
+                  <div className="flex flex-wrap gap-2 pl-10">
+                    {keywords.map((keyword, index) => (
+                      <button
+                        key={index}
+                        onClick={() => addGeneratedKeyword(keyword, category)}
+                        className="px-3 py-1.5 text-sm bg-slate-700 hover:bg-slate-600 text-slate-300 hover:text-white rounded-full border border-slate-600 hover:border-slate-500 transition-all flex items-center gap-1.5 group"
+                      >
+                        <span>{keyword}</span>
+                        <Plus className="w-3 h-3 opacity-0 group-hover:opacity-100 transition-opacity text-green-400" />
+                      </button>
+                    ))}
+                  </div>
+                </div>
+              );
+            })}
+
+            {!generatedKeywords && (
+              <div className="text-center py-8 text-slate-500">
+                暂无生成的关键词
+              </div>
+            )}
+          </div>
+
+          <DialogFooter className="border-t border-slate-700 pt-4">
+            <Button variant="ghost" onClick={() => setIsKeywordResultDialogOpen(false)}>
+              关闭
+            </Button>
+            <Button 
+              onClick={generateHotKeywords}
+              disabled={generatingKeywords}
+              className="bg-purple-500 hover:bg-purple-600"
+            >
+              {generatingKeywords ? <Loader2 className="w-4 h-4 mr-2 animate-spin" /> : <RefreshCw className="w-4 h-4 mr-2" />}
+              重新生成
             </Button>
           </DialogFooter>
         </DialogContent>
