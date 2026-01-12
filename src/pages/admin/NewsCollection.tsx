@@ -193,10 +193,11 @@ const NewsCollection = () => {
   const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
   const [editingKeyword, setEditingKeyword] = useState<NewsKeyword | null>(null);
   const [deleteKeywordId, setDeleteKeywordId] = useState<string | null>(null);
-  
+
   // 定时任务编辑状态
   const [isTaskDialogOpen, setIsTaskDialogOpen] = useState(false);
   const [editingTask, setEditingTask] = useState<ScheduledTask | null>(null);
+  const [runningScheduledTaskId, setRunningScheduledTaskId] = useState<string | null>(null);
   const [taskFormData, setTaskFormData] = useState({
     name: '',
     description: '',
@@ -237,25 +238,25 @@ const NewsCollection = () => {
   const [firecrawlCollecting, setFirecrawlCollecting] = useState(false);
   const [customSearchQuery, setCustomSearchQuery] = useState('');
   const [searchResults, setSearchResults] = useState<Array<{ url: string; title: string; description: string }>>([]);
-  
+
   // 翻译状态
   const [translating, setTranslating] = useState(false);
 
   // 使用 Gemini 翻译关键词
   const translateKeyword = async (keyword: string) => {
     if (!keyword.trim()) return;
-    
+
     setTranslating(true);
     try {
       const response = await supabase.functions.invoke('translate-keyword', {
-        body: { keyword: keyword.trim() }
+        body: { keyword: keyword.trim() },
       });
 
       if (response.error) throw response.error;
 
       const translatedKeyword = response.data?.translation || '';
       if (translatedKeyword) {
-        setFormData(prev => ({ ...prev, keyword_en: translatedKeyword }));
+        setFormData((prev) => ({ ...prev, keyword_en: translatedKeyword }));
         toast({ title: '翻译成功', description: `${keyword} → ${translatedKeyword}` });
       }
     } catch (error: any) {
@@ -334,7 +335,8 @@ const NewsCollection = () => {
 
   // 手动触发单个定时任务
   const triggerSingleTask = async (task: ScheduledTask) => {
-    setFirecrawlCollecting(true);
+    // 只标记当前任务在运行，避免 UI 看起来像“全部任务都在执行”
+    setRunningScheduledTaskId(task.id);
     try {
       const response = await supabase.functions.invoke('collect-news-firecrawl', {
         body: {
@@ -350,7 +352,7 @@ const NewsCollection = () => {
 
       toast({
         title: '任务执行完成',
-        description: `成功采集 ${response.data.articlesCollected} 篇文章`,
+        description: `成功采集 ${response.data.collected ?? response.data.articlesCollected ?? 0} 篇文章`,
       });
       fetchData();
     } catch (error: any) {
@@ -360,7 +362,7 @@ const NewsCollection = () => {
         variant: 'destructive',
       });
     } finally {
-      setFirecrawlCollecting(false);
+      setRunningScheduledTaskId(null);
     }
   };
 
@@ -1194,11 +1196,15 @@ const NewsCollection = () => {
                           </Button>
                           <Button
                             onClick={() => triggerSingleTask(task)}
-                            disabled={firecrawlCollecting}
+                            disabled={!!runningScheduledTaskId}
                             size="sm"
                             className="bg-green-500 hover:bg-green-600"
                           >
-                            {firecrawlCollecting ? <Loader2 className="w-4 h-4 mr-1 animate-spin" /> : <Play className="w-4 h-4 mr-1" />}
+                            {runningScheduledTaskId === task.id ? (
+                              <Loader2 className="w-4 h-4 mr-1 animate-spin" />
+                            ) : (
+                              <Play className="w-4 h-4 mr-1" />
+                            )}
                             立即执行
                           </Button>
                           <Button
