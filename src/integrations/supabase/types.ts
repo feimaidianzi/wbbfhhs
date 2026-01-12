@@ -111,6 +111,7 @@ export type Database = {
           author_name: string | null
           category: string | null
           content: string
+          content_en: string | null
           cover_image: string | null
           created_at: string
           id: string
@@ -124,7 +125,9 @@ export type Database = {
           source_name: string | null
           source_url: string | null
           summary: string | null
+          summary_en: string | null
           title: string
+          title_en: string | null
           updated_at: string
         }
         Insert: {
@@ -133,6 +136,7 @@ export type Database = {
           author_name?: string | null
           category?: string | null
           content: string
+          content_en?: string | null
           cover_image?: string | null
           created_at?: string
           id?: string
@@ -146,7 +150,9 @@ export type Database = {
           source_name?: string | null
           source_url?: string | null
           summary?: string | null
+          summary_en?: string | null
           title: string
+          title_en?: string | null
           updated_at?: string
         }
         Update: {
@@ -155,6 +161,7 @@ export type Database = {
           author_name?: string | null
           category?: string | null
           content?: string
+          content_en?: string | null
           cover_image?: string | null
           created_at?: string
           id?: string
@@ -168,7 +175,9 @@ export type Database = {
           source_name?: string | null
           source_url?: string | null
           summary?: string | null
+          summary_en?: string | null
           title?: string
+          title_en?: string | null
           updated_at?: string
         }
         Relationships: []

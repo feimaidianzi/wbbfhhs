@@ -15,8 +15,11 @@ import { sanitizeHtml } from "@/lib/sanitize";
 interface NewsArticle {
   id: string;
   title: string;
+  title_en: string | null;
   summary: string | null;
+  summary_en: string | null;
   content: string;
+  content_en: string | null;
   cover_image: string | null;
   author_name: string | null;
   category: string | null;
@@ -177,11 +180,16 @@ const NewsDetail = () => {
             {article.category && (
               <Badge className="mb-4 bg-accent/20 text-accent border-accent/30">
                 <Tag className="w-3 h-3 mr-1" />
-                {article.category}
+                {language === 'en' ? {
+                  '公司新闻': 'Company News',
+                  '行业动态': 'Industry Trends',
+                  '产品资讯': 'Product Updates',
+                  '技术分享': 'Tech Insights',
+                }[article.category] || article.category : article.category}
               </Badge>
             )}
             <h1 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
-              {article.title}
+              {language === 'en' && article.title_en ? article.title_en : article.title}
             </h1>
             <div className="flex flex-wrap items-center gap-4 text-muted-foreground">
               {article.published_at && (
@@ -197,9 +205,9 @@ const NewsDetail = () => {
                 </span>
               )}
             </div>
-            {article.summary && (
+            {(article.summary || article.summary_en) && (
               <p className="mt-4 text-lg text-muted-foreground leading-relaxed">
-                {article.summary}
+                {language === 'en' && article.summary_en ? article.summary_en : article.summary}
               </p>
             )}
           </header>
@@ -212,7 +220,9 @@ const NewsDetail = () => {
               prose-a:text-accent hover:prose-a:text-orange-light
               prose-strong:text-foreground
               prose-img:rounded-xl prose-img:shadow-lg"
-            dangerouslySetInnerHTML={{ __html: sanitizeHtml(article.content) }}
+            dangerouslySetInnerHTML={{ __html: sanitizeHtml(
+              language === 'en' && article.content_en ? article.content_en : article.content
+            ) }}
           />
         </article>
 
