@@ -504,6 +504,49 @@ async function fetchWithRetry(
   throw lastError || new Error("Request failed after retries");
 }
 
+// 不可爬取的网站黑名单
+const BLOCKED_DOMAINS = [
+  'facebook.com',
+  'twitter.com', 
+  'x.com',
+  'instagram.com',
+  'linkedin.com',
+  'tiktok.com',
+  'youtube.com',
+  'weibo.com',
+  'weixin.qq.com',
+  'mp.weixin.qq.com',
+  'zhihu.com',
+  'bilibili.com',
+  'reddit.com',
+  'pinterest.com',
+  'tumblr.com',
+  // 需要登录的网站
+  'medium.com',
+  'quora.com',
+  // 付费墙网站
+  'wsj.com',
+  'nytimes.com',
+  'bloomberg.com',
+];
+
+// 检查URL是否可爬取
+function isScrapableUrl(url: string): boolean {
+  try {
+    const urlObj = new URL(url);
+    const domain = urlObj.hostname.toLowerCase();
+    
+    for (const blocked of BLOCKED_DOMAINS) {
+      if (domain.includes(blocked)) {
+        return false;
+      }
+    }
+    return true;
+  } catch {
+    return false;
+  }
+}
+
 // 使用 Firecrawl 搜索新闻
 async function searchNews(
   query: string,
@@ -516,6 +559,12 @@ async function searchNews(
 
   console.log(`Searching news: ${query}`);
 
+  // 添加排除社交媒体和不可爬取网站的搜索条件
+  const excludeSites = "-site:facebook.com -site:twitter.com -site:instagram.com -site:linkedin.com -site:reddit.com -site:youtube.com -site:medium.com -site:pinterest.com";
+  
+  // 优先搜索新闻类网站
+  const newsSites = "site:techcrunch.com OR site:theverge.com OR site:wired.com OR site:arstechnica.com OR site:dronedj.com OR site:dronelife.com OR site:suas-news.com OR site:commercialdroneprofessional.com";
+
   const response = await fetchWithRetry("https://api.firecrawl.dev/v1/search", {
     method: "POST",
     headers: {
@@ -523,11 +572,11 @@ async function searchNews(
       "Content-Type": "application/json",
     },
     body: JSON.stringify({
-      query: query + " news 2024 2025 -review -测评 -评测",
-      limit,
+      query: `${query} drone UAV news 2025 2026 ${excludeSites}`,
+      limit: limit * 2, // 请求更多结果以便过滤
       lang: "en",
       country: "US",
-      tbs: "qdr:w",
+      tbs: "qdr:m", // 最近一个月的新闻
       scrapeOptions: {
         formats: ["markdown"],
         onlyMainContent: true,
@@ -542,7 +591,13 @@ async function searchNews(
   }
 
   const data = await response.json();
-  return data.data || [];
+  const results = data.data || [];
+  
+  // 过滤掉无法爬取的URL
+  const scrapableResults = results.filter((item: { url: string }) => isScrapableUrl(item.url));
+  console.log(`Search returned ${results.length} results, ${scrapableResults.length} are scrapable`);
+  
+  return scrapableResults.slice(0, limit);
 }
 
 // 从HTML中提取所有图片URL
