@@ -187,69 +187,60 @@ async function scoreArticleQuality(
   }
 }
 
-// 搜索无水印/无商标的图片
-async function searchCleanImages(
-  keyword: string,
-  count: number = 3
-): Promise<string[]> {
+// 验证图片是否真实可访问且为高质量图片
+async function validateImageUrl(imgUrl: string): Promise<boolean> {
   try {
-    const LOVABLE_API_KEY = Deno.env.get("LOVABLE_API_KEY");
-    if (!LOVABLE_API_KEY) return [];
-
-    const prompt = `为一篇关于"${keyword}"的无人机技术文章推荐${count}张高质量配图。
-
-要求：
-1. 只返回真实存在的公开可用图片URL
-2. 图片必须是无水印、无商标的
-3. 图片来源优先选择Unsplash、Pexels等免费图库
-4. 图片内容要与文章主题相关（无人机、FPV、技术设备等）
-
-请返回JSON数组格式：
-["图片URL1", "图片URL2", "图片URL3"]
-
-如果无法找到合适的图片，返回空数组 []`;
-
-    const response = await fetch("https://ai.gateway.lovable.dev/v1/chat/completions", {
-      method: "POST",
-      headers: {
-        "Authorization": `Bearer ${LOVABLE_API_KEY}`,
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        model: "google/gemini-2.5-flash",
-        messages: [
-          { role: "user", content: prompt }
-        ],
-        temperature: 0.5,
-        max_tokens: 500,
-      }),
+    // 使用HEAD请求检查图片是否存在
+    const response = await fetch(imgUrl, { 
+      method: 'HEAD',
+      signal: AbortSignal.timeout(5000) // 5秒超时
     });
-
-    if (!response.ok) return [];
-
-    const data = await response.json();
-    const aiContent = data.choices?.[0]?.message?.content || "";
     
-    const jsonMatch = aiContent.match(/\[[\s\S]*\]/);
-    if (jsonMatch) {
-      const urls = JSON.parse(jsonMatch[0]);
-      // 验证URL格式
-      return urls.filter((url: string) => 
-        url.startsWith('http') && 
-        !url.includes('logo') && 
-        !url.includes('watermark') &&
-        !url.includes('brand')
-      );
-    }
-    return [];
+    if (!response.ok) return false;
+    
+    // 检查Content-Type是否为图片
+    const contentType = response.headers.get('content-type') || '';
+    if (!contentType.startsWith('image/')) return false;
+    
+    // 检查文件大小（至少10KB，排除小图标）
+    const contentLength = response.headers.get('content-length');
+    if (contentLength && parseInt(contentLength) < 10000) return false;
+    
+    return true;
   } catch (error) {
-    console.error("Image search failed:", error);
-    return [];
+    console.log(`Image validation failed: ${imgUrl}`);
+    return false;
   }
 }
 
-// 获取高质量无人机配图
+// 批量验证图片并返回有效的图片列表
+async function validateImages(images: string[], maxCount: number = 5): Promise<string[]> {
+  const validImages: string[] = [];
+  
+  // 并行验证，但限制并发数
+  const batchSize = 5;
+  for (let i = 0; i < images.length && validImages.length < maxCount; i += batchSize) {
+    const batch = images.slice(i, i + batchSize);
+    const results = await Promise.all(
+      batch.map(async (url) => {
+        const isValid = await validateImageUrl(url);
+        return isValid ? url : null;
+      })
+    );
+    
+    for (const result of results) {
+      if (result && validImages.length < maxCount) {
+        validImages.push(result);
+      }
+    }
+  }
+  
+  return validImages;
+}
+
+// 获取高质量无人机配图 - 使用确保可用的Unsplash图片
 function getDefaultDroneImages(): string[] {
+  // 这些是Unsplash上确认可用的无人机相关图片
   return [
     "https://images.unsplash.com/photo-1473968512647-3e447244af8f?w=800&q=80",
     "https://images.unsplash.com/photo-1508614589041-895b88991e3e?w=800&q=80",
@@ -397,26 +388,28 @@ async function rewriteArticleWithAI(
 
     const result = JSON.parse(jsonMatch[0]);
     
-    // 准备图片列表：优先使用原文图片，不足时使用默认图片
+    // 准备图片列表：只使用经过验证的原文图片，不足时使用Unsplash默认图片
     let images: string[] = [];
     const defaultImages = getDefaultDroneImages();
     
-    // 优先使用原文中的图片（已经过过滤）
+    // 优先使用原文中已验证的高质量图片
     if (originalImages.length > 0) {
+      // originalImages已经在scrapeFullContent中经过filterHighQualityImages验证
       images = [...originalImages];
-      console.log(`Using ${originalImages.length} original images from article`);
+      console.log(`Using ${originalImages.length} validated original images from article`);
     }
     
-    // 如果原文图片不足，补充默认无人机图片
+    // 如果原文图片不足3张，使用Unsplash默认无人机图片补充
+    // 这些图片是确保可用的高质量无人机相关图片
     if (images.length < MIN_IMAGES) {
       const shuffledDefaults = defaultImages.sort(() => 0.5 - Math.random());
       const needed = MIN_IMAGES - images.length;
       images.push(...shuffledDefaults.slice(0, needed));
-      console.log(`Added ${needed} default images, total: ${images.length}`);
+      console.log(`Original images insufficient (${originalImages.length}), added ${needed} Unsplash default images`);
     }
     
-    // 确保至少有MIN_IMAGES张图片
-    images = images.slice(0, Math.max(MIN_IMAGES, images.length > 5 ? 5 : images.length));
+    // 最多使用5张图片，确保至少有MIN_IMAGES张
+    images = images.slice(0, Math.max(MIN_IMAGES, Math.min(images.length, 5)));
     
     // 替换图片占位符
     let contentWithImages = result.content || "";
@@ -551,18 +544,36 @@ function extractImagesFromHtml(html: string, baseUrl: string): string[] {
   return [...new Set(images)];
 }
 
-// 检查图片URL是否有效（无水印、无商标、非图标等）
+// 检查图片URL是否有效（无水印、无商标、非图标等）- 增强版
 function isValidImage(imgUrl: string): boolean {
   if (!imgUrl || imgUrl.length < 20) return false;
   if (imgUrl.startsWith('data:')) return false;
   if (!imgUrl.startsWith('http')) return false;
   
+  // 排除常见的非内容图片模式
   const excludePatterns = [
-    'logo', 'icon', 'avatar', 'ads', 'banner', 'pixel', 'watermark', 'brand',
-    'favicon', 'emoji', 'sprite', 'button', 'arrow', 'social', 'share',
-    'twitter', 'facebook', 'linkedin', 'instagram', 'youtube', 'tiktok',
-    'badge', 'tag', 'label', 'loading', 'placeholder', 'spacer', 'blank',
-    '1x1', '1px', 'tracking', 'analytics', 'beacon', 'widget'
+    // 商标和Logo
+    'logo', 'brand', 'watermark', 'trademark', 'stamp',
+    // 图标和小图
+    'icon', 'avatar', 'emoji', 'sprite', 'button', 'arrow', 'badge', 'tag', 'label',
+    // 广告和追踪
+    'ads', 'ad-', 'advertisement', 'pixel', 'tracking', 'analytics', 'beacon', 'widget',
+    // 社交媒体图标
+    'twitter', 'facebook', 'linkedin', 'instagram', 'youtube', 'tiktok', 'wechat', 'weibo',
+    // 占位符和加载图
+    'loading', 'placeholder', 'spacer', 'blank', 'default', 'lazy',
+    // 文件尺寸标识（通常是缩略图）
+    '1x1', '1px', 'thumb', 'thumbnail', 'small', 'tiny', 'mini',
+    // Banner和装饰
+    'banner-ad', 'sidebar', 'footer', 'header-img',
+    // 常见的低质量图片来源
+    'gravatar', 'googleusercontent', 'fbcdn', 'twimg',
+    // AI生成图片标识
+    'ai-generated', 'dall-e', 'midjourney', 'stable-diffusion',
+    // 股票图片水印
+    'shutterstock', 'gettyimages', 'istock', 'dreamstime', 'depositphotos', 'adobestock',
+    // GIF动图（通常质量较差）
+    '.gif',
   ];
   
   const lowerUrl = imgUrl.toLowerCase();
@@ -570,35 +581,73 @@ function isValidImage(imgUrl: string): boolean {
     if (lowerUrl.includes(pattern)) return false;
   }
   
-  // 检查是否是小图（通常是图标）
-  const sizePatterns = [/\d{1,2}x\d{1,2}/, /_\d{1,2}\./];
-  for (const pattern of sizePatterns) {
+  // 检查是否是小图（URL中的尺寸参数）
+  const smallSizePatterns = [
+    /\d{1,2}x\d{1,2}/,      // 如 16x16, 32x32
+    /_\d{1,2}\./,           // 如 _16.png
+    /[-_]s\./,              // 小图标识
+    /w[=_]\d{1,2}[^0-9]/,   // 如 w=50, w_50
+    /h[=_]\d{1,2}[^0-9]/,   // 如 h=50
+    /size[=_]\d{1,2}/,      // 如 size=50
+  ];
+  for (const pattern of smallSizePatterns) {
     if (pattern.test(lowerUrl)) return false;
   }
+  
+  // 确保是有效的图片格式
+  const validExtensions = ['.jpg', '.jpeg', '.png', '.webp'];
+  const hasValidExtension = validExtensions.some(ext => 
+    lowerUrl.includes(ext) || lowerUrl.includes('format=jpg') || lowerUrl.includes('format=png')
+  );
+  
+  // 如果URL很长（通常是CDN图片），即使没有明确扩展名也接受
+  if (!hasValidExtension && imgUrl.length < 100) return false;
   
   return true;
 }
 
-// 过滤并选择高质量图片
+// 评估图片质量得分
+function getImageQualityScore(imgUrl: string): number {
+  let score = 50; // 基础分
+  const lowerUrl = imgUrl.toLowerCase();
+  
+  // 高质量指标（加分）
+  if (lowerUrl.includes('original') || lowerUrl.includes('full')) score += 20;
+  if (lowerUrl.includes('large') || lowerUrl.includes('high')) score += 15;
+  if (/w[=_]\d{3,}/.test(lowerUrl)) score += 15; // 宽度>=100
+  if (/width[=_]\d{3,}/.test(lowerUrl)) score += 15;
+  if (lowerUrl.includes('hd') || lowerUrl.includes('hq')) score += 10;
+  if (lowerUrl.includes('.png')) score += 5; // PNG通常质量较好
+  if (lowerUrl.includes('cdn') || lowerUrl.includes('media')) score += 5;
+  
+  // 低质量指标（减分）
+  if (lowerUrl.includes('preview')) score -= 10;
+  if (lowerUrl.includes('crop')) score -= 5;
+  if (lowerUrl.includes('compressed')) score -= 15;
+  if (/q[=_]\d{1,2}[^0-9]/.test(lowerUrl)) score -= 10; // 低质量参数
+  
+  return score;
+}
+
+// 过滤并选择高质量图片 - 增强版
 async function filterHighQualityImages(images: string[], minCount: number = 3): Promise<string[]> {
-  const validImages: string[] = [];
+  // 先按质量分数排序
+  const scoredImages = images.map(url => ({
+    url,
+    score: getImageQualityScore(url)
+  }));
   
-  for (const imgUrl of images) {
-    if (validImages.length >= minCount + 2) break; // 多获取几张备用
-    
-    // 优先选择大图
-    const hasLargeIndicator = imgUrl.includes('large') || imgUrl.includes('full') || 
-                              imgUrl.includes('original') || imgUrl.includes('high') ||
-                              /w=\d{3,}/.test(imgUrl) || /width=\d{3,}/.test(imgUrl);
-    
-    if (hasLargeIndicator) {
-      validImages.unshift(imgUrl); // 大图放前面
-    } else {
-      validImages.push(imgUrl);
-    }
-  }
+  scoredImages.sort((a, b) => b.score - a.score);
   
-  return validImages.slice(0, minCount + 2);
+  // 取分数最高的图片进行验证
+  const topImages = scoredImages.slice(0, minCount * 3).map(item => item.url);
+  
+  // 验证图片可访问性
+  const validImages = await validateImages(topImages, minCount + 2);
+  
+  console.log(`Filtered ${images.length} images to ${validImages.length} high-quality valid images`);
+  
+  return validImages;
 }
 
 // 抓取网页内容 - 增强版，提取所有图片
