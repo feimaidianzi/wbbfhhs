@@ -262,12 +262,13 @@ function getDefaultDroneImages(): string[] {
   ];
 }
 
-// 使用 Lovable AI 进行专业二次创作
+// 使用 Lovable AI 进行专业二次创作 - 增强版，支持原文图片
 async function rewriteArticleWithAI(
   originalTitle: string,
   originalContent: string,
   category: string,
-  coverImage: string | null = null
+  coverImage: string | null = null,
+  originalImages: string[] = [] // 新增：原文中提取的图片
 ): Promise<{ 
   title: string; 
   title_en: string;
@@ -290,7 +291,10 @@ async function rewriteArticleWithAI(
     const style = categoryConfig?.style || "专业、客观、信息丰富";
     const focus = categoryConfig?.contentFocus || "无人机行业相关内容";
 
-    console.log("Rewriting article with AI for bilingual output...");
+    // 确定需要的图片数量（至少3张）
+    const MIN_IMAGES = 3;
+    
+    console.log(`Rewriting article with AI, original images: ${originalImages.length}`);
     
     const prompt = `你是一位资深自媒体写手兼无人机行业新闻编辑，为专业无人机技术公司官网撰写高质量、高吸引力的新闻稿。
 
@@ -324,13 +328,16 @@ async function rewriteArticleWithAI(
 1. 标题必须使用上述4种技巧之一，30字以内，只输出1个最合适的标题
 2. 完全重新创作文章，不要简单翻译或复制
 3. 文章需要同时提供中文版和英文版
-4. 每篇文章必须包含至少2个图片插入位置标记
+4. 每篇文章必须包含至少3个图片插入位置标记
 5. 中文版800-1500字，英文版500-1000词
 6. 注重可读性和专业性
 7. 禁止包含任何URL、广告信息
 
-【图片插入格式】
-在文章适当位置插入图片标记：<!-- IMAGE_PLACEHOLDER_1 --> <!-- IMAGE_PLACEHOLDER_2 -->
+【图片插入格式 - 必须包含至少3个】
+在文章适当位置插入图片标记：
+<!-- IMAGE_PLACEHOLDER_1 -->
+<!-- IMAGE_PLACEHOLDER_2 -->
+<!-- IMAGE_PLACEHOLDER_3 -->
 
 【输出JSON格式】
 {
@@ -338,8 +345,8 @@ async function rewriteArticleWithAI(
   "title_en": "English Title (engaging, 5-12 words)",
   "summary": "中文摘要（100-150字）",
   "summary_en": "English summary (50-80 words)",
-  "content": "中文HTML正文（包含h3/p/strong标签和图片标记，800-1500字）",
-  "content_en": "English HTML content (with h3/p/strong tags and image placeholders, 500-1000 words)",
+  "content": "中文HTML正文（包含h3/p/strong标签和至少3个图片标记，800-1500字）",
+  "content_en": "English HTML content (with h3/p/strong tags and at least 3 image placeholders, 500-1000 words)",
   "keywords": ["关键词1", "关键词2", "关键词3", "keyword4", "keyword5"]
 }
 
@@ -350,6 +357,9 @@ async function rewriteArticleWithAI(
 <h3>详细分析</h3>
 <p>详细内容...</p>
 <!-- IMAGE_PLACEHOLDER_2 -->
+<h3>深入解读</h3>
+<p>更多内容...</p>
+<!-- IMAGE_PLACEHOLDER_3 -->
 <h3>总结与展望</h3>
 <p>结尾段落...</p>`;
 
@@ -362,7 +372,7 @@ async function rewriteArticleWithAI(
       body: JSON.stringify({
         model: "google/gemini-2.5-flash",
         messages: [
-          { role: "system", content: "你是专业的无人机行业新闻编辑，擅长撰写高质量双语新闻稿。" },
+          { role: "system", content: "你是专业的无人机行业新闻编辑，擅长撰写高质量双语新闻稿。文章必须包含至少3个图片插入位置。" },
           { role: "user", content: prompt }
         ],
         temperature: 0.7,
@@ -387,13 +397,26 @@ async function rewriteArticleWithAI(
 
     const result = JSON.parse(jsonMatch[0]);
     
-    // 获取配图
+    // 准备图片列表：优先使用原文图片，不足时使用默认图片
     let images: string[] = [];
     const defaultImages = getDefaultDroneImages();
     
-    // 随机选择2-3张默认图片
-    const shuffled = defaultImages.sort(() => 0.5 - Math.random());
-    images = shuffled.slice(0, 3);
+    // 优先使用原文中的图片（已经过过滤）
+    if (originalImages.length > 0) {
+      images = [...originalImages];
+      console.log(`Using ${originalImages.length} original images from article`);
+    }
+    
+    // 如果原文图片不足，补充默认无人机图片
+    if (images.length < MIN_IMAGES) {
+      const shuffledDefaults = defaultImages.sort(() => 0.5 - Math.random());
+      const needed = MIN_IMAGES - images.length;
+      images.push(...shuffledDefaults.slice(0, needed));
+      console.log(`Added ${needed} default images, total: ${images.length}`);
+    }
+    
+    // 确保至少有MIN_IMAGES张图片
+    images = images.slice(0, Math.max(MIN_IMAGES, images.length > 5 ? 5 : images.length));
     
     // 替换图片占位符
     let contentWithImages = result.content || "";
@@ -401,7 +424,7 @@ async function rewriteArticleWithAI(
     
     images.forEach((imgUrl, index) => {
       const placeholder = `<!-- IMAGE_PLACEHOLDER_${index + 1} -->`;
-      const imgHtml = `<figure class="my-6"><img src="${imgUrl}" alt="文章配图 ${index + 1}" class="rounded-lg shadow-md w-full" /><figcaption class="text-center text-sm text-muted-foreground mt-2">图${index + 1}</figcaption></figure>`;
+      const imgHtml = `<figure class="my-6"><img src="${imgUrl}" alt="文章配图 ${index + 1}" class="rounded-lg shadow-md w-full" loading="lazy" /><figcaption class="text-center text-sm text-muted-foreground mt-2">图${index + 1}</figcaption></figure>`;
       contentWithImages = contentWithImages.replace(placeholder, imgHtml);
       contentEnWithImages = contentEnWithImages.replace(placeholder, imgHtml);
     });
@@ -410,7 +433,7 @@ async function rewriteArticleWithAI(
     contentWithImages = contentWithImages.replace(/<!-- IMAGE_PLACEHOLDER_\d+ -->/g, '');
     contentEnWithImages = contentEnWithImages.replace(/<!-- IMAGE_PLACEHOLDER_\d+ -->/g, '');
 
-    console.log("AI rewrite successful with bilingual content");
+    console.log(`AI rewrite successful with ${images.length} images`);
 
     return {
       title: result.title?.substring(0, 100) || originalTitle.substring(0, 35),
@@ -470,15 +493,128 @@ async function searchNews(
   return data.data || [];
 }
 
-// 抓取网页内容
-async function scrapeFullContent(url: string): Promise<{ title: string; content: string; coverImage: string | null } | null> {
+// 从HTML中提取所有图片URL
+function extractImagesFromHtml(html: string, baseUrl: string): string[] {
+  if (!html) return [];
+  
+  const images: string[] = [];
+  const imgMatches = html.match(/<img[^>]+src=["']([^"']+)["'][^>]*>/gi) || [];
+  
+  for (const match of imgMatches) {
+    const srcMatch = match.match(/src=["']([^"']+)["']/i);
+    if (srcMatch && srcMatch[1]) {
+      let imgUrl = srcMatch[1];
+      
+      // 转换相对路径为绝对路径
+      if (imgUrl.startsWith('//')) {
+        imgUrl = 'https:' + imgUrl;
+      } else if (imgUrl.startsWith('/')) {
+        try {
+          const urlObj = new URL(baseUrl);
+          imgUrl = urlObj.origin + imgUrl;
+        } catch {
+          continue;
+        }
+      }
+      
+      // 排除不合适的图片
+      if (isValidImage(imgUrl)) {
+        images.push(imgUrl);
+      }
+    }
+  }
+  
+  // 提取srcset中的图片
+  const srcsetMatches = html.match(/srcset=["']([^"']+)["']/gi) || [];
+  for (const match of srcsetMatches) {
+    const urls = match.match(/https?:\/\/[^\s,]+/g) || [];
+    for (const url of urls) {
+      if (isValidImage(url)) {
+        images.push(url);
+      }
+    }
+  }
+  
+  // 提取data-src中的图片（懒加载）
+  const dataSrcMatches = html.match(/data-src=["']([^"']+)["']/gi) || [];
+  for (const match of dataSrcMatches) {
+    const urlMatch = match.match(/["']([^"']+)["']/);
+    if (urlMatch && urlMatch[1]) {
+      let imgUrl = urlMatch[1];
+      if (imgUrl.startsWith('http') && isValidImage(imgUrl)) {
+        images.push(imgUrl);
+      }
+    }
+  }
+  
+  // 去重
+  return [...new Set(images)];
+}
+
+// 检查图片URL是否有效（无水印、无商标、非图标等）
+function isValidImage(imgUrl: string): boolean {
+  if (!imgUrl || imgUrl.length < 20) return false;
+  if (imgUrl.startsWith('data:')) return false;
+  if (!imgUrl.startsWith('http')) return false;
+  
+  const excludePatterns = [
+    'logo', 'icon', 'avatar', 'ads', 'banner', 'pixel', 'watermark', 'brand',
+    'favicon', 'emoji', 'sprite', 'button', 'arrow', 'social', 'share',
+    'twitter', 'facebook', 'linkedin', 'instagram', 'youtube', 'tiktok',
+    'badge', 'tag', 'label', 'loading', 'placeholder', 'spacer', 'blank',
+    '1x1', '1px', 'tracking', 'analytics', 'beacon', 'widget'
+  ];
+  
+  const lowerUrl = imgUrl.toLowerCase();
+  for (const pattern of excludePatterns) {
+    if (lowerUrl.includes(pattern)) return false;
+  }
+  
+  // 检查是否是小图（通常是图标）
+  const sizePatterns = [/\d{1,2}x\d{1,2}/, /_\d{1,2}\./];
+  for (const pattern of sizePatterns) {
+    if (pattern.test(lowerUrl)) return false;
+  }
+  
+  return true;
+}
+
+// 过滤并选择高质量图片
+async function filterHighQualityImages(images: string[], minCount: number = 3): Promise<string[]> {
+  const validImages: string[] = [];
+  
+  for (const imgUrl of images) {
+    if (validImages.length >= minCount + 2) break; // 多获取几张备用
+    
+    // 优先选择大图
+    const hasLargeIndicator = imgUrl.includes('large') || imgUrl.includes('full') || 
+                              imgUrl.includes('original') || imgUrl.includes('high') ||
+                              /w=\d{3,}/.test(imgUrl) || /width=\d{3,}/.test(imgUrl);
+    
+    if (hasLargeIndicator) {
+      validImages.unshift(imgUrl); // 大图放前面
+    } else {
+      validImages.push(imgUrl);
+    }
+  }
+  
+  return validImages.slice(0, minCount + 2);
+}
+
+// 抓取网页内容 - 增强版，提取所有图片
+async function scrapeFullContent(url: string): Promise<{ 
+  title: string; 
+  content: string; 
+  coverImage: string | null;
+  images: string[];
+} | null> {
   const apiKey = Deno.env.get("FIRECRAWL_API_KEY");
   if (!apiKey) {
     throw new Error("Firecrawl API key not configured");
   }
 
   try {
-    console.log(`Scraping: ${url}`);
+    console.log(`Scraping with images: ${url}`);
     
     const response = await fetch("https://api.firecrawl.dev/v1/scrape", {
       method: "POST",
@@ -488,9 +624,9 @@ async function scrapeFullContent(url: string): Promise<{ title: string; content:
       },
       body: JSON.stringify({
         url,
-        formats: ["markdown", "html"],
+        formats: ["markdown", "html", "links"], // 添加links格式获取更多信息
         onlyMainContent: true,
-        waitFor: 2000,
+        waitFor: 3000, // 增加等待时间确保图片加载
       }),
     });
 
@@ -510,43 +646,51 @@ async function scrapeFullContent(url: string): Promise<{ title: string; content:
       return null;
     }
 
-    let coverImage: string | null = null;
+    // 提取所有图片
+    const allImages: string[] = [];
     
-    if (scraped.metadata?.ogImage) {
-      // 检查是否有水印或商标标记
-      const imgUrl = scraped.metadata.ogImage;
-      if (!imgUrl.includes('logo') && !imgUrl.includes('watermark') && !imgUrl.includes('brand')) {
-        coverImage = imgUrl;
-      }
+    // 1. 从HTML中提取图片
+    if (scraped.html) {
+      const htmlImages = extractImagesFromHtml(scraped.html, url);
+      allImages.push(...htmlImages);
     }
     
-    if (!coverImage && scraped.html) {
-      const imgMatches = scraped.html.match(/<img[^>]+src=["']([^"']+)["'][^>]*>/gi);
-      if (imgMatches) {
-        for (const match of imgMatches) {
-          const srcMatch = match.match(/src=["']([^"']+)["']/i);
-          if (srcMatch && srcMatch[1]) {
-            const imgUrl = srcMatch[1];
-            // 排除带水印/商标的图片
-            if (imgUrl.includes('logo') || imgUrl.includes('icon') || imgUrl.includes('avatar') ||
-                imgUrl.includes('ads') || imgUrl.includes('banner') || imgUrl.includes('pixel') ||
-                imgUrl.includes('watermark') || imgUrl.includes('brand') ||
-                imgUrl.length < 20 || imgUrl.startsWith('data:')) {
-              continue;
-            }
-            if (imgUrl.startsWith('http')) {
-              coverImage = imgUrl;
-              break;
-            }
+    // 2. 从links中提取图片链接
+    if (scraped.links && Array.isArray(scraped.links)) {
+      const imageExtensions = ['.jpg', '.jpeg', '.png', '.webp', '.gif'];
+      for (const link of scraped.links) {
+        const linkUrl = typeof link === 'string' ? link : link.url;
+        if (linkUrl && imageExtensions.some(ext => linkUrl.toLowerCase().includes(ext))) {
+          if (isValidImage(linkUrl)) {
+            allImages.push(linkUrl);
           }
         }
       }
     }
+    
+    // 3. OG Image作为封面图
+    let coverImage: string | null = null;
+    if (scraped.metadata?.ogImage) {
+      const ogImg = scraped.metadata.ogImage;
+      if (isValidImage(ogImg)) {
+        coverImage = ogImg;
+        // 确保OG图片也在列表中
+        if (!allImages.includes(ogImg)) {
+          allImages.unshift(ogImg);
+        }
+      }
+    }
+    
+    // 过滤并选择高质量图片
+    const filteredImages = await filterHighQualityImages(allImages, 3);
+    
+    console.log(`Found ${allImages.length} images, filtered to ${filteredImages.length} for: ${url}`);
 
     return {
       title: scraped.metadata?.title || "",
       content: cleanedContent,
-      coverImage,
+      coverImage: coverImage || filteredImages[0] || null,
+      images: filteredImages,
     };
   } catch (error) {
     console.error(`Error scraping ${url}:`, error);
@@ -707,12 +851,14 @@ Deno.serve(async (req) => {
             continue;
           }
 
-          // 第二步：AI 二次创作（双语版本，带配图）
+          // 第二步：AI 二次创作（双语版本，使用原文图片）
+          console.log(`Article has ${scraped.images?.length || 0} original images`);
           const rewritten = await rewriteArticleWithAI(
             scraped.title || result.title || "",
             scraped.content,
             targetCategory,
-            scraped.coverImage
+            scraped.coverImage,
+            scraped.images || [] // 传递原文图片
           );
 
           if (!rewritten) continue;
@@ -825,12 +971,14 @@ Deno.serve(async (req) => {
               continue;
             }
 
-            // AI 二次创作
+            // AI 二次创作（使用原文图片）
+            console.log(`Article has ${scraped.images?.length || 0} original images`);
             const rewritten = await rewriteArticleWithAI(
               scraped.title || result.title || "",
               scraped.content,
               category,
-              scraped.coverImage
+              scraped.coverImage,
+              scraped.images || [] // 传递原文图片
             );
 
             if (!rewritten) continue;
@@ -954,12 +1102,14 @@ Deno.serve(async (req) => {
                 continue;
               }
 
-              // AI 二次创作
+              // AI 二次创作（使用原文图片）
+              console.log(`Article has ${scraped.images?.length || 0} original images`);
               const rewritten = await rewriteArticleWithAI(
                 scraped.title || result.title || "",
                 scraped.content,
                 cat,
-                scraped.coverImage
+                scraped.coverImage,
+                scraped.images || [] // 传递原文图片
               );
 
               if (!rewritten) continue;
