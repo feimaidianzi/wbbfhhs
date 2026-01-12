@@ -14,7 +14,9 @@ import { supabase } from "@/integrations/supabase/client";
 interface NewsArticle {
   id: string;
   title: string;
+  title_en: string | null;
   summary: string | null;
+  summary_en: string | null;
   cover_image: string | null;
   category: string | null;
   published_at: string | null;
@@ -41,7 +43,7 @@ const News = () => {
       try {
         const { data, error } = await supabase
           .from('news_articles')
-          .select('id, title, summary, cover_image, category, published_at, created_at')
+          .select('id, title, title_en, summary, summary_en, cover_image, category, published_at, created_at')
           .eq('is_published', true)
           .order('published_at', { ascending: false });
 
@@ -57,17 +59,34 @@ const News = () => {
     fetchArticles();
   }, []);
 
+  // 获取当前语言的分类名
+  const getCategoryForFilter = (cat: string) => {
+    if (language === 'en') {
+      const catMap: Record<string, string> = {
+        'All': '全部',
+        'Company News': '公司新闻',
+        'Industry Trends': '行业动态',
+        'Product Updates': '产品资讯',
+        'Tech Insights': '技术分享',
+      };
+      return catMap[cat] || cat;
+    }
+    return cat;
+  };
+
   // Filter by category
   const filteredByCategory = activeCategory === categories[0]
     ? articles 
-    : articles.filter(a => a.category === activeCategory);
+    : articles.filter(a => a.category === getCategoryForFilter(activeCategory));
 
   // Filter by search
   const filteredArticles = searchTerm
-    ? filteredByCategory.filter(a => 
-        a.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        (a.summary && a.summary.toLowerCase().includes(searchTerm.toLowerCase()))
-      )
+    ? filteredByCategory.filter(a => {
+        const title = language === 'en' && a.title_en ? a.title_en : a.title;
+        const summary = language === 'en' && a.summary_en ? a.summary_en : a.summary;
+        return title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+          (summary && summary.toLowerCase().includes(searchTerm.toLowerCase()));
+      })
     : filteredByCategory;
 
   const totalPages = Math.ceil(filteredArticles.length / itemsPerPage);
@@ -194,15 +213,20 @@ const News = () => {
                         {news.category && (
                           <span className="flex items-center gap-1">
                             <Tag className="w-4 h-4" />
-                            {news.category}
+                            {language === 'en' ? {
+                              '公司新闻': 'Company News',
+                              '行业动态': 'Industry Trends',
+                              '产品资讯': 'Product Updates',
+                              '技术分享': 'Tech Insights',
+                            }[news.category] || news.category : news.category}
                           </span>
                         )}
                       </div>
                       <h3 className="text-lg font-bold text-card-foreground mb-2 line-clamp-2 group-hover:text-accent transition-colors">
-                        {news.title}
+                        {language === 'en' && news.title_en ? news.title_en : news.title}
                       </h3>
                       <p className="text-muted-foreground text-sm line-clamp-2 mb-4">
-                        {news.summary}
+                        {language === 'en' && news.summary_en ? news.summary_en : news.summary}
                       </p>
                       <span className="inline-flex items-center text-accent hover:text-orange-light font-medium">
                         {language === 'zh' ? "阅读更多" : "Read More"}
