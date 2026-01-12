@@ -444,6 +444,65 @@ async function rewriteArticleWithAI(
     return null;
   }
 }
+// 全局速率限制器
+let lastRequestTime = 0;
+const MIN_REQUEST_INTERVAL = 4000; // 每次请求间隔至少4秒（每分钟最多15次请求）
+
+async function waitForRateLimit(): Promise<void> {
+  const now = Date.now();
+  const timeSinceLastRequest = now - lastRequestTime;
+  
+  if (timeSinceLastRequest < MIN_REQUEST_INTERVAL) {
+    const waitTime = MIN_REQUEST_INTERVAL - timeSinceLastRequest;
+    console.log(`Rate limiting: waiting ${waitTime}ms before next request`);
+    await new Promise(resolve => setTimeout(resolve, waitTime));
+  }
+  
+  lastRequestTime = Date.now();
+}
+
+// 带重试的 fetch 函数
+async function fetchWithRetry(
+  url: string, 
+  options: RequestInit, 
+  maxRetries: number = 3
+): Promise<Response> {
+  let lastError: Error | null = null;
+  
+  for (let attempt = 0; attempt < maxRetries; attempt++) {
+    try {
+      await waitForRateLimit();
+      
+      const response = await fetch(url, options);
+      
+      // 如果是速率限制错误，等待后重试
+      if (response.status === 429) {
+        const errorData = await response.json();
+        console.log(`Rate limit hit (attempt ${attempt + 1}/${maxRetries}), waiting 20s...`);
+        
+        // 从错误消息中提取等待时间，或默认等待20秒
+        const waitMatch = errorData.error?.match(/retry after (\d+)s/);
+        const waitSeconds = waitMatch ? parseInt(waitMatch[1]) + 5 : 20;
+        
+        await new Promise(resolve => setTimeout(resolve, waitSeconds * 1000));
+        continue;
+      }
+      
+      return response;
+    } catch (error) {
+      lastError = error instanceof Error ? error : new Error(String(error));
+      console.error(`Request failed (attempt ${attempt + 1}/${maxRetries}):`, lastError.message);
+      
+      if (attempt < maxRetries - 1) {
+        const backoffTime = Math.pow(2, attempt) * 2000; // 指数退避: 2s, 4s, 8s
+        console.log(`Retrying in ${backoffTime}ms...`);
+        await new Promise(resolve => setTimeout(resolve, backoffTime));
+      }
+    }
+  }
+  
+  throw lastError || new Error("Request failed after retries");
+}
 
 // 使用 Firecrawl 搜索新闻
 async function searchNews(
@@ -457,7 +516,7 @@ async function searchNews(
 
   console.log(`Searching news: ${query}`);
 
-  const response = await fetch("https://api.firecrawl.dev/v1/search", {
+  const response = await fetchWithRetry("https://api.firecrawl.dev/v1/search", {
     method: "POST",
     headers: {
       "Authorization": `Bearer ${apiKey}`,
@@ -665,7 +724,7 @@ async function scrapeFullContent(url: string): Promise<{
   try {
     console.log(`Scraping with images: ${url}`);
     
-    const response = await fetch("https://api.firecrawl.dev/v1/scrape", {
+    const response = await fetchWithRetry("https://api.firecrawl.dev/v1/scrape", {
       method: "POST",
       headers: {
         "Authorization": `Bearer ${apiKey}`,
@@ -673,9 +732,9 @@ async function scrapeFullContent(url: string): Promise<{
       },
       body: JSON.stringify({
         url,
-        formats: ["markdown", "html", "links"], // 添加links格式获取更多信息
+        formats: ["markdown", "html", "links"],
         onlyMainContent: true,
-        waitFor: 3000, // 增加等待时间确保图片加载
+        waitFor: 3000,
       }),
     });
 
@@ -975,16 +1034,24 @@ Deno.serve(async (req) => {
         );
       }
 
-      const keywords = categoryConfig.keywords;
+      // 随机选择关键词，避免每次都用同一批
+      const shuffledKeywords = [...categoryConfig.keywords].sort(() => 0.5 - Math.random());
+      // 限制使用的关键词数量，避免过多请求
+      const maxKeywords = Math.min(3, shuffledKeywords.length);
+      const keywords = shuffledKeywords.slice(0, maxKeywords);
+      
       const results: Array<{ title: string; success: boolean; error?: string; score?: number }> = [];
       let collected = 0;
       let filtered = 0;
+
+      console.log(`Using ${keywords.length} keywords for category: ${category}`);
 
       for (const keyword of keywords) {
         if (collected >= count) break;
 
         try {
-          const searchResults = await searchNews(keyword, 3);
+          // 每个关键词只搜索2条，减少API调用
+          const searchResults = await searchNews(keyword, 2);
 
           for (const result of searchResults) {
             if (collected >= count) break;
@@ -1109,13 +1176,20 @@ Deno.serve(async (req) => {
         const results: Array<{ title: string; success: boolean; score?: number }> = [];
         let collected = 0;
         let filtered = 0;
-        const keywords = categoryConfig.keywords;
+        
+        // 随机选择关键词，限制数量避免过多请求
+        const shuffledKeywords = [...categoryConfig.keywords].sort(() => 0.5 - Math.random());
+        const maxKeywords = Math.min(2, shuffledKeywords.length);
+        const keywords = shuffledKeywords.slice(0, maxKeywords);
+        
+        console.log(`Using ${keywords.length} keywords for ${cat}`);
 
         for (const keyword of keywords) {
           if (collected >= (targetCount as number)) break;
 
           try {
-            const searchResults = await searchNews(keyword, 3);
+            // 每个关键词只搜索2条
+            const searchResults = await searchNews(keyword, 2);
 
             for (const result of searchResults) {
               if (collected >= (targetCount as number)) break;
