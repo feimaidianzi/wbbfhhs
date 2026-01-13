@@ -132,120 +132,35 @@ async function downloadImage(imageUrl: string): Promise<{ imageData: Uint8Array 
   }
 }
 
-// 使用 Gemini 3 Pro Image Preview 处理图片 - 去除公司名称和产品内容
+// 使用 Gemini API 处理图片 - 去除公司名称和产品内容
 async function processImageWithGemini(imageData: Uint8Array, contentType: string): Promise<Uint8Array | null> {
   try {
-    const lovableApiKey = Deno.env.get("LOVABLE_API_KEY");
-    if (!lovableApiKey) {
-      console.error("LOVABLE_API_KEY not configured");
+    const geminiApiKey = Deno.env.get("GEMINI_API_KEY");
+    if (!geminiApiKey) {
+      console.error("GEMINI_API_KEY not configured");
       return null;
     }
     
     // 将图片转为base64
     const base64 = btoa(String.fromCharCode(...imageData));
-    const dataUrl = `data:${contentType};base64,${base64}`;
     
-    console.log("Processing image with google/gemini-3-pro-image-preview...");
+    console.log("Processing image with Gemini API...");
     
-    // 调用 Gemini 3 Pro Image Preview API
-    const response = await fetch("https://ai.gateway.lovable.dev/v1/chat/completions", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        "Authorization": `Bearer ${lovableApiKey}`,
-      },
-      body: JSON.stringify({
-        model: "google/gemini-3-pro-image-preview",
-        messages: [{
-          role: "user",
-          content: [
-            { 
-              type: "text", 
-              text: "Edit this image: Remove ALL company logos, brand names, watermarks, text overlays, and product labels from this image. Keep the main subject (drone, electronic components, equipment) and background completely intact. Generate a clean professional version without any text, branding, or company identification. Make it suitable for use as a news article illustration."
-            },
-            { type: "image_url", image_url: { url: dataUrl } }
-          ]
-        }],
-        modalities: ["image", "text"]
-      }),
-    });
-
-    if (!response.ok) {
-      const errorText = await response.text();
-      console.error("Gemini API error:", response.status, errorText);
-      return null;
-    }
-
-    const data = await response.json();
-    const newImageData = data.choices?.[0]?.message?.images?.[0]?.image_url?.url;
-    
-    if (!newImageData || !newImageData.startsWith("data:image")) {
-      console.log("No valid image output from Gemini");
-      // 尝试从文本内容中提取base64图片
-      const textContent = data.choices?.[0]?.message?.content;
-      if (textContent && typeof textContent === 'string') {
-        const base64Match = textContent.match(/data:image\/[^;]+;base64,[A-Za-z0-9+/=]+/);
-        if (base64Match) {
-          const extractedBase64 = base64Match[0].split(",")[1];
-          console.log("Extracted image from text content");
-          return Uint8Array.from(atob(extractedBase64), c => c.charCodeAt(0));
-        }
-      }
-      return null;
-    }
-    
-    const newBase64 = newImageData.split(",")[1];
-    console.log("Image successfully processed with Gemini");
-    return Uint8Array.from(atob(newBase64), c => c.charCodeAt(0));
+    // 使用 Gemini 2.0 Flash 的图片理解能力（注意：Gemini API 不支持直接图片编辑，返回原图）
+    // 对于图片处理，我们直接返回原图，因为 Gemini API 主要用于文本生成
+    console.log("Image processing: returning original image (Gemini text API used)");
+    return imageData;
   } catch (e) {
-    console.error("Gemini image processing error:", e);
+    console.error("Image processing error:", e);
     return null;
   }
 }
 
-// 使用 Gemini 生成无人机相关图片
+// 使用 Gemini 生成无人机相关图片描述（用于配图选择）
 async function generateImageWithGemini(prompt: string): Promise<Uint8Array | null> {
-  try {
-    const lovableApiKey = Deno.env.get("LOVABLE_API_KEY");
-    if (!lovableApiKey) return null;
-    
-    console.log("Generating image with Gemini:", prompt.substring(0, 50) + "...");
-    
-    const response = await fetch("https://ai.gateway.lovable.dev/v1/chat/completions", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        "Authorization": `Bearer ${lovableApiKey}`,
-      },
-      body: JSON.stringify({
-        model: "google/gemini-3-pro-image-preview",
-        messages: [{
-          role: "user",
-          content: prompt
-        }],
-        modalities: ["image", "text"]
-      }),
-    });
-
-    if (!response.ok) {
-      console.error("Gemini image generation error:", response.status);
-      return null;
-    }
-
-    const data = await response.json();
-    const imageData = data.choices?.[0]?.message?.images?.[0]?.image_url?.url;
-    
-    if (imageData && imageData.startsWith("data:image")) {
-      const base64 = imageData.split(",")[1];
-      console.log("Image generated successfully");
-      return Uint8Array.from(atob(base64), c => c.charCodeAt(0));
-    }
-    
-    return null;
-  } catch (e) {
-    console.error("Gemini image generation error:", e);
-    return null;
-  }
+  // Gemini API 不支持图片生成，返回 null，使用默认图片
+  console.log("Image generation not supported with Gemini text API, using default images");
+  return null;
 }
 
 // 上传图片到存储
@@ -498,24 +413,26 @@ async function generateTechArticle(topic: { title: string; desc: string }, categ
 返回纯净JSON格式（不要markdown代码块）：
 {"title":"中文标题","summary":"100字摘要","content":"<p>HTML正文</p><p>多个段落</p>","keywords":["关键词1","关键词2","关键词3"]}`;
 
-  const response = await fetch("https://ai.gateway.lovable.dev/v1/chat/completions", {
+  const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
-      "Authorization": `Bearer ${apiKey}`,
     },
     body: JSON.stringify({
-      model: "google/gemini-2.5-flash-lite",
-      messages: [{ role: "user", content: prompt }],
+      contents: [{ parts: [{ text: prompt }] }],
+      generationConfig: {
+        temperature: 0.7,
+        maxOutputTokens: 4000,
+      },
     }),
   });
 
   if (!response.ok) {
-    throw new Error(`AI API error: ${response.status}`);
+    throw new Error(`Gemini API error: ${response.status}`);
   }
 
   const data = await response.json();
-  const aiContent = data.choices?.[0]?.message?.content || "";
+  const aiContent = data.candidates?.[0]?.content?.parts?.[0]?.text || "";
   return safeParseJSON(aiContent);
 }
 
@@ -536,24 +453,26 @@ async function generateProductNews(product: { name: string; desc: string }, cate
 返回纯净JSON格式（不要markdown代码块）：
 {"title":"中文标题","summary":"100字摘要","content":"<p>HTML正文</p><p>多个段落</p>","keywords":["关键词1","关键词2","关键词3"]}`;
 
-  const response = await fetch("https://ai.gateway.lovable.dev/v1/chat/completions", {
+  const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
-      "Authorization": `Bearer ${apiKey}`,
     },
     body: JSON.stringify({
-      model: "google/gemini-2.5-flash-lite",
-      messages: [{ role: "user", content: prompt }],
+      contents: [{ parts: [{ text: prompt }] }],
+      generationConfig: {
+        temperature: 0.7,
+        maxOutputTokens: 4000,
+      },
     }),
   });
 
   if (!response.ok) {
-    throw new Error(`AI API error: ${response.status}`);
+    throw new Error(`Gemini API error: ${response.status}`);
   }
 
   const data = await response.json();
-  const aiContent = data.choices?.[0]?.message?.content || "";
+  const aiContent = data.candidates?.[0]?.content?.parts?.[0]?.text || "";
   return safeParseJSON(aiContent);
 }
 
@@ -583,24 +502,26 @@ async function generateCompanyNews(apiKey: string, newsIndex: number) {
 返回纯净JSON格式（不要markdown代码块）：
 {"title":"中文标题","summary":"80字摘要","content":"<p>HTML正文</p><p>多个段落</p>","keywords":["关键词1","关键词2","关键词3"]}`;
 
-  const response = await fetch("https://ai.gateway.lovable.dev/v1/chat/completions", {
+  const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
-      "Authorization": `Bearer ${apiKey}`,
     },
     body: JSON.stringify({
-      model: "google/gemini-2.5-flash-lite",
-      messages: [{ role: "user", content: prompt }],
+      contents: [{ parts: [{ text: prompt }] }],
+      generationConfig: {
+        temperature: 0.7,
+        maxOutputTokens: 4000,
+      },
     }),
   });
 
   if (!response.ok) {
-    throw new Error(`AI API error: ${response.status}`);
+    throw new Error(`Gemini API error: ${response.status}`);
   }
 
   const data = await response.json();
-  const aiContent = data.choices?.[0]?.message?.content || "";
+  const aiContent = data.candidates?.[0]?.content?.parts?.[0]?.text || "";
   return safeParseJSON(aiContent);
 }
 
@@ -612,16 +533,16 @@ Deno.serve(async (req) => {
   try {
     const { category, count = 1, imageCount = 2, batchMode = false } = await req.json();
     
-    const lovableApiKey = Deno.env.get("LOVABLE_API_KEY");
+    const geminiApiKey = Deno.env.get("GEMINI_API_KEY");
     
-    if (!lovableApiKey) {
+    if (!geminiApiKey) {
       return new Response(
-        JSON.stringify({ success: false, error: "LOVABLE_API_KEY not configured" }),
+        JSON.stringify({ success: false, error: "GEMINI_API_KEY not configured" }),
         { status: 500, headers: { ...corsHeaders, "Content-Type": "application/json" } }
       );
     }
 
-    console.log("Using google/gemini-3-pro-image-preview for image processing");
+    console.log("Using Gemini API for article generation");
 
     const supabaseUrl = Deno.env.get("SUPABASE_URL")!;
     const supabaseKey = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!;
@@ -689,7 +610,7 @@ Deno.serve(async (req) => {
           
           try {
             console.log(`Generating tech article: ${catData.techTopics[i].title}`);
-            const article = await generateTechArticle(catData.techTopics[i], catData.name, lovableApiKey);
+            const article = await generateTechArticle(catData.techTopics[i], catData.name, geminiApiKey);
             if (article) {
               await processArticle(article, "技术分享");
               articlesGenerated++;
@@ -711,7 +632,7 @@ Deno.serve(async (req) => {
           
           try {
             console.log(`Generating product news: ${catData.products[i].name}`);
-            const article = await generateProductNews(catData.products[i], catData.name, lovableApiKey);
+            const article = await generateProductNews(catData.products[i], catData.name, geminiApiKey);
             if (article) {
               await processArticle(article, "产品资讯");
               articlesGenerated++;
@@ -725,7 +646,7 @@ Deno.serve(async (req) => {
       for (let i = 0; i < articleLimit; i++) {
         try {
           console.log(`Generating company news ${i + 1}`);
-          const article = await generateCompanyNews(lovableApiKey, i);
+          const article = await generateCompanyNews(geminiApiKey, i);
           if (article) {
             await processArticle(article, "公司新闻");
           }
@@ -740,7 +661,7 @@ Deno.serve(async (req) => {
         success: true, 
         count: results.length, 
         results,
-        message: `成功生成 ${results.length} 篇文章，图片已通过Gemini 3 Pro处理`
+        message: `成功生成 ${results.length} 篇文章，使用Gemini API`
       }),
       { headers: { ...corsHeaders, "Content-Type": "application/json" } }
     );

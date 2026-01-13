@@ -95,20 +95,20 @@ function cleanContent(rawContent: string): string {
   return content;
 }
 
-// 使用 Lovable AI 进行文章质量评分 - 增强版
+// 使用 Gemini API 进行文章质量评分 - 增强版
 async function scoreArticleQuality(
   title: string,
   content: string,
   category: string
 ): Promise<{ score: number; reason: string; isReviewOrAd: boolean } | null> {
   try {
-    const LOVABLE_API_KEY = Deno.env.get("LOVABLE_API_KEY");
-    if (!LOVABLE_API_KEY) {
-      console.log("LOVABLE_API_KEY not found, skipping quality scoring");
+    const GEMINI_API_KEY = Deno.env.get("GEMINI_API_KEY");
+    if (!GEMINI_API_KEY) {
+      console.log("GEMINI_API_KEY not found, skipping quality scoring");
       return { score: 10, reason: "未配置评分，默认通过", isReviewOrAd: false };
     }
 
-    console.log("Scoring article quality with enhanced criteria...");
+    console.log("Scoring article quality with Gemini API...");
     
     const prompt = `你是一位资深新闻质量审核编辑。请对以下无人机行业新闻文章进行严格的质量评分和类型判断。
 
@@ -144,30 +144,28 @@ async function scoreArticleQuality(
   "isReviewOrAd": false
 }`;
 
-    const response = await fetch("https://ai.gateway.lovable.dev/v1/chat/completions", {
+    const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${GEMINI_API_KEY}`, {
       method: "POST",
       headers: {
-        "Authorization": `Bearer ${LOVABLE_API_KEY}`,
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        model: "google/gemini-2.5-flash",
-        messages: [
-          { role: "system", content: "你是专业的新闻质量评审专家，请严格按照评分标准评分，特别注意识别和排除测评类和广告类文章。" },
-          { role: "user", content: prompt }
-        ],
-        temperature: 0.3,
-        max_tokens: 300,
+        contents: [{ parts: [{ text: prompt }] }],
+        generationConfig: {
+          temperature: 0.3,
+          maxOutputTokens: 300,
+        },
       }),
     });
 
     if (!response.ok) {
-      console.error("Quality scoring API error:", response.status);
+      const errorText = await response.text();
+      console.error("Gemini quality scoring API error:", response.status, errorText);
       return { score: 8, reason: "评分API错误，默认通过", isReviewOrAd: false };
     }
 
     const data = await response.json();
-    const aiContent = data.choices?.[0]?.message?.content || "";
+    const aiContent = data.candidates?.[0]?.content?.parts?.[0]?.text || "";
     
     const jsonMatch = aiContent.match(/\{[\s\S]*\}/);
     if (jsonMatch) {
@@ -332,7 +330,7 @@ function getUnusedDefaultImages(needed: number): string[] {
   return selected;
 }
 
-// 使用 Lovable AI 进行专业二次创作 - 增强版，支持原文图片
+// 使用 Gemini API 进行专业二次创作 - 增强版，支持原文图片
 async function rewriteArticleWithAI(
   originalTitle: string,
   originalContent: string,
@@ -351,9 +349,9 @@ async function rewriteArticleWithAI(
   images: string[];
 } | null> {
   try {
-    const LOVABLE_API_KEY = Deno.env.get("LOVABLE_API_KEY");
-    if (!LOVABLE_API_KEY) {
-      console.error("LOVABLE_API_KEY not found");
+    const GEMINI_API_KEY = Deno.env.get("GEMINI_API_KEY");
+    if (!GEMINI_API_KEY) {
+      console.error("GEMINI_API_KEY not found");
       return null;
     }
 
@@ -433,31 +431,28 @@ async function rewriteArticleWithAI(
 <h3>总结与展望</h3>
 <p>结尾段落...</p>`;
 
-    const response = await fetch("https://ai.gateway.lovable.dev/v1/chat/completions", {
+    const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${GEMINI_API_KEY}`, {
       method: "POST",
       headers: {
-        "Authorization": `Bearer ${LOVABLE_API_KEY}`,
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        model: "google/gemini-2.5-flash",
-        messages: [
-          { role: "system", content: "你是专业的无人机行业新闻编辑，擅长撰写高质量双语新闻稿。文章必须包含至少3个图片插入位置。" },
-          { role: "user", content: prompt }
-        ],
-        temperature: 0.7,
-        max_tokens: 4000,
+        contents: [{ parts: [{ text: prompt }] }],
+        generationConfig: {
+          temperature: 0.7,
+          maxOutputTokens: 4000,
+        },
       }),
     });
 
     if (!response.ok) {
       const errorText = await response.text();
-      console.error("AI rewrite API error:", response.status, errorText);
+      console.error("Gemini rewrite API error:", response.status, errorText);
       return null;
     }
 
     const data = await response.json();
-    const aiContent = data.choices?.[0]?.message?.content || "";
+    const aiContent = data.candidates?.[0]?.content?.parts?.[0]?.text || "";
     
     const jsonMatch = aiContent.match(/\{[\s\S]*\}/);
     if (!jsonMatch) {
@@ -941,11 +936,11 @@ async function scrapeFullContent(url: string): Promise<{
   }
 }
 
-// 使用AI生成热门关键词
+// 使用 Gemini API 生成热门关键词
 async function generateHotKeywords(): Promise<Record<string, string[]>> {
   try {
-    const LOVABLE_API_KEY = Deno.env.get("LOVABLE_API_KEY");
-    if (!LOVABLE_API_KEY) {
+    const GEMINI_API_KEY = Deno.env.get("GEMINI_API_KEY");
+    if (!GEMINI_API_KEY) {
       return CATEGORY_CONFIG as any;
     }
 
@@ -970,29 +965,27 @@ async function generateHotKeywords(): Promise<Record<string, string[]>> {
   "技术分享": ["关键词1", "关键词2", ...]
 }`;
 
-    const response = await fetch("https://ai.gateway.lovable.dev/v1/chat/completions", {
+    const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${GEMINI_API_KEY}`, {
       method: "POST",
       headers: {
-        "Authorization": `Bearer ${LOVABLE_API_KEY}`,
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        model: "google/gemini-2.5-flash",
-        messages: [
-          { role: "user", content: prompt }
-        ],
-        temperature: 0.7,
-        max_tokens: 1000,
+        contents: [{ parts: [{ text: prompt }] }],
+        generationConfig: {
+          temperature: 0.7,
+          maxOutputTokens: 1000,
+        },
       }),
     });
 
     if (!response.ok) {
-      console.error("Keyword generation API error");
+      console.error("Gemini keyword generation API error");
       return {};
     }
 
     const data = await response.json();
-    const aiContent = data.choices?.[0]?.message?.content || "";
+    const aiContent = data.candidates?.[0]?.content?.parts?.[0]?.text || "";
     
     const jsonMatch = aiContent.match(/\{[\s\S]*\}/);
     if (jsonMatch) {
