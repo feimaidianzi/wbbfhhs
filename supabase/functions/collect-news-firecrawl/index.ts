@@ -151,7 +151,7 @@ async function scoreArticleQuality(
         "Authorization": `Bearer ${GEMINI_API_KEY}`,
       },
       body: JSON.stringify({
-        model: "gemini-2.0-flash",
+        model: "gemini-3-pro-preview-h",
         messages: [{ role: "user", content: prompt }],
         temperature: 0.3,
         max_tokens: 300,
@@ -438,7 +438,7 @@ async function rewriteArticleWithAI(
         "Authorization": `Bearer ${GEMINI_API_KEY}`,
       },
       body: JSON.stringify({
-        model: "gemini-2.0-flash",
+        model: "gemini-3-pro-preview-h",
         messages: [{ role: "user", content: prompt }],
         temperature: 0.7,
         max_tokens: 4000,
@@ -972,7 +972,7 @@ async function generateHotKeywords(): Promise<Record<string, string[]>> {
         "Authorization": `Bearer ${GEMINI_API_KEY}`,
       },
       body: JSON.stringify({
-        model: "gemini-2.0-flash",
+        model: "gemini-3-pro-preview-h",
         messages: [{ role: "user", content: prompt }],
         temperature: 0.7,
         max_tokens: 1000,
