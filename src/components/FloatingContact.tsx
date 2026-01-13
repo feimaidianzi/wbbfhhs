@@ -27,37 +27,29 @@ export const FloatingContact = () => {
 
   return (
     <>
-      {/* Floating buttons on the right */}
-      <div className="fixed right-4 top-1/2 -translate-y-1/2 z-40 flex flex-col gap-2">
-        <button
-          className="w-12 h-12 bg-accent rounded-lg shadow-lg flex items-center justify-center text-accent-foreground hover:bg-orange-light transition-colors"
+      {/* Floating buttons - small, bottom right */}
+      <div className="fixed right-4 bottom-24 z-30 flex flex-col gap-1.5">
+        <Link
+          to="/"
+          className="w-9 h-9 bg-accent/90 rounded-full shadow-md flex items-center justify-center text-accent-foreground hover:bg-accent transition-colors"
           title={isEn ? "Home" : "返回首页"}
         >
-          <Home className="w-5 h-5" />
-        </button>
+          <Home className="w-4 h-4" />
+        </Link>
         <a
           href="tel:+8617674048404"
-          className="w-12 h-12 bg-primary rounded-lg shadow-lg flex items-center justify-center text-primary-foreground hover:bg-navy-light transition-colors"
+          className="w-9 h-9 bg-primary/90 rounded-full shadow-md flex items-center justify-center text-primary-foreground hover:bg-primary transition-colors"
           title={isEn ? "Call Us" : "电话咨询"}
         >
-          <Phone className="w-5 h-5" />
-        </a>
-        <a
-          href="tel:17674048404"
-          className="w-12 h-12 bg-primary rounded-lg shadow-lg flex items-center justify-center text-primary-foreground hover:bg-navy-light transition-colors"
-          title={isEn ? "WeChat" : "微信客服: 17674048404"}
-        >
-          <MessageCircle className="w-5 h-5" />
+          <Phone className="w-4 h-4" />
         </a>
         <button
-          className="w-12 h-12 bg-primary rounded-lg shadow-lg flex items-center justify-center text-primary-foreground hover:bg-navy-light transition-colors relative"
+          className="w-9 h-9 bg-primary/90 rounded-full shadow-md flex items-center justify-center text-primary-foreground hover:bg-primary transition-colors relative"
           title={isEn ? "WeChat Service" : "微信客服"}
           onMouseEnter={() => setShowQR(true)}
           onMouseLeave={() => setShowQR(false)}
         >
-          <svg className="w-5 h-5" viewBox="0 0 24 24" fill="currentColor">
-            <path d="M8.691 2.188C3.891 2.188 0 5.476 0 9.53c0 2.212 1.17 4.203 3.002 5.55a.59.59 0 0 1 .213.665l-.39 1.48c-.019.07-.048.141-.048.213 0 .163.13.295.29.295a.326.326 0 0 0 .167-.054l1.903-1.114a.864.864 0 0 1 .717-.098 10.16 10.16 0 0 0 2.837.403c.276 0 .543-.027.811-.05-.857-2.578.157-4.972 1.932-6.446 1.703-1.415 3.882-1.98 5.853-1.838-.576-3.583-4.196-6.348-8.596-6.348zM5.785 5.991c.642 0 1.162.529 1.162 1.18a1.17 1.17 0 0 1-1.162 1.178A1.17 1.17 0 0 1 4.623 7.17c0-.651.52-1.18 1.162-1.18zm5.813 0c.642 0 1.162.529 1.162 1.18a1.17 1.17 0 0 1-1.162 1.178 1.17 1.17 0 0 1-1.162-1.178c0-.651.52-1.18 1.162-1.18zm3.93 4.165c-3.811 0-6.905 2.595-6.905 5.807 0 3.211 3.094 5.806 6.906 5.806.772 0 1.525-.13 2.234-.324a.723.723 0 0 1 .594.078l1.579.934a.273.273 0 0 0 .14.047c.133 0 .242-.111.242-.246 0-.06-.024-.121-.038-.18l-.327-1.233a.49.49 0 0 1 .176-.553c1.527-1.124 2.502-2.791 2.502-4.63 0-3.21-3.094-5.805-6.906-5.805zm-2.636 2.954c.535 0 .969.44.969.983a.976.976 0 0 1-.969.983.976.976 0 0 1-.969-.983c0-.543.434-.983.97-.983zm5.271 0c.535 0 .969.44.969.983a.976.976 0 0 1-.969.983.976.976 0 0 1-.969-.983c0-.543.434-.983.97-.983z"/>
-          </svg>
+          <MessageCircle className="w-4 h-4" />
           {showQR && (
             <div className="absolute right-full mr-3 bg-card rounded-lg shadow-xl p-4">
               <p className="text-sm text-foreground font-medium mb-2 whitespace-nowrap">

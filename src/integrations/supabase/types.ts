@@ -53,6 +53,184 @@ export type Database = {
         }
         Relationships: []
       }
+      ai_assistant_analytics: {
+        Row: {
+          avg_messages_per_conversation: number | null
+          created_at: string
+          date: string
+          human_transfers: number | null
+          id: string
+          leads_captured: number | null
+          peak_hours: Json | null
+          top_topics: Json | null
+          total_conversations: number | null
+        }
+        Insert: {
+          avg_messages_per_conversation?: number | null
+          created_at?: string
+          date?: string
+          human_transfers?: number | null
+          id?: string
+          leads_captured?: number | null
+          peak_hours?: Json | null
+          top_topics?: Json | null
+          total_conversations?: number | null
+        }
+        Update: {
+          avg_messages_per_conversation?: number | null
+          created_at?: string
+          date?: string
+          human_transfers?: number | null
+          id?: string
+          leads_captured?: number | null
+          peak_hours?: Json | null
+          top_topics?: Json | null
+          total_conversations?: number | null
+        }
+        Relationships: []
+      }
+      ai_conversation_messages: {
+        Row: {
+          content: string
+          conversation_id: string
+          created_at: string
+          id: string
+          role: string
+        }
+        Insert: {
+          content: string
+          conversation_id: string
+          created_at?: string
+          id?: string
+          role: string
+        }
+        Update: {
+          content?: string
+          conversation_id?: string
+          created_at?: string
+          id?: string
+          role?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "ai_conversation_messages_conversation_id_fkey"
+            columns: ["conversation_id"]
+            isOneToOne: false
+            referencedRelation: "ai_conversations"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      ai_conversations: {
+        Row: {
+          created_at: string
+          ended_at: string | null
+          human_agent_id: string | null
+          id: string
+          is_transferred_to_human: boolean | null
+          session_id: string
+          started_at: string
+          status: string | null
+          transferred_at: string | null
+          visitor_device: string | null
+          visitor_ip: string | null
+          visitor_location: string | null
+        }
+        Insert: {
+          created_at?: string
+          ended_at?: string | null
+          human_agent_id?: string | null
+          id?: string
+          is_transferred_to_human?: boolean | null
+          session_id: string
+          started_at?: string
+          status?: string | null
+          transferred_at?: string | null
+          visitor_device?: string | null
+          visitor_ip?: string | null
+          visitor_location?: string | null
+        }
+        Update: {
+          created_at?: string
+          ended_at?: string | null
+          human_agent_id?: string | null
+          id?: string
+          is_transferred_to_human?: boolean | null
+          session_id?: string
+          started_at?: string
+          status?: string | null
+          transferred_at?: string | null
+          visitor_device?: string | null
+          visitor_ip?: string | null
+          visitor_location?: string | null
+        }
+        Relationships: []
+      }
+      customer_leads: {
+        Row: {
+          budget_range: string | null
+          company: string | null
+          conversation_id: string | null
+          created_at: string
+          email: string | null
+          id: string
+          lead_score: number | null
+          location: string | null
+          name: string | null
+          notes: string | null
+          phone: string | null
+          product_interest: string | null
+          requirements: string | null
+          status: string | null
+          updated_at: string
+          urgency: string | null
+        }
+        Insert: {
+          budget_range?: string | null
+          company?: string | null
+          conversation_id?: string | null
+          created_at?: string
+          email?: string | null
+          id?: string
+          lead_score?: number | null
+          location?: string | null
+          name?: string | null
+          notes?: string | null
+          phone?: string | null
+          product_interest?: string | null
+          requirements?: string | null
+          status?: string | null
+          updated_at?: string
+          urgency?: string | null
+        }
+        Update: {
+          budget_range?: string | null
+          company?: string | null
+          conversation_id?: string | null
+          created_at?: string
+          email?: string | null
+          id?: string
+          lead_score?: number | null
+          location?: string | null
+          name?: string | null
+          notes?: string | null
+          phone?: string | null
+          product_interest?: string | null
+          requirements?: string | null
+          status?: string | null
+          updated_at?: string
+          urgency?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "customer_leads_conversation_id_fkey"
+            columns: ["conversation_id"]
+            isOneToOne: false
+            referencedRelation: "ai_conversations"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       inquiries: {
         Row: {
           admin_notes: string | null
