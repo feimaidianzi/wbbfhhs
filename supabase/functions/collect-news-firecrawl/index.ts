@@ -998,6 +998,56 @@ async function generateHotKeywords(): Promise<Record<string, string[]>> {
   }
 }
 
+function escapeHtml(input: string): string {
+  return input
+    .replaceAll("&", "&amp;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;")
+    .replaceAll('"', "&quot;")
+    .replaceAll("'", "&#39;");
+}
+
+function toSimpleHtml(text: string): string {
+  const paragraphs = text
+    .split(/\n\s*\n/g)
+    .map((p) => p.trim())
+    .filter(Boolean);
+
+  // 保底：避免空内容导致插入失败
+  if (paragraphs.length === 0) return "<p></p>";
+
+  return paragraphs.map((p) => `<p>${escapeHtml(p)}</p>`).join("\n");
+}
+
+function buildFallbackArticle(args: {
+  title: string;
+  content: string;
+  coverImage: string | null;
+  images: string[];
+}): {
+  title: string;
+  title_en: string | null;
+  summary: string | null;
+  summary_en: string | null;
+  content: string;
+  content_en: string | null;
+  keywords: string[];
+  coverImage: string | null;
+  images: string[];
+} {
+  return {
+    title: args.title?.trim() || "Untitled",
+    title_en: null,
+    summary: null,
+    summary_en: null,
+    content: toSimpleHtml(args.content || ""),
+    content_en: null,
+    keywords: [],
+    coverImage: args.coverImage,
+    images: args.images || [],
+  };
+}
+
 Deno.serve(async (req) => {
   if (req.method === "OPTIONS") {
     return new Response(null, { headers: corsHeaders });
@@ -1097,25 +1147,32 @@ Deno.serve(async (req) => {
             scraped.images || [] // 传递原文图片
           );
 
-          if (!rewritten) continue;
+          // Gemini/AI 失败时：仍然保存 Firecrawl 抓取到的正文，避免“任务完成但采集0篇”
+          const article = rewritten ?? buildFallbackArticle({
+            title: scraped.title || result.title || "",
+            content: scraped.content,
+            coverImage: scraped.coverImage,
+            images: scraped.images || [],
+          });
+          const aiEdited = Boolean(rewritten);
 
           // 第三步：保存到数据库
           const { error: insertError } = await supabase
             .from("news_articles")
             .insert({
-              title: rewritten.title,
-              title_en: rewritten.title_en,
-              summary: rewritten.summary,
-              summary_en: rewritten.summary_en,
-              content: rewritten.content,
-              content_en: rewritten.content_en,
-              cover_image: rewritten.coverImage,
+              title: article.title,
+              title_en: article.title_en,
+              summary: article.summary,
+              summary_en: article.summary_en,
+              content: article.content,
+              content_en: article.content_en,
+              cover_image: article.coverImage,
               source_url: result.url,
               source_name: keyword,
               original_title: scraped.title,
               is_auto_generated: true,
-              ai_edited: true,
-              keywords: rewritten.keywords,
+              ai_edited: aiEdited,
+              keywords: article.keywords,
               category: targetCategory,
               quality_score: qualityResult?.score || null,
               quality_reason: qualityResult?.reason || null,
@@ -1126,11 +1183,13 @@ Deno.serve(async (req) => {
           if (!insertError) {
             collected++;
             results.push({
-              title: rewritten.title,
+              title: article.title,
               success: true,
               score: qualityResult?.score,
             });
-            console.log(`✅ Collected (score: ${qualityResult?.score}): ${rewritten.title}`);
+            console.log(
+              `✅ Collected (score: ${qualityResult?.score})${aiEdited ? "" : " [fallback-no-ai]"}: ${article.title}`
+            );
           }
 
           await new Promise(resolve => setTimeout(resolve, 2000));
@@ -1225,25 +1284,31 @@ Deno.serve(async (req) => {
               scraped.images || [] // 传递原文图片
             );
 
-            if (!rewritten) continue;
+            const article = rewritten ?? buildFallbackArticle({
+              title: scraped.title || result.title || "",
+              content: scraped.content,
+              coverImage: scraped.coverImage,
+              images: scraped.images || [],
+            });
+            const aiEdited = Boolean(rewritten);
 
             // 保存
             const { error: insertError } = await supabase
               .from("news_articles")
               .insert({
-                title: rewritten.title,
-                title_en: rewritten.title_en,
-                summary: rewritten.summary,
-                summary_en: rewritten.summary_en,
-                content: rewritten.content,
-                content_en: rewritten.content_en,
-                cover_image: rewritten.coverImage,
+                title: article.title,
+                title_en: article.title_en,
+                summary: article.summary,
+                summary_en: article.summary_en,
+                content: article.content,
+                content_en: article.content_en,
+                cover_image: article.coverImage,
                 source_url: result.url,
                 source_name: "International",
                 original_title: scraped.title,
                 is_auto_generated: true,
-                ai_edited: true,
-                keywords: rewritten.keywords,
+                ai_edited: aiEdited,
+                keywords: article.keywords,
                 category,
                 quality_score: qualityResult?.score || null,
                 quality_reason: qualityResult?.reason || null,
@@ -1254,11 +1319,13 @@ Deno.serve(async (req) => {
             if (!insertError) {
               collected++;
               results.push({
-                title: rewritten.title,
+                title: article.title,
                 success: true,
                 score: qualityResult?.score,
               });
-              console.log(`✅ [${category}] Collected (score: ${qualityResult?.score}): ${rewritten.title}`);
+              console.log(
+                `✅ [${category}] Collected (score: ${qualityResult?.score})${aiEdited ? "" : " [fallback-no-ai]"}: ${article.title}`
+              );
             }
 
             await new Promise(resolve => setTimeout(resolve, 2000));
@@ -1363,25 +1430,31 @@ Deno.serve(async (req) => {
                 scraped.images || [] // 传递原文图片
               );
 
-              if (!rewritten) continue;
+              const article = rewritten ?? buildFallbackArticle({
+                title: scraped.title || result.title || "",
+                content: scraped.content,
+                coverImage: scraped.coverImage,
+                images: scraped.images || [],
+              });
+              const aiEdited = Boolean(rewritten);
 
               // 保存
               const { error: insertError } = await supabase
                 .from("news_articles")
                 .insert({
-                  title: rewritten.title,
-                  title_en: rewritten.title_en,
-                  summary: rewritten.summary,
-                  summary_en: rewritten.summary_en,
-                  content: rewritten.content,
-                  content_en: rewritten.content_en,
-                  cover_image: rewritten.coverImage,
+                  title: article.title,
+                  title_en: article.title_en,
+                  summary: article.summary,
+                  summary_en: article.summary_en,
+                  content: article.content,
+                  content_en: article.content_en,
+                  cover_image: article.coverImage,
                   source_url: result.url,
                   source_name: "International",
                   original_title: scraped.title,
                   is_auto_generated: true,
-                  ai_edited: true,
-                  keywords: rewritten.keywords,
+                  ai_edited: aiEdited,
+                  keywords: article.keywords,
                   category: cat,
                   quality_score: qualityResult?.score || null,
                   quality_reason: qualityResult?.reason || null,
@@ -1392,8 +1465,10 @@ Deno.serve(async (req) => {
               if (!insertError) {
                 collected++;
                 totalCollected++;
-                results.push({ title: rewritten.title, success: true, score: qualityResult?.score });
-                console.log(`✅ [${cat}] Collected (score: ${qualityResult?.score}): ${rewritten.title}`);
+                results.push({ title: article.title, success: true, score: qualityResult?.score });
+                console.log(
+                  `✅ [${cat}] Collected (score: ${qualityResult?.score})${aiEdited ? "" : " [fallback-no-ai]"}: ${article.title}`
+                );
               }
 
               await new Promise(resolve => setTimeout(resolve, 2000));
