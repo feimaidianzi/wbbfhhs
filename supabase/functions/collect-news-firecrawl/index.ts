@@ -144,17 +144,17 @@ async function scoreArticleQuality(
   "isReviewOrAd": false
 }`;
 
-    const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${GEMINI_API_KEY}`, {
+    const response = await fetch(`https://api2.qiandao.mom/v1/chat/completions`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
+        "Authorization": `Bearer ${GEMINI_API_KEY}`,
       },
       body: JSON.stringify({
-        contents: [{ parts: [{ text: prompt }] }],
-        generationConfig: {
-          temperature: 0.3,
-          maxOutputTokens: 300,
-        },
+        model: "gemini-2.0-flash",
+        messages: [{ role: "user", content: prompt }],
+        temperature: 0.3,
+        max_tokens: 300,
       }),
     });
 
@@ -165,7 +165,7 @@ async function scoreArticleQuality(
     }
 
     const data = await response.json();
-    const aiContent = data.candidates?.[0]?.content?.parts?.[0]?.text || "";
+    const aiContent = data.choices?.[0]?.message?.content || "";
     
     const jsonMatch = aiContent.match(/\{[\s\S]*\}/);
     if (jsonMatch) {
@@ -431,17 +431,17 @@ async function rewriteArticleWithAI(
 <h3>总结与展望</h3>
 <p>结尾段落...</p>`;
 
-    const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${GEMINI_API_KEY}`, {
+    const response = await fetch(`https://api2.qiandao.mom/v1/chat/completions`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
+        "Authorization": `Bearer ${GEMINI_API_KEY}`,
       },
       body: JSON.stringify({
-        contents: [{ parts: [{ text: prompt }] }],
-        generationConfig: {
-          temperature: 0.7,
-          maxOutputTokens: 4000,
-        },
+        model: "gemini-2.0-flash",
+        messages: [{ role: "user", content: prompt }],
+        temperature: 0.7,
+        max_tokens: 4000,
       }),
     });
 
@@ -452,7 +452,7 @@ async function rewriteArticleWithAI(
     }
 
     const data = await response.json();
-    const aiContent = data.candidates?.[0]?.content?.parts?.[0]?.text || "";
+    const aiContent = data.choices?.[0]?.message?.content || "";
     
     const jsonMatch = aiContent.match(/\{[\s\S]*\}/);
     if (!jsonMatch) {
@@ -965,17 +965,17 @@ async function generateHotKeywords(): Promise<Record<string, string[]>> {
   "技术分享": ["关键词1", "关键词2", ...]
 }`;
 
-    const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${GEMINI_API_KEY}`, {
+    const response = await fetch(`https://api2.qiandao.mom/v1/chat/completions`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
+        "Authorization": `Bearer ${GEMINI_API_KEY}`,
       },
       body: JSON.stringify({
-        contents: [{ parts: [{ text: prompt }] }],
-        generationConfig: {
-          temperature: 0.7,
-          maxOutputTokens: 1000,
-        },
+        model: "gemini-2.0-flash",
+        messages: [{ role: "user", content: prompt }],
+        temperature: 0.7,
+        max_tokens: 1000,
       }),
     });
 
@@ -985,7 +985,7 @@ async function generateHotKeywords(): Promise<Record<string, string[]>> {
     }
 
     const data = await response.json();
-    const aiContent = data.candidates?.[0]?.content?.parts?.[0]?.text || "";
+    const aiContent = data.choices?.[0]?.message?.content || "";
     
     const jsonMatch = aiContent.match(/\{[\s\S]*\}/);
     if (jsonMatch) {
@@ -1171,7 +1171,7 @@ Deno.serve(async (req) => {
               source_name: keyword,
               original_title: scraped.title,
               is_auto_generated: true,
-              ai_edited: aiEdited,
+              ai_edited: true,
               keywords: article.keywords,
               category: targetCategory,
               quality_score: qualityResult?.score || null,
@@ -1188,7 +1188,7 @@ Deno.serve(async (req) => {
               score: qualityResult?.score,
             });
             console.log(
-              `✅ Collected (score: ${qualityResult?.score})${aiEdited ? "" : " [fallback-no-ai]"}: ${article.title}`
+              `✅ Collected (score: ${qualityResult?.score}): ${article.title}`
             );
           }
 
@@ -1284,13 +1284,13 @@ Deno.serve(async (req) => {
               scraped.images || [] // 传递原文图片
             );
 
-            const article = rewritten ?? buildFallbackArticle({
-              title: scraped.title || result.title || "",
-              content: scraped.content,
-              coverImage: scraped.coverImage,
-              images: scraped.images || [],
-            });
-            const aiEdited = Boolean(rewritten);
+            // AI 二次创作必须成功，失败则跳过
+            if (!rewritten) {
+              console.log(`⏭️ AI rewrite failed, skipping: ${scraped.title || result.title}`);
+              continue;
+            }
+
+            const article = rewritten;
 
             // 保存
             const { error: insertError } = await supabase
@@ -1307,7 +1307,7 @@ Deno.serve(async (req) => {
                 source_name: "International",
                 original_title: scraped.title,
                 is_auto_generated: true,
-                ai_edited: aiEdited,
+                ai_edited: true,
                 keywords: article.keywords,
                 category,
                 quality_score: qualityResult?.score || null,
@@ -1324,7 +1324,7 @@ Deno.serve(async (req) => {
                 score: qualityResult?.score,
               });
               console.log(
-                `✅ [${category}] Collected (score: ${qualityResult?.score})${aiEdited ? "" : " [fallback-no-ai]"}: ${article.title}`
+                `✅ [${category}] Collected (score: ${qualityResult?.score}): ${article.title}`
               );
             }
 
@@ -1430,13 +1430,13 @@ Deno.serve(async (req) => {
                 scraped.images || [] // 传递原文图片
               );
 
-              const article = rewritten ?? buildFallbackArticle({
-                title: scraped.title || result.title || "",
-                content: scraped.content,
-                coverImage: scraped.coverImage,
-                images: scraped.images || [],
-              });
-              const aiEdited = Boolean(rewritten);
+              // AI 二次创作必须成功，失败则跳过
+              if (!rewritten) {
+                console.log(`⏭️ AI rewrite failed, skipping: ${scraped.title || result.title}`);
+                continue;
+              }
+
+              const article = rewritten;
 
               // 保存
               const { error: insertError } = await supabase
@@ -1453,7 +1453,7 @@ Deno.serve(async (req) => {
                   source_name: "International",
                   original_title: scraped.title,
                   is_auto_generated: true,
-                  ai_edited: aiEdited,
+                  ai_edited: true,
                   keywords: article.keywords,
                   category: cat,
                   quality_score: qualityResult?.score || null,
@@ -1467,7 +1467,7 @@ Deno.serve(async (req) => {
                 totalCollected++;
                 results.push({ title: article.title, success: true, score: qualityResult?.score });
                 console.log(
-                  `✅ [${cat}] Collected (score: ${qualityResult?.score})${aiEdited ? "" : " [fallback-no-ai]"}: ${article.title}`
+                  `✅ [${cat}] Collected (score: ${qualityResult?.score}): ${article.title}`
                 );
               }
 
