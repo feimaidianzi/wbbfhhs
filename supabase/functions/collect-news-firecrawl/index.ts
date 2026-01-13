@@ -95,20 +95,20 @@ function cleanContent(rawContent: string): string {
   return content;
 }
 
-// 使用 Gemini API 进行文章质量评分 - 增强版
+// 使用 Doubao API 进行文章质量评分 - 增强版
 async function scoreArticleQuality(
   title: string,
   content: string,
   category: string
 ): Promise<{ score: number; reason: string; isReviewOrAd: boolean } | null> {
   try {
-    const GEMINI_API_KEY = Deno.env.get("GEMINI_API_KEY");
-    if (!GEMINI_API_KEY) {
-      console.log("GEMINI_API_KEY not found, skipping quality scoring");
+    const DOUBAO_API_KEY = Deno.env.get("DOUBAO_API_KEY");
+    if (!DOUBAO_API_KEY) {
+      console.log("DOUBAO_API_KEY not found, skipping quality scoring");
       return { score: 10, reason: "未配置评分，默认通过", isReviewOrAd: false };
     }
 
-    console.log("Scoring article quality with Gemini API...");
+    console.log("Scoring article quality with Doubao API...");
     
     const prompt = `你是一位资深新闻质量审核编辑。请对以下无人机行业新闻文章进行严格的质量评分和类型判断。
 
@@ -148,10 +148,10 @@ async function scoreArticleQuality(
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        "Authorization": `Bearer ${GEMINI_API_KEY}`,
+        "Authorization": `Bearer ${DOUBAO_API_KEY}`,
       },
       body: JSON.stringify({
-        model: "gemini-3-pro-preview-h",
+        model: "Doubao-embedding-vision",
         messages: [{ role: "user", content: prompt }],
         temperature: 0.3,
         max_tokens: 300,
@@ -160,7 +160,7 @@ async function scoreArticleQuality(
 
     if (!response.ok) {
       const errorText = await response.text();
-      console.error("Gemini quality scoring API error:", response.status, errorText);
+      console.error("Doubao quality scoring API error:", response.status, errorText);
       return { score: 8, reason: "评分API错误，默认通过", isReviewOrAd: false };
     }
 
@@ -330,7 +330,7 @@ function getUnusedDefaultImages(needed: number): string[] {
   return selected;
 }
 
-// 使用 Gemini API 进行专业二次创作 - 增强版，支持原文图片
+// 使用 Doubao API 进行专业二次创作 - 增强版，支持原文图片
 async function rewriteArticleWithAI(
   originalTitle: string,
   originalContent: string,
@@ -349,9 +349,9 @@ async function rewriteArticleWithAI(
   images: string[];
 } | null> {
   try {
-    const GEMINI_API_KEY = Deno.env.get("GEMINI_API_KEY");
-    if (!GEMINI_API_KEY) {
-      console.error("GEMINI_API_KEY not found");
+    const DOUBAO_API_KEY = Deno.env.get("DOUBAO_API_KEY");
+    if (!DOUBAO_API_KEY) {
+      console.error("DOUBAO_API_KEY not found");
       return null;
     }
 
@@ -435,10 +435,10 @@ async function rewriteArticleWithAI(
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        "Authorization": `Bearer ${GEMINI_API_KEY}`,
+        "Authorization": `Bearer ${DOUBAO_API_KEY}`,
       },
       body: JSON.stringify({
-        model: "gemini-3-pro-preview-h",
+        model: "Doubao-embedding-vision",
         messages: [{ role: "user", content: prompt }],
         temperature: 0.7,
         max_tokens: 4000,
@@ -447,7 +447,7 @@ async function rewriteArticleWithAI(
 
     if (!response.ok) {
       const errorText = await response.text();
-      console.error("Gemini rewrite API error:", response.status, errorText);
+      console.error("Doubao rewrite API error:", response.status, errorText);
       return null;
     }
 
@@ -936,11 +936,11 @@ async function scrapeFullContent(url: string): Promise<{
   }
 }
 
-// 使用 Gemini API 生成热门关键词
+// 使用 Doubao API 生成热门关键词
 async function generateHotKeywords(): Promise<Record<string, string[]>> {
   try {
-    const GEMINI_API_KEY = Deno.env.get("GEMINI_API_KEY");
-    if (!GEMINI_API_KEY) {
+    const DOUBAO_API_KEY = Deno.env.get("DOUBAO_API_KEY");
+    if (!DOUBAO_API_KEY) {
       return CATEGORY_CONFIG as any;
     }
 
@@ -969,10 +969,10 @@ async function generateHotKeywords(): Promise<Record<string, string[]>> {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        "Authorization": `Bearer ${GEMINI_API_KEY}`,
+        "Authorization": `Bearer ${DOUBAO_API_KEY}`,
       },
       body: JSON.stringify({
-        model: "gemini-3-pro-preview-h",
+        model: "Doubao-embedding-vision",
         messages: [{ role: "user", content: prompt }],
         temperature: 0.7,
         max_tokens: 1000,
@@ -980,7 +980,7 @@ async function generateHotKeywords(): Promise<Record<string, string[]>> {
     });
 
     if (!response.ok) {
-      console.error("Gemini keyword generation API error");
+      console.error("Doubao keyword generation API error");
       return {};
     }
 
