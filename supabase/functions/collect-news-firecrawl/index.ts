@@ -238,10 +238,14 @@ async function validateImages(images: string[], maxCount: number = 5): Promise<s
   return validImages;
 }
 
-// 获取高质量无人机配图 - 使用确保可用的Unsplash图片
+// 全局已使用图片追踪 - 确保同一批次采集中不重复使用图片
+const usedImagesInSession = new Set<string>();
+
+// 获取高质量无人机配图 - 扩充的Unsplash图片库（50+张不重复图片）
 function getDefaultDroneImages(): string[] {
-  // 这些是Unsplash上确认可用的无人机相关图片
+  // 大量Unsplash上确认可用的无人机、科技、航空相关图片
   return [
+    // 无人机相关
     "https://images.unsplash.com/photo-1473968512647-3e447244af8f?w=800&q=80",
     "https://images.unsplash.com/photo-1508614589041-895b88991e3e?w=800&q=80",
     "https://images.unsplash.com/photo-1527977966376-1c8408f9f108?w=800&q=80",
@@ -250,7 +254,82 @@ function getDefaultDroneImages(): string[] {
     "https://images.unsplash.com/photo-1506947411487-a56738267384?w=800&q=80",
     "https://images.unsplash.com/photo-1524143986875-3b098d78b363?w=800&q=80",
     "https://images.unsplash.com/photo-1559827291-72ee739d0d9a?w=800&q=80",
+    "https://images.unsplash.com/photo-1507582020474-9a35b7d455d9?w=800&q=80",
+    "https://images.unsplash.com/photo-1517694712202-14dd9538aa97?w=800&q=80",
+    // 航拍风景
+    "https://images.unsplash.com/photo-1501785888041-af3ef285b470?w=800&q=80",
+    "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800&q=80",
+    "https://images.unsplash.com/photo-1469474968028-56623f02e42e?w=800&q=80",
+    "https://images.unsplash.com/photo-1433086966358-54859d0ed716?w=800&q=80",
+    "https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?w=800&q=80",
+    "https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=800&q=80",
+    "https://images.unsplash.com/photo-1472214103451-9374bd1c798e?w=800&q=80",
+    "https://images.unsplash.com/photo-1426604966848-d7adac402bff?w=800&q=80",
+    // 科技相关
+    "https://images.unsplash.com/photo-1518770660439-4636190af475?w=800&q=80",
+    "https://images.unsplash.com/photo-1485827404703-89b55fcc595e?w=800&q=80",
+    "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?w=800&q=80",
+    "https://images.unsplash.com/photo-1531297484001-80022131f5a1?w=800&q=80",
+    "https://images.unsplash.com/photo-1488590528505-98d2b5aba04b?w=800&q=80",
+    "https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=800&q=80",
+    "https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?w=800&q=80",
+    "https://images.unsplash.com/photo-1535378917042-10a22c95931a?w=800&q=80",
+    // 城市航拍
+    "https://images.unsplash.com/photo-1477959858617-67f85cf4f1df?w=800&q=80",
+    "https://images.unsplash.com/photo-1480714378408-67cf0d13bc1b?w=800&q=80",
+    "https://images.unsplash.com/photo-1449824913935-59a10b8d2000?w=800&q=80",
+    "https://images.unsplash.com/photo-1514565131-fce0801e5785?w=800&q=80",
+    "https://images.unsplash.com/photo-1486325212027-8081e485255e?w=800&q=80",
+    "https://images.unsplash.com/photo-1496568816309-51d7c20e3b21?w=800&q=80",
+    "https://images.unsplash.com/photo-1502602898657-3e91760cbb34?w=800&q=80",
+    "https://images.unsplash.com/photo-1534430480872-3498386e7856?w=800&q=80",
+    // 工业科技
+    "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=800&q=80",
+    "https://images.unsplash.com/photo-1563770660941-20978e870e26?w=800&q=80",
+    "https://images.unsplash.com/photo-1581092160607-ee22621dd758?w=800&q=80",
+    "https://images.unsplash.com/photo-1581092918056-0c4c3acd3789?w=800&q=80",
+    "https://images.unsplash.com/photo-1565688534245-05d6b5be184a?w=800&q=80",
+    "https://images.unsplash.com/photo-1567789884554-0b844b597180?w=800&q=80",
+    // 天空/飞行相关
+    "https://images.unsplash.com/photo-1534088568595-a066f410bcda?w=800&q=80",
+    "https://images.unsplash.com/photo-1419833173245-f59e1b93f9ee?w=800&q=80",
+    "https://images.unsplash.com/photo-1436491865332-7a61a109cc05?w=800&q=80",
+    "https://images.unsplash.com/photo-1464037866556-6812c9d1c72e?w=800&q=80",
+    "https://images.unsplash.com/photo-1483450388369-9ed95738483c?w=800&q=80",
+    "https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=800&q=80",
+    // 电子元件/电路
+    "https://images.unsplash.com/photo-1518770660439-4636190af475?w=800&q=80",
+    "https://images.unsplash.com/photo-1562408590-e32931084e23?w=800&q=80",
+    "https://images.unsplash.com/photo-1555664424-778a1e5e1b48?w=800&q=80",
+    "https://images.unsplash.com/photo-1601132359864-c974e79890ac?w=800&q=80",
   ];
+}
+
+// 获取未使用过的图片
+function getUnusedDefaultImages(needed: number): string[] {
+  const allImages = getDefaultDroneImages();
+  
+  // 过滤掉已使用的图片
+  const unusedImages = allImages.filter(img => !usedImagesInSession.has(img));
+  
+  // 如果未使用的图片不足，重置追踪（但保留一些避免立即重复）
+  if (unusedImages.length < needed) {
+    console.log("Resetting used images tracker - pool exhausted");
+    // 保留最近使用的10张，其他的可以重新使用
+    const recentlyUsed = Array.from(usedImagesInSession).slice(-10);
+    usedImagesInSession.clear();
+    recentlyUsed.forEach(img => usedImagesInSession.add(img));
+    return getUnusedDefaultImages(needed);
+  }
+  
+  // 随机打乱并选取需要的数量
+  const shuffled = unusedImages.sort(() => 0.5 - Math.random());
+  const selected = shuffled.slice(0, needed);
+  
+  // 标记为已使用
+  selected.forEach(img => usedImagesInSession.add(img));
+  
+  return selected;
 }
 
 // 使用 Lovable AI 进行专业二次创作 - 增强版，支持原文图片
@@ -390,22 +469,23 @@ async function rewriteArticleWithAI(
     
     // 准备图片列表：只使用经过验证的原文图片，不足时使用Unsplash默认图片
     let images: string[] = [];
-    const defaultImages = getDefaultDroneImages();
     
-    // 优先使用原文中已验证的高质量图片
+    // 优先使用原文中已验证的高质量图片（同时标记为已使用，避免跨文章重复）
     if (originalImages.length > 0) {
-      // originalImages已经在scrapeFullContent中经过filterHighQualityImages验证
-      images = [...originalImages];
-      console.log(`Using ${originalImages.length} validated original images from article`);
+      // 过滤掉已在本次采集中使用过的原文图片
+      const unusedOriginalImages = originalImages.filter(img => !usedImagesInSession.has(img));
+      images = [...unusedOriginalImages];
+      // 标记这些图片为已使用
+      unusedOriginalImages.forEach(img => usedImagesInSession.add(img));
+      console.log(`Using ${unusedOriginalImages.length} unique original images (${originalImages.length - unusedOriginalImages.length} duplicates skipped)`);
     }
     
-    // 如果原文图片不足3张，使用Unsplash默认无人机图片补充
-    // 这些图片是确保可用的高质量无人机相关图片
+    // 如果原文图片不足3张，使用Unsplash默认无人机图片补充（自动避免重复）
     if (images.length < MIN_IMAGES) {
-      const shuffledDefaults = defaultImages.sort(() => 0.5 - Math.random());
       const needed = MIN_IMAGES - images.length;
-      images.push(...shuffledDefaults.slice(0, needed));
-      console.log(`Original images insufficient (${originalImages.length}), added ${needed} Unsplash default images`);
+      const uniqueDefaults = getUnusedDefaultImages(needed);
+      images.push(...uniqueDefaults);
+      console.log(`Original images insufficient (${originalImages.length}), added ${needed} unique Unsplash images`);
     }
     
     // 最多使用5张图片，确保至少有MIN_IMAGES张
