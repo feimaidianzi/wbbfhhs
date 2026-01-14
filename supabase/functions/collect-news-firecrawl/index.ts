@@ -144,17 +144,18 @@ async function scoreArticleQuality(
   "isReviewOrAd": false
 }`;
 
-    const response = await fetch(`https://ark.cn-beijing.volces.com/api/v3/chat/completions`, {
+    const response = await fetch(`https://ark.cn-beijing.volces.com/api/v3/responses`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
         "Authorization": `Bearer ${DOUBAO_API_KEY}`,
       },
       body: JSON.stringify({
-        model: "Doubao-Seed-1.8",
-        messages: [{ role: "user", content: prompt }],
-        temperature: 0.3,
-        max_tokens: 300,
+        model: "doubao-seed-1-8-251228",
+        input: [{ 
+          role: "user", 
+          content: [{ type: "input_text", text: prompt }] 
+        }],
       }),
     });
 
@@ -165,7 +166,8 @@ async function scoreArticleQuality(
     }
 
     const data = await response.json();
-    const aiContent = data.choices?.[0]?.message?.content || "";
+    // 新 API 响应格式: data.output[0].content[0].text
+    const aiContent = data.output?.[0]?.content?.[0]?.text || data.choices?.[0]?.message?.content || "";
     
     const jsonMatch = aiContent.match(/\{[\s\S]*\}/);
     if (jsonMatch) {
@@ -431,17 +433,18 @@ async function rewriteArticleWithAI(
 <h3>总结与展望</h3>
 <p>结尾段落...</p>`;
 
-    const response = await fetch(`https://ark.cn-beijing.volces.com/api/v3/chat/completions`, {
+    const response = await fetch(`https://ark.cn-beijing.volces.com/api/v3/responses`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
         "Authorization": `Bearer ${DOUBAO_API_KEY}`,
       },
       body: JSON.stringify({
-        model: "Doubao-Seed-1.8",
-        messages: [{ role: "user", content: prompt }],
-        temperature: 0.7,
-        max_tokens: 4000,
+        model: "doubao-seed-1-8-251228",
+        input: [{ 
+          role: "user", 
+          content: [{ type: "input_text", text: prompt }] 
+        }],
       }),
     });
 
@@ -452,7 +455,8 @@ async function rewriteArticleWithAI(
     }
 
     const data = await response.json();
-    const aiContent = data.choices?.[0]?.message?.content || "";
+    // 新 API 响应格式: data.output[0].content[0].text
+    const aiContent = data.output?.[0]?.content?.[0]?.text || data.choices?.[0]?.message?.content || "";
     
     const jsonMatch = aiContent.match(/\{[\s\S]*\}/);
     if (!jsonMatch) {
@@ -965,17 +969,18 @@ async function generateHotKeywords(): Promise<Record<string, string[]>> {
   "技术分享": ["关键词1", "关键词2", ...]
 }`;
 
-    const response = await fetch(`https://ark.cn-beijing.volces.com/api/v3/chat/completions`, {
+    const response = await fetch(`https://ark.cn-beijing.volces.com/api/v3/responses`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
         "Authorization": `Bearer ${DOUBAO_API_KEY}`,
       },
       body: JSON.stringify({
-        model: "Doubao-Seed-1.8",
-        messages: [{ role: "user", content: prompt }],
-        temperature: 0.7,
-        max_tokens: 1000,
+        model: "doubao-seed-1-8-251228",
+        input: [{ 
+          role: "user", 
+          content: [{ type: "input_text", text: prompt }] 
+        }],
       }),
     });
 
@@ -985,7 +990,8 @@ async function generateHotKeywords(): Promise<Record<string, string[]>> {
     }
 
     const data = await response.json();
-    const aiContent = data.choices?.[0]?.message?.content || "";
+    // 新 API 响应格式: data.output[0].content[0].text
+    const aiContent = data.output?.[0]?.content?.[0]?.text || data.choices?.[0]?.message?.content || "";
     
     const jsonMatch = aiContent.match(/\{[\s\S]*\}/);
     if (jsonMatch) {
