@@ -144,14 +144,14 @@ async function scoreArticleQuality(
   "isReviewOrAd": false
 }`;
 
-    const response = await fetch(`https://api2.qiandao.mom/v1/chat/completions`, {
+    const response = await fetch(`https://ark.cn-beijing.volces.com/api/v3/chat/completions`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
         "Authorization": `Bearer ${DOUBAO_API_KEY}`,
       },
       body: JSON.stringify({
-        model: "Doubao-embedding-vision",
+        model: "Doubao-Seed-1.8",
         messages: [{ role: "user", content: prompt }],
         temperature: 0.3,
         max_tokens: 300,
@@ -431,14 +431,14 @@ async function rewriteArticleWithAI(
 <h3>总结与展望</h3>
 <p>结尾段落...</p>`;
 
-    const response = await fetch(`https://api2.qiandao.mom/v1/chat/completions`, {
+    const response = await fetch(`https://ark.cn-beijing.volces.com/api/v3/chat/completions`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
         "Authorization": `Bearer ${DOUBAO_API_KEY}`,
       },
       body: JSON.stringify({
-        model: "Doubao-embedding-vision",
+        model: "Doubao-Seed-1.8",
         messages: [{ role: "user", content: prompt }],
         temperature: 0.7,
         max_tokens: 4000,
@@ -965,14 +965,14 @@ async function generateHotKeywords(): Promise<Record<string, string[]>> {
   "技术分享": ["关键词1", "关键词2", ...]
 }`;
 
-    const response = await fetch(`https://api2.qiandao.mom/v1/chat/completions`, {
+    const response = await fetch(`https://ark.cn-beijing.volces.com/api/v3/chat/completions`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
         "Authorization": `Bearer ${DOUBAO_API_KEY}`,
       },
       body: JSON.stringify({
-        model: "Doubao-embedding-vision",
+        model: "Doubao-Seed-1.8",
         messages: [{ role: "user", content: prompt }],
         temperature: 0.7,
         max_tokens: 1000,
