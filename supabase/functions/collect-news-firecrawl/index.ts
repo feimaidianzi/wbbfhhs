@@ -166,8 +166,34 @@ async function scoreArticleQuality(
     }
 
     const data = await response.json();
-    // 新 API 响应格式: data.output[0].content[0].text
-    const aiContent = data.output?.[0]?.content?.[0]?.text || data.choices?.[0]?.message?.content || "";
+    console.log("Doubao API response structure:", JSON.stringify(data).substring(0, 800));
+    
+    // Doubao-Seed-1.8 返回 reasoning 类型的响应
+    // 格式: output[].type="reasoning", output[].summary[].text 或 output[].type="message", output[].content[].text
+    let aiContent = "";
+    if (data.output && Array.isArray(data.output)) {
+      for (const item of data.output) {
+        if (item.type === "message" && item.content) {
+          // 标准消息格式
+          const content = Array.isArray(item.content) 
+            ? item.content.map((c: any) => c.text || "").join("") 
+            : item.content;
+          aiContent += content;
+        } else if (item.type === "reasoning" && item.summary) {
+          // 推理格式 - 提取 summary 中的文本
+          const summaryTexts = Array.isArray(item.summary) 
+            ? item.summary.map((s: any) => s.text || "").join("") 
+            : "";
+          aiContent += summaryTexts;
+        }
+      }
+    }
+    // 兼容旧格式
+    if (!aiContent && data.choices?.[0]?.message?.content) {
+      aiContent = data.choices[0].message.content;
+    }
+    
+    console.log("Extracted AI content:", aiContent.substring(0, 500));
     
     const jsonMatch = aiContent.match(/\{[\s\S]*\}/);
     if (jsonMatch) {
@@ -455,8 +481,30 @@ async function rewriteArticleWithAI(
     }
 
     const data = await response.json();
-    // 新 API 响应格式: data.output[0].content[0].text
-    const aiContent = data.output?.[0]?.content?.[0]?.text || data.choices?.[0]?.message?.content || "";
+    console.log("Doubao rewrite API response structure:", JSON.stringify(data).substring(0, 500));
+    
+    // Doubao-Seed-1.8 返回 reasoning 类型的响应
+    let aiContent = "";
+    if (data.output && Array.isArray(data.output)) {
+      for (const item of data.output) {
+        if (item.type === "message" && item.content) {
+          const content = Array.isArray(item.content) 
+            ? item.content.map((c: any) => c.text || "").join("") 
+            : item.content;
+          aiContent += content;
+        } else if (item.type === "reasoning" && item.summary) {
+          const summaryTexts = Array.isArray(item.summary) 
+            ? item.summary.map((s: any) => s.text || "").join("") 
+            : "";
+          aiContent += summaryTexts;
+        }
+      }
+    }
+    if (!aiContent && data.choices?.[0]?.message?.content) {
+      aiContent = data.choices[0].message.content;
+    }
+    
+    console.log("Extracted AI rewrite content length:", aiContent.length);
     
     const jsonMatch = aiContent.match(/\{[\s\S]*\}/);
     if (!jsonMatch) {
@@ -990,8 +1038,27 @@ async function generateHotKeywords(): Promise<Record<string, string[]>> {
     }
 
     const data = await response.json();
-    // 新 API 响应格式: data.output[0].content[0].text
-    const aiContent = data.output?.[0]?.content?.[0]?.text || data.choices?.[0]?.message?.content || "";
+    
+    // Doubao-Seed-1.8 返回 reasoning 类型的响应
+    let aiContent = "";
+    if (data.output && Array.isArray(data.output)) {
+      for (const item of data.output) {
+        if (item.type === "message" && item.content) {
+          const content = Array.isArray(item.content) 
+            ? item.content.map((c: any) => c.text || "").join("") 
+            : item.content;
+          aiContent += content;
+        } else if (item.type === "reasoning" && item.summary) {
+          const summaryTexts = Array.isArray(item.summary) 
+            ? item.summary.map((s: any) => s.text || "").join("") 
+            : "";
+          aiContent += summaryTexts;
+        }
+      }
+    }
+    if (!aiContent && data.choices?.[0]?.message?.content) {
+      aiContent = data.choices[0].message.content;
+    }
     
     const jsonMatch = aiContent.match(/\{[\s\S]*\}/);
     if (jsonMatch) {
