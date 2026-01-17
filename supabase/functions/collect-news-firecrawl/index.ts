@@ -78,8 +78,8 @@ const CATEGORY_CONFIG = {
 // 质量评分阈值
 const QUALITY_THRESHOLD = 8.0;
 
-// 清理抓取的内容
-function cleanContent(rawContent: string): string {
+// 基础清理抓取的内容（正则清洗）
+function basicCleanContent(rawContent: string): string {
   if (!rawContent) return "";
   
   let content = rawContent
@@ -91,6 +91,11 @@ function cleanContent(rawContent: string): string {
     .replace(/https?:\/\/[^\s)>\]]+/g, '')
     // 移除HTML标签
     .replace(/<[^>]+>/g, '')
+    // 移除#号标题标记
+    .replace(/^#{1,6}\s*/gm, '')
+    // 移除独立的#号
+    .replace(/\s#\s/g, ' ')
+    .replace(/^#\s/gm, '')
     // 移除常见的网页杂乱文字
     .replace(/跳过内容|跳至主要内容|跳到主要内容|Skip to (?:main )?content/gi, '')
     .replace(/无结果|No results?|没有找到|未找到/gi, '')
@@ -131,6 +136,124 @@ function cleanContent(rawContent: string): string {
 
   if (content.length < 100) return "";
   return content;
+}
+
+// 使用 Doubao API 深度清洗文章内容
+async function deepCleanContentWithAI(rawContent: string, title: string): Promise<string> {
+  try {
+    const DOUBAO_API_KEY = Deno.env.get("DOUBAO_API_KEY");
+    if (!DOUBAO_API_KEY) {
+      console.log("DOUBAO_API_KEY not found, skipping AI content cleaning");
+      return rawContent;
+    }
+
+    // 如果内容太短，跳过AI清洗
+    if (rawContent.length < 200) {
+      return rawContent;
+    }
+
+    console.log(`AI cleaning content for: ${title.substring(0, 50)}...`);
+    
+    const prompt = `你是一位专业的文章编辑，请帮我清洗以下采集的网页内容，去除所有与新闻正文无关的杂乱信息。
+
+【原文标题】${title}
+
+【原始内容】
+${rawContent.substring(0, 8000)}
+
+【清洗要求】
+1. 删除所有#号标题标记和Markdown格式符号
+2. 删除网站导航、菜单、按钮文字（如"首页"、"登录"、"分享"等）
+3. 删除广告、推广、订阅相关内容
+4. 删除版权声明、隐私政策等法律文本
+5. 删除评论区、相关推荐、热门文章等非正文内容
+6. 删除社交媒体分享按钮相关文字
+7. 删除重复的段落或句子
+8. 删除无意义的符号序列（如 "---"、"***"、"==="）
+9. 删除乱码和不完整的句子
+10. 保留完整、连贯、有意义的新闻正文内容
+
+【输出要求】
+- 只输出清洗后的纯文本内容
+- 不要添加任何额外的说明或标记
+- 保持段落结构，用空行分隔段落
+- 确保内容可读、流畅、完整`;
+
+    const response = await fetch(`https://ark.cn-beijing.volces.com/api/v3/responses`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${DOUBAO_API_KEY}`,
+      },
+      signal: AbortSignal.timeout(20000),
+      body: JSON.stringify({
+        model: "doubao-seed-1-8-251228",
+        thinking: { type: "disabled" },
+        input: [{
+          role: "user",
+          content: [{ type: "input_text", text: prompt }],
+        }],
+      }),
+    });
+
+    if (!response.ok) {
+      const errorText = await response.text();
+      console.error("Doubao content cleaning API error:", response.status, errorText);
+      return rawContent;
+    }
+
+    const data = await response.json();
+    
+    // 提取AI返回的内容
+    let cleanedContent = "";
+    if (data.output && Array.isArray(data.output)) {
+      for (const item of data.output) {
+        if (item.type === "text" && item.text) {
+          cleanedContent += item.text;
+        } else if (item.type === "message" && item.content) {
+          const content = Array.isArray(item.content) 
+            ? item.content.map((c: any) => c.text || "").join("") 
+            : item.content;
+          cleanedContent += content;
+        }
+      }
+    }
+    if (!cleanedContent && data.choices?.[0]?.message?.content) {
+      cleanedContent = data.choices[0].message.content;
+    }
+
+    // 如果AI返回的内容太短，使用原始内容
+    if (cleanedContent.length < 100) {
+      console.log("AI cleaned content too short, using original");
+      return rawContent;
+    }
+
+    console.log(`AI cleaned content: ${rawContent.length} -> ${cleanedContent.length} chars`);
+    return cleanedContent.trim();
+  } catch (error) {
+    console.error("AI content cleaning failed:", error);
+    return rawContent;
+  }
+}
+
+// 完整清洗流程：先基础清洗，再AI深度清洗
+async function cleanContent(rawContent: string, title: string = ""): Promise<string> {
+  // 第一步：基础正则清洗
+  const basicCleaned = basicCleanContent(rawContent);
+  
+  if (!basicCleaned || basicCleaned.length < 100) {
+    return "";
+  }
+  
+  // 第二步：AI深度清洗
+  const aiCleaned = await deepCleanContentWithAI(basicCleaned, title);
+  
+  // 最终验证
+  if (aiCleaned.length < 100) {
+    return "";
+  }
+  
+  return aiCleaned;
 }
 
 // 使用 Doubao API 进行文章质量评分 - 增强版
@@ -977,10 +1100,11 @@ async function scrapeFullContent(url: string): Promise<{
     const scraped = data.data || data;
     
     const rawContent = scraped.markdown || "";
-    const cleanedContent = cleanContent(rawContent);
+    const pageTitle = scraped.metadata?.title || "";
+    const cleanedContent = await cleanContent(rawContent, pageTitle);
     
     if (cleanedContent.length < 200) {
-      console.log(`Content too short: ${url}`);
+      console.log(`Content too short after cleaning: ${url}`);
       return null;
     }
 
