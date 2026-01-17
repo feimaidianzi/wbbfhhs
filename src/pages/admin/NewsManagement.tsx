@@ -35,6 +35,13 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
 } from '@/components/ui/alert-dialog';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select';
 import { 
   Shield, 
   LogOut, 
@@ -46,7 +53,13 @@ import {
   Edit,
   Trash2,
   Eye,
-  EyeOff
+  EyeOff,
+  CheckCircle,
+  XCircle,
+  Clock,
+  Sparkles,
+  Image,
+  RefreshCw
 } from 'lucide-react';
 import SingleImageUpload from '@/components/admin/SingleImageUpload';
 import RichTextEditor from '@/components/admin/RichTextEditor';
@@ -63,6 +76,10 @@ interface NewsArticle {
   published_at: string | null;
   created_at: string;
   updated_at: string;
+  ai_edited: boolean | null;
+  review_status: string | null;
+  reviewed_at: string | null;
+  review_notes: string | null;
 }
 
 const NewsManagement = () => {
@@ -73,9 +90,15 @@ const NewsManagement = () => {
   const [saving, setSaving] = useState(false);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
+  const [isReviewDialogOpen, setIsReviewDialogOpen] = useState(false);
+  const [isAIModifyDialogOpen, setIsAIModifyDialogOpen] = useState(false);
   const [editingArticle, setEditingArticle] = useState<NewsArticle | null>(null);
+  const [reviewingArticle, setReviewingArticle] = useState<NewsArticle | null>(null);
+  const [modifyingArticle, setModifyingArticle] = useState<NewsArticle | null>(null);
   const [deleteArticleId, setDeleteArticleId] = useState<string | null>(null);
   const [currentUserId, setCurrentUserId] = useState<string | null>(null);
+  const [filterStatus, setFilterStatus] = useState<string>('all');
+  const [aiModifying, setAiModifying] = useState(false);
 
   const [formData, setFormData] = useState({
     title: '',
@@ -87,12 +110,28 @@ const NewsManagement = () => {
     is_published: false,
   });
 
+  const [reviewData, setReviewData] = useState({
+    status: 'approved' as 'approved' | 'rejected',
+    notes: '',
+  });
+
+  const [modifyData, setModifyData] = useState({
+    request: '',
+    modifyImages: false,
+  });
+
   const fetchArticles = async () => {
     try {
-      const { data, error } = await supabase
+      let query = supabase
         .from('news_articles')
         .select('*')
         .order('created_at', { ascending: false });
+
+      if (filterStatus !== 'all') {
+        query = query.eq('review_status', filterStatus);
+      }
+
+      const { data, error } = await query;
 
       if (error) throw error;
       setArticles(data || []);
@@ -140,6 +179,13 @@ const NewsManagement = () => {
     checkAdminAccess();
   }, [navigate, toast]);
 
+  useEffect(() => {
+    if (currentUserId) {
+      setLoading(true);
+      fetchArticles();
+    }
+  }, [filterStatus]);
+
   const handleLogout = async () => {
     await supabase.auth.signOut();
     navigate('/admin/login');
@@ -173,6 +219,18 @@ const NewsManagement = () => {
     setIsDialogOpen(true);
   };
 
+  const openReviewDialog = (article: NewsArticle) => {
+    setReviewingArticle(article);
+    setReviewData({ status: 'approved', notes: '' });
+    setIsReviewDialogOpen(true);
+  };
+
+  const openAIModifyDialog = (article: NewsArticle) => {
+    setModifyingArticle(article);
+    setModifyData({ request: '', modifyImages: false });
+    setIsAIModifyDialogOpen(true);
+  };
+
   const handleSave = async () => {
     if (!formData.title.trim() || !formData.content.trim()) {
       toast({
@@ -185,6 +243,7 @@ const NewsManagement = () => {
 
     setSaving(true);
     try {
+      // 手动创建的文章默认审核通过
       const articleData = {
         title: formData.title.trim(),
         summary: formData.summary.trim() || null,
@@ -195,6 +254,9 @@ const NewsManagement = () => {
         is_published: formData.is_published,
         published_at: formData.is_published ? new Date().toISOString() : null,
         author_id: currentUserId,
+        review_status: 'approved', // 手动创建默认通过审核
+        reviewed_at: new Date().toISOString(),
+        reviewed_by: currentUserId,
       };
 
       if (editingArticle) {
@@ -228,6 +290,96 @@ const NewsManagement = () => {
     }
   };
 
+  const handleReview = async () => {
+    if (!reviewingArticle) return;
+
+    setSaving(true);
+    try {
+      const updateData: Record<string, any> = {
+        review_status: reviewData.status,
+        reviewed_at: new Date().toISOString(),
+        reviewed_by: currentUserId,
+        review_notes: reviewData.notes || null,
+      };
+
+      // 如果审核通过且当前未发布，自动发布
+      if (reviewData.status === 'approved') {
+        updateData.is_published = true;
+        updateData.published_at = new Date().toISOString();
+      } else if (reviewData.status === 'rejected') {
+        updateData.is_published = false;
+        updateData.published_at = null;
+      }
+
+      const { error } = await supabase
+        .from('news_articles')
+        .update(updateData)
+        .eq('id', reviewingArticle.id);
+
+      if (error) throw error;
+
+      toast({
+        title: reviewData.status === 'approved' ? '文章已通过审核并发布' : '文章已被拒绝',
+      });
+
+      setIsReviewDialogOpen(false);
+      fetchArticles();
+    } catch (error: any) {
+      console.error('Error reviewing article:', error);
+      toast({
+        title: '审核操作失败',
+        description: error.message,
+        variant: 'destructive',
+      });
+    } finally {
+      setSaving(false);
+    }
+  };
+
+  const handleAIModify = async () => {
+    if (!modifyingArticle || !modifyData.request.trim()) {
+      toast({
+        title: '请输入修改要求',
+        variant: 'destructive',
+      });
+      return;
+    }
+
+    setAiModifying(true);
+    try {
+      const { data: { session } } = await supabase.auth.getSession();
+      
+      const response = await supabase.functions.invoke('ai-modify-article', {
+        body: {
+          articleId: modifyingArticle.id,
+          modificationRequest: modifyData.request,
+          modifyImages: modifyData.modifyImages,
+        },
+      });
+
+      if (response.error) {
+        throw new Error(response.error.message || 'AI修改失败');
+      }
+
+      toast({
+        title: 'AI修改完成',
+        description: response.data?.changes || '文章已根据您的要求进行修改',
+      });
+
+      setIsAIModifyDialogOpen(false);
+      fetchArticles();
+    } catch (error: any) {
+      console.error('Error modifying article:', error);
+      toast({
+        title: 'AI修改失败',
+        description: error.message,
+        variant: 'destructive',
+      });
+    } finally {
+      setAiModifying(false);
+    }
+  };
+
   const handleDelete = async () => {
     if (!deleteArticleId) return;
 
@@ -254,6 +406,16 @@ const NewsManagement = () => {
   };
 
   const togglePublish = async (article: NewsArticle) => {
+    // 只有审核通过的文章才能发布
+    if (!article.is_published && article.review_status !== 'approved') {
+      toast({
+        title: '无法发布',
+        description: '只有审核通过的文章才能发布',
+        variant: 'destructive',
+      });
+      return;
+    }
+
     try {
       const newPublishState = !article.is_published;
       const { error } = await supabase
@@ -281,6 +443,49 @@ const NewsManagement = () => {
     if (!dateString) return '-';
     return new Date(dateString).toLocaleString('zh-CN');
   };
+
+  const getReviewStatusBadge = (status: string | null, aiEdited: boolean | null) => {
+    const badges = [];
+    
+    if (aiEdited) {
+      badges.push(
+        <Badge key="ai" className="bg-purple-500/20 text-purple-400 border-purple-500/30 mr-1">
+          <Sparkles className="w-3 h-3 mr-1" />
+          AI
+        </Badge>
+      );
+    }
+
+    switch (status) {
+      case 'approved':
+        badges.push(
+          <Badge key="status" className="bg-green-500/20 text-green-400 border-green-500/30">
+            <CheckCircle className="w-3 h-3 mr-1" />
+            已审核
+          </Badge>
+        );
+        break;
+      case 'rejected':
+        badges.push(
+          <Badge key="status" className="bg-red-500/20 text-red-400 border-red-500/30">
+            <XCircle className="w-3 h-3 mr-1" />
+            已拒绝
+          </Badge>
+        );
+        break;
+      default:
+        badges.push(
+          <Badge key="status" className="bg-yellow-500/20 text-yellow-400 border-yellow-500/30">
+            <Clock className="w-3 h-3 mr-1" />
+            待审核
+          </Badge>
+        );
+    }
+
+    return badges;
+  };
+
+  const pendingCount = articles.filter(a => a.review_status === 'pending' || !a.review_status).length;
 
   if (loading) {
     return (
@@ -328,18 +533,55 @@ const NewsManagement = () => {
       {/* Main Content */}
       <main className="container mx-auto px-4 py-8">
         {/* Back Button & Actions */}
-        <div className="flex items-center justify-between mb-6">
+        <div className="flex items-center justify-between mb-6 flex-wrap gap-4">
           <Link to="/admin">
             <Button variant="ghost" className="text-slate-400 hover:text-white">
               <ArrowLeft className="w-4 h-4 mr-2" />
               返回管理后台
             </Button>
           </Link>
-          <Button onClick={openCreateDialog} className="bg-amber-500 hover:bg-amber-600">
-            <Plus className="w-4 h-4 mr-2" />
-            发布新文章
-          </Button>
+          <div className="flex items-center gap-4">
+            <Select value={filterStatus} onValueChange={setFilterStatus}>
+              <SelectTrigger className="w-[160px] bg-slate-700 border-slate-600 text-white">
+                <SelectValue placeholder="筛选状态" />
+              </SelectTrigger>
+              <SelectContent className="bg-slate-800 border-slate-700">
+                <SelectItem value="all">全部状态</SelectItem>
+                <SelectItem value="pending">
+                  待审核 {pendingCount > 0 && `(${pendingCount})`}
+                </SelectItem>
+                <SelectItem value="approved">已审核</SelectItem>
+                <SelectItem value="rejected">已拒绝</SelectItem>
+              </SelectContent>
+            </Select>
+            <Button onClick={openCreateDialog} className="bg-amber-500 hover:bg-amber-600">
+              <Plus className="w-4 h-4 mr-2" />
+              发布新文章
+            </Button>
+          </div>
         </div>
+
+        {/* Pending Review Alert */}
+        {pendingCount > 0 && filterStatus === 'all' && (
+          <Card className="bg-yellow-500/10 border-yellow-500/30 mb-6">
+            <CardContent className="py-4">
+              <div className="flex items-center gap-3">
+                <Clock className="w-5 h-5 text-yellow-400" />
+                <span className="text-yellow-400">
+                  有 {pendingCount} 篇文章待审核
+                </span>
+                <Button 
+                  variant="outline" 
+                  size="sm"
+                  className="ml-auto border-yellow-500/50 text-yellow-400 hover:bg-yellow-500/20"
+                  onClick={() => setFilterStatus('pending')}
+                >
+                  查看待审核
+                </Button>
+              </div>
+            </CardContent>
+          </Card>
+        )}
 
         <Card className="bg-slate-800 border-slate-700">
           <CardHeader>
@@ -358,7 +600,8 @@ const NewsManagement = () => {
                   <TableRow className="border-slate-700">
                     <TableHead className="text-slate-400">标题</TableHead>
                     <TableHead className="text-slate-400">作者</TableHead>
-                    <TableHead className="text-slate-400">状态</TableHead>
+                    <TableHead className="text-slate-400">审核状态</TableHead>
+                    <TableHead className="text-slate-400">发布状态</TableHead>
                     <TableHead className="text-slate-400">创建时间</TableHead>
                     <TableHead className="text-slate-400 text-right">操作</TableHead>
                   </TableRow>
@@ -371,6 +614,11 @@ const NewsManagement = () => {
                       </TableCell>
                       <TableCell className="text-slate-400">
                         {article.author_name || '-'}
+                      </TableCell>
+                      <TableCell>
+                        <div className="flex items-center gap-1">
+                          {getReviewStatusBadge(article.review_status, article.ai_edited)}
+                        </div>
                       </TableCell>
                       <TableCell>
                         {article.is_published ? (
@@ -389,23 +637,50 @@ const NewsManagement = () => {
                         {formatDate(article.created_at)}
                       </TableCell>
                       <TableCell className="text-right">
-                        <div className="flex items-center justify-end gap-2">
+                        <div className="flex items-center justify-end gap-1">
+                          {/* Review Button - only for pending articles */}
+                          {(article.review_status === 'pending' || !article.review_status) && (
+                            <Button 
+                              variant="ghost" 
+                              size="sm"
+                              onClick={() => openReviewDialog(article)}
+                              className="text-yellow-400 hover:text-yellow-300"
+                              title="审核文章"
+                            >
+                              <CheckCircle className="w-4 h-4" />
+                            </Button>
+                          )}
+                          {/* AI Modify Button */}
+                          <Button 
+                            variant="ghost" 
+                            size="sm"
+                            onClick={() => openAIModifyDialog(article)}
+                            className="text-purple-400 hover:text-purple-300"
+                            title="AI修改"
+                          >
+                            <Sparkles className="w-4 h-4" />
+                          </Button>
+                          {/* Publish Toggle */}
                           <Button 
                             variant="ghost" 
                             size="sm"
                             onClick={() => togglePublish(article)}
                             className={article.is_published ? 'text-orange-400 hover:text-orange-300' : 'text-green-400 hover:text-green-300'}
+                            title={article.is_published ? '取消发布' : '发布'}
                           >
                             {article.is_published ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
                           </Button>
+                          {/* Edit */}
                           <Button 
                             variant="ghost" 
                             size="sm"
                             onClick={() => openEditDialog(article)}
                             className="text-blue-400 hover:text-blue-300"
+                            title="编辑"
                           >
                             <Edit className="w-4 h-4" />
                           </Button>
+                          {/* Delete */}
                           <Button 
                             variant="ghost" 
                             size="sm"
@@ -414,6 +689,7 @@ const NewsManagement = () => {
                               setIsDeleteDialogOpen(true);
                             }}
                             className="text-red-400 hover:text-red-300"
+                            title="删除"
                           >
                             <Trash2 className="w-4 h-4" />
                           </Button>
@@ -428,10 +704,14 @@ const NewsManagement = () => {
             {articles.length === 0 && (
               <div className="text-center py-12">
                 <FileText className="w-12 h-12 text-slate-600 mx-auto mb-4" />
-                <p className="text-slate-400">暂无文章</p>
-                <Button onClick={openCreateDialog} variant="link" className="text-amber-500 mt-2">
-                  发布第一篇文章
-                </Button>
+                <p className="text-slate-400">
+                  {filterStatus === 'pending' ? '没有待审核的文章' : '暂无文章'}
+                </p>
+                {filterStatus === 'all' && (
+                  <Button onClick={openCreateDialog} variant="link" className="text-amber-500 mt-2">
+                    发布第一篇文章
+                  </Button>
+                )}
               </div>
             )}
           </CardContent>
@@ -528,6 +808,150 @@ const NewsManagement = () => {
             <Button onClick={handleSave} disabled={saving} className="bg-amber-500 hover:bg-amber-600">
               {saving && <Loader2 className="w-4 h-4 mr-2 animate-spin" />}
               {editingArticle ? '保存更改' : '创建文章'}
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
+
+      {/* Review Dialog */}
+      <Dialog open={isReviewDialogOpen} onOpenChange={setIsReviewDialogOpen}>
+        <DialogContent className="bg-slate-800 border-slate-700 text-white max-w-lg">
+          <DialogHeader>
+            <DialogTitle>审核文章</DialogTitle>
+            <DialogDescription className="text-slate-400">
+              {reviewingArticle?.title}
+            </DialogDescription>
+          </DialogHeader>
+
+          <div className="space-y-4 py-4">
+            <div className="space-y-2">
+              <Label>审核结果</Label>
+              <div className="flex gap-4">
+                <Button
+                  variant={reviewData.status === 'approved' ? 'default' : 'outline'}
+                  className={reviewData.status === 'approved' ? 'bg-green-600 hover:bg-green-700' : 'border-slate-600'}
+                  onClick={() => setReviewData({ ...reviewData, status: 'approved' })}
+                >
+                  <CheckCircle className="w-4 h-4 mr-2" />
+                  通过并发布
+                </Button>
+                <Button
+                  variant={reviewData.status === 'rejected' ? 'default' : 'outline'}
+                  className={reviewData.status === 'rejected' ? 'bg-red-600 hover:bg-red-700' : 'border-slate-600'}
+                  onClick={() => setReviewData({ ...reviewData, status: 'rejected' })}
+                >
+                  <XCircle className="w-4 h-4 mr-2" />
+                  拒绝
+                </Button>
+              </div>
+            </div>
+
+            <div className="space-y-2">
+              <Label htmlFor="review_notes">审核备注（可选）</Label>
+              <Textarea
+                id="review_notes"
+                value={reviewData.notes}
+                onChange={(e) => setReviewData({ ...reviewData, notes: e.target.value })}
+                placeholder="输入审核备注..."
+                className="bg-slate-700 border-slate-600 min-h-[100px]"
+              />
+            </div>
+
+            {reviewingArticle && (
+              <div className="p-4 bg-slate-700/50 rounded-lg">
+                <p className="text-sm text-slate-400 mb-2">预览文章：</p>
+                <Link 
+                  to={`/news/${reviewingArticle.id}`} 
+                  target="_blank"
+                  className="text-amber-400 hover:text-amber-300 text-sm"
+                >
+                  点击查看文章详情 →
+                </Link>
+              </div>
+            )}
+          </div>
+
+          <DialogFooter>
+            <Button variant="ghost" onClick={() => setIsReviewDialogOpen(false)}>
+              取消
+            </Button>
+            <Button 
+              onClick={handleReview} 
+              disabled={saving}
+              className={reviewData.status === 'approved' ? 'bg-green-600 hover:bg-green-700' : 'bg-red-600 hover:bg-red-700'}
+            >
+              {saving && <Loader2 className="w-4 h-4 mr-2 animate-spin" />}
+              确认{reviewData.status === 'approved' ? '通过' : '拒绝'}
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
+
+      {/* AI Modify Dialog */}
+      <Dialog open={isAIModifyDialogOpen} onOpenChange={setIsAIModifyDialogOpen}>
+        <DialogContent className="bg-slate-800 border-slate-700 text-white max-w-lg">
+          <DialogHeader>
+            <DialogTitle className="flex items-center gap-2">
+              <Sparkles className="w-5 h-5 text-purple-400" />
+              AI智能修改
+            </DialogTitle>
+            <DialogDescription className="text-slate-400">
+              {modifyingArticle?.title}
+            </DialogDescription>
+          </DialogHeader>
+
+          <div className="space-y-4 py-4">
+            <div className="space-y-2">
+              <Label htmlFor="modify_request">修改要求 *</Label>
+              <Textarea
+                id="modify_request"
+                value={modifyData.request}
+                onChange={(e) => setModifyData({ ...modifyData, request: e.target.value })}
+                placeholder="请详细描述您希望如何修改这篇文章...&#10;&#10;例如：&#10;- 删除文章中的无关内容和广告&#10;- 优化文章结构，增加段落&#10;- 改写第二段，使其更加专业&#10;- 添加更多关于XX的描述"
+                className="bg-slate-700 border-slate-600 min-h-[150px]"
+              />
+            </div>
+
+            <div className="flex items-center space-x-2">
+              <Switch
+                id="modify_images"
+                checked={modifyData.modifyImages}
+                onCheckedChange={(checked) => setModifyData({ ...modifyData, modifyImages: checked })}
+              />
+              <Label htmlFor="modify_images" className="flex items-center gap-2">
+                <Image className="w-4 h-4" />
+                同时更换图片
+              </Label>
+            </div>
+
+            <div className="p-4 bg-purple-500/10 border border-purple-500/30 rounded-lg">
+              <p className="text-sm text-purple-300">
+                <Sparkles className="w-4 h-4 inline mr-2" />
+                AI将根据您的要求智能修改文章内容。修改完成后文章将重置为"待审核"状态。
+              </p>
+            </div>
+          </div>
+
+          <DialogFooter>
+            <Button variant="ghost" onClick={() => setIsAIModifyDialogOpen(false)}>
+              取消
+            </Button>
+            <Button 
+              onClick={handleAIModify} 
+              disabled={aiModifying || !modifyData.request.trim()}
+              className="bg-purple-600 hover:bg-purple-700"
+            >
+              {aiModifying ? (
+                <>
+                  <RefreshCw className="w-4 h-4 mr-2 animate-spin" />
+                  AI处理中...
+                </>
+              ) : (
+                <>
+                  <Sparkles className="w-4 h-4 mr-2" />
+                  开始修改
+                </>
+              )}
             </Button>
           </DialogFooter>
         </DialogContent>
