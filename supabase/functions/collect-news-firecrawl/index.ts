@@ -665,11 +665,31 @@ async function rewriteArticleWithAI(
     
     const jsonMatch = aiContent.match(/\{[\s\S]*\}/);
     if (!jsonMatch) {
-      console.error("Failed to parse AI response");
+      console.error("Failed to locate JSON in AI response");
       return null;
     }
 
-    const result = JSON.parse(jsonMatch[0]);
+    let result: any = null;
+    try {
+      result = JSON.parse(jsonMatch[0]);
+    } catch (parseError) {
+      // 常见失败原因：模型输出中包含尾随逗号/不完整转义等
+      const sanitized = jsonMatch[0]
+        .replace(/,\s*}/g, "}")
+        .replace(/,\s*]/g, "]");
+
+      try {
+        result = JSON.parse(sanitized);
+      } catch (parseError2) {
+        console.error(
+          "Failed to parse AI JSON response:",
+          parseError2,
+          "raw_preview=",
+          jsonMatch[0].slice(0, 800)
+        );
+        return null;
+      }
+    }
     
     // 准备图片列表：只使用经过验证的原文图片，不足时使用Unsplash默认图片
     let images: string[] = [];
@@ -1513,20 +1533,23 @@ Deno.serve(async (req) => {
       let totalFiltered = 0;
       
       for (const [cat, kws] of Object.entries(generatedKeywords)) {
+        if (totalCollected >= targetCount) break;
+
         const categoryKeywords = kws as string[];
         if (categoryKeywords.length === 0) continue;
-        
+
         addLog('step', `开始采集 ${cat}`, { step: 'search', details: `使用 ${categoryKeywords.length} 个关键词` });
-        
+
         let catCollected = 0;
         let catFiltered = 0;
         const targetPerCategory = Math.ceil(targetCount / 4);
-        
+
         // 随机选择1-2个关键词进行采集
         const shuffled = [...categoryKeywords].sort(() => 0.5 - Math.random());
         const selectedKeywords = shuffled.slice(0, 2);
-        
+
         for (const keyword of selectedKeywords) {
+          if (totalCollected >= targetCount) break;
           if (catCollected >= targetPerCategory) break;
           
           try {
@@ -1595,48 +1618,55 @@ Deno.serve(async (req) => {
                 scraped.coverImage,
                 scraped.images || []
               );
-              
-              if (!rewritten || (rewritten.images?.length || 0) < 2) {
-                addLog('warning', 'AI创作失败或图片不足', { step: 'rewrite', articleTitle: scraped.title });
-                catFiltered++;
-                continue;
+
+              // AI 失败时：仍然保存抓取到的正文，避免“任务执行失败/采集0篇”
+              if (!rewritten) {
+                addLog('warning', 'AI创作失败，使用原文内容保存', { step: 'rewrite', articleTitle: scraped.title });
               }
-              
+
+              const article = rewritten ?? buildFallbackArticle({
+                title: scraped.title || result.title || "",
+                content: scraped.content,
+                coverImage: scraped.coverImage,
+                images: scraped.images || [],
+              });
+              const aiEdited = Boolean(rewritten);
+
               // 保存文章
-              addLog('info', '保存文章...', { step: 'save', articleTitle: rewritten.title });
+              addLog('info', '保存文章...', { step: 'save', articleTitle: article.title });
               const { error: insertError } = await supabase
                 .from("news_articles")
                 .insert({
-                  title: rewritten.title,
-                  title_en: rewritten.title_en,
-                  summary: rewritten.summary,
-                  summary_en: rewritten.summary_en,
-                  content: rewritten.content,
-                  content_en: rewritten.content_en,
-                  cover_image: rewritten.coverImage,
+                  title: article.title,
+                  title_en: article.title_en,
+                  summary: article.summary,
+                  summary_en: article.summary_en,
+                  content: article.content,
+                  content_en: article.content_en,
+                  cover_image: article.coverImage,
                   source_url: result.url,
                   source_name: "AI Generated",
                   original_title: scraped.title,
                   is_auto_generated: true,
-                  ai_edited: true,
-                  keywords: rewritten.keywords,
+                  ai_edited: aiEdited,
+                  keywords: article.keywords,
                   category: cat,
                   quality_score: qualityResult?.score || null,
                   quality_reason: qualityResult?.reason || null,
                   is_published: autoPublish,
                   published_at: autoPublish ? new Date().toISOString() : null,
                 });
-              
+
               if (!insertError) {
-                addLog('success', '采集成功', { 
-                  step: 'save', 
-                  articleTitle: rewritten.title,
-                  score: qualityResult?.score
+                addLog('success', '采集成功', {
+                  step: 'save',
+                  articleTitle: article.title,
+                  score: qualityResult?.score,
                 });
                 catCollected++;
                 totalCollected++;
               } else {
-                addLog('error', `保存失败: ${insertError.message}`, { step: 'save', articleTitle: rewritten.title });
+                addLog('error', `保存失败: ${insertError.message}`, { step: 'save', articleTitle: article.title });
               }
               
               await new Promise(resolve => setTimeout(resolve, 2000));
@@ -1741,35 +1771,19 @@ Deno.serve(async (req) => {
             scraped.images || [] // 传递原文图片
           );
 
-          // AI 二次创作必须成功，失败则跳过（确保内容质量）
-          const MIN_REQUIRED_IMAGES = 2;
-          
           if (!rewritten) {
-            console.log(`❌ Skipped (AI rewrite failed): ${result.title}`);
-            filtered++;
-            results.push({
-              title: result.title || "Unknown",
-              success: false,
-              error: "AI改写失败，跳过",
-              score: qualityResult?.score,
-            });
-            continue;
+            console.log(`⚠️ AI rewrite failed, saving fallback content: ${result.title}`);
+          } else if ((rewritten.images?.length || 0) < 2) {
+            console.log(`⚠️ AI rewrite returned only ${rewritten.images?.length || 0} images, still saving: ${result.title}`);
           }
-          
-          // 检查是否有足够图片（至少2张）
-          if ((rewritten.images?.length || 0) < MIN_REQUIRED_IMAGES) {
-            console.log(`❌ Skipped (only ${rewritten.images?.length || 0} images): ${result.title}`);
-            filtered++;
-            results.push({
-              title: result.title || "Unknown",
-              success: false,
-              error: `图片不足（仅${rewritten.images?.length || 0}张，需${MIN_REQUIRED_IMAGES}张）`,
-              score: qualityResult?.score,
-            });
-            continue;
-          }
-          
-          const article = rewritten;
+
+          const article = rewritten ?? buildFallbackArticle({
+            title: scraped.title || result.title || "",
+            content: scraped.content,
+            coverImage: scraped.coverImage,
+            images: scraped.images || [],
+          });
+          const aiEdited = Boolean(rewritten);
 
           // 第三步：保存到数据库
           const { error: insertError } = await supabase
@@ -1786,7 +1800,7 @@ Deno.serve(async (req) => {
               source_name: keyword,
               original_title: scraped.title,
               is_auto_generated: true,
-              ai_edited: true,
+              ai_edited: aiEdited,
               keywords: article.keywords,
               category: targetCategory,
               quality_score: qualityResult?.score || null,
@@ -2095,25 +2109,19 @@ Deno.serve(async (req) => {
                 scraped.images || [] // 传递原文图片
               );
 
-              // AI 二次创作必须成功，失败则跳过
-              const MIN_REQUIRED_IMAGES = 2;
-              
               if (!rewritten) {
-                console.log(`⏭️ AI rewrite failed, skipping: ${scraped.title || result.title}`);
-                filtered++;
-                totalFiltered++;
-                continue;
-              }
-              
-              // 检查是否有足够图片（至少2张）
-              if ((rewritten.images?.length || 0) < MIN_REQUIRED_IMAGES) {
-                console.log(`⏭️ Skipped (only ${rewritten.images?.length || 0} images): ${scraped.title || result.title}`);
-                filtered++;
-                totalFiltered++;
-                continue;
+                console.log(`⚠️ AI rewrite failed, saving fallback content: ${scraped.title || result.title}`);
+              } else if ((rewritten.images?.length || 0) < 2) {
+                console.log(`⚠️ AI rewrite returned only ${rewritten.images?.length || 0} images, still saving: ${scraped.title || result.title}`);
               }
 
-              const article = rewritten;
+              const article = rewritten ?? buildFallbackArticle({
+                title: scraped.title || result.title || "",
+                content: scraped.content,
+                coverImage: scraped.coverImage,
+                images: scraped.images || [],
+              });
+              const aiEdited = Boolean(rewritten);
 
               // 保存
               const { error: insertError } = await supabase
@@ -2130,7 +2138,7 @@ Deno.serve(async (req) => {
                   source_name: "International",
                   original_title: scraped.title,
                   is_auto_generated: true,
-                  ai_edited: true,
+                  ai_edited: aiEdited,
                   keywords: article.keywords,
                   category: cat,
                   quality_score: qualityResult?.score || null,
