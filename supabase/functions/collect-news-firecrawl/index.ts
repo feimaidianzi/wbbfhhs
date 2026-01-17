@@ -150,12 +150,13 @@ async function scoreArticleQuality(
         "Content-Type": "application/json",
         "Authorization": `Bearer ${DOUBAO_API_KEY}`,
       },
+      signal: AbortSignal.timeout(15000), // 避免外部模型网络抖动导致函数整体卡死
       body: JSON.stringify({
         model: "doubao-seed-1-8-251228",
         thinking: { type: "disabled" }, // 禁用深度思考，直接返回结果
-        input: [{ 
-          role: "user", 
-          content: [{ type: "input_text", text: prompt }] 
+        input: [{
+          role: "user",
+          content: [{ type: "input_text", text: prompt }],
         }],
       }),
     });
@@ -461,12 +462,13 @@ async function rewriteArticleWithAI(
         "Content-Type": "application/json",
         "Authorization": `Bearer ${DOUBAO_API_KEY}`,
       },
+      signal: AbortSignal.timeout(25000), // 改写耗时更长，给更宽裕但仍需上限
       body: JSON.stringify({
         model: "doubao-seed-1-8-251228",
         thinking: { type: "disabled" }, // 禁用深度思考，直接返回结果
-        input: [{ 
-          role: "user", 
-          content: [{ type: "input_text", text: prompt }] 
+        input: [{
+          role: "user",
+          content: [{ type: "input_text", text: prompt }],
         }],
       }),
     });
@@ -1031,12 +1033,13 @@ async function generateHotKeywords(): Promise<Record<string, string[]>> {
         "Content-Type": "application/json",
         "Authorization": `Bearer ${DOUBAO_API_KEY}`,
       },
+      signal: AbortSignal.timeout(15000),
       body: JSON.stringify({
         model: "doubao-seed-1-8-251228",
         thinking: { type: "disabled" }, // 禁用深度思考，直接返回结果
-        input: [{ 
-          role: "user", 
-          content: [{ type: "input_text", text: prompt }] 
+        input: [{
+          role: "user",
+          content: [{ type: "input_text", text: prompt }],
         }],
       }),
     });
@@ -1363,13 +1366,14 @@ Deno.serve(async (req) => {
               scraped.images || [] // 传递原文图片
             );
 
-            // AI 二次创作必须成功，失败则跳过
-            if (!rewritten) {
-              console.log(`⏭️ AI rewrite failed, skipping: ${scraped.title || result.title}`);
-              continue;
-            }
-
-            const article = rewritten;
+            // AI 失败时：仍然保存抓取到的正文，避免“任务完成但采集0篇”
+            const article = rewritten ?? buildFallbackArticle({
+              title: scraped.title || result.title || "",
+              content: scraped.content,
+              coverImage: scraped.coverImage,
+              images: scraped.images || [],
+            });
+            const aiEdited = Boolean(rewritten);
 
             // 保存
             const { error: insertError } = await supabase
@@ -1386,7 +1390,7 @@ Deno.serve(async (req) => {
                 source_name: "International",
                 original_title: scraped.title,
                 is_auto_generated: true,
-                ai_edited: true,
+                ai_edited: aiEdited,
                 keywords: article.keywords,
                 category,
                 quality_score: qualityResult?.score || null,
@@ -1407,7 +1411,7 @@ Deno.serve(async (req) => {
               );
             }
 
-            await new Promise(resolve => setTimeout(resolve, 2000));
+            await new Promise(resolve => setTimeout(resolve, 300));
           }
         } catch (error) {
           console.error(`Error with keyword ${keyword}:`, error);
