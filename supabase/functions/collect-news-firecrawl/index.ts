@@ -1161,33 +1161,113 @@ async function scrapeFullContent(url: string): Promise<{
 }
 
 // 使用 Doubao API 生成热门关键词
-async function generateHotKeywords(): Promise<Record<string, string[]>> {
+// 详细的关键词分类配置 - 用于AI生成参考
+const KEYWORD_GENERATION_GUIDE = {
+  "技术分享": {
+    description: "技术原理、教程、知识科普等技术内容",
+    subcategories: {
+      "核心技术类": [
+        "无人机飞控调试", "多旋翼动力学", "无人机电池续航优化", "开源飞控教程",
+        "无人机SLAM算法", "AI视觉导航", "集群无人机协同作业", "长航时无人机技术",
+        "Pixhawk飞控", "APM飞控", "GPS/IMU传感器", "视觉避障技术", "图传数传模块"
+      ],
+      "应用场景类": [
+        "农业无人机作业流程", "无人机倾斜摄影测绘", "电网巡检无人机选型",
+        "无人机航拍参数设置", "穿越机装机教程", "FPV飞行模拟器推荐",
+        "精准喷洒技术", "三维地形扫描", "GIS数据采集"
+      ],
+      "学习与实践类": [
+        "无人机执照考试攻略", "新手装机避坑指南", "无人机电池鼓包原因",
+        "QGroundControl使用教程", "无人机开源代码分享", "低成本无人机硬件方案",
+        "AOPA/UTC执照", "Mission Planner教程", "ArduPilot二次开发"
+      ]
+    }
+  },
+  "行业动态": {
+    description: "政策法规、市场分析、行业趋势等宏观信息",
+    subcategories: {
+      "政策与趋势": [
+        "低空经济政策", "无人机配送规模化政策", "无人机法规标准", "跨境物流无人机试点",
+        "无人机空域管理新规", "2026无人机配送政策", "低空经济顶层设计"
+      ],
+      "技术突破": [
+        "氢燃料电池无人机", "碳纤维复合材料机身", "AI自主避障系统", "脑控无人机技术",
+        "无人机集群控制", "eVTOL应急救援", "低空无人跨城货运"
+      ],
+      "市场动态": [
+        "无人机企业融资动态", "重载无人机产线投产", "中东无人机市场",
+        "国产无人机海外订单", "无人机产业规模预测", "全球无人机代理商招募"
+      ],
+      "重大事件": [
+        "无人机高原载重纪录", "全国无人机技能大赛", "航展新机型发布",
+        "无人机续航时间排名", "低空经济万亿规模预测"
+      ]
+    }
+  },
+  "产品资讯": {
+    description: "新品发布、技术突破、产品功能等产品相关内容",
+    subcategories: {
+      "新品发布": [
+        "无人机技术突破 2025", "新型无人机发布", "FPV设备创新",
+        "无人机续航突破", "重载工业级无人机发布"
+      ],
+      "性能提升": [
+        "无人机性能提升", "碳纤维无人机载重提升", "AI动态路径规划算法",
+        "无人机抗干扰技术", "长航时能源方案"
+      ]
+    }
+  },
+  "公司新闻": {
+    description: "企业动态、合作、融资等公司相关新闻",
+    subcategories: {
+      "企业动态": [
+        "无人机公司融资", "无人机制造商合作", "无人机企业新品发布",
+        "行业并购重组新闻", "无人机产线落地"
+      ]
+    }
+  }
+};
+
+async function generateHotKeywords(existingKeywords: string[] = []): Promise<Record<string, string[]>> {
   try {
     const DOUBAO_API_KEY = Deno.env.get("DOUBAO_API_KEY");
     if (!DOUBAO_API_KEY) {
-      return CATEGORY_CONFIG as any;
+      console.log("DOUBAO_API_KEY not found for keyword generation");
+      return {};
     }
 
-    const prompt = `请根据当前无人机行业热点，为以下四个新闻分类生成热门搜索关键词。
+    const existingList = existingKeywords.length > 0 
+      ? `\n\n【已存在的关键词（请勿重复生成）】\n${existingKeywords.join('、')}`
+      : '';
+
+    const prompt = `你是无人机行业新闻采集专家，请根据当前无人机行业热点和以下分类指南，为每个分类生成5-8个最新、最热门的搜索关键词。
 
 【我们的产品线】
 多旋翼无人机、VTX/VRX图传设备、飞控/电调、吊舱/云台、数字图传、无人机相机、ELRS遥控系统、GPS模块、接收屏、FPV眼镜、无人机配件
 
-【四个分类】
-1. 公司新闻：基于我们产品生成关键词，如"长凌VTX发布"、"长凌无人机应用案例"等
-2. 行业动态：如"某地区发布无人机规定"、"某市场迎来重大变革"、"某国家新增无人机需求"等
-3. 产品资讯：如"无人机某领域迎来技术突破"、"最新FPV设备发布"等
-4. 技术分享：如"VTX是什么"、"模拟图传和数字图传区别"、"ELRS的作用"等产品科普
+【分类指南】
+${JSON.stringify(KEYWORD_GENERATION_GUIDE, null, 2)}
+${existingList}
 
-每个分类生成5-8个搜索关键词（中英文混合），用于在网上搜索相关新闻。
+【生成要求】
+1. 每个分类生成5-8个关键词，要具有时效性和搜索价值
+2. 关键词要具体、精准，能搜索到高质量新闻
+3. 中英文混合，优先使用能搜到更多结果的关键词
+4. 技术分享类侧重：飞控调试、动力学、续航优化、SLAM算法、AI导航、开源教程等
+5. 行业动态类侧重：低空经济政策、无人机法规、融资动态、市场预测、技术突破等
+6. 产品资讯类侧重：新品发布、技术创新、性能提升、行业应用等
+7. 公司新闻类侧重：企业融资、合作案例、产品发布会等
+8. 绝对不要生成与已存在关键词重复或相似的关键词
 
-请返回JSON格式：
+【输出JSON格式】
 {
-  "公司新闻": ["关键词1", "关键词2", ...],
+  "技术分享": ["关键词1", "关键词2", ...],
   "行业动态": ["关键词1", "关键词2", ...],
   "产品资讯": ["关键词1", "关键词2", ...],
-  "技术分享": ["关键词1", "关键词2", ...]
+  "公司新闻": ["关键词1", "关键词2", ...]
 }`;
+
+    console.log(`Generating keywords with Doubao, excluding ${existingKeywords.length} existing keywords`);
 
     const response = await fetch(`https://ark.cn-beijing.volces.com/api/v3/responses`, {
       method: "POST",
@@ -1195,10 +1275,10 @@ async function generateHotKeywords(): Promise<Record<string, string[]>> {
         "Content-Type": "application/json",
         "Authorization": `Bearer ${DOUBAO_API_KEY}`,
       },
-      signal: AbortSignal.timeout(15000),
+      signal: AbortSignal.timeout(20000),
       body: JSON.stringify({
         model: "doubao-seed-1-8-251228",
-        thinking: { type: "disabled" }, // 禁用深度思考，直接返回结果
+        thinking: { type: "disabled" },
         input: [{
           role: "user",
           content: [{ type: "input_text", text: prompt }],
@@ -1207,13 +1287,13 @@ async function generateHotKeywords(): Promise<Record<string, string[]>> {
     });
 
     if (!response.ok) {
-      console.error("Doubao keyword generation API error");
+      const errText = await response.text();
+      console.error("Doubao keyword generation API error:", response.status, errText);
       return {};
     }
 
     const data = await response.json();
     
-    // 使用 thinking: minimal 后，返回 type: "text" 格式的直接回答
     let aiContent = "";
     if (data.output && Array.isArray(data.output)) {
       for (const item of data.output) {
@@ -1231,9 +1311,19 @@ async function generateHotKeywords(): Promise<Record<string, string[]>> {
       aiContent = data.choices[0].message.content;
     }
     
+    console.log("AI generated keyword response length:", aiContent.length);
+    
     const jsonMatch = aiContent.match(/\{[\s\S]*\}/);
     if (jsonMatch) {
-      return JSON.parse(jsonMatch[0]);
+      const result = JSON.parse(jsonMatch[0]);
+      // 过滤掉已存在的关键词
+      const existingSet = new Set(existingKeywords.map(k => k.toLowerCase()));
+      for (const category of Object.keys(result)) {
+        result[category] = (result[category] as string[]).filter(
+          kw => !existingSet.has(kw.toLowerCase())
+        );
+      }
+      return result;
     }
     return {};
   } catch (error) {
@@ -1351,11 +1441,221 @@ Deno.serve(async (req) => {
     console.log(`Action: ${action}, Category: ${category}, Count: ${count}`);
     addLog('info', `开始执行采集任务`, { step: 'search', details: `操作: ${action}, 分类: ${category || '全部'}, 目标数量: ${count}` });
 
-    // 生成热门关键词
+    // 生成热门关键词（检查已存在关键词避免重复）
     if (action === "generate-keywords") {
-      const keywords = await generateHotKeywords();
+      // 获取已存在的关键词列表
+      const { data: existingKeywords } = await supabase
+        .from("news_keywords")
+        .select("keyword");
+      const existingList = (existingKeywords || []).map((k: { keyword: string }) => k.keyword);
+      
+      const keywords = await generateHotKeywords(existingList);
       return new Response(
-        JSON.stringify({ success: true, keywords }),
+        JSON.stringify({ success: true, keywords, existingCount: existingList.length }),
+        { headers: { ...corsHeaders, "Content-Type": "application/json" } }
+      );
+    }
+
+    // 自动生成关键词并采集新闻
+    if (action === "auto-generate-and-collect") {
+      addLog('step', '开始AI自动生成关键词', { step: 'search' });
+      
+      // 1. 获取已存在的关键词列表
+      const { data: existingKeywords } = await supabase
+        .from("news_keywords")
+        .select("keyword");
+      const existingList = (existingKeywords || []).map((k: { keyword: string }) => k.keyword);
+      addLog('info', `已有 ${existingList.length} 个关键词`, { step: 'search' });
+      
+      // 2. 使用豆包AI生成新关键词
+      const generatedKeywords = await generateHotKeywords(existingList);
+      const allNewKeywords: { keyword: string; category: string }[] = [];
+      
+      for (const [cat, kws] of Object.entries(generatedKeywords)) {
+        for (const kw of kws as string[]) {
+          allNewKeywords.push({ keyword: kw, category: cat });
+        }
+      }
+      
+      addLog('success', `AI生成 ${allNewKeywords.length} 个新关键词`, { 
+        step: 'search',
+        details: Object.entries(generatedKeywords).map(([c, k]) => `${c}: ${(k as string[]).length}个`).join(', ')
+      });
+      
+      // 3. 将新关键词保存到数据库
+      const savedKeywords: string[] = [];
+      for (const { keyword, category } of allNewKeywords) {
+        const { error } = await supabase
+          .from("news_keywords")
+          .insert({
+            keyword,
+            keyword_en: keyword,
+            category,
+            is_active: true,
+            priority: 60, // 较高优先级
+          });
+        if (!error) {
+          savedKeywords.push(keyword);
+        }
+      }
+      addLog('info', `保存 ${savedKeywords.length} 个新关键词到数据库`, { step: 'save' });
+      
+      // 4. 使用生成的关键词进行采集
+      const targetCount = body.count || 4; // 默认每个分类采集1篇
+      const collectResults: Record<string, { collected: number; filtered: number }> = {};
+      let totalCollected = 0;
+      let totalFiltered = 0;
+      
+      for (const [cat, kws] of Object.entries(generatedKeywords)) {
+        const categoryKeywords = kws as string[];
+        if (categoryKeywords.length === 0) continue;
+        
+        addLog('step', `开始采集 ${cat}`, { step: 'search', details: `使用 ${categoryKeywords.length} 个关键词` });
+        
+        let catCollected = 0;
+        let catFiltered = 0;
+        const targetPerCategory = Math.ceil(targetCount / 4);
+        
+        // 随机选择1-2个关键词进行采集
+        const shuffled = [...categoryKeywords].sort(() => 0.5 - Math.random());
+        const selectedKeywords = shuffled.slice(0, 2);
+        
+        for (const keyword of selectedKeywords) {
+          if (catCollected >= targetPerCategory) break;
+          
+          try {
+            addLog('info', `搜索: ${keyword}`, { step: 'search' });
+            const searchResults = await searchNews(keyword, 3);
+            
+            for (const result of searchResults) {
+              if (catCollected >= targetPerCategory) break;
+              if (!result.url) continue;
+              
+              // 检查是否已存在
+              const { data: existing } = await supabase
+                .from("news_articles")
+                .select("id")
+                .eq("source_url", result.url)
+                .single();
+              
+              if (existing) {
+                addLog('warning', '文章已存在', { step: 'filter', articleTitle: result.title });
+                continue;
+              }
+              
+              // 抓取内容
+              addLog('info', '抓取内容...', { step: 'scrape', articleTitle: result.title });
+              const scraped = await scrapeFullContent(result.url);
+              if (!scraped || !scraped.content) {
+                addLog('warning', '抓取失败', { step: 'scrape', articleTitle: result.title });
+                continue;
+              }
+              
+              // AI质量评分
+              addLog('info', 'AI质量评分...', { step: 'score', articleTitle: scraped.title || result.title });
+              const qualityResult = await scoreArticleQuality(
+                scraped.title || result.title || "",
+                scraped.content,
+                cat
+              );
+              
+              if (qualityResult?.isReviewOrAd) {
+                addLog('warning', '测评/广告类文章', { 
+                  step: 'filter', 
+                  articleTitle: scraped.title,
+                  score: qualityResult.score,
+                  isReviewOrAd: true
+                });
+                catFiltered++;
+                continue;
+              }
+              
+              if (qualityResult && qualityResult.score < QUALITY_THRESHOLD) {
+                addLog('warning', `质量评分 ${qualityResult.score} 低于阈值`, {
+                  step: 'filter',
+                  articleTitle: scraped.title,
+                  score: qualityResult.score
+                });
+                catFiltered++;
+                continue;
+              }
+              
+              // AI二次创作
+              addLog('info', 'AI内容创作...', { step: 'rewrite', articleTitle: scraped.title });
+              const rewritten = await rewriteArticleWithAI(
+                scraped.title || result.title || "",
+                scraped.content,
+                cat,
+                scraped.coverImage,
+                scraped.images || []
+              );
+              
+              if (!rewritten || (rewritten.images?.length || 0) < 2) {
+                addLog('warning', 'AI创作失败或图片不足', { step: 'rewrite', articleTitle: scraped.title });
+                catFiltered++;
+                continue;
+              }
+              
+              // 保存文章
+              addLog('info', '保存文章...', { step: 'save', articleTitle: rewritten.title });
+              const { error: insertError } = await supabase
+                .from("news_articles")
+                .insert({
+                  title: rewritten.title,
+                  title_en: rewritten.title_en,
+                  summary: rewritten.summary,
+                  summary_en: rewritten.summary_en,
+                  content: rewritten.content,
+                  content_en: rewritten.content_en,
+                  cover_image: rewritten.coverImage,
+                  source_url: result.url,
+                  source_name: "AI Generated",
+                  original_title: scraped.title,
+                  is_auto_generated: true,
+                  ai_edited: true,
+                  keywords: rewritten.keywords,
+                  category: cat,
+                  quality_score: qualityResult?.score || null,
+                  quality_reason: qualityResult?.reason || null,
+                  is_published: autoPublish,
+                  published_at: autoPublish ? new Date().toISOString() : null,
+                });
+              
+              if (!insertError) {
+                addLog('success', '采集成功', { 
+                  step: 'save', 
+                  articleTitle: rewritten.title,
+                  score: qualityResult?.score
+                });
+                catCollected++;
+                totalCollected++;
+              } else {
+                addLog('error', `保存失败: ${insertError.message}`, { step: 'save', articleTitle: rewritten.title });
+              }
+              
+              await new Promise(resolve => setTimeout(resolve, 2000));
+            }
+          } catch (error) {
+            addLog('error', `关键词 ${keyword} 采集出错: ${error}`, { step: 'search' });
+          }
+        }
+        
+        totalFiltered += catFiltered;
+        collectResults[cat] = { collected: catCollected, filtered: catFiltered };
+      }
+      
+      addLog('success', `采集完成: ${totalCollected} 篇成功, ${totalFiltered} 篇过滤`, { step: 'save' });
+      
+      return new Response(
+        JSON.stringify({
+          success: true,
+          generatedKeywords,
+          savedKeywordsCount: savedKeywords.length,
+          articlesCollected: totalCollected,
+          articlesFiltered: totalFiltered,
+          results: collectResults,
+          logs,
+        }),
         { headers: { ...corsHeaders, "Content-Type": "application/json" } }
       );
     }
