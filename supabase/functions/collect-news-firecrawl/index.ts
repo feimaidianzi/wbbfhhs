@@ -152,6 +152,7 @@ async function scoreArticleQuality(
       },
       body: JSON.stringify({
         model: "doubao-seed-1-8-251228",
+        thinking: { type: "disabled" }, // 禁用深度思考，直接返回结果
         input: [{ 
           role: "user", 
           content: [{ type: "input_text", text: prompt }] 
@@ -168,23 +169,18 @@ async function scoreArticleQuality(
     const data = await response.json();
     console.log("Doubao API response structure:", JSON.stringify(data).substring(0, 800));
     
-    // Doubao-Seed-1.8 返回 reasoning 类型的响应
-    // 格式: output[].type="reasoning", output[].summary[].text 或 output[].type="message", output[].content[].text
+    // 使用 thinking: minimal 后，返回 type: "text" 格式的直接回答
     let aiContent = "";
     if (data.output && Array.isArray(data.output)) {
       for (const item of data.output) {
-        if (item.type === "message" && item.content) {
-          // 标准消息格式
+        if (item.type === "text" && item.text) {
+          // minimal 模式直接返回 text
+          aiContent += item.text;
+        } else if (item.type === "message" && item.content) {
           const content = Array.isArray(item.content) 
             ? item.content.map((c: any) => c.text || "").join("") 
             : item.content;
           aiContent += content;
-        } else if (item.type === "reasoning" && item.summary) {
-          // 推理格式 - 提取 summary 中的文本
-          const summaryTexts = Array.isArray(item.summary) 
-            ? item.summary.map((s: any) => s.text || "").join("") 
-            : "";
-          aiContent += summaryTexts;
         }
       }
     }
@@ -467,6 +463,7 @@ async function rewriteArticleWithAI(
       },
       body: JSON.stringify({
         model: "doubao-seed-1-8-251228",
+        thinking: { type: "disabled" }, // 禁用深度思考，直接返回结果
         input: [{ 
           role: "user", 
           content: [{ type: "input_text", text: prompt }] 
@@ -483,20 +480,17 @@ async function rewriteArticleWithAI(
     const data = await response.json();
     console.log("Doubao rewrite API response structure:", JSON.stringify(data).substring(0, 500));
     
-    // Doubao-Seed-1.8 返回 reasoning 类型的响应
+    // 使用 thinking: minimal 后，返回 type: "text" 格式的直接回答
     let aiContent = "";
     if (data.output && Array.isArray(data.output)) {
       for (const item of data.output) {
-        if (item.type === "message" && item.content) {
+        if (item.type === "text" && item.text) {
+          aiContent += item.text;
+        } else if (item.type === "message" && item.content) {
           const content = Array.isArray(item.content) 
             ? item.content.map((c: any) => c.text || "").join("") 
             : item.content;
           aiContent += content;
-        } else if (item.type === "reasoning" && item.summary) {
-          const summaryTexts = Array.isArray(item.summary) 
-            ? item.summary.map((s: any) => s.text || "").join("") 
-            : "";
-          aiContent += summaryTexts;
         }
       }
     }
@@ -1025,6 +1019,7 @@ async function generateHotKeywords(): Promise<Record<string, string[]>> {
       },
       body: JSON.stringify({
         model: "doubao-seed-1-8-251228",
+        thinking: { type: "disabled" }, // 禁用深度思考，直接返回结果
         input: [{ 
           role: "user", 
           content: [{ type: "input_text", text: prompt }] 
@@ -1039,20 +1034,17 @@ async function generateHotKeywords(): Promise<Record<string, string[]>> {
 
     const data = await response.json();
     
-    // Doubao-Seed-1.8 返回 reasoning 类型的响应
+    // 使用 thinking: minimal 后，返回 type: "text" 格式的直接回答
     let aiContent = "";
     if (data.output && Array.isArray(data.output)) {
       for (const item of data.output) {
-        if (item.type === "message" && item.content) {
+        if (item.type === "text" && item.text) {
+          aiContent += item.text;
+        } else if (item.type === "message" && item.content) {
           const content = Array.isArray(item.content) 
             ? item.content.map((c: any) => c.text || "").join("") 
             : item.content;
           aiContent += content;
-        } else if (item.type === "reasoning" && item.summary) {
-          const summaryTexts = Array.isArray(item.summary) 
-            ? item.summary.map((s: any) => s.text || "").join("") 
-            : "";
-          aiContent += summaryTexts;
         }
       }
     }
