@@ -83,13 +83,51 @@ function cleanContent(rawContent: string): string {
   if (!rawContent) return "";
   
   let content = rawContent
+    // 移除Markdown图片语法
     .replace(/!\[.*?\]\(.*?\)/g, '')
+    // 移除Markdown链接，保留文字
     .replace(/\[([^\]]*)\]\([^)]*\)/g, '$1')
+    // 移除URL
     .replace(/https?:\/\/[^\s)>\]]+/g, '')
+    // 移除HTML标签
     .replace(/<[^>]+>/g, '')
+    // 移除常见的网页杂乱文字
+    .replace(/跳过内容|跳至主要内容|跳到主要内容|Skip to (?:main )?content/gi, '')
+    .replace(/无结果|No results?|没有找到|未找到/gi, '')
+    .replace(/登录|注册|Sign (?:in|up)|Log ?in|Register/gi, '')
+    .replace(/分享到|Share (?:to|on)|转发|分享/gi, '')
+    .replace(/阅读更多|Read more|查看更多|See more|了解更多|Learn more/gi, '')
+    .replace(/返回顶部|Back to top|回到顶部/gi, '')
+    .replace(/上一篇|下一篇|Previous|Next|上一页|下一页/gi, '')
+    .replace(/点击此处|Click here|点击这里/gi, '')
+    .replace(/订阅|Subscribe|关注我们|Follow us/gi, '')
+    .replace(/版权所有|Copyright|All rights reserved|©\s*\d{4}/gi, '')
+    .replace(/评论|Comments?|留言|回复/gi, '')
+    .replace(/热门推荐|相关文章|Related (?:articles?|posts?)|推荐阅读/gi, '')
+    .replace(/广告|Advertisement|Sponsored|赞助/gi, '')
+    .replace(/Cookie|隐私政策|Privacy Policy|使用条款|Terms of (?:Use|Service)/gi, '')
+    // 移除日期时间标记（如 ## 2026-01-14）
+    .replace(/^##?\s*\d{4}-\d{2}-\d{2}\s*$/gm, '')
+    // 移除纯数字行
+    .replace(/^\d+\s*$/gm, '')
+    // 移除特殊符号行
+    .replace(/^[#\*\-=_\|]+\s*$/gm, '')
+    // 移除连续的标点符号
+    .replace(/[。，！？；：、]{2,}/g, '。')
+    // 移除多余空行
     .replace(/\n{3,}/g, '\n\n')
+    // 移除多余空格
     .replace(/[ \t]{2,}/g, ' ')
     .trim();
+
+  // 移除短行（通常是导航或按钮文字）
+  const lines = content.split('\n');
+  const cleanedLines = lines.filter(line => {
+    const trimmed = line.trim();
+    // 保留长度超过10个字符的行，或者是段落开头
+    return trimmed.length > 10 || trimmed === '';
+  });
+  content = cleanedLines.join('\n').trim();
 
   if (content.length < 100) return "";
   return content;
@@ -1229,14 +1267,35 @@ Deno.serve(async (req) => {
             scraped.images || [] // 传递原文图片
           );
 
-          // Gemini/AI 失败时：仍然保存 Firecrawl 抓取到的正文，避免“任务完成但采集0篇”
-          const article = rewritten ?? buildFallbackArticle({
-            title: scraped.title || result.title || "",
-            content: scraped.content,
-            coverImage: scraped.coverImage,
-            images: scraped.images || [],
-          });
-          const aiEdited = Boolean(rewritten);
+          // AI 二次创作必须成功，失败则跳过（确保内容质量）
+          const MIN_REQUIRED_IMAGES = 2;
+          
+          if (!rewritten) {
+            console.log(`❌ Skipped (AI rewrite failed): ${result.title}`);
+            filtered++;
+            results.push({
+              title: result.title || "Unknown",
+              success: false,
+              error: "AI改写失败，跳过",
+              score: qualityResult?.score,
+            });
+            continue;
+          }
+          
+          // 检查是否有足够图片（至少2张）
+          if ((rewritten.images?.length || 0) < MIN_REQUIRED_IMAGES) {
+            console.log(`❌ Skipped (only ${rewritten.images?.length || 0} images): ${result.title}`);
+            filtered++;
+            results.push({
+              title: result.title || "Unknown",
+              success: false,
+              error: `图片不足（仅${rewritten.images?.length || 0}张，需${MIN_REQUIRED_IMAGES}张）`,
+              score: qualityResult?.score,
+            });
+            continue;
+          }
+          
+          const article = rewritten;
 
           // 第三步：保存到数据库
           const { error: insertError } = await supabase
@@ -1514,8 +1573,20 @@ Deno.serve(async (req) => {
               );
 
               // AI 二次创作必须成功，失败则跳过
+              const MIN_REQUIRED_IMAGES = 2;
+              
               if (!rewritten) {
                 console.log(`⏭️ AI rewrite failed, skipping: ${scraped.title || result.title}`);
+                filtered++;
+                totalFiltered++;
+                continue;
+              }
+              
+              // 检查是否有足够图片（至少2张）
+              if ((rewritten.images?.length || 0) < MIN_REQUIRED_IMAGES) {
+                console.log(`⏭️ Skipped (only ${rewritten.images?.length || 0} images): ${scraped.title || result.title}`);
+                filtered++;
+                totalFiltered++;
                 continue;
               }
 
