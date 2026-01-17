@@ -682,9 +682,31 @@ async function searchNews(
 
   // 添加排除社交媒体和不可爬取网站的搜索条件
   const excludeSites = "-site:facebook.com -site:twitter.com -site:instagram.com -site:linkedin.com -site:reddit.com -site:youtube.com -site:medium.com -site:pinterest.com";
-  
-  // 优先搜索新闻类网站
-  const newsSites = "site:techcrunch.com OR site:theverge.com OR site:wired.com OR site:arstechnica.com OR site:dronedj.com OR site:dronelife.com OR site:suas-news.com OR site:commercialdroneprofessional.com";
+
+  // 检测是否包含中文，用于放宽搜索限制（之前强制 lang=en/country=US 容易导致 0 结果）
+  const hasChinese = /[\u4e00-\u9fff]/.test(query);
+
+  // 让查询更“准”：必须包含无人机/FPV/UAV等强相关词，并排除文档类结果
+  const filetypeExcludes = "-filetype:pdf -filetype:ppt -filetype:pptx -filetype:doc -filetype:docx";
+  const queryText = hasChinese
+    ? `${query} (无人机 OR FPV OR UAV OR drone) ${filetypeExcludes} ${excludeSites}`
+    : `${query} (drone OR UAV OR FPV OR quadcopter) ${filetypeExcludes} ${excludeSites}`;
+
+  const body: Record<string, unknown> = {
+    query: queryText,
+    limit: Math.max(limit * 4, 10), // 拉更多结果以便后续过滤
+    tbs: "qdr:m", // 最近一个月
+    scrapeOptions: {
+      formats: ["markdown"],
+      onlyMainContent: true,
+    },
+  };
+
+  // 仅在英文查询时提供 lang/country，中文查询不强制，避免 Firecrawl/搜索侧过度收敛
+  if (!hasChinese) {
+    body.lang = "en";
+    body.country = "US";
+  }
 
   const response = await fetchWithRetry("https://api.firecrawl.dev/v1/search", {
     method: "POST",
@@ -692,17 +714,7 @@ async function searchNews(
       "Authorization": `Bearer ${apiKey}`,
       "Content-Type": "application/json",
     },
-    body: JSON.stringify({
-      query: `${query} drone UAV news 2025 2026 ${excludeSites}`,
-      limit: limit * 2, // 请求更多结果以便过滤
-      lang: "en",
-      country: "US",
-      tbs: "qdr:m", // 最近一个月的新闻
-      scrapeOptions: {
-        formats: ["markdown"],
-        onlyMainContent: true,
-      },
-    }),
+    body: JSON.stringify(body),
   });
 
   if (!response.ok) {
@@ -713,11 +725,13 @@ async function searchNews(
 
   const data = await response.json();
   const results = data.data || [];
-  
+
   // 过滤掉无法爬取的URL
   const scrapableResults = results.filter((item: { url: string }) => isScrapableUrl(item.url));
-  console.log(`Search returned ${results.length} results, ${scrapableResults.length} are scrapable`);
-  
+  console.log(
+    `Search returned ${results.length} results, ${scrapableResults.length} are scrapable (hasChinese=${hasChinese})`
+  );
+
   return scrapableResults.slice(0, limit);
 }
 
