@@ -1386,7 +1386,7 @@ function buildFallbackArticle(args: {
 interface ProcessLog {
   timestamp: string;
   type: 'info' | 'success' | 'warning' | 'error' | 'step';
-  step?: 'search' | 'scrape' | 'clean' | 'score' | 'filter' | 'save' | 'rewrite';
+  step?: 'search' | 'scrape' | 'clean' | 'score' | 'filter' | 'save' | 'rewrite' | 'keyword';
   message: string;
   details?: string;
   articleTitle?: string;
@@ -1458,16 +1458,17 @@ Deno.serve(async (req) => {
 
     // 自动生成关键词并采集新闻
     if (action === "auto-generate-and-collect") {
-      addLog('step', '开始AI自动生成关键词', { step: 'search' });
+      addLog('step', '开始AI自动生成关键词', { step: 'keyword' });
       
       // 1. 获取已存在的关键词列表
       const { data: existingKeywords } = await supabase
         .from("news_keywords")
         .select("keyword");
       const existingList = (existingKeywords || []).map((k: { keyword: string }) => k.keyword);
-      addLog('info', `已有 ${existingList.length} 个关键词`, { step: 'search' });
+      addLog('info', `已有 ${existingList.length} 个关键词（将排除重复）`, { step: 'keyword' });
       
       // 2. 使用豆包AI生成新关键词
+      addLog('step', '调用豆包AI生成新关键词...', { step: 'keyword' });
       const generatedKeywords = await generateHotKeywords(existingList);
       const allNewKeywords: { keyword: string; category: string }[] = [];
       
@@ -1475,14 +1476,19 @@ Deno.serve(async (req) => {
         for (const kw of kws as string[]) {
           allNewKeywords.push({ keyword: kw, category: cat });
         }
+        // 记录每个分类生成的关键词
+        if ((kws as string[]).length > 0) {
+          addLog('info', `${cat}: ${(kws as string[]).join('、')}`, { step: 'keyword' });
+        }
       }
       
       addLog('success', `AI生成 ${allNewKeywords.length} 个新关键词`, { 
-        step: 'search',
+        step: 'keyword',
         details: Object.entries(generatedKeywords).map(([c, k]) => `${c}: ${(k as string[]).length}个`).join(', ')
       });
       
       // 3. 将新关键词保存到数据库
+      addLog('step', '保存关键词到数据库...', { step: 'keyword' });
       const savedKeywords: string[] = [];
       for (const { keyword, category } of allNewKeywords) {
         const { error } = await supabase
@@ -1498,7 +1504,7 @@ Deno.serve(async (req) => {
           savedKeywords.push(keyword);
         }
       }
-      addLog('info', `保存 ${savedKeywords.length} 个新关键词到数据库`, { step: 'save' });
+      addLog('success', `成功保存 ${savedKeywords.length} 个新关键词`, { step: 'keyword' });
       
       // 4. 使用生成的关键词进行采集
       const targetCount = body.count || 4; // 默认每个分类采集1篇

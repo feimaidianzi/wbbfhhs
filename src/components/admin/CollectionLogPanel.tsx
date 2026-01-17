@@ -18,13 +18,14 @@ import {
   Filter,
   Image,
   Bot,
+  Key,
 } from 'lucide-react';
 
 export interface CollectionLog {
   id: string;
   timestamp: Date;
   type: 'info' | 'success' | 'warning' | 'error' | 'step';
-  step?: 'search' | 'scrape' | 'clean' | 'score' | 'filter' | 'save';
+  step?: 'search' | 'scrape' | 'clean' | 'score' | 'filter' | 'save' | 'rewrite' | 'keyword';
   message: string;
   details?: string;
   articleTitle?: string;
@@ -45,6 +46,8 @@ const stepIcons = {
   score: Bot,
   filter: Filter,
   save: CheckCircle,
+  rewrite: Bot,
+  keyword: Key,
 };
 
 const stepLabels = {
@@ -54,6 +57,8 @@ const stepLabels = {
   score: '评分',
   filter: '过滤',
   save: '保存',
+  rewrite: 'AI创作',
+  keyword: '关键词',
 };
 
 const typeColors = {

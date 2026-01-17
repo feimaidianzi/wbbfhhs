@@ -521,30 +521,45 @@ const NewsCollection = () => {
     }
   };
 
-  // 手动触发单个定时任务
+  // 手动触发单个定时任务 - 默认使用AI自动生成关键词
   const triggerSingleTask = async (task: ScheduledTask) => {
-    // 只标记当前任务在运行，避免 UI 看起来像“全部任务都在执行”
+    // 只标记当前任务在运行，避免 UI 看起来像"全部任务都在执行"
     setRunningScheduledTaskId(task.id);
-    addCollectionLog({ type: 'info', step: 'search', message: `开始采集: ${task.name}`, details: `分类: ${task.category}` });
+    clearCollectionLogs();
+    addCollectionLog({ type: 'step', step: 'search', message: `开始采集: ${task.name}`, details: `分类: ${task.category || '全部分类'} - 使用AI自动生成关键词` });
+    
     try {
+      // 默认使用AI自动生成关键词并采集
       const response = await supabase.functions.invoke('collect-news-firecrawl', {
         body: {
-          action: 'collect-by-category',
-          category: task.category || '',
-          count: task.article_count || 1,
+          action: 'auto-generate-and-collect',
+          count: task.article_count || 4,
           autoPublish: task.auto_publish !== false,
-          aiRules: task.ai_rules,
         },
       });
 
       if (response.error) throw response.error;
       
-      if (response.data?.logs) parseLogsFromResponse(response.data.logs);
-      addCollectionLog({ type: 'success', message: `完成: 采集 ${response.data.collected ?? 0} 篇, 过滤 ${response.data.filtered ?? 0} 篇` });
+      // 解析边缘函数返回的详细日志
+      if (response.data?.logs) {
+        parseLogsFromResponse(response.data.logs);
+      }
+      
+      // 显示生成的关键词
+      if (response.data?.generatedKeywords) {
+        setGeneratedKeywords(response.data.generatedKeywords);
+      }
+      
+      const { savedKeywordsCount = 0, articlesCollected = 0, articlesFiltered = 0 } = response.data || {};
+      
+      addCollectionLog({ 
+        type: 'success', 
+        message: `完成: 生成${savedKeywordsCount}个新关键词, 采集${articlesCollected}篇, 过滤${articlesFiltered}篇` 
+      });
 
       toast({
         title: '任务执行完成',
-        description: `成功采集 ${response.data.collected ?? response.data.articlesCollected ?? 0} 篇文章`,
+        description: `生成${savedKeywordsCount}个新关键词，采集${articlesCollected}篇文章${articlesFiltered > 0 ? `（过滤${articlesFiltered}篇）` : ''}`,
       });
       fetchData();
     } catch (error: any) {
@@ -555,26 +570,47 @@ const NewsCollection = () => {
     }
   };
 
-  // 手动触发定时任务（全部）
+  // 手动触发定时任务（全部）- 使用AI自动生成关键词
   const triggerScheduledTask = async () => {
     setFirecrawlCollecting(true);
+    clearCollectionLogs();
+    addCollectionLog({ type: 'step', step: 'search', message: '开始全量采集', details: '使用AI自动生成关键词' });
+    
     try {
       const response = await supabase.functions.invoke('collect-news-firecrawl', {
         body: {
-          action: 'collect-daily',
-          targetCount: 10,
+          action: 'auto-generate-and-collect',
+          count: 10,
           autoPublish: true,
         },
       });
 
       if (response.error) throw response.error;
+      
+      // 解析边缘函数返回的详细日志
+      if (response.data?.logs) {
+        parseLogsFromResponse(response.data.logs);
+      }
+      
+      // 显示生成的关键词
+      if (response.data?.generatedKeywords) {
+        setGeneratedKeywords(response.data.generatedKeywords);
+      }
+      
+      const { savedKeywordsCount = 0, articlesCollected = 0, articlesFiltered = 0 } = response.data || {};
+      
+      addCollectionLog({ 
+        type: 'success', 
+        message: `完成: 生成${savedKeywordsCount}个新关键词, 采集${articlesCollected}篇, 过滤${articlesFiltered}篇` 
+      });
 
       toast({
         title: '任务执行完成',
-        description: `成功采集 ${response.data.articlesCollected} 篇文章`,
+        description: `生成${savedKeywordsCount}个新关键词，采集${articlesCollected}篇文章${articlesFiltered > 0 ? `（过滤${articlesFiltered}篇）` : ''}`,
       });
       fetchData();
     } catch (error: any) {
+      addCollectionLog({ type: 'error', message: `执行失败: ${error.message}` });
       toast({
         title: '执行失败',
         description: error.message,
