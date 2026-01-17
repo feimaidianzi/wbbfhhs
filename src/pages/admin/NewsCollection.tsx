@@ -380,7 +380,7 @@ const NewsCollection = () => {
         setIsKeywordResultDialogOpen(true);
         toast({
           title: 'AI关键词生成成功',
-          description: '已根据产品线和当前热点生成各分类关键词',
+          description: `已生成新关键词（排除${response.data.existingCount || 0}个已有关键词）`,
         });
       }
     } catch (error: any) {
@@ -392,6 +392,67 @@ const NewsCollection = () => {
       });
     } finally {
       setGeneratingKeywords(false);
+    }
+  };
+
+  // AI自动生成关键词并采集新闻
+  const autoGenerateAndCollect = async () => {
+    setFirecrawlCollecting(true);
+    clearCollectionLogs();
+    addCollectionLog({ type: 'step', step: 'search', message: '开始AI自动生成关键词并采集' });
+    
+    try {
+      const response = await supabase.functions.invoke('collect-news-firecrawl', {
+        body: { 
+          action: 'auto-generate-and-collect',
+          count: 4, // 默认采集4篇（每个分类1篇）
+          autoPublish: true,
+        },
+      });
+
+      if (response.error) throw response.error;
+
+      // 解析日志
+      if (response.data?.logs) {
+        parseLogsFromResponse(response.data.logs);
+      }
+      
+      const { generatedKeywords, savedKeywordsCount, articlesCollected, articlesFiltered, results } = response.data;
+      
+      // 显示生成的关键词
+      if (generatedKeywords) {
+        setGeneratedKeywords(generatedKeywords);
+      }
+      
+      const keywordDetails = Object.entries(generatedKeywords || {})
+        .map(([cat, kws]) => `${cat}: ${(kws as string[]).length}个`)
+        .join('，');
+      
+      const collectDetails = Object.entries(results || {})
+        .map(([cat, data]: [string, any]) => `${cat}: ${data.collected}篇`)
+        .join('，');
+
+      addCollectionLog({ 
+        type: 'success', 
+        message: `完成: 生成${savedKeywordsCount}个关键词，采集${articlesCollected}篇，过滤${articlesFiltered}篇` 
+      });
+
+      toast({
+        title: 'AI自动采集完成',
+        description: `生成${savedKeywordsCount}个新关键词，采集${articlesCollected}篇文章${articlesFiltered > 0 ? `（过滤${articlesFiltered}篇）` : ''}`,
+      });
+      
+      fetchData();
+    } catch (error: any) {
+      console.error('Auto generate and collect error:', error);
+      addCollectionLog({ type: 'error', message: `执行失败: ${error.message}` });
+      toast({
+        title: '执行失败',
+        description: error.message || '请稍后重试',
+        variant: 'destructive',
+      });
+    } finally {
+      setFirecrawlCollecting(false);
     }
   };
 
@@ -1076,10 +1137,18 @@ const NewsCollection = () => {
               返回管理后台
             </Button>
           </Link>
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-2 flex-wrap">
+            <Button
+              onClick={autoGenerateAndCollect}
+              disabled={firecrawlCollecting || generatingKeywords}
+              className="bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white"
+            >
+              {firecrawlCollecting ? <Loader2 className="w-4 h-4 mr-2 animate-spin" /> : <Bot className="w-4 h-4 mr-2" />}
+              AI自动采集
+            </Button>
             <Button
               onClick={generateHotKeywords}
-              disabled={generatingKeywords}
+              disabled={generatingKeywords || firecrawlCollecting}
               variant="outline"
               className="border-purple-500/50 text-purple-400 hover:bg-purple-500/20"
             >
@@ -1088,7 +1157,7 @@ const NewsCollection = () => {
             </Button>
             <Button 
               onClick={() => collectAllKeywords(false)}
-              disabled={collecting}
+              disabled={collecting || firecrawlCollecting}
               variant="outline"
               className="border-slate-600"
             >
@@ -1097,7 +1166,7 @@ const NewsCollection = () => {
             </Button>
             <Button 
               onClick={() => collectAllKeywords(true)}
-              disabled={collecting}
+              disabled={collecting || firecrawlCollecting}
               className="bg-amber-500 hover:bg-amber-600"
             >
               {collecting ? <Loader2 className="w-4 h-4 mr-2 animate-spin" /> : <Zap className="w-4 h-4 mr-2" />}
