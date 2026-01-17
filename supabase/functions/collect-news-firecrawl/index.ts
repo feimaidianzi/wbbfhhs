@@ -1292,6 +1292,46 @@ function buildFallbackArticle(args: {
   };
 }
 
+// 日志类型定义
+interface ProcessLog {
+  timestamp: string;
+  type: 'info' | 'success' | 'warning' | 'error' | 'step';
+  step?: 'search' | 'scrape' | 'clean' | 'score' | 'filter' | 'save' | 'rewrite';
+  message: string;
+  details?: string;
+  articleTitle?: string;
+  score?: number;
+  isReviewOrAd?: boolean;
+}
+
+// 创建日志工具函数
+function createLogger() {
+  const logs: ProcessLog[] = [];
+  
+  const addLog = (
+    type: ProcessLog['type'],
+    message: string,
+    options?: {
+      step?: ProcessLog['step'];
+      details?: string;
+      articleTitle?: string;
+      score?: number;
+      isReviewOrAd?: boolean;
+    }
+  ) => {
+    const log: ProcessLog = {
+      timestamp: new Date().toISOString(),
+      type,
+      message,
+      ...options,
+    };
+    logs.push(log);
+    console.log(`[${type.toUpperCase()}] ${message}${options?.details ? ` - ${options.details}` : ''}`);
+  };
+  
+  return { logs, addLog };
+}
+
 Deno.serve(async (req) => {
   if (req.method === "OPTIONS") {
     return new Response(null, { headers: corsHeaders });
@@ -1304,8 +1344,12 @@ Deno.serve(async (req) => {
 
     const body = await req.json();
     const { action, category, count = 5, autoPublish = true } = body;
+    
+    // 初始化日志记录器
+    const { logs, addLog } = createLogger();
 
     console.log(`Action: ${action}, Category: ${category}, Count: ${count}`);
+    addLog('info', `开始执行采集任务`, { step: 'search', details: `操作: ${action}, 分类: ${category || '全部'}, 目标数量: ${count}` });
 
     // 生成热门关键词
     if (action === "generate-keywords") {
@@ -1480,8 +1524,9 @@ Deno.serve(async (req) => {
     if (action === "collect-by-category") {
       const categoryConfig = CATEGORY_CONFIG[category as keyof typeof CATEGORY_CONFIG];
       if (!categoryConfig) {
+        addLog('error', `未知分类: ${category}`);
         return new Response(
-          JSON.stringify({ error: `Unknown category: ${category}` }),
+          JSON.stringify({ error: `Unknown category: ${category}`, logs }),
           { status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" } }
         );
       }
@@ -1496,14 +1541,18 @@ Deno.serve(async (req) => {
       let collected = 0;
       let filtered = 0;
 
-      console.log(`Using ${keywords.length} keywords for category: ${category}`);
+      addLog('info', `使用 ${keywords.length} 个关键词进行采集`, { step: 'search', details: `关键词: ${keywords.join(', ')}` });
 
       for (const keyword of keywords) {
         if (collected >= count) break;
 
         try {
+          addLog('step', `搜索关键词: ${keyword}`, { step: 'search' });
+          
           // 每个关键词只搜索2条，减少API调用
           const searchResults = await searchNews(keyword, 2);
+          
+          addLog('info', `搜索返回 ${searchResults.length} 条结果`, { step: 'search', details: `关键词: ${keyword}` });
 
           for (const result of searchResults) {
             if (collected >= count) break;
@@ -1515,12 +1564,23 @@ Deno.serve(async (req) => {
               .eq("source_url", result.url)
               .single();
 
-            if (existing) continue;
+            if (existing) {
+              addLog('warning', `文章已存在，跳过`, { step: 'filter', articleTitle: result.title?.substring(0, 50) });
+              continue;
+            }
 
+            addLog('step', `抓取页面内容`, { step: 'scrape', articleTitle: result.title?.substring(0, 50) });
             const scraped = await scrapeFullContent(result.url);
-            if (!scraped || !scraped.content) continue;
+            
+            if (!scraped || !scraped.content) {
+              addLog('warning', `页面内容抓取失败`, { step: 'scrape', articleTitle: result.title?.substring(0, 50) });
+              continue;
+            }
+            
+            addLog('info', `内容抓取成功，开始AI清洗`, { step: 'clean', articleTitle: scraped.title?.substring(0, 50), details: `原始长度: ${scraped.content.length} 字符` });
 
             // AI 质量评分
+            addLog('step', `AI质量评分中...`, { step: 'score', articleTitle: scraped.title?.substring(0, 50) });
             const qualityResult = await scoreArticleQuality(
               scraped.title || result.title || "",
               scraped.content,
@@ -1528,19 +1588,37 @@ Deno.serve(async (req) => {
             );
 
             if (qualityResult?.isReviewOrAd) {
-              console.log(`❌ Filtered (review/ad): ${result.title}`);
+              addLog('warning', `过滤: 测评/广告类文章`, { 
+                step: 'filter', 
+                articleTitle: result.title?.substring(0, 50),
+                score: qualityResult.score,
+                isReviewOrAd: true,
+                details: qualityResult.reason
+              });
               filtered++;
               continue;
             }
 
             if (qualityResult && qualityResult.score < QUALITY_THRESHOLD) {
-              console.log(`❌ Filtered (score: ${qualityResult.score}): ${result.title}`);
+              addLog('warning', `过滤: 评分 ${qualityResult.score} 低于阈值 ${QUALITY_THRESHOLD}`, { 
+                step: 'filter', 
+                articleTitle: result.title?.substring(0, 50),
+                score: qualityResult.score,
+                details: qualityResult.reason
+              });
               filtered++;
               continue;
             }
+            
+            addLog('success', `评分通过: ${qualityResult?.score}`, { 
+              step: 'score', 
+              articleTitle: scraped.title?.substring(0, 50),
+              score: qualityResult?.score,
+              details: qualityResult?.reason
+            });
 
             // AI 二次创作（使用原文图片）
-            console.log(`Article has ${scraped.images?.length || 0} original images`);
+            addLog('step', `AI二次创作中...`, { step: 'rewrite', articleTitle: scraped.title?.substring(0, 50), details: `原文图片: ${scraped.images?.length || 0} 张` });
             const rewritten = await rewriteArticleWithAI(
               scraped.title || result.title || "",
               scraped.content,
@@ -1549,7 +1627,7 @@ Deno.serve(async (req) => {
               scraped.images || [] // 传递原文图片
             );
 
-            // AI 失败时：仍然保存抓取到的正文，避免“任务完成但采集0篇”
+            // AI 失败时：仍然保存抓取到的正文，避免"任务完成但采集0篇"
             const article = rewritten ?? buildFallbackArticle({
               title: scraped.title || result.title || "",
               content: scraped.content,
@@ -1557,8 +1635,15 @@ Deno.serve(async (req) => {
               images: scraped.images || [],
             });
             const aiEdited = Boolean(rewritten);
+            
+            if (rewritten) {
+              addLog('success', `AI创作完成`, { step: 'rewrite', articleTitle: article.title?.substring(0, 50), details: `生成图片: ${rewritten.images?.length || 0} 张` });
+            } else {
+              addLog('warning', `AI创作失败，使用原始内容`, { step: 'rewrite', articleTitle: article.title?.substring(0, 50) });
+            }
 
             // 保存
+            addLog('step', `保存到数据库...`, { step: 'save', articleTitle: article.title?.substring(0, 50) });
             const { error: insertError } = await supabase
               .from("news_articles")
               .insert({
@@ -1589,17 +1674,24 @@ Deno.serve(async (req) => {
                 success: true,
                 score: qualityResult?.score,
               });
-              console.log(
-                `✅ [${category}] Collected (score: ${qualityResult?.score}): ${article.title}`
-              );
+              addLog('success', `✅ 采集成功`, { 
+                step: 'save', 
+                articleTitle: article.title?.substring(0, 50),
+                score: qualityResult?.score,
+                details: autoPublish ? '已自动发布' : '待审核'
+              });
+            } else {
+              addLog('error', `保存失败: ${insertError.message}`, { step: 'save', articleTitle: article.title?.substring(0, 50) });
             }
 
             await new Promise(resolve => setTimeout(resolve, 300));
           }
         } catch (error) {
-          console.error(`Error with keyword ${keyword}:`, error);
+          addLog('error', `关键词 "${keyword}" 处理出错`, { details: error instanceof Error ? error.message : String(error) });
         }
       }
+
+      addLog('info', `采集任务完成`, { details: `成功: ${collected} 篇, 过滤: ${filtered} 篇` });
 
       return new Response(
         JSON.stringify({
@@ -1608,6 +1700,7 @@ Deno.serve(async (req) => {
           collected,
           filtered,
           results,
+          logs,
         }),
         { headers: { ...corsHeaders, "Content-Type": "application/json" } }
       );
