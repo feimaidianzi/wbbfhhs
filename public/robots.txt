@@ -1,8 +1,13 @@
+# CANI 长凌科技 - 工业无人机制造商
+# https://www.cani.com
+
 User-agent: Googlebot
 Allow: /
+Crawl-delay: 1
 
 User-agent: Bingbot
 Allow: /
+Crawl-delay: 1
 
 User-agent: Twitterbot
 Allow: /
@@ -10,5 +15,37 @@ Allow: /
 User-agent: facebookexternalhit
 Allow: /
 
+User-agent: LinkedInBot
+Allow: /
+
+User-agent: Slurp
+Allow: /
+Crawl-delay: 1
+
+User-agent: DuckDuckBot
+Allow: /
+Crawl-delay: 1
+
+User-agent: Baiduspider
+Allow: /
+Crawl-delay: 1
+
+User-agent: 360Spider
+Allow: /
+Crawl-delay: 1
+
+User-agent: Sogou web spider
+Allow: /
+Crawl-delay: 1
+
 User-agent: *
 Allow: /
+Disallow: /admin/
+Disallow: /auth
+Disallow: /api/
+
+# 站点地图
+Sitemap: https://www.cani.com/sitemap.xml
+
+# 主机
+Host: https://www.cani.com

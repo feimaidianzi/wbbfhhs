@@ -285,6 +285,7 @@ export type Database = {
       news_articles: {
         Row: {
           ai_edited: boolean | null
+          ai_modification_request: string | null
           author_id: string | null
           author_name: string | null
           category: string | null
@@ -300,6 +301,10 @@ export type Database = {
           published_at: string | null
           quality_reason: string | null
           quality_score: number | null
+          review_notes: string | null
+          review_status: string | null
+          reviewed_at: string | null
+          reviewed_by: string | null
           source_name: string | null
           source_url: string | null
           summary: string | null
@@ -310,6 +315,7 @@ export type Database = {
         }
         Insert: {
           ai_edited?: boolean | null
+          ai_modification_request?: string | null
           author_id?: string | null
           author_name?: string | null
           category?: string | null
@@ -325,6 +331,10 @@ export type Database = {
           published_at?: string | null
           quality_reason?: string | null
           quality_score?: number | null
+          review_notes?: string | null
+          review_status?: string | null
+          reviewed_at?: string | null
+          reviewed_by?: string | null
           source_name?: string | null
           source_url?: string | null
           summary?: string | null
@@ -335,6 +345,7 @@ export type Database = {
         }
         Update: {
           ai_edited?: boolean | null
+          ai_modification_request?: string | null
           author_id?: string | null
           author_name?: string | null
           category?: string | null
@@ -350,6 +361,10 @@ export type Database = {
           published_at?: string | null
           quality_reason?: string | null
           quality_score?: number | null
+          review_notes?: string | null
+          review_status?: string | null
+          reviewed_at?: string | null
+          reviewed_by?: string | null
           source_name?: string | null
           source_url?: string | null
           summary?: string | null
