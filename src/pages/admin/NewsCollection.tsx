@@ -838,12 +838,23 @@ const NewsCollection = () => {
 
       const results = response.data.results || {};
       const details = Object.entries(results)
-        .map(([cat, data]: [string, any]) => `${cat}: ${data.collected}篇`)
-        .join(', ');
+        .map(([cat, data]: [string, any]) => {
+          const collected = Number(data?.collected ?? 0);
+          const filtered = Number(data?.filtered ?? 0);
+          return filtered > 0 ? `${cat}: ${collected}篇（过滤${filtered}）` : `${cat}: ${collected}篇`;
+        })
+        .join('，');
+
+      const totalCollected = Number(response.data.articlesCollected ?? 0);
+      const totalFiltered = Number(response.data.articlesFiltered ?? 0);
 
       toast({
         title: '四分类采集完成',
-        description: details || `成功采集 ${response.data.articlesCollected} 篇文章`,
+        description:
+          details ||
+          (totalCollected > 0
+            ? `成功采集 ${totalCollected} 篇文章`
+            : `未采集到新文章（过滤 ${totalFiltered} 篇；可能已存在或被质量规则过滤）`),
       });
       fetchData();
     } catch (error: any) {
@@ -872,9 +883,15 @@ const NewsCollection = () => {
 
       if (response.error) throw response.error;
 
+      const collected = Number(response.data.collected ?? 0);
+      const filtered = Number(response.data.filtered ?? 0);
+
       toast({
         title: `${category} 采集完成`,
-        description: `成功采集 ${response.data.collected} 篇文章`,
+        description:
+          collected > 0
+            ? `成功采集 ${collected} 篇文章${filtered ? `（过滤 ${filtered} 篇）` : ''}`
+            : `未采集到新文章（过滤 ${filtered} 篇；可能已存在或被质量规则过滤）`,
       });
       fetchData();
     } catch (error: any) {
