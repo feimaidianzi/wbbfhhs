@@ -72,8 +72,10 @@ import {
   Filter,
   Settings,
   ChevronRight,
-  LayoutGrid
+  LayoutGrid,
+  FileText
 } from 'lucide-react';
+import { CollectionLogPanel, CollectionLog } from '@/components/admin/CollectionLogPanel';
 
 interface AIRules {
   scoreThreshold?: number;
@@ -246,6 +248,51 @@ const NewsCollection = () => {
 
   // 翻译状态
   const [translating, setTranslating] = useState(false);
+  
+  // 采集日志状态
+  const [collectionLogs, setCollectionLogs] = useState<CollectionLog[]>([]);
+  
+  // 添加日志的工具函数
+  const addCollectionLog = (log: Omit<CollectionLog, 'id' | 'timestamp'>) => {
+    setCollectionLogs(prev => [...prev, {
+      ...log,
+      id: `log-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`,
+      timestamp: new Date(),
+    }]);
+  };
+  
+  // 清空日志
+  const clearCollectionLogs = () => {
+    setCollectionLogs([]);
+  };
+  
+  // 从API响应解析日志
+  const parseLogsFromResponse = (responseLogs: Array<{
+    timestamp: string;
+    type: 'info' | 'success' | 'warning' | 'error' | 'step';
+    step?: string;
+    message: string;
+    details?: string;
+    articleTitle?: string;
+    score?: number;
+    isReviewOrAd?: boolean;
+  }>) => {
+    if (!responseLogs || !Array.isArray(responseLogs)) return;
+    
+    const newLogs: CollectionLog[] = responseLogs.map((log, index) => ({
+      id: `log-${Date.now()}-${index}`,
+      timestamp: new Date(log.timestamp),
+      type: log.type,
+      step: log.step as CollectionLog['step'],
+      message: log.message,
+      details: log.details,
+      articleTitle: log.articleTitle,
+      score: log.score,
+      isReviewOrAd: log.isReviewOrAd,
+    }));
+    
+    setCollectionLogs(prev => [...prev, ...newLogs]);
+  };
 
   // 使用 Gemini 翻译关键词
   const translateKeyword = async (keyword: string) => {
@@ -417,6 +464,7 @@ const NewsCollection = () => {
   const triggerSingleTask = async (task: ScheduledTask) => {
     // 只标记当前任务在运行，避免 UI 看起来像“全部任务都在执行”
     setRunningScheduledTaskId(task.id);
+    addCollectionLog({ type: 'info', step: 'search', message: `开始采集: ${task.name}`, details: `分类: ${task.category}` });
     try {
       const response = await supabase.functions.invoke('collect-news-firecrawl', {
         body: {
@@ -429,6 +477,9 @@ const NewsCollection = () => {
       });
 
       if (response.error) throw response.error;
+      
+      if (response.data?.logs) parseLogsFromResponse(response.data.logs);
+      addCollectionLog({ type: 'success', message: `完成: 采集 ${response.data.collected ?? 0} 篇, 过滤 ${response.data.filtered ?? 0} 篇` });
 
       toast({
         title: '任务执行完成',
@@ -436,11 +487,8 @@ const NewsCollection = () => {
       });
       fetchData();
     } catch (error: any) {
-      toast({
-        title: '执行失败',
-        description: error.message,
-        variant: 'destructive',
-      });
+      addCollectionLog({ type: 'error', message: `执行失败: ${error.message}` });
+      toast({ title: '执行失败', description: error.message, variant: 'destructive' });
     } finally {
       setRunningScheduledTaskId(null);
     }
@@ -1368,6 +1416,13 @@ const NewsCollection = () => {
             )}
           </CardContent>
         </Card>
+
+        {/* Collection Log Panel */}
+        <CollectionLogPanel 
+          logs={collectionLogs} 
+          isCollecting={!!runningScheduledTaskId || firecrawlCollecting}
+          onClear={clearCollectionLogs}
+        />
 
         {/* Stats Cards */}
         <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
