@@ -1416,8 +1416,19 @@ interface ProcessLog {
 
 // 创建日志工具函数
 function createLogger() {
+  const MAX_LOGS = 400;
+  const MAX_MESSAGE_LEN = 200;
+  const MAX_DETAILS_LEN = 800;
+  const MAX_TITLE_LEN = 80;
+
   const logs: ProcessLog[] = [];
-  
+
+  const clamp = (s: string | undefined, max: number) => {
+    if (!s) return undefined;
+    const t = String(s);
+    return t.length > max ? `${t.slice(0, max)}…` : t;
+  };
+
   const addLog = (
     type: ProcessLog['type'],
     message: string,
@@ -1432,13 +1443,24 @@ function createLogger() {
     const log: ProcessLog = {
       timestamp: new Date().toISOString(),
       type,
-      message,
-      ...options,
+      message: clamp(message, MAX_MESSAGE_LEN) || '',
+      ...(options
+        ? {
+            ...options,
+            details: clamp(options.details, MAX_DETAILS_LEN),
+            articleTitle: clamp(options.articleTitle, MAX_TITLE_LEN),
+          }
+        : {}),
     };
+
     logs.push(log);
-    console.log(`[${type.toUpperCase()}] ${message}${options?.details ? ` - ${options.details}` : ''}`);
+    if (logs.length > MAX_LOGS) logs.splice(0, logs.length - MAX_LOGS);
+
+    console.log(
+      `[${type.toUpperCase()}] ${log.message}${log.details ? ` - ${log.details}` : ''}`
+    );
   };
-  
+
   return { logs, addLog };
 }
 
@@ -1472,6 +1494,59 @@ Deno.serve(async (req) => {
       const keywords = await generateHotKeywords(existingList);
       return new Response(
         JSON.stringify({ success: true, keywords, existingCount: existingList.length }),
+        { headers: { ...corsHeaders, "Content-Type": "application/json" } }
+      );
+    }
+
+    // 自动生成关键词（仅生成+保存，不做采集，避免超时）
+    if (action === "auto-generate-keywords") {
+      addLog('step', '开始AI自动生成关键词', { step: 'keyword' });
+
+      const { data: existingKeywords } = await supabase
+        .from("news_keywords")
+        .select("keyword");
+      const existingList = (existingKeywords || []).map((k: { keyword: string }) => k.keyword);
+      addLog('info', `已有 ${existingList.length} 个关键词（将排除重复）`, { step: 'keyword' });
+
+      addLog('step', '调用豆包AI生成新关键词...', { step: 'keyword' });
+      const generatedKeywords = await generateHotKeywords(existingList);
+
+      const allNewKeywords: { keyword: string; category: string }[] = [];
+      for (const [cat, kws] of Object.entries(generatedKeywords)) {
+        for (const kw of kws as string[]) allNewKeywords.push({ keyword: kw, category: cat });
+        if ((kws as string[]).length > 0) {
+          addLog('info', `${cat}: ${(kws as string[]).join('、')}`, { step: 'keyword' });
+        }
+      }
+
+      addLog('success', `AI生成 ${allNewKeywords.length} 个新关键词`, {
+        step: 'keyword',
+        details: Object.entries(generatedKeywords)
+          .map(([c, k]) => `${c}: ${(k as string[]).length}个`)
+          .join(', '),
+      });
+
+      addLog('step', '保存关键词到数据库...', { step: 'keyword' });
+      const savedKeywords: string[] = [];
+      for (const { keyword, category } of allNewKeywords) {
+        const { error } = await supabase.from("news_keywords").insert({
+          keyword,
+          keyword_en: keyword,
+          category,
+          is_active: true,
+          priority: 60,
+        });
+        if (!error) savedKeywords.push(keyword);
+      }
+      addLog('success', `成功保存 ${savedKeywords.length} 个新关键词`, { step: 'keyword' });
+
+      return new Response(
+        JSON.stringify({
+          success: true,
+          generatedKeywords,
+          savedKeywordsCount: savedKeywords.length,
+          logs,
+        }),
         { headers: { ...corsHeaders, "Content-Type": "application/json" } }
       );
     }
@@ -1669,7 +1744,7 @@ Deno.serve(async (req) => {
                 addLog('error', `保存失败: ${insertError.message}`, { step: 'save', articleTitle: article.title });
               }
               
-              await new Promise(resolve => setTimeout(resolve, 2000));
+              await new Promise(resolve => setTimeout(resolve, 300));
             }
           } catch (error) {
             addLog('error', `关键词 ${keyword} 采集出错: ${error}`, { step: 'search' });
