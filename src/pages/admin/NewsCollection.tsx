@@ -72,6 +72,7 @@ import {
   Filter,
   Settings,
   ChevronRight,
+  ChevronLeft,
   LayoutGrid,
   FileText
 } from 'lucide-react';
@@ -220,6 +221,10 @@ const NewsCollection = () => {
   const [selectedCategory, setSelectedCategory] = useState<string>("全部");
   // 关键词搜索
   const [keywordSearch, setKeywordSearch] = useState<string>("");
+  // 关键词分页
+  const [keywordPage, setKeywordPage] = useState(1);
+  const KEYWORDS_PER_PAGE = 100;
+  const MAX_KEYWORD_PAGES = 20;
 
   const [formData, setFormData] = useState({
     keyword: '',
@@ -399,14 +404,20 @@ const NewsCollection = () => {
   const autoGenerateAndCollect = async () => {
     setFirecrawlCollecting(true);
     clearCollectionLogs();
-    addCollectionLog({ type: 'step', step: 'search', message: '开始AI自动生成关键词并采集' });
+    addCollectionLog({ type: 'step', step: 'keyword', message: '开始AI自动生成关键词...' });
     
     try {
+      // 使用 AbortController 设置超时
+      const controller = new AbortController();
+      const timeoutId = setTimeout(() => controller.abort(), 90000); // 90秒超时
+      
       const response = await supabase.functions.invoke('collect-news-firecrawl', {
         body: { 
           action: 'auto-generate-keywords',
         },
       });
+      
+      clearTimeout(timeoutId);
 
       if (response.error) throw response.error;
 
@@ -415,38 +426,38 @@ const NewsCollection = () => {
         parseLogsFromResponse(response.data.logs);
       }
       
-      const { generatedKeywords, savedKeywordsCount, articlesCollected, articlesFiltered, results } = response.data;
+      const { generatedKeywords, savedKeywordsCount } = response.data;
       
       // 显示生成的关键词
       if (generatedKeywords) {
         setGeneratedKeywords(generatedKeywords);
       }
-      
-      const keywordDetails = Object.entries(generatedKeywords || {})
-        .map(([cat, kws]) => `${cat}: ${(kws as string[]).length}个`)
-        .join('，');
-      
-      const collectDetails = Object.entries(results || {})
-        .map(([cat, data]: [string, any]) => `${cat}: ${data.collected}篇`)
-        .join('，');
 
       addCollectionLog({ 
         type: 'success', 
-        message: `完成: 生成${savedKeywordsCount}个关键词，采集${articlesCollected}篇，过滤${articlesFiltered}篇` 
+        message: `完成: 生成并保存了 ${savedKeywordsCount || 0} 个新关键词` 
       });
 
       toast({
-        title: 'AI自动采集完成',
-        description: `生成${savedKeywordsCount}个新关键词，采集${articlesCollected}篇文章${articlesFiltered > 0 ? `（过滤${articlesFiltered}篇）` : ''}`,
+        title: 'AI关键词生成完成',
+        description: `成功生成并保存 ${savedKeywordsCount || 0} 个新关键词。请使用"采集3篇"或"四分类采集"按钮开始采集新闻。`,
       });
       
       fetchData();
     } catch (error: any) {
-      console.error('Auto generate and collect error:', error);
-      addCollectionLog({ type: 'error', message: `执行失败: ${error.message}` });
+      console.error('Auto generate keywords error:', error);
+      const isTimeout = error.message?.includes('Failed to fetch') || error.name === 'AbortError';
+      addCollectionLog({ 
+        type: 'error', 
+        message: isTimeout 
+          ? '请求超时，请稍后重试或检查网络连接' 
+          : `执行失败: ${error.message}` 
+      });
       toast({
-        title: '执行失败',
-        description: error.message || '请稍后重试',
+        title: isTimeout ? '请求超时' : '执行失败',
+        description: isTimeout 
+          ? '网络请求超时，AI正在生成关键词可能需要较长时间。请稍后刷新页面查看结果。'
+          : error.message || '请稍后重试',
         variant: 'destructive',
       });
     } finally {
@@ -963,6 +974,9 @@ const NewsCollection = () => {
   // Firecrawl 每日采集（四分类）
   const collectWithFirecrawl = async (autoPublish: boolean = false) => {
     setFirecrawlCollecting(true);
+    clearCollectionLogs();
+    addCollectionLog({ type: 'step', step: 'search', message: '开始四分类采集...' });
+    
     try {
       const response = await supabase.functions.invoke('collect-news-firecrawl', {
         body: {
@@ -979,6 +993,11 @@ const NewsCollection = () => {
 
       if (response.error) throw response.error;
 
+      // 解析日志
+      if (response.data?.logs) {
+        parseLogsFromResponse(response.data.logs);
+      }
+
       const results = response.data.results || {};
       const details = Object.entries(results)
         .map(([cat, data]: [string, any]) => {
@@ -991,6 +1010,8 @@ const NewsCollection = () => {
       const totalCollected = Number(response.data.articlesCollected ?? 0);
       const totalFiltered = Number(response.data.articlesFiltered ?? 0);
 
+      addCollectionLog({ type: 'success', message: `四分类采集完成: ${details || `采集${totalCollected}篇`}` });
+
       toast({
         title: '四分类采集完成',
         description:
@@ -1001,9 +1022,13 @@ const NewsCollection = () => {
       });
       fetchData();
     } catch (error: any) {
+      const isTimeout = error.message?.includes('Failed to fetch');
+      addCollectionLog({ type: 'error', message: isTimeout ? '请求超时，采集可能仍在后台进行' : `采集失败: ${error.message}` });
       toast({
-        title: '采集失败',
-        description: error.message,
+        title: isTimeout ? '请求超时' : '采集失败',
+        description: isTimeout 
+          ? '网络请求超时，采集可能仍在后台进行中。请稍后刷新页面查看新闻列表。'
+          : error.message,
         variant: 'destructive',
       });
     } finally {
@@ -1014,6 +1039,9 @@ const NewsCollection = () => {
   // 按单个分类采集
   const collectByCategory = async (category: string, count: number = 3) => {
     setFirecrawlCollecting(true);
+    clearCollectionLogs();
+    addCollectionLog({ type: 'step', step: 'search', message: `开始采集 ${category} 分类...` });
+    
     try {
       const response = await supabase.functions.invoke('collect-news-firecrawl', {
         body: {
@@ -1026,8 +1054,15 @@ const NewsCollection = () => {
 
       if (response.error) throw response.error;
 
+      // 解析日志
+      if (response.data?.logs) {
+        parseLogsFromResponse(response.data.logs);
+      }
+
       const collected = Number(response.data.collected ?? 0);
       const filtered = Number(response.data.filtered ?? 0);
+
+      addCollectionLog({ type: 'success', message: `${category} 采集完成: ${collected}篇${filtered ? `（过滤${filtered}篇）` : ''}` });
 
       toast({
         title: `${category} 采集完成`,
@@ -1038,17 +1073,19 @@ const NewsCollection = () => {
       });
       fetchData();
     } catch (error: any) {
+      const isTimeout = error.message?.includes('Failed to fetch');
+      addCollectionLog({ type: 'error', message: isTimeout ? '请求超时，采集可能仍在后台进行' : `采集失败: ${error.message}` });
       toast({
-        title: '采集失败',
-        description: error.message,
+        title: isTimeout ? '请求超时' : '采集失败',
+        description: isTimeout 
+          ? '网络请求超时，采集可能仍在后台进行中。请稍后刷新页面查看新闻列表。'
+          : error.message,
         variant: 'destructive',
       });
     } finally {
       setFirecrawlCollecting(false);
     }
   };
-
-  // 自定义搜索
   const handleCustomSearch = async () => {
     if (!customSearchQuery.trim()) {
       toast({
@@ -1111,6 +1148,18 @@ const NewsCollection = () => {
       (kw.keyword_en && kw.keyword_en.toLowerCase().includes(keywordSearch.toLowerCase()));
     return matchesCategory && matchesSearch;
   });
+
+  // 分页后的关键词列表
+  const totalKeywordPages = Math.min(Math.ceil(filteredKeywords.length / KEYWORDS_PER_PAGE), MAX_KEYWORD_PAGES);
+  const paginatedKeywords = filteredKeywords.slice(
+    (keywordPage - 1) * KEYWORDS_PER_PAGE,
+    keywordPage * KEYWORDS_PER_PAGE
+  );
+
+  // 当过滤条件改变时重置页码
+  useEffect(() => {
+    setKeywordPage(1);
+  }, [selectedCategory, keywordSearch]);
 
   // 获取分类统计
   const getCategoryCount = (category: string) => {
@@ -1647,7 +1696,7 @@ const NewsCollection = () => {
                 </TableRow>
               </TableHeader>
               <TableBody>
-                {filteredKeywords.map((kw) => {
+                {paginatedKeywords.map((kw) => {
                   const catConfig = NEWS_CATEGORIES.find(c => c.value === kw.category);
                   const hasAiRules = kw.ai_rules?.enabled;
                   return (
@@ -1728,6 +1777,87 @@ const NewsCollection = () => {
                 )}
               </TableBody>
             </Table>
+            
+            {/* 分页控件 */}
+            {totalKeywordPages > 1 && (
+              <div className="flex items-center justify-between mt-4 pt-4 border-t border-slate-700">
+                <div className="text-sm text-slate-400">
+                  共 {filteredKeywords.length} 个关键词，第 {keywordPage} / {totalKeywordPages} 页
+                  {filteredKeywords.length > MAX_KEYWORD_PAGES * KEYWORDS_PER_PAGE && (
+                    <span className="text-amber-400 ml-2">（仅显示前 {MAX_KEYWORD_PAGES * KEYWORDS_PER_PAGE} 个）</span>
+                  )}
+                </div>
+                <div className="flex items-center gap-2">
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    onClick={() => setKeywordPage(1)}
+                    disabled={keywordPage === 1}
+                    className="border-slate-600 text-slate-300 hover:bg-slate-700"
+                  >
+                    首页
+                  </Button>
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    onClick={() => setKeywordPage(prev => Math.max(1, prev - 1))}
+                    disabled={keywordPage === 1}
+                    className="border-slate-600 text-slate-300 hover:bg-slate-700"
+                  >
+                    <ChevronLeft className="w-4 h-4" />
+                  </Button>
+                  
+                  {/* 页码按钮 */}
+                  <div className="flex items-center gap-1">
+                    {Array.from({ length: Math.min(5, totalKeywordPages) }, (_, i) => {
+                      let pageNum: number;
+                      if (totalKeywordPages <= 5) {
+                        pageNum = i + 1;
+                      } else if (keywordPage <= 3) {
+                        pageNum = i + 1;
+                      } else if (keywordPage >= totalKeywordPages - 2) {
+                        pageNum = totalKeywordPages - 4 + i;
+                      } else {
+                        pageNum = keywordPage - 2 + i;
+                      }
+                      return (
+                        <Button
+                          key={pageNum}
+                          variant={pageNum === keywordPage ? "default" : "outline"}
+                          size="sm"
+                          onClick={() => setKeywordPage(pageNum)}
+                          className={pageNum === keywordPage 
+                            ? "bg-amber-500 hover:bg-amber-600 text-white" 
+                            : "border-slate-600 text-slate-300 hover:bg-slate-700"
+                          }
+                        >
+                          {pageNum}
+                        </Button>
+                      );
+                    })}
+                  </div>
+                  
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    onClick={() => setKeywordPage(prev => Math.min(totalKeywordPages, prev + 1))}
+                    disabled={keywordPage === totalKeywordPages}
+                    className="border-slate-600 text-slate-300 hover:bg-slate-700"
+                  >
+                    <ChevronRight className="w-4 h-4" />
+                  </Button>
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    onClick={() => setKeywordPage(totalKeywordPages)}
+                    disabled={keywordPage === totalKeywordPages}
+                    className="border-slate-600 text-slate-300 hover:bg-slate-700"
+                  >
+                    末页
+                  </Button>
+                </div>
+              </div>
+            )}
           </CardContent>
         </Card>
 
