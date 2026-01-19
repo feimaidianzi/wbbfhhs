@@ -78,6 +78,30 @@ const CATEGORY_CONFIG = {
 // 质量评分阈值
 const QUALITY_THRESHOLD = 8.0;
 
+// 无人机行业高质量备选图片库（来自免费图片网站的固定高质量URL）
+// 当原文图片不足时使用这些图片
+const DRONE_FALLBACK_IMAGES = [
+  // 无人机飞行场景
+  "https://images.pexels.com/photos/442587/pexels-photo-442587.jpeg?auto=compress&cs=tinysrgb&w=1200",
+  "https://images.pexels.com/photos/1034812/pexels-photo-1034812.jpeg?auto=compress&cs=tinysrgb&w=1200",
+  "https://images.pexels.com/photos/2050718/pexels-photo-2050718.jpeg?auto=compress&cs=tinysrgb&w=1200",
+  "https://images.pexels.com/photos/3945683/pexels-photo-3945683.jpeg?auto=compress&cs=tinysrgb&w=1200",
+  "https://images.pexels.com/photos/3861969/pexels-photo-3861969.jpeg?auto=compress&cs=tinysrgb&w=1200",
+  // 科技/电子元器件
+  "https://images.pexels.com/photos/163100/circuit-circuit-board-resistor-computer-163100.jpeg?auto=compress&cs=tinysrgb&w=1200",
+  "https://images.pexels.com/photos/2582937/pexels-photo-2582937.jpeg?auto=compress&cs=tinysrgb&w=1200",
+  "https://images.pexels.com/photos/3825581/pexels-photo-3825581.jpeg?auto=compress&cs=tinysrgb&w=1200",
+  // 航拍/远程控制
+  "https://images.pexels.com/photos/724921/pexels-photo-724921.jpeg?auto=compress&cs=tinysrgb&w=1200",
+  "https://images.pexels.com/photos/336232/pexels-photo-336232.jpeg?auto=compress&cs=tinysrgb&w=1200",
+  "https://images.pexels.com/photos/912110/pexels-photo-912110.jpeg?auto=compress&cs=tinysrgb&w=1200",
+  "https://images.pexels.com/photos/1087180/pexels-photo-1087180.jpeg?auto=compress&cs=tinysrgb&w=1200",
+  // 工业/技术
+  "https://images.pexels.com/photos/3183197/pexels-photo-3183197.jpeg?auto=compress&cs=tinysrgb&w=1200",
+  "https://images.pexels.com/photos/3862627/pexels-photo-3862627.jpeg?auto=compress&cs=tinysrgb&w=1200",
+  "https://images.pexels.com/photos/8566473/pexels-photo-8566473.jpeg?auto=compress&cs=tinysrgb&w=1200",
+];
+
 // 基础清理抓取的内容（正则清洗）
 function basicCleanContent(rawContent: string): string {
   if (!rawContent) return "";
@@ -725,10 +749,22 @@ async function rewriteArticleWithAI(
       console.log(`Using ${unusedOriginalImages.length} unique original images (${originalImages.length - unusedOriginalImages.length} duplicates skipped)`);
     }
     
-    // 不再使用 Unsplash 补充图片 - 只使用原文图片，避免不相关图片
-    // 如果原文图片不足，接受现有图片数量
+    // 如果原文图片不足，使用高质量无人机备选图片补充
     if (images.length < MIN_IMAGES) {
-      console.log(`Original images only ${images.length}, no Unsplash fallback used (keeping original images only)`);
+      console.log(`Original images only ${images.length}, supplementing with drone fallback images`);
+      // 随机选择备选图片，避免每篇文章使用相同图片
+      const shuffledFallback = [...DRONE_FALLBACK_IMAGES].sort(() => 0.5 - Math.random());
+      const neededCount = MIN_IMAGES - images.length;
+      
+      for (let i = 0; i < neededCount && i < shuffledFallback.length; i++) {
+        const fallbackImg = shuffledFallback[i];
+        // 确保不与已有图片重复
+        if (!images.includes(fallbackImg) && !usedImagesInSession.has(fallbackImg)) {
+          images.push(fallbackImg);
+          usedImagesInSession.add(fallbackImg);
+        }
+      }
+      console.log(`After supplementing: ${images.length} images total`);
     }
     
     // 最多使用5张图片
@@ -1004,36 +1040,22 @@ function extractImagesFromHtml(html: string, baseUrl: string): string[] {
   return [...new Set(images)];
 }
 
-// 检查图片URL是否有效（无水印、无商标、非图标等）- 增强版
+// 检查图片URL是否有效 - 放宽规则，接受更多正常图片
 function isValidImage(imgUrl: string): boolean {
-  if (!imgUrl || imgUrl.length < 20) return false;
+  if (!imgUrl || imgUrl.length < 15) return false;
   if (imgUrl.startsWith('data:')) return false;
   if (!imgUrl.startsWith('http')) return false;
   
-  // 排除常见的非内容图片模式
+  // 只排除最明显的非内容图片
   const excludePatterns = [
-    // 商标和Logo
-    'logo', 'brand', 'watermark', 'trademark', 'stamp',
-    // 图标和小图
-    'icon', 'avatar', 'emoji', 'sprite', 'button', 'arrow', 'badge', 'tag', 'label',
-    // 广告和追踪
-    'ads', 'ad-', 'advertisement', 'pixel', 'tracking', 'analytics', 'beacon', 'widget',
-    // 社交媒体图标
-    'twitter', 'facebook', 'linkedin', 'instagram', 'youtube', 'tiktok', 'wechat', 'weibo',
-    // 占位符和加载图
-    'loading', 'placeholder', 'spacer', 'blank', 'default', 'lazy',
-    // 文件尺寸标识（通常是缩略图）
-    '1x1', '1px', 'thumb', 'thumbnail', 'small', 'tiny', 'mini',
-    // Banner和装饰
-    'banner-ad', 'sidebar', 'footer', 'header-img',
-    // 常见的低质量图片来源
-    'gravatar', 'googleusercontent', 'fbcdn', 'twimg',
-    // AI生成图片标识
-    'ai-generated', 'dall-e', 'midjourney', 'stable-diffusion',
-    // 股票图片水印
-    'shutterstock', 'gettyimages', 'istock', 'dreamstime', 'depositphotos', 'adobestock',
-    // GIF动图（通常质量较差）
-    '.gif',
+    // 明确的非内容图片
+    'logo', 'icon', 'avatar', 'emoji', 'sprite', 'button',
+    // 广告和追踪像素
+    'pixel', 'tracking', 'analytics', 'beacon', '1x1', '1px',
+    // 占位符
+    'placeholder', 'spacer', 'blank',
+    // 水印标识
+    'watermark', 'stamp',
   ];
   
   const lowerUrl = imgUrl.toLowerCase();
@@ -1041,27 +1063,13 @@ function isValidImage(imgUrl: string): boolean {
     if (lowerUrl.includes(pattern)) return false;
   }
   
-  // 检查是否是小图（URL中的尺寸参数）
+  // 只排除明确的小图尺寸
   const smallSizePatterns = [
-    /\d{1,2}x\d{1,2}/,      // 如 16x16, 32x32
-    /_\d{1,2}\./,           // 如 _16.png
-    /[-_]s\./,              // 小图标识
-    /w[=_]\d{1,2}[^0-9]/,   // 如 w=50, w_50
-    /h[=_]\d{1,2}[^0-9]/,   // 如 h=50
-    /size[=_]\d{1,2}/,      // 如 size=50
+    /\b\d{1,2}x\d{1,2}\b/,   // 如 16x16, 32x32 (但不匹配 100x100)
   ];
   for (const pattern of smallSizePatterns) {
     if (pattern.test(lowerUrl)) return false;
   }
-  
-  // 确保是有效的图片格式
-  const validExtensions = ['.jpg', '.jpeg', '.png', '.webp'];
-  const hasValidExtension = validExtensions.some(ext => 
-    lowerUrl.includes(ext) || lowerUrl.includes('format=jpg') || lowerUrl.includes('format=png')
-  );
-  
-  // 如果URL很长（通常是CDN图片），即使没有明确扩展名也接受
-  if (!hasValidExtension && imgUrl.length < 100) return false;
   
   return true;
 }
@@ -1441,15 +1449,40 @@ async function buildFallbackArticleWithAI(args: {
   
   // 如果内容中没有图片标记，在适当位置插入图片
   let htmlContent = toSimpleHtml(cleanedContent);
-  const images = args.images || [];
+  let images = args.images || [];
+  
+  // 如果原文图片不足，使用备选图片补充
+  const MIN_FALLBACK_IMAGES = 2;
+  if (images.length < MIN_FALLBACK_IMAGES) {
+    console.log(`Fallback article: original images only ${images.length}, supplementing with drone fallback images`);
+    const shuffledFallback = [...DRONE_FALLBACK_IMAGES].sort(() => 0.5 - Math.random());
+    const neededCount = MIN_FALLBACK_IMAGES - images.length;
+    
+    for (let i = 0; i < neededCount && i < shuffledFallback.length; i++) {
+      const fallbackImg = shuffledFallback[i];
+      if (!images.includes(fallbackImg)) {
+        images.push(fallbackImg);
+      }
+    }
+    console.log(`After supplementing: ${images.length} images total`);
+  }
   
   if (images.length > 0) {
     // 在内容中间插入图片
     const paragraphs = htmlContent.split('</p>');
     if (paragraphs.length > 2) {
-      const insertPoint = Math.floor(paragraphs.length / 2);
-      const imgHtml = `<figure class="my-6"><img src="${images[0]}" alt="文章配图" class="rounded-lg shadow-md w-full" loading="lazy" /></figure>`;
-      paragraphs.splice(insertPoint, 0, imgHtml);
+      // 插入第一张图片在1/3处
+      const insertPoint1 = Math.floor(paragraphs.length / 3);
+      const imgHtml1 = `<figure class="my-6"><img src="${images[0]}" alt="文章配图" class="rounded-lg shadow-md w-full" loading="lazy" /></figure>`;
+      paragraphs.splice(insertPoint1, 0, imgHtml1);
+      
+      // 如果有第二张图片，插入在2/3处
+      if (images.length > 1) {
+        const insertPoint2 = Math.floor((paragraphs.length * 2) / 3);
+        const imgHtml2 = `<figure class="my-6"><img src="${images[1]}" alt="文章配图" class="rounded-lg shadow-md w-full" loading="lazy" /></figure>`;
+        paragraphs.splice(insertPoint2, 0, imgHtml2);
+      }
+      
       htmlContent = paragraphs.join('</p>');
     }
   }
