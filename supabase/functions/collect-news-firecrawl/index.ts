@@ -1248,7 +1248,10 @@ const KEYWORD_GENERATION_GUIDE = {
   }
 };
 
-async function generateHotKeywords(existingKeywords: string[] = []): Promise<Record<string, string[]>> {
+async function generateHotKeywords(
+  existingKeywords: string[] = [],
+  existingArticleTitles: string[] = []
+): Promise<Record<string, string[]>> {
   try {
     const DOUBAO_API_KEY = Deno.env.get("DOUBAO_API_KEY");
     if (!DOUBAO_API_KEY) {
@@ -1257,7 +1260,12 @@ async function generateHotKeywords(existingKeywords: string[] = []): Promise<Rec
     }
 
     const existingList = existingKeywords.length > 0 
-      ? `\n\n【已存在的关键词（请勿重复生成）】\n${existingKeywords.join('、')}`
+      ? `\n\n【已存在的关键词（请勿重复生成）】\n${existingKeywords.slice(0, 100).join('、')}`
+      : '';
+
+    // 添加已有新闻标题参考，让AI可以生成与已删除新闻相关的关键词
+    const articleTitlesRef = existingArticleTitles.length > 0
+      ? `\n\n【网站现有新闻标题参考（可基于这些主题生成相关新关键词）】\n${existingArticleTitles.slice(0, 30).join('\n')}`
       : '';
 
     const prompt = `你是无人机行业新闻采集专家，请根据当前无人机行业热点和以下分类指南，为每个分类生成5-8个最新、最热门的搜索关键词。
@@ -1268,6 +1276,7 @@ async function generateHotKeywords(existingKeywords: string[] = []): Promise<Rec
 【分类指南】
 ${JSON.stringify(KEYWORD_GENERATION_GUIDE, null, 2)}
 ${existingList}
+${articleTitlesRef}
 
 【生成要求】
 1. 每个分类生成5-8个关键词，要具有时效性和搜索价值
@@ -1278,6 +1287,7 @@ ${existingList}
 6. 产品资讯类侧重：新品发布、技术创新、性能提升、行业应用等
 7. 公司新闻类侧重：企业融资、合作案例、产品发布会等
 8. 绝对不要生成与已存在关键词重复或相似的关键词
+9. 可以参考现有新闻标题，生成能采集到类似高质量内容的关键词
 
 【输出JSON格式】
 {
@@ -1287,7 +1297,7 @@ ${existingList}
   "公司新闻": ["关键词1", "关键词2", ...]
 }`;
 
-    console.log(`Generating keywords with Doubao, excluding ${existingKeywords.length} existing keywords`);
+    console.log(`Generating keywords with Doubao, excluding ${existingKeywords.length} existing keywords, referencing ${existingArticleTitles.length} article titles`);
 
     const response = await fetch(`https://ark.cn-beijing.volces.com/api/v3/responses`, {
       method: "POST",
@@ -1373,12 +1383,13 @@ function toSimpleHtml(text: string): string {
   return paragraphs.map((p) => `<p>${escapeHtml(p)}</p>`).join("\n");
 }
 
-function buildFallbackArticle(args: {
+// 使用豆包AI清洗回退文章内容
+async function buildFallbackArticleWithAI(args: {
   title: string;
   content: string;
   coverImage: string | null;
   images: string[];
-}): {
+}): Promise<{
   title: string;
   title_en: string | null;
   summary: string | null;
@@ -1388,17 +1399,43 @@ function buildFallbackArticle(args: {
   keywords: string[];
   coverImage: string | null;
   images: string[];
-} {
+}> {
+  // 使用豆包AI深度清洗内容
+  let cleanedContent = args.content || "";
+  
+  try {
+    console.log("Fallback article: performing AI deep cleaning...");
+    cleanedContent = await deepCleanContentWithAI(args.content, args.title);
+    console.log(`AI cleaned fallback content: ${args.content.length} -> ${cleanedContent.length} chars`);
+  } catch (error) {
+    console.error("Fallback AI cleaning failed:", error);
+  }
+  
+  // 如果内容中没有图片标记，在适当位置插入图片
+  let htmlContent = toSimpleHtml(cleanedContent);
+  const images = args.images || [];
+  
+  if (images.length > 0) {
+    // 在内容中间插入图片
+    const paragraphs = htmlContent.split('</p>');
+    if (paragraphs.length > 2) {
+      const insertPoint = Math.floor(paragraphs.length / 2);
+      const imgHtml = `<figure class="my-6"><img src="${images[0]}" alt="文章配图" class="rounded-lg shadow-md w-full" loading="lazy" /></figure>`;
+      paragraphs.splice(insertPoint, 0, imgHtml);
+      htmlContent = paragraphs.join('</p>');
+    }
+  }
+  
   return {
     title: args.title?.trim() || "Untitled",
     title_en: null,
     summary: null,
     summary_en: null,
-    content: toSimpleHtml(args.content || ""),
+    content: htmlContent,
     content_en: null,
     keywords: [],
-    coverImage: args.coverImage,
-    images: args.images || [],
+    coverImage: args.coverImage || (images.length > 0 ? images[0] : null),
+    images,
   };
 }
 
@@ -1483,7 +1520,7 @@ Deno.serve(async (req) => {
     console.log(`Action: ${action}, Category: ${category}, Count: ${count}`);
     addLog('info', `开始执行采集任务`, { step: 'search', details: `操作: ${action}, 分类: ${category || '全部'}, 目标数量: ${count}` });
 
-    // 生成热门关键词（检查已存在关键词避免重复）
+    // 生成热门关键词（检查已存在关键词避免重复，参考现有新闻标题）
     if (action === "generate-keywords") {
       // 获取已存在的关键词列表
       const { data: existingKeywords } = await supabase
@@ -1491,7 +1528,15 @@ Deno.serve(async (req) => {
         .select("keyword");
       const existingList = (existingKeywords || []).map((k: { keyword: string }) => k.keyword);
       
-      const keywords = await generateHotKeywords(existingList);
+      // 获取现有新闻标题作为参考
+      const { data: existingArticles } = await supabase
+        .from("news_articles")
+        .select("title")
+        .order("created_at", { ascending: false })
+        .limit(50);
+      const articleTitles = (existingArticles || []).map((a: { title: string }) => a.title);
+      
+      const keywords = await generateHotKeywords(existingList, articleTitles);
       return new Response(
         JSON.stringify({ success: true, keywords, existingCount: existingList.length }),
         { headers: { ...corsHeaders, "Content-Type": "application/json" } }
@@ -1508,8 +1553,17 @@ Deno.serve(async (req) => {
       const existingList = (existingKeywords || []).map((k: { keyword: string }) => k.keyword);
       addLog('info', `已有 ${existingList.length} 个关键词（将排除重复）`, { step: 'keyword' });
 
+      // 获取现有新闻标题作为参考
+      const { data: existingArticles } = await supabase
+        .from("news_articles")
+        .select("title")
+        .order("created_at", { ascending: false })
+        .limit(50);
+      const articleTitles = (existingArticles || []).map((a: { title: string }) => a.title);
+      addLog('info', `参考 ${articleTitles.length} 篇现有新闻标题`, { step: 'keyword' });
+
       addLog('step', '调用豆包AI生成新关键词...', { step: 'keyword' });
-      const generatedKeywords = await generateHotKeywords(existingList);
+      const generatedKeywords = await generateHotKeywords(existingList, articleTitles);
 
       const allNewKeywords: { keyword: string; category: string }[] = [];
       for (const [cat, kws] of Object.entries(generatedKeywords)) {
@@ -1562,9 +1616,17 @@ Deno.serve(async (req) => {
       const existingList = (existingKeywords || []).map((k: { keyword: string }) => k.keyword);
       addLog('info', `已有 ${existingList.length} 个关键词（将排除重复）`, { step: 'keyword' });
       
+      // 获取现有新闻标题作为参考
+      const { data: existingArticles } = await supabase
+        .from("news_articles")
+        .select("title")
+        .order("created_at", { ascending: false })
+        .limit(50);
+      const articleTitles = (existingArticles || []).map((a: { title: string }) => a.title);
+      
       // 2. 使用豆包AI生成新关键词
       addLog('step', '调用豆包AI生成新关键词...', { step: 'keyword' });
-      const generatedKeywords = await generateHotKeywords(existingList);
+      const generatedKeywords = await generateHotKeywords(existingList, articleTitles);
       const allNewKeywords: { keyword: string; category: string }[] = [];
       
       for (const [cat, kws] of Object.entries(generatedKeywords)) {
@@ -1696,10 +1758,10 @@ Deno.serve(async (req) => {
 
               // AI 失败时：仍然保存抓取到的正文，避免“任务执行失败/采集0篇”
               if (!rewritten) {
-                addLog('warning', 'AI创作失败，使用原文内容保存', { step: 'rewrite', articleTitle: scraped.title });
+                addLog('warning', 'AI创作失败，使用AI清洗后的原文内容保存', { step: 'rewrite', articleTitle: scraped.title });
               }
 
-              const article = rewritten ?? buildFallbackArticle({
+              const article = rewritten ?? await buildFallbackArticleWithAI({
                 title: scraped.title || result.title || "",
                 content: scraped.content,
                 coverImage: scraped.coverImage,
@@ -1847,12 +1909,12 @@ Deno.serve(async (req) => {
           );
 
           if (!rewritten) {
-            console.log(`⚠️ AI rewrite failed, saving fallback content: ${result.title}`);
+            console.log(`⚠️ AI rewrite failed, using AI-cleaned fallback content: ${result.title}`);
           } else if ((rewritten.images?.length || 0) < 2) {
             console.log(`⚠️ AI rewrite returned only ${rewritten.images?.length || 0} images, still saving: ${result.title}`);
           }
 
-          const article = rewritten ?? buildFallbackArticle({
+          const article = rewritten ?? await buildFallbackArticleWithAI({
             title: scraped.title || result.title || "",
             content: scraped.content,
             coverImage: scraped.coverImage,
@@ -2022,8 +2084,8 @@ Deno.serve(async (req) => {
               scraped.images || [] // 传递原文图片
             );
 
-            // AI 失败时：仍然保存抓取到的正文，避免"任务完成但采集0篇"
-            const article = rewritten ?? buildFallbackArticle({
+            // AI 失败时：仍然保存抓取到的正文，但会经过AI清洗
+            const article = rewritten ?? await buildFallbackArticleWithAI({
               title: scraped.title || result.title || "",
               content: scraped.content,
               coverImage: scraped.coverImage,
@@ -2034,7 +2096,7 @@ Deno.serve(async (req) => {
             if (rewritten) {
               addLog('success', `AI创作完成`, { step: 'rewrite', articleTitle: article.title?.substring(0, 50), details: `生成图片: ${rewritten.images?.length || 0} 张` });
             } else {
-              addLog('warning', `AI创作失败，使用原始内容`, { step: 'rewrite', articleTitle: article.title?.substring(0, 50) });
+              addLog('warning', `AI创作失败，使用AI清洗后的原始内容`, { step: 'rewrite', articleTitle: article.title?.substring(0, 50) });
             }
 
             // 保存
@@ -2185,12 +2247,12 @@ Deno.serve(async (req) => {
               );
 
               if (!rewritten) {
-                console.log(`⚠️ AI rewrite failed, saving fallback content: ${scraped.title || result.title}`);
+                console.log(`⚠️ AI rewrite failed, using AI-cleaned fallback content: ${scraped.title || result.title}`);
               } else if ((rewritten.images?.length || 0) < 2) {
                 console.log(`⚠️ AI rewrite returned only ${rewritten.images?.length || 0} images, still saving: ${scraped.title || result.title}`);
               }
 
-              const article = rewritten ?? buildFallbackArticle({
+              const article = rewritten ?? await buildFallbackArticleWithAI({
                 title: scraped.title || result.title || "",
                 content: scraped.content,
                 coverImage: scraped.coverImage,
