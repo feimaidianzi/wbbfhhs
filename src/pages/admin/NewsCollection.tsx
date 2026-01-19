@@ -407,9 +407,9 @@ const NewsCollection = () => {
     addCollectionLog({ type: 'step', step: 'keyword', message: '开始AI自动生成关键词...' });
     
     try {
-      // 使用 AbortController 设置超时
+      // 使用 AbortController 设置超时 - 增加到180秒，因为AI处理需要较长时间
       const controller = new AbortController();
-      const timeoutId = setTimeout(() => controller.abort(), 90000); // 90秒超时
+      const timeoutId = setTimeout(() => controller.abort(), 180000); // 180秒超时
       
       const response = await supabase.functions.invoke('collect-news-firecrawl', {
         body: { 
@@ -448,17 +448,17 @@ const NewsCollection = () => {
       console.error('Auto generate keywords error:', error);
       const isTimeout = error.message?.includes('Failed to fetch') || error.name === 'AbortError';
       addCollectionLog({ 
-        type: 'error', 
+        type: isTimeout ? 'warning' : 'error', 
         message: isTimeout 
-          ? '请求超时，请稍后重试或检查网络连接' 
+          ? '请求响应超时，后台可能仍在执行中...' 
           : `执行失败: ${error.message}` 
       });
       toast({
-        title: isTimeout ? '请求超时' : '执行失败',
+        title: isTimeout ? '请求响应超时' : '执行失败',
         description: isTimeout 
-          ? '网络请求超时，AI正在生成关键词可能需要较长时间。请稍后刷新页面查看结果。'
+          ? '前端等待超时，但后台任务可能仍在成功执行中。请稍等1-2分钟后刷新页面查看新生成的关键词和文章。'
           : error.message || '请稍后重试',
-        variant: 'destructive',
+        variant: isTimeout ? 'default' : 'destructive',
       });
     } finally {
       setFirecrawlCollecting(false);
@@ -538,6 +538,10 @@ const NewsCollection = () => {
     addCollectionLog({ type: 'step', step: 'search', message: `开始采集: ${task.name}`, details: `分类: ${task.category || '全部分类'} - 使用AI自动生成关键词` });
     
     try {
+      // 使用 AbortController 设置超时 - 180秒
+      const controller = new AbortController();
+      const timeoutId = setTimeout(() => controller.abort(), 180000);
+      
       // 默认使用AI自动生成关键词并采集
       const response = await supabase.functions.invoke('collect-news-firecrawl', {
         body: {
@@ -546,6 +550,8 @@ const NewsCollection = () => {
           autoPublish: task.auto_publish !== false,
         },
       });
+      
+      clearTimeout(timeoutId);
 
       if (response.error) throw response.error;
       
@@ -572,8 +578,20 @@ const NewsCollection = () => {
       });
       fetchData();
     } catch (error: any) {
-      addCollectionLog({ type: 'error', message: `执行失败: ${error.message}` });
-      toast({ title: '执行失败', description: error.message, variant: 'destructive' });
+      const isTimeout = error.message?.includes('Failed to fetch') || error.name === 'AbortError';
+      addCollectionLog({ 
+        type: isTimeout ? 'warning' : 'error', 
+        message: isTimeout 
+          ? '请求响应超时，后台可能仍在成功执行中...' 
+          : `执行失败: ${error.message}` 
+      });
+      toast({ 
+        title: isTimeout ? '请求响应超时' : '执行失败', 
+        description: isTimeout 
+          ? '前端等待超时，但后台任务可能仍在成功执行中。请稍等1-2分钟后刷新页面查看结果。'
+          : error.message, 
+        variant: isTimeout ? 'default' : 'destructive' 
+      });
     } finally {
       setRunningScheduledTaskId(null);
     }
@@ -586,6 +604,10 @@ const NewsCollection = () => {
     addCollectionLog({ type: 'step', step: 'search', message: '开始全量采集', details: '使用AI自动生成关键词' });
     
     try {
+      // 使用 AbortController 设置超时 - 180秒
+      const controller = new AbortController();
+      const timeoutId = setTimeout(() => controller.abort(), 180000);
+      
       const response = await supabase.functions.invoke('collect-news-firecrawl', {
         body: {
           action: 'auto-generate-and-collect',
@@ -593,6 +615,8 @@ const NewsCollection = () => {
           autoPublish: true,
         },
       });
+      
+      clearTimeout(timeoutId);
 
       if (response.error) throw response.error;
       
@@ -619,11 +643,19 @@ const NewsCollection = () => {
       });
       fetchData();
     } catch (error: any) {
-      addCollectionLog({ type: 'error', message: `执行失败: ${error.message}` });
+      const isTimeout = error.message?.includes('Failed to fetch') || error.name === 'AbortError';
+      addCollectionLog({ 
+        type: isTimeout ? 'warning' : 'error', 
+        message: isTimeout 
+          ? '请求响应超时，后台可能仍在成功执行中...' 
+          : `执行失败: ${error.message}` 
+      });
       toast({
-        title: '执行失败',
-        description: error.message,
-        variant: 'destructive',
+        title: isTimeout ? '请求响应超时' : '执行失败',
+        description: isTimeout 
+          ? '前端等待超时，但后台任务可能仍在成功执行中。请稍等1-2分钟后刷新页面查看结果。'
+          : error.message,
+        variant: isTimeout ? 'default' : 'destructive',
       });
     } finally {
       setFirecrawlCollecting(false);

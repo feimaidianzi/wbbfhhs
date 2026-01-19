@@ -691,10 +691,10 @@ async function rewriteArticleWithAI(
       }
     }
     
-    // 准备图片列表：只使用经过验证的原文图片，不足时使用Unsplash默认图片
+    // 准备图片列表：只使用经过验证的原文图片，不再使用 Unsplash 通用图片补充
     let images: string[] = [];
     
-    // 优先使用原文中已验证的高质量图片（同时标记为已使用，避免跨文章重复）
+    // 只使用原文中已验证的高质量图片（同时标记为已使用，避免跨文章重复）
     if (originalImages.length > 0) {
       // 过滤掉已在本次采集中使用过的原文图片
       const unusedOriginalImages = originalImages.filter(img => !usedImagesInSession.has(img));
@@ -704,16 +704,14 @@ async function rewriteArticleWithAI(
       console.log(`Using ${unusedOriginalImages.length} unique original images (${originalImages.length - unusedOriginalImages.length} duplicates skipped)`);
     }
     
-    // 如果原文图片不足3张，使用Unsplash默认无人机图片补充（自动避免重复）
+    // 不再使用 Unsplash 补充图片 - 只使用原文图片，避免不相关图片
+    // 如果原文图片不足，接受现有图片数量
     if (images.length < MIN_IMAGES) {
-      const needed = MIN_IMAGES - images.length;
-      const uniqueDefaults = getUnusedDefaultImages(needed);
-      images.push(...uniqueDefaults);
-      console.log(`Original images insufficient (${originalImages.length}), added ${needed} unique Unsplash images`);
+      console.log(`Original images only ${images.length}, no Unsplash fallback used (keeping original images only)`);
     }
     
-    // 最多使用5张图片，确保至少有MIN_IMAGES张
-    images = images.slice(0, Math.max(MIN_IMAGES, Math.min(images.length, 5)));
+    // 最多使用5张图片
+    images = images.slice(0, Math.min(images.length, 5));
     
     // 替换图片占位符
     let contentWithImages = result.content || "";
