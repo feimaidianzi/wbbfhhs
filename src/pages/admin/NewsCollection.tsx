@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { supabase } from '@/integrations/supabase/client';
 import { Button } from '@/components/ui/button';
@@ -256,6 +256,10 @@ const NewsCollection = () => {
   
   // 采集日志状态
   const [collectionLogs, setCollectionLogs] = useState<CollectionLog[]>([]);
+
+  // 采集“后台仍在执行”时的前端监控（定时刷新数据，避免误判为执行失败）
+  const backgroundMonitorIntervalRef = useRef<number | null>(null);
+  const backgroundMonitorTimeoutRef = useRef<number | null>(null);
   
   // 添加日志的工具函数
   const addCollectionLog = (log: Omit<CollectionLog, 'id' | 'timestamp'>) => {
@@ -270,6 +274,61 @@ const NewsCollection = () => {
   const clearCollectionLogs = () => {
     setCollectionLogs([]);
   };
+
+  const stopBackgroundMonitor = () => {
+    if (backgroundMonitorIntervalRef.current) {
+      window.clearInterval(backgroundMonitorIntervalRef.current);
+      backgroundMonitorIntervalRef.current = null;
+    }
+    if (backgroundMonitorTimeoutRef.current) {
+      window.clearTimeout(backgroundMonitorTimeoutRef.current);
+      backgroundMonitorTimeoutRef.current = null;
+    }
+  };
+
+  const isTransientCollectionError = (error: any) => {
+    const msg = String(error?.message || error || '');
+    return (
+      msg.includes('Failed to fetch') ||
+      msg.includes('AbortError') ||
+      msg.includes('Failed to send a request to the Edge Function')
+    );
+  };
+
+  // 当网络中断/超时，但后台可能仍在继续执行时：保持“采集中”并自动刷新数据
+  const startBackgroundMonitor = (reason: string) => {
+    stopBackgroundMonitor();
+
+    addCollectionLog({
+      type: 'info',
+      step: 'save',
+      message: '⏳ 连接中断，但采集可能仍在后台继续执行中…',
+      details: reason,
+    });
+
+    // 每 5 秒刷新一次数据，让用户看到新文章/关键词出现
+    backgroundMonitorIntervalRef.current = window.setInterval(() => {
+      fetchData();
+    }, 5000);
+
+    // 最多监控 3 分钟，避免一直占用
+    backgroundMonitorTimeoutRef.current = window.setTimeout(() => {
+      stopBackgroundMonitor();
+      setFirecrawlCollecting(false);
+      addCollectionLog({
+        type: 'info',
+        message: '自动刷新已停止（如仍在采集中，可再次点击按钮或手动刷新页面）',
+      });
+    }, 180000);
+  };
+
+  // 组件卸载时清理
+  useEffect(() => {
+    return () => {
+      stopBackgroundMonitor();
+    };
+  }, []);
+  
   
   // 从API响应解析日志
   const parseLogsFromResponse = (responseLogs: Array<{
@@ -403,8 +462,11 @@ const NewsCollection = () => {
   // AI自动生成关键词并采集新闻
   const autoGenerateAndCollect = async () => {
     setFirecrawlCollecting(true);
+    stopBackgroundMonitor();
     clearCollectionLogs();
     addCollectionLog({ type: 'step', step: 'keyword', message: '开始AI自动生成关键词...' });
+
+    let keepRunning = false;
     
     try {
       // 使用 AbortController 设置超时 - 增加到180秒，因为AI处理需要较长时间
@@ -446,22 +508,29 @@ const NewsCollection = () => {
       fetchData();
     } catch (error: any) {
       console.error('Auto generate keywords error:', error);
-      const isTimeout = error.message?.includes('Failed to fetch') || error.name === 'AbortError';
-      addCollectionLog({ 
-        type: isTimeout ? 'info' : 'error', 
-        message: isTimeout 
-          ? '⏳ 采集仍在后台进行中，请稍后刷新查看结果...' 
-          : `执行失败: ${error.message}` 
+
+      const isTransient = isTransientCollectionError(error);
+      if (isTransient) {
+        keepRunning = true;
+        startBackgroundMonitor(String(error?.message || error));
+      }
+
+      addCollectionLog({
+        type: isTransient ? 'info' : 'error',
+        message: isTransient
+          ? '⏳ 采集中（前端连接中断，已启动自动刷新）'
+          : `执行失败: ${error.message}`,
       });
+
       toast({
-        title: isTimeout ? '采集进行中' : '执行失败',
-        description: isTimeout 
-          ? '后台任务正在执行中，请稍等1-2分钟后刷新页面查看新生成的关键词和文章。'
+        title: isTransient ? '采集进行中' : '执行失败',
+        description: isTransient
+          ? '前端与后台连接中断，但后台可能仍在继续执行。系统将自动刷新数据（约3分钟）。'
           : error.message || '请稍后重试',
-        variant: isTimeout ? 'default' : 'destructive',
+        variant: isTransient ? 'default' : 'destructive',
       });
     } finally {
-      setFirecrawlCollecting(false);
+      if (!keepRunning) setFirecrawlCollecting(false);
     }
   };
 
@@ -1006,8 +1075,11 @@ const NewsCollection = () => {
   // Firecrawl 每日采集（四分类）
   const collectWithFirecrawl = async (autoPublish: boolean = false) => {
     setFirecrawlCollecting(true);
+    stopBackgroundMonitor();
     clearCollectionLogs();
     addCollectionLog({ type: 'step', step: 'search', message: '开始四分类采集...' });
+
+    let keepRunning = false;
     
     try {
       const response = await supabase.functions.invoke('collect-news-firecrawl', {
@@ -1054,25 +1126,39 @@ const NewsCollection = () => {
       });
       fetchData();
     } catch (error: any) {
-      const isTimeout = error.message?.includes('Failed to fetch');
-      addCollectionLog({ type: 'error', message: isTimeout ? '请求超时，采集可能仍在后台进行' : `采集失败: ${error.message}` });
+      const isTransient = isTransientCollectionError(error);
+      if (isTransient) {
+        keepRunning = true;
+        startBackgroundMonitor(String(error?.message || error));
+      }
+
+      addCollectionLog({
+        type: isTransient ? 'info' : 'error',
+        message: isTransient
+          ? '⏳ 采集中（前端连接中断，已启动自动刷新）'
+          : `采集失败: ${error.message}`,
+      });
+
       toast({
-        title: isTimeout ? '请求超时' : '采集失败',
-        description: isTimeout 
-          ? '网络请求超时，采集可能仍在后台进行中。请稍后刷新页面查看新闻列表。'
+        title: isTransient ? '采集进行中' : '采集失败',
+        description: isTransient
+          ? '前端与后台连接中断，但后台可能仍在继续执行。系统将自动刷新数据（约3分钟）。'
           : error.message,
-        variant: 'destructive',
+        variant: isTransient ? 'default' : 'destructive',
       });
     } finally {
-      setFirecrawlCollecting(false);
+      if (!keepRunning) setFirecrawlCollecting(false);
     }
   };
 
   // 按单个分类采集
   const collectByCategory = async (category: string, count: number = 3) => {
     setFirecrawlCollecting(true);
+    stopBackgroundMonitor();
     clearCollectionLogs();
     addCollectionLog({ type: 'step', step: 'search', message: `开始采集 ${category} 分类...` });
+
+    let keepRunning = false;
     
     try {
       const response = await supabase.functions.invoke('collect-news-firecrawl', {
@@ -1105,17 +1191,28 @@ const NewsCollection = () => {
       });
       fetchData();
     } catch (error: any) {
-      const isTimeout = error.message?.includes('Failed to fetch');
-      addCollectionLog({ type: 'error', message: isTimeout ? '请求超时，采集可能仍在后台进行' : `采集失败: ${error.message}` });
+      const isTransient = isTransientCollectionError(error);
+      if (isTransient) {
+        keepRunning = true;
+        startBackgroundMonitor(String(error?.message || error));
+      }
+
+      addCollectionLog({
+        type: isTransient ? 'info' : 'error',
+        message: isTransient
+          ? '⏳ 采集中（前端连接中断，已启动自动刷新）'
+          : `采集失败: ${error.message}`,
+      });
+
       toast({
-        title: isTimeout ? '请求超时' : '采集失败',
-        description: isTimeout 
-          ? '网络请求超时，采集可能仍在后台进行中。请稍后刷新页面查看新闻列表。'
+        title: isTransient ? '采集进行中' : '采集失败',
+        description: isTransient
+          ? '前端与后台连接中断，但后台可能仍在继续执行。系统将自动刷新数据（约3分钟）。'
           : error.message,
-        variant: 'destructive',
+        variant: isTransient ? 'default' : 'destructive',
       });
     } finally {
-      setFirecrawlCollecting(false);
+      if (!keepRunning) setFirecrawlCollecting(false);
     }
   };
   const handleCustomSearch = async () => {
