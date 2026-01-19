@@ -404,9 +404,7 @@ const NewsCollection = () => {
     try {
       const response = await supabase.functions.invoke('collect-news-firecrawl', {
         body: { 
-          action: 'auto-generate-and-collect',
-          count: 4, // 默认采集4篇（每个分类1篇）
-          autoPublish: true,
+          action: 'auto-generate-keywords',
         },
       });
 
