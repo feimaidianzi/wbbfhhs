@@ -511,6 +511,11 @@ const NewsCollection = () => {
   };
 
   // AI自动生成关键词并采集新闻
+  // NOTE: supabase.functions.invoke 不支持传入 AbortSignal，因此不能真正“取消”请求。
+  // 为避免用户在“关键词采集”阶段长时间无反馈：
+  // - 先发起请求
+  // - 如果等待超过阈值（如 12s），就认为可能发生网络/网关阻断，切换到“后台监控”模式
+  // - 后台监控会定时刷新数据，并检测采集任务是否结束
   const autoGenerateAndCollect = async () => {
     setFirecrawlCollecting(true);
     stopBackgroundMonitor();
@@ -518,19 +523,39 @@ const NewsCollection = () => {
     addCollectionLog({ type: 'step', step: 'keyword', message: '开始AI自动生成关键词...' });
 
     let keepRunning = false;
-    
+    let earlyMonitorTimer: number | null = null;
+
     try {
-      // 使用 AbortController 设置超时 - 增加到180秒，因为AI处理需要较长时间
-      const controller = new AbortController();
-      const timeoutId = setTimeout(() => controller.abort(), 180000); // 180秒超时
-      
-      const response = await supabase.functions.invoke('collect-news-firecrawl', {
-        body: { 
+      const invokePromise = supabase.functions.invoke('collect-news-firecrawl', {
+        body: {
           action: 'auto-generate-keywords',
         },
       });
-      
-      clearTimeout(timeoutId);
+
+      // 如果 12 秒还没返回，就主动进入“后台监控”模式（常见于网关超时/浏览器中断连接）
+      earlyMonitorTimer = window.setTimeout(() => {
+        keepRunning = true;
+        startBackgroundMonitor('前端等待关键词生成响应超过 12 秒，已切换为后台监控（任务可能仍在执行）');
+
+        addCollectionLog({
+          type: 'info',
+          step: 'keyword',
+          message: '⏳ 关键词生成中（已切换为后台监控，将自动刷新）',
+        });
+      }, 12000);
+
+      const response = await invokePromise;
+
+      if (earlyMonitorTimer) {
+        window.clearTimeout(earlyMonitorTimer);
+        earlyMonitorTimer = null;
+      }
+
+      // 如果之前进入了监控模式，这里说明已经拿到最终响应：停止监控
+      if (keepRunning) {
+        stopBackgroundMonitor();
+        keepRunning = false;
+      }
 
       if (response.error) throw response.error;
 
@@ -538,27 +563,32 @@ const NewsCollection = () => {
       if (response.data?.logs) {
         parseLogsFromResponse(response.data.logs);
       }
-      
-      const { generatedKeywords, savedKeywordsCount } = response.data;
-      
+
+      const { generatedKeywords, savedKeywordsCount } = response.data || {};
+
       // 显示生成的关键词
       if (generatedKeywords) {
         setGeneratedKeywords(generatedKeywords);
       }
 
-      addCollectionLog({ 
-        type: 'success', 
-        message: `完成: 生成并保存了 ${savedKeywordsCount || 0} 个新关键词` 
+      addCollectionLog({
+        type: 'success',
+        message: `完成: 生成并保存了 ${savedKeywordsCount || 0} 个新关键词`,
       });
 
       toast({
         title: 'AI关键词生成完成',
         description: `成功生成并保存 ${savedKeywordsCount || 0} 个新关键词。请使用"采集3篇"或"四分类采集"按钮开始采集新闻。`,
       });
-      
+
       fetchData();
     } catch (error: any) {
       console.error('Auto generate keywords error:', error);
+
+      if (earlyMonitorTimer) {
+        window.clearTimeout(earlyMonitorTimer);
+        earlyMonitorTimer = null;
+      }
 
       const isTransient = isTransientCollectionError(error);
       if (isTransient) {
@@ -576,7 +606,7 @@ const NewsCollection = () => {
       toast({
         title: isTransient ? '采集进行中' : '执行失败',
         description: isTransient
-          ? '前端与后台连接中断，但后台可能仍在继续执行。系统将自动刷新数据（约3分钟）。'
+          ? '前端与后台连接中断，但后台可能仍在继续执行。系统将自动刷新数据（最长30分钟）。'
           : error.message || '请稍后重试',
         variant: isTransient ? 'default' : 'destructive',
       });
