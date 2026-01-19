@@ -448,15 +448,15 @@ const NewsCollection = () => {
       console.error('Auto generate keywords error:', error);
       const isTimeout = error.message?.includes('Failed to fetch') || error.name === 'AbortError';
       addCollectionLog({ 
-        type: isTimeout ? 'warning' : 'error', 
+        type: isTimeout ? 'info' : 'error', 
         message: isTimeout 
-          ? '请求响应超时，后台可能仍在执行中...' 
+          ? '⏳ 采集仍在后台进行中，请稍后刷新查看结果...' 
           : `执行失败: ${error.message}` 
       });
       toast({
-        title: isTimeout ? '请求响应超时' : '执行失败',
+        title: isTimeout ? '采集进行中' : '执行失败',
         description: isTimeout 
-          ? '前端等待超时，但后台任务可能仍在成功执行中。请稍等1-2分钟后刷新页面查看新生成的关键词和文章。'
+          ? '后台任务正在执行中，请稍等1-2分钟后刷新页面查看新生成的关键词和文章。'
           : error.message || '请稍后重试',
         variant: isTimeout ? 'default' : 'destructive',
       });
@@ -580,15 +580,15 @@ const NewsCollection = () => {
     } catch (error: any) {
       const isTimeout = error.message?.includes('Failed to fetch') || error.name === 'AbortError';
       addCollectionLog({ 
-        type: isTimeout ? 'warning' : 'error', 
+        type: isTimeout ? 'info' : 'error', 
         message: isTimeout 
-          ? '请求响应超时，后台可能仍在成功执行中...' 
+          ? '⏳ 采集仍在后台进行中，请稍后刷新查看结果...' 
           : `执行失败: ${error.message}` 
       });
       toast({ 
-        title: isTimeout ? '请求响应超时' : '执行失败', 
+        title: isTimeout ? '采集进行中' : '执行失败', 
         description: isTimeout 
-          ? '前端等待超时，但后台任务可能仍在成功执行中。请稍等1-2分钟后刷新页面查看结果。'
+          ? '后台任务正在执行中，请稍等1-2分钟后刷新页面查看结果。'
           : error.message, 
         variant: isTimeout ? 'default' : 'destructive' 
       });
@@ -645,15 +645,15 @@ const NewsCollection = () => {
     } catch (error: any) {
       const isTimeout = error.message?.includes('Failed to fetch') || error.name === 'AbortError';
       addCollectionLog({ 
-        type: isTimeout ? 'warning' : 'error', 
+        type: isTimeout ? 'info' : 'error', 
         message: isTimeout 
-          ? '请求响应超时，后台可能仍在成功执行中...' 
+          ? '⏳ 采集仍在后台进行中，请稍后刷新查看结果...' 
           : `执行失败: ${error.message}` 
       });
       toast({
-        title: isTimeout ? '请求响应超时' : '执行失败',
+        title: isTimeout ? '采集进行中' : '执行失败',
         description: isTimeout 
-          ? '前端等待超时，但后台任务可能仍在成功执行中。请稍等1-2分钟后刷新页面查看结果。'
+          ? '后台任务正在执行中，请稍等1-2分钟后刷新页面查看结果。'
           : error.message,
         variant: isTimeout ? 'default' : 'destructive',
       });
