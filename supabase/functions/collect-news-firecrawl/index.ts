@@ -260,16 +260,19 @@ async function cleanContent(rawContent: string, title: string = ""): Promise<str
 async function scoreArticleQuality(
   title: string,
   content: string,
-  category: string
+  category: string,
+  addLog?: (type: 'info' | 'success' | 'warning' | 'error' | 'step', message: string, options?: any) => void
 ): Promise<{ score: number; reason: string; isReviewOrAd: boolean } | null> {
   try {
     const DOUBAO_API_KEY = Deno.env.get("DOUBAO_API_KEY");
     if (!DOUBAO_API_KEY) {
       console.log("DOUBAO_API_KEY not found, skipping quality scoring");
+      addLog?.('warning', '未配置豆包API密钥，跳过评分', { step: 'score' });
       return { score: 10, reason: "未配置评分，默认通过", isReviewOrAd: false };
     }
 
     console.log("Scoring article quality with Doubao API...");
+    addLog?.('info', '🤖 调用豆包AI进行质量评分...', { step: 'score', details: `文章: ${title.substring(0, 50)}` });
     
     const prompt = `你是一位资深新闻质量审核编辑。请对以下无人机行业新闻文章进行严格的质量评分和类型判断。
 
@@ -325,6 +328,7 @@ async function scoreArticleQuality(
     if (!response.ok) {
       const errorText = await response.text();
       console.error("Doubao quality scoring API error:", response.status, errorText);
+      addLog?.('error', '豆包API评分请求失败', { step: 'score', details: `状态码: ${response.status}` });
       return { score: 8, reason: "评分API错误，默认通过", isReviewOrAd: false };
     }
 
@@ -357,6 +361,16 @@ async function scoreArticleQuality(
     if (jsonMatch) {
       const result = JSON.parse(jsonMatch[0]);
       console.log(`Quality score: ${result.score} - ${result.reason} - isReviewOrAd: ${result.isReviewOrAd}`);
+      
+      // 记录 AI 评分对话内容到日志
+      const scoreEmoji = result.score >= 8 ? '✅' : (result.isReviewOrAd ? '🚫' : '⚠️');
+      addLog?.('info', `${scoreEmoji} AI评分结果: ${result.score}分`, { 
+        step: 'score', 
+        score: result.score,
+        isReviewOrAd: result.isReviewOrAd,
+        details: `豆包AI回复: "${result.reason}" ${result.isReviewOrAd ? '(测评/广告类)' : ''}`
+      });
+      
       return {
         score: parseFloat(result.score) || 8,
         reason: result.reason || "评分完成",
@@ -364,9 +378,11 @@ async function scoreArticleQuality(
       };
     }
 
+    addLog?.('warning', 'AI评分响应解析失败', { step: 'score', details: '无法从AI响应中提取JSON' });
     return { score: 8, reason: "解析失败，默认通过", isReviewOrAd: false };
   } catch (error) {
     console.error("Quality scoring failed:", error);
+    addLog?.('error', 'AI评分异常', { step: 'score', details: String(error) });
     return { score: 8, reason: "评分异常，默认通过", isReviewOrAd: false };
   }
 }
@@ -522,7 +538,8 @@ async function rewriteArticleWithAI(
   originalContent: string,
   category: string,
   coverImage: string | null = null,
-  originalImages: string[] = [] // 新增：原文中提取的图片
+  originalImages: string[] = [], // 新增：原文中提取的图片
+  addLog?: (type: 'info' | 'success' | 'warning' | 'error' | 'step', message: string, options?: any) => void
 ): Promise<{ 
   title: string; 
   title_en: string;
@@ -538,6 +555,7 @@ async function rewriteArticleWithAI(
     const DOUBAO_API_KEY = Deno.env.get("DOUBAO_API_KEY");
     if (!DOUBAO_API_KEY) {
       console.error("DOUBAO_API_KEY not found");
+      addLog?.('error', '未配置豆包API密钥', { step: 'rewrite' });
       return null;
     }
 
@@ -549,6 +567,7 @@ async function rewriteArticleWithAI(
     const MIN_IMAGES = 3;
     
     console.log(`Rewriting article with AI, original images: ${originalImages.length}`);
+    addLog?.('info', '🤖 调用豆包AI进行内容创作...', { step: 'rewrite', details: `原标题: ${originalTitle.substring(0, 50)}` });
     
     const prompt = `你是一位资深自媒体写手兼无人机行业新闻编辑，为专业无人机技术公司官网撰写高质量、高吸引力的新闻稿。
 
@@ -637,6 +656,7 @@ async function rewriteArticleWithAI(
     if (!response.ok) {
       const errorText = await response.text();
       console.error("Doubao rewrite API error:", response.status, errorText);
+      addLog?.('error', '豆包API创作请求失败', { step: 'rewrite', details: `状态码: ${response.status}` });
       return null;
     }
 
@@ -666,6 +686,7 @@ async function rewriteArticleWithAI(
     const jsonMatch = aiContent.match(/\{[\s\S]*\}/);
     if (!jsonMatch) {
       console.error("Failed to locate JSON in AI response");
+      addLog?.('error', 'AI响应解析失败', { step: 'rewrite', details: '无法从AI响应中提取JSON格式内容' });
       return null;
     }
 
@@ -729,9 +750,17 @@ async function rewriteArticleWithAI(
     contentEnWithImages = contentEnWithImages.replace(/<!-- IMAGE_PLACEHOLDER_\d+ -->/g, '');
 
     console.log(`AI rewrite successful with ${images.length} images`);
+    
+    // 记录 AI 创作结果详细日志
+    const newTitle = result.title?.substring(0, 100) || originalTitle.substring(0, 35);
+    const keywordsStr = Array.isArray(result.keywords) ? result.keywords.slice(0, 3).join(', ') : '';
+    addLog?.('success', `✨ AI创作完成: "${newTitle.substring(0, 40)}"`, { 
+      step: 'rewrite', 
+      details: `豆包AI生成: 标题"${newTitle.substring(0, 30)}..." | 摘要${(result.summary || "").length}字 | 正文${(result.content || "").length}字 | 关键词: ${keywordsStr} | 配图: ${images.length}张`
+    });
 
     return {
-      title: result.title?.substring(0, 100) || originalTitle.substring(0, 35),
+      title: newTitle,
       title_en: result.title_en?.substring(0, 150) || originalTitle.substring(0, 50),
       summary: (result.summary || "").substring(0, 300),
       summary_en: (result.summary_en || "").substring(0, 400),
@@ -743,6 +772,7 @@ async function rewriteArticleWithAI(
     };
   } catch (error) {
     console.error("AI rewrite failed:", error);
+    addLog?.('error', 'AI创作异常', { step: 'rewrite', details: String(error) });
     return null;
   }
 }
@@ -1720,7 +1750,8 @@ Deno.serve(async (req) => {
               const qualityResult = await scoreArticleQuality(
                 scraped.title || result.title || "",
                 scraped.content,
-                cat
+                cat,
+                addLog
               );
               
               if (qualityResult?.isReviewOrAd) {
@@ -1751,7 +1782,8 @@ Deno.serve(async (req) => {
                 scraped.content,
                 cat,
                 scraped.coverImage,
-                scraped.images || []
+                scraped.images || [],
+                addLog
               );
 
               // AI 失败时：仍然保存抓取到的正文，避免“任务执行失败/采集0篇”
@@ -1865,10 +1897,12 @@ Deno.serve(async (req) => {
           if (!scraped || !scraped.content) continue;
 
           // 第一步：AI 质量评分（增强版，排除测评和广告）
+          addLog('info', 'AI质量评分中...', { step: 'score', articleTitle: scraped.title?.substring(0, 50) });
           const qualityResult = await scoreArticleQuality(
             scraped.title || result.title || "",
             scraped.content,
-            targetCategory
+            targetCategory,
+            addLog
           );
 
           // 排除测评和广告类文章
@@ -1898,12 +1932,14 @@ Deno.serve(async (req) => {
 
           // 第二步：AI 二次创作（双语版本，使用原文图片）
           console.log(`Article has ${scraped.images?.length || 0} original images`);
+          addLog('info', 'AI内容创作中...', { step: 'rewrite', articleTitle: scraped.title?.substring(0, 50) });
           const rewritten = await rewriteArticleWithAI(
             scraped.title || result.title || "",
             scraped.content,
             targetCategory,
             scraped.coverImage,
-            scraped.images || [] // 传递原文图片
+            scraped.images || [], // 传递原文图片
+            addLog
           );
 
           if (!rewritten) {
@@ -2039,7 +2075,8 @@ Deno.serve(async (req) => {
             const qualityResult = await scoreArticleQuality(
               scraped.title || result.title || "",
               scraped.content,
-              category
+              category,
+              addLog
             );
 
             if (qualityResult?.isReviewOrAd) {
@@ -2079,7 +2116,8 @@ Deno.serve(async (req) => {
               scraped.content,
               category,
               scraped.coverImage,
-              scraped.images || [] // 传递原文图片
+              scraped.images || [], // 传递原文图片
+              addLog
             );
 
             // AI 失败时：仍然保存抓取到的正文，但会经过AI清洗
@@ -2216,10 +2254,12 @@ Deno.serve(async (req) => {
               if (!scraped || !scraped.content) continue;
 
               // AI 质量评分
+              addLog('info', 'AI质量评分中...', { step: 'score', articleTitle: scraped.title?.substring(0, 50) });
               const qualityResult = await scoreArticleQuality(
                 scraped.title || result.title || "",
                 scraped.content,
-                cat
+                cat,
+                addLog
               );
 
               if (qualityResult?.isReviewOrAd) {
@@ -2236,12 +2276,14 @@ Deno.serve(async (req) => {
 
               // AI 二次创作（使用原文图片）
               console.log(`Article has ${scraped.images?.length || 0} original images`);
+              addLog('info', 'AI内容创作中...', { step: 'rewrite', articleTitle: scraped.title?.substring(0, 50) });
               const rewritten = await rewriteArticleWithAI(
                 scraped.title || result.title || "",
                 scraped.content,
                 cat,
                 scraped.coverImage,
-                scraped.images || [] // 传递原文图片
+                scraped.images || [], // 传递原文图片
+                addLog
               );
 
               if (!rewritten) {
