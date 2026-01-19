@@ -1628,6 +1628,9 @@ Deno.serve(async (req) => {
     return new Response(null, { headers: corsHeaders });
   }
 
+  // 任务追踪：用于后台页面显示进度/结束（否则前端断连后会“卡住”）
+  let taskId: string | null = null;
+
   try {
     const supabaseUrl = Deno.env.get("SUPABASE_URL")!;
     const supabaseServiceKey = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!;
@@ -1635,12 +1638,46 @@ Deno.serve(async (req) => {
 
     const body = await req.json();
     const { action, category, count = 5, autoPublish = true } = body;
-    
+
     // 初始化日志记录器
     const { logs, addLog } = createLogger();
 
     console.log(`Action: ${action}, Category: ${category}, Count: ${count}`);
     addLog('info', `开始执行采集任务`, { step: 'search', details: `操作: ${action}, 分类: ${category || '全部'}, 目标数量: ${count}` });
+
+    // 对长任务创建任务记录（供前端轮询/自动结束“采集中”状态）
+    const trackableActions = new Set([
+      'auto-generate-keywords',
+      'auto-generate-and-collect',
+      'collect-by-keyword',
+      'collect-by-category',
+      'collect-by-categories',
+      'collect-daily',
+    ]);
+
+    if (trackableActions.has(String(action || ''))) {
+      const taskKeyword = String(body.keyword || `action:${action}`);
+      const taskCategory = String(category || body.targetCategory || '全部');
+
+      const { data: task, error: taskError } = await supabase
+        .from('news_collection_tasks')
+        .insert({
+          keyword: taskKeyword,
+          category: taskCategory,
+          status: 'processing',
+          articles_collected: 0,
+          articles_published: 0,
+        })
+        .select('id')
+        .single();
+
+      if (taskError) {
+        addLog('warning', '创建采集任务记录失败（不影响采集）', { step: 'save', details: taskError.message });
+      } else {
+        taskId = task?.id || null;
+        addLog('info', '已创建采集任务记录', { step: 'save', details: `taskId=${taskId}` });
+      }
+    }
 
     // 生成热门关键词（检查已存在关键词避免重复，参考现有新闻标题）
     if (action === "generate-keywords") {
@@ -1716,12 +1753,24 @@ Deno.serve(async (req) => {
       }
       addLog('success', `成功保存 ${savedKeywords.length} 个新关键词`, { step: 'keyword' });
 
+      // 标记任务完成（关键词生成阶段）
+      if (taskId) {
+        await supabase
+          .from('news_collection_tasks')
+          .update({
+            status: 'completed',
+            completed_at: new Date().toISOString(),
+          })
+          .eq('id', taskId);
+      }
+
       return new Response(
         JSON.stringify({
           success: true,
           generatedKeywords,
           savedKeywordsCount: savedKeywords.length,
           logs,
+          taskId,
         }),
         { headers: { ...corsHeaders, "Content-Type": "application/json" } }
       );
@@ -1942,7 +1991,20 @@ Deno.serve(async (req) => {
       }
       
       addLog('success', `采集完成: ${totalCollected} 篇成功, ${totalFiltered} 篇过滤`, { step: 'save' });
-      
+
+      // 标记任务完成
+      if (taskId) {
+        await supabase
+          .from('news_collection_tasks')
+          .update({
+            status: 'completed',
+            completed_at: new Date().toISOString(),
+            articles_collected: totalCollected,
+            articles_published: autoPublish ? totalCollected : 0,
+          })
+          .eq('id', taskId);
+      }
+
       return new Response(
         JSON.stringify({
           success: true,
@@ -1952,6 +2014,7 @@ Deno.serve(async (req) => {
           articlesFiltered: totalFiltered,
           results: collectResults,
           logs,
+          taskId,
         }),
         { headers: { ...corsHeaders, "Content-Type": "application/json" } }
       );
@@ -2460,10 +2523,32 @@ Deno.serve(async (req) => {
 
   } catch (error) {
     console.error("Error:", error);
+
+    // 如果已创建任务记录，则标记失败，避免后台页面一直“执行中/无日志”
+    try {
+      if (taskId) {
+        const supabaseUrl = Deno.env.get("SUPABASE_URL")!;
+        const supabaseServiceKey = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!;
+        const supabase = createClient(supabaseUrl, supabaseServiceKey);
+
+        await supabase
+          .from('news_collection_tasks')
+          .update({
+            status: 'failed',
+            completed_at: new Date().toISOString(),
+            error_message: error instanceof Error ? error.message : String(error || 'Unknown error'),
+          })
+          .eq('id', taskId);
+      }
+    } catch (e) {
+      console.error('Failed to update collection task status:', e);
+    }
+
     return new Response(
-      JSON.stringify({ 
-        success: false, 
-        error: error instanceof Error ? error.message : "Unknown error" 
+      JSON.stringify({
+        success: false,
+        error: error instanceof Error ? error.message : "Unknown error",
+        taskId,
       }),
       { status: 500, headers: { ...corsHeaders, "Content-Type": "application/json" } }
     );

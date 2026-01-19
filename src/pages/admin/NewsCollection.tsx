@@ -694,22 +694,41 @@ const NewsCollection = () => {
     });
 
     let keepRunning = false;
+    let earlyMonitorTimer: number | null = null;
 
     try {
-      // 使用 AbortController 设置超时 - 180秒
-      const controller = new AbortController();
-      const timeoutId = setTimeout(() => controller.abort(), 180000);
-
-      // 默认使用AI自动生成关键词并采集
-      const response = await supabase.functions.invoke('collect-news-firecrawl', {
+      const invokePromise = supabase.functions.invoke('collect-news-firecrawl', {
         body: {
           action: 'auto-generate-and-collect',
           count: task.article_count || 4,
           autoPublish: task.auto_publish !== false,
+          category: task.category || undefined,
         },
       });
 
-      clearTimeout(timeoutId);
+      // 若 12 秒无响应：切换到后台监控（解决“日志很久没反应”的体感）
+      earlyMonitorTimer = window.setTimeout(() => {
+        keepRunning = true;
+        startBackgroundMonitor('前端等待采集响应超过 12 秒，已切换为后台监控（任务可能仍在执行）');
+        addCollectionLog({
+          type: 'info',
+          step: 'search',
+          message: '⏳ 采集中（已切换为后台监控，将自动刷新）',
+        });
+      }, 12000);
+
+      const response = await invokePromise;
+
+      if (earlyMonitorTimer) {
+        window.clearTimeout(earlyMonitorTimer);
+        earlyMonitorTimer = null;
+      }
+
+      // 如果曾进入监控模式，但现在已拿到最终响应：停止监控
+      if (keepRunning) {
+        stopBackgroundMonitor();
+        keepRunning = false;
+      }
 
       if (response.error) throw response.error;
 
@@ -738,6 +757,11 @@ const NewsCollection = () => {
       });
       fetchData();
     } catch (error: any) {
+      if (earlyMonitorTimer) {
+        window.clearTimeout(earlyMonitorTimer);
+        earlyMonitorTimer = null;
+      }
+
       const isTransient = isTransientCollectionError(error);
       if (isTransient) {
         keepRunning = true;
@@ -769,13 +793,10 @@ const NewsCollection = () => {
     addCollectionLog({ type: 'step', step: 'search', message: '开始全量采集', details: '使用AI自动生成关键词' });
 
     let keepRunning = false;
+    let earlyMonitorTimer: number | null = null;
 
     try {
-      // 使用 AbortController 设置超时 - 180秒
-      const controller = new AbortController();
-      const timeoutId = setTimeout(() => controller.abort(), 180000);
-
-      const response = await supabase.functions.invoke('collect-news-firecrawl', {
+      const invokePromise = supabase.functions.invoke('collect-news-firecrawl', {
         body: {
           action: 'auto-generate-and-collect',
           count: 10,
@@ -783,7 +804,29 @@ const NewsCollection = () => {
         },
       });
 
-      clearTimeout(timeoutId);
+      // 若 12 秒无响应：切换到后台监控（解决“日志很久没反应”的体感）
+      earlyMonitorTimer = window.setTimeout(() => {
+        keepRunning = true;
+        startBackgroundMonitor('前端等待采集响应超过 12 秒，已切换为后台监控（任务可能仍在执行）');
+        addCollectionLog({
+          type: 'info',
+          step: 'search',
+          message: '⏳ 采集中（已切换为后台监控，将自动刷新）',
+        });
+      }, 12000);
+
+      const response = await invokePromise;
+
+      if (earlyMonitorTimer) {
+        window.clearTimeout(earlyMonitorTimer);
+        earlyMonitorTimer = null;
+      }
+
+      // 如果曾进入监控模式，但现在已拿到最终响应：停止监控
+      if (keepRunning) {
+        stopBackgroundMonitor();
+        keepRunning = false;
+      }
 
       if (response.error) throw response.error;
 
@@ -812,6 +855,11 @@ const NewsCollection = () => {
       });
       fetchData();
     } catch (error: any) {
+      if (earlyMonitorTimer) {
+        window.clearTimeout(earlyMonitorTimer);
+        earlyMonitorTimer = null;
+      }
+
       const isTransient = isTransientCollectionError(error);
       if (isTransient) {
         keepRunning = true;
@@ -827,7 +875,7 @@ const NewsCollection = () => {
         title: isTransient ? '采集进行中' : '执行失败',
         description: isTransient
           ? '前端与后台连接中断，但后台可能仍在继续执行。系统将自动刷新数据（最长30分钟）。'
-          : error.message,
+          : error.message || '请稍后重试',
         variant: isTransient ? 'default' : 'destructive',
       });
     } finally {
