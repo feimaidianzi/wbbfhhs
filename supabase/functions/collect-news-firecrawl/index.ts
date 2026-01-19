@@ -1284,56 +1284,47 @@ const KEYWORD_GENERATION_GUIDE = {
   }
 };
 
-async function generateHotKeywords(
+// 快速生成单个关键词（每个分类一个）
+async function generateSingleKeywordForCategory(
+  category: string,
   existingKeywords: string[] = [],
   existingArticleTitles: string[] = []
-): Promise<Record<string, string[]>> {
+): Promise<string | null> {
   try {
     const DOUBAO_API_KEY = Deno.env.get("DOUBAO_API_KEY");
     if (!DOUBAO_API_KEY) {
       console.log("DOUBAO_API_KEY not found for keyword generation");
-      return {};
+      return null;
+    }
+
+    const categoryGuide = KEYWORD_GENERATION_GUIDE[category as keyof typeof KEYWORD_GENERATION_GUIDE];
+    if (!categoryGuide) {
+      console.log(`Unknown category: ${category}`);
+      return null;
     }
 
     const existingList = existingKeywords.length > 0 
-      ? `\n\n【已存在的关键词（请勿重复生成）】\n${existingKeywords.slice(0, 100).join('、')}`
+      ? `\n\n【已存在的关键词（请勿重复）】\n${existingKeywords.slice(0, 50).join('、')}`
       : '';
 
-    // 添加已有新闻标题参考，让AI可以生成与已删除新闻相关的关键词
     const articleTitlesRef = existingArticleTitles.length > 0
-      ? `\n\n【网站现有新闻标题参考（可基于这些主题生成相关新关键词）】\n${existingArticleTitles.slice(0, 30).join('\n')}`
+      ? `\n\n【参考新闻标题】\n${existingArticleTitles.slice(0, 10).join('\n')}`
       : '';
 
-    const prompt = `你是无人机行业新闻采集专家，请根据当前无人机行业热点和以下分类指南，为每个分类生成5-8个最新、最热门的搜索关键词。
+    const prompt = `你是无人机行业新闻采集专家。请为"${category}"分类生成1个最新、最热门的搜索关键词。
 
-【我们的产品线】
-多旋翼无人机、VTX/VRX图传设备、飞控/电调、吊舱/云台、数字图传、无人机相机、ELRS遥控系统、GPS模块、接收屏、FPV眼镜、无人机配件
-
-【分类指南】
-${JSON.stringify(KEYWORD_GENERATION_GUIDE, null, 2)}
+【分类说明】${categoryGuide.description}
+【参考子类】${JSON.stringify(categoryGuide.subcategories)}
 ${existingList}
 ${articleTitlesRef}
 
-【生成要求】
-1. 每个分类生成5-8个关键词，要具有时效性和搜索价值
-2. 关键词要具体、精准，能搜索到高质量新闻
-3. 中英文混合，优先使用能搜到更多结果的关键词
-4. 技术分享类侧重：飞控调试、动力学、续航优化、SLAM算法、AI导航、开源教程等
-5. 行业动态类侧重：低空经济政策、无人机法规、融资动态、市场预测、技术突破等
-6. 产品资讯类侧重：新品发布、技术创新、性能提升、行业应用等
-7. 公司新闻类侧重：企业融资、合作案例、产品发布会等
-8. 绝对不要生成与已存在关键词重复或相似的关键词
-9. 可以参考现有新闻标题，生成能采集到类似高质量内容的关键词
+【要求】
+1. 只生成1个关键词，直接输出关键词文本，不要任何其他内容
+2. 关键词要具体、精准、有时效性
+3. 不要与已存在的关键词重复或相似
+4. 能搜索到高质量无人机相关新闻`;
 
-【输出JSON格式】
-{
-  "技术分享": ["关键词1", "关键词2", ...],
-  "行业动态": ["关键词1", "关键词2", ...],
-  "产品资讯": ["关键词1", "关键词2", ...],
-  "公司新闻": ["关键词1", "关键词2", ...]
-}`;
-
-    console.log(`Generating keywords with Doubao, excluding ${existingKeywords.length} existing keywords, referencing ${existingArticleTitles.length} article titles`);
+    console.log(`Generating single keyword for ${category}`);
 
     const response = await fetch(`https://ark.cn-beijing.volces.com/api/v3/responses`, {
       method: "POST",
@@ -1341,7 +1332,7 @@ ${articleTitlesRef}
         "Content-Type": "application/json",
         "Authorization": `Bearer ${DOUBAO_API_KEY}`,
       },
-      signal: AbortSignal.timeout(60000), // 增加到60秒超时
+      signal: AbortSignal.timeout(15000), // 15秒超时，单个关键词应该很快
       body: JSON.stringify({
         model: "doubao-seed-1-8-251228",
         thinking: { type: "disabled" },
@@ -1354,8 +1345,8 @@ ${articleTitlesRef}
 
     if (!response.ok) {
       const errText = await response.text();
-      console.error("Doubao keyword generation API error:", response.status, errText);
-      throw new Error(`Doubao API error: ${response.status}`);
+      console.error(`Doubao API error for ${category}:`, response.status, errText);
+      return null;
     }
 
     const data = await response.json();
@@ -1377,25 +1368,51 @@ ${articleTitlesRef}
       aiContent = data.choices[0].message.content;
     }
     
-    console.log("AI generated keyword response length:", aiContent.length);
+    // 清理关键词：去除引号、换行、多余空格
+    const keyword = aiContent.trim().replace(/^["'`]|["'`]$/g, '').trim();
     
-    const jsonMatch = aiContent.match(/\{[\s\S]*\}/);
-    if (jsonMatch) {
-      const result = JSON.parse(jsonMatch[0]);
-      // 过滤掉已存在的关键词
+    if (keyword && keyword.length > 1 && keyword.length < 50) {
+      // 检查是否与已存在关键词重复
       const existingSet = new Set(existingKeywords.map(k => k.toLowerCase()));
-      for (const category of Object.keys(result)) {
-        result[category] = (result[category] as string[]).filter(
-          kw => !existingSet.has(kw.toLowerCase())
-        );
+      if (!existingSet.has(keyword.toLowerCase())) {
+        console.log(`Generated keyword for ${category}: ${keyword}`);
+        return keyword;
       }
-      return result;
     }
-    return {};
+    
+    return null;
   } catch (error) {
-    console.error("Keyword generation failed:", error);
-    return {};
+    console.error(`Keyword generation failed for ${category}:`, error);
+    return null;
   }
+}
+
+// 为所有分类生成关键词（每个分类一个，并行执行）
+async function generateHotKeywords(
+  existingKeywords: string[] = [],
+  existingArticleTitles: string[] = []
+): Promise<Record<string, string[]>> {
+  const categories = Object.keys(KEYWORD_GENERATION_GUIDE);
+  const result: Record<string, string[]> = {};
+  
+  // 并行为每个分类生成一个关键词
+  const promises = categories.map(async (category) => {
+    const keyword = await generateSingleKeywordForCategory(category, existingKeywords, existingArticleTitles);
+    return { category, keyword };
+  });
+  
+  const results = await Promise.all(promises);
+  
+  for (const { category, keyword } of results) {
+    if (keyword) {
+      result[category] = [keyword];
+    } else {
+      result[category] = [];
+    }
+  }
+  
+  console.log("Generated keywords:", JSON.stringify(result));
+  return result;
 }
 
 function escapeHtml(input: string): string {
