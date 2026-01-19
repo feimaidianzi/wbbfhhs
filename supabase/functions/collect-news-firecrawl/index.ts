@@ -1307,22 +1307,26 @@ const KEYWORD_GENERATION_GUIDE = {
 async function generateSingleKeywordForCategory(
   category: string,
   existingKeywords: string[] = [],
-  existingArticleTitles: string[] = []
+  existingArticleTitles: string[] = [],
+  addLog?: (type: 'info' | 'success' | 'warning' | 'error' | 'step', message: string, options?: any) => void,
 ): Promise<string | null> {
+  const startedAt = Date.now();
   try {
     const DOUBAO_API_KEY = Deno.env.get("DOUBAO_API_KEY");
     if (!DOUBAO_API_KEY) {
       console.log("DOUBAO_API_KEY not found for keyword generation");
+      addLog?.('warning', `未配置豆包密钥，跳过关键词生成：${category}`, { step: 'keyword' });
       return null;
     }
 
     const categoryGuide = KEYWORD_GENERATION_GUIDE[category as keyof typeof KEYWORD_GENERATION_GUIDE];
     if (!categoryGuide) {
       console.log(`Unknown category: ${category}`);
+      addLog?.('warning', `未知分类，跳过关键词生成：${category}`, { step: 'keyword' });
       return null;
     }
 
-    const existingList = existingKeywords.length > 0 
+    const existingList = existingKeywords.length > 0
       ? `\n\n【已存在的关键词（请勿重复）】\n${existingKeywords.slice(0, 50).join('、')}`
       : '';
 
@@ -1344,14 +1348,16 @@ ${articleTitlesRef}
 4. 能搜索到高质量无人机相关新闻`;
 
     console.log(`Generating single keyword for ${category}`);
+    addLog?.('info', `生成关键词：${category}`, { step: 'keyword' });
 
+    // 经验上：关键词生成应当很快；为避免“卡住”的体感，这里把单分类超时收紧
     const response = await fetch(`https://ark.cn-beijing.volces.com/api/v3/responses`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
         "Authorization": `Bearer ${DOUBAO_API_KEY}`,
       },
-      signal: AbortSignal.timeout(15000), // 15秒超时，单个关键词应该很快
+      signal: AbortSignal.timeout(8000),
       body: JSON.stringify({
         model: "doubao-seed-1-8-251228",
         thinking: { type: "disabled" },
@@ -1365,19 +1371,23 @@ ${articleTitlesRef}
     if (!response.ok) {
       const errText = await response.text();
       console.error(`Doubao API error for ${category}:`, response.status, errText);
+      addLog?.('warning', `关键词生成失败：${category}（${response.status}）`, {
+        step: 'keyword',
+        details: errText?.slice(0, 300) || undefined,
+      });
       return null;
     }
 
     const data = await response.json();
-    
+
     let aiContent = "";
     if (data.output && Array.isArray(data.output)) {
       for (const item of data.output) {
         if (item.type === "text" && item.text) {
           aiContent += item.text;
         } else if (item.type === "message" && item.content) {
-          const content = Array.isArray(item.content) 
-            ? item.content.map((c: any) => c.text || "").join("") 
+          const content = Array.isArray(item.content)
+            ? item.content.map((c: any) => c.text || "").join("")
             : item.content;
           aiContent += content;
         }
@@ -1386,22 +1396,35 @@ ${articleTitlesRef}
     if (!aiContent && data.choices?.[0]?.message?.content) {
       aiContent = data.choices[0].message.content;
     }
-    
+
     // 清理关键词：去除引号、换行、多余空格
     const keyword = aiContent.trim().replace(/^["'`]|["'`]$/g, '').trim();
-    
+
     if (keyword && keyword.length > 1 && keyword.length < 50) {
       // 检查是否与已存在关键词重复
       const existingSet = new Set(existingKeywords.map(k => k.toLowerCase()));
       if (!existingSet.has(keyword.toLowerCase())) {
-        console.log(`Generated keyword for ${category}: ${keyword}`);
+        const ms = Date.now() - startedAt;
+        console.log(`Generated keyword for ${category}: ${keyword} (${ms}ms)`);
+        addLog?.('success', `关键词生成完成：${category}`, { step: 'keyword', details: `${keyword}（${ms}ms）` });
         return keyword;
       }
+
+      addLog?.('warning', `关键词重复，已丢弃：${category}`, { step: 'keyword', details: keyword });
     }
-    
+
     return null;
   } catch (error) {
+    const ms = Date.now() - startedAt;
     console.error(`Keyword generation failed for ${category}:`, error);
+
+    const msg = String((error as any)?.message || error || '');
+    const isTimeout = msg.includes('timeout') || msg.includes('AbortError');
+    addLog?.(isTimeout ? 'warning' : 'error', `关键词生成${isTimeout ? '超时' : '异常'}：${category}`, {
+      step: 'keyword',
+      details: `${msg}（${ms}ms）`,
+    });
+
     return null;
   }
 }
@@ -1409,28 +1432,30 @@ ${articleTitlesRef}
 // 为所有分类生成关键词（每个分类一个，并行执行）
 async function generateHotKeywords(
   existingKeywords: string[] = [],
-  existingArticleTitles: string[] = []
+  existingArticleTitles: string[] = [],
+  addLog?: (type: 'info' | 'success' | 'warning' | 'error' | 'step', message: string, options?: any) => void,
 ): Promise<Record<string, string[]>> {
+  const startedAt = Date.now();
   const categories = Object.keys(KEYWORD_GENERATION_GUIDE);
   const result: Record<string, string[]> = {};
-  
-  // 并行为每个分类生成一个关键词
+
+  addLog?.('info', `开始并行生成关键词（${categories.length}个分类）`, { step: 'keyword' });
+
   const promises = categories.map(async (category) => {
-    const keyword = await generateSingleKeywordForCategory(category, existingKeywords, existingArticleTitles);
+    const keyword = await generateSingleKeywordForCategory(category, existingKeywords, existingArticleTitles, addLog);
     return { category, keyword };
   });
-  
+
   const results = await Promise.all(promises);
-  
+
   for (const { category, keyword } of results) {
-    if (keyword) {
-      result[category] = [keyword];
-    } else {
-      result[category] = [];
-    }
+    result[category] = keyword ? [keyword] : [];
   }
-  
+
+  const totalMs = Date.now() - startedAt;
   console.log("Generated keywords:", JSON.stringify(result));
+  addLog?.('success', `关键词生成阶段完成`, { step: 'keyword', details: `${totalMs}ms` });
+
   return result;
 }
 
@@ -1633,9 +1658,9 @@ Deno.serve(async (req) => {
         .limit(50);
       const articleTitles = (existingArticles || []).map((a: { title: string }) => a.title);
       
-      const keywords = await generateHotKeywords(existingList, articleTitles);
+      const keywords = await generateHotKeywords(existingList, articleTitles, addLog);
       return new Response(
-        JSON.stringify({ success: true, keywords, existingCount: existingList.length }),
+        JSON.stringify({ success: true, keywords, existingCount: existingList.length, logs }),
         { headers: { ...corsHeaders, "Content-Type": "application/json" } }
       );
     }
@@ -1659,8 +1684,8 @@ Deno.serve(async (req) => {
       const articleTitles = (existingArticles || []).map((a: { title: string }) => a.title);
       addLog('info', `参考 ${articleTitles.length} 篇现有新闻标题`, { step: 'keyword' });
 
-      addLog('step', '调用豆包AI生成新关键词...', { step: 'keyword' });
-      const generatedKeywords = await generateHotKeywords(existingList, articleTitles);
+       addLog('step', '调用豆包AI生成新关键词...', { step: 'keyword' });
+       const generatedKeywords = await generateHotKeywords(existingList, articleTitles, addLog);
 
       const allNewKeywords: { keyword: string; category: string }[] = [];
       for (const [cat, kws] of Object.entries(generatedKeywords)) {
@@ -1721,9 +1746,9 @@ Deno.serve(async (req) => {
         .limit(50);
       const articleTitles = (existingArticles || []).map((a: { title: string }) => a.title);
       
-      // 2. 使用豆包AI生成新关键词
-      addLog('step', '调用豆包AI生成新关键词...', { step: 'keyword' });
-      const generatedKeywords = await generateHotKeywords(existingList, articleTitles);
+       // 2. 使用豆包AI生成新关键词
+       addLog('step', '调用豆包AI生成新关键词...', { step: 'keyword' });
+       const generatedKeywords = await generateHotKeywords(existingList, articleTitles, addLog);
       const allNewKeywords: { keyword: string; category: string }[] = [];
       
       for (const [cat, kws] of Object.entries(generatedKeywords)) {
