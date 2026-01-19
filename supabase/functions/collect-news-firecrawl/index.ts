@@ -1046,7 +1046,7 @@ function isValidImage(imgUrl: string): boolean {
   if (imgUrl.startsWith('data:')) return false;
   if (!imgUrl.startsWith('http')) return false;
   
-  // 只排除最明显的非内容图片
+  // 排除非内容图片
   const excludePatterns = [
     // 明确的非内容图片
     'logo', 'icon', 'avatar', 'emoji', 'sprite', 'button',
@@ -1056,6 +1056,15 @@ function isValidImage(imgUrl: string): boolean {
     'placeholder', 'spacer', 'blank',
     // 水印标识
     'watermark', 'stamp',
+    // 网站备案、证书、工具栏图片（CSDN等）
+    'icp', 'beian', 'record', 'cert', 'license', 'content-toolbar',
+    'toolbar', 'footer-', 'header-logo', 'site-logo',
+    // 社交分享图标
+    'share-', 'social-', 'wechat-', 'weibo-', 'qq-', 'twitter-', 'facebook-',
+    // 二维码
+    'qrcode', 'qr-code', 'ewm',
+    // 其他无效图片
+    'loading', 'spinner', 'default-avatar', 'no-image', 'error-image',
   ];
   
   const lowerUrl = imgUrl.toLowerCase();
@@ -1063,11 +1072,21 @@ function isValidImage(imgUrl: string): boolean {
     if (lowerUrl.includes(pattern)) return false;
   }
   
-  // 只排除明确的小图尺寸
+  // 排除明确的小图尺寸
   const smallSizePatterns = [
     /\b\d{1,2}x\d{1,2}\b/,   // 如 16x16, 32x32 (但不匹配 100x100)
   ];
   for (const pattern of smallSizePatterns) {
+    if (pattern.test(lowerUrl)) return false;
+  }
+  
+  // 排除特定域名的工具类图片
+  const invalidDomainPatterns = [
+    /csdnimg\.cn\/cdn\/content-toolbar/,  // CSDN工具栏图片
+    /csdnimg\.cn\/.*?-icp/,               // CSDN备案图片
+    /static\.csdn\.net\/.*?logo/,         // CSDN logo
+  ];
+  for (const pattern of invalidDomainPatterns) {
     if (pattern.test(lowerUrl)) return false;
   }
   
