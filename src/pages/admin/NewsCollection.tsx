@@ -311,15 +311,15 @@ const NewsCollection = () => {
       fetchData();
     }, 5000);
 
-    // 最多监控 3 分钟，避免一直占用
+    // 最多监控 30 分钟（长任务时避免误判为失败）
     backgroundMonitorTimeoutRef.current = window.setTimeout(() => {
       stopBackgroundMonitor();
-      setFirecrawlCollecting(false);
+      // 不要在这里把 UI 切回“未采集”，否则用户会以为失败。
       addCollectionLog({
         type: 'info',
-        message: '自动刷新已停止（如仍在采集中，可再次点击按钮或手动刷新页面）',
+        message: '自动刷新已停止（采集可能仍在后台继续运行，可手动刷新页面查看最新进度）',
       });
-    }, 180000);
+    }, 30 * 60 * 1000);
   };
 
   // 组件卸载时清理
@@ -603,14 +603,22 @@ const NewsCollection = () => {
   const triggerSingleTask = async (task: ScheduledTask) => {
     // 只标记当前任务在运行，避免 UI 看起来像"全部任务都在执行"
     setRunningScheduledTaskId(task.id);
+    stopBackgroundMonitor();
     clearCollectionLogs();
-    addCollectionLog({ type: 'step', step: 'search', message: `开始采集: ${task.name}`, details: `分类: ${task.category || '全部分类'} - 使用AI自动生成关键词` });
-    
+    addCollectionLog({
+      type: 'step',
+      step: 'search',
+      message: `开始采集: ${task.name}`,
+      details: `分类: ${task.category || '全部分类'} - 使用AI自动生成关键词`,
+    });
+
+    let keepRunning = false;
+
     try {
       // 使用 AbortController 设置超时 - 180秒
       const controller = new AbortController();
       const timeoutId = setTimeout(() => controller.abort(), 180000);
-      
+
       // 默认使用AI自动生成关键词并采集
       const response = await supabase.functions.invoke('collect-news-firecrawl', {
         body: {
@@ -619,64 +627,73 @@ const NewsCollection = () => {
           autoPublish: task.auto_publish !== false,
         },
       });
-      
+
       clearTimeout(timeoutId);
 
       if (response.error) throw response.error;
-      
+
       // 解析边缘函数返回的详细日志
       if (response.data?.logs) {
         parseLogsFromResponse(response.data.logs);
       }
-      
+
       // 显示生成的关键词
       if (response.data?.generatedKeywords) {
         setGeneratedKeywords(response.data.generatedKeywords);
       }
-      
+
       const { savedKeywordsCount = 0, articlesCollected = 0, articlesFiltered = 0 } = response.data || {};
-      
-      addCollectionLog({ 
-        type: 'success', 
-        message: `完成: 生成${savedKeywordsCount}个新关键词, 采集${articlesCollected}篇, 过滤${articlesFiltered}篇` 
+
+      addCollectionLog({
+        type: 'success',
+        message: `完成: 生成${savedKeywordsCount}个新关键词, 采集${articlesCollected}篇, 过滤${articlesFiltered}篇`,
       });
 
       toast({
         title: '任务执行完成',
-        description: `生成${savedKeywordsCount}个新关键词，采集${articlesCollected}篇文章${articlesFiltered > 0 ? `（过滤${articlesFiltered}篇）` : ''}`,
+        description: `生成${savedKeywordsCount}个新关键词，采集${articlesCollected}篇文章${
+          articlesFiltered > 0 ? `（过滤${articlesFiltered}篇）` : ''
+        }`,
       });
       fetchData();
     } catch (error: any) {
-      const isTimeout = error.message?.includes('Failed to fetch') || error.name === 'AbortError';
-      addCollectionLog({ 
-        type: isTimeout ? 'info' : 'error', 
-        message: isTimeout 
-          ? '⏳ 采集仍在后台进行中，请稍后刷新查看结果...' 
-          : `执行失败: ${error.message}` 
+      const isTransient = isTransientCollectionError(error);
+      if (isTransient) {
+        keepRunning = true;
+        startBackgroundMonitor(String(error?.message || error));
+      }
+
+      addCollectionLog({
+        type: isTransient ? 'info' : 'error',
+        message: isTransient ? '⏳ 采集中（前端连接中断，已启动自动刷新）' : `执行失败: ${error.message}`,
       });
-      toast({ 
-        title: isTimeout ? '采集进行中' : '执行失败', 
-        description: isTimeout 
-          ? '后台任务正在执行中，请稍等1-2分钟后刷新页面查看结果。'
-          : error.message, 
-        variant: isTimeout ? 'default' : 'destructive' 
+
+      toast({
+        title: isTransient ? '采集进行中' : '执行失败',
+        description: isTransient
+          ? '前端与后台连接中断，但后台可能仍在继续执行。系统将自动刷新数据（最长30分钟）。'
+          : error.message,
+        variant: isTransient ? 'default' : 'destructive',
       });
     } finally {
-      setRunningScheduledTaskId(null);
+      if (!keepRunning) setRunningScheduledTaskId(null);
     }
   };
 
   // 手动触发定时任务（全部）- 使用AI自动生成关键词
   const triggerScheduledTask = async () => {
     setFirecrawlCollecting(true);
+    stopBackgroundMonitor();
     clearCollectionLogs();
     addCollectionLog({ type: 'step', step: 'search', message: '开始全量采集', details: '使用AI自动生成关键词' });
-    
+
+    let keepRunning = false;
+
     try {
       // 使用 AbortController 设置超时 - 180秒
       const controller = new AbortController();
       const timeoutId = setTimeout(() => controller.abort(), 180000);
-      
+
       const response = await supabase.functions.invoke('collect-news-firecrawl', {
         body: {
           action: 'auto-generate-and-collect',
@@ -684,50 +701,56 @@ const NewsCollection = () => {
           autoPublish: true,
         },
       });
-      
+
       clearTimeout(timeoutId);
 
       if (response.error) throw response.error;
-      
+
       // 解析边缘函数返回的详细日志
       if (response.data?.logs) {
         parseLogsFromResponse(response.data.logs);
       }
-      
+
       // 显示生成的关键词
       if (response.data?.generatedKeywords) {
         setGeneratedKeywords(response.data.generatedKeywords);
       }
-      
+
       const { savedKeywordsCount = 0, articlesCollected = 0, articlesFiltered = 0 } = response.data || {};
-      
-      addCollectionLog({ 
-        type: 'success', 
-        message: `完成: 生成${savedKeywordsCount}个新关键词, 采集${articlesCollected}篇, 过滤${articlesFiltered}篇` 
+
+      addCollectionLog({
+        type: 'success',
+        message: `完成: 生成${savedKeywordsCount}个新关键词, 采集${articlesCollected}篇, 过滤${articlesFiltered}篇`,
       });
 
       toast({
         title: '任务执行完成',
-        description: `生成${savedKeywordsCount}个新关键词，采集${articlesCollected}篇文章${articlesFiltered > 0 ? `（过滤${articlesFiltered}篇）` : ''}`,
+        description: `生成${savedKeywordsCount}个新关键词，采集${articlesCollected}篇文章${
+          articlesFiltered > 0 ? `（过滤${articlesFiltered}篇）` : ''
+        }`,
       });
       fetchData();
     } catch (error: any) {
-      const isTimeout = error.message?.includes('Failed to fetch') || error.name === 'AbortError';
-      addCollectionLog({ 
-        type: isTimeout ? 'info' : 'error', 
-        message: isTimeout 
-          ? '⏳ 采集仍在后台进行中，请稍后刷新查看结果...' 
-          : `执行失败: ${error.message}` 
+      const isTransient = isTransientCollectionError(error);
+      if (isTransient) {
+        keepRunning = true;
+        startBackgroundMonitor(String(error?.message || error));
+      }
+
+      addCollectionLog({
+        type: isTransient ? 'info' : 'error',
+        message: isTransient ? '⏳ 采集中（前端连接中断，已启动自动刷新）' : `执行失败: ${error.message}`,
       });
+
       toast({
-        title: isTimeout ? '采集进行中' : '执行失败',
-        description: isTimeout 
-          ? '后台任务正在执行中，请稍等1-2分钟后刷新页面查看结果。'
+        title: isTransient ? '采集进行中' : '执行失败',
+        description: isTransient
+          ? '前端与后台连接中断，但后台可能仍在继续执行。系统将自动刷新数据（最长30分钟）。'
           : error.message,
-        variant: isTimeout ? 'default' : 'destructive',
+        variant: isTransient ? 'default' : 'destructive',
       });
     } finally {
-      setFirecrawlCollecting(false);
+      if (!keepRunning) setFirecrawlCollecting(false);
     }
   };
 
