@@ -260,6 +260,12 @@ const NewsCollection = () => {
   // 采集“后台仍在执行”时的前端监控（定时刷新数据，避免误判为执行失败）
   const backgroundMonitorIntervalRef = useRef<number | null>(null);
   const backgroundMonitorTimeoutRef = useRef<number | null>(null);
+  const backgroundMonitorStartedAtRef = useRef<number | null>(null);
+
+  const stopCollectingUI = () => {
+    setFirecrawlCollecting(false);
+    setRunningScheduledTaskId(null);
+  };
   
   // 添加日志的工具函数
   const addCollectionLog = (log: Omit<CollectionLog, 'id' | 'timestamp'>) => {
@@ -284,6 +290,7 @@ const NewsCollection = () => {
       window.clearTimeout(backgroundMonitorTimeoutRef.current);
       backgroundMonitorTimeoutRef.current = null;
     }
+    backgroundMonitorStartedAtRef.current = null;
   };
 
   const isTransientCollectionError = (error: any) => {
@@ -295,9 +302,52 @@ const NewsCollection = () => {
     );
   };
 
+  const checkIfCollectionFinished = async () => {
+    // 如果没有监控中的“开始时间”，无法判断本轮采集是否结束
+    if (!backgroundMonitorStartedAtRef.current) return;
+
+    try {
+      const { data, error } = await supabase
+        .from('news_collection_tasks')
+        .select('id,status,created_at,completed_at,error_message')
+        .order('created_at', { ascending: false })
+        .limit(1)
+        .maybeSingle();
+
+      if (error) throw error;
+      if (!data) return;
+
+      const startedAt = backgroundMonitorStartedAtRef.current;
+      const createdAt = new Date(data.created_at).getTime();
+      const isThisRunOrLater = createdAt >= startedAt - 5000; // 给一点时间误差
+
+      if (!isThisRunOrLater) return;
+
+      const isDone = Boolean(data.completed_at) || ['completed', 'failed', 'error'].includes(String(data.status || '').toLowerCase());
+      if (!isDone) return;
+
+      stopBackgroundMonitor();
+      stopCollectingUI();
+
+      addCollectionLog({
+        type: data.error_message ? 'warning' : 'success',
+        step: 'save',
+        message: data.error_message
+          ? '⚠️ 检测到后台采集已结束（存在报错），已停止“采集中”状态'
+          : '✅ 检测到后台采集已结束，已停止“采集中”状态',
+        details: data.error_message || undefined,
+      });
+
+      fetchData();
+    } catch {
+      // 这里不要打断用户体验：如果查询失败，就继续保持自动刷新
+    }
+  };
+
   // 当网络中断/超时，但后台可能仍在继续执行时：保持“采集中”并自动刷新数据
   const startBackgroundMonitor = (reason: string) => {
     stopBackgroundMonitor();
+    backgroundMonitorStartedAtRef.current = Date.now();
 
     addCollectionLog({
       type: 'info',
@@ -306,18 +356,19 @@ const NewsCollection = () => {
       details: reason,
     });
 
-    // 每 5 秒刷新一次数据，让用户看到新文章/关键词出现
+    // 每 5 秒刷新一次数据，让用户看到新文章/关键词出现；并检测后台是否已完成
     backgroundMonitorIntervalRef.current = window.setInterval(() => {
       fetchData();
+      void checkIfCollectionFinished();
     }, 5000);
 
-    // 最多监控 30 分钟（长任务时避免误判为失败）
+    // 最多监控 30 分钟：如果仍未检测到结束，则认为本次前端已无法追踪，停止“采集中”避免一直卡住
     backgroundMonitorTimeoutRef.current = window.setTimeout(() => {
       stopBackgroundMonitor();
-      // 不要在这里把 UI 切回“未采集”，否则用户会以为失败。
+      stopCollectingUI();
       addCollectionLog({
-        type: 'info',
-        message: '自动刷新已停止（采集可能仍在后台继续运行，可手动刷新页面查看最新进度）',
+        type: 'warning',
+        message: '⚠️ 超过30分钟仍未检测到采集结束，已停止“采集中”状态（可手动刷新查看是否有新内容）',
       });
     }, 30 * 60 * 1000);
   };
