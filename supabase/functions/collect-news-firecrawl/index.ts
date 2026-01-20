@@ -1477,7 +1477,7 @@ ${articleTitlesRef}
         "Content-Type": "application/json",
         "Authorization": `Bearer ${DOUBAO_API_KEY}`,
       },
-      signal: AbortSignal.timeout(8000),
+      signal: AbortSignal.timeout(15000),
       body: JSON.stringify({
         model: "doubao-seed-1-8-251228",
         thinking: { type: "disabled" },
@@ -1549,17 +1549,27 @@ ${articleTitlesRef}
   }
 }
 
-// 为所有分类生成关键词（每个分类一个，并行执行）
+// 为指定分类或所有分类生成关键词
+// 如果传入 targetCategory，只为该分类生成关键词；否则为所有分类并行生成
 async function generateHotKeywords(
   existingKeywords: string[] = [],
   existingArticleTitles: string[] = [],
   addLog?: (type: 'info' | 'success' | 'warning' | 'error' | 'step', message: string, options?: any) => void,
+  targetCategory?: string, // 新增：指定分类参数
 ): Promise<Record<string, string[]>> {
   const startedAt = Date.now();
-  const categories = Object.keys(KEYWORD_GENERATION_GUIDE);
+  
+  // 如果指定了分类，只为该分类生成；否则为所有分类生成
+  let categories: string[];
+  if (targetCategory && KEYWORD_GENERATION_GUIDE[targetCategory as keyof typeof KEYWORD_GENERATION_GUIDE]) {
+    categories = [targetCategory];
+    addLog?.('info', `为指定分类生成关键词：${targetCategory}`, { step: 'keyword' });
+  } else {
+    categories = Object.keys(KEYWORD_GENERATION_GUIDE);
+    addLog?.('info', `开始并行生成关键词（${categories.length}个分类）`, { step: 'keyword' });
+  }
+  
   const result: Record<string, string[]> = {};
-
-  addLog?.('info', `开始并行生成关键词（${categories.length}个分类）`, { step: 'keyword' });
 
   const promises = categories.map(async (category) => {
     const keyword = await generateSingleKeywordForCategory(category, existingKeywords, existingArticleTitles, addLog);
@@ -1898,7 +1908,14 @@ Deno.serve(async (req) => {
 
     // 自动生成关键词并采集新闻
     if (action === "auto-generate-and-collect") {
-      addLog('step', '开始AI自动生成关键词', { step: 'keyword' });
+      // 获取目标分类（如果指定了分类，只为该分类生成关键词）
+      const targetCategory = category as string | undefined;
+      
+      if (targetCategory) {
+        addLog('step', `开始为"${targetCategory}"生成关键词`, { step: 'keyword' });
+      } else {
+        addLog('step', '开始AI自动生成关键词（所有分类）', { step: 'keyword' });
+      }
       
       // 1. 获取已存在的关键词列表
       const { data: existingKeywords } = await supabase
@@ -1915,9 +1932,9 @@ Deno.serve(async (req) => {
         .limit(50);
       const articleTitles = (existingArticles || []).map((a: { title: string }) => a.title);
       
-       // 2. 使用豆包AI生成新关键词
-       addLog('step', '调用豆包AI生成新关键词...', { step: 'keyword' });
-       const generatedKeywords = await generateHotKeywords(existingList, articleTitles, addLog);
+      // 2. 使用豆包AI生成新关键词（传入目标分类，只生成该分类的关键词）
+      addLog('step', '调用豆包AI生成新关键词...', { step: 'keyword' });
+      const generatedKeywords = await generateHotKeywords(existingList, articleTitles, addLog, targetCategory);
       const allNewKeywords: { keyword: string; category: string }[] = [];
       
       for (const [cat, kws] of Object.entries(generatedKeywords)) {
