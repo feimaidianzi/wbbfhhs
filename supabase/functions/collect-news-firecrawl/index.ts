@@ -5,6 +5,341 @@ const corsHeaders = {
   "Access-Control-Allow-Headers": "authorization, x-client-info, apikey, content-type",
 };
 
+// ========== 图片AI评估配置 ==========
+const IMAGE_SCORE_THRESHOLD = 6; // 图片评分阈值
+const MIN_IMAGE_SIZE = 10000; // 最小图片大小 (10KB)
+const SUPPORTED_IMAGE_FORMATS = ['image/jpeg', 'image/png', 'image/webp', 'image/gif'];
+
+// 防盗链域名黑名单 - 这些域名的图片需要转存到本地
+const HOTLINK_PROTECTED_DOMAINS = [
+  'csdnimg.cn', 'csdn.net', 'sinaimg.cn', 'sina.com.cn', 'gamersky.com',
+  'bilibili.com', 'hdslb.com', 'zhimg.com', 'zhihu.com', '36kr.com',
+  'ithome.com', 'ifeng.com', 'sohu.com', 'qq.com', 'gtimg.cn', 'qpic.cn',
+  'mmbiz.qpic.cn', 'weixin.qq.com', 'wechat.com', 'douyin.com', 'douyinpic.com',
+  'toutiao.com', 'pstatp.com', 'bytedance.com', 'xiaohongshu.com', 'xhscdn.com',
+  'kuaishou.com', 'kwai.com', 'toppodcast.com', 'gcores.com', 'alioss.gcores.com',
+];
+
+// 检查图片是否需要转存到本地
+function needsLocalStorage(imageUrl: string): boolean {
+  try {
+    const url = new URL(imageUrl);
+    const hostname = url.hostname.toLowerCase();
+    return HOTLINK_PROTECTED_DOMAINS.some(domain => hostname.includes(domain));
+  } catch {
+    return false;
+  }
+}
+
+// 下载图片
+async function downloadImage(imageUrl: string): Promise<{ buffer: ArrayBuffer; contentType: string } | null> {
+  try {
+    const response = await fetch(imageUrl, {
+      headers: {
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36',
+        'Accept': 'image/avif,image/webp,image/apng,image/*,*/*;q=0.8',
+        'Referer': new URL(imageUrl).origin,
+      },
+      signal: AbortSignal.timeout(15000),
+    });
+
+    if (!response.ok) return null;
+
+    const contentType = response.headers.get('content-type') || 'image/jpeg';
+    if (!SUPPORTED_IMAGE_FORMATS.some(f => contentType.includes(f.split('/')[1]))) return null;
+
+    const buffer = await response.arrayBuffer();
+    if (buffer.byteLength < MIN_IMAGE_SIZE) return null;
+
+    return { buffer, contentType };
+  } catch {
+    return null;
+  }
+}
+
+// 生成唯一文件名
+function generateImageFileName(contentType: string): string {
+  const timestamp = Date.now();
+  const random = Math.random().toString(36).substring(2, 8);
+  const ext = contentType.includes('png') ? 'png' : 
+              contentType.includes('webp') ? 'webp' : 
+              contentType.includes('gif') ? 'gif' : 'jpg';
+  return `${timestamp}-${random}.${ext}`;
+}
+
+// 上传图片到存储桶
+async function uploadImageToStorage(
+  supabase: any,
+  buffer: ArrayBuffer,
+  contentType: string,
+  articleId: string
+): Promise<string | null> {
+  try {
+    const fileName = `${articleId}/${generateImageFileName(contentType)}`;
+    
+    const { error } = await supabase.storage
+      .from('news-images')
+      .upload(fileName, buffer, { contentType, cacheControl: '31536000', upsert: false });
+
+    if (error) return null;
+
+    const { data: urlData } = supabase.storage
+      .from('news-images')
+      .getPublicUrl(fileName);
+
+    return urlData.publicUrl;
+  } catch {
+    return null;
+  }
+}
+
+// 使用AI评估图片与文章的相关性
+async function evaluateImageRelevance(
+  imageUrl: string,
+  articleTitle: string,
+  articleSummary: string
+): Promise<{ score: number; reason: string; isRelevant: boolean }> {
+  try {
+    const LOVABLE_API_KEY = Deno.env.get("LOVABLE_API_KEY");
+    if (!LOVABLE_API_KEY) {
+      return { score: 7, reason: "未配置AI评估，默认通过", isRelevant: true };
+    }
+
+    const prompt = `你是一位专业的图片编辑，请评估以下图片是否适合用于新闻文章配图。
+
+【文章标题】${articleTitle}
+
+【文章摘要】${articleSummary.substring(0, 300)}
+
+【评分标准】（满分10分）
+1. 相关性（4分）：图片内容是否与文章主题相关（无人机、科技、航空、工业等）
+2. 质量（3分）：图片是否清晰、专业、适合新闻配图
+3. 适用性（3分）：图片是否适合放在专业企业官网的新闻页面
+
+【扣分项】
+- 明显是广告、促销图片：-5分
+- 包含水印、logo覆盖：-3分
+- 低质量、模糊、像素化：-3分
+- 与无人机/科技完全无关：-4分
+- 二维码、app下载引导：-5分
+- 个人自拍、生活照：-3分
+- 播客封面、音频应用图标：-5分
+
+请直接返回JSON格式：
+{
+  "score": 7.5,
+  "reason": "简要评价理由（30字以内）",
+  "isRelevant": true
+}`;
+
+    const response = await fetch("https://ai.gateway.lovable.dev/v1/chat/completions", {
+      method: "POST",
+      headers: {
+        "Authorization": `Bearer ${LOVABLE_API_KEY}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        model: "google/gemini-2.5-flash-image-preview",
+        messages: [{
+          role: "user",
+          content: [
+            { type: "text", text: prompt },
+            { type: "image_url", image_url: { url: imageUrl } }
+          ]
+        }],
+        modalities: ["text"]
+      }),
+      signal: AbortSignal.timeout(30000),
+    });
+
+    if (!response.ok) {
+      return { score: 6, reason: "AI评估失败，默认通过", isRelevant: true };
+    }
+
+    const data = await response.json();
+    const content = data.choices?.[0]?.message?.content || "";
+    
+    const jsonMatch = content.match(/\{[\s\S]*\}/);
+    if (jsonMatch) {
+      const result = JSON.parse(jsonMatch[0]);
+      const score = parseFloat(result.score) || 6;
+      return {
+        score,
+        reason: result.reason || "评估完成",
+        isRelevant: result.isRelevant !== false && score >= IMAGE_SCORE_THRESHOLD
+      };
+    }
+
+    return { score: 6, reason: "解析失败，默认通过", isRelevant: true };
+  } catch {
+    return { score: 6, reason: "评估异常，默认通过", isRelevant: true };
+  }
+}
+
+// 日志函数类型（用于图片处理函数）
+type LogFunction = (
+  type: 'info' | 'success' | 'warning' | 'error' | 'step',
+  message: string,
+  options?: {
+    step?: 'search' | 'scrape' | 'clean' | 'score' | 'filter' | 'save' | 'rewrite' | 'keyword' | 'image';
+    details?: string;
+    articleTitle?: string;
+    score?: number;
+    isReviewOrAd?: boolean;
+  }
+) => void;
+
+// 处理单张图片（AI评估 + 转存）
+async function processArticleImage(
+  supabase: any,
+  imageUrl: string,
+  articleId: string,
+  articleTitle: string,
+  articleSummary: string,
+  addLog?: LogFunction
+): Promise<{
+  originalUrl: string;
+  newUrl: string | null;
+  score: number;
+  isRelevant: boolean;
+  wasConverted: boolean;
+}> {
+  const result = {
+    originalUrl: imageUrl,
+    newUrl: null as string | null,
+    score: 0,
+    isRelevant: false,
+    wasConverted: false,
+  };
+
+  // 1. AI评估图片相关性
+  addLog?.('info', `🖼️ AI评估图片...`, { step: 'image', details: imageUrl.substring(0, 60) });
+  const evaluation = await evaluateImageRelevance(imageUrl, articleTitle, articleSummary);
+  result.score = evaluation.score;
+  result.isRelevant = evaluation.isRelevant;
+
+  if (!evaluation.isRelevant) {
+    addLog?.('warning', `❌ 图片评分 ${evaluation.score} 不通过: ${evaluation.reason}`, { step: 'image' });
+    return result;
+  }
+
+  addLog?.('success', `✅ 图片评分 ${evaluation.score}: ${evaluation.reason}`, { step: 'image' });
+
+  // 2. 检查是否需要转存
+  if (needsLocalStorage(imageUrl)) {
+    addLog?.('info', `📥 下载防盗链图片...`, { step: 'image' });
+    
+    const downloaded = await downloadImage(imageUrl);
+    if (!downloaded) {
+      result.isRelevant = false;
+      addLog?.('warning', `下载失败，跳过此图片`, { step: 'image' });
+      return result;
+    }
+
+    const localUrl = await uploadImageToStorage(supabase, downloaded.buffer, downloaded.contentType, articleId);
+    if (localUrl) {
+      result.newUrl = localUrl;
+      result.wasConverted = true;
+      addLog?.('success', `📤 图片已转存到本地`, { step: 'image' });
+    } else {
+      result.isRelevant = false;
+      addLog?.('warning', `上传失败，跳过此图片`, { step: 'image' });
+    }
+  } else {
+    result.newUrl = imageUrl;
+  }
+
+  return result;
+}
+
+// 处理文章中的所有图片
+async function processAllArticleImages(
+  supabase: any,
+  articleId: string,
+  content: string,
+  coverImage: string | null,
+  title: string,
+  summary: string,
+  addLog?: LogFunction
+): Promise<{
+  newContent: string;
+  newCoverImage: string | null;
+  processedCount: number;
+  convertedCount: number;
+  rejectedCount: number;
+}> {
+  let newContent = content;
+  let newCoverImage = coverImage;
+  let processedCount = 0;
+  let convertedCount = 0;
+  let rejectedCount = 0;
+
+  // 提取content中的所有图片
+  const imgMatches = content.match(/<img[^>]+src=["']([^"']+)["'][^>]*>/gi) || [];
+  const imageUrls: string[] = [];
+  
+  for (const match of imgMatches) {
+    const srcMatch = match.match(/src=["']([^"']+)["']/i);
+    if (srcMatch && srcMatch[1]) {
+      imageUrls.push(srcMatch[1]);
+    }
+  }
+
+  addLog?.('step', `🖼️ 开始AI图片评估 (${imageUrls.length + (coverImage ? 1 : 0)} 张)`, { step: 'image' });
+
+  // 处理封面图
+  if (coverImage) {
+    const result = await processArticleImage(supabase, coverImage, articleId, title, summary, addLog);
+    processedCount++;
+    
+    if (result.isRelevant && result.newUrl) {
+      newCoverImage = result.newUrl;
+      if (result.wasConverted) convertedCount++;
+    } else {
+      rejectedCount++;
+      newCoverImage = null;
+    }
+  }
+
+  // 处理正文图片
+  for (const imgUrl of imageUrls) {
+    const result = await processArticleImage(supabase, imgUrl, articleId, title, summary, addLog);
+    processedCount++;
+    
+    if (result.isRelevant && result.newUrl && result.newUrl !== imgUrl) {
+      // 替换内容中的图片URL
+      newContent = newContent.replace(
+        new RegExp(escapeRegExpForImage(imgUrl), 'g'),
+        result.newUrl
+      );
+      if (result.wasConverted) convertedCount++;
+    } else if (!result.isRelevant) {
+      // 删除不相关的图片
+      newContent = newContent.replace(
+        new RegExp(`<figure[^>]*>\\s*<img[^>]*src=["']${escapeRegExpForImage(imgUrl)}["'][^>]*>\\s*(?:<figcaption[^>]*>.*?</figcaption>)?\\s*</figure>`, 'gi'),
+        ''
+      );
+      newContent = newContent.replace(
+        new RegExp(`<img[^>]*src=["']${escapeRegExpForImage(imgUrl)}["'][^>]*>`, 'gi'),
+        ''
+      );
+      rejectedCount++;
+    }
+  }
+
+  // 清理多余空行
+  newContent = newContent.replace(/\n{3,}/g, '\n\n');
+
+  addLog?.('success', `图片处理完成: ${processedCount} 张评估, ${convertedCount} 张转存, ${rejectedCount} 张剔除`, { step: 'image' });
+
+  return { newContent, newCoverImage, processedCount, convertedCount, rejectedCount };
+}
+
+// 转义正则表达式特殊字符
+function escapeRegExpForImage(string: string): string {
+  return string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+}
+
 // 公司产品列表 - 用于生成关键词
 const COMPANY_PRODUCTS = {
   drones: ["多旋翼无人机", "Multi-rotor drone", "quadcopter", "hexacopter"],
@@ -1695,7 +2030,7 @@ async function buildFallbackArticleWithAI(args: {
 interface ProcessLog {
   timestamp: string;
   type: 'info' | 'success' | 'warning' | 'error' | 'step';
-  step?: 'search' | 'scrape' | 'clean' | 'score' | 'filter' | 'save' | 'rewrite' | 'keyword';
+  step?: 'search' | 'scrape' | 'clean' | 'score' | 'filter' | 'save' | 'rewrite' | 'keyword' | 'image';
   message: string;
   details?: string;
   articleTitle?: string;
@@ -2081,7 +2416,7 @@ Deno.serve(async (req) => {
 
               // 保存文章
               addLog('info', '保存文章...', { step: 'save', articleTitle: article.title });
-              const { error: insertError } = await supabase
+              const { data: insertedArticle, error: insertError } = await supabase
                 .from("news_articles")
                 .insert({
                   title: article.title,
@@ -2102,18 +2437,43 @@ Deno.serve(async (req) => {
                   quality_reason: qualityResult?.reason || null,
                   is_published: autoPublish,
                   published_at: autoPublish ? new Date().toISOString() : null,
-                });
+                })
+                .select('id')
+                .single();
 
-              if (!insertError) {
+              if (!insertError && insertedArticle) {
+                // AI图片评估和处理
+                const imageResult = await processAllArticleImages(
+                  supabase,
+                  insertedArticle.id,
+                  article.content,
+                  article.coverImage,
+                  article.title,
+                  article.summary || '',
+                  addLog
+                );
+
+                // 更新文章的图片内容
+                if (imageResult.convertedCount > 0 || imageResult.rejectedCount > 0) {
+                  await supabase
+                    .from("news_articles")
+                    .update({
+                      content: imageResult.newContent,
+                      cover_image: imageResult.newCoverImage,
+                    })
+                    .eq('id', insertedArticle.id);
+                }
+
                 addLog('success', '采集成功', {
                   step: 'save',
                   articleTitle: article.title,
                   score: qualityResult?.score,
+                  details: `图片: ${imageResult.processedCount}评估 ${imageResult.convertedCount}转存 ${imageResult.rejectedCount}剔除`
                 });
                 catCollected++;
                 totalCollected++;
               } else {
-                addLog('error', `保存失败: ${insertError.message}`, { step: 'save', articleTitle: article.title });
+                addLog('error', `保存失败: ${insertError?.message}`, { step: 'save', articleTitle: article.title });
               }
               
               await new Promise(resolve => setTimeout(resolve, 300));
@@ -2251,7 +2611,8 @@ Deno.serve(async (req) => {
           const aiEdited = Boolean(rewritten);
 
           // 第三步：保存到数据库
-          const { error: insertError } = await supabase
+          addLog('info', '保存文章...', { step: 'save', articleTitle: article.title });
+          const { data: insertedArticle, error: insertError } = await supabase
             .from("news_articles")
             .insert({
               title: article.title,
@@ -2272,9 +2633,33 @@ Deno.serve(async (req) => {
               quality_reason: qualityResult?.reason || null,
               is_published: autoPublish,
               published_at: autoPublish ? new Date().toISOString() : null,
-            });
+            })
+            .select('id')
+            .single();
 
-          if (!insertError) {
+          if (!insertError && insertedArticle) {
+            // AI图片评估和处理
+            const imageResult = await processAllArticleImages(
+              supabase,
+              insertedArticle.id,
+              article.content,
+              article.coverImage,
+              article.title,
+              article.summary || '',
+              addLog
+            );
+
+            // 更新文章的图片内容
+            if (imageResult.convertedCount > 0 || imageResult.rejectedCount > 0) {
+              await supabase
+                .from("news_articles")
+                .update({
+                  content: imageResult.newContent,
+                  cover_image: imageResult.newCoverImage,
+                })
+                .eq('id', insertedArticle.id);
+            }
+
             collected++;
             results.push({
               title: article.title,
@@ -2431,7 +2816,7 @@ Deno.serve(async (req) => {
 
             // 保存
             addLog('step', `保存到数据库...`, { step: 'save', articleTitle: article.title?.substring(0, 50) });
-            const { error: insertError } = await supabase
+            const { data: insertedArticle, error: insertError } = await supabase
               .from("news_articles")
               .insert({
                 title: article.title,
@@ -2452,23 +2837,34 @@ Deno.serve(async (req) => {
                 quality_reason: qualityResult?.reason || null,
                 is_published: autoPublish,
                 published_at: autoPublish ? new Date().toISOString() : null,
-              });
+              })
+              .select('id')
+              .single();
 
-            if (!insertError) {
+            if (!insertError && insertedArticle) {
+              // AI图片评估和处理
+              const imageResult = await processAllArticleImages(
+                supabase, insertedArticle.id, article.content, article.coverImage,
+                article.title, article.summary || '', addLog
+              );
+
+              if (imageResult.convertedCount > 0 || imageResult.rejectedCount > 0) {
+                await supabase.from("news_articles").update({
+                  content: imageResult.newContent,
+                  cover_image: imageResult.newCoverImage,
+                }).eq('id', insertedArticle.id);
+              }
+
               collected++;
-              results.push({
-                title: article.title,
-                success: true,
-                score: qualityResult?.score,
-              });
+              results.push({ title: article.title, success: true, score: qualityResult?.score });
               addLog('success', `✅ 采集成功`, { 
                 step: 'save', 
                 articleTitle: article.title?.substring(0, 50),
                 score: qualityResult?.score,
-                details: autoPublish ? '已自动发布' : '待审核'
+                details: `图片: ${imageResult.processedCount}评估 ${imageResult.rejectedCount}剔除`
               });
             } else {
-              addLog('error', `保存失败: ${insertError.message}`, { step: 'save', articleTitle: article.title?.substring(0, 50) });
+              addLog('error', `保存失败: ${insertError?.message}`, { step: 'save', articleTitle: article.title?.substring(0, 50) });
             }
 
             await new Promise(resolve => setTimeout(resolve, 300));
@@ -2595,7 +2991,7 @@ Deno.serve(async (req) => {
               const aiEdited = Boolean(rewritten);
 
               // 保存
-              const { error: insertError } = await supabase
+              const { data: insertedArticle, error: insertError } = await supabase
                 .from("news_articles")
                 .insert({
                   title: article.title,
@@ -2616,15 +3012,28 @@ Deno.serve(async (req) => {
                   quality_reason: qualityResult?.reason || null,
                   is_published: body.autoPublish ?? true,
                   published_at: (body.autoPublish ?? true) ? new Date().toISOString() : null,
-                });
+                })
+                .select('id')
+                .single();
 
-              if (!insertError) {
+              if (!insertError && insertedArticle) {
+                // AI图片评估和处理
+                const imageResult = await processAllArticleImages(
+                  supabase, insertedArticle.id, article.content, article.coverImage,
+                  article.title, article.summary || ''
+                );
+
+                if (imageResult.convertedCount > 0 || imageResult.rejectedCount > 0) {
+                  await supabase.from("news_articles").update({
+                    content: imageResult.newContent,
+                    cover_image: imageResult.newCoverImage,
+                  }).eq('id', insertedArticle.id);
+                }
+
                 collected++;
                 totalCollected++;
                 results.push({ title: article.title, success: true, score: qualityResult?.score });
-                console.log(
-                  `✅ [${cat}] Collected (score: ${qualityResult?.score}): ${article.title}`
-                );
+                console.log(`✅ [${cat}] Collected with image processing: ${article.title}`);
               }
 
               await new Promise(resolve => setTimeout(resolve, 2000));
