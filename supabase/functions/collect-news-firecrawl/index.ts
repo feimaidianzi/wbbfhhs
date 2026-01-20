@@ -952,7 +952,7 @@ function getUnusedDefaultImages(needed: number): string[] {
   return selected;
 }
 
-// 使用Firecrawl搜索图片关键词相关的图片
+// 使用Firecrawl搜索图片关键词相关的图片 - 多采集供AI评估
 async function searchImagesWithFirecrawl(
   keywords: string[],
   count: number = 3,
@@ -966,20 +966,27 @@ async function searchImagesWithFirecrawl(
       return [];
     }
 
-    const images: string[] = [];
+    // 多采集一些图片供AI评估（采集数量是需求的3倍）
+    const targetCollectCount = count * 3;
+    const candidateImages: string[] = [];
     const usedUrls = new Set<string>();
 
+    addLog?.('info', `🔍 开始Firecrawl图片搜索，目标采集 ${targetCollectCount} 张供评估`, { 
+      step: 'image', 
+      details: `关键词: ${keywords.slice(0, 3).join(', ')}` 
+    });
+
     // 为每个关键词搜索图片
-    for (const keyword of keywords.slice(0, 3)) {
-      if (images.length >= count) break;
+    for (const keyword of keywords.slice(0, 5)) { // 使用更多关键词
+      if (candidateImages.length >= targetCollectCount) break;
       
       try {
         // 构建图片搜索查询 - 添加 "image" 或 "photo" 关键词来优化结果
         const searchQuery = `${keyword} drone UAV high quality image`;
         
-        addLog?.('info', `🔍 Firecrawl图片搜索: "${keyword}"`, { 
+        addLog?.('info', `🔍 Firecrawl搜索: "${keyword}"`, { 
           step: 'image', 
-          details: `搜索关键词: ${searchQuery.substring(0, 50)}` 
+          details: `已采集 ${candidateImages.length}/${targetCollectCount}` 
         });
 
         const response = await fetchWithRetry("https://api.firecrawl.dev/v1/search", {
@@ -990,7 +997,7 @@ async function searchImagesWithFirecrawl(
           },
           body: JSON.stringify({
             query: searchQuery,
-            limit: 5,
+            limit: 10, // 增加搜索结果数量
             lang: "en",
             country: "US",
             scrapeOptions: {
@@ -1010,9 +1017,9 @@ async function searchImagesWithFirecrawl(
 
         console.log(`Firecrawl image search for "${keyword}" returned ${results.length} results`);
 
-        // 从搜索结果中提取图片
+        // 从搜索结果中提取图片 - 不限制数量，尽可能多采集
         for (const result of results) {
-          if (images.length >= count) break;
+          if (candidateImages.length >= targetCollectCount) break;
           
           const sourceUrl = result.url || '';
           
@@ -1021,16 +1028,11 @@ async function searchImagesWithFirecrawl(
             const extractedImages = extractImagesFromHtml(result.html, sourceUrl);
             
             for (const imgUrl of extractedImages) {
-              if (images.length >= count) break;
+              if (candidateImages.length >= targetCollectCount) break;
               if (!usedUrls.has(imgUrl) && !usedImagesInSession.has(imgUrl)) {
-                // 验证图片是否可访问
-                const isValid = await validateImageUrl(imgUrl);
-                if (isValid) {
-                  images.push(imgUrl);
-                  usedUrls.add(imgUrl);
-                  usedImagesInSession.add(imgUrl);
-                  console.log(`Found valid image: ${imgUrl.substring(0, 80)}...`);
-                }
+                // 先加入候选列表，后续再验证
+                candidateImages.push(imgUrl);
+                usedUrls.add(imgUrl);
               }
             }
           }
@@ -1039,36 +1041,54 @@ async function searchImagesWithFirecrawl(
           if (result.markdown) {
             const mdImageMatches = result.markdown.match(/!\[.*?\]\((https?:\/\/[^)]+)\)/g) || [];
             for (const match of mdImageMatches) {
-              if (images.length >= count) break;
+              if (candidateImages.length >= targetCollectCount) break;
               const urlMatch = match.match(/\((https?:\/\/[^)]+)\)/);
               if (urlMatch && urlMatch[1]) {
                 const imgUrl = urlMatch[1];
                 if (!usedUrls.has(imgUrl) && !usedImagesInSession.has(imgUrl) && isValidImage(imgUrl)) {
-                  const isValid = await validateImageUrl(imgUrl);
-                  if (isValid) {
-                    images.push(imgUrl);
-                    usedUrls.add(imgUrl);
-                    usedImagesInSession.add(imgUrl);
-                    console.log(`Found valid MD image: ${imgUrl.substring(0, 80)}...`);
-                  }
+                  candidateImages.push(imgUrl);
+                  usedUrls.add(imgUrl);
                 }
               }
             }
           }
         }
 
-        addLog?.('info', `Firecrawl搜索: "${keyword}" 提取到 ${images.length} 张有效图片`, { 
-          step: 'image', 
-          details: `已选择 ${images.length}/${count} 张` 
-        });
-
       } catch (err) {
         console.log(`Firecrawl image search error for "${keyword}":`, err);
       }
     }
 
-    console.log(`Firecrawl image search completed: ${images.length} images found`);
-    return images;
+    addLog?.('info', `📸 采集到 ${candidateImages.length} 张候选图片，开始验证...`, { step: 'image' });
+
+    // 批量验证图片有效性
+    const validImages: string[] = [];
+    const batchSize = 5;
+    
+    for (let i = 0; i < candidateImages.length && validImages.length < targetCollectCount; i += batchSize) {
+      const batch = candidateImages.slice(i, i + batchSize);
+      const results = await Promise.all(
+        batch.map(async (url) => {
+          const isValid = await validateImageUrl(url);
+          return isValid ? url : null;
+        })
+      );
+      
+      for (const result of results) {
+        if (result) {
+          validImages.push(result);
+          usedImagesInSession.add(result);
+        }
+      }
+    }
+
+    addLog?.('success', `✅ Firecrawl图片搜索完成: ${validImages.length} 张有效图片（采集${candidateImages.length}张）`, { 
+      step: 'image', 
+      details: `有效率: ${candidateImages.length > 0 ? Math.round(validImages.length / candidateImages.length * 100) : 0}%` 
+    });
+
+    console.log(`Firecrawl image search completed: ${validImages.length} valid images from ${candidateImages.length} candidates`);
+    return validImages;
   } catch (error) {
     console.error("Firecrawl image search failed:", error);
     return [];
