@@ -1,4 +1,6 @@
 import { Header } from "@/components/Header";
+import { SEOTextContent } from "@/components/SEOTextContent";
+import { FAQSection } from "@/components/FAQSection";
 import { HeroSection } from "@/components/HeroSection";
 import { ProductsSection } from "@/components/ProductsSection";
 import { CompanyIntroSection } from "@/components/CompanyIntroSection";
@@ -66,7 +68,9 @@ const Index = () => {
         <NewsSection />
         <PartnersSection />
         <CertificationsSection />
+        <FAQSection category="general" limit={4} />
         <CTASection />
+        <SEOTextContent page="home" />
       </main>
       <Footer />
       <FloatingContact />
