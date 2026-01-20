@@ -1,0 +1,599 @@
+import { createClient, SupabaseClient } from "https://esm.sh/@supabase/supabase-js@2";
+
+const corsHeaders = {
+  "Access-Control-Allow-Origin": "*",
+  "Access-Control-Allow-Headers": "authorization, x-client-info, apikey, content-type",
+};
+
+// 图片评分阈值
+const IMAGE_SCORE_THRESHOLD = 6;
+
+// 最小图片大小 (bytes) - 排除小图标
+const MIN_IMAGE_SIZE = 10000; // 10KB
+
+// 支持的图片格式
+const SUPPORTED_FORMATS = ['image/jpeg', 'image/png', 'image/webp', 'image/gif'];
+
+// 不允许转存的域名黑名单（已知防盗链或问题域名）
+const HOTLINK_PROTECTED_DOMAINS = [
+  'csdnimg.cn',
+  'csdn.net',
+  'sinaimg.cn',
+  'sina.com.cn',
+  'gamersky.com',
+  'bilibili.com',
+  'hdslb.com',
+  'zhimg.com',
+  'zhihu.com',
+  '36kr.com',
+  'ithome.com',
+  'ifeng.com',
+  'sohu.com',
+  'qq.com',
+  'gtimg.cn',
+  'qpic.cn',
+  'mmbiz.qpic.cn',
+  'weixin.qq.com',
+  'wechat.com',
+  'douyin.com',
+  'douyinpic.com',
+  'toutiao.com',
+  'pstatp.com',
+  'bytedance.com',
+  'xiaohongshu.com',
+  'xhscdn.com',
+  'kuaishou.com',
+  'kwai.com',
+];
+
+// 检查是否需要转存
+function needsLocalStorage(imageUrl: string): boolean {
+  try {
+    const url = new URL(imageUrl);
+    const hostname = url.hostname.toLowerCase();
+    
+    for (const domain of HOTLINK_PROTECTED_DOMAINS) {
+      if (hostname.includes(domain)) {
+        return true;
+      }
+    }
+    return false;
+  } catch {
+    return false;
+  }
+}
+
+// 下载图片并返回Buffer
+async function downloadImage(imageUrl: string): Promise<{ buffer: ArrayBuffer; contentType: string } | null> {
+  try {
+    const response = await fetch(imageUrl, {
+      headers: {
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
+        'Accept': 'image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8',
+        'Referer': new URL(imageUrl).origin,
+      },
+      signal: AbortSignal.timeout(15000),
+    });
+
+    if (!response.ok) {
+      console.log(`Failed to download image: ${imageUrl} - Status: ${response.status}`);
+      return null;
+    }
+
+    const contentType = response.headers.get('content-type') || 'image/jpeg';
+    if (!SUPPORTED_FORMATS.some(f => contentType.includes(f.split('/')[1]))) {
+      console.log(`Unsupported content type: ${contentType}`);
+      return null;
+    }
+
+    const buffer = await response.arrayBuffer();
+    
+    if (buffer.byteLength < MIN_IMAGE_SIZE) {
+      console.log(`Image too small: ${buffer.byteLength} bytes`);
+      return null;
+    }
+
+    return { buffer, contentType };
+  } catch (error) {
+    console.error(`Error downloading image ${imageUrl}:`, error);
+    return null;
+  }
+}
+
+// 生成唯一文件名
+function generateFileName(contentType: string): string {
+  const timestamp = Date.now();
+  const random = Math.random().toString(36).substring(2, 8);
+  const ext = contentType.includes('png') ? 'png' : 
+              contentType.includes('webp') ? 'webp' : 
+              contentType.includes('gif') ? 'gif' : 'jpg';
+  return `${timestamp}-${random}.${ext}`;
+}
+
+// 使用AI评估图片与文章的相关性
+async function evaluateImageRelevance(
+  imageUrl: string,
+  articleTitle: string,
+  articleSummary: string
+): Promise<{ score: number; reason: string; isRelevant: boolean }> {
+  try {
+    const LOVABLE_API_KEY = Deno.env.get("LOVABLE_API_KEY");
+    if (!LOVABLE_API_KEY) {
+      console.log("LOVABLE_API_KEY not found, skipping AI image evaluation");
+      return { score: 7, reason: "未配置AI评估，默认通过", isRelevant: true };
+    }
+
+    console.log(`Evaluating image relevance: ${imageUrl.substring(0, 80)}...`);
+
+    const prompt = `你是一位专业的图片编辑，请评估以下图片是否适合用于新闻文章配图。
+
+【文章标题】${articleTitle}
+
+【文章摘要】${articleSummary.substring(0, 300)}
+
+【评分标准】（满分10分）
+1. 相关性（4分）：图片内容是否与文章主题相关（无人机、科技、航空、工业等）
+2. 质量（3分）：图片是否清晰、专业、适合新闻配图
+3. 适用性（3分）：图片是否适合放在专业企业官网的新闻页面
+
+【扣分项】
+- 明显是广告、促销图片：-5分
+- 包含水印、logo覆盖：-3分
+- 低质量、模糊、像素化：-3分
+- 与无人机/科技完全无关：-4分
+- 二维码、app下载引导：-5分
+- 个人自拍、生活照：-3分
+
+请直接返回JSON格式：
+{
+  "score": 7.5,
+  "reason": "简要评价理由（30字以内）",
+  "isRelevant": true
+}`;
+
+    const response = await fetch("https://ai.gateway.lovable.dev/v1/chat/completions", {
+      method: "POST",
+      headers: {
+        "Authorization": `Bearer ${LOVABLE_API_KEY}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        model: "google/gemini-2.5-flash-image-preview",
+        messages: [
+          {
+            role: "user",
+            content: [
+              { type: "text", text: prompt },
+              { type: "image_url", image_url: { url: imageUrl } }
+            ]
+          }
+        ],
+        modalities: ["text"]
+      }),
+      signal: AbortSignal.timeout(30000),
+    });
+
+    if (!response.ok) {
+      console.error("AI image evaluation failed:", response.status);
+      return { score: 6, reason: "AI评估失败，默认通过", isRelevant: true };
+    }
+
+    const data = await response.json();
+    const content = data.choices?.[0]?.message?.content || "";
+    
+    const jsonMatch = content.match(/\{[\s\S]*\}/);
+    if (jsonMatch) {
+      const result = JSON.parse(jsonMatch[0]);
+      console.log(`Image score: ${result.score} - ${result.reason}`);
+      return {
+        score: parseFloat(result.score) || 6,
+        reason: result.reason || "评估完成",
+        isRelevant: result.isRelevant !== false && (parseFloat(result.score) || 6) >= IMAGE_SCORE_THRESHOLD
+      };
+    }
+
+    return { score: 6, reason: "解析失败，默认通过", isRelevant: true };
+  } catch (error) {
+    console.error("Image evaluation error:", error);
+    return { score: 6, reason: "评估异常，默认通过", isRelevant: true };
+  }
+}
+
+// 上传图片到Supabase存储
+async function uploadToStorage(
+  supabase: any,
+  buffer: ArrayBuffer,
+  contentType: string,
+  articleId: string
+): Promise<string | null> {
+  try {
+    const fileName = `${articleId}/${generateFileName(contentType)}`;
+    
+    const { data, error } = await supabase.storage
+      .from('news-images')
+      .upload(fileName, buffer, {
+        contentType,
+        cacheControl: '31536000', // 1年缓存
+        upsert: false,
+      });
+
+    if (error) {
+      console.error("Storage upload error:", error);
+      return null;
+    }
+
+    // 获取公开URL
+    const { data: urlData } = supabase.storage
+      .from('news-images')
+      .getPublicUrl(fileName);
+
+    return urlData.publicUrl;
+  } catch (error) {
+    console.error("Upload error:", error);
+    return null;
+  }
+}
+
+// 处理单张图片
+async function processImage(
+  supabase: any,
+  imageUrl: string,
+  articleId: string,
+  articleTitle: string,
+  articleSummary: string,
+  skipAIEvaluation: boolean = false
+): Promise<{
+  originalUrl: string;
+  newUrl: string | null;
+  score: number;
+  reason: string;
+  isRelevant: boolean;
+  wasConverted: boolean;
+}> {
+  const result = {
+    originalUrl: imageUrl,
+    newUrl: null as string | null,
+    score: 0,
+    reason: "",
+    isRelevant: false,
+    wasConverted: false,
+  };
+
+  // 1. AI评估图片相关性（除非跳过）
+  if (!skipAIEvaluation) {
+    const evaluation = await evaluateImageRelevance(imageUrl, articleTitle, articleSummary);
+    result.score = evaluation.score;
+    result.reason = evaluation.reason;
+    result.isRelevant = evaluation.isRelevant;
+
+    if (!evaluation.isRelevant) {
+      console.log(`Image rejected: score=${evaluation.score}, reason=${evaluation.reason}`);
+      return result;
+    }
+  } else {
+    result.score = 7;
+    result.reason = "跳过AI评估";
+    result.isRelevant = true;
+  }
+
+  // 2. 检查是否需要转存
+  if (needsLocalStorage(imageUrl)) {
+    console.log(`Image needs local storage: ${imageUrl.substring(0, 80)}`);
+    
+    // 3. 下载图片
+    const downloaded = await downloadImage(imageUrl);
+    if (!downloaded) {
+      result.isRelevant = false;
+      result.reason = "图片下载失败";
+      return result;
+    }
+
+    // 4. 上传到本地存储
+    const localUrl = await uploadToStorage(supabase, downloaded.buffer, downloaded.contentType, articleId);
+    if (localUrl) {
+      result.newUrl = localUrl;
+      result.wasConverted = true;
+      console.log(`Image converted: ${imageUrl.substring(0, 50)} -> ${localUrl}`);
+    } else {
+      result.isRelevant = false;
+      result.reason = "图片上传失败";
+    }
+  } else {
+    // 不需要转存，使用原始URL
+    result.newUrl = imageUrl;
+  }
+
+  return result;
+}
+
+// 批量处理文章中的图片
+async function processArticleImages(
+  supabase: any,
+  articleId: string,
+  content: string,
+  coverImage: string | null,
+  title: string,
+  summary: string
+): Promise<{
+  newContent: string;
+  newCoverImage: string | null;
+  processedCount: number;
+  convertedCount: number;
+  rejectedCount: number;
+}> {
+  let newContent = content;
+  let newCoverImage = coverImage;
+  let processedCount = 0;
+  let convertedCount = 0;
+  let rejectedCount = 0;
+
+  // 提取content中的所有图片
+  const imgMatches = content.match(/<img[^>]+src=["']([^"']+)["'][^>]*>/gi) || [];
+  const imageUrls: string[] = [];
+  
+  for (const match of imgMatches) {
+    const srcMatch = match.match(/src=["']([^"']+)["']/i);
+    if (srcMatch && srcMatch[1]) {
+      imageUrls.push(srcMatch[1]);
+    }
+  }
+
+  // 处理封面图
+  if (coverImage) {
+    const result = await processImage(supabase, coverImage, articleId, title, summary, false);
+    processedCount++;
+    
+    if (result.isRelevant && result.newUrl) {
+      newCoverImage = result.newUrl;
+      if (result.wasConverted) convertedCount++;
+    } else {
+      rejectedCount++;
+      newCoverImage = null;
+    }
+  }
+
+  // 处理正文图片
+  for (const imgUrl of imageUrls) {
+    const result = await processImage(supabase, imgUrl, articleId, title, summary, false);
+    processedCount++;
+    
+    if (result.isRelevant && result.newUrl && result.newUrl !== imgUrl) {
+      // 替换内容中的图片URL
+      newContent = newContent.replace(
+        new RegExp(escapeRegExp(imgUrl), 'g'),
+        result.newUrl
+      );
+      if (result.wasConverted) convertedCount++;
+    } else if (!result.isRelevant) {
+      // 删除不相关的图片
+      newContent = newContent.replace(
+        new RegExp(`<figure[^>]*>\\s*<img[^>]*src=["']${escapeRegExp(imgUrl)}["'][^>]*>\\s*(?:<figcaption[^>]*>.*?</figcaption>)?\\s*</figure>`, 'gi'),
+        ''
+      );
+      newContent = newContent.replace(
+        new RegExp(`<img[^>]*src=["']${escapeRegExp(imgUrl)}["'][^>]*>`, 'gi'),
+        ''
+      );
+      rejectedCount++;
+    }
+  }
+
+  // 清理可能产生的多余空行
+  newContent = newContent.replace(/\n{3,}/g, '\n\n');
+
+  return {
+    newContent,
+    newCoverImage,
+    processedCount,
+    convertedCount,
+    rejectedCount,
+  };
+}
+
+// 辅助函数：转义正则表达式特殊字符
+function escapeRegExp(string: string): string {
+  return string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+}
+
+// 清理历史文章
+async function cleanupHistoricalArticles(
+  supabase: any,
+  limit: number = 50,
+  offset: number = 0
+): Promise<{
+  processedArticles: number;
+  updatedArticles: number;
+  totalImagesProcessed: number;
+  totalImagesConverted: number;
+  totalImagesRejected: number;
+  errors: string[];
+}> {
+  const result = {
+    processedArticles: 0,
+    updatedArticles: 0,
+    totalImagesProcessed: 0,
+    totalImagesConverted: 0,
+    totalImagesRejected: 0,
+    errors: [] as string[],
+  };
+
+  // 获取需要处理的文章
+  const { data: articles, error } = await supabase
+    .from('news_articles')
+    .select('id, title, summary, content, cover_image')
+    .order('created_at', { ascending: false })
+    .range(offset, offset + limit - 1);
+
+  if (error) {
+    result.errors.push(`获取文章失败: ${error.message}`);
+    return result;
+  }
+
+  if (!articles || articles.length === 0) {
+    return result;
+  }
+
+  for (const article of articles) {
+    result.processedArticles++;
+    
+    try {
+      const processed = await processArticleImages(
+        supabase,
+        article.id,
+        article.content || '',
+        article.cover_image,
+        article.title || '',
+        article.summary || ''
+      );
+
+      result.totalImagesProcessed += processed.processedCount;
+      result.totalImagesConverted += processed.convertedCount;
+      result.totalImagesRejected += processed.rejectedCount;
+
+      // 如果有更新，保存到数据库
+      if (processed.convertedCount > 0 || processed.rejectedCount > 0) {
+        const { error: updateError } = await supabase
+          .from('news_articles')
+          .update({
+            content: processed.newContent,
+            cover_image: processed.newCoverImage,
+            updated_at: new Date().toISOString(),
+          })
+          .eq('id', article.id);
+
+        if (updateError) {
+          result.errors.push(`更新文章 ${article.id} 失败: ${updateError.message}`);
+        } else {
+          result.updatedArticles++;
+          console.log(`Updated article ${article.id}: ${processed.convertedCount} converted, ${processed.rejectedCount} rejected`);
+        }
+      }
+    } catch (error) {
+      result.errors.push(`处理文章 ${article.id} 异常: ${String(error)}`);
+    }
+  }
+
+  return result;
+}
+
+Deno.serve(async (req) => {
+  if (req.method === "OPTIONS") {
+    return new Response(null, { headers: corsHeaders });
+  }
+
+  try {
+    const { action, ...params } = await req.json();
+
+    const supabaseUrl = Deno.env.get("SUPABASE_URL")!;
+    const supabaseKey = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!;
+    const supabase = createClient(supabaseUrl, supabaseKey);
+
+    switch (action) {
+      case "process-single": {
+        // 处理单张图片
+        const { imageUrl, articleId, articleTitle, articleSummary, skipAI } = params;
+        
+        if (!imageUrl || !articleId) {
+          return new Response(
+            JSON.stringify({ success: false, error: "缺少必要参数" }),
+            { status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+          );
+        }
+
+        const result = await processImage(
+          supabase,
+          imageUrl,
+          articleId,
+          articleTitle || '',
+          articleSummary || '',
+          skipAI || false
+        );
+
+        return new Response(
+          JSON.stringify({ success: true, data: result }),
+          { headers: { ...corsHeaders, "Content-Type": "application/json" } }
+        );
+      }
+
+      case "process-article": {
+        // 处理整篇文章的图片
+        const { articleId, content, coverImage, title, summary } = params;
+        
+        if (!articleId || !content) {
+          return new Response(
+            JSON.stringify({ success: false, error: "缺少必要参数" }),
+            { status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+          );
+        }
+
+        const result = await processArticleImages(
+          supabase,
+          articleId,
+          content,
+          coverImage || null,
+          title || '',
+          summary || ''
+        );
+
+        return new Response(
+          JSON.stringify({ success: true, data: result }),
+          { headers: { ...corsHeaders, "Content-Type": "application/json" } }
+        );
+      }
+
+      case "cleanup-history": {
+        // 批量清理历史文章
+        const { limit = 50, offset = 0 } = params;
+
+        const result = await cleanupHistoricalArticles(supabase, limit, offset);
+
+        return new Response(
+          JSON.stringify({ success: true, data: result }),
+          { headers: { ...corsHeaders, "Content-Type": "application/json" } }
+        );
+      }
+
+      case "check-image": {
+        // 仅检查图片相关性，不下载或转存
+        const { imageUrl, articleTitle, articleSummary } = params;
+        
+        if (!imageUrl) {
+          return new Response(
+            JSON.stringify({ success: false, error: "缺少图片URL" }),
+            { status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+          );
+        }
+
+        const evaluation = await evaluateImageRelevance(
+          imageUrl,
+          articleTitle || '',
+          articleSummary || ''
+        );
+
+        return new Response(
+          JSON.stringify({ success: true, data: evaluation }),
+          { headers: { ...corsHeaders, "Content-Type": "application/json" } }
+        );
+      }
+
+      default:
+        return new Response(
+          JSON.stringify({ 
+            success: false, 
+            error: "未知操作",
+            availableActions: ["process-single", "process-article", "cleanup-history", "check-image"]
+          }),
+          { status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+        );
+    }
+  } catch (error) {
+    console.error("Edge function error:", error);
+    return new Response(
+      JSON.stringify({ 
+        success: false, 
+        error: error instanceof Error ? error.message : "服务器错误" 
+      }),
+      { status: 500, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+    );
+  }
+});

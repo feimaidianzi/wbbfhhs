@@ -257,6 +257,16 @@ const NewsCollection = () => {
   // 采集日志状态
   const [collectionLogs, setCollectionLogs] = useState<CollectionLog[]>([]);
 
+  // 图片清理状态
+  const [cleaningImages, setCleaningImages] = useState(false);
+  const [cleaningProgress, setCleaningProgress] = useState<{
+    processedArticles: number;
+    updatedArticles: number;
+    totalImagesProcessed: number;
+    totalImagesConverted: number;
+    totalImagesRejected: number;
+  } | null>(null);
+
   // 采集“后台仍在执行”时的前端监控（定时刷新数据，避免误判为执行失败）
   const backgroundMonitorIntervalRef = useRef<number | null>(null);
   const backgroundMonitorTimeoutRef = useRef<number | null>(null);
@@ -1219,6 +1229,63 @@ const NewsCollection = () => {
     }
   };
 
+  // 清理历史文章图片
+  const cleanupHistoricalImages = async (limit: number = 50) => {
+    setCleaningImages(true);
+    setCleaningProgress(null);
+    
+    addCollectionLog({ type: 'step', message: '开始清理历史文章图片...' });
+    
+    try {
+      const response = await supabase.functions.invoke('process-news-images', {
+        body: {
+          action: 'cleanup-history',
+          limit,
+          offset: 0,
+        },
+      });
+
+      if (response.error) throw response.error;
+
+      const data = response.data?.data;
+      if (data) {
+        setCleaningProgress({
+          processedArticles: data.processedArticles || 0,
+          updatedArticles: data.updatedArticles || 0,
+          totalImagesProcessed: data.totalImagesProcessed || 0,
+          totalImagesConverted: data.totalImagesConverted || 0,
+          totalImagesRejected: data.totalImagesRejected || 0,
+        });
+
+        addCollectionLog({ 
+          type: 'success', 
+          message: `图片清理完成: 处理${data.processedArticles}篇文章，更新${data.updatedArticles}篇`,
+          details: `转存${data.totalImagesConverted}张，移除不相关${data.totalImagesRejected}张`,
+        });
+
+        if (data.errors && data.errors.length > 0) {
+          data.errors.forEach((err: string) => {
+            addCollectionLog({ type: 'warning', message: err });
+          });
+        }
+      }
+
+      toast({
+        title: '图片清理完成',
+        description: `处理了 ${data?.processedArticles || 0} 篇文章，更新了 ${data?.updatedArticles || 0} 篇`,
+      });
+    } catch (error: any) {
+      addCollectionLog({ type: 'error', message: `清理失败: ${error.message}` });
+      toast({
+        title: '清理失败',
+        description: error.message,
+        variant: 'destructive',
+      });
+    } finally {
+      setCleaningImages(false);
+    }
+  };
+
   const formatDate = (dateString: string | null) => {
     if (!dateString) return '-';
     return new Date(dateString).toLocaleString('zh-CN');
@@ -1517,6 +1584,66 @@ const NewsCollection = () => {
                     )}
                   </div>
                 ))}
+              </div>
+            )}
+          </CardContent>
+        </Card>
+
+        {/* 历史图片清理 */}
+        <Card className="bg-gradient-to-r from-rose-900/30 to-pink-900/30 border-rose-500/30">
+          <CardHeader>
+            <CardTitle className="text-white flex items-center gap-2">
+              <RefreshCw className="w-5 h-5 text-rose-400" />
+              历史文章图片清理
+              <Badge className="bg-rose-500/20 text-rose-300 ml-2">AI评估</Badge>
+            </CardTitle>
+            <CardDescription className="text-slate-400">
+              批量处理历史文章图片：转存防盗链图片到本地、AI评估图片相关性（6分以上通过）、移除不相关图片
+            </CardDescription>
+          </CardHeader>
+          <CardContent className="space-y-4">
+            <div className="flex gap-4">
+              <Button 
+                onClick={() => cleanupHistoricalImages(20)}
+                disabled={cleaningImages}
+                variant="outline"
+                className="border-rose-500/50 text-rose-300 hover:bg-rose-500/20"
+              >
+                {cleaningImages ? <Loader2 className="w-4 h-4 mr-2 animate-spin" /> : <RefreshCw className="w-4 h-4 mr-2" />}
+                清理20篇文章
+              </Button>
+              <Button 
+                onClick={() => cleanupHistoricalImages(50)}
+                disabled={cleaningImages}
+                className="bg-gradient-to-r from-rose-500 to-pink-500 hover:from-rose-600 hover:to-pink-600"
+              >
+                {cleaningImages ? <Loader2 className="w-4 h-4 mr-2 animate-spin" /> : <Zap className="w-4 h-4 mr-2" />}
+                清理50篇文章
+              </Button>
+            </div>
+            
+            {cleaningProgress && (
+              <div className="grid grid-cols-2 md:grid-cols-5 gap-3 text-sm">
+                <div className="p-3 bg-slate-800/50 rounded-lg text-center">
+                  <div className="text-2xl font-bold text-white">{cleaningProgress.processedArticles}</div>
+                  <div className="text-slate-400 text-xs">处理文章</div>
+                </div>
+                <div className="p-3 bg-slate-800/50 rounded-lg text-center">
+                  <div className="text-2xl font-bold text-green-400">{cleaningProgress.updatedArticles}</div>
+                  <div className="text-slate-400 text-xs">更新文章</div>
+                </div>
+                <div className="p-3 bg-slate-800/50 rounded-lg text-center">
+                  <div className="text-2xl font-bold text-blue-400">{cleaningProgress.totalImagesProcessed}</div>
+                  <div className="text-slate-400 text-xs">处理图片</div>
+                </div>
+                <div className="p-3 bg-slate-800/50 rounded-lg text-center">
+                  <div className="text-2xl font-bold text-amber-400">{cleaningProgress.totalImagesConverted}</div>
+                  <div className="text-slate-400 text-xs">转存图片</div>
+                </div>
+                <div className="p-3 bg-slate-800/50 rounded-lg text-center">
+                  <div className="text-2xl font-bold text-red-400">{cleaningProgress.totalImagesRejected}</div>
+                  <div className="text-slate-400 text-xs">移除图片</div>
+                </div>
               </div>
             )}
           </CardContent>
