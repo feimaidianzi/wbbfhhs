@@ -199,16 +199,16 @@ async function evaluateImageRelevance(
   }
 }
 
-// 使用AI去除图片中的公司信息（logo、水印、公司名称等）
+// 使用豆包AI去除图片中的公司信息（logo、水印、公司名称等）
 async function removeCompanyBranding(
   imageBuffer: ArrayBuffer,
   contentType: string
-): Promise<{ buffer: ArrayBuffer; contentType: string } | null> {
+): Promise<{ buffer: ArrayBuffer; contentType: string; wasEdited: boolean }> {
   try {
-    const LOVABLE_API_KEY = Deno.env.get("LOVABLE_API_KEY");
-    if (!LOVABLE_API_KEY) {
-      console.log("LOVABLE_API_KEY not found, skipping company branding removal");
-      return { buffer: imageBuffer, contentType };
+    const DOUBAO_API_KEY = Deno.env.get("DOUBAO_API_KEY");
+    if (!DOUBAO_API_KEY) {
+      console.log("DOUBAO_API_KEY not found, skipping company branding removal");
+      return { buffer: imageBuffer, contentType, wasEdited: false };
     }
 
     // 将图片转换为base64
@@ -221,20 +221,107 @@ async function removeCompanyBranding(
     const mimeType = contentType.includes('png') ? 'image/png' : 
                      contentType.includes('webp') ? 'image/webp' : 
                      contentType.includes('gif') ? 'image/gif' : 'image/jpeg';
-    const dataUrl = `data:${mimeType};base64,${base64Image}`;
 
-    console.log("Removing company branding from image...");
+    console.log("Using Doubao AI to analyze image for company branding...");
 
-    const prompt = `请对这张图片进行编辑：
-1. 识别并去除图片中的所有公司logo、公司名称、品牌标识
-2. 去除水印、版权标记
-3. 如果有其他公司的联系方式（电话、网址、二维码等），也要去除
-4. 保持图片的整体构图和主要内容不变
-5. 用自然的背景或内容填充被去除的区域
+    // 首先使用豆包视觉模型检测图片中是否有公司信息
+    const detectPrompt = `请仔细分析这张图片，检查是否存在以下内容：
+1. 公司logo或品牌标识
+2. 公司名称或商标文字
+3. 水印或版权标记
+4. 联系方式（电话、网址、邮箱）
+5. 二维码
+6. 其他商业推广信息
 
-注意：只需要去除商业标识，保留图片的主要内容和美观性。`;
+请直接返回JSON格式：
+{
+  "hasCompanyBranding": true或false,
+  "brandingItems": ["检测到的具体内容列表"],
+  "brandingLocations": ["左上角logo", "右下角水印"等位置描述],
+  "suggestion": "处理建议"
+}`;
 
-    const response = await fetch("https://ai.gateway.lovable.dev/v1/chat/completions", {
+    const detectResponse = await fetch("https://ark.cn-beijing.volces.com/api/v3/chat/completions", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${DOUBAO_API_KEY}`,
+      },
+      body: JSON.stringify({
+        model: "doubao-1.5-vision-pro-250328",
+        messages: [
+          {
+            role: "user",
+            content: [
+              { type: "text", text: detectPrompt },
+              { 
+                type: "image_url", 
+                image_url: { 
+                  url: `data:${mimeType};base64,${base64Image}` 
+                } 
+              }
+            ]
+          }
+        ],
+        temperature: 0.3,
+        max_tokens: 1024,
+      }),
+      signal: AbortSignal.timeout(30000),
+    });
+
+    if (!detectResponse.ok) {
+      const errorText = await detectResponse.text();
+      console.error("Doubao vision API error:", detectResponse.status, errorText);
+      return { buffer: imageBuffer, contentType, wasEdited: false };
+    }
+
+    const detectData = await detectResponse.json();
+    const detectContent = detectData.choices?.[0]?.message?.content || "";
+    
+    // 解析检测结果
+    const jsonMatch = detectContent.match(/\{[\s\S]*\}/);
+    if (!jsonMatch) {
+      console.log("Failed to parse detection result, keeping original image");
+      return { buffer: imageBuffer, contentType, wasEdited: false };
+    }
+
+    let detectionResult;
+    try {
+      detectionResult = JSON.parse(jsonMatch[0]);
+    } catch (e) {
+      console.log("Invalid JSON in detection result, keeping original image");
+      return { buffer: imageBuffer, contentType, wasEdited: false };
+    }
+
+    // 如果没有检测到公司品牌信息，直接返回原图
+    if (!detectionResult.hasCompanyBranding) {
+      console.log("No company branding detected in image");
+      return { buffer: imageBuffer, contentType, wasEdited: false };
+    }
+
+    console.log("Detected company branding:", detectionResult.brandingItems?.join(", "));
+    console.log("Locations:", detectionResult.brandingLocations?.join(", "));
+
+    // 使用Lovable AI的图像编辑功能去除公司信息
+    const LOVABLE_API_KEY = Deno.env.get("LOVABLE_API_KEY");
+    if (!LOVABLE_API_KEY) {
+      console.log("LOVABLE_API_KEY not found, cannot edit image");
+      return { buffer: imageBuffer, contentType, wasEdited: false };
+    }
+
+    const editPrompt = `请编辑这张图片，去除以下内容：
+${detectionResult.brandingItems?.map((item: string) => `- ${item}`).join('\n') || '- 所有公司logo和品牌标识'}
+
+位置信息：
+${detectionResult.brandingLocations?.map((loc: string) => `- ${loc}`).join('\n') || '- 请检查图片各处'}
+
+要求：
+1. 完全去除上述商业标识
+2. 用自然的背景或周围内容填充被去除的区域
+3. 保持图片整体美观和自然
+4. 不要添加任何新的文字或标识`;
+
+    const editResponse = await fetch("https://ai.gateway.lovable.dev/v1/chat/completions", {
       method: "POST",
       headers: {
         "Authorization": `Bearer ${LOVABLE_API_KEY}`,
@@ -246,34 +333,32 @@ async function removeCompanyBranding(
           {
             role: "user",
             content: [
-              { type: "text", text: prompt },
-              { type: "image_url", image_url: { url: dataUrl } }
+              { type: "text", text: editPrompt },
+              { type: "image_url", image_url: { url: `data:${mimeType};base64,${base64Image}` } }
             ]
           }
         ],
         modalities: ["image", "text"]
       }),
-      signal: AbortSignal.timeout(60000), // 图片编辑需要更长时间
+      signal: AbortSignal.timeout(60000),
     });
 
-    if (!response.ok) {
-      console.error("AI image editing failed:", response.status);
-      return { buffer: imageBuffer, contentType }; // 失败时返回原图
+    if (!editResponse.ok) {
+      console.error("Image editing API failed:", editResponse.status);
+      return { buffer: imageBuffer, contentType, wasEdited: false };
     }
 
-    const data = await response.json();
-    const images = data.choices?.[0]?.message?.images;
+    const editData = await editResponse.json();
+    const images = editData.choices?.[0]?.message?.images;
     
     if (images && images.length > 0) {
       const editedImageUrl = images[0]?.image_url?.url;
       if (editedImageUrl && editedImageUrl.startsWith('data:')) {
-        // 解析base64数据
         const base64Match = editedImageUrl.match(/^data:([^;]+);base64,(.+)$/);
         if (base64Match) {
           const newMimeType = base64Match[1];
           const base64Data = base64Match[2];
           
-          // 将base64转换回ArrayBuffer
           const binaryString = atob(base64Data);
           const len = binaryString.length;
           const bytes = new Uint8Array(len);
@@ -281,17 +366,17 @@ async function removeCompanyBranding(
             bytes[i] = binaryString.charCodeAt(i);
           }
           
-          console.log("Successfully removed company branding from image");
-          return { buffer: bytes.buffer, contentType: newMimeType };
+          console.log("Successfully removed company branding from image using Doubao detection + Gemini editing");
+          return { buffer: bytes.buffer, contentType: newMimeType, wasEdited: true };
         }
       }
     }
 
-    console.log("No edited image returned, using original");
-    return { buffer: imageBuffer, contentType };
+    console.log("No edited image returned from Gemini, keeping original");
+    return { buffer: imageBuffer, contentType, wasEdited: false };
   } catch (error) {
     console.error("Company branding removal error:", error);
-    return { buffer: imageBuffer, contentType }; // 出错时返回原图
+    return { buffer: imageBuffer, contentType, wasEdited: false };
   }
 }
 
@@ -376,23 +461,22 @@ async function processImage(
   const downloaded = await downloadImage(imageUrl);
   
   if (downloaded) {
-    // 3. 使用AI去除公司信息
+    // 3. 使用豆包AI检测并去除公司信息
     const cleanedImage = await removeCompanyBranding(downloaded.buffer, downloaded.contentType);
     
-    if (cleanedImage) {
-      // 4. 上传处理后的图片到本地存储
-      const localUrl = await uploadToStorage(supabase, cleanedImage.buffer, cleanedImage.contentType, articleId);
-      if (localUrl) {
-        result.newUrl = localUrl;
-        result.wasConverted = true;
-        console.log(`Image processed and converted: ${imageUrl.substring(0, 50)} -> ${localUrl}`);
+    // 4. 上传处理后的图片到本地存储
+    const localUrl = await uploadToStorage(supabase, cleanedImage.buffer, cleanedImage.contentType, articleId);
+    if (localUrl) {
+      result.newUrl = localUrl;
+      result.wasConverted = true;
+      if (cleanedImage.wasEdited) {
+        console.log(`Image processed (branding removed) and uploaded: ${imageUrl.substring(0, 50)} -> ${localUrl}`);
       } else {
-        result.isRelevant = false;
-        result.reason = "图片上传失败";
+        console.log(`Image uploaded (no branding detected): ${imageUrl.substring(0, 50)} -> ${localUrl}`);
       }
     } else {
       result.isRelevant = false;
-      result.reason = "图片处理失败";
+      result.reason = "图片上传失败";
     }
   } else if (!needsLocalStorage(imageUrl)) {
     // 下载失败但不需要转存，使用原始URL（无法去除公司信息）
