@@ -93,6 +93,185 @@ async function uploadImageToStorage(
   }
 }
 
+// 使用豆包AI检测图片中的品牌信息
+async function detectBrandingWithDoubao(
+  imageBuffer: ArrayBuffer,
+  contentType: string
+): Promise<{ hasBranding: boolean; brandingItems: string[]; locations: string[] }> {
+  try {
+    const DOUBAO_API_KEY = Deno.env.get("DOUBAO_API_KEY");
+    if (!DOUBAO_API_KEY) {
+      return { hasBranding: false, brandingItems: [], locations: [] };
+    }
+
+    // 转换为base64
+    const uint8Array = new Uint8Array(imageBuffer);
+    let binary = '';
+    for (let i = 0; i < uint8Array.length; i++) {
+      binary += String.fromCharCode(uint8Array[i]);
+    }
+    const base64Image = btoa(binary);
+    const mimeType = contentType.includes('png') ? 'image/png' : 
+                     contentType.includes('webp') ? 'image/webp' : 
+                     contentType.includes('gif') ? 'image/gif' : 'image/jpeg';
+
+    const detectPrompt = `请仔细分析这张图片，检查是否存在以下内容：
+1. 公司logo或品牌标识（不包括"灿尼科技"或"CANI"）
+2. 其他公司名称或商标文字
+3. 明显的水印或版权标记
+4. 联系方式（电话、网址、邮箱、微信号）
+5. 二维码
+6. 其他商业推广信息
+
+注意：如果只是产品型号或技术参数，不算品牌信息。
+
+请直接返回JSON格式：
+{
+  "hasBranding": true或false,
+  "brandingItems": ["检测到的具体品牌/logo/水印列表"],
+  "locations": ["左上角", "右下角"等位置描述]
+}`;
+
+    const response = await fetch("https://ark.cn-beijing.volces.com/api/v3/chat/completions", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${DOUBAO_API_KEY}`,
+      },
+      body: JSON.stringify({
+        model: "doubao-1.5-vision-pro-250328",
+        messages: [{
+          role: "user",
+          content: [
+            { type: "text", text: detectPrompt },
+            { type: "image_url", image_url: { url: `data:${mimeType};base64,${base64Image}` } }
+          ]
+        }],
+        temperature: 0.3,
+        max_tokens: 1024,
+      }),
+      signal: AbortSignal.timeout(30000),
+    });
+
+    if (!response.ok) {
+      console.error("Doubao vision detection failed:", response.status);
+      return { hasBranding: false, brandingItems: [], locations: [] };
+    }
+
+    const data = await response.json();
+    const content = data.choices?.[0]?.message?.content || "";
+    
+    const jsonMatch = content.match(/\{[\s\S]*\}/);
+    if (jsonMatch) {
+      try {
+        const result = JSON.parse(jsonMatch[0]);
+        return {
+          hasBranding: result.hasBranding === true,
+          brandingItems: result.brandingItems || [],
+          locations: result.locations || []
+        };
+      } catch {
+        return { hasBranding: false, brandingItems: [], locations: [] };
+      }
+    }
+
+    return { hasBranding: false, brandingItems: [], locations: [] };
+  } catch (error) {
+    console.error("Branding detection error:", error);
+    return { hasBranding: false, brandingItems: [], locations: [] };
+  }
+}
+
+// 使用AI编辑去除图片中的品牌信息
+async function removeBrandingFromImage(
+  imageBuffer: ArrayBuffer,
+  contentType: string,
+  brandingItems: string[],
+  locations: string[]
+): Promise<{ buffer: ArrayBuffer; contentType: string } | null> {
+  try {
+    const LOVABLE_API_KEY = Deno.env.get("LOVABLE_API_KEY");
+    if (!LOVABLE_API_KEY) {
+      return null;
+    }
+
+    const uint8Array = new Uint8Array(imageBuffer);
+    let binary = '';
+    for (let i = 0; i < uint8Array.length; i++) {
+      binary += String.fromCharCode(uint8Array[i]);
+    }
+    const base64Image = btoa(binary);
+    const mimeType = contentType.includes('png') ? 'image/png' : 
+                     contentType.includes('webp') ? 'image/webp' : 
+                     contentType.includes('gif') ? 'image/gif' : 'image/jpeg';
+
+    const editPrompt = `请编辑这张图片，去除以下内容：
+${brandingItems.map(item => `- ${item}`).join('\n')}
+
+位置信息：
+${locations.map(loc => `- ${loc}`).join('\n')}
+
+要求：
+1. 完全去除上述品牌标识、logo、水印
+2. 用自然的背景或周围内容填充被去除的区域
+3. 保持图片整体美观和自然
+4. 不要添加任何新的文字或标识`;
+
+    const response = await fetch("https://ai.gateway.lovable.dev/v1/chat/completions", {
+      method: "POST",
+      headers: {
+        "Authorization": `Bearer ${LOVABLE_API_KEY}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        model: "google/gemini-2.5-flash-image-preview",
+        messages: [{
+          role: "user",
+          content: [
+            { type: "text", text: editPrompt },
+            { type: "image_url", image_url: { url: `data:${mimeType};base64,${base64Image}` } }
+          ]
+        }],
+        modalities: ["image", "text"]
+      }),
+      signal: AbortSignal.timeout(60000),
+    });
+
+    if (!response.ok) {
+      console.error("Image editing failed:", response.status);
+      return null;
+    }
+
+    const data = await response.json();
+    const images = data.choices?.[0]?.message?.images;
+    
+    if (images && images.length > 0) {
+      const editedImageUrl = images[0]?.image_url?.url;
+      if (editedImageUrl && editedImageUrl.startsWith('data:')) {
+        const base64Match = editedImageUrl.match(/^data:([^;]+);base64,(.+)$/);
+        if (base64Match) {
+          const newMimeType = base64Match[1];
+          const base64Data = base64Match[2];
+          
+          const binaryString = atob(base64Data);
+          const len = binaryString.length;
+          const bytes = new Uint8Array(len);
+          for (let i = 0; i < len; i++) {
+            bytes[i] = binaryString.charCodeAt(i);
+          }
+          
+          return { buffer: bytes.buffer, contentType: newMimeType };
+        }
+      }
+    }
+
+    return null;
+  } catch (error) {
+    console.error("Branding removal error:", error);
+    return null;
+  }
+}
+
 // 使用AI评估图片与文章的相关性
 async function evaluateImageRelevance(
   imageUrl: string,
@@ -225,28 +404,67 @@ async function processArticleImage(
 
   addLog?.('success', `✅ 图片评分 ${evaluation.score}: ${evaluation.reason}`, { step: 'image' });
 
-  // 2. 检查是否需要转存
-  if (needsLocalStorage(imageUrl)) {
-    addLog?.('info', `📥 下载防盗链图片...`, { step: 'image' });
-    
-    const downloaded = await downloadImage(imageUrl);
-    if (!downloaded) {
+  // 2. 下载图片进行处理
+  addLog?.('info', `📥 下载图片进行处理...`, { step: 'image' });
+  const downloaded = await downloadImage(imageUrl);
+  
+  if (!downloaded) {
+    // 下载失败，如果不是防盗链图片则使用原始URL
+    if (!needsLocalStorage(imageUrl)) {
+      result.newUrl = imageUrl;
+      addLog?.('info', `使用原始图片URL`, { step: 'image' });
+    } else {
       result.isRelevant = false;
       addLog?.('warning', `下载失败，跳过此图片`, { step: 'image' });
-      return result;
     }
+    return result;
+  }
 
-    const localUrl = await uploadImageToStorage(supabase, downloaded.buffer, downloaded.contentType, articleId);
-    if (localUrl) {
-      result.newUrl = localUrl;
-      result.wasConverted = true;
-      addLog?.('success', `📤 图片已转存到本地`, { step: 'image' });
+  // 3. 使用豆包AI检测品牌信息
+  addLog?.('info', `🔍 检测图片中的品牌标识...`, { step: 'image' });
+  const brandingDetection = await detectBrandingWithDoubao(downloaded.buffer, downloaded.contentType);
+  
+  let finalBuffer = downloaded.buffer;
+  let finalContentType = downloaded.contentType;
+  
+  if (brandingDetection.hasBranding && brandingDetection.brandingItems.length > 0) {
+    addLog?.('info', `⚠️ 检测到品牌: ${brandingDetection.brandingItems.join(', ')}`, { step: 'image' });
+    addLog?.('info', `🎨 正在去除品牌信息...`, { step: 'image' });
+    
+    // 4. 使用AI去除品牌信息
+    const editedImage = await removeBrandingFromImage(
+      downloaded.buffer, 
+      downloaded.contentType,
+      brandingDetection.brandingItems,
+      brandingDetection.locations
+    );
+    
+    if (editedImage) {
+      finalBuffer = editedImage.buffer;
+      finalContentType = editedImage.contentType;
+      addLog?.('success', `✨ 品牌信息已去除`, { step: 'image' });
+    } else {
+      addLog?.('warning', `品牌去除失败，使用原图`, { step: 'image' });
+    }
+  } else {
+    addLog?.('info', `✓ 未检测到品牌信息`, { step: 'image' });
+  }
+
+  // 5. 上传处理后的图片
+  const localUrl = await uploadImageToStorage(supabase, finalBuffer, finalContentType, articleId);
+  if (localUrl) {
+    result.newUrl = localUrl;
+    result.wasConverted = true;
+    addLog?.('success', `📤 图片已处理并上传`, { step: 'image' });
+  } else {
+    // 上传失败，如果不是防盗链图片则使用原始URL
+    if (!needsLocalStorage(imageUrl)) {
+      result.newUrl = imageUrl;
+      addLog?.('warning', `上传失败，使用原始URL`, { step: 'image' });
     } else {
       result.isRelevant = false;
       addLog?.('warning', `上传失败，跳过此图片`, { step: 'image' });
     }
-  } else {
-    result.newUrl = imageUrl;
   }
 
   return result;
