@@ -952,18 +952,17 @@ function getUnusedDefaultImages(needed: number): string[] {
   return selected;
 }
 
-// 使用Unsplash API搜索相关图片
-async function searchUnsplashImages(
+// 使用Firecrawl搜索图片关键词相关的图片
+async function searchImagesWithFirecrawl(
   keywords: string[],
   count: number = 3,
   addLog?: LogFunction
 ): Promise<string[]> {
   try {
-    const UNSPLASH_ACCESS_KEY = Deno.env.get("UNSPLASH_ACCESS_KEY");
+    const apiKey = Deno.env.get("FIRECRAWL_API_KEY");
     
-    // 如果没有配置Unsplash API，返回空数组
-    if (!UNSPLASH_ACCESS_KEY) {
-      console.log("UNSPLASH_ACCESS_KEY not configured, skipping image search");
+    if (!apiKey) {
+      console.log("FIRECRAWL_API_KEY not configured, skipping image search");
       return [];
     }
 
@@ -975,49 +974,103 @@ async function searchUnsplashImages(
       if (images.length >= count) break;
       
       try {
-        const searchUrl = `https://api.unsplash.com/search/photos?query=${encodeURIComponent(keyword)}&per_page=3&orientation=landscape`;
+        // 构建图片搜索查询 - 添加 "image" 或 "photo" 关键词来优化结果
+        const searchQuery = `${keyword} drone UAV high quality image`;
         
-        const response = await fetch(searchUrl, {
+        addLog?.('info', `🔍 Firecrawl图片搜索: "${keyword}"`, { 
+          step: 'image', 
+          details: `搜索关键词: ${searchQuery.substring(0, 50)}` 
+        });
+
+        const response = await fetchWithRetry("https://api.firecrawl.dev/v1/search", {
+          method: "POST",
           headers: {
-            'Authorization': `Client-ID ${UNSPLASH_ACCESS_KEY}`,
-            'Accept-Version': 'v1',
+            "Authorization": `Bearer ${apiKey}`,
+            "Content-Type": "application/json",
           },
-          signal: AbortSignal.timeout(10000),
+          body: JSON.stringify({
+            query: searchQuery,
+            limit: 5,
+            lang: "en",
+            country: "US",
+            scrapeOptions: {
+              formats: ["markdown", "html"],
+              onlyMainContent: true,
+            },
+          }),
         });
 
         if (!response.ok) {
-          console.log(`Unsplash search failed for "${keyword}": ${response.status}`);
+          console.log(`Firecrawl image search failed for "${keyword}": ${response.status}`);
           continue;
         }
 
         const data = await response.json();
-        const results = data.results || [];
+        const results = data.data || [];
 
-        for (const photo of results) {
+        console.log(`Firecrawl image search for "${keyword}" returned ${results.length} results`);
+
+        // 从搜索结果中提取图片
+        for (const result of results) {
           if (images.length >= count) break;
           
-          // 使用regular尺寸（1080px宽）
-          const imageUrl = photo.urls?.regular || photo.urls?.small;
-          if (imageUrl && !usedUrls.has(imageUrl)) {
-            images.push(imageUrl);
-            usedUrls.add(imageUrl);
+          const sourceUrl = result.url || '';
+          
+          // 从HTML内容中提取图片
+          if (result.html) {
+            const extractedImages = extractImagesFromHtml(result.html, sourceUrl);
+            
+            for (const imgUrl of extractedImages) {
+              if (images.length >= count) break;
+              if (!usedUrls.has(imgUrl) && !usedImagesInSession.has(imgUrl)) {
+                // 验证图片是否可访问
+                const isValid = await validateImageUrl(imgUrl);
+                if (isValid) {
+                  images.push(imgUrl);
+                  usedUrls.add(imgUrl);
+                  usedImagesInSession.add(imgUrl);
+                  console.log(`Found valid image: ${imgUrl.substring(0, 80)}...`);
+                }
+              }
+            }
+          }
+          
+          // 从Markdown中提取图片
+          if (result.markdown) {
+            const mdImageMatches = result.markdown.match(/!\[.*?\]\((https?:\/\/[^)]+)\)/g) || [];
+            for (const match of mdImageMatches) {
+              if (images.length >= count) break;
+              const urlMatch = match.match(/\((https?:\/\/[^)]+)\)/);
+              if (urlMatch && urlMatch[1]) {
+                const imgUrl = urlMatch[1];
+                if (!usedUrls.has(imgUrl) && !usedImagesInSession.has(imgUrl) && isValidImage(imgUrl)) {
+                  const isValid = await validateImageUrl(imgUrl);
+                  if (isValid) {
+                    images.push(imgUrl);
+                    usedUrls.add(imgUrl);
+                    usedImagesInSession.add(imgUrl);
+                    console.log(`Found valid MD image: ${imgUrl.substring(0, 80)}...`);
+                  }
+                }
+              }
+            }
           }
         }
 
-        addLog?.('info', `Unsplash搜索: "${keyword}" 找到 ${results.length} 张图片`, { 
+        addLog?.('info', `Firecrawl搜索: "${keyword}" 提取到 ${images.length} 张有效图片`, { 
           step: 'image', 
           details: `已选择 ${images.length}/${count} 张` 
         });
 
       } catch (err) {
-        console.log(`Unsplash search error for "${keyword}":`, err);
+        console.log(`Firecrawl image search error for "${keyword}":`, err);
       }
     }
 
-    console.log(`Unsplash search completed: ${images.length} images found`);
+    console.log(`Firecrawl image search completed: ${images.length} images found`);
     return images;
   } catch (error) {
-    console.error("Unsplash search failed:", error);
+    console.error("Firecrawl image search failed:", error);
     return [];
   }
 }
@@ -1236,15 +1289,15 @@ async function rewriteArticleWithAI(
       console.log(`Using ${unusedOriginalImages.length} unique original images`);
     }
     
-    // 2. 如果原文图片不足，使用AI生成的关键词搜索Unsplash图片
+    // 2. 如果原文图片不足，使用AI生成的关键词通过Firecrawl搜索图片
     if (images.length < MIN_IMAGES && imageSearchKeywords.length > 0) {
       const neededFromSearch = MIN_IMAGES - images.length;
-      addLog?.('info', `🌐 使用关键词搜索 Unsplash 图片...`, { 
+      addLog?.('info', `🌐 使用关键词通过 Firecrawl 搜索图片...`, { 
         step: 'image', 
         details: `需要 ${neededFromSearch} 张，关键词: ${imageSearchKeywords.slice(0, 2).join(', ')}` 
       });
       
-      const searchedImages = await searchUnsplashImages(imageSearchKeywords, neededFromSearch, addLog);
+      const searchedImages = await searchImagesWithFirecrawl(imageSearchKeywords, neededFromSearch, addLog);
       
       for (const img of searchedImages) {
         if (images.length >= MIN_IMAGES) break;
@@ -1255,7 +1308,7 @@ async function rewriteArticleWithAI(
       }
       
       if (searchedImages.length > 0) {
-        addLog?.('success', `✅ Unsplash 搜索到 ${searchedImages.length} 张相关图片`, { step: 'image' });
+        addLog?.('success', `✅ Firecrawl 搜索到 ${searchedImages.length} 张相关图片`, { step: 'image' });
       }
     }
     
