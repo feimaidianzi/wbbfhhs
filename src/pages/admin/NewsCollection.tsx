@@ -633,42 +633,67 @@ const NewsCollection = () => {
     addCollectionLog({
       type: 'step',
       step: 'search',
-      message: `🚀 任务已提交: ${task.name}`,
-      details: `分类: ${task.category || '全部分类'} - 后台执行中，自动刷新状态`,
+      message: `🚀 开始采集任务: ${task.name}`,
+      details: `分类: ${task.category || '全部分类'}`,
     });
 
-    // 立即开始后台监控（不等待响应）
-    startBackgroundMonitor('任务已提交到后台执行');
+    // 启动静默后台监控（不显示"连接中断"消息）
+    backgroundMonitorStartedAtRef.current = Date.now();
+    backgroundMonitorIntervalRef.current = window.setInterval(() => {
+      fetchData();
+      void checkIfCollectionFinished();
+    }, 5000);
     
     toast({
-      title: '✅ 任务已提交',
-      description: '采集任务正在后台执行，页面将自动刷新显示进度。',
+      title: '🚀 开始采集',
+      description: '正在执行采集任务，请查看下方日志面板...',
     });
 
-    // 发起请求但不阻塞（fire-and-forget模式）
-    supabase.functions.invoke('collect-news-firecrawl', {
-      body: {
-        action: 'auto-generate-and-collect',
-        count: task.article_count || 4,
-        autoPublish: task.auto_publish !== false,
-        category: task.category || undefined,
-      },
-    }).then((response) => {
-      // 如果收到响应（边缘情况：任务很快完成或返回了taskId）
+    // 发起请求并等待响应
+    try {
+      const response = await supabase.functions.invoke('collect-news-firecrawl', {
+        body: {
+          action: 'auto-generate-and-collect',
+          count: task.article_count || 4,
+          autoPublish: task.auto_publish !== false,
+          category: task.category || undefined,
+        },
+      });
+      
+      // 收到响应后解析日志
       if (response.data?.logs) {
         parseLogsFromResponse(response.data.logs);
       }
       if (response.data?.generatedKeywords) {
         setGeneratedKeywords(response.data.generatedKeywords);
       }
-      console.log('[AsyncTask] Edge function response:', response.data);
-    }).catch((err) => {
-      // 连接超时是预期行为，任务仍在后台执行
-      console.log('[AsyncTask] Connection closed (expected for long tasks):', err?.message || err);
-    });
+      
+      // 采集完成
+      stopBackgroundMonitor();
+      stopCollectingUI();
+      fetchData();
+      
+      addCollectionLog({
+        type: 'success',
+        step: 'save',
+        message: '✅ 采集任务完成',
+      });
+    } catch (err: any) {
+      // 连接超时/中断时，显示提示并继续后台监控
+      if (isTransientCollectionError(err)) {
+        addCollectionLog({
+          type: 'info',
+          step: 'save',
+          message: '⏳ 连接中断，但采集仍在后台继续执行中…',
+          details: '页面将自动刷新显示新内容',
+        });
+      } else {
+        console.error('[AsyncTask] Error:', err);
+      }
+    }
   };
 
-  // 手动触发定时任务（全部）- 真正的异步模式
+  // 手动触发定时任务（全部）
   const triggerScheduledTask = async () => {
     setFirecrawlCollecting(true);
     stopBackgroundMonitor();
@@ -677,36 +702,59 @@ const NewsCollection = () => {
     addCollectionLog({
       type: 'step',
       step: 'search',
-      message: '🚀 全量采集任务已提交',
-      details: '后台执行中，页面将自动刷新状态',
+      message: '🚀 开始全量采集任务',
+      details: '正在执行采集...',
     });
 
-    // 立即开始后台监控
-    startBackgroundMonitor('全量采集任务已提交到后台执行');
+    // 启动静默后台监控
+    backgroundMonitorStartedAtRef.current = Date.now();
+    backgroundMonitorIntervalRef.current = window.setInterval(() => {
+      fetchData();
+      void checkIfCollectionFinished();
+    }, 5000);
     
     toast({
-      title: '✅ 任务已提交',
-      description: '采集任务正在后台执行，页面将自动刷新显示进度。',
+      title: '🚀 开始采集',
+      description: '正在执行全量采集任务，请查看下方日志面板...',
     });
 
-    // 发起请求但不阻塞
-    supabase.functions.invoke('collect-news-firecrawl', {
-      body: {
-        action: 'auto-generate-and-collect',
-        count: 10,
-        autoPublish: true,
-      },
-    }).then((response) => {
+    try {
+      const response = await supabase.functions.invoke('collect-news-firecrawl', {
+        body: {
+          action: 'auto-generate-and-collect',
+          count: 10,
+          autoPublish: true,
+        },
+      });
+      
       if (response.data?.logs) {
         parseLogsFromResponse(response.data.logs);
       }
       if (response.data?.generatedKeywords) {
         setGeneratedKeywords(response.data.generatedKeywords);
       }
-      console.log('[AsyncTask] Edge function response:', response.data);
-    }).catch((err) => {
-      console.log('[AsyncTask] Connection closed (expected):', err?.message || err);
-    });
+      
+      stopBackgroundMonitor();
+      stopCollectingUI();
+      fetchData();
+      
+      addCollectionLog({
+        type: 'success',
+        step: 'save',
+        message: '✅ 全量采集任务完成',
+      });
+    } catch (err: any) {
+      if (isTransientCollectionError(err)) {
+        addCollectionLog({
+          type: 'info',
+          step: 'save',
+          message: '⏳ 连接中断，但采集仍在后台继续执行中…',
+          details: '页面将自动刷新显示新内容',
+        });
+      } else {
+        console.error('[AsyncTask] Error:', err);
+      }
+    }
   };
 
   // 打开任务编辑对话框
