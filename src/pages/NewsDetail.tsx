@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef, useCallback } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
@@ -11,6 +11,8 @@ import { SEO, createArticleStructuredData } from "@/components/SEO";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { supabase } from "@/integrations/supabase/client";
 import { sanitizeHtml } from "@/lib/sanitize";
+
+const DEFAULT_IMAGE = "https://images.pexels.com/photos/442587/pexels-photo-442587.jpeg?auto=compress&cs=tinysrgb&w=800";
 
 interface NewsArticle {
   id: string;
@@ -42,6 +44,40 @@ const NewsDetail = () => {
   const [article, setArticle] = useState<NewsArticle | null>(null);
   const [loading, setLoading] = useState(true);
   const [relatedArticles, setRelatedArticles] = useState<RelatedArticle[]>([]);
+  const contentRef = useRef<HTMLDivElement>(null);
+
+  // Handle broken images in article content
+  const handleContentImageErrors = useCallback(() => {
+    if (!contentRef.current) return;
+    
+    const images = contentRef.current.querySelectorAll('img');
+    images.forEach((img) => {
+      // Skip if already handled
+      if (img.dataset.errorHandled === 'true') return;
+      
+      img.onerror = () => {
+        img.dataset.errorHandled = 'true';
+        img.src = DEFAULT_IMAGE;
+        img.alt = '文章配图';
+      };
+      
+      // Also check if image is already broken (for cached broken images)
+      if (img.complete && img.naturalWidth === 0) {
+        img.src = DEFAULT_IMAGE;
+        img.alt = '文章配图';
+        img.dataset.errorHandled = 'true';
+      }
+    });
+  }, []);
+
+  // Apply image error handlers after content renders
+  useEffect(() => {
+    if (article && contentRef.current) {
+      // Small delay to ensure DOM is fully rendered
+      const timer = setTimeout(handleContentImageErrors, 100);
+      return () => clearTimeout(timer);
+    }
+  }, [article, language, handleContentImageErrors]);
 
   useEffect(() => {
     const fetchArticle = async () => {
@@ -214,6 +250,7 @@ const NewsDetail = () => {
 
           {/* Article Body */}
           <div 
+            ref={contentRef}
             className="prose prose-lg dark:prose-invert max-w-none
               prose-headings:text-foreground 
               prose-p:text-muted-foreground 
