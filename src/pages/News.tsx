@@ -197,11 +197,15 @@ const News = () => {
                     to={`/news/${news.id}`}
                     className="group bg-card rounded-xl overflow-hidden shadow-card hover:shadow-card-hover transition-all"
                   >
-                    <div className="aspect-video overflow-hidden">
+                    <div className="aspect-video overflow-hidden bg-muted">
                       <img
-                        src={news.cover_image || "https://images.unsplash.com/photo-1473968512647-3e447244af8f?w=600&q=80"}
+                        src={news.cover_image || "https://images.pexels.com/photos/442587/pexels-photo-442587.jpeg?auto=compress&cs=tinysrgb&w=600"}
                         alt={news.title}
                         className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                        onError={(e) => {
+                          const target = e.target as HTMLImageElement;
+                          target.src = "https://images.pexels.com/photos/442587/pexels-photo-442587.jpeg?auto=compress&cs=tinysrgb&w=600";
+                        }}
                       />
                     </div>
                     <div className="p-6">

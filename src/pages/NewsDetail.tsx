@@ -240,15 +240,17 @@ const NewsDetail = () => {
                     to={`/news/${related.id}`}
                     className="group bg-card rounded-xl overflow-hidden shadow-card hover:shadow-card-hover transition-all"
                   >
-                    {related.cover_image && (
-                      <div className="aspect-video overflow-hidden">
-                        <img
-                          src={related.cover_image}
-                          alt={related.title}
-                          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                        />
-                      </div>
-                    )}
+                    <div className="aspect-video overflow-hidden bg-muted">
+                      <img
+                        src={related.cover_image || "https://images.pexels.com/photos/442587/pexels-photo-442587.jpeg?auto=compress&cs=tinysrgb&w=600"}
+                        alt={related.title}
+                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                        onError={(e) => {
+                          const target = e.target as HTMLImageElement;
+                          target.src = "https://images.pexels.com/photos/442587/pexels-photo-442587.jpeg?auto=compress&cs=tinysrgb&w=600";
+                        }}
+                      />
+                    </div>
                     <div className="p-4">
                       <h3 className="font-semibold text-card-foreground line-clamp-2 group-hover:text-accent transition-colors">
                         {related.title}
