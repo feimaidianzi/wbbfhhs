@@ -1945,27 +1945,28 @@ const KEYWORD_GENERATION_GUIDE = {
   }
 };
 
-// 快速生成单个关键词（每个分类一个）
-async function generateSingleKeywordForCategory(
+// 生成多个关键词（每个分类3-5个）- 避免无标题可用导致0采集
+async function generateMultipleKeywordsForCategory(
   category: string,
   existingKeywords: string[] = [],
   existingArticleTitles: string[] = [],
   addLog?: (type: 'info' | 'success' | 'warning' | 'error' | 'step', message: string, options?: any) => void,
-): Promise<string | null> {
+  keywordCount: number = 3, // 每个分类生成3个关键词
+): Promise<string[]> {
   const startedAt = Date.now();
   try {
     const DOUBAO_API_KEY = Deno.env.get("DOUBAO_API_KEY");
     if (!DOUBAO_API_KEY) {
       console.log("DOUBAO_API_KEY not found for keyword generation");
       addLog?.('warning', `未配置豆包密钥，跳过关键词生成：${category}`, { step: 'keyword' });
-      return null;
+      return [];
     }
 
     const categoryGuide = KEYWORD_GENERATION_GUIDE[category as keyof typeof KEYWORD_GENERATION_GUIDE];
     if (!categoryGuide) {
       console.log(`Unknown category: ${category}`);
       addLog?.('warning', `未知分类，跳过关键词生成：${category}`, { step: 'keyword' });
-      return null;
+      return [];
     }
 
     const existingList = existingKeywords.length > 0
@@ -1973,10 +1974,10 @@ async function generateSingleKeywordForCategory(
       : '';
 
     const articleTitlesRef = existingArticleTitles.length > 0
-      ? `\n\n【参考新闻标题】\n${existingArticleTitles.slice(0, 10).join('\n')}`
+      ? `\n\n【已采集文章标题（避免相似主题）】\n${existingArticleTitles.slice(0, 15).join('\n')}`
       : '';
 
-    const prompt = `你是无人机行业新闻采集专家。请为"${category}"分类生成1个最新、最热门的搜索关键词。
+    const prompt = `你是无人机行业新闻采集专家。请为"${category}"分类生成${keywordCount}个最新、最热门的搜索关键词。
 
 【分类说明】${categoryGuide.description}
 【参考子类】${JSON.stringify(categoryGuide.subcategories)}
@@ -1984,22 +1985,26 @@ ${existingList}
 ${articleTitlesRef}
 
 【要求】
-1. 只生成1个关键词，直接输出关键词文本，不要任何其他内容
-2. 关键词要具体、精准、有时效性
+1. 生成${keywordCount}个不同角度的关键词，每行一个
+2. 关键词要具体、精准、有时效性（优先2025-2026年热点）
 3. 不要与已存在的关键词重复或相似
-4. 能搜索到高质量无人机相关新闻`;
+4. 不要与已采集文章标题的主题雷同
+5. 关键词要多样化，覆盖不同子主题
+6. 能搜索到高质量无人机相关新闻
 
-    console.log(`Generating single keyword for ${category}`);
-    addLog?.('info', `生成关键词：${category}`, { step: 'keyword' });
+【输出格式】
+直接输出${keywordCount}个关键词，每行一个，不要任何其他内容或标点符号`;
 
-    // 经验上：关键词生成应当很快；为避免“卡住”的体感，这里把单分类超时收紧
+    console.log(`Generating ${keywordCount} keywords for ${category}`);
+    addLog?.('info', `生成${keywordCount}个关键词：${category}`, { step: 'keyword' });
+
     const response = await fetch(`https://ark.cn-beijing.volces.com/api/v3/responses`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
         "Authorization": `Bearer ${DOUBAO_API_KEY}`,
       },
-      signal: AbortSignal.timeout(15000),
+      signal: AbortSignal.timeout(20000), // 增加超时时间，因为生成更多内容
       body: JSON.stringify({
         model: "doubao-seed-1-8-251228",
         thinking: { type: "disabled" },
@@ -2017,7 +2022,7 @@ ${articleTitlesRef}
         step: 'keyword',
         details: errText?.slice(0, 300) || undefined,
       });
-      return null;
+      return [];
     }
 
     const data = await response.json();
@@ -2039,23 +2044,34 @@ ${articleTitlesRef}
       aiContent = data.choices[0].message.content;
     }
 
-    // 清理关键词：去除引号、换行、多余空格
-    const keyword = aiContent.trim().replace(/^["'`]|["'`]$/g, '').trim();
+    // 解析多个关键词：按行分割
+    const lines = aiContent.split('\n')
+      .map(line => line.trim().replace(/^["'`\d.\-、）)]+|["'`]+$/g, '').trim())
+      .filter(line => line.length > 1 && line.length < 60);
 
-    if (keyword && keyword.length > 1 && keyword.length < 50) {
-      // 检查是否与已存在关键词重复
-      const existingSet = new Set(existingKeywords.map(k => k.toLowerCase()));
-      if (!existingSet.has(keyword.toLowerCase())) {
-        const ms = Date.now() - startedAt;
-        console.log(`Generated keyword for ${category}: ${keyword} (${ms}ms)`);
-        addLog?.('success', `关键词生成完成：${category}`, { step: 'keyword', details: `${keyword}（${ms}ms）` });
-        return keyword;
+    // 去重检查
+    const existingSet = new Set(existingKeywords.map(k => k.toLowerCase()));
+    const validKeywords: string[] = [];
+    
+    for (const keyword of lines) {
+      if (!existingSet.has(keyword.toLowerCase()) && !validKeywords.includes(keyword)) {
+        validKeywords.push(keyword);
+        existingSet.add(keyword.toLowerCase()); // 防止本批次内重复
       }
-
-      addLog?.('warning', `关键词重复，已丢弃：${category}`, { step: 'keyword', details: keyword });
     }
 
-    return null;
+    const ms = Date.now() - startedAt;
+    if (validKeywords.length > 0) {
+      console.log(`Generated ${validKeywords.length} keywords for ${category}: ${validKeywords.join(', ')} (${ms}ms)`);
+      addLog?.('success', `关键词生成完成：${category}`, { 
+        step: 'keyword', 
+        details: `${validKeywords.length}个 - ${validKeywords.join('、')}（${ms}ms）` 
+      });
+      return validKeywords;
+    }
+
+    addLog?.('warning', `关键词生成为空：${category}`, { step: 'keyword', details: `原始输出: ${aiContent.substring(0, 100)}` });
+    return [];
   } catch (error) {
     const ms = Date.now() - startedAt;
     console.error(`Keyword generation failed for ${category}:`, error);
@@ -2067,17 +2083,19 @@ ${articleTitlesRef}
       details: `${msg}（${ms}ms）`,
     });
 
-    return null;
+    return [];
   }
 }
 
 // 为指定分类或所有分类生成关键词
 // 如果传入 targetCategory，只为该分类生成关键词；否则为所有分类并行生成
+// 每个分类生成多个关键词，避免无标题可用导致0采集
 async function generateHotKeywords(
   existingKeywords: string[] = [],
   existingArticleTitles: string[] = [],
   addLog?: (type: 'info' | 'success' | 'warning' | 'error' | 'step', message: string, options?: any) => void,
-  targetCategory?: string, // 新增：指定分类参数
+  targetCategory?: string, // 指定分类参数
+  keywordsPerCategory: number = 3, // 每个分类生成的关键词数量
 ): Promise<Record<string, string[]>> {
   const startedAt = Date.now();
   
@@ -2085,28 +2103,36 @@ async function generateHotKeywords(
   let categories: string[];
   if (targetCategory && KEYWORD_GENERATION_GUIDE[targetCategory as keyof typeof KEYWORD_GENERATION_GUIDE]) {
     categories = [targetCategory];
-    addLog?.('info', `为指定分类生成关键词：${targetCategory}`, { step: 'keyword' });
+    addLog?.('info', `为指定分类生成${keywordsPerCategory}个关键词：${targetCategory}`, { step: 'keyword' });
   } else {
     categories = Object.keys(KEYWORD_GENERATION_GUIDE);
-    addLog?.('info', `开始并行生成关键词（${categories.length}个分类）`, { step: 'keyword' });
+    addLog?.('info', `开始并行生成关键词（${categories.length}个分类，每个${keywordsPerCategory}个）`, { step: 'keyword' });
   }
   
   const result: Record<string, string[]> = {};
 
   const promises = categories.map(async (category) => {
-    const keyword = await generateSingleKeywordForCategory(category, existingKeywords, existingArticleTitles, addLog);
-    return { category, keyword };
+    const keywords = await generateMultipleKeywordsForCategory(
+      category, 
+      existingKeywords, 
+      existingArticleTitles, 
+      addLog,
+      keywordsPerCategory
+    );
+    return { category, keywords };
   });
 
   const results = await Promise.all(promises);
 
-  for (const { category, keyword } of results) {
-    result[category] = keyword ? [keyword] : [];
+  let totalKeywords = 0;
+  for (const { category, keywords } of results) {
+    result[category] = keywords;
+    totalKeywords += keywords.length;
   }
 
   const totalMs = Date.now() - startedAt;
   console.log("Generated keywords:", JSON.stringify(result));
-  addLog?.('success', `关键词生成阶段完成`, { step: 'keyword', details: `${totalMs}ms` });
+  addLog?.('success', `关键词生成阶段完成：共${totalKeywords}个`, { step: 'keyword', details: `${totalMs}ms` });
 
   return result;
 }
