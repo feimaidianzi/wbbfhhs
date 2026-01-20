@@ -952,7 +952,77 @@ function getUnusedDefaultImages(needed: number): string[] {
   return selected;
 }
 
-// 使用 Doubao API 进行专业二次创作 - 增强版，支持原文图片
+// 使用Unsplash API搜索相关图片
+async function searchUnsplashImages(
+  keywords: string[],
+  count: number = 3,
+  addLog?: LogFunction
+): Promise<string[]> {
+  try {
+    const UNSPLASH_ACCESS_KEY = Deno.env.get("UNSPLASH_ACCESS_KEY");
+    
+    // 如果没有配置Unsplash API，返回空数组
+    if (!UNSPLASH_ACCESS_KEY) {
+      console.log("UNSPLASH_ACCESS_KEY not configured, skipping image search");
+      return [];
+    }
+
+    const images: string[] = [];
+    const usedUrls = new Set<string>();
+
+    // 为每个关键词搜索图片
+    for (const keyword of keywords.slice(0, 3)) {
+      if (images.length >= count) break;
+      
+      try {
+        const searchUrl = `https://api.unsplash.com/search/photos?query=${encodeURIComponent(keyword)}&per_page=3&orientation=landscape`;
+        
+        const response = await fetch(searchUrl, {
+          headers: {
+            'Authorization': `Client-ID ${UNSPLASH_ACCESS_KEY}`,
+            'Accept-Version': 'v1',
+          },
+          signal: AbortSignal.timeout(10000),
+        });
+
+        if (!response.ok) {
+          console.log(`Unsplash search failed for "${keyword}": ${response.status}`);
+          continue;
+        }
+
+        const data = await response.json();
+        const results = data.results || [];
+
+        for (const photo of results) {
+          if (images.length >= count) break;
+          
+          // 使用regular尺寸（1080px宽）
+          const imageUrl = photo.urls?.regular || photo.urls?.small;
+          if (imageUrl && !usedUrls.has(imageUrl)) {
+            images.push(imageUrl);
+            usedUrls.add(imageUrl);
+          }
+        }
+
+        addLog?.('info', `Unsplash搜索: "${keyword}" 找到 ${results.length} 张图片`, { 
+          step: 'image', 
+          details: `已选择 ${images.length}/${count} 张` 
+        });
+
+      } catch (err) {
+        console.log(`Unsplash search error for "${keyword}":`, err);
+      }
+    }
+
+    console.log(`Unsplash search completed: ${images.length} images found`);
+    return images;
+  } catch (error) {
+    console.error("Unsplash search failed:", error);
+    return [];
+  }
+}
+
+// 使用 Doubao API 进行专业二次创作 - 增强版，支持原文图片和图片关键词生成
 async function rewriteArticleWithAI(
   originalTitle: string,
   originalContent: string,
@@ -970,6 +1040,7 @@ async function rewriteArticleWithAI(
   keywords: string[]; 
   coverImage: string | null;
   images: string[];
+  imageSearchKeywords: string[]; // 新增：图片搜索关键词
 } | null> {
   try {
     const DOUBAO_API_KEY = Deno.env.get("DOUBAO_API_KEY");
@@ -1032,6 +1103,14 @@ async function rewriteArticleWithAI(
 <!-- IMAGE_PLACEHOLDER_2 -->
 <!-- IMAGE_PLACEHOLDER_3 -->
 
+【图片搜索关键词 - 重要！】
+你需要额外生成3-5个英文图片搜索关键词（image_keywords字段），用于从Unsplash等图库搜索与文章内容相关的配图。
+这些关键词应该：
+- 必须是英文单词或短语（适合在Unsplash搜索）
+- 描述文章中可以配图的具体场景或物体
+- 例如：drone aerial view, industrial inspection, power line, agriculture spraying, FPV racing, quadcopter technology
+- 不要使用太抽象的词汇，要具体、视觉化
+
 【输出JSON格式】
 {
   "title": "中文标题（使用上述技巧，30字以内）",
@@ -1040,7 +1119,8 @@ async function rewriteArticleWithAI(
   "summary_en": "English summary (50-80 words)",
   "content": "中文HTML正文（包含h3/p/strong标签和至少3个图片标记，800-1500字）",
   "content_en": "English HTML content (with h3/p/strong tags and at least 3 image placeholders, 500-1000 words)",
-  "keywords": ["关键词1", "关键词2", "关键词3", "keyword4", "keyword5"]
+  "keywords": ["关键词1", "关键词2", "关键词3", "keyword4", "keyword5"],
+  "image_keywords": ["drone aerial photography", "industrial inspection drone", "technology innovation"]
 }
 
 【正文结构示例】
@@ -1132,35 +1212,67 @@ async function rewriteArticleWithAI(
       }
     }
     
-    // 准备图片列表：只使用经过验证的原文图片，不再使用 Unsplash 通用图片补充
-    let images: string[] = [];
+    // 提取AI生成的图片搜索关键词
+    const imageSearchKeywords: string[] = Array.isArray(result.image_keywords) 
+      ? result.image_keywords.slice(0, 5) 
+      : [];
     
-    // 只使用原文中已验证的高质量图片（同时标记为已使用，避免跨文章重复）
-    if (originalImages.length > 0) {
-      // 过滤掉已在本次采集中使用过的原文图片
-      const unusedOriginalImages = originalImages.filter(img => !usedImagesInSession.has(img));
-      images = [...unusedOriginalImages];
-      // 标记这些图片为已使用
-      unusedOriginalImages.forEach(img => usedImagesInSession.add(img));
-      console.log(`Using ${unusedOriginalImages.length} unique original images (${originalImages.length - unusedOriginalImages.length} duplicates skipped)`);
+    console.log(`AI generated image keywords: ${imageSearchKeywords.join(', ')}`);
+    if (imageSearchKeywords.length > 0) {
+      addLog?.('info', `🔍 图片搜索关键词: ${imageSearchKeywords.slice(0, 3).join(', ')}`, { 
+        step: 'image', 
+        details: `共 ${imageSearchKeywords.length} 个关键词` 
+      });
     }
     
-    // 如果原文图片不足，使用高质量无人机备选图片补充
+    // 准备图片列表
+    let images: string[] = [];
+    
+    // 1. 首先使用原文中已验证的高质量图片
+    if (originalImages.length > 0) {
+      const unusedOriginalImages = originalImages.filter(img => !usedImagesInSession.has(img));
+      images = [...unusedOriginalImages];
+      unusedOriginalImages.forEach(img => usedImagesInSession.add(img));
+      console.log(`Using ${unusedOriginalImages.length} unique original images`);
+    }
+    
+    // 2. 如果原文图片不足，使用AI生成的关键词搜索Unsplash图片
+    if (images.length < MIN_IMAGES && imageSearchKeywords.length > 0) {
+      const neededFromSearch = MIN_IMAGES - images.length;
+      addLog?.('info', `🌐 使用关键词搜索 Unsplash 图片...`, { 
+        step: 'image', 
+        details: `需要 ${neededFromSearch} 张，关键词: ${imageSearchKeywords.slice(0, 2).join(', ')}` 
+      });
+      
+      const searchedImages = await searchUnsplashImages(imageSearchKeywords, neededFromSearch, addLog);
+      
+      for (const img of searchedImages) {
+        if (images.length >= MIN_IMAGES) break;
+        if (!images.includes(img) && !usedImagesInSession.has(img)) {
+          images.push(img);
+          usedImagesInSession.add(img);
+        }
+      }
+      
+      if (searchedImages.length > 0) {
+        addLog?.('success', `✅ Unsplash 搜索到 ${searchedImages.length} 张相关图片`, { step: 'image' });
+      }
+    }
+    
+    // 3. 如果还是不足，使用高质量无人机备选图片补充
     if (images.length < MIN_IMAGES) {
-      console.log(`Original images only ${images.length}, supplementing with drone fallback images`);
-      // 随机选择备选图片，避免每篇文章使用相同图片
+      console.log(`Images still only ${images.length}, supplementing with drone fallback images`);
       const shuffledFallback = [...DRONE_FALLBACK_IMAGES].sort(() => 0.5 - Math.random());
       const neededCount = MIN_IMAGES - images.length;
       
       for (let i = 0; i < neededCount && i < shuffledFallback.length; i++) {
         const fallbackImg = shuffledFallback[i];
-        // 确保不与已有图片重复
         if (!images.includes(fallbackImg) && !usedImagesInSession.has(fallbackImg)) {
           images.push(fallbackImg);
           usedImagesInSession.add(fallbackImg);
         }
       }
-      console.log(`After supplementing: ${images.length} images total`);
+      console.log(`After supplementing with fallback: ${images.length} images total`);
     }
     
     // 最多使用5张图片
@@ -1190,9 +1302,10 @@ async function rewriteArticleWithAI(
     // 记录 AI 创作结果详细日志
     const newTitle = result.title?.substring(0, 100) || originalTitle.substring(0, 35);
     const keywordsStr = Array.isArray(result.keywords) ? result.keywords.slice(0, 3).join(', ') : '';
+    const imgKeywordsStr = imageSearchKeywords.slice(0, 2).join(', ');
     addLog?.('success', `✨ AI创作完成: "${newTitle.substring(0, 40)}"`, { 
       step: 'rewrite', 
-      details: `豆包AI生成: 标题"${newTitle.substring(0, 30)}..." | 摘要${(result.summary || "").length}字 | 正文${(result.content || "").length}字 | 关键词: ${keywordsStr} | 配图: ${images.length}张`
+      details: `豆包AI生成: 标题"${newTitle.substring(0, 30)}..." | 摘要${(result.summary || "").length}字 | 正文${(result.content || "").length}字 | 关键词: ${keywordsStr} | 图片关键词: ${imgKeywordsStr} | 配图: ${images.length}张`
     });
 
     return {
@@ -1205,6 +1318,7 @@ async function rewriteArticleWithAI(
       keywords: Array.isArray(result.keywords) ? result.keywords.slice(0, 5) : [],
       coverImage: coverImage || images[0] || null,
       images,
+      imageSearchKeywords,
     };
   } catch (error) {
     console.error("AI rewrite failed:", error);
