@@ -6,104 +6,109 @@
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 220 20% 20%;
+    /* 科技未来感深色主题 - Tech Futuristic Dark Theme */
+    --background: 222 47% 6%;
+    --foreground: 210 40% 98%;
+
+    --card: 222 47% 9%;
+    --card-foreground: 210 40% 98%;
+
+    --popover: 222 47% 9%;
+    --popover-foreground: 210 40% 98%;
+
+    --primary: 222 47% 11%;
+    --primary-foreground: 210 40% 98%;
+
+    --secondary: 217 33% 12%;
+    --secondary-foreground: 210 40% 98%;
+
+    --muted: 217 33% 17%;
+    --muted-foreground: 215 20% 65%;
+
+    /* 霓虹青色作为主强调色 - Neon Cyan as Primary Accent */
+    --accent: 172 100% 50%;
+    --accent-foreground: 222 47% 6%;
+
+    --destructive: 0 62.8% 50.6%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 217 33% 17%;
+    --input: 217 33% 17%;
+    --ring: 172 100% 50%;
+
+    --radius: 0.75rem;
+
+    /* 科技感色彩系统 - Tech Color System */
+    --neon-cyan: 172 100% 50%;
+    --neon-purple: 265 100% 65%;
+    --neon-pink: 325 100% 60%;
+    --neon-blue: 200 100% 55%;
+    --deep-space: 222 47% 6%;
+    --space-gray: 217 33% 12%;
+    --star-white: 210 40% 98%;
+
+    /* 渐变系统 - Gradient System */
+    --gradient-neon: linear-gradient(135deg, hsl(172 100% 50%) 0%, hsl(200 100% 55%) 50%, hsl(265 100% 65%) 100%);
+    --gradient-cyber: linear-gradient(135deg, hsl(265 100% 65%) 0%, hsl(325 100% 60%) 100%);
+    --gradient-space: linear-gradient(180deg, hsl(222 47% 6%) 0%, hsl(217 33% 12%) 100%);
+    --gradient-glow: radial-gradient(circle at center, hsla(172, 100%, 50%, 0.15) 0%, transparent 70%);
+    --gradient-hero: linear-gradient(180deg, hsla(222, 47%, 6%, 0.9) 0%, hsla(217, 33%, 12%, 0.6) 50%, hsla(222, 47%, 6%, 0.95) 100%);
+
+    /* 光效阴影 - Glow Shadows */
+    --shadow-neon: 0 0 30px hsla(172, 100%, 50%, 0.3);
+    --shadow-neon-intense: 0 0 50px hsla(172, 100%, 50%, 0.5);
+    --shadow-purple: 0 0 30px hsla(265, 100%, 65%, 0.3);
+    --shadow-card: 0 4px 24px -4px hsla(0, 0%, 0%, 0.4);
+    --shadow-card-hover: 0 16px 40px -8px hsla(172, 100%, 50%, 0.2);
+
+    --sidebar-background: 222 47% 8%;
+    --sidebar-foreground: 210 40% 98%;
+    --sidebar-primary: 172 100% 50%;
+    --sidebar-primary-foreground: 222 47% 6%;
+    --sidebar-accent: 217 33% 17%;
+    --sidebar-accent-foreground: 210 40% 98%;
+    --sidebar-border: 217 33% 17%;
+    --sidebar-ring: 172 100% 50%;
+  }
+
+  /* 浅色模式保持科技感但更明亮 */
+  .light {
+    --background: 210 40% 98%;
+    --foreground: 222 47% 11%;
 
     --card: 0 0% 100%;
-    --card-foreground: 220 20% 20%;
+    --card-foreground: 222 47% 11%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 220 20% 20%;
+    --popover-foreground: 222 47% 11%;
 
-    --primary: 215 60% 22%;
-    --primary-foreground: 0 0% 100%;
+    --primary: 222 47% 11%;
+    --primary-foreground: 210 40% 98%;
 
-    --secondary: 210 20% 96%;
-    --secondary-foreground: 220 20% 20%;
+    --secondary: 210 40% 96%;
+    --secondary-foreground: 222 47% 11%;
 
-    --muted: 210 15% 96%;
-    --muted-foreground: 220 10% 50%;
+    --muted: 210 40% 96%;
+    --muted-foreground: 215 25% 40%;
 
-    --accent: 16 95% 50%;
+    --accent: 172 80% 42%;
     --accent-foreground: 0 0% 100%;
 
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 210 40% 98%;
 
-    --border: 220 15% 90%;
-    --input: 220 15% 90%;
-    --ring: 16 95% 50%;
-
-    --radius: 0.5rem;
-
-    /* Custom colors - VA Imaging inspired */
-    --navy: 215 60% 22%;
-    --navy-dark: 215 65% 16%;
-    --navy-light: 215 50% 35%;
-    --orange: 16 95% 50%;
-    --orange-light: 20 90% 58%;
-    --orange-dark: 16 95% 42%;
-
-    /* Gradients */
-    --gradient-navy: linear-gradient(135deg, hsl(215 65% 16%) 0%, hsl(215 55% 28%) 100%);
-    --gradient-orange: linear-gradient(135deg, hsl(16 95% 50%) 0%, hsl(25 95% 55%) 100%);
-    --gradient-hero: linear-gradient(180deg, rgba(26,51,84,0.85) 0%, rgba(26,51,84,0.5) 50%, rgba(26,51,84,0.7) 100%);
-    --gradient-glass: linear-gradient(135deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0.05) 100%);
-
-    /* Shadows */
-    --shadow-sm: 0 2px 8px -2px hsla(220, 20%, 20%, 0.08);
-    --shadow-card: 0 4px 24px -4px hsla(220, 20%, 20%, 0.1);
-    --shadow-card-hover: 0 16px 40px -8px hsla(220, 20%, 20%, 0.15);
-    --shadow-button: 0 4px 16px -2px hsla(16, 95%, 50%, 0.35);
-    --shadow-glow: 0 0 40px hsla(16, 95%, 50%, 0.2);
-
-    --sidebar-background: 0 0% 98%;
-    --sidebar-foreground: 240 5.3% 26.1%;
-    --sidebar-primary: 240 5.9% 10%;
-    --sidebar-primary-foreground: 0 0% 98%;
-    --sidebar-accent: 240 4.8% 95.9%;
-    --sidebar-accent-foreground: 240 5.9% 10%;
-    --sidebar-border: 220 13% 91%;
-    --sidebar-ring: 217.2 91.2% 59.8%;
-  }
-
-  .dark {
-    --background: 220 25% 8%;
-    --foreground: 210 20% 98%;
-
-    --card: 220 25% 12%;
-    --card-foreground: 210 20% 98%;
-
-    --popover: 220 25% 12%;
-    --popover-foreground: 210 20% 98%;
-
-    --primary: 20 90% 55%;
-    --primary-foreground: 0 0% 100%;
-
-    --secondary: 220 25% 18%;
-    --secondary-foreground: 210 20% 98%;
-
-    --muted: 220 25% 18%;
-    --muted-foreground: 215 15% 60%;
-
-    --accent: 20 90% 55%;
-    --accent-foreground: 0 0% 100%;
-
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 210 40% 98%;
-
-    --border: 220 25% 20%;
-    --input: 220 25% 20%;
-    --ring: 20 90% 55%;
+    --border: 214 32% 91%;
+    --input: 214 32% 91%;
+    --ring: 172 80% 42%;
     
-    --sidebar-background: 240 5.9% 10%;
-    --sidebar-foreground: 240 4.8% 95.9%;
-    --sidebar-primary: 224.3 76.3% 48%;
+    --sidebar-background: 0 0% 98%;
+    --sidebar-foreground: 222 47% 11%;
+    --sidebar-primary: 172 80% 42%;
     --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 240 3.7% 15.9%;
-    --sidebar-accent-foreground: 240 4.8% 95.9%;
-    --sidebar-border: 240 3.7% 15.9%;
-    --sidebar-ring: 217.2 91.2% 59.8%;
+    --sidebar-accent: 210 40% 96%;
+    --sidebar-accent-foreground: 222 47% 11%;
+    --sidebar-border: 214 32% 91%;
+    --sidebar-ring: 172 80% 42%;
   }
 }
 
@@ -139,15 +144,28 @@
 @layer utilities {
   .text-gradient {
     @apply bg-clip-text text-transparent;
-    background-image: var(--gradient-orange);
+    background-image: var(--gradient-neon);
   }
 
-  .bg-navy-gradient {
-    background: var(--gradient-navy);
+  .text-gradient-cyber {
+    @apply bg-clip-text text-transparent;
+    background-image: var(--gradient-cyber);
   }
 
-  .bg-orange-gradient {
-    background: var(--gradient-orange);
+  .bg-cyber-gradient {
+    background: var(--gradient-neon);
+  }
+
+  .bg-space-gradient {
+    background: var(--gradient-space);
+  }
+
+  .shadow-neon {
+    box-shadow: var(--shadow-neon);
+  }
+
+  .shadow-neon-intense {
+    box-shadow: var(--shadow-neon-intense);
   }
 
   .shadow-card {
@@ -156,6 +174,38 @@
 
   .shadow-card-hover {
     box-shadow: var(--shadow-card-hover);
+  }
+
+  /* 霓虹边框效果 */
+  .border-neon {
+    border: 1px solid hsl(var(--accent));
+    box-shadow: 0 0 10px hsla(172, 100%, 50%, 0.3), inset 0 0 10px hsla(172, 100%, 50%, 0.1);
+  }
+
+  /* 玻璃态效果 */
+  .glass {
+    background: hsla(222, 47%, 9%, 0.7);
+    backdrop-filter: blur(20px);
+    border: 1px solid hsla(172, 100%, 50%, 0.1);
+  }
+
+  .glass-card {
+    background: hsla(222, 47%, 11%, 0.6);
+    backdrop-filter: blur(12px);
+    border: 1px solid hsla(172, 100%, 50%, 0.15);
+  }
+
+  /* 网格背景 */
+  .bg-grid {
+    background-image: 
+      linear-gradient(hsla(172, 100%, 50%, 0.03) 1px, transparent 1px),
+      linear-gradient(90deg, hsla(172, 100%, 50%, 0.03) 1px, transparent 1px);
+    background-size: 50px 50px;
+  }
+
+  .bg-dots {
+    background-image: radial-gradient(hsla(172, 100%, 50%, 0.15) 1px, transparent 1px);
+    background-size: 20px 20px;
   }
 
   .animate-float {
@@ -168,6 +218,27 @@
 
   .animate-fade-in {
     animation: fadeIn 0.8s ease-out forwards;
+  }
+
+  /* 霓虹脉冲动画 */
+  .animate-neon-pulse {
+    animation: neon-pulse 2s ease-in-out infinite;
+  }
+
+  /* 扫描线效果 */
+  .scanline {
+    position: relative;
+    overflow: hidden;
+  }
+  .scanline::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, hsl(var(--accent)), transparent);
+    animation: scanline 3s linear infinite;
   }
 }
 
@@ -229,12 +300,32 @@
   }
 }
 
-@keyframes pulse-glow {
+/* 霓虹脉冲动画 */
+@keyframes neon-pulse {
   0%, 100% {
-    box-shadow: 0 0 20px hsla(16, 95%, 50%, 0.4);
+    box-shadow: 0 0 20px hsla(172, 100%, 50%, 0.4), 0 0 40px hsla(172, 100%, 50%, 0.2);
   }
   50% {
-    box-shadow: 0 0 40px hsla(16, 95%, 50%, 0.8);
+    box-shadow: 0 0 40px hsla(172, 100%, 50%, 0.6), 0 0 80px hsla(172, 100%, 50%, 0.4);
+  }
+}
+
+/* 扫描线动画 */
+@keyframes scanline {
+  0% {
+    transform: translateY(-100%);
+  }
+  100% {
+    transform: translateY(100vh);
+  }
+}
+
+@keyframes pulse-glow {
+  0%, 100% {
+    box-shadow: 0 0 20px hsla(172, 100%, 50%, 0.4);
+  }
+  50% {
+    box-shadow: 0 0 40px hsla(172, 100%, 50%, 0.8);
   }
 }
 
@@ -415,10 +506,10 @@
 
 @keyframes text-glow {
   0%, 100% {
-    text-shadow: 0 0 10px hsla(16, 95%, 50%, 0.3);
+    text-shadow: 0 0 10px hsla(172, 100%, 50%, 0.3);
   }
   50% {
-    text-shadow: 0 0 20px hsla(16, 95%, 50%, 0.6), 0 0 30px hsla(16, 95%, 50%, 0.4);
+    text-shadow: 0 0 20px hsla(172, 100%, 50%, 0.6), 0 0 30px hsla(172, 100%, 50%, 0.4);
   }
 }
 

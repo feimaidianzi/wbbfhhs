@@ -57,16 +57,17 @@ export default {
           border: "hsl(var(--sidebar-border))",
           ring: "hsl(var(--sidebar-ring))",
         },
-        navy: {
-          DEFAULT: "hsl(var(--navy))",
-          dark: "hsl(var(--navy-dark))",
-          light: "hsl(var(--navy-light))",
+        /* 科技感色彩系统 */
+        neon: {
+          cyan: "hsl(var(--neon-cyan))",
+          purple: "hsl(var(--neon-purple))",
+          pink: "hsl(var(--neon-pink))",
+          blue: "hsl(var(--neon-blue))",
         },
-        orange: {
-          DEFAULT: "hsl(var(--orange))",
-          light: "hsl(var(--orange-light))",
+        space: {
+          deep: "hsl(var(--deep-space))",
+          gray: "hsl(var(--space-gray))",
         },
-        gold: "hsl(var(--gold))",
       },
       borderRadius: {
         lg: "var(--radius)",
