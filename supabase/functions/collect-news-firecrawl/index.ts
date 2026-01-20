@@ -162,6 +162,67 @@ function basicCleanContent(rawContent: string): string {
   return content;
 }
 
+// 清理HTML内容中的无关图片（logo、二维码、app下载等）
+function cleanHtmlImages(htmlContent: string): string {
+  if (!htmlContent) return htmlContent;
+  
+  // 需要移除的图片URL模式
+  const badImagePatterns = [
+    // 域名黑名单
+    /static-web\.stcn\.com/gi,
+    /n\.sinaimg\.cn\/finance/gi,
+    /k\.sinaimg\.cn/gi,
+    /ddimg\.cn/gi,
+    /apps\.apple\.com\/assets/gi,
+    // 路径关键词
+    /\/static\/images?\//gi,
+    /qr\.png/gi,
+    /qrcode/gi,
+    /logo\.(png|jpg|jpeg|gif|webp)/gi,
+    /app-download/gi,
+    /aside-app/gi,
+    /wechat-qr/gi,
+    /ewm\./gi,
+    // 小尺寸缩略图
+    /w150h100/gi,
+    /w\d{2,3}h\d{2,3}f\d/gi,
+    /resize,w_[1-2]\d{2}/gi,
+  ];
+  
+  // 匹配所有figure或img标签
+  const figurePattern = /<figure[^>]*>[\s\S]*?<img[^>]*src=["']([^"']+)["'][^>]*>[\s\S]*?<\/figure>/gi;
+  const imgPattern = /<img[^>]*src=["']([^"']+)["'][^>]*\/?>/gi;
+  
+  // 先处理figure标签
+  let cleaned = htmlContent.replace(figurePattern, (match, imgUrl) => {
+    for (const pattern of badImagePatterns) {
+      if (pattern.test(imgUrl)) {
+        console.log(`Removing bad image from content: ${imgUrl.substring(0, 80)}`);
+        return ''; // 移除整个figure
+      }
+    }
+    return match; // 保留
+  });
+  
+  // 再处理独立的img标签
+  cleaned = cleaned.replace(imgPattern, (match, imgUrl) => {
+    for (const pattern of badImagePatterns) {
+      // 重置正则的lastIndex
+      pattern.lastIndex = 0;
+      if (pattern.test(imgUrl)) {
+        console.log(`Removing bad standalone img: ${imgUrl.substring(0, 80)}`);
+        return '';
+      }
+    }
+    return match;
+  });
+  
+  // 清理可能产生的多余空行
+  cleaned = cleaned.replace(/\n{3,}/g, '\n\n');
+  
+  return cleaned;
+}
+
 // 使用 Doubao API 深度清洗文章内容
 async function deepCleanContentWithAI(rawContent: string, title: string): Promise<string> {
   try {
@@ -784,6 +845,10 @@ async function rewriteArticleWithAI(
     // 清理未使用的占位符
     contentWithImages = contentWithImages.replace(/<!-- IMAGE_PLACEHOLDER_\d+ -->/g, '');
     contentEnWithImages = contentEnWithImages.replace(/<!-- IMAGE_PLACEHOLDER_\d+ -->/g, '');
+    
+    // 最终清理：移除内容中可能残留的无关图片（logo、二维码等）
+    contentWithImages = cleanHtmlImages(contentWithImages);
+    contentEnWithImages = cleanHtmlImages(contentEnWithImages);
 
     console.log(`AI rewrite successful with ${images.length} images`);
     
@@ -1040,55 +1105,110 @@ function extractImagesFromHtml(html: string, baseUrl: string): string[] {
   return [...new Set(images)];
 }
 
-// 检查图片URL是否有效 - 放宽规则，接受更多正常图片
+// 检查图片URL是否有效 - 严格过滤网站logo、二维码等无关图片
 function isValidImage(imgUrl: string): boolean {
   if (!imgUrl || imgUrl.length < 15) return false;
   if (imgUrl.startsWith('data:')) return false;
   if (!imgUrl.startsWith('http')) return false;
   
-  // 排除非内容图片
-  const excludePatterns = [
-    // 明确的非内容图片
-    'logo', 'icon', 'avatar', 'emoji', 'sprite', 'button',
-    // 广告和追踪像素
-    'pixel', 'tracking', 'analytics', 'beacon', '1x1', '1px',
-    // 占位符
-    'placeholder', 'spacer', 'blank',
-    // 水印标识
-    'watermark', 'stamp',
-    // 网站备案、证书、工具栏图片（CSDN等）
-    'icp', 'beian', 'record', 'cert', 'license', 'content-toolbar',
-    'toolbar', 'footer-', 'header-logo', 'site-logo',
-    // 社交分享图标
-    'share-', 'social-', 'wechat-', 'weibo-', 'qq-', 'twitter-', 'facebook-',
-    // 二维码
-    'qrcode', 'qr-code', 'ewm',
-    // 其他无效图片
-    'loading', 'spinner', 'default-avatar', 'no-image', 'error-image',
+  const lowerUrl = imgUrl.toLowerCase();
+  
+  // ========== 域名黑名单 - 这些域名的图片通常是网站装饰/广告 ==========
+  const blockedDomains = [
+    // 新闻网站的静态资源（logo/二维码/app下载等）
+    'static-web.stcn.com',        // 证券时报静态资源
+    'n.sinaimg.cn/finance',       // 新浪财经静态资源
+    'k.sinaimg.cn',               // 新浪缩略图服务
+    'csdnimg.cn/cdn',             // CSDN CDN工具栏
+    'static.csdn.net',            // CSDN静态资源
+    'apps.apple.com/assets',      // 苹果App Store资源
+    'play.google.com',            // Google Play资源
+    // 第三方书籍/电商封面
+    'ddimg.cn',                   // 当当网图片
+    'img.alicdn.com/imgextra',    // 淘宝商品图
+    // 备案/认证图标
+    'beian.gov.cn',               // 备案图标
+    'img.alicdn.com/tfs',         // 阿里云安全图标
   ];
   
-  const lowerUrl = imgUrl.toLowerCase();
+  for (const domain of blockedDomains) {
+    if (lowerUrl.includes(domain)) return false;
+  }
+  
+  // ========== URL路径黑名单 - 排除明确的非内容图片 ==========
+  const excludePatterns = [
+    // Logo和图标
+    'logo', 'icon', 'favicon', 'avatar', 'sprite', 'button',
+    // 二维码相关
+    'qr', 'qrcode', 'qr-code', 'qr_code', 'ewm', '二维码', 'wechat-qr', 'weixin-qr',
+    // App下载相关
+    'app-download', 'app_download', 'download-app', 'appstore', 'googleplay',
+    'aside-app', 'app-btn', 'app-qr', 'download-btn',
+    // 广告和追踪
+    'pixel', 'tracking', 'analytics', 'beacon', '1x1', '1px', 'ad-', 'ads-', 'advert',
+    'gg_', 'sponsor', 'promoted', 'banner-ad',
+    // 占位符和装饰
+    'placeholder', 'spacer', 'blank', 'empty', 'default', 'no-image', 'error-image',
+    'loading', 'spinner', 'skeleton',
+    // 水印和标记
+    'watermark', 'stamp', 'badge',
+    // 网站备案、证书
+    'icp', 'beian', 'record', 'cert', 'license', 'gov-', 'police',
+    // 页面元素
+    'toolbar', 'footer-', 'header-', 'sidebar-', 'nav-', 'menu-',
+    'content-toolbar', 'site-logo', 'brand-',
+    // 社交分享图标
+    'share-', 'social-', 'wechat-', 'weibo-', 'qq-', 'twitter-', 'facebook-',
+    'linkedin-', 'instagram-', 'tiktok-', 'youtube-',
+    // 用户相关
+    'default-avatar', 'user-icon', 'profile-pic',
+    // 表情和装饰
+    'emoji', 'emoticon', 'sticker',
+  ];
+  
   for (const pattern of excludePatterns) {
     if (lowerUrl.includes(pattern)) return false;
   }
   
-  // 排除明确的小图尺寸
-  const smallSizePatterns = [
-    /\b\d{1,2}x\d{1,2}\b/,   // 如 16x16, 32x32 (但不匹配 100x100)
+  // ========== 文件名模式排除 ==========
+  // 排除明确的小图尺寸（如 16x16, 32x32，但不匹配 800x600）
+  if (/[/_-]\d{1,2}x\d{1,2}[._-]/i.test(lowerUrl)) return false;
+  
+  // 排除w150h100这种缩略图参数
+  if (/w\d{2,3}h\d{2,3}/i.test(lowerUrl) && /w[1-2]\d{2}h[1-2]\d{2}/i.test(lowerUrl)) return false;
+  
+  // 排除微信公众号等静态资源的特定路径
+  if (/\/static\/images?\//i.test(lowerUrl)) return false;
+  
+  // ========== 特定域名的路径规则 ==========
+  const domainPathRules = [
+    // 新浪图片：排除财经app、logo等
+    { domain: 'sinaimg.cn', paths: ['finance', 'app', 'logo', 'transform'] },
+    // 澎湃新闻：排除过小的缩略图
+    { domain: 'thepaper.cn', paths: ['resize,w_100', 'resize,w_150', 'resize,w_200'] },
+    // 网易：排除静态资源
+    { domain: '163.com', paths: ['/static/', '/common/'] },
+    // 腾讯：排除静态资源
+    { domain: 'qq.com', paths: ['/static/', '/common/', '/qr/'] },
   ];
-  for (const pattern of smallSizePatterns) {
-    if (pattern.test(lowerUrl)) return false;
+  
+  for (const rule of domainPathRules) {
+    if (lowerUrl.includes(rule.domain)) {
+      for (const path of rule.paths) {
+        if (lowerUrl.includes(path)) return false;
+      }
+    }
   }
   
-  // 排除特定域名的工具类图片
-  const invalidDomainPatterns = [
-    /csdnimg\.cn\/cdn\/content-toolbar/,  // CSDN工具栏图片
-    /csdnimg\.cn\/.*?-icp/,               // CSDN备案图片
-    /static\.csdn\.net\/.*?logo/,         // CSDN logo
-  ];
-  for (const pattern of invalidDomainPatterns) {
-    if (pattern.test(lowerUrl)) return false;
-  }
+  // ========== 图片扩展名检查 ==========
+  const validExtensions = ['.jpg', '.jpeg', '.png', '.webp', '.gif', '.bmp'];
+  const hasValidExtension = validExtensions.some(ext => {
+    const urlWithoutParams = lowerUrl.split('?')[0];
+    return urlWithoutParams.endsWith(ext) || urlWithoutParams.includes(ext);
+  });
+  
+  // 如果URL看起来不像图片，也接受（有些CDN图片没有扩展名）
+  // 但如果能明确判断是图片，优先验证
   
   return true;
 }
