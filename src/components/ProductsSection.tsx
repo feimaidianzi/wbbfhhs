@@ -1,4 +1,4 @@
-import { ArrowRight, Sparkles } from "lucide-react";
+import { ArrowRight, Sparkles, Hexagon } from "lucide-react";
 import { Link } from "react-router-dom";
 import { useLanguage } from "@/contexts/LanguageContext";
 
@@ -47,75 +47,77 @@ export const ProductsSection = () => {
   const categories = getCategoriesData(language);
 
   return (
-    <section id="products" className="py-20 md:py-28 bg-secondary overflow-hidden">
-      <div className="container-custom">
-        {/* Section Header with enhanced animation */}
+    <section id="products" className="py-20 md:py-28 bg-background relative overflow-hidden">
+      {/* Background effects */}
+      <div className="absolute inset-0 bg-grid opacity-20" />
+      <div className="absolute top-0 right-0 w-96 h-96 bg-accent/5 rounded-full blur-3xl" />
+      <div className="absolute bottom-0 left-0 w-96 h-96 bg-accent/5 rounded-full blur-3xl" />
+      
+      <div className="container-custom relative">
+        {/* Section Header */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 mb-16">
           <div className="animate-slide-in-left">
             <div className="flex items-center gap-3 mb-4">
-              <span className="text-accent text-2xl font-black animate-wave">&lt;</span>
-              <h2 className="text-3xl md:text-4xl font-black text-foreground">
+              <Hexagon className="w-6 h-6 text-accent" />
+              <h2 className="text-3xl md:text-4xl font-black text-gradient">
                 {language === 'zh' ? '无人机配件' : 'Drone Accessories'}
               </h2>
-              <span className="text-accent text-2xl font-black animate-wave" style={{ animationDelay: '0.3s' }}>\&gt;</span>
             </div>
-            <p className="text-muted-foreground text-lg leading-relaxed animate-blur-in" style={{ animationDelay: '0.2s' }}>
+            <p className="text-muted-foreground text-lg leading-relaxed">
               {language === 'zh' 
-                ? '长凌科技提供全系列专业无人机配件，从视频发射器到飞控系统，从云台吊舱到远程遥控，满足各类飞行需求。'
-                : 'CANI provides a full range of professional drone accessories, from video transmitters to flight controllers, from gimbals to remote controls, meeting all flight needs.'}
+                ? '深耕无人机核心部件10余年，从图传到飞控，从云台到遥控，为专业飞手提供可靠装备。'
+                : 'Over 10 years in drone core components. From video transmitters to flight controllers, providing reliable equipment for professional pilots.'}
             </p>
           </div>
-          <div className="flex items-end justify-start lg:justify-end animate-slide-in-right">
+          <div className="flex items-end justify-start lg:justify-end">
             <Link 
               to="/products"
-              className="inline-flex items-center gap-2 text-accent hover:text-orange-light font-semibold text-lg group underline-animation"
+              className="inline-flex items-center gap-2 text-accent hover:text-accent/80 font-semibold text-lg group"
             >
               {t('section.products.viewAll')}
-              <ArrowRight className="w-5 h-5 group-hover:translate-x-3 transition-transform duration-300" />
+              <ArrowRight className="w-5 h-5 group-hover:translate-x-2 transition-transform duration-300" />
             </Link>
           </div>
         </div>
 
-        {/* Products Grid with enhanced animations */}
+        {/* Products Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6">
           {categories.map((product, index) => (
             <Link
               key={index}
               to={product.link}
-              className="group bg-card rounded-2xl overflow-hidden shadow-card hover:shadow-card-hover transition-all duration-500 hover:-translate-y-4 hover:rotate-[1deg] animate-scale-in card-tilt hover-glow"
-              style={{ animationDelay: `${0.3 + index * 0.1}s` }}
+              className="group glass-card rounded-2xl overflow-hidden border border-accent/10 hover:border-accent/40 transition-all duration-500 hover:-translate-y-4"
+              style={{ animationDelay: `${0.1 + index * 0.1}s` }}
             >
-              <div className="aspect-[4/3] overflow-hidden bg-muted relative">
+              <div className="aspect-[4/3] overflow-hidden bg-secondary relative">
                 <img
                   src={product.image}
                   alt={product.name}
-                  className="w-full h-full object-cover group-hover:scale-115 transition-transform duration-700"
+                  className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
                 />
-                {/* Enhanced gradient overlay */}
-                <div className="absolute inset-0 bg-gradient-to-t from-primary/70 via-primary/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-                {/* Shimmer effect */}
-                <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent opacity-0 group-hover:opacity-100 group-hover:animate-shimmer" />
+                {/* Overlay */}
+                <div className="absolute inset-0 bg-gradient-to-t from-background/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                {/* Scan effect */}
+                <div className="absolute inset-0 bg-gradient-to-b from-accent/20 via-transparent to-transparent opacity-0 group-hover:opacity-100 h-1/4 transition-opacity duration-300" />
+                
                 {product.isNew && (
-                  <div className="absolute top-3 left-3 flex items-center gap-1.5 bg-accent text-accent-foreground px-3 py-1.5 rounded-full text-xs font-bold shadow-lg animate-glow-pulse">
-                    <Sparkles className="w-3.5 h-3.5 animate-spin-slow" style={{ animationDuration: '3s' }} />
+                  <div className="absolute top-3 left-3 flex items-center gap-1.5 bg-accent text-accent-foreground px-3 py-1.5 rounded-full text-xs font-bold shadow-neon">
+                    <Sparkles className="w-3.5 h-3.5" />
                     <span>NEW</span>
                   </div>
                 )}
-                {product.isNew && (
-                  <div className="absolute inset-0 bg-gradient-to-r from-accent/20 via-transparent to-accent/20 opacity-0 group-hover:opacity-100 animate-[pulse_2s_ease-in-out_infinite] transition-opacity duration-500" />
-                )}
               </div>
-              <div className="p-6">
-                <h3 className="text-xl font-bold text-card-foreground mb-2 group-hover:text-accent transition-colors duration-300 group-hover:translate-x-1">
+              <div className="p-5">
+                <h3 className="text-lg font-bold text-foreground mb-2 group-hover:text-accent transition-colors duration-300">
                   {product.name}
                 </h3>
-                <p className="text-muted-foreground text-sm mb-3 group-hover:text-foreground/80 transition-colors duration-300">
+                <p className="text-muted-foreground text-sm mb-3 line-clamp-2">
                   {product.description}
                 </p>
                 <div className="flex items-center justify-between">
-                  <span className="text-accent font-semibold text-sm group-hover:scale-110 transition-transform duration-300 origin-left">{product.price}</span>
-                  <span className="text-accent opacity-0 group-hover:opacity-100 group-hover:translate-x-2 transition-all duration-300">
-                    <ArrowRight className="w-5 h-5" />
+                  <span className="text-accent font-medium text-sm">{product.price}</span>
+                  <span className="text-accent opacity-0 group-hover:opacity-100 group-hover:translate-x-1 transition-all duration-300">
+                    <ArrowRight className="w-4 h-4" />
                   </span>
                 </div>
               </div>

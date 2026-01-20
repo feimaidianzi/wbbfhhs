@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { ChevronLeft, ChevronRight, Play } from "lucide-react";
+import { ChevronLeft, ChevronRight, Zap, ArrowRight, Hexagon } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import { useLanguage } from "@/contexts/LanguageContext";
@@ -12,7 +12,7 @@ const getSlidesData = (language: 'zh' | 'en') => [
       ? "高清数字图像传输 · 超低延迟 · 抗干扰能力强"
       : "HD Digital Video · Ultra-low Latency · Strong Anti-interference",
     image: digitalFpvBanner,
-    cta: language === 'zh' ? "了解更多" : "Learn More",
+    cta: language === 'zh' ? "探索更多" : "Explore",
     link: "/products/accessories/digital-fpv",
   },
   {
@@ -75,8 +75,30 @@ export const HeroSection = () => {
 
   return (
     <section className="relative pt-16 md:pt-20">
-      {/* Full-screen Hero */}
-      <div className="relative h-[500px] md:h-[600px] lg:h-[700px] overflow-hidden">
+      {/* Full-screen Hero with Cyber Grid */}
+      <div className="relative h-[500px] md:h-[600px] lg:h-[700px] overflow-hidden bg-background">
+        {/* Animated cyber grid background */}
+        <div className="absolute inset-0 bg-grid opacity-30" />
+        <div className="absolute inset-0 bg-dots opacity-20" />
+        
+        {/* Floating geometric shapes */}
+        <div className="absolute inset-0 overflow-hidden pointer-events-none">
+          {[...Array(6)].map((_, i) => (
+            <Hexagon
+              key={i}
+              className="absolute text-accent/10 animate-float"
+              style={{
+                left: `${15 + i * 15}%`,
+                top: `${10 + (i % 3) * 30}%`,
+                width: `${40 + i * 10}px`,
+                height: `${40 + i * 10}px`,
+                animationDelay: `${i * 0.5}s`,
+                animationDuration: `${4 + i * 0.5}s`,
+              }}
+            />
+          ))}
+        </div>
+
         {slides.map((slide, index) => (
           <div
             key={index}
@@ -86,132 +108,106 @@ export const HeroSection = () => {
                 : "opacity-0 scale-110 z-0"
             }`}
           >
-            {/* Animated Background with Ken Burns effect */}
+            {/* Background with Ken Burns effect */}
             <div
               className={`absolute inset-0 bg-cover bg-center transition-transform duration-[12000ms] ease-out ${
                 index === currentSlide ? "scale-125" : "scale-100"
               }`}
               style={{ backgroundImage: `url(${slide.image})` }}
             >
-              {/* Multi-layer gradient overlay with animation */}
-              <div className="absolute inset-0 bg-gradient-to-r from-primary/95 via-primary/70 to-primary/40 animate-gradient-shift" />
-              <div className="absolute inset-0 bg-gradient-to-t from-primary/60 via-transparent to-transparent" />
-              <div className="absolute inset-0 bg-gradient-to-br from-accent/10 via-transparent to-accent/5 opacity-0 animate-pulse-slow" style={{ animationDelay: '2s' }} />
+              {/* Dark overlay with cyan glow */}
+              <div className="absolute inset-0 bg-gradient-to-r from-background/95 via-background/80 to-background/60" />
+              <div className="absolute inset-0 bg-gradient-to-t from-background via-transparent to-transparent" />
               
-              {/* Enhanced floating particles */}
+              {/* Neon accent glow */}
+              <div className="absolute top-0 left-1/4 w-96 h-96 bg-accent/20 rounded-full blur-3xl animate-pulse" />
+              <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-accent/10 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '1s' }} />
+              
+              {/* Animated particles */}
               <div className="absolute inset-0 overflow-hidden">
-                {[...Array(30)].map((_, i) => (
+                {[...Array(20)].map((_, i) => (
                   <div
                     key={i}
-                    className={`absolute rounded-full ${i % 3 === 0 ? 'w-2 h-2 bg-accent/40' : i % 3 === 1 ? 'w-1 h-1 bg-primary-foreground/30' : 'w-1.5 h-1.5 bg-accent/25'}`}
+                    className={`absolute rounded-full ${i % 2 === 0 ? 'w-1 h-1 bg-accent/60' : 'w-0.5 h-0.5 bg-foreground/30'}`}
                     style={{
-                      left: `${(i * 3.3) % 100}%`,
-                      top: `${(i * 7.7) % 100}%`,
-                      animation: `float-particle ${4 + (i % 5)}s ease-in-out infinite`,
-                      animationDelay: `${i * 0.3}s`,
+                      left: `${(i * 5) % 100}%`,
+                      top: `${(i * 7) % 100}%`,
+                      animation: `float-particle ${4 + (i % 4)}s ease-in-out infinite`,
+                      animationDelay: `${i * 0.2}s`,
                     }}
                   />
                 ))}
               </div>
 
-              {/* Animated light rays */}
-              <div className="absolute inset-0 overflow-hidden opacity-20">
-                <div className="absolute top-0 left-1/4 w-1 h-full bg-gradient-to-b from-accent/50 via-accent/20 to-transparent animate-light-ray" style={{ animationDelay: '0s' }} />
-                <div className="absolute top-0 left-1/2 w-0.5 h-full bg-gradient-to-b from-primary-foreground/30 via-primary-foreground/10 to-transparent animate-light-ray" style={{ animationDelay: '1s' }} />
-                <div className="absolute top-0 left-3/4 w-1 h-full bg-gradient-to-b from-accent/40 via-accent/15 to-transparent animate-light-ray" style={{ animationDelay: '2s' }} />
-              </div>
-
-              {/* Animated grid pattern */}
-              <div className="absolute inset-0 opacity-5">
-                <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.1)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.1)_1px,transparent_1px)] bg-[size:50px_50px] animate-grid-move" />
+              {/* Scan line effect */}
+              <div className="absolute inset-0 overflow-hidden opacity-30">
+                <div className="absolute top-0 left-0 right-0 h-0.5 bg-gradient-to-r from-transparent via-accent to-transparent animate-[scanline_4s_linear_infinite]" />
               </div>
             </div>
             
             <div className="relative container-custom h-full flex items-center">
               <div className="max-w-3xl">
-                {/* Brand Logo Mark with enhanced animation - hidden on mobile for cleaner layout */}
+                {/* Brand Badge with neon effect */}
                 <div className={`hidden sm:flex items-center gap-3 mb-4 md:mb-6 transition-all duration-700 delay-200 ${
                   index === currentSlide ? "opacity-100 translate-x-0" : "opacity-0 -translate-x-20"
                 }`}>
-                  <div className="w-10 h-10 md:w-14 md:h-14 bg-accent rounded-xl flex items-center justify-center animate-pulse-glow relative overflow-hidden group">
-                    <span className="text-accent-foreground font-black text-lg md:text-2xl relative z-10">{language === 'zh' ? '长' : 'C'}</span>
-                    <div className="absolute inset-0 bg-gradient-to-tr from-transparent via-white/30 to-transparent -translate-x-full animate-shine" />
+                  <div className="relative">
+                    <div className="w-10 h-10 md:w-12 md:h-12 glass-card rounded-lg flex items-center justify-center border-neon group">
+                      <Zap className="w-5 h-5 md:w-6 md:h-6 text-accent" />
+                    </div>
+                    <div className="absolute -inset-1 bg-accent/20 rounded-lg blur animate-pulse" />
                   </div>
-                  <div className="h-px w-12 md:w-20 bg-gradient-to-r from-accent to-transparent animate-expand-width"></div>
-                  <span className="text-primary-foreground/80 text-xs md:text-sm tracking-[0.2em] md:tracking-[0.3em] uppercase font-medium animate-text-glow">CANI</span>
+                  <div className="h-px w-12 md:w-16 bg-gradient-to-r from-accent to-transparent" />
+                  <span className="text-accent text-xs md:text-sm tracking-[0.3em] uppercase font-medium">
+                    {language === 'zh' ? '长凌科技' : 'CANI TECH'}
+                  </span>
                 </div>
 
-                {/* Title with character stagger animation */}
-                <h1 className={`text-2xl sm:text-3xl md:text-5xl lg:text-7xl font-black text-primary-foreground mb-3 md:mb-6 leading-tight transition-all duration-700 delay-300 ${
+                {/* Title with gradient */}
+                <h1 className={`text-2xl sm:text-3xl md:text-5xl lg:text-6xl font-black mb-3 md:mb-6 leading-tight transition-all duration-700 delay-300 ${
                   index === currentSlide ? "opacity-100 translate-y-0" : "opacity-0 translate-y-16"
                 }`}>
-                  {language === 'zh' ? (
-                    slide.title.split('').map((char, charIndex) => (
-                      <span 
-                        key={charIndex}
-                        className="inline-block animate-char-reveal hover:text-accent hover:scale-110 transition-all duration-300 cursor-default"
-                        style={{ animationDelay: `${0.3 + charIndex * 0.08}s` }}
-                      >
-                        {char}
-                      </span>
-                    ))
-                  ) : (
-                    slide.title.split(' ').map((word, wordIndex, arr) => (
-                      <span 
-                        key={wordIndex}
-                        className="inline-block animate-word-reveal hover:text-accent transition-colors duration-300"
-                        style={{ animationDelay: `${0.3 + wordIndex * 0.15}s` }}
-                      >
-                        {word}{wordIndex < arr.length - 1 ? '\u00A0' : ''}
-                      </span>
-                    ))
-                  )}
+                  <span className="text-gradient">{slide.title}</span>
                 </h1>
                 
-                {/* Subtitle with typewriter-like animation */}
+                {/* Subtitle */}
                 <div className={`mb-4 md:mb-8 transition-all duration-700 delay-500 ${
                   index === currentSlide ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
                 }`}>
-                  <p className="text-sm sm:text-base md:text-xl text-primary-foreground/90 leading-relaxed">
+                  <p className="text-sm sm:text-base md:text-xl text-muted-foreground leading-relaxed">
                     {slide.subtitle.split(' · ').map((part, partIndex, arr) => (
                       <span key={partIndex} className="inline-block">
-                        <span 
-                          className="inline-block animate-fade-up"
-                          style={{ animationDelay: `${0.6 + partIndex * 0.2}s` }}
-                        >
-                          {part}
-                        </span>
+                        <span className="inline-block">{part}</span>
                         {partIndex < arr.length - 1 && (
-                          <span className="inline-block mx-1 md:mx-2 text-accent animate-pulse">·</span>
+                          <span className="inline-block mx-1 md:mx-2 text-accent">·</span>
                         )}
                       </span>
                     ))}
                   </p>
-                  {/* Animated underline - hidden on small mobile */}
-                  <div className="hidden sm:block h-0.5 bg-gradient-to-r from-accent via-accent/50 to-transparent mt-3 md:mt-4 animate-line-grow" style={{ animationDelay: '1s' }} />
+                  <div className="h-px bg-gradient-to-r from-accent/50 via-accent/20 to-transparent mt-3 md:mt-4 max-w-md" />
                 </div>
                 
-                {/* Buttons with enhanced animation */}
+                {/* Buttons with neon effect */}
                 <div className={`flex flex-wrap gap-2 sm:gap-4 transition-all duration-700 delay-700 ${
                   index === currentSlide ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
                 }`}>
                   <Link to={slide.link}>
-                    <Button className="group bg-accent hover:bg-orange-light text-accent-foreground px-4 sm:px-6 md:px-8 py-3 sm:py-4 md:py-6 text-sm sm:text-base md:text-lg font-semibold shadow-button hover:shadow-glow transition-all duration-300 hover:scale-105 relative overflow-hidden">
-                      <span className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700" />
-                      <Play className="w-4 h-4 md:w-5 md:h-5 mr-1 md:mr-2 group-hover:scale-125 group-hover:rotate-12 transition-transform duration-300" />
+                    <Button className="group relative bg-accent hover:bg-accent/90 text-accent-foreground px-4 sm:px-6 md:px-8 py-3 sm:py-4 md:py-6 text-sm sm:text-base md:text-lg font-semibold transition-all duration-300 hover:scale-105 overflow-hidden">
+                      <span className="absolute inset-0 bg-gradient-to-r from-transparent via-foreground/10 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700" />
+                      <Zap className="w-4 h-4 md:w-5 md:h-5 mr-1 md:mr-2 group-hover:scale-125 transition-transform duration-300" />
                       <span className="relative z-10">{slide.cta}</span>
                     </Button>
                   </Link>
                   <Link to="/contact">
-                    <Button className="group bg-primary-foreground/10 border-2 border-primary-foreground/40 text-primary-foreground hover:bg-primary-foreground/20 hover:border-accent px-4 sm:px-6 md:px-8 py-3 sm:py-4 md:py-6 text-sm sm:text-base md:text-lg font-semibold backdrop-blur-sm transition-all duration-300 hover:scale-105 relative overflow-hidden">
-                      <span className="absolute inset-0 bg-gradient-to-r from-accent/0 via-accent/20 to-accent/0 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                    <Button className="group glass border border-accent/30 text-foreground hover:border-accent hover:bg-accent/10 px-4 sm:px-6 md:px-8 py-3 sm:py-4 md:py-6 text-sm sm:text-base md:text-lg font-semibold transition-all duration-300 hover:scale-105">
                       <span className="relative z-10 group-hover:text-accent transition-colors duration-300">{t('hero.btn.contact')}</span>
+                      <ArrowRight className="w-4 h-4 md:w-5 md:h-5 ml-2 group-hover:translate-x-1 transition-transform duration-300" />
                     </Button>
                   </Link>
                 </div>
 
-                {/* Floating stats badges - hidden on mobile, simplified on tablet */}
-                <div className={`hidden md:flex gap-3 lg:gap-6 mt-6 lg:mt-10 transition-all duration-700 delay-[900ms] ${
+                {/* Stats with glass effect */}
+                <div className={`hidden md:flex gap-4 lg:gap-6 mt-6 lg:mt-10 transition-all duration-700 delay-[900ms] ${
                   index === currentSlide ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
                 }`}>
                   {[
@@ -221,133 +217,86 @@ export const HeroSection = () => {
                   ].map((stat, statIndex) => (
                     <div 
                       key={statIndex}
-                      className="flex items-center gap-1 lg:gap-2 px-3 lg:px-4 py-1.5 lg:py-2 bg-primary-foreground/10 backdrop-blur-sm rounded-full border border-primary-foreground/20 animate-float hover:border-accent/50 hover:bg-primary-foreground/15 transition-all duration-300 cursor-default"
-                      style={{ animationDelay: `${statIndex * 0.5}s`, animationDuration: `${3 + statIndex * 0.5}s` }}
+                      className="flex items-center gap-2 px-4 py-2 glass-card rounded-lg border border-accent/20 hover:border-accent/50 transition-all duration-300 cursor-default group"
                     >
-                      <span className="text-accent font-bold text-base lg:text-lg">{stat.value}</span>
-                      <span className="text-primary-foreground/70 text-xs lg:text-sm">{stat.label}</span>
+                      <span className="text-accent font-bold text-base lg:text-lg group-hover:text-gradient">{stat.value}</span>
+                      <span className="text-muted-foreground text-xs lg:text-sm">{stat.label}</span>
                     </div>
                   ))}
                 </div>
               </div>
 
-              {/* Enhanced decorative elements */}
+              {/* Decorative tech elements */}
               <div className="absolute right-10 top-1/2 -translate-y-1/2 hidden xl:block">
-                {/* Rotating rings with gradient */}
-                <div className="relative w-72 h-72">
-                  <div className="absolute inset-0 border-2 border-dashed border-accent/30 rounded-full animate-spin-slow" />
-                  <div className="absolute inset-6 border border-accent/40 rounded-full animate-spin-reverse" />
-                  <div className="absolute inset-12 border-2 border-dotted border-primary-foreground/20 rounded-full animate-spin-slow" style={{ animationDuration: '25s' }} />
-                  <div className="absolute inset-20 bg-gradient-to-br from-accent/20 to-transparent rounded-full animate-pulse" />
+                <div className="relative w-64 h-64">
+                  {/* Rotating rings with neon glow */}
+                  <div className="absolute inset-0 border border-accent/30 rounded-full animate-spin-slow" />
+                  <div className="absolute inset-4 border border-dashed border-accent/20 rounded-full animate-spin-reverse" />
+                  <div className="absolute inset-8 border-2 border-accent/40 rounded-full animate-spin-slow" style={{ animationDuration: '25s' }} />
+                  
+                  {/* Center glow */}
+                  <div className="absolute inset-16 bg-accent/20 rounded-full blur-xl animate-pulse" />
+                  <div className="absolute inset-20 bg-accent/40 rounded-full animate-neon-pulse" />
                   
                   {/* Orbiting dots */}
-                  {[0, 1, 2, 3].map((i) => (
+                  {[0, 1, 2].map((i) => (
                     <div 
                       key={i}
-                      className="absolute w-3 h-3 bg-accent rounded-full animate-orbit shadow-lg shadow-accent/50"
+                      className="absolute w-2 h-2 bg-accent rounded-full shadow-neon animate-orbit"
                       style={{ 
-                        animationDuration: `${8 + i * 2}s`,
-                        animationDelay: `${i * 2}s`,
+                        animationDuration: `${6 + i * 2}s`,
+                        animationDelay: `${i * 1.5}s`,
                         top: '50%',
                         left: '50%',
-                        transformOrigin: `${36 + i * 12}px 0`,
+                        transformOrigin: `${32 + i * 16}px 0`,
                       }}
                     />
                   ))}
-                  
-                  {/* Center glow */}
-                  <div className="absolute inset-24 bg-accent/20 rounded-full blur-xl animate-pulse" />
                 </div>
               </div>
-
             </div>
           </div>
         ))}
 
-        {/* Enhanced Navigation Arrows - smaller on mobile */}
+        {/* Navigation Arrows with glass effect */}
         <button
           onClick={prevSlide}
-          className="absolute left-2 sm:left-4 md:left-6 top-1/2 -translate-y-1/2 w-10 h-10 sm:w-12 sm:h-12 md:w-14 md:h-14 rounded-full bg-primary-foreground/10 backdrop-blur-md border border-primary-foreground/20 flex items-center justify-center text-primary-foreground hover:bg-accent hover:border-accent transition-all duration-300 group z-20 hover:scale-110"
+          className="absolute left-2 sm:left-4 md:left-6 top-1/2 -translate-y-1/2 w-10 h-10 sm:w-12 sm:h-12 md:w-14 md:h-14 rounded-full glass border border-accent/20 flex items-center justify-center text-foreground hover:border-accent hover:bg-accent/10 transition-all duration-300 group z-20 hover:scale-110"
         >
-          <ChevronLeft className="w-5 h-5 md:w-6 md:h-6 group-hover:scale-125 group-hover:-translate-x-0.5 transition-all duration-300" />
-          <span className="absolute inset-0 rounded-full bg-accent/20 scale-0 group-hover:scale-100 transition-transform duration-300" />
+          <ChevronLeft className="w-5 h-5 md:w-6 md:h-6 group-hover:text-accent transition-colors duration-300" />
         </button>
         <button
           onClick={nextSlide}
-          className="absolute right-2 sm:right-4 md:right-6 top-1/2 -translate-y-1/2 w-10 h-10 sm:w-12 sm:h-12 md:w-14 md:h-14 rounded-full bg-primary-foreground/10 backdrop-blur-md border border-primary-foreground/20 flex items-center justify-center text-primary-foreground hover:bg-accent hover:border-accent transition-all duration-300 group z-20 hover:scale-110"
+          className="absolute right-2 sm:right-4 md:right-6 top-1/2 -translate-y-1/2 w-10 h-10 sm:w-12 sm:h-12 md:w-14 md:h-14 rounded-full glass border border-accent/20 flex items-center justify-center text-foreground hover:border-accent hover:bg-accent/10 transition-all duration-300 group z-20 hover:scale-110"
         >
-          <ChevronRight className="w-5 h-5 md:w-6 md:h-6 group-hover:scale-125 group-hover:translate-x-0.5 transition-all duration-300" />
-          <span className="absolute inset-0 rounded-full bg-accent/20 scale-0 group-hover:scale-100 transition-transform duration-300" />
+          <ChevronRight className="w-5 h-5 md:w-6 md:h-6 group-hover:text-accent transition-colors duration-300" />
         </button>
 
-        {/* Enhanced Progress Dots */}
+        {/* Progress Dots with neon effect */}
         <div className="absolute bottom-4 sm:bottom-6 md:bottom-8 left-1/2 -translate-x-1/2 flex gap-2 sm:gap-3 z-20">
           {slides.map((_, index) => (
             <button
               key={index}
               onClick={() => setCurrentSlide(index)}
-              className={`relative rounded-full transition-all duration-500 overflow-hidden group ${
-                index === currentSlide ? 'w-8 sm:w-10 md:w-12 h-2 sm:h-2.5 md:h-3' : 'w-2 sm:w-2.5 md:w-3 h-2 sm:h-2.5 md:h-3 hover:w-4 sm:hover:w-5 md:hover:w-6'
+              className={`relative rounded-full transition-all duration-500 overflow-hidden ${
+                index === currentSlide ? 'w-8 sm:w-10 md:w-12 h-2 sm:h-2.5 md:h-3' : 'w-2 sm:w-2.5 md:w-3 h-2 sm:h-2.5 md:h-3 hover:w-4'
               }`}
             >
               <div className={`absolute inset-0 rounded-full transition-all duration-300 ${
-                index === currentSlide ? 'bg-accent' : 'bg-primary-foreground/40 group-hover:bg-primary-foreground/60'
+                index === currentSlide ? 'bg-accent shadow-neon' : 'bg-muted-foreground/40 hover:bg-accent/50'
               }`} />
               {index === currentSlide && (
-                <>
-                  <div className="absolute inset-0 bg-accent/50 rounded-full animate-progress-bar" />
-                  <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent animate-shimmer" />
-                </>
+                <div className="absolute inset-0 bg-gradient-to-r from-transparent via-foreground/30 to-transparent animate-shimmer" />
               )}
             </button>
           ))}
         </div>
 
-        {/* Enhanced Scroll indicator - hidden on mobile */}
-        <div className="hidden md:flex absolute bottom-8 right-8 flex-col items-center gap-2 text-primary-foreground/60 z-20 group cursor-pointer hover:text-accent transition-colors duration-300">
-          <span className="text-xs tracking-widest rotate-90 origin-center translate-y-8 group-hover:text-accent transition-colors duration-300">SCROLL</span>
-          <div className="w-px h-16 bg-gradient-to-b from-primary-foreground/60 to-transparent animate-scroll-indicator group-hover:from-accent transition-colors duration-300" />
-          <div className="w-6 h-10 border-2 border-primary-foreground/40 rounded-full flex justify-center pt-2 group-hover:border-accent transition-colors duration-300">
-            <div className="w-1 h-2 bg-primary-foreground/60 rounded-full animate-scroll-mouse group-hover:bg-accent transition-colors duration-300" />
-          </div>
-        </div>
-      </div>
-
-      {/* Enhanced Tagline Bar */}
-      <div className="bg-primary py-6 relative overflow-hidden">
-        {/* Multiple animated background effects */}
-        <div className="absolute inset-0 bg-gradient-to-r from-transparent via-accent/10 to-transparent animate-shimmer" />
-        <div className="absolute inset-0 bg-gradient-to-r from-accent/5 via-transparent to-accent/5 animate-pulse-slow" />
-        
-        {/* Moving particles */}
-        <div className="absolute inset-0 overflow-hidden">
-          {[...Array(5)].map((_, i) => (
-            <div
-              key={i}
-              className="absolute w-1 h-1 bg-accent/40 rounded-full animate-fly-across"
-              style={{
-                top: `${20 + i * 15}%`,
-                animationDelay: `${i * 1.5}s`,
-                animationDuration: `${6 + i}s`,
-              }}
-            />
-          ))}
-        </div>
-        
-        <div className="container-custom relative">
-          <div className="flex flex-col md:flex-row items-center justify-between gap-4">
-            <div className="flex items-center gap-4">
-              <span className="text-accent text-3xl font-black animate-bounce-subtle">&lt;</span>
-              <h2 className="text-xl md:text-2xl font-bold text-primary-foreground relative">
-                <span className="relative z-10">{language === 'zh' ? '专业无人机配件供应商' : 'Professional Drone Accessories Supplier'}</span>
-                <span className="absolute bottom-0 left-0 w-full h-0.5 bg-gradient-to-r from-accent to-transparent scale-x-0 group-hover:scale-x-100 transition-transform duration-500" />
-              </h2>
-              <span className="text-accent text-3xl font-black animate-bounce-subtle" style={{ animationDelay: '0.2s' }}>&gt;</span>
-            </div>
-            <Link to="/products/accessories" className="text-primary-foreground/80 hover:text-accent transition-all duration-300 flex items-center gap-2 group px-4 py-2 rounded-full hover:bg-primary-foreground/10">
-              {language === 'zh' ? '探索全部配件' : 'Explore All Accessories'}
-              <ChevronRight className="w-5 h-5 group-hover:translate-x-2 transition-transform duration-300" />
-            </Link>
+        {/* Scroll indicator */}
+        <div className="hidden md:flex absolute bottom-8 right-8 flex-col items-center gap-2 text-muted-foreground z-20 group cursor-pointer hover:text-accent transition-colors duration-300">
+          <span className="text-xs tracking-wider uppercase">{language === 'zh' ? '滚动' : 'Scroll'}</span>
+          <div className="w-5 h-8 rounded-full border border-accent/30 flex items-start justify-center p-1 group-hover:border-accent transition-colors duration-300">
+            <div className="w-1 h-2 bg-accent rounded-full animate-bounce" />
           </div>
         </div>
       </div>
