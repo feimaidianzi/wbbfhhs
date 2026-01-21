@@ -125,7 +125,7 @@ export const ChatWindow = ({
             </div>
             <div>
               <h3 className="text-white font-semibold text-sm">
-                {isEn ? "AI Assistant" : "小飞 · AI助手"}
+                {isEn ? "Ling · AI Assistant" : "小凌 · AI助手"}
               </h3>
               <p className="text-white/70 text-xs flex items-center gap-1">
                 {isLoading ? (
@@ -157,8 +157,8 @@ export const ChatWindow = ({
                 </div>
                 <p className="text-muted-foreground text-sm">
                   {isEn 
-                    ? "Hi! I'm your AI assistant. How can I help you today?" 
-                    : "您好！我是小飞，飞脉科技的AI助手。有什么可以帮您的吗？"}
+                    ? "Hi! I'm Ling, CANI's AI assistant. How can I help you today?" 
+                    : "您好！我是小凌，长凌科技的AI助手。有什么可以帮您的吗？"}
                 </p>
               </div>
             )}

@@ -18,12 +18,57 @@ export const SiriButton = ({
 }: SiriButtonProps) => {
   const [animationPhase, setAnimationPhase] = useState(0);
   const [waveAmplitudes, setWaveAmplitudes] = useState<number[]>([0.5, 0.3, 0.7, 0.4, 0.6]);
+  const [chaosPoints, setChaosPoints] = useState<{x: number; y: number; vx: number; vy: number}[]>([]);
   const canvasRef = useRef<HTMLCanvasElement>(null);
+
+  // Initialize chaos points
+  useEffect(() => {
+    const points = Array.from({ length: 12 }, () => ({
+      x: 32 + (Math.random() - 0.5) * 20,
+      y: 32 + (Math.random() - 0.5) * 20,
+      vx: (Math.random() - 0.5) * 1.5,
+      vy: (Math.random() - 0.5) * 1.5,
+    }));
+    setChaosPoints(points);
+  }, []);
 
   // Continuous idle animation
   useEffect(() => {
     const interval = setInterval(() => {
       setAnimationPhase(prev => (prev + 2) % 360);
+      
+      // Update chaos points with organic movement
+      setChaosPoints(prev => prev.map(point => {
+        let { x, y, vx, vy } = point;
+        
+        // Add some random acceleration for chaos
+        vx += (Math.random() - 0.5) * 0.3;
+        vy += (Math.random() - 0.5) * 0.3;
+        
+        // Damping
+        vx *= 0.95;
+        vy *= 0.95;
+        
+        // Update position
+        x += vx;
+        y += vy;
+        
+        // Keep within bounds with soft bounce
+        const centerX = 32;
+        const centerY = 32;
+        const maxDist = 22;
+        const dist = Math.sqrt((x - centerX) ** 2 + (y - centerY) ** 2);
+        
+        if (dist > maxDist) {
+          const angle = Math.atan2(y - centerY, x - centerX);
+          x = centerX + Math.cos(angle) * maxDist;
+          y = centerY + Math.sin(angle) * maxDist;
+          vx = -vx * 0.5;
+          vy = -vy * 0.5;
+        }
+        
+        return { x, y, vx, vy };
+      }));
     }, 30);
     return () => clearInterval(interval);
   }, []);
@@ -40,7 +85,7 @@ export const SiriButton = ({
     }
   }, [isSpeaking, isListening]);
 
-  // Draw Siri-style wave animation
+  // Draw chaotic Siri-style animation
   useEffect(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
@@ -55,34 +100,87 @@ export const SiriButton = ({
 
     ctx.clearRect(0, 0, width, height);
 
+    // Draw chaos background glow
+    const bgGradient = ctx.createRadialGradient(centerX, centerY, 0, centerX, centerY, 30);
+    bgGradient.addColorStop(0, 'hsla(213, 94%, 50%, 0.3)');
+    bgGradient.addColorStop(0.5, 'hsla(220, 100%, 60%, 0.15)');
+    bgGradient.addColorStop(1, 'hsla(213, 94%, 50%, 0.05)');
+    ctx.beginPath();
+    ctx.arc(centerX, centerY, 30, 0, Math.PI * 2);
+    ctx.fillStyle = bgGradient;
+    ctx.fill();
+
+    // Draw chaotic flowing particles
+    chaosPoints.forEach((point, i) => {
+      const hue = (213 + i * 10 + animationPhase * 0.5) % 360;
+      const size = 3 + Math.sin(animationPhase * 0.1 + i) * 1.5;
+      const alpha = 0.6 + Math.sin(animationPhase * 0.05 + i * 0.5) * 0.3;
+      
+      // Particle glow
+      const glowGradient = ctx.createRadialGradient(point.x, point.y, 0, point.x, point.y, size * 2);
+      glowGradient.addColorStop(0, `hsla(${hue}, 90%, 70%, ${alpha})`);
+      glowGradient.addColorStop(0.5, `hsla(${hue}, 90%, 60%, ${alpha * 0.5})`);
+      glowGradient.addColorStop(1, `hsla(${hue}, 90%, 50%, 0)`);
+      
+      ctx.beginPath();
+      ctx.arc(point.x, point.y, size * 2, 0, Math.PI * 2);
+      ctx.fillStyle = glowGradient;
+      ctx.fill();
+      
+      // Core particle
+      ctx.beginPath();
+      ctx.arc(point.x, point.y, size * 0.5, 0, Math.PI * 2);
+      ctx.fillStyle = `hsla(${hue}, 100%, 80%, ${alpha + 0.2})`;
+      ctx.fill();
+    });
+
+    // Draw connecting lines between nearby particles for chaos web effect
+    ctx.strokeStyle = 'hsla(213, 90%, 70%, 0.15)';
+    ctx.lineWidth = 0.5;
+    chaosPoints.forEach((p1, i) => {
+      chaosPoints.slice(i + 1).forEach(p2 => {
+        const dist = Math.sqrt((p1.x - p2.x) ** 2 + (p1.y - p2.y) ** 2);
+        if (dist < 20) {
+          ctx.beginPath();
+          ctx.moveTo(p1.x, p1.y);
+          ctx.lineTo(p2.x, p2.y);
+          ctx.globalAlpha = 1 - dist / 20;
+          ctx.stroke();
+          ctx.globalAlpha = 1;
+        }
+      });
+    });
+
     if (isActive || isSpeaking || isListening) {
-      // Draw animated orb layers
-      const layers = 5;
+      // Draw animated orb layers with more chaos
+      const layers = 4;
       for (let i = layers; i >= 0; i--) {
         const progress = (animationPhase + i * 60) % 360;
-        const radius = 20 + i * 3 + Math.sin(progress * Math.PI / 180) * 3;
-        const alpha = 0.15 - i * 0.02;
+        const wobble = Math.sin(progress * 3 * Math.PI / 180) * 2;
+        const radius = 18 + i * 2.5 + Math.sin(progress * Math.PI / 180) * 3 + wobble;
+        const alpha = 0.12 - i * 0.02;
         
-        const gradient = ctx.createRadialGradient(centerX, centerY, 0, centerX, centerY, radius);
+        const gradient = ctx.createRadialGradient(
+          centerX + Math.sin(progress * Math.PI / 90) * 2, 
+          centerY + Math.cos(progress * Math.PI / 90) * 2, 
+          0, 
+          centerX, centerY, radius
+        );
         
         if (isListening) {
-          // Purple-pink for listening
-          gradient.addColorStop(0, `hsla(280, 100%, 60%, ${alpha + 0.3})`);
-          gradient.addColorStop(0.5, `hsla(320, 100%, 55%, ${alpha + 0.2})`);
-          gradient.addColorStop(1, `hsla(240, 100%, 50%, ${alpha})`);
+          gradient.addColorStop(0, `hsla(280, 100%, 65%, ${alpha + 0.25})`);
+          gradient.addColorStop(0.5, `hsla(320, 100%, 60%, ${alpha + 0.15})`);
+          gradient.addColorStop(1, `hsla(240, 100%, 55%, ${alpha})`);
         } else if (isSpeaking) {
-          // Blue-cyan for speaking
-          gradient.addColorStop(0, `hsla(200, 100%, 60%, ${alpha + 0.3})`);
-          gradient.addColorStop(0.5, `hsla(180, 100%, 55%, ${alpha + 0.2})`);
-          gradient.addColorStop(1, `hsla(220, 100%, 50%, ${alpha})`);
+          gradient.addColorStop(0, `hsla(200, 100%, 65%, ${alpha + 0.25})`);
+          gradient.addColorStop(0.5, `hsla(180, 100%, 60%, ${alpha + 0.15})`);
+          gradient.addColorStop(1, `hsla(220, 100%, 55%, ${alpha})`);
         } else {
-          // Rainbow gradient for idle active
           const hue1 = (progress) % 360;
           const hue2 = (progress + 120) % 360;
-          const hue3 = (progress + 240) % 360;
-          gradient.addColorStop(0, `hsla(${hue1}, 100%, 60%, ${alpha + 0.2})`);
-          gradient.addColorStop(0.5, `hsla(${hue2}, 100%, 55%, ${alpha + 0.15})`);
-          gradient.addColorStop(1, `hsla(${hue3}, 100%, 50%, ${alpha})`);
+          gradient.addColorStop(0, `hsla(${hue1}, 100%, 65%, ${alpha + 0.15})`);
+          gradient.addColorStop(0.5, `hsla(${hue2}, 100%, 60%, ${alpha + 0.1})`);
+          gradient.addColorStop(1, `hsla(213, 100%, 55%, ${alpha})`);
         }
         
         ctx.beginPath();
@@ -120,27 +218,33 @@ export const SiriButton = ({
         }
       }
     } else {
-      // Idle state - subtle pulsing orb with blue/white theme
-      const pulseRadius = 18 + Math.sin(animationPhase * Math.PI / 180) * 2;
-      const gradient = ctx.createRadialGradient(centerX, centerY, 0, centerX, centerY, pulseRadius + 10);
-      gradient.addColorStop(0, 'hsla(0, 0%, 100%, 0.95)');
-      gradient.addColorStop(0.4, 'hsla(213, 94%, 60%, 0.7)');
-      gradient.addColorStop(1, 'hsla(213, 94%, 50%, 0.2)');
+      // Idle state - chaotic pulsing core
+      const pulseRadius = 15 + Math.sin(animationPhase * Math.PI / 180) * 2;
+      const gradient = ctx.createRadialGradient(centerX, centerY, 0, centerX, centerY, pulseRadius + 8);
+      gradient.addColorStop(0, 'hsla(0, 0%, 100%, 0.9)');
+      gradient.addColorStop(0.3, 'hsla(213, 94%, 65%, 0.6)');
+      gradient.addColorStop(0.6, 'hsla(220, 90%, 55%, 0.3)');
+      gradient.addColorStop(1, 'hsla(213, 94%, 50%, 0.1)');
       
       ctx.beginPath();
       ctx.arc(centerX, centerY, pulseRadius, 0, Math.PI * 2);
       ctx.fillStyle = gradient;
       ctx.fill();
       
-      // Add subtle ring animation - blue theme
-      const ringRadius = 22 + Math.sin((animationPhase + 90) * Math.PI / 180) * 3;
-      ctx.beginPath();
-      ctx.arc(centerX, centerY, ringRadius, 0, Math.PI * 2);
-      ctx.strokeStyle = `hsla(213, 94%, 70%, ${0.3 + Math.sin(animationPhase * Math.PI / 180) * 0.15})`;
-      ctx.lineWidth = 1.5;
-      ctx.stroke();
+      // Multiple rotating ring segments for chaotic look
+      for (let ring = 0; ring < 3; ring++) {
+        const ringRadius = 20 + ring * 4 + Math.sin((animationPhase + ring * 30) * Math.PI / 180) * 2;
+        const startAngle = (animationPhase * (ring % 2 === 0 ? 1 : -1) + ring * 40) * Math.PI / 180;
+        const arcLength = Math.PI * (0.4 + Math.sin(animationPhase * Math.PI / 90) * 0.2);
+        
+        ctx.beginPath();
+        ctx.arc(centerX, centerY, ringRadius, startAngle, startAngle + arcLength);
+        ctx.strokeStyle = `hsla(${213 + ring * 15}, 90%, 65%, ${0.4 - ring * 0.1})`;
+        ctx.lineWidth = 1.5 - ring * 0.3;
+        ctx.stroke();
+      }
     }
-  }, [animationPhase, isActive, isListening, isSpeaking, waveAmplitudes]);
+  }, [animationPhase, isActive, isListening, isSpeaking, waveAmplitudes, chaosPoints]);
 
   return (
     <button
@@ -149,46 +253,51 @@ export const SiriButton = ({
         "relative w-16 h-16 rounded-full transition-all duration-300",
         "shadow-lg hover:shadow-xl hover:scale-105",
         "focus:outline-none focus:ring-2 focus:ring-accent/50",
-        "bg-gradient-to-br from-accent to-blue-600",
+        "bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900",
         isActive ? "scale-110" : "",
         className
       )}
       aria-label="AI助手"
     >
-      {/* Outer glow - blue/white theme */}
+      {/* Outer chaotic glow */}
       <div 
         className={cn(
-          "absolute -inset-1 rounded-full blur-md transition-opacity",
-          isActive || isSpeaking ? "opacity-60" : "opacity-40"
+          "absolute -inset-2 rounded-full blur-lg transition-opacity",
+          isActive || isSpeaking ? "opacity-70" : "opacity-50"
         )}
         style={{
-          background: isListening 
-            ? `linear-gradient(${animationPhase}deg, hsl(213, 94%, 55%), hsl(220, 90%, 60%))`
-            : isSpeaking
-            ? `linear-gradient(${animationPhase}deg, hsl(200, 100%, 60%), hsl(213, 94%, 50%))`
-            : `linear-gradient(${animationPhase}deg, hsl(213, 94%, 55%), hsl(220, 100%, 70%))`
+          background: `conic-gradient(from ${animationPhase}deg, 
+            hsl(213, 94%, 55%), 
+            hsl(240, 80%, 60%), 
+            hsl(280, 70%, 55%),
+            hsl(320, 80%, 55%),
+            hsl(200, 90%, 55%),
+            hsl(213, 94%, 55%))`
         }}
       />
       
-      {/* Pulsing rings when active - blue theme */}
+      {/* Dark inner circle */}
+      <div className="absolute inset-0 rounded-full bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900" />
+      
+      {/* Pulsing chaotic rings when active */}
       {(isActive || isSpeaking || isListening) && (
         <>
           <div 
-            className="absolute inset-0 rounded-full animate-ping opacity-25"
+            className="absolute inset-0 rounded-full animate-ping opacity-20"
             style={{
-              background: isListening 
-                ? 'linear-gradient(135deg, hsl(213, 94%, 55%), hsl(220, 90%, 60%))'
-                : isSpeaking
-                ? 'linear-gradient(135deg, hsl(200, 100%, 60%), hsl(213, 94%, 50%))'
-                : 'linear-gradient(135deg, hsl(213, 94%, 60%), hsl(220, 100%, 70%))'
+              background: `conic-gradient(from ${animationPhase}deg, 
+                hsl(213, 94%, 55%), 
+                hsl(280, 80%, 55%), 
+                hsl(213, 94%, 55%))`
             }}
           />
           <div 
-            className="absolute -inset-2 rounded-full animate-pulse opacity-20"
+            className="absolute -inset-3 rounded-full animate-pulse opacity-15"
             style={{
-              background: `linear-gradient(${animationPhase + 180}deg, 
-                hsl(213, 94%, 60%), 
-                hsl(220, 100%, 75%))`
+              background: `conic-gradient(from ${-animationPhase}deg, 
+                hsl(200, 90%, 60%), 
+                hsl(320, 80%, 55%),
+                hsl(200, 90%, 60%))`
             }}
           />
         </>
@@ -201,19 +310,6 @@ export const SiriButton = ({
         height={64}
         className="absolute inset-0 w-full h-full rounded-full"
       />
-      
-      {/* AI Icon overlay when idle */}
-      {!isActive && !isListening && !isSpeaking && (
-        <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-          <svg 
-            className="w-6 h-6 text-white/90 drop-shadow-sm animate-pulse" 
-            viewBox="0 0 24 24" 
-            fill="currentColor"
-          >
-            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/>
-          </svg>
-        </div>
-      )}
     </button>
   );
 };
