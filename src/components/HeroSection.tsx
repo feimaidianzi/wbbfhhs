@@ -15,8 +15,12 @@ export const HeroSection = () => {
       {/* Content Overlay */}
       <HeroContent />
       
-      {/* Bottom Gradient for smooth transition */}
-      <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-background to-transparent pointer-events-none z-[1]" />
+      {/* 深色到浅色的平滑过渡区域 */}
+      <div className="absolute bottom-0 left-0 right-0 h-64 pointer-events-none z-[1]">
+        {/* 多层渐变实现平滑过渡 */}
+        <div className="absolute inset-0 bg-gradient-to-t from-slate-900 via-slate-900/80 to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-t from-background via-background/50 to-transparent" />
+      </div>
     </section>
   );
 };
