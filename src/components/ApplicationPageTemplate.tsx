@@ -128,8 +128,7 @@ const ApplicationPageTemplate = ({
               className="absolute inset-0 bg-cover bg-center"
               style={{ backgroundImage: `url(${heroImage})` }}
             />
-            <div className="absolute inset-0 bg-gradient-to-b from-background/70 via-background/50 to-background" />
-            <div className="absolute inset-0 bg-gradient-to-r from-background/60 via-transparent to-background/60" />
+            <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-background" />
           </div>
 
           {/* Floating Elements */}
