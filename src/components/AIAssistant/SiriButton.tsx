@@ -32,22 +32,22 @@ export const SiriButton = ({
     setChaosPoints(points);
   }, []);
 
-  // Continuous idle animation
+  // Continuous idle animation - SLOWER speed for smoother effect
   useEffect(() => {
     const interval = setInterval(() => {
-      setAnimationPhase(prev => (prev + 2) % 360);
+      setAnimationPhase(prev => (prev + 0.5) % 360); // Reduced from 2 to 0.5 for slower rotation
       
-      // Update chaos points with organic movement
+      // Update chaos points with organic movement - slower velocity
       setChaosPoints(prev => prev.map(point => {
         let { x, y, vx, vy } = point;
         
-        // Add some random acceleration for chaos
-        vx += (Math.random() - 0.5) * 0.3;
-        vy += (Math.random() - 0.5) * 0.3;
+        // Add some random acceleration for chaos - reduced for smoother motion
+        vx += (Math.random() - 0.5) * 0.1;
+        vy += (Math.random() - 0.5) * 0.1;
         
-        // Damping
-        vx *= 0.95;
-        vy *= 0.95;
+        // Stronger damping for smoother movement
+        vx *= 0.92;
+        vy *= 0.92;
         
         // Update position
         x += vx;
@@ -63,13 +63,13 @@ export const SiriButton = ({
           const angle = Math.atan2(y - centerY, x - centerX);
           x = centerX + Math.cos(angle) * maxDist;
           y = centerY + Math.sin(angle) * maxDist;
-          vx = -vx * 0.5;
-          vy = -vy * 0.5;
+          vx = -vx * 0.3;
+          vy = -vy * 0.3;
         }
         
         return { x, y, vx, vy };
       }));
-    }, 30);
+    }, 50); // Increased interval from 30ms to 50ms for slower updates
     return () => clearInterval(interval);
   }, []);
 

@@ -83,20 +83,20 @@ export const SolutionsSection = () => {
                 className="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
               />
               {/* Overlay */}
-              <div className="absolute inset-0 bg-gradient-to-t from-slate-900 via-slate-900/50 to-transparent group-hover:via-slate-900/70 transition-all duration-500" />
+              <div className="absolute inset-0 bg-gradient-to-t from-slate-900 via-slate-900/60 to-transparent group-hover:via-slate-900/70 transition-all duration-500" />
               
               {/* Content */}
               <div className="absolute bottom-0 left-0 right-0 p-6 md:p-8">
-                <div className="inline-block px-3 py-1 glass border border-accent/30 text-accent text-sm font-medium rounded-full mb-3 shadow-neon">
+                <div className="inline-block px-3 py-1 bg-white/20 backdrop-blur-sm border border-white/30 text-white text-sm font-medium rounded-full mb-3">
                   {solution.stats}
                 </div>
-                <h3 className="text-xl md:text-2xl font-bold text-foreground mb-2 group-hover:text-accent transition-colors duration-300">
+                <h3 className="text-xl md:text-2xl font-bold text-white mb-2 group-hover:text-white/90 transition-colors duration-300">
                   {solution.title}
                 </h3>
-                <p className="text-muted-foreground mb-4 line-clamp-2 text-sm md:text-base">
+                <p className="text-white/80 mb-4 line-clamp-2 text-sm md:text-base">
                   {solution.description}
                 </p>
-                <div className="flex items-center text-accent text-sm font-medium">
+                <div className="flex items-center text-white text-sm font-medium">
                   {language === 'zh' ? '了解详情' : 'Learn More'}
                   <ArrowRight className="w-4 h-4 ml-1 group-hover:translate-x-2 transition-transform duration-300" />
                 </div>
