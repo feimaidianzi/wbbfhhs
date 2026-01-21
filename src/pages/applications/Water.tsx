@@ -54,15 +54,14 @@ const Water = () => {
             className="absolute inset-0 bg-cover bg-center"
             style={{ backgroundImage: "url(https://images.unsplash.com/photo-1534224039826-c7a0eda0e6b3?w=1920&q=80)" }}
           >
-            <div className="absolute inset-0 bg-gradient-to-r from-slate-900/85 via-slate-900/60 to-slate-900/20" />
           </div>
           <div className="relative container-custom h-full flex items-center">
-            <div className="max-w-2xl">
+            <div className="max-w-2xl rounded-3xl bg-background/70 backdrop-blur-md border border-border p-6 md:p-8 shadow-card">
               <p className="text-accent font-medium mb-2">{isEn ? "Industry Applications" : "行业应用"}</p>
-              <h1 className="text-3xl md:text-5xl font-bold text-primary-foreground mb-4">
+              <h1 className="text-3xl md:text-5xl font-bold text-foreground mb-4">
                 {isEn ? "Water Conservancy" : "水利"}
               </h1>
-              <p className="text-lg text-primary-foreground/90">
+              <p className="text-lg text-muted-foreground">
                 {isEn 
                   ? "Apply drone technology for river inspection, reservoir monitoring, flood control, and provide technical support for water conservancy development"
                   : "应用无人机技术进行河道巡检、水库监测、防汛抗旱等工作，为水利改革发展提供科技支撑"}

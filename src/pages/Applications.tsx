@@ -163,7 +163,6 @@ const Applications = () => {
         <section className="relative min-h-[70vh] flex items-center justify-center overflow-hidden">
           <div className="absolute inset-0">
             <div className="absolute inset-0 bg-cover bg-center" style={{ backgroundImage: "url(https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=1920&q=80)" }} />
-            <div className="absolute inset-0 bg-gradient-to-b from-background/70 via-background/50 to-background" />
           </div>
 
           <div className="absolute inset-0 overflow-hidden pointer-events-none">
@@ -177,7 +176,7 @@ const Applications = () => {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8 }}
             >
-              <span className="inline-block px-4 py-2 rounded-full bg-accent/10 border border-accent/30 text-accent text-sm font-medium mb-6">
+              <span className="inline-block px-4 py-2 rounded-full bg-background/70 backdrop-blur-md border border-border text-accent text-sm font-medium mb-6">
                 {language === 'zh' ? '行业解决方案' : 'Industry Solutions'}
               </span>
             </motion.div>
@@ -188,7 +187,9 @@ const Applications = () => {
               transition={{ duration: 0.8, delay: 0.2 }}
               className="text-4xl md:text-5xl lg:text-6xl font-black text-foreground mb-6"
             >
-              {language === 'zh' ? '行业应用' : 'Industry Applications'}
+              <span className="inline-block px-6 py-4 rounded-3xl bg-background/70 backdrop-blur-md border border-border">
+                {language === 'zh' ? '行业应用' : 'Industry Applications'}
+              </span>
             </motion.h1>
 
             <motion.p
@@ -197,9 +198,11 @@ const Applications = () => {
               transition={{ duration: 0.8, delay: 0.4 }}
               className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto"
             >
-              {language === 'zh' 
-                ? '长凌无人机广泛应用于多个行业领域，提供专业化解决方案'
-                : 'CANI drones are widely used in multiple industries, providing professional solutions'}
+              <span className="inline-block px-6 py-4 rounded-3xl bg-background/70 backdrop-blur-md border border-border">
+                {language === 'zh' 
+                  ? '长凌无人机广泛应用于多个行业领域，提供专业化解决方案'
+                  : 'CANI drones are widely used in multiple industries, providing professional solutions'}
+              </span>
             </motion.p>
           </div>
 
@@ -238,7 +241,6 @@ const Applications = () => {
                           alt={app.name}
                           className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
                         />
-                        <div className="absolute inset-0 bg-gradient-to-t from-slate-900/70 via-transparent to-transparent" />
                         
                         {/* Icon Badge */}
                         <div className="absolute top-4 left-4 w-12 h-12 rounded-xl bg-accent/90 flex items-center justify-center">

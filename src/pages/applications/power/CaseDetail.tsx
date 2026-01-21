@@ -237,7 +237,6 @@ const CaseDetail = () => {
             className="absolute inset-0 bg-cover bg-center"
             style={{ backgroundImage: `url(${caseData.image})` }}
           >
-            <div className="absolute inset-0 bg-gradient-to-t from-slate-900 via-slate-900/50 to-transparent" />
           </div>
           <div className="container-custom relative z-10 h-full flex items-end pb-12">
             <div className="max-w-4xl">
@@ -251,9 +250,11 @@ const CaseDetail = () => {
                   {caseData.date}
                 </span>
               </div>
-              <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-foreground leading-tight">
-                {caseData.title}
-              </h1>
+              <div className="rounded-3xl bg-background/70 backdrop-blur-md border border-border p-6 md:p-8 shadow-card">
+                <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-foreground leading-tight">
+                  {caseData.title}
+                </h1>
+              </div>
             </div>
           </div>
         </section>
