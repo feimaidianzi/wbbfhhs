@@ -112,7 +112,7 @@ export const WhyChooseUsSection = () => {
           {advantages.map((advantage, index) => (
             <div 
               key={index} 
-              className="glass-card p-8 rounded-xl border border-accent/10 hover:border-accent/40 transition-all duration-500 group hover:-translate-y-2"
+              className="bg-card/90 backdrop-blur-sm p-8 rounded-xl border border-border/50 hover:border-accent/40 transition-all duration-500 group hover:-translate-y-2 shadow-lg"
             >
               <div className="w-14 h-14 bg-accent/10 rounded-xl flex items-center justify-center mb-6 group-hover:bg-accent/20 group-hover:shadow-neon transition-all duration-300">
                 <advantage.icon className="w-7 h-7 text-accent" />
