@@ -100,6 +100,7 @@ import SpecificationTemplates from "./pages/admin/SpecificationTemplates";
 import DataImport from "./pages/admin/DataImport";
 import NewsCollection from "./pages/admin/NewsCollection";
 import CustomerLeads from "./pages/admin/CustomerLeads";
+import CustomerServiceChat from "./pages/admin/CustomerServiceChat";
 import NewsDetail from "./pages/NewsDetail";
 import DatabaseProductDetail from "./pages/products/DatabaseProductDetail";
 import DatabaseProductList from "./pages/products/DatabaseProductList";
@@ -127,6 +128,7 @@ const App = () => (
             <Route path="/admin/data-import" element={<DataImport />} />
             <Route path="/admin/news-collection" element={<NewsCollection />} />
             <Route path="/admin/customer-leads" element={<CustomerLeads />} />
+            <Route path="/admin/customer-service" element={<CustomerServiceChat />} />
           <Route path="/about" element={<About />} />
           <Route path="/applications" element={<Applications />} />
           <Route path="/applications/power-inspection" element={<PowerInspection />} />
