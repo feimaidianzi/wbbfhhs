@@ -2,95 +2,53 @@ import { motion } from "framer-motion";
 
 export const WaveTransition = () => {
   return (
-    <div className="absolute bottom-0 left-0 right-0 h-48 overflow-hidden pointer-events-none z-[1]">
-      {/* 多层波浪实现深度效果 */}
-      
-      {/* 第一层波浪 - 最远/最慢 */}
-      <motion.div
-        className="absolute bottom-0 left-0 w-[200%] h-full"
-        animate={{ x: [0, "-50%"] }}
-        transition={{ duration: 25, repeat: Infinity, ease: "linear" }}
+    <div className="absolute bottom-0 left-0 right-0 h-40 overflow-hidden pointer-events-none z-[1]">
+      {/* 第一层波浪 - 深色层 */}
+      <motion.svg
+        className="absolute bottom-8 left-0 w-[200%] h-20"
+        viewBox="0 0 2880 100"
+        preserveAspectRatio="none"
+        animate={{ x: [0, -1440] }}
+        transition={{ duration: 30, repeat: Infinity, ease: "linear" }}
       >
-        <svg
-          viewBox="0 0 1440 120"
-          className="absolute bottom-0 w-1/2 h-32"
-          preserveAspectRatio="none"
-        >
-          <path
-            d="M0,60 C240,120 480,0 720,60 C960,120 1200,0 1440,60 L1440,120 L0,120 Z"
-            className="fill-slate-800/60"
-          />
-        </svg>
-        <svg
-          viewBox="0 0 1440 120"
-          className="absolute bottom-0 left-1/2 w-1/2 h-32"
-          preserveAspectRatio="none"
-        >
-          <path
-            d="M0,60 C240,120 480,0 720,60 C960,120 1200,0 1440,60 L1440,120 L0,120 Z"
-            className="fill-slate-800/60"
-          />
-        </svg>
-      </motion.div>
+        <path
+          d="M0,50 C360,80 720,20 1080,50 C1440,80 1800,20 2160,50 C2520,80 2880,20 2880,50 L2880,100 L0,100 Z"
+          fill="hsl(220, 13%, 15%)"
+          fillOpacity="0.6"
+        />
+      </motion.svg>
 
       {/* 第二层波浪 - 中间层 */}
-      <motion.div
-        className="absolute bottom-0 left-0 w-[200%] h-full"
-        animate={{ x: ["-50%", 0] }}
-        transition={{ duration: 18, repeat: Infinity, ease: "linear" }}
+      <motion.svg
+        className="absolute bottom-4 left-0 w-[200%] h-16"
+        viewBox="0 0 2880 80"
+        preserveAspectRatio="none"
+        animate={{ x: [-1440, 0] }}
+        transition={{ duration: 22, repeat: Infinity, ease: "linear" }}
       >
-        <svg
-          viewBox="0 0 1440 120"
-          className="absolute bottom-0 w-1/2 h-28"
-          preserveAspectRatio="none"
-        >
-          <path
-            d="M0,80 C180,40 360,100 540,60 C720,20 900,100 1080,60 C1260,20 1350,80 1440,60 L1440,120 L0,120 Z"
-            className="fill-slate-700/70"
-          />
-        </svg>
-        <svg
-          viewBox="0 0 1440 120"
-          className="absolute bottom-0 left-1/2 w-1/2 h-28"
-          preserveAspectRatio="none"
-        >
-          <path
-            d="M0,80 C180,40 360,100 540,60 C720,20 900,100 1080,60 C1260,20 1350,80 1440,60 L1440,120 L0,120 Z"
-            className="fill-slate-700/70"
-          />
-        </svg>
-      </motion.div>
+        <path
+          d="M0,40 C240,60 480,20 720,40 C960,60 1200,20 1440,40 C1680,60 1920,20 2160,40 C2400,60 2640,20 2880,40 L2880,80 L0,80 Z"
+          fill="hsl(220, 13%, 12%)"
+          fillOpacity="0.8"
+        />
+      </motion.svg>
 
-      {/* 第三层波浪 - 最近/与背景色融合 */}
-      <motion.div
-        className="absolute bottom-0 left-0 w-[200%] h-full"
-        animate={{ x: [0, "-50%"] }}
-        transition={{ duration: 12, repeat: Infinity, ease: "linear" }}
+      {/* 第三层波浪 - 与背景融合 */}
+      <motion.svg
+        className="absolute bottom-0 left-0 w-[200%] h-12"
+        viewBox="0 0 2880 60"
+        preserveAspectRatio="none"
+        animate={{ x: [0, -1440] }}
+        transition={{ duration: 16, repeat: Infinity, ease: "linear" }}
       >
-        <svg
-          viewBox="0 0 1440 120"
-          className="absolute bottom-0 w-1/2 h-24"
-          preserveAspectRatio="none"
-        >
-          <path
-            d="M0,40 C320,100 640,20 960,60 C1280,100 1360,40 1440,50 L1440,120 L0,120 Z"
-            className="fill-background"
-          />
-        </svg>
-        <svg
-          viewBox="0 0 1440 120"
-          className="absolute bottom-0 left-1/2 w-1/2 h-24"
-          preserveAspectRatio="none"
-        >
-          <path
-            d="M0,40 C320,100 640,20 960,60 C1280,100 1360,40 1440,50 L1440,120 L0,120 Z"
-            className="fill-background"
-          />
-        </svg>
-      </motion.div>
+        <path
+          d="M0,30 C180,45 360,15 540,30 C720,45 900,15 1080,30 C1260,45 1440,15 1620,30 C1800,45 1980,15 2160,30 C2340,45 2520,15 2700,30 C2880,45 2880,30 2880,30 L2880,60 L0,60 Z"
+          className="fill-background"
+        />
+      </motion.svg>
 
-      {/* 底部实色条确保无缝衔接 */}
-      <div className="absolute bottom-0 left-0 right-0 h-4 bg-background" />
+      {/* 底部实色确保完全无缝 */}
+      <div className="absolute bottom-0 left-0 right-0 h-2 bg-background" />
     </div>
   );
 };
