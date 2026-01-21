@@ -96,7 +96,7 @@ export const WhyChooseUsSection = () => {
           {stats.map((stat, index) => (
             <div 
               key={index} 
-              className="glass-card text-center p-6 rounded-xl border border-accent/20 hover:border-accent/50 transition-all duration-500 hover:-translate-y-2 hover:shadow-neon group"
+              className="bg-card/90 backdrop-blur-sm text-center p-6 rounded-xl border border-border/50 hover:border-accent/50 transition-all duration-500 hover:-translate-y-2 hover:shadow-lg group shadow-md"
             >
               <stat.icon className="w-8 h-8 text-accent mx-auto mb-3 group-hover:scale-110 transition-transform duration-300" />
               <div className="text-3xl md:text-4xl font-black text-gradient mb-1">
