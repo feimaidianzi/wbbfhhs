@@ -13,7 +13,6 @@ import { NewsSection } from "@/components/NewsSection";
 import { PartnersSection } from "@/components/PartnersSection";
 import { Footer } from "@/components/Footer";
 import { FloatingContact } from "@/components/FloatingContact";
-import { AIAssistant } from "@/components/AIAssistant";
 import { SEO } from "@/components/SEO";
 import { useLanguage } from "@/contexts/LanguageContext";
 
@@ -74,7 +73,6 @@ const Index = () => {
       </main>
       <Footer />
       <FloatingContact />
-      <AIAssistant />
     </div>
   );
 };
