@@ -37,7 +37,7 @@ const Power = () => {
             className="absolute inset-0 bg-cover bg-center"
             style={{ backgroundImage: "url(https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?w=1920&q=80)" }}
           >
-            <div className="absolute inset-0 bg-gradient-to-r from-primary/90 via-primary/70 to-primary/50" />
+            <div className="absolute inset-0 bg-gradient-to-r from-slate-900/85 via-slate-900/60 to-slate-900/20" />
           </div>
           <div className="relative container-custom h-full flex items-center">
             <div className="max-w-2xl">

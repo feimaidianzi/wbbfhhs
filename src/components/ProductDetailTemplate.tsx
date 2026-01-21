@@ -117,7 +117,7 @@ const ProductDetailTemplate = ({
             className="absolute inset-0 bg-cover bg-center"
             style={{ backgroundImage: `url(${heroImage})` }}
           >
-            <div className="absolute inset-0 bg-gradient-to-r from-primary/90 via-primary/70 to-transparent" />
+            <div className="absolute inset-0 bg-gradient-to-r from-slate-900/90 via-slate-900/70 to-slate-900/30" />
           </div>
           <div className="container-custom relative z-10 h-full flex items-center">
             <div className="max-w-2xl text-white">

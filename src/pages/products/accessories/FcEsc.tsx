@@ -446,7 +446,7 @@ const FcEsc = () => {
         {/* Hero Section */}
         <section className="relative py-16 bg-gradient-to-br from-primary/10 via-background to-background">
           <div className="container mx-auto px-4">
-            <Link to="/products/accessories" className="inline-flex items-center gap-2 text-primary hover:underline mb-6">
+            <Link to="/products/accessories" className="inline-flex items-center gap-2 text-accent hover:underline mb-6 mt-8">
               <ArrowLeft className="w-4 h-4" />
               返回配件列表
             </Link>
