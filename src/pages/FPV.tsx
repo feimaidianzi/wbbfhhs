@@ -149,7 +149,7 @@ const FPV = () => {
                 <Link key={index} to={category.link} className="group bg-card rounded-2xl overflow-hidden shadow-card hover:shadow-card-hover transition-all duration-300 hover:-translate-y-1">
                   <div className="aspect-[16/10] overflow-hidden relative">
                     <img src={category.image} alt={category.name} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" />
-                    <div className="absolute inset-0 bg-gradient-to-t from-card via-transparent to-transparent" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-slate-900/70 via-transparent to-transparent" />
                     <div className="absolute bottom-4 left-4 flex items-center gap-2">
                       <div className="w-10 h-10 bg-accent rounded-lg flex items-center justify-center">
                         <category.icon className="w-5 h-5 text-accent-foreground" />

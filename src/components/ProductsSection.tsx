@@ -119,9 +119,9 @@ export const ProductsSection = () => {
                   <img
                     src={categories[0].image}
                     alt={categories[0].name}
-                    className="w-full h-full object-cover opacity-60 group-hover:scale-110 group-hover:opacity-80 transition-all duration-700"
+                    className="w-full h-full object-cover group-hover:scale-110 transition-all duration-700"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-background via-background/60 to-transparent" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-slate-900 via-slate-900/40 to-transparent" />
                 </div>
                 
                 {/* Hot Badge */}
@@ -164,9 +164,9 @@ export const ProductsSection = () => {
                     <img
                       src={product.image}
                       alt={product.name}
-                      className="w-full h-full object-cover opacity-40 group-hover:scale-110 group-hover:opacity-60 transition-all duration-700"
+                      className="w-full h-full object-cover group-hover:scale-110 transition-all duration-700"
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-card via-card/80 to-transparent" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-slate-900 via-slate-900/50 to-transparent" />
                   </div>
                   
                   {/* New Badge */}
