@@ -167,7 +167,7 @@ export const ApplicationsSection = () => {
                     alt={app.name}
                     className="w-full h-full object-cover"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-background via-background/40 to-transparent" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-slate-900 via-slate-900/40 to-transparent" />
                   
                   {/* Content Overlay */}
                   <div className="absolute bottom-0 left-0 right-0 p-8 md:p-10">

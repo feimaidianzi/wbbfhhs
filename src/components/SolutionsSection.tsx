@@ -83,7 +83,7 @@ export const SolutionsSection = () => {
                 className="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
               />
               {/* Overlay */}
-              <div className="absolute inset-0 bg-gradient-to-t from-background via-background/70 to-transparent group-hover:from-background/95 transition-all duration-500" />
+              <div className="absolute inset-0 bg-gradient-to-t from-slate-900 via-slate-900/50 to-transparent group-hover:via-slate-900/70 transition-all duration-500" />
               
               {/* Content */}
               <div className="absolute bottom-0 left-0 right-0 p-6 md:p-8">
