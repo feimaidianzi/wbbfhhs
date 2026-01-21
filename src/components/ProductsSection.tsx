@@ -135,17 +135,17 @@ export const ProductsSection = () => {
                 {/* Content */}
                 <div className="absolute bottom-0 left-0 right-0 p-8 md:p-10">
                   <div className="flex items-center gap-3 mb-4">
-                    <div className="w-12 h-12 rounded-xl bg-accent/20 backdrop-blur-sm flex items-center justify-center">
-                      {(() => { const Icon = categories[0].icon; return <Icon className="w-6 h-6 text-accent" />; })()}
+                    <div className="w-12 h-12 rounded-xl bg-white/20 backdrop-blur-sm flex items-center justify-center">
+                      {(() => { const Icon = categories[0].icon; return <Icon className="w-6 h-6 text-white" />; })()}
                     </div>
                   </div>
-                  <h3 className="text-3xl md:text-4xl font-black text-foreground mb-2 group-hover:text-accent transition-colors">
+                  <h3 className="text-3xl md:text-4xl font-black text-white mb-2 group-hover:text-white/80 transition-colors">
                     {categories[0].name}
                   </h3>
-                  <p className="text-lg text-muted-foreground mb-4">
+                  <p className="text-lg text-white/80 mb-4">
                     {categories[0].description}
                   </p>
-                  <div className="flex items-center gap-2 text-accent font-semibold">
+                  <div className="flex items-center gap-2 text-white font-semibold">
                     {language === 'zh' ? '立即探索' : 'Explore Now'}
                     <ArrowRight className="w-5 h-5 group-hover:translate-x-2 transition-transform" />
                   </div>
@@ -180,19 +180,19 @@ export const ProductsSection = () => {
                   {/* Content */}
                   <div className="absolute bottom-0 left-0 right-0 p-6">
                     <div className="flex items-center gap-3 mb-3">
-                      <div className="w-10 h-10 rounded-lg bg-accent/20 backdrop-blur-sm flex items-center justify-center">
-                        {(() => { const Icon = product.icon; return <Icon className="w-5 h-5 text-accent" />; })()}
+                      <div className="w-10 h-10 rounded-lg bg-white/20 backdrop-blur-sm flex items-center justify-center">
+                        {(() => { const Icon = product.icon; return <Icon className="w-5 h-5 text-white" />; })()}
                       </div>
                     </div>
-                    <h3 className="text-xl font-bold text-foreground mb-1 group-hover:text-accent transition-colors">
+                    <h3 className="text-xl font-bold text-white mb-1 group-hover:text-white/80 transition-colors">
                       {product.name}
                     </h3>
-                    <p className="text-sm text-muted-foreground mb-3">
+                    <p className="text-sm text-white/80 mb-3">
                       {product.description}
                     </p>
                     <div className="flex items-center justify-between">
-                      <span className="text-accent text-sm font-medium">{product.subtitle}</span>
-                      <ArrowRight className="w-4 h-4 text-accent opacity-0 group-hover:opacity-100 group-hover:translate-x-1 transition-all" />
+                      <span className="text-white/90 text-sm font-medium">{product.subtitle}</span>
+                      <ArrowRight className="w-4 h-4 text-white opacity-0 group-hover:opacity-100 group-hover:translate-x-1 transition-all" />
                     </div>
                   </div>
                 </div>
