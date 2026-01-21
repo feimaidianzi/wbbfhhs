@@ -1,6 +1,7 @@
 import { Suspense } from "react";
 import { HeroScene3D } from "./hero/HeroScene3D";
 import { HeroContent } from "./hero/HeroContent";
+import { WaveTransition } from "./hero/WaveTransition";
 
 export const HeroSection = () => {
   return (
@@ -15,12 +16,8 @@ export const HeroSection = () => {
       {/* Content Overlay */}
       <HeroContent />
       
-      {/* 深色到浅色的平滑过渡区域 */}
-      <div className="absolute bottom-0 left-0 right-0 h-64 pointer-events-none z-[1]">
-        {/* 多层渐变实现平滑过渡 */}
-        <div className="absolute inset-0 bg-gradient-to-t from-slate-900 via-slate-900/80 to-transparent" />
-        <div className="absolute inset-0 bg-gradient-to-t from-background via-background/50 to-transparent" />
-      </div>
+      {/* 波浪过渡效果 */}
+      <WaveTransition />
     </section>
   );
 };
