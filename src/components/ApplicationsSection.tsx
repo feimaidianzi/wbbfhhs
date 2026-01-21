@@ -1,156 +1,227 @@
+import { motion } from "framer-motion";
 import { useState } from "react";
-import { ChevronLeft, ChevronRight, ArrowRight } from "lucide-react";
+import { ArrowRight, Droplets, Car, Leaf, Zap, AlertTriangle, MapPin } from "lucide-react";
 import { Link } from "react-router-dom";
 import { useLanguage } from "@/contexts/LanguageContext";
 
 const getApplicationsData = (language: 'zh' | 'en') => [
   {
+    id: "water",
     name: language === 'zh' ? "水利" : "Water Resources",
     description: language === 'zh' 
       ? "河道巡检、水库监测、防汛预警，无人机助力水利智能化管理"
       : "River inspection, reservoir monitoring, flood warning, drone-assisted smart water management",
-    image: "https://images.unsplash.com/photo-1534224039826-c7a0eda0e6b3?w=600&q=80",
+    image: "https://images.unsplash.com/photo-1534224039826-c7a0eda0e6b3?w=1200&q=80",
+    icon: Droplets,
+    link: "/applications/water",
   },
   {
+    id: "traffic",
     name: language === 'zh' ? "交通" : "Traffic",
     description: language === 'zh' 
       ? "道路监控、交通疏导、事故勘察，提升交通管理效能"
-      : "Road monitoring, traffic management, accident investigation, improving traffic efficiency",
-    image: "https://images.unsplash.com/photo-1449824913935-59a10b8d2000?w=600&q=80",
+      : "Road monitoring, traffic management, accident investigation",
+    image: "https://images.unsplash.com/photo-1449824913935-59a10b8d2000?w=1200&q=80",
+    icon: Car,
+    link: "/applications/traffic",
   },
   {
+    id: "environment",
     name: language === 'zh' ? "环保" : "Environment",
     description: language === 'zh' 
       ? "大气监测、水质采样、污染溯源，守护绿水青山"
-      : "Air monitoring, water sampling, pollution tracing, protecting the environment",
-    image: "https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=600&q=80",
+      : "Air monitoring, water sampling, pollution tracing",
+    image: "https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=1200&q=80",
+    icon: Leaf,
+    link: "/applications/environment",
   },
   {
+    id: "power",
     name: language === 'zh' ? "电力" : "Power Grid",
     description: language === 'zh' 
       ? "输电线路巡检、变电站监测、故障定位，保障电网安全"
-      : "Transmission line inspection, substation monitoring, fault location, ensuring grid safety",
-    image: "https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?w=600&q=80",
+      : "Transmission line inspection, fault location",
+    image: "https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?w=1200&q=80",
+    icon: Zap,
+    link: "/applications/power",
   },
   {
+    id: "emergency",
     name: language === 'zh' ? "应急" : "Emergency",
     description: language === 'zh' 
       ? "灾情侦察、搜救定位、物资投送，快速响应突发事件"
-      : "Disaster reconnaissance, search and rescue, material delivery, rapid emergency response",
-    image: "https://images.unsplash.com/photo-1569863959165-56dae551d4fc?w=600&q=80",
+      : "Disaster reconnaissance, search and rescue",
+    image: "https://images.unsplash.com/photo-1569863959165-56dae551d4fc?w=1200&q=80",
+    icon: AlertTriangle,
+    link: "/applications/emergency",
   },
   {
+    id: "surveying",
     name: language === 'zh' ? "测绘" : "Surveying",
     description: language === 'zh' 
       ? "地形测绘、三维建模、工程勘察，厘米级精度作业"
-      : "Terrain mapping, 3D modeling, engineering survey, centimeter-level precision",
-    image: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=600&q=80",
+      : "Terrain mapping, 3D modeling, centimeter precision",
+    image: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1200&q=80",
+    icon: MapPin,
+    link: "/applications/surveying",
   },
 ];
 
 export const ApplicationsSection = () => {
   const { language } = useLanguage();
   const applications = getApplicationsData(language);
-  const [currentIndex, setCurrentIndex] = useState(0);
-  const itemsPerPage = 3;
-  const maxIndex = Math.max(0, applications.length - itemsPerPage);
-
-  const next = () => {
-    setCurrentIndex((prev) => Math.min(prev + 1, maxIndex));
-  };
-
-  const prev = () => {
-    setCurrentIndex((prev) => Math.max(prev - 1, 0));
-  };
+  const [activeIndex, setActiveIndex] = useState(0);
 
   return (
-    <section id="applications" className="py-20 md:py-28 bg-secondary">
+    <section id="applications" className="py-24 md:py-32 bg-secondary relative overflow-hidden">
       <div className="container-custom">
         {/* Section Header */}
-        <div className="flex flex-col md:flex-row items-start md:items-end justify-between mb-12 gap-6">
-          <div>
-            <div className="flex items-center gap-3 mb-4">
-              <span className="text-accent text-2xl font-black">&lt;</span>
-              <h2 className="text-3xl md:text-4xl font-black text-foreground">
-                {language === 'zh' ? '行业应用' : 'Industry Applications'}
-              </h2>
-              <span className="text-accent text-2xl font-black">\&gt;</span>
-            </div>
-            <p className="text-muted-foreground text-lg max-w-xl">
-              {language === 'zh' 
-                ? '长凌无人机产品广泛应用于水利、交通、环保、电力等多个行业领域'
-                : 'CANI drones are widely used in water resources, traffic, environment, power and other industries'}
-            </p>
-          </div>
-          <Link 
-            to="/applications"
-            className="inline-flex items-center gap-2 text-accent hover:text-orange-light font-semibold text-lg group"
-          >
-            {language === 'zh' ? '查看全部应用' : 'View All Applications'}
-            <ArrowRight className="w-5 h-5 group-hover:translate-x-2 transition-transform" />
-          </Link>
-        </div>
+        <motion.div
+          initial={{ opacity: 0, y: 40 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8 }}
+          className="text-center mb-16"
+        >
+          <span className="inline-block px-4 py-1.5 rounded-full bg-accent/10 text-accent text-sm font-medium mb-6">
+            {language === 'zh' ? '行业应用' : 'Industry Applications'}
+          </span>
+          <h2 className="text-3xl md:text-4xl lg:text-5xl font-black text-foreground mb-6">
+            {language === 'zh' ? '多领域场景覆盖' : 'Multi-Domain Coverage'}
+          </h2>
+          <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
+            {language === 'zh' 
+              ? '长凌无人机产品广泛应用于水利、交通、环保、电力、应急、测绘等多个行业领域'
+              : 'CANI drones are widely used across water, traffic, environment, power, emergency, and surveying sectors'}
+          </p>
+        </motion.div>
 
-        {/* Applications Grid */}
-        <div className="relative">
-          <div className="overflow-hidden rounded-2xl">
-            <div
-              className="flex gap-6 transition-transform duration-500"
-              style={{ transform: `translateX(-${currentIndex * (100 / itemsPerPage)}%)` }}
-            >
-              {applications.map((app, index) => (
-                <div
-                  key={index}
-                  className="flex-shrink-0 w-full sm:w-1/2 lg:w-1/3"
-                >
-                  <div className="group bg-card rounded-2xl overflow-hidden shadow-card hover:shadow-card-hover transition-all duration-500 h-full hover:-translate-y-2">
-                    <div className="aspect-[4/3] overflow-hidden relative">
-                      <img
-                        src={app.image}
-                        alt={app.name}
-                        className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
-                      />
-                      <div className="absolute inset-0 bg-gradient-to-t from-primary/70 via-transparent to-transparent" />
-                      <div className="absolute bottom-4 left-4 right-4">
-                        <h3 className="text-2xl font-bold text-primary-foreground mb-1">
-                          {app.name}
-                        </h3>
-                      </div>
-                    </div>
-                    <div className="p-6">
-                      <p className="text-muted-foreground mb-4 line-clamp-2">
-                        {app.description}
-                      </p>
-                      <Link
-                        to="/applications"
-                        className="inline-flex items-center text-accent hover:text-orange-light font-semibold group/link"
-                      >
-                        {language === 'zh' ? '了解更多' : 'Learn More'}
-                        <ChevronRight className="w-4 h-4 ml-1 group-hover/link:translate-x-1 transition-transform" />
-                      </Link>
-                    </div>
+        {/* Interactive Application Display */}
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+          {/* Left - Application List */}
+          <div className="lg:col-span-1 space-y-4">
+            {applications.map((app, index) => (
+              <motion.button
+                key={app.id}
+                initial={{ opacity: 0, x: -30 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: index * 0.1 }}
+                onClick={() => setActiveIndex(index)}
+                className={`w-full text-left p-5 rounded-2xl transition-all duration-500 group ${
+                  activeIndex === index 
+                    ? 'bg-accent/10 border-2 border-accent' 
+                    : 'bg-card border border-accent/10 hover:border-accent/30'
+                }`}
+              >
+                <div className="flex items-center gap-4">
+                  <div className={`w-12 h-12 rounded-xl flex items-center justify-center transition-all duration-300 ${
+                    activeIndex === index 
+                      ? 'bg-accent text-accent-foreground' 
+                      : 'bg-accent/10 text-accent group-hover:bg-accent/20'
+                  }`}>
+                    <app.icon className="w-6 h-6" />
                   </div>
+                  <div className="flex-1">
+                    <h3 className={`text-lg font-bold transition-colors ${
+                      activeIndex === index ? 'text-accent' : 'text-foreground'
+                    }`}>
+                      {app.name}
+                    </h3>
+                    <p className="text-sm text-muted-foreground line-clamp-1">
+                      {app.description}
+                    </p>
+                  </div>
+                  <ArrowRight className={`w-5 h-5 transition-all duration-300 ${
+                    activeIndex === index 
+                      ? 'text-accent translate-x-0 opacity-100' 
+                      : 'text-muted-foreground -translate-x-2 opacity-0 group-hover:translate-x-0 group-hover:opacity-100'
+                  }`} />
                 </div>
+              </motion.button>
+            ))}
+          </div>
+
+          {/* Right - Featured Image */}
+          <motion.div 
+            className="lg:col-span-2 relative"
+            initial={{ opacity: 0, scale: 0.95 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8 }}
+          >
+            <div className="relative rounded-3xl overflow-hidden aspect-[16/10] bg-card">
+              {applications.map((app, index) => (
+                <motion.div
+                  key={app.id}
+                  initial={false}
+                  animate={{
+                    opacity: activeIndex === index ? 1 : 0,
+                    scale: activeIndex === index ? 1 : 1.1,
+                  }}
+                  transition={{ duration: 0.7 }}
+                  className="absolute inset-0"
+                >
+                  <img
+                    src={app.image}
+                    alt={app.name}
+                    className="w-full h-full object-cover"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-background via-background/40 to-transparent" />
+                  
+                  {/* Content Overlay */}
+                  <div className="absolute bottom-0 left-0 right-0 p-8 md:p-10">
+                    <h3 className="text-3xl md:text-4xl font-black text-foreground mb-3">
+                      {app.name}
+                    </h3>
+                    <p className="text-lg text-muted-foreground mb-6 max-w-xl">
+                      {app.description}
+                    </p>
+                    <Link 
+                      to={app.link}
+                      className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-accent text-accent-foreground font-semibold hover:bg-accent/90 transition-colors"
+                    >
+                      {language === 'zh' ? '了解详情' : 'Learn More'}
+                      <ArrowRight className="w-5 h-5" />
+                    </Link>
+                  </div>
+                </motion.div>
               ))}
             </div>
-          </div>
 
-          {/* Navigation */}
-          <button
-            onClick={prev}
-            disabled={currentIndex === 0}
-            className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-4 w-12 h-12 rounded-full bg-card shadow-card-hover border border-border flex items-center justify-center text-foreground hover:bg-accent hover:text-accent-foreground hover:border-accent transition-all disabled:opacity-50 disabled:cursor-not-allowed"
-          >
-            <ChevronLeft className="w-5 h-5" />
-          </button>
-          <button
-            onClick={next}
-            disabled={currentIndex >= maxIndex}
-            className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-4 w-12 h-12 rounded-full bg-card shadow-card-hover border border-border flex items-center justify-center text-foreground hover:bg-accent hover:text-accent-foreground hover:border-accent transition-all disabled:opacity-50 disabled:cursor-not-allowed"
-          >
-            <ChevronRight className="w-5 h-5" />
-          </button>
+            {/* Progress Indicator */}
+            <div className="flex justify-center gap-2 mt-6">
+              {applications.map((_, index) => (
+                <button
+                  key={index}
+                  onClick={() => setActiveIndex(index)}
+                  className={`h-1.5 rounded-full transition-all duration-300 ${
+                    activeIndex === index 
+                      ? 'w-8 bg-accent' 
+                      : 'w-2 bg-accent/30 hover:bg-accent/50'
+                  }`}
+                />
+              ))}
+            </div>
+          </motion.div>
         </div>
+
+        {/* View All Link */}
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8, delay: 0.3 }}
+          className="text-center mt-12"
+        >
+          <Link 
+            to="/applications"
+            className="inline-flex items-center gap-3 text-accent hover:text-accent/80 font-semibold text-lg group"
+          >
+            {language === 'zh' ? '查看全部应用案例' : 'View All Applications'}
+            <ArrowRight className="w-5 h-5 group-hover:translate-x-2 transition-transform" />
+          </Link>
+        </motion.div>
       </div>
     </section>
   );
