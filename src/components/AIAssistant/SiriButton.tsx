@@ -120,23 +120,23 @@ export const SiriButton = ({
         }
       }
     } else {
-      // Idle state - subtle pulsing orb
+      // Idle state - subtle pulsing orb with blue/white theme
       const pulseRadius = 18 + Math.sin(animationPhase * Math.PI / 180) * 2;
       const gradient = ctx.createRadialGradient(centerX, centerY, 0, centerX, centerY, pulseRadius + 10);
-      gradient.addColorStop(0, 'hsla(210, 100%, 55%, 0.8)');
-      gradient.addColorStop(0.6, 'hsla(260, 90%, 50%, 0.4)');
-      gradient.addColorStop(1, 'hsla(210, 100%, 50%, 0.1)');
+      gradient.addColorStop(0, 'hsla(0, 0%, 100%, 0.95)');
+      gradient.addColorStop(0.4, 'hsla(213, 94%, 60%, 0.7)');
+      gradient.addColorStop(1, 'hsla(213, 94%, 50%, 0.2)');
       
       ctx.beginPath();
       ctx.arc(centerX, centerY, pulseRadius, 0, Math.PI * 2);
       ctx.fillStyle = gradient;
       ctx.fill();
       
-      // Add subtle ring animation
+      // Add subtle ring animation - blue theme
       const ringRadius = 22 + Math.sin((animationPhase + 90) * Math.PI / 180) * 3;
       ctx.beginPath();
       ctx.arc(centerX, centerY, ringRadius, 0, Math.PI * 2);
-      ctx.strokeStyle = `hsla(210, 100%, 60%, ${0.2 + Math.sin(animationPhase * Math.PI / 180) * 0.1})`;
+      ctx.strokeStyle = `hsla(213, 94%, 70%, ${0.3 + Math.sin(animationPhase * Math.PI / 180) * 0.15})`;
       ctx.lineWidth = 1.5;
       ctx.stroke();
     }
@@ -148,47 +148,47 @@ export const SiriButton = ({
       className={cn(
         "relative w-16 h-16 rounded-full transition-all duration-300",
         "shadow-lg hover:shadow-xl hover:scale-105",
-        "focus:outline-none focus:ring-2 focus:ring-primary/50",
-        "bg-gradient-to-br from-foreground to-foreground/90",
+        "focus:outline-none focus:ring-2 focus:ring-accent/50",
+        "bg-gradient-to-br from-accent to-blue-600",
         isActive ? "scale-110" : "",
         className
       )}
       aria-label="AI助手"
     >
-      {/* Outer glow */}
+      {/* Outer glow - blue/white theme */}
       <div 
         className={cn(
           "absolute -inset-1 rounded-full blur-md transition-opacity",
-          isActive || isSpeaking ? "opacity-60" : "opacity-30"
+          isActive || isSpeaking ? "opacity-60" : "opacity-40"
         )}
         style={{
           background: isListening 
-            ? `linear-gradient(${animationPhase}deg, hsl(280, 100%, 60%), hsl(320, 100%, 50%))`
+            ? `linear-gradient(${animationPhase}deg, hsl(213, 94%, 55%), hsl(220, 90%, 60%))`
             : isSpeaking
-            ? `linear-gradient(${animationPhase}deg, hsl(200, 100%, 60%), hsl(180, 100%, 50%))`
-            : `linear-gradient(${animationPhase}deg, hsl(210, 100%, 55%), hsl(260, 90%, 50%))`
+            ? `linear-gradient(${animationPhase}deg, hsl(200, 100%, 60%), hsl(213, 94%, 50%))`
+            : `linear-gradient(${animationPhase}deg, hsl(213, 94%, 55%), hsl(220, 100%, 70%))`
         }}
       />
       
-      {/* Pulsing rings when active */}
+      {/* Pulsing rings when active - blue theme */}
       {(isActive || isSpeaking || isListening) && (
         <>
           <div 
-            className="absolute inset-0 rounded-full animate-ping opacity-20"
+            className="absolute inset-0 rounded-full animate-ping opacity-25"
             style={{
               background: isListening 
-                ? 'linear-gradient(135deg, hsl(280, 100%, 60%), hsl(320, 100%, 50%))'
+                ? 'linear-gradient(135deg, hsl(213, 94%, 55%), hsl(220, 90%, 60%))'
                 : isSpeaking
-                ? 'linear-gradient(135deg, hsl(200, 100%, 60%), hsl(180, 100%, 50%))'
-                : 'linear-gradient(135deg, hsl(210, 100%, 60%), hsl(260, 90%, 60%))'
+                ? 'linear-gradient(135deg, hsl(200, 100%, 60%), hsl(213, 94%, 50%))'
+                : 'linear-gradient(135deg, hsl(213, 94%, 60%), hsl(220, 100%, 70%))'
             }}
           />
           <div 
-            className="absolute -inset-2 rounded-full animate-pulse opacity-15"
+            className="absolute -inset-2 rounded-full animate-pulse opacity-20"
             style={{
               background: `linear-gradient(${animationPhase + 180}deg, 
-                hsl(210, 100%, 60%), 
-                hsl(280, 100%, 60%))`
+                hsl(213, 94%, 60%), 
+                hsl(220, 100%, 75%))`
             }}
           />
         </>
