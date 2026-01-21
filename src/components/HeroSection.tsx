@@ -4,10 +4,10 @@ import { HeroContent } from "./hero/HeroContent";
 
 export const HeroSection = () => {
   return (
-    <section className="relative min-h-screen bg-foreground overflow-hidden">
+    <section className="relative min-h-screen bg-slate-900 overflow-hidden">
       {/* 3D Scene Background */}
       <Suspense fallback={
-        <div className="absolute inset-0 bg-foreground" />
+        <div className="absolute inset-0 bg-gradient-to-br from-slate-900 via-blue-950 to-slate-900" />
       }>
         <HeroScene3D />
       </Suspense>

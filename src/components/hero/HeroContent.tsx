@@ -71,7 +71,7 @@ export const HeroContent = () => {
           <Button 
             variant="outline" 
             size="lg"
-            className="group relative overflow-hidden border-white/30 hover:border-white/60 text-white px-8 py-6 text-lg font-semibold rounded-full backdrop-blur-sm hover:bg-white/10"
+            className="group relative overflow-hidden border-2 border-white bg-white/10 hover:bg-white/20 text-white px-8 py-6 text-lg font-semibold rounded-full backdrop-blur-sm"
           >
             <Play className="w-5 h-5 mr-2" />
             {language === 'zh' ? '了解长凌' : 'About CANI'}
