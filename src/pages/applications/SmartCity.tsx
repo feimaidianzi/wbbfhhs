@@ -55,12 +55,12 @@ const SmartCity = () => {
           >
           </div>
           <div className="relative container-custom h-full flex items-center">
-            <div className="max-w-2xl rounded-3xl bg-background/70 backdrop-blur-md border border-border p-6 md:p-8 shadow-card">
-              <p className="text-accent font-medium mb-2">{isEn ? "Industry Applications" : "行业应用"}</p>
-              <h1 className="text-3xl md:text-5xl font-bold text-foreground mb-4">
+            <div className="max-w-2xl rounded-3xl bg-black/70 border border-white/20 p-6 md:p-8 shadow-lg">
+              <p className="text-cyan-400 font-medium mb-2">{isEn ? "Industry Applications" : "行业应用"}</p>
+              <h1 className="text-3xl md:text-5xl font-bold text-white mb-4">
                 {isEn ? "Smart City" : "智慧城市"}
               </h1>
-              <p className="text-lg text-muted-foreground">
+              <p className="text-lg text-white/80">
                 {isEn 
                   ? "In the era of digital and intelligent cities, drones play important roles in urban management, planning, and emergency command"
                   : "数字地球和智能地球时代，无人机在城市管理、规划测绘、应急指挥等方面发挥重要作用"}

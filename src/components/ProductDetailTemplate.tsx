@@ -119,24 +119,24 @@ const ProductDetailTemplate = ({
           />
           <div className="container-custom relative z-10 h-full flex items-center">
             <div className="max-w-2xl">
-              <div className="rounded-3xl bg-background/70 backdrop-blur-md border border-border p-6 md:p-8">
+              <div className="rounded-3xl bg-black/70 border border-white/20 p-6 md:p-8">
               {/* Breadcrumb */}
-              <div className="flex items-center gap-2 text-sm text-muted-foreground mb-6">
+              <div className="flex items-center gap-2 text-sm text-white/60 mb-6">
                 {breadcrumbs.map((item, index) => (
                   <span key={index} className="flex items-center gap-2">
                     {item.path ? (
-                      <Link to={item.path} className="hover:text-foreground transition-colors">
+                      <Link to={item.path} className="hover:text-white transition-colors">
                         {isEn && item.labelEn ? item.labelEn : item.label}
                       </Link>
                     ) : (
-                      <span className="text-foreground">{isEn && item.labelEn ? item.labelEn : item.label}</span>
+                      <span className="text-white">{isEn && item.labelEn ? item.labelEn : item.label}</span>
                     )}
                     {index < breadcrumbs.length - 1 && <span>/</span>}
                   </span>
                 ))}
               </div>
               
-              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight text-foreground">
+              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight text-white">
                 {isEn && heroTitleEn ? heroTitleEn : heroTitle}
               </h1>
               <p className="text-lg md:text-xl text-muted-foreground mb-8 leading-relaxed">

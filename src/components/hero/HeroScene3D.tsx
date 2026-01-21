@@ -280,8 +280,8 @@ export const HeroScene3D = () => {
   
   return (
     <div className="absolute inset-0 z-0">
-      {/* Clean white background without fog */}
-      <div className="absolute inset-0 bg-gradient-to-br from-white via-sky-50 to-blue-100" />
+      {/* Dark background for contrast */}
+      <div className="absolute inset-0 bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900" />
       
       <Canvas
         camera={{ position: [0, 0, 14], fov: 45 }}

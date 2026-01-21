@@ -55,12 +55,12 @@ const Traffic = () => {
           >
           </div>
           <div className="relative container-custom h-full flex items-center">
-            <div className="max-w-2xl rounded-3xl bg-background/70 backdrop-blur-md border border-border p-6 md:p-8 shadow-card">
-              <p className="text-accent font-medium mb-2">{isEn ? "Industry Applications" : "行业应用"}</p>
-              <h1 className="text-3xl md:text-5xl font-bold text-foreground mb-4">
+            <div className="max-w-2xl rounded-3xl bg-black/70 border border-white/20 p-6 md:p-8 shadow-lg">
+              <p className="text-cyan-400 font-medium mb-2">{isEn ? "Industry Applications" : "行业应用"}</p>
+              <h1 className="text-3xl md:text-5xl font-bold text-white mb-4">
                 {isEn ? "Traffic" : "交通"}
               </h1>
-              <p className="text-lg text-muted-foreground">
+              <p className="text-lg text-white/80">
                 {isEn 
                   ? "Enhance road transportation monitoring capabilities through drone systems for smart traffic management"
                   : "通过无人机系统提高道路交通运输行业运行监测能力，实现智慧交通管理"}

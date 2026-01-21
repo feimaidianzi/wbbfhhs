@@ -109,14 +109,14 @@ const Logistics = () => {
           />
         </div>
         <div className="container mx-auto px-4 relative z-10">
-          <div className="max-w-2xl rounded-3xl bg-background/70 backdrop-blur-md border border-border p-6 md:p-8 shadow-card">
-            <h1 className="text-4xl md:text-6xl font-bold mb-4 text-foreground">
+          <div className="max-w-2xl rounded-3xl bg-black/70 border border-white/20 p-6 md:p-8 shadow-lg">
+            <h1 className="text-4xl md:text-6xl font-bold mb-4 text-white">
               世翼运载无人机
             </h1>
-            <p className="text-xl md:text-2xl text-muted-foreground mb-2">
+            <p className="text-xl md:text-2xl text-white/80 mb-2">
               新一代升级版多功能载重无人机
             </p>
-            <p className="text-lg text-primary font-semibold mb-8">
+            <p className="text-lg text-cyan-400 font-semibold mb-8">
               性能 · 从未如此稳定
             </p>
             <div className="flex flex-wrap gap-4">

@@ -56,12 +56,12 @@ const Water = () => {
           >
           </div>
           <div className="relative container-custom h-full flex items-center">
-            <div className="max-w-2xl rounded-3xl bg-background/70 backdrop-blur-md border border-border p-6 md:p-8 shadow-card">
-              <p className="text-accent font-medium mb-2">{isEn ? "Industry Applications" : "行业应用"}</p>
-              <h1 className="text-3xl md:text-5xl font-bold text-foreground mb-4">
+            <div className="max-w-2xl rounded-3xl bg-black/70 border border-white/20 p-6 md:p-8 shadow-lg">
+              <p className="text-cyan-400 font-medium mb-2">{isEn ? "Industry Applications" : "行业应用"}</p>
+              <h1 className="text-3xl md:text-5xl font-bold text-white mb-4">
                 {isEn ? "Water Conservancy" : "水利"}
               </h1>
-              <p className="text-lg text-muted-foreground">
+              <p className="text-lg text-white/80">
                 {isEn 
                   ? "Apply drone technology for river inspection, reservoir monitoring, flood control, and provide technical support for water conservancy development"
                   : "应用无人机技术进行河道巡检、水库监测、防汛抗旱等工作，为水利改革发展提供科技支撑"}
