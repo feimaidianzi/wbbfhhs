@@ -21,27 +21,27 @@ export const HeroContent = () => {
         </span>
       </motion.div>
 
-      {/* Main Title */}
+      {/* Main Title - with text shadow for better visibility */}
       <motion.h1
         initial={{ opacity: 0, y: 50 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 1, delay: 0.4 }}
-        className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-black mb-6 leading-tight"
+        className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-black mb-6 leading-tight drop-shadow-sm"
       >
-        <span className="block text-slate-800">
+        <span className="block text-slate-900" style={{ textShadow: '0 2px 10px rgba(255,255,255,0.8)' }}>
           {language === 'zh' ? '重新定义' : 'Redefining'}
         </span>
-        <span className="block bg-gradient-to-r from-blue-600 via-blue-500 to-cyan-500 bg-clip-text text-transparent">
+        <span className="block bg-gradient-to-r from-blue-700 via-blue-600 to-cyan-600 bg-clip-text text-transparent drop-shadow-lg" style={{ textShadow: '0 2px 15px rgba(59,130,246,0.3)' }}>
           {language === 'zh' ? '飞行体验' : 'Flight Experience'}
         </span>
       </motion.h1>
 
-      {/* Subtitle */}
+      {/* Subtitle - with enhanced contrast */}
       <motion.p
         initial={{ opacity: 0, y: 30 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8, delay: 0.6 }}
-        className="text-lg md:text-xl text-slate-600 max-w-2xl mb-10 leading-relaxed"
+        className="text-lg md:text-xl text-slate-700 max-w-2xl mb-10 leading-relaxed px-6 py-4 bg-white/70 backdrop-blur-sm rounded-2xl border border-white/50 shadow-sm"
       >
         {language === 'zh' 
           ? '专注无人机图传、飞控、云台等核心配件研发，10年技术沉淀，为全球飞手提供专业级解决方案'
