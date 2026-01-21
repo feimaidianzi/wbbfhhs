@@ -128,8 +128,6 @@ const ProductPageTemplate = ({
               className="absolute inset-0 bg-cover bg-center"
               style={{ backgroundImage: `url(${heroImage})` }}
             />
-            <div className="absolute inset-0 bg-gradient-to-b from-background/80 via-background/50 to-background" />
-            <div className="absolute inset-0 bg-gradient-to-r from-background/60 via-transparent to-background/60" />
           </div>
 
           {/* Floating Elements */}
@@ -145,7 +143,7 @@ const ProductPageTemplate = ({
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.2 }}
             >
-              <span className="inline-block px-4 py-2 rounded-full bg-accent/10 border border-accent/30 text-accent text-sm font-medium mb-6">
+              <span className="inline-block px-4 py-2 rounded-full bg-background/70 backdrop-blur-md border border-border text-foreground text-sm font-medium mb-6">
                 {isEn ? 'CANI Technology · Professional Solutions' : '长凌科技 · 专业解决方案'}
               </span>
             </motion.div>
@@ -156,16 +154,20 @@ const ProductPageTemplate = ({
               transition={{ duration: 0.8, delay: 0.4 }}
               className="text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-black mb-6 leading-tight"
             >
-              <span className="text-foreground">{isEn && heroTitleEn ? heroTitleEn : heroTitle}</span>
+              <span className="inline-block px-6 py-4 rounded-3xl bg-background/70 backdrop-blur-md border border-border text-foreground">
+                {isEn && heroTitleEn ? heroTitleEn : heroTitle}
+              </span>
             </motion.h1>
 
             <motion.p
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.6 }}
-              className="text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto mb-10"
+              className="text-lg md:text-xl max-w-3xl mx-auto mb-10"
             >
-              {isEn && heroSubtitleEn ? heroSubtitleEn : heroSubtitle}
+              <span className="inline-block px-6 py-4 rounded-3xl bg-background/70 backdrop-blur-md border border-border text-foreground">
+                {isEn && heroSubtitleEn ? heroSubtitleEn : heroSubtitle}
+              </span>
             </motion.p>
 
             <motion.div

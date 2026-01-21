@@ -128,7 +128,6 @@ const ApplicationPageTemplate = ({
               className="absolute inset-0 bg-cover bg-center"
               style={{ backgroundImage: `url(${heroImage})` }}
             />
-            <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-background" />
           </div>
 
           {/* Floating Elements */}
@@ -145,7 +144,7 @@ const ApplicationPageTemplate = ({
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, delay: 0.2 }}
               >
-                <span className="inline-block px-4 py-2 rounded-full bg-accent/10 border border-accent/30 text-accent text-sm font-medium mb-6">
+                <span className="inline-block px-4 py-2 rounded-full bg-background/70 backdrop-blur-md border border-border text-foreground text-sm font-medium mb-6">
                   {heroSubtitle}
                 </span>
               </motion.div>
@@ -155,18 +154,22 @@ const ApplicationPageTemplate = ({
               initial={{ opacity: 0, y: 50 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.4 }}
-              className="text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-black mb-6 leading-tight text-foreground"
+              className="text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-black mb-6 leading-tight"
             >
-              {heroTitle}
+              <span className="inline-block px-6 py-4 rounded-3xl bg-background/70 backdrop-blur-md border border-border text-foreground">
+                {heroTitle}
+              </span>
             </motion.h1>
 
             <motion.p
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.6 }}
-              className="text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto mb-10"
+              className="text-lg md:text-xl max-w-3xl mx-auto mb-10"
             >
-              {heroDescription}
+              <span className="inline-block px-6 py-4 rounded-3xl bg-background/70 backdrop-blur-md border border-border text-foreground">
+                {heroDescription}
+              </span>
             </motion.p>
 
             {/* Stats */}
@@ -178,8 +181,8 @@ const ApplicationPageTemplate = ({
                 className="flex flex-wrap justify-center gap-6 mb-10"
               >
                 {heroStats.map((stat, index) => (
-                  <div key={index} className="px-6 py-4 rounded-2xl bg-card/50 backdrop-blur-sm border border-accent/20">
-                    <div className="text-2xl md:text-3xl font-black text-accent">{stat.value}</div>
+                  <div key={index} className="px-6 py-4 rounded-2xl bg-background/70 backdrop-blur-md border border-border">
+                    <div className="text-2xl md:text-3xl font-black text-foreground">{stat.value}</div>
                     <div className="text-sm text-muted-foreground">{stat.label}</div>
                   </div>
                 ))}

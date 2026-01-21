@@ -54,18 +54,19 @@ const Environment = () => {
             alt={isEn ? "Environment" : "环保"}
             className="absolute inset-0 w-full h-full object-cover"
           />
-          <div className="absolute inset-0 bg-gradient-to-r from-slate-900/90 via-slate-900/70 to-transparent" />
           <div className="relative container-custom h-full flex items-center">
             <div className="max-w-2xl">
-              <p className="text-accent font-medium mb-2">{isEn ? "Industry Applications" : "行业应用"}</p>
-              <h1 className="text-3xl md:text-5xl font-bold text-primary-foreground mb-4">
-                {isEn ? "Environment" : "环保"}
-              </h1>
-              <p className="text-lg text-primary-foreground/90">
-                {isEn 
-                  ? "Drone remote sensing systems offer low cost, high safety, and strong mobility, widely used in environmental protection"
-                  : "无人机遥感系统具有成本低、安全性高、机动性强的特点，广泛应用于环境保护领域"}
-              </p>
+              <div className="rounded-3xl bg-background/70 backdrop-blur-md border border-border p-6 md:p-8">
+                <p className="text-foreground font-medium mb-2">{isEn ? "Industry Applications" : "行业应用"}</p>
+                <h1 className="text-3xl md:text-5xl font-bold text-foreground mb-4">
+                  {isEn ? "Environment" : "环保"}
+                </h1>
+                <p className="text-lg text-muted-foreground">
+                  {isEn 
+                    ? "Drone remote sensing systems offer low cost, high safety, and strong mobility, widely used in environmental protection"
+                    : "无人机遥感系统具有成本低、安全性高、机动性强的特点，广泛应用于环境保护领域"}
+                </p>
+              </div>
             </div>
           </div>
         </section>
