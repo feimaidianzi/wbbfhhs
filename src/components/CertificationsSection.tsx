@@ -1,35 +1,31 @@
 import { useLanguage } from "@/contexts/LanguageContext";
+import { motion } from "framer-motion";
+import { Shield, Award, CheckCircle2 } from "lucide-react";
 
 const getCertificationsData = (language: 'zh' | 'en') => [
   { 
     name: "ISO9001", 
     description: language === 'zh' ? "质量管理体系认证" : "Quality Management",
-    image: "https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=400&q=80"
   },
   { 
     name: "ISO14001", 
     description: language === 'zh' ? "环境管理体系认证" : "Environmental Management",
-    image: "https://images.unsplash.com/photo-1450101499163-c8848c66ca85?w=400&q=80"
   },
   { 
     name: "CE", 
     description: language === 'zh' ? "欧盟CE认证" : "EU CE Certification",
-    image: "https://images.unsplash.com/photo-1586953208448-b95a79798f07?w=400&q=80"
   },
   { 
     name: "FCC", 
     description: language === 'zh' ? "美国FCC认证" : "US FCC Certification",
-    image: "https://images.unsplash.com/photo-1551836022-d5d88e9218df?w=400&q=80"
   },
   { 
     name: "CCC", 
     description: language === 'zh' ? "中国强制认证" : "China CCC Certification",
-    image: "https://images.unsplash.com/photo-1568992687947-868a62a9f521?w=400&q=80"
   },
   { 
     name: "CAAC", 
     description: language === 'zh' ? "民航局型号合格证" : "CAAC Type Certificate",
-    image: "https://images.unsplash.com/photo-1606185540834-d6e7483ee1a4?w=400&q=80"
   },
 ];
 
@@ -38,39 +34,61 @@ export const CertificationsSection = () => {
   const certifications = getCertificationsData(language);
 
   return (
-    <section className="py-16 bg-background border-t border-border/50">
+    <section className="py-16 md:py-20 bg-background border-t border-border/50">
       <div className="container-custom">
-        <div className="text-center mb-12">
-          <h3 className="text-2xl md:text-3xl font-bold text-foreground mb-4">
-            {language === 'zh' ? "资质认证" : "Certifications"}
-          </h3>
-          <p className="text-muted-foreground text-base max-w-2xl mx-auto">
-            {language === 'zh' 
-              ? "长凌科技通过多项国际国内权威认证，品质值得信赖"
-              : "CANI has passed multiple international and domestic authoritative certifications, quality you can trust"}
-          </p>
-        </div>
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6">
-          {certifications.map((cert, index) => (
-            <div
-              key={index}
-              className="group bg-card rounded-xl overflow-hidden shadow-card hover:shadow-card-hover transition-all duration-300 hover:-translate-y-1"
-            >
-              <div className="aspect-square overflow-hidden bg-muted">
-                <img 
-                  src={cert.image} 
-                  alt={`${cert.name} ${language === 'zh' ? '证书' : 'Certificate'}`}
-                  className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
-                />
-              </div>
-              <div className="p-4 text-center">
-                <div className="w-12 h-12 bg-accent/10 rounded-full flex items-center justify-center mx-auto mb-2">
-                  <span className="text-accent font-bold text-sm">{cert.name}</span>
-                </div>
-                <span className="text-muted-foreground text-sm">{cert.description}</span>
-              </div>
+        <div className="flex flex-col lg:flex-row items-start lg:items-center gap-12">
+          {/* Left Content */}
+          <motion.div 
+            initial={{ opacity: 0, x: -20 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5 }}
+            className="lg:w-1/3"
+          >
+            <div className="inline-flex items-center gap-2 px-3 py-1.5 bg-accent/10 rounded-full mb-4">
+              <Shield className="w-4 h-4 text-accent" />
+              <span className="text-sm font-medium text-accent">
+                {language === 'zh' ? "品质保障" : "Quality Assurance"}
+              </span>
             </div>
-          ))}
+            <h3 className="text-2xl md:text-3xl font-bold text-foreground mb-4">
+              {language === 'zh' ? "资质认证" : "Certifications"}
+            </h3>
+            <p className="text-muted-foreground">
+              {language === 'zh' 
+                ? "通过多项国际国内权威认证，品质值得信赖"
+                : "Certified by multiple international and domestic authorities, quality you can trust"}
+            </p>
+          </motion.div>
+
+          {/* Right - Certifications Grid */}
+          <motion.div 
+            initial={{ opacity: 0, x: 20 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5, delay: 0.1 }}
+            className="lg:w-2/3"
+          >
+            <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+              {certifications.map((cert, index) => (
+                <div
+                  key={index}
+                  className="group flex items-center gap-4 p-4 bg-secondary/50 rounded-xl hover:bg-secondary transition-colors"
+                >
+                  <div className="w-12 h-12 rounded-xl bg-background flex items-center justify-center shrink-0 border border-border/50 group-hover:border-accent/30 transition-colors">
+                    <span className="text-sm font-bold text-accent">{cert.name}</span>
+                  </div>
+                  <div>
+                    <div className="flex items-center gap-1.5 mb-0.5">
+                      <CheckCircle2 className="w-3.5 h-3.5 text-accent" />
+                      <span className="text-sm font-medium text-foreground">{cert.name}</span>
+                    </div>
+                    <span className="text-xs text-muted-foreground">{cert.description}</span>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </motion.div>
         </div>
       </div>
     </section>

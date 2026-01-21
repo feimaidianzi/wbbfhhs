@@ -65,11 +65,20 @@ const getProjectCategories = (language: 'zh' | 'en') => [
 export const Header = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
+  const [isScrolled, setIsScrolled] = useState(false);
   const [user, setUser] = useState<SupabaseUser | null>(null);
   const timeoutRef = useRef<NodeJS.Timeout | null>(null);
   const { t, language } = useLanguage();
   const navigate = useNavigate();
   const { toast } = useToast();
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 20);
+    };
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   useEffect(() => {
     const { data: { subscription } } = supabase.auth.onAuthStateChange((event, session) => {
@@ -129,7 +138,11 @@ export const Header = () => {
   };
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 bg-primary shadow-lg">
+    <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+      isScrolled 
+        ? 'bg-background/95 backdrop-blur-md shadow-sm border-b border-border/50' 
+        : 'bg-transparent'
+    }`}>
       <div className="container-custom">
         <div className="flex items-center justify-between h-16 md:h-20">
           {/* Logo */}
@@ -146,15 +159,15 @@ export const Header = () => {
               >
                 <Link
                   to={item.href}
-                  className={`flex items-center gap-1 px-3 py-2 text-sm transition-colors ${
-                    activeDropdown === item.name 
-                      ? 'text-primary-foreground' 
-                      : 'text-primary-foreground/90 hover:text-primary-foreground'
-                  }`}
+                  className={`flex items-center gap-1 px-4 py-2 text-sm font-medium transition-colors rounded-full ${
+                    isScrolled
+                      ? 'text-foreground hover:text-accent hover:bg-accent/5'
+                      : 'text-white/90 hover:text-white hover:bg-white/10'
+                  } ${activeDropdown === item.name ? (isScrolled ? 'text-accent bg-accent/5' : 'text-white bg-white/10') : ''}`}
                 >
                   {item.name}
                   {item.hasDropdown && (
-                    <ChevronDown className={`w-3 h-3 transition-transform duration-200 ${
+                    <ChevronDown className={`w-3.5 h-3.5 transition-transform duration-200 ${
                       activeDropdown === item.name ? 'rotate-180' : ''
                     }`} />
                   )}
@@ -168,26 +181,29 @@ export const Header = () => {
             item.children && activeDropdown === item.name && (
               <div
                 key={`dropdown-${item.name}`}
-                className="fixed left-0 right-0 top-16 md:top-20 backdrop-blur-xl bg-background/95 shadow-2xl border-t border-b border-border/30 animate-dropdown-in z-40"
+                className="fixed left-0 right-0 top-16 md:top-20 bg-background border-b border-border shadow-lg dropdown-enter z-40"
                 onMouseEnter={() => handleMouseEnter(item.name)}
                 onMouseLeave={handleMouseLeave}
               >
                 <div className="container-custom py-8">
-                  <div className="mb-4">
-                    <h3 className="text-lg font-bold text-foreground">{item.name}</h3>
+                  <div className="mb-6">
+                    <h3 className="text-lg font-semibold text-foreground">{item.name}</h3>
+                    <div className="w-12 h-0.5 bg-accent mt-2"></div>
                   </div>
-                  <div className={`grid gap-6 ${item.children.length <= 4 ? 'grid-cols-2 md:grid-cols-4' : 'grid-cols-2 md:grid-cols-3 lg:grid-cols-5'}`}>
+                  <div className={`grid gap-4 ${item.children.length <= 4 ? 'grid-cols-2 md:grid-cols-4' : 'grid-cols-2 md:grid-cols-3 lg:grid-cols-5'}`}>
                     {item.children.map((child, index) => (
                       <Link
                         key={child.name}
                         to={child.href}
-                        className="group flex flex-col rounded-xl overflow-hidden bg-card hover:shadow-xl transition-all duration-300 border border-border/50 hover:border-accent/50 hover:-translate-y-1"
+                        className="group p-4 rounded-xl bg-secondary/50 hover:bg-secondary transition-all duration-300 hover:-translate-y-0.5"
                         onClick={() => setActiveDropdown(null)}
                         style={{ animationDelay: `${index * 30}ms` }}
                       >
-                        <div className="p-4">
-                          <div className="font-semibold text-foreground group-hover:text-accent transition-colors text-base mb-1">{child.name}</div>
-                          <div className="text-sm text-muted-foreground line-clamp-2">{child.description}</div>
+                        <div className="font-medium text-foreground group-hover:text-accent transition-colors mb-1">
+                          {child.name}
+                        </div>
+                        <div className="text-sm text-muted-foreground line-clamp-2">
+                          {child.description}
                         </div>
                       </Link>
                     ))}
@@ -197,7 +213,7 @@ export const Header = () => {
             )
           ))}
 
-          {/* Language Switcher, Auth, Phone & Mobile Menu */}
+          {/* Right Side Actions */}
           <div className="flex items-center gap-3">
             <div className="hidden md:block">
               <LanguageSwitcher />
@@ -209,7 +225,7 @@ export const Header = () => {
                 <Button
                   variant="ghost"
                   size="sm"
-                  className="text-primary-foreground hover:bg-primary-foreground/10"
+                  className={isScrolled ? 'text-foreground hover:text-accent' : 'text-white hover:bg-white/10'}
                   onClick={handleLogout}
                 >
                   <LogOut className="w-4 h-4 mr-1" />
@@ -220,7 +236,7 @@ export const Header = () => {
                   <Button
                     variant="ghost"
                     size="sm"
-                    className="text-primary-foreground hover:bg-primary-foreground/10"
+                    className={isScrolled ? 'text-foreground hover:text-accent' : 'text-white hover:bg-white/10'}
                   >
                     <User className="w-4 h-4 mr-1" />
                     {t('auth.login')}
@@ -231,16 +247,20 @@ export const Header = () => {
             
             <a
               href="tel:+8617674048404"
-              className="hidden md:flex items-center gap-2 text-primary-foreground"
+              className={`hidden md:flex items-center gap-2 px-4 py-2 rounded-full transition-colors ${
+                isScrolled 
+                  ? 'bg-accent text-accent-foreground hover:bg-accent/90' 
+                  : 'bg-white/10 text-white hover:bg-white/20'
+              }`}
             >
               <Phone className="w-4 h-4" />
-              <span className="text-sm font-medium">+8617674048404</span>
+              <span className="text-sm font-medium">176-7404-8404</span>
             </a>
 
             <Button
               variant="ghost"
               size="icon"
-              className="lg:hidden text-primary-foreground hover:bg-primary-foreground/10"
+              className={`lg:hidden ${isScrolled ? 'text-foreground' : 'text-white'}`}
               onClick={() => setIsOpen(!isOpen)}
             >
               {isOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
@@ -250,7 +270,7 @@ export const Header = () => {
 
         {/* Mobile Navigation */}
         {isOpen && (
-          <nav className="lg:hidden py-4 border-t border-primary-foreground/10 max-h-[70vh] overflow-y-auto">
+          <nav className="lg:hidden py-4 border-t border-border bg-background max-h-[70vh] overflow-y-auto">
             <div className="flex flex-col gap-1">
               <div className="px-4 py-2 mb-2 flex items-center justify-between">
                 <LanguageSwitcher />
@@ -258,7 +278,7 @@ export const Header = () => {
                   <Button
                     variant="ghost"
                     size="sm"
-                    className="text-primary-foreground hover:bg-primary-foreground/10"
+                    className="text-foreground"
                     onClick={() => {
                       handleLogout();
                       setIsOpen(false);
@@ -269,11 +289,7 @@ export const Header = () => {
                   </Button>
                 ) : (
                   <Link to="/auth" onClick={() => setIsOpen(false)}>
-                    <Button
-                      variant="ghost"
-                      size="sm"
-                      className="text-primary-foreground hover:bg-primary-foreground/10"
-                    >
+                    <Button variant="ghost" size="sm" className="text-foreground">
                       <User className="w-4 h-4 mr-1" />
                       {t('auth.login')}
                     </Button>
@@ -284,20 +300,19 @@ export const Header = () => {
                 <div key={item.name}>
                   <Link
                     to={item.href}
-                    className="flex items-center justify-between px-4 py-3 text-primary-foreground/90 hover:text-primary-foreground hover:bg-primary-foreground/5 rounded-lg transition-colors"
+                    className="flex items-center justify-between px-4 py-3 text-foreground hover:bg-secondary rounded-lg transition-colors"
                     onClick={() => !item.children && setIsOpen(false)}
                   >
                     {item.name}
                     {item.hasDropdown && <ChevronDown className="w-4 h-4" />}
                   </Link>
-                  {/* Mobile Dropdown */}
                   {item.children && (
                     <div className="ml-4 mt-1 space-y-1">
                       {item.children.map((child) => (
                         <Link
                           key={child.name}
                           to={child.href}
-                          className="block px-4 py-2 text-sm text-primary-foreground/70 hover:text-primary-foreground transition-colors"
+                          className="block px-4 py-2 text-sm text-muted-foreground hover:text-foreground transition-colors"
                           onClick={() => setIsOpen(false)}
                         >
                           {child.name}

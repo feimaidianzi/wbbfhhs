@@ -1,216 +1,128 @@
 import { Building2, GraduationCap, Landmark, Factory, Zap, Rocket, FlaskConical, Fuel } from "lucide-react";
 import { useLanguage } from "@/contexts/LanguageContext";
+import { motion } from "framer-motion";
 
 const getPartnersData = (language: 'zh' | 'en') => [
-  {
-    name: language === 'zh' ? "中船重工" : "CSIC",
-    icon: Factory,
-    color: "bg-blue-500/10 text-blue-600",
-  },
-  {
-    name: language === 'zh' ? "中国铁塔" : "China Tower",
-    icon: Building2,
-    color: "bg-red-500/10 text-red-600",
-  },
-  {
-    name: language === 'zh' ? "湖北省民政厅" : "Hubei Civil Affairs",
-    icon: Landmark,
-    color: "bg-amber-500/10 text-amber-600",
-  },
-  {
-    name: language === 'zh' ? "青海大学" : "Qinghai University",
-    icon: GraduationCap,
-    color: "bg-green-500/10 text-green-600",
-  },
-  {
-    name: language === 'zh' ? "山东大学" : "Shandong University",
-    icon: GraduationCap,
-    color: "bg-purple-500/10 text-purple-600",
-  },
-  {
-    name: language === 'zh' ? "华中科技大学" : "HUST",
-    icon: GraduationCap,
-    color: "bg-blue-500/10 text-blue-600",
-  },
-  {
-    name: language === 'zh' ? "清华大学" : "Tsinghua University",
-    icon: GraduationCap,
-    color: "bg-violet-500/10 text-violet-600",
-  },
-  {
-    name: language === 'zh' ? "中国科学院" : "Chinese Academy of Sciences",
-    icon: FlaskConical,
-    color: "bg-cyan-500/10 text-cyan-600",
-  },
-  {
-    name: language === 'zh' ? "中国工程物理研究院" : "CAEP",
-    icon: FlaskConical,
-    color: "bg-indigo-500/10 text-indigo-600",
-  },
-  {
-    name: language === 'zh' ? "湖北省电力公司" : "Hubei Power",
-    icon: Zap,
-    color: "bg-yellow-500/10 text-yellow-600",
-  },
-  {
-    name: language === 'zh' ? "中国运载火箭技术研究院" : "CALT",
-    icon: Rocket,
-    color: "bg-red-500/10 text-red-600",
-  },
-  {
-    name: language === 'zh' ? "合邦电力" : "Hebang Power",
-    icon: Zap,
-    color: "bg-orange-500/10 text-orange-600",
-  },
-  {
-    name: language === 'zh' ? "国家管网" : "PipeChina",
-    icon: Factory,
-    color: "bg-teal-500/10 text-teal-600",
-  },
-  {
-    name: language === 'zh' ? "中国商飞" : "COMAC",
-    icon: Rocket,
-    color: "bg-sky-500/10 text-sky-600",
-  },
-  {
-    name: language === 'zh' ? "航空工业光电所" : "AVIC Optronics",
-    icon: FlaskConical,
-    color: "bg-pink-500/10 text-pink-600",
-  },
-  {
-    name: language === 'zh' ? "中国航天科工集团" : "CASIC",
-    icon: Rocket,
-    color: "bg-blue-500/10 text-blue-600",
-  },
-  {
-    name: language === 'zh' ? "武汉大学" : "Wuhan University",
-    icon: GraduationCap,
-    color: "bg-red-500/10 text-red-600",
-  },
-  {
-    name: language === 'zh' ? "国家电投" : "SPIC",
-    icon: Zap,
-    color: "bg-emerald-500/10 text-emerald-600",
-  },
-  {
-    name: language === 'zh' ? "中国石化" : "Sinopec",
-    icon: Fuel,
-    color: "bg-red-500/10 text-red-600",
-  },
-  {
-    name: language === 'zh' ? "中国石油" : "PetroChina",
-    icon: Fuel,
-    color: "bg-red-500/10 text-red-600",
-  },
+  { name: language === 'zh' ? "中船重工" : "CSIC", icon: Factory },
+  { name: language === 'zh' ? "中国铁塔" : "China Tower", icon: Building2 },
+  { name: language === 'zh' ? "湖北省民政厅" : "Hubei Civil Affairs", icon: Landmark },
+  { name: language === 'zh' ? "青海大学" : "Qinghai University", icon: GraduationCap },
+  { name: language === 'zh' ? "山东大学" : "Shandong University", icon: GraduationCap },
+  { name: language === 'zh' ? "华中科技大学" : "HUST", icon: GraduationCap },
+  { name: language === 'zh' ? "清华大学" : "Tsinghua University", icon: GraduationCap },
+  { name: language === 'zh' ? "中国科学院" : "Chinese Academy of Sciences", icon: FlaskConical },
+  { name: language === 'zh' ? "中国工程物理研究院" : "CAEP", icon: FlaskConical },
+  { name: language === 'zh' ? "湖北省电力公司" : "Hubei Power", icon: Zap },
+  { name: language === 'zh' ? "中国运载火箭技术研究院" : "CALT", icon: Rocket },
+  { name: language === 'zh' ? "合邦电力" : "Hebang Power", icon: Zap },
+  { name: language === 'zh' ? "国家管网" : "PipeChina", icon: Factory },
+  { name: language === 'zh' ? "中国商飞" : "COMAC", icon: Rocket },
+  { name: language === 'zh' ? "航空工业光电所" : "AVIC Optronics", icon: FlaskConical },
+  { name: language === 'zh' ? "中国航天科工集团" : "CASIC", icon: Rocket },
+  { name: language === 'zh' ? "武汉大学" : "Wuhan University", icon: GraduationCap },
+  { name: language === 'zh' ? "国家电投" : "SPIC", icon: Zap },
+  { name: language === 'zh' ? "中国石化" : "Sinopec", icon: Fuel },
+  { name: language === 'zh' ? "中国石油" : "PetroChina", icon: Fuel },
 ];
 
 export const PartnersSection = () => {
   const { language } = useLanguage();
   const partners = getPartnersData(language);
 
+  const stats = [
+    { value: "100+", label: language === 'zh' ? "合作企业" : "Partner Enterprises" },
+    { value: "50+", label: language === 'zh' ? "高校院所" : "Universities" },
+    { value: "30+", label: language === 'zh' ? "政府单位" : "Government Agencies" },
+    { value: language === 'zh' ? "15年" : "15 Yrs", label: language === 'zh' ? "行业经验" : "Industry Experience" },
+  ];
+
   return (
-    <section className="py-16 md:py-24 bg-secondary overflow-hidden">
+    <section className="py-20 md:py-28 bg-secondary/50 overflow-hidden">
       <div className="container-custom">
-        <div className="text-center mb-12">
-          <h2 className="text-2xl md:text-3xl font-bold text-foreground mb-4">
-            {language === 'zh' ? "合作企业展示" : "Partner Showcase"}
+        {/* Header */}
+        <motion.div 
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5 }}
+          className="text-center mb-16"
+        >
+          <p className="text-accent font-medium mb-2">
+            {language === 'zh' ? "值得信赖" : "Trusted By"}
+          </p>
+          <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
+            {language === 'zh' ? "合作伙伴" : "Our Partners"}
           </h2>
           <p className="text-muted-foreground max-w-2xl mx-auto">
             {language === 'zh' 
-              ? "与众多知名企业及机构建立长期合作关系，共同推动无人机技术发展"
-              : "Established long-term partnerships with many renowned enterprises and institutions, jointly promoting drone technology development"}
+              ? "与众多知名企业及研究机构建立长期战略合作关系"
+              : "Long-term strategic partnerships with leading enterprises and research institutions"}
           </p>
-        </div>
+        </motion.div>
 
-        {/* Partner Grid */}
-        <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-6 mb-12">
+        {/* Partner Logos Grid */}
+        <motion.div 
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5, delay: 0.1 }}
+          className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 mb-16"
+        >
           {partners.slice(0, 10).map((partner, index) => {
             const IconComponent = partner.icon;
             return (
               <div
                 key={index}
-                className="group bg-card rounded-xl overflow-hidden shadow-sm hover:shadow-card-hover transition-all duration-300 hover:-translate-y-1"
+                className="group flex items-center gap-3 p-4 bg-background rounded-xl border border-border/50 hover:border-accent/30 hover:shadow-sm transition-all duration-300"
               >
-                <div className={`aspect-video overflow-hidden flex items-center justify-center ${partner.color}`}>
-                  <IconComponent className="w-16 h-16 opacity-80 group-hover:opacity-100 group-hover:scale-110 transition-all duration-500" />
+                <div className="w-10 h-10 rounded-lg bg-accent/10 flex items-center justify-center shrink-0">
+                  <IconComponent className="w-5 h-5 text-accent" />
                 </div>
-                <div className="p-3 text-center bg-card">
-                  <span className="text-foreground font-medium text-sm">
+                <span className="text-sm font-medium text-foreground truncate">
+                  {partner.name}
+                </span>
+              </div>
+            );
+          })}
+        </motion.div>
+
+        {/* Scrolling Partners */}
+        <div className="relative mb-16">
+          <div className="absolute left-0 top-0 bottom-0 w-20 bg-gradient-to-r from-secondary/50 to-transparent z-10" />
+          <div className="absolute right-0 top-0 bottom-0 w-20 bg-gradient-to-l from-secondary/50 to-transparent z-10" />
+          <div className="flex animate-scroll">
+            {[...partners, ...partners].map((partner, index) => {
+              const IconComponent = partner.icon;
+              return (
+                <div
+                  key={index}
+                  className="flex-shrink-0 mx-3 px-5 py-2.5 bg-background rounded-full border border-border/50 flex items-center gap-2"
+                >
+                  <IconComponent className="w-4 h-4 text-accent" />
+                  <span className="text-sm font-medium text-foreground whitespace-nowrap">
                     {partner.name}
                   </span>
                 </div>
-              </div>
-            );
-          })}
+              );
+            })}
+          </div>
         </div>
-      </div>
 
-      {/* Scrolling Partners */}
-      <div className="relative">
-        <div className="flex animate-scroll">
-          {/* First set */}
-          {partners.map((partner, index) => {
-            const IconComponent = partner.icon;
-            return (
-              <div
-                key={`first-${index}`}
-                className="flex-shrink-0 mx-4 px-6 py-3 bg-card rounded-lg shadow-sm hover:shadow-md transition-shadow flex items-center gap-3"
-              >
-                <IconComponent className="w-5 h-5 text-accent" />
-                <span className="text-foreground font-medium whitespace-nowrap">
-                  {partner.name}
-                </span>
-              </div>
-            );
-          })}
-          {/* Duplicate for seamless scroll */}
-          {partners.map((partner, index) => {
-            const IconComponent = partner.icon;
-            return (
-              <div
-                key={`second-${index}`}
-                className="flex-shrink-0 mx-4 px-6 py-3 bg-card rounded-lg shadow-sm hover:shadow-md transition-shadow flex items-center gap-3"
-              >
-                <IconComponent className="w-5 h-5 text-accent" />
-                <span className="text-foreground font-medium whitespace-nowrap">
-                  {partner.name}
-                </span>
-              </div>
-            );
-          })}
-        </div>
-      </div>
-
-      {/* Stats */}
-      <div className="container-custom mt-12">
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
-          <div className="text-center">
-            <div className="text-4xl md:text-5xl font-bold text-accent mb-2">100+</div>
-            <div className="text-muted-foreground">
-              {language === 'zh' ? "合作企业" : "Partner Enterprises"}
+        {/* Stats */}
+        <motion.div 
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5, delay: 0.2 }}
+          className="grid grid-cols-2 md:grid-cols-4 gap-6"
+        >
+          {stats.map((stat, index) => (
+            <div key={index} className="text-center p-6 bg-background rounded-2xl border border-border/50">
+              <div className="text-3xl md:text-4xl font-bold text-accent mb-2">{stat.value}</div>
+              <div className="text-muted-foreground text-sm">{stat.label}</div>
             </div>
-          </div>
-          <div className="text-center">
-            <div className="text-4xl md:text-5xl font-bold text-accent mb-2">50+</div>
-            <div className="text-muted-foreground">
-              {language === 'zh' ? "高校院所" : "Universities & Institutes"}
-            </div>
-          </div>
-          <div className="text-center">
-            <div className="text-4xl md:text-5xl font-bold text-accent mb-2">30+</div>
-            <div className="text-muted-foreground">
-              {language === 'zh' ? "政府单位" : "Government Agencies"}
-            </div>
-          </div>
-          <div className="text-center">
-            <div className="text-4xl md:text-5xl font-bold text-accent mb-2">
-              {language === 'zh' ? "15年" : "15 Yrs"}
-            </div>
-            <div className="text-muted-foreground">
-              {language === 'zh' ? "行业经验" : "Industry Experience"}
-            </div>
-          </div>
-        </div>
+          ))}
+        </motion.div>
       </div>
     </section>
   );
