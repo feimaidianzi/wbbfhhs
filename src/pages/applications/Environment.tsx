@@ -49,12 +49,12 @@ const Environment = () => {
       <Header />
       <main className="pt-16 md:pt-20">
         <section className="relative h-[350px] md:h-[450px] overflow-hidden">
-          <div
-            className="absolute inset-0 bg-cover bg-center"
-            style={{ backgroundImage: "url(https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=1920&q=80)" }}
-          >
-            <div className="absolute inset-0 bg-gradient-to-r from-slate-900/85 via-slate-900/60 to-slate-900/20" />
-          </div>
+          <img
+            src="https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=1920&q=80"
+            alt={isEn ? "Environment" : "环保"}
+            className="absolute inset-0 w-full h-full object-cover"
+          />
+          <div className="absolute inset-0 bg-gradient-to-r from-slate-900/90 via-slate-900/70 to-transparent" />
           <div className="relative container-custom h-full flex items-center">
             <div className="max-w-2xl">
               <p className="text-accent font-medium mb-2">{isEn ? "Industry Applications" : "行业应用"}</p>
