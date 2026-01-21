@@ -167,23 +167,24 @@ export const ApplicationsSection = () => {
                     alt={app.name}
                     className="w-full h-full object-cover"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-slate-900 via-slate-900/40 to-transparent" />
                   
                   {/* Content Overlay */}
                   <div className="absolute bottom-0 left-0 right-0 p-8 md:p-10">
-                    <h3 className="text-3xl md:text-4xl font-black text-white mb-3">
-                      {app.name}
-                    </h3>
-                    <p className="text-lg text-white/80 mb-6 max-w-xl">
-                      {app.description}
-                    </p>
-                    <Link 
-                      to={app.link}
-                      className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-white text-slate-900 font-semibold hover:bg-white/90 transition-colors"
-                    >
-                      {language === 'zh' ? '了解详情' : 'Learn More'}
-                      <ArrowRight className="w-5 h-5" />
-                    </Link>
+                    <div className="rounded-3xl bg-background/70 backdrop-blur-md border border-border p-6 md:p-8 max-w-2xl">
+                      <h3 className="text-3xl md:text-4xl font-black text-foreground mb-3">
+                        {app.name}
+                      </h3>
+                      <p className="text-lg text-muted-foreground mb-6">
+                        {app.description}
+                      </p>
+                      <Link 
+                        to={app.link}
+                        className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-accent text-accent-foreground font-semibold hover:bg-accent/90 transition-colors"
+                      >
+                        {language === 'zh' ? '了解详情' : 'Learn More'}
+                        <ArrowRight className="w-5 h-5" />
+                      </Link>
+                    </div>
                   </div>
                 </motion.div>
               ))}

@@ -116,44 +116,43 @@ const ProductDetailTemplate = ({
           <div
             className="absolute inset-0 bg-cover bg-center"
             style={{ backgroundImage: `url(${heroImage})` }}
-          >
-            <div className="absolute inset-0 bg-gradient-to-r from-slate-900/90 via-slate-900/70 to-slate-900/30" />
-          </div>
+          />
           <div className="container-custom relative z-10 h-full flex items-center">
-            <div className="max-w-2xl text-white">
+            <div className="max-w-2xl">
+              <div className="rounded-3xl bg-background/70 backdrop-blur-md border border-border p-6 md:p-8">
               {/* Breadcrumb */}
-              <div className="flex items-center gap-2 text-sm text-white/80 mb-6">
+              <div className="flex items-center gap-2 text-sm text-muted-foreground mb-6">
                 {breadcrumbs.map((item, index) => (
                   <span key={index} className="flex items-center gap-2">
                     {item.path ? (
-                      <Link to={item.path} className="hover:text-white transition-colors">
+                      <Link to={item.path} className="hover:text-foreground transition-colors">
                         {isEn && item.labelEn ? item.labelEn : item.label}
                       </Link>
                     ) : (
-                      <span className="text-white">{isEn && item.labelEn ? item.labelEn : item.label}</span>
+                      <span className="text-foreground">{isEn && item.labelEn ? item.labelEn : item.label}</span>
                     )}
                     {index < breadcrumbs.length - 1 && <span>/</span>}
                   </span>
                 ))}
               </div>
               
-              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight">
+              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight text-foreground">
                 {isEn && heroTitleEn ? heroTitleEn : heroTitle}
               </h1>
-              <p className="text-lg md:text-xl opacity-90 mb-8 leading-relaxed">
+              <p className="text-lg md:text-xl text-muted-foreground mb-8 leading-relaxed">
                 {isEn && heroDescriptionEn ? heroDescriptionEn : heroDescription}
               </p>
               
               {heroHighlight && (
-                <div className="inline-flex items-center gap-4 bg-white/10 backdrop-blur-sm px-6 py-3 rounded-xl mb-8">
-                  <div className="text-3xl font-bold text-accent">{heroHighlight.value}</div>
-                  <div className="text-white/80">{isEn && heroHighlight.labelEn ? heroHighlight.labelEn : heroHighlight.label}</div>
+                <div className="inline-flex items-center gap-4 bg-background/60 backdrop-blur-md px-6 py-3 rounded-xl mb-8 border border-border">
+                  <div className="text-3xl font-bold text-foreground">{heroHighlight.value}</div>
+                  <div className="text-muted-foreground">{isEn && heroHighlight.labelEn ? heroHighlight.labelEn : heroHighlight.label}</div>
                 </div>
               )}
               
               <div className="flex flex-wrap gap-4">
                 <Link to="/contact">
-                  <Button size="lg" className="bg-accent text-white hover:bg-accent/90 font-bold shadow-lg group">
+                  <Button size="lg" className="bg-accent text-accent-foreground hover:bg-accent/90 font-bold shadow-lg group">
                     {isEn ? 'Get Quote' : '获取报价'}
                     <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
                   </Button>
@@ -162,6 +161,7 @@ const ProductDetailTemplate = ({
                   <Phone className="mr-2 h-4 w-4" />
                   {isEn ? 'Call Us' : '电话咨询'}
                 </Button>
+              </div>
               </div>
             </div>
           </div>
