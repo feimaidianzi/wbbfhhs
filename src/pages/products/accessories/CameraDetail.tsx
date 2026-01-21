@@ -150,10 +150,9 @@ const CameraDetail = () => {
               alt={isEn ? "HD Quality Cinema Experience" : "高清画质 影院级享受"}
               className="w-full h-full object-cover"
             />
-            <div className="absolute inset-0 bg-gradient-to-r from-background/90 via-background/70 to-transparent"></div>
           </div>
           <div className="container mx-auto px-4 relative z-10">
-            <div className="max-w-xl">
+            <div className="max-w-xl rounded-3xl bg-background/70 backdrop-blur-md border border-border p-6 md:p-8 shadow-card">
               <h2 className="text-3xl font-bold mb-4">
                 {isEn ? "HD Quality Cinema Experience" : "高清画质 影院级享受"}
               </h2>

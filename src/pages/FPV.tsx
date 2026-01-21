@@ -88,17 +88,16 @@ const FPV = () => {
         {/* Hero Section */}
         <section className="relative h-[450px] md:h-[550px] overflow-hidden">
           <div className="absolute inset-0 bg-cover bg-center" style={{ backgroundImage: "url(https://images.unsplash.com/photo-1473968512647-3e447244af8f?w=1920&q=80)" }}>
-            <div className="absolute inset-0 bg-gradient-to-r from-primary/95 via-primary/80 to-primary/60" />
           </div>
           <div className="relative container-custom h-full flex items-center">
-            <div className="max-w-2xl animate-fade-in">
-              <div className="inline-block px-4 py-1 bg-accent/20 rounded-full text-accent text-sm font-medium mb-4">
+            <div className="max-w-2xl animate-fade-in rounded-3xl bg-background/70 backdrop-blur-md border border-border p-6 md:p-8 shadow-card">
+              <div className="inline-block px-4 py-1 bg-accent/10 rounded-full text-accent text-sm font-medium mb-4">
                 {isEn ? 'CANI · FPV Zone' : '长凌科技 · FPV穿越机专区'}
               </div>
-              <h1 className="text-3xl md:text-5xl lg:text-6xl font-bold text-primary-foreground mb-4 leading-tight">
+              <h1 className="text-3xl md:text-5xl lg:text-6xl font-bold text-foreground mb-4 leading-tight">
                 {isEn ? 'FPV Racing Drones' : 'FPV 穿越机'}
               </h1>
-              <p className="text-lg md:text-xl text-primary-foreground/90 mb-8 leading-relaxed">
+              <p className="text-lg md:text-xl text-muted-foreground mb-8 leading-relaxed">
                 {isEn 
                   ? 'First-person view flight experience, the perfect fusion of speed and passion. From beginner kits to professional racing, meeting different pilot needs'
                   : '第一视角飞行体验，感受速度与激情的完美融合。从入门套装到专业竞速，满足不同玩家需求'}
@@ -108,7 +107,7 @@ const FPV = () => {
                   {isEn ? 'Browse All Products' : '浏览全部产品'}
                   <ArrowRight className="w-5 h-5 ml-2" />
                 </Button>
-                <Button className="bg-primary-foreground/20 border border-primary-foreground/50 text-primary-foreground hover:bg-primary-foreground/30 px-8 py-6 text-lg backdrop-blur-sm">
+                <Button variant="outline" className="border-accent/30 hover:border-accent text-foreground px-8 py-6 text-lg">
                   {isEn ? 'Beginner Guide' : '新手入门指南'}
                 </Button>
               </div>
@@ -149,7 +148,6 @@ const FPV = () => {
                 <Link key={index} to={category.link} className="group bg-card rounded-2xl overflow-hidden shadow-card hover:shadow-card-hover transition-all duration-300 hover:-translate-y-1">
                   <div className="aspect-[16/10] overflow-hidden relative">
                     <img src={category.image} alt={category.name} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" />
-                    <div className="absolute inset-0 bg-gradient-to-t from-slate-900/70 via-transparent to-transparent" />
                     <div className="absolute bottom-4 left-4 flex items-center gap-2">
                       <div className="w-10 h-10 bg-accent rounded-lg flex items-center justify-center">
                         <category.icon className="w-5 h-5 text-accent-foreground" />

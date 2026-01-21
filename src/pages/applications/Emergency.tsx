@@ -53,15 +53,14 @@ const Emergency = () => {
             className="absolute inset-0 bg-cover bg-center"
             style={{ backgroundImage: "url(https://images.unsplash.com/photo-1569863959165-56dae551d4fc?w=1920&q=80)" }}
           >
-            <div className="absolute inset-0 bg-gradient-to-r from-slate-900/85 via-slate-900/60 to-slate-900/20" />
           </div>
           <div className="relative container-custom h-full flex items-center">
-            <div className="max-w-2xl">
+            <div className="max-w-2xl rounded-3xl bg-background/70 backdrop-blur-md border border-border p-6 md:p-8 shadow-card">
               <p className="text-accent font-medium mb-2">{isEn ? "Industry Applications" : "行业应用"}</p>
-              <h1 className="text-3xl md:text-5xl font-bold text-primary-foreground mb-4">
+              <h1 className="text-3xl md:text-5xl font-bold text-foreground mb-4">
                 {isEn ? "Emergency" : "应急"}
               </h1>
-              <p className="text-lg text-primary-foreground/90">
+              <p className="text-lg text-muted-foreground">
                 {isEn 
                   ? "In densely populated and complex security monitoring scenarios, drones provide aerial perspective and communication relay support for emergency rescue"
                   : "在人员密集、场景复杂的安全监控领域，无人机为应急救援提供空中视角和通信中继支持"}

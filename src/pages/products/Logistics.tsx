@@ -107,10 +107,9 @@ const Logistics = () => {
             alt="世翼运载无人机"
             className="w-full h-full object-cover"
           />
-          <div className="absolute inset-0 bg-gradient-to-r from-background/90 via-background/60 to-transparent" />
         </div>
         <div className="container mx-auto px-4 relative z-10">
-          <div className="max-w-2xl">
+          <div className="max-w-2xl rounded-3xl bg-background/70 backdrop-blur-md border border-border p-6 md:p-8 shadow-card">
             <h1 className="text-4xl md:text-6xl font-bold mb-4 text-foreground">
               世翼运载无人机
             </h1>
