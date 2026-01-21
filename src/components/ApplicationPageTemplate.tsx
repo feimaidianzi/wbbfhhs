@@ -1,8 +1,9 @@
+import { motion } from "framer-motion";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { FloatingContact } from "@/components/FloatingContact";
 import { Button } from "@/components/ui/button";
-import { ArrowRight, CheckCircle, Phone, Mail, LucideIcon } from "lucide-react";
+import { ArrowRight, CheckCircle, Phone, Mail, ChevronDown, LucideIcon } from "lucide-react";
 import { Link } from "react-router-dom";
 import { SEO } from "@/components/SEO";
 
@@ -38,45 +39,47 @@ interface Advantage {
 }
 
 interface ApplicationPageTemplateProps {
-  // SEO
   seoTitle: string;
   seoDescription: string;
   seoKeywords?: string;
-
-  // Hero Section
   heroTitle: string;
   heroSubtitle?: string;
   heroDescription: string;
   heroImage: string;
   heroStats?: { value: string; label: string }[];
-
-  // Introduction Section
   introTitle?: string;
   introDescription?: string;
   introImage?: string;
   introPoints?: string[];
-
-  // Advantages Section
   advantages?: Advantage[];
   advantagesTitle?: string;
-
-  // Features Section
   features: Feature[];
   featuresTitle?: string;
-
-  // Scenarios Section
   scenarios: Scenario[];
   scenariosTitle?: string;
-
-  // Products Section (optional)
   products?: Product[];
   productsTitle?: string;
-
-  // CTA Section
   ctaTitle: string;
   ctaDescription?: string;
   ctaProductLink?: string;
 }
+
+const containerVariants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: { staggerChildren: 0.1 },
+  },
+};
+
+const itemVariants = {
+  hidden: { opacity: 0, y: 30 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] },
+  },
+};
 
 const ApplicationPageTemplate = ({
   seoTitle,
@@ -114,59 +117,123 @@ const ApplicationPageTemplate = ({
       <FloatingContact />
 
       <main>
-        {/* Hero Section */}
-        <section className="relative h-[500px] md:h-[600px] overflow-hidden">
-          <div
-            className="absolute inset-0 bg-cover bg-center"
-            style={{ backgroundImage: `url(${heroImage})` }}
-          >
-            <div className="absolute inset-0 bg-gradient-to-r from-primary/90 via-primary/70 to-transparent" />
+        {/* Immersive Hero Section */}
+        <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
+          {/* Background */}
+          <div className="absolute inset-0">
+            <motion.div
+              initial={{ scale: 1.1 }}
+              animate={{ scale: 1 }}
+              transition={{ duration: 1.5, ease: "easeOut" }}
+              className="absolute inset-0 bg-cover bg-center"
+              style={{ backgroundImage: `url(${heroImage})` }}
+            />
+            <div className="absolute inset-0 bg-gradient-to-b from-background/70 via-background/50 to-background" />
+            <div className="absolute inset-0 bg-gradient-to-r from-background/60 via-transparent to-background/60" />
           </div>
-          <div className="container-custom relative z-10 h-full flex items-center">
-            <div className="max-w-2xl text-white">
-              {heroSubtitle && (
-                <p className="text-accent font-medium mb-3 text-lg">{heroSubtitle}</p>
-              )}
-              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight">
-                {heroTitle}
-              </h1>
-              <p className="text-lg md:text-xl opacity-90 mb-8 leading-relaxed">
-                {heroDescription}
-              </p>
 
-              {heroStats && heroStats.length > 0 && (
-                <div className="flex flex-wrap gap-6 mb-8">
-                  {heroStats.map((stat, index) => (
-                    <div key={index} className="bg-white/10 backdrop-blur-sm px-5 py-3 rounded-xl">
-                      <div className="text-2xl font-bold text-accent">{stat.value}</div>
-                      <div className="text-white/80 text-sm">{stat.label}</div>
-                    </div>
-                  ))}
-                </div>
-              )}
+          {/* Floating Elements */}
+          <div className="absolute inset-0 overflow-hidden pointer-events-none">
+            <div className="absolute top-1/4 left-10 w-64 h-64 bg-accent/10 rounded-full blur-3xl animate-pulse" />
+            <div className="absolute bottom-1/4 right-10 w-96 h-96 bg-cyan-500/10 rounded-full blur-3xl animate-pulse" style={{ animationDelay: "1s" }} />
+          </div>
 
-              <div className="flex flex-wrap gap-4">
-                <Link to="/contact">
-                  <Button size="lg" className="bg-accent text-white hover:bg-accent/90 font-bold shadow-lg group">
-                    咨询方案
-                    <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
-                  </Button>
-                </Link>
-                <Button size="lg" className="bg-white/95 text-primary hover:bg-white font-bold shadow-lg">
-                  <Phone className="mr-2 h-4 w-4" />
+          {/* Content */}
+          <div className="container-custom relative z-10 text-center py-32">
+            {heroSubtitle && (
+              <motion.div
+                initial={{ opacity: 0, y: 30 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, delay: 0.2 }}
+              >
+                <span className="inline-block px-4 py-2 rounded-full bg-accent/10 border border-accent/30 text-accent text-sm font-medium mb-6">
+                  {heroSubtitle}
+                </span>
+              </motion.div>
+            )}
+
+            <motion.h1
+              initial={{ opacity: 0, y: 50 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.4 }}
+              className="text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-black mb-6 leading-tight text-foreground"
+            >
+              {heroTitle}
+            </motion.h1>
+
+            <motion.p
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.6 }}
+              className="text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto mb-10"
+            >
+              {heroDescription}
+            </motion.p>
+
+            {/* Stats */}
+            {heroStats && heroStats.length > 0 && (
+              <motion.div
+                initial={{ opacity: 0, y: 30 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, delay: 0.8 }}
+                className="flex flex-wrap justify-center gap-6 mb-10"
+              >
+                {heroStats.map((stat, index) => (
+                  <div key={index} className="px-6 py-4 rounded-2xl bg-card/50 backdrop-blur-sm border border-accent/20">
+                    <div className="text-2xl md:text-3xl font-black text-accent">{stat.value}</div>
+                    <div className="text-sm text-muted-foreground">{stat.label}</div>
+                  </div>
+                ))}
+              </motion.div>
+            )}
+
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 1 }}
+              className="flex flex-col sm:flex-row gap-4 justify-center"
+            >
+              <Link to="/contact">
+                <Button className="bg-accent hover:bg-accent/90 text-accent-foreground px-8 py-6 text-lg font-semibold rounded-full group">
+                  咨询方案
+                  <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" />
+                </Button>
+              </Link>
+              <a href="tel:+8617674048404">
+                <Button variant="outline" className="border-accent/30 hover:border-accent text-foreground px-8 py-6 text-lg font-semibold rounded-full">
+                  <Phone className="w-5 h-5 mr-2" />
                   电话咨询
                 </Button>
-              </div>
-            </div>
+              </a>
+            </motion.div>
           </div>
+
+          {/* Scroll Indicator */}
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 1, delay: 1.2 }}
+            className="absolute bottom-8 left-1/2 -translate-x-1/2"
+          >
+            <ChevronDown className="w-6 h-6 text-muted-foreground animate-bounce" />
+          </motion.div>
         </section>
 
         {/* Introduction Section */}
         {(introTitle || introDescription || introImage) && (
-          <section className="py-20 bg-background">
+          <section className="py-24 bg-secondary">
             <div className="container-custom">
-              <div className="text-center mb-16">
-                <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
+              <motion.div
+                initial={{ opacity: 0, y: 40 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.8 }}
+                className="text-center mb-16"
+              >
+                <span className="inline-block px-4 py-1.5 rounded-full bg-accent/10 text-accent text-sm font-medium mb-6">
+                  概述
+                </span>
+                <h2 className="text-3xl md:text-4xl lg:text-5xl font-black text-foreground mb-4">
                   {introTitle || `${heroTitle}概述`}
                 </h2>
                 {introDescription && (
@@ -174,30 +241,46 @@ const ApplicationPageTemplate = ({
                     {introDescription}
                   </p>
                 )}
-              </div>
+              </motion.div>
 
               {(introImage || introPoints) && (
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
                   {introImage && (
-                    <div className="rounded-2xl overflow-hidden shadow-xl">
+                    <motion.div
+                      initial={{ opacity: 0, x: -50 }}
+                      whileInView={{ opacity: 1, x: 0 }}
+                      viewport={{ once: true }}
+                      transition={{ duration: 0.8 }}
+                      className="rounded-2xl overflow-hidden"
+                    >
                       <img
                         src={introImage}
                         alt={introTitle || heroTitle}
                         className="w-full h-auto object-cover"
                       />
-                    </div>
+                    </motion.div>
                   )}
                   {introPoints && (
-                    <div className="space-y-4">
+                    <motion.div
+                      variants={containerVariants}
+                      initial="hidden"
+                      whileInView="visible"
+                      viewport={{ once: true }}
+                      className="space-y-4"
+                    >
                       {introPoints.map((point, index) => (
-                        <div key={index} className="flex items-start gap-4 p-4 bg-muted rounded-lg">
-                          <div className="w-8 h-8 bg-primary/10 rounded-full flex items-center justify-center flex-shrink-0">
-                            <CheckCircle className="h-4 w-4 text-primary" />
+                        <motion.div 
+                          key={index} 
+                          variants={itemVariants}
+                          className="flex items-start gap-4 p-5 bg-card rounded-xl border border-accent/10"
+                        >
+                          <div className="w-10 h-10 bg-accent/10 rounded-lg flex items-center justify-center flex-shrink-0">
+                            <CheckCircle className="h-5 w-5 text-accent" />
                           </div>
                           <p className="text-foreground">{point}</p>
-                        </div>
+                        </motion.div>
                       ))}
-                    </div>
+                    </motion.div>
                   )}
                 </div>
               )}
@@ -207,178 +290,255 @@ const ApplicationPageTemplate = ({
 
         {/* Advantages Section */}
         {advantages && advantages.length > 0 && (
-          <section className="py-20 bg-muted">
+          <section className="py-24 bg-background">
             <div className="container-custom">
-              <div className="text-center mb-16">
-                <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
+              <motion.div
+                initial={{ opacity: 0, y: 40 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.8 }}
+                className="text-center mb-16"
+              >
+                <span className="inline-block px-4 py-1.5 rounded-full bg-accent/10 text-accent text-sm font-medium mb-6">
+                  核心价值
+                </span>
+                <h2 className="text-3xl md:text-4xl lg:text-5xl font-black text-foreground">
                   {advantagesTitle}
                 </h2>
-              </div>
+              </motion.div>
 
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-                {advantages.map((item, index) => (
-                  <div
-                    key={index}
-                    className="bg-card p-8 rounded-xl shadow-card hover:shadow-card-hover transition-all group text-center"
-                  >
-                    <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-6 group-hover:bg-primary/20 transition-colors">
-                      <item.icon className="h-8 w-8 text-primary" />
-                    </div>
-                    {item.value && (
-                      <div className="text-3xl font-bold text-primary mb-2">{item.value}</div>
-                    )}
-                    <h3 className="text-lg font-bold text-card-foreground mb-3">{item.title}</h3>
-                    <p className="text-muted-foreground text-sm">{item.description}</p>
-                  </div>
-                ))}
-              </div>
+              <motion.div
+                variants={containerVariants}
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true }}
+                className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6"
+              >
+                {advantages.map((item, index) => {
+                  const Icon = item.icon;
+                  return (
+                    <motion.div
+                      key={index}
+                      variants={itemVariants}
+                      className="group p-8 rounded-2xl bg-card border border-accent/10 hover:border-accent/30 transition-all duration-500 hover:-translate-y-2 text-center"
+                    >
+                      <div className="w-16 h-16 bg-accent/10 rounded-xl flex items-center justify-center mx-auto mb-6 group-hover:bg-accent/20 group-hover:scale-110 transition-all duration-300">
+                        <Icon className="h-8 w-8 text-accent" />
+                      </div>
+                      {item.value && (
+                        <div className="text-3xl font-black text-accent mb-2">{item.value}</div>
+                      )}
+                      <h3 className="text-lg font-bold text-foreground mb-3 group-hover:text-accent transition-colors">{item.title}</h3>
+                      <p className="text-muted-foreground text-sm">{item.description}</p>
+                    </motion.div>
+                  );
+                })}
+              </motion.div>
             </div>
           </section>
         )}
 
         {/* Features Section */}
-        <section className={`py-20 ${advantages && advantages.length > 0 ? 'bg-background' : 'bg-muted'}`}>
+        <section className={`py-24 ${advantages && advantages.length > 0 ? 'bg-secondary' : 'bg-background'}`}>
           <div className="container-custom">
-            <div className="text-center mb-16">
-              <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
+            <motion.div
+              initial={{ opacity: 0, y: 40 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8 }}
+              className="text-center mb-16"
+            >
+              <span className="inline-block px-4 py-1.5 rounded-full bg-accent/10 text-accent text-sm font-medium mb-6">
+                技术亮点
+              </span>
+              <h2 className="text-3xl md:text-4xl lg:text-5xl font-black text-foreground">
                 {featuresTitle}
               </h2>
-            </div>
+            </motion.div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-              {features.map((feature, index) => (
-                <div
-                  key={index}
-                  className="bg-card p-6 rounded-xl shadow-card hover:shadow-card-hover transition-all text-center"
-                >
-                  <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
-                    <feature.icon className="h-8 w-8 text-primary" />
-                  </div>
-                  <h3 className="text-xl font-bold text-card-foreground mb-2">{feature.title}</h3>
-                  <p className="text-muted-foreground text-sm">{feature.description}</p>
-                </div>
-              ))}
-            </div>
+            <motion.div
+              variants={containerVariants}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true }}
+              className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6"
+            >
+              {features.map((feature, index) => {
+                const Icon = feature.icon;
+                return (
+                  <motion.div
+                    key={index}
+                    variants={itemVariants}
+                    className="group p-6 rounded-2xl bg-card border border-accent/10 hover:border-accent/30 transition-all duration-500 hover:-translate-y-2 text-center"
+                  >
+                    <div className="w-14 h-14 bg-accent/10 rounded-xl flex items-center justify-center mx-auto mb-4 group-hover:bg-accent/20 transition-colors">
+                      <Icon className="h-7 w-7 text-accent" />
+                    </div>
+                    <h3 className="text-xl font-bold text-foreground mb-2 group-hover:text-accent transition-colors">{feature.title}</h3>
+                    <p className="text-muted-foreground text-sm">{feature.description}</p>
+                  </motion.div>
+                );
+              })}
+            </motion.div>
           </div>
         </section>
 
         {/* Scenarios Section */}
-        <section className="py-20 bg-muted">
+        <section className="py-24 bg-background">
           <div className="container-custom">
-            <div className="text-center mb-16">
-              <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
+            <motion.div
+              initial={{ opacity: 0, y: 40 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8 }}
+              className="text-center mb-16"
+            >
+              <span className="inline-block px-4 py-1.5 rounded-full bg-accent/10 text-accent text-sm font-medium mb-6">
+                实际应用
+              </span>
+              <h2 className="text-3xl md:text-4xl lg:text-5xl font-black text-foreground">
                 {scenariosTitle}
               </h2>
-            </div>
+            </motion.div>
 
             {scenarios.some(s => s.detailDescription) ? (
               // Detailed scenario layout
-              <div className="space-y-12">
-                {scenarios.map((scenario, index) => (
-                  <div
-                    key={index}
-                    className={`grid grid-cols-1 lg:grid-cols-2 gap-8 items-center ${index % 2 === 1 ? 'lg:flex-row-reverse' : ''}`}
-                  >
-                    <div className={`${index % 2 === 1 ? 'lg:order-2' : ''}`}>
-                      <div className="aspect-video rounded-xl overflow-hidden shadow-card">
-                        <img
-                          src={scenario.image}
-                          alt={scenario.title}
-                          className="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
-                        />
+              <div className="space-y-16">
+                {scenarios.map((scenario, index) => {
+                  const Icon = scenario.icon;
+                  return (
+                    <motion.div
+                      key={index}
+                      initial={{ opacity: 0, y: 50 }}
+                      whileInView={{ opacity: 1, y: 0 }}
+                      viewport={{ once: true }}
+                      transition={{ duration: 0.8 }}
+                      className={`grid grid-cols-1 lg:grid-cols-2 gap-12 items-center ${index % 2 === 1 ? '' : ''}`}
+                    >
+                      <div className={`${index % 2 === 1 ? 'lg:order-2' : ''}`}>
+                        <div className="aspect-video rounded-2xl overflow-hidden border border-accent/10">
+                          <img
+                            src={scenario.image}
+                            alt={scenario.title}
+                            className="w-full h-full object-cover hover:scale-105 transition-transform duration-700"
+                          />
+                        </div>
                       </div>
-                    </div>
-                    <div className={`${index % 2 === 1 ? 'lg:order-1' : ''}`}>
-                      <div className="flex items-center gap-3 mb-4">
-                        {scenario.icon && (
-                          <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center">
-                            <scenario.icon className="h-6 w-6 text-primary" />
+                      <div className={`${index % 2 === 1 ? 'lg:order-1' : ''}`}>
+                        <div className="flex items-center gap-4 mb-6">
+                          {Icon && (
+                            <div className="w-14 h-14 bg-accent/10 rounded-xl flex items-center justify-center">
+                              <Icon className="h-7 w-7 text-accent" />
+                            </div>
+                          )}
+                          <h3 className="text-2xl md:text-3xl font-black text-foreground">{scenario.title}</h3>
+                        </div>
+                        <p className="text-muted-foreground mb-6 leading-relaxed text-lg">
+                          {scenario.detailDescription || scenario.description}
+                        </p>
+                        {scenario.highlights && (
+                          <div className="grid grid-cols-3 gap-4 mb-6">
+                            {scenario.highlights.map((highlight, i) => (
+                              <div key={i} className="text-center p-4 bg-card rounded-xl border border-accent/10">
+                                <div className="text-xl font-black text-accent">{highlight.value}</div>
+                                <div className="text-xs text-muted-foreground">{highlight.label}</div>
+                              </div>
+                            ))}
                           </div>
                         )}
-                        <h3 className="text-2xl font-bold text-foreground">{scenario.title}</h3>
+                        {scenario.features && (
+                          <div className="flex flex-wrap gap-2">
+                            {scenario.features.map((feature, i) => (
+                              <span key={i} className="text-sm bg-accent/10 text-accent px-4 py-2 rounded-full font-medium">
+                                {feature}
+                              </span>
+                            ))}
+                          </div>
+                        )}
                       </div>
-                      <p className="text-muted-foreground mb-4 leading-relaxed">
-                        {scenario.detailDescription || scenario.description}
-                      </p>
-                      {scenario.highlights && (
-                        <div className="grid grid-cols-3 gap-4 mb-6">
-                          {scenario.highlights.map((highlight, i) => (
-                            <div key={i} className="text-center p-3 bg-card rounded-lg shadow-sm">
-                              <div className="text-lg font-bold text-primary">{highlight.value}</div>
-                              <div className="text-xs text-muted-foreground">{highlight.label}</div>
-                            </div>
-                          ))}
-                        </div>
-                      )}
-                      {scenario.features && (
-                        <div className="flex flex-wrap gap-2">
-                          {scenario.features.map((feature, i) => (
-                            <span key={i} className="text-sm bg-primary/10 text-primary px-4 py-2 rounded-full">
-                              {feature}
-                            </span>
-                          ))}
-                        </div>
-                      )}
-                    </div>
-                  </div>
-                ))}
+                    </motion.div>
+                  );
+                })}
               </div>
             ) : (
               // Simple card layout
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+              <motion.div
+                variants={containerVariants}
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true }}
+                className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
+              >
                 {scenarios.map((scenario, index) => (
-                  <div
+                  <motion.div
                     key={index}
-                    className="bg-card rounded-xl overflow-hidden shadow-card hover:shadow-card-hover transition-all group"
+                    variants={itemVariants}
+                    className="group rounded-2xl overflow-hidden bg-card border border-accent/10 hover:border-accent/30 transition-all duration-500"
                   >
                     <div className="aspect-video overflow-hidden">
                       <img
                         src={scenario.image}
                         alt={scenario.title}
-                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                        className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
                       />
                     </div>
                     <div className="p-6">
-                      <h3 className="text-xl font-bold text-card-foreground mb-3">{scenario.title}</h3>
+                      <h3 className="text-xl font-bold text-foreground mb-3 group-hover:text-accent transition-colors">{scenario.title}</h3>
                       <p className="text-muted-foreground text-sm">{scenario.description}</p>
                     </div>
-                  </div>
+                  </motion.div>
                 ))}
-              </div>
+              </motion.div>
             )}
           </div>
         </section>
 
         {/* Products Section */}
         {products && products.length > 0 && (
-          <section className="py-20 bg-background">
+          <section className="py-24 bg-secondary">
             <div className="container-custom">
-              <div className="text-center mb-16">
-                <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
+              <motion.div
+                initial={{ opacity: 0, y: 40 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.8 }}
+                className="text-center mb-16"
+              >
+                <span className="inline-block px-4 py-1.5 rounded-full bg-accent/10 text-accent text-sm font-medium mb-6">
+                  推荐产品
+                </span>
+                <h2 className="text-3xl md:text-4xl lg:text-5xl font-black text-foreground">
                   {productsTitle}
                 </h2>
-              </div>
+              </motion.div>
 
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+              <motion.div
+                variants={containerVariants}
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true }}
+                className="grid grid-cols-1 md:grid-cols-3 gap-8"
+              >
                 {products.map((product, index) => (
-                  <div
+                  <motion.div
                     key={index}
-                    className="bg-card rounded-xl p-8 shadow-card hover:shadow-card-hover transition-all group"
+                    variants={itemVariants}
+                    className="group bg-card rounded-2xl p-8 border border-accent/10 hover:border-accent/30 transition-all duration-500 hover:-translate-y-2"
                   >
                     <div className="text-center mb-6">
-                      <h3 className="text-2xl font-bold text-card-foreground">{product.model}</h3>
+                      <h3 className="text-2xl font-black text-foreground group-hover:text-accent transition-colors">{product.model}</h3>
                     </div>
                     {(product.payload || product.range) && (
                       <div className="grid grid-cols-2 gap-4 mb-6">
                         {product.payload && (
-                          <div className="text-center p-3 bg-muted rounded-lg">
-                            <div className="text-lg font-bold text-primary">{product.payload}</div>
+                          <div className="text-center p-4 bg-secondary rounded-xl">
+                            <div className="text-xl font-black text-accent">{product.payload}</div>
                             <div className="text-xs text-muted-foreground">载荷</div>
                           </div>
                         )}
                         {product.range && (
-                          <div className="text-center p-3 bg-muted rounded-lg">
-                            <div className="text-lg font-bold text-primary">{product.range}</div>
+                          <div className="text-center p-4 bg-secondary rounded-xl">
+                            <div className="text-xl font-black text-accent">{product.range}</div>
                             <div className="text-xs text-muted-foreground">航程/高度</div>
                           </div>
                         )}
@@ -388,41 +548,52 @@ const ApplicationPageTemplate = ({
                       {product.description}
                     </p>
                     <Link to={product.link}>
-                      <Button variant="outline" className="w-full group-hover:bg-primary group-hover:text-primary-foreground transition-colors">
+                      <Button className="w-full bg-accent/10 hover:bg-accent text-accent hover:text-accent-foreground font-semibold group/btn">
                         了解详情
-                        <ArrowRight className="ml-2 h-4 w-4" />
+                        <ArrowRight className="ml-2 h-4 w-4 group-hover/btn:translate-x-1 transition-transform" />
                       </Button>
                     </Link>
-                  </div>
+                  </motion.div>
                 ))}
-              </div>
+              </motion.div>
             </div>
           </section>
         )}
 
         {/* CTA Section */}
-        <section className="py-20 bg-primary text-primary-foreground">
-          <div className="container-custom text-center">
-            <h2 className="text-3xl md:text-4xl font-bold mb-6">{ctaTitle}</h2>
-            {ctaDescription && (
-              <p className="text-lg opacity-90 mb-8 max-w-2xl mx-auto">{ctaDescription}</p>
-            )}
-            <div className="flex flex-wrap justify-center gap-4">
-              <Link to="/contact">
-                <Button size="lg" className="bg-accent text-white hover:bg-accent/90 font-bold shadow-lg group">
-                  <Mail className="mr-2 h-4 w-4" />
-                  立即咨询
-                  <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
-                </Button>
-              </Link>
-              {ctaProductLink && (
-                <Link to={ctaProductLink}>
-                  <Button size="lg" className="bg-white/95 text-primary hover:bg-white font-bold shadow-lg">
-                    查看产品
+        <section className="py-24 bg-gradient-to-br from-accent/10 via-background to-cyan-500/10 relative overflow-hidden">
+          <div className="absolute inset-0">
+            <div className="absolute top-0 right-0 w-96 h-96 bg-accent/20 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2" />
+            <div className="absolute bottom-0 left-0 w-96 h-96 bg-cyan-500/20 rounded-full blur-3xl translate-y-1/2 -translate-x-1/2" />
+          </div>
+          <div className="container-custom relative text-center">
+            <motion.div
+              initial={{ opacity: 0, y: 40 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8 }}
+            >
+              <h2 className="text-3xl md:text-4xl lg:text-5xl font-black text-foreground mb-6">{ctaTitle}</h2>
+              {ctaDescription && (
+                <p className="text-lg text-muted-foreground mb-10 max-w-2xl mx-auto">{ctaDescription}</p>
+              )}
+              <div className="flex flex-wrap justify-center gap-4">
+                <Link to="/contact">
+                  <Button className="bg-accent hover:bg-accent/90 text-accent-foreground px-10 py-6 text-lg font-semibold rounded-full group">
+                    <Mail className="mr-2 h-5 w-5" />
+                    立即咨询
+                    <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
                   </Button>
                 </Link>
-              )}
-            </div>
+                {ctaProductLink && (
+                  <Link to={ctaProductLink}>
+                    <Button variant="outline" className="border-accent/30 hover:border-accent text-foreground px-10 py-6 text-lg font-semibold rounded-full">
+                      查看产品
+                    </Button>
+                  </Link>
+                )}
+              </div>
+            </motion.div>
           </div>
         </section>
       </main>
