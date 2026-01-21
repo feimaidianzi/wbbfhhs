@@ -16,7 +16,7 @@ export const HeroContent = () => {
         transition={{ duration: 0.8, delay: 0.2 }}
         className="mb-6"
       >
-        <span className="inline-block px-4 py-2 rounded-full border border-white/20 bg-white/5 text-white/90 text-sm font-medium tracking-wider uppercase backdrop-blur-sm">
+        <span className="inline-block px-4 py-2 rounded-full border border-blue-200 bg-white/80 text-blue-600 text-sm font-medium tracking-wider uppercase backdrop-blur-md shadow-sm">
           {language === 'zh' ? '无人机核心配件专家' : 'Drone Core Components Expert'}
         </span>
       </motion.div>
@@ -28,10 +28,10 @@ export const HeroContent = () => {
         transition={{ duration: 1, delay: 0.4 }}
         className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-black mb-6 leading-tight"
       >
-        <span className="block text-white">
+        <span className="block text-slate-800">
           {language === 'zh' ? '重新定义' : 'Redefining'}
         </span>
-        <span className="block bg-gradient-to-r from-blue-400 via-blue-300 to-white bg-clip-text text-transparent">
+        <span className="block bg-gradient-to-r from-blue-600 via-blue-500 to-cyan-500 bg-clip-text text-transparent">
           {language === 'zh' ? '飞行体验' : 'Flight Experience'}
         </span>
       </motion.h1>
@@ -41,7 +41,7 @@ export const HeroContent = () => {
         initial={{ opacity: 0, y: 30 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8, delay: 0.6 }}
-        className="text-lg md:text-xl text-white/70 max-w-2xl mb-10 leading-relaxed"
+        className="text-lg md:text-xl text-slate-600 max-w-2xl mb-10 leading-relaxed"
       >
         {language === 'zh' 
           ? '专注无人机图传、飞控、云台等核心配件研发，10年技术沉淀，为全球飞手提供专业级解决方案'
@@ -58,7 +58,7 @@ export const HeroContent = () => {
         <Link to="/products">
           <Button 
             size="lg" 
-            className="group relative overflow-hidden bg-white text-foreground hover:bg-white/90 px-8 py-6 text-lg font-semibold rounded-full"
+            className="group relative overflow-hidden bg-blue-600 text-white hover:bg-blue-700 px-8 py-6 text-lg font-semibold rounded-full shadow-lg shadow-blue-600/25"
           >
             <span className="relative z-10 flex items-center gap-2">
               {language === 'zh' ? '探索产品' : 'Explore Products'}
@@ -71,7 +71,7 @@ export const HeroContent = () => {
           <Button 
             variant="outline" 
             size="lg"
-            className="group relative overflow-hidden border-2 border-white bg-white/10 hover:bg-white/20 text-white px-8 py-6 text-lg font-semibold rounded-full backdrop-blur-sm"
+            className="group relative overflow-hidden border-2 border-slate-300 bg-white/80 hover:bg-white hover:border-blue-400 text-slate-700 px-8 py-6 text-lg font-semibold rounded-full backdrop-blur-md shadow-sm"
           >
             <Play className="w-5 h-5 mr-2" />
             {language === 'zh' ? '了解长凌' : 'About CANI'}
@@ -91,11 +91,11 @@ export const HeroContent = () => {
           { value: '10+', label: language === 'zh' ? '年深耕' : 'Years' },
           { value: '500+', label: language === 'zh' ? '合作伙伴' : 'Partners' },
         ].map((stat, index) => (
-          <div key={index} className="text-center">
-            <div className="text-3xl md:text-4xl font-black text-white mb-1">
+          <div key={index} className="text-center px-4 py-3 rounded-2xl bg-white/60 backdrop-blur-md border border-slate-200/50 shadow-sm">
+            <div className="text-3xl md:text-4xl font-black text-slate-800 mb-1">
               {stat.value}
             </div>
-            <div className="text-sm text-white/60">
+            <div className="text-sm text-slate-500">
               {stat.label}
             </div>
           </div>
@@ -109,7 +109,7 @@ export const HeroContent = () => {
         transition={{ duration: 1, delay: 1.2 }}
         className="absolute bottom-8 left-1/2 -translate-x-1/2"
       >
-        <div className="flex flex-col items-center gap-2 text-white/50 cursor-pointer hover:text-white transition-colors">
+        <div className="flex flex-col items-center gap-2 text-slate-400 cursor-pointer hover:text-blue-500 transition-colors">
           <span className="text-xs tracking-widest uppercase">
             {language === 'zh' ? '向下滚动' : 'Scroll Down'}
           </span>

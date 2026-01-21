@@ -3,7 +3,7 @@ import { Canvas, useFrame } from '@react-three/fiber';
 import { Float, Environment, MeshDistortMaterial, Sphere, OrbitControls } from '@react-three/drei';
 import * as THREE from 'three';
 
-const AnimatedSphere = ({ position, scale, color, speed, opacity = 0.6 }: { position: [number, number, number], scale: number, color: string, speed: number, opacity?: number }) => {
+const AnimatedSphere = ({ position, scale, color, speed, opacity = 0.4 }: { position: [number, number, number], scale: number, color: string, speed: number, opacity?: number }) => {
   const meshRef = useRef<THREE.Mesh>(null);
   
   useFrame((state) => {
@@ -19,10 +19,10 @@ const AnimatedSphere = ({ position, scale, color, speed, opacity = 0.6 }: { posi
         <MeshDistortMaterial
           color={color}
           attach="material"
-          distort={0.25}
-          speed={1}
-          roughness={0.2}
-          metalness={0.8}
+          distort={0.2}
+          speed={0.8}
+          roughness={0.1}
+          metalness={0.9}
           transparent
           opacity={opacity}
         />
@@ -32,51 +32,41 @@ const AnimatedSphere = ({ position, scale, color, speed, opacity = 0.6 }: { posi
 };
 
 const ParticleField = () => {
-  const count = 400;
+  const count = 300;
   const mesh = useRef<THREE.Points>(null);
 
   const particles = useMemo(() => {
     const positions = new Float32Array(count * 3);
     const colors = new Float32Array(count * 3);
-    const sizes = new Float32Array(count);
 
     for (let i = 0; i < count; i++) {
       const i3 = i * 3;
-      // Spread particles in a larger area
-      positions[i3] = (Math.random() - 0.5) * 30;
-      positions[i3 + 1] = (Math.random() - 0.5) * 30;
-      positions[i3 + 2] = (Math.random() - 0.5) * 30;
+      positions[i3] = (Math.random() - 0.5) * 35;
+      positions[i3 + 1] = (Math.random() - 0.5) * 35;
+      positions[i3 + 2] = (Math.random() - 0.5) * 35;
 
-      // Blue-white color palette matching the theme
+      // Light blue and silver particles for white theme
       const colorType = Math.random();
-      if (colorType < 0.4) {
-        // White particles
-        colors[i3] = 0.95;
-        colors[i3 + 1] = 0.97;
-        colors[i3 + 2] = 1.0;
-      } else if (colorType < 0.7) {
-        // Light blue particles
+      if (colorType < 0.5) {
+        // Light blue
         colors[i3] = 0.4;
         colors[i3 + 1] = 0.6;
-        colors[i3 + 2] = 0.95;
-      } else {
-        // Deeper blue particles
-        colors[i3] = 0.15;
-        colors[i3 + 1] = 0.4;
         colors[i3 + 2] = 0.9;
+      } else {
+        // Silver/light gray
+        colors[i3] = 0.7;
+        colors[i3 + 1] = 0.75;
+        colors[i3 + 2] = 0.8;
       }
-      
-      // Variable sizes for depth
-      sizes[i] = Math.random() * 0.03 + 0.02;
     }
 
-    return { positions, colors, sizes };
+    return { positions, colors };
   }, []);
 
   useFrame((state) => {
     if (mesh.current) {
-      mesh.current.rotation.y = state.clock.elapsedTime * 0.02;
-      mesh.current.rotation.x = Math.sin(state.clock.elapsedTime * 0.05) * 0.03;
+      mesh.current.rotation.y = state.clock.elapsedTime * 0.015;
+      mesh.current.rotation.x = Math.sin(state.clock.elapsedTime * 0.03) * 0.02;
     }
   });
 
@@ -97,17 +87,17 @@ const ParticleField = () => {
         />
       </bufferGeometry>
       <pointsMaterial
-        size={0.05}
+        size={0.04}
         vertexColors
         transparent
-        opacity={0.8}
+        opacity={0.6}
         sizeAttenuation
       />
     </points>
   );
 };
 
-// Floating ring element for tech aesthetic
+// Floating ring element
 const FloatingRing = ({ position, scale, rotationSpeed }: { position: [number, number, number], scale: number, rotationSpeed: number }) => {
   const meshRef = useRef<THREE.Mesh>(null);
   
@@ -120,17 +110,17 @@ const FloatingRing = ({ position, scale, rotationSpeed }: { position: [number, n
 
   return (
     <mesh ref={meshRef} position={position} scale={scale}>
-      <torusGeometry args={[1, 0.02, 16, 100]} />
-      <meshBasicMaterial color="#3b82f6" transparent opacity={0.4} />
+      <torusGeometry args={[1, 0.015, 16, 100]} />
+      <meshBasicMaterial color="#60a5fa" transparent opacity={0.3} />
     </mesh>
   );
 };
 
 const GridFloor = () => {
   return (
-    <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, -5, 0]}>
-      <planeGeometry args={[60, 60, 60, 60]} />
-      <meshBasicMaterial color="#1e40af" wireframe transparent opacity={0.06} />
+    <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, -6, 0]}>
+      <planeGeometry args={[80, 80, 80, 80]} />
+      <meshBasicMaterial color="#94a3b8" wireframe transparent opacity={0.04} />
     </mesh>
   );
 };
@@ -138,39 +128,40 @@ const GridFloor = () => {
 export const HeroScene3D = () => {
   return (
     <div className="absolute inset-0 z-0">
-      {/* Gradient background */}
-      <div className="absolute inset-0 bg-gradient-to-br from-slate-900 via-blue-950 to-slate-900" />
+      {/* Clean white gradient background */}
+      <div className="absolute inset-0 bg-gradient-to-br from-white via-blue-50 to-slate-100" />
       
       <Canvas
-        camera={{ position: [0, 0, 12], fov: 50 }}
+        camera={{ position: [0, 0, 14], fov: 45 }}
         gl={{ antialias: true, alpha: true }}
         style={{ background: 'transparent' }}
       >
-        <ambientLight intensity={0.3} />
-        <pointLight position={[10, 10, 10]} intensity={1} color="#3b82f6" />
-        <pointLight position={[-10, -5, -10]} intensity={0.5} color="#1e40af" />
-        <pointLight position={[0, 5, 5]} intensity={0.3} color="#ffffff" />
+        <ambientLight intensity={0.8} />
+        <directionalLight position={[10, 10, 5]} intensity={0.6} color="#ffffff" />
+        <pointLight position={[10, 10, 10]} intensity={0.4} color="#3b82f6" />
+        <pointLight position={[-10, -5, -10]} intensity={0.2} color="#60a5fa" />
         
-        {/* Blue gradient spheres */}
-        <AnimatedSphere position={[-5, 1.5, -5]} scale={1.2} color="#2563eb" speed={0.15} opacity={0.5} />
-        <AnimatedSphere position={[5, -1, -6]} scale={0.8} color="#1e40af" speed={0.2} opacity={0.4} />
-        <AnimatedSphere position={[1, 3, -7]} scale={0.6} color="#3b82f6" speed={0.25} opacity={0.5} />
-        <AnimatedSphere position={[-3, -2, -4]} scale={0.4} color="#60a5fa" speed={0.3} opacity={0.4} />
+        {/* Translucent blue/silver spheres */}
+        <AnimatedSphere position={[-6, 2, -8]} scale={1.5} color="#3b82f6" speed={0.12} opacity={0.25} />
+        <AnimatedSphere position={[6, -1, -10]} scale={1} color="#60a5fa" speed={0.15} opacity={0.2} />
+        <AnimatedSphere position={[2, 4, -12]} scale={0.8} color="#93c5fd" speed={0.18} opacity={0.25} />
+        <AnimatedSphere position={[-4, -3, -6]} scale={0.5} color="#bfdbfe" speed={0.22} opacity={0.2} />
+        <AnimatedSphere position={[8, 3, -14]} scale={1.2} color="#2563eb" speed={0.1} opacity={0.15} />
         
-        {/* Floating rings for tech feel */}
-        <FloatingRing position={[-4, 2, -4]} scale={1.5} rotationSpeed={0.2} />
-        <FloatingRing position={[4, -1.5, -5]} scale={1} rotationSpeed={-0.15} />
-        <FloatingRing position={[0, 0, -3]} scale={2} rotationSpeed={0.1} />
+        {/* Subtle floating rings */}
+        <FloatingRing position={[-5, 2.5, -6]} scale={2} rotationSpeed={0.15} />
+        <FloatingRing position={[5, -2, -8]} scale={1.5} rotationSpeed={-0.1} />
+        <FloatingRing position={[0, 1, -4]} scale={2.5} rotationSpeed={0.08} />
         
         <ParticleField />
         <GridFloor />
         
-        <Environment preset="night" />
+        <Environment preset="city" />
         <OrbitControls 
           enableZoom={false} 
           enablePan={false}
           autoRotate
-          autoRotateSpeed={0.2}
+          autoRotateSpeed={0.15}
           maxPolarAngle={Math.PI / 2}
           minPolarAngle={Math.PI / 3}
         />
