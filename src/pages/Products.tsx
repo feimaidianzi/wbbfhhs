@@ -120,7 +120,7 @@ const Products = () => {
         <section className="relative min-h-[70vh] flex items-center justify-center overflow-hidden">
           <div className="absolute inset-0">
             <div className="absolute inset-0 bg-cover bg-center" style={{ backgroundImage: "url(https://images.unsplash.com/photo-1473968512647-3e447244af8f?w=1920&q=80)" }} />
-            <div className="absolute inset-0 bg-gradient-to-b from-background/70 via-background/50 to-background" />
+            <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/60 to-black/80" />
           </div>
 
           <div className="absolute inset-0 overflow-hidden pointer-events-none">
@@ -134,7 +134,7 @@ const Products = () => {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8 }}
             >
-              <span className="inline-block px-4 py-2 rounded-full bg-accent/10 border border-accent/30 text-accent text-sm font-medium mb-6">
+              <span className="inline-block px-4 py-2 rounded-full bg-black/50 border border-white/30 text-white text-sm font-medium mb-6">
                 {language === 'zh' ? '长凌科技 · 产品中心' : 'CANI Technology · Products'}
               </span>
             </motion.div>
@@ -143,7 +143,7 @@ const Products = () => {
               initial={{ opacity: 0, y: 50 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.2 }}
-              className="text-4xl md:text-5xl lg:text-6xl font-black text-foreground mb-6"
+              className="text-4xl md:text-5xl lg:text-6xl font-black text-white mb-6"
             >
               {language === 'zh' ? '专业无人机产品' : 'Professional Drone Products'}
             </motion.h1>
@@ -152,7 +152,7 @@ const Products = () => {
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.4 }}
-              className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto mb-8"
+              className="text-lg md:text-xl text-white/80 max-w-2xl mx-auto mb-8"
             >
               {language === 'zh' 
                 ? '覆盖工业级无人机、自动机场、系留平台、物流配送等全场景解决方案'
@@ -166,7 +166,7 @@ const Products = () => {
             transition={{ duration: 1, delay: 0.8 }}
             className="absolute bottom-8 left-1/2 -translate-x-1/2"
           >
-            <ChevronDown className="w-6 h-6 text-muted-foreground animate-bounce" />
+            <ChevronDown className="w-6 h-6 text-white/60 animate-bounce" />
           </motion.div>
         </section>
 

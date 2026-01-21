@@ -90,14 +90,14 @@ const FPV = () => {
           <div className="absolute inset-0 bg-cover bg-center" style={{ backgroundImage: "url(https://images.unsplash.com/photo-1473968512647-3e447244af8f?w=1920&q=80)" }}>
           </div>
           <div className="relative container-custom h-full flex items-center">
-            <div className="max-w-2xl animate-fade-in rounded-3xl bg-background/70 backdrop-blur-md border border-border p-6 md:p-8 shadow-card">
-              <div className="inline-block px-4 py-1 bg-accent/10 rounded-full text-accent text-sm font-medium mb-4">
+            <div className="max-w-2xl animate-fade-in rounded-3xl bg-black/70 border border-white/20 p-6 md:p-8 shadow-lg">
+              <div className="inline-block px-4 py-1 bg-white/10 rounded-full text-cyan-400 text-sm font-medium mb-4">
                 {isEn ? 'CANI · FPV Zone' : '长凌科技 · FPV穿越机专区'}
               </div>
-              <h1 className="text-3xl md:text-5xl lg:text-6xl font-bold text-foreground mb-4 leading-tight">
+              <h1 className="text-3xl md:text-5xl lg:text-6xl font-bold text-white mb-4 leading-tight">
                 {isEn ? 'FPV Racing Drones' : 'FPV 穿越机'}
               </h1>
-              <p className="text-lg md:text-xl text-muted-foreground mb-8 leading-relaxed">
+              <p className="text-lg md:text-xl text-white/80 mb-8 leading-relaxed">
                 {isEn 
                   ? 'First-person view flight experience, the perfect fusion of speed and passion. From beginner kits to professional racing, meeting different pilot needs'
                   : '第一视角飞行体验，感受速度与激情的完美融合。从入门套装到专业竞速，满足不同玩家需求'}

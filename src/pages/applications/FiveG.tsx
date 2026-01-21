@@ -55,12 +55,12 @@ const FiveG = () => {
           >
           </div>
           <div className="relative container-custom h-full flex items-center">
-            <div className="max-w-2xl rounded-3xl bg-background/70 backdrop-blur-md border border-border p-6 md:p-8 shadow-card">
-              <p className="text-accent font-medium mb-2">{isEn ? "Industry Applications" : "行业应用"}</p>
-              <h1 className="text-3xl md:text-5xl font-bold text-foreground mb-4">
+            <div className="max-w-2xl rounded-3xl bg-black/70 border border-white/20 p-6 md:p-8 shadow-lg">
+              <p className="text-cyan-400 font-medium mb-2">{isEn ? "Industry Applications" : "行业应用"}</p>
+              <h1 className="text-3xl md:text-5xl font-bold text-white mb-4">
                 {isEn ? "5G Connected" : "5G联网"}
               </h1>
-              <p className="text-lg text-muted-foreground">
+              <p className="text-lg text-white/80">
                 {isEn 
                   ? "5G connected drones enable remote control and data transmission via 5G cellular networks, expanding drone application boundaries"
                   : "5G联网无人机通过5G蜂窝网络实现远程控制和数据传输，拓展无人机应用边界"}

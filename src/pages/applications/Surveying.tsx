@@ -55,12 +55,12 @@ const Surveying = () => {
           >
           </div>
           <div className="relative container-custom h-full flex items-center">
-            <div className="max-w-2xl rounded-3xl bg-background/70 backdrop-blur-md border border-border p-6 md:p-8 shadow-card">
-              <p className="text-accent font-medium mb-2">{isEn ? "Industry Applications" : "行业应用"}</p>
-              <h1 className="text-3xl md:text-5xl font-bold text-foreground mb-4">
+            <div className="max-w-2xl rounded-3xl bg-black/70 border border-white/20 p-6 md:p-8 shadow-lg">
+              <p className="text-cyan-400 font-medium mb-2">{isEn ? "Industry Applications" : "行业应用"}</p>
+              <h1 className="text-3xl md:text-5xl font-bold text-white mb-4">
                 {isEn ? "Surveying & Mapping" : "测绘"}
               </h1>
-              <p className="text-lg text-muted-foreground">
+              <p className="text-lg text-white/80">
                 {isEn 
                   ? "VTOL drones are ideal for high-efficiency, high-precision, large-scale aerial survey projects, widely used in land surveying and engineering measurement"
                   : "垂直起降无人机适合高效率、高精度、大面积航测项目，广泛应用于国土测绘和工程测量"}

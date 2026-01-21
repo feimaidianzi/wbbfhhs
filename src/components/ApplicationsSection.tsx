@@ -170,11 +170,11 @@ export const ApplicationsSection = () => {
                   
                   {/* Content Overlay */}
                   <div className="absolute bottom-0 left-0 right-0 p-8 md:p-10">
-                    <div className="rounded-3xl bg-background/70 backdrop-blur-md border border-border p-6 md:p-8 max-w-2xl">
-                      <h3 className="text-3xl md:text-4xl font-black text-foreground mb-3">
+                    <div className="rounded-3xl bg-black/70 border border-white/20 p-6 md:p-8 max-w-2xl">
+                      <h3 className="text-3xl md:text-4xl font-black text-white mb-3">
                         {app.name}
                       </h3>
-                      <p className="text-lg text-muted-foreground mb-6">
+                      <p className="text-lg text-white/70 mb-6">
                         {app.description}
                       </p>
                       <Link 

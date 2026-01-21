@@ -86,16 +86,16 @@ export const SolutionsSection = () => {
               
               {/* Content */}
               <div className="absolute bottom-0 left-0 right-0 p-6 md:p-8">
-                <div className="inline-block px-3 py-1 bg-background/70 backdrop-blur-md border border-border text-foreground text-sm font-medium rounded-full mb-3">
+                <div className="inline-block px-3 py-1 bg-black/70 border border-white/20 text-white text-sm font-medium rounded-full mb-3">
                   {solution.stats}
                 </div>
-                <h3 className="text-xl md:text-2xl font-bold text-foreground mb-2 transition-colors duration-300">
+                <h3 className="text-xl md:text-2xl font-bold text-white mb-2 transition-colors duration-300">
                   {solution.title}
                 </h3>
-                <p className="text-muted-foreground mb-4 line-clamp-2 text-sm md:text-base">
+                <p className="text-white/70 mb-4 line-clamp-2 text-sm md:text-base">
                   {solution.description}
                 </p>
-                <div className="flex items-center text-foreground text-sm font-medium">
+                <div className="flex items-center text-white text-sm font-medium">
                   {language === 'zh' ? '了解详情' : 'Learn More'}
                   <ArrowRight className="w-4 h-4 ml-1 group-hover:translate-x-2 transition-transform duration-300" />
                 </div>
