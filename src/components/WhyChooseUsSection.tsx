@@ -1,5 +1,6 @@
 import { Target, Award, Users, Globe, TrendingUp, Zap, Shield } from "lucide-react";
 import { useLanguage } from "@/contexts/LanguageContext";
+import { motion } from "framer-motion";
 
 const getStatsData = (language: 'zh' | 'en') => [
   {
@@ -43,6 +44,47 @@ const getAdvantagesData = (language: 'zh' | 'en') => [
   }
 ];
 
+const containerVariants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.1,
+      delayChildren: 0.2
+    }
+  }
+};
+
+const itemVariants = {
+  hidden: { 
+    opacity: 0, 
+    y: 30,
+    scale: 0.95
+  },
+  visible: { 
+    opacity: 1, 
+    y: 0,
+    scale: 1,
+    transition: {
+      type: "spring",
+      stiffness: 100,
+      damping: 15
+    }
+  }
+};
+
+const headerVariants = {
+  hidden: { opacity: 0, y: -20 },
+  visible: { 
+    opacity: 1, 
+    y: 0,
+    transition: {
+      duration: 0.6,
+      ease: "easeOut"
+    }
+  }
+};
+
 export const WhyChooseUsSection = () => {
   const { language } = useLanguage();
   const stats = getStatsData(language);
@@ -50,22 +92,22 @@ export const WhyChooseUsSection = () => {
 
   return (
     <section className="py-20 md:py-28 bg-background relative overflow-hidden">
-      {/* Background decoration */}
-      <div className="absolute inset-0 bg-grid opacity-20" />
-      <div className="absolute top-0 left-1/4 w-96 h-96 bg-accent/10 rounded-full blur-3xl" />
-      <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-accent/5 rounded-full blur-3xl" />
+      {/* Background decoration - unified white theme */}
+      <div className="absolute inset-0 bg-grid opacity-10" />
+      <div className="absolute top-0 left-1/4 w-96 h-96 bg-primary/5 rounded-full blur-3xl" />
+      <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-primary/3 rounded-full blur-3xl" />
       
-      {/* Animated particles */}
+      {/* Animated particles - subtle accent */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        {[...Array(10)].map((_, i) => (
+        {[...Array(8)].map((_, i) => (
           <div
             key={i}
-            className="absolute w-1 h-1 bg-accent/40 rounded-full animate-float"
+            className="absolute w-1 h-1 bg-primary/20 rounded-full animate-float"
             style={{
-              left: `${10 + i * 9}%`,
+              left: `${10 + i * 11}%`,
               top: `${15 + (i % 4) * 20}%`,
-              animationDelay: `${i * 0.3}s`,
-              animationDuration: `${4 + i * 0.3}s`,
+              animationDelay: `${i * 0.4}s`,
+              animationDuration: `${5 + i * 0.4}s`,
             }}
           />
         ))}
@@ -73,15 +115,21 @@ export const WhyChooseUsSection = () => {
 
       <div className="container-custom relative">
         {/* Section Header */}
-        <div className="text-center mb-16">
+        <motion.div 
+          className="text-center mb-16"
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-100px" }}
+          variants={headerVariants}
+        >
           <div className="inline-flex items-center gap-3 mb-4">
-            <div className="w-8 h-px bg-accent" />
-            <span className="text-accent text-sm tracking-widest uppercase font-medium">
+            <div className="w-8 h-px bg-primary" />
+            <span className="text-primary text-sm tracking-widest uppercase font-medium">
               {language === 'zh' ? '核心优势' : 'CORE ADVANTAGES'}
             </span>
-            <div className="w-8 h-px bg-accent" />
+            <div className="w-8 h-px bg-primary" />
           </div>
-          <h2 className="text-3xl md:text-4xl font-black text-gradient mb-4">
+          <h2 className="text-3xl md:text-4xl font-black text-foreground mb-4">
             {language === 'zh' ? "为什么信赖长凌" : "Why Trust CANI"}
           </h2>
           <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
@@ -89,43 +137,57 @@ export const WhyChooseUsSection = () => {
               ? "15年专注无人机核心技术，从实验室到生产线，从研发到交付，每一步都精益求精"
               : "15 years focused on core drone technology. From lab to production line, from R&D to delivery—excellence at every step"}
           </p>
-        </div>
+        </motion.div>
 
         {/* Stats Grid */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6 mb-16">
+        <motion.div 
+          className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6 mb-16"
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-50px" }}
+          variants={containerVariants}
+        >
           {stats.map((stat, index) => (
-            <div 
+            <motion.div 
               key={index} 
-              className="bg-card/90 backdrop-blur-sm text-center p-6 rounded-xl border border-border/50 hover:border-accent/50 transition-all duration-500 hover:-translate-y-2 hover:shadow-lg group shadow-md"
+              variants={itemVariants}
+              className="bg-white text-center p-6 rounded-xl border border-border/40 hover:border-primary/30 transition-all duration-500 hover:-translate-y-2 hover:shadow-xl group shadow-sm"
             >
-              <stat.icon className="w-8 h-8 text-accent mx-auto mb-3 group-hover:scale-110 transition-transform duration-300" />
-              <div className="text-3xl md:text-4xl font-black text-gradient mb-1">
+              <stat.icon className="w-8 h-8 text-primary mx-auto mb-3 group-hover:scale-110 transition-transform duration-300" />
+              <div className="text-3xl md:text-4xl font-black text-foreground mb-1">
                 {stat.value}
               </div>
               <div className="text-muted-foreground text-sm">{stat.label}</div>
-            </div>
+            </motion.div>
           ))}
-        </div>
+        </motion.div>
 
         {/* Advantages Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <motion.div 
+          className="grid grid-cols-1 md:grid-cols-3 gap-6"
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-50px" }}
+          variants={containerVariants}
+        >
           {advantages.map((advantage, index) => (
-            <div 
+            <motion.div 
               key={index} 
-              className="bg-card/90 backdrop-blur-sm p-8 rounded-xl border border-border/50 hover:border-accent/40 transition-all duration-500 group hover:-translate-y-2 shadow-lg"
+              variants={itemVariants}
+              className="bg-white p-8 rounded-xl border border-border/40 hover:border-primary/30 transition-all duration-500 group hover:-translate-y-2 shadow-sm hover:shadow-xl"
             >
-              <div className="w-14 h-14 bg-accent/10 rounded-xl flex items-center justify-center mb-6 group-hover:bg-accent/20 group-hover:shadow-neon transition-all duration-300">
-                <advantage.icon className="w-7 h-7 text-accent" />
+              <div className="w-14 h-14 bg-primary/10 rounded-xl flex items-center justify-center mb-6 group-hover:bg-primary/15 group-hover:shadow-lg transition-all duration-300">
+                <advantage.icon className="w-7 h-7 text-primary" />
               </div>
-              <h3 className="text-xl font-bold text-foreground mb-3 group-hover:text-accent transition-colors duration-300">
+              <h3 className="text-xl font-bold text-foreground mb-3 group-hover:text-primary transition-colors duration-300">
                 {advantage.title}
               </h3>
               <p className="text-muted-foreground leading-relaxed">
                 {advantage.description}
               </p>
-            </div>
+            </motion.div>
           ))}
-        </div>
+        </motion.div>
       </div>
     </section>
   );
