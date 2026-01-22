@@ -20,10 +20,14 @@ import {
   TrendingDown,
   Database,
   Upload,
-  Bot
+  Bot,
+  Headphones,
+  Eye,
+  UserCheck
 } from 'lucide-react';
 import { User } from '@supabase/supabase-js';
 import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, BarChart, Bar } from 'recharts';
+import LiveVisitors from '@/components/admin/LiveVisitors';
 
 interface Stats {
   pendingInquiries: number;
@@ -210,19 +214,32 @@ const AdminDashboard = () => {
 
   const menuItems = [
     { 
-      icon: BarChart3, 
-      title: '数据概览', 
-      description: '查看网站访问数据和统计', 
-      href: '#',
-      color: 'from-blue-500 to-cyan-500',
-      disabled: true
+      icon: Eye, 
+      title: '访客分析', 
+      description: '查看访客行为和数据统计', 
+      href: '/admin/visitor-analytics',
+      color: 'from-blue-500 to-cyan-500'
+    },
+    { 
+      icon: Headphones, 
+      title: '客服工作台', 
+      description: '处理客户咨询和在线沟通', 
+      href: '/admin/customer-service',
+      color: 'from-green-500 to-emerald-500'
+    },
+    { 
+      icon: UserCheck, 
+      title: '客户线索', 
+      description: '管理AI收集的客户线索', 
+      href: '/admin/customer-leads',
+      color: 'from-teal-500 to-cyan-500'
     },
     { 
       icon: Users, 
       title: '用户管理', 
       description: '管理注册用户和权限', 
       href: '/admin/users',
-      color: 'from-green-500 to-emerald-500'
+      color: 'from-violet-500 to-purple-500'
     },
     { 
       icon: Package, 
@@ -257,7 +274,7 @@ const AdminDashboard = () => {
       title: '数据导入', 
       description: '导入硬编码产品到数据库', 
       href: '/admin/data-import',
-      color: 'from-teal-500 to-cyan-500'
+      color: 'from-slate-500 to-slate-600'
     },
     { 
       icon: Bot, 
@@ -377,8 +394,8 @@ const AdminDashboard = () => {
           </Card>
         </div>
 
-        {/* Charts */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
+        {/* Charts and Live Visitors */}
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
           <Card className="bg-slate-800 border-slate-700">
             <CardHeader>
               <CardTitle className="text-white flex items-center gap-2">
@@ -454,6 +471,9 @@ const AdminDashboard = () => {
               </div>
             </CardContent>
           </Card>
+
+          {/* Live Visitors Widget */}
+          <LiveVisitors />
         </div>
 
         {/* Menu Items */}
@@ -461,8 +481,7 @@ const AdminDashboard = () => {
           {menuItems.map((item) => (
             <Link 
               key={item.title} 
-              to={item.disabled ? '#' : item.href}
-              className={item.disabled ? 'pointer-events-none opacity-50' : ''}
+              to={item.href}
             >
               <Card 
                 className="bg-slate-800 border-slate-700 hover:border-slate-600 transition-all cursor-pointer group h-full"
@@ -476,7 +495,7 @@ const AdminDashboard = () => {
                 </CardHeader>
                 <CardContent>
                   <Button variant="ghost" className="text-slate-400 hover:text-white p-0">
-                    {item.disabled ? '开发中...' : '进入管理 →'}
+                    进入管理 →
                   </Button>
                 </CardContent>
               </Card>
