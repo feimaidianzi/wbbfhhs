@@ -4,59 +4,87 @@ import { Button } from "@/components/ui/button";
 import { useLanguage } from "@/contexts/LanguageContext";
 
 // Social media icons
-const WhatsAppIcon = ({ className }: { className?: string }) => (
-  <svg className={className} viewBox="0 0 24 24" fill="currentColor">
-    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/>
-  </svg>
-);
-
-const WeChatIcon = ({ className }: { className?: string }) => (
-  <svg className={className} viewBox="0 0 24 24" fill="currentColor">
-    <path d="M8.691 2.188C3.891 2.188 0 5.476 0 9.53c0 2.212 1.17 4.203 3.002 5.55a.59.59 0 0 1 .213.665l-.39 1.48c-.019.07-.048.141-.048.213 0 .163.13.295.29.295a.326.326 0 0 0 .167-.054l1.903-1.114a.864.864 0 0 1 .717-.098 10.16 10.16 0 0 0 2.837.403c.276 0 .543-.027.811-.05-.857-2.578.157-4.972 1.932-6.446 1.703-1.415 3.882-1.98 5.853-1.838-.576-3.583-4.196-6.348-8.596-6.348zM5.785 5.991c.642 0 1.162.529 1.162 1.18a1.17 1.17 0 0 1-1.162 1.178A1.17 1.17 0 0 1 4.623 7.17c0-.651.52-1.18 1.162-1.18zm5.813 0c.642 0 1.162.529 1.162 1.18a1.17 1.17 0 0 1-1.162 1.178 1.17 1.17 0 0 1-1.162-1.178c0-.651.52-1.18 1.162-1.18zm5.34 2.867c-1.797-.052-3.746.512-5.28 1.786-1.72 1.428-2.687 3.72-1.78 6.22.942 2.453 3.666 4.229 6.884 4.229.826 0 1.622-.12 2.361-.336a.722.722 0 0 1 .598.082l1.584.926a.272.272 0 0 0 .14.045c.134 0 .24-.111.24-.247 0-.06-.023-.12-.038-.177l-.327-1.233a.582.582 0 0 1-.023-.156.49.49 0 0 1 .201-.398C23.024 18.48 24 16.82 24 14.98c0-3.21-2.931-5.837-6.656-6.088V8.89c-.135-.01-.27-.027-.407-.032zm-2.53 3.274c.535 0 .969.44.969.982a.976.976 0 0 1-.969.983.976.976 0 0 1-.969-.983c0-.542.434-.982.97-.982zm4.844 0c.535 0 .969.44.969.982a.976.976 0 0 1-.969.983.976.976 0 0 1-.969-.983c0-.542.434-.982.969-.982z"/>
-  </svg>
-);
-
-const TelegramIcon = ({ className }: { className?: string }) => (
-  <svg className={className} viewBox="0 0 24 24" fill="currentColor">
-    <path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/>
-  </svg>
-);
-
-const MessengerIcon = ({ className }: { className?: string }) => (
-  <svg className={className} viewBox="0 0 24 24" fill="currentColor">
-    <path d="M.001 11.639C.001 4.949 5.241 0 12.001 0S24 4.95 24 11.639c0 6.689-5.24 11.638-12 11.638-1.21 0-2.38-.16-3.47-.46a.96.96 0 0 0-.64.05l-2.39 1.05a.96.96 0 0 1-1.35-.85l-.07-2.14a.97.97 0 0 0-.32-.68A11.39 11.389 0 0 1 .002 11.64zm8.32-2.19-3.52 5.6c-.35.53.32 1.139.82.75l3.79-2.87c.26-.2.6-.2.87 0l2.8 2.1c.84.63 2.04.4 2.6-.48l3.52-5.6c.35-.53-.32-1.13-.82-.75l-3.79 2.87c-.25.2-.6.2-.86 0l-2.8-2.1a1.8 1.8 0 0 0-2.61.48z"/>
-  </svg>
-);
-
-const LinkedInIcon = ({ className }: { className?: string }) => (
-  <svg className={className} viewBox="0 0 24 24" fill="currentColor">
-    <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
-  </svg>
-);
+const WhatsAppIcon = ({
+  className
+}: {
+  className?: string;
+}) => <svg className={className} viewBox="0 0 24 24" fill="currentColor">
+    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z" />
+  </svg>;
+const WeChatIcon = ({
+  className
+}: {
+  className?: string;
+}) => <svg className={className} viewBox="0 0 24 24" fill="currentColor">
+    <path d="M8.691 2.188C3.891 2.188 0 5.476 0 9.53c0 2.212 1.17 4.203 3.002 5.55a.59.59 0 0 1 .213.665l-.39 1.48c-.019.07-.048.141-.048.213 0 .163.13.295.29.295a.326.326 0 0 0 .167-.054l1.903-1.114a.864.864 0 0 1 .717-.098 10.16 10.16 0 0 0 2.837.403c.276 0 .543-.027.811-.05-.857-2.578.157-4.972 1.932-6.446 1.703-1.415 3.882-1.98 5.853-1.838-.576-3.583-4.196-6.348-8.596-6.348zM5.785 5.991c.642 0 1.162.529 1.162 1.18a1.17 1.17 0 0 1-1.162 1.178A1.17 1.17 0 0 1 4.623 7.17c0-.651.52-1.18 1.162-1.18zm5.813 0c.642 0 1.162.529 1.162 1.18a1.17 1.17 0 0 1-1.162 1.178 1.17 1.17 0 0 1-1.162-1.178c0-.651.52-1.18 1.162-1.18zm5.34 2.867c-1.797-.052-3.746.512-5.28 1.786-1.72 1.428-2.687 3.72-1.78 6.22.942 2.453 3.666 4.229 6.884 4.229.826 0 1.622-.12 2.361-.336a.722.722 0 0 1 .598.082l1.584.926a.272.272 0 0 0 .14.045c.134 0 .24-.111.24-.247 0-.06-.023-.12-.038-.177l-.327-1.233a.582.582 0 0 1-.023-.156.49.49 0 0 1 .201-.398C23.024 18.48 24 16.82 24 14.98c0-3.21-2.931-5.837-6.656-6.088V8.89c-.135-.01-.27-.027-.407-.032zm-2.53 3.274c.535 0 .969.44.969.982a.976.976 0 0 1-.969.983.976.976 0 0 1-.969-.983c0-.542.434-.982.97-.982zm4.844 0c.535 0 .969.44.969.982a.976.976 0 0 1-.969.983.976.976 0 0 1-.969-.983c0-.542.434-.982.969-.982z" />
+  </svg>;
+const TelegramIcon = ({
+  className
+}: {
+  className?: string;
+}) => <svg className={className} viewBox="0 0 24 24" fill="currentColor">
+    <path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z" />
+  </svg>;
+const MessengerIcon = ({
+  className
+}: {
+  className?: string;
+}) => <svg className={className} viewBox="0 0 24 24" fill="currentColor">
+    <path d="M.001 11.639C.001 4.949 5.241 0 12.001 0S24 4.95 24 11.639c0 6.689-5.24 11.638-12 11.638-1.21 0-2.38-.16-3.47-.46a.96.96 0 0 0-.64.05l-2.39 1.05a.96.96 0 0 1-1.35-.85l-.07-2.14a.97.97 0 0 0-.32-.68A11.39 11.389 0 0 1 .002 11.64zm8.32-2.19-3.52 5.6c-.35.53.32 1.139.82.75l3.79-2.87c.26-.2.6-.2.87 0l2.8 2.1c.84.63 2.04.4 2.6-.48l3.52-5.6c.35-.53-.32-1.13-.82-.75l-3.79 2.87c-.25.2-.6.2-.86 0l-2.8-2.1a1.8 1.8 0 0 0-2.61.48z" />
+  </svg>;
+const LinkedInIcon = ({
+  className
+}: {
+  className?: string;
+}) => <svg className={className} viewBox="0 0 24 24" fill="currentColor">
+    <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
+  </svg>;
 
 // Office locations
-const getOfficeLocations = (language: 'zh' | 'en') => [
-  { country: language === 'zh' ? '越南' : 'Vietnam', city: language === 'zh' ? '胡志明市' : 'Ho Chi Minh City' },
-  { country: language === 'zh' ? '韩国' : 'South Korea', city: language === 'zh' ? '首尔' : 'Seoul' },
-  { country: language === 'zh' ? '马来西亚' : 'Malaysia', city: language === 'zh' ? '吉隆坡' : 'Kuala Lumpur' },
-  { country: language === 'zh' ? '印度' : 'India', city: language === 'zh' ? '班加罗尔' : 'Bangalore' },
-  { country: language === 'zh' ? '中国' : 'China', city: language === 'zh' ? '长沙' : 'Changsha' },
-];
-
+const getOfficeLocations = (language: 'zh' | 'en') => [{
+  country: language === 'zh' ? '越南' : 'Vietnam',
+  city: language === 'zh' ? '胡志明市' : 'Ho Chi Minh City'
+}, {
+  country: language === 'zh' ? '韩国' : 'South Korea',
+  city: language === 'zh' ? '首尔' : 'Seoul'
+}, {
+  country: language === 'zh' ? '马来西亚' : 'Malaysia',
+  city: language === 'zh' ? '吉隆坡' : 'Kuala Lumpur'
+}, {
+  country: language === 'zh' ? '印度' : 'India',
+  city: language === 'zh' ? '班加罗尔' : 'Bangalore'
+}, {
+  country: language === 'zh' ? '中国' : 'China',
+  city: language === 'zh' ? '长沙' : 'Changsha'
+}];
 export const CTASection = () => {
-  const { language } = useLanguage();
+  const {
+    language
+  } = useLanguage();
   const officeLocations = getOfficeLocations(language);
-
-  const socialContacts = [
-    { icon: WeChatIcon, label: "WeChat", id: "cani_uav", href: "#" },
-    { icon: WhatsAppIcon, label: "WhatsApp", href: "https://wa.me/84123456789" },
-    { icon: MessengerIcon, label: "Messenger", href: "https://m.me/caniuav" },
-    { icon: TelegramIcon, label: "Telegram", href: "https://t.me/caniuav" },
-    { icon: LinkedInIcon, label: "LinkedIn", href: "https://linkedin.com/company/caniuav" },
-  ];
-
-  return (
-    <section className="py-20 md:py-28 bg-background relative overflow-hidden">
+  const socialContacts = [{
+    icon: WeChatIcon,
+    label: "WeChat",
+    id: "cani_uav",
+    href: "#"
+  }, {
+    icon: WhatsAppIcon,
+    label: "WhatsApp",
+    href: "https://wa.me/84123456789"
+  }, {
+    icon: MessengerIcon,
+    label: "Messenger",
+    href: "https://m.me/caniuav"
+  }, {
+    icon: TelegramIcon,
+    label: "Telegram",
+    href: "https://t.me/caniuav"
+  }, {
+    icon: LinkedInIcon,
+    label: "LinkedIn",
+    href: "https://linkedin.com/company/caniuav"
+  }];
+  return <section className="py-20 md:py-28 bg-background relative overflow-hidden">
       {/* Background effects */}
       <div className="absolute inset-0 bg-grid opacity-20" />
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[400px] bg-accent/10 rounded-full blur-3xl" />
@@ -75,9 +103,7 @@ export const CTASection = () => {
               {language === 'zh' ? '让飞行更智能' : 'Make Flight Smarter'}
             </h2>
             <p className="text-muted-foreground text-lg leading-relaxed mb-8">
-              {language === 'zh' 
-                ? '无论是产品选型、技术咨询，还是定制化方案，我们的专家团队随时准备为您提供专业支持。立即联系，获取免费技术咨询。'
-                : 'Whether it\'s product selection, technical consulting, or customized solutions, our expert team is ready to provide professional support. Contact us now for free technical consultation.'}
+              {language === 'zh' ? '无论是产品选型、技术咨询，还是定制化方案，我们的专家团队随时准备为您提供专业支持。立即联系，获取免费技术咨询。' : 'Whether it\'s product selection, technical consulting, or customized solutions, our expert team is ready to provide professional support. Contact us now for free technical consultation.'}
             </p>
             <div className="flex flex-col sm:flex-row gap-4">
               <Link to="/contact">
@@ -96,7 +122,7 @@ export const CTASection = () => {
           </div>
 
           {/* Right Content - Contact Info */}
-          <div className="glass-card rounded-2xl p-8 border border-accent/20">
+          <div className="glass-card rounded-2xl p-8 border border-accent/20 bg-primary-foreground">
             <h3 className="text-xl font-bold text-foreground mb-6">
               {language === 'zh' ? '联系方式' : 'Contact Info'}
             </h3>
@@ -124,18 +150,9 @@ export const CTASection = () => {
                     {language === 'zh' ? '社交媒体' : 'Social Media'}
                   </div>
                   <div className="flex items-center gap-2 flex-wrap">
-                    {socialContacts.map((social) => (
-                      <a
-                        key={social.label}
-                        href={social.href}
-                        target={social.href.startsWith('http') ? '_blank' : undefined}
-                        rel={social.href.startsWith('http') ? 'noopener noreferrer' : undefined}
-                        className="w-9 h-9 bg-muted rounded-full flex items-center justify-center text-muted-foreground hover:text-foreground hover:bg-accent/20 transition-colors"
-                        title={social.label}
-                      >
+                    {socialContacts.map(social => <a key={social.label} href={social.href} target={social.href.startsWith('http') ? '_blank' : undefined} rel={social.href.startsWith('http') ? 'noopener noreferrer' : undefined} className="w-9 h-9 bg-muted rounded-full flex items-center justify-center text-muted-foreground hover:text-foreground hover:bg-accent/20 transition-colors" title={social.label}>
                         <social.icon className="w-4 h-4" />
-                      </a>
-                    ))}
+                      </a>)}
                   </div>
                 </div>
               </div>
@@ -150,14 +167,9 @@ export const CTASection = () => {
                     {language === 'zh' ? '全球办公室' : 'Global Offices'}
                   </div>
                   <div className="flex flex-wrap gap-2">
-                    {officeLocations.map((office) => (
-                      <span
-                        key={office.country}
-                        className="text-xs bg-muted px-2 py-1 rounded-full text-muted-foreground"
-                      >
+                    {officeLocations.map(office => <span key={office.country} className="text-xs bg-muted px-2 py-1 rounded-full text-muted-foreground">
                         {office.country}
-                      </span>
-                    ))}
+                      </span>)}
                   </div>
                 </div>
               </div>
@@ -165,6 +177,5 @@ export const CTASection = () => {
           </div>
         </div>
       </div>
-    </section>
-  );
+    </section>;
 };
