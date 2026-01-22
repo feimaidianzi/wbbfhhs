@@ -231,6 +231,48 @@ export type Database = {
           },
         ]
       }
+      customer_service_agents: {
+        Row: {
+          avatar_url: string | null
+          avg_response_time_seconds: number | null
+          created_at: string
+          current_chats: number | null
+          display_name: string
+          id: string
+          max_concurrent_chats: number | null
+          status: string | null
+          total_handled: number | null
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          avatar_url?: string | null
+          avg_response_time_seconds?: number | null
+          created_at?: string
+          current_chats?: number | null
+          display_name: string
+          id?: string
+          max_concurrent_chats?: number | null
+          status?: string | null
+          total_handled?: number | null
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          avatar_url?: string | null
+          avg_response_time_seconds?: number | null
+          created_at?: string
+          current_chats?: number | null
+          display_name?: string
+          id?: string
+          max_concurrent_chats?: number | null
+          status?: string | null
+          total_handled?: number | null
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
       inquiries: {
         Row: {
           admin_notes: string | null
@@ -636,6 +678,195 @@ export type Database = {
           id?: string
           role?: Database["public"]["Enums"]["app_role"]
           user_id?: string
+        }
+        Relationships: []
+      }
+      visitor_ai_analysis: {
+        Row: {
+          analysis_result: Json
+          analysis_type: string
+          confidence_score: number | null
+          created_at: string
+          id: string
+          session_id: string
+        }
+        Insert: {
+          analysis_result: Json
+          analysis_type: string
+          confidence_score?: number | null
+          created_at?: string
+          id?: string
+          session_id: string
+        }
+        Update: {
+          analysis_result?: Json
+          analysis_type?: string
+          confidence_score?: number | null
+          created_at?: string
+          id?: string
+          session_id?: string
+        }
+        Relationships: []
+      }
+      visitor_events: {
+        Row: {
+          created_at: string
+          duration_seconds: number | null
+          element_class: string | null
+          element_id: string | null
+          element_tag: string | null
+          element_text: string | null
+          event_data: Json | null
+          event_name: string | null
+          event_type: string
+          id: string
+          page_path: string | null
+          page_title: string | null
+          page_url: string | null
+          product_category: string | null
+          product_id: string | null
+          product_name: string | null
+          scroll_depth: number | null
+          session_id: string
+        }
+        Insert: {
+          created_at?: string
+          duration_seconds?: number | null
+          element_class?: string | null
+          element_id?: string | null
+          element_tag?: string | null
+          element_text?: string | null
+          event_data?: Json | null
+          event_name?: string | null
+          event_type: string
+          id?: string
+          page_path?: string | null
+          page_title?: string | null
+          page_url?: string | null
+          product_category?: string | null
+          product_id?: string | null
+          product_name?: string | null
+          scroll_depth?: number | null
+          session_id: string
+        }
+        Update: {
+          created_at?: string
+          duration_seconds?: number | null
+          element_class?: string | null
+          element_id?: string | null
+          element_tag?: string | null
+          element_text?: string | null
+          event_data?: Json | null
+          event_name?: string | null
+          event_type?: string
+          id?: string
+          page_path?: string | null
+          page_title?: string | null
+          page_url?: string | null
+          product_category?: string | null
+          product_id?: string | null
+          product_name?: string | null
+          scroll_depth?: number | null
+          session_id?: string
+        }
+        Relationships: []
+      }
+      visitor_sessions: {
+        Row: {
+          ai_conversation_id: string | null
+          browser: string | null
+          city: string | null
+          country: string | null
+          created_at: string
+          device_type: string | null
+          exit_page: string | null
+          first_visit_at: string
+          id: string
+          ip_address: string | null
+          last_activity_at: string
+          lead_id: string | null
+          os: string | null
+          pages_visited: string[] | null
+          referrer_domain: string | null
+          referrer_url: string | null
+          region: string | null
+          screen_resolution: string | null
+          search_keywords: string[] | null
+          session_id: string
+          total_duration_seconds: number | null
+          total_events: number | null
+          total_page_views: number | null
+          traffic_source: string | null
+          updated_at: string
+          user_agent: string | null
+          user_id: string | null
+          utm_campaign: string | null
+          utm_medium: string | null
+          utm_source: string | null
+        }
+        Insert: {
+          ai_conversation_id?: string | null
+          browser?: string | null
+          city?: string | null
+          country?: string | null
+          created_at?: string
+          device_type?: string | null
+          exit_page?: string | null
+          first_visit_at?: string
+          id?: string
+          ip_address?: string | null
+          last_activity_at?: string
+          lead_id?: string | null
+          os?: string | null
+          pages_visited?: string[] | null
+          referrer_domain?: string | null
+          referrer_url?: string | null
+          region?: string | null
+          screen_resolution?: string | null
+          search_keywords?: string[] | null
+          session_id: string
+          total_duration_seconds?: number | null
+          total_events?: number | null
+          total_page_views?: number | null
+          traffic_source?: string | null
+          updated_at?: string
+          user_agent?: string | null
+          user_id?: string | null
+          utm_campaign?: string | null
+          utm_medium?: string | null
+          utm_source?: string | null
+        }
+        Update: {
+          ai_conversation_id?: string | null
+          browser?: string | null
+          city?: string | null
+          country?: string | null
+          created_at?: string
+          device_type?: string | null
+          exit_page?: string | null
+          first_visit_at?: string
+          id?: string
+          ip_address?: string | null
+          last_activity_at?: string
+          lead_id?: string | null
+          os?: string | null
+          pages_visited?: string[] | null
+          referrer_domain?: string | null
+          referrer_url?: string | null
+          region?: string | null
+          screen_resolution?: string | null
+          search_keywords?: string[] | null
+          session_id?: string
+          total_duration_seconds?: number | null
+          total_events?: number | null
+          total_page_views?: number | null
+          traffic_source?: string | null
+          updated_at?: string
+          user_agent?: string | null
+          user_id?: string | null
+          utm_campaign?: string | null
+          utm_medium?: string | null
+          utm_source?: string | null
         }
         Relationships: []
       }

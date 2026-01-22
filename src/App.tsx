@@ -101,6 +101,9 @@ import DataImport from "./pages/admin/DataImport";
 import NewsCollection from "./pages/admin/NewsCollection";
 import CustomerLeads from "./pages/admin/CustomerLeads";
 import CustomerServiceChat from "./pages/admin/CustomerServiceChat";
+import CustomerServiceLogin from "./pages/admin/CustomerServiceLogin";
+import VisitorAnalytics from "./pages/admin/VisitorAnalytics";
+import VisitorTracker from "./components/VisitorTracker";
 import NewsDetail from "./pages/NewsDetail";
 import DatabaseProductDetail from "./pages/products/DatabaseProductDetail";
 import DatabaseProductList from "./pages/products/DatabaseProductList";
@@ -129,6 +132,8 @@ const App = () => (
             <Route path="/admin/news-collection" element={<NewsCollection />} />
             <Route path="/admin/customer-leads" element={<CustomerLeads />} />
             <Route path="/admin/customer-service" element={<CustomerServiceChat />} />
+            <Route path="/admin/customer-service/login" element={<CustomerServiceLogin />} />
+            <Route path="/admin/visitor-analytics" element={<VisitorAnalytics />} />
           <Route path="/about" element={<About />} />
           <Route path="/applications" element={<Applications />} />
           <Route path="/applications/power-inspection" element={<PowerInspection />} />
@@ -213,6 +218,8 @@ const App = () => (
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
           </Routes>
+          {/* Global Visitor Tracking */}
+          <VisitorTracker />
           {/* Global AI Assistant - visible on all pages */}
           <AIAssistant />
         </BrowserRouter>
