@@ -246,8 +246,6 @@ export const AIAssistant = () => {
         description: isEn ? "Human agent will reply in this chat" : "人工客服将在此对话中回复您",
       });
 
-      // 开始监听人工客服的回复
-      subscribeToHumanReplies(convId);
     } catch (error) {
       console.error("Transfer error:", error);
       toast({
@@ -256,21 +254,26 @@ export const AIAssistant = () => {
         variant: "destructive",
       });
     }
-  }, [conversationId, ensureConversation, saveMessage, toast, isEn]);
+  }, [ensureConversation, saveMessage, toast, isEn]);
 
-  // 订阅人工客服的回复
-  const subscribeToHumanReplies = useCallback((convId: string) => {
+  // 订阅人工客服的回复 - 当有conversationId时自动订阅
+  useEffect(() => {
+    if (!conversationId) return;
+
+    console.log("Subscribing to human replies for conversation:", conversationId);
+    
     const channel = supabase
-      .channel(`human-replies-${convId}`)
+      .channel(`human-replies-${conversationId}`)
       .on(
         'postgres_changes',
         {
           event: 'INSERT',
           schema: 'public',
           table: 'ai_conversation_messages',
-          filter: `conversation_id=eq.${convId}`,
+          filter: `conversation_id=eq.${conversationId}`,
         },
         (payload) => {
+          console.log("Received message payload:", payload);
           const newMsg = payload.new as any;
           // 只处理客服发来的消息（以[客服]开头）
           if (newMsg.role === 'assistant' && newMsg.content.startsWith('[客服]')) {
@@ -287,13 +290,16 @@ export const AIAssistant = () => {
           }
         }
       )
-      .subscribe();
+      .subscribe((status) => {
+        console.log("Subscription status:", status);
+      });
 
-    // 组件卸载时清理订阅
+    // 组件卸载或conversationId变化时清理订阅
     return () => {
+      console.log("Unsubscribing from human replies");
       supabase.removeChannel(channel);
     };
-  }, []);
+  }, [conversationId]);
 
   // Extract lead info when closing chat
   useEffect(() => {
