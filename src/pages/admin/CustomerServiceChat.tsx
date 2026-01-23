@@ -382,10 +382,10 @@ export default function CustomerServiceChat() {
 
       {/* Main Content - Flexible height */}
       <div className="flex-1 overflow-hidden">
-        <div className="container h-full py-4">
-          <div className="grid grid-cols-1 lg:grid-cols-4 gap-4 h-full">
+        <div className="container h-full py-4 max-w-screen-2xl">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 h-full">
             {/* Conversation List - Show on desktop, or mobile when mobileView is 'list' */}
-            <Card className={`lg:col-span-1 flex flex-col overflow-hidden ${mobileView !== 'list' ? 'hidden lg:flex' : 'flex'}`}>
+            <Card className={`lg:col-span-3 flex flex-col overflow-hidden ${mobileView !== 'list' ? 'hidden lg:flex' : 'flex'}`}>
               <CardHeader className="pb-3 flex-shrink-0">
                 <CardTitle className="text-base flex items-center gap-2">
                   <MessageSquare className="h-4 w-4" />
@@ -449,7 +449,7 @@ export default function CustomerServiceChat() {
             </Card>
 
             {/* Chat Area - Show on desktop, or mobile when mobileView is 'chat' */}
-            <Card className={`lg:col-span-2 flex flex-col overflow-hidden ${mobileView !== 'chat' ? 'hidden lg:flex' : 'flex'}`}>
+            <Card className={`lg:col-span-5 flex flex-col overflow-hidden ${mobileView !== 'chat' ? 'hidden lg:flex' : 'flex'}`}>
               {selectedConversation ? (
                 <>
                   <CardHeader className="pb-3 border-b flex-shrink-0">
@@ -493,15 +493,15 @@ export default function CustomerServiceChat() {
                   </CardHeader>
                   
                   <CardContent className="flex-1 p-0 overflow-hidden min-h-0">
-                    <ScrollArea className="h-full p-4">
-                      <div className="space-y-4">
+                    <ScrollArea className="h-full">
+                      <div className="p-3 space-y-3">
                         {messages.map((message) => (
                           <div
                             key={message.id}
                             className={`flex ${message.role === 'user' ? 'justify-start' : 'justify-end'}`}
                           >
                             <div
-                              className={`max-w-[85%] sm:max-w-[80%] rounded-lg px-4 py-2 ${
+                              className={`max-w-[85%] sm:max-w-[80%] lg:max-w-[72ch] rounded-lg px-4 py-2 ${
                                 message.role === 'user'
                                   ? 'bg-muted'
                                   : message.content.startsWith('[客服]')
@@ -564,7 +564,7 @@ export default function CustomerServiceChat() {
 
             {/* Right Panel - Profile, Quick Replies, Notes */}
             {/* Show on desktop, or mobile when mobileView is 'profile' */}
-            <Card className={`lg:col-span-1 flex flex-col overflow-hidden ${mobileView !== 'profile' ? 'hidden lg:flex' : 'flex'}`}>
+            <Card className={`lg:col-span-4 flex flex-col overflow-hidden ${mobileView !== 'profile' ? 'hidden lg:flex' : 'flex'}`}>
               <CardHeader className="pb-3 border-b flex-shrink-0">
                 <div className="flex items-center justify-between">
                   <CardTitle className="text-base flex items-center gap-2">

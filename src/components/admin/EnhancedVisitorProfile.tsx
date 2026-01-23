@@ -565,22 +565,22 @@ export default function EnhancedVisitorProfile({ sessionId }: EnhancedVisitorPro
                       <span className="font-mono text-xs">{lead.phone}</span>
                     </div>
                   )}
-                  {lead.email && (
-                    <div className="flex items-center justify-between">
+                 {lead.email && (
+                   <div className="flex items-start justify-between gap-3">
                       <span className="text-muted-foreground flex items-center gap-1">
                         <Mail className="h-3 w-3" />
                         邮箱
                       </span>
-                      <span className="text-xs truncate max-w-[150px]">{lead.email}</span>
+                     <span className="text-xs text-right break-words max-w-[60%]">{lead.email}</span>
                     </div>
                   )}
                   {lead.company && (
-                    <div className="flex items-center justify-between">
+                   <div className="flex items-start justify-between gap-3">
                       <span className="text-muted-foreground flex items-center gap-1">
                         <Building className="h-3 w-3" />
                         公司
                       </span>
-                      <span className="text-xs truncate max-w-[120px]">{lead.company}</span>
+                     <span className="text-xs text-right break-words max-w-[60%]">{lead.company}</span>
                     </div>
                   )}
                   {lead.location && (
@@ -612,22 +612,22 @@ export default function EnhancedVisitorProfile({ sessionId }: EnhancedVisitorPro
                     {trafficSourceLabels[session.traffic_source]?.label || session.traffic_source}
                   </Badge>
                 </div>
-                {session.referrer_domain && (
-                  <div className="flex items-center justify-between">
+                 {session.referrer_domain && (
+                   <div className="flex items-start justify-between gap-3">
                     <span className="text-muted-foreground">引荐网站</span>
-                    <span className="text-xs truncate max-w-[150px]">{session.referrer_domain}</span>
+                     <span className="text-xs text-right break-words max-w-[60%]">{session.referrer_domain}</span>
                   </div>
                 )}
                 {session.pages_visited?.[0] && (
-                  <div className="flex items-center justify-between">
+                   <div className="flex items-start justify-between gap-3">
                     <span className="text-muted-foreground">落地页</span>
-                    <span className="text-xs truncate max-w-[150px]">{session.pages_visited[0]}</span>
+                     <span className="text-xs text-right break-words max-w-[60%]">{session.pages_visited[0]}</span>
                   </div>
                 )}
                 {session.exit_page && (
-                  <div className="flex items-center justify-between">
+                   <div className="flex items-start justify-between gap-3">
                     <span className="text-muted-foreground">出站页</span>
-                    <span className="text-xs truncate max-w-[150px]">{session.exit_page}</span>
+                     <span className="text-xs text-right break-words max-w-[60%]">{session.exit_page}</span>
                   </div>
                 )}
                 
@@ -734,9 +734,9 @@ export default function EnhancedVisitorProfile({ sessionId }: EnhancedVisitorPro
                   <div>
                     <span className="text-xs text-muted-foreground block mb-1">高频浏览页面</span>
                     <div className="space-y-1">
-                      {topPages.map(([page, count], i) => (
-                        <div key={i} className="flex items-center justify-between text-xs">
-                          <span className="truncate max-w-[180px]">{page}</span>
+                       {topPages.map(([page, count], i) => (
+                         <div key={i} className="flex items-start justify-between gap-2 text-xs">
+                           <span className="flex-1 min-w-0 break-words">{page}</span>
                           <Badge variant="outline" className="text-[10px] ml-1">{count}次</Badge>
                         </div>
                       ))}
@@ -764,10 +764,10 @@ export default function EnhancedVisitorProfile({ sessionId }: EnhancedVisitorPro
                   <div>
                     <span className="text-xs text-muted-foreground block mb-1">查看产品</span>
                     <div className="space-y-1">
-                      {viewedProducts.map((product, i) => (
-                        <div key={i} className="text-xs flex items-center gap-1">
+                       {viewedProducts.map((product, i) => (
+                         <div key={i} className="text-xs flex items-start gap-1">
                           <Package className="h-3 w-3 text-muted-foreground" />
-                          <span className="truncate">{product}</span>
+                           <span className="break-words">{product}</span>
                         </div>
                       ))}
                     </div>
@@ -977,9 +977,9 @@ export default function EnhancedVisitorProfile({ sessionId }: EnhancedVisitorPro
                     </div>
                   )}
                   {lead.requirements && (
-                    <div className="pt-2 border-t">
+                     <div className="pt-2 border-t">
                       <span className="text-muted-foreground text-xs block mb-1">需求描述</span>
-                      <p className="text-foreground text-xs">{lead.requirements}</p>
+                       <p className="text-foreground text-xs whitespace-pre-wrap break-words">{lead.requirements}</p>
                     </div>
                   )}
                 </CardContent>
