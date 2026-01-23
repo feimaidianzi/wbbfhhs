@@ -1,4 +1,4 @@
-import { useState, useCallback, useEffect } from "react";
+import { useState, useCallback, useEffect, useRef } from "react";
 import { SiriButton } from "./SiriButton";
 import { ChatWindow } from "./ChatWindow";
 import { supabase } from "@/integrations/supabase/client";
@@ -12,6 +12,17 @@ interface Message {
   timestamp: Date;
 }
 
+// 获取或创建持久化的会话ID (基于浏览器指纹)
+const getOrCreateVisitorId = (): string => {
+  const key = 'cani_visitor_id';
+  let visitorId = localStorage.getItem(key);
+  if (!visitorId) {
+    visitorId = `visitor_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
+    localStorage.setItem(key, visitorId);
+  }
+  return visitorId;
+};
+
 export const AIAssistant = () => {
   const { language } = useLanguage();
   const isEn = language === "en";
@@ -22,18 +33,55 @@ export const AIAssistant = () => {
   const [messages, setMessages] = useState<Message[]>([]);
   const [conversationId, setConversationId] = useState<string | null>(null);
   const [isHumanMode, setIsHumanMode] = useState(false);
-  const [sessionId] = useState(() => crypto.randomUUID());
+  const [visitorId] = useState(getOrCreateVisitorId);
+  const lastMessageTimeRef = useRef<number>(Date.now());
+  const timeoutCheckRef = useRef<NodeJS.Timeout | null>(null);
 
-  // Create or get conversation
+  // 加载或创建会话 - 基于持久化的visitorId
   const ensureConversation = useCallback(async () => {
     if (conversationId) return conversationId;
 
     try {
+      // 先查找该访客是否有未结束的会话
+      const { data: existingConv } = await supabase
+        .from("ai_conversations")
+        .select("id, is_transferred_to_human")
+        .eq("session_id", visitorId)
+        .neq("status", "resolved")
+        .order("created_at", { ascending: false })
+        .limit(1)
+        .single();
+
+      if (existingConv) {
+        setConversationId(existingConv.id);
+        setIsHumanMode(!!existingConv.is_transferred_to_human);
+        
+        // 加载历史消息
+        const { data: historyMessages } = await supabase
+          .from("ai_conversation_messages")
+          .select("*")
+          .eq("conversation_id", existingConv.id)
+          .order("created_at", { ascending: true });
+        
+        if (historyMessages && historyMessages.length > 0) {
+          setMessages(historyMessages.map(m => ({
+            id: m.id,
+            role: m.role as "user" | "assistant" | "system",
+            content: m.content,
+            timestamp: new Date(m.created_at),
+          })));
+        }
+        
+        return existingConv.id;
+      }
+
+      // 创建新会话
       const { data, error } = await supabase
         .from("ai_conversations")
         .insert({
-          session_id: sessionId,
+          session_id: visitorId,
           visitor_device: navigator.userAgent,
+          is_visitor_online: true,
         })
         .select("id")
         .single();
@@ -42,12 +90,19 @@ export const AIAssistant = () => {
       setConversationId(data.id);
       return data.id;
     } catch (error) {
-      console.error("Failed to create conversation:", error);
+      console.error("Failed to create/load conversation:", error);
       return null;
     }
-  }, [conversationId, sessionId]);
+  }, [conversationId, visitorId]);
 
-  // When we have a conversationId, keep local "human mode" in sync with backend status
+  // 首次打开时加载会话
+  useEffect(() => {
+    if (isOpen && !conversationId) {
+      ensureConversation();
+    }
+  }, [isOpen, conversationId, ensureConversation]);
+
+  // 同步人工模式状态
   useEffect(() => {
     if (!conversationId) return;
 
@@ -57,7 +112,7 @@ export const AIAssistant = () => {
       try {
         const { data, error } = await supabase
           .from("ai_conversations")
-          .select("is_transferred_to_human")
+          .select("is_transferred_to_human, status")
           .eq("id", conversationId)
           .single();
 
@@ -87,6 +142,10 @@ export const AIAssistant = () => {
           if (typeof next?.is_transferred_to_human === "boolean") {
             setIsHumanMode(next.is_transferred_to_human);
           }
+          // 如果会话被关闭，重置状态
+          if (next?.status === 'resolved') {
+            setIsHumanMode(false);
+          }
         }
       )
       .subscribe();
@@ -97,6 +156,56 @@ export const AIAssistant = () => {
     };
   }, [conversationId]);
 
+  // 超时检测 - 访客3分钟未回复则自动关闭人工模式
+  useEffect(() => {
+    if (!isHumanMode || !conversationId) {
+      if (timeoutCheckRef.current) {
+        clearInterval(timeoutCheckRef.current);
+        timeoutCheckRef.current = null;
+      }
+      return;
+    }
+
+    timeoutCheckRef.current = setInterval(async () => {
+      const elapsed = Date.now() - lastMessageTimeRef.current;
+      const timeoutMs = 3 * 60 * 1000; // 3分钟
+
+      if (elapsed >= timeoutMs) {
+        // 自动关闭人工模式
+        await supabase
+          .from("ai_conversations")
+          .update({
+            is_transferred_to_human: false,
+            auto_closed_at: new Date().toISOString(),
+          })
+          .eq("id", conversationId);
+
+        setIsHumanMode(false);
+        
+        const timeoutMsg: Message = {
+          id: crypto.randomUUID(),
+          role: "system",
+          content: isEn 
+            ? "Human chat ended due to inactivity. AI assistant is back to help you."
+            : "由于长时间未回复，人工服务已结束。AI助手继续为您服务。",
+          timestamp: new Date(),
+        };
+        setMessages(prev => [...prev, timeoutMsg]);
+        
+        toast({
+          title: isEn ? "Session Ended" : "会话结束",
+          description: isEn ? "Human chat ended due to inactivity" : "因超时未回复，人工服务已结束",
+        });
+      }
+    }, 30000); // 每30秒检查一次
+
+    return () => {
+      if (timeoutCheckRef.current) {
+        clearInterval(timeoutCheckRef.current);
+      }
+    };
+  }, [isHumanMode, conversationId, isEn, toast]);
+
   // Save message to database
   const saveMessage = useCallback(async (convId: string, role: string, content: string) => {
     try {
@@ -105,6 +214,15 @@ export const AIAssistant = () => {
         role,
         content,
       });
+      
+      // 更新最后访客消息时间
+      if (role === 'user') {
+        lastMessageTimeRef.current = Date.now();
+        await supabase
+          .from("ai_conversations")
+          .update({ last_visitor_message_at: new Date().toISOString() })
+          .eq("id", convId);
+      }
     } catch (error) {
       console.error("Failed to save message:", error);
     }
@@ -147,6 +265,9 @@ export const AIAssistant = () => {
     setMessages(prev => [...prev, userMessage]);
     await saveMessage(convId, "user", content);
 
+    // 更新最后活动时间
+    lastMessageTimeRef.current = Date.now();
+
     // If already transferred to human, do NOT call AI anymore.
     if (isHumanMode) {
       toast({
@@ -174,7 +295,7 @@ export const AIAssistant = () => {
               content: m.content,
             })),
             conversationId: convId,
-            sessionId,
+            sessionId: visitorId,
           }),
         }
       );
@@ -264,11 +385,10 @@ export const AIAssistant = () => {
       setIsLoading(false);
       setIsSpeaking(false);
     }
-  }, [messages, ensureConversation, saveMessage, extractLeadInfo, sessionId, toast, isEn, isHumanMode]);
+  }, [messages, ensureConversation, saveMessage, extractLeadInfo, visitorId, toast, isEn, isHumanMode]);
 
   // Handle transfer to human
   const handleTransferToHuman = useCallback(async () => {
-    // 确保有会话
     const convId = await ensureConversation();
     if (!convId) {
       toast({
@@ -289,7 +409,6 @@ export const AIAssistant = () => {
 
       if (response.error) throw response.error;
 
-      // Add system message
       const systemMessage: Message = {
         id: crypto.randomUUID(),
         role: "system",
@@ -306,8 +425,8 @@ export const AIAssistant = () => {
         description: isEn ? "Human agent will reply in this chat" : "人工客服将在此对话中回复您",
       });
 
-      // Immediately switch to human mode on the client.
       setIsHumanMode(true);
+      lastMessageTimeRef.current = Date.now();
 
     } catch (error) {
       console.error("Transfer error:", error);
@@ -319,11 +438,78 @@ export const AIAssistant = () => {
     }
   }, [ensureConversation, saveMessage, toast, isEn]);
 
-  // 订阅人工客服的回复 - 当有conversationId时自动订阅
+  // Handle closing human mode
+  const handleCloseHumanMode = useCallback(async () => {
+    if (!conversationId) return;
+
+    try {
+      await supabase
+        .from("ai_conversations")
+        .update({ is_transferred_to_human: false })
+        .eq("id", conversationId);
+
+      setIsHumanMode(false);
+
+      const systemMessage: Message = {
+        id: crypto.randomUUID(),
+        role: "system",
+        content: isEn 
+          ? "Human chat ended. AI assistant is back to help you."
+          : "已结束人工服务，AI助手继续为您服务。",
+        timestamp: new Date(),
+      };
+      setMessages(prev => [...prev, systemMessage]);
+      await saveMessage(conversationId, "system", systemMessage.content);
+
+      toast({
+        title: isEn ? "Ended" : "已结束",
+        description: isEn ? "AI assistant is back" : "AI助手继续为您服务",
+      });
+    } catch (error) {
+      console.error("Error closing human mode:", error);
+    }
+  }, [conversationId, saveMessage, toast, isEn]);
+
+  // Handle complaint
+  const handleComplaint = useCallback(async (content: string) => {
+    if (!conversationId) return;
+
+    try {
+      await supabase.from("complaints").insert({
+        conversation_id: conversationId,
+        session_id: visitorId,
+        content,
+      });
+
+      const systemMessage: Message = {
+        id: crypto.randomUUID(),
+        role: "system",
+        content: isEn 
+          ? "Your complaint has been submitted. Our complaint specialist will handle it shortly."
+          : "您的投诉已提交，我们的投诉专员将尽快处理。",
+        timestamp: new Date(),
+      };
+      setMessages(prev => [...prev, systemMessage]);
+      await saveMessage(conversationId, "system", systemMessage.content);
+
+      toast({
+        title: isEn ? "Submitted" : "已提交",
+        description: isEn ? "Complaint specialist will handle your issue" : "投诉专员将处理您的问题",
+      });
+    } catch (error) {
+      console.error("Error submitting complaint:", error);
+      toast({
+        title: isEn ? "Failed" : "提交失败",
+        description: isEn ? "Please try again" : "请重试",
+        variant: "destructive",
+      });
+    }
+  }, [conversationId, visitorId, saveMessage, toast, isEn]);
+
+  // 订阅人工客服的回复
   useEffect(() => {
     if (!conversationId) return;
 
-    
     const channel = supabase
       .channel(`human-replies-${conversationId}`)
       .on(
@@ -336,10 +522,9 @@ export const AIAssistant = () => {
         },
         (payload) => {
           const newMsg = payload.new as any;
-          // 只处理客服发来的消息（以[客服]开头）
+          // 只处理客服发来的消息
           if (newMsg.role === 'assistant' && newMsg.content.startsWith('[客服]')) {
             setMessages(prev => {
-              // 检查消息是否已存在
               if (prev.some(m => m.id === newMsg.id)) return prev;
               return [...prev, {
                 id: newMsg.id,
@@ -353,7 +538,6 @@ export const AIAssistant = () => {
       )
       .subscribe();
 
-    // 组件卸载或conversationId变化时清理订阅
     return () => {
       supabase.removeChannel(channel);
     };
@@ -376,7 +560,10 @@ export const AIAssistant = () => {
         messages={messages}
         onSendMessage={handleSendMessage}
         onTransferToHuman={handleTransferToHuman}
+        onCloseHumanMode={handleCloseHumanMode}
+        onComplaint={handleComplaint}
         isLoading={isLoading}
+        isHumanMode={isHumanMode}
       />
       
       <div className="fixed bottom-4 right-4 z-50">

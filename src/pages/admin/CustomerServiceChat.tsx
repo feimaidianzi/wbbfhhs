@@ -6,9 +6,11 @@ import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { ScrollArea } from "@/components/ui/scroll-area";
-// Tabs component removed - was unused
+import { Separator } from "@/components/ui/separator";
 import { useToast } from "@/hooks/use-toast";
-import VisitorProfile from "@/components/admin/VisitorProfile";
+import EnhancedVisitorProfile from "@/components/admin/EnhancedVisitorProfile";
+import QuickReplies from "@/components/admin/QuickReplies";
+import ConversationNotes from "@/components/admin/ConversationNotes";
 import { 
   ArrowLeft, 
   Send, 
@@ -18,7 +20,8 @@ import {
   CheckCheck,
   Volume2,
   VolumeX,
-  UserCircle
+  UserCircle,
+  Settings
 } from "lucide-react";
 
 interface Conversation {
@@ -102,7 +105,7 @@ export default function CustomerServiceChat() {
     checkAuth();
   }, [navigate, toast]);
 
-  // Load transferred conversations
+  // Load transferred conversations - 按session_id分组，只显示每个访客最新的会话
   useEffect(() => {
     const loadConversations = async () => {
       setLoading(true);
@@ -120,7 +123,14 @@ export default function CustomerServiceChat() {
           description: "无法加载会话列表"
         });
       } else {
-        setConversations(data || []);
+        // 按session_id去重，只保留每个访客最新的会话
+        const uniqueBySession = new Map<string, Conversation>();
+        (data || []).forEach(conv => {
+          if (!uniqueBySession.has(conv.session_id)) {
+            uniqueBySession.set(conv.session_id, conv);
+          }
+        });
+        setConversations(Array.from(uniqueBySession.values()));
       }
       setLoading(false);
     };
@@ -514,18 +524,38 @@ export default function CustomerServiceChat() {
             )}
           </Card>
 
-          {/* Visitor Profile Panel */}
+          {/* Right Panel - Profile, Quick Replies, Notes */}
           <Card className="hidden lg:flex lg:col-span-1 flex-col">
             <CardHeader className="pb-3 border-b">
               <CardTitle className="text-base flex items-center gap-2">
                 <UserCircle className="h-4 w-4" />
-                访客画像
+                访客画像 & 工具
               </CardTitle>
             </CardHeader>
             <CardContent className="flex-1 p-0 overflow-hidden">
-              <ScrollArea className="h-[calc(100vh-200px)] p-4">
+              <ScrollArea className="h-[calc(100vh-200px)]">
                 {selectedConversation ? (
-                  <VisitorProfile sessionId={selectedConversation.session_id} />
+                  <div className="space-y-4">
+                    {/* Enhanced Visitor Profile */}
+                    <EnhancedVisitorProfile sessionId={selectedConversation.session_id} />
+                    
+                    <Separator />
+                    
+                    {/* Quick Replies */}
+                    <div className="px-4">
+                      <QuickReplies 
+                        onSelect={(content) => setNewMessage(content)} 
+                        isManageMode={false}
+                      />
+                    </div>
+                    
+                    <Separator />
+                    
+                    {/* Conversation Notes */}
+                    <div className="px-4 pb-4">
+                      <ConversationNotes conversationId={selectedConversation.id} />
+                    </div>
+                  </div>
                 ) : (
                   <div className="text-center text-muted-foreground py-8">
                     <User className="h-8 w-8 mx-auto mb-2 opacity-50" />
