@@ -525,15 +525,15 @@ export default function CustomerServiceChat() {
           </Card>
 
           {/* Right Panel - Profile, Quick Replies, Notes */}
-          <Card className="hidden lg:flex lg:col-span-1 flex-col">
-            <CardHeader className="pb-3 border-b">
+          <Card className="hidden lg:flex lg:col-span-1 flex-col overflow-hidden">
+            <CardHeader className="pb-3 border-b flex-shrink-0">
               <CardTitle className="text-base flex items-center gap-2">
                 <UserCircle className="h-4 w-4" />
                 访客画像 & 工具
               </CardTitle>
             </CardHeader>
-            <CardContent className="flex-1 p-0 overflow-hidden">
-              <ScrollArea className="h-[calc(100vh-200px)]">
+            <CardContent className="flex-1 p-0 overflow-hidden min-h-0">
+              <ScrollArea className="h-full">
                 {selectedConversation ? (
                   <div className="space-y-4">
                     {/* Enhanced Visitor Profile */}
