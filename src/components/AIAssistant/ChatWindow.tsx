@@ -1,10 +1,18 @@
-import { useState, useRef, useEffect } from "react";
-import { X, Send, User, Bot, Phone, Loader2, Sparkles } from "lucide-react";
+import { useState, useRef, useEffect, useCallback } from "react";
+import { X, Send, User, Bot, Phone, Loader2, Sparkles, PhoneOff, AlertTriangle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { cn } from "@/lib/utils";
 import { useLanguage } from "@/contexts/LanguageContext";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogFooter,
+} from "@/components/ui/dialog";
+import { Textarea } from "@/components/ui/textarea";
 
 interface Message {
   id: string;
@@ -20,7 +28,10 @@ interface ChatWindowProps {
   messages: Message[];
   onSendMessage: (message: string) => void;
   onTransferToHuman: () => void;
+  onCloseHumanMode?: () => void;
+  onComplaint?: (content: string) => void;
   isLoading: boolean;
+  isHumanMode?: boolean;
 }
 
 // Clean up AI response content - remove markdown artifacts and weird symbols
@@ -70,12 +81,17 @@ export const ChatWindow = ({
   messages,
   onSendMessage,
   onTransferToHuman,
+  onCloseHumanMode,
+  onComplaint,
   isLoading,
+  isHumanMode = false,
 }: ChatWindowProps) => {
   const { language } = useLanguage();
   const isEn = language === "en";
   const [input, setInput] = useState("");
   const [expandedThinking, setExpandedThinking] = useState<Set<string>>(new Set());
+  const [complaintDialogOpen, setComplaintDialogOpen] = useState(false);
+  const [complaintContent, setComplaintContent] = useState("");
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
 
@@ -109,6 +125,13 @@ export const ChatWindow = ({
     });
   };
 
+  const handleSubmitComplaint = () => {
+    if (!complaintContent.trim()) return;
+    onComplaint?.(complaintContent.trim());
+    setComplaintContent("");
+    setComplaintDialogOpen(false);
+  };
+
   if (!isOpen) return null;
 
   return (
@@ -125,7 +148,9 @@ export const ChatWindow = ({
             </div>
             <div>
               <h3 className="text-white font-semibold text-sm">
-                {isEn ? "Ling · AI Assistant" : "小凌 · AI助手"}
+                {isHumanMode 
+                  ? (isEn ? "Human Agent" : "人工客服") 
+                  : (isEn ? "Ling · AI Assistant" : "小凌 · AI助手")}
               </h3>
               <p className="text-white/70 text-xs flex items-center gap-1">
                 {isLoading ? (
@@ -133,6 +158,8 @@ export const ChatWindow = ({
                     <Sparkles className="w-3 h-3 animate-pulse" />
                     {isEn ? "Thinking..." : "思考中..."}
                   </>
+                ) : isHumanMode ? (
+                  isEn ? "Connected • Human support" : "已连接 · 人工服务"
                 ) : (
                   isEn ? "Online • Reply instantly" : "在线 · 秒回复"
                 )}
@@ -168,6 +195,7 @@ export const ChatWindow = ({
                 ? extractThinking(message.content)
                 : { thinking: null, response: message.content };
               const isThinkingExpanded = expandedThinking.has(message.id);
+              const isHumanAgentMessage = message.content.startsWith('[客服]');
 
               return (
                 <div
@@ -178,13 +206,20 @@ export const ChatWindow = ({
                   )}
                 >
                   {message.role !== "user" && (
-                    <div className="w-8 h-8 rounded-full bg-primary/10 flex-shrink-0 flex items-center justify-center">
-                      <Bot className="w-4 h-4 text-primary" />
+                    <div className={cn(
+                      "w-8 h-8 rounded-full flex-shrink-0 flex items-center justify-center",
+                      isHumanAgentMessage ? "bg-green-100 dark:bg-green-900/30" : "bg-primary/10"
+                    )}>
+                      {isHumanAgentMessage ? (
+                        <User className="w-4 h-4 text-green-600 dark:text-green-400" />
+                      ) : (
+                        <Bot className="w-4 h-4 text-primary" />
+                      )}
                     </div>
                   )}
                   <div className="max-w-[75%] space-y-1">
                     {/* Thinking indicator for assistant */}
-                    {thinking && message.role === 'assistant' && (
+                    {thinking && message.role === 'assistant' && !isHumanAgentMessage && (
                       <button
                         onClick={() => toggleThinking(message.id)}
                         className="flex items-center gap-1 text-xs text-muted-foreground hover:text-foreground transition-colors mb-1"
@@ -214,10 +249,19 @@ export const ChatWindow = ({
                           ? "bg-primary text-primary-foreground rounded-br-md"
                           : message.role === "system"
                           ? "bg-accent/20 text-foreground rounded-bl-md border border-accent/30"
+                          : isHumanAgentMessage
+                          ? "bg-green-100 dark:bg-green-900/30 text-foreground rounded-bl-md"
                           : "bg-muted text-foreground rounded-bl-md"
                       )}
                     >
-                      <p className="whitespace-pre-wrap">{response}</p>
+                      {isHumanAgentMessage && (
+                        <div className="text-xs text-green-600 dark:text-green-400 mb-1 font-medium">
+                          {isEn ? "Human Agent" : "人工客服"}
+                        </div>
+                      )}
+                      <p className="whitespace-pre-wrap">
+                        {isHumanAgentMessage ? response.replace('[客服] ', '') : response}
+                      </p>
                     </div>
                   </div>
                   {message.role === "user" && (
@@ -254,15 +298,38 @@ export const ChatWindow = ({
           </div>
         </ScrollArea>
 
-        {/* Transfer to human button */}
-        <div className="px-4 py-2 border-t border-border/50">
-          <button
-            onClick={onTransferToHuman}
-            className="w-full text-center text-xs text-muted-foreground hover:text-primary transition-colors flex items-center justify-center gap-1"
-          >
-            <Phone className="w-3 h-3" />
-            {isEn ? "Connect to human agent" : "转接人工客服"}
-          </button>
+        {/* Action buttons */}
+        <div className="px-4 py-2 border-t border-border/50 flex items-center justify-center gap-4">
+          {isHumanMode ? (
+            <>
+              {onCloseHumanMode && (
+                <button
+                  onClick={onCloseHumanMode}
+                  className="text-xs text-muted-foreground hover:text-destructive transition-colors flex items-center gap-1"
+                >
+                  <PhoneOff className="w-3 h-3" />
+                  {isEn ? "End human chat" : "结束人工服务"}
+                </button>
+              )}
+              {onComplaint && (
+                <button
+                  onClick={() => setComplaintDialogOpen(true)}
+                  className="text-xs text-muted-foreground hover:text-orange-500 transition-colors flex items-center gap-1"
+                >
+                  <AlertTriangle className="w-3 h-3" />
+                  {isEn ? "Complaint" : "投诉"}
+                </button>
+              )}
+            </>
+          ) : (
+            <button
+              onClick={onTransferToHuman}
+              className="text-xs text-muted-foreground hover:text-primary transition-colors flex items-center gap-1"
+            >
+              <Phone className="w-3 h-3" />
+              {isEn ? "Connect to human agent" : "转接人工客服"}
+            </button>
+          )}
         </div>
 
         {/* Input */}
@@ -291,6 +358,36 @@ export const ChatWindow = ({
           </div>
         </form>
       </div>
+
+      {/* Complaint Dialog */}
+      <Dialog open={complaintDialogOpen} onOpenChange={setComplaintDialogOpen}>
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle>{isEn ? "Submit Complaint" : "提交投诉"}</DialogTitle>
+          </DialogHeader>
+          <div className="space-y-4">
+            <p className="text-sm text-muted-foreground">
+              {isEn 
+                ? "Please describe your issue. Our complaint specialist will handle it for you."
+                : "请描述您遇到的问题，我们的投诉专员将为您处理。"}
+            </p>
+            <Textarea
+              value={complaintContent}
+              onChange={(e) => setComplaintContent(e.target.value)}
+              placeholder={isEn ? "Describe your complaint..." : "请详细描述您的投诉内容..."}
+              rows={4}
+            />
+          </div>
+          <DialogFooter>
+            <Button variant="outline" onClick={() => setComplaintDialogOpen(false)}>
+              {isEn ? "Cancel" : "取消"}
+            </Button>
+            <Button onClick={handleSubmitComplaint} disabled={!complaintContent.trim()}>
+              {isEn ? "Submit" : "提交投诉"}
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 };

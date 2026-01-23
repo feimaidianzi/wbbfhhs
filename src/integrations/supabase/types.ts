@@ -123,11 +123,14 @@ export type Database = {
       }
       ai_conversations: {
         Row: {
+          auto_closed_at: string | null
           created_at: string
           ended_at: string | null
           human_agent_id: string | null
           id: string
           is_transferred_to_human: boolean | null
+          is_visitor_online: boolean | null
+          last_visitor_message_at: string | null
           session_id: string
           started_at: string
           status: string | null
@@ -137,11 +140,14 @@ export type Database = {
           visitor_location: string | null
         }
         Insert: {
+          auto_closed_at?: string | null
           created_at?: string
           ended_at?: string | null
           human_agent_id?: string | null
           id?: string
           is_transferred_to_human?: boolean | null
+          is_visitor_online?: boolean | null
+          last_visitor_message_at?: string | null
           session_id: string
           started_at?: string
           status?: string | null
@@ -151,11 +157,14 @@ export type Database = {
           visitor_location?: string | null
         }
         Update: {
+          auto_closed_at?: string | null
           created_at?: string
           ended_at?: string | null
           human_agent_id?: string | null
           id?: string
           is_transferred_to_human?: boolean | null
+          is_visitor_online?: boolean | null
+          last_visitor_message_at?: string | null
           session_id?: string
           started_at?: string
           status?: string | null
@@ -163,6 +172,66 @@ export type Database = {
           visitor_device?: string | null
           visitor_ip?: string | null
           visitor_location?: string | null
+        }
+        Relationships: []
+      }
+      complaints: {
+        Row: {
+          content: string
+          conversation_id: string | null
+          created_at: string
+          handler_id: string | null
+          id: string
+          resolution: string | null
+          resolved_at: string | null
+          session_id: string
+          status: string | null
+        }
+        Insert: {
+          content: string
+          conversation_id?: string | null
+          created_at?: string
+          handler_id?: string | null
+          id?: string
+          resolution?: string | null
+          resolved_at?: string | null
+          session_id: string
+          status?: string | null
+        }
+        Update: {
+          content?: string
+          conversation_id?: string | null
+          created_at?: string
+          handler_id?: string | null
+          id?: string
+          resolution?: string | null
+          resolved_at?: string | null
+          session_id?: string
+          status?: string | null
+        }
+        Relationships: []
+      }
+      conversation_notes: {
+        Row: {
+          agent_id: string | null
+          content: string
+          conversation_id: string
+          created_at: string
+          id: string
+        }
+        Insert: {
+          agent_id?: string | null
+          content: string
+          conversation_id: string
+          created_at?: string
+          id?: string
+        }
+        Update: {
+          agent_id?: string | null
+          content?: string
+          conversation_id?: string
+          created_at?: string
+          id?: string
         }
         Relationships: []
       }
@@ -545,6 +614,39 @@ export type Database = {
           sort_order?: number | null
           specifications?: Json | null
           subcategory?: string | null
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      quick_replies: {
+        Row: {
+          category: string | null
+          content: string
+          created_at: string
+          id: string
+          is_active: boolean | null
+          sort_order: number | null
+          title: string
+          updated_at: string
+        }
+        Insert: {
+          category?: string | null
+          content: string
+          created_at?: string
+          id?: string
+          is_active?: boolean | null
+          sort_order?: number | null
+          title: string
+          updated_at?: string
+        }
+        Update: {
+          category?: string | null
+          content?: string
+          created_at?: string
+          id?: string
+          is_active?: boolean | null
+          sort_order?: number | null
+          title?: string
           updated_at?: string
         }
         Relationships: []
