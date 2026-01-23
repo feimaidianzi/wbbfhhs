@@ -408,14 +408,13 @@ export default function EnhancedVisitorProfile({ sessionId }: EnhancedVisitorPro
   const bounceRate = session.total_page_views <= 1 ? 100 : 0;
 
   return (
-    <ScrollArea className="h-full">
-      <div className="space-y-4 p-4">
-        <Tabs defaultValue="basic" className="w-full">
-          <TabsList className="grid w-full grid-cols-3 text-xs">
-            <TabsTrigger value="basic">基础画像</TabsTrigger>
-            <TabsTrigger value="behavior">行为轨迹</TabsTrigger>
-            <TabsTrigger value="history">历史记录</TabsTrigger>
-          </TabsList>
+    <div className="space-y-4 p-4">
+      <Tabs defaultValue="basic" className="w-full">
+        <TabsList className="grid w-full grid-cols-3 text-xs sticky top-0 z-10 bg-background">
+          <TabsTrigger value="basic" className="text-xs px-2">基础画像</TabsTrigger>
+          <TabsTrigger value="behavior" className="text-xs px-2">行为轨迹</TabsTrigger>
+          <TabsTrigger value="history" className="text-xs px-2">历史记录</TabsTrigger>
+        </TabsList>
 
           {/* 基础画像标签页 */}
           <TabsContent value="basic" className="space-y-4 mt-4">
@@ -1005,6 +1004,5 @@ export default function EnhancedVisitorProfile({ sessionId }: EnhancedVisitorPro
           </TabsContent>
         </Tabs>
       </div>
-    </ScrollArea>
   );
 }

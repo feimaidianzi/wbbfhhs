@@ -329,16 +329,45 @@ export default function CustomerServiceChat() {
     return date.toLocaleDateString('zh-CN', { month: 'short', day: 'numeric' });
   };
 
+  // Mobile view state
+  const [mobileView, setMobileView] = useState<'list' | 'chat' | 'profile'>('list');
+
+  // Auto switch to chat when conversation selected on mobile
+  useEffect(() => {
+    if (selectedConversation && window.innerWidth < 1024) {
+      setMobileView('chat');
+    }
+  }, [selectedConversation]);
+
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-background flex flex-col">
       {/* Header */}
-      <header className="sticky top-0 z-50 border-b bg-background/95 backdrop-blur">
+      <header className="sticky top-0 z-50 border-b bg-background/95 backdrop-blur flex-shrink-0">
         <div className="container flex h-14 items-center gap-4">
-          <Button variant="ghost" size="icon" onClick={() => navigate('/admin')}>
+          <Button variant="ghost" size="icon" onClick={() => {
+            if (mobileView !== 'list' && window.innerWidth < 1024) {
+              setMobileView('list');
+              setSelectedConversation(null);
+            } else {
+              navigate('/admin');
+            }
+          }}>
             <ArrowLeft className="h-5 w-5" />
           </Button>
           <h1 className="text-lg font-semibold">客服工作台</h1>
           <div className="ml-auto flex items-center gap-2">
+            {/* Mobile view switcher */}
+            <div className="flex lg:hidden">
+              {selectedConversation && (
+                <Button
+                  variant={mobileView === 'profile' ? 'default' : 'ghost'}
+                  size="icon"
+                  onClick={() => setMobileView(mobileView === 'profile' ? 'chat' : 'profile')}
+                >
+                  <UserCircle className="h-5 w-5" />
+                </Button>
+              )}
+            </div>
             <Button
               variant="ghost"
               size="icon"
@@ -351,220 +380,247 @@ export default function CustomerServiceChat() {
         </div>
       </header>
 
-      <div className="container py-6">
-        <div className="grid grid-cols-1 lg:grid-cols-4 gap-6 h-[calc(100vh-120px)]">
-          {/* Conversation List */}
-          <Card className="lg:col-span-1">
-            <CardHeader className="pb-3">
-              <CardTitle className="text-base flex items-center gap-2">
-                <MessageSquare className="h-4 w-4" />
-                待处理会话
-                <Badge variant="secondary" className="ml-auto">
-                  {conversations.filter(c => c.status !== 'resolved').length}
-                </Badge>
-              </CardTitle>
-            </CardHeader>
-            <CardContent className="p-0">
-              <ScrollArea className="h-[calc(100vh-240px)]">
-                {loading ? (
-                  <div className="p-4 text-center text-muted-foreground">
-                    加载中...
-                  </div>
-                ) : conversations.length === 0 ? (
-                  <div className="p-4 text-center text-muted-foreground">
-                    暂无待处理会话
-                  </div>
-                ) : (
-                  <div className="space-y-1 p-2">
-                    {conversations.map((conversation) => (
-                      <button
-                        key={conversation.id}
-                        onClick={() => setSelectedConversation(conversation)}
-                        className={`w-full p-3 rounded-lg text-left transition-colors ${
-                          selectedConversation?.id === conversation.id
-                            ? 'bg-accent'
-                            : 'hover:bg-muted'
-                        }`}
-                      >
-                        <div className="flex items-center gap-3">
-                          <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center">
-                            <User className="h-5 w-5 text-primary" />
-                          </div>
-                          <div className="flex-1 min-w-0">
-                            <div className="flex items-center justify-between">
-                              <span className="font-medium text-sm truncate">
-                                访客 {conversation.session_id.substring(0, 8)}
-                              </span>
-                              <span className="text-xs text-muted-foreground">
-                                {formatDate(conversation.transferred_at || conversation.created_at)}
-                              </span>
-                            </div>
-                            <div className="flex items-center gap-2 mt-1">
-                              <Badge 
-                                variant={conversation.status === 'resolved' ? 'secondary' : 'default'}
-                                className="text-xs"
-                              >
-                                {conversation.status === 'resolved' ? '已解决' : '待处理'}
-                              </Badge>
-                              {conversation.visitor_device && (
-                                <span className="text-xs text-muted-foreground truncate">
-                                  {conversation.visitor_device}
-                                </span>
-                              )}
-                            </div>
-                          </div>
-                        </div>
-                      </button>
-                    ))}
-                  </div>
-                )}
-              </ScrollArea>
-            </CardContent>
-          </Card>
-
-          {/* Chat Area */}
-          <Card className="lg:col-span-2 flex flex-col">
-            {selectedConversation ? (
-              <>
-                <CardHeader className="pb-3 border-b">
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center gap-3">
-                      <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center">
-                        <User className="h-5 w-5 text-primary" />
-                      </div>
-                      <div>
-                        <CardTitle className="text-base">
-                          访客 {selectedConversation.session_id.substring(0, 8)}
-                        </CardTitle>
-                        <div className="flex items-center gap-2 text-xs text-muted-foreground">
-                          <Clock className="h-3 w-3" />
-                          转接时间: {formatTime(selectedConversation.transferred_at || selectedConversation.created_at)}
-                        </div>
-                      </div>
+      {/* Main Content - Flexible height */}
+      <div className="flex-1 overflow-hidden">
+        <div className="container h-full py-4">
+          <div className="grid grid-cols-1 lg:grid-cols-4 gap-4 h-full">
+            {/* Conversation List - Show on desktop, or mobile when mobileView is 'list' */}
+            <Card className={`lg:col-span-1 flex flex-col overflow-hidden ${mobileView !== 'list' ? 'hidden lg:flex' : 'flex'}`}>
+              <CardHeader className="pb-3 flex-shrink-0">
+                <CardTitle className="text-base flex items-center gap-2">
+                  <MessageSquare className="h-4 w-4" />
+                  待处理会话
+                  <Badge variant="secondary" className="ml-auto">
+                    {conversations.filter(c => c.status !== 'resolved').length}
+                  </Badge>
+                </CardTitle>
+              </CardHeader>
+              <CardContent className="flex-1 p-0 overflow-hidden min-h-0">
+                <ScrollArea className="h-full">
+                  {loading ? (
+                    <div className="p-4 text-center text-muted-foreground">
+                      加载中...
                     </div>
-                    {selectedConversation.status !== 'resolved' && (
-                      <Button 
-                        variant="outline" 
-                        size="sm"
-                        onClick={handleResolveConversation}
-                      >
-                        <CheckCheck className="h-4 w-4 mr-1" />
-                        标记已解决
-                      </Button>
-                    )}
-                  </div>
-                </CardHeader>
-                
-                <CardContent className="flex-1 p-0 overflow-hidden">
-                  <ScrollArea className="h-[calc(100vh-380px)] p-4">
-                    <div className="space-y-4">
-                      {messages.map((message) => (
-                        <div
-                          key={message.id}
-                          className={`flex ${message.role === 'user' ? 'justify-start' : 'justify-end'}`}
+                  ) : conversations.length === 0 ? (
+                    <div className="p-4 text-center text-muted-foreground">
+                      暂无待处理会话
+                    </div>
+                  ) : (
+                    <div className="space-y-1 p-2">
+                      {conversations.map((conversation) => (
+                        <button
+                          key={conversation.id}
+                          onClick={() => setSelectedConversation(conversation)}
+                          className={`w-full p-3 rounded-lg text-left transition-colors ${
+                            selectedConversation?.id === conversation.id
+                              ? 'bg-accent'
+                              : 'hover:bg-muted'
+                          }`}
                         >
-                          <div
-                            className={`max-w-[80%] rounded-lg px-4 py-2 ${
-                              message.role === 'user'
-                                ? 'bg-muted'
-                                : message.content.startsWith('[客服]')
-                                ? 'bg-green-100 dark:bg-green-900/30'
-                                : 'bg-primary text-primary-foreground'
-                            }`}
-                          >
-                            {message.content.startsWith('[客服]') && (
-                              <div className="text-xs text-green-600 dark:text-green-400 mb-1 font-medium">
-                                客服回复
+                          <div className="flex items-center gap-3">
+                            <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0">
+                              <User className="h-5 w-5 text-primary" />
+                            </div>
+                            <div className="flex-1 min-w-0">
+                              <div className="flex items-center justify-between">
+                                <span className="font-medium text-sm truncate">
+                                  访客 {conversation.session_id.substring(0, 8)}
+                                </span>
+                                <span className="text-xs text-muted-foreground flex-shrink-0">
+                                  {formatDate(conversation.transferred_at || conversation.created_at)}
+                                </span>
                               </div>
-                            )}
-                            <p className="text-sm whitespace-pre-wrap">
-                              {message.content.replace('[客服] ', '')}
-                            </p>
-                            <p className="text-xs opacity-70 mt-1 text-right">
-                              {formatTime(message.created_at)}
-                            </p>
+                              <div className="flex items-center gap-2 mt-1">
+                                <Badge 
+                                  variant={conversation.status === 'resolved' ? 'secondary' : 'default'}
+                                  className="text-xs flex-shrink-0"
+                                >
+                                  {conversation.status === 'resolved' ? '已解决' : '待处理'}
+                                </Badge>
+                              </div>
+                            </div>
+                          </div>
+                        </button>
+                      ))}
+                    </div>
+                  )}
+                </ScrollArea>
+              </CardContent>
+            </Card>
+
+            {/* Chat Area - Show on desktop, or mobile when mobileView is 'chat' */}
+            <Card className={`lg:col-span-2 flex flex-col overflow-hidden ${mobileView !== 'chat' ? 'hidden lg:flex' : 'flex'}`}>
+              {selectedConversation ? (
+                <>
+                  <CardHeader className="pb-3 border-b flex-shrink-0">
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center gap-3">
+                        <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0">
+                          <User className="h-5 w-5 text-primary" />
+                        </div>
+                        <div>
+                          <CardTitle className="text-base">
+                            访客 {selectedConversation.session_id.substring(0, 8)}
+                          </CardTitle>
+                          <div className="flex items-center gap-2 text-xs text-muted-foreground">
+                            <Clock className="h-3 w-3" />
+                            转接时间: {formatTime(selectedConversation.transferred_at || selectedConversation.created_at)}
                           </div>
                         </div>
-                      ))}
-                      <div ref={messagesEndRef} />
+                      </div>
+                      <div className="flex items-center gap-2">
+                        {/* Mobile profile button */}
+                        <Button
+                          variant="outline"
+                          size="sm"
+                          className="lg:hidden"
+                          onClick={() => setMobileView('profile')}
+                        >
+                          <UserCircle className="h-4 w-4" />
+                        </Button>
+                        {selectedConversation.status !== 'resolved' && (
+                          <Button 
+                            variant="outline" 
+                            size="sm"
+                            onClick={handleResolveConversation}
+                          >
+                            <CheckCheck className="h-4 w-4 mr-1" />
+                            <span className="hidden sm:inline">标记已解决</span>
+                          </Button>
+                        )}
+                      </div>
                     </div>
-                  </ScrollArea>
-                </CardContent>
+                  </CardHeader>
+                  
+                  <CardContent className="flex-1 p-0 overflow-hidden min-h-0">
+                    <ScrollArea className="h-full p-4">
+                      <div className="space-y-4">
+                        {messages.map((message) => (
+                          <div
+                            key={message.id}
+                            className={`flex ${message.role === 'user' ? 'justify-start' : 'justify-end'}`}
+                          >
+                            <div
+                              className={`max-w-[85%] sm:max-w-[80%] rounded-lg px-4 py-2 ${
+                                message.role === 'user'
+                                  ? 'bg-muted'
+                                  : message.content.startsWith('[客服]')
+                                  ? 'bg-green-100 dark:bg-green-900/30'
+                                  : 'bg-primary text-primary-foreground'
+                              }`}
+                            >
+                              {message.content.startsWith('[客服]') && (
+                                <div className="text-xs text-green-600 dark:text-green-400 mb-1 font-medium">
+                                  客服回复
+                                </div>
+                              )}
+                              <p className="text-sm whitespace-pre-wrap break-words">
+                                {message.content.replace('[客服] ', '')}
+                              </p>
+                              <p className="text-xs opacity-70 mt-1 text-right">
+                                {formatTime(message.created_at)}
+                              </p>
+                            </div>
+                          </div>
+                        ))}
+                        <div ref={messagesEndRef} />
+                      </div>
+                    </ScrollArea>
+                  </CardContent>
 
-                {/* Message Input */}
-                {selectedConversation.status !== 'resolved' && (
-                  <div className="p-4 border-t">
-                    <div className="flex gap-2">
-                      <Input
-                        value={newMessage}
-                        onChange={(e) => setNewMessage(e.target.value)}
-                        placeholder="输入回复消息..."
-                        onKeyDown={(e) => {
-                          if (e.key === 'Enter' && !e.shiftKey) {
-                            e.preventDefault();
-                            handleSendMessage();
-                          }
-                        }}
-                        disabled={sending}
-                      />
-                      <Button onClick={handleSendMessage} disabled={sending || !newMessage.trim()}>
-                        <Send className="h-4 w-4" />
-                      </Button>
+                  {/* Message Input */}
+                  {selectedConversation.status !== 'resolved' && (
+                    <div className="p-4 border-t flex-shrink-0">
+                      <div className="flex gap-2">
+                        <Input
+                          value={newMessage}
+                          onChange={(e) => setNewMessage(e.target.value)}
+                          placeholder="输入回复消息..."
+                          onKeyDown={(e) => {
+                            if (e.key === 'Enter' && !e.shiftKey) {
+                              e.preventDefault();
+                              handleSendMessage();
+                            }
+                          }}
+                          disabled={sending}
+                          className="flex-1"
+                        />
+                        <Button onClick={handleSendMessage} disabled={sending || !newMessage.trim()}>
+                          <Send className="h-4 w-4" />
+                        </Button>
+                      </div>
                     </div>
+                  )}
+                </>
+              ) : (
+                <div className="flex-1 flex items-center justify-center text-muted-foreground">
+                  <div className="text-center">
+                    <MessageSquare className="h-12 w-12 mx-auto mb-4 opacity-50" />
+                    <p>选择一个会话开始回复</p>
                   </div>
-                )}
-              </>
-            ) : (
-              <div className="flex-1 flex items-center justify-center text-muted-foreground">
-                <div className="text-center">
-                  <MessageSquare className="h-12 w-12 mx-auto mb-4 opacity-50" />
-                  <p>选择一个会话开始回复</p>
                 </div>
-              </div>
-            )}
-          </Card>
+              )}
+            </Card>
 
-          {/* Right Panel - Profile, Quick Replies, Notes */}
-          <Card className="hidden lg:flex lg:col-span-1 flex-col overflow-hidden">
-            <CardHeader className="pb-3 border-b flex-shrink-0">
-              <CardTitle className="text-base flex items-center gap-2">
-                <UserCircle className="h-4 w-4" />
-                访客画像 & 工具
-              </CardTitle>
-            </CardHeader>
-            <CardContent className="flex-1 p-0 overflow-hidden min-h-0">
-              <ScrollArea className="h-full">
-                {selectedConversation ? (
-                  <div className="space-y-4">
-                    {/* Enhanced Visitor Profile */}
-                    <EnhancedVisitorProfile sessionId={selectedConversation.session_id} />
-                    
-                    <Separator />
-                    
-                    {/* Quick Replies */}
-                    <div className="px-4">
-                      <QuickReplies 
-                        onSelect={(content) => setNewMessage(content)} 
-                        isManageMode={false}
-                      />
+            {/* Right Panel - Profile, Quick Replies, Notes */}
+            {/* Show on desktop, or mobile when mobileView is 'profile' */}
+            <Card className={`lg:col-span-1 flex flex-col overflow-hidden ${mobileView !== 'profile' ? 'hidden lg:flex' : 'flex'}`}>
+              <CardHeader className="pb-3 border-b flex-shrink-0">
+                <div className="flex items-center justify-between">
+                  <CardTitle className="text-base flex items-center gap-2">
+                    <UserCircle className="h-4 w-4" />
+                    访客画像 & 工具
+                  </CardTitle>
+                  {/* Mobile back button */}
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    className="lg:hidden"
+                    onClick={() => setMobileView('chat')}
+                  >
+                    返回聊天
+                  </Button>
+                </div>
+              </CardHeader>
+              <CardContent className="flex-1 p-0 overflow-hidden min-h-0">
+                <ScrollArea className="h-full">
+                  {selectedConversation ? (
+                    <div className="space-y-4">
+                      {/* Enhanced Visitor Profile */}
+                      <EnhancedVisitorProfile sessionId={selectedConversation.session_id} />
+                      
+                      <Separator />
+                      
+                      {/* Quick Replies */}
+                      <div className="px-4">
+                        <QuickReplies 
+                          onSelect={(content) => {
+                            setNewMessage(content);
+                            if (window.innerWidth < 1024) {
+                              setMobileView('chat');
+                            }
+                          }} 
+                          isManageMode={false}
+                        />
+                      </div>
+                      
+                      <Separator />
+                      
+                      {/* Conversation Notes */}
+                      <div className="px-4 pb-4">
+                        <ConversationNotes conversationId={selectedConversation.id} />
+                      </div>
                     </div>
-                    
-                    <Separator />
-                    
-                    {/* Conversation Notes */}
-                    <div className="px-4 pb-4">
-                      <ConversationNotes conversationId={selectedConversation.id} />
+                  ) : (
+                    <div className="text-center text-muted-foreground py-8">
+                      <User className="h-8 w-8 mx-auto mb-2 opacity-50" />
+                      <p className="text-sm">选择会话查看访客画像</p>
                     </div>
-                  </div>
-                ) : (
-                  <div className="text-center text-muted-foreground py-8">
-                    <User className="h-8 w-8 mx-auto mb-2 opacity-50" />
-                    <p className="text-sm">选择会话查看访客画像</p>
-                  </div>
-                )}
-              </ScrollArea>
-            </CardContent>
-          </Card>
+                  )}
+                </ScrollArea>
+              </CardContent>
+            </Card>
+          </div>
         </div>
       </div>
     </div>
