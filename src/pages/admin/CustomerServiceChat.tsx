@@ -240,15 +240,27 @@ export default function CustomerServiceChat() {
     setNewMessage("");
 
     try {
-      const { error } = await supabase
+      const { data, error } = await supabase
         .from('ai_conversation_messages')
         .insert({
           conversation_id: selectedConversation.id,
           role: 'assistant',
           content: `[客服] ${messageContent}`
-        });
+        })
+        .select()
+        .single();
 
       if (error) throw error;
+
+      // Immediately add the message to the UI
+      if (data) {
+        setMessages(prev => [...prev, data]);
+      }
+      
+      toast({
+        title: "发送成功",
+        description: "消息已发送"
+      });
     } catch (error) {
       console.error('Error sending message:', error);
       toast({
