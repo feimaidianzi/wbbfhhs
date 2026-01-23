@@ -859,7 +859,7 @@ export default function EnhancedVisitorProfile({ sessionId }: EnhancedVisitorPro
                             {formatTime(event.created_at)}
                           </span>
                         </div>
-                        <p className="text-muted-foreground truncate">
+                        <p className="text-muted-foreground break-words whitespace-normal">
                           {event.product_name || event.element_text || event.page_title || event.page_path}
                         </p>
                         {event.duration_seconds > 0 && (
@@ -998,9 +998,9 @@ export default function EnhancedVisitorProfile({ sessionId }: EnhancedVisitorPro
                 <CardContent>
                   <div className="space-y-1">
                     {session.pages_visited.map((page, i) => (
-                      <div key={i} className="flex items-center gap-2 text-xs">
+                      <div key={i} className="flex items-start gap-2 text-xs">
                         <span className="text-muted-foreground w-4">{i + 1}.</span>
-                        <span className="truncate">{page}</span>
+                        <span className="break-words whitespace-normal">{page}</span>
                       </div>
                     ))}
                   </div>

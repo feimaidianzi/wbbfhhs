@@ -449,7 +449,7 @@ export default function CustomerServiceChat() {
             </Card>
 
             {/* Chat Area - Show on desktop, or mobile when mobileView is 'chat' */}
-            <Card className={`lg:col-span-5 h-full flex flex-col overflow-hidden ${mobileView !== 'chat' ? 'hidden lg:flex' : 'flex'}`}>
+            <Card className={`lg:col-span-4 h-full flex flex-col overflow-hidden ${mobileView !== 'chat' ? 'hidden lg:flex' : 'flex'}`}>
               {selectedConversation ? (
                 <>
                   <CardHeader className="pb-3 border-b flex-shrink-0">
@@ -564,7 +564,7 @@ export default function CustomerServiceChat() {
 
             {/* Right Panel - Profile, Quick Replies, Notes */}
             {/* Show on desktop, or mobile when mobileView is 'profile' */}
-            <Card className={`lg:col-span-4 h-full flex flex-col overflow-hidden ${mobileView !== 'profile' ? 'hidden lg:flex' : 'flex'}`}>
+            <Card className={`lg:col-span-5 h-full flex flex-col overflow-hidden ${mobileView !== 'profile' ? 'hidden lg:flex' : 'flex'}`}>
               <CardHeader className="pb-3 border-b flex-shrink-0">
                 <div className="flex items-center justify-between">
                   <CardTitle className="text-base flex items-center gap-2">
