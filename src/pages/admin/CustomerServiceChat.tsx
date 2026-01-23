@@ -380,12 +380,12 @@ export default function CustomerServiceChat() {
         </div>
       </header>
 
-      {/* Main Content - Flexible height */}
+      {/* Main Content - Flexible height, calc based on header 56px + padding */}
       <div className="flex-1 overflow-hidden">
-        <div className="container h-full py-4 max-w-screen-2xl">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 h-full">
+        <div className="container py-4 max-w-screen-2xl h-[calc(100vh-56px-2rem)]">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 h-full auto-rows-fr">
             {/* Conversation List - Show on desktop, or mobile when mobileView is 'list' */}
-            <Card className={`lg:col-span-3 flex flex-col overflow-hidden ${mobileView !== 'list' ? 'hidden lg:flex' : 'flex'}`}>
+            <Card className={`lg:col-span-3 h-full flex flex-col overflow-hidden ${mobileView !== 'list' ? 'hidden lg:flex' : 'flex'}`}>
               <CardHeader className="pb-3 flex-shrink-0">
                 <CardTitle className="text-base flex items-center gap-2">
                   <MessageSquare className="h-4 w-4" />
@@ -449,7 +449,7 @@ export default function CustomerServiceChat() {
             </Card>
 
             {/* Chat Area - Show on desktop, or mobile when mobileView is 'chat' */}
-            <Card className={`lg:col-span-5 flex flex-col overflow-hidden ${mobileView !== 'chat' ? 'hidden lg:flex' : 'flex'}`}>
+            <Card className={`lg:col-span-5 h-full flex flex-col overflow-hidden ${mobileView !== 'chat' ? 'hidden lg:flex' : 'flex'}`}>
               {selectedConversation ? (
                 <>
                   <CardHeader className="pb-3 border-b flex-shrink-0">
@@ -564,7 +564,7 @@ export default function CustomerServiceChat() {
 
             {/* Right Panel - Profile, Quick Replies, Notes */}
             {/* Show on desktop, or mobile when mobileView is 'profile' */}
-            <Card className={`lg:col-span-4 flex flex-col overflow-hidden ${mobileView !== 'profile' ? 'hidden lg:flex' : 'flex'}`}>
+            <Card className={`lg:col-span-4 h-full flex flex-col overflow-hidden ${mobileView !== 'profile' ? 'hidden lg:flex' : 'flex'}`}>
               <CardHeader className="pb-3 border-b flex-shrink-0">
                 <div className="flex items-center justify-between">
                   <CardTitle className="text-base flex items-center gap-2">
