@@ -12,10 +12,16 @@ import { ScrollArea } from '@/components/ui/scroll-area';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { useToast } from '@/hooks/use-toast';
 import { 
-  ArrowLeft, Users, Eye, Clock, MousePointer, Search, 
+  ArrowLeft, Users, Eye, Clock, MousePointer, 
   Globe, Monitor, Smartphone, Tablet, TrendingUp, MessageSquare,
-  MapPin, RefreshCw, Brain, Loader2, ChevronRight
+  MapPin, RefreshCw, Brain, Loader2, ChevronRight, Download, FileSpreadsheet
 } from 'lucide-react';
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from '@/components/ui/dropdown-menu';
 import { format } from 'date-fns';
 import { zhCN } from 'date-fns/locale';
 
@@ -257,6 +263,77 @@ const VisitorAnalytics = () => {
     return `${mins}分${secs}秒`;
   };
 
+  // 导出为CSV
+  const exportToCSV = () => {
+    const headers = ['会话ID', '首次访问', '来源', '设备', '浏览器', '城市', '页面数', '停留时间(秒)', '搜索词', '退出页面', '有对话', '有线索'];
+    const rows = filteredSessions.map(s => [
+      s.session_id,
+      format(new Date(s.first_visit_at), 'yyyy-MM-dd HH:mm:ss'),
+      trafficSourceLabels[s.traffic_source] || s.traffic_source,
+      s.device_type || '',
+      s.browser || '',
+      s.city || '',
+      s.total_page_views || 0,
+      s.total_duration_seconds || 0,
+      (s.search_keywords || []).join('; '),
+      s.exit_page || '',
+      s.ai_conversation_id ? '是' : '否',
+      s.lead_id ? '是' : '否',
+    ]);
+    
+    const csvContent = [
+      headers.join(','),
+      ...rows.map(row => row.map(cell => `"${String(cell).replace(/"/g, '""')}"`).join(','))
+    ].join('\n');
+    
+    const blob = new Blob(['\ufeff' + csvContent], { type: 'text/csv;charset=utf-8;' });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = `visitor-analytics-${format(new Date(), 'yyyy-MM-dd')}.csv`;
+    link.click();
+    URL.revokeObjectURL(url);
+    
+    toast({ title: '导出成功', description: `已导出 ${filteredSessions.length} 条访客记录` });
+  };
+
+  // 导出为Excel (使用Tab分隔的TSV格式，Excel可直接打开)
+  const exportToExcel = () => {
+    const headers = ['会话ID', '首次访问', '来源', '设备', '浏览器', '操作系统', '国家', '城市', '页面数', '停留时间(秒)', '搜索词', '浏览页面', '退出页面', '有对话', '有线索'];
+    const rows = filteredSessions.map(s => [
+      s.session_id,
+      format(new Date(s.first_visit_at), 'yyyy-MM-dd HH:mm:ss'),
+      trafficSourceLabels[s.traffic_source] || s.traffic_source,
+      s.device_type || '',
+      s.browser || '',
+      s.os || '',
+      s.country || '',
+      s.city || '',
+      s.total_page_views || 0,
+      s.total_duration_seconds || 0,
+      (s.search_keywords || []).join('; '),
+      (s.pages_visited || []).join(' → '),
+      s.exit_page || '',
+      s.ai_conversation_id ? '是' : '否',
+      s.lead_id ? '是' : '否',
+    ]);
+    
+    const tsvContent = [
+      headers.join('\t'),
+      ...rows.map(row => row.map(cell => String(cell).replace(/\t/g, ' ').replace(/\n/g, ' ')).join('\t'))
+    ].join('\n');
+    
+    const blob = new Blob(['\ufeff' + tsvContent], { type: 'application/vnd.ms-excel;charset=utf-8;' });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = `visitor-analytics-${format(new Date(), 'yyyy-MM-dd')}.xls`;
+    link.click();
+    URL.revokeObjectURL(url);
+    
+    toast({ title: '导出成功', description: `已导出 ${filteredSessions.length} 条访客记录到Excel` });
+  };
+
   const filteredSessions = sessions.filter(s => 
     s.session_id.toLowerCase().includes(searchTerm.toLowerCase()) ||
     s.referrer_domain?.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -282,10 +359,30 @@ const VisitorAnalytics = () => {
             </Button>
             <h1 className="text-xl font-bold">访客分析</h1>
           </div>
-          <Button onClick={fetchSessions} variant="outline" size="sm">
-            <RefreshCw className="h-4 w-4 mr-2" />
-            刷新
-          </Button>
+          <div className="flex items-center gap-2">
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button variant="outline" size="sm">
+                  <Download className="h-4 w-4 mr-2" />
+                  导出
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="end">
+                <DropdownMenuItem onClick={exportToCSV}>
+                  <FileSpreadsheet className="h-4 w-4 mr-2" />
+                  导出为 CSV
+                </DropdownMenuItem>
+                <DropdownMenuItem onClick={exportToExcel}>
+                  <FileSpreadsheet className="h-4 w-4 mr-2" />
+                  导出为 Excel
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
+            <Button onClick={fetchSessions} variant="outline" size="sm">
+              <RefreshCw className="h-4 w-4 mr-2" />
+              刷新
+            </Button>
+          </div>
         </div>
       </header>
 
@@ -456,13 +553,13 @@ const VisitorAnalytics = () => {
                       <TableCell>
                         <div className="flex gap-1">
                           {session.ai_conversation_id && (
-                            <Badge className="bg-blue-500">
+                            <Badge variant="secondary" className="bg-primary/10 text-primary border-primary/30">
                               <MessageSquare className="h-3 w-3 mr-1" />
                               对话
                             </Badge>
                           )}
                           {session.lead_id && (
-                            <Badge className="bg-green-500">线索</Badge>
+                            <Badge variant="secondary" className="bg-accent/20 text-accent-foreground border-accent/30">线索</Badge>
                           )}
                         </div>
                       </TableCell>

@@ -208,37 +208,92 @@ export const AIAssistant = () => {
 
   // Handle transfer to human
   const handleTransferToHuman = useCallback(async () => {
-    if (!conversationId) return;
+    // 确保有会话
+    const convId = await ensureConversation();
+    if (!convId) {
+      toast({
+        title: isEn ? "Error" : "错误",
+        description: isEn ? "Failed to create session" : "无法创建会话",
+        variant: "destructive",
+      });
+      return;
+    }
 
     try {
-      await supabase.functions.invoke("ai-assistant", {
+      const response = await supabase.functions.invoke("ai-assistant", {
         body: {
           action: "transfer_human",
-          conversationId,
+          conversationId: convId,
         },
       });
+
+      if (response.error) throw response.error;
 
       // Add system message
-      setMessages(prev => [
-        ...prev,
-        {
-          id: crypto.randomUUID(),
-          role: "system",
-          content: isEn 
-            ? "Connecting to human agent... Please call +86 176 7404 8404 or leave your contact info." 
-            : "正在转接人工客服...请拨打 176-7404-8404 或留下您的联系方式,我们会尽快与您联系。",
-          timestamp: new Date(),
-        },
-      ]);
+      const systemMessage: Message = {
+        id: crypto.randomUUID(),
+        role: "system",
+        content: isEn 
+          ? "Transfer request sent! A human agent will reply to you shortly. You can continue chatting here or call +86 176-7404-8404." 
+          : "已请求转接人工客服！客服人员将在此聊天窗口回复您，您也可以拨打 176-7404-8404 联系我们。",
+        timestamp: new Date(),
+      };
+      setMessages(prev => [...prev, systemMessage]);
+      await saveMessage(convId, "system", systemMessage.content);
 
       toast({
-        title: isEn ? "Transfer Requested" : "已请求转接",
-        description: isEn ? "A human agent will contact you soon" : "人工客服将尽快与您联系",
+        title: isEn ? "Transfer Requested" : "转接成功",
+        description: isEn ? "Human agent will reply in this chat" : "人工客服将在此对话中回复您",
       });
+
+      // 开始监听人工客服的回复
+      subscribeToHumanReplies(convId);
     } catch (error) {
       console.error("Transfer error:", error);
+      toast({
+        title: isEn ? "Transfer Failed" : "转接失败",
+        description: isEn ? "Please try again or call us directly" : "请重试或直接拨打电话联系我们",
+        variant: "destructive",
+      });
     }
-  }, [conversationId, toast, isEn]);
+  }, [conversationId, ensureConversation, saveMessage, toast, isEn]);
+
+  // 订阅人工客服的回复
+  const subscribeToHumanReplies = useCallback((convId: string) => {
+    const channel = supabase
+      .channel(`human-replies-${convId}`)
+      .on(
+        'postgres_changes',
+        {
+          event: 'INSERT',
+          schema: 'public',
+          table: 'ai_conversation_messages',
+          filter: `conversation_id=eq.${convId}`,
+        },
+        (payload) => {
+          const newMsg = payload.new as any;
+          // 只处理客服发来的消息（以[客服]开头）
+          if (newMsg.role === 'assistant' && newMsg.content.startsWith('[客服]')) {
+            setMessages(prev => {
+              // 检查消息是否已存在
+              if (prev.some(m => m.id === newMsg.id)) return prev;
+              return [...prev, {
+                id: newMsg.id,
+                role: 'assistant' as const,
+                content: newMsg.content,
+                timestamp: new Date(newMsg.created_at),
+              }];
+            });
+          }
+        }
+      )
+      .subscribe();
+
+    // 组件卸载时清理订阅
+    return () => {
+      supabase.removeChannel(channel);
+    };
+  }, []);
 
   // Extract lead info when closing chat
   useEffect(() => {
