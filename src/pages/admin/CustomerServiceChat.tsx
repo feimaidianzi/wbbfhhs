@@ -6,7 +6,7 @@ import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+// Tabs component removed - was unused
 import { useToast } from "@/hooks/use-toast";
 import VisitorProfile from "@/components/admin/VisitorProfile";
 import { 
@@ -71,7 +71,7 @@ export default function CustomerServiceChat() {
   const [soundEnabled, setSoundEnabled] = useState(true);
   const [loading, setLoading] = useState(true);
   const messagesEndRef = useRef<HTMLDivElement>(null);
-  const lastMessageCount = useRef<Record<string, number>>({});
+  // lastMessageCount removed - was unused
 
   // Check admin authentication
   useEffect(() => {
