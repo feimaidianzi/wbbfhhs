@@ -12,13 +12,26 @@ interface Message {
   timestamp: Date;
 }
 
-// 获取或创建持久化的会话ID (基于浏览器指纹)
+// 获取或创建持久化的会话ID - 与VisitorTracker共用同一个session_id
 const getOrCreateVisitorId = (): string => {
-  const key = 'cani_visitor_id';
-  let visitorId = localStorage.getItem(key);
+  // 优先使用VisitorTracker创建的session_id，确保两个系统使用同一个ID
+  const visitorSessionKey = 'visitor_session_id';
+  const legacyKey = 'cani_visitor_id';
+  
+  // 检查是否有VisitorTracker创建的session
+  let visitorId = localStorage.getItem(visitorSessionKey);
+  
+  if (visitorId) {
+    return visitorId;
+  }
+  
+  // 如果VisitorTracker还没初始化，创建一个兼容格式的ID
+  visitorId = localStorage.getItem(legacyKey);
   if (!visitorId) {
-    visitorId = `visitor_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
-    localStorage.setItem(key, visitorId);
+    visitorId = `vs_${Date.now()}_${Math.random().toString(36).substring(2, 15)}`;
+    localStorage.setItem(legacyKey, visitorId);
+    // 同时设置到visitor_session_id，让VisitorTracker也能识别
+    localStorage.setItem(visitorSessionKey, visitorId);
   }
   return visitorId;
 };
@@ -88,6 +101,13 @@ export const AIAssistant = () => {
 
       if (error) throw error;
       setConversationId(data.id);
+      
+      // 关联到visitor_sessions表
+      await supabase
+        .from("visitor_sessions")
+        .update({ ai_conversation_id: data.id })
+        .eq("session_id", visitorId);
+      
       return data.id;
     } catch (error) {
       console.error("Failed to create/load conversation:", error);

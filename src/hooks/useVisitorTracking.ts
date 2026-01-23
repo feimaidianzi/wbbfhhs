@@ -36,9 +36,10 @@ const generateSessionId = (): string => {
   return `vs_${Date.now()}_${Math.random().toString(36).substring(2, 15)}`;
 };
 
-// 获取或创建会话ID
+// 获取或创建会话ID - 与AIAssistant共用同一个session_id
 const getOrCreateSessionId = (): string => {
   const storageKey = 'visitor_session_id';
+  const legacyKey = 'cani_visitor_id';
   const sessionExpiry = 'visitor_session_expiry';
   const THIRTY_MINUTES = 30 * 60 * 1000;
 
@@ -51,9 +52,19 @@ const getOrCreateSessionId = (): string => {
     return existingId;
   }
 
+  // 检查是否有来自AIAssistant的遗留ID
+  const legacyId = localStorage.getItem(legacyKey);
+  if (legacyId) {
+    localStorage.setItem(storageKey, legacyId);
+    localStorage.setItem(sessionExpiry, String(Date.now() + THIRTY_MINUTES));
+    return legacyId;
+  }
+
   const newId = generateSessionId();
   localStorage.setItem(storageKey, newId);
   localStorage.setItem(sessionExpiry, String(Date.now() + THIRTY_MINUTES));
+  // 同时设置legacyKey让AIAssistant也能识别
+  localStorage.setItem(legacyKey, newId);
   return newId;
 };
 
