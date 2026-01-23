@@ -6,7 +6,9 @@ const corsHeaders = {
   "Access-Control-Allow-Headers": "authorization, x-client-info, apikey, content-type",
 };
 
-const LOVABLE_AI_URL = "https://ai.gateway.lovable.dev/v1/chat/completions";
+// 使用豆包API
+const DOUBAO_API_URL = "https://ark.cn-beijing.volces.com/api/v3/chat/completions";
+const DOUBAO_MODEL = "doubao-pro-32k";
 
 const SYSTEM_PROMPT = `你是长凌科技的AI客服助手"小凌"。长凌科技(CANI)是一家专业的工业无人机配件供应商,主要产品包括:
 
@@ -20,12 +22,12 @@ const SYSTEM_PROMPT = `你是长凌科技的AI客服助手"小凌"。长凌科�
 你的职责:
 1. 友好热情地回答客户问题
 2. 了解客户需求,推荐合适的产品
-3. 收集客户联系方式(姓名、电话、公司、地区)用于后续跟进
+3. 主动收集客户联系方式(姓名、电话、公司、地区)用于后续跟进
 4. 如果客户问题超出你的能力范围,主动建议转接人工客服
 
 回答要求:
 - 简洁专业,每次回复控制在100字以内
-- 适时询问客户需求和联系方式
+- 在对话中自然地询问客户需求和联系方式
 - 如果客户表达购买意向,询问预算范围和紧急程度
 - 使用友好的语气,可以适当使用emoji
 - 自我介绍时请称自己为"小凌"
@@ -44,7 +46,7 @@ interface RequestBody {
   action?: "chat" | "extract_lead" | "transfer_human" | "auto_extract";
 }
 
-// 使用Lovable AI自动提取线索信息
+// 使用豆包自动提取线索信息
 async function autoExtractLeadInfo(messages: Message[], apiKey: string): Promise<any> {
   const extractPrompt = `分析以下客服对话,提取客户信息。只返回JSON格式数据,不要有其他内容。
 
@@ -65,6 +67,14 @@ async function autoExtractLeadInfo(messages: Message[], apiKey: string): Promise
   "lead_score": 0-100的评分(基于购买意向强度)
 }
 
+提取规则:
+- 姓名: 注意"我姓X"、"我叫XXX"、"这是我名片"等表达
+- 电话: 11位手机号或带区号座机
+- 邮箱: 包含@符号的邮箱地址
+- 公司: "我们公司"、"XX公司"、"我在XX工作"等
+- 需求: 客户想要什么产品/解决什么问题
+- 产品兴趣: 提到的具体产品类型
+
 评分标准:
 - 0-20: 只是咨询,无明确意向
 - 21-40: 有初步兴趣
@@ -73,17 +83,17 @@ async function autoExtractLeadInfo(messages: Message[], apiKey: string): Promise
 - 81-100: 留下联系方式,紧急需求
 
 对话内容:
-${messages.slice(-6).map(m => `${m.role}: ${m.content}`).join('\n')}`;
+${messages.slice(-10).map(m => `${m.role}: ${m.content}`).join('\n')}`;
 
   try {
-    const response = await fetch(LOVABLE_AI_URL, {
+    const response = await fetch(DOUBAO_API_URL, {
       method: "POST",
       headers: {
         "Authorization": `Bearer ${apiKey}`,
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        model: "google/gemini-3-flash-preview",
+        model: DOUBAO_MODEL,
         messages: [
           { role: "system", content: "你是一个信息提取助手,只返回JSON格式的数据,不要有其他内容。确保JSON格式正确。" },
           { role: "user", content: extractPrompt }
@@ -93,12 +103,14 @@ ${messages.slice(-6).map(m => `${m.role}: ${m.content}`).join('\n')}`;
     });
 
     if (!response.ok) {
-      console.error("Failed to extract lead info:", response.status);
+      console.error("Failed to extract lead info:", response.status, await response.text());
       return null;
     }
 
     const data = await response.json();
     const content = data.choices?.[0]?.message?.content || "{}";
+    
+    console.log("Lead extraction response:", content);
     
     // Extract JSON from response
     const jsonMatch = content.match(/\{[\s\S]*\}/);
@@ -118,35 +130,56 @@ async function saveOrUpdateLead(supabase: any, conversationId: string, leadInfo:
   // 检查是否已存在该会话的线索
   const { data: existingLead } = await supabase
     .from("customer_leads")
-    .select("id, lead_score")
+    .select("id, lead_score, name, phone, email, company, requirements")
     .eq("conversation_id", conversationId)
     .single();
 
   const leadData = {
     conversation_id: conversationId,
-    name: leadInfo.name || null,
-    phone: leadInfo.phone || null,
-    email: leadInfo.email || null,
-    company: leadInfo.company || null,
+    name: leadInfo.name || existingLead?.name || null,
+    phone: leadInfo.phone || existingLead?.phone || null,
+    email: leadInfo.email || existingLead?.email || null,
+    company: leadInfo.company || existingLead?.company || null,
     location: leadInfo.location || null,
-    requirements: leadInfo.requirements || null,
+    requirements: leadInfo.requirements || existingLead?.requirements || null,
     product_interest: leadInfo.product_interest || null,
     budget_range: leadInfo.budget_range || null,
     urgency: leadInfo.urgency || null,
     lead_score: parseInt(leadInfo.lead_score) || 0,
   };
 
+  console.log("Saving lead data:", leadData);
+
   if (existingLead) {
-    // 只有当新分数更高时才更新
-    if (leadData.lead_score > (existingLead.lead_score || 0)) {
-      await supabase
-        .from("customer_leads")
-        .update(leadData)
-        .eq("id", existingLead.id);
+    // 合并数据，保留已有信息，更新新信息
+    const mergedData = {
+      ...leadData,
+      name: leadData.name || existingLead.name,
+      phone: leadData.phone || existingLead.phone,
+      email: leadData.email || existingLead.email,
+      company: leadData.company || existingLead.company,
+      requirements: leadData.requirements || existingLead.requirements,
+      lead_score: Math.max(leadData.lead_score, existingLead.lead_score || 0),
+    };
+    
+    const { error } = await supabase
+      .from("customer_leads")
+      .update(mergedData)
+      .eq("id", existingLead.id);
+      
+    if (error) {
+      console.error("Update lead error:", error);
+    } else {
+      console.log("Lead updated successfully");
     }
-  } else if (leadInfo.name || leadInfo.phone || leadInfo.email || leadInfo.requirements) {
+  } else if (leadInfo.name || leadInfo.phone || leadInfo.email || leadInfo.requirements || leadInfo.product_interest) {
     // 只有有价值信息时才创建新线索
-    await supabase.from("customer_leads").insert(leadData);
+    const { error } = await supabase.from("customer_leads").insert(leadData);
+    if (error) {
+      console.error("Insert lead error:", error);
+    } else {
+      console.log("Lead created successfully");
+    }
   }
 }
 
@@ -156,9 +189,9 @@ serve(async (req) => {
   }
 
   try {
-    const LOVABLE_API_KEY = Deno.env.get("LOVABLE_API_KEY");
-    if (!LOVABLE_API_KEY) {
-      throw new Error("LOVABLE_API_KEY is not configured");
+    const DOUBAO_API_KEY = Deno.env.get("DOUBAO_API_KEY");
+    if (!DOUBAO_API_KEY) {
+      throw new Error("DOUBAO_API_KEY is not configured");
     }
 
     const supabaseUrl = Deno.env.get("SUPABASE_URL")!;
@@ -169,7 +202,7 @@ serve(async (req) => {
 
     // Handle lead extraction (manual)
     if (action === "extract_lead" && conversationId) {
-      const leadInfo = await autoExtractLeadInfo(messages, LOVABLE_API_KEY);
+      const leadInfo = await autoExtractLeadInfo(messages, DOUBAO_API_KEY);
       
       if (leadInfo) {
         await saveOrUpdateLead(supabase, conversationId, leadInfo);
@@ -202,15 +235,15 @@ serve(async (req) => {
       });
     }
 
-    // Regular chat - call Lovable AI Gateway
-    const response = await fetch(LOVABLE_AI_URL, {
+    // Regular chat - call Doubao API
+    const response = await fetch(DOUBAO_API_URL, {
       method: "POST",
       headers: {
-        "Authorization": `Bearer ${LOVABLE_API_KEY}`,
+        "Authorization": `Bearer ${DOUBAO_API_KEY}`,
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        model: "google/gemini-3-flash-preview",
+        model: DOUBAO_MODEL,
         messages: [
           { role: "system", content: SYSTEM_PROMPT },
           ...messages,
@@ -223,7 +256,7 @@ serve(async (req) => {
 
     if (!response.ok) {
       const errorText = await response.text();
-      console.error("Lovable AI error:", response.status, errorText);
+      console.error("Doubao AI error:", response.status, errorText);
       
       if (response.status === 429) {
         return new Response(JSON.stringify({ error: "请求过于频繁,请稍后再试" }), {
@@ -238,15 +271,14 @@ serve(async (req) => {
         });
       }
       
-      throw new Error(`Lovable AI error: ${response.status}`);
+      throw new Error(`Doubao AI error: ${response.status}`);
     }
 
-    // 异步提取线索信息(不阻塞响应)
-    if (conversationId && messages.length >= 2) {
-      // 使用 EdgeRuntime.waitUntil 来异步处理
+    // 异步提取线索信息(不阻塞响应) - 每次对话都尝试提取
+    if (conversationId && messages.length >= 1) {
       (async () => {
         try {
-          const leadInfo = await autoExtractLeadInfo(messages, LOVABLE_API_KEY);
+          const leadInfo = await autoExtractLeadInfo(messages, DOUBAO_API_KEY);
           if (leadInfo) {
             await saveOrUpdateLead(supabase, conversationId, leadInfo);
           }

@@ -192,6 +192,23 @@ export const useVisitorTracking = () => {
 
     // 存储到localStorage供其他组件使用
     localStorage.setItem('current_visitor_session', sessionId);
+    
+    // 调用Edge Function获取IP和地理位置
+    try {
+      const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
+      const supabaseKey = import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY;
+      
+      await fetch(`${supabaseUrl}/functions/v1/get-visitor-ip`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${supabaseKey}`,
+        },
+        body: JSON.stringify({ sessionId }),
+      });
+    } catch (ipError) {
+      console.error('Failed to get visitor IP:', ipError);
+    }
   }, [location.pathname]);
 
   // 记录事件
