@@ -6,18 +6,19 @@ import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { ScrollArea } from "@/components/ui/scroll-area";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useToast } from "@/hooks/use-toast";
+import VisitorProfile from "@/components/admin/VisitorProfile";
 import { 
   ArrowLeft, 
   Send, 
-  Bell, 
-  BellOff, 
   User, 
   MessageSquare,
   Clock,
   CheckCheck,
   Volume2,
-  VolumeX
+  VolumeX,
+  UserCircle
 } from "lucide-react";
 
 interface Conversation {
@@ -329,7 +330,7 @@ export default function CustomerServiceChat() {
       </header>
 
       <div className="container py-6">
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 h-[calc(100vh-120px)]">
+        <div className="grid grid-cols-1 lg:grid-cols-4 gap-6 h-[calc(100vh-120px)]">
           {/* Conversation List */}
           <Card className="lg:col-span-1">
             <CardHeader className="pb-3">
@@ -499,6 +500,28 @@ export default function CustomerServiceChat() {
                 </div>
               </div>
             )}
+          </Card>
+
+          {/* Visitor Profile Panel */}
+          <Card className="hidden lg:flex lg:col-span-1 flex-col">
+            <CardHeader className="pb-3 border-b">
+              <CardTitle className="text-base flex items-center gap-2">
+                <UserCircle className="h-4 w-4" />
+                访客画像
+              </CardTitle>
+            </CardHeader>
+            <CardContent className="flex-1 p-0 overflow-hidden">
+              <ScrollArea className="h-[calc(100vh-200px)] p-4">
+                {selectedConversation ? (
+                  <VisitorProfile sessionId={selectedConversation.session_id} />
+                ) : (
+                  <div className="text-center text-muted-foreground py-8">
+                    <User className="h-8 w-8 mx-auto mb-2 opacity-50" />
+                    <p className="text-sm">选择会话查看访客画像</p>
+                  </div>
+                )}
+              </ScrollArea>
+            </CardContent>
           </Card>
         </div>
       </div>

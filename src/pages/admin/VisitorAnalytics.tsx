@@ -11,10 +11,11 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/u
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { useToast } from '@/hooks/use-toast';
+import VisitorCharts from '@/components/admin/VisitorCharts';
 import { 
   ArrowLeft, Users, Eye, Clock, MousePointer, 
   Globe, Monitor, Smartphone, Tablet, TrendingUp, MessageSquare,
-  MapPin, RefreshCw, Brain, Loader2, ChevronRight, Download, FileSpreadsheet
+  MapPin, RefreshCw, Brain, Loader2, ChevronRight, Download, FileSpreadsheet, BarChart3
 } from 'lucide-react';
 import {
   DropdownMenu,
@@ -435,6 +436,9 @@ const VisitorAnalytics = () => {
             </CardContent>
           </Card>
         </div>
+
+        {/* Data Visualization Charts */}
+        <VisitorCharts sessions={sessions} />
 
         {/* Filters */}
         <Card>
