@@ -21,6 +21,7 @@ export const AIAssistant = () => {
   const [isSpeaking, setIsSpeaking] = useState(false);
   const [messages, setMessages] = useState<Message[]>([]);
   const [conversationId, setConversationId] = useState<string | null>(null);
+  const [isHumanMode, setIsHumanMode] = useState(false);
   const [sessionId] = useState(() => crypto.randomUUID());
 
   // Create or get conversation
@@ -45,6 +46,56 @@ export const AIAssistant = () => {
       return null;
     }
   }, [conversationId, sessionId]);
+
+  // When we have a conversationId, keep local "human mode" in sync with backend status
+  useEffect(() => {
+    if (!conversationId) return;
+
+    let cancelled = false;
+
+    const loadStatus = async () => {
+      try {
+        const { data, error } = await supabase
+          .from("ai_conversations")
+          .select("is_transferred_to_human")
+          .eq("id", conversationId)
+          .single();
+
+        if (cancelled) return;
+        if (!error && data) {
+          setIsHumanMode(!!data.is_transferred_to_human);
+        }
+      } catch {
+        // ignore
+      }
+    };
+
+    loadStatus();
+
+    const channel = supabase
+      .channel(`ai-conversation-status-${conversationId}`)
+      .on(
+        "postgres_changes",
+        {
+          event: "UPDATE",
+          schema: "public",
+          table: "ai_conversations",
+          filter: `id=eq.${conversationId}`,
+        },
+        (payload) => {
+          const next = payload.new as any;
+          if (typeof next?.is_transferred_to_human === "boolean") {
+            setIsHumanMode(next.is_transferred_to_human);
+          }
+        }
+      )
+      .subscribe();
+
+    return () => {
+      cancelled = true;
+      supabase.removeChannel(channel);
+    };
+  }, [conversationId]);
 
   // Save message to database
   const saveMessage = useCallback(async (convId: string, role: string, content: string) => {
@@ -95,6 +146,15 @@ export const AIAssistant = () => {
     };
     setMessages(prev => [...prev, userMessage]);
     await saveMessage(convId, "user", content);
+
+    // If already transferred to human, do NOT call AI anymore.
+    if (isHumanMode) {
+      toast({
+        title: isEn ? "Sent" : "已发送",
+        description: isEn ? "Message sent to human agent" : "消息已发送给人工客服",
+      });
+      return;
+    }
 
     setIsLoading(true);
     setIsSpeaking(true);
@@ -204,7 +264,7 @@ export const AIAssistant = () => {
       setIsLoading(false);
       setIsSpeaking(false);
     }
-  }, [messages, ensureConversation, saveMessage, extractLeadInfo, sessionId, toast, isEn]);
+  }, [messages, ensureConversation, saveMessage, extractLeadInfo, sessionId, toast, isEn, isHumanMode]);
 
   // Handle transfer to human
   const handleTransferToHuman = useCallback(async () => {
@@ -246,6 +306,9 @@ export const AIAssistant = () => {
         description: isEn ? "Human agent will reply in this chat" : "人工客服将在此对话中回复您",
       });
 
+      // Immediately switch to human mode on the client.
+      setIsHumanMode(true);
+
     } catch (error) {
       console.error("Transfer error:", error);
       toast({
@@ -260,7 +323,6 @@ export const AIAssistant = () => {
   useEffect(() => {
     if (!conversationId) return;
 
-    console.log("Subscribing to human replies for conversation:", conversationId);
     
     const channel = supabase
       .channel(`human-replies-${conversationId}`)
@@ -273,7 +335,6 @@ export const AIAssistant = () => {
           filter: `conversation_id=eq.${conversationId}`,
         },
         (payload) => {
-          console.log("Received message payload:", payload);
           const newMsg = payload.new as any;
           // 只处理客服发来的消息（以[客服]开头）
           if (newMsg.role === 'assistant' && newMsg.content.startsWith('[客服]')) {
@@ -290,13 +351,10 @@ export const AIAssistant = () => {
           }
         }
       )
-      .subscribe((status) => {
-        console.log("Subscription status:", status);
-      });
+      .subscribe();
 
     // 组件卸载或conversationId变化时清理订阅
     return () => {
-      console.log("Unsubscribing from human replies");
       supabase.removeChannel(channel);
     };
   }, [conversationId]);
