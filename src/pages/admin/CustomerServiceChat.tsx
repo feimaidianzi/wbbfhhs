@@ -343,38 +343,38 @@ export default function CustomerServiceChat() {
     <div className="min-h-screen bg-background flex flex-col">
       {/* Header */}
       <header className="sticky top-0 z-50 border-b bg-background/95 backdrop-blur flex-shrink-0">
-        <div className="container flex h-14 items-center gap-4">
-          <Button variant="ghost" size="icon" onClick={() => {
-            if (mobileView !== 'list' && window.innerWidth < 1024) {
+        <div className="container flex h-12 sm:h-14 items-center gap-2 sm:gap-4 px-2 sm:px-4">
+          <Button variant="ghost" size="icon" className="h-8 w-8 sm:h-10 sm:w-10" onClick={() => {
+            if (mobileView !== 'list' && window.innerWidth < 768) {
               setMobileView('list');
               setSelectedConversation(null);
             } else {
               navigate('/admin');
             }
           }}>
-            <ArrowLeft className="h-5 w-5" />
+            <ArrowLeft className="h-4 w-4 sm:h-5 sm:w-5" />
           </Button>
-          <h1 className="text-lg font-semibold">客服工作台</h1>
-          <div className="ml-auto flex items-center gap-2">
-            {/* Mobile view switcher */}
-            <div className="flex lg:hidden">
-              {selectedConversation && (
-                <Button
-                  variant={mobileView === 'profile' ? 'default' : 'ghost'}
-                  size="icon"
-                  onClick={() => setMobileView(mobileView === 'profile' ? 'chat' : 'profile')}
-                >
-                  <UserCircle className="h-5 w-5" />
-                </Button>
-              )}
-            </div>
+          <h1 className="text-base sm:text-lg font-semibold truncate">客服工作台</h1>
+          <div className="ml-auto flex items-center gap-1 sm:gap-2">
+            {/* Mobile/Tablet view switcher - show profile button */}
+            {selectedConversation && (
+              <Button
+                variant={mobileView === 'profile' ? 'default' : 'ghost'}
+                size="icon"
+                className="lg:hidden h-8 w-8 sm:h-10 sm:w-10"
+                onClick={() => setMobileView(mobileView === 'profile' ? 'chat' : 'profile')}
+              >
+                <UserCircle className="h-4 w-4 sm:h-5 sm:w-5" />
+              </Button>
+            )}
             <Button
               variant="ghost"
               size="icon"
+              className="h-8 w-8 sm:h-10 sm:w-10"
               onClick={() => setSoundEnabled(!soundEnabled)}
               title={soundEnabled ? "关闭提示音" : "开启提示音"}
             >
-              {soundEnabled ? <Volume2 className="h-5 w-5" /> : <VolumeX className="h-5 w-5" />}
+              {soundEnabled ? <Volume2 className="h-4 w-4 sm:h-5 sm:w-5" /> : <VolumeX className="h-4 w-4 sm:h-5 sm:w-5" />}
             </Button>
           </div>
         </div>
@@ -382,10 +382,10 @@ export default function CustomerServiceChat() {
 
       {/* Main Content - Flexible height, calc based on header 56px + padding */}
       <div className="flex-1 overflow-hidden">
-        <div className="container py-4 max-w-screen-2xl h-[calc(100vh-56px-2rem)]">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 h-full auto-rows-fr">
-            {/* Conversation List - Show on desktop, or mobile when mobileView is 'list' */}
-            <Card className={`lg:col-span-3 h-full flex flex-col overflow-hidden ${mobileView !== 'list' ? 'hidden lg:flex' : 'flex'}`}>
+        <div className="container py-2 sm:py-4 px-2 sm:px-4 max-w-screen-2xl h-[calc(100vh-56px-1rem)] sm:h-[calc(100vh-56px-2rem)]">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-2 sm:gap-4 h-full auto-rows-fr">
+            {/* Conversation List - Show on desktop/tablet, or mobile when mobileView is 'list' */}
+            <Card className={`md:col-span-1 lg:col-span-3 h-full flex flex-col overflow-hidden ${mobileView !== 'list' ? 'hidden md:flex' : 'flex'}`}>
               <CardHeader className="pb-3 flex-shrink-0">
                 <CardTitle className="text-base flex items-center gap-2">
                   <MessageSquare className="h-4 w-4" />
@@ -448,8 +448,8 @@ export default function CustomerServiceChat() {
               </CardContent>
             </Card>
 
-            {/* Chat Area - Show on desktop, or mobile when mobileView is 'chat' */}
-            <Card className={`lg:col-span-4 h-full flex flex-col overflow-hidden ${mobileView !== 'chat' ? 'hidden lg:flex' : 'flex'}`}>
+            {/* Chat Area - Show on desktop/tablet, or mobile when mobileView is 'chat' */}
+            <Card className={`md:col-span-1 lg:col-span-4 h-full flex flex-col overflow-hidden ${mobileView !== 'chat' ? 'hidden md:flex' : 'flex'}`}>
               {selectedConversation ? (
                 <>
                   <CardHeader className="pb-3 border-b flex-shrink-0">
@@ -563,7 +563,7 @@ export default function CustomerServiceChat() {
             </Card>
 
             {/* Right Panel - Profile, Quick Replies, Notes */}
-            {/* Show on desktop, or mobile when mobileView is 'profile' */}
+            {/* Show on large desktop, or mobile when mobileView is 'profile' */}
             <Card className={`lg:col-span-5 h-full flex flex-col overflow-hidden ${mobileView !== 'profile' ? 'hidden lg:flex' : 'flex'}`}>
               <CardHeader className="pb-3 border-b flex-shrink-0">
                 <div className="flex items-center justify-between">

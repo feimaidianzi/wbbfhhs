@@ -408,16 +408,16 @@ export default function EnhancedVisitorProfile({ sessionId }: EnhancedVisitorPro
   const bounceRate = session.total_page_views <= 1 ? 100 : 0;
 
   return (
-    <div className="space-y-4 p-4">
+    <div className="space-y-3 sm:space-y-4 p-2 sm:p-4">
       <Tabs defaultValue="basic" className="w-full">
-        <TabsList className="grid w-full grid-cols-3 text-xs">
-          <TabsTrigger value="basic" className="text-xs px-2">
+        <TabsList className="grid w-full grid-cols-3 h-8 sm:h-10">
+          <TabsTrigger value="basic" className="text-[10px] sm:text-xs px-1 sm:px-2">
             基础画像
           </TabsTrigger>
-          <TabsTrigger value="behavior" className="text-xs px-2">
+          <TabsTrigger value="behavior" className="text-[10px] sm:text-xs px-1 sm:px-2">
             行为轨迹
           </TabsTrigger>
-          <TabsTrigger value="history" className="text-xs px-2">
+          <TabsTrigger value="history" className="text-[10px] sm:text-xs px-1 sm:px-2">
             历史记录
           </TabsTrigger>
         </TabsList>
@@ -456,22 +456,20 @@ export default function EnhancedVisitorProfile({ sessionId }: EnhancedVisitorPro
 
             {/* 网络属性 */}
             <Card>
-              <CardHeader className="pb-2">
-                <CardTitle className="text-sm flex items-center gap-2">
-                  <Wifi className="h-4 w-4" />
+              <CardHeader className="pb-2 px-3 sm:px-6">
+                <CardTitle className="text-xs sm:text-sm flex items-center gap-2">
+                  <Wifi className="h-3 w-3 sm:h-4 sm:w-4" />
                   网络属性
                 </CardTitle>
               </CardHeader>
-              <CardContent className="space-y-2 text-sm">
-                {session.ip_address && (
-                  <div className="flex items-center justify-between">
-                    <span className="text-muted-foreground flex items-center gap-1">
-                      <Globe className="h-3 w-3" />
-                      公网IP段
-                    </span>
-                    <span className="font-mono text-xs">{session.ip_address}</span>
-                  </div>
-                )}
+              <CardContent className="space-y-1.5 sm:space-y-2 text-xs sm:text-sm px-3 sm:px-6">
+                <div className="flex items-center justify-between">
+                  <span className="text-muted-foreground flex items-center gap-1">
+                    <Globe className="h-3 w-3" />
+                    公网IP
+                  </span>
+                  <span className="font-mono text-[10px] sm:text-xs">{session.ip_address || '未获取'}</span>
+                </div>
                 <div className="flex items-center justify-between">
                   <span className="text-muted-foreground flex items-center gap-1">
                     {getDeviceIcon()}
@@ -501,38 +499,35 @@ export default function EnhancedVisitorProfile({ sessionId }: EnhancedVisitorPro
 
             {/* 地域属性 */}
             <Card>
-              <CardHeader className="pb-2">
-                <CardTitle className="text-sm flex items-center gap-2">
-                  <MapPin className="h-4 w-4" />
+              <CardHeader className="pb-2 px-3 sm:px-6">
+                <CardTitle className="text-xs sm:text-sm flex items-center gap-2">
+                  <MapPin className="h-3 w-3 sm:h-4 sm:w-4" />
                   地域属性
                 </CardTitle>
               </CardHeader>
-              <CardContent className="space-y-2 text-sm">
-                {session.country && (
-                  <div className="flex items-center justify-between">
-                    <span className="text-muted-foreground">国家</span>
-                    <div className="flex items-center gap-1">
-                      <span className="text-xs">{session.country}</span>
-                      {isOverseas && (
-                        <Badge variant="outline" className="text-[10px] px-1">境外</Badge>
-                      )}
-                    </div>
+              <CardContent className="space-y-1.5 sm:space-y-2 text-xs sm:text-sm px-3 sm:px-6">
+                <div className="flex items-center justify-between">
+                  <span className="text-muted-foreground">国家</span>
+                  <div className="flex items-center gap-1">
+                    <span className="text-xs">{session.country || '未知'}</span>
+                    {isOverseas && (
+                      <Badge variant="outline" className="text-[10px] px-1">境外</Badge>
+                    )}
                   </div>
-                )}
-                {session.region && (
-                  <div className="flex items-center justify-between">
-                    <span className="text-muted-foreground">省份</span>
-                    <span className="text-xs">{session.region}</span>
+                </div>
+                <div className="flex items-center justify-between">
+                  <span className="text-muted-foreground">省份/地区</span>
+                  <span className="text-xs">{session.region || '未知'}</span>
+                </div>
+                <div className="flex items-center justify-between">
+                  <span className="text-muted-foreground">城市</span>
+                  <span className="text-xs">{session.city || '未知'}</span>
+                </div>
+                {session.ip_address && (
+                  <div className="flex items-center justify-between pt-1 border-t">
+                    <span className="text-muted-foreground text-[10px] sm:text-xs">IP定位</span>
+                    <span className="font-mono text-[10px] text-muted-foreground">{session.ip_address}</span>
                   </div>
-                )}
-                {session.city && (
-                  <div className="flex items-center justify-between">
-                    <span className="text-muted-foreground">城市</span>
-                    <span className="text-xs">{session.city}</span>
-                  </div>
-                )}
-                {!session.country && !session.region && !session.city && (
-                  <p className="text-muted-foreground text-center py-2">暂无地域信息</p>
                 )}
               </CardContent>
             </Card>
@@ -618,12 +613,12 @@ export default function EnhancedVisitorProfile({ sessionId }: EnhancedVisitorPro
                      <span className="text-xs text-right break-words max-w-[60%]">{session.referrer_domain}</span>
                   </div>
                 )}
-                {session.pages_visited?.[0] && (
-                   <div className="flex items-start justify-between gap-3">
-                    <span className="text-muted-foreground">落地页</span>
-                     <span className="text-xs text-right break-words max-w-[60%]">{session.pages_visited[0]}</span>
-                  </div>
-                )}
+                <div className="flex items-start justify-between gap-3">
+                  <span className="text-muted-foreground flex-shrink-0">落地页</span>
+                  <span className="text-xs text-right break-words max-w-[60%]">
+                    {session.pages_visited?.[0] || session.referrer_url || '(直接访问)'}
+                  </span>
+                </div>
                 {session.exit_page && (
                    <div className="flex items-start justify-between gap-3">
                     <span className="text-muted-foreground">出站页</span>
