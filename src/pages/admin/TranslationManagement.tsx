@@ -90,23 +90,48 @@ const TranslationManagement = () => {
     setProgress(0);
 
     try {
-      toast.info(`开始翻译 ${SUPPORTED_LANGUAGES.find(l => l.code === lang)?.name}...`);
+      const langName = SUPPORTED_LANGUAGES.find(l => l.code === lang)?.name;
+      toast.info(`开始增量翻译 ${langName}...`);
 
-      const { data, error } = await supabase.functions.invoke('batch-translate', {
-        body: {
-          sourceContent: zhTranslations,
-          languages: [lang],
-        },
-      });
+      // Use incremental mode - will auto-continue from where it left off
+      let totalTranslated = 0;
+      let hasMore = true;
+      let attemptCount = 0;
+      const maxAttempts = 5; // Max 5 batches (5 × 60 = 300 keys max)
+      
+      while (hasMore && attemptCount < maxAttempts) {
+        attemptCount++;
+        
+        const { data, error } = await supabase.functions.invoke('batch-translate', {
+          body: {
+            mode: 'incremental',
+            languages: [lang],
+          },
+        });
 
-      if (error) throw error;
+        if (error) throw error;
 
-      if (data?.results?.[lang]?.success) {
-        toast.success(`${lang} 翻译完成！`);
-        await loadTranslationStatuses();
-      } else {
-        throw new Error(data?.results?.[lang]?.error || '翻译失败');
+        const result = data?.results?.[lang];
+        if (!result?.success) {
+          throw new Error(result?.error || '翻译失败');
+        }
+        
+        totalTranslated = result.count;
+        hasMore = result.remaining > 0;
+        
+        const progressPercent = Math.round((totalTranslated / result.total) * 100);
+        setProgress(progressPercent);
+        
+        if (hasMore) {
+          toast.info(`${langName}: ${totalTranslated}/${result.total} (${result.remaining}条待翻译，继续中...)`);
+          // Short delay before next batch
+          await new Promise(resolve => setTimeout(resolve, 1000));
+        } else {
+          toast.success(`${langName} 翻译完成！共${totalTranslated}条`);
+        }
       }
+      
+      await loadTranslationStatuses();
     } catch (error) {
       console.error('Translation error:', error);
       toast.error(`翻译失败: ${error instanceof Error ? error.message : '未知错误'}`);
@@ -129,27 +154,46 @@ const TranslationManagement = () => {
 
       for (let i = 0; i < languagesToTranslate.length; i++) {
         const lang = languagesToTranslate[i];
+        const langName = SUPPORTED_LANGUAGES.find(l => l.code === lang)?.name;
         setCurrentLang(lang);
-        setProgress(Math.round((i / languagesToTranslate.length) * 100));
 
-        const { data, error } = await supabase.functions.invoke('batch-translate', {
-          body: {
-            sourceContent: zhTranslations,
-            languages: [lang],
-          },
-        });
+        // Use incremental mode for each language
+        let hasMore = true;
+        let attemptCount = 0;
+        
+        while (hasMore && attemptCount < 5) {
+          attemptCount++;
+          
+          const { data, error } = await supabase.functions.invoke('batch-translate', {
+            body: {
+              mode: 'incremental',
+              languages: [lang],
+            },
+          });
 
-        if (error) {
-          console.error(`Error translating ${lang}:`, error);
-          toast.error(`${lang} 翻译失败`);
-        } else if (data?.results?.[lang]?.success) {
-          toast.success(`${lang} 翻译完成`);
+          if (error) {
+            console.error(`Error translating ${lang}:`, error);
+            toast.error(`${langName} 翻译失败`);
+            break;
+          }
+          
+          const result = data?.results?.[lang];
+          if (!result?.success) {
+            toast.error(`${langName} 翻译失败`);
+            break;
+          }
+          
+          hasMore = result.remaining > 0;
+          
+          if (!hasMore) {
+            toast.success(`${langName} 完成 (${result.count}条)`);
+          } else {
+            await new Promise(resolve => setTimeout(resolve, 1000));
+          }
         }
 
-        // Delay between languages
-        if (i < languagesToTranslate.length - 1) {
-          await new Promise(resolve => setTimeout(resolve, 3000));
-        }
+        const overallProgress = Math.round(((i + 1) / languagesToTranslate.length) * 100);
+        setProgress(overallProgress);
       }
 
       setProgress(100);

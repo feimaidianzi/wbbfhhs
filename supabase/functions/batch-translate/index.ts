@@ -228,11 +228,19 @@ serve(async (req) => {
   }
 
   try {
-    const { sourceContent, languages } = await req.json();
+    const { sourceContent, languages, mode = 'full' } = await req.json();
 
-    if (!sourceContent || !languages || !Array.isArray(languages)) {
+    if (!languages || !Array.isArray(languages)) {
       return new Response(
-        JSON.stringify({ error: 'Missing sourceContent or languages array' }),
+        JSON.stringify({ error: 'Missing languages array' }),
+        { status: 400, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+      );
+    }
+    
+    // For incremental mode, sourceContent is optional (will load from DB)
+    if (mode === 'full' && !sourceContent) {
+      return new Response(
+        JSON.stringify({ error: 'Missing sourceContent for full mode' }),
         { status: 400, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
       );
     }
@@ -251,6 +259,22 @@ serve(async (req) => {
       Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')!
     );
 
+    // Load source content from DB if not provided (incremental mode)
+    let actualSourceContent = sourceContent;
+    if (!actualSourceContent) {
+      const { data: zhData } = await supabase
+        .from('system_settings')
+        .select('value')
+        .eq('key', 'translations_zh')
+        .single();
+      
+      if (zhData?.value) {
+        actualSourceContent = JSON.parse(zhData.value);
+      } else {
+        throw new Error('No source translations found in database');
+      }
+    }
+
     const results: Record<string, any> = {};
     const errors: Record<string, string> = {};
 
@@ -262,30 +286,80 @@ serve(async (req) => {
       try {
         console.log(`Starting translation for ${lang}...`);
         
+        // Load existing translations for incremental mode
+        let existingTranslations: Record<string, string> = {};
+        if (mode === 'incremental') {
+          const { data: existingData } = await supabase
+            .from('system_settings')
+            .select('value')
+            .eq('key', `translations_${lang}`)
+            .single();
+          
+          if (existingData?.value) {
+            existingTranslations = JSON.parse(existingData.value);
+            console.log(`Found ${Object.keys(existingTranslations).length} existing translations for ${lang}`);
+          }
+        }
+        
+        // Filter out already translated keys in incremental mode
+        let contentToTranslate = actualSourceContent;
+        if (mode === 'incremental' && Object.keys(existingTranslations).length > 0) {
+          const remainingKeys = Object.keys(actualSourceContent).filter(
+            key => !existingTranslations[key]
+          );
+          
+          if (remainingKeys.length === 0) {
+            console.log(`All translations already completed for ${lang}`);
+            results[lang] = {
+              success: true,
+              count: Object.keys(existingTranslations).length,
+              message: 'Already completed',
+            };
+            continue;
+          }
+          
+          // Limit to 60 keys per batch to stay under time limit
+          const batchKeys = remainingKeys.slice(0, 60);
+          contentToTranslate = Object.fromEntries(
+            batchKeys.map(key => [key, actualSourceContent[key]])
+          );
+          
+          console.log(`Translating ${batchKeys.length} remaining keys (${remainingKeys.length - batchKeys.length} more to go)`);
+        }
+        
         let translations: Record<string, string>;
         
         if (DOUBAO_API_KEY) {
           console.log(`Using Doubao AI for ${lang}...`);
           try {
-            translations = await translateWithDoubao(sourceContent, lang, DOUBAO_API_KEY);
+            translations = await translateWithDoubao(contentToTranslate, lang, DOUBAO_API_KEY);
             console.log(`Doubao translation completed for ${lang}`);
           } catch (doubaoError) {
             console.error(`Doubao translation failed for ${lang}:`, doubaoError);
             if (LOVABLE_API_KEY) {
               console.log(`Falling back to Lovable AI for ${lang}...`);
-              translations = await translateWithLovableAI(sourceContent, lang, LOVABLE_API_KEY);
+              translations = await translateWithLovableAI(contentToTranslate, lang, LOVABLE_API_KEY);
             } else {
               throw doubaoError;
             }
           }
         } else if (LOVABLE_API_KEY) {
           console.log(`Using Lovable AI for ${lang} (Doubao not available)...`);
-          translations = await translateWithLovableAI(sourceContent, lang, LOVABLE_API_KEY);
+          translations = await translateWithLovableAI(contentToTranslate, lang, LOVABLE_API_KEY);
         } else {
           throw new Error('No translation API available');
         }
           
-        console.log(`Completed translation for ${lang}, got ${Object.keys(translations).length} keys`);
+        // Merge with existing translations in incremental mode
+        if (mode === 'incremental' && Object.keys(existingTranslations).length > 0) {
+          translations = { ...existingTranslations, ...translations };
+        }
+        
+        const totalKeys = Object.keys(translations).length;
+        const totalNeeded = Object.keys(actualSourceContent).length;
+        const remaining = totalNeeded - totalKeys;
+        
+        console.log(`Completed translation for ${lang}: ${totalKeys}/${totalNeeded} keys (${remaining} remaining)`);
 
         // Save to system_settings table immediately after successful translation
         const { error: upsertError } = await supabase
@@ -293,7 +367,7 @@ serve(async (req) => {
           .upsert({
             key: `translations_${lang}`,
             value: JSON.stringify(translations),
-            description: `AI翻译 - ${languageNames[lang] || lang} (${Object.keys(translations).length}条)`,
+            description: `AI翻译 - ${languageNames[lang] || lang} (${totalKeys}/${totalNeeded}条)${remaining > 0 ? ` - ${remaining}条待翻译` : ''}`,
             updated_at: new Date().toISOString(),
           }, { onConflict: 'key' });
 
@@ -303,9 +377,11 @@ serve(async (req) => {
 
         results[lang] = {
           success: true,
-          count: Object.keys(translations).length,
+          count: totalKeys,
+          total: totalNeeded,
+          remaining: remaining,
+          completed: remaining === 0,
         };
-        console.log(`Completed translation for ${lang}: ${Object.keys(translations).length} keys`);
       } catch (error) {
         const errorMsg = error instanceof Error ? error.message : 'Unknown error';
         console.error(`Error translating ${lang}:`, errorMsg);
