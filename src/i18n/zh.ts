@@ -751,4 +751,81 @@ export const zhTranslations: Record<string, string> = {
   'ai.send': '发送',
   'ai.transferHuman': '转人工客服',
   'ai.thinking': '正在思考...',
+
+  // Multi-Rotor Products - 多旋翼产品
+  'multiRotor.x650.name': 'X650多旋翼无人机',
+  'multiRotor.x650.subtitle': '紧凑型工业无人机',
+  'multiRotor.x650.description': '紧凑型工业无人机，适用于日常巡检和数据采集任务。便携性强，快速部署，是入门级工业应用的理想选择。',
+  'multiRotor.x650.seoTitle': 'X650多旋翼无人机 - 紧凑型工业无人机',
+  'multiRotor.x650.seoDescription': 'X650紧凑型工业无人机，650mm轴距，2kg载重，适用于日常巡检、数据采集等场景',
+  'multiRotor.x650.seoKeywords': '多旋翼无人机,X650,工业无人机,巡检无人机',
+  'multiRotor.x650.ctaTitle': '了解更多X650解决方案',
+  'multiRotor.x650.ctaDescription': '联系我们的专业团队，获取定制化配置方案和详细报价',
+
+  'multiRotor.x850.name': 'X850多旋翼无人机',
+  'multiRotor.x850.description': '中型工业无人机，具备更强载荷能力和更长续航时间，满足专业级作业需求。是电力巡检、公安执法等场景的可靠选择。',
+  'multiRotor.x850.seoTitle': 'X850多旋翼无人机 - 中型工业无人机',
+  'multiRotor.x850.seoDescription': 'X850中型工业无人机，5kg载重，45分钟续航，适用于电力巡检、公安执法等场景',
+  'multiRotor.x850.seoKeywords': '多旋翼无人机,X850,电力巡检,工业无人机',
+
+  'multiRotor.x1200.name': 'X1200多旋翼无人机',
+  'multiRotor.x1200.description': '大型工业无人机，适用于重型载荷和长航时任务，是专业级应用的理想选择。55分钟超长续航，满足各种复杂任务需求。',
+  'multiRotor.x1200.seoTitle': 'X1200多旋翼无人机 - 大型工业无人机',
+  'multiRotor.x1200.seoDescription': 'X1200大型工业无人机，10kg载重，55分钟续航，适用于专业测绘、应急救援等场景',
+  'multiRotor.x1200.seoKeywords': '多旋翼无人机,X1200,专业测绘,应急救援',
+
+  'multiRotor.x1600.name': 'X1600多旋翼无人机',
+  'multiRotor.x1600.description': '超大型工业无人机，满足特殊行业的超重载荷需求。20kg最大载重，适用于专业测绘、物资运输等特殊场景。',
+  'multiRotor.x1600.seoTitle': 'X1600多旋翼无人机 - 超大型工业无人机',
+  'multiRotor.x1600.seoDescription': 'X1600超大型工业无人机，20kg载重，适用于专业测绘、物资运输等特殊场景',
+  'multiRotor.x1600.seoKeywords': '多旋翼无人机,X1600,重型载荷,物资运输',
+
+  // Multi-Rotor Features - 特性
+  'multiRotor.features.compactPortable': '紧凑便携',
+  'multiRotor.features.compactPortableDesc': '650mm轴距，便于携带运输，快速机动',
+  'multiRotor.features.quickDeploy': '快速部署',
+  'multiRotor.features.quickDeployDesc': '5分钟完成飞行准备，响应迅速',
+  'multiRotor.features.stableReliable': '稳定可靠',
+  'multiRotor.features.stableReliableDesc': '工业级飞控系统，稳定性强',
+  'multiRotor.features.smartControl': '智能飞控',
+  'multiRotor.features.smartControlDesc': '自主避障导航，智能化操控',
+  'multiRotor.features.longEndurance': '长续航',
+  'multiRotor.features.longEnduranceDesc': '35分钟持续飞行，满足常规任务',
+  'multiRotor.features.windResistant': '抗风性好',
+  'multiRotor.features.windResistantDesc': '5级风稳定作业，适应多种环境',
+  'multiRotor.features.professionalPayload': '专业载荷',
+  'multiRotor.features.professionalPayloadDesc': '5kg载重支持专业设备挂载',
+  'multiRotor.features.modularDesign': '模块化设计',
+  'multiRotor.features.modularDesignDesc': '快速更换多种载荷，灵活配置',
+
+  // Multi-Rotor Applications - 应用场景
+  'multiRotor.applications.routineInspection': '日常巡检作业',
+  'multiRotor.applications.dataCollection': '数据采集分析',
+  'multiRotor.applications.fieldSurvey': '现场勘察调研',
+  'multiRotor.applications.smallMapping': '小型测绘任务',
+  'multiRotor.applications.securityPatrol': '安防监控巡逻',
+  'multiRotor.applications.training': '教学培训演练',
+  'multiRotor.applications.powerInspection': '电力巡检作业',
+
+  // Flight Service - 飞行服务
+  'flightService.title': '飞行服务',
+  'flightService.subtitle': '专业飞行作业，高效完成任务',
+  'flightService.seoDescription': '长凌科技专业无人机飞行作业服务。',
+  'flightService.seoKeywords': '无人机飞行服务,航拍,电力巡检,植保',
+  'flightService.bookService': '预约服务',
+  'flightService.services.aerialMapping': '航拍测绘',
+  'flightService.services.aerialMappingDesc': '高精度航拍与三维建模',
+  'flightService.services.powerInspection': '电力巡检',
+  'flightService.services.powerInspectionDesc': '输电线路巡检服务',
+  'flightService.services.agriculturalSpraying': '农业植保',
+  'flightService.services.agriculturalSprayingDesc': '农业喷洒作业服务',
+  'flightService.services.emergencyRescue': '应急救援',
+  'flightService.services.emergencyRescueDesc': '搜救与物资投送',
+
+  // 404 Page - 404页面
+  'notFound.title': '404',
+  'notFound.message': '哎呀！页面未找到',
+  'notFound.backHome': '返回首页',
 };
+
+export default zhTranslations;
