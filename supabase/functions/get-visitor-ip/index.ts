@@ -34,11 +34,17 @@ serve(async (req) => {
     let sessionId: string | null = null;
     try {
       const body = await req.text();
-      if (body) {
-        const parsed = JSON.parse(body);
-        sessionId = parsed.sessionId || null;
+      if (body && body.trim().length > 0) {
+        try {
+          const parsed = JSON.parse(body);
+          sessionId = parsed.sessionId || null;
+        } catch (parseError) {
+          console.error("JSON parse error:", parseError, "Body:", body);
+          // Continue without sessionId - not a fatal error
+        }
       }
-    } catch {
+    } catch (error) {
+      console.error("Body read error:", error);
       // No body or invalid JSON - that's fine for IP-only requests
     }
 
