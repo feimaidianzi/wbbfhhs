@@ -84,51 +84,36 @@ const TranslationManagement = () => {
     loadTranslationStatuses();
   }, []);
 
-  const translateSingleLanguage = async (lang: LanguageCode) => {
+  // 单次翻译一批（60个key），不自动循环
+  const translateSingleBatch = async (lang: LanguageCode) => {
     setIsTranslating(true);
     setCurrentLang(lang);
-    setProgress(0);
 
     try {
       const langName = SUPPORTED_LANGUAGES.find(l => l.code === lang)?.name;
-      toast.info(`开始增量翻译 ${langName}...`);
+      toast.info(`正在翻译 ${langName}（单批次）...`);
 
-      // Use incremental mode - will auto-continue from where it left off
-      let totalTranslated = 0;
-      let hasMore = true;
-      let attemptCount = 0;
-      const maxAttempts = 5; // Max 5 batches (5 × 60 = 300 keys max)
+      const { data, error } = await supabase.functions.invoke('batch-translate', {
+        body: {
+          mode: 'incremental',
+          languages: [lang],
+        },
+      });
+
+      if (error) throw error;
+
+      const result = data?.results?.[lang];
+      if (!result?.success) {
+        throw new Error(result?.error || '翻译失败');
+      }
       
-      while (hasMore && attemptCount < maxAttempts) {
-        attemptCount++;
-        
-        const { data, error } = await supabase.functions.invoke('batch-translate', {
-          body: {
-            mode: 'incremental',
-            languages: [lang],
-          },
-        });
-
-        if (error) throw error;
-
-        const result = data?.results?.[lang];
-        if (!result?.success) {
-          throw new Error(result?.error || '翻译失败');
-        }
-        
-        totalTranslated = result.count;
-        hasMore = result.remaining > 0;
-        
-        const progressPercent = Math.round((totalTranslated / result.total) * 100);
-        setProgress(progressPercent);
-        
-        if (hasMore) {
-          toast.info(`${langName}: ${totalTranslated}/${result.total} (${result.remaining}条待翻译，继续中...)`);
-          // Short delay before next batch
-          await new Promise(resolve => setTimeout(resolve, 1000));
-        } else {
-          toast.success(`${langName} 翻译完成！共${totalTranslated}条`);
-        }
+      const progressPercent = Math.round((result.count / result.total) * 100);
+      setProgress(progressPercent);
+      
+      if (result.remaining > 0) {
+        toast.success(`${langName}: ${result.count}/${result.total} 已完成，还剩 ${result.remaining} 条待翻译`);
+      } else {
+        toast.success(`${langName} 翻译完成！共 ${result.count} 条`);
       }
       
       await loadTranslationStatuses();
@@ -141,7 +126,8 @@ const TranslationManagement = () => {
     }
   };
 
-  const translateAllLanguages = async () => {
+  // 单批次翻译所有语言（每个语言翻译一批60个key）
+  const translateAllOneStep = async () => {
     const languagesToTranslate = SUPPORTED_LANGUAGES
       .filter(l => l.code !== 'zh' && l.code !== 'en')
       .map(l => l.code);
@@ -150,54 +136,43 @@ const TranslationManagement = () => {
     setProgress(0);
 
     try {
-      toast.info('开始批量翻译所有语言...');
+      toast.info('正在翻译所有语言（单批次）...');
 
       for (let i = 0; i < languagesToTranslate.length; i++) {
         const lang = languagesToTranslate[i];
         const langName = SUPPORTED_LANGUAGES.find(l => l.code === lang)?.name;
         setCurrentLang(lang);
 
-        // Use incremental mode for each language
-        let hasMore = true;
-        let attemptCount = 0;
-        
-        while (hasMore && attemptCount < 5) {
-          attemptCount++;
-          
-          const { data, error } = await supabase.functions.invoke('batch-translate', {
-            body: {
-              mode: 'incremental',
-              languages: [lang],
-            },
-          });
+        const { data, error } = await supabase.functions.invoke('batch-translate', {
+          body: {
+            mode: 'incremental',
+            languages: [lang],
+          },
+        });
 
-          if (error) {
-            console.error(`Error translating ${lang}:`, error);
-            toast.error(`${langName} 翻译失败`);
-            break;
-          }
-          
-          const result = data?.results?.[lang];
-          if (!result?.success) {
-            toast.error(`${langName} 翻译失败`);
-            break;
-          }
-          
-          hasMore = result.remaining > 0;
-          
-          if (!hasMore) {
-            toast.success(`${langName} 完成 (${result.count}条)`);
-          } else {
-            await new Promise(resolve => setTimeout(resolve, 1000));
-          }
+        if (error) {
+          console.error(`Error translating ${lang}:`, error);
+          toast.error(`${langName} 翻译失败`);
+          continue;
+        }
+        
+        const result = data?.results?.[lang];
+        if (!result?.success) {
+          toast.error(`${langName} 翻译失败`);
+          continue;
+        }
+        
+        if (result.remaining > 0) {
+          toast.info(`${langName}: ${result.count}/${result.total}，剩余 ${result.remaining} 条`);
+        } else {
+          toast.success(`${langName} 完成`);
         }
 
         const overallProgress = Math.round(((i + 1) / languagesToTranslate.length) * 100);
         setProgress(overallProgress);
       }
 
-      setProgress(100);
-      toast.success('所有语言翻译完成！');
+      toast.success('单轮翻译完成！如有未完成的语言，请再次点击继续');
       await loadTranslationStatuses();
     } catch (error) {
       console.error('Batch translation error:', error);
@@ -223,7 +198,7 @@ const TranslationManagement = () => {
             </div>
           </div>
           <Button 
-            onClick={translateAllLanguages} 
+            onClick={translateAllOneStep} 
             disabled={isTranslating}
             className="bg-primary"
           >
@@ -235,7 +210,7 @@ const TranslationManagement = () => {
             ) : (
               <>
                 <Globe className="h-4 w-4 mr-2" />
-                翻译所有语言
+                翻译一轮（所有语言）
               </>
             )}
           </Button>
@@ -299,11 +274,11 @@ const TranslationManagement = () => {
                       variant="outline"
                       size="sm"
                       className="w-full mt-4"
-                      onClick={() => translateSingleLanguage(status.lang)}
+                      onClick={() => translateSingleBatch(status.lang)}
                       disabled={isTranslating}
                     >
                       <RefreshCw className="h-4 w-4 mr-2" />
-                      {status.hasTranslation ? '重新翻译' : '开始翻译'}
+                      {status.hasTranslation ? '继续翻译' : '开始翻译'}
                     </Button>
                   )}
                 </CardContent>
