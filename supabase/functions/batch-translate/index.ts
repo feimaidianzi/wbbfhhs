@@ -224,6 +224,8 @@ serve(async (req) => {
     const DOUBAO_API_KEY = Deno.env.get('DOUBAO_API_KEY');
     const LOVABLE_API_KEY = Deno.env.get('LOVABLE_API_KEY');
     
+    console.log(`API Keys status - Doubao: ${DOUBAO_API_KEY ? 'Available' : 'Missing'}, Lovable: ${LOVABLE_API_KEY ? 'Available' : 'Missing'}`);
+    
     if (!LOVABLE_API_KEY && !DOUBAO_API_KEY) {
       throw new Error('No translation API key configured');
     }
@@ -244,20 +246,24 @@ serve(async (req) => {
       try {
         console.log(`Starting translation for ${lang}...`);
         
-        // Use Doubao AI as primary, fall back to Lovable AI if Doubao fails or unavailable
         let translations: Record<string, string>;
+        
         if (DOUBAO_API_KEY) {
+          console.log(`Using Doubao AI for ${lang}...`);
           try {
             translations = await translateWithDoubao(sourceContent, lang, DOUBAO_API_KEY);
+            console.log(`Doubao translation completed for ${lang}`);
           } catch (doubaoError) {
-            console.error(`Doubao translation failed for ${lang}, trying Lovable AI:`, doubaoError);
+            console.error(`Doubao translation failed for ${lang}:`, doubaoError);
             if (LOVABLE_API_KEY) {
+              console.log(`Falling back to Lovable AI for ${lang}...`);
               translations = await translateWithLovableAI(sourceContent, lang, LOVABLE_API_KEY);
             } else {
               throw doubaoError;
             }
           }
         } else if (LOVABLE_API_KEY) {
+          console.log(`Using Lovable AI for ${lang} (Doubao not available)...`);
           translations = await translateWithLovableAI(sourceContent, lang, LOVABLE_API_KEY);
         } else {
           throw new Error('No translation API available');
