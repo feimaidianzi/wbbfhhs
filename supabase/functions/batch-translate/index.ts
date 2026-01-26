@@ -225,21 +225,16 @@ serve(async (req) => {
       Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')!
     );
 
-    // Load source content from DB if not provided
-    let actualSourceContent = sourceContent;
-    if (!actualSourceContent) {
-      const { data: zhData } = await supabase
-        .from('system_settings')
-        .select('value')
-        .eq('key', 'translations_zh')
-        .single();
-      
-      if (zhData?.value) {
-        actualSourceContent = JSON.parse(zhData.value);
-      } else {
-        throw new Error('No source translations found in database');
-      }
+    // CRITICAL: Always use the provided sourceContent as the complete source
+    // This is the zhTranslations object from the frontend
+    const actualSourceContent = sourceContent;
+    
+    if (!actualSourceContent || Object.keys(actualSourceContent).length === 0) {
+      throw new Error('No source content provided - frontend must send zhTranslations');
     }
+    
+    const totalSourceKeys = Object.keys(actualSourceContent).length;
+    console.log(`Source content has ${totalSourceKeys} keys to translate`);
 
     const results: Record<string, any> = {};
 
@@ -293,7 +288,10 @@ serve(async (req) => {
             batchKeys.map(key => [key, actualSourceContent[key]])
           );
           
-          console.log(`[Single Batch] Processing ${batchKeys.length} keys (${remainingKeys.length - batchKeys.length} remaining) for ${lang}`);
+          console.log(`[Single Batch] Processing ${batchKeys.length} keys for ${lang}`);
+          console.log(`  - Existing: ${Object.keys(existingTranslations).length}`);
+          console.log(`  - Total needed: ${totalSourceKeys}`);
+          console.log(`  - Remaining after this batch: ${remainingKeys.length - batchKeys.length}`);
         }
         
         let translations: Record<string, string>;
