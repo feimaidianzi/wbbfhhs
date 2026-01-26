@@ -62,7 +62,7 @@ IMPORTANT RULES:
         'Authorization': `Bearer ${apiKey}`,
       },
       body: JSON.stringify({
-        model: 'ep-20241226-tvz4b',  // 需要替换为你的豆包endpoint ID
+        model: 'doubao-seed-1-6-lite-251015',
         messages: [
           { role: 'system', content: systemPrompt },
           { role: 'user', content: JSON.stringify(contentToTranslate) },
