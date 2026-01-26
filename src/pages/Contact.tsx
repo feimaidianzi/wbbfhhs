@@ -61,16 +61,16 @@ const Contact = () => {
   }, [cooldown]);
 
   const contactInfo = [
-    { icon: Phone, title: language === 'zh' ? "电话咨询" : "Phone", value: "+8617674048404", href: "tel:+8617674048404" },
-    { icon: Mail, title: language === 'zh' ? "邮箱" : "Email", value: "market@caniuav.com", href: "mailto:market@caniuav.com" },
-    { icon: MessageCircle, title: language === 'zh' ? "微信客服" : "WeChat", value: "17674048404", href: "#" },
-    { icon: Clock, title: language === 'zh' ? "工作时间" : "Working Hours", value: language === 'zh' ? "周一至周五 9:00-18:00" : "Mon-Fri 9:00-18:00", href: null },
+    { icon: Phone, title: t('contact.info.phone'), value: "+8617674048404", href: "tel:+8617674048404" },
+    { icon: Mail, title: t('contact.info.email'), value: "market@caniuav.com", href: "mailto:market@caniuav.com" },
+    { icon: MessageCircle, title: t('contact.info.wechat'), value: "17674048404", href: "#" },
+    { icon: Clock, title: t('contact.info.workingHours'), value: t('contact.info.workingHours.value'), href: null },
   ];
 
   const offices = [
     {
-      city: language === 'zh' ? "长沙总部" : "Changsha HQ",
-      address: language === 'zh' ? "湖南省长沙市望城区月亮岛街道罐子岭澳优全球总部大楼" : "Ausnutria Global HQ, Wangcheng District, Changsha, Hunan, China",
+      city: t('contact.office.changsha'),
+      address: t('contact.office.changsha.address'),
       phone: "+8617674048404",
     },
   ];
@@ -81,8 +81,8 @@ const Contact = () => {
     // Rate limit check
     if (!canSubmit) {
       toast({
-        title: language === 'zh' ? "请稍候" : "Please wait",
-        description: language === 'zh' ? `请等待 ${cooldown} 秒后再次提交` : `Please wait ${cooldown} seconds before submitting again`,
+        title: t('contact.validation.pleaseWait'),
+        description: t('contact.validation.waitSeconds').replace('{{seconds}}', String(cooldown)),
         variant: "destructive",
       });
       return;
@@ -90,8 +90,8 @@ const Contact = () => {
 
     if (!formData.name || !formData.email || !formData.message) {
       toast({
-        title: language === 'zh' ? "请填写必填项" : "Please fill required fields",
-        description: language === 'zh' ? "姓名、邮箱和咨询内容为必填项" : "Name, email and message are required",
+        title: t('contact.validation.fillRequired'),
+        description: t('contact.validation.requiredFields'),
         variant: "destructive",
       });
       return;
@@ -100,8 +100,8 @@ const Contact = () => {
     // Basic input validation
     if (formData.name.length > 100 || formData.email.length > 255 || formData.message.length > 5000) {
       toast({
-        title: language === 'zh' ? "输入内容过长" : "Input too long",
-        description: language === 'zh' ? "请检查输入内容长度" : "Please check input length",
+        title: t('contact.validation.inputTooLong'),
+        description: t('contact.validation.checkLength'),
         variant: "destructive",
       });
       return;
@@ -164,15 +164,15 @@ const Contact = () => {
       setCooldown(RATE_LIMIT_SECONDS);
 
       toast({
-        title: language === 'zh' ? "提交成功" : "Submitted Successfully",
-        description: language === 'zh' ? "我们会尽快与您联系！" : "We will contact you soon!",
+        title: t('contact.success.title'),
+        description: t('contact.success.message'),
       });
       setFormData({ name: "", phone: "", email: "", company: "", subject: "", message: "" });
     } catch (error: any) {
       console.error('Submit error:', error);
       toast({
-        title: language === 'zh' ? "提交失败" : "Submission Failed",
-        description: error.message,
+        title: t('contact.error.title'),
+        description: t('contact.error.message'),
         variant: "destructive",
       });
     } finally {

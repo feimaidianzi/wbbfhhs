@@ -17,42 +17,36 @@ import { SEO } from "@/components/SEO";
 import { useLanguage } from "@/contexts/LanguageContext";
 
 const Index = () => {
-  const { language } = useLanguage();
+  const { t } = useLanguage();
 
   const homeStructuredData = {
     '@context': 'https://schema.org',
     '@type': 'Organization',
-    name: language === 'zh' ? '长凌科技有限公司' : 'CANI Technology Co., Ltd.',
+    name: t('home.structured.name'),
     alternateName: 'CANI',
     url: 'https://www.cani.com',
     logo: 'https://www.cani.com/logo.png',
-    description: language === 'zh' 
-      ? '专业无人机配件供应商，提供数字图传、VTX视频发射器、飞控电调、云台吊舱等无人机配件'
-      : 'Professional drone accessories supplier, providing digital FPV, VTX video transmitters, flight controllers, gimbals and other drone accessories',
+    description: t('home.structured.description'),
     address: {
       '@type': 'PostalAddress',
-      addressLocality: language === 'zh' ? '长沙' : 'Changsha',
-      addressRegion: language === 'zh' ? '湖南' : 'Hunan',
+      addressLocality: t('home.structured.addressLocality'),
+      addressRegion: t('home.structured.addressRegion'),
       addressCountry: 'CN',
     },
     contactPoint: {
       '@type': 'ContactPoint',
       telephone: '+86-17674048404',
-      contactType: 'customer service',
-      availableLanguage: language === 'zh' ? 'Chinese' : 'English',
+      contactType: t('home.structured.contactType'),
+      availableLanguage: t('home.structured.availableLanguage'),
     },
   };
 
   return (
     <div className="min-h-screen bg-background">
       <SEO
-        title={language === 'zh' ? "首页" : "Home"}
-        description={language === 'zh' 
-          ? "长凌科技有限公司，专注于工业无人机零配件，提供数字图传、VTX视频发射器、飞控电调、云台吊舱、ELRS遥控等专业无人机配件。"
-          : "CANI Technology Co., Ltd., focusing on industrial drone accessories, providing digital FPV, VTX video transmitters, flight controllers, gimbals, ELRS remote controls and other professional drone accessories."}
-        keywords={language === 'zh' 
-          ? "无人机配件,数字图传,VTX视频发射器,飞控电调,云台吊舱,ELRS遥控,长凌,CANI"
-          : "drone accessories,digital FPV,VTX video transmitter,flight controller,gimbal,ELRS,CANI"}
+        title={t('home.seo.title')}
+        description={t('home.seo.description')}
+        keywords={t('home.seo.keywords')}
         url="/"
         structuredData={homeStructuredData}
       />

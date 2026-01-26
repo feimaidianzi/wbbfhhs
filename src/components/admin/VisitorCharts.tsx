@@ -75,7 +75,7 @@ export default function VisitorCharts({ sessions }: VisitorChartsProps) {
     });
     return hourCounts.map((count, hour) => ({
       hour: `${hour.toString().padStart(2, '0')}:00`,
-      访客数: count,
+      visitors: count,
     }));
   }, [sessions]);
 
@@ -243,7 +243,7 @@ export default function VisitorCharts({ sessions }: VisitorChartsProps) {
                 <Tooltip content={<CustomTooltip />} />
                 <Area 
                   type="monotone" 
-                  dataKey="访客数" 
+                  dataKey="visitors" 
                   stroke="hsl(var(--primary))" 
                   fillOpacity={1} 
                   fill="url(#colorVisitors)" 
