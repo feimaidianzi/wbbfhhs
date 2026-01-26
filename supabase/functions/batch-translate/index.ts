@@ -21,10 +21,11 @@ const languageNames: Record<string, string> = {
   'tr': 'Turkish (Türkçe)',
 };
 
-async function translateWithDoubao(
+// Use Lovable AI for translation (no API key required)
+async function translateWithLovableAI(
   content: Record<string, string>,
   targetLang: string,
-  apiKey: string
+  lovableApiKey: string
 ): Promise<Record<string, string>> {
   const targetLangName = languageNames[targetLang] || targetLang;
   
@@ -38,7 +39,7 @@ IMPORTANT RULES:
 4. Maintain the professional and technical tone
 5. Keep brand names like "CANI" and "长凌" unchanged
 6. For UI text, keep it concise and user-friendly
-7. Return ONLY valid JSON, no explanations`;
+7. Return ONLY valid JSON, no explanations or markdown`;
 
   const entries = Object.entries(content);
   const chunkSize = 50;
@@ -56,14 +57,14 @@ IMPORTANT RULES:
 
     console.log(`Translating chunk ${i + 1}/${chunks.length} for ${targetLang}...`);
 
-    const response = await fetch('https://ark.cn-beijing.volces.com/api/v3/chat/completions', {
+    const response = await fetch('https://api.lovable.dev/v1/chat/completions', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': `Bearer ${apiKey}`,
+        'Authorization': `Bearer ${lovableApiKey}`,
       },
       body: JSON.stringify({
-        model: 'doubao-pro-32k',
+        model: 'google/gemini-2.5-flash',
         messages: [
           { role: 'system', content: systemPrompt },
           { role: 'user', content: JSON.stringify(contentToTranslate) },
@@ -75,8 +76,8 @@ IMPORTANT RULES:
 
     if (!response.ok) {
       const errorText = await response.text();
-      console.error('Doubao API error:', response.status, errorText);
-      throw new Error(`Doubao API error: ${response.status}`);
+      console.error('Lovable AI error:', response.status, errorText);
+      throw new Error(`Lovable AI error: ${response.status}`);
     }
 
     const data = await response.json();
@@ -92,12 +93,17 @@ IMPORTANT RULES:
     if (cleanedText.endsWith('```')) cleanedText = cleanedText.slice(0, -3);
     cleanedText = cleanedText.trim();
 
-    const parsed = JSON.parse(cleanedText);
-    Object.assign(translatedContent, parsed);
+    try {
+      const parsed = JSON.parse(cleanedText);
+      Object.assign(translatedContent, parsed);
+    } catch (parseError) {
+      console.error('JSON parse error:', parseError, 'Response:', cleanedText);
+      throw new Error(`Failed to parse translation response for ${targetLang}`);
+    }
 
     // Rate limiting
     if (i < chunks.length - 1) {
-      await new Promise(resolve => setTimeout(resolve, 1000));
+      await new Promise(resolve => setTimeout(resolve, 500));
     }
   }
 
@@ -119,9 +125,9 @@ serve(async (req) => {
       );
     }
 
-    const DOUBAO_API_KEY = Deno.env.get('DOUBAO_API_KEY');
-    if (!DOUBAO_API_KEY) {
-      throw new Error('DOUBAO_API_KEY is not configured');
+    const LOVABLE_API_KEY = Deno.env.get('LOVABLE_API_KEY');
+    if (!LOVABLE_API_KEY) {
+      throw new Error('LOVABLE_API_KEY is not configured');
     }
 
     const supabase = createClient(
@@ -139,7 +145,7 @@ serve(async (req) => {
 
       try {
         console.log(`Starting translation for ${lang}...`);
-        const translations = await translateWithDoubao(sourceContent, lang, DOUBAO_API_KEY);
+        const translations = await translateWithLovableAI(sourceContent, lang, LOVABLE_API_KEY);
         
         // Save to system_settings table
         const { error: upsertError } = await supabase
@@ -167,7 +173,7 @@ serve(async (req) => {
       }
 
       // Delay between languages
-      await new Promise(resolve => setTimeout(resolve, 2000));
+      await new Promise(resolve => setTimeout(resolve, 1000));
     }
 
     return new Response(
