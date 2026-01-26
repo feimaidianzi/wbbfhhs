@@ -63,7 +63,7 @@ IMPORTANT RULES:
         'Authorization': `Bearer ${apiKey}`,
       },
       body: JSON.stringify({
-        model: 'doubao-pro-32k-240828',
+        model: 'doubao-pro-32k',
         messages: [
           { role: 'system', content: systemPrompt },
           { role: 'user', content: JSON.stringify(contentToTranslate) },
