@@ -318,8 +318,8 @@ serve(async (req) => {
             continue;
           }
           
-          // Limit to 60 keys per batch to stay under time limit
-          const batchKeys = remainingKeys.slice(0, 60);
+          // Limit to 10 keys per batch for more reliable processing
+          const batchKeys = remainingKeys.slice(0, 10);
           contentToTranslate = Object.fromEntries(
             batchKeys.map(key => [key, actualSourceContent[key]])
           );
