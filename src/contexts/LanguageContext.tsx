@@ -16,7 +16,6 @@ interface LanguageContextType {
   t: (key: string) => string;
   isLoading: boolean;
   isRTL: boolean;
-  /** Helper to get base language ('zh' | 'en') for legacy components */
   baseLang: 'zh' | 'en';
 }
 
@@ -34,40 +33,36 @@ interface LanguageProviderProps {
   children: ReactNode;
 }
 
-// Local storage key for caching translations
-const TRANSLATION_CACHE_KEY = 'cani_translations_cache';
-const CACHE_EXPIRY_MS = 24 * 60 * 60 * 1000; // 24 hours
-
-interface CachedTranslation {
-  translations: Record<string, string>;
-  timestamp: number;
-}
-
-const loadCachedTranslations = (lang: LanguageCode): Record<string, string> | null => {
-  try {
-    const cached = localStorage.getItem(`${TRANSLATION_CACHE_KEY}_${lang}`);
-    if (cached) {
-      const parsed: CachedTranslation = JSON.parse(cached);
-      if (Date.now() - parsed.timestamp < CACHE_EXPIRY_MS) {
-        return parsed.translations;
-      }
-    }
-  } catch (e) {
-    console.error('Error loading cached translations:', e);
-  }
-  return null;
-};
-
-const saveCachedTranslations = (lang: LanguageCode, translations: Record<string, string>) => {
-  try {
-    const cache: CachedTranslation = {
-      translations,
-      timestamp: Date.now(),
-    };
-    localStorage.setItem(`${TRANSLATION_CACHE_KEY}_${lang}`, JSON.stringify(cache));
-  } catch (e) {
-    console.error('Error saving cached translations:', e);
-  }
+// Country to language mapping
+const countryToLanguage: Record<string, LanguageCode> = {
+  'CN': 'zh',
+  'TW': 'zh',
+  'HK': 'zh',
+  'MO': 'zh',
+  'US': 'en',
+  'GB': 'en',
+  'AU': 'en',
+  'CA': 'en',
+  'NZ': 'en',
+  'VN': 'vi',
+  'TH': 'th',
+  'MY': 'ms',
+  'SG': 'en',
+  'ID': 'id',
+  'JP': 'ja',
+  'KR': 'ko',
+  'FR': 'fr',
+  'DE': 'de',
+  'AT': 'de',
+  'CH': 'de',
+  'ES': 'es',
+  'MX': 'es',
+  'AR': 'es',
+  'RU': 'ru',
+  'SA': 'ar',
+  'AE': 'ar',
+  'EG': 'ar',
+  'TR': 'tr',
 };
 
 export const LanguageProvider: React.FC<LanguageProviderProps> = ({ children }) => {
@@ -83,83 +78,128 @@ export const LanguageProvider: React.FC<LanguageProviderProps> = ({ children }) 
   const [currentTranslations, setCurrentTranslations] = useState<Record<string, string>>(() => {
     return getTranslations(language);
   });
+  const [autoDetected, setAutoDetected] = useState(false);
 
   const langConfig = getLanguageByCode(language);
   const isRTL = langConfig?.rtl || false;
 
-  // Function to translate content using Doubao
-  const translateContent = useCallback(async (targetLang: LanguageCode) => {
-    // Skip if we already have static translations
-    if (targetLang === 'zh' || targetLang === 'en') {
-      setCurrentTranslations(targetLang === 'zh' ? zhTranslations : enTranslations);
-      return;
+  // Load pre-saved translations from database
+  const loadSavedTranslations = useCallback(async (targetLang: LanguageCode) => {
+    if (targetLang === 'zh') {
+      setCurrentTranslations(zhTranslations);
+      return true;
+    }
+    
+    if (targetLang === 'en') {
+      setCurrentTranslations(enTranslations);
+      return true;
     }
 
-    // Check local cache first
-    const cached = loadCachedTranslations(targetLang);
-    if (cached) {
-      setCurrentTranslations(cached);
-      setTranslations(targetLang, cached);
-      return;
-    }
-
-    // Check if already loaded in memory
+    // Check memory cache first
     if (hasTranslations(targetLang)) {
       setCurrentTranslations(getTranslations(targetLang));
-      return;
+      return true;
     }
 
-    setIsLoading(true);
+    // Check localStorage cache
+    const cached = localStorage.getItem(`translations_${targetLang}`);
+    if (cached) {
+      try {
+        const parsed = JSON.parse(cached);
+        setTranslations(targetLang, parsed);
+        setCurrentTranslations(parsed);
+        return true;
+      } catch (e) {
+        console.error('Error parsing cached translations:', e);
+      }
+    }
 
+    // Load from database
+    setIsLoading(true);
     try {
-      // Call Doubao translation API
-      const { data, error } = await supabase.functions.invoke('translate-content', {
-        body: {
-          sourceLanguage: 'zh',
-          targetLanguage: targetLang,
-          content: zhTranslations,
-        },
-      });
+      const { data, error } = await supabase
+        .from('system_settings')
+        .select('value')
+        .eq('key', `translations_${targetLang}`)
+        .single();
 
       if (error) throw error;
 
-      if (data?.translations) {
-        setTranslations(targetLang, data.translations);
-        setCurrentTranslations(data.translations);
-        saveCachedTranslations(targetLang, data.translations);
-      } else {
-        throw new Error('No translations returned');
+      if (data?.value) {
+        const translations = JSON.parse(data.value);
+        setTranslations(targetLang, translations);
+        setCurrentTranslations(translations);
+        // Cache in localStorage
+        localStorage.setItem(`translations_${targetLang}`, data.value);
+        return true;
       }
     } catch (error) {
-      console.error('Translation error:', error);
-      toast.error('翻译加载失败，使用英文显示');
-      // Fallback to English
-      setCurrentTranslations(enTranslations);
+      console.error('Error loading translations:', error);
     } finally {
       setIsLoading(false);
     }
+
+    // Fallback to English if no translation found
+    setCurrentTranslations(enTranslations);
+    return false;
   }, []);
+
+  // Auto-detect language based on IP
+  const detectLanguageFromIP = useCallback(async () => {
+    // Only auto-detect if user hasn't manually set a language
+    const manuallySet = localStorage.getItem('language_manual');
+    if (manuallySet === 'true') {
+      return;
+    }
+
+    try {
+      const { data, error } = await supabase.functions.invoke('get-visitor-ip');
+      
+      if (error) throw error;
+
+      const country = data?.country || data?.countryCode;
+      if (country && countryToLanguage[country]) {
+        const detectedLang = countryToLanguage[country];
+        if (detectedLang !== language) {
+          console.log(`Auto-detected language: ${detectedLang} for country: ${country}`);
+          setLanguageState(detectedLang);
+          localStorage.setItem('language', detectedLang);
+          await loadSavedTranslations(detectedLang);
+        }
+      }
+    } catch (error) {
+      console.error('Error detecting language from IP:', error);
+    }
+  }, [language, loadSavedTranslations]);
 
   const setLanguage = useCallback((lang: LanguageCode) => {
     setLanguageState(lang);
     localStorage.setItem('language', lang);
-    translateContent(lang);
-  }, [translateContent]);
+    localStorage.setItem('language_manual', 'true'); // Mark as manually set
+    loadSavedTranslations(lang);
+  }, [loadSavedTranslations]);
 
   const t = useCallback((key: string): string => {
     return currentTranslations[key] || zhTranslations[key] || key;
   }, [currentTranslations]);
 
-  // Initial load and language change effect
+  // Initial load
   useEffect(() => {
     document.documentElement.lang = language;
     document.documentElement.dir = isRTL ? 'rtl' : 'ltr';
     
-    // Load translations for initial language
-    if (language !== 'zh' && language !== 'en') {
-      translateContent(language);
+    // Load translations for current language
+    loadSavedTranslations(language);
+
+    // Auto-detect language on first visit
+    if (!autoDetected) {
+      setAutoDetected(true);
+      const hasManualLanguage = localStorage.getItem('language_manual') === 'true';
+      if (!hasManualLanguage) {
+        detectLanguageFromIP();
+      }
     }
-  }, [language, isRTL, translateContent]);
+  }, [language, isRTL, loadSavedTranslations, autoDetected, detectLanguageFromIP]);
 
   const baseLang = toBaseLanguage(language);
 
