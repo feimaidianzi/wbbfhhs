@@ -7,6 +7,8 @@ import { ArrowRight, CheckCircle, Phone, Mail, ChevronDown } from "lucide-react"
 import { LucideIcon } from "lucide-react";
 import { Link } from "react-router-dom";
 import { useLanguage } from "@/contexts/LanguageContext";
+import { ProductCollectionSEO } from "@/components/ProductCollectionSEO";
+import { RichSEOContent, getSEOContentForCategory } from "@/components/RichSEOContent";
 
 interface Feature {
   icon: LucideIcon;
@@ -71,6 +73,12 @@ interface ProductPageTemplateProps {
   applicationsTitleEn?: string;
   techSpecs?: { label: string; labelEn?: string; value: string; valueEn?: string }[];
   cases?: Case[];
+  // SEO增强属性
+  seoCategory?: string;
+  seoCategoryDescription?: string;
+  seoCategoryDescriptionEn?: string;
+  seoKeywords?: string[];
+  seoKeywordsEn?: string[];
 }
 
 const containerVariants = {
@@ -109,13 +117,51 @@ const ProductPageTemplate = ({
   applicationsTitle = "应用场景",
   applicationsTitleEn = "Applications",
   cases,
+  seoCategory,
+  seoCategoryDescription,
+  seoCategoryDescriptionEn,
+  seoKeywords = [],
+  seoKeywordsEn = [],
 }: ProductPageTemplateProps) => {
   const { language } = useLanguage();
   const isEn = language === 'en';
 
+  // 获取预定义的SEO内容
+  const categorySlug = seoCategory || heroTitle.toLowerCase().replace(/\s+/g, '-');
+  const seoContent = getSEOContentForCategory(categorySlug);
+
   return (
     <div className="min-h-screen bg-background">
       <Header />
+      
+      {/* SEO增强组件 */}
+      <ProductCollectionSEO
+        category={heroTitle}
+        categoryEn={heroTitleEn || heroTitle}
+        categoryDescription={seoCategoryDescription || heroSubtitle}
+        categoryDescriptionEn={seoCategoryDescriptionEn || heroSubtitleEn || heroSubtitle}
+        products={products}
+        keywords={seoKeywords.length > 0 ? seoKeywords : (seoContent?.keywords || [])}
+        keywordsEn={seoKeywordsEn.length > 0 ? seoKeywordsEn : (seoContent?.keywordsEn || [])}
+        buyingGuide={seoContent ? {
+          title: seoContent.contentBlocks[0]?.title || '购买指南',
+          titleEn: seoContent.contentBlocks[0]?.titleEn || 'Buying Guide',
+          content: seoContent.contentBlocks[0]?.paragraphs || [],
+          contentEn: seoContent.contentBlocks[0]?.paragraphsEn || [],
+        } : undefined}
+      />
+
+      {/* 额外的富文本SEO内容 */}
+      {seoContent && (
+        <RichSEOContent
+          pageName={heroTitle}
+          pageNameEn={heroTitleEn || heroTitle}
+          contentBlocks={seoContent.contentBlocks}
+          additionalKeywords={seoContent.keywords}
+          additionalKeywordsEn={seoContent.keywordsEn}
+        />
+      )}
+
       <main>
         {/* Immersive Hero Section */}
         <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
