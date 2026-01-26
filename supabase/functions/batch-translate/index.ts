@@ -42,7 +42,7 @@ CRITICAL RULES:
 5. Return ONLY valid JSON, no explanations`;
 
   const entries = Object.entries(content);
-  const chunkSize = 20; // DeepSeek handles larger chunks well
+  const chunkSize = 10; // Reduced for faster response to prevent frontend timeout
   const chunks: [string, string][][] = [];
   
   for (let i = 0; i < entries.length; i += chunkSize) {
@@ -125,7 +125,7 @@ CRITICAL RULES:
 5. Return ONLY valid JSON, no explanations`;
 
   const entries = Object.entries(content);
-  const chunkSize = 15;
+  const chunkSize = 10; // Matched with DeepSeek for consistency
   const chunks: [string, string][][] = [];
   
   for (let i = 0; i < entries.length; i += chunkSize) {
@@ -286,13 +286,14 @@ serve(async (req) => {
             continue;
           }
           
-          // Limit to 10 keys per batch
-          const batchKeys = remainingKeys.slice(0, 10);
+          // Limit to 10 keys per request
+          const batchSize = 10;
+          const batchKeys = remainingKeys.slice(0, batchSize);
           contentToTranslate = Object.fromEntries(
             batchKeys.map(key => [key, actualSourceContent[key]])
           );
           
-          console.log(`Translating ${batchKeys.length} keys (${remainingKeys.length - batchKeys.length} more remaining)`);
+          console.log(`[Batch] Processing ${batchKeys.length}/${remainingKeys.length} remaining keys for ${lang}`);
         }
         
         let translations: Record<string, string>;
