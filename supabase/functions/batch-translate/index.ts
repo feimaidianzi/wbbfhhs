@@ -244,10 +244,24 @@ serve(async (req) => {
       try {
         console.log(`Starting translation for ${lang}...`);
         
-        // Use Lovable AI (faster) if available, otherwise fall back to Doubao
-        const translations = LOVABLE_API_KEY 
-          ? await translateWithLovableAI(sourceContent, lang, LOVABLE_API_KEY)
-          : await translateWithDoubao(sourceContent, lang, DOUBAO_API_KEY!);
+        // Use Doubao AI as primary, fall back to Lovable AI if Doubao fails or unavailable
+        let translations: Record<string, string>;
+        if (DOUBAO_API_KEY) {
+          try {
+            translations = await translateWithDoubao(sourceContent, lang, DOUBAO_API_KEY);
+          } catch (doubaoError) {
+            console.error(`Doubao translation failed for ${lang}, trying Lovable AI:`, doubaoError);
+            if (LOVABLE_API_KEY) {
+              translations = await translateWithLovableAI(sourceContent, lang, LOVABLE_API_KEY);
+            } else {
+              throw doubaoError;
+            }
+          }
+        } else if (LOVABLE_API_KEY) {
+          translations = await translateWithLovableAI(sourceContent, lang, LOVABLE_API_KEY);
+        } else {
+          throw new Error('No translation API available');
+        }
           
         console.log(`Completed translation for ${lang}, got ${Object.keys(translations).length} keys`);
 
