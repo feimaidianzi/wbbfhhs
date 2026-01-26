@@ -23,7 +23,8 @@ import {
   Bot,
   Headphones,
   Eye,
-  UserCheck
+  UserCheck,
+  Languages
 } from 'lucide-react';
 import { User } from '@supabase/supabase-js';
 import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, BarChart, Bar } from 'recharts';
@@ -282,6 +283,13 @@ const AdminDashboard = () => {
       description: 'AI自动采集编辑行业新闻', 
       href: '/admin/news-collection',
       color: 'from-amber-500 to-orange-500'
+    },
+    { 
+      icon: Languages, 
+      title: '翻译管理', 
+      description: '批量翻译和多语言管理', 
+      href: '/admin/translations',
+      color: 'from-sky-500 to-blue-500'
     },
     { 
       icon: Settings, 
