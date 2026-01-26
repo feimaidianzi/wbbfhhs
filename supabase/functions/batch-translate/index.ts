@@ -21,7 +21,94 @@ const languageNames: Record<string, string> = {
   'tr': 'Turkish (Türkçe)',
 };
 
-// Use Lovable AI for translation (no API key required)
+async function translateWithDoubao(
+  content: Record<string, string>,
+  targetLang: string,
+  apiKey: string
+): Promise<Record<string, string>> {
+  const targetLangName = languageNames[targetLang] || targetLang;
+  
+  const systemPrompt = `You are a professional translator for a drone technology company called CANI (长凌科技). 
+Translate the following JSON content from Chinese to ${targetLangName}.
+
+IMPORTANT RULES:
+1. Maintain the exact same JSON structure and keys
+2. Only translate the values, never the keys
+3. Keep technical terms accurate (drone, FPV, VTX, ESC, etc.)
+4. Maintain the professional and technical tone
+5. Keep brand names like "CANI" and "长凌" unchanged
+6. For UI text, keep it concise and user-friendly
+7. Return ONLY valid JSON, no explanations`;
+
+  const entries = Object.entries(content);
+  const chunkSize = 50;
+  const chunks: [string, string][][] = [];
+  
+  for (let i = 0; i < entries.length; i += chunkSize) {
+    chunks.push(entries.slice(i, i + chunkSize) as [string, string][]);
+  }
+
+  const translatedContent: Record<string, string> = {};
+
+  for (let i = 0; i < chunks.length; i++) {
+    const chunk = chunks[i];
+    const contentToTranslate = Object.fromEntries(chunk);
+
+    console.log(`Translating chunk ${i + 1}/${chunks.length} for ${targetLang}...`);
+
+    const response = await fetch('https://ark.cn-beijing.volces.com/api/v3/chat/completions', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${apiKey}`,
+      },
+      body: JSON.stringify({
+        model: 'doubao-pro-32k',
+        messages: [
+          { role: 'system', content: systemPrompt },
+          { role: 'user', content: JSON.stringify(contentToTranslate) },
+        ],
+        temperature: 0.3,
+        max_tokens: 4096,
+      }),
+    });
+
+    if (!response.ok) {
+      const errorText = await response.text();
+      console.error('Doubao API error:', response.status, errorText);
+      throw new Error(`Doubao API error: ${response.status}`);
+    }
+
+    const data = await response.json();
+    const translatedText = data.choices?.[0]?.message?.content;
+
+    if (!translatedText) {
+      throw new Error('No translation returned');
+    }
+
+    let cleanedText = translatedText.trim();
+    if (cleanedText.startsWith('```json')) cleanedText = cleanedText.slice(7);
+    if (cleanedText.startsWith('```')) cleanedText = cleanedText.slice(3);
+    if (cleanedText.endsWith('```')) cleanedText = cleanedText.slice(0, -3);
+    cleanedText = cleanedText.trim();
+
+    try {
+      const parsed = JSON.parse(cleanedText);
+      Object.assign(translatedContent, parsed);
+    } catch (parseError) {
+      console.error('JSON parse error:', parseError, 'Response:', cleanedText);
+      throw new Error(`Failed to parse translation response for ${targetLang}`);
+    }
+
+    // Rate limiting
+    if (i < chunks.length - 1) {
+      await new Promise(resolve => setTimeout(resolve, 1000));
+    }
+  }
+
+  return translatedContent;
+}
+
 async function translateWithLovableAI(
   content: Record<string, string>,
   targetLang: string,
@@ -55,9 +142,9 @@ IMPORTANT RULES:
     const chunk = chunks[i];
     const contentToTranslate = Object.fromEntries(chunk);
 
-    console.log(`Translating chunk ${i + 1}/${chunks.length} for ${targetLang}...`);
+    console.log(`Translating chunk ${i + 1}/${chunks.length} for ${targetLang} with Lovable AI...`);
 
-    const response = await fetch('https://api.lovable.dev/v1/chat/completions', {
+    const response = await fetch('https://ai.gateway.lovable.dev/v1/chat/completions', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -125,11 +212,6 @@ serve(async (req) => {
       );
     }
 
-    const LOVABLE_API_KEY = Deno.env.get('LOVABLE_API_KEY');
-    if (!LOVABLE_API_KEY) {
-      throw new Error('LOVABLE_API_KEY is not configured');
-    }
-
     const supabase = createClient(
       Deno.env.get('SUPABASE_URL')!,
       Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')!
@@ -145,7 +227,37 @@ serve(async (req) => {
 
       try {
         console.log(`Starting translation for ${lang}...`);
-        const translations = await translateWithLovableAI(sourceContent, lang, LOVABLE_API_KEY);
+        
+        let translations: Record<string, string>;
+        let usedProvider = 'doubao';
+        
+        // Try Doubao first
+        const DOUBAO_API_KEY = Deno.env.get('DOUBAO_API_KEY');
+        if (DOUBAO_API_KEY) {
+          try {
+            translations = await translateWithDoubao(sourceContent, lang, DOUBAO_API_KEY);
+          } catch (doubaoError) {
+            console.error(`Doubao failed for ${lang}, falling back to Lovable AI:`, doubaoError);
+            
+            // Fallback to Lovable AI
+            const LOVABLE_API_KEY = Deno.env.get('LOVABLE_API_KEY');
+            if (!LOVABLE_API_KEY) {
+              throw new Error('Both Doubao and Lovable AI are not available');
+            }
+            
+            translations = await translateWithLovableAI(sourceContent, lang, LOVABLE_API_KEY);
+            usedProvider = 'lovable';
+          }
+        } else {
+          // No Doubao key, use Lovable AI directly
+          const LOVABLE_API_KEY = Deno.env.get('LOVABLE_API_KEY');
+          if (!LOVABLE_API_KEY) {
+            throw new Error('No translation service available');
+          }
+          
+          translations = await translateWithLovableAI(sourceContent, lang, LOVABLE_API_KEY);
+          usedProvider = 'lovable';
+        }
         
         // Save to system_settings table
         const { error: upsertError } = await supabase
@@ -164,8 +276,9 @@ serve(async (req) => {
         results[lang] = {
           success: true,
           count: Object.keys(translations).length,
+          provider: usedProvider,
         };
-        console.log(`Completed translation for ${lang}: ${Object.keys(translations).length} keys`);
+        console.log(`Completed translation for ${lang}: ${Object.keys(translations).length} keys via ${usedProvider}`);
       } catch (error) {
         console.error(`Error translating ${lang}:`, error);
         errors[lang] = error instanceof Error ? error.message : 'Unknown error';
