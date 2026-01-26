@@ -125,7 +125,7 @@ IMPORTANT RULES:
 7. Return ONLY valid JSON, no explanations`;
 
   const entries = Object.entries(content);
-  const chunkSize = 10; // Smaller chunks for better reliability with Doubao
+  const chunkSize = 5; // Smaller chunks for better reliability with Doubao
   const chunks: [string, string][][] = [];
   
   for (let i = 0; i < entries.length; i += chunkSize) {
@@ -148,7 +148,7 @@ IMPORTANT RULES:
     while (retryCount <= maxRetries) {
       try {
         const controller = new AbortController();
-        const timeoutId = setTimeout(() => controller.abort(), 150000); // 150 second timeout
+        const timeoutId = setTimeout(() => controller.abort(), 60000); // 60 second timeout for faster fallback
         
         response = await fetch('https://ark.cn-beijing.volces.com/api/v3/chat/completions', {
           signal: controller.signal,
