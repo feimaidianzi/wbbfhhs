@@ -800,16 +800,8 @@ export const zhTranslations: Record<string, string> = {
   'notFound.message': '哎呀！页面未找到',
   'notFound.backHome': '返回首页',
 
-  // ===== X1200/X1600 Multi-Rotor Products =====
-  'multiRotor.x1200.title': 'X1200多旋翼无人机',
-  'multiRotor.x1200.subtitle': '大型工业无人机',
-  'multiRotor.x1200.description': '大型工业无人机，适用于重型载荷和长航时任务，是专业级应用的理想选择。55分钟超长续航，满足各种复杂任务需求。',
-  'multiRotor.x1200.seoKeywords': '多旋翼无人机,X1200,专业测绘,应急救援',
-  'multiRotor.x1600.title': 'X1600多旋翼无人机',
-  'multiRotor.x1600.subtitle': '超大型工业无人机',
-  'multiRotor.x1600.description': '超大型工业无人机，满足特殊行业的超重载荷需求。20kg最大载重，适用于专业测绘、物资运输等特殊场景。',
-  'multiRotor.x1600.seoKeywords': '多旋翼无人机,X1600,重型载荷,物资运输',
-  'multiRotor.ctaTitle': '了解更多{{model}}解决方案',
+  // ===== MultiRotor Page Content =====
+  'multiRotor.ctaTitle': '了解更多解决方案',
   'multiRotor.ctaDescription': '联系我们的专业团队，获取定制化配置方案和详细报价',
 
   // ===== MultiRotor Page Content =====
@@ -900,9 +892,7 @@ export const zhTranslations: Record<string, string> = {
   'multiRotor.case.naturalResources': '自然资源部测绘',
   'multiRotor.case.naturalResources.desc': '使用X1200进行大比例尺地形测绘，成图精度达厘米级',
 
-  // ===== About Page Content =====
-  'about.title': '关于长凌科技',
-  'about.subtitle': '专业无人机研发制造商，致力于为各行业提供智能化空中解决方案',
+  // ===== About Page Extended Content =====
   'about.seoDescription': '长凌科技有限公司成立于2015年，是一家专注于工业无人机研发、生产和销售的高新技术企业，拥有200+专业员工、50+发明专利。',
   'about.seoKeywords': '长凌科技,CANI,关于我们,无人机公司,工业无人机企业,无人机研发',
   
@@ -999,6 +989,49 @@ export const zhTranslations: Record<string, string> = {
   'seo.contact.technicalSupport': '技术支持：support@caniuav.com',
   'seo.contact.address': '公司地址',
   'seo.contact.addressDetail': '湖南省长沙市望城区月亮岛街道罐子岭澳优全球总部大楼',
+
+  // ===== X1200 Product Details =====
+  'multiRotor.x1200.feature.heavyPayload': '重型载荷',
+  'multiRotor.x1200.feature.heavyPayload.desc': '10kg支持专业级设备挂载',
+  'multiRotor.x1200.feature.multiPayload': '多载荷支持',
+  'multiRotor.x1200.feature.multiPayload.desc': '支持多种专业载荷同时挂载',
+  'multiRotor.x1200.feature.ultraReliable': '极高可靠性',
+  'multiRotor.x1200.feature.ultraReliable.desc': '双冗余飞控系统，安全保障',
+  'multiRotor.x1200.feature.smartSystem': '智能系统',
+  'multiRotor.x1200.feature.smartSystem.desc': 'AI智能识别，自动化作业',
+  'multiRotor.x1200.feature.ultraEndurance': '超长续航',
+  'multiRotor.x1200.feature.ultraEndurance.desc': '55分钟持续作业，效率卓越',
+  'multiRotor.x1200.feature.ultraWind': '超强抗风',
+  'multiRotor.x1200.feature.ultraWind.desc': '7级风稳定飞行，全天候作业',
+  'multiRotor.x1200.app.mapping': '专业测绘制图',
+  'multiRotor.x1200.app.heavyInspection': '重型巡检任务',
+  'multiRotor.x1200.app.emergencyRescue': '应急救援支援',
+  'multiRotor.x1200.app.scientificResearch': '科研探测分析',
+  'multiRotor.x1200.app.agricultural': '农业植保作业',
+  'multiRotor.x1200.app.environmental': '环境监测评估',
+
+  // ===== X1600 Product Details =====
+  'multiRotor.x1600.feature.ultraHeavy': '超重载荷',
+  'multiRotor.x1600.feature.ultraHeavy.desc': '20kg支持特殊任务载荷挂载',
+  'multiRotor.x1600.feature.customSolutions': '专业定制',
+  'multiRotor.x1600.feature.customSolutions.desc': '支持定制化配置，满足特殊需求',
+  'multiRotor.x1600.feature.industrialQuality': '工业级品质',
+  'multiRotor.x1600.feature.industrialQuality.desc': '满足严苛工业环境要求',
+  'multiRotor.x1600.feature.highPrecision': '高精度定位',
+  'multiRotor.x1600.feature.highPrecision.desc': 'RTK厘米级定位，精准作业',
+  'multiRotor.x1600.feature.highPower': '大动力系统',
+  'multiRotor.x1600.feature.highPower.desc': '强劲动力系统，稳定可靠',
+  'multiRotor.x1600.feature.ultraStability': '超强稳定性',
+  'multiRotor.x1600.feature.ultraStability.desc': '超大尺寸带来更强稳定性',
+  'multiRotor.x1600.app.mapping': '专业测绘制图',
+  'multiRotor.x1600.app.cargoDelivery': '物资运输配送',
+  'multiRotor.x1600.app.specialOps': '特种作业任务',
+  'multiRotor.x1600.app.scientificResearch': '科研实验支持',
+  'multiRotor.x1600.app.heavyAerial': '重型航拍摄影',
+  'multiRotor.x1600.app.industrialInspection': '工业检测分析',
+
+  // ===== Common =====
+  'common.backTo': '返回',
 };
 
 export default zhTranslations;
