@@ -41,7 +41,7 @@ IMPORTANT RULES:
 7. Return ONLY valid JSON, no explanations`;
 
   const entries = Object.entries(content);
-  const chunkSize = 30; // Reduced chunk size for faster processing
+  const chunkSize = 20; // Smaller chunks for faster, more reliable processing
   const chunks: [string, string][][] = [];
   
   for (let i = 0; i < entries.length; i += chunkSize) {
@@ -115,7 +115,7 @@ IMPORTANT RULES:
 
     // Rate limiting
     if (i < chunks.length - 1) {
-      await new Promise(resolve => setTimeout(resolve, 200)); // Faster between chunks
+      // No delay between chunks - process as fast as possible
     }
   }
 
