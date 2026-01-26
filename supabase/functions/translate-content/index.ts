@@ -5,7 +5,7 @@ const corsHeaders = {
   'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type',
 };
 
-// Language code to name mapping for Doubao
+// Language code to name mapping
 const languageNames: Record<string, string> = {
   'zh': '中文',
   'en': 'English',
@@ -38,9 +38,9 @@ serve(async (req) => {
       );
     }
 
-    const DOUBAO_API_KEY = Deno.env.get('DOUBAO_API_KEY');
-    if (!DOUBAO_API_KEY) {
-      throw new Error('DOUBAO_API_KEY is not configured');
+    const LOVABLE_API_KEY = Deno.env.get('LOVABLE_API_KEY');
+    if (!LOVABLE_API_KEY) {
+      throw new Error('LOVABLE_API_KEY is not configured');
     }
 
     const targetLangName = languageNames[targetLanguage] || targetLanguage;
@@ -78,14 +78,14 @@ Example input:
 Example output for Vietnamese:
 {"nav.home": "Trang chủ", "product.drone": "Máy bay không người lái"}`;
 
-      const response = await fetch('https://ark.cn-beijing.volces.com/api/v3/chat/completions', {
+      const response = await fetch('https://ai.gateway.lovable.dev/v1/chat/completions', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': `Bearer ${DOUBAO_API_KEY}`,
+          'Authorization': `Bearer ${LOVABLE_API_KEY}`,
         },
         body: JSON.stringify({
-          model: 'doubao-pro-32k',
+          model: 'google/gemini-2.5-flash',
           messages: [
             { role: 'system', content: systemPrompt },
             { role: 'user', content: JSON.stringify(contentToTranslate) },
@@ -97,15 +97,27 @@ Example output for Vietnamese:
 
       if (!response.ok) {
         const errorText = await response.text();
-        console.error('Doubao API error:', response.status, errorText);
-        throw new Error(`Doubao API error: ${response.status}`);
+        console.error('Lovable AI API error:', response.status, errorText);
+        if (response.status === 429) {
+          return new Response(
+            JSON.stringify({ error: 'Rate limit exceeded, please try again later' }),
+            { status: 429, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+          );
+        }
+        if (response.status === 402) {
+          return new Response(
+            JSON.stringify({ error: 'AI credits exhausted, please add credits' }),
+            { status: 402, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+          );
+        }
+        throw new Error(`Lovable AI API error: ${response.status}`);
       }
 
       const data = await response.json();
       const translatedText = data.choices?.[0]?.message?.content;
 
       if (!translatedText) {
-        throw new Error('No translation returned from Doubao');
+        throw new Error('No translation returned from AI');
       }
 
       // Parse the translated JSON
