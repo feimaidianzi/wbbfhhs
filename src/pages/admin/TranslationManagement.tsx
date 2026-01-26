@@ -97,6 +97,7 @@ const TranslationManagement = () => {
         body: {
           mode: 'incremental',
           languages: [lang],
+          sourceContent: zhTranslations, // 传递源内容
         },
       });
 
@@ -147,6 +148,7 @@ const TranslationManagement = () => {
           body: {
             mode: 'incremental',
             languages: [lang],
+            sourceContent: zhTranslations, // 传递源内容
           },
         });
 
