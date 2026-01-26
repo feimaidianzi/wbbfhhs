@@ -7,6 +7,8 @@ const corsHeaders = {
 };
 
 const languageNames: Record<string, string> = {
+  'zh': '中文',
+  'en': 'English',
   'vi': 'Vietnamese (Tiếng Việt)',
   'th': 'Thai (ไทย)',
   'ms': 'Malay (Bahasa Melayu)',
@@ -20,6 +22,88 @@ const languageNames: Record<string, string> = {
   'ar': 'Arabic (العربية)',
   'tr': 'Turkish (Türkçe)',
 };
+
+async function translateWithLovableAI(
+  content: Record<string, string>,
+  targetLang: string,
+  apiKey: string
+): Promise<Record<string, string>> {
+  const targetLangName = languageNames[targetLang] || targetLang;
+  
+  const systemPrompt = `You are a professional translator for CANI (长凌科技), a drone technology company. 
+Translate the following JSON content from Chinese to ${targetLangName}.
+
+CRITICAL RULES:
+1. Maintain exact JSON structure and keys
+2. Only translate values, never keys
+3. Keep technical terms accurate (drone, FPV, VTX, ESC, etc.)
+4. Keep brand names "CANI" and "长凌" unchanged
+5. Return ONLY valid JSON, no explanations`;
+
+  const entries = Object.entries(content);
+  const chunkSize = 30; // Larger chunks OK with faster API
+  const chunks: [string, string][][] = [];
+  
+  for (let i = 0; i < entries.length; i += chunkSize) {
+    chunks.push(entries.slice(i, i + chunkSize) as [string, string][]);
+  }
+
+  const translatedContent: Record<string, string> = {};
+
+  for (let i = 0; i < chunks.length; i++) {
+    const chunk = chunks[i];
+    const contentToTranslate = Object.fromEntries(chunk);
+
+    console.log(`Translating chunk ${i + 1}/${chunks.length} for ${targetLang} via Lovable AI...`);
+
+    const response = await fetch('https://ai.gateway.lovable.dev/v1/chat/completions', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${apiKey}`,
+      },
+      body: JSON.stringify({
+        model: 'google/gemini-3-flash-preview',
+        messages: [
+          { role: 'system', content: systemPrompt },
+          { role: 'user', content: JSON.stringify(contentToTranslate) },
+        ],
+        temperature: 0.3,
+        max_tokens: 4096,
+      }),
+    });
+
+    if (!response.ok) {
+      const errorText = await response.text();
+      console.error(`Lovable AI error: ${response.status} - ${errorText}`);
+      throw new Error(`Lovable AI error: ${response.status}`);
+    }
+
+    const data = await response.json();
+    const translatedText = data.choices?.[0]?.message?.content;
+
+    if (!translatedText) {
+      throw new Error('No translation returned from Lovable AI');
+    }
+
+    let cleanedText = translatedText.trim();
+    if (cleanedText.startsWith('```json')) cleanedText = cleanedText.slice(7);
+    if (cleanedText.startsWith('```')) cleanedText = cleanedText.slice(3);
+    if (cleanedText.endsWith('```')) cleanedText = cleanedText.slice(0, -3);
+    cleanedText = cleanedText.trim();
+
+    try {
+      const parsed = JSON.parse(cleanedText);
+      Object.assign(translatedContent, parsed);
+      console.log(`Successfully parsed chunk ${i + 1}, got ${Object.keys(parsed).length} keys`);
+    } catch (parseError) {
+      console.error(`JSON parse error for chunk ${i + 1}:`, parseError);
+      throw new Error(`Failed to parse translation for ${targetLang}`);
+    }
+  }
+
+  return translatedContent;
+}
 
 async function translateWithDoubao(
   content: Record<string, string>,
@@ -138,8 +222,10 @@ serve(async (req) => {
     }
 
     const DOUBAO_API_KEY = Deno.env.get('DOUBAO_API_KEY');
-    if (!DOUBAO_API_KEY) {
-      throw new Error('DOUBAO_API_KEY is not configured');
+    const LOVABLE_API_KEY = Deno.env.get('LOVABLE_API_KEY');
+    
+    if (!LOVABLE_API_KEY && !DOUBAO_API_KEY) {
+      throw new Error('No translation API key configured');
     }
 
     const supabase = createClient(
@@ -157,7 +243,12 @@ serve(async (req) => {
 
       try {
         console.log(`Starting translation for ${lang}...`);
-        const translations = await translateWithDoubao(sourceContent, lang, DOUBAO_API_KEY);
+        
+        // Use Lovable AI (faster) if available, otherwise fall back to Doubao
+        const translations = LOVABLE_API_KEY 
+          ? await translateWithLovableAI(sourceContent, lang, LOVABLE_API_KEY)
+          : await translateWithDoubao(sourceContent, lang, DOUBAO_API_KEY!);
+          
         console.log(`Completed translation for ${lang}, got ${Object.keys(translations).length} keys`);
 
         // Save to system_settings table immediately after successful translation
