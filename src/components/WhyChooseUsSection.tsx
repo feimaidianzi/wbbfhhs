@@ -139,7 +139,7 @@ const AnimatedCounter = ({ value, suffix }: { value: number; suffix: string }) =
 };
 
 export const WhyChooseUsSection = () => {
-  const { language } = useLanguage();
+  const { baseLang: language } = useLanguage();
   const stats = getStatsData(language);
   const advantages = getAdvantagesData(language);
 

@@ -11,3 +11,6 @@ verify_jwt = false
 
 [functions.ai-analyze-visitor]
 verify_jwt = false
+
+[functions.translate-content]
+verify_jwt = false

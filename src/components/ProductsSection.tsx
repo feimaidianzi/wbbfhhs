@@ -71,7 +71,7 @@ const itemVariants = {
 };
 
 export const ProductsSection = () => {
-  const { language } = useLanguage();
+  const { baseLang: language } = useLanguage();
   const categories = getCategoriesData(language);
 
   return (

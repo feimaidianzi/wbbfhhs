@@ -118,7 +118,7 @@ const getOfficeLocations = (language: 'zh' | 'en') => [
 ];
 
 export const Footer = () => {
-  const { t, language } = useLanguage();
+  const { t, baseLang: language } = useLanguage();
   const productLinks = getProductLinks(t);
   const applicationLinks = getApplicationLinks(t);
   const softwareLinks = getSoftwareLinks(t);
