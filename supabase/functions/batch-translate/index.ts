@@ -56,7 +56,11 @@ IMPORTANT RULES:
 
     console.log(`Translating chunk ${i + 1}/${chunks.length} for ${targetLang}...`);
 
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), 60000); // 60 second timeout per request
+    
     const response = await fetch('https://ark.cn-beijing.volces.com/api/v3/chat/completions', {
+      signal: controller.signal,
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -70,18 +74,25 @@ IMPORTANT RULES:
         ],
         max_completion_tokens: 8192,
       }),
-    });
+    }).finally(() => clearTimeout(timeoutId));
+
+    if (!response) {
+      throw new Error(`Request timeout for chunk ${i + 1}`);
+    }
 
     if (!response.ok) {
       const errorText = await response.text();
-      console.error('Doubao API error:', response.status, errorText);
-      throw new Error(`Doubao API error: ${response.status}`);
+      const errorMsg = `Doubao API error: ${response.status} - ${errorText}`;
+      console.error(errorMsg);
+      throw new Error(errorMsg);
     }
 
     const data = await response.json();
+    console.log(`Translation response for chunk ${i + 1}:`, data.choices?.[0]?.message?.content?.substring(0, 100));
     const translatedText = data.choices?.[0]?.message?.content;
 
     if (!translatedText) {
+      console.error('No translation content in response:', data);
       throw new Error('No translation returned');
     }
 
@@ -94,9 +105,12 @@ IMPORTANT RULES:
     try {
       const parsed = JSON.parse(cleanedText);
       Object.assign(translatedContent, parsed);
+      console.log(`Successfully parsed chunk ${i + 1}, got ${Object.keys(parsed).length} keys`);
     } catch (parseError) {
-      console.error('JSON parse error:', parseError, 'Response:', cleanedText);
-      throw new Error(`Failed to parse translation response for ${targetLang}`);
+      const errorMsg = `JSON parse error for chunk ${i + 1}: ${parseError instanceof Error ? parseError.message : 'Unknown'}`;
+      console.error(errorMsg);
+      console.error('Failed to parse text:', cleanedText.substring(0, 200));
+      throw new Error(errorMsg);
     }
 
     // Rate limiting
@@ -144,7 +158,8 @@ serve(async (req) => {
       try {
         console.log(`Starting translation for ${lang}...`);
         const translations = await translateWithDoubao(sourceContent, lang, DOUBAO_API_KEY);
-        
+        console.log(`Completed translation for ${lang}, got ${Object.keys(translations).length} keys`);
+
         // Save to system_settings table
         const { error: upsertError } = await supabase
           .from('system_settings')
@@ -165,13 +180,19 @@ serve(async (req) => {
         };
         console.log(`Completed translation for ${lang}: ${Object.keys(translations).length} keys`);
       } catch (error) {
-        console.error(`Error translating ${lang}:`, error);
-        errors[lang] = error instanceof Error ? error.message : 'Unknown error';
+        const errorMsg = error instanceof Error ? error.message : 'Unknown error';
+        console.error(`Error translating ${lang}:`, errorMsg);
+        if (error instanceof Error && error.stack) {
+          console.error('Stack trace:', error.stack);
+        }
+        errors[lang] = errorMsg;
         results[lang] = { success: false, error: errors[lang] };
       }
 
-      // Delay between languages
-      await new Promise(resolve => setTimeout(resolve, 500));
+      // Rate limit between languages to avoid overwhelming the API
+      if (languages.indexOf(lang) < languages.length - 1) {
+        await new Promise(resolve => setTimeout(resolve, 2000));
+      }
     }
 
     return new Response(
