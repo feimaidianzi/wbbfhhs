@@ -29,7 +29,7 @@ const getStatsData = (language: 'zh' | 'en') => [
 ];
 
 const About = () => {
-  const { language, t } = useLanguage();
+  const { baseLang: language, t } = useLanguage();
   const milestones = getMilestonesData(language);
   const values = getValuesData(language);
   const stats = getStatsData(language);

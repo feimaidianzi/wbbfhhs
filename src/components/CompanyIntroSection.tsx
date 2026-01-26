@@ -43,7 +43,7 @@ const getStatsData = (language: 'zh' | 'en') => [
 ];
 
 export const CompanyIntroSection = () => {
-  const { language } = useLanguage();
+  const { baseLang: language } = useLanguage();
   const advantages = getAdvantagesData(language);
   const stats = getStatsData(language);
   const containerRef = useRef<HTMLElement>(null);

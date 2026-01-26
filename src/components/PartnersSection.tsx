@@ -26,7 +26,7 @@ const getPartnersData = (language: 'zh' | 'en') => [
 ];
 
 export const PartnersSection = () => {
-  const { language } = useLanguage();
+  const { baseLang: language } = useLanguage();
   const partners = getPartnersData(language);
 
   const stats = [

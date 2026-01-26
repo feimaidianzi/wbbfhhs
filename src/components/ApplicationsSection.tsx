@@ -68,7 +68,7 @@ const getApplicationsData = (language: 'zh' | 'en') => [
 ];
 
 export const ApplicationsSection = () => {
-  const { language } = useLanguage();
+  const { baseLang: language } = useLanguage();
   const applications = getApplicationsData(language);
   const [activeIndex, setActiveIndex] = useState(0);
 

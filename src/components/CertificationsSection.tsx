@@ -30,7 +30,7 @@ const getCertificationsData = (language: 'zh' | 'en') => [
 ];
 
 export const CertificationsSection = () => {
-  const { language } = useLanguage();
+  const { baseLang: language } = useLanguage();
   const certifications = getCertificationsData(language);
 
   return (

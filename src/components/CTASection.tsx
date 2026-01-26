@@ -59,7 +59,7 @@ const getOfficeLocations = (language: 'zh' | 'en') => [{
 }];
 export const CTASection = () => {
   const {
-    language
+    baseLang: language
   } = useLanguage();
   const officeLocations = getOfficeLocations(language);
   const socialContacts = [{

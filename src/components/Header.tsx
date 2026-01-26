@@ -68,7 +68,7 @@ export const Header = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [user, setUser] = useState<SupabaseUser | null>(null);
   const timeoutRef = useRef<NodeJS.Timeout | null>(null);
-  const { t, language } = useLanguage();
+  const { t, language, baseLang } = useLanguage();
   const navigate = useNavigate();
   const { toast } = useToast();
 
@@ -101,15 +101,15 @@ export const Header = () => {
     navigate('/');
   };
 
-  const droneCategories = getDroneCategories(language);
-  const accessoryCategories = getAccessoryCategories(language);
-  const applicationCategories = getApplicationCategories(language);
-  const customCategories = getCustomCategories(language);
-  const softwareCategories = getSoftwareCategories(language);
-  const projectCategories = getProjectCategories(language);
+  const droneCategories = getDroneCategories(baseLang);
+  const accessoryCategories = getAccessoryCategories(baseLang);
+  const applicationCategories = getApplicationCategories(baseLang);
+  const customCategories = getCustomCategories(baseLang);
+  const softwareCategories = getSoftwareCategories(baseLang);
+  const projectCategories = getProjectCategories(baseLang);
 
   const productCenterCategories = [
-    { name: language === 'zh' ? "多旋翼无人机" : "Multi-Rotor Drone", href: "/products", description: language === 'zh' ? "专业多旋翼无人机系列" : "Professional multi-rotor drone series", hasSubmenu: true, submenuItems: droneCategories },
+    { name: baseLang === 'zh' ? "多旋翼无人机" : "Multi-Rotor Drone", href: "/products", description: baseLang === 'zh' ? "专业多旋翼无人机系列" : "Professional multi-rotor drone series", hasSubmenu: true, submenuItems: droneCategories },
     ...accessoryCategories
   ];
 

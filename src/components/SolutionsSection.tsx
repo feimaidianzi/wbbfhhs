@@ -42,7 +42,7 @@ const getSolutionsData = (language: 'zh' | 'en') => [
 ];
 
 export const SolutionsSection = () => {
-  const { language } = useLanguage();
+  const { baseLang: language } = useLanguage();
   const solutions = getSolutionsData(language);
 
   return (
