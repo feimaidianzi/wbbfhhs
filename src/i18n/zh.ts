@@ -518,4 +518,237 @@ export const zhTranslations: Record<string, string> = {
   'seo.products.desc': '长凌科技产品中心，提供工业无人机、自动机场、系留无人机、物流无人机等全系列产品',
   'seo.applications.title': '行业应用',
   'seo.applications.desc': '长凌科技无人机行业应用解决方案，覆盖电力巡检、物流配送、消防应急等多个领域',
+
+  // Breadcrumb - 面包屑导航
+  'breadcrumb.home': '首页',
+  'breadcrumb.products': '产品',
+  'breadcrumb.applications': '行业应用',
+  'breadcrumb.custom': '定制服务',
+  'breadcrumb.projects': '项目服务',
+  'breadcrumb.about': '关于我们',
+  
+  // Custom Research Pages - 定制研发页面
+  'custom.caseStudies': '案例展示',
+  'custom.caseStudiesDesc': '与多所高校和科研机构建立合作关系，成功交付多个定制项目',
+  'custom.startProject': '开启您的定制项目',
+  'custom.projectDesc': '无论是基础研究还是应用开发，长凌科技都能为您提供专业的定制服务',
+  'custom.contactNow': '立即咨询',
+  
+  'custom.software.cta': '开启软件定制项目',
+  'custom.airport.cta': '开启机场定制项目',
+  'custom.payload.cta': '开启载荷定制项目',
+  'custom.swarm.cta': '开启集群定制项目',
+  'custom.accessories.cta': '开启配件定制项目',
+  'custom.drone.cta': '开启无人机定制项目',
+  'custom.contactTeam': '联系我们的专业团队，讨论您的定制需求',
+  'custom.droneContactTeam': '联系我们的专业团队，讨论您的整机定制需求',
+
+  // Drone Show Page - 无人机表演页面
+  'show.title': '无人机表演',
+  'show.desc': '长凌科技专业无人机编队灯光表演服务',
+  'show.keywords': '无人机表演,灯光秀,编队表演',
+  'show.hero': '无人机灯光表演',
+  'show.heroDesc': '专业编队表演，打造震撼视觉盛宴',
+  'show.features.creative': '创意设计',
+  'show.features.creativeDesc': '专业团队定制编排',
+  'show.features.scale': '规模灵活',
+  'show.features.scaleDesc': '50-3000架任选',
+  'show.features.effects': '效果震撼',
+  'show.features.effectsDesc': '3D造型光影变换',
+  'show.features.safety': '安全保障',
+  'show.features.safetyDesc': '完善的安全保障体系',
+  'show.scenarios.corporate': '企业庆典活动',
+  'show.scenarios.festival': '城市节日庆典',
+  'show.scenarios.scenic': '景区夜游项目',
+  'show.scenarios.sports': '大型体育赛事',
+  'show.scenarios.cultural': '文化旅游推广',
+  'show.scenarios.brand': '商业品牌发布',
+
+  // Flight Service Page - 飞行服务页面
+  'flight.title': '飞行服务',
+  'flight.desc': '长凌科技专业无人机飞行作业服务',
+  'flight.keywords': '无人机飞行服务,航拍,电力巡检,植保',
+  'flight.hero': '飞行服务',
+  'flight.heroDesc': '专业飞行作业，高效完成任务',
+  'flight.bookService': '预约服务',
+  'flight.mapping': '航拍测绘',
+  'flight.mappingDesc': '高精度航拍与三维建模',
+  'flight.powerInspection': '电力巡检',
+  'flight.powerInspectionDesc': '输电线路巡检服务',
+  'flight.agriculture': '农业植保',
+  'flight.agricultureDesc': '农业喷洒作业服务',
+  'flight.rescue': '应急救援',
+  'flight.rescueDesc': '搜救与物资投送',
+
+  // Project Cooperation Page - 项目合作页面
+  'cooperation.title': '项目合作',
+  'cooperation.desc': '长凌科技定制化项目合作服务',
+  'cooperation.hero': '项目合作',
+  'cooperation.heroDesc': '深度合作，共创价值',
+  'cooperation.contactUs': '联系合作',
+
+  // Project Training Page - 无人机培训页面
+  'training.title': '无人机培训',
+  'training.desc': '专业无人机培训服务',
+  'training.hero': '无人机培训',
+  'training.heroDesc': '专业培训，考证无忧',
+  'training.enroll': '立即报名',
+
+  // Low Altitude Economy Page - 低空经济页面
+  'lowAltitude.title': '低空经济',
+  'lowAltitude.desc': '低空经济解决方案',
+  'lowAltitude.feimaiRole': '长凌的角色',
+  'lowAltitude.roleDesc': '作为低空经济产业链的核心参与者，长凌科技积极参与低空经济基础设施建设',
+
+  // Work Drone Page - 作业无人机页面
+  'workDrone.case1.title': '新疆地质勘测项目',
+  'workDrone.case1.desc': '完成50万公顷区域高精度地形测绘，效率提升20倍',
+  'workDrone.case2.title': '海上风电场巡检',
+  'workDrone.case2.desc': '为海上风电场提供定期巡检服务，及时发现设备隐患',
+  'workDrone.case3.title': '边境线巡逻任务',
+  'workDrone.case3.desc': '配合边防部队执行边境巡逻任务，提升边防管控能力',
+
+  // Surveying Page - 测绘页面
+  'surveying.title': '测绘',
+  'surveying.desc': '垂直起降无人机适合高效率、高精度、大面积航测项目，广泛应用于国土测绘和工程测量',
+
+  // FPV Category Page - FPV分类页面
+  'fpv.starter.name': 'CL-S1 入门套装',
+  'fpv.starter.desc': '专为新手设计的完整入门套装，包含一切所需设备，安全易学',
+  'fpv.starter.features': '开箱即飞,自稳模式,新手保护,中文教程',
+  'fpv.advanced.name': 'CL-S2 进阶套装',
+  'fpv.advanced.desc': '适合有一定基础的玩家，性能更强，功能更全',
+  'fpv.advanced.features': '数字高清,GPS定位,一键返航,飞行记录',
+  'fpv.pro.name': 'CL-S3 专业套装',
+  'fpv.pro.desc': '面向专业玩家的顶级配置，极致性能体验',
+  'fpv.pro.features': 'O3+图传,高速模式,专业调参,竞速配置',
+
+  // About Page Extended - 关于页面扩展
+  'about.history.title': '发展历程',
+  'about.history.content': '长凌科技成立于2015年，经过多年发展，已成为国内领先的工业无人机解决方案提供商。',
+  'about.capability.title': '研发能力',
+  'about.capability.content': '公司拥有强大的研发团队，具备无人机整机设计、飞控系统开发、图传系统研发等核心能力。',
+  'about.team.title': '团队介绍',
+  'about.team.content': '我们的团队由来自航空航天、电子信息、人工智能等领域的专业人才组成。',
+
+  // Product Page Template - 产品页模板
+  'productPage.ready': '准备开始您的项目？',
+  'productPage.readyDesc': '联系我们的专业团队，获取定制化解决方案和详细报价',
+  'productPage.contactBtn': '立即咨询',
+  'productPage.callBtn': '电话咨询',
+  'productPage.aboutProducts': '关于我们的产品',
+  'productPage.productIntro': '长凌科技专注于工业级无人机研发制造，产品广泛应用于电力巡检、物流配送、消防应急等领域。',
+
+  // VTX Products - VTX产品
+  'vtx.25w.name': '2.5W 视频发射器',
+  'vtx.10w72.name': '10W 视频发射器 (7.2GHz)',
+  'vtx.installGuide': '安装说明',
+
+  // Camera Products - 相机产品
+  'camera.photoOther': '照片与其他',
+  'camera.chargingTime': '充电时间',
+  'camera.photoResolution': '照片分辨率',
+  'camera.photoFunction': '照片功能',
+  'camera.supportLanguage': '支持语言',
+  'camera.supportAccessories': '支持配件',
+  'camera.selfie': '自拍',
+  'camera.burst': '连续拍摄（突发）',
+  'camera.autoShot': '自动拍摄',
+
+  // Admin Product Management - 后台产品管理
+  'admin.product': '产品',
+  'admin.category': '分类',
+  'admin.price': '价格',
+  'admin.status': '状态',
+  'admin.actions': '操作',
+  'admin.productName': '产品名称',
+  'admin.productNamePlaceholder': '中文名称',
+  'admin.productDesc': '产品描述',
+  'admin.productDescPlaceholder': '中文描述',
+  'admin.productNameEn': '英文名称',
+  'admin.productNameEnPlaceholder': '英文名称',
+  'admin.productDescEn': '英文描述',
+  'admin.productDescEnPlaceholder': '英文描述',
+
+  // Common Actions - 通用操作
+  'action.save': '保存',
+  'action.cancel': '取消',
+  'action.delete': '删除',
+  'action.edit': '编辑',
+  'action.add': '添加',
+  'action.search': '搜索',
+  'action.filter': '筛选',
+  'action.export': '导出',
+  'action.import': '导入',
+  'action.refresh': '刷新',
+  'action.confirm': '确认',
+  'action.close': '关闭',
+  'action.view': '查看',
+  'action.download': '下载',
+  'action.upload': '上传',
+  'action.submit': '提交',
+  'action.reset': '重置',
+  'action.next': '下一步',
+  'action.prev': '上一步',
+  'action.finish': '完成',
+
+  // Status Labels - 状态标签
+  'status.published': '已发布',
+  'status.draft': '草稿',
+  'status.pending': '待审核',
+  'status.approved': '已审核',
+  'status.rejected': '已拒绝',
+  'status.active': '激活',
+  'status.inactive': '未激活',
+  'status.online': '在线',
+  'status.offline': '离线',
+
+  // Time Related - 时间相关
+  'time.today': '今天',
+  'time.yesterday': '昨天',
+  'time.thisWeek': '本周',
+  'time.thisMonth': '本月',
+  'time.lastMonth': '上月',
+  'time.year': '年',
+  'time.month': '月',
+  'time.day': '日',
+  'time.hour': '时',
+  'time.minute': '分',
+  'time.second': '秒',
+  'time.ago': '前',
+
+  // Pagination - 分页
+  'pagination.total': '共 {total} 条',
+  'pagination.page': '第 {page} 页',
+  'pagination.perPage': '每页 {size} 条',
+  'pagination.first': '首页',
+  'pagination.last': '末页',
+  'pagination.prev': '上一页',
+  'pagination.next': '下一页',
+
+  // Dialog - 对话框
+  'dialog.confirm.title': '确认操作',
+  'dialog.confirm.delete': '确定要删除吗？此操作不可恢复。',
+  'dialog.confirm.save': '确定要保存更改吗？',
+  'dialog.success': '操作成功',
+  'dialog.failed': '操作失败',
+
+  // Empty States - 空状态
+  'empty.noData': '暂无数据',
+  'empty.noResults': '未找到结果',
+  'empty.noProducts': '暂无产品',
+  'empty.noNews': '暂无新闻',
+
+  // Search - 搜索
+  'search.placeholder': '搜索...',
+  'search.noResults': '没有找到相关结果',
+  'search.searching': '搜索中...',
+
+  // AI Assistant - AI助手
+  'ai.title': '智能客服',
+  'ai.greeting': '您好！我是长凌科技的智能客服，有什么可以帮助您的吗？',
+  'ai.inputPlaceholder': '输入您的问题...',
+  'ai.send': '发送',
+  'ai.transferHuman': '转人工客服',
+  'ai.thinking': '正在思考...',
 };
