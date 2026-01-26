@@ -90,30 +90,38 @@ const TranslationManagement = () => {
   // 翻译单个语言的一个批次
   const translateOneBatch = async (lang: LanguageCode): Promise<{ success: boolean; remaining: number; count: number; total: number }> => {
     try {
+      const totalKeys = Object.keys(zhTranslations).length;
+      console.log(`[TranslateOneBatch] Starting for ${lang}, source has ${totalKeys} keys`);
+      
       const { data, error } = await supabase.functions.invoke('batch-translate', {
         body: {
           mode: 'incremental',
           languages: [lang],
-          sourceContent: zhTranslations,
+          sourceContent: zhTranslations, // Always send full source content
         },
       });
 
-      if (error) throw error;
+      if (error) {
+        console.error(`[TranslateOneBatch] Error for ${lang}:`, error);
+        throw error;
+      }
 
       const result = data?.results?.[lang];
+      console.log(`[TranslateOneBatch] Result for ${lang}:`, result);
+      
       if (!result?.success) {
         throw new Error(result?.error || '翻译失败');
       }
 
       return {
         success: true,
-        remaining: result.remaining || 0,
-        count: result.count || 0,
-        total: result.total || Object.keys(zhTranslations).length,
+        remaining: result.remaining ?? 0,
+        count: result.count ?? 0,
+        total: result.total ?? totalKeys,
       };
     } catch (error) {
       console.error('Translation batch error:', error);
-      return { success: false, remaining: -1, count: 0, total: 0 };
+      return { success: false, remaining: -1, count: 0, total: Object.keys(zhTranslations).length };
     }
   };
 
@@ -122,12 +130,16 @@ const TranslationManagement = () => {
     const langName = SUPPORTED_LANGUAGES.find(l => l.code === lang)?.name;
     setCurrentLang(lang);
     
-    let remaining = -1;
+    const totalKeys = Object.keys(zhTranslations).length;
     let retryCount = 0;
     const maxRetries = 3;
 
+    console.log(`[AutoTranslate] Starting ${langName}, total keys: ${totalKeys}`);
+
     while (!stopAutoRef.current) {
       const result = await translateOneBatch(lang);
+      
+      console.log(`[AutoTranslate] Batch result for ${langName}:`, result);
       
       if (!result.success) {
         retryCount++;
@@ -141,12 +153,19 @@ const TranslationManagement = () => {
       }
 
       retryCount = 0; // 重置重试计数
-      remaining = result.remaining;
-      setCurrentProgress({ done: result.count, total: result.total, remaining: result.remaining });
-      setProgress(Math.round((result.count / result.total) * 100));
+      
+      const done = result.count;
+      const remaining = result.remaining;
+      const total = result.total || totalKeys;
+      
+      setCurrentProgress({ done, total, remaining });
+      setProgress(Math.round((done / total) * 100));
+      
+      console.log(`[AutoTranslate] ${langName}: ${done}/${total} done, ${remaining} remaining`);
 
-      if (remaining === 0) {
-        toast.success(`${langName} 翻译完成！共 ${result.count} 条`);
+      // Check if translation is complete
+      if (remaining === 0 || done >= total) {
+        toast.success(`${langName} 翻译完成！共 ${done} 条`);
         return true;
       }
 
