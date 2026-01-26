@@ -1,10 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Progress } from '@/components/ui/progress';
-import { ArrowLeft, Globe, RefreshCw, Check, X, Loader2 } from 'lucide-react';
+import { ArrowLeft, Globe, RefreshCw, Check, X, Loader2, Square, Play } from 'lucide-react';
 import { supabase } from '@/integrations/supabase/client';
 import { toast } from 'sonner';
 import { zhTranslations } from '@/i18n/zh';
@@ -23,8 +23,11 @@ const TranslationManagement = () => {
   const [statuses, setStatuses] = useState<TranslationStatus[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [isTranslating, setIsTranslating] = useState(false);
+  const [isAutoMode, setIsAutoMode] = useState(false);
   const [progress, setProgress] = useState(0);
   const [currentLang, setCurrentLang] = useState<string>('');
+  const [currentProgress, setCurrentProgress] = useState({ done: 0, total: 0, remaining: 0 });
+  const stopAutoRef = useRef(false);
 
   const loadTranslationStatuses = async () => {
     setIsLoading(true);
@@ -84,20 +87,14 @@ const TranslationManagement = () => {
     loadTranslationStatuses();
   }, []);
 
-  // 单次翻译一批（60个key），不自动循环
-  const translateSingleBatch = async (lang: LanguageCode) => {
-    setIsTranslating(true);
-    setCurrentLang(lang);
-
+  // 翻译单个语言的一个批次
+  const translateOneBatch = async (lang: LanguageCode): Promise<{ success: boolean; remaining: number; count: number; total: number }> => {
     try {
-      const langName = SUPPORTED_LANGUAGES.find(l => l.code === lang)?.name;
-      toast.info(`正在翻译 ${langName}（单批次）...`);
-
       const { data, error } = await supabase.functions.invoke('batch-translate', {
         body: {
           mode: 'incremental',
           languages: [lang],
-          sourceContent: zhTranslations, // 传递源内容
+          sourceContent: zhTranslations,
         },
       });
 
@@ -107,82 +104,124 @@ const TranslationManagement = () => {
       if (!result?.success) {
         throw new Error(result?.error || '翻译失败');
       }
-      
-      const progressPercent = Math.round((result.count / result.total) * 100);
-      setProgress(progressPercent);
-      
-      if (result.remaining > 0) {
-        toast.success(`${langName}: ${result.count}/${result.total} 已完成，还剩 ${result.remaining} 条待翻译`);
-      } else {
-        toast.success(`${langName} 翻译完成！共 ${result.count} 条`);
-      }
-      
-      await loadTranslationStatuses();
+
+      return {
+        success: true,
+        remaining: result.remaining || 0,
+        count: result.count || 0,
+        total: result.total || Object.keys(zhTranslations).length,
+      };
     } catch (error) {
-      console.error('Translation error:', error);
-      toast.error(`翻译失败: ${error instanceof Error ? error.message : '未知错误'}`);
-    } finally {
-      setIsTranslating(false);
-      setCurrentLang('');
+      console.error('Translation batch error:', error);
+      return { success: false, remaining: -1, count: 0, total: 0 };
     }
   };
 
-  // 单批次翻译所有语言（每个语言翻译一批60个key）
-  const translateAllOneStep = async () => {
+  // 自动翻译单个语言直到完成
+  const autoTranslateSingleLanguage = async (lang: LanguageCode) => {
+    const langName = SUPPORTED_LANGUAGES.find(l => l.code === lang)?.name;
+    setCurrentLang(lang);
+    
+    let remaining = -1;
+    let retryCount = 0;
+    const maxRetries = 3;
+
+    while (!stopAutoRef.current) {
+      const result = await translateOneBatch(lang);
+      
+      if (!result.success) {
+        retryCount++;
+        if (retryCount >= maxRetries) {
+          toast.error(`${langName} 翻译失败，已重试${maxRetries}次`);
+          return false;
+        }
+        toast.warning(`${langName} 翻译出错，正在重试 (${retryCount}/${maxRetries})...`);
+        await new Promise(r => setTimeout(r, 2000)); // 等待2秒后重试
+        continue;
+      }
+
+      retryCount = 0; // 重置重试计数
+      remaining = result.remaining;
+      setCurrentProgress({ done: result.count, total: result.total, remaining: result.remaining });
+      setProgress(Math.round((result.count / result.total) * 100));
+
+      if (remaining === 0) {
+        toast.success(`${langName} 翻译完成！共 ${result.count} 条`);
+        return true;
+      }
+
+      // 短暂延迟避免请求过快
+      await new Promise(r => setTimeout(r, 500));
+    }
+
+    return false;
+  };
+
+  // 自动翻译所有语言
+  const autoTranslateAll = async () => {
     const languagesToTranslate = SUPPORTED_LANGUAGES
       .filter(l => l.code !== 'zh' && l.code !== 'en')
       .map(l => l.code);
 
     setIsTranslating(true);
+    setIsAutoMode(true);
+    stopAutoRef.current = false;
     setProgress(0);
 
-    try {
-      toast.info('正在翻译所有语言（单批次）...');
+    toast.info('开始自动翻译所有语言...');
 
-      for (let i = 0; i < languagesToTranslate.length; i++) {
-        const lang = languagesToTranslate[i];
-        const langName = SUPPORTED_LANGUAGES.find(l => l.code === lang)?.name;
-        setCurrentLang(lang);
-
-        const { data, error } = await supabase.functions.invoke('batch-translate', {
-          body: {
-            mode: 'incremental',
-            languages: [lang],
-            sourceContent: zhTranslations, // 传递源内容
-          },
-        });
-
-        if (error) {
-          console.error(`Error translating ${lang}:`, error);
-          toast.error(`${langName} 翻译失败`);
-          continue;
-        }
-        
-        const result = data?.results?.[lang];
-        if (!result?.success) {
-          toast.error(`${langName} 翻译失败`);
-          continue;
-        }
-        
-        if (result.remaining > 0) {
-          toast.info(`${langName}: ${result.count}/${result.total}，剩余 ${result.remaining} 条`);
-        } else {
-          toast.success(`${langName} 完成`);
-        }
-
-        const overallProgress = Math.round(((i + 1) / languagesToTranslate.length) * 100);
-        setProgress(overallProgress);
+    for (let i = 0; i < languagesToTranslate.length; i++) {
+      if (stopAutoRef.current) {
+        toast.info('翻译已停止');
+        break;
       }
 
-      toast.success('单轮翻译完成！如有未完成的语言，请再次点击继续');
+      const lang = languagesToTranslate[i];
+      const langName = SUPPORTED_LANGUAGES.find(l => l.code === lang)?.name;
+      
+      toast.info(`正在翻译 ${langName} (${i + 1}/${languagesToTranslate.length})...`);
+      
+      const success = await autoTranslateSingleLanguage(lang);
+      
+      if (!success && !stopAutoRef.current) {
+        // 继续下一个语言
+        toast.warning(`${langName} 未完成，继续处理下一个语言`);
+      }
+
       await loadTranslationStatuses();
-    } catch (error) {
-      console.error('Batch translation error:', error);
-      toast.error('批量翻译出错');
-    } finally {
-      setIsTranslating(false);
-      setCurrentLang('');
     }
+
+    setIsTranslating(false);
+    setIsAutoMode(false);
+    setCurrentLang('');
+    
+    if (!stopAutoRef.current) {
+      toast.success('所有语言翻译完成！');
+    }
+  };
+
+  // 自动翻译单个语言
+  const startAutoTranslateSingle = async (lang: LanguageCode) => {
+    setIsTranslating(true);
+    setIsAutoMode(true);
+    stopAutoRef.current = false;
+    setProgress(0);
+
+    const langName = SUPPORTED_LANGUAGES.find(l => l.code === lang)?.name;
+    toast.info(`开始自动翻译 ${langName}...`);
+
+    await autoTranslateSingleLanguage(lang);
+    await loadTranslationStatuses();
+
+    setIsTranslating(false);
+    setIsAutoMode(false);
+    setCurrentLang('');
+  };
+
+  // 停止自动翻译
+  const stopAutoTranslate = () => {
+    stopAutoRef.current = true;
+    toast.info('正在停止翻译...');
   };
 
   return (
@@ -196,37 +235,62 @@ const TranslationManagement = () => {
             </Button>
             <div>
               <h1 className="text-2xl font-bold">多语言翻译管理</h1>
-              <p className="text-gray-600">使用豆包AI预翻译网站内容，存储为静态文件</p>
+              <p className="text-gray-600">使用DeepSeek AI自动翻译网站内容</p>
             </div>
           </div>
-          <Button 
-            onClick={translateAllOneStep} 
-            disabled={isTranslating}
-            className="bg-primary"
-          >
-            {isTranslating ? (
-              <>
-                <Loader2 className="h-4 w-4 mr-2 animate-spin" />
-                翻译中...
-              </>
-            ) : (
-              <>
-                <Globe className="h-4 w-4 mr-2" />
-                翻译一轮（所有语言）
-              </>
-            )}
-          </Button>
+          {isAutoMode ? (
+            <Button 
+              onClick={stopAutoTranslate} 
+              variant="destructive"
+            >
+              <Square className="h-4 w-4 mr-2" />
+              停止翻译
+            </Button>
+          ) : (
+            <Button 
+              onClick={autoTranslateAll} 
+              disabled={isTranslating}
+              className="bg-primary"
+            >
+              {isTranslating ? (
+                <>
+                  <Loader2 className="h-4 w-4 mr-2 animate-spin" />
+                  翻译中...
+                </>
+              ) : (
+                <>
+                  <Play className="h-4 w-4 mr-2" />
+                  自动翻译全部
+                </>
+              )}
+            </Button>
+          )}
         </div>
 
         {isTranslating && (
-          <Card className="mb-6">
+          <Card className="mb-6 border-primary/20 bg-primary/5">
             <CardContent className="pt-6">
-              <div className="flex items-center gap-4 mb-2">
-                <Loader2 className="h-5 w-5 animate-spin text-primary" />
-                <span>正在翻译: {currentLang}</span>
+              <div className="flex items-center justify-between mb-3">
+                <div className="flex items-center gap-3">
+                  <Loader2 className="h-5 w-5 animate-spin text-primary" />
+                  <span className="font-medium">
+                    正在翻译: {SUPPORTED_LANGUAGES.find(l => l.code === currentLang)?.name || currentLang}
+                  </span>
+                </div>
+                {currentProgress.total > 0 && (
+                  <span className="text-sm text-muted-foreground">
+                    {currentProgress.done} / {currentProgress.total} 条
+                    {currentProgress.remaining > 0 && ` (剩余 ${currentProgress.remaining})`}
+                  </span>
+                )}
               </div>
-              <Progress value={progress} className="h-2" />
-              <p className="text-sm text-gray-500 mt-2">{progress}% 完成</p>
+              <Progress value={progress} className="h-3" />
+              <div className="flex justify-between mt-2 text-sm text-muted-foreground">
+                <span>{progress}% 完成</span>
+                {isAutoMode && (
+                  <span className="text-primary">自动模式运行中...</span>
+                )}
+              </div>
             </CardContent>
           </Card>
         )}
@@ -237,55 +301,78 @@ const TranslationManagement = () => {
               <Loader2 className="h-8 w-8 animate-spin text-gray-400" />
             </div>
           ) : (
-            statuses.map((status) => (
-              <Card key={status.lang}>
-                <CardHeader className="pb-3">
-                  <div className="flex items-center justify-between">
-                    <CardTitle className="text-lg">{status.name}</CardTitle>
-                    {status.hasTranslation ? (
-                      <Badge variant="default" className="bg-green-500">
-                        <Check className="h-3 w-3 mr-1" />
-                        已翻译
-                      </Badge>
-                    ) : (
-                      <Badge variant="secondary">
-                        <X className="h-3 w-3 mr-1" />
-                        未翻译
-                      </Badge>
-                    )}
-                  </div>
-                  <CardDescription>
-                    语言代码: {status.lang}
-                  </CardDescription>
-                </CardHeader>
-                <CardContent>
-                  <div className="space-y-2 text-sm">
-                    <div className="flex justify-between">
-                      <span className="text-gray-500">翻译词条:</span>
-                      <span>{status.keyCount} / {Object.keys(zhTranslations).length}</span>
+            statuses.map((status) => {
+              const progressPercent = status.keyCount > 0 
+                ? Math.round((status.keyCount / Object.keys(zhTranslations).length) * 100) 
+                : 0;
+              const isComplete = status.keyCount >= Object.keys(zhTranslations).length;
+              
+              return (
+                <Card key={status.lang} className={currentLang === status.lang ? 'ring-2 ring-primary' : ''}>
+                  <CardHeader className="pb-3">
+                    <div className="flex items-center justify-between">
+                      <CardTitle className="text-lg">{status.name}</CardTitle>
+                      {isComplete ? (
+                        <Badge variant="default" className="bg-green-500">
+                          <Check className="h-3 w-3 mr-1" />
+                          完成
+                        </Badge>
+                      ) : status.hasTranslation ? (
+                        <Badge variant="secondary" className="bg-yellow-100 text-yellow-800">
+                          {progressPercent}%
+                        </Badge>
+                      ) : (
+                        <Badge variant="secondary">
+                          <X className="h-3 w-3 mr-1" />
+                          未翻译
+                        </Badge>
+                      )}
                     </div>
-                    {status.lastUpdated && (
+                    <CardDescription>
+                      语言代码: {status.lang}
+                    </CardDescription>
+                  </CardHeader>
+                  <CardContent>
+                    <div className="space-y-2 text-sm">
                       <div className="flex justify-between">
-                        <span className="text-gray-500">更新时间:</span>
-                        <span>{status.lastUpdated}</span>
+                        <span className="text-gray-500">翻译进度:</span>
+                        <span>{status.keyCount} / {Object.keys(zhTranslations).length}</span>
                       </div>
+                      {status.keyCount > 0 && status.keyCount < Object.keys(zhTranslations).length && (
+                        <Progress value={progressPercent} className="h-1.5" />
+                      )}
+                      {status.lastUpdated && (
+                        <div className="flex justify-between">
+                          <span className="text-gray-500">更新时间:</span>
+                          <span className="text-xs">{status.lastUpdated}</span>
+                        </div>
+                      )}
+                    </div>
+                    {status.lang !== 'zh' && status.lang !== 'en' && (
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        className="w-full mt-4"
+                        onClick={() => startAutoTranslateSingle(status.lang)}
+                        disabled={isTranslating}
+                      >
+                        {currentLang === status.lang ? (
+                          <>
+                            <Loader2 className="h-4 w-4 mr-2 animate-spin" />
+                            翻译中...
+                          </>
+                        ) : (
+                          <>
+                            <RefreshCw className="h-4 w-4 mr-2" />
+                            {isComplete ? '重新翻译' : status.hasTranslation ? '继续翻译' : '开始翻译'}
+                          </>
+                        )}
+                      </Button>
                     )}
-                  </div>
-                  {status.lang !== 'zh' && status.lang !== 'en' && (
-                    <Button
-                      variant="outline"
-                      size="sm"
-                      className="w-full mt-4"
-                      onClick={() => translateSingleBatch(status.lang)}
-                      disabled={isTranslating}
-                    >
-                      <RefreshCw className="h-4 w-4 mr-2" />
-                      {status.hasTranslation ? '继续翻译' : '开始翻译'}
-                    </Button>
-                  )}
-                </CardContent>
-              </Card>
-            ))
+                  </CardContent>
+                </Card>
+              );
+            })
           )}
         </div>
 
@@ -294,11 +381,11 @@ const TranslationManagement = () => {
             <CardTitle>使用说明</CardTitle>
           </CardHeader>
           <CardContent className="space-y-2 text-sm text-gray-600">
-            <p>1. 点击"翻译所有语言"批量翻译所有支持的语言</p>
-            <p>2. 翻译完成后，内容将保存在数据库中</p>
-            <p>3. 用户切换语言时会直接加载预翻译的内容，无需等待</p>
-            <p>4. 网站会根据访客IP自动检测并切换到对应语言</p>
-            <p>5. 如需更新翻译，点击单个语言卡片的"重新翻译"按钮</p>
+            <p>1. 点击 <strong>"自动翻译全部"</strong> 自动翻译所有语言，无需手动干预</p>
+            <p>2. 翻译过程中可随时点击 <strong>"停止翻译"</strong> 暂停，下次会从断点继续</p>
+            <p>3. 单个语言翻译完成后会自动继续下一个语言</p>
+            <p>4. 如遇网络问题会自动重试最多3次</p>
+            <p>5. 翻译完成后，用户切换语言时会直接加载预翻译内容</p>
           </CardContent>
         </Card>
       </div>
