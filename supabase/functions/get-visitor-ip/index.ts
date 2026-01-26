@@ -30,13 +30,16 @@ serve(async (req) => {
                      req.headers.get("cf-connecting-ip") ||
                      "unknown";
 
-    const { sessionId } = await req.json();
-
-    if (!sessionId) {
-      return new Response(JSON.stringify({ error: "Missing sessionId" }), {
-        status: 400,
-        headers: { ...corsHeaders, "Content-Type": "application/json" },
-      });
+    // Parse body if present, but don't require it
+    let sessionId: string | null = null;
+    try {
+      const body = await req.text();
+      if (body) {
+        const parsed = JSON.parse(body);
+        sessionId = parsed.sessionId || null;
+      }
+    } catch {
+      // No body or invalid JSON - that's fine for IP-only requests
     }
 
     let country = null;
@@ -60,19 +63,21 @@ serve(async (req) => {
       }
     }
 
-    // 更新访客会话
-    const { error: updateError } = await supabase
-      .from("visitor_sessions")
-      .update({
-        ip_address: clientIp,
-        country,
-        region,
-        city,
-      })
-      .eq("session_id", sessionId);
+    // 更新访客会话 (only if sessionId provided)
+    if (sessionId) {
+      const { error: updateError } = await supabase
+        .from("visitor_sessions")
+        .update({
+          ip_address: clientIp,
+          country,
+          region,
+          city,
+        })
+        .eq("session_id", sessionId);
 
-    if (updateError) {
-      console.error("Update session error:", updateError);
+      if (updateError) {
+        console.error("Update session error:", updateError);
+      }
     }
 
     return new Response(JSON.stringify({
