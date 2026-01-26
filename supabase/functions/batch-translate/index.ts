@@ -23,7 +23,90 @@ const languageNames: Record<string, string> = {
   'tr': 'Turkish (Türkçe)',
 };
 
-// PRIMARY: Lovable AI - Fast and reliable (2-5s per chunk)
+// PRIMARY: DeepSeek AI - Fast and reliable
+async function translateWithDeepSeek(
+  content: Record<string, string>,
+  targetLang: string,
+  apiKey: string
+): Promise<Record<string, string>> {
+  const targetLangName = languageNames[targetLang] || targetLang;
+  
+  const systemPrompt = `You are a professional translator for CANI (长凌科技), a drone technology company. 
+Translate the following JSON content from Chinese to ${targetLangName}.
+
+CRITICAL RULES:
+1. Maintain exact JSON structure and keys
+2. Only translate values, never keys
+3. Keep technical terms accurate (drone, FPV, VTX, ESC, etc.)
+4. Keep brand names "CANI" and "长凌" unchanged
+5. Return ONLY valid JSON, no explanations`;
+
+  const entries = Object.entries(content);
+  const chunkSize = 20; // DeepSeek handles larger chunks well
+  const chunks: [string, string][][] = [];
+  
+  for (let i = 0; i < entries.length; i += chunkSize) {
+    chunks.push(entries.slice(i, i + chunkSize) as [string, string][]);
+  }
+
+  const translatedContent: Record<string, string> = {};
+
+  for (let i = 0; i < chunks.length; i++) {
+    const chunk = chunks[i];
+    const contentToTranslate = Object.fromEntries(chunk);
+
+    console.log(`[DeepSeek] Translating chunk ${i + 1}/${chunks.length} for ${targetLang}...`);
+
+    const response = await fetch('https://api.deepseek.com/v1/chat/completions', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${apiKey}`,
+      },
+      body: JSON.stringify({
+        model: 'deepseek-chat',
+        messages: [
+          { role: 'system', content: systemPrompt },
+          { role: 'user', content: JSON.stringify(contentToTranslate) },
+        ],
+        temperature: 0.3,
+        max_tokens: 4096,
+      }),
+    });
+
+    if (!response.ok) {
+      const errorText = await response.text();
+      console.error(`DeepSeek error: ${response.status} - ${errorText}`);
+      throw new Error(`DeepSeek error: ${response.status}`);
+    }
+
+    const data = await response.json();
+    const translatedText = data.choices?.[0]?.message?.content;
+
+    if (!translatedText) {
+      throw new Error('No translation returned from DeepSeek');
+    }
+
+    let cleanedText = translatedText.trim();
+    if (cleanedText.startsWith('```json')) cleanedText = cleanedText.slice(7);
+    if (cleanedText.startsWith('```')) cleanedText = cleanedText.slice(3);
+    if (cleanedText.endsWith('```')) cleanedText = cleanedText.slice(0, -3);
+    cleanedText = cleanedText.trim();
+
+    try {
+      const parsed = JSON.parse(cleanedText);
+      Object.assign(translatedContent, parsed);
+      console.log(`[DeepSeek] ✓ Chunk ${i + 1}/${chunks.length} completed, got ${Object.keys(parsed).length} keys`);
+    } catch (parseError) {
+      console.error(`JSON parse error for chunk ${i + 1}:`, parseError);
+      throw new Error(`Failed to parse translation for ${targetLang}`);
+    }
+  }
+
+  return translatedContent;
+}
+
+// BACKUP: Lovable AI - Fallback option
 async function translateWithLovableAI(
   content: Record<string, string>,
   targetLang: string,
@@ -42,7 +125,7 @@ CRITICAL RULES:
 5. Return ONLY valid JSON, no explanations`;
 
   const entries = Object.entries(content);
-  const chunkSize = 15; // Larger chunks OK with faster API
+  const chunkSize = 15;
   const chunks: [string, string][][] = [];
   
   for (let i = 0; i < entries.length; i += chunkSize) {
@@ -106,96 +189,6 @@ CRITICAL RULES:
   return translatedContent;
 }
 
-// BACKUP: Doubao AI - Slower but available as fallback
-async function translateWithDoubao(
-  content: Record<string, string>,
-  targetLang: string,
-  apiKey: string
-): Promise<Record<string, string>> {
-  const targetLangName = languageNames[targetLang] || targetLang;
-  
-  const systemPrompt = `You are a professional translator for a drone technology company called CANI (长凌科技). 
-Translate the following JSON content from Chinese to ${targetLangName}.
-
-IMPORTANT RULES:
-1. Maintain the exact same JSON structure and keys
-2. Only translate the values, never the keys
-3. Keep technical terms accurate (drone, FPV, VTX, ESC, etc.)
-4. Maintain the professional and technical tone
-5. Keep brand names like "CANI" and "长凌" unchanged
-6. For UI text, keep it concise and user-friendly
-7. Return ONLY valid JSON, no explanations`;
-
-  const entries = Object.entries(content);
-  const chunkSize = 5; // Small chunks for slow API
-  const chunks: [string, string][][] = [];
-  
-  for (let i = 0; i < entries.length; i += chunkSize) {
-    chunks.push(entries.slice(i, i + chunkSize) as [string, string][]);
-  }
-
-  const translatedContent: Record<string, string> = {};
-
-  for (let i = 0; i < chunks.length; i++) {
-    const chunk = chunks[i];
-    const contentToTranslate = Object.fromEntries(chunk);
-
-    console.log(`[Doubao] Translating chunk ${i + 1}/${chunks.length} for ${targetLang}...`);
-
-    const controller = new AbortController();
-    const timeoutId = setTimeout(() => controller.abort(), 45000); // 45s timeout
-    
-    try {
-      const response = await fetch('https://ark.cn-beijing.volces.com/api/v3/chat/completions', {
-        signal: controller.signal,
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${apiKey}`,
-        },
-        body: JSON.stringify({
-          model: 'doubao-seed-1-6-lite-251015',
-          messages: [
-            { role: 'system', content: systemPrompt },
-            { role: 'user', content: JSON.stringify(contentToTranslate) },
-          ],
-          max_completion_tokens: 8192,
-        }),
-      });
-      
-      clearTimeout(timeoutId);
-
-      if (!response.ok) {
-        const errorText = await response.text();
-        throw new Error(`Doubao API error: ${response.status} - ${errorText}`);
-      }
-
-      const data = await response.json();
-      const translatedText = data.choices?.[0]?.message?.content;
-
-      if (!translatedText) {
-        throw new Error(`No translation returned for chunk ${i + 1}`);
-      }
-
-      let cleanedText = translatedText.trim();
-      if (cleanedText.startsWith('```json')) cleanedText = cleanedText.slice(7);
-      if (cleanedText.startsWith('```')) cleanedText = cleanedText.slice(3);
-      if (cleanedText.endsWith('```')) cleanedText = cleanedText.slice(0, -3);
-      cleanedText = cleanedText.trim();
-
-      const parsed = JSON.parse(cleanedText);
-      Object.assign(translatedContent, parsed);
-      console.log(`[Doubao] ✓ Chunk ${i + 1}/${chunks.length} completed, got ${Object.keys(parsed).length} keys`);
-      
-    } catch (error) {
-      clearTimeout(timeoutId);
-      throw error;
-    }
-  }
-
-  return translatedContent;
-}
-
 serve(async (req) => {
   if (req.method === 'OPTIONS') {
     return new Response(null, { headers: corsHeaders });
@@ -218,12 +211,12 @@ serve(async (req) => {
       );
     }
 
+    const DEEPSEEK_API_KEY = Deno.env.get('DEEPSEEK_API_KEY');
     const LOVABLE_API_KEY = Deno.env.get('LOVABLE_API_KEY');
-    const DOUBAO_API_KEY = Deno.env.get('DOUBAO_API_KEY');
     
-    console.log(`API Keys status - Lovable: ${LOVABLE_API_KEY ? 'Available' : 'Missing'}, Doubao: ${DOUBAO_API_KEY ? 'Available' : 'Missing'}`);
+    console.log(`API Keys status - DeepSeek: ${DEEPSEEK_API_KEY ? 'Available' : 'Missing'}, Lovable: ${LOVABLE_API_KEY ? 'Available' : 'Missing'}`);
     
-    if (!LOVABLE_API_KEY && !DOUBAO_API_KEY) {
+    if (!DEEPSEEK_API_KEY && !LOVABLE_API_KEY) {
       throw new Error('No translation API key configured');
     }
 
@@ -304,25 +297,25 @@ serve(async (req) => {
         
         let translations: Record<string, string>;
         
-        // PRIORITY: Use Lovable AI first (faster and more reliable)
-        if (LOVABLE_API_KEY) {
-          console.log(`Using Lovable AI for ${lang} (primary)...`);
+        // PRIORITY: Use DeepSeek first (fast and reliable)
+        if (DEEPSEEK_API_KEY) {
+          console.log(`Using DeepSeek for ${lang} (primary)...`);
           try {
-            translations = await translateWithLovableAI(contentToTranslate, lang, LOVABLE_API_KEY);
-            console.log(`Lovable AI translation completed for ${lang}`);
-          } catch (lovableError) {
-            console.error(`Lovable AI failed for ${lang}:`, lovableError);
-            // Fallback to Doubao
-            if (DOUBAO_API_KEY) {
-              console.log(`Falling back to Doubao for ${lang}...`);
-              translations = await translateWithDoubao(contentToTranslate, lang, DOUBAO_API_KEY);
+            translations = await translateWithDeepSeek(contentToTranslate, lang, DEEPSEEK_API_KEY);
+            console.log(`DeepSeek translation completed for ${lang}`);
+          } catch (deepseekError) {
+            console.error(`DeepSeek failed for ${lang}:`, deepseekError);
+            // Fallback to Lovable AI
+            if (LOVABLE_API_KEY) {
+              console.log(`Falling back to Lovable AI for ${lang}...`);
+              translations = await translateWithLovableAI(contentToTranslate, lang, LOVABLE_API_KEY);
             } else {
-              throw lovableError;
+              throw deepseekError;
             }
           }
-        } else if (DOUBAO_API_KEY) {
-          console.log(`Using Doubao AI for ${lang} (Lovable not available)...`);
-          translations = await translateWithDoubao(contentToTranslate, lang, DOUBAO_API_KEY);
+        } else if (LOVABLE_API_KEY) {
+          console.log(`Using Lovable AI for ${lang} (DeepSeek not available)...`);
+          translations = await translateWithLovableAI(contentToTranslate, lang, LOVABLE_API_KEY);
         } else {
           throw new Error('No translation API available');
         }
