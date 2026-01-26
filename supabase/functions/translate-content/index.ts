@@ -43,7 +43,7 @@ IMPORTANT RULES:
 
   // Split content into chunks to avoid token limits
   const entries = Object.entries(content);
-  const chunkSize = 50;
+  const chunkSize = 10; // Match batch-translate optimization
   const chunks: [string, string][][] = [];
   
   for (let i = 0; i < entries.length; i += chunkSize) {
@@ -55,26 +55,52 @@ IMPORTANT RULES:
   for (const chunk of chunks) {
     const contentToTranslate = Object.fromEntries(chunk);
 
-    const response = await fetch('https://ark.cn-beijing.volces.com/api/v3/chat/completions', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${apiKey}`,
-      },
-      body: JSON.stringify({
-        model: 'doubao-seed-1-6-lite-251015',
-        messages: [
-          { role: 'system', content: systemPrompt },
-          { role: 'user', content: JSON.stringify(contentToTranslate) },
-        ],
-        max_completion_tokens: 8192,
-      }),
-    });
+    // Retry logic
+    let retryCount = 0;
+    const maxRetries = 2;
+    let response;
+    
+    while (retryCount <= maxRetries) {
+      try {
+        const controller = new AbortController();
+        const timeoutId = setTimeout(() => controller.abort(), 150000);
+        
+        response = await fetch('https://ark.cn-beijing.volces.com/api/v3/chat/completions', {
+          signal: controller.signal,
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${apiKey}`,
+          },
+          body: JSON.stringify({
+            model: 'doubao-seed-1-6-lite-251015',
+            messages: [
+              { role: 'system', content: systemPrompt },
+              { role: 'user', content: JSON.stringify(contentToTranslate) },
+            ],
+            max_completion_tokens: 8192,
+          }),
+        }).finally(() => clearTimeout(timeoutId));
+        
+        if (response.ok) break;
+        
+        retryCount++;
+        if (retryCount <= maxRetries) {
+          await new Promise(resolve => setTimeout(resolve, 2000));
+        }
+      } catch (fetchError) {
+        retryCount++;
+        if (retryCount <= maxRetries) {
+          await new Promise(resolve => setTimeout(resolve, 2000));
+        } else {
+          throw fetchError;
+        }
+      }
+    }
 
-    if (!response.ok) {
-      const errorText = await response.text();
-      console.error('Doubao API error:', response.status, errorText);
-      throw new Error(`Doubao API error: ${response.status} - ${errorText}`);
+    if (!response || !response.ok) {
+      const errorText = response ? await response.text() : 'No response';
+      throw new Error(`Doubao API error after retries: ${response?.status} - ${errorText}`);
     }
 
     const data = await response.json();
@@ -100,10 +126,6 @@ IMPORTANT RULES:
     const parsed = JSON.parse(cleanedText);
     Object.assign(translatedContent, parsed);
 
-    // Add delay between chunks to avoid rate limiting
-    if (chunks.length > 1) {
-      await new Promise(resolve => setTimeout(resolve, 300));
-    }
   }
 
   return translatedContent;
