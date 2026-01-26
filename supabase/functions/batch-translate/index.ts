@@ -23,6 +23,7 @@ const languageNames: Record<string, string> = {
   'tr': 'Turkish (Türkçe)',
 };
 
+// PRIMARY: Lovable AI - Fast and reliable (2-5s per chunk)
 async function translateWithLovableAI(
   content: Record<string, string>,
   targetLang: string,
@@ -41,7 +42,7 @@ CRITICAL RULES:
 5. Return ONLY valid JSON, no explanations`;
 
   const entries = Object.entries(content);
-  const chunkSize = 30; // Larger chunks OK with faster API
+  const chunkSize = 15; // Larger chunks OK with faster API
   const chunks: [string, string][][] = [];
   
   for (let i = 0; i < entries.length; i += chunkSize) {
@@ -54,7 +55,7 @@ CRITICAL RULES:
     const chunk = chunks[i];
     const contentToTranslate = Object.fromEntries(chunk);
 
-    console.log(`Translating chunk ${i + 1}/${chunks.length} for ${targetLang} via Lovable AI...`);
+    console.log(`[Lovable AI] Translating chunk ${i + 1}/${chunks.length} for ${targetLang}...`);
 
     const response = await fetch('https://ai.gateway.lovable.dev/v1/chat/completions', {
       method: 'POST',
@@ -95,7 +96,7 @@ CRITICAL RULES:
     try {
       const parsed = JSON.parse(cleanedText);
       Object.assign(translatedContent, parsed);
-      console.log(`Successfully parsed chunk ${i + 1}, got ${Object.keys(parsed).length} keys`);
+      console.log(`[Lovable AI] ✓ Chunk ${i + 1}/${chunks.length} completed, got ${Object.keys(parsed).length} keys`);
     } catch (parseError) {
       console.error(`JSON parse error for chunk ${i + 1}:`, parseError);
       throw new Error(`Failed to parse translation for ${targetLang}`);
@@ -105,6 +106,7 @@ CRITICAL RULES:
   return translatedContent;
 }
 
+// BACKUP: Doubao AI - Slower but available as fallback
 async function translateWithDoubao(
   content: Record<string, string>,
   targetLang: string,
@@ -125,7 +127,7 @@ IMPORTANT RULES:
 7. Return ONLY valid JSON, no explanations`;
 
   const entries = Object.entries(content);
-  const chunkSize = 5; // Smaller chunks for better reliability with Doubao
+  const chunkSize = 5; // Small chunks for slow API
   const chunks: [string, string][][] = [];
   
   for (let i = 0; i < entries.length; i += chunkSize) {
@@ -138,85 +140,57 @@ IMPORTANT RULES:
     const chunk = chunks[i];
     const contentToTranslate = Object.fromEntries(chunk);
 
-    console.log(`Translating chunk ${i + 1}/${chunks.length} for ${targetLang}...`);
+    console.log(`[Doubao] Translating chunk ${i + 1}/${chunks.length} for ${targetLang}...`);
 
-    // Retry logic for Doubao API
-    let retryCount = 0;
-    const maxRetries = 2;
-    let response;
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), 45000); // 45s timeout
     
-    while (retryCount <= maxRetries) {
-      try {
-        const controller = new AbortController();
-        const timeoutId = setTimeout(() => controller.abort(), 60000); // 60 second timeout for faster fallback
-        
-        response = await fetch('https://ark.cn-beijing.volces.com/api/v3/chat/completions', {
-          signal: controller.signal,
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${apiKey}`,
-          },
-          body: JSON.stringify({
-            model: 'doubao-seed-1-6-lite-251015',
-            messages: [
-              { role: 'system', content: systemPrompt },
-              { role: 'user', content: JSON.stringify(contentToTranslate) },
-            ],
-            max_completion_tokens: 8192,
-          }),
-        }).finally(() => clearTimeout(timeoutId));
-        
-        if (response.ok) break; // Success, exit retry loop
-        
-        console.warn(`Doubao API returned ${response.status} for chunk ${i + 1}, attempt ${retryCount + 1}`);
-        retryCount++;
-        
-        if (retryCount <= maxRetries) {
-          await new Promise(resolve => setTimeout(resolve, 2000)); // Wait 2s before retry
-        }
-      } catch (fetchError) {
-        console.error(`Fetch error on chunk ${i + 1}, attempt ${retryCount + 1}:`, fetchError);
-        retryCount++;
-        
-        if (retryCount <= maxRetries) {
-          await new Promise(resolve => setTimeout(resolve, 2000));
-        } else {
-          throw fetchError;
-        }
-      }
-    }
-
-    if (!response || !response.ok) {
-      const errorText = response ? await response.text() : 'No response';
-      throw new Error(`Doubao API error after ${maxRetries + 1} attempts: ${response?.status} - ${errorText}`);
-    }
-
-    const data = await response.json();
-    const translatedText = data.choices?.[0]?.message?.content;
-
-    if (!translatedText) {
-      throw new Error(`No translation returned for chunk ${i + 1}`);
-    }
-
-    let cleanedText = translatedText.trim();
-    if (cleanedText.startsWith('```json')) cleanedText = cleanedText.slice(7);
-    if (cleanedText.startsWith('```')) cleanedText = cleanedText.slice(3);
-    if (cleanedText.endsWith('```')) cleanedText = cleanedText.slice(0, -3);
-    cleanedText = cleanedText.trim();
-
     try {
+      const response = await fetch('https://ark.cn-beijing.volces.com/api/v3/chat/completions', {
+        signal: controller.signal,
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${apiKey}`,
+        },
+        body: JSON.stringify({
+          model: 'doubao-seed-1-6-lite-251015',
+          messages: [
+            { role: 'system', content: systemPrompt },
+            { role: 'user', content: JSON.stringify(contentToTranslate) },
+          ],
+          max_completion_tokens: 8192,
+        }),
+      });
+      
+      clearTimeout(timeoutId);
+
+      if (!response.ok) {
+        const errorText = await response.text();
+        throw new Error(`Doubao API error: ${response.status} - ${errorText}`);
+      }
+
+      const data = await response.json();
+      const translatedText = data.choices?.[0]?.message?.content;
+
+      if (!translatedText) {
+        throw new Error(`No translation returned for chunk ${i + 1}`);
+      }
+
+      let cleanedText = translatedText.trim();
+      if (cleanedText.startsWith('```json')) cleanedText = cleanedText.slice(7);
+      if (cleanedText.startsWith('```')) cleanedText = cleanedText.slice(3);
+      if (cleanedText.endsWith('```')) cleanedText = cleanedText.slice(0, -3);
+      cleanedText = cleanedText.trim();
+
       const parsed = JSON.parse(cleanedText);
       Object.assign(translatedContent, parsed);
-      console.log(`Successfully parsed chunk ${i + 1}, got ${Object.keys(parsed).length} keys`);
-    } catch (parseError) {
-      const errorMsg = `JSON parse error for chunk ${i + 1}: ${parseError instanceof Error ? parseError.message : 'Unknown'}`;
-      console.error(errorMsg);
-      console.error('Failed to parse text:', cleanedText.substring(0, 200));
-      throw new Error(errorMsg);
+      console.log(`[Doubao] ✓ Chunk ${i + 1}/${chunks.length} completed, got ${Object.keys(parsed).length} keys`);
+      
+    } catch (error) {
+      clearTimeout(timeoutId);
+      throw error;
     }
-    
-    console.log(`✓ Chunk ${i + 1}/${chunks.length} completed for ${targetLang}`);
   }
 
   return translatedContent;
@@ -237,7 +211,6 @@ serve(async (req) => {
       );
     }
     
-    // For incremental mode, sourceContent is optional (will load from DB)
     if (mode === 'full' && !sourceContent) {
       return new Response(
         JSON.stringify({ error: 'Missing sourceContent for full mode' }),
@@ -245,10 +218,10 @@ serve(async (req) => {
       );
     }
 
-    const DOUBAO_API_KEY = Deno.env.get('DOUBAO_API_KEY');
     const LOVABLE_API_KEY = Deno.env.get('LOVABLE_API_KEY');
+    const DOUBAO_API_KEY = Deno.env.get('DOUBAO_API_KEY');
     
-    console.log(`API Keys status - Doubao: ${DOUBAO_API_KEY ? 'Available' : 'Missing'}, Lovable: ${LOVABLE_API_KEY ? 'Available' : 'Missing'}`);
+    console.log(`API Keys status - Lovable: ${LOVABLE_API_KEY ? 'Available' : 'Missing'}, Doubao: ${DOUBAO_API_KEY ? 'Available' : 'Missing'}`);
     
     if (!LOVABLE_API_KEY && !DOUBAO_API_KEY) {
       throw new Error('No translation API key configured');
@@ -259,7 +232,7 @@ serve(async (req) => {
       Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')!
     );
 
-    // Load source content from DB if not provided (incremental mode)
+    // Load source content from DB if not provided
     let actualSourceContent = sourceContent;
     if (!actualSourceContent) {
       const { data: zhData } = await supabase
@@ -276,11 +249,10 @@ serve(async (req) => {
     }
 
     const results: Record<string, any> = {};
-    const errors: Record<string, string> = {};
 
     for (const lang of languages) {
       if (lang === 'zh' || lang === 'en') {
-        continue; // Skip source languages
+        continue;
       }
 
       try {
@@ -301,7 +273,7 @@ serve(async (req) => {
           }
         }
         
-        // Filter out already translated keys in incremental mode
+        // Filter out already translated keys
         let contentToTranslate = actualSourceContent;
         if (mode === 'incremental' && Object.keys(existingTranslations).length > 0) {
           const remainingKeys = Object.keys(actualSourceContent).filter(
@@ -313,44 +285,49 @@ serve(async (req) => {
             results[lang] = {
               success: true,
               count: Object.keys(existingTranslations).length,
+              total: Object.keys(actualSourceContent).length,
+              remaining: 0,
+              completed: true,
               message: 'Already completed',
             };
             continue;
           }
           
-          // Limit to 10 keys per batch for more reliable processing
+          // Limit to 10 keys per batch
           const batchKeys = remainingKeys.slice(0, 10);
           contentToTranslate = Object.fromEntries(
             batchKeys.map(key => [key, actualSourceContent[key]])
           );
           
-          console.log(`Translating ${batchKeys.length} remaining keys (${remainingKeys.length - batchKeys.length} more to go)`);
+          console.log(`Translating ${batchKeys.length} keys (${remainingKeys.length - batchKeys.length} more remaining)`);
         }
         
         let translations: Record<string, string>;
         
-        if (DOUBAO_API_KEY) {
-          console.log(`Using Doubao AI for ${lang}...`);
+        // PRIORITY: Use Lovable AI first (faster and more reliable)
+        if (LOVABLE_API_KEY) {
+          console.log(`Using Lovable AI for ${lang} (primary)...`);
           try {
-            translations = await translateWithDoubao(contentToTranslate, lang, DOUBAO_API_KEY);
-            console.log(`Doubao translation completed for ${lang}`);
-          } catch (doubaoError) {
-            console.error(`Doubao translation failed for ${lang}:`, doubaoError);
-            if (LOVABLE_API_KEY) {
-              console.log(`Falling back to Lovable AI for ${lang}...`);
-              translations = await translateWithLovableAI(contentToTranslate, lang, LOVABLE_API_KEY);
+            translations = await translateWithLovableAI(contentToTranslate, lang, LOVABLE_API_KEY);
+            console.log(`Lovable AI translation completed for ${lang}`);
+          } catch (lovableError) {
+            console.error(`Lovable AI failed for ${lang}:`, lovableError);
+            // Fallback to Doubao
+            if (DOUBAO_API_KEY) {
+              console.log(`Falling back to Doubao for ${lang}...`);
+              translations = await translateWithDoubao(contentToTranslate, lang, DOUBAO_API_KEY);
             } else {
-              throw doubaoError;
+              throw lovableError;
             }
           }
-        } else if (LOVABLE_API_KEY) {
-          console.log(`Using Lovable AI for ${lang} (Doubao not available)...`);
-          translations = await translateWithLovableAI(contentToTranslate, lang, LOVABLE_API_KEY);
+        } else if (DOUBAO_API_KEY) {
+          console.log(`Using Doubao AI for ${lang} (Lovable not available)...`);
+          translations = await translateWithDoubao(contentToTranslate, lang, DOUBAO_API_KEY);
         } else {
           throw new Error('No translation API available');
         }
           
-        // Merge with existing translations in incremental mode
+        // Merge with existing translations
         if (mode === 'incremental' && Object.keys(existingTranslations).length > 0) {
           translations = { ...existingTranslations, ...translations };
         }
@@ -359,15 +336,15 @@ serve(async (req) => {
         const totalNeeded = Object.keys(actualSourceContent).length;
         const remaining = totalNeeded - totalKeys;
         
-        console.log(`Completed translation for ${lang}: ${totalKeys}/${totalNeeded} keys (${remaining} remaining)`);
+        console.log(`Completed: ${totalKeys}/${totalNeeded} keys (${remaining} remaining)`);
 
-        // Save to system_settings table immediately after successful translation
+        // Save to database
         const { error: upsertError } = await supabase
           .from('system_settings')
           .upsert({
             key: `translations_${lang}`,
             value: JSON.stringify(translations),
-            description: `AI翻译 - ${languageNames[lang] || lang} (${totalKeys}/${totalNeeded}条)${remaining > 0 ? ` - ${remaining}条待翻译` : ''}`,
+            description: `AI翻译 - ${languageNames[lang] || lang} (${totalKeys}/${totalNeeded}条)${remaining > 0 ? ` - ${remaining}条待翻译` : ' ✓'}`,
             updated_at: new Date().toISOString(),
           }, { onConflict: 'key' });
 
@@ -385,25 +362,12 @@ serve(async (req) => {
       } catch (error) {
         const errorMsg = error instanceof Error ? error.message : 'Unknown error';
         console.error(`Error translating ${lang}:`, errorMsg);
-        if (error instanceof Error && error.stack) {
-          console.error('Stack trace:', error.stack);
-        }
-        errors[lang] = errorMsg;
-        results[lang] = { success: false, error: errors[lang] };
-      }
-
-      // Rate limit between languages to avoid overwhelming the API
-      if (languages.indexOf(lang) < languages.length - 1) {
-        await new Promise(resolve => setTimeout(resolve, 1000));
+        results[lang] = { success: false, error: errorMsg };
       }
     }
 
     return new Response(
-      JSON.stringify({ 
-        success: true,
-        results,
-        errors: Object.keys(errors).length > 0 ? errors : undefined,
-      }),
+      JSON.stringify({ success: true, results }),
       { headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
     );
   } catch (error) {
