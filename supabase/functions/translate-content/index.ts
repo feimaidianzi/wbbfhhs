@@ -67,8 +67,7 @@ IMPORTANT RULES:
           { role: 'system', content: systemPrompt },
           { role: 'user', content: JSON.stringify(contentToTranslate) },
         ],
-        temperature: 0.3,
-        max_tokens: 4096,
+        max_completion_tokens: 8192,
       }),
     });
 
