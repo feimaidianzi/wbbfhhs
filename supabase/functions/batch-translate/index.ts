@@ -41,7 +41,7 @@ IMPORTANT RULES:
 7. Return ONLY valid JSON, no explanations`;
 
   const entries = Object.entries(content);
-  const chunkSize = 20; // Smaller chunks for faster, more reliable processing
+  const chunkSize = 15; // Optimized chunk size for balance between speed and reliability
   const chunks: [string, string][][] = [];
   
   for (let i = 0; i < entries.length; i += chunkSize) {
@@ -160,13 +160,13 @@ serve(async (req) => {
         const translations = await translateWithDoubao(sourceContent, lang, DOUBAO_API_KEY);
         console.log(`Completed translation for ${lang}, got ${Object.keys(translations).length} keys`);
 
-        // Save to system_settings table
+        // Save to system_settings table immediately after successful translation
         const { error: upsertError } = await supabase
           .from('system_settings')
           .upsert({
             key: `translations_${lang}`,
             value: JSON.stringify(translations),
-            description: `Static translations for ${languageNames[lang] || lang}`,
+            description: `AI翻译 - ${languageNames[lang] || lang} (${Object.keys(translations).length}条)`,
             updated_at: new Date().toISOString(),
           }, { onConflict: 'key' });
 
