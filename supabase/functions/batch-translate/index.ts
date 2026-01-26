@@ -268,7 +268,7 @@ serve(async (req) => {
         
         // Filter out already translated keys
         let contentToTranslate = actualSourceContent;
-        if (mode === 'incremental' && Object.keys(existingTranslations).length > 0) {
+        if (mode === 'incremental') {
           const remainingKeys = Object.keys(actualSourceContent).filter(
             key => !existingTranslations[key]
           );
@@ -286,14 +286,14 @@ serve(async (req) => {
             continue;
           }
           
-          // Limit to 10 keys per request
-          const batchSize = 10;
+          // CRITICAL: Only process 1 chunk (10 keys) per request to prevent timeout
+          const batchSize = 10; // Must match chunkSize in translation functions
           const batchKeys = remainingKeys.slice(0, batchSize);
           contentToTranslate = Object.fromEntries(
             batchKeys.map(key => [key, actualSourceContent[key]])
           );
           
-          console.log(`[Batch] Processing ${batchKeys.length}/${remainingKeys.length} remaining keys for ${lang}`);
+          console.log(`[Single Batch] Processing ${batchKeys.length} keys (${remainingKeys.length - batchKeys.length} remaining) for ${lang}`);
         }
         
         let translations: Record<string, string>;
