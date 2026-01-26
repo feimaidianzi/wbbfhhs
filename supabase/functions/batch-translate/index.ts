@@ -125,7 +125,7 @@ IMPORTANT RULES:
 7. Return ONLY valid JSON, no explanations`;
 
   const entries = Object.entries(content);
-  const chunkSize = 15; // Optimized chunk size for balance between speed and reliability
+  const chunkSize = 10; // Smaller chunks for better reliability with Doubao
   const chunks: [string, string][][] = [];
   
   for (let i = 0; i < entries.length; i += chunkSize) {
@@ -140,44 +140,63 @@ IMPORTANT RULES:
 
     console.log(`Translating chunk ${i + 1}/${chunks.length} for ${targetLang}...`);
 
-    const controller = new AbortController();
-    const timeoutId = setTimeout(() => controller.abort(), 120000); // 120 second timeout per request
+    // Retry logic for Doubao API
+    let retryCount = 0;
+    const maxRetries = 2;
+    let response;
     
-    const response = await fetch('https://ark.cn-beijing.volces.com/api/v3/chat/completions', {
-      signal: controller.signal,
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${apiKey}`,
-      },
-      body: JSON.stringify({
-        model: 'doubao-seed-1-6-lite-251015',
-        messages: [
-          { role: 'system', content: systemPrompt },
-          { role: 'user', content: JSON.stringify(contentToTranslate) },
-        ],
-        max_completion_tokens: 8192,
-      }),
-    }).finally(() => clearTimeout(timeoutId));
-
-    if (!response) {
-      throw new Error(`Request timeout for chunk ${i + 1}`);
+    while (retryCount <= maxRetries) {
+      try {
+        const controller = new AbortController();
+        const timeoutId = setTimeout(() => controller.abort(), 150000); // 150 second timeout
+        
+        response = await fetch('https://ark.cn-beijing.volces.com/api/v3/chat/completions', {
+          signal: controller.signal,
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${apiKey}`,
+          },
+          body: JSON.stringify({
+            model: 'doubao-seed-1-6-lite-251015',
+            messages: [
+              { role: 'system', content: systemPrompt },
+              { role: 'user', content: JSON.stringify(contentToTranslate) },
+            ],
+            max_completion_tokens: 8192,
+          }),
+        }).finally(() => clearTimeout(timeoutId));
+        
+        if (response.ok) break; // Success, exit retry loop
+        
+        console.warn(`Doubao API returned ${response.status} for chunk ${i + 1}, attempt ${retryCount + 1}`);
+        retryCount++;
+        
+        if (retryCount <= maxRetries) {
+          await new Promise(resolve => setTimeout(resolve, 2000)); // Wait 2s before retry
+        }
+      } catch (fetchError) {
+        console.error(`Fetch error on chunk ${i + 1}, attempt ${retryCount + 1}:`, fetchError);
+        retryCount++;
+        
+        if (retryCount <= maxRetries) {
+          await new Promise(resolve => setTimeout(resolve, 2000));
+        } else {
+          throw fetchError;
+        }
+      }
     }
 
-    if (!response.ok) {
-      const errorText = await response.text();
-      const errorMsg = `Doubao API error: ${response.status} - ${errorText}`;
-      console.error(errorMsg);
-      throw new Error(errorMsg);
+    if (!response || !response.ok) {
+      const errorText = response ? await response.text() : 'No response';
+      throw new Error(`Doubao API error after ${maxRetries + 1} attempts: ${response?.status} - ${errorText}`);
     }
 
     const data = await response.json();
-    console.log(`Translation response for chunk ${i + 1}:`, data.choices?.[0]?.message?.content?.substring(0, 100));
     const translatedText = data.choices?.[0]?.message?.content;
 
     if (!translatedText) {
-      console.error('No translation content in response:', data);
-      throw new Error('No translation returned');
+      throw new Error(`No translation returned for chunk ${i + 1}`);
     }
 
     let cleanedText = translatedText.trim();
@@ -196,11 +215,8 @@ IMPORTANT RULES:
       console.error('Failed to parse text:', cleanedText.substring(0, 200));
       throw new Error(errorMsg);
     }
-
-    // Rate limiting
-    if (i < chunks.length - 1) {
-      // No delay between chunks - process as fast as possible
-    }
+    
+    console.log(`✓ Chunk ${i + 1}/${chunks.length} completed for ${targetLang}`);
   }
 
   return translatedContent;
