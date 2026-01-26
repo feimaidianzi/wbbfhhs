@@ -115,7 +115,7 @@ IMPORTANT RULES:
 
     // Rate limiting
     if (i < chunks.length - 1) {
-      await new Promise(resolve => setTimeout(resolve, 500));
+      await new Promise(resolve => setTimeout(resolve, 200)); // Faster between chunks
     }
   }
 
@@ -191,7 +191,7 @@ serve(async (req) => {
 
       // Rate limit between languages to avoid overwhelming the API
       if (languages.indexOf(lang) < languages.length - 1) {
-        await new Promise(resolve => setTimeout(resolve, 2000));
+        await new Promise(resolve => setTimeout(resolve, 1000));
       }
     }
 
