@@ -41,7 +41,7 @@ IMPORTANT RULES:
 7. Return ONLY valid JSON, no explanations`;
 
   const entries = Object.entries(content);
-  const chunkSize = 50;
+  const chunkSize = 30; // Reduced chunk size for faster processing
   const chunks: [string, string][][] = [];
   
   for (let i = 0; i < entries.length; i += chunkSize) {
@@ -57,7 +57,7 @@ IMPORTANT RULES:
     console.log(`Translating chunk ${i + 1}/${chunks.length} for ${targetLang}...`);
 
     const controller = new AbortController();
-    const timeoutId = setTimeout(() => controller.abort(), 60000); // 60 second timeout per request
+    const timeoutId = setTimeout(() => controller.abort(), 120000); // 120 second timeout per request
     
     const response = await fetch('https://ark.cn-beijing.volces.com/api/v3/chat/completions', {
       signal: controller.signal,
