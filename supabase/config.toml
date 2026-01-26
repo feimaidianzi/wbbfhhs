@@ -14,6 +14,8 @@ verify_jwt = false
 
 [functions.batch-translate]
 verify_jwt = false
+timeout = 300
 
 [functions.translate-content]
 verify_jwt = false
+timeout = 120

@@ -102,7 +102,7 @@ IMPORTANT RULES:
 
     // Add delay between chunks to avoid rate limiting
     if (chunks.length > 1) {
-      await new Promise(resolve => setTimeout(resolve, 500));
+      await new Promise(resolve => setTimeout(resolve, 300));
     }
   }
 
@@ -185,7 +185,7 @@ IMPORTANT RULES:
     Object.assign(translatedContent, parsed);
 
     if (chunks.length > 1) {
-      await new Promise(resolve => setTimeout(resolve, 500));
+      await new Promise(resolve => setTimeout(resolve, 300));
     }
   }
 
