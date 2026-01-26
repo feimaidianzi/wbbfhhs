@@ -780,33 +780,6 @@ export const zhTranslations: Record<string, string> = {
   'multiRotor.x1600.seoDescription': 'X1600超大型工业无人机，20kg载重，适用于专业测绘、物资运输等特殊场景',
   'multiRotor.x1600.seoKeywords': '多旋翼无人机,X1600,重型载荷,物资运输',
 
-  // Multi-Rotor Features - 特性
-  'multiRotor.features.compactPortable': '紧凑便携',
-  'multiRotor.features.compactPortableDesc': '650mm轴距，便于携带运输，快速机动',
-  'multiRotor.features.quickDeploy': '快速部署',
-  'multiRotor.features.quickDeployDesc': '5分钟完成飞行准备，响应迅速',
-  'multiRotor.features.stableReliable': '稳定可靠',
-  'multiRotor.features.stableReliableDesc': '工业级飞控系统，稳定性强',
-  'multiRotor.features.smartControl': '智能飞控',
-  'multiRotor.features.smartControlDesc': '自主避障导航，智能化操控',
-  'multiRotor.features.longEndurance': '长续航',
-  'multiRotor.features.longEnduranceDesc': '35分钟持续飞行，满足常规任务',
-  'multiRotor.features.windResistant': '抗风性好',
-  'multiRotor.features.windResistantDesc': '5级风稳定作业，适应多种环境',
-  'multiRotor.features.professionalPayload': '专业载荷',
-  'multiRotor.features.professionalPayloadDesc': '5kg载重支持专业设备挂载',
-  'multiRotor.features.modularDesign': '模块化设计',
-  'multiRotor.features.modularDesignDesc': '快速更换多种载荷，灵活配置',
-
-  // Multi-Rotor Applications - 应用场景
-  'multiRotor.applications.routineInspection': '日常巡检作业',
-  'multiRotor.applications.dataCollection': '数据采集分析',
-  'multiRotor.applications.fieldSurvey': '现场勘察调研',
-  'multiRotor.applications.smallMapping': '小型测绘任务',
-  'multiRotor.applications.securityPatrol': '安防监控巡逻',
-  'multiRotor.applications.training': '教学培训演练',
-  'multiRotor.applications.powerInspection': '电力巡检作业',
-
   // Flight Service - 飞行服务
   'flightService.title': '飞行服务',
   'flightService.subtitle': '专业飞行作业，高效完成任务',
@@ -826,6 +799,206 @@ export const zhTranslations: Record<string, string> = {
   'notFound.title': '404',
   'notFound.message': '哎呀！页面未找到',
   'notFound.backHome': '返回首页',
+
+  // ===== X1200/X1600 Multi-Rotor Products =====
+  'multiRotor.x1200.title': 'X1200多旋翼无人机',
+  'multiRotor.x1200.subtitle': '大型工业无人机',
+  'multiRotor.x1200.description': '大型工业无人机，适用于重型载荷和长航时任务，是专业级应用的理想选择。55分钟超长续航，满足各种复杂任务需求。',
+  'multiRotor.x1200.seoKeywords': '多旋翼无人机,X1200,专业测绘,应急救援',
+  'multiRotor.x1600.title': 'X1600多旋翼无人机',
+  'multiRotor.x1600.subtitle': '超大型工业无人机',
+  'multiRotor.x1600.description': '超大型工业无人机，满足特殊行业的超重载荷需求。20kg最大载重，适用于专业测绘、物资运输等特殊场景。',
+  'multiRotor.x1600.seoKeywords': '多旋翼无人机,X1600,重型载荷,物资运输',
+  'multiRotor.ctaTitle': '了解更多{{model}}解决方案',
+  'multiRotor.ctaDescription': '联系我们的专业团队，获取定制化配置方案和详细报价',
+
+  // ===== MultiRotor Page Content =====
+  'multiRotor.page.title': '多旋翼无人机平台',
+  'multiRotor.page.subtitle': '工业级多旋翼平台，模块化设计，满足多行业应用需求。从轻型到重型，为不同任务提供最佳飞行平台',
+  'multiRotor.page.featuresTitle': '平台优势',
+  'multiRotor.page.productsTitle': '产品系列',
+  'multiRotor.page.productsSubtitle': '从轻型到重型，长凌科技多旋翼平台覆盖全尺寸需求',
+  'multiRotor.page.applicationsTitle': '应用领域',
+  'multiRotor.page.seoCategoryDescription': '长凌科技多旋翼无人机产品系列，涵盖X650、X850、X1200、X1600等多种型号，载重2-20kg，续航35-55分钟，适用于电力巡检、测绘、消防、安防等专业应用。',
+  'multiRotor.page.seoKeywords': '多旋翼无人机,工业无人机,X650无人机,X850无人机,X1200无人机,X1600无人机,电力巡检无人机,测绘无人机,消防无人机,安防无人机,大载重无人机,长续航无人机,专业无人机平台,行业无人机,工业级飞行平台,无人机厂家,无人机批发',
+  
+  // MultiRotor Features
+  'multiRotor.feature.multiPayload': '多载荷兼容',
+  'multiRotor.feature.multiPayload.desc': '支持多种专业载荷设备',
+  'multiRotor.feature.modular': '模块化设计',
+  'multiRotor.feature.modular.desc': '快速更换，灵活配置',
+  'multiRotor.feature.industrial': '工业级可靠',
+  'multiRotor.feature.industrial.desc': '恶劣环境稳定作业',
+  'multiRotor.feature.smartControl': '智能飞控',
+  'multiRotor.feature.smartControl.desc': '自主避障，智能航线',
+  'multiRotor.feature.longEndurance': '长续航',
+  'multiRotor.feature.longEndurance.desc': '最长续航55分钟',
+  'multiRotor.feature.windResistant': '强抗风',
+  'multiRotor.feature.windResistant.desc': '7级风稳定作业',
+  
+  // MultiRotor Products
+  'multiRotor.product.x650.name': 'X650多旋翼无人机',
+  'multiRotor.product.x650.desc': '紧凑型工业无人机，适用于日常巡检和数据采集任务，便携性强，快速部署。',
+  'multiRotor.product.x850.name': 'X850多旋翼无人机',
+  'multiRotor.product.x850.desc': '中型工业无人机，具备更强载荷能力和更长续航时间，满足专业级作业需求。',
+  'multiRotor.product.x1200.name': 'X1200多旋翼无人机',
+  'multiRotor.product.x1200.desc': '大型工业无人机，适用于重型载荷和长航时任务，是专业级应用的理想选择。',
+  'multiRotor.product.x1600.name': 'X1600多旋翼无人机',
+  'multiRotor.product.x1600.desc': '超大型工业无人机，满足特殊行业的超重载荷需求，适用于专业测绘、运输等场景。',
+  
+  // MultiRotor Stats
+  'multiRotor.stat.maxPayload': '最大载重',
+  'multiRotor.stat.maxPayload.desc': '满足重载需求',
+  'multiRotor.stat.maxFlightTime': '最长续航',
+  'multiRotor.stat.maxFlightTime.desc': '长时间作业',
+  'multiRotor.stat.windResistance': '抗风能力',
+  'multiRotor.stat.windResistance.desc': '恶劣天气作业',
+  'multiRotor.stat.controlRange': '控制距离',
+  'multiRotor.stat.controlRange.desc': '远距离操控',
+  
+  // MultiRotor Applications
+  'multiRotor.app.powerInspection': '电力巡检',
+  'multiRotor.app.powerInspection.desc': '输电线路、变电站等电力设施智能巡检',
+  'multiRotor.app.oilPipeline': '石油管道',
+  'multiRotor.app.oilPipeline.desc': '油气管道日常巡护和泄漏检测',
+  'multiRotor.app.lawEnforcement': '公安执法',
+  'multiRotor.app.lawEnforcement.desc': '空中侦察、追踪取证、现场管控',
+  'multiRotor.app.fireRescue': '消防救援',
+  'multiRotor.app.fireRescue.desc': '火情侦察、搜救定位、物资投送',
+  'multiRotor.app.surveying': '测绘勘察',
+  'multiRotor.app.surveying.desc': '地形测绘、三维建模、工程勘察',
+  'multiRotor.app.environmental': '环保监测',
+  'multiRotor.app.environmental.desc': '大气监测、水质采样、污染源追踪',
+  'multiRotor.app.agriculture': '农业植保',
+  'multiRotor.app.agriculture.desc': '农情监测、精准施肥、病虫害防治',
+  'multiRotor.app.emergencyComms': '应急通信',
+  'multiRotor.app.emergencyComms.desc': '临时通信基站、信号中继覆盖',
+  
+  // MultiRotor Tech Specs
+  'multiRotor.spec.flightControl': '飞控系统',
+  'multiRotor.spec.flightControl.value': '自研工业级飞控',
+  'multiRotor.spec.positioning': '定位系统',
+  'multiRotor.spec.positioning.value': 'GPS + 北斗 + GLONASS',
+  'multiRotor.spec.obstacleAvoidance': '避障系统',
+  'multiRotor.spec.obstacleAvoidance.value': '六向感知避障',
+  'multiRotor.spec.videoTransmission': '图传系统',
+  'multiRotor.spec.videoTransmission.value': '1080P/4K 实时图传',
+  'multiRotor.spec.videoRange': '图传距离',
+  'multiRotor.spec.videoRange.value': '≤10km',
+  'multiRotor.spec.operatingTemp': '工作温度',
+  'multiRotor.spec.operatingTemp.value': '-20°C ~ +50°C',
+  'multiRotor.spec.protection': '防护等级',
+  'multiRotor.spec.protection.value': 'IP54',
+  'multiRotor.spec.takeoffWeight': '起飞重量',
+  'multiRotor.spec.takeoffWeight.value': '2-35kg（不同型号）',
+  
+  // MultiRotor Cases
+  'multiRotor.case.southernPowerGrid': '南方电网巡检',
+  'multiRotor.case.southernPowerGrid.desc': '部署X850无人机用于输电线路巡检，巡检效率提升5倍',
+  'multiRotor.case.shenzhenPolice': '深圳公安',
+  'multiRotor.case.shenzhenPolice.desc': '配备多旋翼无人机平台，执行空中巡逻和应急响应任务',
+  'multiRotor.case.naturalResources': '自然资源部测绘',
+  'multiRotor.case.naturalResources.desc': '使用X1200进行大比例尺地形测绘，成图精度达厘米级',
+
+  // ===== About Page Content =====
+  'about.title': '关于长凌科技',
+  'about.subtitle': '专业无人机研发制造商，致力于为各行业提供智能化空中解决方案',
+  'about.seoDescription': '长凌科技有限公司成立于2015年，是一家专注于工业无人机研发、生产和销售的高新技术企业，拥有200+专业员工、50+发明专利。',
+  'about.seoKeywords': '长凌科技,CANI,关于我们,无人机公司,工业无人机企业,无人机研发',
+  
+  // About Company Profile
+  'about.profile.title': '公司简介',
+  'about.profile.p1': '长凌科技有限公司成立于2015年，是一家专注于工业无人机研发、生产和销售的高新技术企业。公司总部位于湖南长沙，拥有完整的无人机产业链，从飞控系统、动力系统到整机制造均具备自主研发能力。',
+  'about.profile.p2': '经过多年发展，长凌科技已成为国内领先的工业无人机解决方案提供商，产品广泛应用于电力巡检、消防救援、物流配送、农业植保等多个领域，服务客户超过1000家。',
+  'about.profile.p3': '公司坚持"创新驱动、品质为本"的发展理念，持续加大研发投入，目前拥有50余项发明专利和软件著作权，是多项行业标准的参与制定单位。',
+  
+  // About Milestones
+  'about.milestones.title': '发展历程',
+  'about.milestone.2015.title': '公司成立',
+  'about.milestone.2015.desc': '长凌科技在湖南长沙正式成立，开启无人机研发之路',
+  'about.milestone.2017.title': '首款产品',
+  'about.milestone.2017.desc': '成功研发首款工业级多旋翼无人机',
+  'about.milestone.2019.title': '技术突破',
+  'about.milestone.2019.desc': '系留无人机技术取得重大突破，获得多项专利',
+  'about.milestone.2021.title': '规模扩张',
+  'about.milestone.2021.desc': '全国服务网络覆盖20+城市，员工超过200人',
+  'about.milestone.2023.title': '行业领先',
+  'about.milestone.2023.desc': '成为国内领先的工业无人机解决方案提供商',
+  'about.milestone.2024.title': '智能升级',
+  'about.milestone.2024.desc': '推出新一代智能无人机平台，引领行业发展',
+  
+  // About Values
+  'about.culture.title': '企业文化',
+  'about.value.mission': '使命',
+  'about.value.mission.desc': '用科技创新推动无人机产业发展，为各行业提供智能化解决方案',
+  'about.value.vision': '愿景',
+  'about.value.vision.desc': '成为全球领先的工业无人机及智能化解决方案供应商',
+  'about.value.values': '价值观',
+  'about.value.values.desc': '创新、专业、诚信、共赢',
+  
+  // About Stats
+  'about.stat.professionals': '专业员工',
+  'about.stat.patents': '发明专利',
+  'about.stat.clientsServed': '服务客户',
+  'about.stat.citiesCovered': '覆盖城市',
+  
+  // About CTA
+  'about.cta.title': '期待与您合作',
+  'about.cta.description': '长凌科技期待为您提供专业的无人机解决方案，共同推动行业智能化发展',
+  'about.cta.button': '联系我们',
+
+  // ===== Index/Home Page Content =====
+  'home.seo.title': '首页',
+  'home.seo.description': '长凌科技有限公司，专注于工业无人机零配件，提供数字图传、VTX视频发射器、飞控电调、云台吊舱、ELRS遥控等专业无人机配件。',
+  'home.seo.keywords': '无人机配件,数字图传,VTX视频发射器,飞控电调,云台吊舱,ELRS遥控,长凌,CANI',
+  'home.structured.name': '长凌科技有限公司',
+  'home.structured.description': '专业无人机配件供应商，提供数字图传、VTX视频发射器、飞控电调、云台吊舱等无人机配件',
+  'home.structured.addressLocality': '长沙',
+  'home.structured.addressRegion': '湖南',
+  'home.structured.contactType': 'customer service',
+  'home.structured.availableLanguage': 'Chinese',
+
+  // ===== Contact Page Content =====
+  'contact.info.phone': '电话咨询',
+  'contact.info.email': '邮箱',
+  'contact.info.wechat': '微信客服',
+  'contact.info.workingHours': '工作时间',
+  'contact.info.workingHours.value': '周一至周五 9:00-18:00',
+  'contact.office.changsha': '长沙总部',
+  'contact.office.changsha.address': '湖南省长沙市望城区月亮岛街道罐子岭澳优全球总部大楼',
+  
+  // Contact Form Validation
+  'contact.validation.pleaseWait': '请稍候',
+  'contact.validation.waitSeconds': '请等待 {{seconds}} 秒后再次提交',
+  'contact.validation.fillRequired': '请填写必填项',
+  'contact.validation.requiredFields': '姓名、邮箱和咨询内容为必填项',
+  'contact.validation.inputTooLong': '输入内容过长',
+  'contact.validation.checkLength': '请检查输入内容长度',
+  'contact.validation.emailInvalid': '邮箱格式不正确',
+  'contact.validation.checkEmail': '请检查邮箱格式',
+  'contact.success.title': '提交成功',
+  'contact.success.message': '感谢您的咨询！我们将尽快与您联系',
+  'contact.error.title': '提交失败',
+  'contact.error.message': '提交失败，请稍后重试或直接致电联系我们',
+
+  // ===== Admin Product Management =====
+  'admin.product.originalPrice': '原价',
+  'admin.product.sortOrder': '排序',
+  'admin.product.placeholder.originalPrice': '0.00',
+
+  // ===== Visitor Charts =====
+  'chart.visitors': '访客数',
+  'chart.hour': '时',
+  
+  // ===== SEO Text Content =====
+  'seo.contact.title': '联系长凌科技',
+  'seo.contact.thanks': '感谢您对长凌科技的关注！我们期待与您建立合作关系，为您提供优质的无人机配件产品和服务。',
+  'seo.contact.info': '联系方式',
+  'seo.contact.salesHotline': '销售热线：176-7404-8404（工作日 9:00-18:00）',
+  'seo.contact.businessEmail': '商务邮箱：market@caniuav.com',
+  'seo.contact.technicalSupport': '技术支持：support@caniuav.com',
+  'seo.contact.address': '公司地址',
+  'seo.contact.addressDetail': '湖南省长沙市望城区月亮岛街道罐子岭澳优全球总部大楼',
 };
 
 export default zhTranslations;
