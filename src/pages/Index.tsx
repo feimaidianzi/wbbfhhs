@@ -67,7 +67,8 @@ const Index = () => {
         <NewsSection />
         <PartnersSection />
         <CertificationsSection />
-        <FAQSection category="general" limit={4} />
+        <FAQSection category="general" limit={6} />
+        <FAQSection category="products" limit={4} showTitle={false} />
         <CTASection />
         <SEOTextContent page="home" />
       </main>

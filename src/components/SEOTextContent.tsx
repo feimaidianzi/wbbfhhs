@@ -17,7 +17,7 @@ export const SEOTextContent = ({ page }: SEOTextContentProps) => {
     switch (page) {
       case 'home':
         return language === 'zh' ? {
-          title: '长凌科技 - 专业无人机配件制造商',
+          title: '长凌科技 - 专业无人机配件制造商 | CANI Technology',
           content: `
             长凌科技有限公司是中国领先的工业级无人机配件研发与制造企业，专注于为全球无人机行业提供高品质的核心零部件解决方案。
             
@@ -29,11 +29,33 @@ export const SEOTextContent = ({ page }: SEOTextContentProps) => {
             
             我们坚持"技术领先、品质为本"的发展理念，为客户提供从产品定制到技术支持的一站式服务。
             无论您是无人机整机制造商、行业应用集成商还是个人飞手，长凌科技都能为您提供专业可靠的解决方案。
+
+            数字图传系统是我们的核心产品之一，采用先进的OFDM调制技术，支持1080P/4K高清视频传输，
+            端到端延迟低于30ms，传输距离可达30公里以上，广泛应用于专业航拍和工业巡检场景。
+
+            VTX视频发射器产品线覆盖2.5W至37W多种功率规格，支持5.8GHz频段80个频道切换，
+            兼容DJI、Walksnail、HDZero等主流FPV系统，适合竞速穿越、远距离飞行等应用。
+
+            飞控电调系统集成GPS/GLONASS/北斗多模定位，支持自动返航、定点悬停、航线规划等智能功能，
+            电调采用FOC矢量控制技术，响应速度快、效率高、发热小，兼容Betaflight、iNav、ArduPilot等固件。
+
+            云台吊舱产品采用三轴无刷直驱技术，增稳精度达±0.01°，可搭载红外热成像、30倍光学变焦、
+            激光测距等多种专业载荷，广泛应用于电力巡检、消防救援、安防监控等领域。
+
+            ELRS遥控系统基于ExpressLRS开源协议，延迟低于5ms，传输距离可达100公里，
+            支持双向数据传输和遥测回传，是远距离飞行的理想选择。
+
+            我们提供完善的OEM/ODM定制服务，从产品外观设计到功能定制，从小批量试产到大规模量产，
+            都能满足客户的个性化需求。技术团队提供7×24小时技术支持，确保客户无后顾之忧。
           `,
           keywords: [
             '无人机配件', '数字图传', 'VTX视频发射器', '飞控电调', '云台吊舱', 
             'ELRS遥控', 'FPV图传', '无人机零部件', '工业无人机配件', '航模配件',
-            '长凌科技', 'CANI', '无人机制造商', '无人机供应商'
+            '长凌科技', 'CANI', '无人机制造商', '无人机供应商', '无人机配件批发',
+            '高清图传', '4K图传', '低延迟图传', '远距离图传', '5.8G图传',
+            '三轴云台', '红外云台', '变焦云台', '巡检云台', '无刷云台',
+            'ExpressLRS', '915MHz遥控', '868MHz遥控', '2.4GHz遥控', '开源遥控',
+            '无人机飞控', '电调模块', 'BLHeli32', 'FOC电调', 'GPS模块'
           ],
         } : {
           title: 'CANI Technology - Professional Drone Accessories Manufacturer',
@@ -54,11 +76,41 @@ export const SEOTextContent = ({ page }: SEOTextContentProps) => {
             providing customers with one-stop services from product customization to technical support. 
             Whether you are a drone manufacturer, industry integrator, or individual pilot, 
             CANI can provide you with professional and reliable solutions.
+
+            Our Digital FPV System is one of our core products, using advanced OFDM modulation technology,
+            supporting 1080P/4K HD video transmission with end-to-end latency below 30ms and transmission
+            range over 30km, widely used in professional aerial photography and industrial inspection.
+
+            The VTX Video Transmitter product line covers 2.5W to 37W power options, supporting 5.8GHz band
+            with 80 channel switching, compatible with DJI, Walksnail, HDZero and other mainstream FPV systems,
+            suitable for racing, long-range flight applications.
+
+            Flight Controller ESC systems integrate GPS/GLONASS/BeiDou multi-mode positioning, supporting
+            auto-return, point hover, route planning and other intelligent functions. ESCs use FOC vector
+            control technology for fast response, high efficiency, and low heat, compatible with Betaflight,
+            iNav, ArduPilot firmware.
+
+            Gimbal Pod products use 3-axis brushless direct-drive technology with ±0.01° stabilization accuracy,
+            supporting thermal imaging, 30x optical zoom, laser ranging and other professional payloads,
+            widely used in power inspection, firefighting rescue, and security monitoring.
+
+            ELRS Remote Control System based on ExpressLRS open-source protocol with latency below 5ms and
+            transmission range up to 100km, supporting bidirectional data transmission and telemetry,
+            ideal for long-range flight.
+
+            We provide comprehensive OEM/ODM customization services, from product appearance design to
+            functional customization, from small batch trial production to large-scale mass production.
+            Our technical team provides 24/7 support to ensure customer peace of mind.
           `,
           keywords: [
             'drone accessories', 'digital FPV', 'VTX video transmitter', 'flight controller ESC', 
             'gimbal pod', 'ELRS remote', 'FPV system', 'drone components', 'industrial drone parts',
-            'CANI Technology', 'drone manufacturer', 'drone supplier', 'China drone accessories'
+            'CANI Technology', 'drone manufacturer', 'drone supplier', 'China drone accessories',
+            'HD FPV', '4K FPV', 'low latency FPV', 'long range FPV', '5.8G FPV',
+            '3-axis gimbal', 'thermal gimbal', 'zoom gimbal', 'inspection gimbal', 'brushless gimbal',
+            'ExpressLRS', '915MHz remote', '868MHz remote', '2.4GHz remote', 'open source control',
+            'drone flight controller', 'ESC module', 'BLHeli32', 'FOC ESC', 'GPS module',
+            'drone parts wholesale', 'OEM drone accessories', 'ODM drone components'
           ],
         };
 

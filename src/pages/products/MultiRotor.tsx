@@ -66,14 +66,28 @@ const MultiRotor = () => {
       products={products}
       productsTitle="产品系列"
       productsTitleEn="Product Series"
-      productsSubtitle="从轻型到重型，飞迈科技多旋翼平台覆盖全尺寸需求"
-      productsSubtitleEn="From light to heavy-duty, Feimai multi-rotor platforms cover all size requirements"
+      productsSubtitle="从轻型到重型，长凌科技多旋翼平台覆盖全尺寸需求"
+      productsSubtitleEn="From light to heavy-duty, CANI multi-rotor platforms cover all size requirements"
       stats={stats}
       applications={applications}
       applicationsTitle="应用领域"
       applicationsTitleEn="Application Areas"
       techSpecs={techSpecs}
       cases={cases}
+      // SEO增强
+      seoCategory="multi-rotor"
+      seoCategoryDescription="长凌科技多旋翼无人机产品系列，涵盖X650、X850、X1200、X1600等多种型号，载重2-20kg，续航35-55分钟，适用于电力巡检、测绘、消防、安防等专业应用。"
+      seoCategoryDescriptionEn="CANI multi-rotor drone series including X650, X850, X1200, X1600 models with 2-20kg payload, 35-55 min flight time, suitable for power inspection, mapping, firefighting, and security applications."
+      seoKeywords={[
+        '多旋翼无人机', '工业无人机', 'X650无人机', 'X850无人机', 'X1200无人机', 'X1600无人机',
+        '电力巡检无人机', '测绘无人机', '消防无人机', '安防无人机', '大载重无人机', '长续航无人机',
+        '专业无人机平台', '行业无人机', '工业级飞行平台', '无人机厂家', '无人机批发'
+      ]}
+      seoKeywordsEn={[
+        'multi-rotor drone', 'industrial drone', 'X650 drone', 'X850 drone', 'X1200 drone', 'X1600 drone',
+        'power inspection drone', 'mapping drone', 'firefighting drone', 'security drone', 'heavy payload drone',
+        'long endurance drone', 'professional drone platform', 'enterprise drone', 'drone manufacturer'
+      ]}
     />
   );
 };
