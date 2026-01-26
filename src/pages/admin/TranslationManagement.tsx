@@ -29,6 +29,9 @@ const TranslationManagement = () => {
   const [currentProgress, setCurrentProgress] = useState({ done: 0, total: 0, remaining: 0 });
   const stopAutoRef = useRef(false);
 
+  // 源语言总key数
+  const totalSourceKeys = Object.keys(zhTranslations).length;
+
   const loadTranslationStatuses = async () => {
     setIsLoading(true);
     const results: TranslationStatus[] = [];
@@ -39,7 +42,7 @@ const TranslationManagement = () => {
           lang: lang.code,
           name: lang.name,
           hasTranslation: true,
-          keyCount: Object.keys(zhTranslations).length,
+          keyCount: totalSourceKeys,
           lastUpdated: '内置',
         });
         continue;
@@ -54,11 +57,12 @@ const TranslationManagement = () => {
 
         if (data?.value) {
           const translations = JSON.parse(data.value);
+          const translatedCount = Object.keys(translations).length;
           results.push({
             lang: lang.code,
             name: lang.name,
             hasTranslation: true,
-            keyCount: Object.keys(translations).length,
+            keyCount: translatedCount,
             lastUpdated: new Date(data.updated_at).toLocaleString('zh-CN'),
           });
         } else {
@@ -322,9 +326,10 @@ const TranslationManagement = () => {
           ) : (
             statuses.map((status) => {
               const progressPercent = status.keyCount > 0 
-                ? Math.round((status.keyCount / Object.keys(zhTranslations).length) * 100) 
+                ? Math.round((status.keyCount / totalSourceKeys) * 100) 
                 : 0;
-              const isComplete = status.keyCount >= Object.keys(zhTranslations).length;
+              const isComplete = status.keyCount >= totalSourceKeys;
+              const missingKeys = totalSourceKeys - status.keyCount;
               
               return (
                 <Card key={status.lang} className={currentLang === status.lang ? 'ring-2 ring-primary' : ''}>
@@ -355,9 +360,12 @@ const TranslationManagement = () => {
                     <div className="space-y-2 text-sm">
                       <div className="flex justify-between">
                         <span className="text-gray-500">翻译进度:</span>
-                        <span>{status.keyCount} / {Object.keys(zhTranslations).length}</span>
+                        <span className={missingKeys > 0 ? 'text-orange-600 font-medium' : 'text-green-600'}>
+                          {status.keyCount} / {totalSourceKeys}
+                          {missingKeys > 0 && ` (缺${missingKeys})`}
+                        </span>
                       </div>
-                      {status.keyCount > 0 && status.keyCount < Object.keys(zhTranslations).length && (
+                      {status.keyCount > 0 && status.keyCount < totalSourceKeys && (
                         <Progress value={progressPercent} className="h-1.5" />
                       )}
                       {status.lastUpdated && (
