@@ -37,92 +37,40 @@ const LinkedInIcon = ({ className }: { className?: string }) => (
   </svg>
 );
 
-const getProductLinks = (t: (key: string) => string) => [{
-  name: t('product.multiRotor'),
-  path: "/products/multi-rotor"
-}, {
-  name: t('accessory.vtx'),
-  path: "/products/accessories/vtx-vrx"
-}, {
-  name: t('accessory.fc'),
-  path: "/products/accessories/fc-esc"
-}, {
-  name: t('accessory.gimbal'),
-  path: "/products/accessories/gimbal"
-}, {
-  name: t('accessory.digitalFpv'),
-  path: "/products/accessories/digital-fpv"
-}, {
-  name: t('accessory.elrs'),
-  path: "/products/accessories/elrs"
-}];
-
-const getApplicationLinks = (t: (key: string) => string) => [{
-  name: t('app.power'),
-  path: "/applications/power-inspection"
-}, {
-  name: t('app.logistics'),
-  path: "/applications/logistics"
-}, {
-  name: t('app.environment'),
-  path: "/applications/environment"
-}, {
-  name: t('app.firefighting'),
-  path: "/applications/firefighting"
-}, {
-  name: t('app.tethered'),
-  path: "/applications/tethered"
-}];
-
-const getSoftwareLinks = (t: (key: string) => string) => [{
-  name: t('software.exam'),
-  path: "/software/exam-system"
-}, {
-  name: t('software.pvInspection'),
-  path: "/software/pv-inspection"
-}, {
-  name: t('software.management'),
-  path: "/software/drone-management"
-}, {
-  name: t('software.powerSystem'),
-  path: "/software/power-inspection-system"
-}];
-
-// Office locations
-const getOfficeLocations = (language: 'zh' | 'en') => [
-  {
-    country: language === 'zh' ? '中国' : 'China',
-    city: language === 'zh' ? '长沙' : 'Changsha',
-    address: language === 'zh' ? '湖南省长沙市望城区' : 'Wangcheng District, Changsha, Hunan'
-  },
-  {
-    country: language === 'zh' ? '越南' : 'Vietnam',
-    city: language === 'zh' ? '胡志明市' : 'Ho Chi Minh City',
-    address: language === 'zh' ? '第一郡' : 'District 1'
-  },
-  {
-    country: language === 'zh' ? '韩国' : 'South Korea',
-    city: language === 'zh' ? '首尔' : 'Seoul',
-    address: language === 'zh' ? '江南区' : 'Gangnam District'
-  },
-  {
-    country: language === 'zh' ? '马来西亚' : 'Malaysia',
-    city: language === 'zh' ? '吉隆坡' : 'Kuala Lumpur',
-    address: language === 'zh' ? '联邦直辖区' : 'Federal Territory'
-  },
-  {
-    country: language === 'zh' ? '印度' : 'India',
-    city: language === 'zh' ? '班加罗尔' : 'Bangalore',
-    address: language === 'zh' ? '卡纳塔克邦' : 'Karnataka'
-  }
-];
-
 export const Footer = () => {
-  const { t, baseLang: language } = useLanguage();
-  const productLinks = getProductLinks(t);
-  const applicationLinks = getApplicationLinks(t);
-  const softwareLinks = getSoftwareLinks(t);
-  const officeLocations = getOfficeLocations(language);
+  const { t } = useLanguage();
+
+  const productLinks = [
+    { name: t('product.multiRotor'), path: "/products/multi-rotor" },
+    { name: t('accessory.vtx'), path: "/products/accessories/vtx-vrx" },
+    { name: t('accessory.fc'), path: "/products/accessories/fc-esc" },
+    { name: t('accessory.gimbal'), path: "/products/accessories/gimbal" },
+    { name: t('accessory.digitalFpv'), path: "/products/accessories/digital-fpv" },
+    { name: t('accessory.elrs'), path: "/products/accessories/elrs" },
+  ];
+
+  const applicationLinks = [
+    { name: t('app.power'), path: "/applications/power-inspection" },
+    { name: t('app.logistics'), path: "/applications/logistics" },
+    { name: t('app.environment'), path: "/applications/environment" },
+    { name: t('app.firefighting'), path: "/applications/firefighting" },
+    { name: t('app.tethered'), path: "/applications/tethered" },
+  ];
+
+  const softwareLinks = [
+    { name: t('software.exam'), path: "/software/exam-system" },
+    { name: t('software.pvInspection'), path: "/software/pv-inspection" },
+    { name: t('software.management'), path: "/software/drone-management" },
+    { name: t('software.powerSystem'), path: "/software/power-inspection-system" },
+  ];
+
+  const officeLocations = [
+    { country: t('footer.office.china'), city: t('footer.office.changsha'), address: t('footer.office.changsha.address') },
+    { country: t('footer.office.vietnam'), city: t('footer.office.hochiminh'), address: t('footer.office.hochiminh.address') },
+    { country: t('footer.office.korea'), city: t('footer.office.seoul'), address: t('footer.office.seoul.address') },
+    { country: t('footer.office.malaysia'), city: t('footer.office.kualalumpur'), address: t('footer.office.kualalumpur.address') },
+    { country: t('footer.office.india'), city: t('footer.office.bangalore'), address: t('footer.office.bangalore.address') },
+  ];
 
   const socialLinks = [
     { icon: WeChatIcon, href: "#", label: "WeChat", id: "cani_uav" },
@@ -171,7 +119,7 @@ export const Footer = () => {
 
             {/* Social Links */}
             <div>
-              <h4 className="text-sm font-medium mb-3">{language === 'zh' ? '联系方式' : 'Contact Us'}</h4>
+              <h4 className="text-sm font-medium mb-3">{t('footer.contactUs')}</h4>
               <div className="flex items-center gap-3">
                 {socialLinks.map((social) => (
                   <a
@@ -247,7 +195,7 @@ export const Footer = () => {
                 
                 {/* Quick Links */}
                 <div className="mt-8">
-                  <h4 className="font-semibold mb-4 text-background">{language === 'zh' ? '快速链接' : 'Quick Links'}</h4>
+                  <h4 className="font-semibold mb-4 text-background">{t('footer.quickLinks')}</h4>
                   <ul className="space-y-2.5">
                     <li>
                       <Link to="/about" className="text-sm text-background/60 hover:text-background transition-colors">
@@ -265,7 +213,7 @@ export const Footer = () => {
 
               {/* Global Offices */}
               <div>
-                <h4 className="font-semibold mb-4 text-background">{language === 'zh' ? '全球办公室' : 'Global Offices'}</h4>
+                <h4 className="font-semibold mb-4 text-background">{t('footer.globalOffices')}</h4>
                 <ul className="space-y-3">
                   {officeLocations.map(office => (
                     <li key={office.country} className="flex items-start gap-2 text-background/60">

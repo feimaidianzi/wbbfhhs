@@ -9,66 +9,13 @@ import { supabase } from "@/integrations/supabase/client";
 import { User as SupabaseUser } from "@supabase/supabase-js";
 import { useToast } from "@/hooks/use-toast";
 
-const getDroneCategories = (language: 'zh' | 'en') => [
-  { name: language === 'zh' ? "飞迈机场" : "Drone Nest", href: "/products/airport", description: language === 'zh' ? "全自动无人机起降平台" : "Automatic drone take-off and landing platform" },
-  { name: language === 'zh' ? "系留无人机" : "Tethered Drone", href: "/products/tethered", description: language === 'zh' ? "24小时不间断工作" : "24-hour continuous operation" },
-  { name: language === 'zh' ? "物流无人机" : "Logistics Drone", href: "/products/logistics", description: language === 'zh' ? "高效智能配送系统" : "Efficient intelligent delivery system" },
-  { name: language === 'zh' ? "集群无人机" : "Swarm Drone", href: "/products/swarm", description: language === 'zh' ? "智能集群控制系统" : "Intelligent swarm control system" },
-  { name: language === 'zh' ? "FPV穿越机" : "FPV Drone", href: "/fpv", description: language === 'zh' ? "第一视角飞行体验" : "First-person view flight experience" },
-];
-
-const getAccessoryCategories = (language: 'zh' | 'en') => [
-  { name: "VTX/VRX", href: "/products/accessories/vtx-vrx", description: language === 'zh' ? "视频发射与接收模块" : "Video transmitter and receiver modules" },
-  { name: language === 'zh' ? "飞控/电调" : "FC/ESC", href: "/products/accessories/fc-esc", description: language === 'zh' ? "飞控与电调系统" : "Flight controller and ESC systems" },
-  { name: language === 'zh' ? "吊舱/云台" : "Gimbal/Pod", href: "/products/accessories/gimbal", description: language === 'zh' ? "专业稳定云台系统" : "Professional stabilization gimbal systems" },
-  { name: language === 'zh' ? "数字图传" : "Digital FPV", href: "/products/accessories/digital-fpv", description: language === 'zh' ? "高清数字图像传输" : "HD digital video transmission" },
-  { name: language === 'zh' ? "相机" : "Camera", href: "/products/accessories/camera", description: language === 'zh' ? "专业航拍相机" : "Professional aerial cameras" },
-  { name: "ELRS", href: "/products/accessories/elrs", description: language === 'zh' ? "远距离控制链路" : "Long-range control link" },
-  { name: language === 'zh' ? "其他配件" : "Other Accessories", href: "/products/accessories/others", description: language === 'zh' ? "辅助配件装备" : "Auxiliary accessories and equipment" },
-];
-
-const getApplicationCategories = (language: 'zh' | 'en') => [
-  { name: language === 'zh' ? "电力巡检" : "Power Inspection", href: "/applications/power-inspection", description: language === 'zh' ? "输电线路智能巡检" : "Smart transmission line inspection" },
-  { name: language === 'zh' ? "物流应用" : "Logistics", href: "/applications/logistics", description: language === 'zh' ? "无人机物流配送" : "Drone logistics delivery" },
-  { name: language === 'zh' ? "军事应用" : "Military", href: "/applications/military", description: language === 'zh' ? "侦察监视与通信中继" : "Reconnaissance and communication relay" },
-  { name: language === 'zh' ? "环保应用" : "Environmental", href: "/applications/environment", description: language === 'zh' ? "环境监测与治理" : "Environmental monitoring and management" },
-  { name: language === 'zh' ? "消防应急" : "Firefighting", href: "/applications/firefighting", description: language === 'zh' ? "火情侦察与应急救援" : "Fire reconnaissance and emergency rescue" },
-  { name: language === 'zh' ? "系留应用" : "Tethered", href: "/applications/tethered", description: language === 'zh' ? "24小时持续滞空" : "24-hour continuous aerial operations" },
-  { name: language === 'zh' ? "解决方案" : "Solutions", href: "/applications/solutions", description: language === 'zh' ? "完整行业解决方案" : "Complete industry solutions" },
-];
-
-const getCustomCategories = (language: 'zh' | 'en') => [
-  { name: language === 'zh' ? "无人机配件定制" : "Accessory Customization", href: "/custom-research/accessories", description: language === 'zh' ? "专业配件定制服务" : "Professional accessory customization" },
-  { name: language === 'zh' ? "无人机整机定制" : "Drone Customization", href: "/custom-research/drone", description: language === 'zh' ? "整机系统定制开发" : "Complete drone system customization" },
-  { name: language === 'zh' ? "无人机软件定制" : "Software Customization", href: "/custom-research/software", description: language === 'zh' ? "地面站与算法定制" : "Ground station and algorithm customization" },
-  { name: language === 'zh' ? "无人机挂载定制" : "Payload Customization", href: "/custom-research/payload", description: language === 'zh' ? "专业挂载载荷定制" : "Professional payload customization" },
-];
-
-const getSoftwareCategories = (language: 'zh' | 'en') => [
-  { name: language === 'zh' ? "模拟考试系统" : "Exam Simulation", href: "/software/exam-system", description: language === 'zh' ? "无人机培训考核平台" : "Drone training assessment platform" },
-  { name: language === 'zh' ? "光伏巡检识别系统" : "PV Inspection AI", href: "/software/pv-inspection", description: language === 'zh' ? "AI光伏缺陷识别" : "AI solar panel defect detection" },
-  { name: language === 'zh' ? "无人机管理平台" : "Drone Management", href: "/software/drone-management", description: language === 'zh' ? "设备与任务管理" : "Equipment and task management" },
-  { name: language === 'zh' ? "电力巡检管理系统" : "Power Inspection", href: "/software/power-inspection-system", description: language === 'zh' ? "输电线路智能巡检" : "Smart transmission line inspection" },
-  { name: language === 'zh' ? "光伏巡检系统" : "PV System", href: "/software/pv-system", description: language === 'zh' ? "光伏电站运维管理" : "Solar plant O&M management" },
-  { name: language === 'zh' ? "环保管理系统" : "Environmental System", href: "/software/environment-system", description: language === 'zh' ? "环境监测管理平台" : "Environmental monitoring platform" },
-  { name: language === 'zh' ? "无人机地面站软件" : "Ground Station", href: "/software/ground-station", description: language === 'zh' ? "专业飞控地面站" : "Professional flight control station" },
-  { name: language === 'zh' ? "集群地面站软件" : "Swarm Station", href: "/software/swarm-ground-station", description: language === 'zh' ? "集群编队控制" : "Swarm formation control" },
-];
-
-const getProjectCategories = (language: 'zh' | 'en') => [
-  { name: language === 'zh' ? "无人机培训" : "Drone Training", href: "/projects/training", description: language === 'zh' ? "专业飞手培训服务" : "Professional pilot training" },
-  { name: language === 'zh' ? "无人机表演" : "Drone Show", href: "/projects/show", description: language === 'zh' ? "集群灯光表演服务" : "Swarm light show services" },
-  { name: language === 'zh' ? "飞行服务" : "Flight Service", href: "/projects/flight-service", description: language === 'zh' ? "专业飞行作业服务" : "Professional flight operation services" },
-  { name: language === 'zh' ? "项目合作" : "Cooperation", href: "/projects/cooperation", description: language === 'zh' ? "定制化项目合作" : "Customized project cooperation" },
-];
-
 export const Header = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
   const [isScrolled, setIsScrolled] = useState(false);
   const [user, setUser] = useState<SupabaseUser | null>(null);
   const timeoutRef = useRef<NodeJS.Timeout | null>(null);
-  const { t, language, baseLang } = useLanguage();
+  const { t } = useLanguage();
   const navigate = useNavigate();
   const { toast } = useToast();
 
@@ -101,15 +48,62 @@ export const Header = () => {
     navigate('/');
   };
 
-  const droneCategories = getDroneCategories(baseLang);
-  const accessoryCategories = getAccessoryCategories(baseLang);
-  const applicationCategories = getApplicationCategories(baseLang);
-  const customCategories = getCustomCategories(baseLang);
-  const softwareCategories = getSoftwareCategories(baseLang);
-  const projectCategories = getProjectCategories(baseLang);
+  // All categories now use t() function
+  const droneCategories = [
+    { name: t('header.droneNest'), href: "/products/airport", description: t('header.droneNest.desc') },
+    { name: t('header.tethered'), href: "/products/tethered", description: t('header.tethered.desc') },
+    { name: t('header.logistics'), href: "/products/logistics", description: t('header.logistics.desc') },
+    { name: t('header.swarm'), href: "/products/swarm", description: t('header.swarm.desc') },
+    { name: t('header.fpvDrone'), href: "/fpv", description: t('header.fpvDrone.desc') },
+  ];
+
+  const accessoryCategories = [
+    { name: t('header.vtx'), href: "/products/accessories/vtx-vrx", description: t('header.vtx.desc') },
+    { name: t('header.fcEsc'), href: "/products/accessories/fc-esc", description: t('header.fcEsc.desc') },
+    { name: t('header.gimbal'), href: "/products/accessories/gimbal", description: t('header.gimbal.desc') },
+    { name: t('header.digitalFpv'), href: "/products/accessories/digital-fpv", description: t('header.digitalFpv.desc') },
+    { name: t('header.camera'), href: "/products/accessories/camera", description: t('header.camera.desc') },
+    { name: t('header.elrs'), href: "/products/accessories/elrs", description: t('header.elrs.desc') },
+    { name: t('header.others'), href: "/products/accessories/others", description: t('header.others.desc') },
+  ];
+
+  const applicationCategories = [
+    { name: t('header.powerInspection'), href: "/applications/power-inspection", description: t('header.powerInspection.desc') },
+    { name: t('header.logisticsApp'), href: "/applications/logistics", description: t('header.logisticsApp.desc') },
+    { name: t('header.military'), href: "/applications/military", description: t('header.military.desc') },
+    { name: t('header.environment'), href: "/applications/environment", description: t('header.environment.desc') },
+    { name: t('header.firefighting'), href: "/applications/firefighting", description: t('header.firefighting.desc') },
+    { name: t('header.tetheredApp'), href: "/applications/tethered", description: t('header.tetheredApp.desc') },
+    { name: t('header.solutions'), href: "/applications/solutions", description: t('header.solutions.desc') },
+  ];
+
+  const customCategories = [
+    { name: t('header.accessoryCustom'), href: "/custom-research/accessories", description: t('header.accessoryCustom.desc') },
+    { name: t('header.droneCustom'), href: "/custom-research/drone", description: t('header.droneCustom.desc') },
+    { name: t('header.softwareCustom'), href: "/custom-research/software", description: t('header.softwareCustom.desc') },
+    { name: t('header.payloadCustom'), href: "/custom-research/payload", description: t('header.payloadCustom.desc') },
+  ];
+
+  const softwareCategories = [
+    { name: t('header.examSystem'), href: "/software/exam-system", description: t('header.examSystem.desc') },
+    { name: t('header.pvInspection'), href: "/software/pv-inspection", description: t('header.pvInspection.desc') },
+    { name: t('header.droneManagement'), href: "/software/drone-management", description: t('header.droneManagement.desc') },
+    { name: t('header.powerSystem'), href: "/software/power-inspection-system", description: t('header.powerSystem.desc') },
+    { name: t('header.pvSystem'), href: "/software/pv-system", description: t('header.pvSystem.desc') },
+    { name: t('header.envSystem'), href: "/software/environment-system", description: t('header.envSystem.desc') },
+    { name: t('header.groundStation'), href: "/software/ground-station", description: t('header.groundStation.desc') },
+    { name: t('header.swarmStation'), href: "/software/swarm-ground-station", description: t('header.swarmStation.desc') },
+  ];
+
+  const projectCategories = [
+    { name: t('header.droneTraining'), href: "/projects/training", description: t('header.droneTraining.desc') },
+    { name: t('header.droneShow'), href: "/projects/show", description: t('header.droneShow.desc') },
+    { name: t('header.flightService'), href: "/projects/flight-service", description: t('header.flightService.desc') },
+    { name: t('header.cooperation'), href: "/projects/cooperation", description: t('header.cooperation.desc') },
+  ];
 
   const productCenterCategories = [
-    { name: baseLang === 'zh' ? "多旋翼无人机" : "Multi-Rotor Drone", href: "/products", description: baseLang === 'zh' ? "专业多旋翼无人机系列" : "Professional multi-rotor drone series", hasSubmenu: true, submenuItems: droneCategories },
+    { name: t('header.multiRotor'), href: "/products", description: t('header.multiRotor.desc'), hasSubmenu: true, submenuItems: droneCategories },
     ...accessoryCategories
   ];
 
