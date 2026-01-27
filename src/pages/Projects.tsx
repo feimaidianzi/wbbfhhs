@@ -8,63 +8,34 @@ import { SEO } from "@/components/SEO";
 import { useLanguage } from "@/contexts/LanguageContext";
 
 const Projects = () => {
-  const { language } = useLanguage();
+  const { t } = useLanguage();
 
-  const projects = language === 'zh' ? [
+  const projects = [
     {
       icon: GraduationCap,
-      title: "无人机培训",
-      description: "提供CAAC认证的无人机驾驶员培训课程，涵盖理论学习、模拟飞行、实操训练等全流程培训服务。",
+      title: t('projects.training.title'),
+      description: t('projects.training.description'),
       link: "/projects/training",
       image: "https://images.unsplash.com/photo-1434030216411-0b793f4b4173?w=600&q=80",
     },
     {
       icon: Sparkles,
-      title: "无人机表演",
-      description: "专业的无人机编队灯光表演服务，可定制各类文字、图案、3D造型，打造震撼视觉盛宴。",
+      title: t('projects.show.title'),
+      description: t('projects.show.description'),
       link: "/projects/show",
       image: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&q=80",
     },
     {
       icon: Plane,
-      title: "飞行服务",
-      description: "提供专业的无人机飞行作业服务，包括航拍测绘、电力巡检、农业植保等多种应用场景。",
+      title: t('projects.flight.title'),
+      description: t('projects.flight.description'),
       link: "/projects/flight-service",
       image: "https://images.unsplash.com/photo-1473968512647-3e447244af8f?w=600&q=80",
     },
     {
       icon: Handshake,
-      title: "项目合作",
-      description: "与政府、企业开展无人机项目合作，提供定制化解决方案和长期运营服务。",
-      link: "/projects/cooperation",
-      image: "https://images.unsplash.com/photo-1552664730-d307ca884978?w=600&q=80",
-    },
-  ] : [
-    {
-      icon: GraduationCap,
-      title: "Drone Training",
-      description: "CAAC certified drone pilot training courses, covering theoretical learning, simulation flight, practical training and full-process training services.",
-      link: "/projects/training",
-      image: "https://images.unsplash.com/photo-1434030216411-0b793f4b4173?w=600&q=80",
-    },
-    {
-      icon: Sparkles,
-      title: "Drone Shows",
-      description: "Professional drone formation light show services, customizable text, patterns, 3D shapes to create stunning visual feasts.",
-      link: "/projects/show",
-      image: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&q=80",
-    },
-    {
-      icon: Plane,
-      title: "Flight Services",
-      description: "Professional drone flight operation services, including aerial photography, mapping, power inspection, agricultural protection and more.",
-      link: "/projects/flight-service",
-      image: "https://images.unsplash.com/photo-1473968512647-3e447244af8f?w=600&q=80",
-    },
-    {
-      icon: Handshake,
-      title: "Project Cooperation",
-      description: "Drone project cooperation with government and enterprises, providing customized solutions and long-term operation services.",
+      title: t('projects.cooperation.title'),
+      description: t('projects.cooperation.description'),
       link: "/projects/cooperation",
       image: "https://images.unsplash.com/photo-1552664730-d307ca884978?w=600&q=80",
     },
@@ -73,13 +44,9 @@ const Projects = () => {
   return (
     <div className="min-h-screen">
       <SEO
-        title={language === 'zh' ? "项目合作" : "Project Cooperation"}
-        description={language === 'zh' 
-          ? "飞迈科技提供无人机培训、无人机表演、飞行服务、项目合作等多元化服务。"
-          : "Feimai Technology provides diversified services including drone training, drone shows, flight services, and project cooperation."}
-        keywords={language === 'zh' 
-          ? "无人机培训,无人机表演,飞行服务,项目合作"
-          : "drone training,drone shows,flight services,project cooperation"}
+        title={t('projects.seo.title')}
+        description={t('projects.seo.description')}
+        keywords={t('projects.seo.keywords')}
         url="/projects"
       />
       <Header />
@@ -97,14 +64,14 @@ const Projects = () => {
           <div className="relative container-custom h-full flex items-center">
             <div className="max-w-2xl">
               <h1 className="text-3xl md:text-5xl font-bold text-primary-foreground mb-4">
-                {language === 'zh' ? "项目合作" : "Project Cooperation"}
+                {t('projects.hero.title')}
               </h1>
               <p className="text-lg md:text-xl text-primary-foreground/90 mb-8">
-                {language === 'zh' ? "多元化无人机服务，满足您的各类需求" : "Diversified drone services to meet your various needs"}
+                {t('projects.hero.subtitle')}
               </p>
               <Link to="/contact">
                 <Button className="bg-accent hover:bg-orange-light text-accent-foreground px-8 py-3">
-                  {language === 'zh' ? "合作咨询" : "Contact Us"}
+                  {t('projects.hero.cta')}
                   <ArrowRight className="w-4 h-4 ml-2" />
                 </Button>
               </Link>
@@ -137,7 +104,7 @@ const Projects = () => {
                       </div>
                       <p className="text-muted-foreground mb-4">{project.description}</p>
                       <span className="text-accent font-medium flex items-center gap-2">
-                        {language === 'zh' ? "了解更多" : "Learn More"} <ArrowRight className="w-4 h-4 group-hover:translate-x-2 transition-transform" />
+                        {t('projects.learnMore')} <ArrowRight className="w-4 h-4 group-hover:translate-x-2 transition-transform" />
                       </span>
                     </div>
                   </div>
