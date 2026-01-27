@@ -4,7 +4,8 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Progress } from '@/components/ui/progress';
-import { ArrowLeft, Globe, RefreshCw, Check, X, Loader2, Square, Play } from 'lucide-react';
+import { ScrollArea } from '@/components/ui/scroll-area';
+import { ArrowLeft, Globe, RefreshCw, Check, X, Loader2, Square, Play, FileText, Trash2, Languages } from 'lucide-react';
 import { supabase } from '@/integrations/supabase/client';
 import { toast } from 'sonner';
 import { zhTranslations } from '@/i18n/zh';
@@ -18,6 +19,13 @@ interface TranslationStatus {
   lastUpdated?: string;
 }
 
+interface PendingTranslation {
+  keys: string[];
+  content: Record<string, string>;
+  submitted_at: string;
+  source: string;
+}
+
 const TranslationManagement = () => {
   const navigate = useNavigate();
   const [statuses, setStatuses] = useState<TranslationStatus[]>([]);
@@ -28,9 +36,37 @@ const TranslationManagement = () => {
   const [currentLang, setCurrentLang] = useState<string>('');
   const [currentProgress, setCurrentProgress] = useState({ done: 0, total: 0, remaining: 0 });
   const stopAutoRef = useRef(false);
+  
+  // Pending translations state
+  const [pendingTranslations, setPendingTranslations] = useState<PendingTranslation | null>(null);
+  const [isPendingLoading, setIsPendingLoading] = useState(false);
+  const [isTranslatingPending, setIsTranslatingPending] = useState(false);
 
   // 源语言总key数
   const totalSourceKeys = Object.keys(zhTranslations).length;
+
+  const loadPendingTranslations = async () => {
+    setIsPendingLoading(true);
+    try {
+      const { data, error } = await supabase
+        .from('system_settings')
+        .select('value')
+        .eq('key', 'pending_translations')
+        .single();
+
+      if (data?.value) {
+        const parsed = JSON.parse(data.value);
+        setPendingTranslations(parsed);
+      } else {
+        setPendingTranslations(null);
+      }
+    } catch (error) {
+      console.error('Failed to load pending translations:', error);
+      setPendingTranslations(null);
+    } finally {
+      setIsPendingLoading(false);
+    }
+  };
 
   const loadTranslationStatuses = async () => {
     setIsLoading(true);
@@ -89,6 +125,7 @@ const TranslationManagement = () => {
 
   useEffect(() => {
     loadTranslationStatuses();
+    loadPendingTranslations();
   }, []);
 
   // 翻译单个语言的一个批次
@@ -247,6 +284,98 @@ const TranslationManagement = () => {
     toast.info('正在停止翻译...');
   };
 
+  // 翻译待处理的内容
+  const translatePendingContent = async () => {
+    if (!pendingTranslations || Object.keys(pendingTranslations.content).length === 0) {
+      toast.error('没有待翻译的内容');
+      return;
+    }
+
+    setIsTranslatingPending(true);
+    stopAutoRef.current = false;
+
+    try {
+      // Merge pending translations with existing zhTranslations
+      const mergedContent = { ...zhTranslations, ...pendingTranslations.content };
+      const targetLanguages = SUPPORTED_LANGUAGES
+        .filter(l => l.code !== 'zh' && l.code !== 'en')
+        .map(l => l.code);
+
+      toast.info(`开始翻译 ${Object.keys(pendingTranslations.content).length} 个新key到 ${targetLanguages.length} 种语言...`);
+
+      for (let i = 0; i < targetLanguages.length; i++) {
+        if (stopAutoRef.current) {
+          toast.info('翻译已停止');
+          break;
+        }
+
+        const lang = targetLanguages[i];
+        const langName = SUPPORTED_LANGUAGES.find(l => l.code === lang)?.name;
+        setCurrentLang(lang);
+        setProgress(Math.round((i / targetLanguages.length) * 100));
+
+        toast.info(`正在翻译 ${langName} (${i + 1}/${targetLanguages.length})...`);
+
+        // Translate to this language
+        const { data, error } = await supabase.functions.invoke('batch-translate', {
+          body: {
+            sourceContent: mergedContent,
+            languages: [lang],
+            mode: 'incremental',
+          },
+        });
+
+        if (error) {
+          console.error(`Translation error for ${lang}:`, error);
+          toast.error(`${langName} 翻译失败`);
+          continue;
+        }
+
+        const result = data?.results?.[lang];
+        if (result?.success) {
+          toast.success(`${langName} 翻译完成`);
+        }
+
+        await loadTranslationStatuses();
+        await new Promise(r => setTimeout(r, 500));
+      }
+
+      // Clear pending translations after successful translation
+      if (!stopAutoRef.current) {
+        await supabase
+          .from('system_settings')
+          .delete()
+          .eq('key', 'pending_translations');
+        
+        setPendingTranslations(null);
+        toast.success('所有待翻译内容已处理完成！');
+      }
+    } catch (error) {
+      console.error('Translate pending error:', error);
+      toast.error('翻译过程中发生错误');
+    } finally {
+      setIsTranslatingPending(false);
+      setCurrentLang('');
+      setProgress(0);
+    }
+  };
+
+  // 清除待翻译内容
+  const clearPendingTranslations = async () => {
+    try {
+      await supabase
+        .from('system_settings')
+        .delete()
+        .eq('key', 'pending_translations');
+      
+      setPendingTranslations(null);
+      toast.success('待翻译内容已清除');
+    } catch (error) {
+      console.error('Clear pending error:', error);
+      toast.error('清除失败');
+    }
+  };
+
   return (
     <div className="min-h-screen bg-gray-50 p-6">
       <div className="max-w-6xl mx-auto">
@@ -314,6 +443,71 @@ const TranslationManagement = () => {
                   <span className="text-primary">自动模式运行中...</span>
                 )}
               </div>
+            </CardContent>
+          </Card>
+        )}
+
+        {/* Pending Translations Panel */}
+        {pendingTranslations && Object.keys(pendingTranslations.content).length > 0 && (
+          <Card className="mb-6 border-orange-200 bg-orange-50">
+            <CardHeader className="pb-3">
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-2">
+                  <FileText className="h-5 w-5 text-orange-600" />
+                  <CardTitle className="text-lg text-orange-800">待翻译内容</CardTitle>
+                  <Badge variant="secondary" className="bg-orange-200 text-orange-800">
+                    {Object.keys(pendingTranslations.content).length} 条
+                  </Badge>
+                </div>
+                <div className="flex items-center gap-2">
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    onClick={clearPendingTranslations}
+                    className="text-red-600 hover:text-red-700"
+                  >
+                    <Trash2 className="h-4 w-4 mr-1" />
+                    清除
+                  </Button>
+                  <Button
+                    size="sm"
+                    onClick={translatePendingContent}
+                    disabled={isTranslatingPending || isTranslating}
+                    className="bg-gradient-to-r from-orange-500 to-red-500 hover:from-orange-600 hover:to-red-600"
+                  >
+                    {isTranslatingPending ? (
+                      <>
+                        <Loader2 className="h-4 w-4 mr-2 animate-spin" />
+                        翻译中...
+                      </>
+                    ) : (
+                      <>
+                        <Languages className="h-4 w-4 mr-2" />
+                        开始翻译
+                      </>
+                    )}
+                  </Button>
+                </div>
+              </div>
+              <CardDescription className="text-orange-700">
+                来自硬编码检测工具 · 提交于 {new Date(pendingTranslations.submitted_at).toLocaleString('zh-CN')}
+              </CardDescription>
+            </CardHeader>
+            <CardContent>
+              <ScrollArea className="h-[200px]">
+                <div className="space-y-2">
+                  {Object.entries(pendingTranslations.content).map(([key, value]) => (
+                    <div key={key} className="p-2 bg-white rounded border border-orange-200">
+                      <div className="flex items-start justify-between gap-2">
+                        <div className="flex-1 min-w-0">
+                          <p className="text-xs text-orange-600 font-mono truncate">{key}</p>
+                          <p className="text-sm text-gray-800 truncate">{value}</p>
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </ScrollArea>
             </CardContent>
           </Card>
         )}

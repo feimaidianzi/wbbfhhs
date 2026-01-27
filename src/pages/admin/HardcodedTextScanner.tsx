@@ -416,45 +416,45 @@ const HardcodedTextScanner = () => {
         return;
       }
 
-      // Merge with existing zhTranslations
-      const mergedContent = { ...zhTranslations, ...newTranslations };
+      // Get existing pending translations first
+      const { data: existingData } = await supabase
+        .from('system_settings')
+        .select('value')
+        .eq('key', 'pending_translations')
+        .single();
+
+      let existingPending: Record<string, string> = {};
+      if (existingData?.value) {
+        try {
+          const parsed = JSON.parse(existingData.value);
+          existingPending = parsed.content || {};
+        } catch (e) {
+          console.error('Failed to parse existing pending translations');
+        }
+      }
+
+      // Merge new translations with existing pending
+      const mergedPending = { ...existingPending, ...newTranslations };
+      const allKeys = Object.keys(mergedPending);
       
-      // Save to system_settings as pending translations
+      // Save to system_settings as pending translations (just save, don't translate)
       const { error } = await supabase
         .from('system_settings')
         .upsert({
           key: 'pending_translations',
           value: JSON.stringify({
-            keys: keysToAdd,
-            content: newTranslations,
+            keys: allKeys,
+            content: mergedPending,
             submitted_at: new Date().toISOString(),
             source: 'hardcoded_scanner',
           }),
-          description: `待翻译条目 - ${keysToAdd.length} 个key`,
+          description: `待翻译条目 - ${allKeys.length} 个key`,
         }, { onConflict: 'key' });
 
       if (error) throw error;
 
-      // Trigger batch translation for all languages
-      const targetLanguages = ['vi', 'th', 'ms', 'id', 'ja', 'ko', 'fr', 'de', 'es', 'ru', 'ar', 'tr'];
-      
-      toast.success(`已提交 ${keysToAdd.length} 个翻译key，正在启动翻译任务...`);
-
-      // Start translation in background
-      const { data, error: translateError } = await supabase.functions.invoke('batch-translate', {
-        body: {
-          sourceContent: mergedContent,
-          languages: targetLanguages,
-          mode: 'incremental',
-        },
-      });
-
-      if (translateError) {
-        console.error('Translation error:', translateError);
-        toast.error('翻译任务启动失败，请稍后在翻译管理页面手动执行');
-      } else {
-        toast.success('翻译任务已启动，请在翻译管理页面查看进度');
-      }
+      toast.success(`已提交 ${keysToAdd.length} 个翻译key到翻译管理`);
+      toast.info('请前往翻译管理页面执行翻译操作');
 
       // Clear selection
       setSelectedResults(new Set());
