@@ -8,69 +8,52 @@ import { SEO } from "@/components/SEO";
 import { useLanguage } from "@/contexts/LanguageContext";
 
 const EnvironmentSystem = () => {
-  const { language } = useLanguage();
-  const isEn = language === 'en';
+  const { t } = useLanguage();
 
   const features = [
-    { icon: Wind, title: isEn ? "Air Monitoring" : "大气监测", description: isEn ? "Real-time air quality monitoring and alerts" : "空气质量实时监测与预警" },
-    { icon: Droplet, title: isEn ? "Water Monitoring" : "水质监测", description: isEn ? "Water pollution monitoring and source tracing" : "水体污染监测与溯源分析" },
-    { icon: Leaf, title: isEn ? "Ecological Monitoring" : "生态监测", description: isEn ? "Vegetation coverage and ecological change monitoring" : "植被覆盖与生态变化监测" },
-    { icon: BarChart, title: isEn ? "Data Analysis" : "数据分析", description: isEn ? "Environmental data analysis and trend prediction" : "环境数据分析与趋势预测" },
+    { icon: Wind, title: t('softwarePage.envSystem.f1.title'), description: t('softwarePage.envSystem.f1.desc') },
+    { icon: Droplet, title: t('softwarePage.envSystem.f2.title'), description: t('softwarePage.envSystem.f2.desc') },
+    { icon: Leaf, title: t('softwarePage.envSystem.f3.title'), description: t('softwarePage.envSystem.f3.desc') },
+    { icon: BarChart, title: t('softwarePage.envSystem.f4.title'), description: t('softwarePage.envSystem.f4.desc') },
   ];
 
-  const applications = isEn 
-    ? [
-        "Industrial park environmental monitoring",
-        "River and lake water quality monitoring",
-        "Forest and grassland ecological monitoring",
-        "Urban air quality monitoring",
-        "Discharge outlet inspection",
-        "Nature reserve patrol",
-      ]
-    : [
-        "工业园区环境监测",
-        "河流湖泊水质监测",
-        "森林草原生态监测",
-        "城市空气质量监测",
-        "排污口监控巡查",
-        "自然保护区巡护",
-      ];
+  const applications = [
+    t('softwarePage.envSystem.a1'),
+    t('softwarePage.envSystem.a2'),
+    t('softwarePage.envSystem.a3'),
+    t('softwarePage.envSystem.a4'),
+    t('softwarePage.envSystem.a5'),
+    t('softwarePage.envSystem.a6'),
+  ];
 
   return (
     <div className="min-h-screen">
       <SEO
-        title={isEn ? "Environmental Management System" : "环保管理系统"}
-        description={isEn 
-          ? "CANI environmental management system providing intelligent solutions for environmental monitoring and protection."
-          : "长凌科技环保管理系统，为环境监测与保护提供智能化解决方案。"}
-        keywords={isEn 
-          ? "environmental management,environmental monitoring,air monitoring,water monitoring,ecological monitoring"
-          : "环保管理,环境监测,大气监测,水质监测,生态监测"}
+        title={t('softwarePage.envSystem.seo.title')}
+        description={t('softwarePage.envSystem.seo.desc')}
+        keywords={t('softwarePage.envSystem.seo.keywords')}
         url="/software/environment-system"
       />
       <Header />
       <main className="pt-16 md:pt-20">
-        {/* Hero */}
         <section className="relative h-[400px] md:h-[500px] overflow-hidden">
           <div
             className="absolute inset-0 bg-cover bg-center"
-            style={{
-              backgroundImage: "url(https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=1920&q=80)",
-            }}
+            style={{ backgroundImage: "url(https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=1920&q=80)" }}
           >
             <div className="absolute inset-0 bg-gradient-to-r from-primary/90 via-primary/70 to-primary/50" />
           </div>
           <div className="relative container-custom h-full flex items-center">
             <div className="max-w-2xl">
               <h1 className="text-3xl md:text-5xl font-bold text-primary-foreground mb-4">
-                {isEn ? "Environmental Management System" : "环保管理系统"}
+                {t('softwarePage.envSystem.title')}
               </h1>
               <p className="text-lg md:text-xl text-primary-foreground/90 mb-8">
-                {isEn ? "Intelligent environmental monitoring, protecting our green waters and mountains" : "智能环境监测，守护绿水青山"}
+                {t('softwarePage.envSystem.hero')}
               </p>
               <Link to="/contact">
                 <Button className="bg-accent hover:bg-orange-light text-accent-foreground px-8 py-3">
-                  {isEn ? "Learn More" : "了解更多"}
+                  {t('softwarePage.envSystem.btn')}
                   <ArrowRight className="w-4 h-4 ml-2" />
                 </Button>
               </Link>
@@ -78,10 +61,11 @@ const EnvironmentSystem = () => {
           </div>
         </section>
 
-        {/* Features */}
         <section className="py-16 bg-background">
           <div className="container-custom">
-            <h2 className="text-2xl md:text-3xl font-bold text-center mb-12">{isEn ? "System Features" : "系统功能"}</h2>
+            <h2 className="text-2xl md:text-3xl font-bold text-center mb-12">
+              {t('softwarePage.envSystem.features.title')}
+            </h2>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
               {features.map((feature, index) => (
                 <div key={index} className="text-center p-6 bg-card rounded-xl shadow-card">
@@ -96,23 +80,22 @@ const EnvironmentSystem = () => {
           </div>
         </section>
 
-        {/* Applications */}
         <section className="py-16 bg-secondary">
           <div className="container-custom">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
               <div className="aspect-video rounded-xl overflow-hidden shadow-card">
                 <img
                   src="https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=800&q=80"
-                  alt={isEn ? "Environmental Monitoring" : "环保监测"}
+                  alt={t('softwarePage.envSystem.title')}
                   className="w-full h-full object-cover"
                 />
               </div>
               <div>
-                <h2 className="text-2xl md:text-3xl font-bold mb-6">{isEn ? "Application Scenarios" : "应用场景"}</h2>
+                <h2 className="text-2xl md:text-3xl font-bold mb-6">
+                  {t('softwarePage.envSystem.applications.title')}
+                </h2>
                 <p className="text-muted-foreground mb-6">
-                  {isEn 
-                    ? "The system is suitable for various environmental monitoring and protection scenarios."
-                    : "系统适用于多种环境监测与保护场景。"}
+                  {t('softwarePage.envSystem.applications.desc')}
                 </p>
                 <ul className="space-y-4">
                   {applications.map((app, index) => (
@@ -127,18 +110,17 @@ const EnvironmentSystem = () => {
           </div>
         </section>
 
-        {/* CTA */}
         <section className="py-16 bg-primary">
           <div className="container-custom text-center">
             <h2 className="text-2xl md:text-3xl font-bold text-primary-foreground mb-4">
-              {isEn ? "Smart Environmental Protection, Green Future" : "智能环保，绿色未来"}
+              {t('softwarePage.envSystem.cta.title')}
             </h2>
             <p className="text-primary-foreground/80 mb-8 max-w-2xl mx-auto">
-              {isEn ? "Contact us for environmental monitoring solutions" : "联系我们了解环保监测解决方案"}
+              {t('softwarePage.envSystem.cta.subtitle')}
             </p>
             <Link to="/contact">
               <Button className="bg-accent hover:bg-orange-light text-accent-foreground px-8 py-3">
-                {isEn ? "Contact Us" : "立即咨询"}
+                {t('softwarePage.common.consult')}
                 <ArrowRight className="w-4 h-4 ml-2" />
               </Button>
             </Link>

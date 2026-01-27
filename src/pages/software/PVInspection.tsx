@@ -8,69 +8,52 @@ import { SEO } from "@/components/SEO";
 import { useLanguage } from "@/contexts/LanguageContext";
 
 const PVInspection = () => {
-  const { language } = useLanguage();
-  const isEn = language === 'en';
+  const { t } = useLanguage();
 
   const features = [
-    { icon: Sun, title: isEn ? "Hotspot Detection" : "热斑检测", description: isEn ? "Infrared thermal imaging for precise PV module hotspot detection" : "红外热成像精准识别光伏组件热斑缺陷" },
-    { icon: Eye, title: isEn ? "AI Recognition" : "AI识别", description: isEn ? "Deep learning for automatic defect type identification" : "深度学习算法自动识别多种缺陷类型" },
-    { icon: Zap, title: isEn ? "Efficiency Analysis" : "效率分析", description: isEn ? "Power generation efficiency and module performance evaluation" : "发电效率分析与组件性能评估" },
-    { icon: BarChart, title: isEn ? "Report Generation" : "报告生成", description: isEn ? "Auto-generate professional inspection reports" : "自动生成专业巡检报告" },
+    { icon: Sun, title: t('softwarePage.pvInspection.f1.title'), description: t('softwarePage.pvInspection.f1.desc') },
+    { icon: Eye, title: t('softwarePage.pvInspection.f2.title'), description: t('softwarePage.pvInspection.f2.desc') },
+    { icon: Zap, title: t('softwarePage.pvInspection.f3.title'), description: t('softwarePage.pvInspection.f3.desc') },
+    { icon: BarChart, title: t('softwarePage.pvInspection.f4.title'), description: t('softwarePage.pvInspection.f4.desc') },
   ];
 
-  const defectTypes = isEn 
-    ? [
-        "Hotspot defects",
-        "Micro-crack issues",
-        "Module contamination",
-        "Junction box anomalies",
-        "Mounting deformation",
-        "Shading analysis",
-      ]
-    : [
-        "热斑缺陷",
-        "隐裂问题",
-        "组件污染",
-        "接线盒异常",
-        "支架变形",
-        "遮挡分析",
-      ];
+  const defectTypes = [
+    t('softwarePage.pvInspection.d1'),
+    t('softwarePage.pvInspection.d2'),
+    t('softwarePage.pvInspection.d3'),
+    t('softwarePage.pvInspection.d4'),
+    t('softwarePage.pvInspection.d5'),
+    t('softwarePage.pvInspection.d6'),
+  ];
 
   return (
     <div className="min-h-screen">
       <SEO
-        title={isEn ? "PV Inspection Recognition System" : "光伏巡检识别系统"}
-        description={isEn 
-          ? "EFUAV PV inspection recognition system with AI technology for intelligent solar plant inspection and defect recognition."
-          : "飞迈科技光伏巡检识别系统，采用AI技术实现光伏电站智能巡检与缺陷识别。"}
-        keywords={isEn 
-          ? "PV inspection,hotspot detection,AI recognition,solar plant inspection,drone inspection"
-          : "光伏巡检,热斑检测,AI识别,光伏电站巡检,无人机巡检"}
+        title={t('softwarePage.pvInspection.seo.title')}
+        description={t('softwarePage.pvInspection.seo.desc')}
+        keywords={t('softwarePage.pvInspection.seo.keywords')}
         url="/software/pv-inspection"
       />
       <Header />
       <main className="pt-16 md:pt-20">
-        {/* Hero */}
         <section className="relative h-[400px] md:h-[500px] overflow-hidden">
           <div
             className="absolute inset-0 bg-cover bg-center"
-            style={{
-              backgroundImage: "url(https://images.unsplash.com/photo-1509391366360-2e959784a276?w=1920&q=80)",
-            }}
+            style={{ backgroundImage: "url(https://images.unsplash.com/photo-1509391366360-2e959784a276?w=1920&q=80)" }}
           >
             <div className="absolute inset-0 bg-gradient-to-r from-primary/90 via-primary/70 to-primary/50" />
           </div>
           <div className="relative container-custom h-full flex items-center">
             <div className="max-w-2xl">
               <h1 className="text-3xl md:text-5xl font-bold text-primary-foreground mb-4">
-                {isEn ? "EFUAV PV Inspection Recognition" : "EFUAV光伏巡检识别系统"}
+                {t('softwarePage.pvInspection.title')}
               </h1>
               <p className="text-lg md:text-xl text-primary-foreground/90 mb-8">
-                {isEn ? "AI-powered for smarter, more efficient PV inspection" : "AI赋能，让光伏巡检更智能、更高效"}
+                {t('softwarePage.pvInspection.hero')}
               </p>
               <Link to="/contact">
                 <Button className="bg-accent hover:bg-orange-light text-accent-foreground px-8 py-3">
-                  {isEn ? "Request Demo" : "申请演示"}
+                  {t('softwarePage.pvInspection.btn')}
                   <ArrowRight className="w-4 h-4 ml-2" />
                 </Button>
               </Link>
@@ -78,10 +61,11 @@ const PVInspection = () => {
           </div>
         </section>
 
-        {/* Features */}
         <section className="py-16 bg-background">
           <div className="container-custom">
-            <h2 className="text-2xl md:text-3xl font-bold text-center mb-12">{isEn ? "Core Features" : "核心功能"}</h2>
+            <h2 className="text-2xl md:text-3xl font-bold text-center mb-12">
+              {t('softwarePage.pvInspection.features.title')}
+            </h2>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
               {features.map((feature, index) => (
                 <div key={index} className="text-center p-6 bg-card rounded-xl shadow-card">
@@ -96,23 +80,22 @@ const PVInspection = () => {
           </div>
         </section>
 
-        {/* Defect Detection */}
         <section className="py-16 bg-secondary">
           <div className="container-custom">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
               <div className="aspect-video rounded-xl overflow-hidden shadow-card">
                 <img
                   src="https://images.unsplash.com/photo-1508514177221-188b1cf16e9d?w=800&q=80"
-                  alt={isEn ? "PV Inspection" : "光伏巡检"}
+                  alt={t('softwarePage.pvInspection.title')}
                   className="w-full h-full object-cover"
                 />
               </div>
               <div>
-                <h2 className="text-2xl md:text-3xl font-bold mb-6">{isEn ? "Defect Recognition Types" : "缺陷识别类型"}</h2>
+                <h2 className="text-2xl md:text-3xl font-bold mb-6">
+                  {t('softwarePage.pvInspection.defects.title')}
+                </h2>
                 <p className="text-muted-foreground mb-6">
-                  {isEn 
-                    ? "The system can automatically identify various PV module defects with over 95% accuracy."
-                    : "系统可自动识别多种光伏组件缺陷，识别准确率超过95%。"}
+                  {t('softwarePage.pvInspection.defects.desc')}
                 </p>
                 <ul className="space-y-4">
                   {defectTypes.map((defect, index) => (
@@ -127,18 +110,17 @@ const PVInspection = () => {
           </div>
         </section>
 
-        {/* CTA */}
         <section className="py-16 bg-primary">
           <div className="container-custom text-center">
             <h2 className="text-2xl md:text-3xl font-bold text-primary-foreground mb-4">
-              {isEn ? "Improve PV Plant O&M Efficiency" : "提升光伏电站运维效率"}
+              {t('softwarePage.pvInspection.cta.title')}
             </h2>
             <p className="text-primary-foreground/80 mb-8 max-w-2xl mx-auto">
-              {isEn ? "Contact us for more PV inspection solutions" : "联系我们了解更多光伏巡检解决方案"}
+              {t('softwarePage.pvInspection.cta.subtitle')}
             </p>
             <Link to="/contact">
               <Button className="bg-accent hover:bg-orange-light text-accent-foreground px-8 py-3">
-                {isEn ? "Contact Us" : "立即咨询"}
+                {t('softwarePage.common.consult')}
                 <ArrowRight className="w-4 h-4 ml-2" />
               </Button>
             </Link>

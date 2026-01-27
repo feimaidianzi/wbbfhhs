@@ -8,83 +8,52 @@ import { SEO } from "@/components/SEO";
 import { useLanguage } from "@/contexts/LanguageContext";
 
 const GroundStation = () => {
-  const { language } = useLanguage();
-  const isEn = language === "en";
+  const { t } = useLanguage();
 
   const features = [
-    { 
-      icon: Monitor, 
-      title: isEn ? "Real-time Monitoring" : "实时监控", 
-      description: isEn ? "Multi-drone real-time status monitoring and telemetry display" : "多机实时状态监控与遥测数据显示" 
-    },
-    { 
-      icon: Map, 
-      title: isEn ? "Route Planning" : "航线规划", 
-      description: isEn ? "3D map route planning and mission editing" : "三维地图航线规划与任务编辑" 
-    },
-    { 
-      icon: Radio, 
-      title: isEn ? "Data Link" : "数据链路", 
-      description: isEn ? "High-reliability data link communication management" : "高可靠数据链路通信管理" 
-    },
-    { 
-      icon: Settings, 
-      title: isEn ? "Parameter Configuration" : "参数配置", 
-      description: isEn ? "Flight controller parameter configuration and firmware upgrade" : "飞控参数配置与固件升级" 
-    },
+    { icon: Monitor, title: t('softwarePage.groundStation.f1.title'), description: t('softwarePage.groundStation.f1.desc') },
+    { icon: Map, title: t('softwarePage.groundStation.f2.title'), description: t('softwarePage.groundStation.f2.desc') },
+    { icon: Radio, title: t('softwarePage.groundStation.f3.title'), description: t('softwarePage.groundStation.f3.desc') },
+    { icon: Settings, title: t('softwarePage.groundStation.f4.title'), description: t('softwarePage.groundStation.f4.desc') },
   ];
 
-  const capabilities = isEn ? [
-    "Multi-drone simultaneous control",
-    "3D route planning",
-    "Real-time video transmission",
-    "Flight data recording",
-    "Emergency return control",
-    "Terrain following flight",
-  ] : [
-    "多机同时控制",
-    "三维航线规划",
-    "实时视频传输",
-    "飞行数据记录",
-    "应急返航控制",
-    "地形跟随飞行",
+  const capabilities = [
+    t('softwarePage.groundStation.c1'),
+    t('softwarePage.groundStation.c2'),
+    t('softwarePage.groundStation.c3'),
+    t('softwarePage.groundStation.c4'),
+    t('softwarePage.groundStation.c5'),
+    t('softwarePage.groundStation.c6'),
   ];
 
   return (
     <div className="min-h-screen">
       <SEO
-        title={isEn ? "Drone Ground Station Software" : "无人机地面站软件"}
-        description={isEn 
-          ? "Feimai Technology drone ground station software for professional drone control, route planning, and data transmission."
-          : "飞迈科技无人机地面站软件，提供专业的无人机控制、航线规划、数据传输功能。"}
-        keywords={isEn 
-          ? "ground station software,drone control,route planning,flight monitoring"
-          : "地面站软件,无人机控制,航线规划,飞行监控"}
+        title={t('softwarePage.groundStation.seo.title')}
+        description={t('softwarePage.groundStation.seo.desc')}
+        keywords={t('softwarePage.groundStation.seo.keywords')}
         url="/software/ground-station"
       />
       <Header />
       <main className="pt-16 md:pt-20">
-        {/* Hero */}
         <section className="relative h-[400px] md:h-[500px] overflow-hidden">
           <div
             className="absolute inset-0 bg-cover bg-center"
-            style={{
-              backgroundImage: "url(https://images.unsplash.com/photo-1517694712202-14dd9538aa97?w=1920&q=80)",
-            }}
+            style={{ backgroundImage: "url(https://images.unsplash.com/photo-1517694712202-14dd9538aa97?w=1920&q=80)" }}
           >
             <div className="absolute inset-0 bg-gradient-to-r from-primary/90 via-primary/70 to-primary/50" />
           </div>
           <div className="relative container-custom h-full flex items-center">
             <div className="max-w-2xl">
               <h1 className="text-3xl md:text-5xl font-bold text-primary-foreground mb-4">
-                {isEn ? "Drone Ground Station Software" : "无人机地面站软件"}
+                {t('softwarePage.groundStation.title')}
               </h1>
               <p className="text-lg md:text-xl text-primary-foreground/90 mb-8">
-                {isEn ? "Professional ground station control system for comprehensive flight management" : "专业级地面站控制系统，全方位飞行管理"}
+                {t('softwarePage.groundStation.hero')}
               </p>
               <Link to="/contact">
                 <Button className="bg-accent hover:bg-orange-light text-accent-foreground px-8 py-3">
-                  {isEn ? "Free Download" : "免费下载"}
+                  {t('softwarePage.groundStation.btn')}
                   <ArrowRight className="w-4 h-4 ml-2" />
                 </Button>
               </Link>
@@ -92,11 +61,10 @@ const GroundStation = () => {
           </div>
         </section>
 
-        {/* Features */}
         <section className="py-16 bg-background">
           <div className="container-custom">
             <h2 className="text-2xl md:text-3xl font-bold text-center mb-12">
-              {isEn ? "Software Features" : "软件功能"}
+              {t('softwarePage.groundStation.features.title')}
             </h2>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
               {features.map((feature, index) => (
@@ -112,18 +80,15 @@ const GroundStation = () => {
           </div>
         </section>
 
-        {/* Capabilities */}
         <section className="py-16 bg-secondary">
           <div className="container-custom">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
               <div>
                 <h2 className="text-2xl md:text-3xl font-bold mb-6">
-                  {isEn ? "Capabilities" : "功能特性"}
+                  {t('softwarePage.groundStation.capabilities.title')}
                 </h2>
                 <p className="text-muted-foreground mb-6">
-                  {isEn 
-                    ? "Professional ground station control software designed for industrial drones, comprehensive and easy to operate."
-                    : "专为工业级无人机设计的地面站控制软件，功能全面，操作便捷。"}
+                  {t('softwarePage.groundStation.capabilities.desc')}
                 </p>
                 <ul className="space-y-4">
                   {capabilities.map((cap, index) => (
@@ -137,7 +102,7 @@ const GroundStation = () => {
               <div className="aspect-video rounded-xl overflow-hidden shadow-card">
                 <img
                   src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&q=80"
-                  alt={isEn ? "Ground Station Interface" : "地面站界面"}
+                  alt={t('softwarePage.groundStation.title')}
                   className="w-full h-full object-cover"
                 />
               </div>
@@ -145,20 +110,17 @@ const GroundStation = () => {
           </div>
         </section>
 
-        {/* CTA */}
         <section className="py-16 bg-primary">
           <div className="container-custom text-center">
             <h2 className="text-2xl md:text-3xl font-bold text-primary-foreground mb-4">
-              {isEn ? "Download Professional Ground Station Software" : "下载专业地面站软件"}
+              {t('softwarePage.groundStation.cta.title')}
             </h2>
             <p className="text-primary-foreground/80 mb-8 max-w-2xl mx-auto">
-              {isEn 
-                ? "Contact us to get software download link and license authorization"
-                : "联系我们获取软件下载链接和使用授权"}
+              {t('softwarePage.groundStation.cta.subtitle')}
             </p>
             <Link to="/contact">
               <Button className="bg-accent hover:bg-orange-light text-accent-foreground px-8 py-3">
-                {isEn ? "Contact Us" : "联系我们"}
+                {t('softwarePage.common.contactUs')}
                 <ArrowRight className="w-4 h-4 ml-2" />
               </Button>
             </Link>
