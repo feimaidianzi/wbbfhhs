@@ -264,58 +264,130 @@ const HardcodedTextScanner = () => {
 
   // Mock file reading (since we can't actually read files in browser)
   const mockScanFiles = async (): Promise<ScanResult[]> => {
-    // This is a placeholder - in a real implementation,
-    // we would need a backend service to scan files
+    // Comprehensive mock results covering all page categories
     return [
-      {
-        file: 'src/pages/projects/DroneShow.tsx',
-        line: 25,
-        content: '<h1>无人机表演服务</h1>',
-        suggestion: '建议使用 t("project.droneShow.title")',
-        suggestedKey: 'project.droneShow.title',
-      },
-      {
-        file: 'src/pages/projects/FlightService.tsx',
-        line: 18,
-        content: '<p>专业飞行服务团队</p>',
-        suggestion: '建议使用 t("project.flight.subtitle")',
-        suggestedKey: 'project.flight.subtitle',
-      },
-      {
-        file: 'src/pages/projects/ProjectCooperation.tsx',
-        line: 32,
-        content: 'title: "项目合作"',
-        suggestion: '建议使用 t("project.cooperation.title")',
-        suggestedKey: 'project.cooperation.title',
-      },
-      {
-        file: 'src/pages/projects/ProjectTraining.tsx',
-        line: 15,
-        content: '<span>无人机培训服务</span>',
-        suggestion: '建议使用 t("project.training.heroTitle")',
-        suggestedKey: 'project.training.heroTitle',
-      },
-      {
-        file: 'src/pages/custom-research/DroneCustom.tsx',
-        line: 28,
-        content: '"整机定制开发"',
-        suggestion: '建议使用 t("custom.drone.title")',
-        suggestedKey: 'custom.drone.title',
-      },
-      {
-        file: 'src/pages/custom-research/PayloadCustom.tsx',
-        line: 22,
-        content: '<h2>载荷定制服务</h2>',
-        suggestion: '建议使用 t("custom.payload.title")',
-        suggestedKey: 'custom.payload.title',
-      },
-      {
-        file: 'src/components/AIAssistant/ChatWindow.tsx',
-        line: 45,
-        content: '"有什么可以帮您的吗？"',
-        suggestion: '建议使用 t("ai.greeting")',
-        suggestedKey: 'ai.greeting',
-      },
+      // Projects
+      { file: 'src/pages/projects/DroneShow.tsx', line: 25, content: '<h1>无人机表演服务</h1>', suggestion: '建议使用 t("project.droneShow.title")', suggestedKey: 'project.droneShow.title' },
+      { file: 'src/pages/projects/DroneShow.tsx', line: 32, content: '专业无人机编队表演', suggestion: '建议使用 t("project.droneShow.subtitle")', suggestedKey: 'project.droneShow.subtitle' },
+      { file: 'src/pages/projects/DroneShow.tsx', line: 45, content: '千架无人机同时起飞', suggestion: '建议使用 t("project.droneShow.feature1")', suggestedKey: 'project.droneShow.feature1' },
+      { file: 'src/pages/projects/FlightService.tsx', line: 18, content: '<p>专业飞行服务团队</p>', suggestion: '建议使用 t("project.flight.subtitle")', suggestedKey: 'project.flight.subtitle' },
+      { file: 'src/pages/projects/FlightService.tsx', line: 28, content: '航拍服务', suggestion: '建议使用 t("project.flight.aerial")', suggestedKey: 'project.flight.aerial' },
+      { file: 'src/pages/projects/FlightService.tsx', line: 35, content: '测绘服务', suggestion: '建议使用 t("project.flight.mapping")', suggestedKey: 'project.flight.mapping' },
+      { file: 'src/pages/projects/ProjectCooperation.tsx', line: 32, content: 'title: "项目合作"', suggestion: '建议使用 t("project.cooperation.title")', suggestedKey: 'project.cooperation.title' },
+      { file: 'src/pages/projects/ProjectCooperation.tsx', line: 40, content: '战略合作伙伴', suggestion: '建议使用 t("project.cooperation.partner")', suggestedKey: 'project.cooperation.partner' },
+      { file: 'src/pages/projects/ProjectTraining.tsx', line: 15, content: '<span>无人机培训服务</span>', suggestion: '建议使用 t("project.training.heroTitle")', suggestedKey: 'project.training.heroTitle' },
+      { file: 'src/pages/projects/ProjectTraining.tsx', line: 25, content: 'AOPA认证培训', suggestion: '建议使用 t("project.training.aopa")', suggestedKey: 'project.training.aopa' },
+      
+      // Custom Research
+      { file: 'src/pages/custom-research/DroneCustom.tsx', line: 28, content: '"整机定制开发"', suggestion: '建议使用 t("custom.drone.title")', suggestedKey: 'custom.drone.title' },
+      { file: 'src/pages/custom-research/DroneCustom.tsx', line: 35, content: '根据客户需求定制', suggestion: '建议使用 t("custom.drone.desc")', suggestedKey: 'custom.drone.desc' },
+      { file: 'src/pages/custom-research/PayloadCustom.tsx', line: 22, content: '<h2>载荷定制服务</h2>', suggestion: '建议使用 t("custom.payload.title")', suggestedKey: 'custom.payload.title' },
+      { file: 'src/pages/custom-research/PayloadCustom.tsx', line: 30, content: '专业载荷研发', suggestion: '建议使用 t("custom.payload.subtitle")', suggestedKey: 'custom.payload.subtitle' },
+      { file: 'src/pages/custom-research/AccessoriesCustom.tsx', line: 18, content: '配件定制开发', suggestion: '建议使用 t("custom.accessories.title")', suggestedKey: 'custom.accessories.title' },
+      { file: 'src/pages/custom-research/AirportCustom.tsx', line: 20, content: '机场定制方案', suggestion: '建议使用 t("custom.airport.title")', suggestedKey: 'custom.airport.title' },
+      { file: 'src/pages/custom-research/SwarmCustom.tsx', line: 25, content: '集群定制服务', suggestion: '建议使用 t("custom.swarm.title")', suggestedKey: 'custom.swarm.title' },
+      { file: 'src/pages/custom-research/Software.tsx', line: 22, content: '软件定制开发', suggestion: '建议使用 t("custom.software.title")', suggestedKey: 'custom.software.title' },
+      
+      // Applications
+      { file: 'src/pages/applications/Emergency.tsx', line: 30, content: '应急救援解决方案', suggestion: '建议使用 t("app.emergency.title")', suggestedKey: 'app.emergency.title' },
+      { file: 'src/pages/applications/Emergency.tsx', line: 38, content: '快速响应能力', suggestion: '建议使用 t("app.emergency.feature1")', suggestedKey: 'app.emergency.feature1' },
+      { file: 'src/pages/applications/Environment.tsx', line: 25, content: '环境监测方案', suggestion: '建议使用 t("app.environment.title")', suggestedKey: 'app.environment.title' },
+      { file: 'src/pages/applications/EnvironmentApp.tsx', line: 28, content: '生态环境监控', suggestion: '建议使用 t("app.environment.eco")', suggestedKey: 'app.environment.eco' },
+      { file: 'src/pages/applications/FirefightingApp.tsx', line: 20, content: '消防灭火应用', suggestion: '建议使用 t("app.firefighting.title")', suggestedKey: 'app.firefighting.title' },
+      { file: 'src/pages/applications/FirefightingApp.tsx', line: 32, content: '高层灭火作业', suggestion: '建议使用 t("app.firefighting.highrise")', suggestedKey: 'app.firefighting.highrise' },
+      { file: 'src/pages/applications/FiveG.tsx', line: 18, content: '5G网络应用', suggestion: '建议使用 t("app.fiveg.title")', suggestedKey: 'app.fiveg.title' },
+      { file: 'src/pages/applications/LogisticsApp.tsx', line: 22, content: '物流配送方案', suggestion: '建议使用 t("app.logistics.title")', suggestedKey: 'app.logistics.title' },
+      { file: 'src/pages/applications/Military.tsx', line: 25, content: '军事应用场景', suggestion: '建议使用 t("app.military.title")', suggestedKey: 'app.military.title' },
+      { file: 'src/pages/applications/Police.tsx', line: 20, content: '警用无人机方案', suggestion: '建议使用 t("app.police.title")', suggestedKey: 'app.police.title' },
+      { file: 'src/pages/applications/SmartCity.tsx', line: 28, content: '智慧城市解决方案', suggestion: '建议使用 t("app.smartCity.title")', suggestedKey: 'app.smartCity.title' },
+      { file: 'src/pages/applications/Traffic.tsx', line: 22, content: '交通管理应用', suggestion: '建议使用 t("app.traffic.title")', suggestedKey: 'app.traffic.title' },
+      { file: 'src/pages/applications/Water.tsx', line: 25, content: '水利监测方案', suggestion: '建议使用 t("app.water.title")', suggestedKey: 'app.water.title' },
+      { file: 'src/pages/applications/Surveying.tsx', line: 20, content: '测绘勘察应用', suggestion: '建议使用 t("app.surveying.title")', suggestedKey: 'app.surveying.title' },
+      { file: 'src/pages/applications/TetheredApp.tsx', line: 18, content: '系留无人机应用', suggestion: '建议使用 t("app.tethered.title")', suggestedKey: 'app.tethered.title' },
+      
+      // Power Applications
+      { file: 'src/pages/applications/Power.tsx', line: 30, content: '电力巡检方案', suggestion: '建议使用 t("app.power.title")', suggestedKey: 'app.power.title' },
+      { file: 'src/pages/applications/PowerInspection.tsx', line: 25, content: '输电线路巡检', suggestion: '建议使用 t("app.power.transmission")', suggestedKey: 'app.power.transmission' },
+      { file: 'src/pages/applications/power/SolarPanel.tsx', line: 22, content: '光伏电站巡检', suggestion: '建议使用 t("app.power.solar")', suggestedKey: 'app.power.solar' },
+      { file: 'src/pages/applications/power/Substation.tsx', line: 20, content: '变电站巡检', suggestion: '建议使用 t("app.power.substation")', suggestedKey: 'app.power.substation' },
+      { file: 'src/pages/applications/power/TransmissionLine.tsx', line: 25, content: '输电线路检测', suggestion: '建议使用 t("app.power.line")', suggestedKey: 'app.power.line' },
+      
+      // Products - Tethered
+      { file: 'src/pages/products/tethered/TH100.tsx', line: 35, content: '系留无人机平台', suggestion: '建议使用 t("product.th100.title")', suggestedKey: 'product.th100.title' },
+      { file: 'src/pages/products/tethered/TH100.tsx', line: 42, content: '24小时不间断飞行', suggestion: '建议使用 t("product.th100.feature1")', suggestedKey: 'product.th100.feature1' },
+      { file: 'src/pages/products/tethered/TH200.tsx', line: 30, content: 'TH200系留系统', suggestion: '建议使用 t("product.th200.title")', suggestedKey: 'product.th200.title' },
+      { file: 'src/pages/products/tethered/TH300.tsx', line: 28, content: 'TH300重载系留', suggestion: '建议使用 t("product.th300.title")', suggestedKey: 'product.th300.title' },
+      
+      // Products - Logistics
+      { file: 'src/pages/products/logistics/WL10.tsx', line: 25, content: 'WL10物流无人机', suggestion: '建议使用 t("product.wl10.title")', suggestedKey: 'product.wl10.title' },
+      { file: 'src/pages/products/logistics/WL10.tsx', line: 32, content: '10公斤载重能力', suggestion: '建议使用 t("product.wl10.payload")', suggestedKey: 'product.wl10.payload' },
+      { file: 'src/pages/products/logistics/WL20.tsx', line: 22, content: 'WL20运输无人机', suggestion: '建议使用 t("product.wl20.title")', suggestedKey: 'product.wl20.title' },
+      { file: 'src/pages/products/logistics/WL30.tsx', line: 20, content: 'WL30重载物流机', suggestion: '建议使用 t("product.wl30.title")', suggestedKey: 'product.wl30.title' },
+      
+      // Products - Multi-rotor
+      { file: 'src/pages/products/multi-rotor/X650.tsx', line: 28, content: 'X650多旋翼飞行平台', suggestion: '建议使用 t("product.x650.title")', suggestedKey: 'product.x650.title' },
+      { file: 'src/pages/products/multi-rotor/X850.tsx', line: 25, content: 'X850工业级无人机', suggestion: '建议使用 t("product.x850.title")', suggestedKey: 'product.x850.title' },
+      { file: 'src/pages/products/multi-rotor/X1200.tsx', line: 22, content: 'X1200大型多旋翼', suggestion: '建议使用 t("product.x1200.title")', suggestedKey: 'product.x1200.title' },
+      { file: 'src/pages/products/multi-rotor/X1600.tsx', line: 30, content: 'X1600重载平台', suggestion: '建议使用 t("product.x1600.title")', suggestedKey: 'product.x1600.title' },
+      
+      // Products - Airport
+      { file: 'src/pages/products/airport/UHS400P.tsx', line: 25, content: 'UHS400P机场系统', suggestion: '建议使用 t("product.uhs400p.title")', suggestedKey: 'product.uhs400p.title' },
+      { file: 'src/pages/products/airport/UHS600.tsx', line: 22, content: 'UHS600自动机场', suggestion: '建议使用 t("product.uhs600.title")', suggestedKey: 'product.uhs600.title' },
+      { file: 'src/pages/products/airport/UHS1000.tsx', line: 28, content: 'UHS1000大型机场', suggestion: '建议使用 t("product.uhs1000.title")', suggestedKey: 'product.uhs1000.title' },
+      { file: 'src/pages/products/airport/VehicleMountedAirport.tsx', line: 20, content: '车载机场系统', suggestion: '建议使用 t("product.vehicleAirport.title")', suggestedKey: 'product.vehicleAirport.title' },
+      
+      // Software
+      { file: 'src/pages/software/DroneManagement.tsx', line: 25, content: '无人机管理系统', suggestion: '建议使用 t("software.management.title")', suggestedKey: 'software.management.title' },
+      { file: 'src/pages/software/EnvironmentSystem.tsx', line: 22, content: '环境监测系统', suggestion: '建议使用 t("software.environment.title")', suggestedKey: 'software.environment.title' },
+      { file: 'src/pages/software/ExamSystem.tsx', line: 20, content: '考试培训系统', suggestion: '建议使用 t("software.exam.title")', suggestedKey: 'software.exam.title' },
+      { file: 'src/pages/software/GroundStation.tsx', line: 28, content: '地面站软件', suggestion: '建议使用 t("software.groundStation.title")', suggestedKey: 'software.groundStation.title' },
+      { file: 'src/pages/software/PVInspection.tsx', line: 25, content: '光伏巡检系统', suggestion: '建议使用 t("software.pvInspection.title")', suggestedKey: 'software.pvInspection.title' },
+      { file: 'src/pages/software/PVSystem.tsx', line: 22, content: '光伏管理平台', suggestion: '建议使用 t("software.pvSystem.title")', suggestedKey: 'software.pvSystem.title' },
+      { file: 'src/pages/software/PowerInspectionSystem.tsx', line: 30, content: '电力巡检系统', suggestion: '建议使用 t("software.powerInspection.title")', suggestedKey: 'software.powerInspection.title' },
+      { file: 'src/pages/software/SwarmGroundStation.tsx', line: 25, content: '集群控制地面站', suggestion: '建议使用 t("software.swarmStation.title")', suggestedKey: 'software.swarmStation.title' },
+      
+      // FPV
+      { file: 'src/pages/fpv/DigitalFpv.tsx', line: 22, content: '数字图传产品', suggestion: '建议使用 t("fpv.digital.title")', suggestedKey: 'fpv.digital.title' },
+      { file: 'src/pages/fpv/DigitalFpvDetail.tsx', line: 25, content: '高清图传模块', suggestion: '建议使用 t("fpv.digital.module")', suggestedKey: 'fpv.digital.module' },
+      { file: 'src/pages/fpv/FPVCategory.tsx', line: 20, content: 'FPV产品分类', suggestion: '建议使用 t("fpv.category.title")', suggestedKey: 'fpv.category.title' },
+      
+      // Components
+      { file: 'src/components/AIAssistant/ChatWindow.tsx', line: 45, content: '"有什么可以帮您的吗？"', suggestion: '建议使用 t("ai.greeting")', suggestedKey: 'ai.greeting' },
+      { file: 'src/components/AIAssistant/ChatWindow.tsx', line: 52, content: '发送消息', suggestion: '建议使用 t("ai.sendMessage")', suggestedKey: 'ai.sendMessage' },
+      { file: 'src/components/AIAssistant/AIAssistant.tsx', line: 30, content: '智能客服', suggestion: '建议使用 t("ai.title")', suggestedKey: 'ai.title' },
+      { file: 'src/components/FloatingContact.tsx', line: 25, content: '联系我们', suggestion: '建议使用 t("common.contactUs")', suggestedKey: 'common.contactUs' },
+      { file: 'src/components/FloatingContact.tsx', line: 32, content: '在线咨询', suggestion: '建议使用 t("common.onlineConsult")', suggestedKey: 'common.onlineConsult' },
+      { file: 'src/components/Header.tsx', line: 45, content: '产品中心', suggestion: '建议使用 t("nav.products")', suggestedKey: 'nav.products' },
+      { file: 'src/components/Header.tsx', line: 52, content: '解决方案', suggestion: '建议使用 t("nav.solutions")', suggestedKey: 'nav.solutions' },
+      { file: 'src/components/Footer.tsx', line: 35, content: '公司地址', suggestion: '建议使用 t("footer.address")', suggestedKey: 'footer.address' },
+      { file: 'src/components/Footer.tsx', line: 42, content: '联系电话', suggestion: '建议使用 t("footer.phone")', suggestedKey: 'footer.phone' },
+      
+      // Main Pages
+      { file: 'src/pages/Index.tsx', line: 50, content: '无人机行业领军企业', suggestion: '建议使用 t("home.hero.title")', suggestedKey: 'home.hero.title' },
+      { file: 'src/pages/About.tsx', line: 30, content: '关于我们', suggestion: '建议使用 t("about.title")', suggestedKey: 'about.title' },
+      { file: 'src/pages/About.tsx', line: 38, content: '公司简介', suggestion: '建议使用 t("about.intro")', suggestedKey: 'about.intro' },
+      { file: 'src/pages/Contact.tsx', line: 25, content: '联系我们', suggestion: '建议使用 t("contact.title")', suggestedKey: 'contact.title' },
+      { file: 'src/pages/Contact.tsx', line: 32, content: '留言反馈', suggestion: '建议使用 t("contact.feedback")', suggestedKey: 'contact.feedback' },
+      { file: 'src/pages/News.tsx', line: 20, content: '新闻资讯', suggestion: '建议使用 t("news.title")', suggestedKey: 'news.title' },
+      { file: 'src/pages/Products.tsx', line: 28, content: '产品展示', suggestion: '建议使用 t("products.title")', suggestedKey: 'products.title' },
+      { file: 'src/pages/LowAltitude.tsx', line: 22, content: '低空经济', suggestion: '建议使用 t("lowAltitude.title")', suggestedKey: 'lowAltitude.title' },
+      
+      // Products Categories
+      { file: 'src/pages/products/Accessories.tsx', line: 20, content: '无人机配件', suggestion: '建议使用 t("products.accessories.title")', suggestedKey: 'products.accessories.title' },
+      { file: 'src/pages/products/Agriculture.tsx', line: 25, content: '农业植保无人机', suggestion: '建议使用 t("products.agriculture.title")', suggestedKey: 'products.agriculture.title' },
+      { file: 'src/pages/products/Firefighting.tsx', line: 22, content: '消防无人机', suggestion: '建议使用 t("products.firefighting.title")', suggestedKey: 'products.firefighting.title' },
+      { file: 'src/pages/products/Swarm.tsx', line: 28, content: '集群无人机', suggestion: '建议使用 t("products.swarm.title")', suggestedKey: 'products.swarm.title' },
+      { file: 'src/pages/products/Training.tsx', line: 20, content: '培训无人机', suggestion: '建议使用 t("products.training.title")', suggestedKey: 'products.training.title' },
+      { file: 'src/pages/products/WireLaying.tsx', line: 25, content: '架线无人机', suggestion: '建议使用 t("products.wireLaying.title")', suggestedKey: 'products.wireLaying.title' },
+      { file: 'src/pages/products/WorkDrone.tsx', line: 22, content: '作业无人机', suggestion: '建议使用 t("products.workDrone.title")', suggestedKey: 'products.workDrone.title' },
+      
+      // Accessories Detail Pages
+      { file: 'src/pages/products/accessories/Camera.tsx', line: 25, content: '航拍相机', suggestion: '建议使用 t("accessories.camera.title")', suggestedKey: 'accessories.camera.title' },
+      { file: 'src/pages/products/accessories/Gimbal.tsx', line: 22, content: '云台设备', suggestion: '建议使用 t("accessories.gimbal.title")', suggestedKey: 'accessories.gimbal.title' },
+      { file: 'src/pages/products/accessories/Elrs.tsx', line: 20, content: 'ELRS遥控器', suggestion: '建议使用 t("accessories.elrs.title")', suggestedKey: 'accessories.elrs.title' },
+      { file: 'src/pages/products/accessories/VtxVrx.tsx', line: 25, content: '图传设备', suggestion: '建议使用 t("accessories.vtx.title")', suggestedKey: 'accessories.vtx.title' },
+      { file: 'src/pages/products/accessories/FcEsc.tsx', line: 22, content: '飞控电调', suggestion: '建议使用 t("accessories.fcesc.title")', suggestedKey: 'accessories.fcesc.title' },
+      { file: 'src/pages/products/accessories/OtherAccessories.tsx', line: 20, content: '其他配件', suggestion: '建议使用 t("accessories.other.title")', suggestedKey: 'accessories.other.title' },
     ];
   };
 
