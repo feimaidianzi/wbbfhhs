@@ -19,3 +19,6 @@ timeout = 600
 [functions.translate-content]
 verify_jwt = false
 timeout = 120
+
+[functions.submit-sitemap]
+verify_jwt = false

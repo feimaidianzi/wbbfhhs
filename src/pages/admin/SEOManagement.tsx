@@ -1,10 +1,12 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { ScrollArea } from '@/components/ui/scroll-area';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
 import { 
   ArrowLeft, 
   Globe, 
@@ -13,8 +15,16 @@ import {
   Check, 
   FileText, 
   Map,
-  ExternalLink,
-  Info
+  Info,
+  FolderDown,
+  Send,
+  Loader2,
+  CheckCircle,
+  XCircle,
+  AlertCircle,
+  RefreshCw,
+  Settings,
+  Key
 } from 'lucide-react';
 import { toast } from 'sonner';
 import { SUPPORTED_LANGUAGES, LanguageCode } from '@/i18n/languages';
@@ -27,12 +37,71 @@ import {
   getAllSitemaps
 } from '@/utils/sitemapGenerator';
 import { getDomainForLanguage, getHtmlLang } from '@/utils/seoConfig';
-import { FolderDown } from 'lucide-react';
+import { supabase } from '@/integrations/supabase/client';
+
+interface SubmissionResult {
+  lang: string;
+  url: string;
+  google: { success: boolean; message: string };
+  baidu: { success: boolean; message: string };
+  bing: { success: boolean; message: string };
+}
+
+interface SubmissionState {
+  isGenerating: boolean;
+  isSubmitting: boolean;
+  isPinging: boolean;
+  lastGenerated: string | null;
+  lastSubmitted: string | null;
+  results: SubmissionResult[];
+  error: string | null;
+}
 
 const SEOManagement = () => {
   const navigate = useNavigate();
   const [selectedLang, setSelectedLang] = useState<LanguageCode>('zh');
   const [copiedItem, setCopiedItem] = useState<string | null>(null);
+  
+  // API Keys state
+  const [googleToken, setGoogleToken] = useState('');
+  const [baiduToken, setBaiduToken] = useState('');
+  const [bingApiKey, setBingApiKey] = useState('');
+  const [showApiKeys, setShowApiKeys] = useState(false);
+  
+  // Submission state
+  const [submissionState, setSubmissionState] = useState<SubmissionState>({
+    isGenerating: false,
+    isSubmitting: false,
+    isPinging: false,
+    lastGenerated: null,
+    lastSubmitted: null,
+    results: [],
+    error: null,
+  });
+
+  // Load last submission data
+  useEffect(() => {
+    const loadLastSubmission = async () => {
+      const { data } = await supabase
+        .from('system_settings')
+        .select('value')
+        .eq('key', 'last_sitemap_submission')
+        .single();
+      
+      if (data?.value) {
+        try {
+          const parsed = JSON.parse(data.value);
+          setSubmissionState(prev => ({
+            ...prev,
+            lastSubmitted: parsed.submitted_at,
+          }));
+        } catch (e) {
+          console.error('Failed to parse last submission data');
+        }
+      }
+    };
+    loadLastSubmission();
+  }, []);
 
   const copyToClipboard = async (text: string, item: string) => {
     await navigator.clipboard.writeText(text);
@@ -53,8 +122,6 @@ const SEOManagement = () => {
 
   const handleDownloadAllFiles = () => {
     const allFiles = getAllSitemaps();
-    
-    // Create and trigger downloads for each file
     Object.entries(allFiles).forEach(([filename, content], index) => {
       setTimeout(() => {
         const blob = new Blob([content], { 
@@ -66,10 +133,103 @@ const SEOManagement = () => {
         a.download = filename;
         a.click();
         URL.revokeObjectURL(url);
-      }, index * 100); // Stagger downloads to prevent browser blocking
+      }, index * 100);
     });
+    toast.success(`开始下载 ${Object.keys(allFiles).length} 个文件`);
+  };
+
+  // Generate sitemaps via edge function
+  const handleGenerate = async () => {
+    setSubmissionState(prev => ({ ...prev, isGenerating: true, error: null }));
     
-    toast.success(`开始下载 ${Object.keys(allFiles).length} 个文件（包含所有语言的sitemap和robots.txt）`);
+    try {
+      const { data, error } = await supabase.functions.invoke('submit-sitemap', {
+        body: { action: 'generate' }
+      });
+
+      if (error) throw error;
+
+      setSubmissionState(prev => ({
+        ...prev,
+        isGenerating: false,
+        lastGenerated: new Date().toISOString(),
+      }));
+
+      toast.success(`成功生成 ${data.metadata?.languages?.length || 14} 个语言的Sitemap文件`);
+    } catch (err) {
+      const errorMessage = err instanceof Error ? err.message : '生成失败';
+      setSubmissionState(prev => ({ ...prev, isGenerating: false, error: errorMessage }));
+      toast.error(`生成失败: ${errorMessage}`);
+    }
+  };
+
+  // Submit sitemaps to search engines
+  const handleSubmit = async () => {
+    setSubmissionState(prev => ({ ...prev, isSubmitting: true, error: null, results: [] }));
+    
+    try {
+      const { data, error } = await supabase.functions.invoke('submit-sitemap', {
+        body: { 
+          action: 'submit',
+          googleToken: googleToken || undefined,
+          baiduToken: baiduToken || undefined,
+          bingApiKey: bingApiKey || undefined,
+        }
+      });
+
+      if (error) throw error;
+
+      // Parse results
+      const results: SubmissionResult[] = Object.entries(data.results || {}).map(([lang, result]: [string, any]) => ({
+        lang,
+        url: result.url,
+        google: result.google || { success: false, message: 'Not attempted' },
+        baidu: result.baidu || { success: false, message: 'Not attempted' },
+        bing: result.bing || { success: false, message: 'Not attempted' },
+      }));
+
+      setSubmissionState(prev => ({
+        ...prev,
+        isSubmitting: false,
+        lastSubmitted: new Date().toISOString(),
+        results,
+      }));
+
+      const successCount = results.filter(r => r.google.success || r.baidu.success || r.bing.success).length;
+      toast.success(`提交完成: ${successCount}/${results.length} 个语言版本成功提交`);
+    } catch (err) {
+      const errorMessage = err instanceof Error ? err.message : '提交失败';
+      setSubmissionState(prev => ({ ...prev, isSubmitting: false, error: errorMessage }));
+      toast.error(`提交失败: ${errorMessage}`);
+    }
+  };
+
+  // Ping search engines
+  const handlePing = async () => {
+    setSubmissionState(prev => ({ ...prev, isPinging: true, error: null }));
+    
+    try {
+      const { data, error } = await supabase.functions.invoke('submit-sitemap', {
+        body: { action: 'ping' }
+      });
+
+      if (error) throw error;
+
+      setSubmissionState(prev => ({ ...prev, isPinging: false }));
+      toast.success('已向搜索引擎发送更新通知');
+    } catch (err) {
+      const errorMessage = err instanceof Error ? err.message : 'Ping失败';
+      setSubmissionState(prev => ({ ...prev, isPinging: false, error: errorMessage }));
+      toast.error(`Ping失败: ${errorMessage}`);
+    }
+  };
+
+  const StatusIcon = ({ success }: { success: boolean }) => {
+    return success ? (
+      <CheckCircle className="h-4 w-4 text-green-500" />
+    ) : (
+      <XCircle className="h-4 w-4 text-red-500" />
+    );
   };
 
   return (
@@ -83,7 +243,7 @@ const SEOManagement = () => {
             </Button>
             <div>
               <h1 className="text-2xl font-bold">多语言SEO管理</h1>
-              <p className="text-gray-600">子域名配置、Sitemap生成和hreflang标签</p>
+              <p className="text-gray-600">子域名配置、Sitemap生成和自动提交</p>
             </div>
           </div>
           <div className="flex gap-2">
@@ -97,6 +257,198 @@ const SEOManagement = () => {
             </Button>
           </div>
         </div>
+
+        {/* Auto Submission Card */}
+        <Card className="mb-6">
+          <CardHeader>
+            <CardTitle className="flex items-center gap-2">
+              <Send className="h-5 w-5" />
+              自动化Sitemap生成与提交
+            </CardTitle>
+            <CardDescription>
+              一键生成所有语言版本的Sitemap，并自动提交到Google、百度、Bing搜索引擎
+            </CardDescription>
+          </CardHeader>
+          <CardContent className="space-y-6">
+            {/* API Keys Configuration */}
+            <div className="space-y-4">
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-2">
+                  <Key className="h-4 w-4 text-muted-foreground" />
+                  <span className="font-medium">API密钥配置</span>
+                  <Badge variant="outline" className="text-xs">可选</Badge>
+                </div>
+                <Button 
+                  variant="ghost" 
+                  size="sm"
+                  onClick={() => setShowApiKeys(!showApiKeys)}
+                >
+                  <Settings className="h-4 w-4 mr-1" />
+                  {showApiKeys ? '隐藏配置' : '显示配置'}
+                </Button>
+              </div>
+              
+              {showApiKeys && (
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-4 p-4 bg-muted/50 rounded-lg">
+                  <div className="space-y-2">
+                    <Label htmlFor="googleToken" className="text-sm">Google OAuth Token</Label>
+                    <Input
+                      id="googleToken"
+                      type="password"
+                      placeholder="Google API Token"
+                      value={googleToken}
+                      onChange={(e) => setGoogleToken(e.target.value)}
+                    />
+                    <p className="text-xs text-muted-foreground">
+                      从 Google Cloud Console 获取
+                    </p>
+                  </div>
+                  <div className="space-y-2">
+                    <Label htmlFor="baiduToken" className="text-sm">百度站长Token</Label>
+                    <Input
+                      id="baiduToken"
+                      type="password"
+                      placeholder="百度推送Token"
+                      value={baiduToken}
+                      onChange={(e) => setBaiduToken(e.target.value)}
+                    />
+                    <p className="text-xs text-muted-foreground">
+                      从百度站长平台获取
+                    </p>
+                  </div>
+                  <div className="space-y-2">
+                    <Label htmlFor="bingApiKey" className="text-sm">Bing API Key</Label>
+                    <Input
+                      id="bingApiKey"
+                      type="password"
+                      placeholder="Bing Webmaster API Key"
+                      value={bingApiKey}
+                      onChange={(e) => setBingApiKey(e.target.value)}
+                    />
+                    <p className="text-xs text-muted-foreground">
+                      从 Bing Webmaster Tools 获取
+                    </p>
+                  </div>
+                </div>
+              )}
+              
+              <div className="p-3 bg-amber-50 rounded-lg flex items-start gap-2">
+                <AlertCircle className="h-4 w-4 text-amber-600 flex-shrink-0 mt-0.5" />
+                <p className="text-sm text-amber-800">
+                  不配置API密钥时，系统将使用Ping方式通知搜索引擎，并提供手动提交链接。配置API密钥后可实现完全自动化提交。
+                </p>
+              </div>
+            </div>
+
+            {/* Action Buttons */}
+            <div className="flex flex-wrap gap-3">
+              <Button 
+                onClick={handleGenerate}
+                disabled={submissionState.isGenerating}
+                variant="outline"
+              >
+                {submissionState.isGenerating ? (
+                  <Loader2 className="h-4 w-4 mr-2 animate-spin" />
+                ) : (
+                  <FileText className="h-4 w-4 mr-2" />
+                )}
+                生成Sitemap
+              </Button>
+              
+              <Button 
+                onClick={handleSubmit}
+                disabled={submissionState.isSubmitting}
+                className="bg-primary"
+              >
+                {submissionState.isSubmitting ? (
+                  <Loader2 className="h-4 w-4 mr-2 animate-spin" />
+                ) : (
+                  <Send className="h-4 w-4 mr-2" />
+                )}
+                提交到搜索引擎
+              </Button>
+              
+              <Button 
+                onClick={handlePing}
+                disabled={submissionState.isPinging}
+                variant="secondary"
+              >
+                {submissionState.isPinging ? (
+                  <Loader2 className="h-4 w-4 mr-2 animate-spin" />
+                ) : (
+                  <RefreshCw className="h-4 w-4 mr-2" />
+                )}
+                Ping更新通知
+              </Button>
+            </div>
+
+            {/* Status Info */}
+            <div className="flex flex-wrap gap-4 text-sm text-muted-foreground">
+              {submissionState.lastGenerated && (
+                <span>最后生成: {new Date(submissionState.lastGenerated).toLocaleString('zh-CN')}</span>
+              )}
+              {submissionState.lastSubmitted && (
+                <span>最后提交: {new Date(submissionState.lastSubmitted).toLocaleString('zh-CN')}</span>
+              )}
+            </div>
+
+            {/* Error Display */}
+            {submissionState.error && (
+              <div className="p-3 bg-red-50 rounded-lg flex items-start gap-2">
+                <XCircle className="h-4 w-4 text-red-600 flex-shrink-0 mt-0.5" />
+                <p className="text-sm text-red-800">{submissionState.error}</p>
+              </div>
+            )}
+
+            {/* Results Display */}
+            {submissionState.results.length > 0 && (
+              <div className="space-y-3">
+                <h4 className="font-medium">提交结果</h4>
+                <ScrollArea className="h-[300px] border rounded-lg">
+                  <div className="p-4 space-y-3">
+                    {submissionState.results.map((result) => (
+                      <div 
+                        key={result.lang}
+                        className="p-3 bg-muted/30 rounded-lg space-y-2"
+                      >
+                        <div className="flex items-center justify-between">
+                          <div className="flex items-center gap-2">
+                            <Badge variant="outline">{result.lang.toUpperCase()}</Badge>
+                            <code className="text-xs text-muted-foreground">{result.url}</code>
+                          </div>
+                        </div>
+                        <div className="grid grid-cols-3 gap-2 text-sm">
+                          <div className="flex items-center gap-2">
+                            <StatusIcon success={result.google.success} />
+                            <span>Google</span>
+                          </div>
+                          <div className="flex items-center gap-2">
+                            <StatusIcon success={result.baidu.success} />
+                            <span>百度</span>
+                          </div>
+                          <div className="flex items-center gap-2">
+                            <StatusIcon success={result.bing.success} />
+                            <span>Bing</span>
+                          </div>
+                        </div>
+                        {(!result.google.success || !result.bing.success) && (
+                          <div className="text-xs text-muted-foreground space-y-1">
+                            {!result.google.success && result.google.message && (
+                              <p>Google: {result.google.message}</p>
+                            )}
+                            {!result.bing.success && result.bing.message && (
+                              <p>Bing: {result.bing.message}</p>
+                            )}
+                          </div>
+                        )}
+                      </div>
+                    ))}
+                  </div>
+                </ScrollArea>
+              </div>
+            )}
+          </CardContent>
+        </Card>
 
         {/* Subdomain Configuration */}
         <Card className="mb-6">
@@ -346,11 +698,11 @@ const SEOManagement = () => {
             </div>
             <div className="flex gap-3">
               <Badge variant="outline" className="h-6 w-6 rounded-full flex items-center justify-center flex-shrink-0">4</Badge>
-              <p><strong>提交到搜索引擎</strong>：在Google Search Console和百度站长工具中提交各语言版本的sitemap</p>
+              <p><strong>配置API密钥</strong>：在上方填入Google/百度/Bing的API密钥实现自动提交</p>
             </div>
             <div className="flex gap-3">
               <Badge variant="outline" className="h-6 w-6 rounded-full flex items-center justify-center flex-shrink-0">5</Badge>
-              <p><strong>使用MultiLanguageSEO</strong>：在所有页面中使用MultiLanguageSEO组件替代原有SEO组件</p>
+              <p><strong>一键提交</strong>：点击"提交到搜索引擎"按钮自动提交所有语言版本的Sitemap</p>
             </div>
           </CardContent>
         </Card>
