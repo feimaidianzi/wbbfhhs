@@ -1,37 +1,18 @@
 import { useLanguage } from "@/contexts/LanguageContext";
 import { motion } from "framer-motion";
-import { Shield, Award, CheckCircle2 } from "lucide-react";
-
-const getCertificationsData = (language: 'zh' | 'en') => [
-  { 
-    name: "ISO9001", 
-    description: language === 'zh' ? "质量管理体系认证" : "Quality Management",
-  },
-  { 
-    name: "ISO14001", 
-    description: language === 'zh' ? "环境管理体系认证" : "Environmental Management",
-  },
-  { 
-    name: "CE", 
-    description: language === 'zh' ? "欧盟CE认证" : "EU CE Certification",
-  },
-  { 
-    name: "FCC", 
-    description: language === 'zh' ? "美国FCC认证" : "US FCC Certification",
-  },
-  { 
-    name: "CCC", 
-    description: language === 'zh' ? "中国强制认证" : "China CCC Certification",
-  },
-  { 
-    name: "CAAC", 
-    description: language === 'zh' ? "民航局型号合格证" : "CAAC Type Certificate",
-  },
-];
+import { Shield, CheckCircle2 } from "lucide-react";
 
 export const CertificationsSection = () => {
-  const { baseLang: language } = useLanguage();
-  const certifications = getCertificationsData(language);
+  const { t } = useLanguage();
+
+  const certifications = [
+    { name: t('certsSection.iso9001'), description: t('certsSection.iso9001.desc') },
+    { name: t('certsSection.iso14001'), description: t('certsSection.iso14001.desc') },
+    { name: t('certsSection.ce'), description: t('certsSection.ce.desc') },
+    { name: t('certsSection.fcc'), description: t('certsSection.fcc.desc') },
+    { name: t('certsSection.ccc'), description: t('certsSection.ccc.desc') },
+    { name: t('certsSection.caac'), description: t('certsSection.caac.desc') },
+  ];
 
   return (
     <section className="py-16 md:py-20 bg-background border-t border-border/50">
@@ -48,16 +29,14 @@ export const CertificationsSection = () => {
             <div className="inline-flex items-center gap-2 px-3 py-1.5 bg-accent/10 rounded-full mb-4">
               <Shield className="w-4 h-4 text-accent" />
               <span className="text-sm font-medium text-accent">
-                {language === 'zh' ? "品质保障" : "Quality Assurance"}
+                {t('certsSection.badge')}
               </span>
             </div>
             <h3 className="text-2xl md:text-3xl font-bold text-foreground mb-4">
-              {language === 'zh' ? "资质认证" : "Certifications"}
+              {t('certsSection.title')}
             </h3>
             <p className="text-muted-foreground">
-              {language === 'zh' 
-                ? "通过多项国际国内权威认证，品质值得信赖"
-                : "Certified by multiple international and domestic authorities, quality you can trust"}
+              {t('certsSection.subtitle')}
             </p>
           </motion.div>
 

@@ -3,52 +3,6 @@ import { useLanguage } from "@/contexts/LanguageContext";
 import { motion, useInView } from "framer-motion";
 import { useRef, useEffect, useState } from "react";
 
-const getStatsData = (language: 'zh' | 'en') => [
-  {
-    value: 15,
-    suffix: "+",
-    label: language === 'zh' ? "年技术沉淀" : "Years Technology",
-    icon: Target
-  }, {
-    value: 200,
-    suffix: "+",
-    label: language === 'zh' ? "核心专利" : "Core Patents",
-    icon: Award
-  }, {
-    value: 500,
-    suffix: "+",
-    label: language === 'zh' ? "企业客户" : "Enterprise Clients",
-    icon: Users
-  }, {
-    value: 30,
-    suffix: "+",
-    label: language === 'zh' ? "省市覆盖" : "Provinces Covered",
-    icon: Globe
-  }
-];
-
-const getAdvantagesData = (language: 'zh' | 'en') => [
-  {
-    icon: Zap,
-    title: language === 'zh' ? "核心技术自主" : "Independent Core Tech",
-    description: language === 'zh' 
-      ? "飞控算法、图传协议、云台控制等核心技术完全自主研发，不受卡脖子"
-      : "Flight control algorithms, video protocols, gimbal control—all independently developed"
-  }, {
-    icon: Shield,
-    title: language === 'zh' ? "航空级品质" : "Aviation-grade Quality",
-    description: language === 'zh' 
-      ? "元器件选型严格，工艺标准对标军工，每批次全检出厂"
-      : "Strict component selection, military-grade processes, 100% inspection before shipping"
-  }, {
-    icon: TrendingUp,
-    title: language === 'zh' ? "实战经验丰富" : "Rich Practical Experience",
-    description: language === 'zh' 
-      ? "电力巡检、应急救援、物流配送等场景大规模验证，方案成熟可靠"
-      : "Large-scale validation in power inspection, emergency rescue, logistics—mature and reliable solutions"
-  }
-];
-
 const containerVariants = {
   hidden: { opacity: 0 },
   visible: {
@@ -139,9 +93,32 @@ const AnimatedCounter = ({ value, suffix }: { value: number; suffix: string }) =
 };
 
 export const WhyChooseUsSection = () => {
-  const { baseLang: language } = useLanguage();
-  const stats = getStatsData(language);
-  const advantages = getAdvantagesData(language);
+  const { t } = useLanguage();
+
+  const stats = [
+    { value: 15, suffix: "+", label: t('whyChoose.stat1.label'), icon: Target },
+    { value: 200, suffix: "+", label: t('whyChoose.stat2.label'), icon: Award },
+    { value: 500, suffix: "+", label: t('whyChoose.stat3.label'), icon: Users },
+    { value: 30, suffix: "+", label: t('whyChoose.stat4.label'), icon: Globe },
+  ];
+
+  const advantages = [
+    {
+      icon: Zap,
+      title: t('whyChoose.advantage1.title'),
+      description: t('whyChoose.advantage1.desc'),
+    },
+    {
+      icon: Shield,
+      title: t('whyChoose.advantage2.title'),
+      description: t('whyChoose.advantage2.desc'),
+    },
+    {
+      icon: TrendingUp,
+      title: t('whyChoose.advantage3.title'),
+      description: t('whyChoose.advantage3.desc'),
+    },
+  ];
 
   return (
     <section className="py-12 sm:py-16 md:py-20 lg:py-28 bg-background relative overflow-hidden">
@@ -178,17 +155,15 @@ export const WhyChooseUsSection = () => {
           <div className="inline-flex items-center gap-2 sm:gap-3 mb-3 sm:mb-4">
             <div className="w-6 sm:w-8 h-px bg-primary" />
             <span className="text-primary text-xs sm:text-sm tracking-widest uppercase font-medium">
-              {language === 'zh' ? '核心优势' : 'CORE ADVANTAGES'}
+              {t('whyChoose.badge')}
             </span>
             <div className="w-6 sm:w-8 h-px bg-primary" />
           </div>
           <h2 className="text-2xl sm:text-3xl md:text-4xl font-black text-foreground mb-3 sm:mb-4">
-            {language === 'zh' ? "为什么信赖长凌" : "Why Trust CANI"}
+            {t('whyChoose.title')}
           </h2>
           <p className="text-muted-foreground text-sm sm:text-base md:text-lg max-w-2xl mx-auto px-2">
-            {language === 'zh' 
-              ? "15年专注无人机核心技术，从实验室到生产线，从研发到交付，每一步都精益求精"
-              : "15 years focused on core drone technology. From lab to production line, from R&D to delivery—excellence at every step"}
+            {t('whyChoose.subtitle')}
           </p>
         </motion.div>
 

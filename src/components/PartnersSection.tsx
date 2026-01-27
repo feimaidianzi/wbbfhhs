@@ -2,38 +2,37 @@ import { Building2, GraduationCap, Landmark, Factory, Zap, Rocket, FlaskConical,
 import { useLanguage } from "@/contexts/LanguageContext";
 import { motion } from "framer-motion";
 
-const getPartnersData = (language: 'zh' | 'en') => [
-  { name: language === 'zh' ? "中船重工" : "CSIC", icon: Factory },
-  { name: language === 'zh' ? "中国铁塔" : "China Tower", icon: Building2 },
-  { name: language === 'zh' ? "湖北省民政厅" : "Hubei Civil Affairs", icon: Landmark },
-  { name: language === 'zh' ? "青海大学" : "Qinghai University", icon: GraduationCap },
-  { name: language === 'zh' ? "山东大学" : "Shandong University", icon: GraduationCap },
-  { name: language === 'zh' ? "华中科技大学" : "HUST", icon: GraduationCap },
-  { name: language === 'zh' ? "清华大学" : "Tsinghua University", icon: GraduationCap },
-  { name: language === 'zh' ? "中国科学院" : "Chinese Academy of Sciences", icon: FlaskConical },
-  { name: language === 'zh' ? "中国工程物理研究院" : "CAEP", icon: FlaskConical },
-  { name: language === 'zh' ? "湖北省电力公司" : "Hubei Power", icon: Zap },
-  { name: language === 'zh' ? "中国运载火箭技术研究院" : "CALT", icon: Rocket },
-  { name: language === 'zh' ? "合邦电力" : "Hebang Power", icon: Zap },
-  { name: language === 'zh' ? "国家管网" : "PipeChina", icon: Factory },
-  { name: language === 'zh' ? "中国商飞" : "COMAC", icon: Rocket },
-  { name: language === 'zh' ? "航空工业光电所" : "AVIC Optronics", icon: FlaskConical },
-  { name: language === 'zh' ? "中国航天科工集团" : "CASIC", icon: Rocket },
-  { name: language === 'zh' ? "武汉大学" : "Wuhan University", icon: GraduationCap },
-  { name: language === 'zh' ? "国家电投" : "SPIC", icon: Zap },
-  { name: language === 'zh' ? "中国石化" : "Sinopec", icon: Fuel },
-  { name: language === 'zh' ? "中国石油" : "PetroChina", icon: Fuel },
-];
-
 export const PartnersSection = () => {
-  const { baseLang: language } = useLanguage();
-  const partners = getPartnersData(language);
+  const { t } = useLanguage();
+
+  const partners = [
+    { name: t('partnersSection.partner.csic'), icon: Factory },
+    { name: t('partnersSection.partner.chinaTower'), icon: Building2 },
+    { name: t('partnersSection.partner.hubeiCivil'), icon: Landmark },
+    { name: t('partnersSection.partner.qinghaiUni'), icon: GraduationCap },
+    { name: t('partnersSection.partner.shandongUni'), icon: GraduationCap },
+    { name: t('partnersSection.partner.hust'), icon: GraduationCap },
+    { name: t('partnersSection.partner.tsinghua'), icon: GraduationCap },
+    { name: t('partnersSection.partner.cas'), icon: FlaskConical },
+    { name: t('partnersSection.partner.caep'), icon: FlaskConical },
+    { name: t('partnersSection.partner.hubeiPower'), icon: Zap },
+    { name: t('partnersSection.partner.calt'), icon: Rocket },
+    { name: t('partnersSection.partner.hebangPower'), icon: Zap },
+    { name: t('partnersSection.partner.pipeChina'), icon: Factory },
+    { name: t('partnersSection.partner.comac'), icon: Rocket },
+    { name: t('partnersSection.partner.avicOptronics'), icon: FlaskConical },
+    { name: t('partnersSection.partner.casic'), icon: Rocket },
+    { name: t('partnersSection.partner.wuhanUni'), icon: GraduationCap },
+    { name: t('partnersSection.partner.spic'), icon: Zap },
+    { name: t('partnersSection.partner.sinopec'), icon: Fuel },
+    { name: t('partnersSection.partner.petroChina'), icon: Fuel },
+  ];
 
   const stats = [
-    { value: "100+", label: language === 'zh' ? "合作企业" : "Partner Enterprises" },
-    { value: "50+", label: language === 'zh' ? "高校院所" : "Universities" },
-    { value: "30+", label: language === 'zh' ? "政府单位" : "Government Agencies" },
-    { value: language === 'zh' ? "15年" : "15 Yrs", label: language === 'zh' ? "行业经验" : "Industry Experience" },
+    { value: t('partnersSection.stat1.value'), label: t('partnersSection.stat1.label') },
+    { value: t('partnersSection.stat2.value'), label: t('partnersSection.stat2.label') },
+    { value: t('partnersSection.stat3.value'), label: t('partnersSection.stat3.label') },
+    { value: t('partnersSection.stat4.value'), label: t('partnersSection.stat4.label') },
   ];
 
   return (
@@ -48,15 +47,13 @@ export const PartnersSection = () => {
           className="text-center mb-16"
         >
           <p className="text-accent font-medium mb-2">
-            {language === 'zh' ? "值得信赖" : "Trusted By"}
+            {t('partnersSection.badge')}
           </p>
           <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
-            {language === 'zh' ? "合作伙伴" : "Our Partners"}
+            {t('partnersSection.title')}
           </h2>
           <p className="text-muted-foreground max-w-2xl mx-auto">
-            {language === 'zh' 
-              ? "与众多知名企业及研究机构建立长期战略合作关系"
-              : "Long-term strategic partnerships with leading enterprises and research institutions"}
+            {t('partnersSection.subtitle')}
           </p>
         </motion.div>
 

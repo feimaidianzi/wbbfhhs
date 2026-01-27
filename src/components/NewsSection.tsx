@@ -1,54 +1,32 @@
-import { ArrowRight, Calendar, ArrowUpRight } from "lucide-react";
+import { ArrowRight, ArrowUpRight } from "lucide-react";
 import { Link } from "react-router-dom";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { motion } from "framer-motion";
 
 export const NewsSection = () => {
-  const { language } = useLanguage();
+  const { t } = useLanguage();
 
-  const news = language === 'zh' ? [
+  const news = [
     {
-      title: "飞迈科技发布新一代系留无人机系统",
-      date: "2025-12-23",
-      excerpt: "新系统可实现24小时不间断作业，升空高度达350米...",
+      title: t('news.sample1.title'),
+      date: t('news.sample1.date'),
+      excerpt: t('news.sample1.excerpt'),
       image: "https://images.unsplash.com/photo-1473968512647-3e447244af8f?w=800&q=80",
-      category: "产品发布"
+      category: t('news.sample1.category')
     },
     {
-      title: "工业无人机定制服务全面升级",
-      date: "2025-12-15",
-      excerpt: "飞迈科技推出全新定制服务体系，覆盖机场、集群、软件、挂载四大领域...",
+      title: t('news.sample2.title'),
+      date: t('news.sample2.date'),
+      excerpt: t('news.sample2.excerpt'),
       image: "https://images.unsplash.com/photo-1508614589041-895b88991e3e?w=800&q=80",
-      category: "公司动态"
+      category: t('news.sample2.category')
     },
     {
-      title: "物流无人机助力偏远地区配送",
-      date: "2025-12-08",
-      excerpt: "飞迈物流无人机在山区实现常态化配送，日均配送量超300单...",
+      title: t('news.sample3.title'),
+      date: t('news.sample3.date'),
+      excerpt: t('news.sample3.excerpt'),
       image: "https://images.unsplash.com/photo-1527977966376-1c8408f9f108?w=800&q=80",
-      category: "行业应用"
-    },
-  ] : [
-    {
-      title: "Feimai Technology Releases New Generation Tethered Drone System",
-      date: "2025-12-23",
-      excerpt: "The new system enables 24-hour uninterrupted operation with an altitude of 350 meters...",
-      image: "https://images.unsplash.com/photo-1473968512647-3e447244af8f?w=800&q=80",
-      category: "Product Launch"
-    },
-    {
-      title: "Industrial Drone Customization Service Fully Upgraded",
-      date: "2025-12-15",
-      excerpt: "Feimai Technology launches a new customization service system covering airports, swarms, software, and payloads...",
-      image: "https://images.unsplash.com/photo-1508614589041-895b88991e3e?w=800&q=80",
-      category: "Company News"
-    },
-    {
-      title: "Logistics Drones Enable Remote Area Delivery",
-      date: "2025-12-08",
-      excerpt: "Feimai logistics drones achieve routine delivery in mountainous areas, with daily delivery exceeding 300 orders...",
-      image: "https://images.unsplash.com/photo-1527977966376-1c8408f9f108?w=800&q=80",
-      category: "Industry Application"
+      category: t('news.sample3.category')
     },
   ];
 
@@ -64,10 +42,10 @@ export const NewsSection = () => {
             transition={{ duration: 0.5 }}
           >
             <p className="text-accent font-medium mb-2">
-              {language === 'zh' ? "新闻资讯" : "News & Updates"}
+              {t('news.section.badge')}
             </p>
             <h2 className="text-3xl md:text-4xl font-bold text-foreground">
-              {language === 'zh' ? "了解最新动态" : "Stay Informed"}
+              {t('news.section.title')}
             </h2>
           </motion.div>
           <motion.div
@@ -80,7 +58,7 @@ export const NewsSection = () => {
               to="/news"
               className="inline-flex items-center gap-2 text-foreground hover:text-accent font-medium group"
             >
-              {language === 'zh' ? "查看全部" : "View All"}
+              {t('news.section.viewAll')}
               <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
             </Link>
           </motion.div>
@@ -119,7 +97,7 @@ export const NewsSection = () => {
                     {item.excerpt}
                   </p>
                   <span className="inline-flex items-center text-sm text-foreground font-medium group-hover:text-accent transition-colors">
-                    {language === 'zh' ? "阅读更多" : "Read More"}
+                    {t('news.section.readMore')}
                     <ArrowUpRight className="w-4 h-4 ml-1 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
                   </span>
                 </div>

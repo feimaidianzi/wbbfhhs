@@ -3,51 +3,6 @@ import { ArrowRight, Sparkles, Zap, Radio, Camera, Gamepad2, Cpu } from "lucide-
 import { Link } from "react-router-dom";
 import { useLanguage } from "@/contexts/LanguageContext";
 
-const getCategoriesData = (language: 'zh' | 'en') => [
-  {
-    name: language === 'zh' ? "数字图传" : "Digital FPV",
-    description: language === 'zh' ? "高清数字传输系统" : "HD Digital Transmission",
-    subtitle: language === 'zh' ? "沉浸飞行体验" : "Immersive Flight",
-    image: "https://images.unsplash.com/photo-1473968512647-3e447244af8f?w=800&q=80",
-    link: "/products/accessories/digital-fpv",
-    icon: Radio,
-    isHot: true,
-  },
-  {
-    name: language === 'zh' ? "VTX/VRX" : "VTX/VRX",
-    description: language === 'zh' ? "4.9-7.2GHz全频段" : "4.9-7.2GHz Full Band",
-    subtitle: language === 'zh' ? "高清图传方案" : "HD Video Solution",
-    image: "https://images.unsplash.com/photo-1518770660439-4636190af475?w=800&q=80",
-    link: "/products/accessories/vtx-vrx",
-    icon: Zap,
-  },
-  {
-    name: language === 'zh' ? "飞控/电调" : "FC/ESC",
-    description: language === 'zh' ? "专业级飞行控制" : "Professional Flight Control",
-    subtitle: language === 'zh' ? "稳定飞行方案" : "Stable Flight",
-    image: "https://images.unsplash.com/photo-1581094794329-c8112a89af12?w=800&q=80",
-    link: "/products/accessories/fc-esc",
-    icon: Cpu,
-  },
-  {
-    name: language === 'zh' ? "云台吊舱" : "Gimbal/Pod",
-    description: language === 'zh' ? "多轴稳定系统" : "Multi-axis Stabilization",
-    subtitle: language === 'zh' ? "航拍增稳方案" : "Aerial Stabilization",
-    image: "https://images.unsplash.com/photo-1527977966376-1c8408f9f108?w=800&q=80",
-    link: "/products/accessories/gimbal",
-    icon: Camera,
-  },
-  {
-    name: language === 'zh' ? "ELRS遥控" : "ELRS Remote",
-    description: language === 'zh' ? "ExpressLRS协议" : "ExpressLRS Protocol",
-    subtitle: language === 'zh' ? "超远距离方案" : "Long Range Solution",
-    image: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&q=80",
-    link: "/products/accessories/elrs",
-    icon: Gamepad2,
-    isNew: true,
-  },
-];
-
 const containerVariants = {
   hidden: { opacity: 0 },
   visible: {
@@ -71,8 +26,52 @@ const itemVariants = {
 };
 
 export const ProductsSection = () => {
-  const { baseLang: language } = useLanguage();
-  const categories = getCategoriesData(language);
+  const { t } = useLanguage();
+
+  const categories = [
+    {
+      name: t('productsSection.category.digitalFpv'),
+      description: t('productsSection.category.digitalFpv.desc'),
+      subtitle: t('productsSection.category.digitalFpv.subtitle'),
+      image: "https://images.unsplash.com/photo-1473968512647-3e447244af8f?w=800&q=80",
+      link: "/products/accessories/digital-fpv",
+      icon: Radio,
+      isHot: true,
+    },
+    {
+      name: t('productsSection.category.vtx'),
+      description: t('productsSection.category.vtx.desc'),
+      subtitle: t('productsSection.category.vtx.subtitle'),
+      image: "https://images.unsplash.com/photo-1518770660439-4636190af475?w=800&q=80",
+      link: "/products/accessories/vtx-vrx",
+      icon: Zap,
+    },
+    {
+      name: t('productsSection.category.fc'),
+      description: t('productsSection.category.fc.desc'),
+      subtitle: t('productsSection.category.fc.subtitle'),
+      image: "https://images.unsplash.com/photo-1581094794329-c8112a89af12?w=800&q=80",
+      link: "/products/accessories/fc-esc",
+      icon: Cpu,
+    },
+    {
+      name: t('productsSection.category.gimbal'),
+      description: t('productsSection.category.gimbal.desc'),
+      subtitle: t('productsSection.category.gimbal.subtitle'),
+      image: "https://images.unsplash.com/photo-1527977966376-1c8408f9f108?w=800&q=80",
+      link: "/products/accessories/gimbal",
+      icon: Camera,
+    },
+    {
+      name: t('productsSection.category.elrs'),
+      description: t('productsSection.category.elrs.desc'),
+      subtitle: t('productsSection.category.elrs.subtitle'),
+      image: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&q=80",
+      link: "/products/accessories/elrs",
+      icon: Gamepad2,
+      isNew: true,
+    },
+  ];
 
   return (
     <section id="products" className="py-24 md:py-32 bg-secondary relative overflow-hidden">
@@ -90,15 +89,13 @@ export const ProductsSection = () => {
           className="text-center mb-16 md:mb-20"
         >
           <span className="inline-block px-4 py-1.5 rounded-full bg-accent/10 text-accent text-sm font-medium mb-6">
-            {language === 'zh' ? '核心产品' : 'Core Products'}
+            {t('productsSection.badge')}
           </span>
           <h2 className="text-3xl md:text-4xl lg:text-5xl font-black text-foreground mb-6">
-            {language === 'zh' ? '专业无人机配件' : 'Professional Drone Accessories'}
+            {t('productsSection.title')}
           </h2>
           <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
-            {language === 'zh' 
-              ? '深耕无人机核心部件10余年，从图传到飞控，从云台到遥控，为专业飞手提供可靠装备'
-              : 'Over 10 years in drone core components. From FPV to flight controllers, providing reliable equipment for professional pilots.'}
+            {t('productsSection.subtitle')}
           </p>
         </motion.div>
 
@@ -127,7 +124,7 @@ export const ProductsSection = () => {
                 {categories[0].isHot && (
                   <div className="absolute top-6 left-6 flex items-center gap-2 px-4 py-2 bg-accent text-accent-foreground rounded-full text-sm font-bold">
                     <Sparkles className="w-4 h-4" />
-                    HOT
+                    {t('productsSection.hot')}
                   </div>
                 )}
                 
@@ -146,7 +143,7 @@ export const ProductsSection = () => {
                       {categories[0].description}
                     </p>
                     <div className="flex items-center gap-2 text-white font-semibold">
-                      {language === 'zh' ? '立即探索' : 'Explore Now'}
+                      {t('productsSection.exploreNow')}
                       <ArrowRight className="w-5 h-5 group-hover:translate-x-2 transition-transform" />
                     </div>
                   </div>
@@ -173,7 +170,7 @@ export const ProductsSection = () => {
                   {product.isNew && (
                     <div className="absolute top-4 left-4 flex items-center gap-1.5 px-3 py-1 bg-accent text-accent-foreground rounded-full text-xs font-bold">
                       <Sparkles className="w-3 h-3" />
-                      NEW
+                      {t('productsSection.new')}
                     </div>
                   )}
                   
@@ -213,7 +210,7 @@ export const ProductsSection = () => {
         >
           <Link to="/products">
             <button className="group inline-flex items-center gap-3 px-8 py-4 rounded-full border border-accent/30 hover:border-accent hover:bg-accent/5 text-foreground font-semibold transition-all duration-300">
-              {language === 'zh' ? '查看全部产品' : 'View All Products'}
+              {t('productsSection.viewAll')}
               <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
             </button>
           </Link>
