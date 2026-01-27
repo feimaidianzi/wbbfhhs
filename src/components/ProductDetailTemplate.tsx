@@ -3,10 +3,13 @@ import { Footer } from "@/components/Footer";
 import { FloatingContact } from "@/components/FloatingContact";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, CheckCircle, Phone, Mail, LucideIcon } from "lucide-react";
-import { Link } from "react-router-dom";
-import { MultiLanguageSEO } from "@/components/MultiLanguageSEO";
+import { Link, useLocation } from "react-router-dom";
+import { MultiLanguageSEO, createLocalizedProductSchema } from "@/components/MultiLanguageSEO";
 import { BackButton } from "@/components/BackButton";
 import { useLanguage } from "@/contexts/LanguageContext";
+import { Helmet } from "react-helmet-async";
+import { LanguageCode } from "@/i18n/languages";
+import { getDomainForLanguage, getHtmlLang, createLocalizedBreadcrumb } from "@/utils/seoConfig";
 
 interface Spec {
   label: string;
@@ -63,6 +66,11 @@ interface ProductDetailTemplateProps {
   ctaTitleEn?: string;
   ctaDescription?: string;
   ctaDescriptionEn?: string;
+  
+  // Optional product metadata for structured data
+  productSku?: string;
+  productCategory?: string;
+  productPrice?: number;
 }
 
 const ProductDetailTemplate = ({
@@ -92,13 +100,78 @@ const ProductDetailTemplate = ({
   ctaTitleEn,
   ctaDescription,
   ctaDescriptionEn,
+  productSku,
+  productCategory,
+  productPrice,
 }: ProductDetailTemplateProps) => {
   const { language } = useLanguage();
+  const location = useLocation();
   const isEn = language === 'en';
+  const langCode = language as LanguageCode;
+  
   const getAppText = (app: string | { zh: string; en: string }) => {
     if (typeof app === 'string') return app;
     return isEn ? app.en : app.zh;
   };
+
+  // Create product structured data
+  const productName = isEn && heroTitleEn ? heroTitleEn : heroTitle;
+  const productDescription = isEn && seoDescriptionEn ? seoDescriptionEn : seoDescription;
+  const currentDomain = getDomainForLanguage(langCode);
+  const productUrl = `${currentDomain}${location.pathname}`;
+  const productImage = heroImage.startsWith('http') ? heroImage : `${currentDomain}${heroImage}`;
+
+  const productStructuredData = {
+    '@context': 'https://schema.org',
+    '@type': 'Product',
+    name: productName,
+    description: productDescription,
+    image: productImage,
+    url: productUrl,
+    sku: productSku || location.pathname.split('/').pop(),
+    brand: {
+      '@type': 'Brand',
+      name: 'CANI',
+    },
+    category: productCategory || breadcrumbs[breadcrumbs.length - 2]?.label || 'Industrial Drone',
+    manufacturer: {
+      '@type': 'Organization',
+      name: isEn ? 'CANI Technology Co., Ltd.' : '长凌科技有限公司',
+      url: currentDomain,
+    },
+    offers: productPrice ? {
+      '@type': 'Offer',
+      priceCurrency: 'CNY',
+      price: productPrice,
+      availability: 'https://schema.org/InStock',
+      seller: {
+        '@type': 'Organization',
+        name: isEn ? 'CANI Technology' : '长凌科技',
+      },
+    } : {
+      '@type': 'Offer',
+      availability: 'https://schema.org/InStock',
+      seller: {
+        '@type': 'Organization',
+        name: isEn ? 'CANI Technology' : '长凌科技',
+      },
+    },
+    additionalProperty: specs.map(spec => ({
+      '@type': 'PropertyValue',
+      name: isEn && spec.labelEn ? spec.labelEn : spec.label,
+      value: isEn && spec.valueEn ? spec.valueEn : spec.value,
+    })),
+    inLanguage: getHtmlLang(langCode),
+  };
+
+  // Create breadcrumb structured data
+  const breadcrumbData = createLocalizedBreadcrumb(
+    breadcrumbs.map(b => ({
+      name: isEn && b.labelEn ? b.labelEn : b.label,
+      url: b.path || '',
+    })),
+    langCode
+  );
 
   return (
     <div className="min-h-screen bg-background">
@@ -106,8 +179,17 @@ const ProductDetailTemplate = ({
         title={isEn && seoTitleEn ? seoTitleEn : seoTitle}
         description={isEn && seoDescriptionEn ? seoDescriptionEn : seoDescription}
         keywords={seoKeywords}
-        path=""
+        path={location.pathname}
       />
+      {/* Product JSON-LD Structured Data */}
+      <Helmet>
+        <script type="application/ld+json">
+          {JSON.stringify(productStructuredData)}
+        </script>
+        <script type="application/ld+json">
+          {JSON.stringify(breadcrumbData)}
+        </script>
+      </Helmet>
       <Header />
       <FloatingContact />
       <BackButton to={backLink.path} label={isEn && backLink.labelEn ? backLink.labelEn : backLink.label} />
