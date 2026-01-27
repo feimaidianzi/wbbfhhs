@@ -4,12 +4,15 @@ import { supabase } from '@/integrations/supabase/client';
 import { Header } from '@/components/Header';
 import { Footer } from '@/components/Footer';
 import { FloatingContact } from '@/components/FloatingContact';
-import { SEO } from '@/components/SEO';
+import { MultiLanguageSEO } from '@/components/MultiLanguageSEO';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import ProductSpecifications from '@/components/ProductSpecifications';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { ArrowLeft, Check, Loader2, Phone, ArrowRight, ImageOff } from 'lucide-react';
+import { Helmet } from 'react-helmet-async';
+import { LanguageCode } from '@/i18n/languages';
+import { getDomainForLanguage, getHtmlLang } from '@/utils/seoConfig';
 
 interface Product {
   id: string;
@@ -32,6 +35,7 @@ const DatabaseProductDetail = () => {
   const navigate = useNavigate();
   const { language } = useLanguage();
   const isEn = language === 'en';
+  const langCode = language as LanguageCode;
   
   const [product, setProduct] = useState<Product | null>(null);
   const [loading, setLoading] = useState(true);
@@ -92,12 +96,94 @@ const DatabaseProductDetail = () => {
   const images = product.images || [];
   const features = product.features || [];
 
+  // Create domain and URLs for structured data
+  const currentDomain = getDomainForLanguage(langCode);
+  const productUrl = `${currentDomain}/products/detail/${product.id}`;
+  const productImage = images.length > 0 
+    ? (images[0].startsWith('http') ? images[0] : `${currentDomain}${images[0]}`)
+    : `${currentDomain}/logo.png`;
+
+  // Create product structured data
+  const productStructuredData = {
+    '@context': 'https://schema.org',
+    '@type': 'Product',
+    name: productName,
+    description: productDescription || productName,
+    image: images.map(img => img.startsWith('http') ? img : `${currentDomain}${img}`),
+    url: productUrl,
+    sku: product.id,
+    brand: {
+      '@type': 'Brand',
+      name: 'CANI',
+    },
+    category: product.subcategory || product.category,
+    manufacturer: {
+      '@type': 'Organization',
+      name: isEn ? 'CANI Technology Co., Ltd.' : '长凌科技有限公司',
+      url: currentDomain,
+    },
+    offers: product.price ? {
+      '@type': 'Offer',
+      priceCurrency: 'CNY',
+      price: product.price,
+      availability: 'https://schema.org/InStock',
+      seller: {
+        '@type': 'Organization',
+        name: isEn ? 'CANI Technology' : '长凌科技',
+      },
+    } : {
+      '@type': 'Offer',
+      availability: 'https://schema.org/InStock',
+      seller: {
+        '@type': 'Organization',
+        name: isEn ? 'CANI Technology' : '长凌科技',
+      },
+    },
+    inLanguage: getHtmlLang(langCode),
+  };
+
+  // Create breadcrumb structured data
+  const breadcrumbData = {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      {
+        '@type': 'ListItem',
+        position: 1,
+        name: isEn ? 'Home' : '首页',
+        item: currentDomain,
+      },
+      {
+        '@type': 'ListItem',
+        position: 2,
+        name: isEn ? 'Products' : '产品',
+        item: `${currentDomain}/products`,
+      },
+      {
+        '@type': 'ListItem',
+        position: 3,
+        name: productName,
+        item: productUrl,
+      },
+    ],
+  };
+
   return (
     <>
-      <SEO
-        title={`${productName} - ${isEn ? 'FeiMai Technology' : '飞迈科技'}`}
+      <MultiLanguageSEO
+        title={`${productName} - ${isEn ? 'CANI Technology' : '长凌科技'}`}
         description={productDescription || productName}
+        path={`/products/detail/${product.id}`}
       />
+      {/* Product JSON-LD Structured Data */}
+      <Helmet>
+        <script type="application/ld+json">
+          {JSON.stringify(productStructuredData)}
+        </script>
+        <script type="application/ld+json">
+          {JSON.stringify(breadcrumbData)}
+        </script>
+      </Helmet>
       <Header />
       <main className="min-h-screen bg-background">
         {/* Breadcrumb */}
