@@ -6,6 +6,7 @@ import { ArrowRight, CheckCircle, Phone, Mail, Camera, Radio, Thermometer, Radar
 import { Link } from "react-router-dom";
 import { BackButton } from "@/components/BackButton";
 import { useLanguage } from "@/contexts/LanguageContext";
+import { MultiLanguageSEO } from "@/components/MultiLanguageSEO";
 
 const PayloadCustom = () => {
   const { language } = useLanguage();
@@ -60,6 +61,12 @@ const PayloadCustom = () => {
 
   return (
     <div className="min-h-screen">
+      <MultiLanguageSEO
+        title={isEn ? "Payload Customization" : "挂载定制"}
+        description={isEn ? "Professional drone payload customization and integration services" : "专业的无人机载荷定制集成服务"}
+        keywords={isEn ? "payload customization,gimbal,camera integration,sensors" : "载荷定制,云台,相机集成,传感器"}
+        path="/custom-research/payload"
+      />
       <Header />
       <main className="pt-16 md:pt-20">
         <div className="bg-secondary py-4">

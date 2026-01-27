@@ -6,6 +6,7 @@ import { ArrowRight, CheckCircle, Phone, Mail, Plane, Shield, Zap, Settings, Gau
 import { Link } from "react-router-dom";
 import { BackButton } from "@/components/BackButton";
 import { useLanguage } from "@/contexts/LanguageContext";
+import { MultiLanguageSEO } from "@/components/MultiLanguageSEO";
 
 const DroneCustom = () => {
   const { language } = useLanguage();
@@ -85,6 +86,12 @@ const DroneCustom = () => {
 
   return (
     <div className="min-h-screen">
+      <MultiLanguageSEO
+        title={isEn ? "Complete Drone Customization" : "无人机整机定制"}
+        description={isEn ? "Professional drone platform customization from concept to production with 200+ R&D engineers" : "拥有200多人研发团队，提供从概念到量产的端到端无人机平台定制服务"}
+        keywords={isEn ? "drone customization,UAV development,custom drone,R&D" : "无人机定制,整机开发,定制无人机,研发服务"}
+        path="/custom-research/drone"
+      />
       <Header />
       <main className="pt-16 md:pt-20">
         <div className="bg-secondary py-4">

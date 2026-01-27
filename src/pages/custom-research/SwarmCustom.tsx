@@ -6,6 +6,7 @@ import { ArrowRight, CheckCircle, Phone, Mail, Users, Cpu, Radio, Shield, Zap, S
 import { Link } from "react-router-dom";
 import { BackButton } from "@/components/BackButton";
 import { useLanguage } from "@/contexts/LanguageContext";
+import { MultiLanguageSEO } from "@/components/MultiLanguageSEO";
 
 const SwarmCustom = () => {
   const { language } = useLanguage();
@@ -60,6 +61,12 @@ const SwarmCustom = () => {
 
   return (
     <div className="min-h-screen">
+      <MultiLanguageSEO
+        title={isEn ? "Swarm Customization" : "集群定制"}
+        description={isEn ? "Professional drone swarm system customization services" : "无人机集群系统专业定制服务"}
+        keywords={isEn ? "drone swarm,formation flight,swarm control,mesh network" : "无人机集群,编队飞行,集群控制,自组网"}
+        path="/custom-research/swarm"
+      />
       <Header />
       <main className="pt-16 md:pt-20">
         <div className="bg-secondary py-4">

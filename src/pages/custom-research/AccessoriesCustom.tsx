@@ -6,6 +6,7 @@ import { ArrowRight, CheckCircle, Phone, Mail, Cpu, Radio, Camera, Settings, Zap
 import { Link } from "react-router-dom";
 import { BackButton } from "@/components/BackButton";
 import { useLanguage } from "@/contexts/LanguageContext";
+import { MultiLanguageSEO } from "@/components/MultiLanguageSEO";
 
 const AccessoriesCustom = () => {
   const { language } = useLanguage();
@@ -69,6 +70,12 @@ const AccessoriesCustom = () => {
 
   return (
     <div className="min-h-screen">
+      <MultiLanguageSEO
+        title={isEn ? "Drone Accessories Customization" : "无人机配件定制"}
+        description={isEn ? "Comprehensive drone accessory customization including flight controllers, ESCs, video transmitters" : "提供飞控、电调、图传等全系列配件定制服务"}
+        keywords={isEn ? "drone accessories,flight controller,ESC,video transmitter,customization" : "无人机配件,飞控,电调,图传,定制"}
+        path="/custom-research/accessories"
+      />
       <Header />
       <main className="pt-16 md:pt-20">
         <div className="bg-secondary py-4">

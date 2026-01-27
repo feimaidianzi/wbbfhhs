@@ -6,6 +6,7 @@ import { ArrowRight, CheckCircle, Phone, Mail, Box, Settings, Shield, Zap, Radio
 import { Link } from "react-router-dom";
 import { BackButton } from "@/components/BackButton";
 import { useLanguage } from "@/contexts/LanguageContext";
+import { MultiLanguageSEO } from "@/components/MultiLanguageSEO";
 
 const AirportCustom = () => {
   const { language } = useLanguage();
@@ -60,6 +61,12 @@ const AirportCustom = () => {
 
   return (
     <div className="min-h-screen">
+      <MultiLanguageSEO
+        title={isEn ? "Drone Nest Customization" : "机场定制"}
+        description={isEn ? "Comprehensive drone nest system customization services" : "无人机机场系统全方位定制服务"}
+        keywords={isEn ? "drone nest,drone dock,autonomous charging,landing platform" : "无人机机场,无人机机巢,自动充电,起降平台"}
+        path="/custom-research/airport"
+      />
       <Header />
       <main className="pt-16 md:pt-20">
         <div className="bg-secondary py-4">

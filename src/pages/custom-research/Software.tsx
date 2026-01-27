@@ -6,6 +6,7 @@ import { ArrowRight, CheckCircle, Phone, Mail, Monitor, Code, Map, Database, Clo
 import { Link } from "react-router-dom";
 import { BackButton } from "@/components/BackButton";
 import { useLanguage } from "@/contexts/LanguageContext";
+import { MultiLanguageSEO } from "@/components/MultiLanguageSEO";
 
 const SoftwareCustom = () => {
   const { language } = useLanguage();
@@ -60,6 +61,12 @@ const SoftwareCustom = () => {
 
   return (
     <div className="min-h-screen">
+      <MultiLanguageSEO
+        title={isEn ? "Software Customization" : "软件定制"}
+        description={isEn ? "Professional drone software system customization development services" : "专业的无人机软件系统定制开发服务"}
+        keywords={isEn ? "drone software,ground station,algorithm development,cloud platform" : "无人机软件,地面站,算法开发,云平台"}
+        path="/custom-research/software"
+      />
       <Header />
       <main className="pt-16 md:pt-20">
         <div className="bg-secondary py-4">
