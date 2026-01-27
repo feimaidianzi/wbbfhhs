@@ -33,7 +33,47 @@ interface LanguageProviderProps {
   children: ReactNode;
 }
 
-// Country to language mapping
+// Subdomain to language mapping
+const subdomainToLanguage: Record<string, LanguageCode> = {
+  'www': 'zh',
+  'cn': 'zh',
+  'en': 'en',
+  'vi': 'vi',
+  'th': 'th',
+  'ms': 'ms',
+  'id': 'id',
+  'ja': 'ja',
+  'ko': 'ko',
+  'fr': 'fr',
+  'de': 'de',
+  'es': 'es',
+  'ru': 'ru',
+  'ar': 'ar',
+  'tr': 'tr',
+};
+
+// Detect language from subdomain
+const detectLanguageFromSubdomain = (): LanguageCode | null => {
+  const hostname = window.location.hostname;
+  
+  // Handle localhost and preview domains
+  if (hostname === 'localhost' || hostname.includes('lovable.app') || hostname.includes('127.0.0.1')) {
+    return null;
+  }
+  
+  // Extract subdomain from hostname (e.g., en.cani.com -> en)
+  const parts = hostname.split('.');
+  if (parts.length >= 2) {
+    const subdomain = parts[0].toLowerCase();
+    if (subdomainToLanguage[subdomain]) {
+      return subdomainToLanguage[subdomain];
+    }
+  }
+  
+  return null;
+};
+
+// Country to language mapping (fallback for IP detection)
 const countryToLanguage: Record<string, LanguageCode> = {
   'CN': 'zh',
   'TW': 'zh',
@@ -67,10 +107,20 @@ const countryToLanguage: Record<string, LanguageCode> = {
 
 export const LanguageProvider: React.FC<LanguageProviderProps> = ({ children }) => {
   const [language, setLanguageState] = useState<LanguageCode>(() => {
+    // Priority 1: Subdomain detection (highest priority for multi-domain setup)
+    const subdomainLang = detectLanguageFromSubdomain();
+    if (subdomainLang) {
+      console.log(`Language detected from subdomain: ${subdomainLang}`);
+      return subdomainLang;
+    }
+    
+    // Priority 2: Previously saved preference
     const saved = localStorage.getItem('language');
     if (saved && SUPPORTED_LANGUAGES.some(l => l.code === saved)) {
       return saved as LanguageCode;
     }
+    
+    // Priority 3: Default language
     return DEFAULT_LANGUAGE;
   });
   
@@ -191,8 +241,17 @@ export const LanguageProvider: React.FC<LanguageProviderProps> = ({ children }) 
     // Load translations for current language
     loadSavedTranslations(language);
 
-    // Auto-detect language on first visit
-    if (!autoDetected) {
+    // Check subdomain on mount - subdomain always takes priority
+    const subdomainLang = detectLanguageFromSubdomain();
+    if (subdomainLang && subdomainLang !== language) {
+      console.log(`Subdomain language override: ${subdomainLang}`);
+      setLanguageState(subdomainLang);
+      localStorage.setItem('language', subdomainLang);
+      return;
+    }
+
+    // Auto-detect language on first visit (only if no subdomain detected)
+    if (!autoDetected && !subdomainLang) {
       setAutoDetected(true);
       const hasManualLanguage = localStorage.getItem('language_manual') === 'true';
       if (!hasManualLanguage) {

@@ -23,9 +23,11 @@ import {
   generateSitemapIndex, 
   generateRobotsTxt,
   downloadSitemap,
-  downloadAllSitemaps
+  downloadAllSitemaps,
+  getAllSitemaps
 } from '@/utils/sitemapGenerator';
 import { getDomainForLanguage, getHtmlLang } from '@/utils/seoConfig';
+import { FolderDown } from 'lucide-react';
 
 const SEOManagement = () => {
   const navigate = useNavigate();
@@ -44,9 +46,30 @@ const SEOManagement = () => {
     toast.success(`已下载 sitemap-${lang}.xml`);
   };
 
-  const handleDownloadAll = () => {
+  const handleDownloadIndex = () => {
     downloadAllSitemaps();
     toast.success('已下载 sitemap-index.xml');
+  };
+
+  const handleDownloadAllFiles = () => {
+    const allFiles = getAllSitemaps();
+    
+    // Create and trigger downloads for each file
+    Object.entries(allFiles).forEach(([filename, content], index) => {
+      setTimeout(() => {
+        const blob = new Blob([content], { 
+          type: filename.endsWith('.xml') ? 'application/xml' : 'text/plain' 
+        });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = filename;
+        a.click();
+        URL.revokeObjectURL(url);
+      }, index * 100); // Stagger downloads to prevent browser blocking
+    });
+    
+    toast.success(`开始下载 ${Object.keys(allFiles).length} 个文件（包含所有语言的sitemap和robots.txt）`);
   };
 
   return (
@@ -63,10 +86,16 @@ const SEOManagement = () => {
               <p className="text-gray-600">子域名配置、Sitemap生成和hreflang标签</p>
             </div>
           </div>
-          <Button onClick={handleDownloadAll} className="bg-primary">
-            <Download className="h-4 w-4 mr-2" />
-            下载Sitemap索引
-          </Button>
+          <div className="flex gap-2">
+            <Button onClick={handleDownloadIndex} variant="outline">
+              <Download className="h-4 w-4 mr-2" />
+              下载索引文件
+            </Button>
+            <Button onClick={handleDownloadAllFiles} className="bg-primary">
+              <FolderDown className="h-4 w-4 mr-2" />
+              下载全部文件
+            </Button>
+          </div>
         </div>
 
         {/* Subdomain Configuration */}
