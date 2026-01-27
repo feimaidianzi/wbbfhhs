@@ -8,42 +8,37 @@ import { SEO } from "@/components/SEO";
 import { useLanguage } from "@/contexts/LanguageContext";
 
 const SmartCity = () => {
-  const { language } = useLanguage();
-  const isEn = language === "en";
+  const { t } = useLanguage();
 
   const features = [
     { 
       icon: Building, 
-      title: isEn ? "Urban Management" : "城市管理", 
-      description: isEn ? "Inspect and monitor urban infrastructure to improve city management efficiency" : "对城市基础设施进行巡检监测，提升城市管理效率" 
+      title: t('smartCity.feature.management.title'), 
+      description: t('smartCity.feature.management.desc')
     },
     { 
       icon: Map, 
-      title: isEn ? "Planning & Surveying" : "规划测绘", 
-      description: isEn ? "Obtain high-precision 3D urban data for urban planning support" : "获取高精度城市三维数据，为城市规划提供支持" 
+      title: t('smartCity.feature.planning.title'), 
+      description: t('smartCity.feature.planning.desc')
     },
     { 
       icon: Zap, 
-      title: isEn ? "Emergency Command" : "应急指挥", 
-      description: isEn ? "Rapid response to emergencies with aerial command and communication relay" : "突发事件快速响应，提供空中指挥和通信中继" 
+      title: t('smartCity.feature.emergency.title'), 
+      description: t('smartCity.feature.emergency.desc')
     },
     { 
       icon: Eye, 
-      title: isEn ? "Smart Monitoring" : "智能监控", 
-      description: isEn ? "Comprehensive urban security monitoring for public safety" : "全方位城市安防监控，保障城市公共安全" 
+      title: t('smartCity.feature.monitoring.title'), 
+      description: t('smartCity.feature.monitoring.desc')
     },
   ];
 
   return (
     <div className="min-h-screen">
       <SEO
-        title={isEn ? "Smart City Applications" : "智慧城市应用"}
-        description={isEn 
-          ? "CANI Technology drone smart city solutions for urban management, planning, and emergency command."
-          : "长凌科技无人机智慧城市解决方案，应用于城市管理、规划测绘、应急指挥等领域。"}
-        keywords={isEn 
-          ? "smart city drone,urban management,planning surveying,emergency command,city monitoring"
-          : "智慧城市无人机,城市管理,规划测绘,应急指挥,城市监控"}
+        title={t('smartCity.seo.title')}
+        description={t('smartCity.seo.description')}
+        keywords={t('smartCity.seo.keywords')}
         url="/applications/smart-city"
       />
       <Header />
@@ -56,14 +51,12 @@ const SmartCity = () => {
           </div>
           <div className="relative container-custom h-full flex items-center">
             <div className="max-w-2xl rounded-3xl bg-black/70 border border-white/20 p-6 md:p-8 shadow-lg">
-              <p className="text-cyan-400 font-medium mb-2">{isEn ? "Industry Applications" : "行业应用"}</p>
+              <p className="text-cyan-400 font-medium mb-2">{t('smartCity.hero.badge')}</p>
               <h1 className="text-3xl md:text-5xl font-bold text-white mb-4">
-                {isEn ? "Smart City" : "智慧城市"}
+                {t('smartCity.hero.title')}
               </h1>
               <p className="text-lg text-white/80">
-                {isEn 
-                  ? "In the era of digital and intelligent cities, drones play important roles in urban management, planning, and emergency command"
-                  : "数字地球和智能地球时代，无人机在城市管理、规划测绘、应急指挥等方面发挥重要作用"}
+                {t('smartCity.hero.subtitle')}
               </p>
             </div>
           </div>
@@ -72,7 +65,7 @@ const SmartCity = () => {
         <section className="py-16 bg-background">
           <div className="container-custom">
             <h2 className="text-2xl md:text-3xl font-bold text-center mb-12">
-              {isEn ? "Application Scenarios" : "应用场景"}
+              {t('smartCity.scenarios.title')}
             </h2>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
               {features.map((feature, index) => (
@@ -89,16 +82,14 @@ const SmartCity = () => {
         <section className="py-16 bg-primary">
           <div className="container-custom text-center">
             <h2 className="text-2xl md:text-3xl font-bold text-primary-foreground mb-4">
-              {isEn ? "Get Smart City Solutions" : "获取智慧城市解决方案"}
+              {t('smartCity.cta.title')}
             </h2>
             <p className="text-primary-foreground/80 mb-8 max-w-2xl mx-auto">
-              {isEn 
-                ? "Contact our professional team to learn more about smart city drone applications"
-                : "联系我们的专业团队，了解更多智慧城市无人机应用详情"}
+              {t('smartCity.cta.subtitle')}
             </p>
             <Link to="/contact">
               <Button className="bg-accent hover:bg-orange-light text-accent-foreground px-8 py-3">
-                {isEn ? "Contact Us" : "立即咨询"}
+                {t('smartCity.cta.btn')}
                 <ArrowRight className="w-4 h-4 ml-2" />
               </Button>
             </Link>
