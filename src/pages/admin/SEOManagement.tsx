@@ -1,12 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { ScrollArea } from '@/components/ui/scroll-area';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
 import { 
   ArrowLeft, 
   Globe, 
@@ -22,9 +20,7 @@ import {
   CheckCircle,
   XCircle,
   AlertCircle,
-  RefreshCw,
-  Settings,
-  Key
+  RefreshCw
 } from 'lucide-react';
 import { toast } from 'sonner';
 import { SUPPORTED_LANGUAGES, LanguageCode } from '@/i18n/languages';
@@ -38,6 +34,8 @@ import {
 } from '@/utils/sitemapGenerator';
 import { getDomainForLanguage, getHtmlLang } from '@/utils/seoConfig';
 import { supabase } from '@/integrations/supabase/client';
+import SitemapSubmissionHistory from '@/components/admin/SitemapSubmissionHistory';
+import SEOApiKeyManager from '@/components/admin/SEOApiKeyManager';
 
 interface SubmissionResult {
   lang: string;
@@ -57,16 +55,30 @@ interface SubmissionState {
   error: string | null;
 }
 
+interface SubmissionHistoryItem {
+  id: string;
+  submission_type: string;
+  languages: string[];
+  route_count: number;
+  results: Record<string, unknown>;
+  status: string;
+  error_message: string | null;
+  triggered_by: string;
+  created_at: string;
+  completed_at: string | null;
+}
+
 const SEOManagement = () => {
   const navigate = useNavigate();
   const [selectedLang, setSelectedLang] = useState<LanguageCode>('zh');
   const [copiedItem, setCopiedItem] = useState<string | null>(null);
   
-  // API Keys state
-  const [googleToken, setGoogleToken] = useState('');
-  const [baiduToken, setBaiduToken] = useState('');
-  const [bingApiKey, setBingApiKey] = useState('');
-  const [showApiKeys, setShowApiKeys] = useState(false);
+  // API Keys from database
+  const [apiKeys, setApiKeys] = useState({ googleToken: '', baiduToken: '', bingApiKey: '' });
+  
+  // Submission history
+  const [submissionHistory, setSubmissionHistory] = useState<SubmissionHistoryItem[]>([]);
+  const [isLoadingHistory, setIsLoadingHistory] = useState(false);
   
   // Submission state
   const [submissionState, setSubmissionState] = useState<SubmissionState>({
@@ -79,6 +91,30 @@ const SEOManagement = () => {
     error: null,
   });
 
+  // Load submission history
+  const loadSubmissionHistory = useCallback(async () => {
+    setIsLoadingHistory(true);
+    try {
+      const { data, error } = await supabase
+        .from('sitemap_submission_history')
+        .select('*')
+        .order('created_at', { ascending: false })
+        .limit(50);
+
+      if (error) throw error;
+      // Cast data to proper type
+      const historyData = (data || []).map(item => ({
+        ...item,
+        results: (typeof item.results === 'object' ? item.results : {}) as Record<string, unknown>
+      }));
+      setSubmissionHistory(historyData);
+    } catch (error) {
+      console.error('Failed to load submission history:', error);
+    } finally {
+      setIsLoadingHistory(false);
+    }
+  }, []);
+
   // Load last submission data
   useEffect(() => {
     const loadLastSubmission = async () => {
@@ -86,7 +122,7 @@ const SEOManagement = () => {
         .from('system_settings')
         .select('value')
         .eq('key', 'last_sitemap_submission')
-        .single();
+        .maybeSingle();
       
       if (data?.value) {
         try {
@@ -101,7 +137,8 @@ const SEOManagement = () => {
       }
     };
     loadLastSubmission();
-  }, []);
+    loadSubmissionHistory();
+  }, [loadSubmissionHistory]);
 
   const copyToClipboard = async (text: string, item: string) => {
     await navigator.clipboard.writeText(text);
@@ -155,6 +192,7 @@ const SEOManagement = () => {
         lastGenerated: new Date().toISOString(),
       }));
 
+      loadSubmissionHistory();
       toast.success(`成功生成 ${data.metadata?.languages?.length || 14} 个语言的Sitemap文件`);
     } catch (err) {
       const errorMessage = err instanceof Error ? err.message : '生成失败';
@@ -163,7 +201,7 @@ const SEOManagement = () => {
     }
   };
 
-  // Submit sitemaps to search engines
+  // Submit sitemaps to search engines (uses stored API keys from database)
   const handleSubmit = async () => {
     setSubmissionState(prev => ({ ...prev, isSubmitting: true, error: null, results: [] }));
     
@@ -171,9 +209,9 @@ const SEOManagement = () => {
       const { data, error } = await supabase.functions.invoke('submit-sitemap', {
         body: { 
           action: 'submit',
-          googleToken: googleToken || undefined,
-          baiduToken: baiduToken || undefined,
-          bingApiKey: bingApiKey || undefined,
+          googleToken: apiKeys.googleToken || undefined,
+          baiduToken: apiKeys.baiduToken || undefined,
+          bingApiKey: apiKeys.bingApiKey || undefined,
         }
       });
 
@@ -195,6 +233,7 @@ const SEOManagement = () => {
         results,
       }));
 
+      loadSubmissionHistory();
       const successCount = results.filter(r => r.google.success || r.baidu.success || r.bing.success).length;
       toast.success(`提交完成: ${successCount}/${results.length} 个语言版本成功提交`);
     } catch (err) {
@@ -216,12 +255,18 @@ const SEOManagement = () => {
       if (error) throw error;
 
       setSubmissionState(prev => ({ ...prev, isPinging: false }));
+      loadSubmissionHistory();
       toast.success('已向搜索引擎发送更新通知');
     } catch (err) {
       const errorMessage = err instanceof Error ? err.message : 'Ping失败';
       setSubmissionState(prev => ({ ...prev, isPinging: false, error: errorMessage }));
       toast.error(`Ping失败: ${errorMessage}`);
     }
+  };
+
+  // Handle API keys loaded from database
+  const handleApiKeysLoaded = (keys: { googleToken: string; baiduToken: string; bingApiKey: string }) => {
+    setApiKeys(keys);
   };
 
   const StatusIcon = ({ success }: { success: boolean }) => {
@@ -258,6 +303,9 @@ const SEOManagement = () => {
           </div>
         </div>
 
+        {/* API Keys Manager */}
+        <SEOApiKeyManager onKeysLoaded={handleApiKeysLoaded} />
+
         {/* Auto Submission Card */}
         <Card className="mb-6">
           <CardHeader>
@@ -270,76 +318,6 @@ const SEOManagement = () => {
             </CardDescription>
           </CardHeader>
           <CardContent className="space-y-6">
-            {/* API Keys Configuration */}
-            <div className="space-y-4">
-              <div className="flex items-center justify-between">
-                <div className="flex items-center gap-2">
-                  <Key className="h-4 w-4 text-muted-foreground" />
-                  <span className="font-medium">API密钥配置</span>
-                  <Badge variant="outline" className="text-xs">可选</Badge>
-                </div>
-                <Button 
-                  variant="ghost" 
-                  size="sm"
-                  onClick={() => setShowApiKeys(!showApiKeys)}
-                >
-                  <Settings className="h-4 w-4 mr-1" />
-                  {showApiKeys ? '隐藏配置' : '显示配置'}
-                </Button>
-              </div>
-              
-              {showApiKeys && (
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-4 p-4 bg-muted/50 rounded-lg">
-                  <div className="space-y-2">
-                    <Label htmlFor="googleToken" className="text-sm">Google OAuth Token</Label>
-                    <Input
-                      id="googleToken"
-                      type="password"
-                      placeholder="Google API Token"
-                      value={googleToken}
-                      onChange={(e) => setGoogleToken(e.target.value)}
-                    />
-                    <p className="text-xs text-muted-foreground">
-                      从 Google Cloud Console 获取
-                    </p>
-                  </div>
-                  <div className="space-y-2">
-                    <Label htmlFor="baiduToken" className="text-sm">百度站长Token</Label>
-                    <Input
-                      id="baiduToken"
-                      type="password"
-                      placeholder="百度推送Token"
-                      value={baiduToken}
-                      onChange={(e) => setBaiduToken(e.target.value)}
-                    />
-                    <p className="text-xs text-muted-foreground">
-                      从百度站长平台获取
-                    </p>
-                  </div>
-                  <div className="space-y-2">
-                    <Label htmlFor="bingApiKey" className="text-sm">Bing API Key</Label>
-                    <Input
-                      id="bingApiKey"
-                      type="password"
-                      placeholder="Bing Webmaster API Key"
-                      value={bingApiKey}
-                      onChange={(e) => setBingApiKey(e.target.value)}
-                    />
-                    <p className="text-xs text-muted-foreground">
-                      从 Bing Webmaster Tools 获取
-                    </p>
-                  </div>
-                </div>
-              )}
-              
-              <div className="p-3 bg-amber-50 rounded-lg flex items-start gap-2">
-                <AlertCircle className="h-4 w-4 text-amber-600 flex-shrink-0 mt-0.5" />
-                <p className="text-sm text-amber-800">
-                  不配置API密钥时，系统将使用Ping方式通知搜索引擎，并提供手动提交链接。配置API密钥后可实现完全自动化提交。
-                </p>
-              </div>
-            </div>
-
             {/* Action Buttons */}
             <div className="flex flex-wrap gap-3">
               <Button 
@@ -449,6 +427,13 @@ const SEOManagement = () => {
             )}
           </CardContent>
         </Card>
+
+        {/* Submission History */}
+        <SitemapSubmissionHistory 
+          history={submissionHistory}
+          isLoading={isLoadingHistory}
+          onRefresh={loadSubmissionHistory}
+        />
 
         {/* Subdomain Configuration */}
         <Card className="mb-6">

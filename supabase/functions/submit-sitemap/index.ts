@@ -246,6 +246,59 @@ async function submitToBing(sitemapUrl: string, bingApiKey?: string): Promise<{ 
   }
 }
 
+// Helper to log submission history
+async function logSubmissionHistory(
+  supabase: any,
+  type: string,
+  languages: string[],
+  routeCount: number,
+  results: any,
+  status: string,
+  errorMessage: string | null,
+  triggeredBy: string
+) {
+  try {
+    await supabase.from('sitemap_submission_history').insert({
+      submission_type: type,
+      languages: languages,
+      route_count: routeCount,
+      results: results,
+      status: status,
+      error_message: errorMessage,
+      triggered_by: triggeredBy,
+      completed_at: new Date().toISOString(),
+    });
+  } catch (err) {
+    console.error('Failed to log submission history:', err);
+  }
+}
+
+// Helper to get API keys from database
+async function getApiKeys(supabase: any): Promise<{ googleToken?: string; baiduToken?: string; bingApiKey?: string }> {
+  try {
+    const { data } = await supabase
+      .from('seo_api_keys')
+      .select('key_name, key_value')
+      .eq('is_configured', true);
+
+    const keys: Record<string, string> = {};
+    data?.forEach((row: any) => {
+      if (row.key_value) {
+        keys[row.key_name] = row.key_value;
+      }
+    });
+
+    return {
+      googleToken: keys['google_oauth_token'],
+      baiduToken: keys['baidu_token'],
+      bingApiKey: keys['bing_api_key'],
+    };
+  } catch (err) {
+    console.error('Failed to get API keys:', err);
+    return {};
+  }
+}
+
 serve(async (req) => {
   // Handle CORS preflight
   if (req.method === 'OPTIONS') {
@@ -254,10 +307,11 @@ serve(async (req) => {
 
   try {
     const supabaseUrl = Deno.env.get('SUPABASE_URL')!;
-    const supabaseKey = Deno.env.get('SUPABASE_ANON_KEY')!;
-    const supabase = createClient(supabaseUrl, supabaseKey);
+    const supabaseServiceKey = Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')!;
+    const supabase = createClient(supabaseUrl, supabaseServiceKey);
 
-    const { action, languages, googleToken, baiduToken, bingApiKey } = await req.json();
+    const body = await req.json();
+    const { action, languages, googleToken: inputGoogleToken, baiduToken: inputBaiduToken, bingApiKey: inputBingApiKey, triggeredBy = 'manual' } = body;
     const lastmod = new Date().toISOString().split('T')[0];
     const allRoutes = [...STATIC_ROUTES, ...PRODUCT_DETAIL_ROUTES];
 
@@ -267,8 +321,14 @@ serve(async (req) => {
       .select('id')
       .eq('is_published', true);
 
-    const dynamicProductRoutes = products?.map(p => `/products/detail/${p.id}`) || [];
+    const dynamicProductRoutes = products?.map((p: any) => `/products/detail/${p.id}`) || [];
     const combinedRoutes = [...allRoutes, ...dynamicProductRoutes];
+
+    // Get stored API keys if not provided in request
+    const storedKeys = await getApiKeys(supabase);
+    const googleToken = inputGoogleToken || storedKeys.googleToken;
+    const baiduToken = inputBaiduToken || storedKeys.baiduToken;
+    const bingApiKey = inputBingApiKey || storedKeys.bingApiKey;
 
     if (action === 'generate') {
       // Generate sitemaps for all or specified languages
@@ -294,6 +354,18 @@ serve(async (req) => {
           }),
           description: 'Auto-generated sitemap metadata',
         }, { onConflict: 'key' });
+
+      // Log to history
+      await logSubmissionHistory(
+        supabase,
+        'generate',
+        targetLanguages,
+        combinedRoutes.length,
+        { file_count: Object.keys(sitemaps).length },
+        'success',
+        null,
+        triggeredBy
+      );
 
       console.log(`Generated ${Object.keys(sitemaps).length} sitemap files for ${targetLanguages.length} languages`);
 
@@ -334,6 +406,13 @@ serve(async (req) => {
         bing: await submitToBing(indexUrl, bingApiKey),
       };
 
+      // Calculate status
+      const successCount = Object.values(results).filter((r: any) => 
+        r.google?.success || r.baidu?.success || r.bing?.success
+      ).length;
+      const totalCount = Object.keys(results).length;
+      const status = successCount === totalCount ? 'success' : successCount > 0 ? 'partial' : 'failed';
+
       // Log submission attempt
       await supabase
         .from('system_settings')
@@ -351,6 +430,18 @@ serve(async (req) => {
           }),
           description: 'Last sitemap submission to search engines',
         }, { onConflict: 'key' });
+
+      // Log to history
+      await logSubmissionHistory(
+        supabase,
+        'submit',
+        targetLanguages,
+        combinedRoutes.length,
+        results,
+        status,
+        null,
+        triggeredBy
+      );
 
       console.log('Sitemap submission results:', results);
 
@@ -385,6 +476,18 @@ serve(async (req) => {
         }
       }
 
+      // Log to history
+      await logSubmissionHistory(
+        supabase,
+        'ping',
+        targetLanguages,
+        0,
+        pingResults,
+        'success',
+        null,
+        triggeredBy
+      );
+
       console.log('Sitemap ping results:', pingResults);
 
       return new Response(JSON.stringify({
@@ -396,8 +499,58 @@ serve(async (req) => {
       });
     }
 
+    // Process pending submissions triggered by content updates
+    if (action === 'process-pending') {
+      const { data: pendingTasks } = await supabase
+        .from('sitemap_submission_history')
+        .select('id')
+        .eq('status', 'pending')
+        .eq('triggered_by', 'content_update')
+        .order('created_at', { ascending: true })
+        .limit(5);
+
+      if (pendingTasks && pendingTasks.length > 0) {
+        // Generate and ping for pending tasks
+        const targetLanguages = SUPPORTED_LANGUAGES;
+        
+        for (const lang of targetLanguages) {
+          const sitemapUrl = `${getDomainForLanguage(lang)}/sitemap.xml`;
+          try {
+            await fetch(`https://www.google.com/ping?sitemap=${encodeURIComponent(sitemapUrl)}`);
+          } catch (err) {
+            console.error(`Ping failed for ${lang}:`, err);
+          }
+        }
+
+        // Mark tasks as completed
+        for (const task of pendingTasks) {
+          await supabase
+            .from('sitemap_submission_history')
+            .update({ 
+              status: 'success',
+              completed_at: new Date().toISOString()
+            })
+            .eq('id', task.id);
+        }
+
+        return new Response(JSON.stringify({
+          success: true,
+          message: `Processed ${pendingTasks.length} pending tasks`,
+        }), {
+          headers: { ...corsHeaders, 'Content-Type': 'application/json' },
+        });
+      }
+
+      return new Response(JSON.stringify({
+        success: true,
+        message: 'No pending tasks to process',
+      }), {
+        headers: { ...corsHeaders, 'Content-Type': 'application/json' },
+      });
+    }
+
     return new Response(JSON.stringify({
-      error: 'Invalid action. Use: generate, submit, or ping',
+      error: 'Invalid action. Use: generate, submit, ping, or process-pending',
     }), {
       status: 400,
       headers: { ...corsHeaders, 'Content-Type': 'application/json' },
