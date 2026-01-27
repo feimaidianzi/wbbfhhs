@@ -104,6 +104,8 @@ import CustomerServiceChat from "./pages/admin/CustomerServiceChat";
 import CustomerServiceLogin from "./pages/admin/CustomerServiceLogin";
 import VisitorAnalytics from "./pages/admin/VisitorAnalytics";
 import TranslationManagement from "./pages/admin/TranslationManagement";
+import HardcodedTextScanner from "./pages/admin/HardcodedTextScanner";
+import SEOManagement from "./pages/admin/SEOManagement";
 import VisitorTracker from "./components/VisitorTracker";
 import NewsDetail from "./pages/NewsDetail";
 import DatabaseProductDetail from "./pages/products/DatabaseProductDetail";
@@ -136,6 +138,8 @@ const App = () => (
             <Route path="/admin/customer-service/login" element={<CustomerServiceLogin />} />
             <Route path="/admin/visitor-analytics" element={<VisitorAnalytics />} />
             <Route path="/admin/translations" element={<TranslationManagement />} />
+            <Route path="/admin/hardcoded-scanner" element={<HardcodedTextScanner />} />
+            <Route path="/admin/seo-management" element={<SEOManagement />} />
           <Route path="/about" element={<About />} />
           <Route path="/applications" element={<Applications />} />
           <Route path="/applications/power-inspection" element={<PowerInspection />} />

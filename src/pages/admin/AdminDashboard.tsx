@@ -24,7 +24,9 @@ import {
   Headphones,
   Eye,
   UserCheck,
-  Languages
+  Languages,
+  Search,
+  Globe
 } from 'lucide-react';
 import { User } from '@supabase/supabase-js';
 import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, BarChart, Bar } from 'recharts';
@@ -290,6 +292,20 @@ const AdminDashboard = () => {
       description: '批量翻译和多语言管理', 
       href: '/admin/translations',
       color: 'from-sky-500 to-blue-500'
+    },
+    { 
+      icon: Search, 
+      title: '硬编码检测', 
+      description: '扫描未翻译的中文文本', 
+      href: '/admin/hardcoded-scanner',
+      color: 'from-rose-500 to-pink-500'
+    },
+    { 
+      icon: Globe, 
+      title: 'SEO管理', 
+      description: '多语言SEO和Sitemap管理', 
+      href: '/admin/seo-management',
+      color: 'from-emerald-500 to-teal-500'
     },
     { 
       icon: Settings, 
