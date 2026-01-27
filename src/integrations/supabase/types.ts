@@ -705,6 +705,75 @@ export type Database = {
         }
         Relationships: []
       }
+      seo_api_keys: {
+        Row: {
+          created_at: string
+          id: string
+          is_configured: boolean | null
+          key_name: string
+          key_value: string | null
+          last_used_at: string | null
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          is_configured?: boolean | null
+          key_name: string
+          key_value?: string | null
+          last_used_at?: string | null
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          is_configured?: boolean | null
+          key_name?: string
+          key_value?: string | null
+          last_used_at?: string | null
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      sitemap_submission_history: {
+        Row: {
+          completed_at: string | null
+          created_at: string
+          error_message: string | null
+          id: string
+          languages: string[]
+          results: Json | null
+          route_count: number | null
+          status: string
+          submission_type: string
+          triggered_by: string | null
+        }
+        Insert: {
+          completed_at?: string | null
+          created_at?: string
+          error_message?: string | null
+          id?: string
+          languages?: string[]
+          results?: Json | null
+          route_count?: number | null
+          status?: string
+          submission_type: string
+          triggered_by?: string | null
+        }
+        Update: {
+          completed_at?: string | null
+          created_at?: string
+          error_message?: string | null
+          id?: string
+          languages?: string[]
+          results?: Json | null
+          route_count?: number | null
+          status?: string
+          submission_type?: string
+          triggered_by?: string | null
+        }
+        Relationships: []
+      }
       specification_templates: {
         Row: {
           category: string
