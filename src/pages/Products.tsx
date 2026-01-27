@@ -6,8 +6,9 @@ import { FloatingContact } from "@/components/FloatingContact";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Grid3X3, LayoutList, Sparkles, ChevronDown } from "lucide-react";
 import { Link } from "react-router-dom";
-import { SEO, createBreadcrumbStructuredData } from "@/components/SEO";
+import { MultiLanguageSEO, createLocalizedBreadcrumbData } from "@/components/MultiLanguageSEO";
 import { useLanguage } from "@/contexts/LanguageContext";
+import { LanguageCode } from "@/i18n/languages";
 
 const Products = () => {
   const { language } = useLanguage();
@@ -78,10 +79,10 @@ const Products = () => {
     ? products
     : products.filter((p) => p.category === activeCategory);
 
-  const breadcrumbData = createBreadcrumbStructuredData([
+  const breadcrumbData = createLocalizedBreadcrumbData([
     { name: language === 'zh' ? '首页' : 'Home', url: '/' },
     { name: language === 'zh' ? '产品中心' : 'Products', url: '/products' },
-  ]);
+  ], language as LanguageCode);
 
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -102,7 +103,7 @@ const Products = () => {
 
   return (
     <div className="min-h-screen bg-background">
-      <SEO
+      <MultiLanguageSEO
         title={language === 'zh' ? "产品中心" : "Products"}
         description={language === 'zh' 
           ? "长凌科技产品中心，提供工业无人机、自动机场、系留无人机、物流无人机、植保无人机、无人机配件等全系列产品。"
@@ -110,7 +111,7 @@ const Products = () => {
         keywords={language === 'zh' 
           ? "工业无人机,自动机场,系留无人机,物流无人机,植保无人机,无人机配件,多旋翼无人机"
           : "industrial drone,drone nest,tethered drone,logistics drone,agricultural drone,drone accessories,multi-rotor drone"}
-        url="/products"
+        path="/products"
         structuredData={breadcrumbData}
       />
       <Header />

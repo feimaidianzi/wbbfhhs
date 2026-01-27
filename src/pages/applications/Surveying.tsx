@@ -4,7 +4,7 @@ import { FloatingContact } from "@/components/FloatingContact";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Map, Eye, Zap, Target } from "lucide-react";
 import { Link } from "react-router-dom";
-import { SEO } from "@/components/SEO";
+import { MultiLanguageSEO } from "@/components/MultiLanguageSEO";
 import { useLanguage } from "@/contexts/LanguageContext";
 
 const Surveying = () => {
@@ -35,11 +35,11 @@ const Surveying = () => {
 
   return (
     <div className="min-h-screen">
-      <SEO
+      <MultiLanguageSEO
         title={t('surveying.seo.title')}
         description={t('surveying.seo.desc')}
         keywords={t('surveying.seo.keywords')}
-        url="/applications/surveying"
+        path="/applications/surveying"
       />
       <Header />
       <main className="pt-16 md:pt-20">

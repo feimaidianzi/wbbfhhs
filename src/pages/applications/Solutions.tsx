@@ -4,7 +4,7 @@ import { FloatingContact } from "@/components/FloatingContact";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Settings, Users, Lightbulb, Wrench } from "lucide-react";
 import { Link } from "react-router-dom";
-import { SEO } from "@/components/SEO";
+import { MultiLanguageSEO } from "@/components/MultiLanguageSEO";
 
 const solutions = [
   {
@@ -59,11 +59,11 @@ const industries = [
 const Solutions = () => {
   return (
     <div className="min-h-screen">
-      <SEO
+      <MultiLanguageSEO
         title="解决方案"
         description="长凌科技提供完整的无人机行业解决方案，包括方案设计、设备集成、培训服务和售后支持。"
         keywords="无人机解决方案,行业应用方案,定制开发,培训服务,售后支持"
-        url="/applications/solutions"
+        path="/applications/solutions"
       />
       <Header />
       <main className="pt-16 md:pt-20">

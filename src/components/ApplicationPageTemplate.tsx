@@ -5,7 +5,7 @@ import { FloatingContact } from "@/components/FloatingContact";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, CheckCircle, Phone, Mail, ChevronDown, LucideIcon } from "lucide-react";
 import { Link } from "react-router-dom";
-import { SEO } from "@/components/SEO";
+import { MultiLanguageSEO } from "@/components/MultiLanguageSEO";
 
 interface Feature {
   icon: LucideIcon;
@@ -108,10 +108,11 @@ const ApplicationPageTemplate = ({
 }: ApplicationPageTemplateProps) => {
   return (
     <div className="min-h-screen bg-background">
-      <SEO
+      <MultiLanguageSEO
         title={seoTitle}
         description={seoDescription}
         keywords={seoKeywords}
+        path=""
       />
       <Header />
       <FloatingContact />

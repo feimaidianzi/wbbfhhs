@@ -4,7 +4,7 @@ import { FloatingContact } from "@/components/FloatingContact";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Shield, Eye, Radio, Target, Radar, Cpu, Plane, Lock, Zap, Map } from "lucide-react";
 import { Link } from "react-router-dom";
-import { SEO } from "@/components/SEO";
+import { MultiLanguageSEO } from "@/components/MultiLanguageSEO";
 import { useLanguage } from "@/contexts/LanguageContext";
 
 const Military = () => {
@@ -118,11 +118,11 @@ const Military = () => {
 
   return (
     <div className="min-h-screen">
-      <SEO
+      <MultiLanguageSEO
         title={t('military.seo.title')}
         description={t('military.seo.description')}
         keywords={t('military.seo.keywords')}
-        url="/applications/military"
+        path="/applications/military"
       />
       <Header />
       <main className="pt-16 md:pt-20">

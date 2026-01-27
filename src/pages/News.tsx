@@ -7,7 +7,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { ArrowRight, Calendar, Tag, ChevronLeft, ChevronRight, Search } from "lucide-react";
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { SEO } from "@/components/SEO";
+import { MultiLanguageSEO } from "@/components/MultiLanguageSEO";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { supabase } from "@/integrations/supabase/client";
 
@@ -104,7 +104,7 @@ const News = () => {
 
   return (
     <div className="min-h-screen">
-      <SEO
+      <MultiLanguageSEO
         title={language === 'zh' ? "新闻中心" : "News Center"}
         description={language === 'zh' 
           ? "飞迈科技新闻中心，获取最新无人机行业资讯、公司新闻、产品发布和技术分享。"
@@ -112,7 +112,7 @@ const News = () => {
         keywords={language === 'zh' 
           ? "无人机新闻,飞迈科技新闻,无人机行业资讯,无人机技术分享"
           : "drone news,Feimai technology news,drone industry updates,drone technical insights"}
-        url="/news"
+        path="/news"
       />
       <Header />
       <main className="pt-16 md:pt-20">

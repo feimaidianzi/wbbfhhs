@@ -4,7 +4,7 @@ import { FloatingContact } from "@/components/FloatingContact";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, CheckCircle, Award, Users, Clock, BookOpen } from "lucide-react";
 import { Link } from "react-router-dom";
-import { SEO } from "@/components/SEO";
+import { MultiLanguageSEO } from "@/components/MultiLanguageSEO";
 import { useLanguage } from "@/contexts/LanguageContext";
 
 const ProjectTraining = () => {
@@ -38,11 +38,11 @@ const ProjectTraining = () => {
 
   return (
     <div className="min-h-screen">
-      <SEO 
+      <MultiLanguageSEO 
         title={isEn ? "Drone Training" : "无人机培训"} 
         description={isEn ? "CANI Technology provides CAAC certified drone pilot training services." : "长凌科技提供CAAC认证的无人机驾驶员培训服务。"} 
         keywords={isEn ? "drone training,CAAC certification,pilot training" : "无人机培训,CAAC认证,飞手培训"} 
-        url="/projects/training" 
+        path="/projects/training" 
       />
       <Header />
       <main className="pt-16 md:pt-20">

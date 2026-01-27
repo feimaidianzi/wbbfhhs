@@ -4,7 +4,7 @@ import { FloatingContact } from "@/components/FloatingContact";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Car, Eye, Zap, Shield } from "lucide-react";
 import { Link } from "react-router-dom";
-import { SEO } from "@/components/SEO";
+import { MultiLanguageSEO } from "@/components/MultiLanguageSEO";
 import { useLanguage } from "@/contexts/LanguageContext";
 
 const Traffic = () => {
@@ -35,11 +35,11 @@ const Traffic = () => {
 
   return (
     <div className="min-h-screen">
-      <SEO
+      <MultiLanguageSEO
         title={t('traffic.seo.title')}
         description={t('traffic.seo.desc')}
         keywords={t('traffic.seo.keywords')}
-        url="/applications/traffic"
+        path="/applications/traffic"
       />
       <Header />
       <main className="pt-16 md:pt-20">

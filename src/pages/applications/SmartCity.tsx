@@ -4,7 +4,7 @@ import { FloatingContact } from "@/components/FloatingContact";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Building, Eye, Zap, Map } from "lucide-react";
 import { Link } from "react-router-dom";
-import { SEO } from "@/components/SEO";
+import { MultiLanguageSEO } from "@/components/MultiLanguageSEO";
 import { useLanguage } from "@/contexts/LanguageContext";
 
 const SmartCity = () => {
@@ -35,11 +35,11 @@ const SmartCity = () => {
 
   return (
     <div className="min-h-screen">
-      <SEO
+      <MultiLanguageSEO
         title={t('smartCity.seo.title')}
         description={t('smartCity.seo.description')}
         keywords={t('smartCity.seo.keywords')}
-        url="/applications/smart-city"
+        path="/applications/smart-city"
       />
       <Header />
       <main className="pt-16 md:pt-20">

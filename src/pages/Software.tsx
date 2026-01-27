@@ -4,7 +4,7 @@ import { FloatingContact } from "@/components/FloatingContact";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Monitor, Map, Cloud, Shield, Settings, Database, BookOpen, Sun } from "lucide-react";
 import { Link } from "react-router-dom";
-import { SEO } from "@/components/SEO";
+import { MultiLanguageSEO } from "@/components/MultiLanguageSEO";
 import { useLanguage } from "@/contexts/LanguageContext";
 
 const Software = () => {
@@ -128,7 +128,7 @@ const Software = () => {
 
   return (
     <div className="min-h-screen">
-      <SEO
+      <MultiLanguageSEO
         title={language === 'zh' ? "软件系统" : "Software Systems"}
         description={language === 'zh' 
           ? "长凌科技无人机软件系统，包括地面站控制系统、航线规划系统、云平台管理系统、数据处理系统等专业软件解决方案。"
@@ -136,7 +136,7 @@ const Software = () => {
         keywords={language === 'zh' 
           ? "无人机软件,地面站系统,航线规划,云平台管理,无人机数据处理,飞控软件"
           : "drone software,ground station system,route planning,cloud platform management,drone data processing,flight control software"}
-        url="/software"
+        path="/software"
       />
       <Header />
       <main className="pt-16 md:pt-20">

@@ -4,7 +4,7 @@ import { FloatingContact } from "@/components/FloatingContact";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, CheckCircle, Sparkles, Users, Palette, Shield } from "lucide-react";
 import { Link } from "react-router-dom";
-import { SEO } from "@/components/SEO";
+import { MultiLanguageSEO } from "@/components/MultiLanguageSEO";
 import { useLanguage } from "@/contexts/LanguageContext";
 
 const DroneShow = () => {
@@ -24,11 +24,11 @@ const DroneShow = () => {
 
   return (
     <div className="min-h-screen">
-      <SEO 
+      <MultiLanguageSEO 
         title={isEn ? "Drone Light Show" : "无人机表演"} 
         description={isEn ? "Feimai Technology professional drone formation light show services." : "飞迈科技专业无人机编队灯光表演服务。"} 
         keywords={isEn ? "drone show,light show,formation performance" : "无人机表演,灯光秀,编队表演"} 
-        url="/projects/show" 
+        path="/projects/show" 
       />
       <Header />
       <main className="pt-16 md:pt-20">

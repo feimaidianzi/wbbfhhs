@@ -4,7 +4,7 @@ import { FloatingContact } from "@/components/FloatingContact";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Droplets, Shield, Zap, Eye } from "lucide-react";
 import { Link } from "react-router-dom";
-import { SEO } from "@/components/SEO";
+import { MultiLanguageSEO } from "@/components/MultiLanguageSEO";
 import { useLanguage } from "@/contexts/LanguageContext";
 
 const Water = () => {
@@ -35,11 +35,11 @@ const Water = () => {
 
   return (
     <div className="min-h-screen">
-      <SEO
+      <MultiLanguageSEO
         title={t('water.seo.title')}
         description={t('water.seo.desc')}
         keywords={t('water.seo.keywords')}
-        url="/applications/water"
+        path="/applications/water"
       />
       <Header />
       <main className="pt-16 md:pt-20">

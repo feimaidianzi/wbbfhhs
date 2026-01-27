@@ -5,7 +5,7 @@ import { FloatingContact } from "@/components/FloatingContact";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Zap, Truck, Shield, Leaf, Flame, Link2, Lightbulb, ChevronDown } from "lucide-react";
 import { Link } from "react-router-dom";
-import { SEO } from "@/components/SEO";
+import { MultiLanguageSEO } from "@/components/MultiLanguageSEO";
 import { useLanguage } from "@/contexts/LanguageContext";
 
 const Applications = () => {
@@ -89,11 +89,11 @@ const Applications = () => {
 
   return (
     <div className="min-h-screen bg-background">
-      <SEO
+      <MultiLanguageSEO
         title={t('applications.seo.title')}
         description={t('applications.seo.description')}
         keywords={t('applications.seo.keywords')}
-        url="/applications"
+        path="/applications"
       />
       <Header />
 

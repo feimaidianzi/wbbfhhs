@@ -4,7 +4,7 @@ import { FloatingContact } from "@/components/FloatingContact";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, CheckCircle, Zap, Shield, Clock, BarChart, AlertTriangle, Eye, Database, FileText, Map, Cpu, Target, TrendingUp } from "lucide-react";
 import { Link } from "react-router-dom";
-import { SEO } from "@/components/SEO";
+import { MultiLanguageSEO } from "@/components/MultiLanguageSEO";
 
 // 导入AI生成的配图
 import heroPowerGrid from "@/assets/power/hero-power-grid.jpg";
@@ -88,10 +88,11 @@ const inspectionCases = [
 const PowerInspection = () => {
   return (
     <div className="min-h-screen bg-background">
-      <SEO
+      <MultiLanguageSEO
         title="电力巡检 - 无人机电力巡线解决方案"
         description="专业的无人机电力巡检服务，涵盖输电线路、变电站、光伏电站等场景，AI智能识别缺陷，提升巡检效率20倍以上"
         keywords="电力巡检,无人机巡线,输电线路巡检,变电站巡检,光伏巡检"
+        path="/applications/power-inspection"
       />
       <Header />
       <FloatingContact />

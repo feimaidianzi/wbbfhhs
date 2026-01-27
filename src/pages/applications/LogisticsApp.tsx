@@ -4,7 +4,7 @@ import { FloatingContact } from "@/components/FloatingContact";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Package, Truck, Clock, MapPin, Zap, Shield, Target, TrendingUp, Globe, Mountain, Building, Anchor, CheckCircle } from "lucide-react";
 import { Link } from "react-router-dom";
-import { SEO } from "@/components/SEO";
+import { MultiLanguageSEO } from "@/components/MultiLanguageSEO";
 
 // 导入AI生成的配图
 import heroLogistics from "@/assets/logistics/hero-logistics.jpg";
@@ -150,11 +150,11 @@ const productSeries = [
 const LogisticsApp = () => {
   return (
     <div className="min-h-screen bg-background">
-      <SEO
+      <MultiLanguageSEO
         title="物流应用 - 无人机物流配送解决方案"
         description="飞迈科技物流无人机解决方案，提供偏远地区配送、海岛物资运输、应急物资投送、城市末端配送等专业服务，最大载重30KG。"
         keywords="物流无人机,无人机配送,应急物资投送,末端配送,大载重无人机,海岛配送"
-        url="/applications/logistics"
+        path="/applications/logistics"
       />
       <Header />
       <FloatingContact />
