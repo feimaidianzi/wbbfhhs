@@ -80,6 +80,9 @@ const SEOManagement = () => {
   const [submissionHistory, setSubmissionHistory] = useState<SubmissionHistoryItem[]>([]);
   const [isLoadingHistory, setIsLoadingHistory] = useState(false);
   
+  // Email notification option
+  const [sendEmailNotify, setSendEmailNotify] = useState(false);
+  
   // Submission state
   const [submissionState, setSubmissionState] = useState<SubmissionState>({
     isGenerating: false,
@@ -181,7 +184,7 @@ const SEOManagement = () => {
     
     try {
       const { data, error } = await supabase.functions.invoke('submit-sitemap', {
-        body: { action: 'generate' }
+        body: { action: 'generate', sendNotify: sendEmailNotify }
       });
 
       if (error) throw error;
@@ -212,6 +215,7 @@ const SEOManagement = () => {
           googleToken: apiKeys.googleToken || undefined,
           baiduToken: apiKeys.baiduToken || undefined,
           bingApiKey: apiKeys.bingApiKey || undefined,
+          sendNotify: sendEmailNotify,
         }
       });
 
@@ -249,7 +253,7 @@ const SEOManagement = () => {
     
     try {
       const { data, error } = await supabase.functions.invoke('submit-sitemap', {
-        body: { action: 'ping' }
+        body: { action: 'ping', sendNotify: sendEmailNotify }
       });
 
       if (error) throw error;
@@ -318,6 +322,20 @@ const SEOManagement = () => {
             </CardDescription>
           </CardHeader>
           <CardContent className="space-y-6">
+            {/* Email Notification Toggle */}
+            <div className="flex items-center gap-3 p-3 bg-blue-50 rounded-lg">
+              <input
+                type="checkbox"
+                id="emailNotify"
+                checked={sendEmailNotify}
+                onChange={(e) => setSendEmailNotify(e.target.checked)}
+                className="h-4 w-4 rounded border-gray-300"
+              />
+              <label htmlFor="emailNotify" className="text-sm">
+                操作完成后发送邮件通知到管理员邮箱
+              </label>
+            </div>
+
             {/* Action Buttons */}
             <div className="flex flex-wrap gap-3">
               <Button 

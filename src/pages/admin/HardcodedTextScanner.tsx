@@ -5,7 +5,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Badge } from '@/components/ui/badge';
 import { Progress } from '@/components/ui/progress';
 import { ScrollArea } from '@/components/ui/scroll-area';
-import { ArrowLeft, Search, AlertTriangle, CheckCircle, FileText, Copy, Loader2 } from 'lucide-react';
+import { ArrowLeft, Search, AlertTriangle, CheckCircle, FileText, Copy, Loader2, Languages, Send } from 'lucide-react';
 import { toast } from 'sonner';
 import { supabase } from '@/integrations/supabase/client';
 import { zhTranslations } from '@/i18n/zh';
@@ -30,6 +30,8 @@ const HardcodedTextScanner = () => {
   const [results, setResults] = useState<ScanResult[]>([]);
   const [progress, setProgress] = useState<ScanProgress | null>(null);
   const [scanComplete, setScanComplete] = useState(false);
+  const [isSubmittingTranslation, setIsSubmittingTranslation] = useState(false);
+  const [selectedResults, setSelectedResults] = useState<Set<number>>(new Set());
   const stopScanRef = useRef(false);
 
   // Common patterns that indicate hardcoded Chinese text
@@ -369,6 +371,101 @@ const HardcodedTextScanner = () => {
     toast.success('已复制所有key到剪贴板');
   };
 
+  const toggleSelectResult = (index: number) => {
+    const newSelected = new Set(selectedResults);
+    if (newSelected.has(index)) {
+      newSelected.delete(index);
+    } else {
+      newSelected.add(index);
+    }
+    setSelectedResults(newSelected);
+  };
+
+  const selectAllResults = () => {
+    if (selectedResults.size === results.length) {
+      setSelectedResults(new Set());
+    } else {
+      setSelectedResults(new Set(results.map((_, i) => i)));
+    }
+  };
+
+  const submitToTranslation = async () => {
+    if (selectedResults.size === 0) {
+      toast.error('请先选择需要翻译的条目');
+      return;
+    }
+
+    setIsSubmittingTranslation(true);
+    
+    try {
+      // Build translation entries from selected results
+      const selectedItems = Array.from(selectedResults).map(i => results[i]);
+      const newTranslations: Record<string, string> = {};
+      
+      selectedItems.forEach(item => {
+        // Extract clean Chinese text
+        const cleanText = item.content.replace(/[<>'"{}=]/g, '').trim();
+        if (cleanText) {
+          newTranslations[item.suggestedKey] = cleanText;
+        }
+      });
+
+      const keysToAdd = Object.keys(newTranslations);
+      if (keysToAdd.length === 0) {
+        toast.error('没有有效的翻译内容');
+        return;
+      }
+
+      // Merge with existing zhTranslations
+      const mergedContent = { ...zhTranslations, ...newTranslations };
+      
+      // Save to system_settings as pending translations
+      const { error } = await supabase
+        .from('system_settings')
+        .upsert({
+          key: 'pending_translations',
+          value: JSON.stringify({
+            keys: keysToAdd,
+            content: newTranslations,
+            submitted_at: new Date().toISOString(),
+            source: 'hardcoded_scanner',
+          }),
+          description: `待翻译条目 - ${keysToAdd.length} 个key`,
+        }, { onConflict: 'key' });
+
+      if (error) throw error;
+
+      // Trigger batch translation for all languages
+      const targetLanguages = ['vi', 'th', 'ms', 'id', 'ja', 'ko', 'fr', 'de', 'es', 'ru', 'ar', 'tr'];
+      
+      toast.success(`已提交 ${keysToAdd.length} 个翻译key，正在启动翻译任务...`);
+
+      // Start translation in background
+      const { data, error: translateError } = await supabase.functions.invoke('batch-translate', {
+        body: {
+          sourceContent: mergedContent,
+          languages: targetLanguages,
+          mode: 'incremental',
+        },
+      });
+
+      if (translateError) {
+        console.error('Translation error:', translateError);
+        toast.error('翻译任务启动失败，请稍后在翻译管理页面手动执行');
+      } else {
+        toast.success('翻译任务已启动，请在翻译管理页面查看进度');
+      }
+
+      // Clear selection
+      setSelectedResults(new Set());
+    } catch (error) {
+      console.error('Submit translation error:', error);
+      toast.error('提交翻译任务失败');
+    } finally {
+      setIsSubmittingTranslation(false);
+    }
+  };
+
   return (
     <div className="min-h-screen bg-gray-50 p-6">
       <div className="max-w-6xl mx-auto">
@@ -439,10 +536,36 @@ const HardcodedTextScanner = () => {
               )}
             </div>
             {results.length > 0 && (
-              <Button variant="outline" size="sm" onClick={copyAllKeys}>
-                <Copy className="h-4 w-4 mr-2" />
-                复制所有Key
-              </Button>
+              <div className="flex items-center gap-2">
+                <Button 
+                  variant="outline" 
+                  size="sm" 
+                  onClick={selectAllResults}
+                >
+                  {selectedResults.size === results.length ? '取消全选' : '全选'}
+                </Button>
+                <Button 
+                  variant="outline" 
+                  size="sm" 
+                  onClick={copyAllKeys}
+                >
+                  <Copy className="h-4 w-4 mr-2" />
+                  复制所有Key
+                </Button>
+                <Button 
+                  size="sm" 
+                  onClick={submitToTranslation}
+                  disabled={isSubmittingTranslation || selectedResults.size === 0}
+                  className="bg-gradient-to-r from-blue-500 to-purple-500"
+                >
+                  {isSubmittingTranslation ? (
+                    <Loader2 className="h-4 w-4 mr-2 animate-spin" />
+                  ) : (
+                    <Send className="h-4 w-4 mr-2" />
+                  )}
+                  提交翻译 ({selectedResults.size})
+                </Button>
+              </div>
             )}
           </div>
         )}
@@ -464,25 +587,42 @@ const HardcodedTextScanner = () => {
                   {results.map((result, index) => (
                     <div
                       key={index}
-                      className="p-4 border rounded-lg hover:bg-gray-50 cursor-pointer transition-colors"
-                      onClick={() => copyMigrationCode(result)}
+                      className={`p-4 border rounded-lg hover:bg-gray-50 cursor-pointer transition-colors ${
+                        selectedResults.has(index) ? 'ring-2 ring-primary bg-primary/5' : ''
+                      }`}
+                      onClick={(e) => {
+                        if (e.shiftKey || e.ctrlKey || e.metaKey) {
+                          toggleSelectResult(index);
+                        } else {
+                          copyMigrationCode(result);
+                        }
+                      }}
                     >
                       <div className="flex items-start justify-between gap-4">
-                        <div className="flex-1 min-w-0">
-                          <div className="flex items-center gap-2 mb-1">
-                            <Badge variant="outline" className="text-xs">
-                              {result.file.split('/').pop()}
-                            </Badge>
-                            <span className="text-xs text-muted-foreground">
-                              行 {result.line}
-                            </span>
+                        <div className="flex items-center gap-3 flex-1 min-w-0">
+                          <input
+                            type="checkbox"
+                            checked={selectedResults.has(index)}
+                            onChange={() => toggleSelectResult(index)}
+                            onClick={(e) => e.stopPropagation()}
+                            className="h-4 w-4 rounded border-gray-300"
+                          />
+                          <div className="flex-1 min-w-0">
+                            <div className="flex items-center gap-2 mb-1">
+                              <Badge variant="outline" className="text-xs">
+                                {result.file.split('/').pop()}
+                              </Badge>
+                              <span className="text-xs text-muted-foreground">
+                                行 {result.line}
+                              </span>
+                            </div>
+                            <p className="text-sm font-mono bg-gray-100 p-2 rounded truncate">
+                              {result.content}
+                            </p>
+                            <p className="text-sm text-primary mt-2">
+                              {result.suggestion}
+                            </p>
                           </div>
-                          <p className="text-sm font-mono bg-gray-100 p-2 rounded truncate">
-                            {result.content}
-                          </p>
-                          <p className="text-sm text-primary mt-2">
-                            {result.suggestion}
-                          </p>
                         </div>
                         <Copy className="h-4 w-4 text-muted-foreground flex-shrink-0" />
                       </div>
@@ -501,10 +641,11 @@ const HardcodedTextScanner = () => {
           <CardContent className="space-y-2 text-sm text-gray-600">
             <p>1. 点击 <strong>"开始扫描"</strong> 检测所有页面中的硬编码中文</p>
             <p>2. 扫描结果会显示文件位置、行号和原始内容</p>
-            <p>3. 点击任意结果可复制迁移代码到剪贴板</p>
-            <p>4. 将生成的翻译key添加到 <code>src/i18n/zh.ts</code></p>
-            <p>5. 在组件中使用 <code>t('key')</code> 替换硬编码文本</p>
-            <p>6. 完成后在翻译管理页面点击"自动翻译全部"同步到所有语言</p>
+            <p>3. 使用复选框选择需要翻译的条目，或按住 Ctrl/Cmd 点击选择</p>
+            <p>4. 点击 <strong>"提交翻译"</strong> 一键将选中条目提交到翻译任务</p>
+            <p>5. 点击任意结果可复制迁移代码到剪贴板</p>
+            <p>6. 将生成的翻译key添加到 <code>src/i18n/zh.ts</code></p>
+            <p>7. 在组件中使用 <code>t('key')</code> 替换硬编码文本</p>
           </CardContent>
         </Card>
       </div>
