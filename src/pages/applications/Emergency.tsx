@@ -4,7 +4,7 @@ import { FloatingContact } from "@/components/FloatingContact";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Shield, Eye, Zap, Radio } from "lucide-react";
 import { Link } from "react-router-dom";
-import { SEO } from "@/components/SEO";
+import { MultiLanguageSEO } from "@/components/MultiLanguageSEO";
 import { useLanguage } from "@/contexts/LanguageContext";
 
 const Emergency = () => {
@@ -35,11 +35,11 @@ const Emergency = () => {
 
   return (
     <div className="min-h-screen">
-      <SEO
+      <MultiLanguageSEO
         title={t('emergency.seo.title')}
         description={t('emergency.seo.desc')}
         keywords={t('emergency.seo.keywords')}
-        url="/applications/emergency"
+        path="/applications/emergency"
       />
       <Header />
       <main className="pt-16 md:pt-20">

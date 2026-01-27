@@ -13,7 +13,7 @@ import { NewsSection } from "@/components/NewsSection";
 import { PartnersSection } from "@/components/PartnersSection";
 import { Footer } from "@/components/Footer";
 import { FloatingContact } from "@/components/FloatingContact";
-import { SEO } from "@/components/SEO";
+import { MultiLanguageSEO } from "@/components/MultiLanguageSEO";
 import { useLanguage } from "@/contexts/LanguageContext";
 
 const Index = () => {
@@ -43,11 +43,11 @@ const Index = () => {
 
   return (
     <div className="min-h-screen bg-background">
-      <SEO
+      <MultiLanguageSEO
         title={t('home.seo.title')}
         description={t('home.seo.description')}
         keywords={t('home.seo.keywords')}
-        url="/"
+        path="/"
         structuredData={homeStructuredData}
       />
       <Header />

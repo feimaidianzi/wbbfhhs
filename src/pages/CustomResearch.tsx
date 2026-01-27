@@ -3,7 +3,7 @@ import { Footer } from "@/components/Footer";
 import { FloatingContact } from "@/components/FloatingContact";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Lightbulb, Wrench, FileText, Users, CheckCircle } from "lucide-react";
-import { SEO } from "@/components/SEO";
+import { MultiLanguageSEO } from "@/components/MultiLanguageSEO";
 import { useLanguage } from "@/contexts/LanguageContext";
 
 const CustomResearch = () => {
@@ -35,11 +35,11 @@ const CustomResearch = () => {
 
   return (
     <div className="min-h-screen">
-      <SEO
+      <MultiLanguageSEO
         title={t('customResearch.seo.title')}
         description={t('customResearch.seo.description')}
         keywords={t('customResearch.seo.keywords')}
-        url="/custom-research"
+        path="/custom-research"
       />
       <Header />
       <main className="pt-16 md:pt-20">

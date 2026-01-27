@@ -4,7 +4,7 @@ import { FloatingContact } from "@/components/FloatingContact";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Zap, Eye, Radio, Shield, Package, Gauge, Flower2, Plane, Navigation } from "lucide-react";
 import { Link } from "react-router-dom";
-import { SEO } from "@/components/SEO";
+import { MultiLanguageSEO } from "@/components/MultiLanguageSEO";
 import { useLanguage } from "@/contexts/LanguageContext";
 
 const FPV = () => {
@@ -48,11 +48,11 @@ const FPV = () => {
 
   return (
     <div className="min-h-screen">
-      <SEO
+      <MultiLanguageSEO
         title={t('fpv.seo.title')}
         description={t('fpv.seo.description')}
         keywords={t('fpv.seo.keywords')}
-        url="/fpv"
+        path="/fpv"
       />
       <Header />
       <main className="pt-16 md:pt-20">

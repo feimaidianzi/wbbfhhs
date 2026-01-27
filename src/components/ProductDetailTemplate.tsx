@@ -4,7 +4,7 @@ import { FloatingContact } from "@/components/FloatingContact";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, CheckCircle, Phone, Mail, LucideIcon } from "lucide-react";
 import { Link } from "react-router-dom";
-import { SEO } from "@/components/SEO";
+import { MultiLanguageSEO } from "@/components/MultiLanguageSEO";
 import { BackButton } from "@/components/BackButton";
 import { useLanguage } from "@/contexts/LanguageContext";
 
@@ -102,10 +102,11 @@ const ProductDetailTemplate = ({
 
   return (
     <div className="min-h-screen bg-background">
-      <SEO
+      <MultiLanguageSEO
         title={isEn && seoTitleEn ? seoTitleEn : seoTitle}
         description={isEn && seoDescriptionEn ? seoDescriptionEn : seoDescription}
         keywords={seoKeywords}
+        path=""
       />
       <Header />
       <FloatingContact />

@@ -4,7 +4,7 @@ import { FloatingContact } from "@/components/FloatingContact";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Zap, Eye, Shield, Wrench } from "lucide-react";
 import { Link } from "react-router-dom";
-import { SEO } from "@/components/SEO";
+import { MultiLanguageSEO } from "@/components/MultiLanguageSEO";
 import { useLanguage } from "@/contexts/LanguageContext";
 
 const Power = () => {
@@ -20,7 +20,7 @@ const Power = () => {
 
   return (
     <div className="min-h-screen">
-      <SEO
+      <MultiLanguageSEO
         title={isEn ? "Power Industry Applications" : "电力行业应用"}
         description={isEn 
           ? "EFUAV power industry drone solutions for transmission line inspection, fault detection, wire laying, and more."
@@ -28,7 +28,7 @@ const Power = () => {
         keywords={isEn 
           ? "power drone,transmission line inspection,fault detection,wire laying drone,thermal detection"
           : "电力无人机,输电线路巡检,故障排查,架线无人机,红外检测"}
-        url="/applications/power"
+        path="/applications/power"
       />
       <Header />
       <main className="pt-16 md:pt-20">

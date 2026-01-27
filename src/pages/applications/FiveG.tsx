@@ -4,7 +4,7 @@ import { FloatingContact } from "@/components/FloatingContact";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Wifi, Eye, Zap, Globe } from "lucide-react";
 import { Link } from "react-router-dom";
-import { SEO } from "@/components/SEO";
+import { MultiLanguageSEO } from "@/components/MultiLanguageSEO";
 import { useLanguage } from "@/contexts/LanguageContext";
 
 const FiveG = () => {
@@ -35,11 +35,11 @@ const FiveG = () => {
 
   return (
     <div className="min-h-screen">
-      <SEO
+      <MultiLanguageSEO
         title={t('fiveG.seo.title')}
         description={t('fiveG.seo.description')}
         keywords={t('fiveG.seo.keywords')}
-        url="/applications/5g"
+        path="/applications/5g"
       />
       <Header />
       <main className="pt-16 md:pt-20">

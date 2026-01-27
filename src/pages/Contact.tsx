@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Phone, Mail, MapPin, Clock, MessageCircle, Send, Loader2 } from "lucide-react";
 import { useState, useEffect, useCallback } from "react";
 import { useToast } from "@/hooks/use-toast";
-import { SEO } from "@/components/SEO";
+import { MultiLanguageSEO } from "@/components/MultiLanguageSEO";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { supabase } from "@/integrations/supabase/client";
 
@@ -201,11 +201,11 @@ const Contact = () => {
 
   return (
     <div className="min-h-screen">
-      <SEO
+      <MultiLanguageSEO
         title={language === 'zh' ? "联系我们" : "Contact Us"}
         description={language === 'zh' ? "联系长凌科技，获取专业无人机解决方案咨询服务。电话：+8617674048404，总部地址：湖南省长沙市。" : "Contact CANI for professional drone solution consultation. Phone: +8617674048404, HQ: Changsha, Hunan, China."}
         keywords="联系长凌,CANI,无人机咨询,无人机定制服务,长沙无人机公司"
-        url="/contact"
+        path="/contact"
         structuredData={contactStructuredData}
       />
       <Header />

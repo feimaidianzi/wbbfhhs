@@ -4,7 +4,7 @@ import { FloatingContact } from "@/components/FloatingContact";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, GraduationCap, Sparkles, Plane, Handshake } from "lucide-react";
 import { Link } from "react-router-dom";
-import { SEO } from "@/components/SEO";
+import { MultiLanguageSEO } from "@/components/MultiLanguageSEO";
 import { useLanguage } from "@/contexts/LanguageContext";
 
 const Projects = () => {
@@ -43,11 +43,11 @@ const Projects = () => {
 
   return (
     <div className="min-h-screen">
-      <SEO
+      <MultiLanguageSEO
         title={t('projects.seo.title')}
         description={t('projects.seo.description')}
         keywords={t('projects.seo.keywords')}
-        url="/projects"
+        path="/projects"
       />
       <Header />
       <main className="pt-16 md:pt-20">

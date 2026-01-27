@@ -4,7 +4,7 @@ import { FloatingContact } from "@/components/FloatingContact";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Camera, Zap, Droplet, Map } from "lucide-react";
 import { Link } from "react-router-dom";
-import { SEO } from "@/components/SEO";
+import { MultiLanguageSEO } from "@/components/MultiLanguageSEO";
 import { useLanguage } from "@/contexts/LanguageContext";
 
 const FlightService = () => {
@@ -20,11 +20,11 @@ const FlightService = () => {
 
   return (
     <div className="min-h-screen">
-      <SEO 
+      <MultiLanguageSEO 
         title={isEn ? "Flight Services" : t('flightService.title')} 
         description={isEn ? "CANI Technology professional drone flight operation services." : t('flightService.seoDescription')} 
         keywords={isEn ? "drone flight service,aerial photography,power inspection,crop spraying" : t('flightService.seoKeywords')} 
-        url="/projects/flight-service" 
+        path="/projects/flight-service" 
       />
       <Header />
       <main className="pt-16 md:pt-20">

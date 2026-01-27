@@ -3,7 +3,8 @@ import { Footer } from "@/components/Footer";
 import { FloatingContact } from "@/components/FloatingContact";
 import { Button } from "@/components/ui/button";
 import { Target, Users, Award, ArrowRight } from "lucide-react";
-import { SEO, createBreadcrumbStructuredData } from "@/components/SEO";
+import { MultiLanguageSEO, createLocalizedBreadcrumbData } from "@/components/MultiLanguageSEO";
+import { useLanguage as useLanguageHook } from "@/contexts/LanguageContext";
 import { useLanguage } from "@/contexts/LanguageContext";
 
 const About = () => {
@@ -31,18 +32,20 @@ const About = () => {
     { value: "20+", label: t('about.stat.citiesCovered') },
   ];
 
-  const breadcrumbData = createBreadcrumbStructuredData([
+  const { language } = useLanguageHook();
+  
+  const breadcrumbData = createLocalizedBreadcrumbData([
     { name: t('nav.home'), url: '/' },
     { name: t('about.title'), url: '/about' },
-  ]);
+  ], language);
 
   return (
     <div className="min-h-screen">
-      <SEO
+      <MultiLanguageSEO
         title={t('about.title')}
         description={t('about.seoDescription')}
         keywords={t('about.seoKeywords')}
-        url="/about"
+        path="/about"
         structuredData={breadcrumbData}
       />
       <Header />

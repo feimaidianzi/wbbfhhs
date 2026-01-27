@@ -4,7 +4,7 @@ import { FloatingContact } from "@/components/FloatingContact";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Leaf, Eye, Zap, Shield } from "lucide-react";
 import { Link } from "react-router-dom";
-import { SEO } from "@/components/SEO";
+import { MultiLanguageSEO } from "@/components/MultiLanguageSEO";
 import { useLanguage } from "@/contexts/LanguageContext";
 
 const Environment = () => {
@@ -35,11 +35,11 @@ const Environment = () => {
 
   return (
     <div className="min-h-screen">
-      <SEO
+      <MultiLanguageSEO
         title={t('environment.seo.title')}
         description={t('environment.seo.desc')}
         keywords={t('environment.seo.keywords')}
-        url="/applications/environment"
+        path="/applications/environment"
       />
       <Header />
       <main className="pt-16 md:pt-20">

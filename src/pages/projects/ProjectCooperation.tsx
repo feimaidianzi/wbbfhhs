@@ -4,7 +4,7 @@ import { FloatingContact } from "@/components/FloatingContact";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, CheckCircle, Handshake, Building, Users, FileText } from "lucide-react";
 import { Link } from "react-router-dom";
-import { SEO } from "@/components/SEO";
+import { MultiLanguageSEO } from "@/components/MultiLanguageSEO";
 import { useLanguage } from "@/contexts/LanguageContext";
 
 const ProjectCooperation = () => {
@@ -24,11 +24,11 @@ const ProjectCooperation = () => {
 
   return (
     <div className="min-h-screen">
-      <SEO 
+      <MultiLanguageSEO 
         title={isEn ? "Project Cooperation" : "项目合作"} 
         description={isEn ? "Feimai Technology offers various forms of drone project cooperation." : "飞迈科技提供多种形式的无人机项目合作。"} 
         keywords={isEn ? "drone project cooperation,government cooperation,technical partnership" : "无人机项目合作,政企合作,技术合作"} 
-        url="/projects/cooperation" 
+        path="/projects/cooperation" 
       />
       <Header />
       <main className="pt-16 md:pt-20">
