@@ -1,0 +1,333 @@
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { Button } from '@/components/ui/button';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { Badge } from '@/components/ui/badge';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { ScrollArea } from '@/components/ui/scroll-area';
+import { 
+  ArrowLeft, 
+  Globe, 
+  Download, 
+  Copy, 
+  Check, 
+  FileText, 
+  Map,
+  ExternalLink,
+  Info
+} from 'lucide-react';
+import { toast } from 'sonner';
+import { SUPPORTED_LANGUAGES, LanguageCode } from '@/i18n/languages';
+import { 
+  generateLanguageSitemap, 
+  generateSitemapIndex, 
+  generateRobotsTxt,
+  downloadSitemap,
+  downloadAllSitemaps
+} from '@/utils/sitemapGenerator';
+import { getDomainForLanguage, getHtmlLang } from '@/utils/seoConfig';
+
+const SEOManagement = () => {
+  const navigate = useNavigate();
+  const [selectedLang, setSelectedLang] = useState<LanguageCode>('zh');
+  const [copiedItem, setCopiedItem] = useState<string | null>(null);
+
+  const copyToClipboard = async (text: string, item: string) => {
+    await navigator.clipboard.writeText(text);
+    setCopiedItem(item);
+    toast.success('已复制到剪贴板');
+    setTimeout(() => setCopiedItem(null), 2000);
+  };
+
+  const handleDownload = (lang: LanguageCode) => {
+    downloadSitemap(lang);
+    toast.success(`已下载 sitemap-${lang}.xml`);
+  };
+
+  const handleDownloadAll = () => {
+    downloadAllSitemaps();
+    toast.success('已下载 sitemap-index.xml');
+  };
+
+  return (
+    <div className="min-h-screen bg-gray-50 p-6">
+      <div className="max-w-6xl mx-auto">
+        <div className="mb-6 flex items-center justify-between">
+          <div className="flex items-center gap-4">
+            <Button variant="ghost" onClick={() => navigate('/admin')}>
+              <ArrowLeft className="h-4 w-4 mr-2" />
+              返回
+            </Button>
+            <div>
+              <h1 className="text-2xl font-bold">多语言SEO管理</h1>
+              <p className="text-gray-600">子域名配置、Sitemap生成和hreflang标签</p>
+            </div>
+          </div>
+          <Button onClick={handleDownloadAll} className="bg-primary">
+            <Download className="h-4 w-4 mr-2" />
+            下载Sitemap索引
+          </Button>
+        </div>
+
+        {/* Subdomain Configuration */}
+        <Card className="mb-6">
+          <CardHeader>
+            <CardTitle className="flex items-center gap-2">
+              <Globe className="h-5 w-5" />
+              子域名配置
+            </CardTitle>
+            <CardDescription>
+              每种语言使用独立子域名，需在DNS和服务器配置对应域名
+            </CardDescription>
+          </CardHeader>
+          <CardContent>
+            <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-7 gap-3">
+              {SUPPORTED_LANGUAGES.map(lang => (
+                <div
+                  key={lang.code}
+                  className="p-3 border rounded-lg hover:border-primary/50 transition-colors"
+                >
+                  <div className="flex items-center gap-2 mb-1">
+                    <span className="text-lg">{lang.flag}</span>
+                    <span className="font-medium text-sm">{lang.name}</span>
+                  </div>
+                  <code className="text-xs text-muted-foreground block truncate">
+                    {getDomainForLanguage(lang.code).replace('https://', '')}
+                  </code>
+                </div>
+              ))}
+            </div>
+            <div className="mt-4 p-4 bg-blue-50 rounded-lg flex items-start gap-3">
+              <Info className="h-5 w-5 text-blue-500 flex-shrink-0 mt-0.5" />
+              <div className="text-sm text-blue-800">
+                <p className="font-medium mb-1">DNS配置说明：</p>
+                <p>为每个子域名（如 en.cani.com, ja.cani.com）添加 A 记录或 CNAME 记录，指向您的服务器IP。</p>
+                <p className="mt-1">服务器需配置虚拟主机或反向代理，根据子域名设置对应的语言环境变量。</p>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+
+        <Tabs defaultValue="sitemap" className="space-y-4">
+          <TabsList className="grid w-full grid-cols-3">
+            <TabsTrigger value="sitemap">Sitemap生成</TabsTrigger>
+            <TabsTrigger value="hreflang">Hreflang标签</TabsTrigger>
+            <TabsTrigger value="robots">Robots.txt</TabsTrigger>
+          </TabsList>
+
+          <TabsContent value="sitemap">
+            <Card>
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2">
+                  <Map className="h-5 w-5" />
+                  多语言Sitemap
+                </CardTitle>
+                <CardDescription>
+                  为每种语言生成独立的sitemap.xml，包含hreflang交叉引用
+                </CardDescription>
+              </CardHeader>
+              <CardContent>
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-6">
+                  {SUPPORTED_LANGUAGES.map(lang => (
+                    <div
+                      key={lang.code}
+                      className="p-4 border rounded-lg flex items-center justify-between"
+                    >
+                      <div className="flex items-center gap-3">
+                        <span className="text-2xl">{lang.flag}</span>
+                        <div>
+                          <p className="font-medium">{lang.name}</p>
+                          <code className="text-xs text-muted-foreground">
+                            sitemap-{lang.code}.xml
+                          </code>
+                        </div>
+                      </div>
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        onClick={() => handleDownload(lang.code)}
+                      >
+                        <Download className="h-4 w-4" />
+                      </Button>
+                    </div>
+                  ))}
+                </div>
+
+                <div className="space-y-2">
+                  <div className="flex items-center justify-between">
+                    <p className="font-medium">Sitemap索引预览</p>
+                    <Button
+                      variant="ghost"
+                      size="sm"
+                      onClick={() => copyToClipboard(generateSitemapIndex(), 'sitemap-index')}
+                    >
+                      {copiedItem === 'sitemap-index' ? (
+                        <Check className="h-4 w-4 mr-1" />
+                      ) : (
+                        <Copy className="h-4 w-4 mr-1" />
+                      )}
+                      复制
+                    </Button>
+                  </div>
+                  <ScrollArea className="h-[200px] border rounded-lg">
+                    <pre className="p-4 text-xs font-mono">
+                      {generateSitemapIndex()}
+                    </pre>
+                  </ScrollArea>
+                </div>
+              </CardContent>
+            </Card>
+          </TabsContent>
+
+          <TabsContent value="hreflang">
+            <Card>
+              <CardHeader>
+                <CardTitle>Hreflang标签实现</CardTitle>
+                <CardDescription>
+                  MultiLanguageSEO组件自动为所有页面生成hreflang标签
+                </CardDescription>
+              </CardHeader>
+              <CardContent>
+                <div className="mb-4">
+                  <label className="text-sm font-medium mb-2 block">选择语言预览：</label>
+                  <div className="flex flex-wrap gap-2">
+                    {SUPPORTED_LANGUAGES.slice(0, 6).map(lang => (
+                      <Button
+                        key={lang.code}
+                        variant={selectedLang === lang.code ? 'default' : 'outline'}
+                        size="sm"
+                        onClick={() => setSelectedLang(lang.code)}
+                      >
+                        {lang.flag} {lang.name}
+                      </Button>
+                    ))}
+                  </div>
+                </div>
+
+                <div className="space-y-2">
+                  <div className="flex items-center justify-between">
+                    <p className="font-medium">Hreflang标签示例（首页）</p>
+                    <Button
+                      variant="ghost"
+                      size="sm"
+                      onClick={() => {
+                        const tags = SUPPORTED_LANGUAGES.map(l => 
+                          `<link rel="alternate" hreflang="${getHtmlLang(l.code)}" href="${getDomainForLanguage(l.code)}/" />`
+                        ).join('\n') + '\n<link rel="alternate" hreflang="x-default" href="https://en.cani.com/" />';
+                        copyToClipboard(tags, 'hreflang');
+                      }}
+                    >
+                      {copiedItem === 'hreflang' ? <Check className="h-4 w-4 mr-1" /> : <Copy className="h-4 w-4 mr-1" />}
+                      复制
+                    </Button>
+                  </div>
+                  <ScrollArea className="h-[300px] border rounded-lg">
+                    <pre className="p-4 text-xs font-mono">
+{SUPPORTED_LANGUAGES.map(l => 
+  `<link rel="alternate" hreflang="${getHtmlLang(l.code)}" href="${getDomainForLanguage(l.code)}/" />`
+).join('\n')}
+{'\n<link rel="alternate" hreflang="x-default" href="https://en.cani.com/" />'}
+                    </pre>
+                  </ScrollArea>
+                </div>
+
+                <div className="mt-6 p-4 bg-green-50 rounded-lg">
+                  <p className="font-medium text-green-800 mb-2">✅ 组件使用方式</p>
+                  <code className="block bg-white p-3 rounded text-sm font-mono">
+{`import { MultiLanguageSEO } from '@/components/MultiLanguageSEO';
+
+<MultiLanguageSEO
+  title="首页"
+  description="CANI科技..."
+  path="/"
+/>`}
+                  </code>
+                </div>
+              </CardContent>
+            </Card>
+          </TabsContent>
+
+          <TabsContent value="robots">
+            <Card>
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2">
+                  <FileText className="h-5 w-5" />
+                  Robots.txt配置
+                </CardTitle>
+                <CardDescription>
+                  每个子域名需要独立的robots.txt文件
+                </CardDescription>
+              </CardHeader>
+              <CardContent>
+                <div className="mb-4">
+                  <label className="text-sm font-medium mb-2 block">选择语言：</label>
+                  <div className="flex flex-wrap gap-2">
+                    {SUPPORTED_LANGUAGES.slice(0, 6).map(lang => (
+                      <Button
+                        key={lang.code}
+                        variant={selectedLang === lang.code ? 'default' : 'outline'}
+                        size="sm"
+                        onClick={() => setSelectedLang(lang.code)}
+                      >
+                        {lang.flag} {lang.name}
+                      </Button>
+                    ))}
+                  </div>
+                </div>
+
+                <div className="space-y-2">
+                  <div className="flex items-center justify-between">
+                    <p className="font-medium">robots.txt 内容 ({selectedLang})</p>
+                    <Button
+                      variant="ghost"
+                      size="sm"
+                      onClick={() => copyToClipboard(generateRobotsTxt(selectedLang), 'robots')}
+                    >
+                      {copiedItem === 'robots' ? <Check className="h-4 w-4 mr-1" /> : <Copy className="h-4 w-4 mr-1" />}
+                      复制
+                    </Button>
+                  </div>
+                  <ScrollArea className="h-[250px] border rounded-lg">
+                    <pre className="p-4 text-xs font-mono">
+                      {generateRobotsTxt(selectedLang)}
+                    </pre>
+                  </ScrollArea>
+                </div>
+              </CardContent>
+            </Card>
+          </TabsContent>
+        </Tabs>
+
+        <Card className="mt-6">
+          <CardHeader>
+            <CardTitle>实施步骤</CardTitle>
+          </CardHeader>
+          <CardContent className="space-y-3 text-sm text-gray-600">
+            <div className="flex gap-3">
+              <Badge variant="outline" className="h-6 w-6 rounded-full flex items-center justify-center flex-shrink-0">1</Badge>
+              <p><strong>DNS配置</strong>：为每种语言添加子域名记录（en.cani.com, ja.cani.com 等）</p>
+            </div>
+            <div className="flex gap-3">
+              <Badge variant="outline" className="h-6 w-6 rounded-full flex items-center justify-center flex-shrink-0">2</Badge>
+              <p><strong>服务器配置</strong>：设置虚拟主机或CDN规则，根据子域名返回对应语言版本</p>
+            </div>
+            <div className="flex gap-3">
+              <Badge variant="outline" className="h-6 w-6 rounded-full flex items-center justify-center flex-shrink-0">3</Badge>
+              <p><strong>部署Sitemap</strong>：将生成的sitemap文件放置在每个子域名的根目录</p>
+            </div>
+            <div className="flex gap-3">
+              <Badge variant="outline" className="h-6 w-6 rounded-full flex items-center justify-center flex-shrink-0">4</Badge>
+              <p><strong>提交到搜索引擎</strong>：在Google Search Console和百度站长工具中提交各语言版本的sitemap</p>
+            </div>
+            <div className="flex gap-3">
+              <Badge variant="outline" className="h-6 w-6 rounded-full flex items-center justify-center flex-shrink-0">5</Badge>
+              <p><strong>使用MultiLanguageSEO</strong>：在所有页面中使用MultiLanguageSEO组件替代原有SEO组件</p>
+            </div>
+          </CardContent>
+        </Card>
+      </div>
+    </div>
+  );
+};
+
+export default SEOManagement;
