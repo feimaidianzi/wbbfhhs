@@ -246,6 +246,66 @@ async function submitToBing(sitemapUrl: string, bingApiKey?: string): Promise<{ 
   }
 }
 
+// Helper to send email notification
+async function sendEmailNotification(
+  type: string,
+  status: string,
+  languages: string[],
+  routeCount: number,
+  errorMessage: string | null
+) {
+  const RESEND_API_KEY = Deno.env.get('RESEND_API_KEY');
+  const ADMIN_EMAIL = Deno.env.get('ADMIN_EMAIL') || 'admin@cani.com';
+  
+  if (!RESEND_API_KEY) {
+    console.log('RESEND_API_KEY not configured, skipping email notification');
+    return;
+  }
+
+  try {
+    const statusEmoji = status === 'success' ? '✅' : status === 'partial' ? '⚠️' : '❌';
+    const statusText = status === 'success' ? '成功' : status === 'partial' ? '部分成功' : '失败';
+    const typeText = type === 'generate' ? 'Sitemap生成' : type === 'submit' ? 'Sitemap提交' : 'Sitemap Ping';
+    
+    const subject = `${statusEmoji} ${typeText}${statusText} - CANI SEO通知`;
+    
+    const html = `
+      <h2>${statusEmoji} ${typeText}${statusText}</h2>
+      <p><strong>时间:</strong> ${new Date().toLocaleString('zh-CN', { timeZone: 'Asia/Shanghai' })}</p>
+      <p><strong>操作类型:</strong> ${typeText}</p>
+      <p><strong>状态:</strong> ${statusText}</p>
+      <p><strong>语言:</strong> ${languages.join(', ')}</p>
+      <p><strong>路由数量:</strong> ${routeCount}</p>
+      ${errorMessage ? `<p><strong>错误信息:</strong> ${errorMessage}</p>` : ''}
+      <hr/>
+      <p style="color: #666;">此邮件由 CANI SEO 管理系统自动发送</p>
+    `;
+
+    const response = await fetch('https://api.resend.com/emails', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${RESEND_API_KEY}`,
+      },
+      body: JSON.stringify({
+        from: 'CANI SEO <noreply@cani.com>',
+        to: [ADMIN_EMAIL],
+        subject: subject,
+        html: html,
+      }),
+    });
+
+    if (response.ok) {
+      console.log('Email notification sent successfully');
+    } else {
+      const errorText = await response.text();
+      console.error('Failed to send email:', errorText);
+    }
+  } catch (err) {
+    console.error('Email notification error:', err);
+  }
+}
+
 // Helper to log submission history
 async function logSubmissionHistory(
   supabase: any,
@@ -255,7 +315,8 @@ async function logSubmissionHistory(
   results: any,
   status: string,
   errorMessage: string | null,
-  triggeredBy: string
+  triggeredBy: string,
+  sendEmail: boolean = false
 ) {
   try {
     await supabase.from('sitemap_submission_history').insert({
@@ -268,13 +329,18 @@ async function logSubmissionHistory(
       triggered_by: triggeredBy,
       completed_at: new Date().toISOString(),
     });
+
+    // Send email notification if requested
+    if (sendEmail) {
+      await sendEmailNotification(type, status, languages, routeCount, errorMessage);
+    }
   } catch (err) {
     console.error('Failed to log submission history:', err);
   }
 }
 
 // Helper to get API keys from database
-async function getApiKeys(supabase: any): Promise<{ googleToken?: string; baiduToken?: string; bingApiKey?: string }> {
+async function getApiKeys(supabase: any): Promise<{ googleToken?: string; baiduToken?: string; bingApiKey?: string; adminEmail?: string }> {
   try {
     const { data } = await supabase
       .from('seo_api_keys')
@@ -292,6 +358,7 @@ async function getApiKeys(supabase: any): Promise<{ googleToken?: string; baiduT
       googleToken: keys['google_oauth_token'],
       baiduToken: keys['baidu_token'],
       bingApiKey: keys['bing_api_key'],
+      adminEmail: keys['admin_email'],
     };
   } catch (err) {
     console.error('Failed to get API keys:', err);
@@ -311,7 +378,7 @@ serve(async (req) => {
     const supabase = createClient(supabaseUrl, supabaseServiceKey);
 
     const body = await req.json();
-    const { action, languages, googleToken: inputGoogleToken, baiduToken: inputBaiduToken, bingApiKey: inputBingApiKey, triggeredBy = 'manual' } = body;
+    const { action, languages, googleToken: inputGoogleToken, baiduToken: inputBaiduToken, bingApiKey: inputBingApiKey, triggeredBy = 'manual', sendNotify = false } = body;
     const lastmod = new Date().toISOString().split('T')[0];
     const allRoutes = [...STATIC_ROUTES, ...PRODUCT_DETAIL_ROUTES];
 
@@ -355,7 +422,7 @@ serve(async (req) => {
           description: 'Auto-generated sitemap metadata',
         }, { onConflict: 'key' });
 
-      // Log to history
+      // Log to history and send email
       await logSubmissionHistory(
         supabase,
         'generate',
@@ -364,7 +431,8 @@ serve(async (req) => {
         { file_count: Object.keys(sitemaps).length },
         'success',
         null,
-        triggeredBy
+        triggeredBy,
+        sendNotify
       );
 
       console.log(`Generated ${Object.keys(sitemaps).length} sitemap files for ${targetLanguages.length} languages`);
@@ -431,7 +499,7 @@ serve(async (req) => {
           description: 'Last sitemap submission to search engines',
         }, { onConflict: 'key' });
 
-      // Log to history
+      // Log to history and send email
       await logSubmissionHistory(
         supabase,
         'submit',
@@ -440,7 +508,8 @@ serve(async (req) => {
         results,
         status,
         null,
-        triggeredBy
+        triggeredBy,
+        sendNotify
       );
 
       console.log('Sitemap submission results:', results);
@@ -485,7 +554,8 @@ serve(async (req) => {
         pingResults,
         'success',
         null,
-        triggeredBy
+        triggeredBy,
+        sendNotify
       );
 
       console.log('Sitemap ping results:', pingResults);
