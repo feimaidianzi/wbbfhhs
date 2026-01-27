@@ -8,42 +8,37 @@ import { SEO } from "@/components/SEO";
 import { useLanguage } from "@/contexts/LanguageContext";
 
 const Water = () => {
-  const { language } = useLanguage();
-  const isEn = language === "en";
+  const { t } = useLanguage();
 
   const features = [
     { 
       icon: Droplets, 
-      title: isEn ? "River Inspection" : "河道巡检", 
-      description: isEn ? "Rapid coverage of entire river systems, real-time water quality and levee monitoring" : "无人机快速覆盖河道全线，实时监测水质和堤坝状况" 
+      title: t('water.river.title'), 
+      description: t('water.river.desc') 
     },
     { 
       icon: Shield, 
-      title: isEn ? "Reservoir Monitoring" : "水库监测", 
-      description: isEn ? "Regular inspection of reservoir dams to detect safety hazards promptly" : "对水库大坝进行定期巡检，及时发现安全隐患" 
+      title: t('water.reservoir.title'), 
+      description: t('water.reservoir.desc') 
     },
     { 
       icon: Zap, 
-      title: isEn ? "Flood Control" : "防汛抗旱", 
-      description: isEn ? "Real-time water level monitoring during flood season for decision support" : "汛期实时监测水位变化，为防汛决策提供数据支持" 
+      title: t('water.flood.title'), 
+      description: t('water.flood.desc') 
     },
     { 
       icon: Eye, 
-      title: isEn ? "Water Resource Survey" : "水资源调查", 
-      description: isEn ? "Aerial mapping of water areas and water resource distribution surveys" : "航拍测绘水域面积，调查水资源分布情况" 
+      title: t('water.resource.title'), 
+      description: t('water.resource.desc') 
     },
   ];
 
   return (
     <div className="min-h-screen">
       <SEO
-        title={isEn ? "Water Conservancy Applications" : "水利行业应用"}
-        description={isEn 
-          ? "Feimai Technology drone water conservancy solutions for river inspection, reservoir monitoring, and flood control."
-          : "飞迈科技无人机水利行业解决方案，应用于河道巡检、水库监测、防汛抗旱等领域。"}
-        keywords={isEn 
-          ? "water conservancy drone,river inspection,reservoir monitoring,flood control drone,water resource survey"
-          : "水利无人机,河道巡检,水库监测,防汛无人机,水资源调查"}
+        title={t('water.seo.title')}
+        description={t('water.seo.desc')}
+        keywords={t('water.seo.keywords')}
         url="/applications/water"
       />
       <Header />
@@ -57,14 +52,12 @@ const Water = () => {
           </div>
           <div className="relative container-custom h-full flex items-center">
             <div className="max-w-2xl rounded-3xl bg-black/70 border border-white/20 p-6 md:p-8 shadow-lg">
-              <p className="text-cyan-400 font-medium mb-2">{isEn ? "Industry Applications" : "行业应用"}</p>
+              <p className="text-cyan-400 font-medium mb-2">{t('water.badge')}</p>
               <h1 className="text-3xl md:text-5xl font-bold text-white mb-4">
-                {isEn ? "Water Conservancy" : "水利"}
+                {t('water.title')}
               </h1>
               <p className="text-lg text-white/80">
-                {isEn 
-                  ? "Apply drone technology for river inspection, reservoir monitoring, flood control, and provide technical support for water conservancy development"
-                  : "应用无人机技术进行河道巡检、水库监测、防汛抗旱等工作，为水利改革发展提供科技支撑"}
+                {t('water.hero')}
               </p>
             </div>
           </div>
@@ -74,7 +67,7 @@ const Water = () => {
         <section className="py-16 bg-background">
           <div className="container-custom">
             <h2 className="text-2xl md:text-3xl font-bold text-center mb-12">
-              {isEn ? "Application Scenarios" : "应用场景"}
+              {t('water.scenarios.title')}
             </h2>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
               {features.map((feature, index) => (
@@ -92,16 +85,14 @@ const Water = () => {
         <section className="py-16 bg-primary">
           <div className="container-custom text-center">
             <h2 className="text-2xl md:text-3xl font-bold text-primary-foreground mb-4">
-              {isEn ? "Get Water Conservancy Solutions" : "获取水利行业解决方案"}
+              {t('water.cta.title')}
             </h2>
             <p className="text-primary-foreground/80 mb-8 max-w-2xl mx-auto">
-              {isEn 
-                ? "Contact our professional team to learn more about water conservancy drone applications"
-                : "联系我们的专业团队，了解更多水利行业无人机应用详情"}
+              {t('water.cta.subtitle')}
             </p>
             <Link to="/contact">
               <Button className="bg-accent hover:bg-orange-light text-accent-foreground px-8 py-3">
-                {isEn ? "Contact Us" : "立即咨询"}
+                {t('water.cta.btn')}
                 <ArrowRight className="w-4 h-4 ml-2" />
               </Button>
             </Link>

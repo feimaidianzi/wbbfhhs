@@ -8,42 +8,37 @@ import { SEO } from "@/components/SEO";
 import { useLanguage } from "@/contexts/LanguageContext";
 
 const Traffic = () => {
-  const { language } = useLanguage();
-  const isEn = language === "en";
+  const { t } = useLanguage();
 
   const features = [
     { 
       icon: Car, 
-      title: isEn ? "Traffic Flow Monitoring" : "交通流量监控", 
-      description: isEn ? "Real-time road traffic monitoring with data support for traffic management" : "实时监测道路交通流量，为交通管理提供数据支持" 
+      title: t('traffic.flow.title'), 
+      description: t('traffic.flow.desc') 
     },
     { 
       icon: Eye, 
-      title: isEn ? "Rapid Accident Response" : "事故快速响应", 
-      description: isEn ? "First to arrive at accident scenes, providing aerial support for rescue operations" : "第一时间抵达事故现场，提供空中视角支持救援" 
+      title: t('traffic.accident.title'), 
+      description: t('traffic.accident.desc') 
     },
     { 
       icon: Zap, 
-      title: isEn ? "Road Inspection" : "道路巡检", 
-      description: isEn ? "Efficient road condition inspection to detect pavement damage and safety hazards" : "高效巡检道路状况，及时发现路面损坏和安全隐患" 
+      title: t('traffic.inspection.title'), 
+      description: t('traffic.inspection.desc') 
     },
     { 
       icon: Shield, 
-      title: isEn ? "Traffic Enforcement" : "交通执法", 
-      description: isEn ? "Assist traffic enforcement, monitor violations, and maintain road order" : "辅助交通执法，监控违章行为，维护道路秩序" 
+      title: t('traffic.enforcement.title'), 
+      description: t('traffic.enforcement.desc') 
     },
   ];
 
   return (
     <div className="min-h-screen">
       <SEO
-        title={isEn ? "Traffic Industry Applications" : "交通行业应用"}
-        description={isEn 
-          ? "Feimai Technology drone traffic solutions for flow monitoring, accident response, and road inspection."
-          : "飞迈科技无人机交通行业解决方案，应用于交通流量监控、事故响应、道路巡检等领域。"}
-        keywords={isEn 
-          ? "traffic drone,traffic monitoring,road inspection,traffic enforcement,smart transportation"
-          : "交通无人机,交通监控,道路巡检,交通执法,智慧交通"}
+        title={t('traffic.seo.title')}
+        description={t('traffic.seo.desc')}
+        keywords={t('traffic.seo.keywords')}
         url="/applications/traffic"
       />
       <Header />
@@ -56,14 +51,12 @@ const Traffic = () => {
           </div>
           <div className="relative container-custom h-full flex items-center">
             <div className="max-w-2xl rounded-3xl bg-black/70 border border-white/20 p-6 md:p-8 shadow-lg">
-              <p className="text-cyan-400 font-medium mb-2">{isEn ? "Industry Applications" : "行业应用"}</p>
+              <p className="text-cyan-400 font-medium mb-2">{t('traffic.badge')}</p>
               <h1 className="text-3xl md:text-5xl font-bold text-white mb-4">
-                {isEn ? "Traffic" : "交通"}
+                {t('traffic.title')}
               </h1>
               <p className="text-lg text-white/80">
-                {isEn 
-                  ? "Enhance road transportation monitoring capabilities through drone systems for smart traffic management"
-                  : "通过无人机系统提高道路交通运输行业运行监测能力，实现智慧交通管理"}
+                {t('traffic.hero')}
               </p>
             </div>
           </div>
@@ -72,7 +65,7 @@ const Traffic = () => {
         <section className="py-16 bg-background">
           <div className="container-custom">
             <h2 className="text-2xl md:text-3xl font-bold text-center mb-12">
-              {isEn ? "Application Scenarios" : "应用场景"}
+              {t('traffic.scenarios.title')}
             </h2>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
               {features.map((feature, index) => (
@@ -89,16 +82,14 @@ const Traffic = () => {
         <section className="py-16 bg-primary">
           <div className="container-custom text-center">
             <h2 className="text-2xl md:text-3xl font-bold text-primary-foreground mb-4">
-              {isEn ? "Get Traffic Solutions" : "获取交通行业解决方案"}
+              {t('traffic.cta.title')}
             </h2>
             <p className="text-primary-foreground/80 mb-8 max-w-2xl mx-auto">
-              {isEn 
-                ? "Contact our professional team to learn more about traffic drone applications"
-                : "联系我们的专业团队，了解更多交通行业无人机应用详情"}
+              {t('traffic.cta.subtitle')}
             </p>
             <Link to="/contact">
               <Button className="bg-accent hover:bg-orange-light text-accent-foreground px-8 py-3">
-                {isEn ? "Contact Us" : "立即咨询"}
+                {t('traffic.cta.btn')}
                 <ArrowRight className="w-4 h-4 ml-2" />
               </Button>
             </Link>

@@ -8,42 +8,37 @@ import { SEO } from "@/components/SEO";
 import { useLanguage } from "@/contexts/LanguageContext";
 
 const Surveying = () => {
-  const { language } = useLanguage();
-  const isEn = language === "en";
+  const { t } = useLanguage();
 
   const features = [
     { 
       icon: Map, 
-      title: isEn ? "Aerial Mapping" : "航空测绘", 
-      description: isEn ? "High-efficiency, high-precision large-scale aerial survey operations" : "高效率、高精度的大面积航测作业" 
+      title: t('surveying.mapping.title'), 
+      description: t('surveying.mapping.desc') 
     },
     { 
       icon: Target, 
-      title: isEn ? "Terrain Survey" : "地形测量", 
-      description: isEn ? "Obtain high-precision terrain data and digital elevation models" : "获取高精度地形数据和数字高程模型" 
+      title: t('surveying.terrain.title'), 
+      description: t('surveying.terrain.desc') 
     },
     { 
       icon: Eye, 
-      title: isEn ? "Orthophoto Imaging" : "正射影像", 
-      description: isEn ? "Generate high-resolution orthophoto maps" : "生成高分辨率正射影像地图" 
+      title: t('surveying.ortho.title'), 
+      description: t('surveying.ortho.desc') 
     },
     { 
       icon: Zap, 
-      title: isEn ? "3D Modeling" : "三维建模", 
-      description: isEn ? "Rapidly construct realistic 3D scene models" : "快速构建真实三维场景模型" 
+      title: t('surveying.3d.title'), 
+      description: t('surveying.3d.desc') 
     },
   ];
 
   return (
     <div className="min-h-screen">
       <SEO
-        title={isEn ? "Surveying & Mapping Applications" : "测绘行业应用"}
-        description={isEn 
-          ? "Feimai Technology drone surveying solutions for aerial mapping, terrain survey, and 3D modeling."
-          : "飞迈科技无人机测绘行业解决方案，应用于航空测绘、地形测量、正射影像等领域。"}
-        keywords={isEn 
-          ? "surveying drone,aerial mapping,terrain survey,orthophoto,3D modeling"
-          : "测绘无人机,航空测绘,地形测量,正射影像,三维建模"}
+        title={t('surveying.seo.title')}
+        description={t('surveying.seo.desc')}
+        keywords={t('surveying.seo.keywords')}
         url="/applications/surveying"
       />
       <Header />
@@ -56,14 +51,12 @@ const Surveying = () => {
           </div>
           <div className="relative container-custom h-full flex items-center">
             <div className="max-w-2xl rounded-3xl bg-black/70 border border-white/20 p-6 md:p-8 shadow-lg">
-              <p className="text-cyan-400 font-medium mb-2">{isEn ? "Industry Applications" : "行业应用"}</p>
+              <p className="text-cyan-400 font-medium mb-2">{t('surveying.badge')}</p>
               <h1 className="text-3xl md:text-5xl font-bold text-white mb-4">
-                {isEn ? "Surveying & Mapping" : "测绘"}
+                {t('surveying.title')}
               </h1>
               <p className="text-lg text-white/80">
-                {isEn 
-                  ? "VTOL drones are ideal for high-efficiency, high-precision, large-scale aerial survey projects, widely used in land surveying and engineering measurement"
-                  : "垂直起降无人机适合高效率、高精度、大面积航测项目，广泛应用于国土测绘和工程测量"}
+                {t('surveying.hero')}
               </p>
             </div>
           </div>
@@ -72,7 +65,7 @@ const Surveying = () => {
         <section className="py-16 bg-background">
           <div className="container-custom">
             <h2 className="text-2xl md:text-3xl font-bold text-center mb-12">
-              {isEn ? "Application Scenarios" : "应用场景"}
+              {t('surveying.scenarios.title')}
             </h2>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
               {features.map((feature, index) => (
@@ -89,16 +82,14 @@ const Surveying = () => {
         <section className="py-16 bg-primary">
           <div className="container-custom text-center">
             <h2 className="text-2xl md:text-3xl font-bold text-primary-foreground mb-4">
-              {isEn ? "Get Surveying Solutions" : "获取测绘行业解决方案"}
+              {t('surveying.cta.title')}
             </h2>
             <p className="text-primary-foreground/80 mb-8 max-w-2xl mx-auto">
-              {isEn 
-                ? "Contact our professional team to learn more about surveying drone applications"
-                : "联系我们的专业团队，了解更多测绘行业无人机应用详情"}
+              {t('surveying.cta.subtitle')}
             </p>
             <Link to="/contact">
               <Button className="bg-accent hover:bg-orange-light text-accent-foreground px-8 py-3">
-                {isEn ? "Contact Us" : "立即咨询"}
+                {t('surveying.cta.btn')}
                 <ArrowRight className="w-4 h-4 ml-2" />
               </Button>
             </Link>
