@@ -75,10 +75,13 @@ const TranslationManagement = () => {
   }, []);
 
   // Handle new items migrated from scanner - refresh both pending and statuses
-  const handleNewItemsMigrated = useCallback((count: number) => {
-    loadPendingTranslations();
-    // 重新加载翻译状态，确保进度显示正确
-    loadTranslationStatuses();
+  const handleNewItemsMigrated = useCallback(async (count: number) => {
+    console.log('[handleNewItemsMigrated] Called with count:', count);
+    // 先刷新待翻译队列
+    await loadPendingTranslations();
+    // 再重新加载翻译状态，确保进度显示正确
+    await loadTranslationStatuses();
+    console.log('[handleNewItemsMigrated] Refresh complete');
     toast.success(`已将 ${count} 个缺失翻译添加到队列，翻译进度已更新`);
   }, [loadPendingTranslations]);
 
