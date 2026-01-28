@@ -270,21 +270,33 @@ serve(async (req) => {
         let contentToTranslate = actualSourceContent;
         if (mode === 'incremental') {
           // Identify keys that are "untranslatable" - they look the same in any language
-          // (numbers, dates, abbreviations like VTX, ELRS, ISO9001, etc.)
+          // STRICT: Only pure technical codes that are identical in all languages
           const isUntranslatableContent = (value: string): boolean => {
             if (!value || value.trim() === '') return true;
             const trimmed = value.trim();
-            // Pure numbers, dates, or short abbreviations that don't need translation
-            if (/^[\d\-\/\+\.\s]+$/.test(trimmed)) return true; // Numbers, dates
-            if (/^[A-Z0-9\-\/\+]+$/.test(trimmed) && trimmed.length <= 15) return true; // Short abbreviations
+            // Only pure numbers/dates (e.g., "2025-12-23", "1920x1080", "+86")
+            if (/^[\d\-\/\+\.\s\:x×]+$/.test(trimmed)) return true;
+            // Only uppercase abbreviations with no Chinese (e.g., "VTX", "ELRS", "ISO9001")
+            // Must be short (<=10 chars) and contain no Chinese characters
+            if (/^[A-Z0-9\-\/\+\.]+$/.test(trimmed) && trimmed.length <= 10) return true;
             return false;
+          };
+          
+          // Check if value contains Chinese characters
+          const containsChinese = (str: string): boolean => {
+            return /[\u4e00-\u9fa5]/.test(str);
           };
           
           // Calculate which keys need translation
           // A key needs translation if:
           // 1. No translation exists in DB, OR
           // 2. Translation is empty, OR
-          // 3. Key is in forceTranslateKeys AND translation equals source (still Chinese) AND source is translatable
+          // 3. Translation still contains Chinese (means not properly translated)
+          // Debug counters
+          let debugMissing = 0;
+          let debugContainsChinese = 0;
+          let debugForceNeedsTranslation = 0;
+          
           const remainingKeys = Object.keys(actualSourceContent).filter(key => {
             const existingValue = existingTranslations[key];
             const sourceValue = actualSourceContent[key];
@@ -293,11 +305,18 @@ serve(async (req) => {
             if (!existingValue || existingValue.trim() === '') {
               // If the source itself is untranslatable, just copy it and mark as done
               if (isUntranslatableContent(sourceValue)) {
-                // Auto-fill untranslatable content
                 existingTranslations[key] = sourceValue;
-                return false; // No need to send to AI
+                return false;
               }
+              debugMissing++;
               return true; // Needs translation
+            }
+            
+            // CRITICAL FIX: If existing translation still contains Chinese, it needs re-translation
+            // This catches cases where the value was copied but not actually translated
+            if (containsChinese(existingValue) && !isUntranslatableContent(sourceValue)) {
+              debugContainsChinese++;
+              return true;
             }
             
             // If this key is in forceTranslateKeys (from scanner migration)
@@ -309,6 +328,7 @@ serve(async (req) => {
               
               // For translatable content: if value equals source -> still needs translation
               if (existingValue === sourceValue) {
+                debugForceNeedsTranslation++;
                 return true;
               }
               
@@ -319,6 +339,8 @@ serve(async (req) => {
             // For non-force keys: already has translation, skip
             return false;
           });
+          
+          console.log(`  - Debug: missing=${debugMissing}, containsChinese=${debugContainsChinese}, forceNeeds=${debugForceNeedsTranslation}`);
           
           if (remainingKeys.length === 0) {
             console.log(`All translations already completed for ${lang}`);
