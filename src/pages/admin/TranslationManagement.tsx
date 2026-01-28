@@ -237,20 +237,31 @@ const TranslationManagement = () => {
 
       retryCount = 0; // 重置重试计数
       
-      const done = result.count;
+      // CRITICAL FIX: Use totalKeys (the actual source key count) as the baseline
+      // result.count is DB count (may have extra old keys), not useful for progress
+      // result.remaining is the TRUE remaining count from the Edge Function
       const remaining = result.remaining;
-      const total = result.total || totalKeys;
+      const actualTotal = totalKeys; // Use the merged source key count
+      const translated = actualTotal - remaining; // Calculate how many are actually done
       
-      setCurrentProgress({ done, total, remaining });
-      setProgress(Math.round((done / total) * 100));
+      // Update progress based on actual remaining keys
+      setCurrentProgress({ 
+        done: translated, 
+        total: actualTotal, 
+        remaining: remaining 
+      });
       
-      console.log(`[AutoTranslate] ${langName}: ${done}/${total} done, ${remaining} remaining`);
+      // Calculate progress percentage correctly
+      const progressPercent = actualTotal > 0 ? Math.min(100, Math.round((translated / actualTotal) * 100)) : 0;
+      setProgress(progressPercent);
+      
+      console.log(`[AutoTranslate] ${langName}: ${translated}/${actualTotal} done, ${remaining} remaining, ${progressPercent}%`);
 
       // Check if translation is complete
-      // CRITICAL: remaining <= 0 means all keys in source are translated
-      // BUT we also need to check if forceTranslateKeys were processed
       if (remaining <= 0) {
-        toast.success(`${langName} 翻译完成！共 ${done} 条`);
+        setProgress(100);
+        setCurrentProgress({ done: actualTotal, total: actualTotal, remaining: 0 });
+        toast.success(`${langName} 翻译完成！共 ${actualTotal} 条`);
         return true;
       }
 
