@@ -642,11 +642,21 @@ const TranslationManagement = () => {
             </div>
           ) : (
             statuses.map((status) => {
-              const progressPercent = status.keyCount > 0 
-                ? Math.round((status.keyCount / totalSourceKeys) * 100) 
-                : 0;
+              // CRITICAL FIX: 翻译完成的判断标准是：数据库中的翻译数量 >= 源语言key数量
+              // 但因为数据库可能有历史遗留的key，所以我们需要检查源key中有多少已被翻译
+              // 简化逻辑：如果 keyCount >= totalSourceKeys 就是完成
+              // 如果 keyCount > totalSourceKeys（有历史遗留），也算完成
               const isComplete = status.keyCount >= totalSourceKeys;
-              const missingKeys = totalSourceKeys - status.keyCount;
+              
+              // 进度计算：使用 min(keyCount, totalSourceKeys) / totalSourceKeys
+              // 这样即使 keyCount > totalSourceKeys（历史遗留），进度也最多100%
+              const effectiveCount = Math.min(status.keyCount, totalSourceKeys);
+              const progressPercent = totalSourceKeys > 0 
+                ? Math.round((effectiveCount / totalSourceKeys) * 100) 
+                : 0;
+              
+              // 缺失数量：如果已完成则为0，否则为 totalSourceKeys - keyCount
+              const missingKeys = isComplete ? 0 : Math.max(0, totalSourceKeys - status.keyCount);
               
               return (
                 <Card key={status.lang} className={currentLang === status.lang ? 'ring-2 ring-primary' : ''}>
@@ -678,11 +688,11 @@ const TranslationManagement = () => {
                       <div className="flex justify-between">
                         <span className="text-gray-500">翻译进度:</span>
                         <span className={missingKeys > 0 ? 'text-orange-600 font-medium' : 'text-green-600'}>
-                          {status.keyCount} / {totalSourceKeys}
+                          {effectiveCount} / {totalSourceKeys}
                           {missingKeys > 0 && ` (缺${missingKeys})`}
                         </span>
                       </div>
-                      {status.keyCount > 0 && status.keyCount < totalSourceKeys && (
+                      {!isComplete && status.keyCount > 0 && (
                         <Progress value={progressPercent} className="h-1.5" />
                       )}
                       {status.lastUpdated && (

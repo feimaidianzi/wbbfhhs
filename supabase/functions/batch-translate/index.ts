@@ -276,26 +276,35 @@ serve(async (req) => {
             const trimmed = value.trim();
             // Pure numbers, dates, or short abbreviations that don't need translation
             if (/^[\d\-\/\+\.\s]+$/.test(trimmed)) return true; // Numbers, dates
-            if (/^[A-Z0-9\-\/\+]+$/.test(trimmed) && trimmed.length <= 10) return true; // Short abbreviations
+            if (/^[A-Z0-9\-\/\+]+$/.test(trimmed) && trimmed.length <= 15) return true; // Short abbreviations
             return false;
           };
           
           // Calculate which keys need translation
+          // A key needs translation if:
+          // 1. No translation exists in DB, OR
+          // 2. Translation is empty, OR
+          // 3. Key is in forceTranslateKeys AND translation equals source (still Chinese) AND source is translatable
           const remainingKeys = Object.keys(actualSourceContent).filter(key => {
             const existingValue = existingTranslations[key];
             const sourceValue = actualSourceContent[key];
             
+            // If no translation exists or is empty -> needs translation (unless untranslatable)
+            if (!existingValue || existingValue.trim() === '') {
+              // If the source itself is untranslatable, just copy it and mark as done
+              if (isUntranslatableContent(sourceValue)) {
+                // Auto-fill untranslatable content
+                existingTranslations[key] = sourceValue;
+                return false; // No need to send to AI
+              }
+              return true; // Needs translation
+            }
+            
             // If this key is in forceTranslateKeys (from scanner migration)
             if (forceKeysSet.has(key)) {
-              // If no translation exists -> needs translation
-              if (!existingValue || existingValue.trim() === '') {
-                return true;
-              }
-              
-              // If the source content is "untranslatable" (numbers, dates, abbreviations)
-              // and a value exists -> consider it done
+              // If the source content is "untranslatable" -> already done
               if (isUntranslatableContent(sourceValue)) {
-                return false; // Already processed, skip
+                return false;
               }
               
               // For translatable content: if value equals source -> still needs translation
@@ -307,16 +316,28 @@ serve(async (req) => {
               return false;
             }
             
-            // For non-force keys: needs translation if doesn't exist OR is empty
-            return !existingValue || existingValue.trim() === '';
+            // For non-force keys: already has translation, skip
+            return false;
           });
           
           if (remainingKeys.length === 0) {
             console.log(`All translations already completed for ${lang}`);
+            
+            // Make sure to save any auto-filled untranslatable content
+            const totalTranslated = Object.keys(existingTranslations).length;
+            await supabase
+              .from('system_settings')
+              .upsert({
+                key: `translations_${lang}`,
+                value: JSON.stringify(existingTranslations),
+                description: `AI翻译 - ${languageNames[lang] || lang} (${totalTranslated}/${totalSourceKeys}条) ✓`,
+                updated_at: new Date().toISOString(),
+              }, { onConflict: 'key' });
+            
             results[lang] = {
               success: true,
-              count: Object.keys(existingTranslations).length,
-              total: Object.keys(actualSourceContent).length,
+              count: totalTranslated,
+              total: totalSourceKeys,
               remaining: 0,
               completed: true,
               message: 'Already completed',
