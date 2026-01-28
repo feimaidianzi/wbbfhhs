@@ -195,7 +195,7 @@ serve(async (req) => {
   }
 
   try {
-    const { sourceContent, languages, mode = 'full' } = await req.json();
+    const { sourceContent, languages, mode = 'full', forceTranslateKeys = [] } = await req.json();
 
     if (!languages || !Array.isArray(languages)) {
       return new Response(
@@ -233,8 +233,12 @@ serve(async (req) => {
       throw new Error('No source content provided - frontend must send zhTranslations');
     }
     
+    // Convert forceTranslateKeys to a Set for faster lookup
+    const forceKeysSet = new Set(forceTranslateKeys);
+    const hasForceKeys = forceKeysSet.size > 0;
+    
     const totalSourceKeys = Object.keys(actualSourceContent).length;
-    console.log(`Source content has ${totalSourceKeys} keys to translate`);
+    console.log(`Source content has ${totalSourceKeys} keys to translate, ${forceKeysSet.size} force-translate keys`);
 
     const results: Record<string, any> = {};
 
@@ -262,10 +266,15 @@ serve(async (req) => {
         }
         
         // Filter out already translated keys - check if key exists AND has non-empty value
+        // BUT: Always include keys in forceTranslateKeys (from scanner migration)
         let contentToTranslate = actualSourceContent;
         if (mode === 'incremental') {
           const remainingKeys = Object.keys(actualSourceContent).filter(
             key => {
+              // If this key is in forceTranslateKeys, always include it
+              if (forceKeysSet.has(key)) {
+                return true;
+              }
               const existingValue = existingTranslations[key];
               // Key needs translation if it doesn't exist OR has empty/undefined value
               return !existingValue || existingValue.trim() === '';
@@ -292,7 +301,8 @@ serve(async (req) => {
             batchKeys.map(key => [key, actualSourceContent[key]])
           );
           
-          console.log(`[Single Batch] Processing ${batchKeys.length} keys for ${lang}`);
+          const forceKeysInBatch = batchKeys.filter(k => forceKeysSet.has(k)).length;
+          console.log(`[Single Batch] Processing ${batchKeys.length} keys for ${lang} (${forceKeysInBatch} force-translate)`);
           console.log(`  - Existing translations: ${Object.keys(existingTranslations).length}`);
           console.log(`  - Total source keys: ${totalSourceKeys}`);
           console.log(`  - Keys needing translation: ${remainingKeys.length}`);
