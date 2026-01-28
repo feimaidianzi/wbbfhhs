@@ -282,16 +282,31 @@ serve(async (req) => {
             return false;
           };
           
-          // Check if value contains Chinese characters
-          const containsChinese = (str: string): boolean => {
-            return /[\u4e00-\u9fa5]/.test(str);
+          // Brand names that should be preserved in translations
+          const BRAND_NAMES = ['长凌科技', '长凌', 'CANI'];
+          
+          // Check if value contains Chinese characters (excluding brand names)
+          const containsNonBrandChinese = (str: string): boolean => {
+            // Remove brand names first
+            let cleaned = str;
+            for (const brand of BRAND_NAMES) {
+              cleaned = cleaned.replace(new RegExp(brand, 'g'), '');
+            }
+            // Check if remaining text contains Chinese
+            return /[\u4e00-\u9fa5]/.test(cleaned);
+          };
+          
+          // Check if translation looks valid (not just copied from source)
+          const isValidTranslation = (source: string, translation: string): boolean => {
+            if (!translation || translation.trim() === '') return false;
+            // If source and translation are identical, not translated
+            if (source === translation) return false;
+            // If translation has non-brand Chinese, needs re-translation
+            if (containsNonBrandChinese(translation)) return false;
+            return true;
           };
           
           // Calculate which keys need translation
-          // A key needs translation if:
-          // 1. No translation exists in DB, OR
-          // 2. Translation is empty, OR
-          // 3. Translation still contains Chinese (means not properly translated)
           // Debug counters
           let debugMissing = 0;
           let debugContainsChinese = 0;
@@ -312,9 +327,9 @@ serve(async (req) => {
               return true; // Needs translation
             }
             
-            // CRITICAL FIX: If existing translation still contains Chinese, it needs re-translation
-            // This catches cases where the value was copied but not actually translated
-            if (containsChinese(existingValue) && !isUntranslatableContent(sourceValue)) {
+            // CRITICAL FIX: Use the new validation that excludes brand names
+            // Only flag as needing translation if there's non-brand Chinese
+            if (!isValidTranslation(sourceValue, existingValue) && !isUntranslatableContent(sourceValue)) {
               debugContainsChinese++;
               return true;
             }
