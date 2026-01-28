@@ -115,23 +115,61 @@ const HardcodedScanner: React.FC<HardcodedScannerProps> = ({ onNewItemsMigrated 
       setLanguageStats(stats);
       setScanProgress(60);
 
+      // 检测是否包含中文字符
+      const containsChinese = (text: string): boolean => {
+        return /[\u4e00-\u9fff\u3400-\u4dbf]/.test(text);
+      };
+
+      // 判断翻译是否有效（不是中文、不是与源文本完全相同、不为空）
+      const isValidTranslation = (translation: string | undefined, zhSource: string): boolean => {
+        if (!translation || translation.trim() === '') return false;
+        
+        // 如果翻译与中文源完全相同，视为未翻译
+        if (translation === zhSource) return false;
+        
+        // 检查是否包含中文（对于目标语言翻译不应该包含中文）
+        // 排除一些特殊情况：纯数字、品牌名、技术代码等
+        const isSpecialContent = /^[A-Z0-9\s\-_.\/\\@#$%^&*()+=\[\]{}|:;"'<>,.?!]+$/i.test(zhSource);
+        
+        if (!isSpecialContent && containsChinese(translation)) {
+          return false;
+        }
+        
+        return true;
+      };
+
       // 找出所有语言中缺失的翻译
       const missingTranslations: MissingTranslation[] = [];
 
       for (let i = 0; i < sourceKeys.length; i++) {
         const key = sourceKeys[i];
-        const zhValue = zhTranslations[key as keyof typeof zhTranslations];
+        const zhValue = String(zhTranslations[key as keyof typeof zhTranslations] || '');
         
         // 跳过已在待翻译队列中的 key
         if (pendingKeys.has(key)) continue;
+        
+        // 跳过特殊内容（纯数字、品牌名等不需要翻译的）
+        const isUntranslatableContent = /^[A-Z0-9\s\-_.\/\\@#$%^&*()+=\[\]{}|:;"'<>,.?!]+$/i.test(zhValue) ||
+          zhValue.length <= 2 ||
+          /^(VTX|ELRS|FPV|ESC|FC|GPS|RTK|SDK|API|USB|HDMI|WiFi|4G|5G|LTE|HD|4K|8K)$/i.test(zhValue);
 
-        // 检查哪些语言缺少这个 key
+        // 检查哪些语言缺少这个 key 或翻译无效
         const missingLanguages: string[] = [];
         
         for (const lang of languagesToCheck) {
           const langTranslations = allTranslations[lang.code] || {};
-          if (!langTranslations[key]) {
-            missingLanguages.push(lang.code);
+          const translation = langTranslations[key];
+          
+          // 对于不需要翻译的特殊内容，只要存在记录就算完成
+          if (isUntranslatableContent) {
+            if (!translation) {
+              missingLanguages.push(lang.code);
+            }
+          } else {
+            // 检查翻译是否有效
+            if (!isValidTranslation(translation, zhValue)) {
+              missingLanguages.push(lang.code);
+            }
           }
         }
 
@@ -139,7 +177,7 @@ const HardcodedScanner: React.FC<HardcodedScannerProps> = ({ onNewItemsMigrated 
         if (missingLanguages.length > 0) {
           missingTranslations.push({
             key,
-            zhValue: String(zhValue),
+            zhValue,
             missingInLanguages: missingLanguages
           });
         }
