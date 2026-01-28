@@ -38,9 +38,13 @@ CRITICAL RULES:
 1. Maintain exact JSON structure and keys
 2. Only translate values, never keys
 3. Keep technical terms accurate (drone, FPV, VTX, ESC, etc.)
-4. Translate ALL Chinese text including company names. "长凌科技" should become "CANI Technology" or the localized equivalent
-5. Keep only the English brand name "CANI" unchanged
-6. Return ONLY valid JSON, no explanations`;
+4. ABSOLUTE REQUIREMENT: The output MUST NOT contain ANY Chinese characters (汉字). 
+   - "长凌" must be translated to "CANI" or the brand name in target language
+   - "长凌科技" must be translated to "CANI Technology" or equivalent
+   - "CANI(长凌)" must become just "CANI" - remove the Chinese entirely
+5. Only the brand name "CANI" stays in English. Everything else must be in ${targetLangName}.
+6. Return ONLY valid JSON, no explanations
+7. Double-check: if ANY Chinese character remains in output, translation is WRONG`;
 
   const entries = Object.entries(content);
   const chunkSize = 10; // Reduced for faster response to prevent frontend timeout
@@ -96,6 +100,17 @@ CRITICAL RULES:
 
     try {
       const parsed = JSON.parse(cleanedText);
+      // Post-process: clean any remaining Chinese characters from brand names
+      for (const [key, value] of Object.entries(parsed)) {
+        if (typeof value === 'string') {
+          // Replace common patterns like "CANI(长凌)" or "长凌科技" with "CANI" / "CANI Technology"
+          let cleaned = value as string;
+          cleaned = cleaned.replace(/CANI\s*[\(（]长凌[\)）]/gi, 'CANI');
+          cleaned = cleaned.replace(/长凌科技/g, 'CANI Technology');
+          cleaned = cleaned.replace(/长凌/g, 'CANI');
+          parsed[key] = cleaned;
+        }
+      }
       Object.assign(translatedContent, parsed);
       console.log(`[DeepSeek] ✓ Chunk ${i + 1}/${chunks.length} completed, got ${Object.keys(parsed).length} keys`);
     } catch (parseError) {
@@ -122,9 +137,13 @@ CRITICAL RULES:
 1. Maintain exact JSON structure and keys
 2. Only translate values, never keys
 3. Keep technical terms accurate (drone, FPV, VTX, ESC, etc.)
-4. Translate ALL Chinese text including company names. "长凌科技" should become "CANI Technology" or the localized equivalent
-5. Keep only the English brand name "CANI" unchanged
-6. Return ONLY valid JSON, no explanations`;
+4. ABSOLUTE REQUIREMENT: The output MUST NOT contain ANY Chinese characters (汉字). 
+   - "长凌" must be translated to "CANI" or the brand name in target language
+   - "长凌科技" must be translated to "CANI Technology" or equivalent
+   - "CANI(长凌)" must become just "CANI" - remove the Chinese entirely
+5. Only the brand name "CANI" stays in English. Everything else must be in ${targetLangName}.
+6. Return ONLY valid JSON, no explanations
+7. Double-check: if ANY Chinese character remains in output, translation is WRONG`;
 
   const entries = Object.entries(content);
   const chunkSize = 10; // Matched with DeepSeek for consistency
@@ -180,6 +199,16 @@ CRITICAL RULES:
 
     try {
       const parsed = JSON.parse(cleanedText);
+      // Post-process: clean any remaining Chinese characters from brand names
+      for (const [key, value] of Object.entries(parsed)) {
+        if (typeof value === 'string') {
+          let cleaned = value as string;
+          cleaned = cleaned.replace(/CANI\s*[\(（]长凌[\)）]/gi, 'CANI');
+          cleaned = cleaned.replace(/长凌科技/g, 'CANI Technology');
+          cleaned = cleaned.replace(/长凌/g, 'CANI');
+          parsed[key] = cleaned;
+        }
+      }
       Object.assign(translatedContent, parsed);
       console.log(`[Lovable AI] ✓ Chunk ${i + 1}/${chunks.length} completed, got ${Object.keys(parsed).length} keys`);
     } catch (parseError) {
@@ -253,10 +282,12 @@ serve(async (req) => {
       if (/^[\d\-\/\+\.\s\:x×]+$/.test(trimmed)) return true;
       // Only uppercase abbreviations with no Chinese (e.g., "VTX", "ELRS", "ISO9001")
       if (/^[A-Z0-9\-\/\+\.]+$/.test(trimmed) && trimmed.length <= 10) return true;
+      // Technical specs with units (e.g., "≤10km", "-20°C ~ +50°C", "1080P/4K")
+      if (/^[\d\-\+≤≥<>~\s\°CkmghzHZmMAWV\/xP]+$/i.test(trimmed)) return true;
       return false;
     };
     
-    // Check for ANY Chinese characters in translation
+    // Check for ANY Chinese characters in string
     const containsChinese = (str: string): boolean => {
       return /[\u4e00-\u9fa5]/.test(str);
     };
@@ -265,8 +296,20 @@ serve(async (req) => {
     const isValidTranslation = (source: string, translation: string): boolean => {
       if (!translation || translation.trim() === '') return false;
       if (translation.startsWith('__')) return true; // Skip internal keys
-      if (source === translation) return false; // Not translated
-      if (containsChinese(translation)) return false; // Contains Chinese
+      
+      // If source has no Chinese, and translation equals source, it's valid
+      // (e.g., "≤10km" should stay "≤10km" in any language)
+      if (!containsChinese(source) && source === translation) return true;
+      
+      // If source has Chinese but translation doesn't have Chinese, it's valid
+      if (containsChinese(source) && !containsChinese(translation)) return true;
+      
+      // If both source and translation have no Chinese and they're different, it's valid
+      if (!containsChinese(source) && !containsChinese(translation)) return true;
+      
+      // If translation still contains Chinese, it's not valid
+      if (containsChinese(translation)) return false;
+      
       return true;
     };
 
