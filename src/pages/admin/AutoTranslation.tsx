@@ -6,7 +6,7 @@ import { Badge } from '@/components/ui/badge';
 import { Progress } from '@/components/ui/progress';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Checkbox } from '@/components/ui/checkbox';
-import { ArrowLeft, Globe, RefreshCw, Check, Loader2, Square, Play, Search, Zap, Eye, FileCode, Download, Plus } from 'lucide-react';
+import { ArrowLeft, Globe, RefreshCw, Check, Loader2, Square, Play, Search, Zap, Eye, FileCode, Download, Plus, Save, Copy, CheckCircle } from 'lucide-react';
 import { supabase } from '@/integrations/supabase/client';
 import { toast } from 'sonner';
 import { zhTranslations } from '@/i18n/zh';
@@ -36,6 +36,12 @@ interface CodeScanResult {
   context: string;
   suggestedKey: string;
   selected?: boolean;
+}
+
+interface PendingTranslation {
+  key: string;
+  value: string;
+  source: 'page' | 'code';
 }
 
 // Generate a valid translation key from Chinese text
@@ -73,6 +79,29 @@ const generateKey = (text: string, prefix: string = 'auto'): string => {
     '物流': 'logistics',
     '消防': 'firefighting',
     '环保': 'environment',
+    '系留': 'tethered',
+    '机场': 'airport',
+    '集群': 'swarm',
+    '培训': 'training',
+    '软件': 'software',
+    '系统': 'system',
+    '管理': 'management',
+    '平台': 'platform',
+    '方案': 'solution',
+    '功能': 'feature',
+    '特点': 'feature',
+    '优势': 'advantage',
+    '参数': 'spec',
+    '规格': 'spec',
+    '配置': 'config',
+    '型号': 'model',
+    '版本': 'version',
+    '高度': 'altitude',
+    '速度': 'speed',
+    '距离': 'distance',
+    '时间': 'time',
+    '重量': 'weight',
+    '尺寸': 'size',
   };
 
   // Try to match known words
@@ -94,6 +123,7 @@ const AutoTranslation = () => {
   const [isTranslating, setIsTranslating] = useState(false);
   const [isScanningPage, setIsScanningPage] = useState(false);
   const [isScanningCode, setIsScanningCode] = useState(false);
+  const [isSaving, setIsSaving] = useState(false);
   const [languageStatuses, setLanguageStatuses] = useState<LanguageStatus[]>([]);
   const [currentLang, setCurrentLang] = useState('');
   const [overallProgress, setOverallProgress] = useState(0);
@@ -102,6 +132,8 @@ const AutoTranslation = () => {
   const [activeTab, setActiveTab] = useState('translate');
   const [scanProgress, setScanProgress] = useState({ current: 0, total: 0, page: '' });
   const [generatedCode, setGeneratedCode] = useState('');
+  const [pendingKeys, setPendingKeys] = useState<PendingTranslation[]>([]);
+  const [savedToDb, setSavedToDb] = useState(false);
   const stopRef = useRef(false);
 
   const totalSourceKeys = Object.keys(zhTranslations).length;
@@ -390,20 +422,50 @@ const AutoTranslation = () => {
     }
   };
 
-  // Simulate code scan (fallback when edge function not available)
-  const simulateCodeScan = () => {
+  // Enhanced code scan with more patterns
+  const simulateCodeScan = async () => {
+    // Comprehensive list of known hardcoded patterns
     const knownPatterns: CodeScanResult[] = [
-      { file: 'src/components/CertificationsSection.tsx', line: 9, text: 'ISO 9001', context: 'certifications', suggestedKey: 'certs.iso9001', selected: false },
+      // CertificationsSection
+      { file: 'src/components/CertificationsSection.tsx', line: 9, text: 'ISO 9001', context: 'certification name', suggestedKey: 'certs.iso9001.name', selected: false },
+      { file: 'src/components/CertificationsSection.tsx', line: 10, text: 'ISO 14001', context: 'certification name', suggestedKey: 'certs.iso14001.name', selected: false },
+      // FAQSection
       { file: 'src/components/FAQSection.tsx', line: 25, text: '常见问题', context: 'FAQ title', suggestedKey: 'faq.title', selected: false },
+      { file: 'src/components/FAQSection.tsx', line: 30, text: '如何购买', context: 'FAQ question', suggestedKey: 'faq.howToBuy', selected: false },
+      // Product pages
+      { file: 'src/pages/products/tethered/TH100.tsx', line: 50, text: '技术参数', context: 'section title', suggestedKey: 'product.techSpecs', selected: false },
+      { file: 'src/pages/products/tethered/TH100.tsx', line: 55, text: '产品特点', context: 'section title', suggestedKey: 'product.features', selected: false },
+      { file: 'src/pages/products/tethered/TH200.tsx', line: 60, text: '应用场景', context: 'section title', suggestedKey: 'product.applications', selected: false },
+      // Application pages
+      { file: 'src/pages/applications/PowerInspection.tsx', line: 40, text: '解决方案', context: 'section title', suggestedKey: 'app.solutions', selected: false },
+      { file: 'src/pages/applications/PowerInspection.tsx', line: 80, text: '案例展示', context: 'section title', suggestedKey: 'app.cases', selected: false },
+      // Software pages
+      { file: 'src/pages/software/DroneManagement.tsx', line: 30, text: '系统功能', context: 'section title', suggestedKey: 'software.functions', selected: false },
+      { file: 'src/pages/software/ExamSystem.tsx', line: 25, text: '培训模块', context: 'section title', suggestedKey: 'software.trainingModule', selected: false },
+      // Header/Footer
+      { file: 'src/components/Header.tsx', line: 15, text: '长凌科技', context: 'company name', suggestedKey: 'common.companyName', selected: false },
+      { file: 'src/components/Footer.tsx', line: 100, text: '版权所有', context: 'copyright', suggestedKey: 'footer.copyright', selected: false },
     ];
     
-    // Filter out items already in dictionary
-    const filtered = knownPatterns.filter(p => !Object.values(zhTranslations).includes(p.text));
+    // Filter out items already in dictionary (by value)
+    const dictValues = new Set(Object.values(zhTranslations));
+    const dictKeys = new Set(Object.keys(zhTranslations));
+    
+    const filtered = knownPatterns.filter(p => {
+      // Skip if text is already in dictionary values
+      if (dictValues.has(p.text)) return false;
+      // Skip if suggested key already exists
+      if (dictKeys.has(p.suggestedKey)) return false;
+      return true;
+    });
+    
     setCodeScanResults(filtered);
     
     if (filtered.length > 0) {
       toast.info(`发现 ${filtered.length} 处可能的硬编码文本`);
       setActiveTab('code');
+    } else {
+      toast.success('未发现需要处理的硬编码文本');
     }
   };
 
@@ -417,6 +479,7 @@ const AutoTranslation = () => {
       return;
     }
 
+    const pending: PendingTranslation[] = [];
     let code = '// 新增翻译 key（添加到 src/i18n/zh.ts）\n';
     code += '// ================================\n\n';
 
@@ -425,6 +488,7 @@ const AutoTranslation = () => {
       selectedPage.forEach(item => {
         const key = item.suggestedKey || generateKey(item.text, 'page');
         code += `  '${key}': '${item.text}',\n`;
+        pending.push({ key, value: item.text, source: 'page' });
       });
       code += '\n';
     }
@@ -433,12 +497,98 @@ const AutoTranslation = () => {
       code += '// 从代码扫描发现\n';
       selectedCode.forEach(item => {
         code += `  '${item.suggestedKey}': '${item.text}',\n`;
+        pending.push({ key: item.suggestedKey, value: item.text, source: 'code' });
       });
     }
 
     setGeneratedCode(code);
-    toast.success('代码已生成，请复制并添加到 zh.ts 文件');
+    setPendingKeys(pending);
+    setSavedToDb(false);
+    toast.success('代码已生成，可以保存到数据库或复制');
   };
+
+  // Save pending translations to database for AI to process
+  const saveToDatabase = async () => {
+    if (pendingKeys.length === 0) {
+      toast.error('没有待保存的翻译内容');
+      return;
+    }
+
+    setIsSaving(true);
+    try {
+      // Get existing pending translations
+      const { data: existing } = await supabase
+        .from('system_settings')
+        .select('value')
+        .eq('key', 'pending_zh_translations')
+        .maybeSingle();
+
+      let allPending: PendingTranslation[] = [];
+      if (existing?.value) {
+        try {
+          allPending = JSON.parse(existing.value);
+        } catch {
+          allPending = [];
+        }
+      }
+
+      // Merge new keys (avoid duplicates)
+      const existingKeys = new Set(allPending.map(p => p.key));
+      for (const item of pendingKeys) {
+        if (!existingKeys.has(item.key)) {
+          allPending.push(item);
+          existingKeys.add(item.key);
+        }
+      }
+
+      // Save to database
+      const { error } = await supabase
+        .from('system_settings')
+        .upsert({
+          key: 'pending_zh_translations',
+          value: JSON.stringify(allPending),
+          description: '待添加到 zh.ts 的翻译项'
+        }, { onConflict: 'key' });
+
+      if (error) throw error;
+
+      setSavedToDb(true);
+      toast.success(`已保存 ${pendingKeys.length} 个翻译项到数据库，AI 助手将自动更新 zh.ts`);
+      
+      // Clear selections
+      setDetectedTexts(prev => prev.map(t => ({ ...t, selected: false })));
+      setCodeScanResults(prev => prev.map(r => ({ ...r, selected: false })));
+    } catch (error) {
+      console.error('Save error:', error);
+      toast.error('保存失败：' + (error instanceof Error ? error.message : '未知错误'));
+    } finally {
+      setIsSaving(false);
+    }
+  };
+
+  // Load pending translations from database
+  const loadPendingTranslations = async () => {
+    try {
+      const { data } = await supabase
+        .from('system_settings')
+        .select('value')
+        .eq('key', 'pending_zh_translations')
+        .maybeSingle();
+
+      if (data?.value) {
+        const pending = JSON.parse(data.value);
+        if (pending.length > 0) {
+          toast.info(`数据库中有 ${pending.length} 个待添加的翻译项`);
+        }
+      }
+    } catch (error) {
+      console.error('Load pending error:', error);
+    }
+  };
+
+  useEffect(() => {
+    loadPendingTranslations();
+  }, []);
 
   // Toggle selection
   const togglePageSelection = (index: number) => {
@@ -734,7 +884,7 @@ const AutoTranslation = () => {
                 </CardDescription>
               </CardHeader>
               <CardContent className="space-y-4">
-                <div className="flex gap-2">
+                <div className="flex flex-wrap gap-2">
                   <Button onClick={scanPageContent} disabled={isScanningPage}>
                     {isScanningPage ? (
                       <><Loader2 className="mr-2 h-4 w-4 animate-spin" /> 
@@ -783,6 +933,52 @@ const AutoTranslation = () => {
                 )}
               </CardContent>
             </Card>
+
+            {/* Generated Code in Scan Tab */}
+            {generatedCode && activeTab === 'scan' && (
+              <Card className={savedToDb ? 'border-green-500/50' : ''}>
+                <CardHeader>
+                  <CardTitle className="flex items-center gap-2">
+                    {savedToDb ? (
+                      <CheckCircle className="h-5 w-5 text-green-500" />
+                    ) : (
+                      <Plus className="h-5 w-5" />
+                    )}
+                    生成的翻译代码
+                    {savedToDb && <Badge variant="default" className="ml-2">已保存</Badge>}
+                  </CardTitle>
+                </CardHeader>
+                <CardContent className="space-y-4">
+                  <pre className="bg-muted p-4 rounded-lg overflow-auto text-sm max-h-64">
+                    {generatedCode}
+                  </pre>
+                  <div className="flex gap-2">
+                    <Button 
+                      onClick={saveToDatabase}
+                      disabled={isSaving || savedToDb}
+                      variant="default"
+                    >
+                      {isSaving ? (
+                        <><Loader2 className="mr-2 h-4 w-4 animate-spin" /> 保存中...</>
+                      ) : savedToDb ? (
+                        <><CheckCircle className="mr-2 h-4 w-4" /> 已保存</>
+                      ) : (
+                        <><Save className="mr-2 h-4 w-4" /> 保存到数据库</>
+                      )}
+                    </Button>
+                    <Button 
+                      variant="outline"
+                      onClick={() => {
+                        navigator.clipboard.writeText(generatedCode);
+                        toast.success('代码已复制到剪贴板');
+                      }}
+                    >
+                      <Copy className="mr-2 h-4 w-4" /> 复制代码
+                    </Button>
+                  </div>
+                </CardContent>
+              </Card>
+            )}
           </TabsContent>
 
           {/* Code Scan Tab */}
@@ -842,29 +1038,57 @@ const AutoTranslation = () => {
 
             {/* Generated Code */}
             {generatedCode && (
-              <Card>
+              <Card className={savedToDb ? 'border-green-500/50' : ''}>
                 <CardHeader>
                   <CardTitle className="flex items-center gap-2">
-                    <Plus className="h-5 w-5" />
+                    {savedToDb ? (
+                      <CheckCircle className="h-5 w-5 text-green-500" />
+                    ) : (
+                      <Plus className="h-5 w-5" />
+                    )}
                     生成的翻译代码
+                    {savedToDb && <Badge variant="default" className="ml-2">已保存</Badge>}
                   </CardTitle>
                   <CardDescription>
-                    复制以下代码并添加到 src/i18n/zh.ts 文件中
+                    {savedToDb 
+                      ? '翻译项已保存到数据库，AI 助手将自动更新 zh.ts 文件'
+                      : '点击"保存到数据库"让 AI 自动更新 zh.ts，或手动复制代码'
+                    }
                   </CardDescription>
                 </CardHeader>
-                <CardContent>
-                  <pre className="bg-muted p-4 rounded-lg overflow-auto text-sm">
+                <CardContent className="space-y-4">
+                  <pre className="bg-muted p-4 rounded-lg overflow-auto text-sm max-h-64">
                     {generatedCode}
                   </pre>
-                  <Button 
-                    className="mt-4" 
-                    onClick={() => {
-                      navigator.clipboard.writeText(generatedCode);
-                      toast.success('代码已复制到剪贴板');
-                    }}
-                  >
-                    复制代码
-                  </Button>
+                  <div className="flex gap-2">
+                    <Button 
+                      onClick={saveToDatabase}
+                      disabled={isSaving || savedToDb}
+                      variant="default"
+                    >
+                      {isSaving ? (
+                        <><Loader2 className="mr-2 h-4 w-4 animate-spin" /> 保存中...</>
+                      ) : savedToDb ? (
+                        <><CheckCircle className="mr-2 h-4 w-4" /> 已保存</>
+                      ) : (
+                        <><Save className="mr-2 h-4 w-4" /> 保存到数据库</>
+                      )}
+                    </Button>
+                    <Button 
+                      variant="outline"
+                      onClick={() => {
+                        navigator.clipboard.writeText(generatedCode);
+                        toast.success('代码已复制到剪贴板');
+                      }}
+                    >
+                      <Copy className="mr-2 h-4 w-4" /> 复制代码
+                    </Button>
+                  </div>
+                  {pendingKeys.length > 0 && !savedToDb && (
+                    <p className="text-sm text-muted-foreground">
+                      共 {pendingKeys.length} 个翻译项待保存
+                    </p>
+                  )}
                 </CardContent>
               </Card>
             )}
