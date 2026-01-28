@@ -340,55 +340,49 @@ serve(async (req) => {
         let contentToTranslate = actualSourceContent;
         if (mode === 'incremental') {
           
-          // Calculate which keys need translation
-          // Debug counters
-          let debugMissing = 0;
-          let debugContainsChinese = 0;
-          let debugForceNeedsTranslation = 0;
+          // Track which keys we've already successfully translated in DB
+          // The key insight: a key is "done" if it exists AND has no Chinese characters
+          // This ensures we re-translate items that still have Chinese
+          const translatedKeysSet = new Set<string>();
           
-          const remainingKeys = Object.keys(actualSourceContent).filter(key => {
-            const existingValue = existingTranslations[key];
+          for (const [key, value] of Object.entries(existingTranslations)) {
             const sourceValue = actualSourceContent[key];
+            if (!sourceValue) continue; // Key not in source, skip
             
-            // If no translation exists or is empty -> needs translation (unless untranslatable)
-            if (!existingValue || existingValue.trim() === '') {
-              // If the source itself is untranslatable, just copy it and mark as done
-              if (isUntranslatableContent(sourceValue)) {
-                existingTranslations[key] = sourceValue;
-                return false;
-              }
-              debugMissing++;
-              return true; // Needs translation
+            // If source is untranslatable (numbers/specs), mark as done
+            if (isUntranslatableContent(sourceValue)) {
+              translatedKeysSet.add(key);
+              continue;
             }
             
-            // Check if translation is valid (no Chinese, not identical to source)
-            if (!isValidTranslation(sourceValue, existingValue) && !isUntranslatableContent(sourceValue)) {
-              debugContainsChinese++;
+            // If translation exists and has no Chinese, it's valid
+            if (value && !containsChinese(value)) {
+              translatedKeysSet.add(key);
+              continue;
+            }
+          }
+          
+          // Also auto-fill untranslatable content now
+          for (const [key, value] of Object.entries(actualSourceContent)) {
+            const valueStr = value as string;
+            if (!existingTranslations[key] && isUntranslatableContent(valueStr)) {
+              existingTranslations[key] = valueStr;
+              translatedKeysSet.add(key);
+            }
+          }
+          
+          // Keys that need translation = source keys not in translatedKeysSet
+          const remainingKeys = Object.keys(actualSourceContent).filter(key => {
+            // Force translate keys always need processing unless already valid
+            if (forceKeysSet.has(key) && !translatedKeysSet.has(key)) {
               return true;
             }
-            
-            // If this key is in forceTranslateKeys (from scanner migration)
-            if (forceKeysSet.has(key)) {
-              // If the source content is "untranslatable" -> already done
-              if (isUntranslatableContent(sourceValue)) {
-                return false;
-              }
-              
-              // For translatable content: if value equals source -> still needs translation
-              if (existingValue === sourceValue) {
-                debugForceNeedsTranslation++;
-                return true;
-              }
-              
-              // Value exists and is different from source - already translated
-              return false;
-            }
-            
-            // For non-force keys: already has translation, skip
-            return false;
+            return !translatedKeysSet.has(key);
           });
           
-          console.log(`  - Debug: missing=${debugMissing}, containsChinese=${debugContainsChinese}, forceNeeds=${debugForceNeedsTranslation}`);
+          const validCount = translatedKeysSet.size;
+          console.log(`  - Valid translations: ${validCount}/${totalSourceKeys}`);
+          console.log(`  - Keys needing translation: ${remainingKeys.length}`);
           
           if (remainingKeys.length === 0) {
             console.log(`All translations already completed for ${lang}`);
