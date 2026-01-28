@@ -26,7 +26,8 @@ import {
   UserCheck,
   Languages,
   Search,
-  Globe
+  Globe,
+  Zap
 } from 'lucide-react';
 import { User } from '@supabase/supabase-js';
 import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, BarChart, Bar } from 'recharts';
@@ -285,6 +286,13 @@ const AdminDashboard = () => {
       description: 'AI自动采集编辑行业新闻', 
       href: '/admin/news-collection',
       color: 'from-amber-500 to-orange-500'
+    },
+    { 
+      icon: Zap, 
+      title: '自动翻译', 
+      description: 'DeepSeek自动检测和翻译', 
+      href: '/admin/auto-translate',
+      color: 'from-cyan-500 to-blue-500'
     },
     { 
       icon: Languages, 
