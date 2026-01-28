@@ -74,17 +74,20 @@ const TranslationManagement = () => {
     }
   }, []);
 
-  // Handle new items migrated from scanner
+  // Handle new items migrated from scanner - refresh both pending and statuses
   const handleNewItemsMigrated = useCallback((count: number) => {
     loadPendingTranslations();
+    // 重新加载翻译状态，确保进度显示正确
+    loadTranslationStatuses();
+    toast.success(`已将 ${count} 个缺失翻译添加到队列，翻译进度已更新`);
   }, [loadPendingTranslations]);
 
   const loadTranslationStatuses = async () => {
     setIsLoading(true);
     const results: TranslationStatus[] = [];
     
-    // 获取最新的pending translations计数
-    let currentPendingCount = 0;
+    // 获取最新的pending translations并计算合并后的唯一key数
+    let currentPendingContent: Record<string, string> = {};
     try {
       const { data: pendingData } = await supabase
         .from('system_settings')
@@ -94,14 +97,15 @@ const TranslationManagement = () => {
       
       if (pendingData?.value) {
         const parsed = JSON.parse(pendingData.value);
-        currentPendingCount = Object.keys(parsed.content || {}).length;
+        currentPendingContent = parsed.content || {};
       }
     } catch (e) {
       console.error('Failed to get pending count:', e);
     }
     
-    const baseSourceKeys = Object.keys(zhTranslations).length;
-    const currentTotalSourceKeys = baseSourceKeys + currentPendingCount;
+    // 计算合并后的唯一key数，避免重复计算
+    const mergedKeys = { ...zhTranslations, ...currentPendingContent };
+    const currentTotalSourceKeys = Object.keys(mergedKeys).length;
 
     for (const lang of SUPPORTED_LANGUAGES) {
       if (lang.code === 'zh' || lang.code === 'en') {
