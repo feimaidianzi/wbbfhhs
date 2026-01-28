@@ -332,30 +332,108 @@ const PageMigration = () => {
           </Card>
         )}
 
-        {/* Quick Actions */}
-        {selectedPages.size > 0 && (
-          <Card className="border-primary/30 bg-gradient-to-r from-primary/5 to-accent/5">
-            <CardContent className="pt-6">
-              <div className="text-center space-y-4">
-                <div className="flex items-center justify-center gap-2">
-                  <Wand2 className="w-6 h-6 text-primary" />
-                  <h3 className="text-lg font-semibold">已选择 {selectedPages.size} 个页面</h3>
+        {/* Quick Actions - Always visible */}
+        <Card className="border-primary/30 bg-gradient-to-r from-primary/5 to-accent/5">
+          <CardHeader>
+            <CardTitle className="flex items-center gap-2">
+              <Zap className="w-5 h-5 text-primary" />
+              🚀 快速迁移操作
+            </CardTitle>
+            <CardDescription>
+              点击下方按钮，AI将自动完成页面迁移（将isEn模式转换为t()多语言函数）
+            </CardDescription>
+          </CardHeader>
+          <CardContent className="space-y-4">
+            {/* Selected pages info */}
+            {selectedPages.size > 0 && (
+              <div className="p-4 bg-primary/10 rounded-lg">
+                <div className="flex items-center gap-2 mb-2">
+                  <Wand2 className="w-5 h-5 text-primary" />
+                  <span className="font-medium">已选择 {selectedPages.size} 个页面</span>
                 </div>
-                <p className="text-sm text-muted-foreground">
-                  点击下方按钮开始自动迁移，迁移完成后请到翻译管理页面执行批量翻译
-                </p>
-                <div className="flex flex-wrap justify-center gap-2">
-                  {selectedList.slice(0, 5).map(p => (
-                    <Badge key={p.path} variant="secondary">{p.name}</Badge>
+                <div className="flex flex-wrap gap-1">
+                  {selectedList.slice(0, 6).map(p => (
+                    <Badge key={p.path} variant="secondary" className="text-xs">{p.name}</Badge>
                   ))}
-                  {selectedList.length > 5 && (
-                    <Badge variant="outline">+{selectedList.length - 5} 更多</Badge>
+                  {selectedList.length > 6 && (
+                    <Badge variant="outline" className="text-xs">+{selectedList.length - 6}</Badge>
                   )}
                 </div>
               </div>
-            </CardContent>
-          </Card>
-        )}
+            )}
+
+            {/* Migration action buttons */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+              <Button 
+                className="h-auto py-4 flex-col gap-1"
+                variant="default"
+                onClick={() => {
+                  const msg = "请帮我自动迁移以下页面从 isEn 模式到 t() 多语言函数：src/pages/products/tethered/TH100.tsx, src/pages/products/tethered/TH200.tsx, src/pages/products/tethered/TH300.tsx（系留无人机系列）";
+                  navigator.clipboard.writeText(msg);
+                  toast.success("已复制迁移指令，请粘贴到聊天框发送");
+                }}
+              >
+                <span className="font-semibold">🚁 迁移系留无人机</span>
+                <span className="text-xs opacity-80">TH100 / TH200 / TH300</span>
+              </Button>
+
+              <Button 
+                className="h-auto py-4 flex-col gap-1"
+                variant="default"
+                onClick={() => {
+                  const msg = "请帮我自动迁移以下页面从 isEn 模式到 t() 多语言函数：src/pages/products/logistics/WL10.tsx, src/pages/products/logistics/WL20.tsx, src/pages/products/logistics/WL30.tsx（物流无人机系列）";
+                  navigator.clipboard.writeText(msg);
+                  toast.success("已复制迁移指令，请粘贴到聊天框发送");
+                }}
+              >
+                <span className="font-semibold">📦 迁移物流无人机</span>
+                <span className="text-xs opacity-80">WL10 / WL20 / WL30</span>
+              </Button>
+
+              <Button 
+                className="h-auto py-4 flex-col gap-1"
+                variant="default"
+                onClick={() => {
+                  const msg = "请帮我自动迁移以下页面从 isEn 模式到 t() 多语言函数：src/pages/products/airport/UHS400P.tsx, src/pages/products/airport/UHS600.tsx, src/pages/products/airport/UHS1000.tsx, src/pages/products/airport/VehicleMountedAirport.tsx（机场系统系列）";
+                  navigator.clipboard.writeText(msg);
+                  toast.success("已复制迁移指令，请粘贴到聊天框发送");
+                }}
+              >
+                <span className="font-semibold">🏠 迁移机场系统</span>
+                <span className="text-xs opacity-80">UHS400P / UHS600 / UHS1000 / 车载</span>
+              </Button>
+
+              <Button 
+                className="h-auto py-4 flex-col gap-1"
+                variant="default"
+                onClick={() => {
+                  const msg = "请帮我自动迁移以下页面从 isEn 模式到 t() 多语言函数：src/pages/products/multi-rotor/X650.tsx, src/pages/products/multi-rotor/X850.tsx, src/pages/products/multi-rotor/X1200.tsx, src/pages/products/multi-rotor/X1600.tsx（多旋翼系列）";
+                  navigator.clipboard.writeText(msg);
+                  toast.success("已复制迁移指令，请粘贴到聊天框发送");
+                }}
+              >
+                <span className="font-semibold">🔄 迁移多旋翼</span>
+                <span className="text-xs opacity-80">X650 / X850 / X1200 / X1600</span>
+              </Button>
+            </div>
+
+            {/* One-click migrate all */}
+            <Button 
+              className="w-full h-auto py-4 bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700"
+              onClick={() => {
+                const allPending = pages.map(p => p.path).join(', ');
+                const msg = `请帮我自动迁移所有待迁移的页面从 isEn 模式到 t() 多语言函数：${allPending}`;
+                navigator.clipboard.writeText(msg);
+                toast.success("已复制迁移指令，请粘贴到聊天框发送");
+              }}
+            >
+              <div className="flex flex-col gap-1">
+                <span className="font-bold text-lg">🚀 一键迁移全部 ({pendingCount} 个页面)</span>
+                <span className="text-xs opacity-80">复制指令后粘贴到聊天框发送即可</span>
+              </div>
+            </Button>
+          </CardContent>
+        </Card>
 
         {/* Instructions */}
         <Card>
