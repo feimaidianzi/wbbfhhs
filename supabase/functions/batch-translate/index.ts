@@ -261,11 +261,15 @@ serve(async (req) => {
           }
         }
         
-        // Filter out already translated keys
+        // Filter out already translated keys - check if key exists AND has non-empty value
         let contentToTranslate = actualSourceContent;
         if (mode === 'incremental') {
           const remainingKeys = Object.keys(actualSourceContent).filter(
-            key => !existingTranslations[key]
+            key => {
+              const existingValue = existingTranslations[key];
+              // Key needs translation if it doesn't exist OR has empty/undefined value
+              return !existingValue || existingValue.trim() === '';
+            }
           );
           
           if (remainingKeys.length === 0) {
@@ -289,8 +293,9 @@ serve(async (req) => {
           );
           
           console.log(`[Single Batch] Processing ${batchKeys.length} keys for ${lang}`);
-          console.log(`  - Existing: ${Object.keys(existingTranslations).length}`);
-          console.log(`  - Total needed: ${totalSourceKeys}`);
+          console.log(`  - Existing translations: ${Object.keys(existingTranslations).length}`);
+          console.log(`  - Total source keys: ${totalSourceKeys}`);
+          console.log(`  - Keys needing translation: ${remainingKeys.length}`);
           console.log(`  - Remaining after this batch: ${remainingKeys.length - batchKeys.length}`);
         }
         
