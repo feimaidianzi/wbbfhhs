@@ -73,31 +73,18 @@ const TranslationManagement = () => {
     }
   }, []);
 
-  // 检测是否包含中文字符
-  const containsChinese = useCallback((text: string): boolean => {
-    return /[\u4e00-\u9fff\u3400-\u4dbf]/.test(text);
-  }, []);
+  // Handle new items migrated from scanner - refresh both pending and statuses
+  const handleNewItemsMigrated = useCallback(async (count: number) => {
+    console.log('[handleNewItemsMigrated] Called with count:', count);
+    // 先刷新待翻译队列
+    await loadPendingTranslations();
+    // 再重新加载翻译状态，确保进度显示正确
+    await loadTranslationStatuses();
+    console.log('[handleNewItemsMigrated] Refresh complete');
+    toast.success(`已将 ${count} 个缺失翻译添加到队列，翻译进度已更新`);
+  }, [loadPendingTranslations]);
 
-  // 判断翻译是否有效（不是中文、不是与源文本完全相同、不为空）
-  const isValidTranslation = useCallback((translation: string | undefined, zhSource: string): boolean => {
-    if (!translation || translation.trim() === '') return false;
-    
-    // 如果翻译与中文源完全相同，视为未翻译
-    if (translation === zhSource) return false;
-    
-    // 检查是否包含中文（对于目标语言翻译不应该包含中文）
-    // 排除一些特殊情况：纯数字、品牌名、技术代码等
-    const isSpecialContent = /^[A-Z0-9\s\-_.\/\\@#$%^&*()+=\[\]{}|:;"'<>,.?!]+$/i.test(zhSource);
-    
-    if (!isSpecialContent && containsChinese(translation)) {
-      return false;
-    }
-    
-    return true;
-  }, [containsChinese]);
-
-  // 加载翻译状态 - 使用 useCallback 确保引用稳定
-  const loadTranslationStatuses = useCallback(async () => {
+  const loadTranslationStatuses = async () => {
     setIsLoading(true);
     const results: TranslationStatus[] = [];
     
@@ -150,44 +137,20 @@ const TranslationManagement = () => {
 
         if (data?.value) {
           const translations = JSON.parse(data.value);
+          const translatedKeys = Object.keys(translations);
+          const translatedCount = translatedKeys.length;
           
-          // 计算有效翻译的数量（翻译存在且有效）
-          let validTranslationCount = 0;
-          let invalidTranslationCount = 0;
-          
-          for (const key of Object.keys(mergedKeys)) {
-            const zhValue = mergedKeys[key];
-            const translation = translations[key];
-            
-            // 检查是否是不需要翻译的特殊内容
-            const isUntranslatableContent = /^[A-Z0-9\s\-_.\/\\@#$%^&*()+=\[\]{}|:;"'<>,.?!]+$/i.test(zhValue) ||
-              zhValue.length <= 2 ||
-              /^(VTX|ELRS|FPV|ESC|FC|GPS|RTK|SDK|API|USB|HDMI|WiFi|4G|5G|LTE|HD|4K|8K)$/i.test(zhValue);
-            
-            if (isUntranslatableContent) {
-              // 特殊内容只要有记录就算有效
-              if (translation) {
-                validTranslationCount++;
-              } else {
-                invalidTranslationCount++;
-              }
-            } else {
-              // 普通内容需要检查翻译是否有效
-              if (isValidTranslation(translation, zhValue)) {
-                validTranslationCount++;
-              } else {
-                invalidTranslationCount++;
-              }
-            }
-          }
+          // 计算 pending keys 中有多少在该语言的翻译中缺失
+          const translatedKeySet = new Set(translatedKeys);
+          const missingPendingCount = pendingKeys.filter(k => !translatedKeySet.has(k)).length;
           
           results.push({
             lang: lang.code,
             name: lang.name,
             hasTranslation: true,
-            keyCount: validTranslationCount,
+            keyCount: translatedCount,
             lastUpdated: new Date(data.updated_at).toLocaleString('zh-CN'),
-            pendingMissing: invalidTranslationCount,
+            pendingMissing: missingPendingCount,
           });
         } else {
           results.push({
@@ -195,7 +158,7 @@ const TranslationManagement = () => {
             name: lang.name,
             hasTranslation: false,
             keyCount: 0,
-            pendingMissing: currentTotalSourceKeys, // 全部都缺失
+            pendingMissing: pendingKeys.length, // 全部 pending keys 都缺失
           });
         }
       } catch (error) {
@@ -204,38 +167,19 @@ const TranslationManagement = () => {
           name: lang.name,
           hasTranslation: false,
           keyCount: 0,
-          pendingMissing: currentTotalSourceKeys,
+          pendingMissing: pendingKeys.length,
         });
       }
     }
 
     setStatuses(results);
     setIsLoading(false);
-  }, [isValidTranslation]);
-
-  // Handle new items migrated from scanner - refresh both pending and statuses
-  const handleNewItemsMigrated = useCallback(async (count: number) => {
-    console.log('[handleNewItemsMigrated] Called with count:', count);
-    
-    // 强制等待一下确保数据库写入完成
-    await new Promise(resolve => setTimeout(resolve, 500));
-    
-    // 先刷新待翻译队列
-    console.log('[handleNewItemsMigrated] Loading pending translations...');
-    await loadPendingTranslations();
-    
-    // 再重新加载翻译状态，确保进度显示正确
-    console.log('[handleNewItemsMigrated] Loading translation statuses...');
-    await loadTranslationStatuses();
-    
-    console.log('[handleNewItemsMigrated] Refresh complete');
-    toast.success(`已将 ${count} 个缺失翻译添加到队列，翻译进度已更新`);
-  }, [loadPendingTranslations, loadTranslationStatuses]);
+  };
 
   useEffect(() => {
     loadTranslationStatuses();
     loadPendingTranslations();
-  }, [loadTranslationStatuses, loadPendingTranslations]);
+  }, []);
 
   // 翻译单个语言的一个批次
   const translateOneBatch = async (lang: LanguageCode): Promise<{ success: boolean; remaining: number; count: number; total: number }> => {
@@ -759,18 +703,20 @@ const TranslationManagement = () => {
             </div>
           ) : (
             statuses.map((status) => {
-              // 判断是否完成：有效翻译数 >= 总数 且没有无效翻译
+              // 判断是否完成：keyCount >= totalSourceKeys 且没有待处理的 pending keys
               const isComplete = status.keyCount >= totalSourceKeys && status.pendingMissing === 0;
               
-              // 进度计算 - 使用有效翻译数
+              // 进度计算
+              const effectiveCount = Math.min(status.keyCount, totalSourceKeys);
               const progressPercent = totalSourceKeys > 0 
-                ? Math.round((status.keyCount / totalSourceKeys) * 100) 
+                ? Math.round((effectiveCount / totalSourceKeys) * 100) 
                 : 0;
               
-              // 缺失数量 = 无效翻译数（包括缺失和翻译无效的）
-              const totalMissing = status.pendingMissing;
+              // 缺失数量 = 基础缺失 + pending缺失
+              const baseMissing = Math.max(0, totalSourceKeys - status.keyCount);
+              const totalMissing = baseMissing + status.pendingMissing;
               
-              // 有无效翻译时需要特殊标记
+              // 有 pending 缺失时需要特殊标记
               const hasPendingWork = status.pendingMissing > 0;
               
               return (
@@ -807,7 +753,7 @@ const TranslationManagement = () => {
                       <div className="flex justify-between">
                         <span className="text-gray-500">翻译进度:</span>
                         <span className={totalMissing > 0 ? 'text-orange-600 font-medium' : 'text-green-600'}>
-                          {status.keyCount} / {totalSourceKeys}
+                          {effectiveCount} / {totalSourceKeys}
                           {totalMissing > 0 && ` (缺${totalMissing})`}
                         </span>
                       </div>
