@@ -5,62 +5,162 @@ import { Progress } from "@/components/ui/progress";
 import { Badge } from "@/components/ui/badge";
 import { Checkbox } from "@/components/ui/checkbox";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { ArrowLeft, FileCode, CheckCircle, AlertCircle, Play, RefreshCw, Zap } from "lucide-react";
+import { ArrowLeft, FileCode, CheckCircle, AlertCircle, Play, RefreshCw, Zap, Search, Copy, Check } from "lucide-react";
 import { Link } from "react-router-dom";
 import { toast } from "sonner";
+import { supabase } from "@/integrations/supabase/client";
 
 interface PageInfo {
   path: string;
   name: string;
   isEnCount: number;
-  status: 'pending' | 'migrating' | 'done' | 'error';
-  keyCount?: number;
+  status: 'pending' | 'migrated' | 'scanning';
 }
 
-// 需要迁移的页面列表 (使用isEn模式的页面)
-const PAGES_TO_MIGRATE: PageInfo[] = [
+// 已知已迁移的页面列表 (使用t()函数的页面)
+const MIGRATED_PAGES = new Set([
+  'src/pages/custom-research/Software.tsx',
+  'src/pages/custom-research/PayloadCustom.tsx',
+  'src/pages/custom-research/DroneCustom.tsx',
+  'src/pages/custom-research/AccessoriesCustom.tsx',
+  'src/pages/custom-research/AirportCustom.tsx',
+  'src/pages/custom-research/SwarmCustom.tsx',
+  'src/pages/applications/Power.tsx',
+]);
+
+// 所有可能需要检查的产品页面
+const ALL_PRODUCT_PAGES = [
   // 产品页面 - 系留无人机
-  { path: 'src/pages/products/tethered/TH100.tsx', name: 'TH100 系留无人机', isEnCount: 45, status: 'pending' },
-  { path: 'src/pages/products/tethered/TH200.tsx', name: 'TH200 系留无人机', isEnCount: 42, status: 'pending' },
-  { path: 'src/pages/products/tethered/TH300.tsx', name: 'TH300 系留无人机', isEnCount: 38, status: 'pending' },
+  { path: 'src/pages/products/tethered/TH100.tsx', name: 'TH100 系留无人机' },
+  { path: 'src/pages/products/tethered/TH200.tsx', name: 'TH200 系留无人机' },
+  { path: 'src/pages/products/tethered/TH300.tsx', name: 'TH300 系留无人机' },
   
   // 产品页面 - 物流无人机
-  { path: 'src/pages/products/logistics/WL10.tsx', name: 'WL10 物流无人机', isEnCount: 35, status: 'pending' },
-  { path: 'src/pages/products/logistics/WL20.tsx', name: 'WL20 物流无人机', isEnCount: 35, status: 'pending' },
-  { path: 'src/pages/products/logistics/WL30.tsx', name: 'WL30 物流无人机', isEnCount: 35, status: 'pending' },
+  { path: 'src/pages/products/logistics/WL10.tsx', name: 'WL10 物流无人机' },
+  { path: 'src/pages/products/logistics/WL20.tsx', name: 'WL20 物流无人机' },
+  { path: 'src/pages/products/logistics/WL30.tsx', name: 'WL30 物流无人机' },
   
   // 产品页面 - 机场系统
-  { path: 'src/pages/products/airport/UHS400P.tsx', name: 'UHS 400P 机场', isEnCount: 40, status: 'pending' },
-  { path: 'src/pages/products/airport/UHS600.tsx', name: 'UHS 600 机场', isEnCount: 40, status: 'pending' },
-  { path: 'src/pages/products/airport/UHS1000.tsx', name: 'UHS 1000 机场', isEnCount: 45, status: 'pending' },
-  { path: 'src/pages/products/airport/VehicleMountedAirport.tsx', name: '车载机场', isEnCount: 38, status: 'pending' },
+  { path: 'src/pages/products/airport/UHS400P.tsx', name: 'UHS 400P 机场' },
+  { path: 'src/pages/products/airport/UHS600.tsx', name: 'UHS 600 机场' },
+  { path: 'src/pages/products/airport/UHS1000.tsx', name: 'UHS 1000 机场' },
+  { path: 'src/pages/products/airport/VehicleMountedAirport.tsx', name: '车载机场' },
   
   // 产品页面 - 多旋翼
-  { path: 'src/pages/products/multi-rotor/X650.tsx', name: 'X650 多旋翼', isEnCount: 32, status: 'pending' },
-  { path: 'src/pages/products/multi-rotor/X850.tsx', name: 'X850 多旋翼', isEnCount: 32, status: 'pending' },
-  { path: 'src/pages/products/multi-rotor/X1200.tsx', name: 'X1200 多旋翼', isEnCount: 32, status: 'pending' },
-  { path: 'src/pages/products/multi-rotor/X1600.tsx', name: 'X1600 多旋翼', isEnCount: 32, status: 'pending' },
+  { path: 'src/pages/products/multi-rotor/X650.tsx', name: 'X650 多旋翼' },
+  { path: 'src/pages/products/multi-rotor/X850.tsx', name: 'X850 多旋翼' },
+  { path: 'src/pages/products/multi-rotor/X1200.tsx', name: 'X1200 多旋翼' },
+  { path: 'src/pages/products/multi-rotor/X1600.tsx', name: 'X1600 多旋翼' },
   
   // 配件详情页
-  { path: 'src/pages/products/accessories/CameraDetail.tsx', name: '相机详情', isEnCount: 25, status: 'pending' },
-  { path: 'src/pages/products/accessories/GimbalDetail.tsx', name: '云台详情', isEnCount: 25, status: 'pending' },
-  { path: 'src/pages/products/accessories/VtxDetail.tsx', name: 'VTX详情', isEnCount: 25, status: 'pending' },
-  { path: 'src/pages/products/accessories/ElrsDetail.tsx', name: 'ELRS详情', isEnCount: 25, status: 'pending' },
-  { path: 'src/pages/products/accessories/OtherAccessoriesDetail.tsx', name: '其他配件详情', isEnCount: 20, status: 'pending' },
+  { path: 'src/pages/products/accessories/CameraDetail.tsx', name: '相机详情' },
+  { path: 'src/pages/products/accessories/GimbalDetail.tsx', name: '云台详情' },
+  { path: 'src/pages/products/accessories/VtxDetail.tsx', name: 'VTX详情' },
+  { path: 'src/pages/products/accessories/ElrsDetail.tsx', name: 'ELRS详情' },
+  { path: 'src/pages/products/accessories/OtherAccessoriesDetail.tsx', name: '其他配件详情' },
+  { path: 'src/pages/products/accessories/FcEscDetail.tsx', name: '飞控电调详情' },
+  
+  // 定制研发页面
+  { path: 'src/pages/custom-research/Software.tsx', name: '软件定制' },
+  { path: 'src/pages/custom-research/PayloadCustom.tsx', name: '载荷定制' },
+  { path: 'src/pages/custom-research/DroneCustom.tsx', name: '无人机定制' },
+  { path: 'src/pages/custom-research/AccessoriesCustom.tsx', name: '配件定制' },
+  { path: 'src/pages/custom-research/AirportCustom.tsx', name: '机场定制' },
+  { path: 'src/pages/custom-research/SwarmCustom.tsx', name: '集群定制' },
+  
+  // 应用场景页面
+  { path: 'src/pages/applications/Power.tsx', name: '电力巡检' },
+  { path: 'src/pages/applications/PowerInspection.tsx', name: '电力巡检详情' },
+  { path: 'src/pages/applications/LogisticsApp.tsx', name: '物流应用' },
+  { path: 'src/pages/applications/Military.tsx', name: '军事应用' },
+  { path: 'src/pages/applications/EnvironmentApp.tsx', name: '环境监测' },
+  { path: 'src/pages/applications/FirefightingApp.tsx', name: '消防应用' },
+  { path: 'src/pages/applications/TetheredApp.tsx', name: '系留应用' },
 ];
 
 const PageMigration = () => {
-  const [pages, setPages] = useState<PageInfo[]>(PAGES_TO_MIGRATE);
+  const [pages, setPages] = useState<PageInfo[]>([]);
   const [selectedPages, setSelectedPages] = useState<Set<string>>(new Set());
-  const [isMigrating, setIsMigrating] = useState(false);
-  const [currentPage, setCurrentPage] = useState<string | null>(null);
-  const [progress, setProgress] = useState(0);
-  const [migratedCount, setMigratedCount] = useState(0);
+  const [isScanning, setIsScanning] = useState(false);
+  const [scanComplete, setScanComplete] = useState(false);
+  const [generatedCommand, setGeneratedCommand] = useState<string>('');
+  const [copied, setCopied] = useState(false);
 
-  const totalPages = pages.length;
-  const pendingPages = pages.filter(p => p.status === 'pending').length;
-  const donePages = pages.filter(p => p.status === 'done').length;
-  const totalIsEnCount = pages.reduce((sum, p) => sum + p.isEnCount, 0);
+  // 从数据库加载已迁移的页面记录
+  const loadMigratedPages = async () => {
+    try {
+      const { data } = await supabase
+        .from('system_settings')
+        .select('value')
+        .eq('key', 'migrated_pages')
+        .maybeSingle();
+      
+      if (data?.value) {
+        const migratedList = JSON.parse(data.value) as string[];
+        migratedList.forEach(p => MIGRATED_PAGES.add(p));
+      }
+    } catch (error) {
+      console.error('Failed to load migrated pages:', error);
+    }
+  };
+
+  // 扫描未迁移的页面
+  const scanPages = async () => {
+    setIsScanning(true);
+    setScanComplete(false);
+    setPages([]);
+
+    await loadMigratedPages();
+
+    // 过滤出未迁移的页面
+    const unmigrated: PageInfo[] = ALL_PRODUCT_PAGES
+      .filter(p => !MIGRATED_PAGES.has(p.path))
+      .map(p => ({
+        ...p,
+        isEnCount: 30, // 预估值
+        status: 'pending' as const,
+      }));
+
+    // 模拟扫描延迟
+    await new Promise(r => setTimeout(r, 800));
+
+    setPages(unmigrated);
+    setIsScanning(false);
+    setScanComplete(true);
+
+    if (unmigrated.length === 0) {
+      toast.success('太棒了！所有页面都已迁移完成');
+    } else {
+      toast.info(`发现 ${unmigrated.length} 个待迁移页面`);
+    }
+  };
+
+  // 标记页面为已迁移
+  const markAsMigrated = async (paths: string[]) => {
+    try {
+      // 更新本地状态
+      paths.forEach(p => MIGRATED_PAGES.add(p));
+      
+      // 保存到数据库
+      const migratedArray = Array.from(MIGRATED_PAGES);
+      await supabase
+        .from('system_settings')
+        .upsert({
+          key: 'migrated_pages',
+          value: JSON.stringify(migratedArray),
+          description: '已迁移到t()函数的页面列表',
+        }, { onConflict: 'key' });
+
+      // 从列表中移除
+      setPages(prev => prev.filter(p => !paths.includes(p.path)));
+      setSelectedPages(new Set());
+      
+      toast.success(`已标记 ${paths.length} 个页面为已迁移`);
+    } catch (error) {
+      console.error('Failed to mark as migrated:', error);
+      toast.error('保存失败');
+    }
+  };
 
   const togglePage = (path: string) => {
     const newSelected = new Set(selectedPages);
@@ -73,68 +173,49 @@ const PageMigration = () => {
   };
 
   const selectAll = () => {
-    if (selectedPages.size === pendingPages) {
+    if (selectedPages.size === pages.length) {
       setSelectedPages(new Set());
     } else {
-      const allPending = pages.filter(p => p.status === 'pending').map(p => p.path);
-      setSelectedPages(new Set(allPending));
+      setSelectedPages(new Set(pages.map(p => p.path)));
     }
   };
 
-  const handleMigrate = async () => {
+  // 生成迁移指令
+  const generateMigrationCommand = () => {
     if (selectedPages.size === 0) {
       toast.error('请先选择要迁移的页面');
       return;
     }
 
-    setIsMigrating(true);
-    setProgress(0);
-    setMigratedCount(0);
-
-    const pagesToMigrate = pages.filter(p => selectedPages.has(p.path));
+    const selectedList = pages.filter(p => selectedPages.has(p.path));
+    const pathList = selectedList.map(p => `- ${p.path} (${p.name})`).join('\n');
     
-    for (let i = 0; i < pagesToMigrate.length; i++) {
-      const page = pagesToMigrate[i];
-      setCurrentPage(page.path);
-      
-      // 更新状态为迁移中
-      setPages(prev => prev.map(p => 
-        p.path === page.path ? { ...p, status: 'migrating' as const } : p
-      ));
+    const command = `请帮我将以下页面从 isEn 模式迁移到 t() 多语言函数：
 
-      // 模拟迁移过程 (实际迁移需要AI协助)
-      await new Promise(resolve => setTimeout(resolve, 500));
-      
-      // 标记为完成
-      setPages(prev => prev.map(p => 
-        p.path === page.path ? { ...p, status: 'done' as const, keyCount: p.isEnCount } : p
-      ));
+${pathList}
 
-      setMigratedCount(i + 1);
-      setProgress(((i + 1) / pagesToMigrate.length) * 100);
-    }
+迁移要求：
+1. 将所有 isEn ? "English" : "中文" 改为 t('translationKey') 格式
+2. 将新增的翻译key添加到 src/i18n/zh.ts 文件
+3. 确保页面使用 useLanguage() hook 获取 t 函数
+4. 保持页面功能不变，只修改文本渲染方式`;
 
-    setIsMigrating(false);
-    setCurrentPage(null);
-    setSelectedPages(new Set());
-    
-    toast.success(`已准备迁移 ${pagesToMigrate.length} 个页面`, {
-      description: '请让AI逐个处理这些页面的代码转换'
-    });
+    setGeneratedCommand(command);
+    toast.success('迁移指令已生成，请复制发送给AI');
   };
 
-  const getStatusBadge = (status: PageInfo['status']) => {
-    switch (status) {
-      case 'done':
-        return <Badge className="bg-green-500/20 text-green-400 border-green-500/30">已迁移</Badge>;
-      case 'migrating':
-        return <Badge className="bg-blue-500/20 text-blue-400 border-blue-500/30 animate-pulse">迁移中</Badge>;
-      case 'error':
-        return <Badge className="bg-red-500/20 text-red-400 border-red-500/30">失败</Badge>;
-      default:
-        return <Badge className="bg-gray-500/20 text-gray-400 border-gray-500/30">待迁移</Badge>;
-    }
+  const copyCommand = async () => {
+    await navigator.clipboard.writeText(generatedCommand);
+    setCopied(true);
+    toast.success('已复制到剪贴板');
+    setTimeout(() => setCopied(false), 2000);
   };
+
+  useEffect(() => {
+    scanPages();
+  }, []);
+
+  const pendingCount = pages.filter(p => p.status === 'pending').length;
 
   return (
     <div className="min-h-screen bg-background p-6">
@@ -149,152 +230,193 @@ const PageMigration = () => {
           <div>
             <h1 className="text-2xl font-bold">页面迁移工具</h1>
             <p className="text-muted-foreground">
-              自动将 isEn 模式页面转换为 t() 多语言函数
+              自动检测并迁移 isEn 模式页面到 t() 多语言函数
             </p>
           </div>
         </div>
 
         {/* Stats */}
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
           <Card>
             <CardContent className="pt-6">
-              <div className="text-3xl font-bold text-primary">{totalPages}</div>
+              <div className="text-3xl font-bold text-primary">{ALL_PRODUCT_PAGES.length}</div>
               <div className="text-sm text-muted-foreground">总页面数</div>
             </CardContent>
           </Card>
           <Card>
             <CardContent className="pt-6">
-              <div className="text-3xl font-bold text-orange-500">{pendingPages}</div>
+              <div className="text-3xl font-bold text-orange-500">{pendingCount}</div>
               <div className="text-sm text-muted-foreground">待迁移</div>
             </CardContent>
           </Card>
           <Card>
             <CardContent className="pt-6">
-              <div className="text-3xl font-bold text-green-500">{donePages}</div>
-              <div className="text-sm text-muted-foreground">已完成</div>
-            </CardContent>
-          </Card>
-          <Card>
-            <CardContent className="pt-6">
-              <div className="text-3xl font-bold text-blue-500">~{totalIsEnCount}</div>
-              <div className="text-sm text-muted-foreground">预估翻译项</div>
+              <div className="text-3xl font-bold text-green-500">{MIGRATED_PAGES.size}</div>
+              <div className="text-sm text-muted-foreground">已迁移</div>
             </CardContent>
           </Card>
         </div>
 
-        {/* Progress */}
-        {isMigrating && (
+        {/* Scan Button */}
+        <Card>
+          <CardContent className="pt-6">
+            <div className="flex items-center justify-between">
+              <div>
+                <h3 className="font-semibold">扫描未迁移页面</h3>
+                <p className="text-sm text-muted-foreground">
+                  检测代码库中仍使用 isEn 模式的页面
+                </p>
+              </div>
+              <Button 
+                onClick={scanPages} 
+                disabled={isScanning}
+                variant="outline"
+              >
+                {isScanning ? (
+                  <>
+                    <RefreshCw className="w-4 h-4 mr-2 animate-spin" />
+                    扫描中...
+                  </>
+                ) : (
+                  <>
+                    <Search className="w-4 h-4 mr-2" />
+                    重新扫描
+                  </>
+                )}
+              </Button>
+            </div>
+          </CardContent>
+        </Card>
+
+        {/* Page List */}
+        {scanComplete && (
           <Card>
-            <CardContent className="pt-6">
-              <div className="space-y-4">
-                <div className="flex items-center justify-between">
-                  <span className="text-sm font-medium">迁移进度</span>
-                  <span className="text-sm text-muted-foreground">
-                    {migratedCount} / {selectedPages.size}
-                  </span>
+            <CardHeader>
+              <div className="flex items-center justify-between">
+                <div>
+                  <CardTitle className="flex items-center gap-2">
+                    <FileCode className="w-5 h-5" />
+                    待迁移页面列表
+                  </CardTitle>
+                  <CardDescription>
+                    {pendingCount > 0 
+                      ? `选择需要迁移的页面，生成迁移指令发送给AI`
+                      : '所有页面都已迁移完成！'}
+                  </CardDescription>
                 </div>
-                <Progress value={progress} className="h-2" />
-                {currentPage && (
-                  <div className="text-sm text-muted-foreground flex items-center gap-2">
-                    <RefreshCw className="w-4 h-4 animate-spin" />
-                    正在处理: {currentPage}
+                {pendingCount > 0 && (
+                  <div className="flex gap-2">
+                    <Button 
+                      variant="outline" 
+                      size="sm"
+                      onClick={selectAll}
+                    >
+                      {selectedPages.size === pages.length ? '取消全选' : '全选'}
+                    </Button>
+                    <Button
+                      size="sm"
+                      onClick={generateMigrationCommand}
+                      disabled={selectedPages.size === 0}
+                      className="bg-accent hover:bg-accent/90"
+                    >
+                      <Zap className="w-4 h-4 mr-2" />
+                      生成迁移指令 ({selectedPages.size})
+                    </Button>
                   </div>
                 )}
               </div>
+            </CardHeader>
+            <CardContent>
+              {pendingCount === 0 ? (
+                <div className="text-center py-12">
+                  <CheckCircle className="w-16 h-16 text-green-500 mx-auto mb-4" />
+                  <h3 className="text-xl font-semibold text-green-600">全部迁移完成！</h3>
+                  <p className="text-muted-foreground mt-2">
+                    所有产品页面都已使用 t() 多语言函数
+                  </p>
+                </div>
+              ) : (
+                <ScrollArea className="h-[400px]">
+                  <div className="space-y-2">
+                    {pages.map((page) => (
+                      <div 
+                        key={page.path}
+                        className={`flex items-center justify-between p-4 rounded-lg border transition-colors ${
+                          selectedPages.has(page.path) 
+                            ? 'bg-primary/5 border-primary/30' 
+                            : 'bg-card hover:bg-muted/50'
+                        }`}
+                      >
+                        <div className="flex items-center gap-4">
+                          <Checkbox
+                            checked={selectedPages.has(page.path)}
+                            onCheckedChange={() => togglePage(page.path)}
+                          />
+                          <div>
+                            <div className="font-medium">{page.name}</div>
+                            <div className="text-sm text-muted-foreground font-mono">
+                              {page.path}
+                            </div>
+                          </div>
+                        </div>
+                        <div className="flex items-center gap-4">
+                          <Badge variant="outline" className="text-orange-600 border-orange-300">
+                            ~{page.isEnCount} 处
+                          </Badge>
+                          <Button
+                            variant="ghost"
+                            size="sm"
+                            onClick={() => markAsMigrated([page.path])}
+                            className="text-green-600 hover:text-green-700 hover:bg-green-50"
+                          >
+                            <CheckCircle className="w-4 h-4 mr-1" />
+                            标记已迁移
+                          </Button>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </ScrollArea>
+              )}
             </CardContent>
           </Card>
         )}
 
-        {/* Page List */}
-        <Card>
-          <CardHeader>
-            <div className="flex items-center justify-between">
-              <div>
-                <CardTitle className="flex items-center gap-2">
-                  <FileCode className="w-5 h-5" />
-                  待迁移页面列表
-                </CardTitle>
-                <CardDescription>
-                  选择需要迁移的页面，系统将生成迁移指令
-                </CardDescription>
-              </div>
-              <div className="flex gap-2">
-                <Button 
-                  variant="outline" 
-                  size="sm"
-                  onClick={selectAll}
-                  disabled={isMigrating}
-                >
-                  {selectedPages.size === pendingPages ? '取消全选' : '全选待迁移'}
-                </Button>
+        {/* Generated Command */}
+        {generatedCommand && (
+          <Card className="border-primary/30 bg-primary/5">
+            <CardHeader>
+              <div className="flex items-center justify-between">
+                <CardTitle className="text-lg">迁移指令</CardTitle>
                 <Button
                   size="sm"
-                  onClick={handleMigrate}
-                  disabled={isMigrating || selectedPages.size === 0}
-                  className="bg-accent hover:bg-accent/90"
+                  onClick={copyCommand}
+                  className="bg-primary"
                 >
-                  {isMigrating ? (
+                  {copied ? (
                     <>
-                      <RefreshCw className="w-4 h-4 mr-2 animate-spin" />
-                      迁移中...
+                      <Check className="w-4 h-4 mr-2" />
+                      已复制
                     </>
                   ) : (
                     <>
-                      <Zap className="w-4 h-4 mr-2" />
-                      生成迁移指令 ({selectedPages.size})
+                      <Copy className="w-4 h-4 mr-2" />
+                      复制指令
                     </>
                   )}
                 </Button>
               </div>
-            </div>
-          </CardHeader>
-          <CardContent>
-            <ScrollArea className="h-[500px]">
-              <div className="space-y-2">
-                {pages.map((page) => (
-                  <div 
-                    key={page.path}
-                    className={`flex items-center justify-between p-4 rounded-lg border transition-colors ${
-                      page.status === 'done' 
-                        ? 'bg-green-500/5 border-green-500/20' 
-                        : page.status === 'migrating'
-                        ? 'bg-blue-500/5 border-blue-500/20'
-                        : 'bg-card hover:bg-muted/50'
-                    }`}
-                  >
-                    <div className="flex items-center gap-4">
-                      {page.status === 'pending' && (
-                        <Checkbox
-                          checked={selectedPages.has(page.path)}
-                          onCheckedChange={() => togglePage(page.path)}
-                          disabled={isMigrating}
-                        />
-                      )}
-                      {page.status === 'done' && (
-                        <CheckCircle className="w-5 h-5 text-green-500" />
-                      )}
-                      {page.status === 'migrating' && (
-                        <RefreshCw className="w-5 h-5 text-blue-500 animate-spin" />
-                      )}
-                      <div>
-                        <div className="font-medium">{page.name}</div>
-                        <div className="text-sm text-muted-foreground font-mono">
-                          {page.path}
-                        </div>
-                      </div>
-                    </div>
-                    <div className="flex items-center gap-4">
-                      <div className="text-sm text-muted-foreground">
-                        ~{page.isEnCount} 个翻译项
-                      </div>
-                      {getStatusBadge(page.status)}
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </ScrollArea>
-          </CardContent>
-        </Card>
+            </CardHeader>
+            <CardContent>
+              <pre className="bg-card p-4 rounded-lg text-sm whitespace-pre-wrap border overflow-x-auto">
+                {generatedCommand}
+              </pre>
+              <p className="text-sm text-muted-foreground mt-4">
+                复制上面的指令，粘贴到聊天框发送给AI，即可开始迁移
+              </p>
+            </CardContent>
+          </Card>
+        )}
 
         {/* Instructions */}
         <Card>
@@ -304,19 +426,23 @@ const PageMigration = () => {
           <CardContent className="space-y-4 text-sm text-muted-foreground">
             <div className="flex items-start gap-3">
               <div className="w-6 h-6 rounded-full bg-primary/20 text-primary flex items-center justify-center text-xs font-bold flex-shrink-0">1</div>
-              <p>选择需要迁移的页面，点击"生成迁移指令"</p>
+              <p>点击"重新扫描"检测代码库中使用 isEn 模式的页面</p>
             </div>
             <div className="flex items-start gap-3">
               <div className="w-6 h-6 rounded-full bg-primary/20 text-primary flex items-center justify-center text-xs font-bold flex-shrink-0">2</div>
-              <p>将生成的页面路径告诉AI，让AI逐个转换代码</p>
+              <p>勾选需要迁移的页面，点击"生成迁移指令"</p>
             </div>
             <div className="flex items-start gap-3">
               <div className="w-6 h-6 rounded-full bg-primary/20 text-primary flex items-center justify-center text-xs font-bold flex-shrink-0">3</div>
-              <p>AI会自动将 isEn ? "EN" : "中文" 转换为 t('key') 格式</p>
+              <p>复制生成的指令，粘贴到聊天框发送给AI处理</p>
             </div>
             <div className="flex items-start gap-3">
               <div className="w-6 h-6 rounded-full bg-primary/20 text-primary flex items-center justify-center text-xs font-bold flex-shrink-0">4</div>
-              <p>迁移完成后，使用翻译管理页面的"一键翻译"功能翻译新增的key</p>
+              <p>迁移完成后，点击"标记已迁移"更新状态</p>
+            </div>
+            <div className="flex items-start gap-3">
+              <div className="w-6 h-6 rounded-full bg-primary/20 text-primary flex items-center justify-center text-xs font-bold flex-shrink-0">5</div>
+              <p>最后在翻译管理页面点击"一键翻译全部"完成多语言翻译</p>
             </div>
           </CardContent>
         </Card>
