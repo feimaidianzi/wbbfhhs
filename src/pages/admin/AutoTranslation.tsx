@@ -37,6 +37,7 @@ const AutoTranslation = () => {
   const [overallProgress, setOverallProgress] = useState(0);
   const [detectedTexts, setDetectedTexts] = useState<DetectedText[]>([]);
   const [activeTab, setActiveTab] = useState('translate');
+  const [scanProgress, setScanProgress] = useState({ current: 0, total: 0, page: '' });
   const stopRef = useRef(false);
 
   const totalSourceKeys = Object.keys(zhTranslations).length;
@@ -201,18 +202,67 @@ const AutoTranslation = () => {
       iframe.style.display = 'none';
       document.body.appendChild(iframe);
 
-      const pagesToScan = ['/', '/products', '/about', '/contact', '/applications'];
+      // Comprehensive list of all pages to scan
+      const pagesToScan = [
+        // Main pages
+        '/', '/about', '/contact', '/news', '/products', '/applications',
+        // Products - main categories
+        '/products/airport', '/products/tethered', '/products/logistics', 
+        '/products/firefighting', '/products/wire-laying', '/products/multi-rotor',
+        '/products/swarm', '/products/agriculture', '/products/training',
+        '/products/work-drone', '/products/accessories',
+        // Airport products
+        '/products/airport/vehicle-mounted', '/products/airport/uhs-1000',
+        '/products/airport/uhs-600', '/products/airport/uhs-400p',
+        // Tethered products
+        '/products/tethered/th-100', '/products/tethered/th-200', '/products/tethered/th-300',
+        // Logistics products
+        '/products/logistics/wl-10', '/products/logistics/wl-20', '/products/logistics/wl-30',
+        // Multi-rotor products
+        '/products/multi-rotor/x650', '/products/multi-rotor/x850',
+        '/products/multi-rotor/x1200', '/products/multi-rotor/x1600',
+        // Accessories
+        '/products/accessories/vtx-vrx', '/products/accessories/fc-esc',
+        '/products/accessories/gimbal', '/products/accessories/camera',
+        '/products/accessories/digital-fpv', '/products/accessories/elrs',
+        '/products/accessories/others',
+        // Applications
+        '/applications/power-inspection', '/applications/logistics',
+        '/applications/military', '/applications/environment',
+        '/applications/firefighting', '/applications/tethered', '/applications/solutions',
+        '/applications/power-inspection/transmission-line',
+        '/applications/power-inspection/substation', '/applications/power-inspection/solar-panel',
+        // Software
+        '/software', '/software/exam-system', '/software/pv-inspection',
+        '/software/drone-management', '/software/power-inspection-system',
+        '/software/pv-system', '/software/environment-system',
+        '/software/ground-station', '/software/swarm-ground-station',
+        // Projects
+        '/projects', '/projects/training', '/projects/show',
+        '/projects/flight-service', '/projects/cooperation',
+        // Custom Research
+        '/custom-research', '/custom-research/airport', '/custom-research/swarm',
+        '/custom-research/software', '/custom-research/payload',
+        '/custom-research/accessories', '/custom-research/drone',
+        // FPV
+        '/fpv',
+      ];
       const allDetected: DetectedText[] = [];
+      
+      setScanProgress({ current: 0, total: pagesToScan.length, page: '' });
 
-      for (const path of pagesToScan) {
+      for (let i = 0; i < pagesToScan.length; i++) {
+        const path = pagesToScan[i];
+        setScanProgress({ current: i + 1, total: pagesToScan.length, page: path });
+        
         try {
           const url = window.location.origin + path;
           
-          await new Promise<void>((resolve, reject) => {
+          await new Promise<void>((resolve) => {
             iframe.onload = () => resolve();
-            iframe.onerror = () => reject(new Error('Failed to load page'));
+            iframe.onerror = () => resolve(); // Don't reject, just continue
             iframe.src = url;
-            setTimeout(() => resolve(), 3000); // Timeout after 3s
+            setTimeout(() => resolve(), 2000); // Reduced timeout for faster scanning
           });
 
           if (iframe.contentDocument) {
@@ -237,6 +287,7 @@ const AutoTranslation = () => {
       }
 
       document.body.removeChild(iframe);
+      setScanProgress({ current: 0, total: 0, page: '' });
 
       setDetectedTexts(allDetected);
       
@@ -578,6 +629,24 @@ const AutoTranslation = () => {
                 </CardDescription>
               </CardHeader>
               <CardContent>
+                {/* Scan Progress */}
+                {isScanningPage && scanProgress.total > 0 && (
+                  <div className="mb-4 p-3 bg-muted/50 rounded-lg">
+                    <div className="flex items-center justify-between mb-2">
+                      <span className="text-sm font-medium">
+                        正在扫描: {scanProgress.page}
+                      </span>
+                      <span className="text-sm text-muted-foreground">
+                        {scanProgress.current}/{scanProgress.total}
+                      </span>
+                    </div>
+                    <Progress 
+                      value={(scanProgress.current / scanProgress.total) * 100} 
+                      className="h-2" 
+                    />
+                  </div>
+                )}
+                
                 <div className="flex gap-3 mb-4">
                   <Button
                     onClick={scanPageContent}
@@ -588,7 +657,7 @@ const AutoTranslation = () => {
                     ) : (
                       <Eye className="h-4 w-4 mr-2" />
                     )}
-                    扫描网页内容
+                    扫描全部 {!isScanningPage ? '(52页)' : ''}
                   </Button>
 
                   {detectedTexts.length > 0 && (
@@ -597,7 +666,7 @@ const AutoTranslation = () => {
                       onClick={() => addToQueue(detectedTexts)}
                     >
                       <FileText className="h-4 w-4 mr-2" />
-                      全部添加到翻译队列
+                      全部添加到翻译队列 ({detectedTexts.length})
                     </Button>
                   )}
                 </div>
