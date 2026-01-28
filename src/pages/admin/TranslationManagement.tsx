@@ -237,27 +237,24 @@ const TranslationManagement = () => {
 
       retryCount = 0; // 重置重试计数
       
-      // CRITICAL: remaining comes from Edge Function, represents keys still needing translation
-      // We need to calculate "done" carefully:
-      // - totalKeys = all source keys (zhTranslations + pending)
-      // - remaining = keys that still need translation
-      // - done = totalKeys - remaining (actual translated count)
+      // CRITICAL FIX: Use result.total from Edge Function as the authoritative total
+      // This ensures frontend and backend use the same denominator
       const remaining = result.remaining;
-      const actualTotal = totalKeys;
-      const done = actualTotal - remaining;
+      const backendTotal = result.total; // Use backend's total, not frontend calculation
+      const done = backendTotal - remaining;
       
       // Update progress state - this drives the top progress bar
       setCurrentProgress({ 
         done: done, 
-        total: actualTotal, 
+        total: backendTotal, 
         remaining: remaining 
       });
       
-      // Calculate progress percentage
-      const progressPercent = actualTotal > 0 ? Math.min(100, Math.round((done / actualTotal) * 100)) : 0;
+      // Calculate progress percentage using backend total
+      const progressPercent = backendTotal > 0 ? Math.min(100, Math.round((done / backendTotal) * 100)) : 0;
       setProgress(progressPercent);
       
-      console.log(`[AutoTranslate] ${langName}: ${done}/${actualTotal} done, ${remaining} remaining, ${progressPercent}%`);
+      console.log(`[AutoTranslate] ${langName}: ${done}/${backendTotal} done, ${remaining} remaining, ${progressPercent}%`);
       
       // Refresh the status list to update language cards in sync
       // This ensures the bottom cards show the same progress as the top bar
@@ -266,8 +263,8 @@ const TranslationManagement = () => {
       // Check if translation is complete
       if (remaining <= 0) {
         setProgress(100);
-        setCurrentProgress({ done: actualTotal, total: actualTotal, remaining: 0 });
-        toast.success(`${langName} 翻译完成！共 ${actualTotal} 条`);
+        setCurrentProgress({ done: backendTotal, total: backendTotal, remaining: 0 });
+        toast.success(`${langName} 翻译完成！共 ${backendTotal} 条`);
         return true;
       }
 

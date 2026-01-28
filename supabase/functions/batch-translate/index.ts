@@ -269,6 +269,17 @@ serve(async (req) => {
         // Track which keys we've attempted to translate in this session via a processed list
         let contentToTranslate = actualSourceContent;
         if (mode === 'incremental') {
+          // Identify keys that are "untranslatable" - they look the same in any language
+          // (numbers, dates, abbreviations like VTX, ELRS, ISO9001, etc.)
+          const isUntranslatableContent = (value: string): boolean => {
+            if (!value || value.trim() === '') return true;
+            const trimmed = value.trim();
+            // Pure numbers, dates, or short abbreviations that don't need translation
+            if (/^[\d\-\/\+\.\s]+$/.test(trimmed)) return true; // Numbers, dates
+            if (/^[A-Z0-9\-\/\+]+$/.test(trimmed) && trimmed.length <= 10) return true; // Short abbreviations
+            return false;
+          };
+          
           // Calculate which keys need translation
           const remainingKeys = Object.keys(actualSourceContent).filter(key => {
             const existingValue = existingTranslations[key];
@@ -276,15 +287,22 @@ serve(async (req) => {
             
             // If this key is in forceTranslateKeys (from scanner migration)
             if (forceKeysSet.has(key)) {
-              // For force keys, we check if translation exists AND is different from Chinese source
-              // If the value is empty, undefined, or still equals Chinese source -> needs translation
+              // If no translation exists -> needs translation
               if (!existingValue || existingValue.trim() === '') {
-                return true; // No translation, needs work
+                return true;
               }
-              // Check if value is still Chinese (equals source)
+              
+              // If the source content is "untranslatable" (numbers, dates, abbreviations)
+              // and a value exists -> consider it done
+              if (isUntranslatableContent(sourceValue)) {
+                return false; // Already processed, skip
+              }
+              
+              // For translatable content: if value equals source -> still needs translation
               if (existingValue === sourceValue) {
-                return true; // Still Chinese, needs translation
+                return true;
               }
+              
               // Value exists and is different from source - already translated
               return false;
             }
