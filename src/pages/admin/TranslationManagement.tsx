@@ -237,25 +237,31 @@ const TranslationManagement = () => {
 
       retryCount = 0; // 重置重试计数
       
-      // CRITICAL FIX: Use totalKeys (the actual source key count) as the baseline
-      // result.count is DB count (may have extra old keys), not useful for progress
-      // result.remaining is the TRUE remaining count from the Edge Function
+      // CRITICAL: remaining comes from Edge Function, represents keys still needing translation
+      // We need to calculate "done" carefully:
+      // - totalKeys = all source keys (zhTranslations + pending)
+      // - remaining = keys that still need translation
+      // - done = totalKeys - remaining (actual translated count)
       const remaining = result.remaining;
-      const actualTotal = totalKeys; // Use the merged source key count
-      const translated = actualTotal - remaining; // Calculate how many are actually done
+      const actualTotal = totalKeys;
+      const done = actualTotal - remaining;
       
-      // Update progress based on actual remaining keys
+      // Update progress state - this drives the top progress bar
       setCurrentProgress({ 
-        done: translated, 
+        done: done, 
         total: actualTotal, 
         remaining: remaining 
       });
       
-      // Calculate progress percentage correctly
-      const progressPercent = actualTotal > 0 ? Math.min(100, Math.round((translated / actualTotal) * 100)) : 0;
+      // Calculate progress percentage
+      const progressPercent = actualTotal > 0 ? Math.min(100, Math.round((done / actualTotal) * 100)) : 0;
       setProgress(progressPercent);
       
-      console.log(`[AutoTranslate] ${langName}: ${translated}/${actualTotal} done, ${remaining} remaining, ${progressPercent}%`);
+      console.log(`[AutoTranslate] ${langName}: ${done}/${actualTotal} done, ${remaining} remaining, ${progressPercent}%`);
+      
+      // Refresh the status list to update language cards in sync
+      // This ensures the bottom cards show the same progress as the top bar
+      await loadTranslationStatuses();
 
       // Check if translation is complete
       if (remaining <= 0) {
