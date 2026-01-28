@@ -247,7 +247,9 @@ const TranslationManagement = () => {
       console.log(`[AutoTranslate] ${langName}: ${done}/${total} done, ${remaining} remaining`);
 
       // Check if translation is complete
-      if (remaining === 0 || done >= total) {
+      // CRITICAL: remaining <= 0 means all keys in source are translated
+      // BUT we also need to check if forceTranslateKeys were processed
+      if (remaining <= 0) {
         toast.success(`${langName} 翻译完成！共 ${done} 条`);
         return true;
       }
