@@ -265,33 +265,33 @@ serve(async (req) => {
           }
         }
         
-        // Filter out already translated keys - check if key exists AND has non-empty value
-        // For forceTranslateKeys: check if translation differs from source (meaning it was translated)
+        // Filter out already translated keys
+        // Track which keys we've attempted to translate in this session via a processed list
         let contentToTranslate = actualSourceContent;
         if (mode === 'incremental') {
-          // CRITICAL FIX: For forceTranslateKeys, check if translation is DIFFERENT from source
-          // If translation === source (Chinese), it hasn't been translated yet for this language
-          // If translation !== source, it was already translated in a previous batch
-          const remainingKeys = Object.keys(actualSourceContent).filter(
-            key => {
-              const existingValue = existingTranslations[key];
-              const sourceValue = actualSourceContent[key];
-              
-              // If this key is in forceTranslateKeys
-              if (forceKeysSet.has(key)) {
-                // Check if it's already translated (value differs from Chinese source)
-                // If existingValue equals sourceValue, it means it's still Chinese = needs translation
-                // If existingValue differs from sourceValue AND is non-empty, it's already translated
-                if (existingValue && existingValue.trim() !== '' && existingValue !== sourceValue) {
-                  return false; // Already translated, skip
-                }
-                return true; // Still needs translation
+          // Calculate which keys need translation
+          const remainingKeys = Object.keys(actualSourceContent).filter(key => {
+            const existingValue = existingTranslations[key];
+            const sourceValue = actualSourceContent[key];
+            
+            // If this key is in forceTranslateKeys (from scanner migration)
+            if (forceKeysSet.has(key)) {
+              // For force keys, we check if translation exists AND is different from Chinese source
+              // If the value is empty, undefined, or still equals Chinese source -> needs translation
+              if (!existingValue || existingValue.trim() === '') {
+                return true; // No translation, needs work
               }
-              
-              // For non-force keys: needs translation if doesn't exist OR is empty
-              return !existingValue || existingValue.trim() === '';
+              // Check if value is still Chinese (equals source)
+              if (existingValue === sourceValue) {
+                return true; // Still Chinese, needs translation
+              }
+              // Value exists and is different from source - already translated
+              return false;
             }
-          );
+            
+            // For non-force keys: needs translation if doesn't exist OR is empty
+            return !existingValue || existingValue.trim() === '';
+          });
           
           if (remainingKeys.length === 0) {
             console.log(`All translations already completed for ${lang}`);
@@ -306,25 +306,25 @@ serve(async (req) => {
             continue;
           }
           
-          // CRITICAL: Only process 1 chunk (10 keys) per request to prevent timeout
-          const batchSize = 10; // Must match chunkSize in translation functions
+          // Process ONLY 10 keys per request to prevent timeout
+          const batchSize = 10;
           const batchKeys = remainingKeys.slice(0, batchSize);
           contentToTranslate = Object.fromEntries(
             batchKeys.map(key => [key, actualSourceContent[key]])
           );
           
-          // CRITICAL: Store the actual remaining count BEFORE processing
-          // This is the TRUE count of keys that still need translation after this batch
+          // Calculate remaining AFTER this batch is processed
           const remainingAfterBatch = remainingKeys.length - batchKeys.length;
           
           const forceKeysInBatch = batchKeys.filter(k => forceKeysSet.has(k)).length;
           console.log(`[Single Batch] Processing ${batchKeys.length} keys for ${lang} (${forceKeysInBatch} force-translate)`);
           console.log(`  - Existing translations: ${Object.keys(existingTranslations).length}`);
           console.log(`  - Total source keys: ${totalSourceKeys}`);
-          console.log(`  - Keys needing translation (incl. force): ${remainingKeys.length}`);
+          console.log(`  - Keys needing translation: ${remainingKeys.length}`);
+          console.log(`  - Keys in this batch: ${batchKeys.join(', ').substring(0, 200)}...`);
           console.log(`  - Remaining after this batch: ${remainingAfterBatch}`);
           
-          // Store for later use in results
+          // Store remaining count for result
           (contentToTranslate as any).__remainingAfterBatch = remainingAfterBatch;
         }
         
