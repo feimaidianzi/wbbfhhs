@@ -306,12 +306,19 @@ serve(async (req) => {
             batchKeys.map(key => [key, actualSourceContent[key]])
           );
           
+          // CRITICAL: Store the actual remaining count BEFORE processing
+          // This is the TRUE count of keys that still need translation after this batch
+          const remainingAfterBatch = remainingKeys.length - batchKeys.length;
+          
           const forceKeysInBatch = batchKeys.filter(k => forceKeysSet.has(k)).length;
           console.log(`[Single Batch] Processing ${batchKeys.length} keys for ${lang} (${forceKeysInBatch} force-translate)`);
           console.log(`  - Existing translations: ${Object.keys(existingTranslations).length}`);
           console.log(`  - Total source keys: ${totalSourceKeys}`);
           console.log(`  - Keys needing translation (incl. force): ${remainingKeys.length}`);
-          console.log(`  - Remaining after this batch: ${remainingKeys.length - batchKeys.length}`);
+          console.log(`  - Remaining after this batch: ${remainingAfterBatch}`);
+          
+          // Store for later use in results
+          (contentToTranslate as any).__remainingAfterBatch = remainingAfterBatch;
         }
         
         let translations: Record<string, string>;
@@ -344,27 +351,12 @@ serve(async (req) => {
           translations = { ...existingTranslations, ...translations };
         }
         
-        // CRITICAL FIX: Calculate remaining based on ACTUAL untranslated keys, not simple subtraction
-        // We need to re-check how many keys from actualSourceContent are still missing or need force-translate
+        // Get the remaining count that was calculated BEFORE translation
+        // This is the TRUE remaining count based on forceTranslateKeys logic
+        const remaining = (contentToTranslate as any).__remainingAfterBatch ?? 0;
         const translatedCount = Object.keys(translations).length;
-        const stillMissingKeys = Object.keys(actualSourceContent).filter(key => {
-          // If in forceTranslateKeys and was just translated in this batch, it's done
-          // Check if key now exists in translations with non-empty value
-          const translatedValue = translations[key];
-          if (!translatedValue || translatedValue.trim() === '') {
-            return true; // Still needs translation
-          }
-          // If it was a force key, check if it was processed in this batch
-          if (forceKeysSet.has(key)) {
-            // Remove from forceKeysSet tracking since it's now translated
-            // But we can't modify the set here, so just check if it has a value
-            return false; // Has been translated
-          }
-          return false;
-        });
-        const remaining = stillMissingKeys.length;
         
-        console.log(`Completed: ${translatedCount} keys, ${remaining} still need translation`);
+        console.log(`Completed batch: ${translatedCount} total keys in DB, ${remaining} still need translation`);
 
         // Save to database
         const totalNeeded = Object.keys(actualSourceContent).length;
