@@ -266,22 +266,29 @@ serve(async (req) => {
         }
         
         // Filter out already translated keys - check if key exists AND has non-empty value
-        // BUT: Always include keys in forceTranslateKeys (from scanner migration)
+        // For forceTranslateKeys: check if translation differs from source (meaning it was translated)
         let contentToTranslate = actualSourceContent;
         if (mode === 'incremental') {
-          // CRITICAL FIX: Calculate remaining based on ACTUAL missing keys, not just source vs existing count
-          // A key needs translation if:
-          // 1. It's in forceTranslateKeys (must be re-translated), OR
-          // 2. It doesn't exist in existingTranslations, OR  
-          // 3. It exists but is empty/whitespace
+          // CRITICAL FIX: For forceTranslateKeys, check if translation is DIFFERENT from source
+          // If translation === source (Chinese), it hasn't been translated yet for this language
+          // If translation !== source, it was already translated in a previous batch
           const remainingKeys = Object.keys(actualSourceContent).filter(
             key => {
-              // If this key is in forceTranslateKeys, always include it
-              if (forceKeysSet.has(key)) {
-                return true;
-              }
               const existingValue = existingTranslations[key];
-              // Key needs translation if it doesn't exist OR has empty/undefined value
+              const sourceValue = actualSourceContent[key];
+              
+              // If this key is in forceTranslateKeys
+              if (forceKeysSet.has(key)) {
+                // Check if it's already translated (value differs from Chinese source)
+                // If existingValue equals sourceValue, it means it's still Chinese = needs translation
+                // If existingValue differs from sourceValue AND is non-empty, it's already translated
+                if (existingValue && existingValue.trim() !== '' && existingValue !== sourceValue) {
+                  return false; // Already translated, skip
+                }
+                return true; // Still needs translation
+              }
+              
+              // For non-force keys: needs translation if doesn't exist OR is empty
               return !existingValue || existingValue.trim() === '';
             }
           );
