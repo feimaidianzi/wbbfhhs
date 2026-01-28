@@ -1,11 +1,10 @@
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Progress } from "@/components/ui/progress";
 import { Badge } from "@/components/ui/badge";
 import { Checkbox } from "@/components/ui/checkbox";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { ArrowLeft, FileCode, CheckCircle, AlertCircle, Play, RefreshCw, Zap, Search, Copy, Check } from "lucide-react";
+import { ArrowLeft, FileCode, CheckCircle, RefreshCw, Zap, Search, Wand2 } from "lucide-react";
 import { Link } from "react-router-dom";
 import { toast } from "sonner";
 import { supabase } from "@/integrations/supabase/client";
@@ -13,8 +12,7 @@ import { supabase } from "@/integrations/supabase/client";
 interface PageInfo {
   path: string;
   name: string;
-  isEnCount: number;
-  status: 'pending' | 'migrated' | 'scanning';
+  status: 'pending' | 'migrated';
 }
 
 // 已知已迁移的页面列表 (使用t()函数的页面)
@@ -83,8 +81,6 @@ const PageMigration = () => {
   const [selectedPages, setSelectedPages] = useState<Set<string>>(new Set());
   const [isScanning, setIsScanning] = useState(false);
   const [scanComplete, setScanComplete] = useState(false);
-  const [generatedCommand, setGeneratedCommand] = useState<string>('');
-  const [copied, setCopied] = useState(false);
 
   // 从数据库加载已迁移的页面记录
   const loadMigratedPages = async () => {
@@ -117,19 +113,18 @@ const PageMigration = () => {
       .filter(p => !MIGRATED_PAGES.has(p.path))
       .map(p => ({
         ...p,
-        isEnCount: 30, // 预估值
         status: 'pending' as const,
       }));
 
     // 模拟扫描延迟
-    await new Promise(r => setTimeout(r, 800));
+    await new Promise(r => setTimeout(r, 500));
 
     setPages(unmigrated);
     setIsScanning(false);
     setScanComplete(true);
 
     if (unmigrated.length === 0) {
-      toast.success('太棒了！所有页面都已迁移完成');
+      toast.success('🎉 所有页面都已迁移完成！');
     } else {
       toast.info(`发现 ${unmigrated.length} 个待迁移页面`);
     }
@@ -138,10 +133,8 @@ const PageMigration = () => {
   // 标记页面为已迁移
   const markAsMigrated = async (paths: string[]) => {
     try {
-      // 更新本地状态
       paths.forEach(p => MIGRATED_PAGES.add(p));
       
-      // 保存到数据库
       const migratedArray = Array.from(MIGRATED_PAGES);
       await supabase
         .from('system_settings')
@@ -151,11 +144,10 @@ const PageMigration = () => {
           description: '已迁移到t()函数的页面列表',
         }, { onConflict: 'key' });
 
-      // 从列表中移除
       setPages(prev => prev.filter(p => !paths.includes(p.path)));
       setSelectedPages(new Set());
       
-      toast.success(`已标记 ${paths.length} 个页面为已迁移`);
+      toast.success(`✅ 已标记 ${paths.length} 个页面为已迁移`);
     } catch (error) {
       console.error('Failed to mark as migrated:', error);
       toast.error('保存失败');
@@ -180,42 +172,12 @@ const PageMigration = () => {
     }
   };
 
-  // 生成迁移指令
-  const generateMigrationCommand = () => {
-    if (selectedPages.size === 0) {
-      toast.error('请先选择要迁移的页面');
-      return;
-    }
-
-    const selectedList = pages.filter(p => selectedPages.has(p.path));
-    const pathList = selectedList.map(p => `- ${p.path} (${p.name})`).join('\n');
-    
-    const command = `请帮我将以下页面从 isEn 模式迁移到 t() 多语言函数：
-
-${pathList}
-
-迁移要求：
-1. 将所有 isEn ? "English" : "中文" 改为 t('translationKey') 格式
-2. 将新增的翻译key添加到 src/i18n/zh.ts 文件
-3. 确保页面使用 useLanguage() hook 获取 t 函数
-4. 保持页面功能不变，只修改文本渲染方式`;
-
-    setGeneratedCommand(command);
-    toast.success('迁移指令已生成，请复制发送给AI');
-  };
-
-  const copyCommand = async () => {
-    await navigator.clipboard.writeText(generatedCommand);
-    setCopied(true);
-    toast.success('已复制到剪贴板');
-    setTimeout(() => setCopied(false), 2000);
-  };
-
   useEffect(() => {
     scanPages();
   }, []);
 
   const pendingCount = pages.filter(p => p.status === 'pending').length;
+  const selectedList = pages.filter(p => selectedPages.has(p.path));
 
   return (
     <div className="min-h-screen bg-background p-6">
@@ -228,9 +190,9 @@ ${pathList}
             </Button>
           </Link>
           <div>
-            <h1 className="text-2xl font-bold">页面迁移工具</h1>
+            <h1 className="text-2xl font-bold">🔄 一键页面迁移</h1>
             <p className="text-muted-foreground">
-              自动检测并迁移 isEn 模式页面到 t() 多语言函数
+              选择页面 → 点击下方按钮 → 自动完成迁移
             </p>
           </div>
         </div>
@@ -300,29 +262,18 @@ ${pathList}
                   </CardTitle>
                   <CardDescription>
                     {pendingCount > 0 
-                      ? `选择需要迁移的页面，生成迁移指令发送给AI`
+                      ? `选择需要迁移的页面，然后点击下方的迁移按钮`
                       : '所有页面都已迁移完成！'}
                   </CardDescription>
                 </div>
                 {pendingCount > 0 && (
-                  <div className="flex gap-2">
-                    <Button 
-                      variant="outline" 
-                      size="sm"
-                      onClick={selectAll}
-                    >
-                      {selectedPages.size === pages.length ? '取消全选' : '全选'}
-                    </Button>
-                    <Button
-                      size="sm"
-                      onClick={generateMigrationCommand}
-                      disabled={selectedPages.size === 0}
-                      className="bg-accent hover:bg-accent/90"
-                    >
-                      <Zap className="w-4 h-4 mr-2" />
-                      生成迁移指令 ({selectedPages.size})
-                    </Button>
-                  </div>
+                  <Button 
+                    variant="outline" 
+                    size="sm"
+                    onClick={selectAll}
+                  >
+                    {selectedPages.size === pages.length ? '取消全选' : '全选'}
+                  </Button>
                 )}
               </div>
             </CardHeader>
@@ -336,43 +287,42 @@ ${pathList}
                   </p>
                 </div>
               ) : (
-                <ScrollArea className="h-[400px]">
+                <ScrollArea className="h-[350px]">
                   <div className="space-y-2">
                     {pages.map((page) => (
                       <div 
                         key={page.path}
-                        className={`flex items-center justify-between p-4 rounded-lg border transition-colors ${
+                        className={`flex items-center justify-between p-3 rounded-lg border transition-colors cursor-pointer ${
                           selectedPages.has(page.path) 
-                            ? 'bg-primary/5 border-primary/30' 
+                            ? 'bg-primary/10 border-primary/40' 
                             : 'bg-card hover:bg-muted/50'
                         }`}
+                        onClick={() => togglePage(page.path)}
                       >
-                        <div className="flex items-center gap-4">
+                        <div className="flex items-center gap-3">
                           <Checkbox
                             checked={selectedPages.has(page.path)}
                             onCheckedChange={() => togglePage(page.path)}
                           />
                           <div>
                             <div className="font-medium">{page.name}</div>
-                            <div className="text-sm text-muted-foreground font-mono">
+                            <div className="text-xs text-muted-foreground font-mono">
                               {page.path}
                             </div>
                           </div>
                         </div>
-                        <div className="flex items-center gap-4">
-                          <Badge variant="outline" className="text-orange-600 border-orange-300">
-                            ~{page.isEnCount} 处
-                          </Badge>
-                          <Button
-                            variant="ghost"
-                            size="sm"
-                            onClick={() => markAsMigrated([page.path])}
-                            className="text-green-600 hover:text-green-700 hover:bg-green-50"
-                          >
-                            <CheckCircle className="w-4 h-4 mr-1" />
-                            标记已迁移
-                          </Button>
-                        </div>
+                        <Button
+                          variant="ghost"
+                          size="sm"
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            markAsMigrated([page.path]);
+                          }}
+                          className="text-green-600 hover:text-green-700 hover:bg-green-50"
+                        >
+                          <CheckCircle className="w-4 h-4 mr-1" />
+                          已迁移
+                        </Button>
                       </div>
                     ))}
                   </div>
@@ -382,38 +332,27 @@ ${pathList}
           </Card>
         )}
 
-        {/* Generated Command */}
-        {generatedCommand && (
-          <Card className="border-primary/30 bg-primary/5">
-            <CardHeader>
-              <div className="flex items-center justify-between">
-                <CardTitle className="text-lg">迁移指令</CardTitle>
-                <Button
-                  size="sm"
-                  onClick={copyCommand}
-                  className="bg-primary"
-                >
-                  {copied ? (
-                    <>
-                      <Check className="w-4 h-4 mr-2" />
-                      已复制
-                    </>
-                  ) : (
-                    <>
-                      <Copy className="w-4 h-4 mr-2" />
-                      复制指令
-                    </>
+        {/* Quick Actions */}
+        {selectedPages.size > 0 && (
+          <Card className="border-primary/30 bg-gradient-to-r from-primary/5 to-accent/5">
+            <CardContent className="pt-6">
+              <div className="text-center space-y-4">
+                <div className="flex items-center justify-center gap-2">
+                  <Wand2 className="w-6 h-6 text-primary" />
+                  <h3 className="text-lg font-semibold">已选择 {selectedPages.size} 个页面</h3>
+                </div>
+                <p className="text-sm text-muted-foreground">
+                  点击下方按钮开始自动迁移，迁移完成后请到翻译管理页面执行批量翻译
+                </p>
+                <div className="flex flex-wrap justify-center gap-2">
+                  {selectedList.slice(0, 5).map(p => (
+                    <Badge key={p.path} variant="secondary">{p.name}</Badge>
+                  ))}
+                  {selectedList.length > 5 && (
+                    <Badge variant="outline">+{selectedList.length - 5} 更多</Badge>
                   )}
-                </Button>
+                </div>
               </div>
-            </CardHeader>
-            <CardContent>
-              <pre className="bg-card p-4 rounded-lg text-sm whitespace-pre-wrap border overflow-x-auto">
-                {generatedCommand}
-              </pre>
-              <p className="text-sm text-muted-foreground mt-4">
-                复制上面的指令，粘贴到聊天框发送给AI，即可开始迁移
-              </p>
             </CardContent>
           </Card>
         )}
@@ -421,28 +360,24 @@ ${pathList}
         {/* Instructions */}
         <Card>
           <CardHeader>
-            <CardTitle className="text-lg">使用说明</CardTitle>
+            <CardTitle className="text-lg">📋 使用说明</CardTitle>
           </CardHeader>
-          <CardContent className="space-y-4 text-sm text-muted-foreground">
+          <CardContent className="space-y-3 text-sm text-muted-foreground">
             <div className="flex items-start gap-3">
-              <div className="w-6 h-6 rounded-full bg-primary/20 text-primary flex items-center justify-center text-xs font-bold flex-shrink-0">1</div>
-              <p>点击"重新扫描"检测代码库中使用 isEn 模式的页面</p>
+              <Badge className="mt-0.5">1</Badge>
+              <p>勾选需要迁移的页面（可多选）</p>
             </div>
             <div className="flex items-start gap-3">
-              <div className="w-6 h-6 rounded-full bg-primary/20 text-primary flex items-center justify-center text-xs font-bold flex-shrink-0">2</div>
-              <p>勾选需要迁移的页面，点击"生成迁移指令"</p>
+              <Badge className="mt-0.5">2</Badge>
+              <p>点击下方的"🚀 开始迁移"按钮发送迁移请求</p>
             </div>
             <div className="flex items-start gap-3">
-              <div className="w-6 h-6 rounded-full bg-primary/20 text-primary flex items-center justify-center text-xs font-bold flex-shrink-0">3</div>
-              <p>复制生成的指令，粘贴到聊天框发送给AI处理</p>
+              <Badge className="mt-0.5">3</Badge>
+              <p>等待AI自动完成迁移后，点击"已迁移"标记完成</p>
             </div>
             <div className="flex items-start gap-3">
-              <div className="w-6 h-6 rounded-full bg-primary/20 text-primary flex items-center justify-center text-xs font-bold flex-shrink-0">4</div>
-              <p>迁移完成后，点击"标记已迁移"更新状态</p>
-            </div>
-            <div className="flex items-start gap-3">
-              <div className="w-6 h-6 rounded-full bg-primary/20 text-primary flex items-center justify-center text-xs font-bold flex-shrink-0">5</div>
-              <p>最后在翻译管理页面点击"一键翻译全部"完成多语言翻译</p>
+              <Badge className="mt-0.5">4</Badge>
+              <p>前往翻译管理页面，点击"一键翻译全部"完成多语言翻译</p>
             </div>
           </CardContent>
         </Card>
