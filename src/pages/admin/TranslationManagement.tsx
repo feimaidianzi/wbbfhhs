@@ -43,8 +43,9 @@ const TranslationManagement = () => {
   const [isPendingLoading, setIsPendingLoading] = useState(false);
   const [isTranslatingPending, setIsTranslatingPending] = useState(false);
 
-  // 源语言总key数
-  const totalSourceKeys = Object.keys(zhTranslations).length;
+  // 源语言总key数 = zhTranslations + 待翻译内容
+  const pendingKeysCount = pendingTranslations ? Object.keys(pendingTranslations.content).length : 0;
+  const totalSourceKeys = Object.keys(zhTranslations).length + pendingKeysCount;
 
   const loadPendingTranslations = useCallback(async () => {
     setIsPendingLoading(true);
@@ -77,6 +78,26 @@ const TranslationManagement = () => {
   const loadTranslationStatuses = async () => {
     setIsLoading(true);
     const results: TranslationStatus[] = [];
+    
+    // 获取最新的pending translations计数
+    let currentPendingCount = 0;
+    try {
+      const { data: pendingData } = await supabase
+        .from('system_settings')
+        .select('value')
+        .eq('key', 'pending_translations')
+        .maybeSingle();
+      
+      if (pendingData?.value) {
+        const parsed = JSON.parse(pendingData.value);
+        currentPendingCount = Object.keys(parsed.content || {}).length;
+      }
+    } catch (e) {
+      console.error('Failed to get pending count:', e);
+    }
+    
+    const baseSourceKeys = Object.keys(zhTranslations).length;
+    const currentTotalSourceKeys = baseSourceKeys + currentPendingCount;
 
     for (const lang of SUPPORTED_LANGUAGES) {
       if (lang.code === 'zh' || lang.code === 'en') {
@@ -84,7 +105,7 @@ const TranslationManagement = () => {
           lang: lang.code,
           name: lang.name,
           hasTranslation: true,
-          keyCount: totalSourceKeys,
+          keyCount: currentTotalSourceKeys,
           lastUpdated: '内置',
         });
         continue;
@@ -137,14 +158,18 @@ const TranslationManagement = () => {
   // 翻译单个语言的一个批次
   const translateOneBatch = async (lang: LanguageCode): Promise<{ success: boolean; remaining: number; count: number; total: number }> => {
     try {
-      const totalKeys = Object.keys(zhTranslations).length;
-      console.log(`[TranslateOneBatch] Starting for ${lang}, source has ${totalKeys} keys`);
+      // 合并 zhTranslations 和待翻译内容
+      const mergedContent = pendingTranslations 
+        ? { ...zhTranslations, ...pendingTranslations.content }
+        : zhTranslations;
+      const totalKeys = Object.keys(mergedContent).length;
+      console.log(`[TranslateOneBatch] Starting for ${lang}, source has ${totalKeys} keys (base: ${Object.keys(zhTranslations).length}, pending: ${pendingKeysCount})`);
       
       const { data, error } = await supabase.functions.invoke('batch-translate', {
         body: {
           mode: 'incremental',
           languages: [lang],
-          sourceContent: zhTranslations, // Always send full source content
+          sourceContent: mergedContent, // Send merged content including pending translations
         },
       });
 
@@ -168,7 +193,7 @@ const TranslationManagement = () => {
       };
     } catch (error) {
       console.error('Translation batch error:', error);
-      return { success: false, remaining: -1, count: 0, total: Object.keys(zhTranslations).length };
+      return { success: false, remaining: -1, count: 0, total: totalSourceKeys };
     }
   };
 
@@ -177,11 +202,15 @@ const TranslationManagement = () => {
     const langName = SUPPORTED_LANGUAGES.find(l => l.code === lang)?.name;
     setCurrentLang(lang);
     
-    const totalKeys = Object.keys(zhTranslations).length;
+    // 合并 zhTranslations 和待翻译内容
+    const mergedContent = pendingTranslations 
+      ? { ...zhTranslations, ...pendingTranslations.content }
+      : zhTranslations;
+    const totalKeys = Object.keys(mergedContent).length;
     let retryCount = 0;
     const maxRetries = 3;
 
-    console.log(`[AutoTranslate] Starting ${langName}, total keys: ${totalKeys}`);
+    console.log(`[AutoTranslate] Starting ${langName}, total keys: ${totalKeys} (base: ${Object.keys(zhTranslations).length}, pending: ${pendingKeysCount})`);
 
     while (!stopAutoRef.current) {
       const result = await translateOneBatch(lang);
