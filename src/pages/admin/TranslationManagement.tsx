@@ -162,14 +162,21 @@ const TranslationManagement = () => {
       const mergedContent = pendingTranslations 
         ? { ...zhTranslations, ...pendingTranslations.content }
         : zhTranslations;
+      
+      // 获取需要强制翻译的 key（从扫描器迁移过来的）
+      const forceTranslateKeys = pendingTranslations 
+        ? Object.keys(pendingTranslations.content)
+        : [];
+      
       const totalKeys = Object.keys(mergedContent).length;
-      console.log(`[TranslateOneBatch] Starting for ${lang}, source has ${totalKeys} keys (base: ${Object.keys(zhTranslations).length}, pending: ${pendingKeysCount})`);
+      console.log(`[TranslateOneBatch] Starting for ${lang}, source has ${totalKeys} keys (base: ${Object.keys(zhTranslations).length}, pending: ${pendingKeysCount}, forceKeys: ${forceTranslateKeys.length})`);
       
       const { data, error } = await supabase.functions.invoke('batch-translate', {
         body: {
           mode: 'incremental',
           languages: [lang],
-          sourceContent: mergedContent, // Send merged content including pending translations
+          sourceContent: mergedContent,
+          forceTranslateKeys, // 强制翻译这些 key，即使已存在
         },
       });
 
