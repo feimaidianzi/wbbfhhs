@@ -5,7 +5,8 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Badge } from '@/components/ui/badge';
 import { Progress } from '@/components/ui/progress';
 import { ScrollArea } from '@/components/ui/scroll-area';
-import { ArrowLeft, Globe, RefreshCw, Check, X, Loader2, Square, Play, FileText, Trash2, Languages } from 'lucide-react';
+import { ArrowLeft, Globe, RefreshCw, Check, X, Loader2, Square, Play, FileText, Trash2, Languages, FileCode, Zap } from 'lucide-react';
+import { Link } from 'react-router-dom';
 import { supabase } from '@/integrations/supabase/client';
 import { toast } from 'sonner';
 import { zhTranslations } from '@/i18n/zh';
@@ -625,6 +626,31 @@ const TranslationManagement = () => {
             </CardContent>
           </Card>
         )}
+
+        {/* Page Migration Tool Link */}
+        <Card className="mb-6 border-blue-200 bg-gradient-to-r from-blue-50 to-indigo-50">
+          <CardContent className="pt-6">
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-4">
+                <div className="w-12 h-12 rounded-xl bg-blue-500/10 flex items-center justify-center">
+                  <FileCode className="w-6 h-6 text-blue-600" />
+                </div>
+                <div>
+                  <h3 className="font-semibold text-lg">页面迁移工具</h3>
+                  <p className="text-sm text-muted-foreground">
+                    自动将 isEn 模式页面转换为 t() 多语言函数，节省大量积分
+                  </p>
+                </div>
+              </div>
+              <Link to="/admin/page-migration">
+                <Button className="bg-blue-600 hover:bg-blue-700">
+                  <Zap className="w-4 h-4 mr-2" />
+                  打开工具
+                </Button>
+              </Link>
+            </div>
+          </CardContent>
+        </Card>
 
         {/* Hardcoded Scanner Section */}
         <div className="mb-6">
