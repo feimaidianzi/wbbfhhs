@@ -43,9 +43,13 @@ const TranslationManagement = () => {
   const [isPendingLoading, setIsPendingLoading] = useState(false);
   const [isTranslatingPending, setIsTranslatingPending] = useState(false);
 
-  // 源语言总key数 = zhTranslations + 待翻译内容
+  // 源语言总key数 = zhTranslations 与待翻译内容的合并后唯一key数
+  // 注意：pending 中的 key 可能与 zhTranslations 重叠，需要计算合并后的唯一数量
+  const mergedSourceContent = pendingTranslations 
+    ? { ...zhTranslations, ...pendingTranslations.content }
+    : zhTranslations;
+  const totalSourceKeys = Object.keys(mergedSourceContent).length;
   const pendingKeysCount = pendingTranslations ? Object.keys(pendingTranslations.content).length : 0;
-  const totalSourceKeys = Object.keys(zhTranslations).length + pendingKeysCount;
 
   const loadPendingTranslations = useCallback(async () => {
     setIsPendingLoading(true);
@@ -216,13 +220,15 @@ const TranslationManagement = () => {
     const totalKeys = Object.keys(mergedContent).length;
     let retryCount = 0;
     const maxRetries = 3;
+    let batchCount = 0;
 
     console.log(`[AutoTranslate] Starting ${langName}, total keys: ${totalKeys} (base: ${Object.keys(zhTranslations).length}, pending: ${pendingKeysCount})`);
 
     while (!stopAutoRef.current) {
+      batchCount++;
       const result = await translateOneBatch(lang);
       
-      console.log(`[AutoTranslate] Batch result for ${langName}:`, result);
+      console.log(`[AutoTranslate] Batch ${batchCount} result for ${langName}:`, result);
       
       if (!result.success) {
         retryCount++;
@@ -267,7 +273,13 @@ const TranslationManagement = () => {
       if (remaining <= 0) {
         setProgress(100);
         setCurrentProgress({ done: totalKeys, total: totalKeys, remaining: 0 });
-        toast.success(`${langName} 翻译完成！共 ${totalKeys} 条`);
+        
+        // 区分首次检测就完成 vs 经过翻译后完成
+        if (batchCount === 1) {
+          toast.info(`${langName} 已全部翻译完成，无需继续翻译`);
+        } else {
+          toast.success(`${langName} 翻译完成！共 ${totalKeys} 条`);
+        }
         return true;
       }
 
@@ -541,26 +553,37 @@ const TranslationManagement = () => {
         </div>
 
         {isTranslating && (
-          <Card className="mb-6 border-primary/20 bg-primary/5">
+          <Card className={`mb-6 ${progress >= 100 ? 'border-green-200 bg-green-50' : 'border-primary/20 bg-primary/5'}`}>
             <CardContent className="pt-6">
               <div className="flex items-center justify-between mb-3">
                 <div className="flex items-center gap-3">
-                  <Loader2 className="h-5 w-5 animate-spin text-primary" />
+                  {progress >= 100 ? (
+                    <Check className="h-5 w-5 text-green-600" />
+                  ) : (
+                    <Loader2 className="h-5 w-5 animate-spin text-primary" />
+                  )}
                   <span className="font-medium">
-                    正在翻译: {SUPPORTED_LANGUAGES.find(l => l.code === currentLang)?.name || currentLang}
+                    {progress >= 100 ? (
+                      <>检查完成: {SUPPORTED_LANGUAGES.find(l => l.code === currentLang)?.name || currentLang}</>
+                    ) : (
+                      <>正在翻译: {SUPPORTED_LANGUAGES.find(l => l.code === currentLang)?.name || currentLang}</>
+                    )}
                   </span>
                 </div>
                 {currentProgress.total > 0 && (
-                  <span className="text-sm text-muted-foreground">
+                  <span className={`text-sm ${progress >= 100 ? 'text-green-600' : 'text-muted-foreground'}`}>
                     {currentProgress.done} / {currentProgress.total} 条
                     {currentProgress.remaining > 0 && ` (剩余 ${currentProgress.remaining})`}
+                    {progress >= 100 && ' ✓'}
                   </span>
                 )}
               </div>
-              <Progress value={progress} className="h-3" />
+              <Progress value={progress} className={`h-3 ${progress >= 100 ? '[&>div]:bg-green-500' : ''}`} />
               <div className="flex justify-between mt-2 text-sm text-muted-foreground">
-                <span>{progress}% 完成</span>
-                {isAutoMode && (
+                <span className={progress >= 100 ? 'text-green-600 font-medium' : ''}>
+                  {progress >= 100 ? '已全部翻译完成' : `${progress}% 完成`}
+                </span>
+                {isAutoMode && progress < 100 && (
                   <span className="text-primary">自动模式运行中...</span>
                 )}
               </div>
