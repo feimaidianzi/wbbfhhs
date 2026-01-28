@@ -17,7 +17,7 @@ interface MissingTranslation {
 }
 
 interface HardcodedScannerProps {
-  onNewItemsMigrated?: (count: number) => void;
+  onNewItemsMigrated?: (count: number) => void | Promise<void>;
 }
 
 const HardcodedScanner: React.FC<HardcodedScannerProps> = ({ onNewItemsMigrated }) => {
@@ -236,9 +236,11 @@ const HardcodedScanner: React.FC<HardcodedScannerProps> = ({ onNewItemsMigrated 
         setResults(results.filter(r => !r.missingInLanguages.includes(selectedLanguage)));
       }
 
-      // 通知父组件
+      // 通知父组件 - 必须使用await确保父组件完成刷新
       if (onNewItemsMigrated) {
-        onNewItemsMigrated(Object.keys(newTranslations).length);
+        console.log('[HardcodedScanner] Calling onNewItemsMigrated with count:', Object.keys(newTranslations).length);
+        await onNewItemsMigrated(Object.keys(newTranslations).length);
+        console.log('[HardcodedScanner] onNewItemsMigrated callback completed');
       }
     } catch (error) {
       console.error('Migration error:', error);
