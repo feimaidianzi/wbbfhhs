@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
@@ -10,6 +10,7 @@ import { supabase } from '@/integrations/supabase/client';
 import { toast } from 'sonner';
 import { zhTranslations } from '@/i18n/zh';
 import { SUPPORTED_LANGUAGES, LanguageCode } from '@/i18n/languages';
+import HardcodedScanner from '@/components/admin/HardcodedScanner';
 
 interface TranslationStatus {
   lang: LanguageCode;
@@ -45,14 +46,14 @@ const TranslationManagement = () => {
   // 源语言总key数
   const totalSourceKeys = Object.keys(zhTranslations).length;
 
-  const loadPendingTranslations = async () => {
+  const loadPendingTranslations = useCallback(async () => {
     setIsPendingLoading(true);
     try {
       const { data, error } = await supabase
         .from('system_settings')
         .select('value')
         .eq('key', 'pending_translations')
-        .single();
+        .maybeSingle();
 
       if (data?.value) {
         const parsed = JSON.parse(data.value);
@@ -66,7 +67,12 @@ const TranslationManagement = () => {
     } finally {
       setIsPendingLoading(false);
     }
-  };
+  }, []);
+
+  // Handle new items migrated from scanner
+  const handleNewItemsMigrated = useCallback((count: number) => {
+    loadPendingTranslations();
+  }, [loadPendingTranslations]);
 
   const loadTranslationStatuses = async () => {
     setIsLoading(true);
@@ -446,6 +452,11 @@ const TranslationManagement = () => {
             </CardContent>
           </Card>
         )}
+
+        {/* Hardcoded Scanner Section */}
+        <div className="mb-6">
+          <HardcodedScanner onNewItemsMigrated={handleNewItemsMigrated} />
+        </div>
 
         {/* Pending Translations Panel */}
         {pendingTranslations && Object.keys(pendingTranslations.content).length > 0 && (
