@@ -42,13 +42,11 @@ const TranslationManagement = () => {
   const [pendingTranslations, setPendingTranslations] = useState<PendingTranslation | null>(null);
   const [isPendingLoading, setIsPendingLoading] = useState(false);
   const [isTranslatingPending, setIsTranslatingPending] = useState(false);
+  
+  // 统一的总key数状态 - 由loadTranslationStatuses更新
+  const [totalSourceKeys, setTotalSourceKeys] = useState(Object.keys(zhTranslations).length);
 
-  // 源语言总key数 = zhTranslations 与待翻译内容的合并后唯一key数
-  // 注意：pending 中的 key 可能与 zhTranslations 重叠，需要计算合并后的唯一数量
-  const mergedSourceContent = pendingTranslations 
-    ? { ...zhTranslations, ...pendingTranslations.content }
-    : zhTranslations;
-  const totalSourceKeys = Object.keys(mergedSourceContent).length;
+  // 计算待翻译队列中的key数量（仅用于显示）
   const pendingKeysCount = pendingTranslations ? Object.keys(pendingTranslations.content).length : 0;
 
   const loadPendingTranslations = useCallback(async () => {
@@ -109,6 +107,10 @@ const TranslationManagement = () => {
     // 计算合并后的唯一key数，避免重复计算
     const mergedKeys = { ...zhTranslations, ...currentPendingContent };
     const currentTotalSourceKeys = Object.keys(mergedKeys).length;
+    
+    // 更新状态中的总key数 - 这是关键！确保UI使用最新值
+    console.log('[loadTranslationStatuses] Setting totalSourceKeys to:', currentTotalSourceKeys, '(base:', Object.keys(zhTranslations).length, ', pending:', Object.keys(currentPendingContent).length, ')');
+    setTotalSourceKeys(currentTotalSourceKeys);
 
     for (const lang of SUPPORTED_LANGUAGES) {
       if (lang.code === 'zh' || lang.code === 'en') {
@@ -169,18 +171,31 @@ const TranslationManagement = () => {
   // 翻译单个语言的一个批次
   const translateOneBatch = async (lang: LanguageCode): Promise<{ success: boolean; remaining: number; count: number; total: number }> => {
     try {
+      // 从数据库获取最新的待翻译内容，确保使用最新数据
+      let currentPendingContent: Record<string, string> = {};
+      try {
+        const { data: pendingData } = await supabase
+          .from('system_settings')
+          .select('value')
+          .eq('key', 'pending_translations')
+          .maybeSingle();
+        
+        if (pendingData?.value) {
+          const parsed = JSON.parse(pendingData.value);
+          currentPendingContent = parsed.content || {};
+        }
+      } catch (e) {
+        console.error('Failed to get pending translations:', e);
+      }
+
       // 合并 zhTranslations 和待翻译内容
-      const mergedContent = pendingTranslations 
-        ? { ...zhTranslations, ...pendingTranslations.content }
-        : zhTranslations;
+      const mergedContent = { ...zhTranslations, ...currentPendingContent };
       
       // 获取需要强制翻译的 key（从扫描器迁移过来的）
-      const forceTranslateKeys = pendingTranslations 
-        ? Object.keys(pendingTranslations.content)
-        : [];
+      const forceTranslateKeys = Object.keys(currentPendingContent);
       
       const totalKeys = Object.keys(mergedContent).length;
-      console.log(`[TranslateOneBatch] Starting for ${lang}, source has ${totalKeys} keys (base: ${Object.keys(zhTranslations).length}, pending: ${pendingKeysCount}, forceKeys: ${forceTranslateKeys.length})`);
+      console.log(`[TranslateOneBatch] Starting for ${lang}, source has ${totalKeys} keys (base: ${Object.keys(zhTranslations).length}, pending: ${Object.keys(currentPendingContent).length}, forceKeys: ${forceTranslateKeys.length})`);
       
       const { data, error } = await supabase.functions.invoke('batch-translate', {
         body: {
