@@ -287,28 +287,58 @@ serve(async (req) => {
       return false;
     };
     
-    // Check for ANY Chinese characters in string
+    // Check for Chinese characters in string
     const containsChinese = (str: string): boolean => {
       return /[\u4e00-\u9fa5]/.test(str);
     };
     
-    // Check if translation looks valid (not just copied from source)
-    const isValidTranslation = (source: string, translation: string): boolean => {
+    // CRITICAL FIX: Japanese uses Kanji (Chinese characters), so we need special handling
+    // Languages that can contain Chinese characters legitimately
+    const languagesWithKanji = new Set(['ja', 'zh']);
+    
+    // Check if a translation is valid for a given language
+    // For Japanese: Kanji is allowed, so we check for Japanese-specific patterns instead
+    const isValidTranslationForLang = (source: string, translation: string, targetLang: string): boolean => {
       if (!translation || translation.trim() === '') return false;
       if (translation.startsWith('__')) return true; // Skip internal keys
       
-      // If source has no Chinese, and translation equals source, it's valid
-      // (e.g., "≤10km" should stay "≤10km" in any language)
-      if (!containsChinese(source) && source === translation) return true;
+      // If source is untranslatable, translation should match
+      if (isUntranslatableContent(source)) return true;
       
-      // If source has Chinese but translation doesn't have Chinese, it's valid
+      // For Japanese: Don't check for Chinese characters - they're normal in Japanese
+      // Instead, check if it's DIFFERENT from source OR contains Japanese-specific characters
+      if (targetLang === 'ja') {
+        // If translation is different from source, it's valid
+        if (translation !== source) return true;
+        // If translation contains Hiragana or Katakana, it's definitely Japanese
+        if (/[\u3040-\u309f\u30a0-\u30ff]/.test(translation)) return true;
+        // If source has no Japanese and translation equals source, might be untranslatable
+        return isUntranslatableContent(source);
+      }
+      
+      // For Korean: Hangul is the indicator
+      if (targetLang === 'ko') {
+        // If translation contains Hangul, it's valid
+        if (/[\uac00-\ud7af\u1100-\u11ff]/.test(translation)) return true;
+        // If translation is different from source and has no Chinese, it's valid
+        if (translation !== source && !containsChinese(translation)) return true;
+        return isUntranslatableContent(source);
+      }
+      
+      // For other languages: no Chinese characters should remain
+      // If source has Chinese but translation doesn't, it's valid
       if (containsChinese(source) && !containsChinese(translation)) return true;
       
-      // If both source and translation have no Chinese and they're different, it's valid
-      if (!containsChinese(source) && !containsChinese(translation)) return true;
-      
-      // If translation still contains Chinese, it's not valid
+      // If translation still contains Chinese (and it's not a CJK language), it's not valid
       if (containsChinese(translation)) return false;
+      
+      // If both source and translation have no Chinese and they're different, it's valid
+      if (!containsChinese(source) && translation !== source) return true;
+      
+      // If source has no Chinese and translation equals source, might be untranslatable
+      if (!containsChinese(source) && translation === source) {
+        return isUntranslatableContent(source);
+      }
       
       return true;
     };
@@ -349,16 +379,9 @@ serve(async (req) => {
             const sourceValue = actualSourceContent[key];
             if (!sourceValue) continue; // Key not in source, skip
             
-            // If source is untranslatable (numbers/specs), mark as done
-            if (isUntranslatableContent(sourceValue)) {
+            // Use the new language-aware validation
+            if (isValidTranslationForLang(sourceValue, value, lang)) {
               translatedKeysSet.add(key);
-              continue;
-            }
-            
-            // If translation exists and has no Chinese, it's valid
-            if (value && !containsChinese(value)) {
-              translatedKeysSet.add(key);
-              continue;
             }
           }
           
@@ -472,17 +495,8 @@ serve(async (req) => {
             return !isUntranslatableContent(sourceValue);
           }
           
-          // If translation contains Chinese -> needs re-translation
-          if (containsChinese(translatedValue)) {
-            return true;
-          }
-          
-          // If translation equals source -> not translated (unless untranslatable)
-          if (translatedValue === sourceValue) {
-            return !isUntranslatableContent(sourceValue);
-          }
-          
-          return false;
+          // Use language-aware validation
+          return !isValidTranslationForLang(sourceValue, translatedValue, lang);
         });
         
         const remaining = stillMissingKeys.length;
