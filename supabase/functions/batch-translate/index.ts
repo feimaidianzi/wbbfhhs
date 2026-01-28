@@ -269,6 +269,11 @@ serve(async (req) => {
         // BUT: Always include keys in forceTranslateKeys (from scanner migration)
         let contentToTranslate = actualSourceContent;
         if (mode === 'incremental') {
+          // CRITICAL FIX: Calculate remaining based on ACTUAL missing keys, not just source vs existing count
+          // A key needs translation if:
+          // 1. It's in forceTranslateKeys (must be re-translated), OR
+          // 2. It doesn't exist in existingTranslations, OR  
+          // 3. It exists but is empty/whitespace
           const remainingKeys = Object.keys(actualSourceContent).filter(
             key => {
               // If this key is in forceTranslateKeys, always include it
@@ -305,7 +310,7 @@ serve(async (req) => {
           console.log(`[Single Batch] Processing ${batchKeys.length} keys for ${lang} (${forceKeysInBatch} force-translate)`);
           console.log(`  - Existing translations: ${Object.keys(existingTranslations).length}`);
           console.log(`  - Total source keys: ${totalSourceKeys}`);
-          console.log(`  - Keys needing translation: ${remainingKeys.length}`);
+          console.log(`  - Keys needing translation (incl. force): ${remainingKeys.length}`);
           console.log(`  - Remaining after this batch: ${remainingKeys.length - batchKeys.length}`);
         }
         
@@ -339,19 +344,36 @@ serve(async (req) => {
           translations = { ...existingTranslations, ...translations };
         }
         
-        const totalKeys = Object.keys(translations).length;
-        const totalNeeded = Object.keys(actualSourceContent).length;
-        const remaining = totalNeeded - totalKeys;
+        // CRITICAL FIX: Calculate remaining based on ACTUAL untranslated keys, not simple subtraction
+        // We need to re-check how many keys from actualSourceContent are still missing or need force-translate
+        const translatedCount = Object.keys(translations).length;
+        const stillMissingKeys = Object.keys(actualSourceContent).filter(key => {
+          // If in forceTranslateKeys and was just translated in this batch, it's done
+          // Check if key now exists in translations with non-empty value
+          const translatedValue = translations[key];
+          if (!translatedValue || translatedValue.trim() === '') {
+            return true; // Still needs translation
+          }
+          // If it was a force key, check if it was processed in this batch
+          if (forceKeysSet.has(key)) {
+            // Remove from forceKeysSet tracking since it's now translated
+            // But we can't modify the set here, so just check if it has a value
+            return false; // Has been translated
+          }
+          return false;
+        });
+        const remaining = stillMissingKeys.length;
         
-        console.log(`Completed: ${totalKeys}/${totalNeeded} keys (${remaining} remaining)`);
+        console.log(`Completed: ${translatedCount} keys, ${remaining} still need translation`);
 
         // Save to database
+        const totalNeeded = Object.keys(actualSourceContent).length;
         const { error: upsertError } = await supabase
           .from('system_settings')
           .upsert({
             key: `translations_${lang}`,
             value: JSON.stringify(translations),
-            description: `AI翻译 - ${languageNames[lang] || lang} (${totalKeys}/${totalNeeded}条)${remaining > 0 ? ` - ${remaining}条待翻译` : ' ✓'}`,
+            description: `AI翻译 - ${languageNames[lang] || lang} (${translatedCount}/${totalNeeded}条)${remaining > 0 ? ` - ${remaining}条待翻译` : ' ✓'}`,
             updated_at: new Date().toISOString(),
           }, { onConflict: 'key' });
 
@@ -361,7 +383,7 @@ serve(async (req) => {
 
         results[lang] = {
           success: true,
-          count: totalKeys,
+          count: translatedCount,
           total: totalNeeded,
           remaining: remaining,
           completed: remaining === 0,
