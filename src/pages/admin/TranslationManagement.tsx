@@ -252,6 +252,59 @@ const TranslationManagement = () => {
     return false;
   };
 
+  // 检查并清除已完成的待翻译队列
+  const checkAndClearPendingQueue = async () => {
+    if (!pendingTranslations || Object.keys(pendingTranslations.content).length === 0) {
+      return;
+    }
+
+    const pendingKeys = Object.keys(pendingTranslations.content);
+    const languagesToCheck = SUPPORTED_LANGUAGES
+      .filter(l => l.code !== 'zh' && l.code !== 'en')
+      .map(l => l.code);
+
+    let allTranslated = true;
+
+    for (const lang of languagesToCheck) {
+      try {
+        const { data } = await supabase
+          .from('system_settings')
+          .select('value')
+          .eq('key', `translations_${lang}`)
+          .maybeSingle();
+
+        if (data?.value) {
+          const translations = JSON.parse(data.value);
+          // 检查所有待翻译的key是否都已翻译
+          const missingKeys = pendingKeys.filter(key => !translations[key]);
+          if (missingKeys.length > 0) {
+            allTranslated = false;
+            console.log(`[PendingCheck] ${lang} missing ${missingKeys.length} keys`);
+            break;
+          }
+        } else {
+          allTranslated = false;
+          break;
+        }
+      } catch (e) {
+        console.error(`Error checking ${lang}:`, e);
+        allTranslated = false;
+        break;
+      }
+    }
+
+    if (allTranslated) {
+      console.log('[PendingCheck] All pending keys translated, clearing queue...');
+      await supabase
+        .from('system_settings')
+        .delete()
+        .eq('key', 'pending_translations');
+      
+      setPendingTranslations(null);
+      toast.success('待翻译队列已自动清除（所有内容已翻译完成）');
+    }
+  };
+
   // 自动翻译所有语言
   const autoTranslateAll = async () => {
     const languagesToTranslate = SUPPORTED_LANGUAGES
@@ -291,6 +344,9 @@ const TranslationManagement = () => {
     setCurrentLang('');
     
     if (!stopAutoRef.current) {
+      // 翻译完成后检查并清除待翻译队列
+      await checkAndClearPendingQueue();
+      await loadPendingTranslations();
       toast.success('所有语言翻译完成！');
     }
   };
@@ -307,6 +363,10 @@ const TranslationManagement = () => {
 
     await autoTranslateSingleLanguage(lang);
     await loadTranslationStatuses();
+    
+    // 单语言翻译完成后也检查待翻译队列
+    await checkAndClearPendingQueue();
+    await loadPendingTranslations();
 
     setIsTranslating(false);
     setIsAutoMode(false);
