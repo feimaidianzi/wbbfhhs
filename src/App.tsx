@@ -106,6 +106,7 @@ import VisitorAnalytics from "./pages/admin/VisitorAnalytics";
 import TranslationManagement from "./pages/admin/TranslationManagement";
 import HardcodedTextScanner from "./pages/admin/HardcodedTextScanner";
 import SEOManagement from "./pages/admin/SEOManagement";
+import AutoTranslation from "./pages/admin/AutoTranslation";
 import VisitorTracker from "./components/VisitorTracker";
 import NewsDetail from "./pages/NewsDetail";
 import DatabaseProductDetail from "./pages/products/DatabaseProductDetail";
@@ -140,6 +141,7 @@ const App = () => (
             <Route path="/admin/translations" element={<TranslationManagement />} />
             <Route path="/admin/hardcoded-scanner" element={<HardcodedTextScanner />} />
             <Route path="/admin/seo-management" element={<SEOManagement />} />
+            <Route path="/admin/auto-translate" element={<AutoTranslation />} />
           <Route path="/about" element={<About />} />
           <Route path="/applications" element={<Applications />} />
           <Route path="/applications/power-inspection" element={<PowerInspection />} />
