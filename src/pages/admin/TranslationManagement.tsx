@@ -18,6 +18,7 @@ interface TranslationStatus {
   hasTranslation: boolean;
   keyCount: number;
   lastUpdated?: string;
+  pendingMissing: number; // 待翻译队列中缺失的 key 数量
 }
 
 interface PendingTranslation {
@@ -89,6 +90,7 @@ const TranslationManagement = () => {
     
     // 获取最新的pending translations并计算合并后的唯一key数
     let currentPendingContent: Record<string, string> = {};
+    let pendingKeys: string[] = [];
     try {
       const { data: pendingData } = await supabase
         .from('system_settings')
@@ -99,6 +101,7 @@ const TranslationManagement = () => {
       if (pendingData?.value) {
         const parsed = JSON.parse(pendingData.value);
         currentPendingContent = parsed.content || {};
+        pendingKeys = Object.keys(currentPendingContent);
       }
     } catch (e) {
       console.error('Failed to get pending count:', e);
@@ -108,8 +111,8 @@ const TranslationManagement = () => {
     const mergedKeys = { ...zhTranslations, ...currentPendingContent };
     const currentTotalSourceKeys = Object.keys(mergedKeys).length;
     
-    // 更新状态中的总key数 - 这是关键！确保UI使用最新值
-    console.log('[loadTranslationStatuses] Setting totalSourceKeys to:', currentTotalSourceKeys, '(base:', Object.keys(zhTranslations).length, ', pending:', Object.keys(currentPendingContent).length, ')');
+    // 更新状态中的总key数
+    console.log('[loadTranslationStatuses] Setting totalSourceKeys to:', currentTotalSourceKeys, '(base:', Object.keys(zhTranslations).length, ', pending:', pendingKeys.length, ')');
     setTotalSourceKeys(currentTotalSourceKeys);
 
     for (const lang of SUPPORTED_LANGUAGES) {
@@ -120,6 +123,7 @@ const TranslationManagement = () => {
           hasTranslation: true,
           keyCount: currentTotalSourceKeys,
           lastUpdated: '内置',
+          pendingMissing: 0,
         });
         continue;
       }
@@ -133,13 +137,20 @@ const TranslationManagement = () => {
 
         if (data?.value) {
           const translations = JSON.parse(data.value);
-          const translatedCount = Object.keys(translations).length;
+          const translatedKeys = Object.keys(translations);
+          const translatedCount = translatedKeys.length;
+          
+          // 计算 pending keys 中有多少在该语言的翻译中缺失
+          const translatedKeySet = new Set(translatedKeys);
+          const missingPendingCount = pendingKeys.filter(k => !translatedKeySet.has(k)).length;
+          
           results.push({
             lang: lang.code,
             name: lang.name,
             hasTranslation: true,
             keyCount: translatedCount,
             lastUpdated: new Date(data.updated_at).toLocaleString('zh-CN'),
+            pendingMissing: missingPendingCount,
           });
         } else {
           results.push({
@@ -147,6 +158,7 @@ const TranslationManagement = () => {
             name: lang.name,
             hasTranslation: false,
             keyCount: 0,
+            pendingMissing: pendingKeys.length, // 全部 pending keys 都缺失
           });
         }
       } catch (error) {
@@ -155,6 +167,7 @@ const TranslationManagement = () => {
           name: lang.name,
           hasTranslation: false,
           keyCount: 0,
+          pendingMissing: pendingKeys.length,
         });
       }
     }
@@ -690,24 +703,24 @@ const TranslationManagement = () => {
             </div>
           ) : (
             statuses.map((status) => {
-              // CRITICAL FIX: 翻译完成的判断标准是：数据库中的翻译数量 >= 源语言key数量
-              // 但因为数据库可能有历史遗留的key，所以我们需要检查源key中有多少已被翻译
-              // 简化逻辑：如果 keyCount >= totalSourceKeys 就是完成
-              // 如果 keyCount > totalSourceKeys（有历史遗留），也算完成
-              const isComplete = status.keyCount >= totalSourceKeys;
+              // 判断是否完成：keyCount >= totalSourceKeys 且没有待处理的 pending keys
+              const isComplete = status.keyCount >= totalSourceKeys && status.pendingMissing === 0;
               
-              // 进度计算：使用 min(keyCount, totalSourceKeys) / totalSourceKeys
-              // 这样即使 keyCount > totalSourceKeys（历史遗留），进度也最多100%
+              // 进度计算
               const effectiveCount = Math.min(status.keyCount, totalSourceKeys);
               const progressPercent = totalSourceKeys > 0 
                 ? Math.round((effectiveCount / totalSourceKeys) * 100) 
                 : 0;
               
-              // 缺失数量：如果已完成则为0，否则为 totalSourceKeys - keyCount
-              const missingKeys = isComplete ? 0 : Math.max(0, totalSourceKeys - status.keyCount);
+              // 缺失数量 = 基础缺失 + pending缺失
+              const baseMissing = Math.max(0, totalSourceKeys - status.keyCount);
+              const totalMissing = baseMissing + status.pendingMissing;
+              
+              // 有 pending 缺失时需要特殊标记
+              const hasPendingWork = status.pendingMissing > 0;
               
               return (
-                <Card key={status.lang} className={currentLang === status.lang ? 'ring-2 ring-primary' : ''}>
+                <Card key={status.lang} className={`${currentLang === status.lang ? 'ring-2 ring-primary' : ''} ${hasPendingWork ? 'border-orange-300 bg-orange-50/30' : ''}`}>
                   <CardHeader className="pb-3">
                     <div className="flex items-center justify-between">
                       <CardTitle className="text-lg">{status.name}</CardTitle>
@@ -715,6 +728,10 @@ const TranslationManagement = () => {
                         <Badge variant="default" className="bg-green-500">
                           <Check className="h-3 w-3 mr-1" />
                           完成
+                        </Badge>
+                      ) : hasPendingWork ? (
+                        <Badge variant="secondary" className="bg-orange-100 text-orange-800 border-orange-300">
+                          待翻译 +{status.pendingMissing}
                         </Badge>
                       ) : status.hasTranslation ? (
                         <Badge variant="secondary" className="bg-yellow-100 text-yellow-800">
@@ -735,11 +752,17 @@ const TranslationManagement = () => {
                     <div className="space-y-2 text-sm">
                       <div className="flex justify-between">
                         <span className="text-gray-500">翻译进度:</span>
-                        <span className={missingKeys > 0 ? 'text-orange-600 font-medium' : 'text-green-600'}>
+                        <span className={totalMissing > 0 ? 'text-orange-600 font-medium' : 'text-green-600'}>
                           {effectiveCount} / {totalSourceKeys}
-                          {missingKeys > 0 && ` (缺${missingKeys})`}
+                          {totalMissing > 0 && ` (缺${totalMissing})`}
                         </span>
                       </div>
+                      {hasPendingWork && (
+                        <div className="flex justify-between text-orange-600">
+                          <span>新增待翻译:</span>
+                          <span className="font-medium">+{status.pendingMissing} 条</span>
+                        </div>
+                      )}
                       {!isComplete && status.keyCount > 0 && (
                         <Progress value={progressPercent} className="h-1.5" />
                       )}
