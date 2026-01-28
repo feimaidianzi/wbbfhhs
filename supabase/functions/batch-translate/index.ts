@@ -31,15 +31,16 @@ async function translateWithDeepSeek(
 ): Promise<Record<string, string>> {
   const targetLangName = languageNames[targetLang] || targetLang;
   
-  const systemPrompt = `You are a professional translator for CANI (长凌科技), a drone technology company. 
+  const systemPrompt = `You are a professional translator for CANI, a drone technology company. 
 Translate the following JSON content from Chinese to ${targetLangName}.
 
 CRITICAL RULES:
 1. Maintain exact JSON structure and keys
 2. Only translate values, never keys
 3. Keep technical terms accurate (drone, FPV, VTX, ESC, etc.)
-4. Keep brand names "CANI" and "长凌" unchanged
-5. Return ONLY valid JSON, no explanations`;
+4. Translate ALL Chinese text including company names. "长凌科技" should become "CANI Technology" or the localized equivalent
+5. Keep only the English brand name "CANI" unchanged
+6. Return ONLY valid JSON, no explanations`;
 
   const entries = Object.entries(content);
   const chunkSize = 10; // Reduced for faster response to prevent frontend timeout
@@ -114,15 +115,16 @@ async function translateWithLovableAI(
 ): Promise<Record<string, string>> {
   const targetLangName = languageNames[targetLang] || targetLang;
   
-  const systemPrompt = `You are a professional translator for CANI (长凌科技), a drone technology company. 
+  const systemPrompt = `You are a professional translator for CANI, a drone technology company. 
 Translate the following JSON content from Chinese to ${targetLangName}.
 
 CRITICAL RULES:
 1. Maintain exact JSON structure and keys
 2. Only translate values, never keys
 3. Keep technical terms accurate (drone, FPV, VTX, ESC, etc.)
-4. Keep brand names "CANI" and "长凌" unchanged
-5. Return ONLY valid JSON, no explanations`;
+4. Translate ALL Chinese text including company names. "长凌科技" should become "CANI Technology" or the localized equivalent
+5. Keep only the English brand name "CANI" unchanged
+6. Return ONLY valid JSON, no explanations`;
 
   const entries = Object.entries(content);
   const chunkSize = 10; // Matched with DeepSeek for consistency
@@ -242,6 +244,32 @@ serve(async (req) => {
 
     const results: Record<string, any> = {};
 
+    // Utility functions - defined once, used for all languages
+    // Identify keys that are "untranslatable" - they look the same in any language
+    const isUntranslatableContent = (value: string): boolean => {
+      if (!value || value.trim() === '') return true;
+      const trimmed = value.trim();
+      // Only pure numbers/dates (e.g., "2025-12-23", "1920x1080", "+86")
+      if (/^[\d\-\/\+\.\s\:x×]+$/.test(trimmed)) return true;
+      // Only uppercase abbreviations with no Chinese (e.g., "VTX", "ELRS", "ISO9001")
+      if (/^[A-Z0-9\-\/\+\.]+$/.test(trimmed) && trimmed.length <= 10) return true;
+      return false;
+    };
+    
+    // Check for ANY Chinese characters in translation
+    const containsChinese = (str: string): boolean => {
+      return /[\u4e00-\u9fa5]/.test(str);
+    };
+    
+    // Check if translation looks valid (not just copied from source)
+    const isValidTranslation = (source: string, translation: string): boolean => {
+      if (!translation || translation.trim() === '') return false;
+      if (translation.startsWith('__')) return true; // Skip internal keys
+      if (source === translation) return false; // Not translated
+      if (containsChinese(translation)) return false; // Contains Chinese
+      return true;
+    };
+
     for (const lang of languages) {
       if (lang === 'zh' || lang === 'en') {
         continue;
@@ -266,45 +294,8 @@ serve(async (req) => {
         }
         
         // Filter out already translated keys
-        // Track which keys we've attempted to translate in this session via a processed list
         let contentToTranslate = actualSourceContent;
         if (mode === 'incremental') {
-          // Identify keys that are "untranslatable" - they look the same in any language
-          // STRICT: Only pure technical codes that are identical in all languages
-          const isUntranslatableContent = (value: string): boolean => {
-            if (!value || value.trim() === '') return true;
-            const trimmed = value.trim();
-            // Only pure numbers/dates (e.g., "2025-12-23", "1920x1080", "+86")
-            if (/^[\d\-\/\+\.\s\:x×]+$/.test(trimmed)) return true;
-            // Only uppercase abbreviations with no Chinese (e.g., "VTX", "ELRS", "ISO9001")
-            // Must be short (<=10 chars) and contain no Chinese characters
-            if (/^[A-Z0-9\-\/\+\.]+$/.test(trimmed) && trimmed.length <= 10) return true;
-            return false;
-          };
-          
-          // Brand names that should be preserved in translations
-          const BRAND_NAMES = ['长凌科技', '长凌', 'CANI'];
-          
-          // Check if value contains Chinese characters (excluding brand names)
-          const containsNonBrandChinese = (str: string): boolean => {
-            // Remove brand names first
-            let cleaned = str;
-            for (const brand of BRAND_NAMES) {
-              cleaned = cleaned.replace(new RegExp(brand, 'g'), '');
-            }
-            // Check if remaining text contains Chinese
-            return /[\u4e00-\u9fa5]/.test(cleaned);
-          };
-          
-          // Check if translation looks valid (not just copied from source)
-          const isValidTranslation = (source: string, translation: string): boolean => {
-            if (!translation || translation.trim() === '') return false;
-            // If source and translation are identical, not translated
-            if (source === translation) return false;
-            // If translation has non-brand Chinese, needs re-translation
-            if (containsNonBrandChinese(translation)) return false;
-            return true;
-          };
           
           // Calculate which keys need translation
           // Debug counters
@@ -327,8 +318,7 @@ serve(async (req) => {
               return true; // Needs translation
             }
             
-            // CRITICAL FIX: Use the new validation that excludes brand names
-            // Only flag as needing translation if there's non-brand Chinese
+            // Check if translation is valid (no Chinese, not identical to source)
             if (!isValidTranslation(sourceValue, existingValue) && !isUntranslatableContent(sourceValue)) {
               debugContainsChinese++;
               return true;
@@ -399,9 +389,6 @@ serve(async (req) => {
           console.log(`  - Keys needing translation: ${remainingKeys.length}`);
           console.log(`  - Keys in this batch: ${batchKeys.join(', ').substring(0, 200)}...`);
           console.log(`  - Remaining after this batch: ${remainingAfterBatch}`);
-          
-          // Store remaining count for result
-          (contentToTranslate as any).__remainingAfterBatch = remainingAfterBatch;
         }
         
         let translations: Record<string, string>;
@@ -434,12 +421,40 @@ serve(async (req) => {
           translations = { ...existingTranslations, ...translations };
         }
         
-        // Get the remaining count that was calculated BEFORE translation
-        // This is the TRUE remaining count based on forceTranslateKeys logic
-        const remaining = (contentToTranslate as any).__remainingAfterBatch ?? 0;
+        // Remove any internal keys that shouldn't be saved
+        delete translations['__remainingAfterBatch'];
+        
+        // After merging, recalculate remaining by checking which source keys still need translation
+        const allSourceKeys = Object.keys(actualSourceContent);
+        const stillMissingKeys = allSourceKeys.filter(key => {
+          const sourceValue = actualSourceContent[key];
+          const translatedValue = translations[key];
+          
+          // If no translation exists -> needs translation
+          if (!translatedValue || translatedValue.trim() === '') {
+            return !isUntranslatableContent(sourceValue);
+          }
+          
+          // If translation contains Chinese -> needs re-translation
+          if (containsChinese(translatedValue)) {
+            return true;
+          }
+          
+          // If translation equals source -> not translated (unless untranslatable)
+          if (translatedValue === sourceValue) {
+            return !isUntranslatableContent(sourceValue);
+          }
+          
+          return false;
+        });
+        
+        const remaining = stillMissingKeys.length;
         const translatedCount = Object.keys(translations).length;
         
         console.log(`Completed batch: ${translatedCount} total keys in DB, ${remaining} still need translation`);
+        if (remaining > 0 && remaining <= 20) {
+          console.log(`  - Still missing keys: ${stillMissingKeys.slice(0, 10).join(', ')}...`);
+        }
 
         // Save to database
         const totalNeeded = Object.keys(actualSourceContent).length;
