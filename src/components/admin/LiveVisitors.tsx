@@ -15,6 +15,8 @@ interface OnlineVisitor {
   id: string;
   session_id: string;
   traffic_source: string;
+  referrer_domain: string | null;
+  referrer_url: string | null;
   device_type: string;
   browser: string;
   current_page: string;
@@ -100,6 +102,8 @@ const LiveVisitors = () => {
         id: v.id,
         session_id: v.session_id,
         traffic_source: v.traffic_source || 'direct',
+        referrer_domain: v.referrer_domain,
+        referrer_url: v.referrer_url,
         device_type: v.device_type || 'desktop',
         browser: v.browser || 'unknown',
         current_page: v.pages_visited?.[v.pages_visited.length - 1] || '/',
@@ -140,6 +144,8 @@ const LiveVisitors = () => {
               id: newVisitor.id,
               session_id: newVisitor.session_id,
               traffic_source: newVisitor.traffic_source || 'direct',
+              referrer_domain: newVisitor.referrer_domain,
+              referrer_url: newVisitor.referrer_url,
               device_type: newVisitor.device_type || 'desktop',
               browser: newVisitor.browser || 'unknown',
               current_page: newVisitor.pages_visited?.[newVisitor.pages_visited.length - 1] || '/',
@@ -260,11 +266,20 @@ const LiveVisitors = () => {
                           </div>
                         )}
                       </div>
-                      <div className="text-right shrink-0">
-                        <Badge variant="outline" className="text-xs mb-1">
+                      <div className="text-right shrink-0 max-w-[140px]">
+                        <Badge 
+                          variant="outline" 
+                          className="text-xs mb-1 cursor-pointer"
+                          title={visitor.referrer_url || visitor.referrer_domain || '直接访问'}
+                        >
                           {sourceLabels[visitor.traffic_source] || visitor.traffic_source}
                         </Badge>
-                        <div className="flex items-center gap-1 text-xs text-muted-foreground">
+                        {visitor.traffic_source === 'referral' && visitor.referrer_domain && (
+                          <div className="text-xs text-primary truncate mb-1" title={visitor.referrer_url || visitor.referrer_domain}>
+                            {visitor.referrer_domain}
+                          </div>
+                        )}
+                        <div className="flex items-center justify-end gap-1 text-xs text-muted-foreground">
                           <Clock className="h-3 w-3" />
                           {format(new Date(visitor.last_activity_at), 'HH:mm:ss', { locale: zhCN })}
                         </div>
