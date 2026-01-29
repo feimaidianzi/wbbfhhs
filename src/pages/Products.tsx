@@ -21,12 +21,20 @@ const Products = () => {
     { id: "tethered", name: "系留无人机" },
     { id: "logistics", name: "物流无人机" },
     { id: "fpv", name: "FPV穿越机" },
+    { id: "multi-rotor", name: "多旋翼无人机" },
+    { id: "ugv", name: "科研无人车" },
+    { id: "carrier-board", name: "扩展板卡" },
+    { id: "ground-station", name: "地面站" },
   ] : [
     { id: "all", name: "All Products" },
     { id: "swarm", name: "Drone Swarm" },
     { id: "tethered", name: "Tethered Drone" },
     { id: "logistics", name: "Logistics Drone" },
     { id: "fpv", name: "FPV Drone" },
+    { id: "multi-rotor", name: "Multi-Rotor UAV" },
+    { id: "ugv", name: "Research UGV" },
+    { id: "carrier-board", name: "Carrier Boards" },
+    { id: "ground-station", name: "Ground Stations" },
   ];
 
   const products = language === 'zh' ? [
@@ -34,11 +42,19 @@ const Products = () => {
     { id: 12, name: "系留T200", category: "tethered", description: "200米系留无人机，24小时不间断作业", specs: ["高度: 200m", "续航: 24h", "载重: 10kg"], image: "https://images.unsplash.com/photo-1473968512647-3e447244af8f?w=600&q=80", link: "/products/tethered" },
     { id: 14, name: "大力神M6-H11", category: "logistics", description: "大载重物流无人机，支持50kg货物运输", specs: ["载重: 50kg", "航程: 30km", "智能投放"], image: "https://images.unsplash.com/photo-1527977966376-1c8408f9f108?w=600&q=80", link: "/products/logistics", hot: true },
     { id: 25, name: "CL-R5 竞速套装", category: "fpv", description: "专业竞速级FPV无人机，适合赛事训练和极限飞行", specs: ["时速: 160km/h", "延迟: <28ms", "5寸机架"], image: "https://images.unsplash.com/photo-1473968512647-3e447244af8f?w=600&q=80", link: "/fpv", hot: true },
+    { id: 30, name: "P600科研无人机", category: "multi-rotor", description: "大型科研无人机开发平台，支持ROS2", specs: ["轴距: 600mm", "载荷: 2kg", "续航: 30min"], image: "https://qiniu.md.amovlab.com/img/p/202410/20241030/2006091054142280949989376.jpg", link: "/products/multi-rotor", hot: true },
+    { id: 31, name: "R300科研无人车", category: "ugv", description: "科研级无人地面车辆，支持SLAM和自主导航", specs: ["载荷: 20kg", "速度: 2m/s", "ROS系统"], image: "https://qiniu.md.amovlab.com/img/p/202203/20220328/1828203197873674422157312.jpg", link: "/products/research-ugv" },
+    { id: 32, name: "Orin NX扩展载板", category: "carrier-board", description: "Jetson Orin NX模块扩展载板", specs: ["USB3.2", "千兆网", "CAN总线"], image: "https://qiniu.md.amovlab.com/img/p/202404/20240403/1516336673034527411109888.png", link: "/products/carrier-boards" },
+    { id: 33, name: "Prometheus地面站", category: "ground-station", description: "专业级无人机地面站，支持多机管理", specs: ["高亮屏", "集成遥控", "任务规划"], image: "https://qiniu.md.amovlab.com/img/p/202410/20241016/1221045884928433716297728.jpg", link: "/products/ground-stations", hot: true },
   ] : [
     { id: 10, name: "Swarm S100", category: "swarm", description: "100-drone swarm performance system", specs: ["Scale: 100 drones", "Precision: ±10cm", "Formation Flight"], image: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&q=80", link: "/products/swarm", hot: true },
     { id: 12, name: "Tethered T200", category: "tethered", description: "200m tethered drone, 24-hour continuous operation", specs: ["Altitude: 200m", "Endurance: 24h", "Payload: 10kg"], image: "https://images.unsplash.com/photo-1473968512647-3e447244af8f?w=600&q=80", link: "/products/tethered" },
     { id: 14, name: "Hercules M6-H11", category: "logistics", description: "Heavy-lift logistics drone, supports 50kg cargo", specs: ["Payload: 50kg", "Range: 30km", "Smart Drop"], image: "https://images.unsplash.com/photo-1527977966376-1c8408f9f108?w=600&q=80", link: "/products/logistics", hot: true },
     { id: 25, name: "CL-R5 Racing Kit", category: "fpv", description: "Professional racing FPV drone for competition and extreme flying", specs: ["Speed: 160km/h", "Latency: <28ms", "5-inch Frame"], image: "https://images.unsplash.com/photo-1473968512647-3e447244af8f?w=600&q=80", link: "/fpv", hot: true },
+    { id: 30, name: "P600 Research UAV", category: "multi-rotor", description: "Large research UAV development platform with ROS2", specs: ["Wheelbase: 600mm", "Payload: 2kg", "Flight: 30min"], image: "https://qiniu.md.amovlab.com/img/p/202410/20241030/2006091054142280949989376.jpg", link: "/products/multi-rotor", hot: true },
+    { id: 31, name: "R300 Research UGV", category: "ugv", description: "Research-grade unmanned ground vehicle with SLAM", specs: ["Payload: 20kg", "Speed: 2m/s", "ROS System"], image: "https://qiniu.md.amovlab.com/img/p/202203/20220328/1828203197873674422157312.jpg", link: "/products/research-ugv" },
+    { id: 32, name: "Orin NX Carrier Board", category: "carrier-board", description: "Jetson Orin NX module carrier board", specs: ["USB3.2", "GbE", "CAN Bus"], image: "https://qiniu.md.amovlab.com/img/p/202404/20240403/1516336673034527411109888.png", link: "/products/carrier-boards" },
+    { id: 33, name: "Prometheus GCS", category: "ground-station", description: "Professional UAV ground control station", specs: ["High-brightness", "Integrated RC", "Mission Planning"], image: "https://qiniu.md.amovlab.com/img/p/202410/20241016/1221045884928433716297728.jpg", link: "/products/ground-stations", hot: true },
   ];
 
   const filteredProducts = activeCategory === "all"

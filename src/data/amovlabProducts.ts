@@ -1,6 +1,6 @@
 /**
- * Amovlab 阿木实验室产品数据
- * 数据来源: https://www.amovlab.com/product/
+ * 长凌科技科研产品数据
+ * 原阿木实验室产品已整合为长凌产品线
  */
 
 export interface AmovlabProduct {
@@ -27,9 +27,9 @@ export interface AmovlabProduct {
 // ==================== 科研无人机开发平台 ====================
 export const researchDronePlatforms: AmovlabProduct[] = [
   {
-    id: "amov-su17",
-    name: "阿木SU17科研版无人机",
-    nameEn: "Amov SU17 Research UAV",
+    id: "cl-su17",
+    name: "长凌SU17科研版无人机",
+    nameEn: "CANI SU17 Research UAV",
     category: "research-drones",
     description: "新一代科研无人机开发平台，集成高性能计算、先进感知与开源软件栈，支持ROS2开发环境，适用于自主飞行、SLAM、目标识别等科研场景。",
     descriptionEn: "Next-generation research UAV development platform with integrated high-performance computing, advanced sensors, and open-source software stack. Supports ROS2 development for autonomous flight, SLAM, and target recognition research.",
