@@ -79,6 +79,7 @@ import FcEsc from "./pages/products/accessories/FcEsc";
 import FcEscDetail from "./pages/products/accessories/FcEscDetail";
 import Gimbal from "./pages/products/accessories/Gimbal";
 import GimbalDetail from "./pages/products/accessories/GimbalDetail";
+import VisionAlgorithmKitDetail from "./pages/products/accessories/VisionAlgorithmKitDetail";
 import CameraPage from "./pages/products/accessories/Camera";
 import CameraDetail from "./pages/products/accessories/CameraDetail";
 import DigitalFpv from "./pages/fpv/DigitalFpv";
@@ -222,6 +223,7 @@ const App = () => (
           <Route path="/products/accessories/fc-esc/:productId" element={<FcEscDetail />} />
           <Route path="/products/accessories/gimbal" element={<Gimbal />} />
           <Route path="/products/accessories/gimbal/:productId" element={<GimbalDetail />} />
+          <Route path="/products/changling/vision-algorithm-kits/:productId" element={<VisionAlgorithmKitDetail />} />
           <Route path="/products/accessories/camera" element={<CameraPage />} />
           <Route path="/products/accessories/camera/:productId" element={<CameraDetail />} />
           <Route path="/products/accessories/digital-fpv" element={<DigitalFpv />} />

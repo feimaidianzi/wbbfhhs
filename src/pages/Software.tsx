@@ -126,53 +126,6 @@ const Software = () => {
     },
   ];
 
-  // 视觉/算法开发套件
-  const visionKits = language === 'zh' ? [
-    {
-      name: "SpireCV视觉开发者套件",
-      description: "专为无人机视觉算法开发设计的套件，集成深度相机、机载计算机和开发软件",
-      features: ["目标检测", "跟踪算法", "SLAM", "ROS集成"],
-      image: "https://qiniu.md.amovlab.com/img/p/202407/20240710/1534571987103644306014208.png",
-      link: "/products/amovlab/vision-algorithm-kits"
-    },
-    {
-      name: "Matlab无人机算法开发套件",
-      description: "基于Matlab/Simulink的无人机算法开发套件，支持模型在环仿真",
-      features: ["仿真验证", "代码生成", "快速部署", "PX4集成"],
-      image: "https://qiniu.md.amovlab.com/img/p/202310/20231027/1705278201936164773527552.jpg",
-      link: "/products/amovlab/vision-algorithm-kits"
-    },
-    {
-      name: "MOCAP编队飞行套件",
-      description: "基于动作捕捉系统的室内编队飞行套件，实现厘米级定位精度",
-      features: ["厘米级精度", "多机协同", "室内专用", "编队控制"],
-      image: "https://qiniu.md.amovlab.com/img/p/202405/20240524/1629538518361746044452864.jpg",
-      link: "/products/amovlab/vision-algorithm-kits"
-    }
-  ] : [
-    {
-      name: "SpireCV Vision Developer Kit",
-      description: "Development kit designed for UAV visual algorithm development, integrating depth camera and onboard computer",
-      features: ["Object Detection", "Tracking", "SLAM", "ROS Integration"],
-      image: "https://qiniu.md.amovlab.com/img/p/202407/20240710/1534571987103644306014208.png",
-      link: "/products/amovlab/vision-algorithm-kits"
-    },
-    {
-      name: "Matlab UAV Algorithm Dev Kit",
-      description: "Matlab/Simulink-based UAV algorithm development kit, supporting model-in-the-loop simulation",
-      features: ["Simulation", "Code Generation", "Rapid Deploy", "PX4 Integration"],
-      image: "https://qiniu.md.amovlab.com/img/p/202310/20231027/1705278201936164773527552.jpg",
-      link: "/products/amovlab/vision-algorithm-kits"
-    },
-    {
-      name: "MOCAP Formation Flight Kit",
-      description: "Indoor formation flight kit based on motion capture system, achieving centimeter-level positioning",
-      features: ["CM-level Accuracy", "Multi-UAV", "Indoor Dedicated", "Formation Control"],
-      image: "https://qiniu.md.amovlab.com/img/p/202405/20240524/1629538518361746044452864.jpg",
-      link: "/products/amovlab/vision-algorithm-kits"
-    }
-  ];
-
   return (
     <div className="min-h-screen">
       <MultiLanguageSEO
@@ -255,54 +208,6 @@ const Software = () => {
                     </Button>
                   </Link>
                 </div>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        {/* 视觉/算法开发套件 */}
-        <section className="py-16 bg-secondary">
-          <div className="container-custom">
-            <div className="text-center mb-12">
-              <h2 className="text-2xl md:text-3xl font-bold mb-4">
-                {language === 'zh' ? "视觉/算法开发套件" : "Vision & Algorithm Dev Kits"}
-              </h2>
-              <p className="text-muted-foreground max-w-2xl mx-auto">
-                {language === 'zh' 
-                  ? "专业的视觉算法和仿真开发套件，加速科研进程"
-                  : "Professional vision algorithm and simulation development kits to accelerate research"}
-              </p>
-            </div>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-              {visionKits.map((kit, index) => (
-                <Link
-                  key={index}
-                  to={kit.link}
-                  className="group bg-card rounded-xl overflow-hidden shadow-card hover:shadow-card-hover transition-all hover:-translate-y-1"
-                >
-                  <div className="aspect-video overflow-hidden bg-muted">
-                    <img
-                      src={kit.image}
-                      alt={kit.name}
-                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                    />
-                  </div>
-                  <div className="p-6">
-                    <h3 className="text-lg font-bold text-card-foreground mb-2 group-hover:text-accent transition-colors">
-                      {kit.name}
-                    </h3>
-                    <p className="text-muted-foreground text-sm mb-4">
-                      {kit.description}
-                    </p>
-                    <div className="flex flex-wrap gap-2">
-                      {kit.features.map((feature, i) => (
-                        <span key={i} className="text-xs px-2 py-1 bg-accent/10 text-accent rounded">
-                          {feature}
-                        </span>
-                      ))}
-                    </div>
-                  </div>
-                </Link>
               ))}
             </div>
           </div>
