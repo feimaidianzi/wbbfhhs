@@ -1,6 +1,6 @@
 /**
  * 长凌科技科研产品数据
- * 原阿木实验室产品已整合为长凌产品线
+ * Changling (CANI) Technology Research Products
  */
 
 export interface AmovlabProduct {
