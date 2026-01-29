@@ -33,7 +33,7 @@ const AmovlabCategoryList = () => {
   return (
     <div className="min-h-screen bg-background">
       <SEO
-        title={`${isEn ? category.nameEn : category.name} - ${isEn ? "Amovlab Products" : "阿木实验室产品"}`}
+        title={`${isEn ? category.nameEn : category.name} - ${isEn ? "CANI Products" : "长凌科技产品"}`}
         description={isEn ? category.descriptionEn : category.description}
       />
 
@@ -46,7 +46,7 @@ const AmovlabCategoryList = () => {
             onClick={() => navigate("/products/amovlab")}
           >
             <ArrowLeft className="h-4 w-4 mr-2" />
-            {isEn ? "Back to Amovlab Products" : "返回阿木产品中心"}
+            {isEn ? "Back to CANI Products" : "返回长凌产品中心"}
           </Button>
 
           <h1 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
