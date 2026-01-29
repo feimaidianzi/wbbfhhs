@@ -115,6 +115,9 @@ import DatabaseProductList from "./pages/products/DatabaseProductList";
 import AmovlabProducts from "./pages/products/amovlab/AmovlabProducts";
 import AmovlabCategoryList from "./pages/products/amovlab/AmovlabCategoryList";
 import AmovlabProductDetail from "./pages/products/amovlab/AmovlabProductDetail";
+import CarrierBoards from "./pages/products/CarrierBoards";
+import GroundStations from "./pages/products/GroundStations";
+import ResearchUGV from "./pages/products/ResearchUGV";
 const queryClient = new QueryClient();
 
 const App = () => (
@@ -231,6 +234,9 @@ const App = () => (
           <Route path="/products/amovlab" element={<AmovlabProducts />} />
           <Route path="/products/amovlab/:categoryId" element={<AmovlabCategoryList />} />
           <Route path="/products/amovlab/:categoryId/:productId" element={<AmovlabProductDetail />} />
+          <Route path="/products/carrier-boards" element={<CarrierBoards />} />
+          <Route path="/products/ground-stations" element={<GroundStations />} />
+          <Route path="/products/research-ugv" element={<ResearchUGV />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
           </Routes>

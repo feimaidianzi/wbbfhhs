@@ -42,11 +42,11 @@ const AmovlabProducts = () => {
   return (
     <div className="min-h-screen bg-background">
       <SEO
-        title={isEn ? "Amovlab Products - Research UAV & Robotics" : "阿木实验室产品中心 - 科研无人机与机器人"}
+        title={isEn ? "CANI Research Products - Research UAV & Robotics" : "长凌科研产品中心 - 科研无人机与机器人"}
         description={
           isEn
-            ? "Explore Amovlab's comprehensive range of research UAV platforms, onboard computers, flight controllers, and development kits for robotics research."
-            : "探索阿木实验室全系列科研无人机开发平台、机载计算机、飞控和开发套件，助力机器人科研。"
+            ? "Explore CANI Technology's comprehensive range of research UAV platforms, onboard computers, flight controllers, and development kits for robotics research."
+            : "探索长凌科技全系列科研无人机开发平台、机载计算机、飞控和开发套件，助力机器人科研。"
         }
       />
 
@@ -65,10 +65,10 @@ const AmovlabProducts = () => {
 
           <div className="max-w-3xl">
             <Badge className="mb-4 bg-white/20 text-white border-white/30">
-              {isEn ? "Partner Products" : "合作伙伴产品"}
+              {isEn ? "Research Products" : "科研产品"}
             </Badge>
             <h1 className="text-4xl md:text-5xl font-bold mb-6">
-              {isEn ? "Amovlab Products" : "阿木实验室产品中心"}
+              {isEn ? "CANI Research Products" : "长凌科研产品中心"}
             </h1>
             <p className="text-xl text-white/90 mb-8">
               {isEn
