@@ -4,17 +4,18 @@ import { FloatingContact } from "@/components/FloatingContact";
 import { SEO } from "@/components/SEO";
 import { BackButton } from "@/components/BackButton";
 import { Link } from "react-router-dom";
-import { ArrowRight, Video, Thermometer, Layers } from "lucide-react";
-import { gimbalProducts, gimbalCategories } from "@/data/gimbalProducts";
+import { ArrowRight, Video, Thermometer, Layers, ZoomIn } from "lucide-react";
+import { allGimbalProducts, gimbalCategories } from "@/data/gimbalProducts";
 
 const categoryIcons: Record<string, React.ReactNode> = {
   "四光云台相机": <Layers className="w-6 h-6" />,
   "双光跟踪识别云台相机": <Thermometer className="w-6 h-6" />,
-  "单光追踪识别云台": <Video className="w-6 h-6" />
+  "单光追踪识别云台": <Video className="w-6 h-6" />,
+  "光学变焦吊舱": <ZoomIn className="w-6 h-6" />
 };
 
 const Gimbal = () => {
-  const categories = ["四光云台相机", "双光跟踪识别云台相机", "单光追踪识别云台"];
+  const categories = ["四光云台相机", "双光跟踪识别云台相机", "单光追踪识别云台", "光学变焦吊舱"];
 
   return (
     <>
@@ -55,7 +56,7 @@ const Gimbal = () => {
 
         {/* Products by Category */}
         {categories.map((category) => {
-          const products = gimbalProducts.filter(p => p.category === category);
+          const products = allGimbalProducts.filter(p => p.category === category);
           if (products.length === 0) return null;
           
           return (
