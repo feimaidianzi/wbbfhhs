@@ -1,7 +1,6 @@
 import k40tImage from "@/assets/gimbal/k40t-gimbal.png";
 import k8tV2Image from "@/assets/gimbal/k8t-v2-gimbal.png";
 import k8V2Image from "@/assets/gimbal/k8-v2-gimbal.png";
-import { visionAlgorithmKits, VisionAlgorithmKit } from "@/data/changling/visionAlgorithmKits";
 
 export interface GimbalProduct {
   id: string;
@@ -273,108 +272,22 @@ export const gimbalProducts: GimbalProduct[] = [
   }
 ];
 
-// 光学变焦吊舱（长凌产品）
-export const opticalZoomGimbals: GimbalProduct[] = [
-  {
-    id: "gx40",
-    name: "GX40光学变焦吊舱",
-    model: "GX40",
-    category: "光学变焦吊舱",
-    price: "询价",
-    image: "https://qiniu.md.amovlab.com/img/p/202402/20240218/1443422975944760411193344.png",
-    images: [
-      "https://qiniu.md.amovlab.com/img/p/202402/20240218/1443422975944760411193344.png",
-      "https://qiniu.md.amovlab.com/img/p/202402/20240218/1413364598036038026362880.jpg",
-      "https://qiniu.md.amovlab.com/img/p/202404/20240417/1458567917029118745411584.jpg"
-    ],
-    slogan: "40倍光学变焦",
-    subSlogan: "远距离目标识别利器",
-    keyFeatures: [
-      { label: "光学变焦", value: "40倍" },
-      { label: "视频规格", value: "4K 30fps" },
-      { label: "稳定系统", value: "三轴机械" },
-      { label: "云台重量", value: "800g" }
-    ],
-    highlights: [
-      "40倍光学变焦能力",
-      "4K超高清视频",
-      "三轴机械稳定",
-      "HDMI/IP/USB多接口"
-    ],
-    description: [
-      "GX40是一款40倍光学变焦三轴稳定吊舱",
-      "支持4K 30fps视频拍摄，画质清晰细腻",
-      "三轴机械稳定云台，画面平稳流畅",
-      "适用于巡检、搜救、测绘等远距离目标识别场景",
-      "支持HDMI/IP/USB多种视频输出方式"
-    ],
-    features: [
-      "40倍光学变焦镜头",
-      "4K超高清视频输出",
-      "三轴机械稳定系统",
-      "俯仰±90°/航向±180°可控",
-      "HDMI/IP/USB多接口输出",
-      "800g轻量化设计"
-    ],
-    specs: [
-      { category: "光学参数", label: "光学变焦", value: "40倍" },
-      { category: "光学参数", label: "传感器", value: "1/2.8英寸CMOS" },
-      { category: "光学参数", label: "有效像素", value: "800万像素" },
-      { category: "视频参数", label: "视频分辨率", value: "4K 30fps" },
-      { category: "视频参数", label: "视频编码", value: "H.264/H.265" },
-      { category: "云台参数", label: "稳定方式", value: "三轴机械稳定" },
-      { category: "云台参数", label: "俯仰范围", value: "±90°" },
-      { category: "云台参数", label: "航向范围", value: "±180°" },
-      { category: "云台参数", label: "稳定精度", value: "±0.01°" },
-      { category: "接口参数", label: "视频输出", value: "HDMI/IP/USB" },
-      { category: "接口参数", label: "控制接口", value: "串口/网口" },
-      { category: "物理参数", label: "重量", value: "800g" },
-      { category: "物理参数", label: "工作温度", value: "-20°C~+55°C" },
-      { category: "物理参数", label: "防护等级", value: "IP54" }
-    ],
-    applications: [
-      "电力巡检 - 输电线路远距离检查",
-      "公安执法 - 远距离目标监控取证",
-      "消防救援 - 火场远距离侦查",
-      "测绘测量 - 远距离目标识别",
-      "边防巡逻 - 远距离入侵检测"
-    ],
-    downloads: [
-      { name: "GX40用户手册", type: "pdf", category: "文档" },
-      { name: "GX40固件升级包", type: "zip", category: "软件" }
-    ]
-  }
-];
-
-// 合并所有吊舱产品
-export const allGimbalProducts = [...gimbalProducts, ...opticalZoomGimbals];
-
 export const gimbalCategories = [
   { id: "quad", name: "四光云台相机", description: "可见光+热成像+广角+激光测距四传感器融合" },
   { id: "dual-tracking", name: "双光跟踪识别云台相机", description: "可见光+热成像双光融合，智能跟踪识别" },
-  { id: "single-tracking", name: "单光追踪识别云台", description: "高清可见光，智能目标追踪" },
-  { id: "optical-zoom", name: "光学变焦吊舱", description: "高倍光学变焦，远距离目标识别" },
-  { id: "vision-algorithm", name: "视觉/算法开发套件", description: "专业的视觉算法和仿真开发套件，加速科研进程" }
+  { id: "single-tracking", name: "单光追踪识别云台", description: "高清可见光，智能目标追踪" }
 ];
 
-// 导出视觉/算法开发套件数据
-export { visionAlgorithmKits, type VisionAlgorithmKit };
-
 export function getGimbalProductById(id: string): GimbalProduct | undefined {
-  return allGimbalProducts.find(product => product.id === id);
+  return gimbalProducts.find(product => product.id === id);
 }
 
 export function getGimbalProductsByCategory(category: string): GimbalProduct[] {
   const categoryMap: Record<string, string> = {
     'quad': '四光云台相机',
     'dual-tracking': '双光跟踪识别云台相机',
-    'single-tracking': '单光追踪识别云台',
-    'optical-zoom': '光学变焦吊舱'
+    'single-tracking': '单光追踪识别云台'
   };
   const categoryName = categoryMap[category] || category;
-  return allGimbalProducts.filter(product => product.category === categoryName);
-}
-
-export function getVisionAlgorithmKitById(id: string): VisionAlgorithmKit | undefined {
-  return visionAlgorithmKits.find(kit => kit.id === id);
+  return gimbalProducts.filter(product => product.category === categoryName);
 }

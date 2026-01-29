@@ -79,7 +79,6 @@ import FcEsc from "./pages/products/accessories/FcEsc";
 import FcEscDetail from "./pages/products/accessories/FcEscDetail";
 import Gimbal from "./pages/products/accessories/Gimbal";
 import GimbalDetail from "./pages/products/accessories/GimbalDetail";
-import VisionAlgorithmKitDetail from "./pages/products/accessories/VisionAlgorithmKitDetail";
 import CameraPage from "./pages/products/accessories/Camera";
 import CameraDetail from "./pages/products/accessories/CameraDetail";
 import DigitalFpv from "./pages/fpv/DigitalFpv";
@@ -113,12 +112,6 @@ import VisitorTracker from "./components/VisitorTracker";
 import NewsDetail from "./pages/NewsDetail";
 import DatabaseProductDetail from "./pages/products/DatabaseProductDetail";
 import DatabaseProductList from "./pages/products/DatabaseProductList";
-import AmovlabProducts from "./pages/products/amovlab/AmovlabProducts";
-import AmovlabCategoryList from "./pages/products/amovlab/AmovlabCategoryList";
-import AmovlabProductDetail from "./pages/products/amovlab/AmovlabProductDetail";
-import CarrierBoards from "./pages/products/CarrierBoards";
-import GroundStations from "./pages/products/GroundStations";
-import ResearchUGV from "./pages/products/ResearchUGV";
 const queryClient = new QueryClient();
 
 const App = () => (
@@ -223,7 +216,6 @@ const App = () => (
           <Route path="/products/accessories/fc-esc/:productId" element={<FcEscDetail />} />
           <Route path="/products/accessories/gimbal" element={<Gimbal />} />
           <Route path="/products/accessories/gimbal/:productId" element={<GimbalDetail />} />
-          <Route path="/products/changling/vision-algorithm-kits/:productId" element={<VisionAlgorithmKitDetail />} />
           <Route path="/products/accessories/camera" element={<CameraPage />} />
           <Route path="/products/accessories/camera/:productId" element={<CameraDetail />} />
           <Route path="/products/accessories/digital-fpv" element={<DigitalFpv />} />
@@ -233,12 +225,6 @@ const App = () => (
           <Route path="/products/accessories/others" element={<OtherAccessories />} />
           <Route path="/products/accessories/others/:productId" element={<OtherAccessoriesDetail />} />
           <Route path="/products/detail/:productId" element={<DatabaseProductDetail />} />
-          <Route path="/products/amovlab" element={<AmovlabProducts />} />
-          <Route path="/products/amovlab/:categoryId" element={<AmovlabCategoryList />} />
-          <Route path="/products/amovlab/:categoryId/:productId" element={<AmovlabProductDetail />} />
-          <Route path="/products/carrier-boards" element={<CarrierBoards />} />
-          <Route path="/products/ground-stations" element={<GroundStations />} />
-          <Route path="/products/research-ugv" element={<ResearchUGV />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
           </Routes>

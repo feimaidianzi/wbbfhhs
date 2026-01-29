@@ -4,21 +4,17 @@ import { FloatingContact } from "@/components/FloatingContact";
 import { SEO } from "@/components/SEO";
 import { BackButton } from "@/components/BackButton";
 import { Link } from "react-router-dom";
-import { ArrowRight, Video, Thermometer, Layers, ZoomIn, Eye } from "lucide-react";
-import { allGimbalProducts, gimbalCategories, visionAlgorithmKits } from "@/data/gimbalProducts";
-import { useLanguage } from "@/contexts/LanguageContext";
+import { ArrowRight, Video, Thermometer, Layers } from "lucide-react";
+import { gimbalProducts, gimbalCategories } from "@/data/gimbalProducts";
 
 const categoryIcons: Record<string, React.ReactNode> = {
   "四光云台相机": <Layers className="w-6 h-6" />,
   "双光跟踪识别云台相机": <Thermometer className="w-6 h-6" />,
-  "单光追踪识别云台": <Video className="w-6 h-6" />,
-  "光学变焦吊舱": <ZoomIn className="w-6 h-6" />,
-  "视觉/算法开发套件": <Eye className="w-6 h-6" />
+  "单光追踪识别云台": <Video className="w-6 h-6" />
 };
 
 const Gimbal = () => {
-  const { language } = useLanguage();
-  const categories = ["四光云台相机", "双光跟踪识别云台相机", "单光追踪识别云台", "光学变焦吊舱", "视觉/算法开发套件"];
+  const categories = ["四光云台相机", "双光跟踪识别云台相机", "单光追踪识别云台"];
 
   return (
     <>
@@ -59,65 +55,7 @@ const Gimbal = () => {
 
         {/* Products by Category */}
         {categories.map((category) => {
-          // 视觉/算法开发套件单独处理
-          if (category === "视觉/算法开发套件") {
-            return (
-              <section key={category} id={category} className="py-16 odd:bg-muted/30">
-                <div className="container mx-auto px-4">
-                  <div className="flex items-center gap-3 mb-8">
-                    <div className="p-3 bg-primary/10 rounded-xl text-primary">
-                      {categoryIcons[category]}
-                    </div>
-                    <div>
-                      <h2 className="text-2xl font-bold">{category}</h2>
-                      <p className="text-muted-foreground">
-                        {gimbalCategories.find(c => c.name === category)?.description}
-                      </p>
-                    </div>
-                  </div>
-
-                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-                    {visionAlgorithmKits.map((kit) => (
-                      <Link
-                        key={kit.id}
-                        to={`/products/changling/vision-algorithm-kits/${kit.id}`}
-                        className="group bg-card rounded-xl border border-border overflow-hidden hover:border-primary/50 hover:shadow-lg transition-all duration-300"
-                      >
-                        <div className="aspect-[4/3] bg-muted/50 overflow-hidden">
-                          <img
-                            src={kit.image}
-                            alt={language === 'zh' ? kit.name : kit.nameEn}
-                            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                          />
-                        </div>
-                        <div className="p-5">
-                          <h3 className="font-semibold text-lg mb-2 group-hover:text-primary transition-colors line-clamp-2">
-                            {language === 'zh' ? kit.name : kit.nameEn}
-                          </h3>
-                          <p className="text-sm text-muted-foreground mb-3 line-clamp-2">
-                            {language === 'zh' ? kit.description : kit.descriptionEn}
-                          </p>
-                          <div className="flex flex-wrap gap-1.5 mb-4">
-                            {(language === 'zh' ? kit.features : kit.featuresEn).slice(0, 3).map((feature, idx) => (
-                              <span key={idx} className="text-xs px-2 py-1 bg-primary/10 text-primary rounded">
-                                {feature}
-                              </span>
-                            ))}
-                          </div>
-                          <div className="flex items-center text-primary text-sm font-medium group-hover:gap-2 transition-all">
-                            <span>{language === 'zh' ? "查看详情" : "View Details"}</span>
-                            <ArrowRight className="w-4 h-4 opacity-0 -ml-4 group-hover:opacity-100 group-hover:ml-0 transition-all" />
-                          </div>
-                        </div>
-                      </Link>
-                    ))}
-                  </div>
-                </div>
-              </section>
-            );
-          }
-
-          const products = allGimbalProducts.filter(p => p.category === category);
+          const products = gimbalProducts.filter(p => p.category === category);
           if (products.length === 0) return null;
           
           return (
@@ -170,7 +108,7 @@ const Gimbal = () => {
                           ))}
                         </ul>
                         <div className="flex items-center text-primary text-sm font-medium group-hover:gap-2 transition-all">
-                          <span>{language === 'zh' ? "查看详情" : "View Details"}</span>
+                          <span>查看详情</span>
                           <ArrowRight className="w-4 h-4 opacity-0 -ml-4 group-hover:opacity-100 group-hover:ml-0 transition-all" />
                         </div>
                       </div>

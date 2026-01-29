@@ -164,31 +164,6 @@ const sixInOneEscs = [
   }
 ];
 
-// 开源飞控（长凌产品）
-const openSourceFCs = [
-  {
-    id: "icf5",
-    name: "ICF5开源飞控",
-    model: "ICF5",
-    image: "https://qiniu.md.amovlab.com/img/p/202310/20231027/1710107014397131511398400.jpg",
-    category: "开源飞控",
-    highlights: [
-      "STM32H7高性能处理器",
-      "双冗余IMU设计",
-      "PX4/ArduPilot开源固件",
-      "CAN/Serial/I2C/SPI多接口"
-    ],
-    specs: {
-      mcu: "STM32H7",
-      gyro: "双冗余IMU",
-      voltage: "5V供电",
-      size: "50x30mm",
-      firmware: "PX4/ArduPilot"
-    },
-    price: "询价"
-  }
-];
-
 // 飞控产品数据
 const flightControllers = [
   {
@@ -525,9 +500,6 @@ const FcEsc = () => {
                 <TabsTrigger value="stacks" className="data-[state=active]:bg-primary data-[state=active]:text-primary-foreground">
                   飞塔套装
                 </TabsTrigger>
-                <TabsTrigger value="opensource" className="data-[state=active]:bg-primary data-[state=active]:text-primary-foreground">
-                  开源飞控
-                </TabsTrigger>
                 <TabsTrigger value="6in1" className="data-[state=active]:bg-primary data-[state=active]:text-primary-foreground">
                   六合一电调
                 </TabsTrigger>
@@ -545,18 +517,6 @@ const FcEsc = () => {
               <TabsContent value="stacks">
                 <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
                   {stacks.map((product) => (
-                    <ProductCard key={product.id} product={product} />
-                  ))}
-                </div>
-              </TabsContent>
-
-              <TabsContent value="opensource">
-                <div className="mb-6 p-4 bg-muted/50 rounded-lg border border-border">
-                  <h3 className="font-semibold text-lg mb-2">长凌开源飞控</h3>
-                  <p className="text-sm text-muted-foreground">基于PX4/ArduPilot固件的开源飞行控制器，适用于科研开发和定制化需求</p>
-                </div>
-                <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-                  {openSourceFCs.map((product) => (
                     <ProductCard key={product.id} product={product} />
                   ))}
                 </div>
