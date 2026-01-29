@@ -1,6 +1,7 @@
 import k40tImage from "@/assets/gimbal/k40t-gimbal.png";
 import k8tV2Image from "@/assets/gimbal/k8t-v2-gimbal.png";
 import k8V2Image from "@/assets/gimbal/k8-v2-gimbal.png";
+import { visionAlgorithmKits, VisionAlgorithmKit } from "@/data/changling/visionAlgorithmKits";
 
 export interface GimbalProduct {
   id: string;
@@ -352,8 +353,12 @@ export const gimbalCategories = [
   { id: "quad", name: "四光云台相机", description: "可见光+热成像+广角+激光测距四传感器融合" },
   { id: "dual-tracking", name: "双光跟踪识别云台相机", description: "可见光+热成像双光融合，智能跟踪识别" },
   { id: "single-tracking", name: "单光追踪识别云台", description: "高清可见光，智能目标追踪" },
-  { id: "optical-zoom", name: "光学变焦吊舱", description: "高倍光学变焦，远距离目标识别" }
+  { id: "optical-zoom", name: "光学变焦吊舱", description: "高倍光学变焦，远距离目标识别" },
+  { id: "vision-algorithm", name: "视觉/算法开发套件", description: "专业的视觉算法和仿真开发套件，加速科研进程" }
 ];
+
+// 导出视觉/算法开发套件数据
+export { visionAlgorithmKits, type VisionAlgorithmKit };
 
 export function getGimbalProductById(id: string): GimbalProduct | undefined {
   return allGimbalProducts.find(product => product.id === id);
@@ -368,4 +373,8 @@ export function getGimbalProductsByCategory(category: string): GimbalProduct[] {
   };
   const categoryName = categoryMap[category] || category;
   return allGimbalProducts.filter(product => product.category === categoryName);
+}
+
+export function getVisionAlgorithmKitById(id: string): VisionAlgorithmKit | undefined {
+  return visionAlgorithmKits.find(kit => kit.id === id);
 }
