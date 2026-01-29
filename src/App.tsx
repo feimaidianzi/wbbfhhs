@@ -112,6 +112,9 @@ import VisitorTracker from "./components/VisitorTracker";
 import NewsDetail from "./pages/NewsDetail";
 import DatabaseProductDetail from "./pages/products/DatabaseProductDetail";
 import DatabaseProductList from "./pages/products/DatabaseProductList";
+import AmovlabProducts from "./pages/products/amovlab/AmovlabProducts";
+import AmovlabCategoryList from "./pages/products/amovlab/AmovlabCategoryList";
+import AmovlabProductDetail from "./pages/products/amovlab/AmovlabProductDetail";
 const queryClient = new QueryClient();
 
 const App = () => (
@@ -225,6 +228,9 @@ const App = () => (
           <Route path="/products/accessories/others" element={<OtherAccessories />} />
           <Route path="/products/accessories/others/:productId" element={<OtherAccessoriesDetail />} />
           <Route path="/products/detail/:productId" element={<DatabaseProductDetail />} />
+          <Route path="/products/amovlab" element={<AmovlabProducts />} />
+          <Route path="/products/amovlab/:categoryId" element={<AmovlabCategoryList />} />
+          <Route path="/products/amovlab/:categoryId/:productId" element={<AmovlabProductDetail />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
           </Routes>
