@@ -434,6 +434,46 @@ const SwarmKit = () => {
           </div>
         </section>
 
+        {/* Communication System */}
+        <section className="py-20 bg-background">
+          <div className="container-custom">
+            <motion.div initial={{
+              opacity: 0,
+              y: 30
+            }} whileInView={{
+              opacity: 1,
+              y: 0
+            }} viewport={{
+              once: true
+            }} className="text-center mb-12">
+              <Badge className="mb-4">{language === 'zh' ? '集群通信' : 'Swarm Communication'}</Badge>
+              <h2 className="text-3xl md:text-4xl font-black text-foreground mb-4">
+                {language === 'zh' ? '集群通信软件系统' : 'Swarm Communication Software System'}
+              </h2>
+              <p className="text-muted-foreground max-w-3xl mx-auto">
+                {language === 'zh' 
+                  ? '集群通信软件系统采用分布式架构，利用socket网络编程技术和TCP/IP通信机制实现。CANI地面站和无人机通信节点都创建了TCP的server端和client端，地面站向无人机发送控制指令、无人机向地面站返回心跳包都走的TCP通信。' 
+                  : 'The swarm communication software system uses a distributed architecture, implemented with socket network programming and TCP/IP protocols. Both the CANI ground station and drone communication nodes create TCP server and client endpoints. Control commands from ground station to drones and heartbeat packets from drones to ground station all use TCP communication.'}
+              </p>
+            </motion.div>
+            <motion.div initial={{
+              opacity: 0,
+              y: 30
+            }} whileInView={{
+              opacity: 1,
+              y: 0
+            }} viewport={{
+              once: true
+            }} className="flex justify-center">
+              <img 
+                src={communicationImage} 
+                alt={language === 'zh' ? '集群通信软件系统架构图' : 'Swarm Communication System Architecture'} 
+                className="rounded-2xl shadow-2xl max-w-4xl w-full bg-white p-4" 
+              />
+            </motion.div>
+          </div>
+        </section>
+
         {/* Ground Station */}
         <section className="py-20 bg-secondary">
           <div className="container-custom">
@@ -447,7 +487,7 @@ const SwarmKit = () => {
             }} viewport={{
               once: true
             }}>
-                <Badge className="mb-4">Prometheus Ground Station</Badge>
+                <Badge className="mb-4">CANI Ground Station</Badge>
                 <h2 className="text-3xl md:text-4xl font-black text-foreground mb-6">
                   {language === 'zh' ? '专业地面站系统' : 'Professional Ground Station'}
                 </h2>
