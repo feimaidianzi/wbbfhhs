@@ -452,7 +452,7 @@ const SwarmKit = () => {
                   {language === 'zh' ? '专业地面站系统' : 'Professional Ground Station'}
                 </h2>
                 <p className="text-muted-foreground mb-6">
-                  {language === 'zh' ? 'Prometheus地面站是使用Qt开发的基于Prometheus系统的人机交互界面，采用TCP/UDP通信，避免了ROS1多机通信繁琐的配置。' : 'Prometheus Ground Station is a Qt-based GUI for the Prometheus system, using TCP/UDP communication to simplify multi-drone ROS1 configuration.'}
+                  {language === 'zh' ? 'CANI地面站是使用Qt开发的基于CANI系统的人机交互界面，采用TCP/UDP通信，避免了ROS1多机通信繁琐的配置。' : 'CANI Ground Station is a Qt-based GUI for the CANI system, using TCP/UDP communication to simplify multi-drone ROS1 configuration.'}
                 </p>
                 <ul className="space-y-3">
                   {[language === 'zh' ? "实时监控多机状态" : "Real-time multi-drone monitoring", language === 'zh' ? "一键编队控制" : "One-click formation control", language === 'zh' ? "可视化飞行轨迹" : "Visual flight trajectory", language === 'zh' ? "简化ROS通信配置" : "Simplified ROS communication"].map((item, index) => <li key={index} className="flex items-center gap-3">
