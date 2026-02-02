@@ -613,6 +613,22 @@ export default function EnhancedVisitorProfile({ sessionId }: EnhancedVisitorPro
                      <span className="text-xs text-right break-words max-w-[60%]">{session.referrer_domain}</span>
                   </div>
                 )}
+                {session.referrer_url && (
+                   <div className="flex items-start justify-between gap-3">
+                    <span className="text-muted-foreground flex-shrink-0">完整来源</span>
+                     <a 
+                       href={session.referrer_url} 
+                       target="_blank" 
+                       rel="noopener noreferrer"
+                       className="text-xs text-primary hover:underline text-right break-all max-w-[60%]"
+                       title={session.referrer_url}
+                     >
+                       {session.referrer_url.length > 60 
+                         ? session.referrer_url.substring(0, 60) + '...' 
+                         : session.referrer_url}
+                     </a>
+                  </div>
+                )}
                 <div className="flex items-start justify-between gap-3">
                   <span className="text-muted-foreground flex-shrink-0">落地页</span>
                   <span className="text-xs text-right break-words max-w-[60%]">
