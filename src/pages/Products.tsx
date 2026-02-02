@@ -20,21 +20,25 @@ const Products = () => {
     { id: "tethered", name: "系留无人机" },
     { id: "logistics", name: "物流无人机" },
     { id: "fpv", name: "FPV穿越机" },
+    { id: "swarm", name: "集群编队" },
   ] : [
     { id: "all", name: "All Products" },
     { id: "tethered", name: "Tethered Drone" },
     { id: "logistics", name: "Logistics Drone" },
     { id: "fpv", name: "FPV Drone" },
+    { id: "swarm", name: "Swarm Kit" },
   ];
 
   const products = language === 'zh' ? [
     { id: 12, name: "系留T200", category: "tethered", description: "200米系留无人机，24小时不间断作业", specs: ["高度: 200m", "续航: 24h", "载重: 10kg"], image: "https://images.unsplash.com/photo-1473968512647-3e447244af8f?w=600&q=80", link: "/products/tethered" },
     { id: 14, name: "大力神M6-H11", category: "logistics", description: "大载重物流无人机，支持50kg货物运输", specs: ["载重: 50kg", "航程: 30km", "智能投放"], image: "https://images.unsplash.com/photo-1527977966376-1c8408f9f108?w=600&q=80", link: "/products/logistics", hot: true },
     { id: 25, name: "CL-R5 竞速套装", category: "fpv", description: "专业竞速级FPV无人机，适合赛事训练和极限飞行", specs: ["时速: 160km/h", "延迟: <28ms", "5寸机架"], image: "https://images.unsplash.com/photo-1473968512647-3e447244af8f?w=600&q=80", link: "/fpv", hot: true },
+    { id: 30, name: "P230-UWB 集群编队套件", category: "swarm", description: "三机集群编队开发平台，UWB厘米级定位，NVIDIA Jetson机载计算", specs: ["定位精度: 10cm", "算力: 100TOPS", "编队: 3机"], image: "https://images.unsplash.com/photo-1473968512647-3e447244af8f?w=600&q=80", link: "/products/swarm-kit", hot: true },
   ] : [
     { id: 12, name: "Tethered T200", category: "tethered", description: "200m tethered drone, 24-hour continuous operation", specs: ["Altitude: 200m", "Endurance: 24h", "Payload: 10kg"], image: "https://images.unsplash.com/photo-1473968512647-3e447244af8f?w=600&q=80", link: "/products/tethered" },
     { id: 14, name: "Hercules M6-H11", category: "logistics", description: "Heavy-lift logistics drone, supports 50kg cargo", specs: ["Payload: 50kg", "Range: 30km", "Smart Drop"], image: "https://images.unsplash.com/photo-1527977966376-1c8408f9f108?w=600&q=80", link: "/products/logistics", hot: true },
     { id: 25, name: "CL-R5 Racing Kit", category: "fpv", description: "Professional racing FPV drone for competition and extreme flying", specs: ["Speed: 160km/h", "Latency: <28ms", "5-inch Frame"], image: "https://images.unsplash.com/photo-1473968512647-3e447244af8f?w=600&q=80", link: "/fpv", hot: true },
+    { id: 30, name: "P230-UWB Swarm Kit", category: "swarm", description: "3-drone swarm development platform, UWB cm-level positioning, NVIDIA Jetson computing", specs: ["Accuracy: 10cm", "AI: 100TOPS", "Drones: 3"], image: "https://images.unsplash.com/photo-1473968512647-3e447244af8f?w=600&q=80", link: "/products/swarm-kit", hot: true },
   ];
 
   const filteredProducts = activeCategory === "all"

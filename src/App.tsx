@@ -40,6 +40,7 @@ import Training from "./pages/products/Training";
 import WorkDrone from "./pages/products/WorkDrone";
 import Accessories from "./pages/products/Accessories";
 import Swarm from "./pages/products/Swarm";
+import SwarmKit from "./pages/products/SwarmKit";
 import VehicleMountedAirport from "./pages/products/airport/VehicleMountedAirport";
 import UHS1000 from "./pages/products/airport/UHS1000";
 import UHS600 from "./pages/products/airport/UHS600";
@@ -206,6 +207,7 @@ const App = () => (
           <Route path="/products/multi-rotor/x1200" element={<X1200 />} />
           <Route path="/products/multi-rotor/x1600" element={<X1600 />} />
           <Route path="/products/swarm" element={<Swarm />} />
+          <Route path="/products/swarm-kit" element={<SwarmKit />} />
           <Route path="/products/agriculture" element={<Agriculture />} />
           <Route path="/products/training" element={<Training />} />
           <Route path="/products/work-drone" element={<WorkDrone />} />
