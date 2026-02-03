@@ -164,6 +164,34 @@ const sixInOneEscs = [
   }
 ];
 
+// 国产科研飞控（重点推荐）
+import caniFmtImage from "@/assets/products/cani-fmt-fc.jpg";
+
+const researchFlightControllers = [
+  {
+    id: "cani-fmt",
+    name: "CANI FMT 国产开源飞控",
+    model: "CANI ICF5",
+    image: caniFmtImage,
+    category: "科研飞控",
+    hot: true,
+    highlights: [
+      "国产芯片，技术自主可控",
+      "支持Matlab/Simulink自动生成代码",
+      "支持dSPACE开发系统",
+      "多种仿真：MIL/SIL/HIL"
+    ],
+    specs: {
+      mcu: "GD32国产芯片",
+      firmware: "FMT开源固件",
+      size: "70×36×18.5mm",
+      weight: "39.2g",
+      support: "多旋翼/固定翼"
+    },
+    price: "联系咨询"
+  }
+];
+
 // 飞控产品数据
 const flightControllers = [
   {
@@ -172,7 +200,6 @@ const flightControllers = [
     model: "FlyMind F405",
     image: "https://ueeshop.ly200-cdn.com/u_file/UPBD/UPBD023/2509/25/products/2.jpg",
     category: "飞控",
-    processor: "STM32F405",
     highlights: [
       "STM32F405处理器，高速运算",
       "ICM42688陀螺仪",
@@ -194,7 +221,6 @@ const flightControllers = [
     model: "FlyMind F722",
     image: "https://ueeshop.ly200-cdn.com/u_file/UPBD/UPBD023/2409/23/products/3360a61357.jpg",
     category: "飞控",
-    processor: "STM32F722",
     highlights: [
       "STM32F722处理器，更高性能",
       "双陀螺仪设计，稳定可靠",
@@ -495,8 +521,12 @@ const FcEsc = () => {
               <h2 className="text-2xl font-bold">产品系列</h2>
             </div>
 
-            <Tabs defaultValue="stacks" className="w-full">
+            <Tabs defaultValue="research" className="w-full">
               <TabsList className="flex flex-wrap justify-start gap-2 mb-8 bg-transparent h-auto">
+                <TabsTrigger value="research" className="data-[state=active]:bg-primary data-[state=active]:text-primary-foreground relative">
+                  🔥 科研飞控
+                  <span className="absolute -top-1 -right-1 w-2 h-2 bg-red-500 rounded-full animate-pulse"></span>
+                </TabsTrigger>
                 <TabsTrigger value="stacks" className="data-[state=active]:bg-primary data-[state=active]:text-primary-foreground">
                   飞塔套装
                 </TabsTrigger>
@@ -513,6 +543,20 @@ const FcEsc = () => {
                   分体电调
                 </TabsTrigger>
               </TabsList>
+
+              <TabsContent value="research">
+                <div className="mb-6 p-4 bg-gradient-to-r from-primary/10 to-accent/10 rounded-xl border border-primary/20">
+                  <h3 className="text-lg font-bold text-primary mb-2">🚀 国产开源飞控，技术自主可控</h3>
+                  <p className="text-sm text-muted-foreground">
+                    CANI FMT飞控采用国产芯片，支持Matlab/Simulink自动生成代码，适合科研院校和企业研发使用。
+                  </p>
+                </div>
+                <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+                  {researchFlightControllers.map((product) => (
+                    <ProductCard key={product.id} product={product} />
+                  ))}
+                </div>
+              </TabsContent>
 
               <TabsContent value="stacks">
                 <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">

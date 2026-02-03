@@ -4,7 +4,8 @@ export interface FcEscProduct {
   id: string;
   name: string;
   model: string;
-  category: "飞塔" | "飞控" | "四合一电调" | "六合一电调" | "分体电调";
+  category: "飞塔" | "飞控" | "四合一电调" | "六合一电调" | "分体电调" | "科研飞控";
+  hot?: boolean;
   image: string;
   images?: string[];
   price: string;
@@ -435,6 +436,73 @@ export const sixInOneEscProducts: FcEscProduct[] = [
     packageIncludes: [
       "六合一电调 x1",
       "线材 x1套"
+    ]
+  }
+];
+
+// 国产开源飞控（科研级）
+export const researchFlightControllers: FcEscProduct[] = [
+  {
+    id: "cani-fmt",
+    name: "CANI FMT 国产开源飞控",
+    model: "CANI ICF5",
+    category: "科研飞控",
+    hot: true,
+    image: "/src/assets/products/cani-fmt-fc.jpg",
+    images: [
+      "/src/assets/products/cani-fmt-fc.jpg",
+      "/src/assets/products/cani-fmt-fc-2.jpg",
+      "/src/assets/products/cani-fmt-fc-size.jpg"
+    ],
+    price: "联系咨询",
+    highlights: [
+      "国产芯片，技术自主可控",
+      "支持Matlab/Simulink自动生成代码",
+      "支持dSPACE开发系统",
+      "多种仿真功能：MIL/SIL/HIL",
+      "支持多旋翼、固定翼机型",
+      "外形小巧轻薄，仅39.2g"
+    ],
+    description: [
+      "CANI FMT飞控是国产开源飞控系统，采用GD32国产芯片，实现技术自主可控",
+      "支持Matlab/Simulink图形化建模，自动生成代码，简化开发流程",
+      "兼容国产dSPACE开发系统，便于快速开发验证",
+      "支持模型仿真(MIL)、软件在环仿真(SIL)、硬件在环仿真(HIL)等多种仿真方式",
+      "支持室内外定点、定高、自稳飞行控制",
+      "支持航点任务模式、一键起飞、返航、降落",
+      "外形小巧轻薄，体积仅70×36×18.5mm，重量仅39.2g"
+    ],
+    fcSpecs: {
+      mcu: "GD32国产芯片",
+      gyro: "高精度IMU",
+      osd: "支持",
+      blackbox: "板载存储",
+      uart: "多UART接口",
+      voltage: "宽电压输入",
+      bec: "多路输出",
+      size: "70×36×18.5mm",
+      weight: "39.2g",
+      firmware: "FMT开源固件"
+    },
+    features: [
+      "国产芯片，低成本高性价比",
+      "Matlab/Simulink自动代码生成",
+      "dSPACE开发系统支持",
+      "模型仿真/半实物仿真",
+      "多旋翼/固定翼机型支持",
+      "室内室外飞行控制",
+      "航点任务模式",
+      "一键起飞/返航/降落"
+    ],
+    notes: [
+      "适合科研院校和企业研发使用",
+      "支持二次开发和算法验证",
+      "提供技术支持服务"
+    ],
+    packageIncludes: [
+      "CANI FMT飞控 x1",
+      "连接线材 x1套",
+      "技术文档 x1"
     ]
   }
 ];
