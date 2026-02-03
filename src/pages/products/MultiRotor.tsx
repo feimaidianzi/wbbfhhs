@@ -16,17 +16,19 @@ const MultiRotor = () => {
   ];
 
   const products = [
+    // 科研无人机（置顶显示）
     { 
-      name: "CANI RT17 科研版无人机", 
-      nameEn: "CANI RT17 Research UAV", 
-      description: "行业级品质科研无人机，具备四目SLAM定位、激光雷达建图、路径规划导航避障等能力，支持二次开发", 
-      descriptionEn: "Industry-grade research drone with quad-camera SLAM, LiDAR mapping, path planning and obstacle avoidance, supports secondary development", 
+      name: "🔬 CANI RT17 科研无人机", 
+      nameEn: "🔬 CANI RT17 Research UAV", 
+      description: "【科研无人机】行业级品质科研平台，具备四目SLAM定位、激光雷达建图、路径规划导航避障等能力，支持Matlab/ROS二次开发", 
+      descriptionEn: "【Research UAV】Industry-grade research platform with quad-camera SLAM, LiDAR mapping, path planning and obstacle avoidance, supports Matlab/ROS secondary development", 
       specs: ["轴距: 320mm", "起飞重量: 2.3kg", "续航时间: 16分钟", "机载计算机: Intel i5"], 
       specsEn: ["Wheelbase: 320mm", "Takeoff Weight: 2.3kg", "Flight Time: 16min", "Onboard Computer: Intel i5"], 
       image: su17Image, 
       link: "/products/multi-rotor/rt17",
       hot: true
     },
+    // 工业多旋翼无人机
     { name: t('multiRotor.product.x650.name'), nameEn: "X650 Multi-Rotor Drone", description: t('multiRotor.product.x650.desc'), descriptionEn: "Compact industrial drone for daily inspection and data collection, highly portable, rapid deployment.", specs: ["轴距: 650mm", "最大载重: 2kg", "续航时间: 35分钟", "抗风等级: 5级"], specsEn: ["Wheelbase: 650mm", "Max Payload: 2kg", "Flight Time: 35min", "Wind Resistance: Level 5"], image: "https://images.unsplash.com/photo-1506947411487-a56738267384?w=600&q=80", link: "/products/multi-rotor/x650" },
     { name: t('multiRotor.product.x850.name'), nameEn: "X850 Multi-Rotor Drone", description: t('multiRotor.product.x850.desc'), descriptionEn: "Medium industrial drone with stronger payload capacity and longer flight time for professional operations.", specs: ["轴距: 850mm", "最大载重: 5kg", "续航时间: 45分钟", "抗风等级: 6级"], specsEn: ["Wheelbase: 850mm", "Max Payload: 5kg", "Flight Time: 45min", "Wind Resistance: Level 6"], image: "https://images.unsplash.com/photo-1473968512647-3e447244af8f?w=600&q=80", link: "/products/multi-rotor/x850" },
     { name: t('multiRotor.product.x1200.name'), nameEn: "X1200 Multi-Rotor Drone", description: t('multiRotor.product.x1200.desc'), descriptionEn: "Large industrial drone for heavy payloads and long-duration missions, ideal for professional applications.", specs: ["轴距: 1200mm", "最大载重: 10kg", "续航时间: 55分钟", "抗风等级: 7级"], specsEn: ["Wheelbase: 1200mm", "Max Payload: 10kg", "Flight Time: 55min", "Wind Resistance: Level 7"], image: "https://images.unsplash.com/photo-1579829366248-204fe8413f31?w=600&q=80", link: "/products/multi-rotor/x1200" },
@@ -81,8 +83,8 @@ const MultiRotor = () => {
       products={products}
       productsTitle={t('multiRotor.page.productsTitle')}
       productsTitleEn="Product Series"
-      productsSubtitle={t('multiRotor.page.productsSubtitle')}
-      productsSubtitleEn="From light to heavy-duty, CANI multi-rotor platforms cover all size requirements"
+      productsSubtitle="涵盖科研无人机与工业多旋翼全系列产品"
+      productsSubtitleEn="Complete product line covering research UAV and industrial multi-rotor platforms"
       stats={stats}
       applications={applications}
       applicationsTitle={t('multiRotor.page.applicationsTitle')}
