@@ -452,8 +452,8 @@ const SwarmKit = () => {
               </h2>
               <p className="text-muted-foreground max-w-3xl mx-auto">
                 {language === 'zh' 
-                  ? '集群通信软件系统采用分布式架构，利用socket网络编程技术和TCP/IP通信机制实现。CANI地面站和无人机通信节点都创建了TCP的server端和client端，地面站向无人机发送控制指令、无人机向地面站返回心跳包都走的TCP通信。' 
-                  : 'The swarm communication software system uses a distributed architecture, implemented with socket network programming and TCP/IP protocols. Both the CANI ground station and drone communication nodes create TCP server and client endpoints. Control commands from ground station to drones and heartbeat packets from drones to ground station all use TCP communication.'}
+                  ? '集群通信软件系统采用分布式架构，利用socket网络编程技术和TCP/IP通信机制实现。长凌地面站和无人机通信节点都创建了TCP的server端和client端，地面站向无人机发送控制指令、无人机向地面站返回心跳包都走的TCP通信。' 
+                  : 'The swarm communication software system uses a distributed architecture, implemented with socket network programming and TCP/IP protocols. Both the Changling ground station and drone communication nodes create TCP server and client endpoints. Control commands from ground station to drones and heartbeat packets from drones to ground station all use TCP communication.'}
               </p>
             </motion.div>
             <motion.div initial={{
@@ -487,12 +487,12 @@ const SwarmKit = () => {
             }} viewport={{
               once: true
             }}>
-                <Badge className="mb-4">CANI Ground Station</Badge>
+                <Badge className="mb-4">{language === 'zh' ? '长凌地面站' : 'Changling Ground Station'}</Badge>
                 <h2 className="text-3xl md:text-4xl font-black text-foreground mb-6">
                   {language === 'zh' ? '专业地面站系统' : 'Professional Ground Station'}
                 </h2>
                 <p className="text-muted-foreground mb-6">
-                  {language === 'zh' ? 'CANI地面站是使用Qt开发的基于CANI系统的人机交互界面，采用TCP/UDP通信，避免了ROS1多机通信繁琐的配置。' : 'CANI Ground Station is a Qt-based GUI for the CANI system, using TCP/UDP communication to simplify multi-drone ROS1 configuration.'}
+                  {language === 'zh' ? '长凌地面站是使用Qt开发的基于长凌系统的人机交互界面，采用TCP/UDP通信，避免了ROS1多机通信繁琐的配置。' : 'Changling Ground Station is a Qt-based GUI for the Changling system, using TCP/UDP communication to simplify multi-drone ROS1 configuration.'}
                 </p>
                 <ul className="space-y-3">
                   {[language === 'zh' ? "实时监控多机状态" : "Real-time multi-drone monitoring", language === 'zh' ? "一键编队控制" : "One-click formation control", language === 'zh' ? "可视化飞行轨迹" : "Visual flight trajectory", language === 'zh' ? "简化ROS通信配置" : "Simplified ROS communication"].map((item, index) => <li key={index} className="flex items-center gap-3">
