@@ -448,11 +448,11 @@ export const researchFlightControllers: FcEscProduct[] = [
     model: "CANI ICF5",
     category: "科研飞控",
     hot: true,
-    image: "/src/assets/products/cani-fmt-fc.jpg",
+    image: "/images/products/cani-fmt-fc.png",
     images: [
-      "/src/assets/products/cani-fmt-fc.jpg",
-      "/src/assets/products/cani-fmt-fc-2.jpg",
-      "/src/assets/products/cani-fmt-fc-size.jpg"
+      "/images/products/cani-fmt-fc.png",
+      "/images/products/cani-fmt-fc-2.jpg",
+      "/images/products/cani-fmt-fc-size.jpg"
     ],
     price: "联系咨询",
     highlights: [
@@ -871,6 +871,7 @@ export const separateEscProducts: FcEscProduct[] = [
 // 获取所有产品
 export const getAllFcEscProducts = (): FcEscProduct[] => {
   return [
+    ...researchFlightControllers,
     ...stackProducts,
     ...sixInOneEscProducts,
     ...flightControllerProducts,
