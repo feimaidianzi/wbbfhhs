@@ -165,14 +165,12 @@ const sixInOneEscs = [
 ];
 
 // 国产科研飞控（重点推荐）
-import caniFmtImage from "@/assets/products/cani-fmt-fc.png";
-
 const researchFlightControllers = [
   {
     id: "cani-fmt",
     name: "CANI FMT 国产开源飞控",
     model: "CANI ICF5",
-    image: caniFmtImage,
+    image: "/images/products/cani-fmt-fc.jpg",
     category: "科研飞控",
     hot: true,
     highlights: [
