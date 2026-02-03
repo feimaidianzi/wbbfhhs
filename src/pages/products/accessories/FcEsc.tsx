@@ -165,7 +165,7 @@ const sixInOneEscs = [
 ];
 
 // 国产科研飞控（重点推荐）
-import caniFmtImage from "@/assets/products/cani-fmt-fc.jpg";
+import caniFmtImage from "@/assets/products/cani-fmt-fc.png";
 
 const researchFlightControllers = [
   {
