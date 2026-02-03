@@ -448,9 +448,9 @@ export const researchFlightControllers: FcEscProduct[] = [
     model: "CANI ICF5",
     category: "科研飞控",
     hot: true,
-    image: "/images/products/cani-fmt-fc.jpg",
+    image: "/images/products/cani-fmt-fc.png",
     images: [
-      "/images/products/cani-fmt-fc.jpg",
+      "/images/products/cani-fmt-fc.png",
       "/images/products/cani-fmt-fc-4.jpg",
       "/images/products/cani-fmt-fc-sim.jpg"
     ],
