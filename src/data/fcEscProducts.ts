@@ -451,10 +451,7 @@ export const researchFlightControllers: FcEscProduct[] = [
     image: "/images/products/cani-fmt-fc.jpg",
     images: [
       "/images/products/cani-fmt-fc.jpg",
-      "/images/products/cani-fmt-fc-2.jpg",
-      "/images/products/cani-fmt-fc-3.jpg",
       "/images/products/cani-fmt-fc-4.jpg",
-      "/images/products/cani-fmt-fc-size.jpg",
       "/images/products/cani-fmt-fc-sim.jpg"
     ],
     price: "联系咨询",
