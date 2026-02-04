@@ -3967,6 +3967,27 @@ export const zhTranslations: Record<string, string> = {
   // Swarm CTA
   'swarm.cta.title': '开启集群研究之旅',
   'swarm.cta.desc': '联系我们获取详细报价和技术支持',
+
+  // ===== VTX Detail Page =====
+  'vtxDetail.seo.band': '频段',
+  'vtxDetail.seo.channels': '频道',
+  'vtxDetail.seo.power': '输出功率',
+  'vtxDetail.seo.vtxDesc': '专业FPV视频发射器',
+  'vtxDetail.level': '档位',
+  'vtxDetail.band': '频段',
+  'vtxDetail.ledNote': '设置完成后，LED将依次显示「频段→频道→功率」。注意：显示功率时，LED会快速闪烁对应数字2次。',
+
+  // ===== Database Product Detail Page =====
+  'productDetail.backToList': '返回产品列表',
+  'productDetail.noImage': '暂无图片',
+  'productDetail.featured': '推荐',
+  'productDetail.keyFeatures': '产品特性',
+  'productDetail.getQuote': '获取报价',
+  'productDetail.contactUs': '电话咨询',
+
+  // ===== Company Name =====
+  'company.name': '长凌科技',
+  'company.fullName': '长凌科技有限公司',
 };
 
 export default zhTranslations;

@@ -54,8 +54,7 @@ const iconMap: Record<string, React.ComponentType<{ className?: string }>> = {
 const OtherAccessoriesDetail = () => {
   const { productId } = useParams<{ productId: string }>();
   const product = otherAccessoriesProducts.find(p => p.id === productId);
-  const { language, t } = useLanguage();
-  const isEn = language === 'en';
+  const { t } = useLanguage();
 
   if (!product) {
     return <Navigate to="/products/accessories/others" replace />;
@@ -64,7 +63,7 @@ const OtherAccessoriesDetail = () => {
   return (
     <div className="min-h-screen">
       <SEO 
-        title={`${product.name} - ${isEn ? "Other Accessories" : "其他配件"}`}
+        title={`${product.name} - ${t('accessory.others')}`}
         description={product.description}
         keywords={`${product.name},${product.keyFeatures.join(',')}`}
       />

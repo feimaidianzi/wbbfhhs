@@ -33,7 +33,7 @@ interface Product {
 const DatabaseProductDetail = () => {
   const { productId } = useParams<{ productId: string }>();
   const navigate = useNavigate();
-  const { language } = useLanguage();
+  const { language, t } = useLanguage();
   const isEn = language === 'en';
   const langCode = language as LanguageCode;
   
@@ -119,7 +119,7 @@ const DatabaseProductDetail = () => {
     category: product.subcategory || product.category,
     manufacturer: {
       '@type': 'Organization',
-      name: isEn ? 'CANI Technology Co., Ltd.' : '长凌科技有限公司',
+      name: t('company.fullName'),
       url: currentDomain,
     },
     offers: product.price ? {
@@ -129,14 +129,14 @@ const DatabaseProductDetail = () => {
       availability: 'https://schema.org/InStock',
       seller: {
         '@type': 'Organization',
-        name: isEn ? 'CANI Technology' : '长凌科技',
+        name: t('company.name'),
       },
     } : {
       '@type': 'Offer',
       availability: 'https://schema.org/InStock',
       seller: {
         '@type': 'Organization',
-        name: isEn ? 'CANI Technology' : '长凌科技',
+        name: t('company.name'),
       },
     },
     inLanguage: getHtmlLang(langCode),
@@ -150,13 +150,13 @@ const DatabaseProductDetail = () => {
       {
         '@type': 'ListItem',
         position: 1,
-        name: isEn ? 'Home' : '首页',
+        name: t('nav.home'),
         item: currentDomain,
       },
       {
         '@type': 'ListItem',
         position: 2,
-        name: isEn ? 'Products' : '产品',
+        name: t('nav.products'),
         item: `${currentDomain}/products`,
       },
       {
@@ -171,7 +171,7 @@ const DatabaseProductDetail = () => {
   return (
     <>
       <MultiLanguageSEO
-        title={`${productName} - ${isEn ? 'CANI Technology' : '长凌科技'}`}
+        title={`${productName} - ${t('company.name')}`}
         description={productDescription || productName}
         path={`/products/detail/${product.id}`}
       />
@@ -194,7 +194,7 @@ const DatabaseProductDetail = () => {
               className="inline-flex items-center gap-2 text-primary hover:underline"
             >
               <ArrowLeft className="w-4 h-4" />
-              {isEn ? 'Back to Products' : '返回产品列表'}
+              {t('productDetail.backToList')}
             </Link>
           </div>
         </section>
@@ -215,7 +215,7 @@ const DatabaseProductDetail = () => {
                   ) : (
                     <div className="text-muted-foreground flex flex-col items-center gap-2">
                       <ImageOff className="w-16 h-16" />
-                      <span>{isEn ? 'No image' : '暂无图片'}</span>
+                      <span>{t('productDetail.noImage')}</span>
                     </div>
                   )}
                 </div>
@@ -249,7 +249,7 @@ const DatabaseProductDetail = () => {
                 <div className="flex items-center gap-3 mb-4">
                   {product.is_featured && (
                     <Badge className="bg-amber-500/20 text-amber-600 border-amber-500/30">
-                      {isEn ? 'Featured' : '推荐'}
+                      {t('productDetail.featured')}
                     </Badge>
                   )}
                   {product.subcategory && (
@@ -283,7 +283,7 @@ const DatabaseProductDetail = () => {
                 {features.length > 0 && (
                   <div className="space-y-2 mb-8">
                     <h3 className="font-semibold text-foreground mb-3">
-                      {isEn ? 'Key Features' : '产品特性'}
+                      {t('productDetail.keyFeatures')}
                     </h3>
                     {features.map((feature, idx) => (
                       <div key={idx} className="flex items-start gap-2">
@@ -297,14 +297,14 @@ const DatabaseProductDetail = () => {
                 <div className="flex flex-wrap gap-4">
                   <Button size="lg" asChild>
                     <Link to="/contact">
-                      {isEn ? 'Get Quote' : '获取报价'}
+                      {t('productDetail.getQuote')}
                       <ArrowRight className="ml-2 h-4 w-4" />
                     </Link>
                   </Button>
                   <Button size="lg" variant="outline" asChild>
                     <a href="#specs">
                       <Phone className="mr-2 h-4 w-4" />
-                      {isEn ? 'Contact Us' : '电话咨询'}
+                      {t('productDetail.contactUs')}
                     </a>
                   </Button>
                 </div>
