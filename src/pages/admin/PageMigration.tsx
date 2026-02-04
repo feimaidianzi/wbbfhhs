@@ -5,11 +5,15 @@ import { Badge } from "@/components/ui/badge";
 import { Checkbox } from "@/components/ui/checkbox";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { ArrowLeft, FileCode, CheckCircle, RefreshCw, Zap, Search, Wand2, Wrench } from "lucide-react";
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import { ArrowLeft, FileCode, CheckCircle, RefreshCw, Zap, Search, Wand2, Wrench, Eye, Copy, Loader2 } from "lucide-react";
 import { Link } from "react-router-dom";
 import { toast } from "sonner";
 import { supabase } from "@/integrations/supabase/client";
 import AutoMigrationTool from "@/components/admin/AutoMigrationTool";
+
+// 页面文件内容缓存（硬编码常见未迁移页面内容片段）
+const PAGE_CODE_SAMPLES: Record<string, string> = {};
 
 interface PageInfo {
   path: string;
@@ -143,6 +147,9 @@ const PageMigration = () => {
   const [isScanning, setIsScanning] = useState(false);
   const [scanComplete, setScanComplete] = useState(false);
   const [migratedPages, setMigratedPages] = useState<Set<string>>(new Set());
+  const [viewingPage, setViewingPage] = useState<PageInfo | null>(null);
+  const [pageCode, setPageCode] = useState<string>('');
+  const [isLoadingCode, setIsLoadingCode] = useState(false);
 
   // 从数据库加载已迁移的页面记录
   const loadMigratedPages = async (): Promise<Set<string>> => {
@@ -236,6 +243,70 @@ const PageMigration = () => {
     } else {
       setSelectedPages(new Set(pages.map(p => p.path)));
     }
+  };
+
+  // 查看页面代码
+  const viewPageCode = async (page: PageInfo) => {
+    setViewingPage(page);
+    setIsLoadingCode(true);
+    setPageCode('');
+    
+    // 检查缓存
+    if (PAGE_CODE_SAMPLES[page.path]) {
+      setPageCode(PAGE_CODE_SAMPLES[page.path]);
+      setIsLoadingCode(false);
+      return;
+    }
+    
+    // 使用 fetch 获取文件内容（开发环境下可用）
+    try {
+      const response = await fetch(`/${page.path}`);
+      if (response.ok) {
+        const code = await response.text();
+        PAGE_CODE_SAMPLES[page.path] = code;
+        setPageCode(code);
+      } else {
+        // 提供示例代码
+        setPageCode(`// 无法自动加载 ${page.path} 的内容
+// 请手动复制该文件的代码到本地迁移工具
+
+// 示例：该页面可能包含类似以下的硬编码中文：
+const Example = () => {
+  const { language } = useLanguage();
+  const isEn = language === 'en';
+
+  return (
+    <div>
+      <h1>{isEn ? "Product Title" : "产品标题"}</h1>
+      <p>{isEn ? "Description" : "产品描述"}</p>
+      <span>返回列表</span>
+      <Button>获取报价</Button>
+    </div>
+  );
+};`);
+      }
+    } catch {
+      setPageCode(`// 文件路径: ${page.path}
+// 请在代码编辑器中打开此文件，复制内容到本地迁移工具分析
+
+提示：在 VS Code 中按 Ctrl+P 输入文件名快速打开`);
+    }
+    
+    setIsLoadingCode(false);
+  };
+
+  // 复制代码到剪贴板
+  const copyCodeToClipboard = () => {
+    navigator.clipboard.writeText(pageCode);
+    toast.success('✅ 代码已复制！请切换到「本地迁移工具」标签页粘贴分析');
+  };
+
+  // 复制代码并切换到工具标签
+  const copyAndSwitchToTool = () => {
+    navigator.clipboard.writeText(pageCode);
+    setViewingPage(null);
+    setActiveTab('tool');
+    toast.success('✅ 代码已复制！请在下方粘贴分析');
   };
 
   useEffect(() => {
@@ -375,19 +446,21 @@ const PageMigration = () => {
                   </p>
                 </div>
               ) : (
-                <ScrollArea className="h-[350px]">
+                <ScrollArea className="h-[400px]">
                   <div className="space-y-2">
                     {pages.map((page) => (
                       <div 
                         key={page.path}
-                        className={`flex items-center justify-between p-3 rounded-lg border transition-colors cursor-pointer ${
+                        className={`flex items-center justify-between p-3 rounded-lg border transition-colors ${
                           selectedPages.has(page.path) 
                             ? 'bg-primary/10 border-primary/40' 
                             : 'bg-card hover:bg-muted/50'
                         }`}
-                        onClick={() => togglePage(page.path)}
                       >
-                        <div className="flex items-center gap-3">
+                        <div 
+                          className="flex items-center gap-3 flex-1 cursor-pointer"
+                          onClick={() => togglePage(page.path)}
+                        >
                           <Checkbox
                             checked={selectedPages.has(page.path)}
                             onCheckedChange={() => togglePage(page.path)}
@@ -399,9 +472,23 @@ const PageMigration = () => {
                             </div>
                           </div>
                         </div>
-                        <Badge variant="outline" className="text-orange-600 border-orange-300 bg-orange-50">
-                          待迁移
-                        </Badge>
+                        <div className="flex items-center gap-2">
+                          <Button
+                            variant="outline"
+                            size="sm"
+                            className="h-8 px-3"
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              viewPageCode(page);
+                            }}
+                          >
+                            <Eye className="w-3 h-3 mr-1" />
+                            查看代码
+                          </Button>
+                          <Badge variant="outline" className="text-orange-600 border-orange-300 bg-orange-50">
+                            待迁移
+                          </Badge>
+                        </div>
                       </div>
                     ))}
                   </div>
@@ -540,6 +627,51 @@ const PageMigration = () => {
         </Card>
           </TabsContent>
         </Tabs>
+
+        {/* Code Preview Dialog */}
+        <Dialog open={!!viewingPage} onOpenChange={(open) => !open && setViewingPage(null)}>
+          <DialogContent className="max-w-4xl max-h-[85vh] flex flex-col">
+            <DialogHeader>
+              <DialogTitle className="flex items-center gap-2">
+                <FileCode className="w-5 h-5" />
+                {viewingPage?.name} - 源代码
+              </DialogTitle>
+              <p className="text-sm text-muted-foreground font-mono">{viewingPage?.path}</p>
+            </DialogHeader>
+            
+            <div className="flex gap-2 mb-4">
+              <Button onClick={copyCodeToClipboard} variant="outline" className="flex-1">
+                <Copy className="w-4 h-4 mr-2" />
+                复制代码
+              </Button>
+              <Button onClick={copyAndSwitchToTool} className="flex-1 bg-gradient-to-r from-green-600 to-emerald-600">
+                <Wrench className="w-4 h-4 mr-2" />
+                复制并切换到迁移工具
+              </Button>
+            </div>
+
+            <div className="flex-1 min-h-0 overflow-hidden">
+              {isLoadingCode ? (
+                <div className="flex items-center justify-center h-[300px]">
+                  <Loader2 className="w-8 h-8 animate-spin text-primary" />
+                  <span className="ml-2">加载代码中...</span>
+                </div>
+              ) : (
+                <ScrollArea className="h-[400px] rounded-lg border bg-muted/30">
+                  <pre className="p-4 text-xs font-mono whitespace-pre-wrap break-words">
+                    {pageCode}
+                  </pre>
+                </ScrollArea>
+              )}
+            </div>
+
+            <div className="pt-4 border-t mt-4">
+              <p className="text-sm text-muted-foreground">
+                💡 <strong>提示：</strong>复制代码后，切换到「本地迁移工具」标签页，粘贴代码进行分析，自动生成 t() 迁移代码和翻译键。
+              </p>
+            </div>
+          </DialogContent>
+        </Dialog>
       </div>
     </div>
   );
