@@ -40,6 +40,10 @@ const TranslationManagement = () => {
   const [currentProgress, setCurrentProgress] = useState({ done: 0, total: 0, remaining: 0 });
   const stopAutoRef = useRef(false);
   
+  // 后台自动翻译状态
+  const [isBackgroundEnabled, setIsBackgroundEnabled] = useState(false);
+  const [lastBackgroundRun, setLastBackgroundRun] = useState<string | null>(null);
+  
   // Pending translations state
   const [pendingTranslations, setPendingTranslations] = useState<PendingTranslation | null>(null);
   const [isPendingLoading, setIsPendingLoading] = useState(false);
@@ -177,9 +181,73 @@ const TranslationManagement = () => {
     setIsLoading(false);
   };
 
+  // 加载后台自动翻译状态
+  const loadBackgroundStatus = async () => {
+    try {
+      const { data: enabledData } = await supabase
+        .from('system_settings')
+        .select('value')
+        .eq('key', 'auto_translate_enabled')
+        .maybeSingle();
+      
+      setIsBackgroundEnabled(enabledData?.value === 'true');
+
+      const { data: lastRunData } = await supabase
+        .from('system_settings')
+        .select('value')
+        .eq('key', 'auto_translate_last_run')
+        .maybeSingle();
+      
+      setLastBackgroundRun(lastRunData?.value || null);
+    } catch (error) {
+      console.error('Failed to load background status:', error);
+    }
+  };
+
+  // 切换后台自动翻译
+  const toggleBackgroundTranslate = async () => {
+    const newValue = !isBackgroundEnabled;
+    try {
+      await supabase.from('system_settings').upsert({
+        key: 'auto_translate_enabled',
+        value: newValue ? 'true' : 'false',
+        description: '后台自动翻译开关',
+      }, { onConflict: 'key' });
+
+      setIsBackgroundEnabled(newValue);
+      toast.success(newValue ? '已开启后台自动翻译' : '已关闭后台自动翻译');
+    } catch (error) {
+      console.error('Failed to toggle background translate:', error);
+      toast.error('操作失败');
+    }
+  };
+
+  // 手动触发一次后台翻译
+  const triggerBackgroundTranslate = async () => {
+    try {
+      toast.info('正在触发后台翻译...');
+      const { data, error } = await supabase.functions.invoke('auto-translate-background');
+      
+      if (error) throw error;
+      
+      if (data?.translated > 0) {
+        toast.success(`后台翻译完成：${data.translated} 个key`);
+        await loadTranslationStatuses();
+      } else {
+        toast.info(data?.message || '暂无需要翻译的内容');
+      }
+      
+      await loadBackgroundStatus();
+    } catch (error) {
+      console.error('Background translate error:', error);
+      toast.error('后台翻译失败');
+    }
+  };
+
   useEffect(() => {
     loadTranslationStatuses();
     loadPendingTranslations();
+    loadBackgroundStatus();
   }, []);
 
   // 翻译单个语言的一个批次
@@ -626,6 +694,63 @@ const TranslationManagement = () => {
             </CardContent>
           </Card>
         )}
+
+        {/* Background Auto-Translate Control */}
+        <Card className="mb-6 border-green-200 bg-gradient-to-r from-green-50 to-emerald-50">
+          <CardContent className="pt-6">
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-4">
+                <div className={`w-12 h-12 rounded-xl flex items-center justify-center ${isBackgroundEnabled ? 'bg-green-500/20' : 'bg-gray-200'}`}>
+                  <RefreshCw className={`w-6 h-6 ${isBackgroundEnabled ? 'text-green-600 animate-spin' : 'text-gray-500'}`} style={{ animationDuration: '3s' }} />
+                </div>
+                <div>
+                  <h3 className="font-semibold text-lg flex items-center gap-2">
+                    后台自动翻译
+                    {isBackgroundEnabled && (
+                      <Badge className="bg-green-500">运行中</Badge>
+                    )}
+                  </h3>
+                  <p className="text-sm text-muted-foreground">
+                    {isBackgroundEnabled 
+                      ? '系统将在后台持续自动翻译缺失内容' 
+                      : '开启后系统将自动完成所有翻译任务'}
+                  </p>
+                  {lastBackgroundRun && (
+                    <p className="text-xs text-muted-foreground mt-1">
+                      最后运行: {new Date(lastBackgroundRun).toLocaleString()}
+                    </p>
+                  )}
+                </div>
+              </div>
+              <div className="flex items-center gap-2">
+                <Button 
+                  variant="outline"
+                  onClick={triggerBackgroundTranslate}
+                  disabled={isTranslating}
+                >
+                  <Play className="w-4 h-4 mr-2" />
+                  手动触发
+                </Button>
+                <Button 
+                  onClick={toggleBackgroundTranslate}
+                  className={isBackgroundEnabled ? 'bg-red-500 hover:bg-red-600' : 'bg-green-600 hover:bg-green-700'}
+                >
+                  {isBackgroundEnabled ? (
+                    <>
+                      <Square className="w-4 h-4 mr-2" />
+                      停止
+                    </>
+                  ) : (
+                    <>
+                      <Play className="w-4 h-4 mr-2" />
+                      开启
+                    </>
+                  )}
+                </Button>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
 
         {/* Page Migration Tool Link */}
         <Card className="mb-6 border-blue-200 bg-gradient-to-r from-blue-50 to-indigo-50">
