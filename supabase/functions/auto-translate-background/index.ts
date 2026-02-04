@@ -7,7 +7,8 @@ const corsHeaders = {
 };
 
 const SUPPORTED_LANGUAGES = ['ja', 'ko', 'vi', 'th', 'ms', 'id', 'fr', 'de', 'es', 'ru', 'ar', 'tr'];
-const BATCH_SIZE = 10;
+const BATCH_SIZE = 50;
+const MAX_LANGUAGES_PER_RUN = 3; // Process up to 3 languages per run
 
 serve(async (req) => {
   if (req.method === 'OPTIONS') {
@@ -111,7 +112,15 @@ serve(async (req) => {
 
     // 5. 找到需要翻译的语言（未完成的）
     let translatedCount = 0;
+    let languagesProcessed = 0;
+    
     for (const lang of SUPPORTED_LANGUAGES) {
+      // Limit languages per run to avoid timeout
+      if (languagesProcessed >= MAX_LANGUAGES_PER_RUN) {
+        console.log(`[AutoTranslateBackground] Reached max languages per run (${MAX_LANGUAGES_PER_RUN}), stopping`);
+        break;
+      }
+
       // 获取该语言的现有翻译
       const { data: langData } = await supabase
         .from('system_settings')
@@ -138,9 +147,9 @@ serve(async (req) => {
         continue;
       }
 
-      console.log(`[AutoTranslateBackground] ${lang} has ${missingKeys.length} missing keys, translating...`);
+      console.log(`[AutoTranslateBackground] ${lang} has ${missingKeys.length} missing keys, translating batch of ${Math.min(BATCH_SIZE, missingKeys.length)}...`);
 
-      // 只翻译一个批次（10个），然后继续下一个语言
+      // 翻译一个批次
       const batchKeys = missingKeys.slice(0, BATCH_SIZE);
       const batchContent: Record<string, string> = {};
       batchKeys.forEach(k => { batchContent[k] = mergedContent[k]; });
@@ -159,11 +168,9 @@ serve(async (req) => {
         }, { onConflict: 'key' });
 
         translatedCount += Object.keys(translated).length;
-        console.log(`[AutoTranslateBackground] Translated ${Object.keys(translated).length} keys to ${lang}`);
+        languagesProcessed++;
+        console.log(`[AutoTranslateBackground] Translated ${Object.keys(translated).length} keys to ${lang}, total this run: ${translatedCount}`);
       }
-
-      // 每个语言只处理一个批次，避免超时
-      break;
     }
 
     // 6. 更新最后运行时间
