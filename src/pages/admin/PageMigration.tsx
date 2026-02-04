@@ -375,18 +375,9 @@ const PageMigration = () => {
                             </div>
                           </div>
                         </div>
-                        <Button
-                          variant="ghost"
-                          size="sm"
-                          onClick={(e) => {
-                            e.stopPropagation();
-                            markAsMigrated([page.path]);
-                          }}
-                          className="text-green-600 hover:text-green-700 hover:bg-green-50"
-                        >
-                          <CheckCircle className="w-4 h-4 mr-1" />
-                          已迁移
-                        </Button>
+                        <Badge variant="outline" className="text-orange-600 border-orange-300 bg-orange-50">
+                          待迁移
+                        </Badge>
                       </div>
                     ))}
                   </div>
