@@ -6,21 +6,31 @@ import { ArrowRight, Wifi, Monitor, Zap, Radio } from "lucide-react";
 import { Link } from "react-router-dom";
 import { BackButton } from "@/components/BackButton";
 import { digitalFpvProducts, digitalFpvCategories } from "@/data/digitalFpvProducts";
+import { useLanguage } from "@/contexts/LanguageContext";
+import { MultiLanguageSEO } from "@/components/MultiLanguageSEO";
 
 const DigitalFpv = () => {
+  const { t } = useLanguage();
+
   return (
     <div className="min-h-screen">
+      <MultiLanguageSEO
+        title={t('digitalFpv.seo.title')}
+        description={t('digitalFpv.seo.description')}
+        keywords={t('digitalFpv.seo.keywords')}
+        path="/products/accessories/digital-fpv"
+      />
       <Header />
       <main className="pt-16 md:pt-20">
         {/* Breadcrumb */}
         <div className="bg-secondary py-4">
           <div className="container-custom">
             <div className="flex items-center gap-2 text-sm text-muted-foreground">
-              <Link to="/" className="hover:text-accent">首页</Link>
+              <Link to="/" className="hover:text-accent">{t('nav.home')}</Link>
               <span>/</span>
-              <Link to="/products/accessories" className="hover:text-accent">配件及设备</Link>
+              <Link to="/products/accessories" className="hover:text-accent">{t('nav.products.accessories')}</Link>
               <span>/</span>
-              <span className="text-foreground">数字图传</span>
+              <span className="text-foreground">{t('digitalFpv.title')}</span>
             </div>
           </div>
         </div>
@@ -30,25 +40,25 @@ const DigitalFpv = () => {
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_50%,rgba(255,255,255,0.1),transparent_50%)]" />
           <div className="relative container-custom h-full flex items-center">
             <div className="max-w-2xl">
-              <BackButton to="/products/accessories" label="返回配件及设备" />
+              <BackButton to="/products/accessories" label={t('digitalFpv.backToAccessories')} />
               <h1 className="text-3xl md:text-5xl font-bold text-primary-foreground mb-4">
-                数字图传
+                {t('digitalFpv.title')}
               </h1>
               <p className="text-lg text-primary-foreground/90 mb-6">
-                高清数字视频传输解决方案，低延迟、高画质，为FPV飞行带来沉浸式体验
+                {t('digitalFpv.hero.subtitle')}
               </p>
               <div className="flex flex-wrap gap-4">
                 <div className="flex items-center gap-2 bg-white/10 backdrop-blur px-4 py-2 rounded-full">
                   <Wifi className="w-5 h-5 text-accent" />
-                  <span className="text-primary-foreground text-sm">WiFi传输</span>
+                  <span className="text-primary-foreground text-sm">{t('digitalFpv.feature.wifi')}</span>
                 </div>
                 <div className="flex items-center gap-2 bg-white/10 backdrop-blur px-4 py-2 rounded-full">
                   <Monitor className="w-5 h-5 text-accent" />
-                  <span className="text-primary-foreground text-sm">1080P高清</span>
+                  <span className="text-primary-foreground text-sm">{t('digitalFpv.feature.hd')}</span>
                 </div>
                 <div className="flex items-center gap-2 bg-white/10 backdrop-blur px-4 py-2 rounded-full">
                   <Zap className="w-5 h-5 text-accent" />
-                  <span className="text-primary-foreground text-sm">低延迟</span>
+                  <span className="text-primary-foreground text-sm">{t('digitalFpv.feature.lowLatency')}</span>
                 </div>
               </div>
             </div>
@@ -107,7 +117,7 @@ const DigitalFpv = () => {
                         </div>
                         
                         <div className="flex items-center text-accent text-sm font-medium group-hover:gap-3 gap-1 transition-all">
-                          <span>查看详情</span>
+                          <span>{t('common.viewDetails')}</span>
                           <ArrowRight className="w-4 h-4" />
                         </div>
                       </div>
@@ -123,21 +133,21 @@ const DigitalFpv = () => {
         <section className="py-16 bg-primary">
           <div className="container-custom text-center">
             <h2 className="text-2xl md:text-3xl font-bold text-primary-foreground mb-4">
-              需要技术支持？
+              {t('digitalFpv.cta.title')}
             </h2>
             <p className="text-primary-foreground/80 mb-8 max-w-2xl mx-auto">
-              联系我们的专业技术团队，获取数字图传选型建议和技术支持
+              {t('digitalFpv.cta.subtitle')}
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link to="/contact">
                 <Button className="bg-accent hover:bg-accent/90 text-accent-foreground px-8 py-6 text-lg">
-                  联系我们
+                  {t('common.contactUs')}
                   <ArrowRight className="w-5 h-5 ml-2" />
                 </Button>
               </Link>
               <Link to="/products/accessories">
                 <Button className="bg-primary-foreground/20 border border-primary-foreground/50 text-primary-foreground hover:bg-primary-foreground/30 px-8 py-6 text-lg">
-                  查看其他配件
+                  {t('digitalFpv.viewOtherAccessories')}
                 </Button>
               </Link>
             </div>

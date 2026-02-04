@@ -6,10 +6,12 @@ import { ArrowRight, CheckCircle, Download, Phone, Mail, Wifi, Zap, Monitor, Har
 import { Link, useParams, Navigate } from "react-router-dom";
 import { BackButton } from "@/components/BackButton";
 import { digitalFpvProducts } from "@/data/digitalFpvProducts";
-import { SEO } from "@/components/SEO";
+import { MultiLanguageSEO } from "@/components/MultiLanguageSEO";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 const DigitalFpvDetail = () => {
   const { productId } = useParams<{ productId: string }>();
+  const { t } = useLanguage();
   const product = digitalFpvProducts.find(p => p.id === productId);
 
   if (!product) {
@@ -25,10 +27,11 @@ const DigitalFpvDetail = () => {
 
   return (
     <div className="min-h-screen">
-      <SEO 
-        title={`${product.name} - 数字图传`}
+      <MultiLanguageSEO 
+        title={`${product.name} - ${t('digitalFpv.title')}`}
         description={product.description}
-        keywords={`数字图传,${product.name},FPV,高清视频传输`}
+        keywords={`${t('digitalFpv.title')},${product.name},FPV,${t('digitalFpv.seo.keywords')}`}
+        path={`/products/accessories/digital-fpv/${productId}`}
       />
       <Header />
       <main className="pt-16 md:pt-20">
@@ -36,11 +39,11 @@ const DigitalFpvDetail = () => {
         <div className="bg-secondary py-4">
           <div className="container-custom">
             <div className="flex items-center gap-2 text-sm text-muted-foreground">
-              <Link to="/" className="hover:text-accent">首页</Link>
+              <Link to="/" className="hover:text-accent">{t('nav.home')}</Link>
               <span>/</span>
-              <Link to="/products/accessories" className="hover:text-accent">配件及设备</Link>
+              <Link to="/products/accessories" className="hover:text-accent">{t('nav.products.accessories')}</Link>
               <span>/</span>
-              <Link to="/products/accessories/digital-fpv" className="hover:text-accent">数字图传</Link>
+              <Link to="/products/accessories/digital-fpv" className="hover:text-accent">{t('digitalFpv.title')}</Link>
               <span>/</span>
               <span className="text-foreground">{product.name}</span>
             </div>
@@ -50,7 +53,7 @@ const DigitalFpvDetail = () => {
         {/* Hero Section */}
         <section className="py-16 bg-gradient-to-br from-primary via-primary/95 to-accent/20">
           <div className="container-custom">
-            <BackButton to="/products/accessories/digital-fpv" label="返回数字图传" />
+            <BackButton to="/products/accessories/digital-fpv" label={t('digitalFpv.backToDigitalFpv')} />
             <div className="grid md:grid-cols-2 gap-12 items-center">
               <div>
                 <div className="text-accent font-medium mb-2">{product.slogan}</div>
@@ -77,13 +80,13 @@ const DigitalFpvDetail = () => {
                 <div className="flex flex-wrap gap-4 mt-6">
                   <Link to="/contact">
                     <Button className="bg-accent hover:bg-accent/90 text-accent-foreground px-6">
-                      立即咨询
+                      {t('common.inquireNow')}
                       <ArrowRight className="w-4 h-4 ml-2" />
                     </Button>
                   </Link>
                   <Button variant="outline" className="border-white/50 text-white hover:bg-white/10">
                     <Download className="w-4 h-4 mr-2" />
-                    下载手册
+                    {t('common.downloadManual')}
                   </Button>
                 </div>
               </div>
@@ -105,7 +108,7 @@ const DigitalFpvDetail = () => {
         <section className="py-16 bg-background">
           <div className="container-custom">
             <div className="text-center mb-12">
-              <h2 className="text-2xl md:text-3xl font-bold mb-4">产品特点</h2>
+              <h2 className="text-2xl md:text-3xl font-bold mb-4">{t('common.productFeatures')}</h2>
               <div className="w-20 h-1 bg-accent mx-auto rounded-full" />
             </div>
             
@@ -130,7 +133,7 @@ const DigitalFpvDetail = () => {
         <section className="py-16 bg-secondary">
           <div className="container-custom">
             <div className="text-center mb-12">
-              <h2 className="text-2xl md:text-3xl font-bold mb-4">技术规格</h2>
+              <h2 className="text-2xl md:text-3xl font-bold mb-4">{t('common.techSpecs')}</h2>
               <div className="w-20 h-1 bg-accent mx-auto rounded-full" />
             </div>
             
@@ -164,15 +167,15 @@ const DigitalFpvDetail = () => {
             <div className="grid md:grid-cols-2 gap-12 items-center">
               <div>
                 <h2 className="text-2xl md:text-3xl font-bold text-primary-foreground mb-4">
-                  需要更多信息？
+                  {t('common.needMoreInfo')}
                 </h2>
                 <p className="text-primary-foreground/80 mb-6">
-                  联系我们的专业技术团队，获取产品详细信息和技术支持
+                  {t('digitalFpv.cta.subtitle')}
                 </p>
                 <div className="flex flex-wrap gap-4">
                   <Link to="/contact">
                     <Button className="bg-accent hover:bg-accent/90 text-accent-foreground px-6">
-                      立即咨询
+                      {t('common.inquireNow')}
                       <ArrowRight className="w-4 h-4 ml-2" />
                     </Button>
                   </Link>
@@ -185,7 +188,7 @@ const DigitalFpvDetail = () => {
                     <Phone className="w-6 h-6 text-accent" />
                   </div>
                   <div>
-                    <div className="text-primary-foreground/60 text-sm">服务热线</div>
+                    <div className="text-primary-foreground/60 text-sm">{t('contact.phone')}</div>
                     <div className="text-primary-foreground font-bold">17674048404</div>
                   </div>
                 </div>
@@ -194,7 +197,7 @@ const DigitalFpvDetail = () => {
                     <Mail className="w-6 h-6 text-accent" />
                   </div>
                   <div>
-                    <div className="text-primary-foreground/60 text-sm">电子邮箱</div>
+                    <div className="text-primary-foreground/60 text-sm">{t('contact.email')}</div>
                     <div className="text-primary-foreground font-bold">support@example.com</div>
                   </div>
                 </div>
