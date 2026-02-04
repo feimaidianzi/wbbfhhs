@@ -9,46 +9,47 @@ import { otherAccessoriesProducts } from "@/data/otherAccessoriesProducts";
 import { useLanguage } from "@/contexts/LanguageContext";
 
 const iconMap: Record<string, React.ComponentType<{ className?: string }>> = {
-  "IPS高清屏": Monitor,
-  "40频道接收": Satellite,
-  "内置DVR录像": Tv,
-  "内置电池": Zap,
-  "便携设计": Shield,
-  "即插即用": Check,
-  "双接收分集": Satellite,
-  "沉浸式体验": Tv,
-  "40频道覆盖": Satellite,
-  "内置DVR": Tv,
-  "长续航电池": Zap,
-  "舒适佩戴": Shield,
-  "入门首选": Check,
-  "DVR录像": Tv,
-  "遮光罩": Shield,
-  "7寸大屏": Monitor,
-  "高亮度": Monitor,
-  "宽电压输入": Zap,
-  "专业应用": Shield,
-  "M10高性能芯片": Satellite,
-  "快速搜星": Navigation,
-  "高定位精度": Navigation,
-  "120mm标准孔距": Settings,
-  "低功耗": Zap,
-  "180mm孔距": Settings,
-  "快速定位": Navigation,
-  "轻量化": Shield,
-  "简单安装": Check,
-  "250mm孔距": Settings,
-  "稳定可靠": Shield,
-  "轻量设计": Shield,
-  "GPS+罗盘二合一": Satellite,
-  "5883高精度罗盘": Navigation,
-  "M10 GPS芯片": Satellite,
-  "一体化设计": Settings,
-  "双接口": Settings,
-  "二合一设计": Settings,
-  "5883电子罗盘": Navigation,
-  "M10定位芯片": Satellite,
-  "抗干扰设计": Shield,
+  "otherAcc.feature.ipsHD.title": Monitor,
+  "otherAcc.feature.40chRx.title": Satellite,
+  "otherAcc.feature.builtInDVR.title": Tv,
+  "otherAcc.feature.builtInBattery.title": Zap,
+  "otherAcc.feature.portable.title": Shield,
+  "otherAcc.feature.plugAndPlay.title": Check,
+  "otherAcc.feature.dualDiversity.title": Satellite,
+  "otherAcc.feature.immersive.title": Tv,
+  "otherAcc.feature.40chCoverage.title": Satellite,
+  "otherAcc.feature.longBattery.title": Zap,
+  "otherAcc.feature.comfortWear.title": Shield,
+  "otherAcc.feature.entryLevel.title": Check,
+  "otherAcc.feature.dvrRecord.title": Tv,
+  "otherAcc.feature.sunHood.title": Shield,
+  "otherAcc.feature.7inchBig.title": Monitor,
+  "otherAcc.feature.highBrightness.title": Monitor,
+  "otherAcc.feature.wideVoltage.title": Zap,
+  "otherAcc.feature.professional.title": Shield,
+  "otherAcc.feature.m10HighPerf.title": Satellite,
+  "otherAcc.feature.fastLock.title": Navigation,
+  "otherAcc.feature.highAccuracy.title": Navigation,
+  "otherAcc.feature.120mmStandard.title": Settings,
+  "otherAcc.feature.lowPower.title": Zap,
+  "otherAcc.feature.180mmSpacing.title": Settings,
+  "otherAcc.feature.fastPosition.title": Navigation,
+  "otherAcc.feature.lightweight.title": Shield,
+  "otherAcc.feature.easyInstall.title": Check,
+  "otherAcc.feature.250mmSpacing.title": Settings,
+  "otherAcc.feature.stableReliable.title": Shield,
+  "otherAcc.feature.gpsCompass2in1.title": Satellite,
+  "otherAcc.feature.5883Compass.title": Navigation,
+  "otherAcc.feature.m10GpsChip.title": Satellite,
+  "otherAcc.feature.integrated.title": Settings,
+  "otherAcc.feature.dualInterface.title": Settings,
+  "otherAcc.feature.2in1Design.title": Settings,
+  "otherAcc.feature.5883ECompass.title": Navigation,
+  "otherAcc.feature.m10Positioning.title": Satellite,
+  "otherAcc.feature.antiInterference.title": Shield,
+  "otherAcc.feature.compactDesign.title": Shield,
+  "otherAcc.feature.120mmSpacing.title": Settings,
+  "otherAcc.feature.highPrecision.title": Navigation,
 };
 
 const OtherAccessoriesDetail = () => {
@@ -60,12 +61,15 @@ const OtherAccessoriesDetail = () => {
     return <Navigate to="/products/accessories/others" replace />;
   }
 
+  const productName = t(product.nameKey);
+  const productDesc = t(product.descriptionKey);
+
   return (
     <div className="min-h-screen">
       <SEO 
-        title={`${product.name} - ${t('accessory.others')}`}
-        description={product.description}
-        keywords={`${product.name},${product.keyFeatures.join(',')}`}
+        title={`${productName} - ${t('accessory.others')}`}
+        description={productDesc}
+        keywords={`${productName},${product.keyFeatureKeys.map(k => t(k)).join(',')}`}
       />
       <Header />
       <main className="pt-16 md:pt-20">
@@ -79,7 +83,7 @@ const OtherAccessoriesDetail = () => {
               <span>/</span>
               <Link to="/products/accessories/others" className="hover:text-accent">{t('accessory.others')}</Link>
               <span>/</span>
-              <span className="text-foreground">{product.name}</span>
+              <span className="text-foreground">{productName}</span>
             </div>
           </div>
         </div>
@@ -94,7 +98,7 @@ const OtherAccessoriesDetail = () => {
                 <div className="relative bg-white/5 backdrop-blur-sm rounded-3xl p-8 border border-white/10">
                   <img
                     src={product.image}
-                    alt={product.name}
+                    alt={productName}
                     className="w-full h-auto max-h-[400px] object-contain mx-auto"
                   />
                 </div>
@@ -104,20 +108,20 @@ const OtherAccessoriesDetail = () => {
               <div className="order-1 lg:order-2">
                 <div className="inline-flex items-center gap-2 bg-accent/20 text-accent px-4 py-2 rounded-full text-sm font-medium mb-4">
                   {product.category === "monitor" ? <Tv className="w-4 h-4" /> : <Satellite className="w-4 h-4" />}
-                  {product.slogan}
+                  {t(product.sloganKey)}
                 </div>
                 <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-primary-foreground mb-4">
-                  {product.name}
+                  {productName}
                 </h1>
                 <p className="text-lg text-primary-foreground/80 mb-6">
-                  {product.description}
+                  {productDesc}
                 </p>
                 
                 {/* Key Features */}
                 <div className="flex flex-wrap gap-3 mb-8">
-                  {product.keyFeatures.map((feature, i) => (
+                  {product.keyFeatureKeys.map((featureKey, i) => (
                     <span key={i} className="bg-white/10 backdrop-blur text-primary-foreground px-4 py-2 rounded-full text-sm">
-                      {feature}
+                      {t(featureKey)}
                     </span>
                   ))}
                 </div>
@@ -151,7 +155,7 @@ const OtherAccessoriesDetail = () => {
             <h2 className="text-2xl md:text-3xl font-bold text-center mb-12">{t('accessoryDetail.productFeatures')}</h2>
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
               {product.features.map((feature, index) => {
-                const IconComponent = iconMap[feature.title] || Check;
+                const IconComponent = iconMap[feature.titleKey] || Check;
                 return (
                   <div 
                     key={index}
@@ -160,8 +164,8 @@ const OtherAccessoriesDetail = () => {
                     <div className="w-12 h-12 bg-accent/10 rounded-xl flex items-center justify-center mb-4">
                       <IconComponent className="w-6 h-6 text-accent" />
                     </div>
-                    <h3 className="text-lg font-bold text-card-foreground mb-2">{feature.title}</h3>
-                    <p className="text-muted-foreground text-sm">{feature.description}</p>
+                    <h3 className="text-lg font-bold text-card-foreground mb-2">{t(feature.titleKey)}</h3>
+                    <p className="text-muted-foreground text-sm">{t(feature.descriptionKey)}</p>
                   </div>
                 );
               })}
@@ -178,12 +182,12 @@ const OtherAccessoriesDetail = () => {
                 {product.specs.map((specGroup, groupIndex) => (
                   <div key={groupIndex} className="border-b border-border last:border-b-0">
                     <div className="bg-primary/5 px-6 py-4">
-                      <h3 className="font-bold text-foreground">{specGroup.category}</h3>
+                      <h3 className="font-bold text-foreground">{t(specGroup.categoryKey)}</h3>
                     </div>
                     <div className="divide-y divide-border">
                       {specGroup.items.map((item, itemIndex) => (
                         <div key={itemIndex} className="flex justify-between px-6 py-3">
-                          <span className="text-muted-foreground">{item.label}</span>
+                          <span className="text-muted-foreground">{t(item.labelKey)}</span>
                           <span className="font-medium text-foreground">{item.value}</span>
                         </div>
                       ))}

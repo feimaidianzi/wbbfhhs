@@ -15,8 +15,7 @@ const categoryIcons: Record<string, React.ComponentType<{ className?: string }>>
 };
 
 const OtherAccessories = () => {
-  const { t, language } = useLanguage();
-  const isEn = language === 'en';
+  const { t } = useLanguage();
 
   return (
     <div className="min-h-screen">
@@ -84,8 +83,8 @@ const OtherAccessories = () => {
                 <div className="flex items-center gap-4 mb-8">
                   <IconComponent className="w-8 h-8 text-accent" />
                   <div>
-                    <h2 className="text-2xl md:text-3xl font-bold">{category.name}</h2>
-                    <p className="text-muted-foreground">{category.description}</p>
+                    <h2 className="text-2xl md:text-3xl font-bold">{t(category.nameKey)}</h2>
+                    <p className="text-muted-foreground">{t(category.descriptionKey)}</p>
                   </div>
                 </div>
                 
@@ -99,7 +98,7 @@ const OtherAccessories = () => {
                       <div className="aspect-square overflow-hidden bg-gradient-to-br from-secondary to-secondary/50 relative p-4">
                         <img
                           src={product.image}
-                          alt={product.name}
+                          alt={t(product.nameKey)}
                           className="w-full h-full object-contain group-hover:scale-105 transition-transform duration-500"
                         />
                         <div className="absolute top-4 right-4">
@@ -109,17 +108,17 @@ const OtherAccessories = () => {
                         </div>
                       </div>
                       <div className="p-5">
-                        <div className="text-accent text-sm font-medium mb-1">{product.slogan}</div>
+                        <div className="text-accent text-sm font-medium mb-1">{t(product.sloganKey)}</div>
                         <h3 className="text-lg font-bold text-card-foreground mb-2 group-hover:text-accent transition-colors line-clamp-2">
-                          {product.name}
+                          {t(product.nameKey)}
                         </h3>
-                        <p className="text-muted-foreground text-sm mb-3 line-clamp-1">{product.subSlogan}</p>
+                        <p className="text-muted-foreground text-sm mb-3 line-clamp-1">{t(product.subSloganKey)}</p>
                         
                         {/* Key Features */}
                         <div className="flex flex-wrap gap-1.5 mb-4">
-                          {product.keyFeatures.slice(0, 3).map((feature, i) => (
+                          {product.keyFeatureKeys.slice(0, 3).map((featureKey, i) => (
                             <span key={i} className="text-xs bg-secondary text-foreground px-2 py-0.5 rounded">
-                              {feature}
+                              {t(featureKey)}
                             </span>
                           ))}
                         </div>

@@ -9,46 +9,44 @@ import { elrsProducts } from "@/data/elrsProducts";
 import { useLanguage } from "@/contexts/LanguageContext";
 
 const iconMap: Record<string, React.ComponentType<{ className?: string }>> = {
-  "双天线分集接收": Radio,
-  "超远控制距离": Signal,
-  "超低延迟": Zap,
-  "固件可升级": Settings,
-  "轻量化设计": Shield,
-  "多速率支持": Wifi,
-  "成熟稳定": Shield,
-  "超远距离": Signal,
-  "轻巧便携": Shield,
-  "简单可靠": Check,
-  "开源固件": Settings,
-  "超轻量设计": Shield,
-  "陶瓷天线": Radio,
-  "高刷新率": Zap,
-  "入门友好": Check,
-  "适合室内": Shield,
-  "多功率可选": Settings,
-  "LNA信号增强": Signal,
-  "更高灵敏度": Signal,
-  "更好抗干扰": Shield,
-  "适合远距离": Signal,
-  "稳定可靠": Shield,
-  "Moxon定向设计": Radio,
-  "高增益": Signal,
-  "遥控器专用": Radio,
-  "优质做工": Shield,
-  "即插即用": Check,
-  "远航必备": Signal,
-  "T型设计": Radio,
-  "超轻量": Shield,
-  "IPEX接口": Settings,
-  "稳定信号": Signal,
-  "耐用设计": Shield,
-  "性价比高": Check,
-  "远距离优化": Signal,
-  "轻量化": Shield,
-  "柔性材质": Shield,
-  "简单安装": Check,
-  "稳定接收": Signal,
-  "耐用可靠": Shield,
+  "elrs.feature.dualAntenna.title": Radio,
+  "elrs.feature.ultraRange.title": Signal,
+  "elrs.feature.ultraLowLatency.title": Zap,
+  "elrs.feature.firmwareUpgrade.title": Settings,
+  "elrs.feature.lightweight.title": Shield,
+  "elrs.feature.multiRate.title": Wifi,
+  "elrs.feature.matureStable.title": Shield,
+  "elrs.feature.compact.title": Shield,
+  "elrs.feature.simple.title": Check,
+  "elrs.feature.openSource.title": Settings,
+  "elrs.feature.ultraLight.title": Shield,
+  "elrs.feature.ceramicAntenna.title": Radio,
+  "elrs.feature.highRefresh.title": Zap,
+  "elrs.feature.beginner.title": Check,
+  "elrs.feature.indoor.title": Shield,
+  "elrs.feature.multiPower.title": Settings,
+  "elrs.feature.lnaBoost.title": Signal,
+  "elrs.feature.highSensitivity.title": Signal,
+  "elrs.feature.antiInterference.title": Shield,
+  "elrs.feature.longRange24g.title": Signal,
+  "elrs.feature.stableReliable.title": Shield,
+  "elrs.feature.moxonDirectional.title": Radio,
+  "elrs.feature.highGain.title": Signal,
+  "elrs.feature.rcDedicated.title": Radio,
+  "elrs.feature.qualityCraft.title": Shield,
+  "elrs.feature.plugPlay.title": Check,
+  "elrs.feature.longRangeEssential.title": Signal,
+  "elrs.feature.tDesign.title": Radio,
+  "elrs.feature.superLight.title": Shield,
+  "elrs.feature.ipexPort.title": Settings,
+  "elrs.feature.stableSignal.title": Signal,
+  "elrs.feature.durableDesign.title": Shield,
+  "elrs.feature.costEffective.title": Check,
+  "elrs.feature.longRangeOptimized.title": Signal,
+  "elrs.feature.flexMaterial.title": Shield,
+  "elrs.feature.easyInstall.title": Check,
+  "elrs.feature.stableRx.title": Signal,
+  "elrs.feature.durableReliable.title": Shield,
 };
 
 const ElrsDetail = () => {
@@ -60,12 +58,15 @@ const ElrsDetail = () => {
     return <Navigate to="/products/accessories/elrs" replace />;
   }
 
+  const productName = t(product.nameKey);
+  const productDesc = t(product.descriptionKey);
+
   return (
     <div className="min-h-screen">
       <SEO 
-        title={`${product.name} - ${t('elrsDetail.seoTitle')}`}
-        description={product.description}
-        keywords={`${product.name},ELRS,ExpressLRS,${product.keyFeatures.join(',')}`}
+        title={`${productName} - ${t('elrsDetail.seoTitle')}`}
+        description={productDesc}
+        keywords={`${productName},ELRS,ExpressLRS,${product.keyFeatureKeys.map(k => t(k)).join(',')}`}
       />
       <Header />
       <main className="pt-16 md:pt-20">
@@ -79,7 +80,7 @@ const ElrsDetail = () => {
               <span>/</span>
               <Link to="/products/accessories/elrs" className="hover:text-accent">ELRS</Link>
               <span>/</span>
-              <span className="text-foreground">{product.name}</span>
+              <span className="text-foreground">{productName}</span>
             </div>
           </div>
         </div>
@@ -94,7 +95,7 @@ const ElrsDetail = () => {
                 <div className="relative bg-white/5 backdrop-blur-sm rounded-3xl p-8 border border-white/10">
                   <img
                     src={product.image}
-                    alt={product.name}
+                    alt={productName}
                     className="w-full h-auto max-h-[400px] object-contain mx-auto"
                   />
                 </div>
@@ -104,20 +105,20 @@ const ElrsDetail = () => {
               <div className="order-1 lg:order-2">
                 <div className="inline-flex items-center gap-2 bg-accent/20 text-accent px-4 py-2 rounded-full text-sm font-medium mb-4">
                   <Radio className="w-4 h-4" />
-                  {product.slogan}
+                  {t(product.sloganKey)}
                 </div>
                 <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-primary-foreground mb-4">
-                  {product.name}
+                  {productName}
                 </h1>
                 <p className="text-lg text-primary-foreground/80 mb-6">
-                  {product.description}
+                  {productDesc}
                 </p>
                 
                 {/* Key Features */}
                 <div className="flex flex-wrap gap-3 mb-8">
-                  {product.keyFeatures.map((feature, i) => (
+                  {product.keyFeatureKeys.map((featureKey, i) => (
                     <span key={i} className="bg-white/10 backdrop-blur text-primary-foreground px-4 py-2 rounded-full text-sm">
-                      {feature}
+                      {t(featureKey)}
                     </span>
                   ))}
                 </div>
@@ -151,7 +152,7 @@ const ElrsDetail = () => {
             <h2 className="text-2xl md:text-3xl font-bold text-center mb-12">{t('accessoryDetail.productFeatures')}</h2>
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
               {product.features.map((feature, index) => {
-                const IconComponent = iconMap[feature.title] || Check;
+                const IconComponent = iconMap[feature.titleKey] || Check;
                 return (
                   <div 
                     key={index}
@@ -160,8 +161,8 @@ const ElrsDetail = () => {
                     <div className="w-12 h-12 bg-accent/10 rounded-xl flex items-center justify-center mb-4">
                       <IconComponent className="w-6 h-6 text-accent" />
                     </div>
-                    <h3 className="text-lg font-bold text-card-foreground mb-2">{feature.title}</h3>
-                    <p className="text-muted-foreground text-sm">{feature.description}</p>
+                    <h3 className="text-lg font-bold text-card-foreground mb-2">{t(feature.titleKey)}</h3>
+                    <p className="text-muted-foreground text-sm">{t(feature.descriptionKey)}</p>
                   </div>
                 );
               })}
@@ -178,12 +179,12 @@ const ElrsDetail = () => {
                 {product.specs.map((specGroup, groupIndex) => (
                   <div key={groupIndex} className="border-b border-border last:border-b-0">
                     <div className="bg-primary/5 px-6 py-4">
-                      <h3 className="font-bold text-foreground">{specGroup.category}</h3>
+                      <h3 className="font-bold text-foreground">{t(specGroup.categoryKey)}</h3>
                     </div>
                     <div className="divide-y divide-border">
                       {specGroup.items.map((item, itemIndex) => (
                         <div key={itemIndex} className="flex justify-between px-6 py-3">
-                          <span className="text-muted-foreground">{item.label}</span>
+                          <span className="text-muted-foreground">{t(item.labelKey)}</span>
                           <span className="font-medium text-foreground">{item.value}</span>
                         </div>
                       ))}
