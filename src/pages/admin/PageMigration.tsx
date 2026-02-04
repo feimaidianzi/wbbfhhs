@@ -4,10 +4,12 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Badge } from "@/components/ui/badge";
 import { Checkbox } from "@/components/ui/checkbox";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { ArrowLeft, FileCode, CheckCircle, RefreshCw, Zap, Search, Wand2 } from "lucide-react";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { ArrowLeft, FileCode, CheckCircle, RefreshCw, Zap, Search, Wand2, Wrench } from "lucide-react";
 import { Link } from "react-router-dom";
 import { toast } from "sonner";
 import { supabase } from "@/integrations/supabase/client";
+import AutoMigrationTool from "@/components/admin/AutoMigrationTool";
 
 interface PageInfo {
   path: string;
@@ -243,6 +245,8 @@ const PageMigration = () => {
   const pendingCount = pages.filter(p => p.status === 'pending').length;
   const selectedList = pages.filter(p => selectedPages.has(p.path));
 
+  const [activeTab, setActiveTab] = useState<'list' | 'tool'>('list');
+
   return (
     <div className="min-h-screen bg-background p-6">
       <div className="max-w-6xl mx-auto space-y-6">
@@ -260,6 +264,26 @@ const PageMigration = () => {
             </p>
           </div>
         </div>
+
+        {/* Mode Tabs */}
+        <Tabs value={activeTab} onValueChange={(v) => setActiveTab(v as 'list' | 'tool')}>
+          <TabsList className="grid w-full grid-cols-2">
+            <TabsTrigger value="list" className="flex items-center gap-2">
+              <FileCode className="w-4 h-4" />
+              页面列表模式
+            </TabsTrigger>
+            <TabsTrigger value="tool" className="flex items-center gap-2">
+              <Wrench className="w-4 h-4" />
+              本地迁移工具
+              <Badge variant="secondary" className="text-[10px]">无AI</Badge>
+            </TabsTrigger>
+          </TabsList>
+
+          <TabsContent value="tool" className="mt-4">
+            <AutoMigrationTool selectedPages={Array.from(selectedPages)} />
+          </TabsContent>
+
+          <TabsContent value="list" className="mt-4 space-y-6">
 
         {/* Stats */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
@@ -514,6 +538,8 @@ const PageMigration = () => {
             </div>
           </CardContent>
         </Card>
+          </TabsContent>
+        </Tabs>
       </div>
     </div>
   );
