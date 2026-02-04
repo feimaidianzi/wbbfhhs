@@ -11,8 +11,7 @@ const WhatsAppIcon = ({ className }: { className?: string }) => (
 );
 
 export const FloatingContact = () => {
-  const { language } = useLanguage();
-  const isEn = language === 'en';
+  const { t } = useLanguage();
   const [showBanner, setShowBanner] = useState(false);
 
   // Only show banner on first visit (session-based)
@@ -37,14 +36,14 @@ export const FloatingContact = () => {
         <Link
           to="/"
           className="w-9 h-9 bg-accent/90 rounded-full shadow-md flex items-center justify-center text-accent-foreground hover:bg-accent transition-colors"
-          title={isEn ? "Home" : "返回首页"}
+          title={t('floating.home')}
         >
           <Home className="w-4 h-4" />
         </Link>
         <a
           href="mailto:market@caniuav.com"
           className="w-9 h-9 bg-primary/90 rounded-full shadow-md flex items-center justify-center text-primary-foreground hover:bg-primary transition-colors"
-          title={isEn ? "Email Us" : "邮件咨询"}
+          title={t('floating.email')}
         >
           <Mail className="w-4 h-4" />
         </a>
@@ -67,7 +66,7 @@ export const FloatingContact = () => {
         className="fixed left-4 bottom-4 z-40 md:hidden flex items-center gap-2 bg-green-500 text-white px-4 py-3 rounded-full shadow-lg animate-pulse"
       >
         <WhatsAppIcon className="w-5 h-5" />
-        <span className="text-sm font-medium">{isEn ? "Chat on WhatsApp" : "WhatsApp咨询"}</span>
+        <span className="text-sm font-medium">{t('floating.whatsapp')}</span>
       </a>
 
       {/* Coming Soon banner - right side, auto-dismiss */}
@@ -78,7 +77,7 @@ export const FloatingContact = () => {
             <button
               onClick={() => setShowBanner(false)}
               className="absolute top-2 right-2 z-20 w-6 h-6 rounded-full bg-primary-foreground/10 hover:bg-primary-foreground/20 flex items-center justify-center transition-colors"
-              title={isEn ? "Close" : "关闭"}
+              title={t('floating.close')}
             >
               <X className="w-4 h-4 text-primary-foreground" />
             </button>
@@ -91,22 +90,20 @@ export const FloatingContact = () => {
                 <span className="text-2xl animate-[pulse_2s_ease-in-out_infinite]">🚀</span>
                 <div>
                   <div className="flex items-center gap-2 mb-1">
-                    <span className="font-semibold text-accent">{isEn ? "Coming Soon" : "即将上市"}</span>
+                    <span className="font-semibold text-accent">{t('floating.comingSoon')}</span>
                     <span className="text-xs bg-accent/20 text-accent px-2 py-0.5 rounded-full">NEW</span>
                   </div>
-                  <h4 className="font-bold text-primary-foreground">{isEn ? "Drone AI Guidance Module" : "无人机AI制导模块"}</h4>
+                  <h4 className="font-bold text-primary-foreground">{t('floating.aiModule')}</h4>
                 </div>
               </div>
               <p className="text-sm opacity-90 mb-3">
-                {isEn 
-                  ? "Smart target recognition, autonomous path planning, precision guidance control"
-                  : "智能目标识别、自主航迹规划、精准制导控制"}
+                {t('floating.aiModuleDesc')}
               </p>
               <Link
                 to="/products"
                 className="inline-block bg-accent hover:bg-accent/90 text-accent-foreground px-4 py-2 rounded-lg font-medium text-sm transition-colors"
               >
-                {isEn ? "Learn More" : "了解更多"}
+                {t('floating.learnMore')}
               </Link>
             </div>
           </div>
