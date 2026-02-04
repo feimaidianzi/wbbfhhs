@@ -33,7 +33,7 @@ const FcEscDetail = () => {
         <BackButton to="/products/accessories/fc-esc" />
 
         {/* Hero Section */}
-        <section className="py-12 bg-gradient-to-br from-primary/5 via-background to-background">
+        <section className="pt-24 pb-16 bg-gradient-to-br from-primary/5 via-background to-background">
           <div className="container mx-auto px-4">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
               {/* Product Images */}
@@ -89,7 +89,7 @@ const FcEscDetail = () => {
         </section>
 
         {/* Product Description */}
-        <section className="py-16">
+        <section className="py-20">
           <div className="container mx-auto px-4">
             <h2 className="text-2xl font-bold mb-8">{t('accessoryDetail.productFeatures')}</h2>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -104,7 +104,7 @@ const FcEscDetail = () => {
         </section>
 
         {/* Technical Specifications */}
-        <section id="specs" className="py-16 bg-muted/30">
+        <section id="specs" className="py-20 bg-muted/30">
           <div className="container mx-auto px-4">
             <h2 className="text-2xl font-bold mb-8">{t('accessoryDetail.techSpecs')}</h2>
             
@@ -234,7 +234,7 @@ const FcEscDetail = () => {
 
         {/* Features */}
         {product.features && product.features.length > 0 && (
-          <section className="py-16">
+          <section className="py-20">
             <div className="container mx-auto px-4">
               <h2 className="text-2xl font-bold mb-8">{t('accessoryDetail.featureHighlights')}</h2>
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -251,7 +251,7 @@ const FcEscDetail = () => {
 
         {/* Package Includes */}
         {product.packageIncludes && product.packageIncludes.length > 0 && (
-          <section className="py-16 bg-muted/30">
+          <section className="py-20 bg-muted/30">
             <div className="container mx-auto px-4">
               <h2 className="text-2xl font-bold mb-8 flex items-center gap-2">
                 <Package className="w-6 h-6 text-primary" />
@@ -273,7 +273,7 @@ const FcEscDetail = () => {
 
         {/* Notes */}
         {product.notes && product.notes.length > 0 && (
-          <section className="py-16">
+          <section className="py-20">
             <div className="container mx-auto px-4">
               <h2 className="text-2xl font-bold mb-8">{t('accessoryDetail.notes')}</h2>
               <div className="space-y-4">
@@ -289,7 +289,7 @@ const FcEscDetail = () => {
         )}
 
         {/* CTA Section */}
-        <section className="py-16 bg-primary text-primary-foreground">
+        <section className="py-20 bg-primary text-primary-foreground">
           <div className="container mx-auto px-4 text-center">
             <h2 className="text-3xl font-bold mb-4">
               {t('accessoryDetail.customSolution')}

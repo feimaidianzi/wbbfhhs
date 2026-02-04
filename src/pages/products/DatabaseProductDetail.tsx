@@ -190,7 +190,7 @@ const DatabaseProductDetail = () => {
         <BackButton to="/products" />
 
         {/* Hero Section */}
-        <section className="py-12 bg-gradient-to-br from-primary/5 via-background to-background">
+        <section className="pt-24 pb-16 bg-gradient-to-br from-primary/5 via-background to-background">
           <div className="container mx-auto px-4">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
               {/* Product Images */}

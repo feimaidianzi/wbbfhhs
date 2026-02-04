@@ -35,7 +35,7 @@ const GimbalDetail = () => {
 
         {/* Hero Section with slogan */}
         {product.sloganKey && (
-          <section className="py-16 bg-gradient-to-br from-zinc-900 via-zinc-800 to-zinc-900 text-white">
+          <section className="pt-20 pb-16 bg-gradient-to-br from-zinc-900 via-zinc-800 to-zinc-900 text-white">
             <div className="container mx-auto px-4">
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
                 {/* Product Image */}
@@ -78,7 +78,7 @@ const GimbalDetail = () => {
         )}
 
         {/* Product Info Section */}
-        <section className="py-12 bg-gradient-to-br from-primary/5 via-background to-background">
+        <section className="py-20 bg-gradient-to-br from-primary/5 via-background to-background">
           <div className="container mx-auto px-4">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
               {/* Product Images */}
@@ -140,7 +140,7 @@ const GimbalDetail = () => {
         </section>
 
         {/* Tabs Section */}
-        <section className="py-16">
+        <section className="py-20">
           <div className="container mx-auto px-4">
             <Tabs defaultValue="specs" className="w-full">
               <TabsList className="w-full justify-start border-b rounded-none h-auto p-0 bg-transparent mb-8">
