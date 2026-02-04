@@ -13,8 +13,7 @@ const FcEscDetail = () => {
   const { productId } = useParams<{ productId: string }>();
   const product = productId ? getFcEscProductById(productId) : null;
   const [selectedImage, setSelectedImage] = useState(0);
-  const { language, t } = useLanguage();
-  const isEn = language === 'en';
+  const { t } = useLanguage();
 
   if (!product) {
     return <Navigate to="/products/accessories/fc-esc" replace />;
@@ -25,8 +24,8 @@ const FcEscDetail = () => {
   return (
     <>
       <SEO 
-        title={`${product.name} ${product.model} - ${isEn ? "FeiMai Technology" : "飞迈科技"}`}
-        description={`${product.name}，${product.category}，${product.highlights.slice(0, 3).join('，')}，${isEn ? "Professional FPV Electronics" : "专业FPV电子产品"}`}
+        title={`${product.name} ${product.model} - ${t('company.name')}`}
+        description={`${product.name}，${product.category}，${product.highlights.slice(0, 3).join('，')}，${t('fcEscDetail.seoDesc')}`}
       />
       <Header />
       <main className="min-h-screen bg-background">

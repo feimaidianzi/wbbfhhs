@@ -54,8 +54,7 @@ const iconMap: Record<string, React.ComponentType<{ className?: string }>> = {
 const ElrsDetail = () => {
   const { productId } = useParams<{ productId: string }>();
   const product = elrsProducts.find(p => p.id === productId);
-  const { language, t } = useLanguage();
-  const isEn = language === 'en';
+  const { t } = useLanguage();
 
   if (!product) {
     return <Navigate to="/products/accessories/elrs" replace />;
@@ -64,7 +63,7 @@ const ElrsDetail = () => {
   return (
     <div className="min-h-screen">
       <SEO 
-        title={`${product.name} - ${isEn ? "ELRS Products" : "ELRS产品"}`}
+        title={`${product.name} - ${t('elrsDetail.seoTitle')}`}
         description={product.description}
         keywords={`${product.name},ELRS,ExpressLRS,${product.keyFeatures.join(',')}`}
       />
