@@ -25,8 +25,7 @@ const featureIcons: Record<string, React.ReactNode> = {
 const CameraDetail = () => {
   const { productId } = useParams<{ productId: string }>();
   const product = cameraProducts.find((p) => p.id === productId);
-  const { language } = useLanguage();
-  const isEn = language === 'en';
+  const { t } = useLanguage();
 
   if (!product) {
     return (
@@ -34,9 +33,9 @@ const CameraDetail = () => {
         <Header />
         <main className="min-h-screen flex items-center justify-center">
           <div className="text-center">
-            <h1 className="text-2xl font-bold mb-4">{isEn ? "Product Not Found" : "产品未找到"}</h1>
+            <h1 className="text-2xl font-bold mb-4">{t('accessoryDetail.productNotFound')}</h1>
             <Link to="/products/accessories/camera" className="text-primary hover:underline">
-              {isEn ? "Back to Camera List" : "返回相机列表"}
+              {t('accessoryDetail.backToCamera')}
             </Link>
           </div>
         </main>
@@ -48,9 +47,9 @@ const CameraDetail = () => {
   return (
     <>
       <SEO
-        title={`${product.name} - ${isEn ? "FeiMai Technology" : "飞迈科技"}`}
+        title={`${product.name} - ${t('company.name')}`}
         description={`${product.slogan}。${product.highlights.join("，")}`}
-        keywords={`${product.model},${isEn ? "action camera,HD camera,WiFi camera,waterproof camera" : "运动相机,高清相机,WiFi相机,防水相机"}`}
+        keywords={`${product.model},${t('accessoryDetail.cameraKeywords')}`}
       />
       <Header />
       <main className="min-h-screen bg-background">
@@ -58,7 +57,7 @@ const CameraDetail = () => {
         <section className="relative py-20 bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 text-white overflow-hidden">
           <div className="absolute inset-0 bg-grid-pattern opacity-10"></div>
           <div className="container mx-auto px-4 relative z-10">
-            <BackButton to="/products/accessories/camera" label={isEn ? "Back to Camera List" : "返回相机列表"} />
+            <BackButton to="/products/accessories/camera" label={t('accessoryDetail.backToCamera')} />
             
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center mt-8">
               <div className="order-2 lg:order-1">
@@ -82,7 +81,7 @@ const CameraDetail = () => {
                     to="/contact"
                     className="px-8 py-3 bg-primary text-primary-foreground rounded-lg font-medium hover:bg-primary/90 transition-colors inline-flex items-center gap-2"
                   >
-                    {isEn ? "Contact Now" : "立即咨询"}
+                    {t('accessoryDetail.inquireNow')}
                     <ArrowRight className="w-4 h-4" />
                   </Link>
                 </div>
@@ -110,31 +109,29 @@ const CameraDetail = () => {
               <div>
                 <img
                   src={sj4000Lens}
-                  alt={isEn ? "12MP CMOS Wide-Angle Imaging" : "1200万像素CMOS大广角成像"}
+                  alt={t('accessoryDetail.camera.wideAngle')}
                   className="w-full max-w-lg mx-auto"
                 />
               </div>
               <div>
                 <h2 className="text-3xl font-bold mb-4">
-                  {isEn ? "12MP CMOS Wide-Angle Imaging" : "1200万像素COMS大广角成像"}
+                  {t('accessoryDetail.camera.wideAngle')}
                 </h2>
                 <p className="text-lg text-muted-foreground mb-6">
-                  {isEn 
-                    ? "170° wide-angle lens for broader shooting field. 12MP photo quality enhancement. Equipped with 2.0-inch HD vivid display for real-time viewing while shooting!"
-                    : "170度大广角，拍摄视野更加宽广，1200万像素拍照图像质量进一步提升。配备2.0英寸高清炫丽显示屏，您可以边看边拍，尽情享受拍摄的乐趣！"}
+                  {t('accessoryDetail.camera.wideAngleDesc')}
                 </p>
                 <div className="grid grid-cols-3 gap-4">
                   <div className="text-center p-4 bg-card rounded-xl border border-border">
                     <Camera className="w-8 h-8 text-primary mx-auto mb-2" />
-                    <div className="text-sm text-muted-foreground">{isEn ? "12 Megapixels" : "1200万像素"}</div>
+                    <div className="text-sm text-muted-foreground">{t('accessoryDetail.camera.12mp')}</div>
                   </div>
                   <div className="text-center p-4 bg-card rounded-xl border border-border">
                     <Aperture className="w-8 h-8 text-primary mx-auto mb-2" />
-                    <div className="text-sm text-muted-foreground">{isEn ? "170° Wide-Angle" : "170°广角"}</div>
+                    <div className="text-sm text-muted-foreground">{t('accessoryDetail.camera.170deg')}</div>
                   </div>
                   <div className="text-center p-4 bg-card rounded-xl border border-border">
                     <Monitor className="w-8 h-8 text-primary mx-auto mb-2" />
-                    <div className="text-sm text-muted-foreground">{isEn ? "2.0\" Screen" : "2.0寸屏幕"}</div>
+                    <div className="text-sm text-muted-foreground">{t('accessoryDetail.camera.2inch')}</div>
                   </div>
                 </div>
               </div>
@@ -147,28 +144,26 @@ const CameraDetail = () => {
           <div className="absolute inset-0">
             <img
               src={sj4000HdQuality}
-              alt={isEn ? "HD Quality Cinema Experience" : "高清画质 影院级享受"}
+              alt={t('accessoryDetail.camera.hdQuality')}
               className="w-full h-full object-cover"
             />
           </div>
           <div className="container mx-auto px-4 relative z-10">
             <div className="max-w-xl rounded-3xl bg-background/70 backdrop-blur-md border border-border p-6 md:p-8 shadow-card">
               <h2 className="text-3xl font-bold mb-4">
-                {isEn ? "HD Quality Cinema Experience" : "高清画质 影院级享受"}
+                {t('accessoryDetail.camera.hdQuality')}
               </h2>
               <p className="text-lg text-muted-foreground">
-                {isEn 
-                  ? "SJ4000 WIFI records 1080P HD video at 1920*1080 resolution. WDR wide dynamic range delivers more realistic and natural image quality."
-                  : "SJ4000 WIFI可以录制1080P高清视频分辨率达到1920*1080，WDR宽动态效果让画质更加真实、自然。"}
+                {t('accessoryDetail.camera.hdQualityDesc')}
               </p>
               <div className="mt-6 flex gap-4">
                 <div className="px-4 py-2 bg-primary/10 rounded-lg border border-primary/20">
                   <span className="text-primary font-semibold">1080P</span>
-                  <span className="text-sm text-muted-foreground ml-2">{isEn ? "HD Video" : "高清视频"}</span>
+                  <span className="text-sm text-muted-foreground ml-2">{t('accessoryDetail.camera.hdVideo')}</span>
                 </div>
                 <div className="px-4 py-2 bg-primary/10 rounded-lg border border-primary/20">
                   <span className="text-primary font-semibold">WDR</span>
-                  <span className="text-sm text-muted-foreground ml-2">{isEn ? "Wide Dynamic" : "宽动态"}</span>
+                  <span className="text-sm text-muted-foreground ml-2">{t('accessoryDetail.camera.wideDynamic')}</span>
                 </div>
               </div>
             </div>
@@ -181,12 +176,10 @@ const CameraDetail = () => {
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
               <div>
                 <h2 className="text-3xl font-bold mb-4">
-                  {isEn ? "Smart APP Unlimited Sharing" : "智能APP 分享无界"}
+                  {t('accessoryDetail.camera.smartApp')}
                 </h2>
                 <p className="text-lg text-white/80 mb-6">
-                  {isEn 
-                    ? "CANI APP supports quick sharing of photos and videos to WeChat, Weibo, QQ and other social platforms, with built-in photo and video editing. Share with millions of users worldwide."
-                    : "CANI APP支持快速分享图片、视频到微信、微博、QQ等多种社交平台，同时支持图片和视频编辑。可以和全球百万用户一起分享精美图片和视频。"}
+                  {t('accessoryDetail.camera.smartAppDesc')}
                 </p>
                 <div className="flex flex-wrap gap-4">
                   <div className="flex items-center gap-2 px-4 py-2 bg-white/10 rounded-full">
@@ -198,11 +191,11 @@ const CameraDetail = () => {
                     <span className="text-sm">Twitter</span>
                   </div>
                   <div className="flex items-center gap-2 px-4 py-2 bg-white/10 rounded-full">
-                    <span className="w-6 h-6 bg-green-500 rounded-full flex items-center justify-center text-xs">{isEn ? "W" : "微"}</span>
+                    <span className="w-6 h-6 bg-green-500 rounded-full flex items-center justify-center text-xs">W</span>
                     <span className="text-sm">WeChat</span>
                   </div>
                   <div className="flex items-center gap-2 px-4 py-2 bg-white/10 rounded-full">
-                    <span className="w-6 h-6 bg-red-500 rounded-full flex items-center justify-center text-xs">{isEn ? "W" : "微"}</span>
+                    <span className="w-6 h-6 bg-red-500 rounded-full flex items-center justify-center text-xs">W</span>
                     <span className="text-sm">Weibo</span>
                   </div>
                   <div className="flex items-center gap-2 px-4 py-2 bg-white/10 rounded-full">
@@ -214,7 +207,7 @@ const CameraDetail = () => {
               <div>
                 <img
                   src={sj4000AppShare}
-                  alt={isEn ? "Smart APP Unlimited Sharing" : "智能APP 分享无界"}
+                  alt={t('accessoryDetail.camera.smartApp')}
                   className="w-full rounded-xl"
                 />
               </div>
@@ -226,9 +219,9 @@ const CameraDetail = () => {
         <section className="py-20">
           <div className="container mx-auto px-4">
             <div className="text-center mb-12">
-              <h2 className="text-3xl font-bold mb-4">{isEn ? "Product Features" : "产品特点"}</h2>
+              <h2 className="text-3xl font-bold mb-4">{t('accessoryDetail.productFeatures')}</h2>
               <p className="text-muted-foreground max-w-2xl mx-auto">
-                {isEn ? "Professional action camera for various extreme sports" : "专业级运动相机，满足各种极限运动拍摄需求"}
+                {t('accessoryDetail.camera.featuresDesc')}
               </p>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -252,15 +245,15 @@ const CameraDetail = () => {
         <section className="py-20 bg-muted/30">
           <div className="container mx-auto px-4">
             <div className="text-center mb-12">
-              <h2 className="text-3xl font-bold mb-4">{isEn ? "Colorful Appearance" : "多彩外观"}</h2>
+              <h2 className="text-3xl font-bold mb-4">{t('accessoryDetail.camera.colorful')}</h2>
               <p className="text-muted-foreground max-w-2xl mx-auto">
-                {isEn ? "Multiple colors available to show your personal style" : "多种颜色可选，展现你的个性风格"}
+                {t('accessoryDetail.camera.colorfulDesc')}
               </p>
             </div>
             <div className="max-w-4xl mx-auto">
               <img
                 src={sj4000Colors}
-                alt={isEn ? "SJ4000 Colorful Appearance" : "SJ4000 多彩外观"}
+                alt={t('accessoryDetail.camera.colorful')}
                 className="w-full rounded-xl"
               />
             </div>
@@ -271,9 +264,9 @@ const CameraDetail = () => {
         <section className="py-20">
           <div className="container mx-auto px-4">
             <div className="text-center mb-12">
-              <h2 className="text-3xl font-bold mb-4">{isEn ? "Technical Specifications" : "技术规格"}</h2>
+              <h2 className="text-3xl font-bold mb-4">{t('accessoryDetail.techSpecs')}</h2>
               <p className="text-muted-foreground max-w-2xl mx-auto">
-                {isEn ? "Detailed specifications overview" : "详细参数一览"}
+                {t('accessoryDetail.specsOverview')}
               </p>
             </div>
             <div className="max-w-4xl mx-auto">
@@ -307,9 +300,9 @@ const CameraDetail = () => {
           <div className="container mx-auto px-4">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
               <div>
-                <h2 className="text-3xl font-bold mb-4">{isEn ? "Standard Accessories" : "标准配件"}</h2>
+                <h2 className="text-3xl font-bold mb-4">{t('accessoryDetail.packageContents')}</h2>
                 <p className="text-muted-foreground mb-6">
-                  {isEn ? "Rich mounting accessories for various scenarios" : "丰富的安装配件，满足各种使用场景"}
+                  {t('accessoryDetail.camera.accessoriesDesc')}
                 </p>
                 <div className="grid grid-cols-2 gap-3">
                   {product.packageContents.map((item, idx) => (
@@ -323,7 +316,7 @@ const CameraDetail = () => {
               <div>
                 <img
                   src={sj4000Accessories}
-                  alt={isEn ? "SJ4000 Standard Accessories" : "SJ4000 标准配件"}
+                  alt={t('accessoryDetail.packageContents')}
                   className="w-full max-w-lg mx-auto rounded-xl"
                 />
               </div>
@@ -335,23 +328,23 @@ const CameraDetail = () => {
         <section className="py-20 bg-primary text-primary-foreground">
           <div className="container mx-auto px-4 text-center">
             <h2 className="text-3xl md:text-4xl font-bold mb-6">
-              {isEn ? "Ready to Start Your Shooting Journey?" : "准备好开启您的拍摄之旅？"}
+              {t('accessoryDetail.camera.ctaTitle')}
             </h2>
             <p className="text-lg opacity-90 mb-8 max-w-2xl mx-auto">
-              {isEn ? "Contact us for detailed quotation and technical support" : "联系我们获取详细报价和技术支持"}
+              {t('accessoryDetail.camera.ctaDesc')}
             </p>
             <div className="flex justify-center gap-4 flex-wrap">
               <Link
                 to="/contact"
                 className="px-8 py-3 bg-background text-foreground font-medium rounded-lg hover:bg-background/90 transition-colors"
               >
-                {isEn ? "Contact Us" : "联系我们"}
+                {t('contact.title')}
               </Link>
               <Link
                 to="/products/accessories/camera"
                 className="px-8 py-3 border border-white/30 font-medium rounded-lg hover:bg-white/10 transition-colors"
               >
-                {isEn ? "View More Products" : "查看更多产品"}
+                {t('accessoryDetail.viewMoreProducts')}
               </Link>
             </div>
           </div>
