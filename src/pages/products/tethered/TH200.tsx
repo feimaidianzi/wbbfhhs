@@ -1,72 +1,75 @@
 import ProductDetailTemplate from "@/components/ProductDetailTemplate";
-import { Radio, Weight, Clock, Navigation, Layers, Cpu, Thermometer, Zap, Sun, Camera } from "lucide-react";
+import { Radio, Weight, Clock, Navigation, Thermometer, Zap, Sun, Camera } from "lucide-react";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 import th200Hero from "@/assets/products/th-200-hero.png";
 
 const TH200 = () => {
+  const { t } = useLanguage();
+
   const specs = [
-    { label: "轴距", labelEn: "Wheelbase", value: "1200mm", valueEn: "1200mm" },
-    { label: "最大载荷", labelEn: "Max Payload", value: "10kg", valueEn: "10kg" },
-    { label: "展开尺寸", labelEn: "Unfolded Size", value: "1000×1000×600mm", valueEn: "1000×1000×600mm" },
-    { label: "折叠尺寸", labelEn: "Folded Size", value: "620×620×600mm", valueEn: "620×620×600mm" },
-    { label: "机身重量", labelEn: "Body Weight", value: "11kg（不含电池）", valueEn: "11kg (without battery)" },
-    { label: "最大起飞重量", labelEn: "Max Takeoff Weight", value: "29kg", valueEn: "29kg" },
-    { label: "最大飞行速度", labelEn: "Max Flight Speed", value: "上升5m/s 下降3m/s 水平15m/s", valueEn: "Ascent 5m/s, Descent 3m/s, Horizontal 15m/s" },
-    { label: "最大抗风", labelEn: "Wind Resistance", value: "15m/s（7级）", valueEn: "15m/s (Level 7)" },
-    { label: "续航时间", labelEn: "Flight Time", value: "60min空载/系留24h", valueEn: "60min empty / 24h tethered" },
-    { label: "最大飞行高度", labelEn: "Max Flight Altitude", value: "1000米", valueEn: "1000m" },
-    { label: "最大飞行海拔", labelEn: "Max Elevation", value: "5000米", valueEn: "5000m" },
-    { label: "控制距离", labelEn: "Control Range", value: "15km", valueEn: "15km" },
-    { label: "定位精度", labelEn: "Positioning Accuracy", value: "RTK厘米级", valueEn: "RTK cm-level" },
-    { label: "防水等级", labelEn: "Waterproof", value: "防中雨", valueEn: "Moderate rain resistant" },
-    { label: "工作温度", labelEn: "Operating Temp", value: "-20°C ~ 55°C", valueEn: "-20°C ~ 55°C" },
+    { label: t('specs.wheelbase'), labelEn: "Wheelbase", value: "1200mm", valueEn: "1200mm" },
+    { label: t('specs.maxPayload'), labelEn: "Max Payload", value: "10kg", valueEn: "10kg" },
+    { label: t('tethered.th200.spec.unfoldedSize'), labelEn: "Unfolded Size", value: "1000×1000×600mm", valueEn: "1000×1000×600mm" },
+    { label: t('tethered.th200.spec.foldedSize'), labelEn: "Folded Size", value: "620×620×600mm", valueEn: "620×620×600mm" },
+    { label: t('tethered.th200.spec.bodyWeight'), labelEn: "Body Weight", value: t('tethered.th200.spec.bodyWeight.value'), valueEn: "11kg (without battery)" },
+    { label: t('tethered.th200.spec.maxTakeoffWeight'), labelEn: "Max Takeoff Weight", value: "29kg", valueEn: "29kg" },
+    { label: t('tethered.th200.spec.maxFlightSpeed'), labelEn: "Max Flight Speed", value: t('tethered.th200.spec.maxFlightSpeed.value'), valueEn: "Ascent 5m/s, Descent 3m/s, Horizontal 15m/s" },
+    { label: t('specs.windResistance'), labelEn: "Wind Resistance", value: t('tethered.th200.spec.windResistance.value'), valueEn: "15m/s (Level 7)" },
+    { label: t('specs.flightTime'), labelEn: "Flight Time", value: t('tethered.th200.spec.flightTime.value'), valueEn: "60min empty / 24h tethered" },
+    { label: t('tethered.th200.spec.maxFlightAltitude'), labelEn: "Max Flight Altitude", value: t('tethered.th200.spec.maxFlightAltitude.value'), valueEn: "1000m" },
+    { label: t('tethered.th200.spec.maxElevation'), labelEn: "Max Elevation", value: t('tethered.th200.spec.maxElevation.value'), valueEn: "5000m" },
+    { label: t('specs.controlRange'), labelEn: "Control Range", value: "15km", valueEn: "15km" },
+    { label: t('tethered.th200.spec.positionAccuracy'), labelEn: "Positioning Accuracy", value: t('tethered.th200.spec.positionAccuracy.value'), valueEn: "RTK cm-level" },
+    { label: t('tethered.th200.spec.waterproof'), labelEn: "Waterproof", value: t('tethered.th200.spec.waterproof.value'), valueEn: "Moderate rain resistant" },
+    { label: t('specs.operatingTemp'), labelEn: "Operating Temp", value: "-20°C ~ 55°C", valueEn: "-20°C ~ 55°C" },
   ];
 
   const features = [
-    { icon: Radio, title: "通信中继", titleEn: "Comm Relay", description: "200米高度5公里覆盖", descriptionEn: "5km coverage at 200m altitude" },
-    { icon: Weight, title: "10kg载荷", titleEn: "10kg Payload", description: "支持多种专业载荷", descriptionEn: "Multiple professional payloads supported" },
-    { icon: Clock, title: "24小时滞空", titleEn: "24h Flight", description: "系留模式不间断工作", descriptionEn: "Continuous tethered operation" },
-    { icon: Navigation, title: "高精度定位", titleEn: "High Precision", description: "RTK厘米级定位", descriptionEn: "RTK cm-level positioning" },
-    { icon: Thermometer, title: "高效散热", titleEn: "Efficient Cooling", description: "离心式风冷系统", descriptionEn: "Centrifugal air cooling system" },
-    { icon: Zap, title: "强劲动力", titleEn: "Powerful", description: "Ultra Carbon Pro碳纤维桨叶", descriptionEn: "Ultra Carbon Pro propellers" },
-    { icon: Sun, title: "应急照明", titleEn: "Emergency Lighting", description: "4组20000流明矩阵灯", descriptionEn: "4 groups 20000 lumen matrix lights" },
-    { icon: Camera, title: "多载荷适配", titleEn: "Multi-Payload", description: "变焦/红外/跟踪/喊话等", descriptionEn: "Zoom/IR/Tracking/Speaker etc." },
+    { icon: Radio, title: t('tethered.th200.feature.commRelay'), titleEn: "Comm Relay", description: t('tethered.th200.feature.commRelay.desc'), descriptionEn: "5km coverage at 200m altitude" },
+    { icon: Weight, title: t('tethered.th200.feature.payload'), titleEn: "10kg Payload", description: t('tethered.th200.feature.payload.desc'), descriptionEn: "Multiple professional payloads supported" },
+    { icon: Clock, title: t('tethered.th200.feature.flight24h'), titleEn: "24h Flight", description: t('tethered.th200.feature.flight24h.desc'), descriptionEn: "Continuous tethered operation" },
+    { icon: Navigation, title: t('tethered.th200.feature.highPrecision'), titleEn: "High Precision", description: t('tethered.th200.feature.highPrecision.desc'), descriptionEn: "RTK cm-level positioning" },
+    { icon: Thermometer, title: t('tethered.th200.feature.cooling'), titleEn: "Efficient Cooling", description: t('tethered.th200.feature.cooling.desc'), descriptionEn: "Centrifugal air cooling system" },
+    { icon: Zap, title: t('tethered.th200.feature.powerful'), titleEn: "Powerful", description: t('tethered.th200.feature.powerful.desc'), descriptionEn: "Ultra Carbon Pro propellers" },
+    { icon: Sun, title: t('tethered.th200.feature.lighting'), titleEn: "Emergency Lighting", description: t('tethered.th200.feature.lighting.desc'), descriptionEn: "4 groups 20000 lumen matrix lights" },
+    { icon: Camera, title: t('tethered.th200.feature.multiPayload'), titleEn: "Multi-Payload", description: t('tethered.th200.feature.multiPayload.desc'), descriptionEn: "Zoom/IR/Tracking/Speaker etc." },
   ];
 
   const applications = [
-    { zh: "应急照明作业", en: "Emergency Lighting" },
-    { zh: "通信中继保障", en: "Communication Relay" },
-    { zh: "安防监控巡逻", en: "Security Surveillance" },
-    { zh: "大型活动保障", en: "Event Security" },
-    { zh: "消防救援支援", en: "Fire & Rescue" },
-    { zh: "偏远地区信号覆盖", en: "Remote Area Coverage" },
+    { zh: t('tethered.th200.app.emergencyLighting'), en: "Emergency Lighting" },
+    { zh: t('tethered.th200.app.commRelay'), en: "Communication Relay" },
+    { zh: t('tethered.th200.app.securityPatrol'), en: "Security Surveillance" },
+    { zh: t('tethered.th200.app.eventSecurity'), en: "Event Security" },
+    { zh: t('tethered.th200.app.fireRescue'), en: "Fire & Rescue" },
+    { zh: t('tethered.th200.app.remoteCoverage'), en: "Remote Area Coverage" },
   ];
 
   return (
     <ProductDetailTemplate
-      seoTitle="TH-200系留照明无人机 - 专业系留平台解决方案"
+      seoTitle={t('tethered.th200.seoTitle')}
       seoTitleEn="TH-200 Tethered Lighting Drone - Professional Tethered Platform"
-      seoDescription="TH-200系留照明无人机，200米升空高度，10kg载荷，24小时不间断滞空，适用于应急照明、通信中继等场景"
+      seoDescription={t('tethered.th200.seoDescription')}
       seoDescriptionEn="TH-200 tethered lighting drone, 200m altitude, 10kg payload, 24-hour continuous flight for emergency lighting and communication relay"
-      seoKeywords="系留无人机,TH-200,应急照明,通信中继,系留平台"
+      seoKeywords={t('tethered.th200.seoKeywords')}
       breadcrumbs={[
-        { label: "首页", labelEn: "Home", path: "/" },
-        { label: "系留无人机", labelEn: "Tethered Drones", path: "/products/tethered" },
-        { label: "TH-200系留照明无人机", labelEn: "TH-200 Drone" },
+        { label: t('nav.home'), labelEn: "Home", path: "/" },
+        { label: t('nav.products.tethered'), labelEn: "Tethered Drones", path: "/products/tethered" },
+        { label: t('tethered.th200.name'), labelEn: "TH-200 Drone" },
       ]}
-      heroTitle="TH-200系留照明无人机"
+      heroTitle={t('tethered.th200.name')}
       heroTitleEn="TH-200 Tethered Lighting Drone"
-      heroDescription="工业级系留照明平台，10kg载荷能力，24小时持续滞空。配备4组20000流明矩阵灯，有效照明面积约10000平方米，适用于应急照明、通信中继等专业场景。"
+      heroDescription={t('tethered.th200.description')}
       heroDescriptionEn="Industrial-grade tethered lighting platform with 10kg payload and 24-hour continuous flight. Equipped with 4 groups of 20000 lumen matrix lights covering approximately 10000 square meters, ideal for emergency lighting and communication relay."
       heroImage={th200Hero}
-      heroHighlight={{ value: "24h", label: "持续滞空", labelEn: "Continuous Flight" }}
-      backLink={{ label: "返回系留无人机", labelEn: "Back to Tethered", path: "/products/tethered" }}
+      heroHighlight={{ value: "24h", label: t('tethered.th200.highlight'), labelEn: "Continuous Flight" }}
+      backLink={{ label: t('common.backTo') + t('nav.products.tethered'), labelEn: "Back to Tethered", path: "/products/tethered" }}
       features={features}
       specs={specs}
       applications={applications}
-      ctaTitle="了解更多TH-200解决方案"
+      ctaTitle={t('tethered.ctaTitle').replace('{{model}}', 'TH-200')}
       ctaTitleEn="Learn More About TH-200 Solutions"
-      ctaDescription="联系我们的专业团队，获取定制化配置方案和详细报价"
+      ctaDescription={t('tethered.ctaDescription')}
       ctaDescriptionEn="Contact our professional team for customized configuration and detailed quotation"
     />
   );
