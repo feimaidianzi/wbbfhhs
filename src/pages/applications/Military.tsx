@@ -45,66 +45,66 @@ const Military = () => {
 
   const scenarios = [
     {
-      title: "边境巡逻",
-      description: "执行边境地区日常巡逻监视任务，及时发现异常情况。全天候持续监视，配合地面部队快速响应边境事件。",
+      title: t('military.scenario.border.title'),
+      description: t('military.scenario.border.desc'),
       image: "https://images.unsplash.com/photo-1551698618-1dfe5d97d256?w=600&q=80",
-      capabilities: ["全天候监视", "实时报警", "快速响应"]
+      capabilities: [t('military.scenario.border.c1'), t('military.scenario.border.c2'), t('military.scenario.border.c3')]
     },
     {
-      title: "战场侦察",
-      description: "深入作战区域进行情报侦察，获取敌方部署信息。隐蔽渗透敌后，为作战指挥提供精确情报支持。",
+      title: t('military.scenario.battlefield.title'),
+      description: t('military.scenario.battlefield.desc'),
       image: "https://images.unsplash.com/photo-1506947411487-a56738267384?w=600&q=80",
-      capabilities: ["隐蔽侦察", "情报获取", "态势感知"]
+      capabilities: [t('military.scenario.battlefield.c1'), t('military.scenario.battlefield.c2'), t('military.scenario.battlefield.c3')]
     },
     {
-      title: "训练演习",
-      description: "模拟对抗训练和战术演习，提升部队实战能力。提供逼真对抗环境，检验战术战法效果。",
+      title: t('military.scenario.training.title'),
+      description: t('military.scenario.training.desc'),
       image: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&q=80",
-      capabilities: ["模拟对抗", "战术验证", "能力评估"]
+      capabilities: [t('military.scenario.training.c1'), t('military.scenario.training.c2'), t('military.scenario.training.c3')]
     },
     {
-      title: "海上监视",
-      description: "执行海域巡逻监视任务，监测海上目标动态。支持海上搜救、渔政执法、海域管控等任务。",
+      title: t('military.scenario.maritime.title'),
+      description: t('military.scenario.maritime.desc'),
       image: "https://images.unsplash.com/photo-1559827260-dc66d52bef19?w=600&q=80",
-      capabilities: ["海域监控", "目标识别", "海事支援"]
+      capabilities: [t('military.scenario.maritime.c1'), t('military.scenario.maritime.c2'), t('military.scenario.maritime.c3')]
     },
     {
-      title: "要地防护",
-      description: "重要设施和要地周边空域监控，及时发现低空威胁。配合地面防空系统构建立体防护网络。",
+      title: t('military.scenario.defense.title'),
+      description: t('military.scenario.defense.desc'),
       image: "https://images.unsplash.com/photo-1580927752452-89d86da3fa0a?w=600&q=80",
-      capabilities: ["空域监控", "威胁预警", "协同防御"]
+      capabilities: [t('military.scenario.defense.c1'), t('military.scenario.defense.c2'), t('military.scenario.defense.c3')]
     },
     {
-      title: "应急支援",
-      description: "突发事件应急支援，快速部署提供空中视角。支持反恐维稳、灾害救援等特殊任务。",
+      title: t('military.scenario.emergency.title'),
+      description: t('military.scenario.emergency.desc'),
       image: "https://images.unsplash.com/photo-1569863959165-56dae551d4fc?w=600&q=80",
-      capabilities: ["快速部署", "现场感知", "指挥支援"]
+      capabilities: [t('military.scenario.emergency.c1'), t('military.scenario.emergency.c2'), t('military.scenario.emergency.c3')]
     }
   ];
 
   const products = [
     {
-      name: "察打一体无人机",
-      description: "集侦察、打击于一体的多用途无人机平台",
-      specs: ["航时: 8小时", "载荷: 50kg", "速度: 180km/h"],
+      name: t('military.product.recon.name'),
+      description: t('military.product.recon.desc'),
+      specs: [t('military.product.recon.s1'), t('military.product.recon.s2'), t('military.product.recon.s3')],
       image: "https://images.unsplash.com/photo-1473968512647-3e447244af8f?w=600&q=80"
     },
     {
-      name: "隐身侦察无人机",
-      description: "低可探测设计，适用于敏感区域侦察任务",
-      specs: ["RCS: <0.1m²", "噪音: <65dB", "航程: 200km"],
+      name: t('military.product.stealth.name'),
+      description: t('military.product.stealth.desc'),
+      specs: [t('military.product.stealth.s1'), t('military.product.stealth.s2'), t('military.product.stealth.s3')],
       image: "https://images.unsplash.com/photo-1506947411487-a56738267384?w=600&q=80"
     },
     {
-      name: "战术通信中继机",
-      description: "空中通信节点，扩展战术通信网络覆盖",
-      specs: ["覆盖: 100km", "频段: 多频", "容量: 大带宽"],
+      name: t('military.product.relay.name'),
+      description: t('military.product.relay.desc'),
+      specs: [t('military.product.relay.s1'), t('military.product.relay.s2'), t('military.product.relay.s3')],
       image: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&q=80"
     },
     {
-      name: "集群作战系统",
-      description: "多机协同作战平台，支持蜂群战术",
-      specs: ["规模: 100+架", "协同: 自组网", "决策: AI赋能"],
+      name: t('military.product.swarm.name'),
+      description: t('military.product.swarm.desc'),
+      specs: [t('military.product.swarm.s1'), t('military.product.swarm.s2'), t('military.product.swarm.s3')],
       image: "https://images.unsplash.com/photo-1527977966376-1c8408f9f108?w=600&q=80"
     }
   ];
