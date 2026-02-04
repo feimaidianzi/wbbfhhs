@@ -1,7 +1,6 @@
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { FloatingContact } from "@/components/FloatingContact";
-import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Skeleton } from "@/components/ui/skeleton";
 import { ArrowRight, Calendar, Tag, ChevronLeft, ChevronRight, Search } from "lucide-react";
@@ -23,19 +22,28 @@ interface NewsArticle {
   created_at: string;
 }
 
-const CATEGORIES_ZH = ["全部", "公司新闻", "行业动态", "产品资讯", "技术分享"];
-const CATEGORIES_EN = ["All", "Company News", "Industry Trends", "Product Updates", "Tech Insights"];
+const CATEGORY_KEYS = ['all', 'company', 'industry', 'product', 'tech'] as const;
+
+// Map database category values to category keys
+const DB_CATEGORY_MAP: Record<string, string> = {
+  '公司新闻': 'company',
+  '行业动态': 'industry',
+  '产品资讯': 'product',
+  '技术分享': 'tech',
+};
 
 const News = () => {
-  const { language } = useLanguage();
-  const categories = language === 'zh' ? CATEGORIES_ZH : CATEGORIES_EN;
+  const { t, baseLang } = useLanguage();
   
   const [articles, setArticles] = useState<NewsArticle[]>([]);
   const [loading, setLoading] = useState(true);
-  const [activeCategory, setActiveCategory] = useState(categories[0]);
+  const [activeCategory, setActiveCategory] = useState<string>('all');
   const [searchTerm, setSearchTerm] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 6;
+
+  // Get translated category label
+  const getCategoryLabel = (key: string) => t(`news.category.${key}`);
 
   useEffect(() => {
     const fetchArticles = async () => {
@@ -59,31 +67,19 @@ const News = () => {
     fetchArticles();
   }, []);
 
-  // 获取当前语言的分类名
-  const getCategoryForFilter = (cat: string) => {
-    if (language === 'en') {
-      const catMap: Record<string, string> = {
-        'All': '全部',
-        'Company News': '公司新闻',
-        'Industry Trends': '行业动态',
-        'Product Updates': '产品资讯',
-        'Tech Insights': '技术分享',
-      };
-      return catMap[cat] || cat;
-    }
-    return cat;
-  };
-
   // Filter by category
-  const filteredByCategory = activeCategory === categories[0]
+  const filteredByCategory = activeCategory === 'all'
     ? articles 
-    : articles.filter(a => a.category === getCategoryForFilter(activeCategory));
+    : articles.filter(a => {
+        const articleCategoryKey = a.category ? DB_CATEGORY_MAP[a.category] : null;
+        return articleCategoryKey === activeCategory;
+      });
 
   // Filter by search
   const filteredArticles = searchTerm
     ? filteredByCategory.filter(a => {
-        const title = language === 'en' && a.title_en ? a.title_en : a.title;
-        const summary = language === 'en' && a.summary_en ? a.summary_en : a.summary;
+        const title = baseLang === 'en' && a.title_en ? a.title_en : a.title;
+        const summary = baseLang === 'en' && a.summary_en ? a.summary_en : a.summary;
         return title.toLowerCase().includes(searchTerm.toLowerCase()) ||
           (summary && summary.toLowerCase().includes(searchTerm.toLowerCase()));
       })
@@ -99,19 +95,22 @@ const News = () => {
 
   const formatDate = (dateString: string | null) => {
     if (!dateString) return '';
-    return new Date(dateString).toLocaleDateString('zh-CN');
+    return new Date(dateString).toLocaleDateString(baseLang === 'zh' ? 'zh-CN' : 'en-US');
+  };
+
+  // Get translated category for display
+  const getDisplayCategory = (dbCategory: string | null) => {
+    if (!dbCategory) return null;
+    const key = DB_CATEGORY_MAP[dbCategory];
+    return key ? getCategoryLabel(key) : dbCategory;
   };
 
   return (
     <div className="min-h-screen">
       <MultiLanguageSEO
-        title={language === 'zh' ? "新闻中心" : "News Center"}
-        description={language === 'zh' 
-          ? "飞迈科技新闻中心，获取最新无人机行业资讯、公司新闻、产品发布和技术分享。"
-          : "Feimai Technology News Center. Get the latest drone industry news, company updates, product releases and technical insights."}
-        keywords={language === 'zh' 
-          ? "无人机新闻,飞迈科技新闻,无人机行业资讯,无人机技术分享"
-          : "drone news,Feimai technology news,drone industry updates,drone technical insights"}
+        title={t('news.page.title')}
+        description={t('news.page.metaDesc')}
+        keywords={t('news.page.metaKeywords')}
         path="/news"
       />
       <Header />
@@ -129,10 +128,10 @@ const News = () => {
           <div className="relative container-custom h-full flex items-center">
             <div className="max-w-2xl">
               <h1 className="text-3xl md:text-5xl font-bold text-primary-foreground mb-4">
-                {language === 'zh' ? "新闻中心" : "News Center"}
+                {t('news.page.title')}
               </h1>
               <p className="text-lg md:text-xl text-primary-foreground/90">
-                {language === 'zh' ? "获取最前沿的无人机行业资讯" : "Get the Latest Drone Industry Updates"}
+                {t('news.page.subtitle')}
               </p>
             </div>
           </div>
@@ -143,17 +142,17 @@ const News = () => {
           <div className="container-custom">
             <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
               <div className="flex flex-wrap gap-2">
-                {categories.map((cat) => (
+                {CATEGORY_KEYS.map((key) => (
                   <button
-                    key={cat}
-                    onClick={() => handleCategoryChange(cat)}
+                    key={key}
+                    onClick={() => handleCategoryChange(key)}
                     className={`px-4 py-2 rounded-full text-sm font-medium transition-colors ${
-                      activeCategory === cat
+                      activeCategory === key
                         ? "bg-accent text-accent-foreground"
                         : "bg-card text-muted-foreground hover:text-foreground"
                     }`}
                   >
-                    {cat}
+                    {getCategoryLabel(key)}
                   </button>
                 ))}
               </div>
@@ -165,7 +164,7 @@ const News = () => {
                     setSearchTerm(e.target.value);
                     setCurrentPage(1);
                   }}
-                  placeholder={language === 'zh' ? "搜索文章..." : "Search articles..."}
+                  placeholder={t('news.search.placeholder')}
                   className="pl-10"
                 />
               </div>
@@ -217,23 +216,18 @@ const News = () => {
                         {news.category && (
                           <span className="flex items-center gap-1">
                             <Tag className="w-4 h-4" />
-                            {language === 'en' ? {
-                              '公司新闻': 'Company News',
-                              '行业动态': 'Industry Trends',
-                              '产品资讯': 'Product Updates',
-                              '技术分享': 'Tech Insights',
-                            }[news.category] || news.category : news.category}
+                            {getDisplayCategory(news.category)}
                           </span>
                         )}
                       </div>
                       <h3 className="text-lg font-bold text-card-foreground mb-2 line-clamp-2 group-hover:text-accent transition-colors">
-                        {language === 'en' && news.title_en ? news.title_en : news.title}
+                        {baseLang === 'en' && news.title_en ? news.title_en : news.title}
                       </h3>
                       <p className="text-muted-foreground text-sm line-clamp-2 mb-4">
-                        {language === 'en' && news.summary_en ? news.summary_en : news.summary}
+                        {baseLang === 'en' && news.summary_en ? news.summary_en : news.summary}
                       </p>
                       <span className="inline-flex items-center text-accent hover:text-orange-light font-medium">
-                        {language === 'zh' ? "阅读更多" : "Read More"}
+                        {t('news.readMore')}
                         <ArrowRight className="w-4 h-4 ml-1" />
                       </span>
                     </div>
@@ -243,7 +237,7 @@ const News = () => {
             ) : (
               <div className="text-center py-12">
                 <p className="text-muted-foreground">
-                  {language === 'zh' ? '暂无文章' : 'No articles found'}
+                  {t('news.noArticles')}
                 </p>
               </div>
             )}
