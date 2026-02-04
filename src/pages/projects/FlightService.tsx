@@ -8,22 +8,21 @@ import { MultiLanguageSEO } from "@/components/MultiLanguageSEO";
 import { useLanguage } from "@/contexts/LanguageContext";
 
 const FlightService = () => {
-  const { language, t } = useLanguage();
-  const isEn = language === 'en';
+  const { t } = useLanguage();
 
   const services = [
-    { icon: Camera, title: isEn ? "Aerial Mapping" : t('flightService.services.aerialMapping'), description: isEn ? "High-precision aerial & 3D modeling" : t('flightService.services.aerialMappingDesc') },
-    { icon: Zap, title: isEn ? "Power Inspection" : t('flightService.services.powerInspection'), description: isEn ? "Transmission line inspection" : t('flightService.services.powerInspectionDesc') },
-    { icon: Droplet, title: isEn ? "Agricultural Spraying" : t('flightService.services.agriculturalSpraying'), description: isEn ? "Crop spraying services" : t('flightService.services.agriculturalSprayingDesc') },
-    { icon: Map, title: isEn ? "Emergency Rescue" : t('flightService.services.emergencyRescue'), description: isEn ? "Search & rescue, cargo delivery" : t('flightService.services.emergencyRescueDesc') },
+    { icon: Camera, title: t('flightService.service.mapping'), description: t('flightService.service.mapping.desc') },
+    { icon: Zap, title: t('flightService.service.power'), description: t('flightService.service.power.desc') },
+    { icon: Droplet, title: t('flightService.service.agriculture'), description: t('flightService.service.agriculture.desc') },
+    { icon: Map, title: t('flightService.service.emergency'), description: t('flightService.service.emergency.desc') },
   ];
 
   return (
     <div className="min-h-screen">
       <MultiLanguageSEO 
-        title={isEn ? "Flight Services" : t('flightService.title')} 
-        description={isEn ? "CANI Technology professional drone flight operation services." : t('flightService.seoDescription')} 
-        keywords={isEn ? "drone flight service,aerial photography,power inspection,crop spraying" : t('flightService.seoKeywords')} 
+        title={t('flightService.seo.title')} 
+        description={t('flightService.seo.description')} 
+        keywords={t('flightService.seo.keywords')} 
         path="/projects/flight-service" 
       />
       <Header />
@@ -35,14 +34,14 @@ const FlightService = () => {
           <div className="relative container-custom h-full flex items-center">
             <div className="max-w-2xl">
               <h1 className="text-3xl md:text-5xl font-bold text-primary-foreground mb-4">
-                {isEn ? "Flight Services" : t('flightService.title')}
+                {t('flightService.hero.title')}
               </h1>
               <p className="text-lg text-primary-foreground/90 mb-8">
-                {isEn ? "Professional Flight Operations, Efficient Mission Completion" : t('flightService.subtitle')}
+                {t('flightService.hero.subtitle')}
               </p>
               <Link to="/contact">
                 <Button className="bg-accent hover:bg-orange-light text-accent-foreground px-8 py-3">
-                  {isEn ? "Book Service" : t('flightService.bookService')}
+                  {t('flightService.hero.cta')}
                   <ArrowRight className="w-4 h-4 ml-2" />
                 </Button>
               </Link>

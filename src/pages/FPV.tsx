@@ -230,14 +230,14 @@ const FPV = () => {
           </div>
           <div className="container-custom text-center relative">
             <h2 className="text-2xl md:text-4xl font-bold text-primary-foreground mb-4">
-              开启FPV飞行之旅
+              {t('fpv.cta.title')}
             </h2>
             <p className="text-primary-foreground/80 mb-10 max-w-2xl mx-auto">
-              加入长凌FPV玩家社群，交流飞行技巧，分享精彩视频，获取专属优惠
+              {t('fpv.cta.subtitle')}
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Button className="bg-accent hover:bg-accent/90 text-accent-foreground px-10 py-6 text-lg shadow-lg">
-                加入社群
+                {t('fpv.cta.join')}
                 <ArrowRight className="w-5 h-5 ml-2" />
               </Button>
               <Button className="bg-primary-foreground/20 border border-primary-foreground/50 text-primary-foreground hover:bg-primary-foreground/30 px-10 py-6 text-lg backdrop-blur-sm">
