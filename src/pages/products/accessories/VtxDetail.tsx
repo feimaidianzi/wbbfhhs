@@ -11,8 +11,7 @@ import { useLanguage } from "@/contexts/LanguageContext";
 const VtxDetail = () => {
   const { productId } = useParams<{ productId: string }>();
   const product = productId ? getProductById(productId) : null;
-  const { language, t } = useLanguage();
-  const isEn = language === 'en';
+  const { t } = useLanguage();
 
   if (!product) {
     return <Navigate to="/products/accessories/vtx-vrx" replace />;
@@ -21,8 +20,8 @@ const VtxDetail = () => {
   return (
     <>
       <SEO 
-        title={`${product.name} ${product.model} - ${isEn ? "FeiMai Technology" : "飞迈科技"}`}
-        description={`${product.name}，${product.frequency}${isEn ? " band" : "频段"}，${product.channels}${isEn ? " channels" : "频道"}，${product.power}${isEn ? " output" : "输出功率"}，${isEn ? "Professional FPV Video Transmitter" : "专业FPV视频发射器"}`}
+        title={`${product.name} ${product.model} - ${t('company.name')}`}
+        description={`${product.name}，${product.frequency}${t('vtxDetail.seo.band')}，${product.channels}${t('vtxDetail.seo.channels')}，${product.power}${t('vtxDetail.seo.power')}，${t('vtxDetail.seo.vtxDesc')}`}
       />
       <Header />
       <main className="min-h-screen bg-background">
@@ -198,7 +197,7 @@ const VtxDetail = () => {
                   <table className="w-full">
                     <thead>
                       <tr className="bg-muted/50">
-                        <th className="px-6 py-3 text-left font-semibold">{isEn ? "Level" : "档位"}</th>
+                        <th className="px-6 py-3 text-left font-semibold">{t('vtxDetail.level')}</th>
                         {product.operationGuide.powerLevelsTable.map((item) => (
                           <th key={item.level} className="px-6 py-3 text-center font-semibold">{item.level}</th>
                         ))}
@@ -215,9 +214,7 @@ const VtxDetail = () => {
                   </table>
                 </div>
                 <p className="text-sm text-muted-foreground mt-2">
-                  {isEn 
-                    ? "After setup, the LED will sequentially display 'Band → Channel → Power'. Note: When displaying power, the LED will flash the corresponding number twice rapidly."
-                    : "设置完成后，LED将依次显示「频段→频道→功率」。注意：显示功率时，LED会快速闪烁对应数字2次。"}
+                  {t('vtxDetail.ledNote')}
                 </p>
               </div>
             )}
@@ -232,7 +229,7 @@ const VtxDetail = () => {
               <table className="w-full text-sm">
                 <thead>
                   <tr className="bg-muted/50">
-                    <th className="px-4 py-3 text-left font-semibold">{isEn ? "Band" : "频段"}</th>
+                    <th className="px-4 py-3 text-left font-semibold">{t('vtxDetail.band')}</th>
                     <th className="px-4 py-3 text-center font-semibold">CH1</th>
                     <th className="px-4 py-3 text-center font-semibold">CH2</th>
                     <th className="px-4 py-3 text-center font-semibold">CH3</th>
