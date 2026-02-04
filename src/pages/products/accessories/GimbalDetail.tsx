@@ -4,7 +4,8 @@ import { Footer } from "@/components/Footer";
 import { FloatingContact } from "@/components/FloatingContact";
 import { SEO } from "@/components/SEO";
 import { Button } from "@/components/ui/button";
-import { ArrowLeft, Check, AlertTriangle, Package, Download, Play, HelpCircle } from "lucide-react";
+import { BackButton } from "@/components/BackButton";
+import { Check, AlertTriangle, Package, Download, Play, HelpCircle } from "lucide-react";
 import { getGimbalProductById } from "@/data/gimbalProducts";
 import { useState } from "react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -30,15 +31,7 @@ const GimbalDetail = () => {
       />
       <Header />
       <main className="min-h-screen bg-background">
-        {/* Breadcrumb */}
-        <section className="pt-8 pb-4 bg-muted/30">
-          <div className="container mx-auto px-4">
-            <Link to="/products/accessories/gimbal" className="inline-flex items-center gap-2 text-primary hover:underline">
-              <ArrowLeft className="w-4 h-4" />
-              {t('accessoryDetail.backToGimbal')}
-            </Link>
-          </div>
-        </section>
+        <BackButton to="/products/accessories/gimbal" />
 
         {/* Hero Section with slogan */}
         {product.sloganKey && (

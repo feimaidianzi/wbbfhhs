@@ -7,9 +7,10 @@ import { FloatingContact } from '@/components/FloatingContact';
 import { MultiLanguageSEO } from '@/components/MultiLanguageSEO';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
+import { BackButton } from '@/components/BackButton';
 import ProductSpecifications from '@/components/ProductSpecifications';
 import { useLanguage } from '@/contexts/LanguageContext';
-import { ArrowLeft, Check, Loader2, Phone, ArrowRight, ImageOff } from 'lucide-react';
+import { Check, Loader2, Phone, ArrowRight, ImageOff } from 'lucide-react';
 import { Helmet } from 'react-helmet-async';
 import { LanguageCode } from '@/i18n/languages';
 import { getDomainForLanguage, getHtmlLang } from '@/utils/seoConfig';
@@ -186,18 +187,7 @@ const DatabaseProductDetail = () => {
       </Helmet>
       <Header />
       <main className="min-h-screen bg-background">
-        {/* Breadcrumb */}
-        <section className="pt-8 pb-4 bg-muted/30">
-          <div className="container mx-auto px-4">
-            <Link
-              to="/products"
-              className="inline-flex items-center gap-2 text-primary hover:underline"
-            >
-              <ArrowLeft className="w-4 h-4" />
-              {t('productDetail.backToList')}
-            </Link>
-          </div>
-        </section>
+        <BackButton to="/products" />
 
         {/* Hero Section */}
         <section className="py-12 bg-gradient-to-br from-primary/5 via-background to-background">

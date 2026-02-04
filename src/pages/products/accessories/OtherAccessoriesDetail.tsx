@@ -4,6 +4,7 @@ import { Footer } from "@/components/Footer";
 import { FloatingContact } from "@/components/FloatingContact";
 import { Button } from "@/components/ui/button";
 import { SEO } from "@/components/SEO";
+import { BackButton } from "@/components/BackButton";
 import { ArrowRight, Phone, Monitor, Tv, Satellite, Navigation, Check, Shield, Zap, Settings } from "lucide-react";
 import { otherAccessoriesProducts } from "@/data/otherAccessoriesProducts";
 import { useLanguage } from "@/contexts/LanguageContext";
@@ -73,20 +74,7 @@ const OtherAccessoriesDetail = () => {
       />
       <Header />
       <main className="pt-16 md:pt-20">
-        {/* Breadcrumb */}
-        <div className="bg-secondary py-4">
-          <div className="container-custom">
-            <div className="flex items-center gap-2 text-sm text-muted-foreground flex-wrap">
-              <Link to="/" className="hover:text-accent">{t('nav.home')}</Link>
-              <span>/</span>
-              <Link to="/products/accessories" className="hover:text-accent">{t('nav.products')}</Link>
-              <span>/</span>
-              <Link to="/products/accessories/others" className="hover:text-accent">{t('accessory.others')}</Link>
-              <span>/</span>
-              <span className="text-foreground">{productName}</span>
-            </div>
-          </div>
-        </div>
+        <BackButton to="/products/accessories/others" />
 
         {/* Hero Section */}
         <section className="relative py-16 md:py-24 overflow-hidden bg-gradient-to-br from-primary via-primary/95 to-accent/20">
