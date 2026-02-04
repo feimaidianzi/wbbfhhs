@@ -32,6 +32,7 @@ interface NewsArticle {
 interface RelatedArticle {
   id: string;
   title: string;
+  title_en: string | null;
   summary: string | null;
   cover_image: string | null;
   published_at: string | null;
@@ -40,44 +41,39 @@ interface RelatedArticle {
 
 const NewsDetail = () => {
   const { id } = useParams<{ id: string }>();
-  const { language } = useLanguage();
+  const { t, baseLang } = useLanguage();
   const [article, setArticle] = useState<NewsArticle | null>(null);
   const [loading, setLoading] = useState(true);
   const [relatedArticles, setRelatedArticles] = useState<RelatedArticle[]>([]);
   const contentRef = useRef<HTMLDivElement>(null);
 
-  // Handle broken images in article content
   const handleContentImageErrors = useCallback(() => {
     if (!contentRef.current) return;
     
     const images = contentRef.current.querySelectorAll('img');
     images.forEach((img) => {
-      // Skip if already handled
       if (img.dataset.errorHandled === 'true') return;
       
       img.onerror = () => {
         img.dataset.errorHandled = 'true';
         img.src = DEFAULT_IMAGE;
-        img.alt = '文章配图';
+        img.alt = t('news.detail.imageAlt');
       };
       
-      // Also check if image is already broken (for cached broken images)
       if (img.complete && img.naturalWidth === 0) {
         img.src = DEFAULT_IMAGE;
-        img.alt = '文章配图';
+        img.alt = t('news.detail.imageAlt');
         img.dataset.errorHandled = 'true';
       }
     });
-  }, []);
+  }, [t]);
 
-  // Apply image error handlers after content renders
   useEffect(() => {
     if (article && contentRef.current) {
-      // Small delay to ensure DOM is fully rendered
       const timer = setTimeout(handleContentImageErrors, 100);
       return () => clearTimeout(timer);
     }
-  }, [article, language, handleContentImageErrors]);
+  }, [article, handleContentImageErrors]);
 
   useEffect(() => {
     const fetchArticle = async () => {
@@ -94,11 +90,10 @@ const NewsDetail = () => {
         if (error) throw error;
         setArticle(data);
 
-        // Fetch related articles
         if (data?.category) {
           const { data: related } = await supabase
             .from('news_articles')
-            .select('id, title, summary, cover_image, published_at, category')
+            .select('id, title, title_en, summary, cover_image, published_at, category')
             .eq('is_published', true)
             .eq('category', data.category)
             .neq('id', id)
@@ -119,11 +114,23 @@ const NewsDetail = () => {
 
   const formatDate = (dateString: string | null) => {
     if (!dateString) return '';
-    return new Date(dateString).toLocaleDateString('zh-CN', {
+    return new Date(dateString).toLocaleDateString(baseLang === 'zh' ? 'zh-CN' : 'en-US', {
       year: 'numeric',
       month: 'long',
       day: 'numeric',
     });
+  };
+
+  const getCategoryLabel = (category: string | null) => {
+    if (!category) return null;
+    const categoryMap: Record<string, string> = {
+      '公司新闻': 'company',
+      '行业动态': 'industry',
+      '产品资讯': 'product',
+      '技术分享': 'tech',
+    };
+    const key = categoryMap[category];
+    return key ? t(`news.category.${key}`) : category;
   };
 
   if (loading) {
@@ -155,15 +162,15 @@ const NewsDetail = () => {
         <main className="pt-16 md:pt-20">
           <div className="container-custom py-24 text-center">
             <h1 className="text-2xl font-bold text-foreground mb-4">
-              {language === 'zh' ? '文章不存在' : 'Article Not Found'}
+              {t('news.notFound.title')}
             </h1>
             <p className="text-muted-foreground mb-8">
-              {language === 'zh' ? '您访问的文章可能已被删除或不存在' : 'The article you are looking for may have been deleted or does not exist'}
+              {t('news.notFound.message')}
             </p>
             <Link to="/news">
               <Button>
                 <ArrowLeft className="w-4 h-4 mr-2" />
-                {language === 'zh' ? '返回新闻列表' : 'Back to News'}
+                {t('news.notFound.back')}
               </Button>
             </Link>
           </div>
@@ -174,8 +181,8 @@ const NewsDetail = () => {
   }
 
   const articleStructuredData = createArticleStructuredData({
-    title: article.title,
-    description: article.summary || '',
+    title: baseLang === 'en' && article.title_en ? article.title_en : article.title,
+    description: baseLang === 'en' && article.summary_en ? article.summary_en : (article.summary || ''),
     image: article.cover_image || 'https://images.unsplash.com/photo-1473968512647-3e447244af8f?w=1200&q=80',
     datePublished: article.published_at || article.created_at,
   });
@@ -183,8 +190,8 @@ const NewsDetail = () => {
   return (
     <div className="min-h-screen">
       <SEO
-        title={article.title}
-        description={article.summary || article.title}
+        title={baseLang === 'en' && article.title_en ? article.title_en : article.title}
+        description={baseLang === 'en' && article.summary_en ? article.summary_en : (article.summary || article.title)}
         url={`/news/${article.id}`}
         image={article.cover_image || undefined}
         structuredData={articleStructuredData}
@@ -208,7 +215,7 @@ const NewsDetail = () => {
           {/* Back Button */}
           <Link to="/news" className="inline-flex items-center text-muted-foreground hover:text-foreground mb-6 transition-colors">
             <ArrowLeft className="w-4 h-4 mr-2" />
-            {language === 'zh' ? '返回新闻列表' : 'Back to News'}
+            {t('news.detail.backToList')}
           </Link>
 
           {/* Article Header */}
@@ -216,16 +223,11 @@ const NewsDetail = () => {
             {article.category && (
               <Badge className="mb-4 bg-accent/20 text-accent border-accent/30">
                 <Tag className="w-3 h-3 mr-1" />
-                {language === 'en' ? {
-                  '公司新闻': 'Company News',
-                  '行业动态': 'Industry Trends',
-                  '产品资讯': 'Product Updates',
-                  '技术分享': 'Tech Insights',
-                }[article.category] || article.category : article.category}
+                {getCategoryLabel(article.category)}
               </Badge>
             )}
             <h1 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
-              {language === 'en' && article.title_en ? article.title_en : article.title}
+              {baseLang === 'en' && article.title_en ? article.title_en : article.title}
             </h1>
             <div className="flex flex-wrap items-center gap-4 text-muted-foreground">
               {article.published_at && (
@@ -243,7 +245,7 @@ const NewsDetail = () => {
             </div>
             {(article.summary || article.summary_en) && (
               <p className="mt-4 text-lg text-muted-foreground leading-relaxed">
-                {language === 'en' && article.summary_en ? article.summary_en : article.summary}
+                {baseLang === 'en' && article.summary_en ? article.summary_en : article.summary}
               </p>
             )}
           </header>
@@ -258,7 +260,7 @@ const NewsDetail = () => {
               prose-strong:text-foreground
               prose-img:rounded-xl prose-img:shadow-lg"
             dangerouslySetInnerHTML={{ __html: sanitizeHtml(
-              language === 'en' && article.content_en ? article.content_en : article.content
+              baseLang === 'en' && article.content_en ? article.content_en : article.content
             ) }}
           />
         </article>
@@ -268,7 +270,7 @@ const NewsDetail = () => {
           <section className="bg-secondary py-12">
             <div className="container-custom">
               <h2 className="text-2xl font-bold text-foreground mb-6">
-                {language === 'zh' ? '相关文章' : 'Related Articles'}
+                {t('news.detail.relatedArticles')}
               </h2>
               <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                 {relatedArticles.map((related) => (
@@ -279,18 +281,18 @@ const NewsDetail = () => {
                   >
                     <div className="aspect-video overflow-hidden bg-muted">
                       <img
-                        src={related.cover_image || "https://images.pexels.com/photos/442587/pexels-photo-442587.jpeg?auto=compress&cs=tinysrgb&w=600"}
-                        alt={related.title}
+                        src={related.cover_image || DEFAULT_IMAGE}
+                        alt={baseLang === 'en' && related.title_en ? related.title_en : related.title}
                         className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                         onError={(e) => {
                           const target = e.target as HTMLImageElement;
-                          target.src = "https://images.pexels.com/photos/442587/pexels-photo-442587.jpeg?auto=compress&cs=tinysrgb&w=600";
+                          target.src = DEFAULT_IMAGE;
                         }}
                       />
                     </div>
                     <div className="p-4">
                       <h3 className="font-semibold text-card-foreground line-clamp-2 group-hover:text-accent transition-colors">
-                        {related.title}
+                        {baseLang === 'en' && related.title_en ? related.title_en : related.title}
                       </h3>
                       {related.published_at && (
                         <p className="text-sm text-muted-foreground mt-2">

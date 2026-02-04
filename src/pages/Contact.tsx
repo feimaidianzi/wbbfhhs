@@ -3,16 +3,16 @@ import { Footer } from "@/components/Footer";
 import { FloatingContact } from "@/components/FloatingContact";
 import { Button } from "@/components/ui/button";
 import { Phone, Mail, MapPin, Clock, MessageCircle, Send, Loader2 } from "lucide-react";
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect } from "react";
 import { useToast } from "@/hooks/use-toast";
 import { MultiLanguageSEO } from "@/components/MultiLanguageSEO";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { supabase } from "@/integrations/supabase/client";
 
-const RATE_LIMIT_SECONDS = 60; // 60 second cooldown between submissions
+const RATE_LIMIT_SECONDS = 60;
 
 const Contact = () => {
-  const { language, t } = useLanguage();
+  const { t, baseLang } = useLanguage();
   const { toast } = useToast();
   const [submitting, setSubmitting] = useState(false);
   const [canSubmit, setCanSubmit] = useState(true);
@@ -26,7 +26,6 @@ const Contact = () => {
     message: "",
   });
 
-  // Check localStorage for rate limit on mount
   useEffect(() => {
     const lastSubmitTime = localStorage.getItem('lastInquirySubmit');
     if (lastSubmitTime) {
@@ -39,7 +38,6 @@ const Contact = () => {
     }
   }, []);
 
-  // Countdown timer
   useEffect(() => {
     if (cooldown <= 0) {
       setCanSubmit(true);
@@ -78,7 +76,6 @@ const Contact = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
-    // Rate limit check
     if (!canSubmit) {
       toast({
         title: t('contact.validation.pleaseWait'),
@@ -97,7 +94,6 @@ const Contact = () => {
       return;
     }
 
-    // Basic input validation
     if (formData.name.length > 100 || formData.email.length > 255 || formData.message.length > 5000) {
       toast({
         title: t('contact.validation.inputTooLong'),
@@ -109,9 +105,8 @@ const Contact = () => {
 
     setSubmitting(true);
     try {
-      const inquirySubject = formData.subject.trim() || (language === 'zh' ? '网站咨询' : 'Website Inquiry');
+      const inquirySubject = formData.subject.trim() || t('contact.form.defaultSubject');
       
-      // Save to database
       const { error } = await supabase
         .from('inquiries')
         .insert({
@@ -125,7 +120,6 @@ const Contact = () => {
 
       if (error) throw error;
 
-      // Get admin email from settings
       let adminEmail = 'market@caniuav.com';
       try {
         const { data: settingData } = await supabase
@@ -140,7 +134,6 @@ const Contact = () => {
         console.error('Failed to get admin email setting:', e);
       }
 
-      // Send email notification (don't fail if email fails)
       try {
         await supabase.functions.invoke('send-inquiry-notification', {
           body: {
@@ -155,10 +148,8 @@ const Contact = () => {
         });
       } catch (emailError) {
         console.error('Email notification failed:', emailError);
-        // Don't throw - still show success since data was saved
       }
 
-      // Set rate limit
       localStorage.setItem('lastInquirySubmit', Date.now().toString());
       setCanSubmit(false);
       setCooldown(RATE_LIMIT_SECONDS);
@@ -183,8 +174,8 @@ const Contact = () => {
   const contactStructuredData = {
     '@context': 'https://schema.org',
     '@type': 'ContactPage',
-    name: language === 'zh' ? '联系长凌科技' : 'Contact CANI',
-    description: language === 'zh' ? '获取长凌科技的联系方式，咨询无人机产品和定制服务' : 'Get contact info for CANI, inquire about drone products and custom services',
+    name: t('contact.structured.name'),
+    description: t('contact.structured.description'),
     mainEntity: {
       '@type': 'Organization',
       name: 'CANI Technology',
@@ -202,9 +193,9 @@ const Contact = () => {
   return (
     <div className="min-h-screen">
       <MultiLanguageSEO
-        title={language === 'zh' ? "联系我们" : "Contact Us"}
-        description={language === 'zh' ? "联系长凌科技，获取专业无人机解决方案咨询服务。电话：+8617674048404，总部地址：湖南省长沙市。" : "Contact CANI for professional drone solution consultation. Phone: +8617674048404, HQ: Changsha, Hunan, China."}
-        keywords="联系长凌,CANI,无人机咨询,无人机定制服务,长沙无人机公司"
+        title={t('contact.page.title')}
+        description={t('contact.page.description')}
+        keywords={t('contact.page.keywords')}
         path="/contact"
         structuredData={contactStructuredData}
       />
@@ -223,10 +214,10 @@ const Contact = () => {
           <div className="relative container-custom h-full flex items-center">
             <div className="max-w-2xl">
               <h1 className="text-3xl md:text-5xl font-bold text-primary-foreground mb-4">
-                {language === 'zh' ? '联系我们' : 'Contact Us'}
+                {t('contact.page.title')}
               </h1>
               <p className="text-lg md:text-xl text-primary-foreground/90">
-                {language === 'zh' ? '期待与您的合作，为您提供专业的无人机解决方案' : 'Looking forward to working with you, providing professional drone solutions'}
+                {t('contact.page.subtitle')}
               </p>
             </div>
           </div>
@@ -260,16 +251,16 @@ const Contact = () => {
               {/* Contact Form */}
               <div>
                 <h2 className="text-2xl md:text-3xl font-bold mb-6">
-                  {language === 'zh' ? '在线咨询' : 'Online Inquiry'}
+                  {t('contact.form.title')}
                 </h2>
                 <p className="text-muted-foreground mb-8">
-                  {language === 'zh' ? '填写以下表单，我们的专业团队将尽快与您联系' : 'Fill in the form below, our professional team will contact you soon'}
+                  {t('contact.form.subtitle')}
                 </p>
                 <form onSubmit={handleSubmit} className="space-y-6">
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div>
                       <label className="block text-sm font-medium text-foreground mb-2">
-                        {language === 'zh' ? '姓名 *' : 'Name *'}
+                        {t('contact.form.name')} *
                       </label>
                       <input
                         type="text"
@@ -277,12 +268,12 @@ const Contact = () => {
                         value={formData.name}
                         onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                         className="w-full px-4 py-3 rounded-lg border border-border bg-card text-foreground focus:outline-none focus:ring-2 focus:ring-accent"
-                        placeholder={language === 'zh' ? "请输入姓名" : "Enter your name"}
+                        placeholder={t('contact.form.namePlaceholder')}
                       />
                     </div>
                     <div>
                       <label className="block text-sm font-medium text-foreground mb-2">
-                        {language === 'zh' ? '电话 *' : 'Phone *'}
+                        {t('contact.form.phone')} *
                       </label>
                       <input
                         type="tel"
@@ -290,14 +281,14 @@ const Contact = () => {
                         value={formData.phone}
                         onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
                         className="w-full px-4 py-3 rounded-lg border border-border bg-card text-foreground focus:outline-none focus:ring-2 focus:ring-accent"
-                        placeholder={language === 'zh' ? "请输入联系电话" : "Enter phone number"}
+                        placeholder={t('contact.form.phonePlaceholder')}
                       />
                     </div>
                   </div>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div>
                       <label className="block text-sm font-medium text-foreground mb-2">
-                        {language === 'zh' ? '邮箱 *' : 'Email *'}
+                        {t('contact.form.email')} *
                       </label>
                       <input
                         type="email"
@@ -305,37 +296,37 @@ const Contact = () => {
                         value={formData.email}
                         onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                         className="w-full px-4 py-3 rounded-lg border border-border bg-card text-foreground focus:outline-none focus:ring-2 focus:ring-accent"
-                        placeholder={language === 'zh' ? "请输入邮箱地址" : "Enter email address"}
+                        placeholder={t('contact.form.emailPlaceholder')}
                       />
                     </div>
                     <div>
                       <label className="block text-sm font-medium text-foreground mb-2">
-                        {language === 'zh' ? '公司名称' : 'Company'}
+                        {t('contact.form.company')}
                       </label>
                       <input
                         type="text"
                         value={formData.company}
                         onChange={(e) => setFormData({ ...formData, company: e.target.value })}
                         className="w-full px-4 py-3 rounded-lg border border-border bg-card text-foreground focus:outline-none focus:ring-2 focus:ring-accent"
-                        placeholder={language === 'zh' ? "请输入公司名称" : "Enter company name"}
+                        placeholder={t('contact.form.companyPlaceholder')}
                       />
                     </div>
                   </div>
                   <div>
                     <label className="block text-sm font-medium text-foreground mb-2">
-                      {language === 'zh' ? '咨询主题' : 'Subject'}
+                      {t('contact.form.subject')}
                     </label>
                     <input
                       type="text"
                       value={formData.subject}
                       onChange={(e) => setFormData({ ...formData, subject: e.target.value })}
                       className="w-full px-4 py-3 rounded-lg border border-border bg-card text-foreground focus:outline-none focus:ring-2 focus:ring-accent"
-                      placeholder={language === 'zh' ? "请输入咨询主题" : "Enter subject"}
+                      placeholder={t('contact.form.subjectPlaceholder')}
                     />
                   </div>
                   <div>
                     <label className="block text-sm font-medium text-foreground mb-2">
-                      {language === 'zh' ? '咨询内容 *' : 'Message *'}
+                      {t('contact.form.message')} *
                     </label>
                     <textarea
                       required
@@ -343,7 +334,7 @@ const Contact = () => {
                       value={formData.message}
                       onChange={(e) => setFormData({ ...formData, message: e.target.value })}
                       className="w-full px-4 py-3 rounded-lg border border-border bg-card text-foreground focus:outline-none focus:ring-2 focus:ring-accent resize-none"
-                      placeholder={language === 'zh' ? "请描述您的需求或问题" : "Describe your requirements or questions"}
+                      placeholder={t('contact.form.messagePlaceholder')}
                     />
                   </div>
                   <Button 
@@ -354,17 +345,17 @@ const Contact = () => {
                     {submitting ? (
                       <>
                         <Loader2 className="w-4 h-4 mr-2 animate-spin" />
-                        {language === 'zh' ? '提交中...' : 'Submitting...'}
+                        {t('contact.form.submitting')}
                       </>
                     ) : !canSubmit ? (
                       <>
                         <Clock className="w-4 h-4 mr-2" />
-                        {language === 'zh' ? `请等待 ${cooldown} 秒` : `Wait ${cooldown}s`}
+                        {t('contact.form.waitSeconds').replace('{{seconds}}', String(cooldown))}
                       </>
                     ) : (
                       <>
                         <Send className="w-4 h-4 mr-2" />
-                        {language === 'zh' ? '提交咨询' : 'Submit Inquiry'}
+                        {t('contact.form.submit')}
                       </>
                     )}
                   </Button>
@@ -374,7 +365,7 @@ const Contact = () => {
               {/* Offices */}
               <div>
                 <h2 className="text-2xl md:text-3xl font-bold mb-6">
-                  {language === 'zh' ? '办公地址' : 'Office Address'}
+                  {t('contact.office.title')}
                 </h2>
                 <div className="space-y-6">
                   {offices.map((office, index) => (
@@ -394,19 +385,19 @@ const Contact = () => {
                   ))}
                 </div>
 
-                {/* Map - OpenStreetMap */}
+                {/* Map */}
                 <div className="mt-6 aspect-video bg-muted rounded-xl overflow-hidden relative">
                   <iframe
                     src="https://www.openstreetmap.org/export/embed.html?bbox=112.8650%2C28.2550%2C112.8850%2C28.2750&layer=mapnik&marker=28.2655%2C112.8755"
                     className="w-full h-full border-0"
-                    title={language === 'zh' ? "公司地址地图" : "Company Location Map"}
+                    title={t('contact.map.title')}
                     loading="lazy"
                     style={{ minHeight: '300px' }}
                   />
                   <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-card/90 to-transparent p-4">
                     <p className="text-sm text-card-foreground flex items-center gap-2">
                       <MapPin className="w-4 h-4 text-accent" />
-                      {language === 'zh' ? '湖南省长沙市望城区月亮岛街道罐子岭澳优全球总部大楼' : 'Ausnutria Global HQ, Wangcheng District, Changsha, Hunan, China'}
+                      {t('contact.office.changsha.address')}
                     </p>
                   </div>
                 </div>

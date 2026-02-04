@@ -2707,6 +2707,32 @@ export const zhTranslations: Record<string, string> = {
   'logisticsApp.cta.title': '开启智能物流配送',
   'logisticsApp.cta.desc': '联系我们获取专业的物流无人机解决方案',
   'logisticsApp.cta.btn': '立即咨询',
+
+  // Contact Page - New keys only (existing keys like contact.form.name already exist)
+  'contact.page.title': '联系我们',
+  'contact.page.subtitle': '期待与您的合作，为您提供专业的无人机解决方案',
+  'contact.page.description': '联系长凌科技，获取专业无人机解决方案咨询服务。电话：+8617674048404，总部地址：湖南省长沙市。',
+  'contact.page.keywords': '联系长凌,CANI,无人机咨询,无人机定制服务,长沙无人机公司',
+  'contact.structured.name': '联系长凌科技',
+  'contact.structured.description': '获取长凌科技的联系方式，咨询无人机产品和定制服务',
+  'contact.office.title': '办公地址',
+  'contact.form.title': '在线咨询',
+  'contact.form.subtitle': '填写以下表单，我们的专业团队将尽快与您联系',
+  'contact.form.namePlaceholder': '请输入姓名',
+  'contact.form.phonePlaceholder': '请输入联系电话',
+  'contact.form.emailPlaceholder': '请输入邮箱地址',
+  'contact.form.companyPlaceholder': '请输入公司名称',
+  'contact.form.subject': '咨询主题',
+  'contact.form.subjectPlaceholder': '请输入咨询主题',
+  'contact.form.messagePlaceholder': '请描述您的需求或问题',
+  'contact.form.submitting': '提交中...',
+  'contact.form.waitSeconds': '请等待 {{seconds}} 秒',
+  'contact.form.defaultSubject': '网站咨询',
+
+  // News Detail Page
+  'news.detail.backToList': '返回新闻列表',
+  'news.detail.relatedArticles': '相关文章',
+  'news.detail.imageAlt': '文章配图',
 };
 
 export default zhTranslations;
