@@ -13,9 +13,7 @@ const categoryIcons: Record<string, React.ReactNode> = {
 };
 
 const CameraPage = () => {
-  const { t, language } = useLanguage();
-  const isEn = language === 'en';
-  const categories = cameraCategories.map(c => c.name);
+  const { t } = useLanguage();
 
   return (
     <>
@@ -60,21 +58,21 @@ const CameraPage = () => {
         </section>
 
         {/* Products by Category */}
-        {categories.map((category) => {
-          const products = cameraProducts.filter(p => p.category === category);
+        {cameraCategories.map((category) => {
+          const products = cameraProducts.filter(p => p.categoryKey === category.nameKey);
           if (products.length === 0) return null;
           
           return (
-            <section key={category} id={category} className="py-16 odd:bg-muted/30">
+            <section key={category.id} id={category.id} className="py-16 odd:bg-muted/30">
               <div className="container mx-auto px-4">
                 <div className="flex items-center gap-3 mb-8">
                   <div className="p-3 bg-primary/10 rounded-xl text-primary">
-                    {categoryIcons[category]}
+                    {categoryIcons["运动相机"]}
                   </div>
                   <div>
-                    <h2 className="text-2xl font-bold">{category}</h2>
+                    <h2 className="text-2xl font-bold">{t(category.nameKey)}</h2>
                     <p className="text-muted-foreground">
-                      {cameraCategories.find(c => c.name === category)?.description}
+                      {t(category.descriptionKey)}
                     </p>
                   </div>
                 </div>
@@ -89,7 +87,7 @@ const CameraPage = () => {
                       <div className="aspect-[4/3] bg-muted/50 overflow-hidden p-4">
                         <img
                           src={product.image}
-                          alt={product.name}
+                          alt={t(product.nameKey)}
                           className="w-full h-full object-contain group-hover:scale-105 transition-transform duration-500"
                         />
                       </div>
@@ -103,14 +101,14 @@ const CameraPage = () => {
                           </span>
                         </div>
                         <h3 className="font-semibold text-lg mb-2 group-hover:text-primary transition-colors line-clamp-2">
-                          {product.name}
+                          {t(product.nameKey)}
                         </h3>
-                        <p className="text-sm text-primary mb-3">{product.slogan}</p>
+                        <p className="text-sm text-primary mb-3">{t(product.sloganKey)}</p>
                         <ul className="space-y-1 mb-4">
-                          {product.highlights.slice(0, 3).map((highlight, idx) => (
+                          {product.highlightKeys.slice(0, 3).map((highlightKey, idx) => (
                             <li key={idx} className="text-sm text-muted-foreground flex items-center gap-2">
                               <span className="w-1 h-1 bg-primary rounded-full flex-shrink-0"></span>
-                              {highlight}
+                              {t(highlightKey)}
                             </li>
                           ))}
                         </ul>

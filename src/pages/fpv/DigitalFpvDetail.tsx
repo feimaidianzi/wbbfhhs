@@ -28,9 +28,9 @@ const DigitalFpvDetail = () => {
   return (
     <div className="min-h-screen">
       <MultiLanguageSEO 
-        title={`${product.name} - ${t('digitalFpv.title')}`}
-        description={product.description}
-        keywords={`${t('digitalFpv.title')},${product.name},FPV,${t('digitalFpv.seo.keywords')}`}
+        title={`${t(product.nameKey)} - ${t('digitalFpv.title')}`}
+        description={t(product.descriptionKey)}
+        keywords={`${t('digitalFpv.title')},${t(product.nameKey)},FPV,${t('digitalFpv.seo.keywords')}`}
         path={`/products/accessories/digital-fpv/${productId}`}
       />
       <Header />
@@ -45,7 +45,7 @@ const DigitalFpvDetail = () => {
               <span>/</span>
               <Link to="/products/accessories/digital-fpv" className="hover:text-accent">{t('digitalFpv.title')}</Link>
               <span>/</span>
-              <span className="text-foreground">{product.name}</span>
+              <span className="text-foreground">{t(product.nameKey)}</span>
             </div>
           </div>
         </div>
@@ -56,19 +56,19 @@ const DigitalFpvDetail = () => {
             <BackButton to="/products/accessories/digital-fpv" label={t('digitalFpv.backToDigitalFpv')} />
             <div className="grid md:grid-cols-2 gap-12 items-center">
               <div>
-                <div className="text-accent font-medium mb-2">{product.slogan}</div>
+                <div className="text-accent font-medium mb-2">{t(product.sloganKey)}</div>
                 <h1 className="text-3xl md:text-5xl font-bold text-primary-foreground mb-4">
-                  {product.name}
+                  {t(product.nameKey)}
                 </h1>
-                <p className="text-xl text-primary-foreground/80 mb-2">{product.subSlogan}</p>
-                <p className="text-primary-foreground/70 mb-6">{product.description}</p>
+                <p className="text-xl text-primary-foreground/80 mb-2">{t(product.subSloganKey)}</p>
+                <p className="text-primary-foreground/70 mb-6">{t(product.descriptionKey)}</p>
                 
                 {/* Key Features */}
                 <div className="flex flex-wrap gap-3 mb-8">
-                  {product.keyFeatures.map((feature, index) => (
+                  {product.keyFeatureKeys.map((featureKey, index) => (
                     <div key={index} className="flex items-center gap-2 bg-white/10 backdrop-blur px-4 py-2 rounded-full">
                       <CheckCircle className="w-4 h-4 text-accent" />
-                      <span className="text-primary-foreground text-sm">{feature}</span>
+                      <span className="text-primary-foreground text-sm">{t(featureKey)}</span>
                     </div>
                   ))}
                 </div>
@@ -95,7 +95,7 @@ const DigitalFpvDetail = () => {
                 <div className="bg-white/10 backdrop-blur rounded-3xl p-8">
                   <img
                     src={product.image}
-                    alt={product.name}
+                    alt={t(product.nameKey)}
                     className="w-full h-auto rounded-2xl"
                   />
                 </div>
@@ -114,14 +114,15 @@ const DigitalFpvDetail = () => {
             
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
               {product.features.map((feature, index) => {
-                const IconComponent = iconMap[feature.title] || Wifi;
+                const titleText = t(feature.titleKey);
+                const IconComponent = iconMap[titleText] || Wifi;
                 return (
                   <div key={index} className="bg-card rounded-xl p-6 shadow-card hover:shadow-card-hover transition-all">
                     <div className="w-12 h-12 bg-accent/10 rounded-xl flex items-center justify-center mb-4">
                       <IconComponent className="w-6 h-6 text-accent" />
                     </div>
-                    <h3 className="text-lg font-bold mb-2">{feature.title}</h3>
-                    <p className="text-muted-foreground text-sm">{feature.description}</p>
+                    <h3 className="text-lg font-bold mb-2">{t(feature.titleKey)}</h3>
+                    <p className="text-muted-foreground text-sm">{t(feature.descriptionKey)}</p>
                   </div>
                 );
               })}
@@ -141,14 +142,14 @@ const DigitalFpvDetail = () => {
               {product.specs.map((specGroup, groupIndex) => (
                 <div key={groupIndex} className="bg-card rounded-xl overflow-hidden shadow-card">
                   <div className="bg-primary px-6 py-4">
-                    <h3 className="text-lg font-bold text-primary-foreground">{specGroup.category}</h3>
+                    <h3 className="text-lg font-bold text-primary-foreground">{t(specGroup.categoryKey)}</h3>
                   </div>
                   <div className="p-6">
                     <table className="w-full">
                       <tbody>
                         {specGroup.items.map((item, itemIndex) => (
                           <tr key={itemIndex} className="border-b border-border last:border-0">
-                            <td className="py-3 text-muted-foreground text-sm w-1/3">{item.label}</td>
+                            <td className="py-3 text-muted-foreground text-sm w-1/3">{t(item.labelKey)}</td>
                             <td className="py-3 text-foreground text-sm font-medium">{item.value}</td>
                           </tr>
                         ))}

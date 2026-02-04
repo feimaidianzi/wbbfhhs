@@ -25,8 +25,8 @@ const GimbalDetail = () => {
   return (
     <>
       <SEO 
-        title={`${product.name} - ${t('company.name')}`}
-        description={`${product.name}，${product.category}，${product.highlights.slice(0, 3).join('，')}，${t('accessoryDetail.gimbal.seoDesc')}`}
+        title={`${t(product.nameKey)} - ${t('company.name')}`}
+        description={`${t(product.nameKey)}，${t(product.categoryKey)}，${product.highlightKeys.slice(0, 3).map(k => t(k)).join('，')}，${t('accessoryDetail.gimbal.seoDesc')}`}
       />
       <Header />
       <main className="min-h-screen bg-background">
@@ -41,7 +41,7 @@ const GimbalDetail = () => {
         </section>
 
         {/* Hero Section with slogan */}
-        {product.slogan && (
+        {product.sloganKey && (
           <section className="py-16 bg-gradient-to-br from-zinc-900 via-zinc-800 to-zinc-900 text-white">
             <div className="container mx-auto px-4">
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
@@ -49,22 +49,22 @@ const GimbalDetail = () => {
                 <div className="flex items-center justify-center">
                   <img 
                     src={images[selectedImage]} 
-                    alt={product.name}
+                    alt={t(product.nameKey)}
                     className="max-h-[400px] max-w-full object-contain drop-shadow-2xl"
                   />
                 </div>
                 
                 {/* Slogan & Key Features */}
                 <div className="text-center lg:text-left">
-                  <h1 className="text-4xl md:text-5xl font-bold mb-2">{product.slogan}</h1>
-                  <p className="text-2xl text-zinc-400 mb-8">{product.subSlogan}</p>
+                  <h1 className="text-4xl md:text-5xl font-bold mb-2">{t(product.sloganKey)}</h1>
+                  <p className="text-2xl text-zinc-400 mb-8">{product.subSloganKey ? t(product.subSloganKey) : ''}</p>
                   
                   {product.keyFeatures && (
                     <div className="grid grid-cols-2 gap-4 mb-8">
                       {product.keyFeatures.map((feature, idx) => (
                         <div key={idx} className="text-center p-4 bg-zinc-800/50 rounded-lg border border-zinc-700">
                           <div className="text-2xl md:text-3xl font-bold text-primary mb-1">{feature.value}</div>
-                          <div className="text-sm text-zinc-400">{feature.label}</div>
+                          <div className="text-sm text-zinc-400">{t(feature.labelKey)}</div>
                         </div>
                       ))}
                     </div>
@@ -93,7 +93,7 @@ const GimbalDetail = () => {
                 <div className="bg-card rounded-2xl p-8 border border-border aspect-square flex items-center justify-center">
                   <img 
                     src={images[selectedImage]} 
-                    alt={product.name}
+                    alt={t(product.nameKey)}
                     className="max-h-full max-w-full object-contain"
                   />
                 </div>
@@ -107,7 +107,7 @@ const GimbalDetail = () => {
                           selectedImage === idx ? 'border-primary' : 'border-border hover:border-primary/50'
                         }`}
                       >
-                        <img src={img} alt={`${product.name} ${idx + 1}`} className="w-full h-full object-cover" />
+                        <img src={img} alt={`${t(product.nameKey)} ${idx + 1}`} className="w-full h-full object-cover" />
                       </button>
                     ))}
                   </div>
@@ -117,18 +117,18 @@ const GimbalDetail = () => {
               {/* Product Info */}
               <div>
                 <div className="flex items-center gap-3 mb-4">
-                  <span className="px-3 py-1 text-sm bg-primary/10 text-primary rounded-full font-medium">{product.category}</span>
+                  <span className="px-3 py-1 text-sm bg-primary/10 text-primary rounded-full font-medium">{t(product.categoryKey)}</span>
                   <span className="px-3 py-1 text-sm bg-secondary text-secondary-foreground rounded-full">{product.price}</span>
                 </div>
-                <h2 className="text-3xl md:text-4xl font-bold mb-2">{product.name}</h2>
+                <h2 className="text-3xl md:text-4xl font-bold mb-2">{t(product.nameKey)}</h2>
                 <p className="text-xl text-muted-foreground mb-6">{product.model}</p>
                 
                 {/* Highlights */}
                 <div className="space-y-2 mb-8">
-                  {product.highlights.map((highlight, idx) => (
+                  {product.highlightKeys.map((highlightKey, idx) => (
                     <div key={idx} className="flex items-start gap-2">
                       <Check className="w-5 h-5 text-primary mt-0.5 flex-shrink-0" />
-                      <span>{highlight}</span>
+                      <span>{t(highlightKey)}</span>
                     </div>
                   ))}
                 </div>
@@ -189,20 +189,20 @@ const GimbalDetail = () => {
               <TabsContent value="specs" id="specs">
                 <div className="space-y-6">
                   {(() => {
-                    const categories = [...new Set(product.specs.map(s => s.category).filter(Boolean))];
+                    const categories = [...new Set(product.specs.map(s => s.categoryKey).filter(Boolean))];
                     if (categories.length > 0) {
-                      return categories.map((category) => {
-                        const categorySpecs = product.specs.filter(s => s.category === category);
+                      return categories.map((categoryKey) => {
+                        const categorySpecs = product.specs.filter(s => s.categoryKey === categoryKey);
                         return (
-                          <div key={category} className="bg-card rounded-xl border border-border overflow-hidden">
+                          <div key={categoryKey} className="bg-card rounded-xl border border-border overflow-hidden">
                             <div className="px-6 py-3 bg-muted/50 border-b border-border">
-                              <h4 className="font-semibold">{category}</h4>
+                              <h4 className="font-semibold">{t(categoryKey!)}</h4>
                             </div>
                             <table className="w-full">
                               <tbody>
                                 {categorySpecs.map((spec, idx) => (
                                   <tr key={idx} className="border-b border-border last:border-b-0">
-                                    <td className="px-6 py-4 font-medium bg-muted/30 w-1/3">{spec.label}</td>
+                                    <td className="px-6 py-4 font-medium bg-muted/30 w-1/3">{t(spec.labelKey)}</td>
                                     <td className="px-6 py-4">{spec.value}</td>
                                   </tr>
                                 ))}
@@ -218,7 +218,7 @@ const GimbalDetail = () => {
                           <tbody>
                             {product.specs.map((spec, idx) => (
                               <tr key={idx} className="border-b border-border last:border-b-0">
-                                <td className="px-6 py-4 font-medium bg-muted/30 w-1/3">{spec.label}</td>
+                                <td className="px-6 py-4 font-medium bg-muted/30 w-1/3">{t(spec.labelKey)}</td>
                                 <td className="px-6 py-4">{spec.value}</td>
                               </tr>
                             ))}
@@ -236,30 +236,30 @@ const GimbalDetail = () => {
                   <div>
                     <h3 className="text-xl font-bold mb-4">{t('accessoryDetail.productDescription')}</h3>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                      {product.description.map((desc, idx) => (
+                      {product.descriptionKeys.map((descKey, idx) => (
                         <div key={idx} className="flex items-start gap-3 p-4 bg-card rounded-lg border border-border">
                           <Check className="w-5 h-5 text-primary mt-0.5 flex-shrink-0" />
-                          <span>{desc}</span>
+                          <span>{t(descKey)}</span>
                         </div>
                       ))}
                     </div>
                   </div>
 
-                  {product.features && product.features.length > 0 && (
+                  {product.featureKeys && product.featureKeys.length > 0 && (
                     <div>
                       <h3 className="text-xl font-bold mb-4">{t('accessoryDetail.featureHighlights')}</h3>
                       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                        {product.features.map((feature, idx) => (
+                        {product.featureKeys.map((featureKey, idx) => (
                           <div key={idx} className="flex items-start gap-3 p-4 bg-card rounded-lg border border-border">
                             <Check className="w-5 h-5 text-primary mt-0.5 flex-shrink-0" />
-                            <span>{feature}</span>
+                            <span>{t(featureKey)}</span>
                           </div>
                         ))}
                       </div>
                     </div>
                   )}
 
-                  {product.packageIncludes && product.packageIncludes.length > 0 && (
+                  {product.packageIncludeKeys && product.packageIncludeKeys.length > 0 && (
                     <div>
                       <h3 className="text-xl font-bold mb-4 flex items-center gap-2">
                         <Package className="w-5 h-5 text-primary" />
@@ -267,10 +267,10 @@ const GimbalDetail = () => {
                       </h3>
                       <div className="bg-card rounded-xl border border-border p-6">
                         <ul className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
-                          {product.packageIncludes.map((item, idx) => (
+                          {product.packageIncludeKeys.map((itemKey, idx) => (
                             <li key={idx} className="flex items-center gap-2">
                               <span className="w-2 h-2 bg-primary rounded-full flex-shrink-0"></span>
-                              <span>{item}</span>
+                              <span>{t(itemKey)}</span>
                             </li>
                           ))}
                         </ul>
@@ -278,14 +278,14 @@ const GimbalDetail = () => {
                     </div>
                   )}
 
-                  {product.notes && product.notes.length > 0 && (
+                  {product.noteKeys && product.noteKeys.length > 0 && (
                     <div>
                       <h3 className="text-xl font-bold mb-4">{t('accessoryDetail.notes')}</h3>
                       <div className="space-y-3">
-                        {product.notes.map((note, idx) => (
+                        {product.noteKeys.map((noteKey, idx) => (
                           <div key={idx} className="flex items-start gap-3 p-4 bg-amber-500/10 rounded-lg border border-amber-500/20">
                             <AlertTriangle className="w-5 h-5 text-amber-500 mt-0.5 flex-shrink-0" />
-                            <span className="text-sm">{note}</span>
+                            <span className="text-sm">{t(noteKey)}</span>
                           </div>
                         ))}
                       </div>
@@ -296,16 +296,16 @@ const GimbalDetail = () => {
 
               {/* Applications Tab */}
               <TabsContent value="applications">
-                {product.applications && product.applications.length > 0 ? (
+                {product.applicationKeys && product.applicationKeys.length > 0 ? (
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    {product.applications.map((app, idx) => (
+                    {product.applicationKeys.map((appKey, idx) => (
                       <div key={idx} className="p-6 bg-card rounded-xl border border-border hover:border-primary/50 transition-colors">
                         <div className="flex items-start gap-4">
                           <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center text-primary font-bold flex-shrink-0">
                             {idx + 1}
                           </div>
                           <div>
-                            <p className="text-foreground">{app}</p>
+                            <p className="text-foreground">{t(appKey)}</p>
                           </div>
                         </div>
                       </div>
@@ -357,6 +357,14 @@ const GimbalDetail = () => {
                   </div>
                 )}
               </TabsContent>
+
+              {/* FAQ Tab */}
+              <TabsContent value="faq">
+                <div className="text-center py-12 text-muted-foreground">
+                  <HelpCircle className="w-12 h-12 mx-auto mb-4 opacity-50" />
+                  <p>{t('accessoryDetail.faqComingSoon')}</p>
+                </div>
+              </TabsContent>
             </Tabs>
           </div>
         </section>
@@ -364,17 +372,15 @@ const GimbalDetail = () => {
         {/* CTA Section */}
         <section className="py-16 bg-primary text-primary-foreground">
           <div className="container mx-auto px-4 text-center">
-            <h2 className="text-3xl font-bold mb-4">
-              {t('accessoryDetail.customSolution')}
-            </h2>
+            <h2 className="text-3xl font-bold mb-4">{t('accessoryDetail.interestedTitle')}</h2>
             <p className="text-lg opacity-90 mb-8 max-w-2xl mx-auto">
-              {t('accessoryDetail.oemOdm')}
+              {t('accessoryDetail.interestedDesc')}
             </p>
-            <div className="flex justify-center gap-4">
+            <div className="flex justify-center gap-4 flex-wrap">
               <Button size="lg" variant="secondary" asChild>
-                <Link to="/contact">{t('contact.title')}</Link>
+                <Link to="/contact">{t('accessoryDetail.contactUs')}</Link>
               </Button>
-              <Button size="lg" variant="outline" className="border-primary-foreground/30 hover:bg-primary-foreground/10" asChild>
+              <Button size="lg" variant="outline" className="border-white/30 hover:bg-white/10" asChild>
                 <Link to="/products/accessories/gimbal">{t('accessoryDetail.viewMoreProducts')}</Link>
               </Button>
             </div>

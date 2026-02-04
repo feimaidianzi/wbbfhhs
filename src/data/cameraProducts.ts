@@ -2,148 +2,148 @@ import sj4000Image from "@/assets/camera/sj4000-wifi.png";
 
 export interface CameraProduct {
   id: string;
-  name: string;
+  nameKey: string;
   model: string;
-  category: string;
-  slogan: string;
-  subSlogan: string;
+  categoryKey: string;
+  sloganKey: string;
+  subSloganKey: string;
   image: string;
   price: string;
-  highlights: string[];
+  highlightKeys: string[];
   keyFeatures: {
-    label: string;
+    labelKey: string;
     value: string;
   }[];
   specs: {
-    category: string;
-    items: { label: string; value: string }[];
+    categoryKey: string;
+    items: { labelKey: string; value: string }[];
   }[];
   features: {
-    title: string;
-    description: string;
+    titleKey: string;
+    descriptionKey: string;
   }[];
-  packageContents: string[];
+  packageContentKeys: string[];
 }
 
 export const cameraCategories = [
   {
     id: "action-camera",
-    name: "运动相机",
-    description: "专业运动摄像设备，支持WiFi传输、1080P高清拍摄",
+    nameKey: "camera.category.actionCamera",
+    descriptionKey: "camera.category.actionCamera.desc",
   },
 ];
 
 export const cameraProducts: CameraProduct[] = [
   {
     id: "sj4000-wifi",
-    name: "SJ4000 WIFI运动相机",
+    nameKey: "camera.sj4000.name",
     model: "SJ4000 WIFI",
-    category: "运动相机",
-    slogan: "高清画质 影院级享受",
-    subSlogan: "1080P高清 边玩边拍 随时分享",
+    categoryKey: "camera.category.actionCamera",
+    sloganKey: "camera.sj4000.slogan",
+    subSloganKey: "camera.sj4000.subSlogan",
     image: sj4000Image,
     price: "询价",
-    highlights: [
-      "1200万像素CMOS传感器",
-      "1080P@30fps高清录制",
-      "170°大广角镜头",
-      "WiFi无线传输",
-      "30米防水深度",
+    highlightKeys: [
+      "camera.sj4000.highlight.1",
+      "camera.sj4000.highlight.2",
+      "camera.sj4000.highlight.3",
+      "camera.sj4000.highlight.4",
+      "camera.sj4000.highlight.5",
     ],
     keyFeatures: [
-      { label: "像素", value: "1200万" },
-      { label: "屏幕", value: "2.0英寸高清屏" },
-      { label: "视频", value: "1080p @30fps" },
-      { label: "输出", value: "HDMI高清输出" },
-      { label: "广角", value: "大广角" },
-      { label: "侦测", value: "移动侦测" },
-      { label: "连接", value: "WiFi" },
-      { label: "防水", value: "30M" },
-      { label: "变焦", value: "四倍变焦" },
-      { label: "续航", value: "90分钟" },
+      { labelKey: "camera.sj4000.keyFeature.pixel", value: "1200万" },
+      { labelKey: "camera.sj4000.keyFeature.screen", value: "2.0英寸高清屏" },
+      { labelKey: "camera.sj4000.keyFeature.video", value: "1080p @30fps" },
+      { labelKey: "camera.sj4000.keyFeature.output", value: "HDMI高清输出" },
+      { labelKey: "camera.sj4000.keyFeature.wideAngle", value: "大广角" },
+      { labelKey: "camera.sj4000.keyFeature.detection", value: "移动侦测" },
+      { labelKey: "camera.sj4000.keyFeature.connection", value: "WiFi" },
+      { labelKey: "camera.sj4000.keyFeature.waterproof", value: "30M" },
+      { labelKey: "camera.sj4000.keyFeature.zoom", value: "四倍变焦" },
+      { labelKey: "camera.sj4000.keyFeature.battery", value: "90分钟" },
     ],
     specs: [
       {
-        category: "基本参数",
+        categoryKey: "camera.spec.category.basic",
         items: [
-          { label: "型号", value: "SJ4000 WIFI" },
-          { label: "尺寸", value: "长*宽*高：59.2*41*29.8MM" },
-          { label: "重量", value: "45.5g（不带电池）62.5g（带电池）" },
-          { label: "处理器", value: "联咏96655" },
-          { label: "传感器", value: "AR0330" },
-          { label: "显示屏", value: "2.0英寸液晶显示屏" },
-          { label: "电池", value: "900mAh锂电池" },
-          { label: "存储", value: "Micro SD卡（可扩展32GB、64GB）" },
+          { labelKey: "camera.spec.label.model", value: "SJ4000 WIFI" },
+          { labelKey: "camera.spec.label.size", value: "长*宽*高：59.2*41*29.8MM" },
+          { labelKey: "camera.spec.label.weight", value: "45.5g（不带电池）62.5g（带电池）" },
+          { labelKey: "camera.spec.label.processor", value: "联咏96655" },
+          { labelKey: "camera.spec.label.sensor", value: "AR0330" },
+          { labelKey: "camera.spec.label.display", value: "2.0英寸液晶显示屏" },
+          { labelKey: "camera.spec.label.battery", value: "900mAh锂电池" },
+          { labelKey: "camera.spec.label.storage", value: "Micro SD卡（可扩展32GB、64GB）" },
         ],
       },
       {
-        category: "连接与防护",
+        categoryKey: "camera.spec.category.connection",
         items: [
-          { label: "数据连接", value: "USB 2.0 | HDMI | Wi-Fi" },
-          { label: "防水深度", value: "30米" },
+          { labelKey: "camera.spec.label.dataConnection", value: "USB 2.0 | HDMI | Wi-Fi" },
+          { labelKey: "camera.spec.label.waterproofDepth", value: "30米" },
         ],
       },
       {
-        category: "视频参数",
+        categoryKey: "camera.spec.category.video",
         items: [
-          { label: "视频格式", value: "MOV/MP4" },
-          { label: "视频分辨率", value: "1080P (1920*1080) 30 fps" },
-          { label: "", value: "720P (1280*720) 60/30 fps" },
-          { label: "", value: "WVGA (640*480) 30 fps" },
+          { labelKey: "camera.spec.label.videoFormat", value: "MOV/MP4" },
+          { labelKey: "camera.spec.label.videoResolution", value: "1080P (1920*1080) 30 fps" },
+          { labelKey: "camera.spec.label.videoResolution2", value: "720P (1280*720) 60/30 fps" },
+          { labelKey: "camera.spec.label.videoResolution3", value: "WVGA (640*480) 30 fps" },
         ],
       },
       {
-        category: "照片与其他",
+        categoryKey: "camera.spec.category.photo",
         items: [
-          { label: "充电时间", value: "约3小時" },
-          { label: "照片分辨率", value: "1200万像素" },
-          { label: "照片功能", value: "自拍，连续拍摄（突发），自动拍摄" },
-          { label: "支持语言", value: "English / 繁体中文/俄语等" },
-          { label: "支持配件", value: "电源适配器，USB线，HDMI线，AV线" },
+          { labelKey: "camera.spec.label.chargeTime", value: "约3小時" },
+          { labelKey: "camera.spec.label.photoResolution", value: "1200万像素" },
+          { labelKey: "camera.spec.label.photoFeatures", value: "自拍，连续拍摄（突发），自动拍摄" },
+          { labelKey: "camera.spec.label.languages", value: "English / 繁体中文/俄语等" },
+          { labelKey: "camera.spec.label.accessories", value: "电源适配器，USB线，HDMI线，AV线" },
         ],
       },
     ],
     features: [
       {
-        title: "1200万像素COMS大广角成像",
-        description: "170度大广角，拍摄视野更加宽广，1200万像素拍照图像质量进一步提升。配备2.0英寸高清炫丽显示屏，您可以边看边拍，尽情享受拍摄的乐趣！",
+        titleKey: "camera.sj4000.feature.1.title",
+        descriptionKey: "camera.sj4000.feature.1.desc",
       },
       {
-        title: "1080P高清画质",
-        description: "可以录制1080P高清视频分辨率达到1920*1080，WDR宽动态效果让画质更加真实、自然。",
+        titleKey: "camera.sj4000.feature.2.title",
+        descriptionKey: "camera.sj4000.feature.2.desc",
       },
       {
-        title: "WiFi无线传输",
-        description: "支持WiFi无线连接，可通过手机APP实时预览、控制拍摄和分享精彩瞬间。",
+        titleKey: "camera.sj4000.feature.3.title",
+        descriptionKey: "camera.sj4000.feature.3.desc",
       },
       {
-        title: "30米防水设计",
-        description: "配合专业防水壳，可在30米水深下使用，适合各种水上运动场景。",
+        titleKey: "camera.sj4000.feature.4.title",
+        descriptionKey: "camera.sj4000.feature.4.desc",
       },
       {
-        title: "多种安装配件",
-        description: "标配丰富的安装配件，可安装于头盔、自行车、滑板等各种载体，满足不同场景需求。",
+        titleKey: "camera.sj4000.feature.5.title",
+        descriptionKey: "camera.sj4000.feature.5.desc",
       },
       {
-        title: "移动侦测功能",
-        description: "支持移动侦测录像，画面有变化时自动开始录制，节省存储空间。",
+        titleKey: "camera.sj4000.feature.6.title",
+        descriptionKey: "camera.sj4000.feature.6.desc",
       },
     ],
-    packageContents: [
-      "SJ4000 WIFI相机主机",
-      "防水壳",
-      "自行车支架",
-      "边框保护壳",
-      "后门(防水/通风)",
-      "J型底座",
-      "快拆底座",
-      "1/4转接头",
-      "固定带",
-      "头盔固定带",
-      "USB数据线",
-      "3M贴纸",
-      "说明书",
-      "清洁布",
+    packageContentKeys: [
+      "camera.sj4000.package.1",
+      "camera.sj4000.package.2",
+      "camera.sj4000.package.3",
+      "camera.sj4000.package.4",
+      "camera.sj4000.package.5",
+      "camera.sj4000.package.6",
+      "camera.sj4000.package.7",
+      "camera.sj4000.package.8",
+      "camera.sj4000.package.9",
+      "camera.sj4000.package.10",
+      "camera.sj4000.package.11",
+      "camera.sj4000.package.12",
+      "camera.sj4000.package.13",
+      "camera.sj4000.package.14",
     ],
   },
 ];

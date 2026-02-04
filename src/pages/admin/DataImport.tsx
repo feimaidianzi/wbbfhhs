@@ -77,72 +77,72 @@ const convertVtxProduct = (product: typeof vtxProducts[0]) => ({
   is_featured: false
 });
 
-// 转换云台产品数据
+// 转换云台产品数据 (使用翻译键)
 const convertGimbalProduct = (product: typeof gimbalProducts[0]) => ({
-  name: product.name,
-  name_en: product.name,
-  description: product.description.join('\n'),
-  description_en: product.description.join('\n'),
+  name: product.nameKey,
+  name_en: product.nameKey,
+  description: product.descriptionKeys.join('\n'),
+  description_en: product.descriptionKeys.join('\n'),
   category: "gimbal",
-  subcategory: product.category,
+  subcategory: product.categoryKey,
   price: product.price === "询价" ? null : parseFloat(product.price.replace(/[^0-9.]/g, '')),
   images: product.images || [product.image],
   specifications: {
     model: product.model,
-    slogan: product.slogan,
-    subSlogan: product.subSlogan,
+    sloganKey: product.sloganKey,
+    subSloganKey: product.subSloganKey,
     keyFeatures: product.keyFeatures,
     specs: product.specs,
-    features: product.features,
-    applications: product.applications,
+    featureKeys: product.featureKeys,
+    applicationKeys: product.applicationKeys,
     downloads: product.downloads
   },
-  features: product.highlights,
+  features: product.highlightKeys,
   is_published: true,
   is_featured: false
 });
 
-// 转换相机产品数据
+// 转换相机产品数据 (使用翻译键)
 const convertCameraProduct = (product: typeof cameraProducts[0]) => ({
-  name: product.name,
-  name_en: product.name,
-  description: product.features.map(f => f.description).join('\n'),
-  description_en: product.features.map(f => f.description).join('\n'),
+  name: product.nameKey,
+  name_en: product.nameKey,
+  description: product.features.map(f => f.descriptionKey).join('\n'),
+  description_en: product.features.map(f => f.descriptionKey).join('\n'),
   category: "camera",
-  subcategory: product.category,
+  subcategory: product.categoryKey,
   price: product.price === "询价" ? null : parseFloat(product.price.replace(/[^0-9.]/g, '')),
   images: [product.image],
   specifications: {
     model: product.model,
-    slogan: product.slogan,
-    subSlogan: product.subSlogan,
+    sloganKey: product.sloganKey,
+    subSloganKey: product.subSloganKey,
     keyFeatures: product.keyFeatures,
     specs: product.specs,
     features: product.features,
-    packageContents: product.packageContents
+    packageContentKeys: product.packageContentKeys
   },
-  features: product.highlights,
+  features: product.highlightKeys,
   is_published: true,
   is_featured: false
 });
 
-// 转换数字图传产品数据
+// 转换数字图传产品数据 (使用翻译键)
 const convertDigitalFpvProduct = (product: typeof digitalFpvProducts[0]) => ({
-  name: product.name,
-  name_en: product.name,
-  description: product.description,
-  description_en: product.description,
+  name: product.nameKey,
+  name_en: product.nameKey,
+  description: product.descriptionKey,
+  description_en: product.descriptionKey,
   category: "digital-fpv",
   subcategory: product.category,
   price: parseFloat(product.price.replace(/[^0-9.]/g, '')) || null,
   images: [product.image, ...product.gallery.filter(g => g !== product.image)],
   specifications: {
-    slogan: product.slogan,
-    subSlogan: product.subSlogan,
+    sloganKey: product.sloganKey,
+    subSloganKey: product.subSloganKey,
     specs: product.specs,
     features: product.features
   },
-  features: product.keyFeatures,
+  features: product.keyFeatureKeys,
   is_published: true,
   is_featured: false
 });

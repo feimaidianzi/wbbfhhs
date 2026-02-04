@@ -3,21 +3,21 @@ import wifilinkRxImage from "@/assets/fpv/wifilink-rx-new.jpg";
 
 export interface DigitalFpvProduct {
   id: string;
-  name: string;
+  nameKey: string;
   category: "transmitter" | "receiver";
-  slogan: string;
-  subSlogan: string;
-  description: string;
+  sloganKey: string;
+  subSloganKey: string;
+  descriptionKey: string;
   price: string;
   image: string;
-  keyFeatures: string[];
+  keyFeatureKeys: string[];
   specs: {
-    category: string;
-    items: { label: string; value: string }[];
+    categoryKey: string;
+    items: { labelKey: string; value: string }[];
   }[];
   features: {
-    title: string;
-    description: string;
+    titleKey: string;
+    descriptionKey: string;
   }[];
   gallery: string[];
 }
@@ -25,68 +25,68 @@ export interface DigitalFpvProduct {
 export const digitalFpvProducts: DigitalFpvProduct[] = [
   {
     id: "wifilink2",
-    name: "FlyMind Link2 数字高清图传",
+    nameKey: "digitalFpv.wifilink2.name",
     category: "transmitter",
-    slogan: "高清数字图传",
-    subSlogan: "WiFi数字传输 低延迟高画质",
-    description: "FlyMind Link2 是一款高性能数字高清图传发射器，采用WiFi技术实现低延迟高清视频传输，支持1080P 60fps高清画质输出，适用于FPV穿越机、航拍等应用场景。",
+    sloganKey: "digitalFpv.wifilink2.slogan",
+    subSloganKey: "digitalFpv.wifilink2.subSlogan",
+    descriptionKey: "digitalFpv.wifilink2.description",
     price: "¥499",
     image: wifilink2Image,
-    keyFeatures: [
-      "1080P 60fps",
-      "低延迟传输",
-      "WiFi技术",
-      "轻量化设计"
+    keyFeatureKeys: [
+      "digitalFpv.wifilink2.keyFeature.1",
+      "digitalFpv.wifilink2.keyFeature.2",
+      "digitalFpv.wifilink2.keyFeature.3",
+      "digitalFpv.wifilink2.keyFeature.4"
     ],
     specs: [
       {
-        category: "基本参数",
+        categoryKey: "digitalFpv.spec.category.basic",
         items: [
-          { label: "型号", value: "FlyMind Link2" },
-          { label: "频率范围", value: "5180~5885 MHz" },
-          { label: "视频输出", value: "1080P 60fps / 720P 60fps" },
-          { label: "传输技术", value: "WiFi数字传输" },
+          { labelKey: "digitalFpv.spec.label.model", value: "FlyMind Link2" },
+          { labelKey: "digitalFpv.spec.label.freqRange", value: "5180~5885 MHz" },
+          { labelKey: "digitalFpv.spec.label.videoOutput", value: "1080P 60fps / 720P 60fps" },
+          { labelKey: "digitalFpv.spec.label.transmitTech", value: "WiFi数字传输" },
         ]
       },
       {
-        category: "电气参数",
+        categoryKey: "digitalFpv.spec.category.electrical",
         items: [
-          { label: "供电电压", value: "9~30V (3~6S)" },
-          { label: "发射功率", value: "< 25dBm (FCC)" },
+          { labelKey: "digitalFpv.spec.label.voltage", value: "9~30V (3~6S)" },
+          { labelKey: "digitalFpv.spec.label.txPower", value: "< 25dBm (FCC)" },
         ]
       },
       {
-        category: "物理参数",
+        categoryKey: "digitalFpv.spec.category.physical",
         items: [
-          { label: "重量", value: "约50g" },
-          { label: "接口", value: "MIPI数字视频接口" },
+          { labelKey: "digitalFpv.spec.label.weight", value: "约50g" },
+          { labelKey: "digitalFpv.spec.label.interface", value: "MIPI数字视频接口" },
         ]
       }
     ],
     features: [
       {
-        title: "高清数字传输",
-        description: "支持1080P 60fps高清视频传输，画面清晰流畅，还原真实飞行视角"
+        titleKey: "digitalFpv.wifilink2.feature.1.title",
+        descriptionKey: "digitalFpv.wifilink2.feature.1.desc"
       },
       {
-        title: "低延迟设计",
-        description: "采用先进的WiFi传输技术，实现超低延迟传输，飞行响应更及时"
+        titleKey: "digitalFpv.wifilink2.feature.2.title",
+        descriptionKey: "digitalFpv.wifilink2.feature.2.desc"
       },
       {
-        title: "宽电压输入",
-        description: "支持3~6S电池供电（9~30V），兼容多种飞行平台"
+        titleKey: "digitalFpv.wifilink2.feature.3.title",
+        descriptionKey: "digitalFpv.wifilink2.feature.3.desc"
       },
       {
-        title: "轻量化机身",
-        description: "紧凑轻量化设计，适合各类FPV穿越机安装使用"
+        titleKey: "digitalFpv.wifilink2.feature.4.title",
+        descriptionKey: "digitalFpv.wifilink2.feature.4.desc"
       },
       {
-        title: "即插即用",
-        description: "MIPI数字视频接口，安装简便，快速上手"
+        titleKey: "digitalFpv.wifilink2.feature.5.title",
+        descriptionKey: "digitalFpv.wifilink2.feature.5.desc"
       },
       {
-        title: "稳定可靠",
-        description: "优质元器件与成熟方案，确保长时间稳定工作"
+        titleKey: "digitalFpv.wifilink2.feature.6.title",
+        descriptionKey: "digitalFpv.wifilink2.feature.6.desc"
       }
     ],
     gallery: [
@@ -95,106 +95,106 @@ export const digitalFpvProducts: DigitalFpvProduct[] = [
   },
   {
     id: "wifilink-rx",
-    name: "FlyMind Link-RX 数字高清接收器",
+    nameKey: "digitalFpv.wifilinkRx.name",
     category: "receiver",
-    slogan: "数字高清接收",
-    subSlogan: "1080P输出 多系统兼容",
-    description: "FlyMind Link-RX 是一款专业数字高清接收器，支持1080P 60fps高清HDMI输出，内置32G存储空间，可录制飞行画面。兼容OpenIPC和Ruby FPV系统，满足不同用户需求。",
+    sloganKey: "digitalFpv.wifilinkRx.slogan",
+    subSloganKey: "digitalFpv.wifilinkRx.subSlogan",
+    descriptionKey: "digitalFpv.wifilinkRx.description",
     price: "¥699",
     image: wifilinkRxImage,
-    keyFeatures: [
-      "1080P HDMI输出",
-      "内置32G存储",
-      "双系统兼容",
-      "256G SD扩展"
+    keyFeatureKeys: [
+      "digitalFpv.wifilinkRx.keyFeature.1",
+      "digitalFpv.wifilinkRx.keyFeature.2",
+      "digitalFpv.wifilinkRx.keyFeature.3",
+      "digitalFpv.wifilinkRx.keyFeature.4"
     ],
     specs: [
       {
-        category: "基本参数",
+        categoryKey: "digitalFpv.spec.category.basic",
         items: [
-          { label: "型号", value: "FlyMind Link-RX" },
-          { label: "频率范围", value: "5180~5885 MHz" },
-          { label: "HDMI输出", value: "1080P 60fps / 720P 60fps" },
-          { label: "系统支持", value: "OpenIPC (默认) / Ruby FPV" },
+          { labelKey: "digitalFpv.spec.label.model", value: "FlyMind Link-RX" },
+          { labelKey: "digitalFpv.spec.label.freqRange", value: "5180~5885 MHz" },
+          { labelKey: "digitalFpv.spec.label.hdmiOutput", value: "1080P 60fps / 720P 60fps" },
+          { labelKey: "digitalFpv.spec.label.systemSupport", value: "OpenIPC (默认) / Ruby FPV" },
         ]
       },
       {
-        category: "电气参数",
+        categoryKey: "digitalFpv.spec.category.electrical",
         items: [
-          { label: "供电电压", value: "9~30V (3~6S)" },
-          { label: "接收功率", value: "< 25dBm (FCC) / < 14dBm (CE)" },
+          { labelKey: "digitalFpv.spec.label.voltage", value: "9~30V (3~6S)" },
+          { labelKey: "digitalFpv.spec.label.rxPower", value: "< 25dBm (FCC) / < 14dBm (CE)" },
         ]
       },
       {
-        category: "存储参数",
+        categoryKey: "digitalFpv.spec.category.storage",
         items: [
-          { label: "内置存储", value: "32G (含系统文件)" },
-          { label: "SD卡扩展", value: "最大支持256GB" },
+          { labelKey: "digitalFpv.spec.label.builtinStorage", value: "32G (含系统文件)" },
+          { labelKey: "digitalFpv.spec.label.sdExpand", value: "最大支持256GB" },
         ]
       },
       {
-        category: "接口参数",
+        categoryKey: "digitalFpv.spec.category.interface",
         items: [
-          { label: "视频输出", value: "Mini-HDMI" },
-          { label: "数据接口", value: "Type-C, OTG" },
-          { label: "电源接口", value: "DC 5.5x2.1mm" },
-          { label: "存储接口", value: "Micro-SD" },
+          { labelKey: "digitalFpv.spec.label.videoOutput", value: "Mini-HDMI" },
+          { labelKey: "digitalFpv.spec.label.dataInterface", value: "Type-C, OTG" },
+          { labelKey: "digitalFpv.spec.label.powerInterface", value: "DC 5.5x2.1mm" },
+          { labelKey: "digitalFpv.spec.label.storageInterface", value: "Micro-SD" },
         ]
       },
       {
-        category: "物理参数",
+        categoryKey: "digitalFpv.spec.category.physical",
         items: [
-          { label: "尺寸", value: "110.0mm x 27.3mm x 46.0mm" },
-          { label: "重量", value: "122.0g (±1g, 不含天线)" },
+          { labelKey: "digitalFpv.spec.label.size", value: "110.0mm x 27.3mm x 46.0mm" },
+          { labelKey: "digitalFpv.spec.label.weight", value: "122.0g (±1g, 不含天线)" },
         ]
       },
       {
-        category: "天线参数 - 棒状天线",
+        categoryKey: "digitalFpv.spec.category.antennaRod",
         items: [
-          { label: "极化方式", value: "垂直极化 (VP)" },
-          { label: "频率范围", value: "5150~5850 MHz" },
-          { label: "平均增益", value: "2.5dBi" },
-          { label: "驻波比", value: "≤2.0" },
-          { label: "尺寸", value: "Φ4.8mm x 108.4mm" },
-          { label: "重量", value: "6.6g" },
+          { labelKey: "digitalFpv.spec.label.polarization", value: "垂直极化 (VP)" },
+          { labelKey: "digitalFpv.spec.label.freqRange", value: "5150~5850 MHz" },
+          { labelKey: "digitalFpv.spec.label.avgGain", value: "2.5dBi" },
+          { labelKey: "digitalFpv.spec.label.vswr", value: "≤2.0" },
+          { labelKey: "digitalFpv.spec.label.size", value: "Φ4.8mm x 108.4mm" },
+          { labelKey: "digitalFpv.spec.label.weight", value: "6.6g" },
         ]
       },
       {
-        category: "天线参数 - 宝塔天线",
+        categoryKey: "digitalFpv.spec.category.antennaPagoda",
         items: [
-          { label: "极化方式", value: "左旋圆极化 (LHCP)" },
-          { label: "频率范围", value: "5500~5900 MHz" },
-          { label: "平均增益", value: "2.5dBi" },
-          { label: "驻波比", value: "≤2.0" },
-          { label: "尺寸", value: "Φ8.0mm x 23.9mm" },
-          { label: "重量", value: "4.4g" },
+          { labelKey: "digitalFpv.spec.label.polarization", value: "左旋圆极化 (LHCP)" },
+          { labelKey: "digitalFpv.spec.label.freqRange", value: "5500~5900 MHz" },
+          { labelKey: "digitalFpv.spec.label.avgGain", value: "2.5dBi" },
+          { labelKey: "digitalFpv.spec.label.vswr", value: "≤2.0" },
+          { labelKey: "digitalFpv.spec.label.size", value: "Φ8.0mm x 23.9mm" },
+          { labelKey: "digitalFpv.spec.label.weight", value: "4.4g" },
         ]
       }
     ],
     features: [
       {
-        title: "1080P高清输出",
-        description: "Mini-HDMI接口输出，支持1080P 60fps高清画面，接驳显示器或眼镜即可观看"
+        titleKey: "digitalFpv.wifilinkRx.feature.1.title",
+        descriptionKey: "digitalFpv.wifilinkRx.feature.1.desc"
       },
       {
-        title: "内置录像功能",
-        description: "内置32G存储空间，可直接录制飞行画面，支持最大256G SD卡扩展"
+        titleKey: "digitalFpv.wifilinkRx.feature.2.title",
+        descriptionKey: "digitalFpv.wifilinkRx.feature.2.desc"
       },
       {
-        title: "双系统兼容",
-        description: "支持OpenIPC和Ruby FPV两种系统，可根据需求自由切换"
+        titleKey: "digitalFpv.wifilinkRx.feature.3.title",
+        descriptionKey: "digitalFpv.wifilinkRx.feature.3.desc"
       },
       {
-        title: "多种接口",
-        description: "配备Mini-HDMI、Type-C、OTG、Micro-SD等丰富接口，扩展性强"
+        titleKey: "digitalFpv.wifilinkRx.feature.4.title",
+        descriptionKey: "digitalFpv.wifilinkRx.feature.4.desc"
       },
       {
-        title: "宽电压供电",
-        description: "支持9~30V宽电压输入，兼容3~6S电池或DC适配器供电"
+        titleKey: "digitalFpv.wifilinkRx.feature.5.title",
+        descriptionKey: "digitalFpv.wifilinkRx.feature.5.desc"
       },
       {
-        title: "双天线配置",
-        description: "标配棒状天线与宝塔天线，满足不同场景接收需求"
+        titleKey: "digitalFpv.wifilinkRx.feature.6.title",
+        descriptionKey: "digitalFpv.wifilinkRx.feature.6.desc"
       }
     ],
     gallery: [
@@ -206,12 +206,12 @@ export const digitalFpvProducts: DigitalFpvProduct[] = [
 export const digitalFpvCategories = [
   {
     id: "transmitter",
-    name: "数字图传发射器",
-    description: "高清数字图传发射模块，安装于飞机端",
+    nameKey: "digitalFpv.category.transmitter",
+    descriptionKey: "digitalFpv.category.transmitter.desc",
   },
   {
     id: "receiver", 
-    name: "数字图传接收器",
-    description: "高清数字图传接收模块，配合眼镜或显示器使用",
+    nameKey: "digitalFpv.category.receiver",
+    descriptionKey: "digitalFpv.category.receiver.desc",
   }
 ];
