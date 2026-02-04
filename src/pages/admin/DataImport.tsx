@@ -54,10 +54,10 @@ const convertElrsProduct = (product: typeof elrsProducts[0]) => ({
 
 // 转换VTX产品数据
 const convertVtxProduct = (product: typeof vtxProducts[0]) => ({
-  name: product.name,
-  name_en: product.name,
-  description: product.description.join('\n'),
-  description_en: product.description.join('\n'),
+  name: product.nameKey, // Using translation key
+  name_en: product.nameKey,
+  description: product.descriptionKeys.join('\n'),
+  description_en: product.descriptionKeys.join('\n'),
   category: "vtx",
   subcategory: product.frequencyBand,
   price: null, // VTX产品没有明确价格
@@ -68,11 +68,11 @@ const convertVtxProduct = (product: typeof vtxProducts[0]) => ({
     frequency: product.frequency,
     channels: product.channels,
     specs: product.specs,
-    highlights: product.highlights,
+    highlightKeys: product.highlightKeys,
     operationGuide: product.operationGuide,
-    notes: product.notes
+    noteKeys: product.noteKeys
   },
-  features: product.highlights,
+  features: product.highlightKeys,
   is_published: true,
   is_featured: false
 });

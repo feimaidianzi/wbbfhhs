@@ -29,23 +29,23 @@ const VtxVrx = () => {
       className="bg-card rounded-xl overflow-hidden border border-border hover:border-primary/50 transition-all duration-300 group block"
     >
       <div className="aspect-video bg-muted/30 p-4 flex items-center justify-center">
-        <img src={product.image} alt={product.name} className="max-h-full max-w-full object-contain group-hover:scale-105 transition-transform duration-300" />
+        <img src={product.image} alt={t(product.nameKey)} className="max-h-full max-w-full object-contain group-hover:scale-105 transition-transform duration-300" />
       </div>
       <div className="p-6">
         <div className="flex items-center gap-2 mb-2">
           <span className="px-2 py-1 text-xs bg-primary/10 text-primary rounded-full">{product.power}</span>
           <span className="px-2 py-1 text-xs bg-secondary text-secondary-foreground rounded-full">{product.channels}CH</span>
         </div>
-        <h3 className="text-xl font-bold mb-1">{product.name}</h3>
+        <h3 className="text-xl font-bold mb-1">{t(product.nameKey)}</h3>
         <p className="text-sm text-muted-foreground mb-4">{product.model}</p>
         
         <div className="space-y-3">
           <h4 className="font-semibold text-sm text-muted-foreground">{t('vtx.highlights')}</h4>
           <ul className="space-y-1">
-            {product.highlights.slice(0, 4).map((highlight, idx) => (
+            {product.highlightKeys.slice(0, 4).map((highlightKey, idx) => (
               <li key={idx} className="text-sm flex items-start gap-2">
                 <span className="text-primary mt-1">•</span>
-                <span>{highlight}</span>
+                <span>{t(highlightKey)}</span>
               </li>
             ))}
           </ul>
@@ -56,7 +56,7 @@ const VtxVrx = () => {
           <div className="grid grid-cols-2 gap-2 text-sm">
             <div>
               <span className="text-muted-foreground">{t('vtx.specs.inputVoltage')}：</span>
-              <span>{product.specs.inputVoltage.split('，')[0]}</span>
+              <span>{t(product.specs.inputVoltageKey).split('，')[0]}</span>
             </div>
             <div>
               <span className="text-muted-foreground">{t('vtx.specs.antenna')}：</span>
