@@ -32,22 +32,24 @@ interface ImportCategory {
   error: string | null;
 }
 
-// 转换ELRS产品数据
+// 转换ELRS产品数据 (使用翻译键)
 const convertElrsProduct = (product: typeof elrsProducts[0]) => ({
-  name: product.name,
-  name_en: product.name,
-  description: product.description,
-  description_en: product.description,
+  name: product.nameKey,
+  name_en: product.nameKey,
+  description: product.descriptionKey,
+  description_en: product.descriptionKey,
   category: "elrs",
   subcategory: product.category,
   price: parseFloat(product.price.replace(/[^0-9.]/g, '')) || null,
   images: [product.image, ...product.gallery.filter(g => g !== product.image)],
   specifications: {
+    sloganKey: product.sloganKey,
+    subSloganKey: product.subSloganKey,
     specs: product.specs,
-    keyFeatures: product.keyFeatures,
+    keyFeatureKeys: product.keyFeatureKeys,
     features: product.features
   },
-  features: product.keyFeatures,
+  features: product.keyFeatureKeys,
   is_published: true,
   is_featured: false
 });
@@ -170,23 +172,23 @@ const convertFcEscProduct = (product: any, subcategory: string) => ({
   is_featured: false
 });
 
-// 转换其他配件产品数据
+// 转换其他配件产品数据 (使用翻译键)
 const convertOtherAccessoryProduct = (product: typeof otherAccessoriesProducts[0]) => ({
-  name: product.name,
-  name_en: product.name,
-  description: product.description,
-  description_en: product.description,
+  name: product.nameKey,
+  name_en: product.nameKey,
+  description: product.descriptionKey,
+  description_en: product.descriptionKey,
   category: "other-accessories",
   subcategory: product.category,
   price: parseFloat(product.price.replace(/[^0-9.]/g, '')) || null,
   images: [product.image, ...product.gallery.filter(g => g !== product.image)],
   specifications: {
-    slogan: product.slogan,
-    subSlogan: product.subSlogan,
+    sloganKey: product.sloganKey,
+    subSloganKey: product.subSloganKey,
     specs: product.specs,
     features: product.features
   },
-  features: product.keyFeatures,
+  features: product.keyFeatureKeys,
   is_published: true,
   is_featured: false
 });
