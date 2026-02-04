@@ -15,39 +15,94 @@ interface PageInfo {
   status: 'pending' | 'migrated';
 }
 
-// 所有可能需要检查的产品页面
+// 所有可能需要检查的页面
 const ALL_PRODUCT_PAGES = [
-  // 产品页面 - 系留无人机
+  // ===== 根页面 =====
+  { path: 'src/pages/Index.tsx', name: '首页' },
+  { path: 'src/pages/About.tsx', name: '关于我们' },
+  { path: 'src/pages/Contact.tsx', name: '联系我们' },
+  { path: 'src/pages/Products.tsx', name: '产品中心' },
+  { path: 'src/pages/Applications.tsx', name: '行业应用' },
+  { path: 'src/pages/CustomResearch.tsx', name: '产品定制' },
+  { path: 'src/pages/FPV.tsx', name: 'FPV' },
+  { path: 'src/pages/LowAltitude.tsx', name: '低空经济' },
+  { path: 'src/pages/News.tsx', name: '新闻中心' },
+  { path: 'src/pages/NewsDetail.tsx', name: '新闻详情' },
+  { path: 'src/pages/Projects.tsx', name: '项目服务' },
+  { path: 'src/pages/Software.tsx', name: '软件系统' },
+  
+  // ===== FPV 页面 =====
+  { path: 'src/pages/fpv/DigitalFpv.tsx', name: '数字图传' },
+  { path: 'src/pages/fpv/DigitalFpvDetail.tsx', name: '数字图传详情' },
+  { path: 'src/pages/fpv/FPVCategory.tsx', name: 'FPV分类' },
+  
+  // ===== 软件系统页面 =====
+  { path: 'src/pages/software/DroneManagement.tsx', name: '无人机管理平台' },
+  { path: 'src/pages/software/EnvironmentSystem.tsx', name: '环保管理系统' },
+  { path: 'src/pages/software/ExamSystem.tsx', name: '模拟考试系统' },
+  { path: 'src/pages/software/GroundStation.tsx', name: '地面站软件' },
+  { path: 'src/pages/software/PVInspection.tsx', name: '光伏巡检识别' },
+  { path: 'src/pages/software/PVSystem.tsx', name: '光伏巡检系统' },
+  { path: 'src/pages/software/PowerInspectionSystem.tsx', name: '电力巡检管理系统' },
+  { path: 'src/pages/software/SwarmGroundStation.tsx', name: '集群地面站' },
+  
+  // ===== 项目服务页面 =====
+  { path: 'src/pages/projects/DroneShow.tsx', name: '无人机表演' },
+  { path: 'src/pages/projects/FlightService.tsx', name: '飞行服务' },
+  { path: 'src/pages/projects/ProjectCooperation.tsx', name: '项目合作' },
+  { path: 'src/pages/projects/ProjectTraining.tsx', name: '无人机培训' },
+  
+  // ===== 产品页面 - 系留无人机 =====
   { path: 'src/pages/products/tethered/TH100.tsx', name: 'TH100 系留无人机' },
   { path: 'src/pages/products/tethered/TH200.tsx', name: 'TH200 系留无人机' },
   { path: 'src/pages/products/tethered/TH300.tsx', name: 'TH300 系留无人机' },
   
-  // 产品页面 - 物流无人机
+  // ===== 产品页面 - 物流无人机 =====
   { path: 'src/pages/products/logistics/WL10.tsx', name: 'WL10 物流无人机' },
   { path: 'src/pages/products/logistics/WL20.tsx', name: 'WL20 物流无人机' },
   { path: 'src/pages/products/logistics/WL30.tsx', name: 'WL30 物流无人机' },
   
-  // 产品页面 - 机场系统
+  // ===== 产品页面 - 机场系统 =====
   { path: 'src/pages/products/airport/UHS400P.tsx', name: 'UHS 400P 机场' },
   { path: 'src/pages/products/airport/UHS600.tsx', name: 'UHS 600 机场' },
   { path: 'src/pages/products/airport/UHS1000.tsx', name: 'UHS 1000 机场' },
   { path: 'src/pages/products/airport/VehicleMountedAirport.tsx', name: '车载机场' },
   
-  // 产品页面 - 多旋翼
+  // ===== 产品页面 - 多旋翼 =====
   { path: 'src/pages/products/multi-rotor/X650.tsx', name: 'X650 多旋翼' },
   { path: 'src/pages/products/multi-rotor/X850.tsx', name: 'X850 多旋翼' },
   { path: 'src/pages/products/multi-rotor/X1200.tsx', name: 'X1200 多旋翼' },
   { path: 'src/pages/products/multi-rotor/X1600.tsx', name: 'X1600 多旋翼' },
   
-  // 配件详情页
-  { path: 'src/pages/products/accessories/CameraDetail.tsx', name: '相机详情' },
-  { path: 'src/pages/products/accessories/GimbalDetail.tsx', name: '云台详情' },
-  { path: 'src/pages/products/accessories/VtxDetail.tsx', name: 'VTX详情' },
-  { path: 'src/pages/products/accessories/ElrsDetail.tsx', name: 'ELRS详情' },
-  { path: 'src/pages/products/accessories/OtherAccessoriesDetail.tsx', name: '其他配件详情' },
-  { path: 'src/pages/products/accessories/FcEscDetail.tsx', name: '飞控电调详情' },
+  // ===== 产品页面 - 其他 =====
+  { path: 'src/pages/products/Swarm.tsx', name: '集群无人机' },
+  { path: 'src/pages/products/SwarmKit.tsx', name: '集群套件' },
+  { path: 'src/pages/products/Tethered.tsx', name: '系留无人机' },
+  { path: 'src/pages/products/Logistics.tsx', name: '物流无人机' },
+  { path: 'src/pages/products/MultiRotor.tsx', name: '多旋翼无人机' },
+  { path: 'src/pages/products/Airport.tsx', name: '机场系统' },
+  { path: 'src/pages/products/Firefighting.tsx', name: '消防无人机' },
+  { path: 'src/pages/products/Agriculture.tsx', name: '农业无人机' },
+  { path: 'src/pages/products/Training.tsx', name: '培训无人机' },
+  { path: 'src/pages/products/WireLaying.tsx', name: '放线无人机' },
+  { path: 'src/pages/products/WorkDrone.tsx', name: '作业无人机' },
+  { path: 'src/pages/products/Accessories.tsx', name: '配件中心' },
   
-  // 定制研发页面
+  // ===== 配件详情页 =====
+  { path: 'src/pages/products/accessories/Camera.tsx', name: '相机列表' },
+  { path: 'src/pages/products/accessories/CameraDetail.tsx', name: '相机详情' },
+  { path: 'src/pages/products/accessories/Gimbal.tsx', name: '云台列表' },
+  { path: 'src/pages/products/accessories/GimbalDetail.tsx', name: '云台详情' },
+  { path: 'src/pages/products/accessories/VtxVrx.tsx', name: 'VTX/VRX列表' },
+  { path: 'src/pages/products/accessories/VtxDetail.tsx', name: 'VTX详情' },
+  { path: 'src/pages/products/accessories/Elrs.tsx', name: 'ELRS列表' },
+  { path: 'src/pages/products/accessories/ElrsDetail.tsx', name: 'ELRS详情' },
+  { path: 'src/pages/products/accessories/FcEsc.tsx', name: '飞控电调列表' },
+  { path: 'src/pages/products/accessories/FcEscDetail.tsx', name: '飞控电调详情' },
+  { path: 'src/pages/products/accessories/OtherAccessories.tsx', name: '其他配件列表' },
+  { path: 'src/pages/products/accessories/OtherAccessoriesDetail.tsx', name: '其他配件详情' },
+  
+  // ===== 定制研发页面 =====
   { path: 'src/pages/custom-research/Software.tsx', name: '软件定制' },
   { path: 'src/pages/custom-research/PayloadCustom.tsx', name: '载荷定制' },
   { path: 'src/pages/custom-research/DroneCustom.tsx', name: '无人机定制' },
@@ -55,7 +110,7 @@ const ALL_PRODUCT_PAGES = [
   { path: 'src/pages/custom-research/AirportCustom.tsx', name: '机场定制' },
   { path: 'src/pages/custom-research/SwarmCustom.tsx', name: '集群定制' },
   
-  // 应用场景页面
+  // ===== 应用场景页面 =====
   { path: 'src/pages/applications/Power.tsx', name: '电力巡检' },
   { path: 'src/pages/applications/PowerInspection.tsx', name: '电力巡检详情' },
   { path: 'src/pages/applications/LogisticsApp.tsx', name: '物流应用' },
@@ -63,6 +118,21 @@ const ALL_PRODUCT_PAGES = [
   { path: 'src/pages/applications/EnvironmentApp.tsx', name: '环境监测' },
   { path: 'src/pages/applications/FirefightingApp.tsx', name: '消防应用' },
   { path: 'src/pages/applications/TetheredApp.tsx', name: '系留应用' },
+  { path: 'src/pages/applications/Emergency.tsx', name: '应急救援' },
+  { path: 'src/pages/applications/Environment.tsx', name: '环境监测入口' },
+  { path: 'src/pages/applications/FiveG.tsx', name: '5G应用' },
+  { path: 'src/pages/applications/Police.tsx', name: '警用安防' },
+  { path: 'src/pages/applications/SmartCity.tsx', name: '智慧城市' },
+  { path: 'src/pages/applications/Solutions.tsx', name: '解决方案' },
+  { path: 'src/pages/applications/Surveying.tsx', name: '测绘测量' },
+  { path: 'src/pages/applications/Traffic.tsx', name: '交通管理' },
+  { path: 'src/pages/applications/Water.tsx', name: '水利应用' },
+  
+  // ===== 电力子页面 =====
+  { path: 'src/pages/applications/power/CaseDetail.tsx', name: '电力案例详情' },
+  { path: 'src/pages/applications/power/SolarPanel.tsx', name: '光伏巡检' },
+  { path: 'src/pages/applications/power/Substation.tsx', name: '变电站巡检' },
+  { path: 'src/pages/applications/power/TransmissionLine.tsx', name: '输电线路巡检' },
 ];
 
 const PageMigration = () => {
