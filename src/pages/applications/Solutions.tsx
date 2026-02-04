@@ -5,64 +5,87 @@ import { Button } from "@/components/ui/button";
 import { ArrowRight, Settings, Users, Lightbulb, Wrench } from "lucide-react";
 import { Link } from "react-router-dom";
 import { MultiLanguageSEO } from "@/components/MultiLanguageSEO";
-
-const solutions = [
-  {
-    icon: Settings,
-    title: "整体解决方案",
-    description: "从需求分析、方案设计、设备选型到系统集成，提供端到端的完整解决方案",
-    features: ["需求调研分析", "方案规划设计", "设备选型配置", "系统集成交付"]
-  },
-  {
-    icon: Users,
-    title: "培训服务",
-    description: "专业的操作培训和技术培训，确保用户能够熟练使用无人机系统",
-    features: ["理论知识培训", "实操飞行训练", "维护保养培训", "应用场景实训"]
-  },
-  {
-    icon: Wrench,
-    title: "售后服务",
-    description: "完善的售后服务体系，提供设备维护、技术支持和升级服务",
-    features: ["7×24小时响应", "远程技术支持", "现场维护服务", "设备升级服务"]
-  },
-  {
-    icon: Lightbulb,
-    title: "定制开发",
-    description: "根据客户特殊需求进行软硬件定制开发，满足个性化应用场景",
-    features: ["硬件定制开发", "软件功能定制", "挂载设备定制", "系统功能扩展"]
-  }
-];
-
-const industries = [
-  {
-    title: "电力能源",
-    description: "输电线路巡检、变电站巡检、光伏电站检测等电力行业应用",
-    image: "https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?w=600&q=80"
-  },
-  {
-    title: "公共安全",
-    description: "警用安防、消防应急、边境巡逻等公共安全领域应用",
-    image: "https://images.unsplash.com/photo-1551698618-1dfe5d97d256?w=600&q=80"
-  },
-  {
-    title: "环境保护",
-    description: "大气监测、水环境监测、生态调查等环境保护领域应用",
-    image: "https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=600&q=80"
-  },
-  {
-    title: "智慧物流",
-    description: "偏远配送、应急投送、末端配送等物流运输领域应用",
-    image: "https://images.unsplash.com/photo-1527977966376-1c8408f9f108?w=600&q=80"
-  }
-];
+import { useLanguage } from "@/contexts/LanguageContext";
 
 const Solutions = () => {
+  const { t } = useLanguage();
+
+  const solutions = [
+    {
+      icon: Settings,
+      title: t('solutions.service.complete.title'),
+      description: t('solutions.service.complete.desc'),
+      features: [
+        t('solutions.service.complete.f1'),
+        t('solutions.service.complete.f2'),
+        t('solutions.service.complete.f3'),
+        t('solutions.service.complete.f4'),
+      ]
+    },
+    {
+      icon: Users,
+      title: t('solutions.service.training.title'),
+      description: t('solutions.service.training.desc'),
+      features: [
+        t('solutions.service.training.f1'),
+        t('solutions.service.training.f2'),
+        t('solutions.service.training.f3'),
+        t('solutions.service.training.f4'),
+      ]
+    },
+    {
+      icon: Wrench,
+      title: t('solutions.service.afterSales.title'),
+      description: t('solutions.service.afterSales.desc'),
+      features: [
+        t('solutions.service.afterSales.f1'),
+        t('solutions.service.afterSales.f2'),
+        t('solutions.service.afterSales.f3'),
+        t('solutions.service.afterSales.f4'),
+      ]
+    },
+    {
+      icon: Lightbulb,
+      title: t('solutions.service.custom.title'),
+      description: t('solutions.service.custom.desc'),
+      features: [
+        t('solutions.service.custom.f1'),
+        t('solutions.service.custom.f2'),
+        t('solutions.service.custom.f3'),
+        t('solutions.service.custom.f4'),
+      ]
+    }
+  ];
+
+  const industries = [
+    {
+      title: t('solutions.industry.power'),
+      description: t('solutions.industry.power.desc'),
+      image: "https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?w=600&q=80"
+    },
+    {
+      title: t('solutions.industry.security'),
+      description: t('solutions.industry.security.desc'),
+      image: "https://images.unsplash.com/photo-1551698618-1dfe5d97d256?w=600&q=80"
+    },
+    {
+      title: t('solutions.industry.environment'),
+      description: t('solutions.industry.environment.desc'),
+      image: "https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=600&q=80"
+    },
+    {
+      title: t('solutions.industry.logistics'),
+      description: t('solutions.industry.logistics.desc'),
+      image: "https://images.unsplash.com/photo-1527977966376-1c8408f9f108?w=600&q=80"
+    }
+  ];
+
   return (
     <div className="min-h-screen">
       <MultiLanguageSEO
-        title="解决方案"
-        description="长凌科技提供完整的无人机行业解决方案，包括方案设计、设备集成、培训服务和售后支持。"
-        keywords="无人机解决方案,行业应用方案,定制开发,培训服务,售后支持"
+        title={t('solutions.seo.title')}
+        description={t('solutions.seo.description')}
+        keywords={t('solutions.seo.keywords')}
         path="/applications/solutions"
       />
       <Header />
@@ -80,14 +103,14 @@ const Solutions = () => {
           <div className="relative container-custom h-full flex items-center">
             <div className="max-w-2xl">
               <h1 className="text-3xl md:text-5xl font-bold text-primary-foreground mb-4">
-                解决方案
+                {t('solutions.hero.title')}
               </h1>
               <p className="text-lg md:text-xl text-primary-foreground/90 mb-8">
-                从需求到落地，为您提供完整的无人机行业应用解决方案
+                {t('solutions.hero.subtitle')}
               </p>
               <Link to="/contact">
                 <Button className="bg-accent hover:bg-orange-light text-accent-foreground px-8 py-3">
-                  咨询方案
+                  {t('solutions.hero.cta')}
                   <ArrowRight className="w-4 h-4 ml-2" />
                 </Button>
               </Link>
@@ -99,7 +122,7 @@ const Solutions = () => {
         <section className="py-16 bg-background">
           <div className="container-custom">
             <h2 className="text-2xl md:text-3xl font-bold text-foreground text-center mb-12">
-              服务体系
+              {t('solutions.serviceSystem')}
             </h2>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
               {solutions.map((solution, index) => (
@@ -131,7 +154,7 @@ const Solutions = () => {
         <section className="py-16 bg-muted">
           <div className="container-custom">
             <h2 className="text-2xl md:text-3xl font-bold text-foreground text-center mb-12">
-              行业覆盖
+              {t('solutions.industryCoverage')}
             </h2>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
               {industries.map((industry, index) => (
@@ -157,14 +180,14 @@ const Solutions = () => {
         <section className="py-16 bg-primary">
           <div className="container-custom text-center">
             <h2 className="text-2xl md:text-3xl font-bold text-primary-foreground mb-4">
-              获取专属解决方案
+              {t('solutions.cta.title')}
             </h2>
             <p className="text-primary-foreground/80 mb-8 max-w-2xl mx-auto">
-              飞迈科技拥有丰富的行业经验，可根据您的具体需求提供定制化解决方案
+              {t('solutions.cta.subtitle')}
             </p>
             <Link to="/contact">
               <Button className="bg-accent hover:bg-orange-light text-accent-foreground px-8 py-3">
-                立即咨询
+                {t('solutions.cta.btn')}
                 <ArrowRight className="w-4 h-4 ml-2" />
               </Button>
             </Link>
