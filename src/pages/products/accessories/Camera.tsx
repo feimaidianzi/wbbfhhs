@@ -1,25 +1,29 @@
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { FloatingContact } from "@/components/FloatingContact";
-import { SEO } from "@/components/SEO";
+import { MultiLanguageSEO } from "@/components/MultiLanguageSEO";
 import { BackButton } from "@/components/BackButton";
 import { Link } from "react-router-dom";
 import { ArrowRight, Camera, Wifi, Droplets } from "lucide-react";
 import { cameraProducts, cameraCategories } from "@/data/cameraProducts";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 const categoryIcons: Record<string, React.ReactNode> = {
   "运动相机": <Camera className="w-6 h-6" />,
 };
 
 const CameraPage = () => {
+  const { t, language } = useLanguage();
+  const isEn = language === 'en';
   const categories = cameraCategories.map(c => c.name);
 
   return (
     <>
-      <SEO 
-        title="高清数字相机 - 长凌科技"
-        description="专业运动相机产品，支持1080P高清录制、WiFi传输、30米防水，适用于FPV航拍、运动摄影等多种场景"
-        keywords="运动相机,高清相机,WiFi相机,防水相机,1080P,FPV相机,长凌,CANI"
+      <MultiLanguageSEO
+        title={t('camera.seo.title')}
+        description={t('camera.seo.description')}
+        keywords={t('camera.seo.keywords')}
+        path="/products/accessories/camera"
       />
       <Header />
       <main className="min-h-screen bg-background">
@@ -27,29 +31,28 @@ const CameraPage = () => {
         <section className="relative py-24 bg-gradient-to-br from-primary/10 via-background to-background overflow-hidden">
           <div className="absolute inset-0 bg-grid-pattern opacity-5"></div>
           <div className="container mx-auto px-4 relative z-10">
-            <BackButton to="/products/accessories" label="返回配件中心" />
+            <BackButton to="/products/accessories" label={t('camera.back')} />
             <div className="max-w-4xl mx-auto text-center mt-8">
               <h1 className="text-4xl md:text-5xl font-bold mb-6">
-                高清<span className="text-primary">数字相机</span>系列
+                {t('camera.hero.title')}<span className="text-primary">{t('camera.hero.highlight')}</span>{t('camera.hero.suffix')}
               </h1>
               <p className="text-xl text-muted-foreground mb-8">
-                专业运动摄像设备，支持1080P高清录制、WiFi无线传输、30米防水深度，
-                适用于FPV航拍、运动摄影、水下拍摄等多种场景
+                {t('camera.hero.desc')}
               </p>
               
               {/* Feature Highlights */}
               <div className="flex flex-wrap justify-center gap-6 mt-8">
                 <div className="flex items-center gap-2 px-4 py-2 bg-card rounded-full border border-border">
                   <Camera className="w-5 h-5 text-primary" />
-                  <span className="text-sm">1200万像素</span>
+                  <span className="text-sm">{t('camera.feature.pixel')}</span>
                 </div>
                 <div className="flex items-center gap-2 px-4 py-2 bg-card rounded-full border border-border">
                   <Wifi className="w-5 h-5 text-primary" />
-                  <span className="text-sm">WiFi传输</span>
+                  <span className="text-sm">{t('camera.feature.wifi')}</span>
                 </div>
                 <div className="flex items-center gap-2 px-4 py-2 bg-card rounded-full border border-border">
                   <Droplets className="w-5 h-5 text-primary" />
-                  <span className="text-sm">30M防水</span>
+                  <span className="text-sm">{t('camera.feature.waterproof')}</span>
                 </div>
               </div>
             </div>
@@ -112,7 +115,7 @@ const CameraPage = () => {
                           ))}
                         </ul>
                         <div className="flex items-center text-primary text-sm font-medium group-hover:gap-2 transition-all">
-                          <span>查看详情</span>
+                          <span>{t('camera.viewDetail')}</span>
                           <ArrowRight className="w-4 h-4 opacity-0 -ml-4 group-hover:opacity-100 group-hover:ml-0 transition-all" />
                         </div>
                       </div>
@@ -128,17 +131,17 @@ const CameraPage = () => {
         <section className="py-20 bg-primary text-primary-foreground">
           <div className="container mx-auto px-4 text-center">
             <h2 className="text-3xl md:text-4xl font-bold mb-6">
-              需要定制化相机解决方案？
+              {t('camera.cta.title')}
             </h2>
             <p className="text-lg opacity-90 mb-8 max-w-2xl mx-auto">
-              我们提供OEM/ODM定制服务，可根据您的需求定制传感器配置、接口协议、外观设计等
+              {t('camera.cta.desc')}
             </p>
             <div className="flex justify-center gap-4 flex-wrap">
               <Link
                 to="/contact"
                 className="px-8 py-3 bg-background text-foreground font-medium rounded-lg hover:bg-background/90 transition-colors"
               >
-                联系我们
+                {t('camera.cta.btn')}
               </Link>
             </div>
           </div>

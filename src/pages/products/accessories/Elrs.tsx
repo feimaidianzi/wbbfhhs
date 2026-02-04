@@ -2,19 +2,24 @@ import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { FloatingContact } from "@/components/FloatingContact";
 import { Button } from "@/components/ui/button";
-import { ArrowRight, Radio, Wifi, Zap, Signal } from "lucide-react";
+import { ArrowRight, Radio, Zap, Signal } from "lucide-react";
 import { Link } from "react-router-dom";
 import { BackButton } from "@/components/BackButton";
 import { elrsProducts, elrsCategories } from "@/data/elrsProducts";
-import { SEO } from "@/components/SEO";
+import { MultiLanguageSEO } from "@/components/MultiLanguageSEO";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 const Elrs = () => {
+  const { t, language } = useLanguage();
+  const isEn = language === 'en';
+
   return (
     <div className="min-h-screen">
-      <SEO 
-        title="ELRS遥控系统 - ExpressLRS接收机与天线"
-        description="专业ELRS遥控系统产品，包括915MHz、868MHz、2.4GHz接收机及配套天线，超低延迟，远距离控制"
-        keywords="ELRS,ExpressLRS,接收机,天线,915MHz,868MHz,2.4GHz,FPV,遥控"
+      <MultiLanguageSEO
+        title={t('elrs.seo.title')}
+        description={t('elrs.seo.description')}
+        keywords={t('elrs.seo.keywords')}
+        path="/products/accessories/elrs"
       />
       <Header />
       <main className="pt-16 md:pt-20">
@@ -22,11 +27,11 @@ const Elrs = () => {
         <div className="bg-secondary py-4">
           <div className="container-custom">
             <div className="flex items-center gap-2 text-sm text-muted-foreground">
-              <Link to="/" className="hover:text-accent">首页</Link>
+              <Link to="/" className="hover:text-accent">{t('elrs.breadcrumb.home')}</Link>
               <span>/</span>
-              <Link to="/products/accessories" className="hover:text-accent">配件及设备</Link>
+              <Link to="/products/accessories" className="hover:text-accent">{t('elrs.breadcrumb.accessories')}</Link>
               <span>/</span>
-              <span className="text-foreground">ELRS</span>
+              <span className="text-foreground">{t('elrs.breadcrumb.elrs')}</span>
             </div>
           </div>
         </div>
@@ -36,25 +41,25 @@ const Elrs = () => {
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_50%,rgba(255,255,255,0.1),transparent_50%)]" />
           <div className="relative container-custom h-full flex items-center">
             <div className="max-w-2xl">
-              <BackButton to="/products/accessories" label="返回配件及设备" />
+              <BackButton to="/products/accessories" label={t('elrs.back')} />
               <h1 className="text-3xl md:text-5xl font-bold text-primary-foreground mb-4">
-                ELRS 遥控系统
+                {t('elrs.hero.title')}
               </h1>
               <p className="text-lg text-primary-foreground/90 mb-6">
-                ExpressLRS开源遥控协议，超低延迟、超远距离、高刷新率，为FPV飞行提供可靠的遥控链路
+                {t('elrs.hero.desc')}
               </p>
               <div className="flex flex-wrap gap-4">
                 <div className="flex items-center gap-2 bg-white/10 backdrop-blur px-4 py-2 rounded-full">
                   <Radio className="w-5 h-5 text-accent" />
-                  <span className="text-primary-foreground text-sm">ExpressLRS协议</span>
+                  <span className="text-primary-foreground text-sm">{t('elrs.feature.protocol')}</span>
                 </div>
                 <div className="flex items-center gap-2 bg-white/10 backdrop-blur px-4 py-2 rounded-full">
                   <Zap className="w-5 h-5 text-accent" />
-                  <span className="text-primary-foreground text-sm">超低延迟</span>
+                  <span className="text-primary-foreground text-sm">{t('elrs.feature.lowLatency')}</span>
                 </div>
                 <div className="flex items-center gap-2 bg-white/10 backdrop-blur px-4 py-2 rounded-full">
                   <Signal className="w-5 h-5 text-accent" />
-                  <span className="text-primary-foreground text-sm">超远距离</span>
+                  <span className="text-primary-foreground text-sm">{t('elrs.feature.longRange')}</span>
                 </div>
               </div>
             </div>
@@ -113,7 +118,7 @@ const Elrs = () => {
                         </div>
                         
                         <div className="flex items-center text-accent text-sm font-medium group-hover:gap-3 gap-1 transition-all">
-                          <span>查看详情</span>
+                          <span>{t('elrs.viewDetail')}</span>
                           <ArrowRight className="w-4 h-4" />
                         </div>
                       </div>
@@ -129,21 +134,21 @@ const Elrs = () => {
         <section className="py-16 bg-primary">
           <div className="container-custom text-center">
             <h2 className="text-2xl md:text-3xl font-bold text-primary-foreground mb-4">
-              需要技术支持？
+              {t('elrs.cta.title')}
             </h2>
             <p className="text-primary-foreground/80 mb-8 max-w-2xl mx-auto">
-              联系我们的专业技术团队，获取ELRS产品选型建议和技术支持
+              {t('elrs.cta.desc')}
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link to="/contact">
                 <Button className="bg-accent hover:bg-accent/90 text-accent-foreground px-8 py-6 text-lg">
-                  联系我们
+                  {t('elrs.cta.btn')}
                   <ArrowRight className="w-5 h-5 ml-2" />
                 </Button>
               </Link>
               <Link to="/products/accessories">
                 <Button className="bg-primary-foreground/20 border border-primary-foreground/50 text-primary-foreground hover:bg-primary-foreground/30 px-8 py-6 text-lg">
-                  查看其他配件
+                  {t('elrs.cta.viewOthers')}
                 </Button>
               </Link>
             </div>
