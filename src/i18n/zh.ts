@@ -1,4 +1,69 @@
 export const zhTranslations: Record<string, string> = {
+  // ===== Common =====
+  'common.cancel': '取消',
+  'common.submit': '提交',
+  'common.close': '关闭',
+  'common.learnMore': '了解更多',
+
+  // ===== Hero Section =====
+  'hero.tagline': '无人机核心配件专家',
+  'hero.title.line1': '重新定义',
+  'hero.title.line2': '飞行体验',
+  'hero.subtitle': '专注无人机图传、飞控、云台等核心配件研发，10年技术沉淀，为全球飞手提供专业级解决方案',
+  'hero.cta.explore': '探索产品',
+  'hero.cta.about': '了解长凌',
+  'hero.stat.products': '产品型号',
+  'hero.stat.years': '年深耕',
+  'hero.stat.partners': '合作伙伴',
+  'hero.scroll': '向下滚动',
+
+  // ===== Floating Contact =====
+  'floating.home': '返回首页',
+  'floating.email': '邮件咨询',
+  'floating.whatsapp': 'WhatsApp咨询',
+  'floating.close': '关闭',
+  'floating.comingSoon': '即将上市',
+  'floating.aiModule': '无人机AI制导模块',
+  'floating.aiModuleDesc': '智能目标识别、自主航迹规划、精准制导控制',
+  'floating.learnMore': '了解更多',
+
+  // ===== Applications Section =====
+  'applications.section.tag': '行业应用',
+  'applications.section.title': '多领域场景覆盖',
+  'applications.section.desc': '长凌无人机产品广泛应用于水利、交通、环保、电力、应急、测绘等多个行业领域',
+  'applications.water': '水利',
+  'applications.water.desc': '河道巡检、水库监测、防汛预警，无人机助力水利智能化管理',
+  'applications.traffic': '交通',
+  'applications.traffic.desc': '道路监控、交通疏导、事故勘察，提升交通管理效能',
+  'applications.environment': '环保',
+  'applications.environment.desc': '大气监测、水质采样、污染溯源，守护绿水青山',
+  'applications.power': '电力',
+  'applications.power.desc': '输电线路巡检、变电站监测、故障定位，保障电网安全',
+  'applications.emergency': '应急',
+  'applications.emergency.desc': '灾情侦察、搜救定位、物资投送，快速响应突发事件',
+  'applications.surveying': '测绘',
+  'applications.surveying.desc': '地形测绘、三维建模、工程勘察，厘米级精度作业',
+  'applications.learnMore': '了解详情',
+  'applications.viewAll': '查看全部应用案例',
+
+  // ===== AI Chat Window =====
+  'chat.humanAgent': '人工客服',
+  'chat.aiAssistant': '小凌 · AI助手',
+  'chat.thinking': '思考中...',
+  'chat.humanConnected': '已连接 · 人工服务',
+  'chat.online': '在线 · 秒回复',
+  'chat.welcome': '您好！我是小凌，长凌科技的AI助手。有什么可以帮您的吗？',
+  'chat.viewThinking': '查看思考过程',
+  'chat.thinkingProcess': '思考过程:',
+  'chat.endHuman': '结束人工服务',
+  'chat.complaint': '投诉',
+  'chat.transferToHuman': '转接人工客服',
+  'chat.inputPlaceholder': '输入消息...',
+  'chat.submitComplaint': '提交投诉',
+  'chat.complaintDesc': '请描述您遇到的问题，我们的投诉专员将为您处理。',
+  'chat.complaintPlaceholder': '请详细描述您的投诉内容...',
+  'chat.submit': '提交投诉',
+
   // Navigation
   'nav.home': '首页',
   'nav.about': '关于长凌',
@@ -379,15 +444,10 @@ export const zhTranslations: Record<string, string> = {
   'footer.privacy': '隐私政策',
   'footer.terms': '服务条款',
 
-  // Hero Section
-  'hero.tagline': '长凌科技 · 专业无人机配件供应商',
+  // Hero Section (legacy keys - kept for compatibility)
   'hero.title': '智能飞行 · 无限可能',
-  'hero.subtitle': '专注工业无人机零配件，提供数字图传、VTX视频发射器、飞控电调、云台吊舱等专业配件',
   'hero.products': '查看产品',
   'hero.contact': '联系我们',
-
-  // Common
-  'common.learnMore': '了解更多',
   'common.viewAll': '查看全部',
   'common.contact': '联系咨询',
   'common.phone': '电话',
@@ -440,10 +500,8 @@ export const zhTranslations: Record<string, string> = {
   'index.seo.title': '首页',
   'index.seo.desc': '长凌科技有限公司，专注于工业无人机零配件，提供数字图传、VTX视频发射器、飞控电调、云台吊舱、ELRS遥控等专业无人机配件。',
 
-  // HeroSection
+  // HeroSection (additional keys)
   'hero.badge': '长凌科技 · 专业无人机配件供应商',
-  'hero.title.line1': '智能飞行',
-  'hero.title.line2': '无限可能',
   'hero.description': '专注工业无人机零配件，提供数字图传、VTX视频发射器、飞控电调、云台吊舱等专业配件',
   'hero.btn.products': '查看产品',
   'hero.btn.contact': '联系咨询',
@@ -515,18 +573,14 @@ export const zhTranslations: Record<string, string> = {
   'section.cta.btn.products': '浏览产品',
   'section.cta.btn.contact': '联系我们',
 
-  // FloatingContact
-  'floating.home': '返回首页',
+  // FloatingContact (additional keys)
   'floating.phone': '电话咨询',
   'floating.qq': '微信客服',
   'floating.wechat': '微信客服',
   'floating.scanWechat': '扫码添加微信',
   'floating.callPhone': '点击拨打电话',
-  'floating.comingSoon': '即将上市',
   'floating.new': 'NEW',
-  'floating.aiModule': '无人机AI制导模块',
   'floating.aiDesc': '智能目标识别、自主航迹规划、精准制导控制',
-  'floating.learnMore': '了解更多',
 
   // Auth
   'auth.welcome': '欢迎回来',
@@ -1681,12 +1735,11 @@ export const zhTranslations: Record<string, string> = {
   'applications.hero.badge': '行业解决方案',
   'applications.hero.title': '行业应用',
   'applications.hero.subtitle': '长凌无人机广泛应用于多个行业领域，提供专业化解决方案',
-  'applications.learnMore': '了解详情',
   'applications.cta.title': '定制您的行业解决方案',
   'applications.cta.subtitle': '长凌科技拥有丰富的行业经验，可根据您的具体需求提供定制化解决方案',
   'applications.cta.btn': '立即咨询',
   'applications.power.name': '电力巡检',
-  'applications.power.desc': '无人机智能巡检技术，为电力行业提供安全高效的输电线路巡检、变电站巡检、光伏电站检测解决方案。',
+  'applications.power.detailed': '无人机智能巡检技术，为电力行业提供安全高效的输电线路巡检、变电站巡检、光伏电站检测解决方案。',
   'applications.power.stat1': '效率提升80%',
   'applications.power.stat2': '故障识别率99%',
   'applications.logistics.name': '物流配送',
@@ -1698,7 +1751,7 @@ export const zhTranslations: Record<string, string> = {
   'applications.military.stat1': '全天候作业',
   'applications.military.stat2': '高隐蔽性',
   'applications.environment.name': '环保监测',
-  'applications.environment.desc': '无人机环境监测技术，守护绿水青山，提供大气监测、水环境监测、生态调查服务。',
+  'applications.environment.detailed': '无人机环境监测技术，守护绿水青山，提供大气监测、水环境监测、生态调查服务。',
   'applications.environment.stat1': '覆盖面积广',
   'applications.environment.stat2': '实时数据',
   'applications.firefighting.name': '消防应急',

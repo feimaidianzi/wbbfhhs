@@ -56,12 +56,12 @@ const statsVariants = {
 };
 
 export const HeroContent = () => {
-  const { language } = useLanguage();
+  const { t } = useLanguage();
 
   const stats = [
-    { value: '200+', label: language === 'zh' ? '产品型号' : 'Products' },
-    { value: '10+', label: language === 'zh' ? '年深耕' : 'Years' },
-    { value: '500+', label: language === 'zh' ? '合作伙伴' : 'Partners' },
+    { value: '200+', labelKey: 'hero.stat.products' },
+    { value: '10+', labelKey: 'hero.stat.years' },
+    { value: '500+', labelKey: 'hero.stat.partners' },
   ];
 
   return (
@@ -77,7 +77,7 @@ export const HeroContent = () => {
         <motion.div variants={itemVariants} className="mb-8">
           <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-cyan-400/40 bg-cyan-500/10 text-cyan-400 text-sm font-medium tracking-wider">
             <span className="w-2 h-2 rounded-full bg-cyan-400 animate-pulse" />
-            {language === 'zh' ? '无人机核心配件专家' : 'Drone Core Components Expert'}
+            {t('hero.tagline')}
           </span>
         </motion.div>
 
@@ -87,10 +87,10 @@ export const HeroContent = () => {
           className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-black mb-8 leading-[1.1] tracking-tight"
         >
           <span className="block text-white mb-2">
-            {language === 'zh' ? '重新定义' : 'Redefining'}
+            {t('hero.title.line1')}
           </span>
           <span className="block bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-500 bg-clip-text text-transparent">
-            {language === 'zh' ? '飞行体验' : 'Flight Experience'}
+            {t('hero.title.line2')}
           </span>
         </motion.h1>
 
@@ -99,9 +99,7 @@ export const HeroContent = () => {
           variants={itemVariants}
           className="text-lg md:text-xl text-white/70 max-w-2xl mb-12 leading-relaxed"
         >
-          {language === 'zh' 
-            ? '专注无人机图传、飞控、云台等核心配件研发，10年技术沉淀，为全球飞手提供专业级解决方案'
-            : 'Focusing on drone FPV, flight controllers, gimbals and core accessories. 10 years of expertise, providing professional solutions for pilots worldwide.'}
+          {t('hero.subtitle')}
         </motion.p>
 
         {/* CTA Buttons */}
@@ -115,7 +113,7 @@ export const HeroContent = () => {
               className="group relative overflow-hidden bg-gradient-to-r from-cyan-500 to-blue-600 text-white hover:from-cyan-400 hover:to-blue-500 px-8 py-6 text-lg font-semibold rounded-xl shadow-lg shadow-cyan-500/25 transition-all duration-300 hover:shadow-cyan-500/40 hover:scale-105"
             >
               <span className="relative z-10 flex items-center gap-2">
-                {language === 'zh' ? '探索产品' : 'Explore Products'}
+                {t('hero.cta.explore')}
                 <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
               </span>
             </Button>
@@ -128,7 +126,7 @@ export const HeroContent = () => {
               className="group relative overflow-hidden border border-white/20 bg-white/5 hover:bg-white/10 hover:border-white/40 text-white px-8 py-6 text-lg font-semibold rounded-xl backdrop-blur-sm transition-all duration-300 hover:scale-105"
             >
               <Play className="w-5 h-5 mr-2 group-hover:scale-110 transition-transform" />
-              {language === 'zh' ? '了解长凌' : 'About CANI'}
+              {t('hero.cta.about')}
             </Button>
           </Link>
         </motion.div>
@@ -148,7 +146,7 @@ export const HeroContent = () => {
                 {stat.value}
               </div>
               <div className="text-sm text-white/50 uppercase tracking-wider">
-                {stat.label}
+                {t(stat.labelKey)}
               </div>
               <div className="absolute -bottom-2 left-0 w-8 h-0.5 bg-gradient-to-r from-cyan-400 to-transparent" />
             </motion.div>
@@ -165,7 +163,7 @@ export const HeroContent = () => {
       >
         <div className="flex flex-col items-center gap-3 text-white/40 cursor-pointer hover:text-white/70 transition-colors group">
           <span className="text-xs tracking-[0.3em] uppercase font-medium">
-            {language === 'zh' ? '向下滚动' : 'Scroll'}
+            {t('hero.scroll')}
           </span>
           <div className="w-6 h-10 rounded-full border-2 border-current flex justify-center pt-2">
             <motion.div 
