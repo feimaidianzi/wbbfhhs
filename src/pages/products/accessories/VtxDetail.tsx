@@ -20,8 +20,8 @@ const VtxDetail = () => {
   return (
     <>
       <SEO 
-        title={`${product.name} ${product.model} - ${t('company.name')}`}
-        description={`${product.name}，${product.frequency}${t('vtxDetail.seo.band')}，${product.channels}${t('vtxDetail.seo.channels')}，${product.power}${t('vtxDetail.seo.power')}，${t('vtxDetail.seo.vtxDesc')}`}
+        title={`${t(product.nameKey)} ${product.model} - ${t('company.name')}`}
+        description={`${t(product.nameKey)}，${product.frequency}${t('vtxDetail.seo.band')}，${product.channels}${t('vtxDetail.seo.channels')}，${product.power}${t('vtxDetail.seo.power')}，${t('vtxDetail.seo.vtxDesc')}`}
       />
       <Header />
       <main className="min-h-screen bg-background">
@@ -43,7 +43,7 @@ const VtxDetail = () => {
               <div className="bg-card rounded-2xl p-8 border border-border">
                 <img 
                   src={product.image} 
-                  alt={product.name}
+                  alt={t(product.nameKey)}
                   className="w-full max-w-md mx-auto object-contain"
                 />
               </div>
@@ -55,15 +55,15 @@ const VtxDetail = () => {
                   <span className="px-3 py-1 text-sm bg-secondary text-secondary-foreground rounded-full">{product.channels}CH</span>
                   <span className="px-3 py-1 text-sm bg-muted text-muted-foreground rounded-full">{product.frequency}</span>
                 </div>
-                <h1 className="text-3xl md:text-4xl font-bold mb-2">{product.name}</h1>
+                <h1 className="text-3xl md:text-4xl font-bold mb-2">{t(product.nameKey)}</h1>
                 <p className="text-xl text-muted-foreground mb-6">{product.model}</p>
                 
                 {/* Highlights */}
                 <div className="space-y-2 mb-8">
-                  {product.highlights.map((highlight, idx) => (
+                  {product.highlightKeys.map((highlightKey, idx) => (
                     <div key={idx} className="flex items-start gap-2">
                       <Check className="w-5 h-5 text-primary mt-0.5 flex-shrink-0" />
-                      <span>{highlight}</span>
+                      <span>{t(highlightKey)}</span>
                     </div>
                   ))}
                 </div>
@@ -86,10 +86,10 @@ const VtxDetail = () => {
           <div className="container mx-auto px-4">
             <h2 className="text-2xl font-bold mb-8">{t('accessoryDetail.productFeatures')}</h2>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              {product.description.map((desc, idx) => (
+              {product.descriptionKeys.map((descKey, idx) => (
                 <div key={idx} className="flex items-start gap-3 p-4 bg-card rounded-lg border border-border">
                   <Radio className="w-5 h-5 text-primary mt-0.5 flex-shrink-0" />
-                  <span>{desc}</span>
+                  <span>{t(descKey)}</span>
                 </div>
               ))}
             </div>
@@ -109,7 +109,7 @@ const VtxDetail = () => {
                   </tr>
                   <tr className="border-b border-border">
                     <td className="px-6 py-4 font-medium bg-muted/50">{t('accessoryDetail.inputVoltage')}</td>
-                    <td className="px-6 py-4">{product.specs.inputVoltage}</td>
+                    <td className="px-6 py-4">{t(product.specs.inputVoltageKey)}</td>
                   </tr>
                   <tr className="border-b border-border">
                     <td className="px-6 py-4 font-medium bg-muted/50">{t('accessoryDetail.outputVoltage')}</td>
@@ -133,19 +133,19 @@ const VtxDetail = () => {
                   </tr>
                   <tr className="border-b border-border">
                     <td className="px-6 py-4 font-medium bg-muted/50">{t('accessoryDetail.consumption')}</td>
-                    <td className="px-6 py-4">{product.specs.consumption}</td>
+                    <td className="px-6 py-4">{t(product.specs.consumptionKey)}</td>
                   </tr>
                   <tr className="border-b border-border">
                     <td className="px-6 py-4 font-medium bg-muted/50">{t('accessoryDetail.additionalFeatures')}</td>
-                    <td className="px-6 py-4">{product.specs.features}</td>
+                    <td className="px-6 py-4">{t(product.specs.featuresKey)}</td>
                   </tr>
                   <tr className="border-b border-border">
                     <td className="px-6 py-4 font-medium bg-muted/50">{t('accessoryDetail.microphone')}</td>
-                    <td className="px-6 py-4">{product.specs.microphone}</td>
+                    <td className="px-6 py-4">{t(product.specs.microphoneKey)}</td>
                   </tr>
                   <tr className="border-b border-border">
                     <td className="px-6 py-4 font-medium bg-muted/50">{t('accessoryDetail.cableInterface')}</td>
-                    <td className="px-6 py-4">{product.specs.cableInterface}</td>
+                    <td className="px-6 py-4">{t(product.specs.cableInterfaceKey)}</td>
                   </tr>
                   <tr className="border-b border-border">
                     <td className="px-6 py-4 font-medium bg-muted/50">{t('accessoryDetail.weight')}</td>
@@ -171,21 +171,21 @@ const VtxDetail = () => {
                   <Settings className="w-6 h-6 text-primary" />
                 </div>
                 <h3 className="font-semibold mb-2">{t('accessoryDetail.bandSelection')}</h3>
-                <p className="text-sm text-muted-foreground">{product.operationGuide.bandSelection}</p>
+                <p className="text-sm text-muted-foreground">{t(product.operationGuide.bandSelectionKey)}</p>
               </div>
               <div className="p-6 bg-card rounded-xl border border-border">
                 <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center mb-4">
                   <Radio className="w-6 h-6 text-primary" />
                 </div>
                 <h3 className="font-semibold mb-2">{t('accessoryDetail.channelSelection')}</h3>
-                <p className="text-sm text-muted-foreground">{product.operationGuide.channelSelection}</p>
+                <p className="text-sm text-muted-foreground">{t(product.operationGuide.channelSelectionKey)}</p>
               </div>
               <div className="p-6 bg-card rounded-xl border border-border">
                 <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center mb-4">
                   <Settings className="w-6 h-6 text-primary" />
                 </div>
                 <h3 className="font-semibold mb-2">{t('accessoryDetail.powerSelection')}</h3>
-                <p className="text-sm text-muted-foreground">{product.operationGuide.powerSelection}</p>
+                <p className="text-sm text-muted-foreground">{t(product.operationGuide.powerSelectionKey)}</p>
               </div>
             </div>
 
@@ -265,10 +265,10 @@ const VtxDetail = () => {
           <div className="container mx-auto px-4">
             <h2 className="text-2xl font-bold mb-8">{t('accessoryDetail.notes')}</h2>
             <div className="space-y-4">
-              {product.notes.map((note, idx) => (
+              {product.noteKeys.map((noteKey, idx) => (
                 <div key={idx} className="flex items-start gap-3 p-4 bg-amber-500/10 rounded-lg border border-amber-500/20">
                   <AlertTriangle className="w-5 h-5 text-amber-500 mt-0.5 flex-shrink-0" />
-                  <span className="text-sm">{note}</span>
+                  <span className="text-sm">{t(noteKey)}</span>
                 </div>
               ))}
             </div>

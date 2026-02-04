@@ -5,34 +5,34 @@ import vtx25w from "@/assets/vtx/vtx-2.5w.png";
 export interface VtxProduct {
   id: string;
   model: string;
-  name: string;
+  nameKey: string;
   power: string;
   frequency: string;
   frequencyBand: "49-61" | "61-72";
   channels: number;
   image: string;
   specs: {
-    inputVoltage: string;
+    inputVoltageKey: string;
     outputVoltage: string;
     powerLevels: string;
     mountingSize: string;
     antennaInterface: string;
-    consumption: string;
-    features: string;
-    microphone: string;
-    cableInterface: string;
+    consumptionKey: string;
+    featuresKey: string;
+    microphoneKey: string;
+    cableInterfaceKey: string;
     weight: string;
     size: string;
   };
-  highlights: string[];
-  description: string[];
+  highlightKeys: string[];
+  descriptionKeys: string[];
   operationGuide: {
-    bandSelection: string;
-    channelSelection: string;
-    powerSelection: string;
+    bandSelectionKey: string;
+    channelSelectionKey: string;
+    powerSelectionKey: string;
     powerLevelsTable?: { level: number; power: string }[];
   };
-  notes: string[];
+  noteKeys: string[];
   frequencyTable: { band: string; ch1: number; ch2: number; ch3: number; ch4: number; ch5: number; ch6: number; ch7: number; ch8: number }[];
 }
 
@@ -68,163 +68,163 @@ export const vtxProducts: VtxProduct[] = [
   {
     id: "flym-pv02w500-a1",
     model: "FLYM-PV02W500-A1",
-    name: "2.5W 视频发射器",
+    nameKey: "vtxProduct.25w.name",
     power: "2.5W",
     frequency: "4.9-6.1GHz",
     frequencyBand: "49-61",
     channels: 80,
     image: vtx25w,
     specs: {
-      inputVoltage: "12-28V，推荐使用6S电池",
+      inputVoltageKey: "vtxProduct.specs.inputVoltage.12to28v",
       outputVoltage: "5V",
       powerLevels: "25mW/2.5W",
       mountingSize: "30.5×30.5mm",
       antennaInterface: "MMCX",
-      consumption: "12V@800mA 或 28V@300mA",
-      features: "内置散热风扇 & 散热器",
-      microphone: "不支持",
-      cableInterface: "JST 6针（单12-28V输入及单接地）",
+      consumptionKey: "vtxProduct.specs.consumption.25w",
+      featuresKey: "vtxProduct.specs.features.fanHeatsink",
+      microphoneKey: "vtxProduct.specs.microphone.no",
+      cableInterfaceKey: "vtxProduct.specs.cable.jst6pin",
       weight: "23g",
       size: "36×36×8mm"
     },
-    highlights: [
-      "采用高性能射频PCB材料（罗杰斯4350B）",
-      "优良的散热设计",
-      "支持80频道，4.8~6.1GHz",
-      "支持SA协议与PIT模式",
-      "高强度CNC铝合金外壳",
-      "轻量化设计，仅23g"
+    highlightKeys: [
+      "vtxProduct.highlight.rfPcb",
+      "vtxProduct.highlight.heatDesign",
+      "vtxProduct.highlight.80ch49to61",
+      "vtxProduct.highlight.saPit",
+      "vtxProduct.highlight.cncCase",
+      "vtxProduct.highlight.light23g"
     ],
-    description: [
-      "采用高性能的射频PCB材料（罗杰斯4350B），使得我们的产品在各种环境下都能获得优秀的射频性能",
-      "优良的散热设计，让产品能在严酷的环境中获得同样优秀的性能",
-      "5.8G的载波，让信号可以飞的更远",
-      "频段80个，支持4.8~6.1G，任意频点，及频率组合定制（step 1MHz）",
-      "支持SA协议（支持协议定制）",
-      "支持PIT模式（按住模块上的按键再通电开机，机器将进入PIT模式）",
-      "高强度CNC铝合金外壳，能起到良好的保护、散热、支撑，部分产品内置风扇，散热方面有了良好的保证",
-      "支持5V输出",
-      "支持宽压输入：7~28V（2~6S）",
-      "所有产品均采用轻量化设计，有效减轻产品的重量",
-      "选择优秀的射频功放，提高产品的工作效率",
-      "单按键操作，让产品有效减少了体积",
-      "部分产品支持MMCX接口天线，有效减小体积减轻重量"
+    descriptionKeys: [
+      "vtxProduct.desc.rfPcb",
+      "vtxProduct.desc.heatDesign",
+      "vtxProduct.desc.58gCarrier",
+      "vtxProduct.desc.80chCustom",
+      "vtxProduct.desc.saProtocol",
+      "vtxProduct.desc.pitMode",
+      "vtxProduct.desc.cncCase",
+      "vtxProduct.desc.5vOutput",
+      "vtxProduct.desc.wideVoltage",
+      "vtxProduct.desc.lightweight",
+      "vtxProduct.desc.rfAmp",
+      "vtxProduct.desc.singleButton",
+      "vtxProduct.desc.mmcxAntenna"
     ],
     operationGuide: {
-      bandSelection: "长按按钮选择功能，相应的绿色指示灯会亮起",
-      channelSelection: "短按按钮选择档位，相应的蓝色指示灯会亮起",
-      powerSelection: "长按按钮切换功率档位",
+      bandSelectionKey: "vtxProduct.guide.bandSelection",
+      channelSelectionKey: "vtxProduct.guide.channelSelection",
+      powerSelectionKey: "vtxProduct.guide.powerSelectionLongPress",
       powerLevelsTable: [
         { level: 1, power: "25mW" },
         { level: 2, power: "2.5W" }
       ]
     },
-    notes: [
-      "发射器（VTX）可通过智能音频完全控制，支持待机模式",
-      "发射器将在5秒延迟后启动功率放大器。此5秒缓启动可避免因瞬时最大功率烧毁设备"
+    noteKeys: [
+      "vtxProduct.note.smartAudioStandby",
+      "vtxProduct.note.5secDelay"
     ],
     frequencyTable: frequencyTable49to61
   },
   {
     id: "flym-pv03w000-a1",
     model: "FLYM-PV03W000-A1",
-    name: "3W 视频发射器",
+    nameKey: "vtxProduct.3w.name",
     power: "3W",
     frequency: "4.9-6.1GHz",
     frequencyBand: "49-61",
     channels: 80,
     image: vtxLowPower,
     specs: {
-      inputVoltage: "12-28V，推荐使用6S电池",
+      inputVoltageKey: "vtxProduct.specs.inputVoltage.12to28v",
       outputVoltage: "5V",
       powerLevels: "25mW/3W",
       mountingSize: "30.5×30.5mm",
       antennaInterface: "MMCX",
-      consumption: "12V@800mA 或 28V@300mA",
-      features: "内置散热风扇 & 散热器",
-      microphone: "不支持",
-      cableInterface: "JST 6针（单12-28V输入及单接地）",
+      consumptionKey: "vtxProduct.specs.consumption.25w",
+      featuresKey: "vtxProduct.specs.features.fanHeatsink",
+      microphoneKey: "vtxProduct.specs.microphone.no",
+      cableInterfaceKey: "vtxProduct.specs.cable.jst6pin",
       weight: "23g",
       size: "36×36×8mm"
     },
-    highlights: [
-      "采用高性能射频PCB材料（罗杰斯4350B）",
-      "优良的散热设计",
-      "支持80频道，4.8~6.1GHz",
-      "支持SA协议与PIT模式",
-      "高强度CNC铝合金外壳",
-      "轻量化设计，仅23g"
+    highlightKeys: [
+      "vtxProduct.highlight.rfPcb",
+      "vtxProduct.highlight.heatDesign",
+      "vtxProduct.highlight.80ch49to61",
+      "vtxProduct.highlight.saPit",
+      "vtxProduct.highlight.cncCase",
+      "vtxProduct.highlight.light23g"
     ],
-    description: [
-      "采用高性能的射频PCB材料（罗杰斯4350B），使得我们的产品在各种环境下都能获得优秀的射频性能",
-      "优良的散热设计，让产品能在严酷的环境中获得同样优秀的性能",
-      "5.8G的载波，让信号可以飞的更远",
-      "频段80个，支持4.8~6.1G，任意频点，及频率组合定制（step 1MHz）",
-      "支持SA协议（支持协议定制）",
-      "支持PIT模式（按住模块上的按键再通电开机，机器将进入PIT模式）",
-      "高强度CNC铝合金外壳，能起到良好的保护、散热、支撑，部分产品内置风扇，散热方面有了良好的保证",
-      "支持5V输出",
-      "支持宽压输入：7~28V（2~6S）",
-      "所有产品均采用轻量化设计，有效减轻产品的重量",
-      "选择优秀的射频功放，提高产品的工作效率",
-      "单按键操作，让产品有效减少了体积",
-      "部分产品支持MMCX接口天线，有效减小体积减轻重量"
+    descriptionKeys: [
+      "vtxProduct.desc.rfPcb",
+      "vtxProduct.desc.heatDesign",
+      "vtxProduct.desc.58gCarrier",
+      "vtxProduct.desc.80chCustom",
+      "vtxProduct.desc.saProtocol",
+      "vtxProduct.desc.pitMode",
+      "vtxProduct.desc.cncCase",
+      "vtxProduct.desc.5vOutput",
+      "vtxProduct.desc.wideVoltage",
+      "vtxProduct.desc.lightweight",
+      "vtxProduct.desc.rfAmp",
+      "vtxProduct.desc.singleButton",
+      "vtxProduct.desc.mmcxAntenna"
     ],
     operationGuide: {
-      bandSelection: "长按按钮选择功能，相应的绿色指示灯会亮起",
-      channelSelection: "短按按钮选择档位，相应的蓝色指示灯会亮起",
-      powerSelection: "长按按钮切换功率档位",
+      bandSelectionKey: "vtxProduct.guide.bandSelection",
+      channelSelectionKey: "vtxProduct.guide.channelSelection",
+      powerSelectionKey: "vtxProduct.guide.powerSelectionLongPress",
       powerLevelsTable: [
         { level: 1, power: "25mW" },
         { level: 2, power: "3W" }
       ]
     },
-    notes: [
-      "发射器（VTX）可通过智能音频完全控制，支持待机模式",
-      "发射器将在5秒延迟后启动功率放大器。此5秒缓启动可避免因瞬时最大功率烧毁设备"
+    noteKeys: [
+      "vtxProduct.note.smartAudioStandby",
+      "vtxProduct.note.5secDelay"
     ],
     frequencyTable: frequencyTable49to61
   },
   {
     id: "fv10w-a1",
     model: "FV10W-A1",
-    name: "10W 视频发射器",
+    nameKey: "vtxProduct.10w.name",
     power: "10W",
     frequency: "4.9-6.1GHz",
     frequencyBand: "49-61",
     channels: 80,
     image: vtxHighPower,
     specs: {
-      inputVoltage: "12-28V，推荐使用6S电池",
+      inputVoltageKey: "vtxProduct.specs.inputVoltage.12to28v",
       outputVoltage: "5V",
       powerLevels: "1W/3W/5W/7W/10W",
       mountingSize: "30.5×30.5mm",
       antennaInterface: "SMA",
-      consumption: "12V/2.8A 或 28V/1.1A",
-      features: "智能音频/内置散热风扇 & 散热器",
-      microphone: "内置",
-      cableInterface: "JST 8针（双12-28V输入及双接地）",
+      consumptionKey: "vtxProduct.specs.consumption.10w",
+      featuresKey: "vtxProduct.specs.features.smartAudioFan",
+      microphoneKey: "vtxProduct.specs.microphone.yes",
+      cableInterfaceKey: "vtxProduct.specs.cable.jst8pin",
       weight: "47g",
       size: "68×36×15mm"
     },
-    highlights: [
-      "5档功率可调 (1W/3W/5W/7W/10W)",
-      "内置散热风扇与麦克风",
-      "所有元件均置于散热器保护下",
-      "4个安装孔位，便于固定",
-      "支持Betaflight软件控制",
-      "5秒缓启动保护功能"
+    highlightKeys: [
+      "vtxProduct.highlight.10w5levels",
+      "vtxProduct.highlight.fanMic",
+      "vtxProduct.highlight.heatsinkProtection",
+      "vtxProduct.highlight.4mountHoles",
+      "vtxProduct.highlight.betaflight",
+      "vtxProduct.highlight.5secProtection"
     ],
-    description: [
-      "5.8GHz 80频道 10W输出",
-      "内置散热风扇与麦克风",
-      "所有元件均置于散热器保护下",
-      "4个安装孔位，便于固定"
+    descriptionKeys: [
+      "vtxProduct.desc.10w80ch",
+      "vtxProduct.desc.fanMic",
+      "vtxProduct.desc.heatsinkProtection",
+      "vtxProduct.desc.4mountHoles"
     ],
     operationGuide: {
-      bandSelection: "长按按钮3秒，直至LED显示英文字母闪烁，短按切换频段（A/b/E/F/r/P/L/U/O/X）",
-      channelSelection: "短按按钮直接切换频道1-8",
-      powerSelection: "长按按钮6秒，直至LED数字快速闪烁，短按选择功率档位",
+      bandSelectionKey: "vtxProduct.guide.bandSelection10w",
+      channelSelectionKey: "vtxProduct.guide.channelSelection10w",
+      powerSelectionKey: "vtxProduct.guide.powerSelection10w",
       powerLevelsTable: [
         { level: 1, power: "1W" },
         { level: 2, power: "3W" },
@@ -233,162 +233,162 @@ export const vtxProducts: VtxProduct[] = [
         { level: 5, power: "10W" }
       ]
     },
-    notes: [
-      "双电源输入与接地焊接要求：必须严格按照焊盘位置焊接双12-28V电源输入线及双接地线，禁止仅焊接单根线，以确保设备电源传输稳定",
-      "天线安装要求：通电前务必完成天线接口与天线的安装，避免因未安装导致设备故障或性能下降",
-      "散热器禁止拆卸：设备散热器对散热至关重要，禁止擅自拆卸，以防过热损坏设备",
-      "安装位置建议：为达到最佳散热效果，请将视频发射器（VTX）安装在无人机框架最顶部，确保空气流通",
-      "PIT模式（低功耗模式）操作说明：通过Betaflight地面站软件可便捷进入/退出PIT模式；长按设备按钮15秒也可退出PIT模式；若未主动退出，下次通电时设备仍保持PIT模式"
+    noteKeys: [
+      "vtxProduct.note.dualPower",
+      "vtxProduct.note.antennaRequired",
+      "vtxProduct.note.noHeatsinkRemoval",
+      "vtxProduct.note.topMounting",
+      "vtxProduct.note.pitModeOperation"
     ],
     frequencyTable: frequencyTable49to61
   },
   {
     id: "fv16w-a1",
     model: "FV16W-A1",
-    name: "16W 视频发射器",
+    nameKey: "vtxProduct.16w.name",
     power: "16W",
     frequency: "4.9-6.1GHz",
     frequencyBand: "49-61",
     channels: 80,
     image: vtxHighPower,
     specs: {
-      inputVoltage: "12-28V，推荐使用6S电池",
+      inputVoltageKey: "vtxProduct.specs.inputVoltage.12to28v",
       outputVoltage: "5V",
-      powerLevels: "16W（功率档位可定制）",
+      powerLevels: "16W",
       mountingSize: "30.5×30.5mm",
       antennaInterface: "SMA",
-      consumption: "12V-28V",
-      features: "智能音频/内置散热风扇 & 散热器",
-      microphone: "内置",
-      cableInterface: "JST 8针（双12-28V输入及双接地）",
+      consumptionKey: "vtxProduct.specs.consumption.16w",
+      featuresKey: "vtxProduct.specs.features.smartAudioFan",
+      microphoneKey: "vtxProduct.specs.microphone.yes",
+      cableInterfaceKey: "vtxProduct.specs.cable.jst8pin",
       weight: "47g",
       size: "68×36×15mm"
     },
-    highlights: [
-      "16W大功率输出",
-      "内置散热风扇与麦克风",
-      "所有元件均置于散热器保护下",
-      "4个安装孔位，便于固定",
-      "功率档位可定制",
-      "支持Betaflight软件控制"
+    highlightKeys: [
+      "vtxProduct.highlight.16wOutput",
+      "vtxProduct.highlight.fanMic",
+      "vtxProduct.highlight.heatsinkProtection",
+      "vtxProduct.highlight.4mountHoles",
+      "vtxProduct.highlight.customPower",
+      "vtxProduct.highlight.betaflight"
     ],
-    description: [
-      "5.8GHz 80频道 16W输出",
-      "内置散热风扇与麦克风",
-      "所有元件均置于散热器保护下",
-      "4个安装孔位，便于固定"
+    descriptionKeys: [
+      "vtxProduct.desc.16w80ch",
+      "vtxProduct.desc.fanMic",
+      "vtxProduct.desc.heatsinkProtection",
+      "vtxProduct.desc.4mountHoles"
     ],
     operationGuide: {
-      bandSelection: "长按按钮3秒，直至LED显示英文字母闪烁，短按切换频段（A/b/E/F/r/P/L/U/O/X）",
-      channelSelection: "短按按钮直接切换频道1-8",
-      powerSelection: "功率档位可定制"
+      bandSelectionKey: "vtxProduct.guide.bandSelection10w",
+      channelSelectionKey: "vtxProduct.guide.channelSelection10w",
+      powerSelectionKey: "vtxProduct.guide.powerSelectionCustom"
     },
-    notes: [
-      "双电源输入与接地焊接要求：必须严格按照焊盘位置焊接双12-28V电源输入线及双接地线，禁止仅焊接单根线，以确保设备电源传输稳定",
-      "天线安装要求：通电前务必完成天线接口与天线的安装，避免因未安装导致设备故障或性能下降",
-      "散热器禁止拆卸：设备散热器对散热至关重要，禁止擅自拆卸，以防过热损坏设备",
-      "安装位置建议：为达到最佳散热效果，请将视频发射器（VTX）安装在无人机框架最顶部，确保空气流通",
-      "PIT模式（低功耗模式）操作说明：通过Betaflight地面站软件可便捷进入/退出PIT模式；长按设备按钮15秒也可退出PIT模式；若未主动退出，下次通电时设备仍保持PIT模式"
+    noteKeys: [
+      "vtxProduct.note.dualPower",
+      "vtxProduct.note.antennaRequired",
+      "vtxProduct.note.noHeatsinkRemoval",
+      "vtxProduct.note.topMounting",
+      "vtxProduct.note.pitModeOperation"
     ],
     frequencyTable: frequencyTable49to61
   },
   {
     id: "fv25w-a1",
     model: "FV25W-A1",
-    name: "25W 视频发射器",
+    nameKey: "vtxProduct.25wHigh.name",
     power: "25W",
     frequency: "4.9-6.1GHz",
     frequencyBand: "49-61",
     channels: 80,
     image: vtxHighPower,
     specs: {
-      inputVoltage: "12-28V，推荐使用6S电池",
+      inputVoltageKey: "vtxProduct.specs.inputVoltage.12to28v",
       outputVoltage: "5V",
-      powerLevels: "25W（功率档位可定制）",
+      powerLevels: "25W",
       mountingSize: "30.5×30.5mm",
       antennaInterface: "SMA",
-      consumption: "24V-28V",
-      features: "智能音频/内置散热风扇 & 散热器",
-      microphone: "内置",
-      cableInterface: "JST 8针（双12-28V输入及双接地）",
+      consumptionKey: "vtxProduct.specs.consumption.25wHigh",
+      featuresKey: "vtxProduct.specs.features.smartAudioFan",
+      microphoneKey: "vtxProduct.specs.microphone.yes",
+      cableInterfaceKey: "vtxProduct.specs.cable.jst8pin",
       weight: "47g",
       size: "68×36×15mm"
     },
-    highlights: [
-      "25W大功率输出，远距离传输",
-      "内置散热风扇与麦克风",
-      "所有元件均置于散热器保护下",
-      "4个安装孔位，便于固定",
-      "功率档位可定制",
-      "支持Betaflight软件控制"
+    highlightKeys: [
+      "vtxProduct.highlight.25wLongRange",
+      "vtxProduct.highlight.fanMic",
+      "vtxProduct.highlight.heatsinkProtection",
+      "vtxProduct.highlight.4mountHoles",
+      "vtxProduct.highlight.customPower",
+      "vtxProduct.highlight.betaflight"
     ],
-    description: [
-      "5.8GHz 80频道 25W输出",
-      "内置散热风扇与麦克风",
-      "所有元件均置于散热器保护下",
-      "4个安装孔位，便于固定"
+    descriptionKeys: [
+      "vtxProduct.desc.25w80ch",
+      "vtxProduct.desc.fanMic",
+      "vtxProduct.desc.heatsinkProtection",
+      "vtxProduct.desc.4mountHoles"
     ],
     operationGuide: {
-      bandSelection: "长按按钮3秒，直至LED显示英文字母闪烁，短按切换频段（A/b/E/F/r/P/L/U/O/X）",
-      channelSelection: "短按按钮直接切换频道1-8",
-      powerSelection: "功率档位可定制"
+      bandSelectionKey: "vtxProduct.guide.bandSelection10w",
+      channelSelectionKey: "vtxProduct.guide.channelSelection10w",
+      powerSelectionKey: "vtxProduct.guide.powerSelectionCustom"
     },
-    notes: [
-      "双电源输入与接地焊接要求：必须严格按照焊盘位置焊接双12-28V电源输入线及双接地线，禁止仅焊接单根线，以确保设备电源传输稳定",
-      "天线安装要求：通电前务必完成天线接口与天线的安装，避免因未安装导致设备故障或性能下降",
-      "散热器禁止拆卸：设备散热器对散热至关重要，禁止擅自拆卸，以防过热损坏设备",
-      "安装位置建议：为达到最佳散热效果，请将视频发射器（VTX）安装在无人机框架最顶部，确保空气流通",
-      "PIT模式（低功耗模式）操作说明：通过Betaflight地面站软件可便捷进入/退出PIT模式；长按设备按钮15秒也可退出PIT模式；若未主动退出，下次通电时设备仍保持PIT模式"
+    noteKeys: [
+      "vtxProduct.note.dualPower",
+      "vtxProduct.note.antennaRequired",
+      "vtxProduct.note.noHeatsinkRemoval",
+      "vtxProduct.note.topMounting",
+      "vtxProduct.note.pitModeOperation"
     ],
     frequencyTable: frequencyTable49to61
   },
   {
     id: "fv37w-a1",
     model: "FV37W-A1",
-    name: "37W 视频发射器",
+    nameKey: "vtxProduct.37w.name",
     power: "37W",
     frequency: "4.9-6.1GHz",
     frequencyBand: "49-61",
     channels: 80,
     image: vtxHighPower,
     specs: {
-      inputVoltage: "12-28V，推荐使用6S电池",
+      inputVoltageKey: "vtxProduct.specs.inputVoltage.12to28v",
       outputVoltage: "5V",
-      powerLevels: "37W（功率档位可定制）",
+      powerLevels: "37W",
       mountingSize: "30.5×30.5mm",
       antennaInterface: "SMA",
-      consumption: "24V-28V",
-      features: "智能音频/内置散热风扇 & 散热器",
-      microphone: "内置",
-      cableInterface: "JST 8针（双12-28V输入及双接地）",
+      consumptionKey: "vtxProduct.specs.consumption.25wHigh",
+      featuresKey: "vtxProduct.specs.features.smartAudioFan",
+      microphoneKey: "vtxProduct.specs.microphone.yes",
+      cableInterfaceKey: "vtxProduct.specs.cable.jst8pin",
       weight: "47g",
       size: "68×36×15mm"
     },
-    highlights: [
-      "37W超大功率，极限远距离传输",
-      "内置散热风扇与麦克风",
-      "所有元件均置于散热器保护下",
-      "4个安装孔位，便于固定",
-      "功率档位可定制",
-      "支持Betaflight软件控制"
+    highlightKeys: [
+      "vtxProduct.highlight.37wExtreme",
+      "vtxProduct.highlight.fanMic",
+      "vtxProduct.highlight.heatsinkProtection",
+      "vtxProduct.highlight.4mountHoles",
+      "vtxProduct.highlight.customPower",
+      "vtxProduct.highlight.betaflight"
     ],
-    description: [
-      "5.8GHz 80频道 37W输出",
-      "内置散热风扇与麦克风",
-      "所有元件均置于散热器保护下",
-      "4个安装孔位，便于固定"
+    descriptionKeys: [
+      "vtxProduct.desc.37w80ch",
+      "vtxProduct.desc.fanMic",
+      "vtxProduct.desc.heatsinkProtection",
+      "vtxProduct.desc.4mountHoles"
     ],
     operationGuide: {
-      bandSelection: "长按按钮3秒，直至LED显示英文字母闪烁，短按切换频段（A/b/E/F/r/P/L/U/O/X）",
-      channelSelection: "短按按钮直接切换频道1-8",
-      powerSelection: "功率档位可定制"
+      bandSelectionKey: "vtxProduct.guide.bandSelection10w",
+      channelSelectionKey: "vtxProduct.guide.channelSelection10w",
+      powerSelectionKey: "vtxProduct.guide.powerSelectionCustom"
     },
-    notes: [
-      "双电源输入与接地焊接要求：必须严格按照焊盘位置焊接双12-28V电源输入线及双接地线，禁止仅焊接单根线，以确保设备电源传输稳定",
-      "天线安装要求：通电前务必完成天线接口与天线的安装，避免因未安装导致设备故障或性能下降",
-      "散热器禁止拆卸：设备散热器对散热至关重要，禁止擅自拆卸，以防过热损坏设备",
-      "安装位置建议：为达到最佳散热效果，请将视频发射器（VTX）安装在无人机框架最顶部，确保空气流通",
-      "PIT模式（低功耗模式）操作说明：通过Betaflight地面站软件可便捷进入/退出PIT模式；长按设备按钮15秒也可退出PIT模式；若未主动退出，下次通电时设备仍保持PIT模式"
+    noteKeys: [
+      "vtxProduct.note.dualPower",
+      "vtxProduct.note.antennaRequired",
+      "vtxProduct.note.noHeatsinkRemoval",
+      "vtxProduct.note.topMounting",
+      "vtxProduct.note.pitModeOperation"
     ],
     frequencyTable: frequencyTable49to61
   },
@@ -396,43 +396,43 @@ export const vtxProducts: VtxProduct[] = [
   {
     id: "fv10w-72",
     model: "FV10W-7.2",
-    name: "10W 视频发射器 (7.2GHz)",
+    nameKey: "vtxProduct.10w72.name",
     power: "10W",
     frequency: "6.1-7.2GHz",
     frequencyBand: "61-72",
     channels: 64,
     image: vtxHighPower,
     specs: {
-      inputVoltage: "12-28V，推荐使用6S电池",
+      inputVoltageKey: "vtxProduct.specs.inputVoltage.12to28v",
       outputVoltage: "5V",
-      powerLevels: "1W/3W/5W/7W/10W（档位可定制）",
+      powerLevels: "1W/3W/5W/7W/10W",
       mountingSize: "30.5×30.5mm",
       antennaInterface: "SMA",
-      consumption: "12V/2.8A 或 28V/1.1A",
-      features: "智能音频/内置散热风扇 & 散热器",
-      microphone: "内置",
-      cableInterface: "JST 8针（双12-28V输入及双接地）",
+      consumptionKey: "vtxProduct.specs.consumption.10w",
+      featuresKey: "vtxProduct.specs.features.smartAudioFan",
+      microphoneKey: "vtxProduct.specs.microphone.yes",
+      cableInterfaceKey: "vtxProduct.specs.cable.jst8pin",
       weight: "47g",
       size: "68×36×15mm"
     },
-    highlights: [
-      "7.2GHz高频段，规避干扰",
-      "64频道可选",
-      "5档功率可调 (1W/3W/5W/7W/10W)",
-      "内置散热风扇与麦克风",
-      "所有元件均置于散热器保护下",
-      "支持Betaflight软件控制"
+    highlightKeys: [
+      "vtxProduct.highlight.72ghzBand",
+      "vtxProduct.highlight.10w5levels",
+      "vtxProduct.highlight.fanMic",
+      "vtxProduct.highlight.heatsinkProtection",
+      "vtxProduct.highlight.betaflight",
+      "vtxProduct.highlight.5secProtection"
     ],
-    description: [
-      "7.2GHz 64频道 10W输出",
-      "内置散热风扇与麦克风",
-      "所有元件均置于散热器保护下",
-      "4个安装孔位，便于固定"
+    descriptionKeys: [
+      "vtxProduct.desc.72ghz64ch",
+      "vtxProduct.desc.fanMic",
+      "vtxProduct.desc.heatsinkProtection",
+      "vtxProduct.desc.4mountHoles"
     ],
     operationGuide: {
-      bandSelection: "长按按钮3秒，直至LED显示英文字母闪烁，短按切换频段（A/B/E/F/R/P/H/U）",
-      channelSelection: "短按按钮直接切换频道1-8",
-      powerSelection: "长按按钮6秒，直至LED数字快速闪烁，短按选择功率档位（选配，可按需设置档位）",
+      bandSelectionKey: "vtxProduct.guide.bandSelection10w",
+      channelSelectionKey: "vtxProduct.guide.channelSelection10w",
+      powerSelectionKey: "vtxProduct.guide.powerSelection10w",
       powerLevelsTable: [
         { level: 1, power: "1W" },
         { level: 2, power: "3W" },
@@ -441,20 +441,26 @@ export const vtxProducts: VtxProduct[] = [
         { level: 5, power: "10W" }
       ]
     },
-    notes: [
-      "双电源输入与接地焊接要求：必须严格按照焊盘位置焊接双12-28V电源输入线及双接地线，禁止仅焊接单根线，以确保设备电源传输稳定",
-      "天线安装要求：通电前务必完成天线接口与天线的安装，避免因未安装导致设备故障或性能下降",
-      "散热器禁止拆卸：设备散热器对散热至关重要，禁止擅自拆卸，以防过热损坏设备",
-      "安装位置建议：为达到最佳散热效果，请将视频发射器（VTX）安装在无人机框架最顶部，确保空气流通",
-      "PIT模式（低功耗模式）操作说明：通过Betaflight地面站软件可便捷进入/退出PIT模式；长按设备按钮15秒也可退出PIT模式；若未主动退出，下次通电时设备仍保持PIT模式"
+    noteKeys: [
+      "vtxProduct.note.dualPower",
+      "vtxProduct.note.antennaRequired",
+      "vtxProduct.note.noHeatsinkRemoval",
+      "vtxProduct.note.topMounting",
+      "vtxProduct.note.pitModeOperation"
     ],
     frequencyTable: frequencyTable61to72
   }
 ];
 
-// 获取产品列表按频段分类
-export const getProducts49to61 = () => vtxProducts.filter(p => p.frequencyBand === "49-61");
-export const getProducts61to72 = () => vtxProducts.filter(p => p.frequencyBand === "61-72");
+// 辅助函数
+export function getProducts49to61(): VtxProduct[] {
+  return vtxProducts.filter(p => p.frequencyBand === "49-61");
+}
 
-// 通过ID获取产品
-export const getProductById = (id: string) => vtxProducts.find(p => p.id === id);
+export function getProducts61to72(): VtxProduct[] {
+  return vtxProducts.filter(p => p.frequencyBand === "61-72");
+}
+
+export function getProductById(id: string): VtxProduct | undefined {
+  return vtxProducts.find(p => p.id === id);
+}

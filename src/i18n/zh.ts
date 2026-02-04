@@ -121,8 +121,92 @@ export const zhTranslations: Record<string, string> = {
   'vtx.cta.title': '需要定制化解决方案？',
   'vtx.cta.desc': '我们支持任意频点及频率组合定制（step 1MHz），功率档位定制，满足您的特殊需求。',
   'vtx.cta.btn': '联系我们',
+  'vtx.freqTable.band': '频段',
 
-  // ===== ELRS Page =====
+  // ===== VTX Product Data =====
+  // Product Names
+  'vtxProduct.25w.name': '2.5W 视频发射器',
+  'vtxProduct.3w.name': '3W 视频发射器',
+  'vtxProduct.10w.name': '10W 视频发射器',
+  'vtxProduct.16w.name': '16W 视频发射器',
+  'vtxProduct.25wHigh.name': '25W 视频发射器',
+  'vtxProduct.37w.name': '37W 视频发射器',
+  'vtxProduct.10w72.name': '10W 视频发射器 (7.2GHz)',
+
+  // Specs
+  'vtxProduct.specs.inputVoltage.12to28v': '12-28V，推荐使用6S电池',
+  'vtxProduct.specs.consumption.25w': '12V@800mA 或 28V@300mA',
+  'vtxProduct.specs.consumption.10w': '12V/2.8A 或 28V/1.1A',
+  'vtxProduct.specs.consumption.16w': '12V-28V',
+  'vtxProduct.specs.consumption.25wHigh': '24V-28V',
+  'vtxProduct.specs.features.fanHeatsink': '内置散热风扇 & 散热器',
+  'vtxProduct.specs.features.smartAudioFan': '智能音频/内置散热风扇 & 散热器',
+  'vtxProduct.specs.microphone.no': '不支持',
+  'vtxProduct.specs.microphone.yes': '内置',
+  'vtxProduct.specs.cable.jst6pin': 'JST 6针（单12-28V输入及单接地）',
+  'vtxProduct.specs.cable.jst8pin': 'JST 8针（双12-28V输入及双接地）',
+
+  // Highlights
+  'vtxProduct.highlight.rfPcb': '采用高性能射频PCB材料（罗杰斯4350B）',
+  'vtxProduct.highlight.heatDesign': '优良的散热设计',
+  'vtxProduct.highlight.80ch49to61': '支持80频道，4.8~6.1GHz',
+  'vtxProduct.highlight.saPit': '支持SA协议与PIT模式',
+  'vtxProduct.highlight.cncCase': '高强度CNC铝合金外壳',
+  'vtxProduct.highlight.light23g': '轻量化设计，仅23g',
+  'vtxProduct.highlight.10w5levels': '5档功率可调 (1W/3W/5W/7W/10W)',
+  'vtxProduct.highlight.fanMic': '内置散热风扇与麦克风',
+  'vtxProduct.highlight.heatsinkProtection': '所有元件均置于散热器保护下',
+  'vtxProduct.highlight.4mountHoles': '4个安装孔位，便于固定',
+  'vtxProduct.highlight.betaflight': '支持Betaflight软件控制',
+  'vtxProduct.highlight.5secProtection': '5秒缓启动保护功能',
+  'vtxProduct.highlight.16wOutput': '16W大功率输出',
+  'vtxProduct.highlight.customPower': '功率档位可定制',
+  'vtxProduct.highlight.25wLongRange': '25W大功率输出，远距离传输',
+  'vtxProduct.highlight.37wExtreme': '37W超大功率，极限远距离传输',
+  'vtxProduct.highlight.72ghzBand': '6.1-7.2GHz高频段，避开5.8G干扰',
+
+  // Descriptions
+  'vtxProduct.desc.rfPcb': '采用高性能的射频PCB材料（罗杰斯4350B），使得我们的产品在各种环境下都能获得优秀的射频性能',
+  'vtxProduct.desc.heatDesign': '优良的散热设计，让产品能在严酷的环境中获得同样优秀的性能',
+  'vtxProduct.desc.58gCarrier': '5.8G的载波，让信号可以飞的更远',
+  'vtxProduct.desc.80chCustom': '频段80个，支持4.8~6.1G，任意频点，及频率组合定制（step 1MHz）',
+  'vtxProduct.desc.saProtocol': '支持SA协议（支持协议定制）',
+  'vtxProduct.desc.pitMode': '支持PIT模式（按住模块上的按键再通电开机，机器将进入PIT模式）',
+  'vtxProduct.desc.cncCase': '高强度CNC铝合金外壳，能起到良好的保护、散热、支撑，部分产品内置风扇，散热方面有了良好的保证',
+  'vtxProduct.desc.5vOutput': '支持5V输出',
+  'vtxProduct.desc.wideVoltage': '支持宽压输入：7~28V（2~6S）',
+  'vtxProduct.desc.lightweight': '所有产品均采用轻量化设计，有效减轻产品的重量',
+  'vtxProduct.desc.rfAmp': '选择优秀的射频功放，提高产品的工作效率',
+  'vtxProduct.desc.singleButton': '单按键操作，让产品有效减少了体积',
+  'vtxProduct.desc.mmcxAntenna': '部分产品支持MMCX接口天线，有效减小体积减轻重量',
+  'vtxProduct.desc.10w80ch': '5.8GHz 80频道 10W输出',
+  'vtxProduct.desc.fanMic': '内置散热风扇与麦克风',
+  'vtxProduct.desc.heatsinkProtection': '所有元件均置于散热器保护下',
+  'vtxProduct.desc.4mountHoles': '4个安装孔位，便于固定',
+  'vtxProduct.desc.16w80ch': '5.8GHz 80频道 16W输出',
+  'vtxProduct.desc.25w80ch': '5.8GHz 80频道 25W输出',
+  'vtxProduct.desc.37w80ch': '5.8GHz 80频道 37W输出',
+  'vtxProduct.desc.72ghz64ch': '6.1-7.2GHz 64频道 10W输出',
+
+  // Operation Guide
+  'vtxProduct.guide.bandSelection': '长按按钮选择功能，相应的绿色指示灯会亮起',
+  'vtxProduct.guide.channelSelection': '短按按钮选择档位，相应的蓝色指示灯会亮起',
+  'vtxProduct.guide.powerSelectionLongPress': '长按按钮切换功率档位',
+  'vtxProduct.guide.bandSelection10w': '长按按钮3秒，直至LED显示英文字母闪烁，短按切换频段（A/b/E/F/r/P/L/U/O/X）',
+  'vtxProduct.guide.channelSelection10w': '短按按钮直接切换频道1-8',
+  'vtxProduct.guide.powerSelection10w': '长按按钮6秒，直至LED数字快速闪烁，短按选择功率档位',
+  'vtxProduct.guide.powerSelectionCustom': '功率档位可定制',
+
+  // Notes
+  'vtxProduct.note.smartAudioStandby': '发射器（VTX）可通过智能音频完全控制，支持待机模式',
+  'vtxProduct.note.5secDelay': '发射器将在5秒延迟后启动功率放大器。此5秒缓启动可避免因瞬时最大功率烧毁设备',
+  'vtxProduct.note.dualPower': '双电源输入与接地焊接要求：必须严格按照焊盘位置焊接双12-28V电源输入线及双接地线，禁止仅焊接单根线，以确保设备电源传输稳定',
+  'vtxProduct.note.antennaRequired': '天线安装要求：通电前务必完成天线接口与天线的安装，避免因未安装导致设备故障或性能下降',
+  'vtxProduct.note.noHeatsinkRemoval': '散热器禁止拆卸：设备散热器对散热至关重要，禁止擅自拆卸，以防过热损坏设备',
+  'vtxProduct.note.topMounting': '安装位置建议：为达到最佳散热效果，请将视频发射器（VTX）安装在无人机框架最顶部，确保空气流通',
+  'vtxProduct.note.pitModeOperation': 'PIT模式（低功耗模式）操作说明：通过Betaflight地面站软件可便捷进入/退出PIT模式；长按设备按钮15秒也可退出PIT模式；若未主动退出，下次通电时设备仍保持PIT模式',
+
+
   'elrs.seo.title': 'ELRS遥控系统 - ExpressLRS接收机与天线',
   'elrs.seo.description': '专业ELRS遥控系统产品，包括915MHz、868MHz、2.4GHz接收机及配套天线，超低延迟，远距离控制',
   'elrs.seo.keywords': 'ELRS,ExpressLRS,接收机,天线,915MHz,868MHz,2.4GHz,FPV,遥控',
@@ -3326,9 +3410,6 @@ export const zhTranslations: Record<string, string> = {
   'power.substation.cta.desc': '联系我们获取详细技术方案和报价',
   'power.substation.cta.consult': '立即咨询',
   'power.substation.cta.back': '返回电力巡检',
-
-  // VTX frequency table
-  'vtx.freqTable.band': '频段',
 
   // ===== X850 Multi-Rotor Features =====
   'multiRotor.x850.feature.professionalPayload': '专业载荷',
