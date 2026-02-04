@@ -4,6 +4,7 @@ import { Footer } from "@/components/Footer";
 import { FloatingContact } from "@/components/FloatingContact";
 import { Button } from "@/components/ui/button";
 import { SEO } from "@/components/SEO";
+import { BackButton } from "@/components/BackButton";
 import { ArrowRight, Phone, Radio, Wifi, Zap, Signal, Shield, Settings, Check } from "lucide-react";
 import { elrsProducts } from "@/data/elrsProducts";
 import { useLanguage } from "@/contexts/LanguageContext";
@@ -70,20 +71,7 @@ const ElrsDetail = () => {
       />
       <Header />
       <main className="pt-16 md:pt-20">
-        {/* Breadcrumb */}
-        <div className="bg-secondary py-4">
-          <div className="container-custom">
-            <div className="flex items-center gap-2 text-sm text-muted-foreground flex-wrap">
-              <Link to="/" className="hover:text-accent">{t('nav.home')}</Link>
-              <span>/</span>
-              <Link to="/products/accessories" className="hover:text-accent">{t('nav.products')}</Link>
-              <span>/</span>
-              <Link to="/products/accessories/elrs" className="hover:text-accent">ELRS</Link>
-              <span>/</span>
-              <span className="text-foreground">{productName}</span>
-            </div>
-          </div>
-        </div>
+        <BackButton to="/products/accessories/elrs" />
 
         {/* Hero Section */}
         <section className="relative py-16 md:py-24 overflow-hidden bg-gradient-to-br from-primary via-primary/95 to-accent/20">

@@ -4,10 +4,10 @@ import { Footer } from "@/components/Footer";
 import { FloatingContact } from "@/components/FloatingContact";
 import { SEO } from "@/components/SEO";
 import { Button } from "@/components/ui/button";
-import { ArrowLeft, Check, AlertTriangle, Settings, Radio } from "lucide-react";
+import { BackButton } from "@/components/BackButton";
+import { Check, AlertTriangle, Settings, Radio } from "lucide-react";
 import { getProductById } from "@/data/vtxProducts";
 import { useLanguage } from "@/contexts/LanguageContext";
-
 const VtxDetail = () => {
   const { productId } = useParams<{ productId: string }>();
   const product = productId ? getProductById(productId) : null;
@@ -25,15 +25,7 @@ const VtxDetail = () => {
       />
       <Header />
       <main className="min-h-screen bg-background">
-        {/* Breadcrumb */}
-        <section className="pt-8 pb-4 bg-muted/30">
-          <div className="container mx-auto px-4">
-            <Link to="/products/accessories/vtx-vrx" className="inline-flex items-center gap-2 text-primary hover:underline">
-              <ArrowLeft className="w-4 h-4" />
-              {t('accessoryDetail.backToVtx')}
-            </Link>
-          </div>
-        </section>
+        <BackButton to="/products/accessories/vtx-vrx" />
 
         {/* Hero Section */}
         <section className="py-12 bg-gradient-to-br from-primary/5 via-background to-background">
