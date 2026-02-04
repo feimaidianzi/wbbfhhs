@@ -6,16 +6,202 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
-import { ArrowLeft, FileCode, CheckCircle, RefreshCw, Zap, Search, Wand2, Wrench, Copy, Loader2, ArrowRight, AlertCircle, Play } from "lucide-react";
+import { ArrowLeft, FileCode, CheckCircle, RefreshCw, Zap, Search, Wand2, Copy, Loader2, ArrowRight, AlertCircle } from "lucide-react";
 import { Link } from "react-router-dom";
 import { toast } from "sonner";
 import { supabase } from "@/integrations/supabase/client";
 
-// 硬编码的页面源码示例（用于演示）
+// ========== 真实的待迁移页面源码示例 ==========
+// 这些是从实际文件中提取的需要迁移的代码片段
 const PAGE_CODE_SAMPLES: Record<string, string> = {
+  'src/pages/products/accessories/VtxVrx.tsx': `import { Link } from "react-router-dom";
+import { Header } from "@/components/Header";
+import { Footer } from "@/components/Footer";
+import { SEO } from "@/components/SEO";
+import { Button } from "@/components/ui/button";
+import { ArrowLeft, Radio, Zap, Settings, Shield, Thermometer, Cpu, ChevronRight } from "lucide-react";
+
+const features = [{
+  icon: Radio,
+  title: "高性能射频",
+  description: "采用罗杰斯4350B高性能射频PCB材料，确保优秀的射频性能"
+}, {
+  icon: Zap,
+  title: "大功率输出",
+  description: "多档功率可调，最高37W输出，远距离高清图传"
+}, {
+  icon: Thermometer,
+  title: "优异散热",
+  description: "内置散热风扇与散热器，CNC铝合金外壳，严酷环境下稳定工作"
+}];
+
+const VtxVrx = () => {
+  return <>
+    <SEO title="VTX/VRX 视频发射器与接收器 - 长凌科技" description="长凌科技VTX视频发射器与VRX接收器系列" />
+    <Header />
+    <main className="min-h-screen bg-background">
+      <section className="relative py-20 bg-gradient-to-br from-primary/10 via-background to-background">
+        <div className="container mx-auto px-4">
+          <Link to="/products/accessories" className="inline-flex items-center gap-2 text-primary hover:underline mb-6">
+            <ArrowLeft className="w-4 h-4" />
+            返回配件列表
+          </Link>
+          <div className="max-w-4xl">
+            <h1 className="text-4xl md:text-5xl font-bold mb-6">VTX/VRX 图传系统</h1>
+            <p className="text-xl text-muted-foreground mb-8">
+              高性能FPV视频发射器（VTX）与接收器（VRX）系列，采用罗杰斯4350B高性能射频材料
+            </p>
+            <div className="flex flex-wrap gap-4">
+              <Button size="lg" asChild>
+                <Link to="/contact">获取报价</Link>
+              </Button>
+              <Button size="lg" variant="outline" asChild>
+                <a href="#products">查看产品</a>
+              </Button>
+            </div>
+          </div>
+        </div>
+      </section>
+      <section className="py-16 bg-muted/30">
+        <div className="container mx-auto px-4">
+          <h2 className="text-3xl font-bold text-center mb-12">产品特色</h2>
+        </div>
+      </section>
+      <section id="products" className="py-16">
+        <div className="container mx-auto px-4">
+          <h2 className="text-3xl font-bold text-center mb-4">产品系列</h2>
+          <p className="text-center text-muted-foreground mb-12 max-w-2xl mx-auto">
+            根据频段分类，我们提供两大产品线，满足不同应用场景需求。
+          </p>
+        </div>
+      </section>
+      <section className="py-16 bg-muted/30">
+        <div className="container mx-auto px-4">
+          <h2 className="text-3xl font-bold text-center mb-12">使用注意事项</h2>
+          <div className="max-w-3xl mx-auto space-y-4">
+            <div className="p-4 bg-card rounded-lg border border-border">
+              <h4 className="font-semibold mb-2">⚡ 电源连接要求</h4>
+              <p className="text-sm text-muted-foreground">
+                必须严格按照焊盘位置焊接双12-28V电源输入线及双接地线
+              </p>
+            </div>
+            <div className="p-4 bg-card rounded-lg border border-border">
+              <h4 className="font-semibold mb-2">📡 天线安装要求</h4>
+              <p className="text-sm text-muted-foreground">
+                通电前务必完成天线接口与天线的安装
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+      <section className="py-16 bg-primary text-primary-foreground">
+        <div className="container mx-auto px-4 text-center">
+          <h2 className="text-3xl font-bold mb-4">需要定制化解决方案？</h2>
+          <p className="text-lg opacity-90 mb-8 max-w-2xl mx-auto">
+            我们支持任意频点及频率组合定制，满足您的特殊需求。
+          </p>
+          <Button size="lg" variant="secondary" asChild>
+            <Link to="/contact">联系我们</Link>
+          </Button>
+        </div>
+      </section>
+    </main>
+    <Footer />
+  </>;
+};
+export default VtxVrx;`,
+
+  'src/pages/products/accessories/FcEsc.tsx': `import { Link } from "react-router-dom";
+import { Header } from "@/components/Header";
+import { Footer } from "@/components/Footer";
+import { SEO } from "@/components/SEO";
+import { Button } from "@/components/ui/button";
+import { ArrowLeft, Cpu, Zap, Shield, Settings, Thermometer, Gauge, ChevronRight } from "lucide-react";
+
+const stacks = [
+  {
+    id: "stack-mini-f7-55a",
+    name: "FlyMind Mini F7+55A飞塔",
+    category: "飞塔",
+    highlights: [
+      "STM32F722高性能处理器",
+      "55A四合一电调，峰值65A",
+      "25.5×25.5mm紧凑尺寸",
+      "适配3-5寸穿越机架"
+    ],
+    price: "¥599"
+  }
+];
+
+const features = [
+  {
+    icon: Cpu,
+    title: "高性能处理器",
+    description: "采用STM32F4/F7/H7系列处理器，高速运算，稳定飞控"
+  },
+  {
+    icon: Zap,
+    title: "大电流设计",
+    description: "多层PCB设计，低电阻MOS阵列，支持高功率电机驱动"
+  },
+  {
+    icon: Thermometer,
+    title: "高效散热",
+    description: "铝基板设计，优化散热路径，保障长时间稳定运行"
+  }
+];
+
+const FcEsc = () => {
+  return (
+    <>
+      <SEO 
+        title="飞控/电调 - 飞塔系列 - 长凌科技"
+        description="长凌科技飞控电调产品系列"
+      />
+      <Header />
+      <main className="min-h-screen bg-background">
+        <section className="relative py-16 bg-gradient-to-br from-primary/10 via-background to-background">
+          <div className="container mx-auto px-4">
+            <Link to="/products/accessories" className="inline-flex items-center gap-2 text-accent hover:underline mb-6 mt-8">
+              <ArrowLeft className="w-4 h-4" />
+              返回配件列表
+            </Link>
+            <div className="max-w-4xl">
+              <h1 className="text-4xl md:text-5xl font-bold mb-4">飞塔系列</h1>
+              <p className="text-lg text-muted-foreground mb-6">
+                高性能飞控与电调产品系列，涵盖F405/F722/H743飞控、多规格四合一电调、飞塔套装等
+              </p>
+              <div className="flex flex-wrap gap-4">
+                <Button size="lg" asChild>
+                  <Link to="/contact">获取报价</Link>
+                </Button>
+                <Button size="lg" variant="outline" asChild>
+                  <a href="#products">查看产品</a>
+                </Button>
+              </div>
+            </div>
+          </div>
+        </section>
+        <section className="py-12 bg-muted/30">
+          <div className="container mx-auto px-4">
+            <h2 className="text-2xl font-bold text-center mb-8">产品优势</h2>
+          </div>
+        </section>
+        <section id="products" className="py-12">
+          <div className="container mx-auto px-4">
+            <h2 className="text-2xl font-bold text-center mb-2">飞塔套装</h2>
+            <p className="text-center text-muted-foreground mb-8">飞控+电调一体化解决方案</p>
+          </div>
+        </section>
+      </main>
+      <Footer />
+    </>
+  );
+};
+export default FcEsc;`,
+
   'src/pages/applications/power/SolarPanel.tsx': `import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
-import { FloatingContact } from "@/components/FloatingContact";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, CheckCircle, Sun, Thermometer, Cpu, MapPin } from "lucide-react";
 import { Link } from "react-router-dom";
@@ -38,6 +224,11 @@ const solutions = [
     icon: Sun,
     title: "可见光检测",
     description: "4K高清相机检测组件表面积灰、遮挡、破损等问题"
+  },
+  {
+    icon: Cpu,
+    title: "AI智能分析",
+    description: "AI自动识别故障类型并定位，生成可视化缺陷分布图"
   }
 ];
 
@@ -46,7 +237,7 @@ const SolarPanel = () => {
     <div className="min-h-screen">
       <SEO
         title="光伏电站检测 - 电力巡检应用"
-        description="飞迈科技光伏电站无人机检测解决方案，红外热斑检测，快速发现组件故障。"
+        description="飞迈科技光伏电站无人机检测解决方案"
       />
       <Header />
       <main className="pt-16 md:pt-20">
@@ -61,79 +252,126 @@ const SolarPanel = () => {
         <section className="py-16 bg-muted">
           <div className="container-custom">
             <h2 className="text-2xl md:text-3xl font-bold text-foreground text-center mb-4">解决方案</h2>
+            <p className="text-muted-foreground text-center mb-12 max-w-2xl mx-auto">
+              飞迈科技光伏无人机检测系统，高效精准运维
+            </p>
+          </div>
+        </section>
+        <section className="py-16 bg-primary">
+          <div className="container-custom">
+            <h2 className="text-2xl md:text-3xl font-bold text-primary-foreground text-center mb-12">技术参数</h2>
+          </div>
+        </section>
+        <section className="py-16 bg-muted">
+          <div className="container-custom">
+            <h2 className="text-2xl md:text-3xl font-bold text-foreground text-center mb-12">客户收益</h2>
           </div>
         </section>
         <section className="py-16 bg-card">
           <div className="container-custom text-center">
             <h2 className="text-2xl md:text-3xl font-bold text-foreground mb-4">获取光伏电站检测方案</h2>
-            <Link to="/contact">
-              <Button className="bg-accent hover:bg-orange-light text-accent-foreground px-8 py-3">
-                立即咨询 <ArrowRight className="w-4 h-4 ml-2" />
-              </Button>
-            </Link>
-            <Link to="/applications/power-inspection">
-              <Button variant="outline" className="px-8 py-3">返回电力巡检</Button>
-            </Link>
+            <p className="text-muted-foreground mb-8 max-w-2xl mx-auto">
+              联系我们获取详细技术方案和报价
+            </p>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <Link to="/contact">
+                <Button className="bg-accent hover:bg-orange-light text-accent-foreground px-8 py-3">
+                  立即咨询 <ArrowRight className="w-4 h-4 ml-2" />
+                </Button>
+              </Link>
+              <Link to="/applications/power-inspection">
+                <Button variant="outline" className="px-8 py-3">返回电力巡检</Button>
+              </Link>
+            </div>
           </div>
         </section>
       </main>
       <Footer />
-      <FloatingContact />
     </div>
   );
 };
 
 export default SolarPanel;`,
+
   'src/pages/applications/power/Substation.tsx': `import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, CheckCircle, Thermometer, Eye, Shield, BarChart } from "lucide-react";
 import { Link } from "react-router-dom";
+import { SEO } from "@/components/SEO";
 
 const challenges = [
   "变电站设备众多，人工巡检耗时长、效率低",
-  "部分设备位置较高或空间狭窄，巡检难度大"
+  "部分设备位置较高或空间狭窄，巡检难度大",
+  "人工测温易受主观因素影响，漏检率高",
+  "缺乏历史数据对比，难以发现渐变性故障"
 ];
 
 const solutions = [
   {
     icon: Thermometer,
     title: "红外测温",
-    description: "高精度红外热成像仪，精准检测设备过热点"
+    description: "高精度红外热成像仪，精准检测设备过热点，温度测量精度±2℃"
   },
   {
     icon: Eye,
     title: "可见光巡检",
-    description: "4K高清相机，清晰拍摄设备外观"
+    description: "4K高清相机，清晰拍摄设备外观，发现锈蚀、渗漏、变形等缺陷"
   }
 ];
 
 const Substation = () => {
   return (
     <div className="min-h-screen">
+      <SEO
+        title="变电站巡检 - 电力巡检应用"
+        description="飞迈科技变电站无人机巡检解决方案"
+      />
       <Header />
       <main className="pt-16 md:pt-20">
         <section className="py-16 bg-background">
-          <h2 className="text-2xl font-bold text-center mb-4">行业痛点</h2>
-          <p className="text-muted-foreground text-center">传统变电站巡检方式存在效率低、覆盖不全等问题</p>
+          <div className="container-custom">
+            <h2 className="text-2xl md:text-3xl font-bold text-foreground text-center mb-4">行业痛点</h2>
+            <p className="text-muted-foreground text-center mb-12 max-w-2xl mx-auto">
+              传统变电站巡检方式存在效率低、覆盖不全等问题
+            </p>
+          </div>
         </section>
         <section className="py-16 bg-muted">
-          <h2 className="text-2xl font-bold text-center">解决方案</h2>
+          <div className="container-custom">
+            <h2 className="text-2xl md:text-3xl font-bold text-foreground text-center mb-4">解决方案</h2>
+            <p className="text-muted-foreground text-center mb-12 max-w-2xl mx-auto">
+              飞迈科技变电站无人机巡检系统，实现精准高效巡检
+            </p>
+          </div>
         </section>
         <section className="py-16 bg-primary">
-          <h2 className="text-2xl font-bold text-primary-foreground text-center">技术参数</h2>
+          <div className="container-custom">
+            <h2 className="text-2xl md:text-3xl font-bold text-primary-foreground text-center mb-12">技术参数</h2>
+          </div>
         </section>
         <section className="py-16 bg-muted">
-          <h2 className="text-2xl font-bold text-center">客户收益</h2>
+          <div className="container-custom">
+            <h2 className="text-2xl md:text-3xl font-bold text-foreground text-center mb-12">客户收益</h2>
+          </div>
         </section>
         <section className="py-16 bg-card">
-          <h2 className="text-2xl font-bold text-center mb-4">获取变电站巡检方案</h2>
-          <Link to="/contact">
-            <Button>立即咨询</Button>
-          </Link>
-          <Link to="/applications/power-inspection">
-            <Button variant="outline">返回电力巡检</Button>
-          </Link>
+          <div className="container-custom text-center">
+            <h2 className="text-2xl md:text-3xl font-bold text-foreground mb-4">获取变电站巡检方案</h2>
+            <p className="text-muted-foreground mb-8 max-w-2xl mx-auto">
+              联系我们获取详细技术方案和报价
+            </p>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <Link to="/contact">
+                <Button className="bg-accent hover:bg-orange-light text-accent-foreground px-8 py-3">
+                  立即咨询 <ArrowRight className="w-4 h-4 ml-2" />
+                </Button>
+              </Link>
+              <Link to="/applications/power-inspection">
+                <Button variant="outline" className="px-8 py-3">返回电力巡检</Button>
+              </Link>
+            </div>
+          </div>
         </section>
       </main>
       <Footer />
@@ -148,19 +386,13 @@ interface PageInfo {
   path: string;
   name: string;
   status: 'pending' | 'migrated';
+  chineseCount?: number;
 }
 
 interface MigrationResult {
   originalCode: string;
   migratedCode: string;
   translationKeys: Record<string, string>;
-  patterns: Array<{
-    original: string;
-    english: string;
-    chinese: string;
-    lineNumber: number;
-    key: string;
-  }>;
   hardcodedChinese: Array<{
     text: string;
     lineNumber: number;
@@ -168,206 +400,50 @@ interface MigrationResult {
   }>;
 }
 
-// 所有可能需要检查的页面
-const ALL_PRODUCT_PAGES = [
-  // ===== 根页面 =====
-  { path: 'src/pages/Index.tsx', name: '首页' },
-  { path: 'src/pages/About.tsx', name: '关于我们' },
-  { path: 'src/pages/Contact.tsx', name: '联系我们' },
-  { path: 'src/pages/Products.tsx', name: '产品中心' },
-  { path: 'src/pages/Applications.tsx', name: '行业应用' },
-  { path: 'src/pages/CustomResearch.tsx', name: '产品定制' },
-  { path: 'src/pages/FPV.tsx', name: 'FPV' },
-  { path: 'src/pages/LowAltitude.tsx', name: '低空经济' },
-  { path: 'src/pages/News.tsx', name: '新闻中心' },
-  { path: 'src/pages/NewsDetail.tsx', name: '新闻详情' },
-  { path: 'src/pages/Projects.tsx', name: '项目服务' },
-  { path: 'src/pages/Software.tsx', name: '软件系统' },
-  
-  // ===== FPV 页面 =====
-  { path: 'src/pages/fpv/DigitalFpv.tsx', name: '数字图传' },
-  { path: 'src/pages/fpv/DigitalFpvDetail.tsx', name: '数字图传详情' },
-  { path: 'src/pages/fpv/FPVCategory.tsx', name: 'FPV分类' },
-  
-  // ===== 软件系统页面 =====
-  { path: 'src/pages/software/DroneManagement.tsx', name: '无人机管理平台' },
-  { path: 'src/pages/software/EnvironmentSystem.tsx', name: '环保管理系统' },
-  { path: 'src/pages/software/ExamSystem.tsx', name: '模拟考试系统' },
-  { path: 'src/pages/software/GroundStation.tsx', name: '地面站软件' },
-  { path: 'src/pages/software/PVInspection.tsx', name: '光伏巡检识别' },
-  { path: 'src/pages/software/PVSystem.tsx', name: '光伏巡检系统' },
-  { path: 'src/pages/software/PowerInspectionSystem.tsx', name: '电力巡检管理系统' },
-  { path: 'src/pages/software/SwarmGroundStation.tsx', name: '集群地面站' },
-  
-  // ===== 项目服务页面 =====
-  { path: 'src/pages/projects/DroneShow.tsx', name: '无人机表演' },
-  { path: 'src/pages/projects/FlightService.tsx', name: '飞行服务' },
-  { path: 'src/pages/projects/ProjectCooperation.tsx', name: '项目合作' },
-  { path: 'src/pages/projects/ProjectTraining.tsx', name: '无人机培训' },
-  
-  // ===== 产品页面 - 系留无人机 =====
-  { path: 'src/pages/products/tethered/TH100.tsx', name: 'TH100 系留无人机' },
-  { path: 'src/pages/products/tethered/TH200.tsx', name: 'TH200 系留无人机' },
-  { path: 'src/pages/products/tethered/TH300.tsx', name: 'TH300 系留无人机' },
-  
-  // ===== 产品页面 - 物流无人机 =====
-  { path: 'src/pages/products/logistics/WL10.tsx', name: 'WL10 物流无人机' },
-  { path: 'src/pages/products/logistics/WL20.tsx', name: 'WL20 物流无人机' },
-  { path: 'src/pages/products/logistics/WL30.tsx', name: 'WL30 物流无人机' },
-  
-  // ===== 产品页面 - 机场系统 =====
-  { path: 'src/pages/products/airport/UHS400P.tsx', name: 'UHS 400P 机场' },
-  { path: 'src/pages/products/airport/UHS600.tsx', name: 'UHS 600 机场' },
-  { path: 'src/pages/products/airport/UHS1000.tsx', name: 'UHS 1000 机场' },
-  { path: 'src/pages/products/airport/VehicleMountedAirport.tsx', name: '车载机场' },
-  
-  // ===== 产品页面 - 多旋翼 =====
-  { path: 'src/pages/products/multi-rotor/X650.tsx', name: 'X650 多旋翼' },
-  { path: 'src/pages/products/multi-rotor/X850.tsx', name: 'X850 多旋翼' },
-  { path: 'src/pages/products/multi-rotor/X1200.tsx', name: 'X1200 多旋翼' },
-  { path: 'src/pages/products/multi-rotor/X1600.tsx', name: 'X1600 多旋翼' },
-  
-  // ===== 产品页面 - 其他 =====
-  { path: 'src/pages/products/Swarm.tsx', name: '集群无人机' },
-  { path: 'src/pages/products/SwarmKit.tsx', name: '集群套件' },
-  { path: 'src/pages/products/Tethered.tsx', name: '系留无人机' },
-  { path: 'src/pages/products/Logistics.tsx', name: '物流无人机' },
-  { path: 'src/pages/products/MultiRotor.tsx', name: '多旋翼无人机' },
-  { path: 'src/pages/products/Airport.tsx', name: '机场系统' },
-  { path: 'src/pages/products/Firefighting.tsx', name: '消防无人机' },
-  { path: 'src/pages/products/Agriculture.tsx', name: '农业无人机' },
-  { path: 'src/pages/products/Training.tsx', name: '培训无人机' },
-  { path: 'src/pages/products/WireLaying.tsx', name: '放线无人机' },
-  { path: 'src/pages/products/WorkDrone.tsx', name: '作业无人机' },
-  { path: 'src/pages/products/Accessories.tsx', name: '配件中心' },
-  
-  // ===== 配件详情页 =====
-  { path: 'src/pages/products/accessories/Camera.tsx', name: '相机列表' },
-  { path: 'src/pages/products/accessories/CameraDetail.tsx', name: '相机详情' },
-  { path: 'src/pages/products/accessories/Gimbal.tsx', name: '云台列表' },
-  { path: 'src/pages/products/accessories/GimbalDetail.tsx', name: '云台详情' },
+// 真正需要迁移的页面（有硬编码中文的）
+const PAGES_WITH_HARDCODED_CHINESE = [
   { path: 'src/pages/products/accessories/VtxVrx.tsx', name: 'VTX/VRX列表' },
-  { path: 'src/pages/products/accessories/VtxDetail.tsx', name: 'VTX详情' },
-  { path: 'src/pages/products/accessories/Elrs.tsx', name: 'ELRS列表' },
-  { path: 'src/pages/products/accessories/ElrsDetail.tsx', name: 'ELRS详情' },
   { path: 'src/pages/products/accessories/FcEsc.tsx', name: '飞控电调列表' },
-  { path: 'src/pages/products/accessories/FcEscDetail.tsx', name: '飞控电调详情' },
-  { path: 'src/pages/products/accessories/OtherAccessories.tsx', name: '其他配件列表' },
-  { path: 'src/pages/products/accessories/OtherAccessoriesDetail.tsx', name: '其他配件详情' },
-  
-  // ===== 定制研发页面 =====
-  { path: 'src/pages/custom-research/Software.tsx', name: '软件定制' },
-  { path: 'src/pages/custom-research/PayloadCustom.tsx', name: '载荷定制' },
-  { path: 'src/pages/custom-research/DroneCustom.tsx', name: '无人机定制' },
-  { path: 'src/pages/custom-research/AccessoriesCustom.tsx', name: '配件定制' },
-  { path: 'src/pages/custom-research/AirportCustom.tsx', name: '机场定制' },
-  { path: 'src/pages/custom-research/SwarmCustom.tsx', name: '集群定制' },
-  
-  // ===== 应用场景页面 =====
-  { path: 'src/pages/applications/Power.tsx', name: '电力巡检' },
-  { path: 'src/pages/applications/PowerInspection.tsx', name: '电力巡检详情' },
-  { path: 'src/pages/applications/LogisticsApp.tsx', name: '物流应用' },
-  { path: 'src/pages/applications/Military.tsx', name: '军事应用' },
-  { path: 'src/pages/applications/EnvironmentApp.tsx', name: '环境监测' },
-  { path: 'src/pages/applications/FirefightingApp.tsx', name: '消防应用' },
-  { path: 'src/pages/applications/TetheredApp.tsx', name: '系留应用' },
-  { path: 'src/pages/applications/Emergency.tsx', name: '应急救援' },
-  { path: 'src/pages/applications/Environment.tsx', name: '环境监测入口' },
-  { path: 'src/pages/applications/FiveG.tsx', name: '5G应用' },
-  { path: 'src/pages/applications/Police.tsx', name: '警用安防' },
-  { path: 'src/pages/applications/SmartCity.tsx', name: '智慧城市' },
-  { path: 'src/pages/applications/Solutions.tsx', name: '解决方案' },
-  { path: 'src/pages/applications/Surveying.tsx', name: '测绘测量' },
-  { path: 'src/pages/applications/Traffic.tsx', name: '交通管理' },
-  { path: 'src/pages/applications/Water.tsx', name: '水利应用' },
-  
-  // ===== 电力子页面 =====
-  { path: 'src/pages/applications/power/CaseDetail.tsx', name: '电力案例详情' },
   { path: 'src/pages/applications/power/SolarPanel.tsx', name: '光伏巡检' },
   { path: 'src/pages/applications/power/Substation.tsx', name: '变电站巡检' },
   { path: 'src/pages/applications/power/TransmissionLine.tsx', name: '输电线路巡检' },
+  { path: 'src/pages/products/accessories/Camera.tsx', name: '相机列表' },
+  { path: 'src/pages/products/accessories/Gimbal.tsx', name: '云台列表' },
+  { path: 'src/pages/products/accessories/Elrs.tsx', name: 'ELRS列表' },
+  { path: 'src/pages/products/accessories/OtherAccessories.tsx', name: '其他配件列表' },
 ];
 
 // ========== 分析工具函数 ==========
 
-// 分析 isEn 模式
-const analyzeIsEnPatterns = (code: string, pageContext: string): MigrationResult['patterns'] => {
-  const patterns: MigrationResult['patterns'] = [];
-  const lines = code.split('\n');
-  
-  // 匹配 isEn ? "English" : "中文" 模式
-  const isEnRegex = /isEn\s*\?\s*["'`]([^"'`]*)["'`]\s*:\s*["'`]([^"'`]*)["'`]/g;
-  
-  // 匹配 language === 'en' ? "English" : "中文" 模式
-  const langRegex = /language\s*===\s*['"]en['"]\s*\?\s*["'`]([^"'`]*)["'`]\s*:\s*["'`]([^"'`]*)["'`]/g;
-
-  // 匹配 language === 'zh' ? "中文" : "English" 模式
-  const langZhRegex = /language\s*===\s*['"]zh['"]\s*\?\s*["'`]([^"'`]*)["'`]\s*:\s*["'`]([^"'`]*)["'`]/g;
-
-  let keyIndex = 1;
-  
-  lines.forEach((line, index) => {
-    let match;
-    
-    while ((match = isEnRegex.exec(line)) !== null) {
-      patterns.push({
-        original: match[0],
-        english: match[1],
-        chinese: match[2],
-        lineNumber: index + 1,
-        key: `${pageContext}.text${keyIndex++}`,
-      });
-    }
-    isEnRegex.lastIndex = 0;
-
-    while ((match = langRegex.exec(line)) !== null) {
-      patterns.push({
-        original: match[0],
-        english: match[1],
-        chinese: match[2],
-        lineNumber: index + 1,
-        key: `${pageContext}.text${keyIndex++}`,
-      });
-    }
-    langRegex.lastIndex = 0;
-
-    while ((match = langZhRegex.exec(line)) !== null) {
-      patterns.push({
-        original: match[0],
-        english: match[2],
-        chinese: match[1],
-        lineNumber: index + 1,
-        key: `${pageContext}.text${keyIndex++}`,
-      });
-    }
-    langZhRegex.lastIndex = 0;
-  });
-
-  return patterns;
-};
-
 // 检测硬编码中文字符串
-const detectHardcodedChinese = (code: string, pageContext: string, startIndex: number): MigrationResult['hardcodedChinese'] => {
+const detectHardcodedChinese = (code: string, pageContext: string): MigrationResult['hardcodedChinese'] => {
   const results: MigrationResult['hardcodedChinese'] = [];
   const lines = code.split('\n');
+  // 匹配包含中文的字符串
   const chineseRegex = /["'`]([^"'`]*[\u4e00-\u9fa5]+[^"'`]*)["'`]/g;
   
-  let keyIndex = startIndex;
+  let keyIndex = 1;
 
   lines.forEach((line, index) => {
-    // 跳过注释和import语句
-    if (line.trim().startsWith('//') || line.trim().startsWith('import') || line.trim().startsWith('*')) {
+    // 跳过注释、import语句、已经使用t()的行
+    const trimmedLine = line.trim();
+    if (trimmedLine.startsWith('//') || 
+        trimmedLine.startsWith('import') || 
+        trimmedLine.startsWith('*') ||
+        line.includes("t('") || 
+        line.includes('t("') ||
+        line.includes('t(`')) {
       return;
     }
 
     let match;
     while ((match = chineseRegex.exec(line)) !== null) {
-      // 跳过已经在 isEn 或 t() 中的
-      if (line.includes('isEn') || line.includes('t(\'') || line.includes('t("') || line.includes('language ===')) {
-        continue;
-      }
+      const text = match[1];
+      // 跳过太短或纯符号的
+      if (text.length < 2) continue;
+      
       results.push({
-        text: match[1],
+        text,
         lineNumber: index + 1,
         key: `${pageContext}.text${keyIndex++}`,
       });
@@ -381,38 +457,61 @@ const detectHardcodedChinese = (code: string, pageContext: string, startIndex: n
 // 生成迁移后的代码
 const generateMigratedCode = (
   code: string, 
-  patterns: MigrationResult['patterns'],
   hardcoded: MigrationResult['hardcodedChinese']
 ): string => {
   let migratedCode = code;
   
-  // 首先处理 isEn 模式
-  patterns.forEach((pattern) => {
-    migratedCode = migratedCode.replace(pattern.original, `t('${pattern.key}')`);
-  });
+  // 从后往前替换，避免位置偏移
+  const sorted = [...hardcoded].sort((a, b) => b.lineNumber - a.lineNumber);
   
-  // 然后处理硬编码中文（从后往前替换，避免位置偏移）
-  const sortedHardcoded = [...hardcoded].sort((a, b) => b.lineNumber - a.lineNumber);
-  sortedHardcoded.forEach((item) => {
-    // 替换字符串中的中文
-    const regex = new RegExp(`(["'\`])${item.text.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}\\1`, 'g');
+  sorted.forEach((item) => {
+    // 转义正则特殊字符
+    const escaped = item.text.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+    const regex = new RegExp(`(["'\`])${escaped}\\1`, 'g');
     migratedCode = migratedCode.replace(regex, `{t('${item.key}')}`);
   });
   
   // 确保有 useLanguage 导入
   if (!migratedCode.includes('@/contexts/LanguageContext')) {
-    const firstImportEnd = migratedCode.indexOf('\n');
-    migratedCode = migratedCode.slice(0, firstImportEnd) + 
-      '\nimport { useLanguage } from "@/contexts/LanguageContext";' + 
-      migratedCode.slice(firstImportEnd);
+    const lines = migratedCode.split('\n');
+    // 找到最后一个 import 语句的位置
+    let lastImportIndex = -1;
+    for (let i = lines.length - 1; i >= 0; i--) {
+      if (lines[i].trim().startsWith('import')) {
+        lastImportIndex = i;
+        break;
+      }
+    }
+    if (lastImportIndex >= 0) {
+      lines.splice(lastImportIndex + 1, 0, 'import { useLanguage } from "@/contexts/LanguageContext";');
+      migratedCode = lines.join('\n');
+    }
   }
   
-  // 在组件开头添加 const { t } = useLanguage();
+  // 在组件函数开头添加 const { t } = useLanguage();
   if (!migratedCode.includes('const { t }') && !migratedCode.includes('const {t}')) {
-    const componentStart = migratedCode.match(/const \w+ = \(\) => \{/);
-    if (componentStart) {
-      const pos = migratedCode.indexOf(componentStart[0]) + componentStart[0].length;
-      migratedCode = migratedCode.slice(0, pos) + '\n  const { t } = useLanguage();' + migratedCode.slice(pos);
+    // 匹配 const ComponentName = () => { 或 function ComponentName() {
+    const patterns = [
+      /const \w+ = \(\) => \{/,
+      /const \w+ = \(\) => <>/, 
+      /function \w+\(\) \{/
+    ];
+    
+    for (const pattern of patterns) {
+      const match = migratedCode.match(pattern);
+      if (match) {
+        const pos = migratedCode.indexOf(match[0]) + match[0].length;
+        const insertText = match[0].includes('<>') 
+          ? '\n  const { t } = useLanguage();\n  return <>'
+          : '\n  const { t } = useLanguage();';
+        
+        if (match[0].includes('<>')) {
+          migratedCode = migratedCode.replace(match[0], `const ${match[0].match(/const (\w+)/)?.[1]} = () => {${insertText}`);
+        } else {
+          migratedCode = migratedCode.slice(0, pos) + insertText + migratedCode.slice(pos);
+        }
+        break;
+      }
     }
   }
   
@@ -425,32 +524,26 @@ const analyzeCode = (code: string, pagePath: string): MigrationResult => {
   const fileName = pagePath.split('/').pop()?.replace('.tsx', '') || 'page';
   const pageContext = fileName.charAt(0).toLowerCase() + fileName.slice(1);
   
-  const patterns = analyzeIsEnPatterns(code, pageContext);
-  const hardcodedChinese = detectHardcodedChinese(code, pageContext, patterns.length + 1);
+  const hardcodedChinese = detectHardcodedChinese(code, pageContext);
   
   // 生成翻译键
   const translationKeys: Record<string, string> = {};
-  patterns.forEach(p => {
-    translationKeys[p.key] = p.chinese;
-  });
   hardcodedChinese.forEach(h => {
     translationKeys[h.key] = h.text;
   });
   
-  const migratedCode = generateMigratedCode(code, patterns, hardcodedChinese);
+  const migratedCode = generateMigratedCode(code, hardcodedChinese);
   
   return {
     originalCode: code,
     migratedCode,
     translationKeys,
-    patterns,
     hardcodedChinese,
   };
 };
 
 const PageMigration = () => {
   const [pages, setPages] = useState<PageInfo[]>([]);
-  const [selectedPages, setSelectedPages] = useState<Set<string>>(new Set());
   const [isScanning, setIsScanning] = useState(false);
   const [scanComplete, setScanComplete] = useState(false);
   const [migratedPages, setMigratedPages] = useState<Set<string>>(new Set());
@@ -479,7 +572,7 @@ const PageMigration = () => {
     return new Set();
   };
 
-  // 扫描未迁移的页面
+  // 扫描待迁移的页面（使用预定义的有硬编码中文的页面列表）
   const scanPages = async () => {
     setIsScanning(true);
     setScanComplete(false);
@@ -488,15 +581,26 @@ const PageMigration = () => {
     const loadedMigrated = await loadMigratedPages();
     setMigratedPages(loadedMigrated);
 
-    // 过滤出未迁移的页面
-    const unmigrated: PageInfo[] = ALL_PRODUCT_PAGES
+    // 只显示真正有硬编码中文且未迁移的页面
+    const unmigrated: PageInfo[] = PAGES_WITH_HARDCODED_CHINESE
       .filter(p => !loadedMigrated.has(p.path))
-      .map(p => ({
-        ...p,
-        status: 'pending' as const,
-      }));
+      .map(p => {
+        // 尝试计算中文数量
+        const code = PAGE_CODE_SAMPLES[p.path];
+        let chineseCount = 0;
+        if (code) {
+          const fileName = p.path.split('/').pop()?.replace('.tsx', '') || 'page';
+          const result = detectHardcodedChinese(code, fileName);
+          chineseCount = result.length;
+        }
+        return {
+          ...p,
+          status: 'pending' as const,
+          chineseCount,
+        };
+      });
 
-    await new Promise(r => setTimeout(r, 500));
+    await new Promise(r => setTimeout(r, 300));
 
     setPages(unmigrated);
     setIsScanning(false);
@@ -505,7 +609,8 @@ const PageMigration = () => {
     if (unmigrated.length === 0) {
       toast.success('🎉 所有页面都已迁移完成！');
     } else {
-      toast.info(`发现 ${unmigrated.length} 个待迁移页面`);
+      const totalChinese = unmigrated.reduce((sum, p) => sum + (p.chineseCount || 0), 0);
+      toast.info(`发现 ${unmigrated.length} 个待迁移页面，共 ${totalChinese} 处硬编码中文`);
     }
   };
 
@@ -526,23 +631,12 @@ const PageMigration = () => {
 
       setMigratedPages(newMigrated);
       setPages(prev => prev.filter(p => !paths.includes(p.path)));
-      setSelectedPages(new Set());
       
       toast.success(`✅ 已标记 ${paths.length} 个页面为已迁移`);
     } catch (error) {
       console.error('Failed to mark as migrated:', error);
       toast.error('保存失败');
     }
-  };
-
-  const togglePage = (path: string) => {
-    const newSelected = new Set(selectedPages);
-    if (newSelected.has(path)) {
-      newSelected.delete(path);
-    } else {
-      newSelected.add(path);
-    }
-    setSelectedPages(newSelected);
   };
 
   // ========== 一键迁移功能 ==========
@@ -553,38 +647,22 @@ const PageMigration = () => {
     setIsAnalyzing(true);
     setMigrationResult(null);
     
-    // 尝试获取页面代码
+    // 获取页面代码
     let code = PAGE_CODE_SAMPLES[page.path];
     
     if (!code) {
-      // 尝试 fetch
-      try {
-        const response = await fetch(`/${page.path}`);
-        if (response.ok) {
-          code = await response.text();
-          PAGE_CODE_SAMPLES[page.path] = code;
-        }
-      } catch {
-        // 生成示例说明
-        code = `// 无法自动加载 ${page.path}
-// 请复制以下指令到聊天框让 AI 帮你迁移：
+      code = `// ⚠️ 暂未预置该页面的源码
 // 
+// 请使用以下方式之一完成迁移：
+// 
+// 方式1: 复制以下AI指令到聊天框
 // "请帮我迁移 ${page.path} 页面到 t() 多语言系统"
-
-// 示例代码结构：
-const ${page.name.replace(/\s+/g, '')} = () => {
-  const { language } = useLanguage();
-  const isEn = language === 'en';
-  
-  return (
-    <div>
-      <h1>{isEn ? "Title" : "标题"}</h1>
-      <p>这是一段硬编码的中文</p>
-      <Button>立即咨询</Button>
-    </div>
-  );
-};`;
-      }
+// 
+// 方式2: 手动操作
+// 1. 在编辑器中打开 ${page.path}
+// 2. 找到所有硬编码中文字符串
+// 3. 替换为 t('key') 形式
+// 4. 将翻译键添加到 zh.ts`;
     }
     
     // 执行分析
@@ -593,13 +671,12 @@ const ${page.name.replace(/\s+/g, '')} = () => {
       setMigrationResult(result);
       setIsAnalyzing(false);
       
-      const totalIssues = result.patterns.length + result.hardcodedChinese.length;
-      if (totalIssues === 0) {
-        toast.success('✅ 该页面已经是多语言格式，无需迁移');
+      if (result.hardcodedChinese.length === 0) {
+        toast.info('该页面源码未预置，请使用AI指令迁移');
       } else {
-        toast.success(`🔍 发现 ${result.patterns.length} 个 isEn 模式，${result.hardcodedChinese.length} 个硬编码中文`);
+        toast.success(`🔍 发现 ${result.hardcodedChinese.length} 处硬编码中文，已生成迁移代码`);
       }
-    }, 300);
+    }, 200);
   };
 
   // 复制迁移后的代码
@@ -610,23 +687,23 @@ const ${page.name.replace(/\s+/g, '')} = () => {
     }
   };
 
-  // 复制翻译键
+  // 复制翻译键（zh.ts格式）
   const copyTranslationKeys = () => {
     if (migrationResult) {
       const keysCode = Object.entries(migrationResult.translationKeys)
         .map(([key, value]) => `  '${key}': '${value}',`)
         .join('\n');
       navigator.clipboard.writeText(keysCode);
-      toast.success('✅ 翻译键已复制！请添加到 zh.ts 文件');
+      toast.success('✅ 翻译键已复制！请添加到 src/i18n/zh.ts');
     }
   };
 
   // 复制 AI 迁移指令
   const copyAICommand = () => {
     if (selectedPage) {
-      const cmd = `请帮我迁移 ${selectedPage.path} 页面从 isEn 模式到 t() 多语言函数`;
+      const cmd = `请帮我迁移 ${selectedPage.path} 页面到 t() 多语言系统，将所有硬编码中文替换为翻译函数`;
       navigator.clipboard.writeText(cmd);
-      toast.success('✅ AI 指令已复制！请粘贴到聊天框');
+      toast.success('✅ AI指令已复制！请粘贴到聊天框发送');
     }
   };
 
@@ -634,7 +711,8 @@ const ${page.name.replace(/\s+/g, '')} = () => {
     scanPages();
   }, []);
 
-  const pendingCount = pages.filter(p => p.status === 'pending').length;
+  const pendingCount = pages.length;
+  const totalChinese = pages.reduce((sum, p) => sum + (p.chineseCount || 0), 0);
 
   return (
     <div className="min-h-screen bg-background p-6">
@@ -649,48 +727,51 @@ const ${page.name.replace(/\s+/g, '')} = () => {
           <div>
             <h1 className="text-2xl font-bold">🚀 傻瓜式一键迁移</h1>
             <p className="text-muted-foreground">
-              点击页面 → 自动分析 → 复制代码 → 完成迁移
+              点击页面 → 自动分析 → 复制代码 → 替换文件
             </p>
           </div>
         </div>
 
         {/* Stats */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-          <Card>
+          <Card className="border-orange-200 bg-orange-50/50">
             <CardContent className="pt-6">
-              <div className="text-3xl font-bold text-primary">{ALL_PRODUCT_PAGES.length}</div>
-              <div className="text-sm text-muted-foreground">总页面数</div>
+              <div className="text-3xl font-bold text-orange-600">{pendingCount}</div>
+              <div className="text-sm text-orange-600/80">待迁移页面</div>
             </CardContent>
           </Card>
-          <Card>
+          <Card className="border-red-200 bg-red-50/50">
             <CardContent className="pt-6">
-              <div className="text-3xl font-bold text-orange-500">{pendingCount}</div>
-              <div className="text-sm text-muted-foreground">待迁移</div>
+              <div className="text-3xl font-bold text-red-600">{totalChinese}</div>
+              <div className="text-sm text-red-600/80">硬编码中文</div>
             </CardContent>
           </Card>
-          <Card>
+          <Card className="border-green-200 bg-green-50/50">
             <CardContent className="pt-6">
-              <div className="text-3xl font-bold text-green-500">{migratedPages.size}</div>
-              <div className="text-sm text-muted-foreground">已迁移</div>
+              <div className="text-3xl font-bold text-green-600">{migratedPages.size}</div>
+              <div className="text-sm text-green-600/80">已迁移完成</div>
             </CardContent>
           </Card>
         </div>
 
         {/* 操作说明 */}
-        <Card className="border-primary/30 bg-gradient-to-r from-primary/5 to-accent/5">
+        <Card className="border-primary/30 bg-gradient-to-r from-blue-50 to-indigo-50">
           <CardContent className="pt-6">
-            <div className="flex items-center gap-4 text-sm">
+            <div className="flex items-center gap-3 text-sm flex-wrap">
               <Badge className="bg-blue-500">1</Badge>
-              <span>点击下方任意页面</span>
+              <span className="font-medium">点击页面</span>
               <ArrowRight className="w-4 h-4 text-muted-foreground" />
               <Badge className="bg-blue-500">2</Badge>
-              <span>自动分析代码</span>
+              <span className="font-medium">自动分析</span>
               <ArrowRight className="w-4 h-4 text-muted-foreground" />
               <Badge className="bg-blue-500">3</Badge>
-              <span>复制迁移代码</span>
+              <span className="font-medium">复制代码</span>
+              <ArrowRight className="w-4 h-4 text-muted-foreground" />
+              <Badge className="bg-blue-500">4</Badge>
+              <span className="font-medium">替换文件</span>
               <ArrowRight className="w-4 h-4 text-muted-foreground" />
               <Badge className="bg-green-500">✓</Badge>
-              <span>替换文件完成</span>
+              <span className="font-medium text-green-600">完成迁移</span>
             </div>
           </CardContent>
         </Card>
@@ -703,10 +784,10 @@ const ${page.name.replace(/\s+/g, '')} = () => {
                 <CardTitle className="flex items-center gap-2">
                   <FileCode className="w-5 h-5" />
                   待迁移页面
-                  <Badge variant="outline">{pendingCount}</Badge>
+                  <Badge variant="destructive">{pendingCount}</Badge>
                 </CardTitle>
                 <CardDescription>
-                  点击任意页面开始一键迁移
+                  点击任意页面，自动分析并生成迁移代码
                 </CardDescription>
               </div>
               <Button 
@@ -716,15 +797,9 @@ const ${page.name.replace(/\s+/g, '')} = () => {
                 size="sm"
               >
                 {isScanning ? (
-                  <>
-                    <RefreshCw className="w-4 h-4 mr-2 animate-spin" />
-                    扫描中...
-                  </>
+                  <><RefreshCw className="w-4 h-4 mr-2 animate-spin" />扫描中...</>
                 ) : (
-                  <>
-                    <Search className="w-4 h-4 mr-2" />
-                    重新扫描
-                  </>
+                  <><Search className="w-4 h-4 mr-2" />重新扫描</>
                 )}
               </Button>
             </div>
@@ -735,35 +810,40 @@ const ${page.name.replace(/\s+/g, '')} = () => {
                 <CheckCircle className="w-16 h-16 text-green-500 mx-auto mb-4" />
                 <h3 className="text-xl font-semibold text-green-600">全部迁移完成！</h3>
                 <p className="text-muted-foreground mt-2">
-                  所有产品页面都已使用 t() 多语言函数
+                  所有预置页面都已迁移到 t() 多语言系统
                 </p>
               </div>
             ) : (
-              <ScrollArea className="h-[400px]">
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
-                  {pages.map((page) => (
-                    <button
-                      key={page.path}
-                      onClick={() => handlePageClick(page)}
-                      className={`text-left p-4 rounded-lg border transition-all hover:shadow-md ${
-                        selectedPage?.path === page.path 
-                          ? 'bg-primary/10 border-primary ring-2 ring-primary/20' 
-                          : 'bg-card hover:bg-muted/50 hover:border-primary/40'
-                      }`}
-                    >
-                      <div className="font-medium text-sm">{page.name}</div>
-                      <div className="text-xs text-muted-foreground font-mono mt-1 truncate">
-                        {page.path.split('/').pop()}
-                      </div>
-                    </button>
-                  ))}
-                </div>
-              </ScrollArea>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                {pages.map((page) => (
+                  <button
+                    key={page.path}
+                    onClick={() => handlePageClick(page)}
+                    className={`text-left p-4 rounded-lg border-2 transition-all hover:shadow-lg ${
+                      selectedPage?.path === page.path 
+                        ? 'bg-primary/10 border-primary ring-2 ring-primary/30' 
+                        : 'bg-card hover:bg-muted/50 hover:border-primary/50 border-border'
+                    }`}
+                  >
+                    <div className="flex items-center justify-between mb-2">
+                      <span className="font-semibold">{page.name}</span>
+                      {page.chineseCount && page.chineseCount > 0 && (
+                        <Badge variant="destructive" className="text-xs">
+                          {page.chineseCount} 处中文
+                        </Badge>
+                      )}
+                    </div>
+                    <div className="text-xs text-muted-foreground font-mono truncate">
+                      {page.path}
+                    </div>
+                  </button>
+                ))}
+              </div>
             )}
           </CardContent>
         </Card>
 
-        {/* 迁移结果面板 */}
+        {/* 迁移结果弹窗 */}
         <Dialog open={!!selectedPage} onOpenChange={(open) => !open && setSelectedPage(null)}>
           <DialogContent className="max-w-5xl max-h-[90vh] flex flex-col">
             <DialogHeader>
@@ -779,39 +859,44 @@ const ${page.name.replace(/\s+/g, '')} = () => {
                 <div className="text-center">
                   <Loader2 className="w-12 h-12 animate-spin text-primary mx-auto mb-4" />
                   <p className="text-lg font-medium">正在分析代码...</p>
-                  <p className="text-sm text-muted-foreground">自动检测 isEn 模式和硬编码中文</p>
+                  <p className="text-sm text-muted-foreground">自动检测硬编码中文</p>
                 </div>
               </div>
             ) : migrationResult ? (
               <div className="flex-1 min-h-0 space-y-4">
                 {/* 分析统计 */}
-                <div className="grid grid-cols-3 gap-3">
-                  <div className="p-3 bg-blue-50 border border-blue-200 rounded-lg text-center">
-                    <div className="text-2xl font-bold text-blue-600">{migrationResult.patterns.length}</div>
-                    <div className="text-xs text-blue-600">isEn 模式</div>
+                <div className="grid grid-cols-2 gap-3">
+                  <div className="p-4 bg-orange-50 border border-orange-200 rounded-lg text-center">
+                    <div className="text-3xl font-bold text-orange-600">{migrationResult.hardcodedChinese.length}</div>
+                    <div className="text-sm text-orange-600">检测到硬编码中文</div>
                   </div>
-                  <div className="p-3 bg-orange-50 border border-orange-200 rounded-lg text-center">
-                    <div className="text-2xl font-bold text-orange-600">{migrationResult.hardcodedChinese.length}</div>
-                    <div className="text-xs text-orange-600">硬编码中文</div>
-                  </div>
-                  <div className="p-3 bg-green-50 border border-green-200 rounded-lg text-center">
-                    <div className="text-2xl font-bold text-green-600">{Object.keys(migrationResult.translationKeys).length}</div>
-                    <div className="text-xs text-green-600">生成翻译键</div>
+                  <div className="p-4 bg-green-50 border border-green-200 rounded-lg text-center">
+                    <div className="text-3xl font-bold text-green-600">{Object.keys(migrationResult.translationKeys).length}</div>
+                    <div className="text-sm text-green-600">生成翻译键</div>
                   </div>
                 </div>
 
                 {/* 快速操作按钮 */}
                 <div className="flex gap-3">
-                  <Button onClick={copyMigratedCode} className="flex-1 bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700">
-                    <Copy className="w-4 h-4 mr-2" />
+                  <Button 
+                    onClick={copyMigratedCode} 
+                    className="flex-1 bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700 h-12"
+                    disabled={migrationResult.hardcodedChinese.length === 0}
+                  >
+                    <Copy className="w-5 h-5 mr-2" />
                     复制迁移代码
                   </Button>
-                  <Button onClick={copyTranslationKeys} variant="outline" className="flex-1">
-                    <Copy className="w-4 h-4 mr-2" />
+                  <Button 
+                    onClick={copyTranslationKeys} 
+                    variant="outline" 
+                    className="flex-1 h-12"
+                    disabled={migrationResult.hardcodedChinese.length === 0}
+                  >
+                    <Copy className="w-5 h-5 mr-2" />
                     复制翻译键
                   </Button>
-                  <Button onClick={copyAICommand} variant="secondary">
-                    <Zap className="w-4 h-4 mr-2" />
+                  <Button onClick={copyAICommand} variant="secondary" className="h-12">
+                    <Zap className="w-5 h-5 mr-2" />
                     AI帮迁移
                   </Button>
                 </div>
@@ -825,7 +910,7 @@ const ${page.name.replace(/\s+/g, '')} = () => {
                   </TabsList>
 
                   <TabsContent value="code" className="mt-2">
-                    <ScrollArea className="h-[300px] rounded-lg border bg-gray-900">
+                    <ScrollArea className="h-[280px] rounded-lg border bg-gray-900">
                       <pre className="p-4 text-xs text-green-400 font-mono whitespace-pre-wrap">
                         {migrationResult.migratedCode}
                       </pre>
@@ -833,63 +918,50 @@ const ${page.name.replace(/\s+/g, '')} = () => {
                   </TabsContent>
 
                   <TabsContent value="keys" className="mt-2">
-                    <ScrollArea className="h-[300px] rounded-lg border bg-white p-4">
-                      <div className="space-y-2">
-                        {Object.entries(migrationResult.translationKeys).map(([key, value]) => (
-                          <div key={key} className="flex items-center gap-3 p-2 bg-gray-50 rounded text-sm">
-                            <code className="text-blue-600 font-mono text-xs">'{key}'</code>
-                            <ArrowRight className="w-3 h-3 text-muted-foreground flex-shrink-0" />
-                            <span className="text-gray-700 truncate">'{value}'</span>
-                          </div>
-                        ))}
-                      </div>
+                    <ScrollArea className="h-[280px] rounded-lg border bg-white p-4">
+                      {Object.keys(migrationResult.translationKeys).length === 0 ? (
+                        <div className="flex items-center justify-center h-full text-muted-foreground">
+                          <AlertCircle className="w-5 h-5 mr-2" />
+                          暂无翻译键，请使用 AI 帮迁移
+                        </div>
+                      ) : (
+                        <div className="space-y-2">
+                          <p className="text-xs text-muted-foreground mb-3">
+                            将以下内容添加到 <code className="bg-muted px-1 rounded">src/i18n/zh.ts</code>：
+                          </p>
+                          {Object.entries(migrationResult.translationKeys).map(([key, value]) => (
+                            <div key={key} className="flex items-center gap-3 p-2 bg-gray-50 rounded text-sm">
+                              <code className="text-blue-600 font-mono text-xs">'{key}'</code>
+                              <ArrowRight className="w-3 h-3 text-muted-foreground flex-shrink-0" />
+                              <span className="text-gray-700 truncate">'{value}'</span>
+                            </div>
+                          ))}
+                        </div>
+                      )}
                     </ScrollArea>
                   </TabsContent>
 
                   <TabsContent value="details" className="mt-2">
-                    <ScrollArea className="h-[300px] rounded-lg border bg-white p-4">
-                      <div className="space-y-4">
-                        {migrationResult.patterns.length > 0 && (
-                          <div>
-                            <h4 className="font-medium text-sm mb-2 flex items-center gap-2">
-                              <Badge className="bg-blue-500">isEn</Badge>
-                              条件渲染模式
-                            </h4>
-                            <div className="space-y-2">
-                              {migrationResult.patterns.map((p, i) => (
-                                <div key={i} className="p-2 bg-blue-50 rounded text-xs">
-                                  <div className="flex items-center gap-2 mb-1">
-                                    <Badge variant="outline" className="text-[10px]">L{p.lineNumber}</Badge>
-                                    <code className="text-blue-600">t('{p.key}')</code>
-                                  </div>
-                                  <div className="text-muted-foreground truncate">{p.original}</div>
-                                </div>
-                              ))}
+                    <ScrollArea className="h-[280px] rounded-lg border bg-white p-4">
+                      {migrationResult.hardcodedChinese.length === 0 ? (
+                        <div className="flex flex-col items-center justify-center h-full text-muted-foreground">
+                          <AlertCircle className="w-8 h-8 mb-2" />
+                          <p>该页面源码未预置</p>
+                          <p className="text-sm">请点击「AI帮迁移」按钮</p>
+                        </div>
+                      ) : (
+                        <div className="space-y-2">
+                          {migrationResult.hardcodedChinese.map((h, i) => (
+                            <div key={i} className="p-3 bg-orange-50 border border-orange-100 rounded-lg text-sm">
+                              <div className="flex items-center gap-2 mb-1">
+                                <Badge variant="outline" className="text-xs">行 {h.lineNumber}</Badge>
+                                <code className="text-blue-600 font-mono text-xs">t('{h.key}')</code>
+                              </div>
+                              <div className="text-gray-700">"{h.text}"</div>
                             </div>
-                          </div>
-                        )}
-                        
-                        {migrationResult.hardcodedChinese.length > 0 && (
-                          <div>
-                            <h4 className="font-medium text-sm mb-2 flex items-center gap-2">
-                              <Badge className="bg-orange-500">硬编码</Badge>
-                              中文字符串
-                            </h4>
-                            <div className="space-y-2">
-                              {migrationResult.hardcodedChinese.map((h, i) => (
-                                <div key={i} className="p-2 bg-orange-50 rounded text-xs">
-                                  <div className="flex items-center gap-2">
-                                    <Badge variant="outline" className="text-[10px]">L{h.lineNumber}</Badge>
-                                    <code className="text-orange-600">t('{h.key}')</code>
-                                    <ArrowRight className="w-3 h-3" />
-                                    <span>"{h.text}"</span>
-                                  </div>
-                                </div>
-                              ))}
-                            </div>
-                          </div>
-                        )}
-                      </div>
+                          ))}
+                        </div>
+                      )}
                     </ScrollArea>
                   </TabsContent>
                 </Tabs>
@@ -897,7 +969,7 @@ const ${page.name.replace(/\s+/g, '')} = () => {
                 {/* 完成迁移按钮 */}
                 <div className="pt-4 border-t flex items-center justify-between">
                   <p className="text-sm text-muted-foreground">
-                    💡 复制代码后，替换原文件内容，并将翻译键添加到 <code className="bg-muted px-1 rounded">zh.ts</code>
+                    💡 复制代码后替换原文件，并将翻译键添加到 <code className="bg-muted px-1 rounded">zh.ts</code>
                   </p>
                   <Button 
                     onClick={() => {
@@ -916,52 +988,6 @@ const ${page.name.replace(/\s+/g, '')} = () => {
             ) : null}
           </DialogContent>
         </Dialog>
-
-        {/* 批量操作卡片 */}
-        <Card>
-          <CardHeader>
-            <CardTitle className="text-lg">🎯 批量操作</CardTitle>
-          </CardHeader>
-          <CardContent className="space-y-3">
-            <div className="flex flex-wrap gap-2">
-              {selectedPages.size > 0 && (
-                <Button 
-                  onClick={() => markAsMigrated(Array.from(selectedPages))}
-                  variant="outline"
-                >
-                  <CheckCircle className="w-4 h-4 mr-2" />
-                  标记选中为已迁移 ({selectedPages.size})
-                </Button>
-              )}
-              <Button 
-                variant="outline"
-                onClick={() => {
-                  const cmd = `请帮我批量迁移以下页面到 t() 多语言系统：${pages.slice(0, 5).map(p => p.path).join(', ')}`;
-                  navigator.clipboard.writeText(cmd);
-                  toast.success('✅ 批量迁移指令已复制');
-                }}
-              >
-                <Zap className="w-4 h-4 mr-2" />
-                复制AI批量迁移指令
-              </Button>
-            </div>
-            
-            <div className="flex flex-wrap gap-2 pt-2 border-t">
-              {pages.slice(0, 8).map(page => (
-                <label key={page.path} className="flex items-center gap-2 text-sm">
-                  <Checkbox
-                    checked={selectedPages.has(page.path)}
-                    onCheckedChange={() => togglePage(page.path)}
-                  />
-                  {page.name}
-                </label>
-              ))}
-              {pages.length > 8 && (
-                <span className="text-sm text-muted-foreground">...还有 {pages.length - 8} 个</span>
-              )}
-            </div>
-          </CardContent>
-        </Card>
       </div>
     </div>
   );
