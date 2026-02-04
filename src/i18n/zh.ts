@@ -154,8 +154,15 @@ export const zhTranslations: Record<string, string> = {
   // News Page
   'news.title': '新闻中心',
   'news.subtitle': '了解长凌科技最新动态与行业资讯',
-  'news.readMore': '阅读全文',
+  'news.readMore': '阅读更多',
   'news.latest': '最新资讯',
+  'news.page.title': '新闻中心',
+  'news.page.subtitle': '获取最前沿的无人机行业资讯',
+  'news.page.metaDesc': '长凌科技新闻中心，获取最新无人机行业资讯、公司新闻、产品发布和技术分享。',
+  'news.page.metaKeywords': '无人机新闻,长凌科技新闻,无人机行业资讯,无人机技术分享',
+  'news.category.all': '全部',
+  'news.search.placeholder': '搜索文章...',
+  'news.noArticles': '暂无文章',
 
   // Products Page
   'products.title': '系列产品',
