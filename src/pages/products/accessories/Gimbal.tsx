@@ -1,11 +1,12 @@
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { FloatingContact } from "@/components/FloatingContact";
-import { SEO } from "@/components/SEO";
+import { MultiLanguageSEO } from "@/components/MultiLanguageSEO";
 import { BackButton } from "@/components/BackButton";
 import { Link } from "react-router-dom";
 import { ArrowRight, Video, Thermometer, Layers } from "lucide-react";
 import { gimbalProducts, gimbalCategories } from "@/data/gimbalProducts";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 const categoryIcons: Record<string, React.ReactNode> = {
   "四光云台相机": <Layers className="w-6 h-6" />,
@@ -14,14 +15,17 @@ const categoryIcons: Record<string, React.ReactNode> = {
 };
 
 const Gimbal = () => {
+  const { t, language } = useLanguage();
+  const isEn = language === 'en';
   const categories = ["四光云台相机", "双光跟踪识别云台相机", "单光追踪识别云台"];
 
   return (
     <>
-      <SEO 
-        title="无人机吊舱 - 飞迈科技"
-        description="专业无人机吊舱产品，包括单光吊舱、双光热成像吊舱、多光融合吊舱、喊话器吊舱、探照灯吊舱等，满足各种行业应用需求"
-        keywords="无人机吊舱,云台相机,热成像吊舱,双光吊舱,三光吊舱,激光测距,喊话器,探照灯"
+      <MultiLanguageSEO
+        title={t('gimbal.seo.title')}
+        description={t('gimbal.seo.description')}
+        keywords={t('gimbal.seo.keywords')}
+        path="/products/accessories/gimbal"
       />
       <Header />
       <main className="min-h-screen bg-background">
@@ -29,14 +33,13 @@ const Gimbal = () => {
         <section className="relative py-24 bg-gradient-to-br from-primary/10 via-background to-background overflow-hidden">
           <div className="absolute inset-0 bg-grid-pattern opacity-5"></div>
           <div className="container mx-auto px-4 relative z-10">
-            <BackButton to="/products/accessories" label="返回配件中心" />
+            <BackButton to="/products/accessories" label={t('gimbal.back')} />
             <div className="max-w-4xl mx-auto text-center mt-8">
               <h1 className="text-4xl md:text-5xl font-bold mb-6">
-                无人机<span className="text-primary">吊舱</span>系列
+                {t('gimbal.hero.title')}<span className="text-primary">{t('gimbal.hero.highlight')}</span>{t('gimbal.hero.suffix')}
               </h1>
               <p className="text-xl text-muted-foreground mb-8">
-                专业光电吊舱产品，覆盖单光、双光、多光及专用功能吊舱，
-                满足电力巡检、安防监控、消防救援、边防巡逻等多种行业应用需求
+                {t('gimbal.hero.desc')}
               </p>
               <div className="flex flex-wrap justify-center gap-4">
                 {categories.map((cat) => (
@@ -108,7 +111,7 @@ const Gimbal = () => {
                           ))}
                         </ul>
                         <div className="flex items-center text-primary text-sm font-medium group-hover:gap-2 transition-all">
-                          <span>查看详情</span>
+                          <span>{t('gimbal.viewDetail')}</span>
                           <ArrowRight className="w-4 h-4 opacity-0 -ml-4 group-hover:opacity-100 group-hover:ml-0 transition-all" />
                         </div>
                       </div>
@@ -124,17 +127,17 @@ const Gimbal = () => {
         <section className="py-20 bg-primary text-primary-foreground">
           <div className="container mx-auto px-4 text-center">
             <h2 className="text-3xl md:text-4xl font-bold mb-6">
-              需要定制化吊舱解决方案？
+              {t('gimbal.cta.title')}
             </h2>
             <p className="text-lg opacity-90 mb-8 max-w-2xl mx-auto">
-              我们提供OEM/ODM定制服务，可根据您的需求定制传感器配置、接口协议、外观设计等
+              {t('gimbal.cta.desc')}
             </p>
             <div className="flex justify-center gap-4 flex-wrap">
               <Link
                 to="/contact"
                 className="px-8 py-3 bg-background text-foreground font-medium rounded-lg hover:bg-background/90 transition-colors"
               >
-                联系我们
+                {t('gimbal.cta.btn')}
               </Link>
             </div>
           </div>

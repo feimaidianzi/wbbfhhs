@@ -6,7 +6,8 @@ import { ArrowRight, Monitor, Navigation, Tv, Satellite } from "lucide-react";
 import { Link } from "react-router-dom";
 import { BackButton } from "@/components/BackButton";
 import { otherAccessoriesProducts, otherAccessoriesCategories } from "@/data/otherAccessoriesProducts";
-import { SEO } from "@/components/SEO";
+import { MultiLanguageSEO } from "@/components/MultiLanguageSEO";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 const categoryIcons: Record<string, React.ComponentType<{ className?: string }>> = {
   monitor: Tv,
@@ -14,12 +15,16 @@ const categoryIcons: Record<string, React.ComponentType<{ className?: string }>>
 };
 
 const OtherAccessories = () => {
+  const { t, language } = useLanguage();
+  const isEn = language === 'en';
+
   return (
     <div className="min-h-screen">
-      <SEO 
-        title="其他配件 - 监视器/FPV眼镜/GPS模块"
-        description="FPV监视器、眼镜、GPS定位模块等配件，内置接收器和DVR功能，高精度定位"
-        keywords="FPV监视器,FPV眼镜,GPS模块,DVR,5.8G接收,电子罗盘"
+      <MultiLanguageSEO
+        title={t('otherAccessories.seo.title')}
+        description={t('otherAccessories.seo.description')}
+        keywords={t('otherAccessories.seo.keywords')}
+        path="/products/accessories/others"
       />
       <Header />
       <main className="pt-16 md:pt-20">
@@ -27,11 +32,11 @@ const OtherAccessories = () => {
         <div className="bg-secondary py-4">
           <div className="container-custom">
             <div className="flex items-center gap-2 text-sm text-muted-foreground">
-              <Link to="/" className="hover:text-accent">首页</Link>
+              <Link to="/" className="hover:text-accent">{t('otherAccessories.breadcrumb.home')}</Link>
               <span>/</span>
-              <Link to="/products/accessories" className="hover:text-accent">配件及设备</Link>
+              <Link to="/products/accessories" className="hover:text-accent">{t('otherAccessories.breadcrumb.accessories')}</Link>
               <span>/</span>
-              <span className="text-foreground">其他配件</span>
+              <span className="text-foreground">{t('otherAccessories.breadcrumb.others')}</span>
             </div>
           </div>
         </div>
@@ -41,25 +46,25 @@ const OtherAccessories = () => {
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_50%,rgba(255,255,255,0.1),transparent_50%)]" />
           <div className="relative container-custom h-full flex items-center">
             <div className="max-w-2xl">
-              <BackButton to="/products/accessories" label="返回配件及设备" />
+              <BackButton to="/products/accessories" label={t('otherAccessories.back')} />
               <h1 className="text-3xl md:text-5xl font-bold text-primary-foreground mb-4">
-                其他配件
+                {t('otherAccessories.hero.title')}
               </h1>
               <p className="text-lg text-primary-foreground/90 mb-6">
-                FPV监视器、眼镜、GPS定位模块等必备配件，为您的飞行提供全方位支持
+                {t('otherAccessories.hero.desc')}
               </p>
               <div className="flex flex-wrap gap-4">
                 <div className="flex items-center gap-2 bg-white/10 backdrop-blur px-4 py-2 rounded-full">
                   <Monitor className="w-5 h-5 text-accent" />
-                  <span className="text-primary-foreground text-sm">FPV监视器</span>
+                  <span className="text-primary-foreground text-sm">{t('otherAccessories.feature.monitor')}</span>
                 </div>
                 <div className="flex items-center gap-2 bg-white/10 backdrop-blur px-4 py-2 rounded-full">
                   <Tv className="w-5 h-5 text-accent" />
-                  <span className="text-primary-foreground text-sm">FPV眼镜</span>
+                  <span className="text-primary-foreground text-sm">{t('otherAccessories.feature.goggles')}</span>
                 </div>
                 <div className="flex items-center gap-2 bg-white/10 backdrop-blur px-4 py-2 rounded-full">
                   <Navigation className="w-5 h-5 text-accent" />
-                  <span className="text-primary-foreground text-sm">GPS模块</span>
+                  <span className="text-primary-foreground text-sm">{t('otherAccessories.feature.gps')}</span>
                 </div>
               </div>
             </div>
@@ -120,7 +125,7 @@ const OtherAccessories = () => {
                         </div>
                         
                         <div className="flex items-center text-accent text-sm font-medium group-hover:gap-3 gap-1 transition-all">
-                          <span>查看详情</span>
+                          <span>{t('otherAccessories.viewDetail')}</span>
                           <ArrowRight className="w-4 h-4" />
                         </div>
                       </div>
@@ -136,21 +141,21 @@ const OtherAccessories = () => {
         <section className="py-16 bg-primary">
           <div className="container-custom text-center">
             <h2 className="text-2xl md:text-3xl font-bold text-primary-foreground mb-4">
-              需要技术支持？
+              {t('otherAccessories.cta.title')}
             </h2>
             <p className="text-primary-foreground/80 mb-8 max-w-2xl mx-auto">
-              联系我们的专业技术团队，获取配件选型建议和技术支持
+              {t('otherAccessories.cta.desc')}
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link to="/contact">
                 <Button className="bg-accent hover:bg-accent/90 text-accent-foreground px-8 py-6 text-lg">
-                  联系我们
+                  {t('otherAccessories.cta.btn')}
                   <ArrowRight className="w-5 h-5 ml-2" />
                 </Button>
               </Link>
               <Link to="/products/accessories">
                 <Button className="bg-primary-foreground/20 border border-primary-foreground/50 text-primary-foreground hover:bg-primary-foreground/30 px-8 py-6 text-lg">
-                  查看其他配件
+                  {t('otherAccessories.cta.viewOthers')}
                 </Button>
               </Link>
             </div>
