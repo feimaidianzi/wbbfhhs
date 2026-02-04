@@ -11,34 +11,23 @@ import { useLanguage } from "@/contexts/LanguageContext";
 import { LanguageCode } from "@/i18n/languages";
 
 const Products = () => {
-  const { language } = useLanguage();
+  const { language, t } = useLanguage();
   const [activeCategory, setActiveCategory] = useState("all");
   const [viewMode, setViewMode] = useState<"grid" | "list">("grid");
 
-  const categories = language === 'zh' ? [
-    { id: "all", name: "全部产品" },
-    { id: "tethered", name: "系留无人机" },
-    { id: "logistics", name: "物流无人机" },
-    { id: "fpv", name: "FPV穿越机" },
-    { id: "swarm", name: "集群编队" },
-  ] : [
-    { id: "all", name: "All Products" },
-    { id: "tethered", name: "Tethered Drone" },
-    { id: "logistics", name: "Logistics Drone" },
-    { id: "fpv", name: "FPV Drone" },
-    { id: "swarm", name: "Swarm Kit" },
+  const categories = [
+    { id: "all", name: t('products.category.all') },
+    { id: "tethered", name: t('products.category.tethered') },
+    { id: "logistics", name: t('products.category.logistics') },
+    { id: "fpv", name: t('products.category.fpv') },
+    { id: "swarm", name: t('products.category.swarm') },
   ];
 
-  const products = language === 'zh' ? [
-    { id: 12, name: "系留T200", category: "tethered", description: "200米系留无人机，24小时不间断作业", specs: ["高度: 200m", "续航: 24h", "载重: 10kg"], image: "https://images.unsplash.com/photo-1473968512647-3e447244af8f?w=600&q=80", link: "/products/tethered" },
-    { id: 14, name: "大力神M6-H11", category: "logistics", description: "大载重物流无人机，支持50kg货物运输", specs: ["载重: 50kg", "航程: 30km", "智能投放"], image: "https://images.unsplash.com/photo-1527977966376-1c8408f9f108?w=600&q=80", link: "/products/logistics", hot: true },
-    { id: 25, name: "CL-R5 竞速套装", category: "fpv", description: "专业竞速级FPV无人机，适合赛事训练和极限飞行", specs: ["时速: 160km/h", "延迟: <28ms", "5寸机架"], image: "https://images.unsplash.com/photo-1473968512647-3e447244af8f?w=600&q=80", link: "/fpv", hot: true },
-    { id: 30, name: "P230-UWB 集群编队套件", category: "swarm", description: "三机集群编队开发平台，UWB厘米级定位，NVIDIA Jetson机载计算", specs: ["定位精度: 10cm", "算力: 100TOPS", "编队: 3机"], image: "https://images.unsplash.com/photo-1473968512647-3e447244af8f?w=600&q=80", link: "/products/swarm-kit", hot: true },
-  ] : [
-    { id: 12, name: "Tethered T200", category: "tethered", description: "200m tethered drone, 24-hour continuous operation", specs: ["Altitude: 200m", "Endurance: 24h", "Payload: 10kg"], image: "https://images.unsplash.com/photo-1473968512647-3e447244af8f?w=600&q=80", link: "/products/tethered" },
-    { id: 14, name: "Hercules M6-H11", category: "logistics", description: "Heavy-lift logistics drone, supports 50kg cargo", specs: ["Payload: 50kg", "Range: 30km", "Smart Drop"], image: "https://images.unsplash.com/photo-1527977966376-1c8408f9f108?w=600&q=80", link: "/products/logistics", hot: true },
-    { id: 25, name: "CL-R5 Racing Kit", category: "fpv", description: "Professional racing FPV drone for competition and extreme flying", specs: ["Speed: 160km/h", "Latency: <28ms", "5-inch Frame"], image: "https://images.unsplash.com/photo-1473968512647-3e447244af8f?w=600&q=80", link: "/fpv", hot: true },
-    { id: 30, name: "P230-UWB Swarm Kit", category: "swarm", description: "3-drone swarm development platform, UWB cm-level positioning, NVIDIA Jetson computing", specs: ["Accuracy: 10cm", "AI: 100TOPS", "Drones: 3"], image: "https://images.unsplash.com/photo-1473968512647-3e447244af8f?w=600&q=80", link: "/products/swarm-kit", hot: true },
+  const products = [
+    { id: 12, name: t('products.item.tetheredT200.name'), category: "tethered", description: t('products.item.tetheredT200.desc'), specs: [t('products.item.tetheredT200.spec1'), t('products.item.tetheredT200.spec2'), t('products.item.tetheredT200.spec3')], image: "https://images.unsplash.com/photo-1473968512647-3e447244af8f?w=600&q=80", link: "/products/tethered" },
+    { id: 14, name: t('products.item.hercules.name'), category: "logistics", description: t('products.item.hercules.desc'), specs: [t('products.item.hercules.spec1'), t('products.item.hercules.spec2'), t('products.item.hercules.spec3')], image: "https://images.unsplash.com/photo-1527977966376-1c8408f9f108?w=600&q=80", link: "/products/logistics", hot: true },
+    { id: 25, name: t('products.item.racing.name'), category: "fpv", description: t('products.item.racing.desc'), specs: [t('products.item.racing.spec1'), t('products.item.racing.spec2'), t('products.item.racing.spec3')], image: "https://images.unsplash.com/photo-1473968512647-3e447244af8f?w=600&q=80", link: "/fpv", hot: true },
+    { id: 30, name: t('products.item.swarm.name'), category: "swarm", description: t('products.item.swarm.desc'), specs: [t('products.item.swarm.spec1'), t('products.item.swarm.spec2'), t('products.item.swarm.spec3')], image: "https://images.unsplash.com/photo-1473968512647-3e447244af8f?w=600&q=80", link: "/products/swarm-kit", hot: true },
   ];
 
   const filteredProducts = activeCategory === "all"
@@ -46,8 +35,8 @@ const Products = () => {
     : products.filter((p) => p.category === activeCategory);
 
   const breadcrumbData = createLocalizedBreadcrumbData([
-    { name: language === 'zh' ? '首页' : 'Home', url: '/' },
-    { name: language === 'zh' ? '产品中心' : 'Products', url: '/products' },
+    { name: t('nav.home'), url: '/' },
+    { name: t('nav.products'), url: '/products' },
   ], language as LanguageCode);
 
   const containerVariants = {
@@ -70,13 +59,9 @@ const Products = () => {
   return (
     <div className="min-h-screen bg-background">
       <MultiLanguageSEO
-        title={language === 'zh' ? "产品中心" : "Products"}
-        description={language === 'zh' 
-          ? "长凌科技产品中心，提供工业无人机、自动机场、系留无人机、物流无人机、植保无人机、无人机配件等全系列产品。"
-          : "CANI Technology product center, providing industrial drones, drone nests, tethered drones, logistics drones, agricultural drones, and accessories."}
-        keywords={language === 'zh' 
-          ? "工业无人机,自动机场,系留无人机,物流无人机,植保无人机,无人机配件,多旋翼无人机"
-          : "industrial drone,drone nest,tethered drone,logistics drone,agricultural drone,drone accessories,multi-rotor drone"}
+        title={t('products.page.title')}
+        description={t('products.page.description')}
+        keywords={t('products.page.keywords')}
         path="/products"
         structuredData={breadcrumbData}
       />
@@ -102,7 +87,7 @@ const Products = () => {
               transition={{ duration: 0.8 }}
             >
               <span className="inline-block px-4 py-2 rounded-full bg-black/50 border border-white/30 text-white text-sm font-medium mb-6">
-                {language === 'zh' ? '长凌科技 · 产品中心' : 'CANI Technology · Products'}
+                {t('products.hero.badge')}
               </span>
             </motion.div>
 
@@ -112,7 +97,7 @@ const Products = () => {
               transition={{ duration: 0.8, delay: 0.2 }}
               className="text-4xl md:text-5xl lg:text-6xl font-black text-white mb-6"
             >
-              {language === 'zh' ? '专业无人机产品' : 'Professional Drone Products'}
+              {t('products.hero.title')}
             </motion.h1>
 
             <motion.p
@@ -121,9 +106,7 @@ const Products = () => {
               transition={{ duration: 0.8, delay: 0.4 }}
               className="text-lg md:text-xl text-white/80 max-w-2xl mx-auto mb-8"
             >
-              {language === 'zh' 
-                ? '覆盖工业级无人机、自动机场、系留平台、物流配送等全场景解决方案'
-                : 'Complete solutions for industrial drones, drone nests, tethered platforms, and logistics delivery'}
+              {t('products.hero.subtitle')}
             </motion.p>
           </div>
 
@@ -160,7 +143,7 @@ const Products = () => {
             {/* View Toggle */}
             <div className="flex justify-between items-center mb-8">
               <p className="text-muted-foreground">
-                {language === 'zh' ? `共 ${filteredProducts.length} 款产品` : `${filteredProducts.length} products found`}
+                {t('products.count').replace('{count}', String(filteredProducts.length))}
               </p>
               <div className="flex gap-2">
                 <button
@@ -226,7 +209,7 @@ const Products = () => {
                         ))}
                       </div>
                       <div className="flex items-center text-accent text-sm font-medium">
-                        {language === 'zh' ? '查看详情' : 'View Details'}
+                        {t('common.learnMore')}
                         <ArrowRight className="w-4 h-4 ml-1 group-hover:translate-x-1 transition-transform" />
                       </div>
                     </div>
@@ -251,16 +234,14 @@ const Products = () => {
               transition={{ duration: 0.8 }}
             >
               <h2 className="text-3xl md:text-4xl font-black text-foreground mb-6">
-                {language === 'zh' ? '找不到合适的产品？' : 'Can\'t find the right product?'}
+                {t('products.cta.title')}
               </h2>
               <p className="text-lg text-muted-foreground mb-8 max-w-2xl mx-auto">
-                {language === 'zh' 
-                  ? '联系我们的专业团队，获取定制化解决方案'
-                  : 'Contact our professional team for customized solutions'}
+                {t('products.cta.subtitle')}
               </p>
               <Link to="/contact">
                 <Button className="bg-accent hover:bg-accent/90 text-accent-foreground px-8 py-6 text-lg font-semibold rounded-full group">
-                  {language === 'zh' ? '立即咨询' : 'Contact Us'}
+                  {t('common.contact')}
                   <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" />
                 </Button>
               </Link>

@@ -8,26 +8,30 @@ import { MultiLanguageSEO } from "@/components/MultiLanguageSEO";
 import { useLanguage } from "@/contexts/LanguageContext";
 
 const DroneShow = () => {
-  const { language } = useLanguage();
-  const isEn = language === 'en';
+  const { t } = useLanguage();
 
   const features = [
-    { icon: Sparkles, title: isEn ? "Stunning Effects" : "震撼效果", description: isEn ? "100+ drone formation show" : "百架级无人机编队表演" },
-    { icon: Palette, title: isEn ? "Custom Design" : "定制设计", description: isEn ? "Custom 3D patterns & text" : "图案文字3D造型定制" },
-    { icon: Users, title: isEn ? "Professional Team" : "专业团队", description: isEn ? "Experienced execution team" : "经验丰富的执行团队" },
-    { icon: Shield, title: isEn ? "Safety Assured" : "安全保障", description: isEn ? "Complete safety system" : "完善的安全保障体系" },
+    { icon: Sparkles, title: t('droneShow.feature.effects'), description: t('droneShow.feature.effects.desc') },
+    { icon: Palette, title: t('droneShow.feature.design'), description: t('droneShow.feature.design.desc') },
+    { icon: Users, title: t('droneShow.feature.team'), description: t('droneShow.feature.team.desc') },
+    { icon: Shield, title: t('droneShow.feature.safety'), description: t('droneShow.feature.safety.desc') },
   ];
 
-  const scenarios = isEn 
-    ? ["Corporate Celebrations", "City Festivals", "Scenic Night Shows", "Major Sports Events", "Cultural Tourism", "Brand Launches"]
-    : ["企业庆典活动", "城市节日庆典", "景区夜游项目", "大型体育赛事", "文化旅游推广", "商业品牌发布"];
+  const scenarios = [
+    t('droneShow.scenario.corporate'),
+    t('droneShow.scenario.festival'),
+    t('droneShow.scenario.scenic'),
+    t('droneShow.scenario.sports'),
+    t('droneShow.scenario.culture'),
+    t('droneShow.scenario.brand'),
+  ];
 
   return (
     <div className="min-h-screen">
       <MultiLanguageSEO 
-        title={isEn ? "Drone Light Show" : "无人机表演"} 
-        description={isEn ? "Feimai Technology professional drone formation light show services." : "飞迈科技专业无人机编队灯光表演服务。"} 
-        keywords={isEn ? "drone show,light show,formation performance" : "无人机表演,灯光秀,编队表演"} 
+        title={t('droneShow.seo.title')} 
+        description={t('droneShow.seo.description')} 
+        keywords={t('droneShow.seo.keywords')} 
         path="/projects/show" 
       />
       <Header />
@@ -39,14 +43,14 @@ const DroneShow = () => {
           <div className="relative container-custom h-full flex items-center">
             <div className="max-w-2xl">
               <h1 className="text-3xl md:text-5xl font-bold text-primary-foreground mb-4">
-                {isEn ? "Drone Light Show" : "无人机表演"}
+                {t('droneShow.hero.title')}
               </h1>
               <p className="text-lg text-primary-foreground/90 mb-8">
-                {isEn ? "Stunning Visual Feast, Illuminate the Night Sky" : "震撼视觉盛宴，点亮夜空"}
+                {t('droneShow.hero.subtitle')}
               </p>
               <Link to="/contact">
                 <Button className="bg-accent hover:bg-orange-light text-accent-foreground px-8 py-3">
-                  {isEn ? "Book a Show" : "预约表演"}
+                  {t('droneShow.hero.cta')}
                   <ArrowRight className="w-4 h-4 ml-2" />
                 </Button>
               </Link>
@@ -68,10 +72,10 @@ const DroneShow = () => {
             </div>
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
               <div className="aspect-video rounded-xl overflow-hidden shadow-card">
-                <img src="https://images.unsplash.com/photo-1492684223066-81342ee5ff30?w=800&q=80" alt={isEn ? "Performance" : "表演"} className="w-full h-full object-cover" />
+                <img src="https://images.unsplash.com/photo-1492684223066-81342ee5ff30?w=800&q=80" alt={t('droneShow.hero.title')} className="w-full h-full object-cover" />
               </div>
               <div>
-                <h2 className="text-2xl font-bold mb-6">{isEn ? "Application Scenarios" : "应用场景"}</h2>
+                <h2 className="text-2xl font-bold mb-6">{t('droneShow.scenarios.title')}</h2>
                 <ul className="space-y-4">
                   {scenarios.map((s, i) => (
                     <li key={i} className="flex items-center gap-3">
