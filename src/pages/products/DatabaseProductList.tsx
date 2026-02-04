@@ -4,7 +4,7 @@ import { supabase } from '@/integrations/supabase/client';
 import { Header } from '@/components/Header';
 import { Footer } from '@/components/Footer';
 import { FloatingContact } from '@/components/FloatingContact';
-import { SEO } from '@/components/SEO';
+import { MultiLanguageSEO } from '@/components/MultiLanguageSEO';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Input } from '@/components/ui/input';
@@ -25,25 +25,10 @@ interface Product {
   is_featured: boolean | null;
 }
 
-const CATEGORIES = [
-  { value: 'all', label: '全部产品', labelEn: 'All Products' },
-  { value: 'multi-rotor', label: '多旋翼飞行器', labelEn: 'Multi-Rotor' },
-  { value: 'vtx', label: 'VTX图传', labelEn: 'VTX' },
-  { value: 'fc-esc', label: '飞控/电调', labelEn: 'FC/ESC' },
-  { value: 'gimbal', label: '吊舱/云台', labelEn: 'Gimbal/Pod' },
-  { value: 'camera', label: '运动相机', labelEn: 'Action Camera' },
-  { value: 'digital-fpv', label: '数字图传', labelEn: 'Digital FPV' },
-  { value: 'elrs', label: 'ELRS接收机/天线', labelEn: 'ELRS Receiver/Antenna' },
-  { value: 'tethered', label: '系留无人机', labelEn: 'Tethered' },
-  { value: 'logistics', label: '物流无人机', labelEn: 'Logistics' },
-  { value: 'airport', label: '机场', labelEn: 'Airport' },
-  { value: 'other-accessories', label: '其他配件(监视器/GPS)', labelEn: 'Other (Monitor/GPS)' },
-];
-
 const ITEMS_PER_PAGE = 12;
 
 const DatabaseProductList = () => {
-  const { language } = useLanguage();
+  const { language, t } = useLanguage();
   const isEn = language === 'en';
   
   const [products, setProducts] = useState<Product[]>([]);
@@ -52,6 +37,21 @@ const DatabaseProductList = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid');
   const [currentPage, setCurrentPage] = useState(1);
+
+  const CATEGORIES = [
+    { value: 'all', labelKey: 'productList.category.all' },
+    { value: 'multi-rotor', labelKey: 'productList.category.multiRotor' },
+    { value: 'vtx', labelKey: 'productList.category.vtx' },
+    { value: 'fc-esc', labelKey: 'productList.category.fcEsc' },
+    { value: 'gimbal', labelKey: 'productList.category.gimbal' },
+    { value: 'camera', labelKey: 'productList.category.camera' },
+    { value: 'digital-fpv', labelKey: 'productList.category.digitalFpv' },
+    { value: 'elrs', labelKey: 'productList.category.elrs' },
+    { value: 'tethered', labelKey: 'productList.category.tethered' },
+    { value: 'logistics', labelKey: 'productList.category.logistics' },
+    { value: 'airport', labelKey: 'productList.category.airport' },
+    { value: 'other-accessories', labelKey: 'productList.category.others' },
+  ];
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -127,15 +127,15 @@ const DatabaseProductList = () => {
     return pages;
   };
 
-  const getCategoryLabel = (cat: typeof CATEGORIES[0]) => isEn ? cat.labelEn : cat.label;
   const getProductName = (p: Product) => isEn && p.name_en ? p.name_en : p.name;
   const getProductDescription = (p: Product) => isEn && p.description_en ? p.description_en : p.description;
 
   return (
     <>
-      <SEO
-        title={isEn ? 'Product Catalog - CANI Technology' : '产品目录 - 长凌科技'}
-        description={isEn ? 'Browse our complete product catalog with detailed specifications' : '浏览我们的完整产品目录，查看详细规格参数'}
+      <MultiLanguageSEO
+        title={t('productList.seo.title')}
+        description={t('productList.seo.description')}
+        path="/products"
       />
       <Header />
       <main className="min-h-screen bg-background">
@@ -145,12 +145,10 @@ const DatabaseProductList = () => {
           <div className="container mx-auto px-4 relative z-10">
             <div className="max-w-3xl mx-auto text-center">
               <h1 className="text-3xl md:text-5xl font-bold mb-4">
-                {isEn ? 'Product Catalog' : '产品目录'}
+                {t('productList.hero.title')}
               </h1>
               <p className="text-lg text-muted-foreground mb-8">
-                {isEn 
-                  ? 'Browse our complete range of drone products and accessories' 
-                  : '浏览我们的全系列无人机产品和配件'}
+                {t('productList.hero.subtitle')}
               </p>
               
               {/* Search */}
@@ -159,7 +157,7 @@ const DatabaseProductList = () => {
                 <Input
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
-                  placeholder={isEn ? 'Search products...' : '搜索产品...'}
+                  placeholder={t('productList.searchPlaceholder')}
                   className="pl-12 h-12 text-lg"
                 />
               </div>
@@ -181,7 +179,7 @@ const DatabaseProductList = () => {
                       : 'bg-card text-muted-foreground hover:bg-accent/10 hover:text-foreground'
                   }`}
                 >
-                  {getCategoryLabel(cat)}
+                  {t(cat.labelKey)}
                 </button>
               ))}
             </div>
@@ -194,12 +192,12 @@ const DatabaseProductList = () => {
             {/* Toolbar */}
             <div className="flex items-center justify-between mb-8">
               <div className="text-muted-foreground">
-                {isEn ? 'Showing' : '共'}{' '}
+                {t('productList.showing')}{' '}
                 <span className="text-foreground font-semibold">{filteredProducts.length}</span>{' '}
-                {isEn ? 'products' : '件产品'}
+                {t('productList.products')}
                 {totalPages > 1 && (
                   <span className="ml-2">
-                    ({isEn ? `Page ${currentPage} of ${totalPages}` : `第 ${currentPage}/${totalPages} 页`})
+                    ({t('productList.page')} {currentPage}/{totalPages})
                   </span>
                 )}
               </div>
@@ -230,7 +228,7 @@ const DatabaseProductList = () => {
             ) : filteredProducts.length === 0 ? (
               <div className="text-center py-20">
                 <p className="text-muted-foreground text-lg">
-                  {isEn ? 'No products found' : '暂无产品'}
+                  {t('productList.noProducts')}
                 </p>
               </div>
             ) : viewMode === 'grid' ? (
@@ -256,7 +254,7 @@ const DatabaseProductList = () => {
                       {product.is_featured && (
                         <div className="absolute top-3 left-3 px-2 py-1 bg-amber-500 text-white text-xs font-medium rounded flex items-center gap-1">
                           <Star className="w-3 h-3" />
-                          {isEn ? 'Featured' : '推荐'}
+                          {t('productDetail.featured')}
                         </div>
                       )}
                       <div className="absolute inset-0 bg-gradient-to-t from-card/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
@@ -273,7 +271,7 @@ const DatabaseProductList = () => {
                         {getProductName(product)}
                       </h3>
                       <p className="text-muted-foreground text-sm mb-4 line-clamp-2">
-                        {getProductDescription(product) || (isEn ? 'No description' : '暂无描述')}
+                        {getProductDescription(product) || t('productList.noDescription')}
                       </p>
                       {product.price && (
                         <div className="flex items-baseline gap-2">
@@ -317,7 +315,7 @@ const DatabaseProductList = () => {
                         {product.is_featured && (
                           <Badge className="bg-amber-500/20 text-amber-600 text-xs">
                             <Star className="w-3 h-3 mr-1" />
-                            {isEn ? 'Featured' : '推荐'}
+                            {t('productDetail.featured')}
                           </Badge>
                         )}
                         {product.subcategory && (
@@ -330,7 +328,7 @@ const DatabaseProductList = () => {
                         {getProductName(product)}
                       </h3>
                       <p className="text-muted-foreground text-sm line-clamp-1 mt-1">
-                        {getProductDescription(product) || (isEn ? 'No description' : '暂无描述')}
+                        {getProductDescription(product) || t('productList.noDescription')}
                       </p>
                     </div>
                     <div className="flex flex-col items-end justify-between">

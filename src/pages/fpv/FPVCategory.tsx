@@ -8,247 +8,172 @@ import { BackButton } from "@/components/BackButton";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { MultiLanguageSEO } from "@/components/MultiLanguageSEO";
 
+// Category data with translation keys
 const categoryData: Record<string, {
-  title: string;
-  titleEn: string;
-  description: string;
-  descriptionEn: string;
+  titleKey: string;
+  descriptionKey: string;
   heroImage: string;
   products: {
-    name: string;
-    nameEn: string;
-    description: string;
-    descriptionEn: string;
-    specs: string[];
-    specsEn: string[];
+    nameKey: string;
+    descriptionKey: string;
+    specsKeys: string[];
     image: string;
     price: string;
-    features: string[];
-    featuresEn: string[];
+    featuresKeys: string[];
   }[];
 }> = {
   "套装系列": {
-    title: "套装系列",
-    titleEn: "Kit Series",
-    description: "完整FPV飞行套装，包含穿越机、遥控器、眼镜等全套设备，开箱即飞，适合入门玩家快速上手",
-    descriptionEn: "Complete FPV flight kit including drone, controller, goggles, ready to fly out of the box, perfect for beginners",
+    titleKey: 'fpvCategory.kit.title',
+    descriptionKey: 'fpvCategory.kit.description',
     heroImage: "https://images.unsplash.com/photo-1473968512647-3e447244af8f?w=1920&q=80",
     products: [
       {
-        name: "CL-S1 入门套装",
-        nameEn: "CL-S1 Starter Kit",
-        description: "专为新手设计的完整入门套装，包含一切所需设备，安全易学",
-        descriptionEn: "Complete starter kit designed for beginners, includes everything needed, safe and easy to learn",
-        specs: ["机架尺寸: 5寸", "续航: 10分钟", "图传: 5.8G", "遥控距离: 1km"],
-        specsEn: ["Frame: 5 inch", "Flight Time: 10min", "VTX: 5.8G", "Control Range: 1km"],
+        nameKey: 'fpvCategory.kit.product1.name',
+        descriptionKey: 'fpvCategory.kit.product1.description',
+        specsKeys: ['fpvCategory.kit.product1.spec1', 'fpvCategory.kit.product1.spec2', 'fpvCategory.kit.product1.spec3', 'fpvCategory.kit.product1.spec4'],
         image: "https://images.unsplash.com/photo-1473968512647-3e447244af8f?w=600&q=80",
         price: "¥1,999",
-        features: ["开箱即飞", "自稳模式", "新手保护", "中文教程"],
-        featuresEn: ["Ready to Fly", "Self-Stabilization", "Beginner Protection", "Tutorial"],
+        featuresKeys: ['fpvCategory.kit.product1.feature1', 'fpvCategory.kit.product1.feature2', 'fpvCategory.kit.product1.feature3', 'fpvCategory.kit.product1.feature4'],
       },
       {
-        name: "CL-S2 进阶套装",
-        nameEn: "CL-S2 Advanced Kit",
-        description: "适合有一定基础的玩家，性能更强，功能更全",
-        descriptionEn: "For players with some experience, stronger performance, more features",
-        specs: ["机架尺寸: 5寸", "续航: 12分钟", "图传: 数字图传", "遥控距离: 3km"],
-        specsEn: ["Frame: 5 inch", "Flight Time: 12min", "VTX: Digital", "Control Range: 3km"],
+        nameKey: 'fpvCategory.kit.product2.name',
+        descriptionKey: 'fpvCategory.kit.product2.description',
+        specsKeys: ['fpvCategory.kit.product2.spec1', 'fpvCategory.kit.product2.spec2', 'fpvCategory.kit.product2.spec3', 'fpvCategory.kit.product2.spec4'],
         image: "https://images.unsplash.com/photo-1527977966376-1c8408f9f108?w=600&q=80",
         price: "¥3,299",
-        features: ["数字高清", "GPS定位", "一键返航", "飞行记录"],
-        featuresEn: ["Digital HD", "GPS", "Return Home", "Flight Log"],
+        featuresKeys: ['fpvCategory.kit.product2.feature1', 'fpvCategory.kit.product2.feature2', 'fpvCategory.kit.product2.feature3', 'fpvCategory.kit.product2.feature4'],
       },
       {
-        name: "CL-S3 专业套装",
-        nameEn: "CL-S3 Pro Kit",
-        description: "专业级配置，满足高阶玩家的各种需求",
-        descriptionEn: "Professional configuration for advanced players",
-        specs: ["机架尺寸: 5寸", "续航: 15分钟", "图传: O3图传", "遥控距离: 10km"],
-        specsEn: ["Frame: 5 inch", "Flight Time: 15min", "VTX: O3", "Control Range: 10km"],
+        nameKey: 'fpvCategory.kit.product3.name',
+        descriptionKey: 'fpvCategory.kit.product3.description',
+        specsKeys: ['fpvCategory.kit.product3.spec1', 'fpvCategory.kit.product3.spec2', 'fpvCategory.kit.product3.spec3', 'fpvCategory.kit.product3.spec4'],
         image: "https://images.unsplash.com/photo-1506947411487-a56738267384?w=600&q=80",
         price: "¥5,999",
-        features: ["O3超清图传", "低延迟", "专业遥控器", "多种飞行模式"],
-        featuresEn: ["O3 HD VTX", "Low Latency", "Pro Controller", "Multi-Mode"],
+        featuresKeys: ['fpvCategory.kit.product3.feature1', 'fpvCategory.kit.product3.feature2', 'fpvCategory.kit.product3.feature3', 'fpvCategory.kit.product3.feature4'],
       },
     ],
   },
   "竞速系列": {
-    title: "竞速系列",
-    titleEn: "Racing Series",
-    description: "专业竞速穿越机，极致速度体验，为赛事而生，适合追求速度与激情的玩家",
-    descriptionEn: "Professional racing drones, ultimate speed experience, built for competitions",
+    titleKey: 'fpvCategory.racing.title',
+    descriptionKey: 'fpvCategory.racing.description',
     heroImage: "https://images.unsplash.com/photo-1527977966376-1c8408f9f108?w=1920&q=80",
     products: [
       {
-        name: "CL-R5 竞速版",
-        nameEn: "CL-R5 Racing",
-        description: "5寸专业竞速机，轻量化设计，极致速度",
-        descriptionEn: "5-inch professional racing drone, lightweight design, extreme speed",
-        specs: ["最高时速: 160km/h", "电机: 2806.5 1300KV", "电池: 6S 1100mAh", "重量: 380g"],
-        specsEn: ["Max Speed: 160km/h", "Motor: 2806.5 1300KV", "Battery: 6S 1100mAh", "Weight: 380g"],
+        nameKey: 'fpvCategory.racing.product1.name',
+        descriptionKey: 'fpvCategory.racing.product1.description',
+        specsKeys: ['fpvCategory.racing.product1.spec1', 'fpvCategory.racing.product1.spec2', 'fpvCategory.racing.product1.spec3', 'fpvCategory.racing.product1.spec4'],
         image: "https://images.unsplash.com/photo-1473968512647-3e447244af8f?w=600&q=80",
         price: "¥2,999",
-        features: ["碳纤维机架", "低延迟图传", "竞速调参", "赛事认证"],
-        featuresEn: ["Carbon Fiber", "Low Latency", "Race Tuned", "Race Certified"],
+        featuresKeys: ['fpvCategory.racing.product1.feature1', 'fpvCategory.racing.product1.feature2', 'fpvCategory.racing.product1.feature3', 'fpvCategory.racing.product1.feature4'],
       },
       {
-        name: "CL-R5 Pro 赛事版",
-        nameEn: "CL-R5 Pro Race Edition",
-        description: "赛事级配置，专业飞手首选",
-        descriptionEn: "Competition-grade configuration, professional pilot's choice",
-        specs: ["最高时速: 180km/h", "电机: 2807 1500KV", "电池: 6S 1300mAh", "重量: 350g"],
-        specsEn: ["Max Speed: 180km/h", "Motor: 2807 1500KV", "Battery: 6S 1300mAh", "Weight: 350g"],
+        nameKey: 'fpvCategory.racing.product2.name',
+        descriptionKey: 'fpvCategory.racing.product2.description',
+        specsKeys: ['fpvCategory.racing.product2.spec1', 'fpvCategory.racing.product2.spec2', 'fpvCategory.racing.product2.spec3', 'fpvCategory.racing.product2.spec4'],
         image: "https://images.unsplash.com/photo-1527977966376-1c8408f9f108?w=600&q=80",
         price: "¥4,599",
-        features: ["钛合金螺丝", "定制电调", "竞速固件", "技术支持"],
-        featuresEn: ["Titanium Screws", "Custom ESC", "Race Firmware", "Tech Support"],
+        featuresKeys: ['fpvCategory.racing.product2.feature1', 'fpvCategory.racing.product2.feature2', 'fpvCategory.racing.product2.feature3', 'fpvCategory.racing.product2.feature4'],
       },
       {
-        name: "CL-R3 室内竞速",
-        nameEn: "CL-R3 Indoor Racing",
-        description: "3寸室内竞速机，适合室内场地训练",
-        descriptionEn: "3-inch indoor racing drone for indoor training",
-        specs: ["最高时速: 100km/h", "电机: 1404 3800KV", "电池: 4S 650mAh", "重量: 150g"],
-        specsEn: ["Max Speed: 100km/h", "Motor: 1404 3800KV", "Battery: 4S 650mAh", "Weight: 150g"],
+        nameKey: 'fpvCategory.racing.product3.name',
+        descriptionKey: 'fpvCategory.racing.product3.description',
+        specsKeys: ['fpvCategory.racing.product3.spec1', 'fpvCategory.racing.product3.spec2', 'fpvCategory.racing.product3.spec3', 'fpvCategory.racing.product3.spec4'],
         image: "https://images.unsplash.com/photo-1506947411487-a56738267384?w=600&q=80",
         price: "¥1,599",
-        features: ["室内适用", "桨叶保护", "静音设计", "快速充电"],
-        featuresEn: ["Indoor Use", "Prop Guards", "Quiet Design", "Fast Charging"],
+        featuresKeys: ['fpvCategory.racing.product3.feature1', 'fpvCategory.racing.product3.feature2', 'fpvCategory.racing.product3.feature3', 'fpvCategory.racing.product3.feature4'],
       },
     ],
   },
   "花飞系列": {
-    title: "花飞系列",
-    titleEn: "Freestyle Series",
-    description: "自由式花飞穿越机，灵活机动，适合特技飞行和创意拍摄",
-    descriptionEn: "Freestyle drones, agile and maneuverable, perfect for acrobatic flying and creative filming",
+    titleKey: 'fpvCategory.freestyle.title',
+    descriptionKey: 'fpvCategory.freestyle.description',
     heroImage: "https://images.unsplash.com/photo-1506947411487-a56738267384?w=1920&q=80",
     products: [
       {
-        name: "CL-F3 入门花飞",
-        nameEn: "CL-F3 Freestyle Starter",
-        description: "3寸入门花飞机，室内外皆可飞行",
-        descriptionEn: "3-inch entry freestyle drone, suitable for indoor and outdoor",
-        specs: ["轴距: 140mm", "重量: 180g", "续航: 8分钟", "电池: 4S 650mAh"],
-        specsEn: ["Wheelbase: 140mm", "Weight: 180g", "Flight Time: 8min", "Battery: 4S 650mAh"],
+        nameKey: 'fpvCategory.freestyle.product1.name',
+        descriptionKey: 'fpvCategory.freestyle.product1.description',
+        specsKeys: ['fpvCategory.freestyle.product1.spec1', 'fpvCategory.freestyle.product1.spec2', 'fpvCategory.freestyle.product1.spec3', 'fpvCategory.freestyle.product1.spec4'],
         image: "https://images.unsplash.com/photo-1473968512647-3e447244af8f?w=600&q=80",
         price: "¥1,299",
-        features: ["轻巧灵活", "桨叶保护", "适合新手", "特技模式"],
-        featuresEn: ["Lightweight", "Prop Guards", "Beginner Friendly", "Acro Mode"],
+        featuresKeys: ['fpvCategory.freestyle.product1.feature1', 'fpvCategory.freestyle.product1.feature2', 'fpvCategory.freestyle.product1.feature3', 'fpvCategory.freestyle.product1.feature4'],
       },
       {
-        name: "CL-F5 标准花飞",
-        nameEn: "CL-F5 Standard Freestyle",
-        description: "5寸标准花飞机，动力充沛，动作流畅",
-        descriptionEn: "5-inch standard freestyle drone, powerful and smooth",
-        specs: ["轴距: 220mm", "重量: 350g", "续航: 10分钟", "电池: 6S 1100mAh"],
-        specsEn: ["Wheelbase: 220mm", "Weight: 350g", "Flight Time: 10min", "Battery: 6S 1100mAh"],
+        nameKey: 'fpvCategory.freestyle.product2.name',
+        descriptionKey: 'fpvCategory.freestyle.product2.description',
+        specsKeys: ['fpvCategory.freestyle.product2.spec1', 'fpvCategory.freestyle.product2.spec2', 'fpvCategory.freestyle.product2.spec3', 'fpvCategory.freestyle.product2.spec4'],
         image: "https://images.unsplash.com/photo-1527977966376-1c8408f9f108?w=600&q=80",
         price: "¥2,299",
-        features: ["大动力", "流畅操控", "3D飞行", "可挂载相机"],
-        featuresEn: ["High Power", "Smooth Control", "3D Flight", "Camera Mount"],
+        featuresKeys: ['fpvCategory.freestyle.product2.feature1', 'fpvCategory.freestyle.product2.feature2', 'fpvCategory.freestyle.product2.feature3', 'fpvCategory.freestyle.product2.feature4'],
       },
       {
-        name: "CL-F7 专业花飞",
-        nameEn: "CL-F7 Pro Freestyle",
-        description: "7寸专业花飞机，大尺寸带来更强表现力",
-        descriptionEn: "7-inch professional freestyle drone, larger size for better performance",
-        specs: ["轴距: 280mm", "重量: 550g", "续航: 12分钟", "电池: 6S 1500mAh"],
-        specsEn: ["Wheelbase: 280mm", "Weight: 550g", "Flight Time: 12min", "Battery: 6S 1500mAh"],
+        nameKey: 'fpvCategory.freestyle.product3.name',
+        descriptionKey: 'fpvCategory.freestyle.product3.description',
+        specsKeys: ['fpvCategory.freestyle.product3.spec1', 'fpvCategory.freestyle.product3.spec2', 'fpvCategory.freestyle.product3.spec3', 'fpvCategory.freestyle.product3.spec4'],
         image: "https://images.unsplash.com/photo-1506947411487-a56738267384?w=600&q=80",
         price: "¥3,599",
-        features: ["专业级", "大载荷", "稳定悬停", "高清拍摄"],
-        featuresEn: ["Professional", "Heavy Lift", "Stable Hover", "HD Recording"],
+        featuresKeys: ['fpvCategory.freestyle.product3.feature1', 'fpvCategory.freestyle.product3.feature2', 'fpvCategory.freestyle.product3.feature3', 'fpvCategory.freestyle.product3.feature4'],
       },
     ],
   },
   "远航系列": {
-    title: "远航系列",
-    titleEn: "Long Range Series",
-    description: "长续航远距离飞行，探索更广阔的天空，适合远距离巡航和航拍",
-    descriptionEn: "Long endurance long range flight, explore wider skies, perfect for long range cruising and aerial photography",
+    titleKey: 'fpvCategory.longrange.title',
+    descriptionKey: 'fpvCategory.longrange.description',
     heroImage: "https://images.unsplash.com/photo-1559827260-dc66d52bef19?w=1920&q=80",
     products: [
       {
-        name: "CL-LR5 标准远航",
-        nameEn: "CL-LR5 Standard Long Range",
-        description: "5寸远航机，平衡续航与性能",
-        descriptionEn: "5-inch long range drone, balanced endurance and performance",
-        specs: ["续航: 25分钟", "图传距离: 10km", "载重: 300g", "电池: 6S 2200mAh"],
-        specsEn: ["Flight Time: 25min", "VTX Range: 10km", "Payload: 300g", "Battery: 6S 2200mAh"],
+        nameKey: 'fpvCategory.longrange.product1.name',
+        descriptionKey: 'fpvCategory.longrange.product1.description',
+        specsKeys: ['fpvCategory.longrange.product1.spec1', 'fpvCategory.longrange.product1.spec2', 'fpvCategory.longrange.product1.spec3', 'fpvCategory.longrange.product1.spec4'],
         image: "https://images.unsplash.com/photo-1473968512647-3e447244af8f?w=600&q=80",
         price: "¥3,299",
-        features: ["长续航", "GPS定位", "一键返航", "低电压保护"],
-        featuresEn: ["Long Endurance", "GPS", "Return Home", "Low Voltage Protection"],
+        featuresKeys: ['fpvCategory.longrange.product1.feature1', 'fpvCategory.longrange.product1.feature2', 'fpvCategory.longrange.product1.feature3', 'fpvCategory.longrange.product1.feature4'],
       },
       {
-        name: "CL-LR7 专业远航",
-        nameEn: "CL-LR7 Pro Long Range",
-        description: "7寸专业远航机，更长续航，更远距离",
-        descriptionEn: "7-inch professional long range drone, longer endurance, greater distance",
-        specs: ["续航: 35分钟", "图传距离: 15km", "载重: 500g", "电池: 6S 3000mAh"],
-        specsEn: ["Flight Time: 35min", "VTX Range: 15km", "Payload: 500g", "Battery: 6S 3000mAh"],
+        nameKey: 'fpvCategory.longrange.product2.name',
+        descriptionKey: 'fpvCategory.longrange.product2.description',
+        specsKeys: ['fpvCategory.longrange.product2.spec1', 'fpvCategory.longrange.product2.spec2', 'fpvCategory.longrange.product2.spec3', 'fpvCategory.longrange.product2.spec4'],
         image: "https://images.unsplash.com/photo-1527977966376-1c8408f9f108?w=600&q=80",
         price: "¥4,599",
-        features: ["超长续航", "高清图传", "双GPS", "失控保护"],
-        featuresEn: ["Ultra Long Endurance", "HD VTX", "Dual GPS", "Failsafe"],
+        featuresKeys: ['fpvCategory.longrange.product2.feature1', 'fpvCategory.longrange.product2.feature2', 'fpvCategory.longrange.product2.feature3', 'fpvCategory.longrange.product2.feature4'],
       },
       {
-        name: "CL-LR10 极限远航",
-        nameEn: "CL-LR10 Extreme Long Range",
-        description: "10寸极限远航机，挑战飞行极限",
-        descriptionEn: "10-inch extreme long range drone, challenge the limits",
-        specs: ["续航: 50分钟", "图传距离: 20km", "载重: 1kg", "电池: 6S 5000mAh"],
-        specsEn: ["Flight Time: 50min", "VTX Range: 20km", "Payload: 1kg", "Battery: 6S 5000mAh"],
+        nameKey: 'fpvCategory.longrange.product3.name',
+        descriptionKey: 'fpvCategory.longrange.product3.description',
+        specsKeys: ['fpvCategory.longrange.product3.spec1', 'fpvCategory.longrange.product3.spec2', 'fpvCategory.longrange.product3.spec3', 'fpvCategory.longrange.product3.spec4'],
         image: "https://images.unsplash.com/photo-1506947411487-a56738267384?w=600&q=80",
         price: "¥7,999",
-        features: ["极限续航", "专业载荷", "稳定平台", "多任务支持"],
-        featuresEn: ["Extreme Endurance", "Pro Payload", "Stable Platform", "Multi-Mission"],
+        featuresKeys: ['fpvCategory.longrange.product3.feature1', 'fpvCategory.longrange.product3.feature2', 'fpvCategory.longrange.product3.feature3', 'fpvCategory.longrange.product3.feature4'],
       },
     ],
   },
   "航拍系列": {
-    title: "航拍系列",
-    titleEn: "Cinematic Series",
-    description: "稳定航拍与FPV结合，捕捉震撼画面，适合影视创作和内容创作者",
-    descriptionEn: "Stable aerial filming combined with FPV, capture stunning footage, perfect for filmmakers and content creators",
+    titleKey: 'fpvCategory.cinematic.title',
+    descriptionKey: 'fpvCategory.cinematic.description',
     heroImage: "https://images.unsplash.com/photo-1508614589041-895b88991e3e?w=1920&q=80",
     products: [
       {
-        name: "CL-C5 航拍入门",
-        nameEn: "CL-C5 Cine Starter",
-        description: "5寸航拍穿越机，稳定拍摄入门之选",
-        descriptionEn: "5-inch cine drone, stable filming entry choice",
-        specs: ["云台: 2轴", "相机: 裸机位", "续航: 15分钟", "稳定性: 高"],
-        specsEn: ["Gimbal: 2-axis", "Camera: Naked", "Flight Time: 15min", "Stability: High"],
+        nameKey: 'fpvCategory.cinematic.product1.name',
+        descriptionKey: 'fpvCategory.cinematic.product1.description',
+        specsKeys: ['fpvCategory.cinematic.product1.spec1', 'fpvCategory.cinematic.product1.spec2', 'fpvCategory.cinematic.product1.spec3', 'fpvCategory.cinematic.product1.spec4'],
         image: "https://images.unsplash.com/photo-1473968512647-3e447244af8f?w=600&q=80",
         price: "¥2,999",
-        features: ["2轴云台", "稳定画面", "GoPro适配", "跟随模式"],
-        featuresEn: ["2-Axis Gimbal", "Stable Footage", "GoPro Compatible", "Follow Mode"],
+        featuresKeys: ['fpvCategory.cinematic.product1.feature1', 'fpvCategory.cinematic.product1.feature2', 'fpvCategory.cinematic.product1.feature3', 'fpvCategory.cinematic.product1.feature4'],
       },
       {
-        name: "CL-C7 航拍专业",
-        nameEn: "CL-C7 Cine Pro",
-        description: "7寸专业航拍机，专业影视级画质",
-        descriptionEn: "7-inch professional cine drone, cinema-grade quality",
-        specs: ["云台: 3轴", "相机: RED/BMPCC", "续航: 20分钟", "载重: 1.5kg"],
-        specsEn: ["Gimbal: 3-axis", "Camera: RED/BMPCC", "Flight Time: 20min", "Payload: 1.5kg"],
+        nameKey: 'fpvCategory.cinematic.product2.name',
+        descriptionKey: 'fpvCategory.cinematic.product2.description',
+        specsKeys: ['fpvCategory.cinematic.product2.spec1', 'fpvCategory.cinematic.product2.spec2', 'fpvCategory.cinematic.product2.spec3', 'fpvCategory.cinematic.product2.spec4'],
         image: "https://images.unsplash.com/photo-1527977966376-1c8408f9f108?w=600&q=80",
         price: "¥8,999",
-        features: ["3轴增稳", "专业相机", "影视级", "静音设计"],
-        featuresEn: ["3-Axis Stabilization", "Pro Camera", "Cinema Grade", "Quiet Design"],
+        featuresKeys: ['fpvCategory.cinematic.product2.feature1', 'fpvCategory.cinematic.product2.feature2', 'fpvCategory.cinematic.product2.feature3', 'fpvCategory.cinematic.product2.feature4'],
       },
       {
-        name: "CL-C10 航拍旗舰",
-        nameEn: "CL-C10 Cine Flagship",
-        description: "10寸旗舰航拍机，电影级拍摄平台",
-        descriptionEn: "10-inch flagship cine drone, cinema filming platform",
-        specs: ["云台: 3轴陀螺", "相机: 电影机", "续航: 25分钟", "载重: 3kg"],
-        specsEn: ["Gimbal: 3-Axis Gyro", "Camera: Cinema", "Flight Time: 25min", "Payload: 3kg"],
+        nameKey: 'fpvCategory.cinematic.product3.name',
+        descriptionKey: 'fpvCategory.cinematic.product3.description',
+        specsKeys: ['fpvCategory.cinematic.product3.spec1', 'fpvCategory.cinematic.product3.spec2', 'fpvCategory.cinematic.product3.spec3', 'fpvCategory.cinematic.product3.spec4'],
         image: "https://images.unsplash.com/photo-1506947411487-a56738267384?w=600&q=80",
         price: "¥15,999",
-        features: ["电影级平台", "超强载荷", "精准控制", "专业团队支持"],
-        featuresEn: ["Cinema Platform", "Heavy Lift", "Precise Control", "Pro Team Support"],
+        featuresKeys: ['fpvCategory.cinematic.product3.feature1', 'fpvCategory.cinematic.product3.feature2', 'fpvCategory.cinematic.product3.feature3', 'fpvCategory.cinematic.product3.feature4'],
       },
     ],
   },
@@ -256,8 +181,7 @@ const categoryData: Record<string, {
 
 const FPVCategory = () => {
   const { category } = useParams<{ category: string }>();
-  const { language, t } = useLanguage();
-  const isEn = language === 'en';
+  const { t } = useLanguage();
   const data = category ? categoryData[category] : null;
 
   if (!data) {
@@ -280,9 +204,9 @@ const FPVCategory = () => {
   return (
     <div className="min-h-screen">
       <MultiLanguageSEO
-        title={isEn ? data.titleEn : data.title}
-        description={isEn ? data.descriptionEn : data.description}
-        keywords={`FPV,${isEn ? data.titleEn : data.title}`}
+        title={t(data.titleKey)}
+        description={t(data.descriptionKey)}
+        keywords={`FPV,${t(data.titleKey)}`}
         path={`/fpv/${category}`}
       />
       <Header />
@@ -295,7 +219,7 @@ const FPVCategory = () => {
               <span>/</span>
               <Link to="/fpv" className="hover:text-accent">{t('nav.fpv')}</Link>
               <span>/</span>
-              <span className="text-foreground">{isEn ? data.titleEn : data.title}</span>
+              <span className="text-foreground">{t(data.titleKey)}</span>
             </div>
           </div>
         </div>
@@ -312,10 +236,10 @@ const FPVCategory = () => {
             <div className="max-w-2xl">
               <BackButton to="/fpv" label={t('fpvCategory.backToFpv')} />
               <h1 className="text-3xl md:text-5xl font-bold text-primary-foreground mb-4">
-                {isEn ? data.titleEn : data.title}
+                {t(data.titleKey)}
               </h1>
               <p className="text-lg text-primary-foreground/90">
-                {isEn ? data.descriptionEn : data.description}
+                {t(data.descriptionKey)}
               </p>
             </div>
           </div>
@@ -337,24 +261,24 @@ const FPVCategory = () => {
                   <div className="aspect-[4/3] overflow-hidden relative">
                     <img
                       src={product.image}
-                      alt={isEn ? product.nameEn : product.name}
+                      alt={t(product.nameKey)}
                       className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                     />
                   </div>
                   <div className="p-6">
                     <h3 className="text-xl font-bold text-card-foreground mb-2">
-                      {isEn ? product.nameEn : product.name}
+                      {t(product.nameKey)}
                     </h3>
                     <p className="text-muted-foreground mb-4 text-sm">
-                      {isEn ? product.descriptionEn : product.description}
+                      {t(product.descriptionKey)}
                     </p>
                     
                     {/* Specs */}
                     <div className="bg-secondary/50 rounded-xl p-4 mb-4">
                       <div className="grid grid-cols-2 gap-2">
-                        {(isEn ? product.specsEn : product.specs).map((spec, i) => (
+                        {product.specsKeys.map((specKey, i) => (
                           <div key={i} className="text-xs text-foreground/80">
-                            {spec}
+                            {t(specKey)}
                           </div>
                         ))}
                       </div>
@@ -362,10 +286,10 @@ const FPVCategory = () => {
 
                     {/* Features */}
                     <div className="flex flex-wrap gap-2 mb-4">
-                      {(isEn ? product.featuresEn : product.features).map((feature, i) => (
+                      {product.featuresKeys.map((featureKey, i) => (
                         <span key={i} className="inline-flex items-center gap-1 text-xs bg-accent/10 text-accent px-2 py-1 rounded-full">
                           <CheckCircle className="w-3 h-3" />
-                          {feature}
+                          {t(featureKey)}
                         </span>
                       ))}
                     </div>
