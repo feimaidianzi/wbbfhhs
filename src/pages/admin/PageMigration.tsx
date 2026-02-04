@@ -15,17 +15,6 @@ interface PageInfo {
   status: 'pending' | 'migrated';
 }
 
-// 已知已迁移的页面列表 (使用t()函数的页面)
-const MIGRATED_PAGES = new Set([
-  'src/pages/custom-research/Software.tsx',
-  'src/pages/custom-research/PayloadCustom.tsx',
-  'src/pages/custom-research/DroneCustom.tsx',
-  'src/pages/custom-research/AccessoriesCustom.tsx',
-  'src/pages/custom-research/AirportCustom.tsx',
-  'src/pages/custom-research/SwarmCustom.tsx',
-  'src/pages/applications/Power.tsx',
-]);
-
 // 所有可能需要检查的产品页面
 const ALL_PRODUCT_PAGES = [
   // 产品页面 - 系留无人机
@@ -81,9 +70,10 @@ const PageMigration = () => {
   const [selectedPages, setSelectedPages] = useState<Set<string>>(new Set());
   const [isScanning, setIsScanning] = useState(false);
   const [scanComplete, setScanComplete] = useState(false);
+  const [migratedPages, setMigratedPages] = useState<Set<string>>(new Set());
 
   // 从数据库加载已迁移的页面记录
-  const loadMigratedPages = async () => {
+  const loadMigratedPages = async (): Promise<Set<string>> => {
     try {
       const { data } = await supabase
         .from('system_settings')
@@ -93,11 +83,12 @@ const PageMigration = () => {
       
       if (data?.value) {
         const migratedList = JSON.parse(data.value) as string[];
-        migratedList.forEach(p => MIGRATED_PAGES.add(p));
+        return new Set(migratedList);
       }
     } catch (error) {
       console.error('Failed to load migrated pages:', error);
     }
+    return new Set();
   };
 
   // 扫描未迁移的页面
@@ -106,11 +97,12 @@ const PageMigration = () => {
     setScanComplete(false);
     setPages([]);
 
-    await loadMigratedPages();
+    const loadedMigrated = await loadMigratedPages();
+    setMigratedPages(loadedMigrated);
 
     // 过滤出未迁移的页面
     const unmigrated: PageInfo[] = ALL_PRODUCT_PAGES
-      .filter(p => !MIGRATED_PAGES.has(p.path))
+      .filter(p => !loadedMigrated.has(p.path))
       .map(p => ({
         ...p,
         status: 'pending' as const,
@@ -133,9 +125,10 @@ const PageMigration = () => {
   // 标记页面为已迁移
   const markAsMigrated = async (paths: string[]) => {
     try {
-      paths.forEach(p => MIGRATED_PAGES.add(p));
+      const newMigrated = new Set(migratedPages);
+      paths.forEach(p => newMigrated.add(p));
       
-      const migratedArray = Array.from(MIGRATED_PAGES);
+      const migratedArray = Array.from(newMigrated);
       await supabase
         .from('system_settings')
         .upsert({
@@ -144,6 +137,7 @@ const PageMigration = () => {
           description: '已迁移到t()函数的页面列表',
         }, { onConflict: 'key' });
 
+      setMigratedPages(newMigrated);
       setPages(prev => prev.filter(p => !paths.includes(p.path)));
       setSelectedPages(new Set());
       
@@ -213,7 +207,7 @@ const PageMigration = () => {
           </Card>
           <Card>
             <CardContent className="pt-6">
-              <div className="text-3xl font-bold text-green-500">{MIGRATED_PAGES.size}</div>
+              <div className="text-3xl font-bold text-green-500">{migratedPages.size}</div>
               <div className="text-sm text-muted-foreground">已迁移</div>
             </CardContent>
           </Card>
