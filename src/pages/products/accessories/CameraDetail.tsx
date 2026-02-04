@@ -1,4 +1,4 @@
-import { useParams, Link } from "react-router-dom";
+import { useParams, Link, Navigate } from "react-router-dom";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { FloatingContact } from "@/components/FloatingContact";
@@ -47,8 +47,8 @@ const CameraDetail = () => {
   return (
     <>
       <SEO
-        title={`${product.name} - ${t('company.name')}`}
-        description={`${product.slogan}。${product.highlights.join("，")}`}
+        title={`${t(product.nameKey)} - ${t('company.name')}`}
+        description={`${t(product.sloganKey)}。${product.highlightKeys.map(k => t(k)).join("，")}`}
         keywords={`${product.model},${t('accessoryDetail.cameraKeywords')}`}
       />
       <Header />
@@ -62,16 +62,16 @@ const CameraDetail = () => {
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center mt-8">
               <div className="order-2 lg:order-1">
                 <h1 className="text-4xl md:text-5xl font-bold mb-4">
-                  {product.slogan}
+                  {t(product.sloganKey)}
                 </h1>
-                <p className="text-xl text-white/80 mb-6">{product.subSlogan}</p>
+                <p className="text-xl text-white/80 mb-6">{t(product.subSloganKey)}</p>
                 
                 {/* Key Features */}
                 <div className="grid grid-cols-5 gap-3 mb-8">
                   {product.keyFeatures.map((feature, idx) => (
                     <div key={idx} className="text-center p-3 bg-white/10 rounded-lg border border-white/20">
                       <div className="text-lg font-bold text-white">{feature.value}</div>
-                      <div className="text-xs text-white/70">{feature.label}</div>
+                      <div className="text-xs text-white/70">{t(feature.labelKey)}</div>
                     </div>
                   ))}
                 </div>
@@ -92,7 +92,7 @@ const CameraDetail = () => {
                   <div className="aspect-square bg-gradient-to-br from-white/10 to-white/5 rounded-2xl p-8 backdrop-blur-sm border border-white/10">
                     <img
                       src={product.image}
-                      alt={product.name}
+                      alt={t(product.nameKey)}
                       className="w-full h-full object-contain"
                     />
                   </div>
@@ -225,18 +225,21 @@ const CameraDetail = () => {
               </p>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {product.features.map((feature, idx) => (
-                <div
-                  key={idx}
-                  className="p-6 bg-card rounded-xl border border-border hover:border-primary/50 hover:shadow-lg transition-all"
-                >
-                  <div className="w-16 h-16 bg-primary/10 rounded-xl flex items-center justify-center text-primary mb-4">
-                    {featureIcons[feature.title] || <Camera className="w-8 h-8" />}
+              {product.features.map((feature, idx) => {
+                const titleText = t(feature.titleKey);
+                return (
+                  <div
+                    key={idx}
+                    className="p-6 bg-card rounded-xl border border-border hover:border-primary/50 hover:shadow-lg transition-all"
+                  >
+                    <div className="w-16 h-16 bg-primary/10 rounded-xl flex items-center justify-center text-primary mb-4">
+                      {featureIcons[titleText] || <Camera className="w-8 h-8" />}
+                    </div>
+                    <h3 className="text-lg font-semibold mb-2">{t(feature.titleKey)}</h3>
+                    <p className="text-muted-foreground text-sm">{t(feature.descriptionKey)}</p>
                   </div>
-                  <h3 className="text-lg font-semibold mb-2">{feature.title}</h3>
-                  <p className="text-muted-foreground text-sm">{feature.description}</p>
-                </div>
-              ))}
+                );
+              })}
             </div>
           </div>
         </section>
@@ -274,14 +277,14 @@ const CameraDetail = () => {
                 {product.specs.map((specGroup, idx) => (
                   <div key={idx} className="bg-card rounded-xl border border-border overflow-hidden">
                     <div className="px-6 py-4 bg-muted/50 border-b border-border">
-                      <h3 className="font-semibold">{specGroup.category}</h3>
+                      <h3 className="font-semibold">{t(specGroup.categoryKey)}</h3>
                     </div>
                     <div className="p-6">
                       <table className="w-full">
                         <tbody>
                           {specGroup.items.map((item, itemIdx) => (
                             <tr key={itemIdx} className="border-b border-border last:border-0">
-                              <td className="py-3 text-muted-foreground text-sm w-1/3">{item.label}</td>
+                              <td className="py-3 text-muted-foreground text-sm w-1/3">{t(item.labelKey)}</td>
                               <td className="py-3 text-sm">{item.value}</td>
                             </tr>
                           ))}
@@ -305,10 +308,10 @@ const CameraDetail = () => {
                   {t('accessoryDetail.camera.accessoriesDesc')}
                 </p>
                 <div className="grid grid-cols-2 gap-3">
-                  {product.packageContents.map((item, idx) => (
+                  {product.packageContentKeys.map((itemKey, idx) => (
                     <div key={idx} className="flex items-center gap-2 text-sm">
                       <Check className="w-4 h-4 text-primary flex-shrink-0" />
-                      <span>{item}</span>
+                      <span>{t(itemKey)}</span>
                     </div>
                   ))}
                 </div>
