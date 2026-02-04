@@ -54,7 +54,7 @@ const iconMap: Record<string, React.ComponentType<{ className?: string }>> = {
 const OtherAccessoriesDetail = () => {
   const { productId } = useParams<{ productId: string }>();
   const product = otherAccessoriesProducts.find(p => p.id === productId);
-  const { language } = useLanguage();
+  const { language, t } = useLanguage();
   const isEn = language === 'en';
 
   if (!product) {
@@ -74,11 +74,11 @@ const OtherAccessoriesDetail = () => {
         <div className="bg-secondary py-4">
           <div className="container-custom">
             <div className="flex items-center gap-2 text-sm text-muted-foreground flex-wrap">
-              <Link to="/" className="hover:text-accent">{isEn ? "Home" : "首页"}</Link>
+              <Link to="/" className="hover:text-accent">{t('nav.home')}</Link>
               <span>/</span>
-              <Link to="/products/accessories" className="hover:text-accent">{isEn ? "Accessories" : "配件及设备"}</Link>
+              <Link to="/products/accessories" className="hover:text-accent">{t('nav.products')}</Link>
               <span>/</span>
-              <Link to="/products/accessories/others" className="hover:text-accent">{isEn ? "Other Accessories" : "其他配件"}</Link>
+              <Link to="/products/accessories/others" className="hover:text-accent">{t('accessory.others')}</Link>
               <span>/</span>
               <span className="text-foreground">{product.name}</span>
             </div>
@@ -130,14 +130,14 @@ const OtherAccessoriesDetail = () => {
                     <Link to="/contact">
                       <Button className="bg-accent hover:bg-accent/90 text-accent-foreground px-6 py-3">
                         <Phone className="w-4 h-4 mr-2" />
-                        {isEn ? "Inquire Now" : "立即咨询"}
+                        {t('accessoryDetail.inquireNow')}
                       </Button>
                     </Link>
                     <Button 
                       variant="outline" 
                       className="border-white/50 text-white hover:bg-white/10 px-6 py-3"
                     >
-                      {isEn ? "Download Manual" : "下载手册"}
+                      {t('accessoryDetail.downloadManual')}
                     </Button>
                   </div>
                 </div>
@@ -149,7 +149,7 @@ const OtherAccessoriesDetail = () => {
         {/* Features Section */}
         <section className="py-16 bg-background">
           <div className="container-custom">
-            <h2 className="text-2xl md:text-3xl font-bold text-center mb-12">{isEn ? "Product Features" : "产品特性"}</h2>
+            <h2 className="text-2xl md:text-3xl font-bold text-center mb-12">{t('accessoryDetail.productFeatures')}</h2>
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
               {product.features.map((feature, index) => {
                 const IconComponent = iconMap[feature.title] || Check;
@@ -173,7 +173,7 @@ const OtherAccessoriesDetail = () => {
         {/* Specifications Section */}
         <section className="py-16 bg-secondary">
           <div className="container-custom">
-            <h2 className="text-2xl md:text-3xl font-bold text-center mb-12">{isEn ? "Technical Specifications" : "技术规格"}</h2>
+            <h2 className="text-2xl md:text-3xl font-bold text-center mb-12">{t('accessoryDetail.techSpecs')}</h2>
             <div className="max-w-4xl mx-auto">
               <div className="bg-card rounded-2xl overflow-hidden shadow-lg">
                 {product.specs.map((specGroup, groupIndex) => (
@@ -200,23 +200,21 @@ const OtherAccessoriesDetail = () => {
         <section className="py-16 bg-primary">
           <div className="container-custom text-center">
             <h2 className="text-2xl md:text-3xl font-bold text-primary-foreground mb-4">
-              {isEn ? "Need More Information?" : "需要更多信息？"}
+              {t('accessoryDetail.needMoreInfo')}
             </h2>
             <p className="text-primary-foreground/80 mb-8 max-w-2xl mx-auto">
-              {isEn 
-                ? "Contact us for detailed product information, technical support or bulk purchase quotes"
-                : "联系我们获取详细产品资料、技术支持或批量采购报价"}
+              {t('accessoryDetail.contactDesc')}
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link to="/contact">
                 <Button className="bg-accent hover:bg-accent/90 text-accent-foreground px-8 py-6 text-lg">
-                  {isEn ? "Contact Us" : "联系我们"}
+                  {t('contact.title')}
                   <ArrowRight className="w-5 h-5 ml-2" />
                 </Button>
               </Link>
               <Link to="/products/accessories/others">
                 <Button className="bg-primary-foreground/20 border border-primary-foreground/50 text-primary-foreground hover:bg-primary-foreground/30 px-8 py-6 text-lg">
-                  {isEn ? "View All Accessories" : "查看全部配件"}
+                  {t('accessoryDetail.viewMoreProducts')}
                 </Button>
               </Link>
             </div>
