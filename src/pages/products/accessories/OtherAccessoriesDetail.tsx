@@ -77,7 +77,7 @@ const OtherAccessoriesDetail = () => {
         <BackButton to="/products/accessories/others" />
 
         {/* Hero Section */}
-        <section className="relative py-16 md:py-24 overflow-hidden bg-gradient-to-br from-primary via-primary/95 to-accent/20">
+        <section className="relative pt-12 pb-16 md:pt-16 md:pb-24 overflow-hidden bg-gradient-to-br from-primary via-primary/95 to-accent/20">
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_70%_30%,rgba(255,255,255,0.08),transparent_50%)]" />
           <div className="relative container-custom">
             <div className="grid lg:grid-cols-2 gap-12 items-center">
@@ -138,7 +138,7 @@ const OtherAccessoriesDetail = () => {
         </section>
 
         {/* Features Section */}
-        <section className="py-16 bg-background">
+        <section className="py-20 bg-background">
           <div className="container-custom">
             <h2 className="text-2xl md:text-3xl font-bold text-center mb-12">{t('accessoryDetail.productFeatures')}</h2>
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -162,7 +162,7 @@ const OtherAccessoriesDetail = () => {
         </section>
 
         {/* Specifications Section */}
-        <section className="py-16 bg-secondary">
+        <section className="py-20 bg-secondary">
           <div className="container-custom">
             <h2 className="text-2xl md:text-3xl font-bold text-center mb-12">{t('accessoryDetail.techSpecs')}</h2>
             <div className="max-w-4xl mx-auto">
@@ -188,7 +188,7 @@ const OtherAccessoriesDetail = () => {
         </section>
 
         {/* CTA Section */}
-        <section className="py-16 bg-primary">
+        <section className="py-20 bg-primary">
           <div className="container-custom text-center">
             <h2 className="text-2xl md:text-3xl font-bold text-primary-foreground mb-4">
               {t('accessoryDetail.needMoreInfo')}
