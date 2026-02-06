@@ -747,10 +747,10 @@ export const escProducts: FcEscProduct[] = [
     name: "FlyMind Pro 100A电调",
     model: "FlyMind Pro 100A 4-in-1",
     category: "四合一电调",
-    image: "https://ueeshop.ly200-cdn.com/u_file/UPBD/UPBD023/2509/25/products/8.jpg",
+    image: "/src/assets/products/esc-100a-1.jpg",
     images: [
-      "https://ueeshop.ly200-cdn.com/u_file/UPBD/UPBD023/2509/25/products/8.jpg",
-      "https://ueeshop.ly200-cdn.com/u_file/UPBD/UPBD023/2509/25/products/8-140337a484.jpg"
+      "/src/assets/products/esc-100a-1.jpg",
+      "/src/assets/products/esc-100a-2.jpg"
     ],
     price: "¥959",
     highlights: [
