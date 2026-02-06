@@ -289,7 +289,11 @@ export const stackProducts: FcEscProduct[] = [
     category: "飞塔",
     image: "https://ueeshop.ly200-cdn.com/u_file/UPBD/UPBD023/2508/04/products/1-1-1417311ad5.jpg",
     images: [
-      "https://ueeshop.ly200-cdn.com/u_file/UPBD/UPBD023/2508/04/products/1-1-1417311ad5.jpg"
+      "https://ueeshop.ly200-cdn.com/u_file/UPBD/UPBD023/2508/04/products/1-1-1417311ad5.jpg",
+      "/src/assets/products/fc-esc-80a.jpg",
+      "/src/assets/products/fc-esc-100a.jpg",
+      "/src/assets/products/fc-esc-100a-angle.jpg",
+      "/src/assets/products/fc-esc-pcb-back.jpg"
     ],
     price: "¥959",
     highlights: [
