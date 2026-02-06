@@ -703,13 +703,13 @@ export const escProducts: FcEscProduct[] = [
     name: "FlyMind Pro 80A电调",
     model: "FlyMind Pro 80A 4-in-1",
     category: "四合一电调",
-    image: "https://ueeshop.ly200-cdn.com/u_file/UPBD/UPBD023/2509/25/products/32.jpg",
+    image: "/src/assets/products/esc-80a-1.jpg",
     images: [
-      "https://ueeshop.ly200-cdn.com/u_file/UPBD/UPBD023/2509/25/products/32.jpg",
-      "https://ueeshop.ly200-cdn.com/u_file/UPBD/UPBD023/2509/25/products/32-140338e471.jpg",
-      "https://ueeshop.ly200-cdn.com/u_file/UPBD/UPBD023/2509/25/products/5.jpg",
-      "https://ueeshop.ly200-cdn.com/u_file/UPBD/UPBD023/2509/25/products/8.jpg",
-      "https://ueeshop.ly200-cdn.com/u_file/UPBD/UPBD023/2509/25/products/8-140337a484.jpg"
+      "/src/assets/products/esc-80a-1.jpg",
+      "/src/assets/products/esc-80a-2.jpg",
+      "/src/assets/products/esc-80a-3.jpg",
+      "/src/assets/products/esc-80a-4.jpg",
+      "/src/assets/products/esc-80a-5.jpg"
     ],
     price: "¥759",
     highlights: [
