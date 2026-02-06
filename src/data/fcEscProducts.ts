@@ -616,14 +616,14 @@ export const escProducts: FcEscProduct[] = [
     name: "FlyMind 55/65A电调",
     model: "FlyMind 55/65A 4-in-1",
     category: "四合一电调",
-    image: "https://ueeshop.ly200-cdn.com/u_file/UPBD/UPBD023/2409/23/products/c3752e8785.jpg",
+    image: "/src/assets/products/esc-55a-1.jpg",
     images: [
-      "https://ueeshop.ly200-cdn.com/u_file/UPBD/UPBD023/2409/23/products/c3752e8785.jpg",
-      "https://ueeshop.ly200-cdn.com/u_file/UPBD/UPBD023/2411/12/products/2d582af826.jpg",
-      "https://ueeshop.ly200-cdn.com/u_file/UPBD/UPBD023/2409/23/products/b4f0560c14.jpg",
-      "https://ueeshop.ly200-cdn.com/u_file/UPBD/UPBD023/2409/23/products/0f437bc9de.jpg",
-      "https://ueeshop.ly200-cdn.com/u_file/UPBD/UPBD023/2409/23/products/8b9a27ef6c.jpg",
-      "https://ueeshop.ly200-cdn.com/u_file/UPBD/UPBD023/2409/25/products/646d8e03a9.jpg"
+      "/src/assets/products/esc-55a-1.jpg",
+      "/src/assets/products/esc-55a-2.jpg",
+      "/src/assets/products/esc-55a-3.jpg",
+      "/src/assets/products/esc-55a-4.jpg",
+      "/src/assets/products/esc-55a-5.jpg",
+      "/src/assets/products/esc-55a-6.jpg"
     ],
     price: "¥449",
     highlights: [
