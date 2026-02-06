@@ -565,14 +565,14 @@ export const flightControllerProducts: FcEscProduct[] = [
     name: "FlyMind F7飞控",
     model: "FlyMind F722",
     category: "飞控",
-    image: "https://ueeshop.ly200-cdn.com/u_file/UPBD/UPBD023/2409/23/products/3360a61357.jpg",
+    image: "/src/assets/products/fc-f722-1.jpg",
     images: [
-      "https://ueeshop.ly200-cdn.com/u_file/UPBD/UPBD023/2409/23/products/3360a61357.jpg",
-      "https://ueeshop.ly200-cdn.com/u_file/UPBD/UPBD023/2409/23/products/6a98280f00.jpg",
-      "https://ueeshop.ly200-cdn.com/u_file/UPBD/UPBD023/2409/23/products/ed29dbe500.jpg",
-      "https://ueeshop.ly200-cdn.com/u_file/UPBD/UPBD023/2409/23/products/13a0e0ac03.jpg",
-      "https://ueeshop.ly200-cdn.com/u_file/UPBD/UPBD023/2409/23/products/bd9e0ae648.jpg",
-      "https://ueeshop.ly200-cdn.com/u_file/UPBD/UPBD023/2409/23/products/050fdf3226.jpg"
+      "/src/assets/products/fc-f722-1.jpg",
+      "/src/assets/products/fc-f722-2.jpg",
+      "/src/assets/products/fc-f722-3.jpg",
+      "/src/assets/products/fc-f722-4.jpg",
+      "/src/assets/products/fc-f722-5.jpg",
+      "/src/assets/products/fc-f722-6.jpg"
     ],
     price: "¥399",
     highlights: [
