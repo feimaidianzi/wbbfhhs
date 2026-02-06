@@ -519,12 +519,12 @@ export const flightControllerProducts: FcEscProduct[] = [
     name: "FlyMind F405飞控",
     model: "FlyMind F405",
     category: "飞控",
-    image: "https://ueeshop.ly200-cdn.com/u_file/UPBD/UPBD023/2509/25/products/2.jpg",
+    image: "/src/assets/products/fc-f405-1.jpg",
     images: [
-      "https://ueeshop.ly200-cdn.com/u_file/UPBD/UPBD023/2509/25/products/2.jpg",
-      "https://ueeshop.ly200-cdn.com/u_file/UPBD/UPBD023/2509/25/products/1.jpg",
+      "/src/assets/products/fc-f405-1.jpg",
+      "/src/assets/products/fc-f405-2.jpg",
       "https://ueeshop.ly200-cdn.com/u_file/UPBD/UPBD023/2509/25/products/3.jpg",
-      "https://ueeshop.ly200-cdn.com/u_file/UPBD/UPBD023/2509/25/products/4.jpg"
+      "/src/assets/products/fc-f405-4.jpg"
     ],
     price: "¥229",
     highlights: [
