@@ -361,13 +361,12 @@ export const sixInOneEscProducts: FcEscProduct[] = [
     name: "FlyMind六合一80A电调",
     model: "FlyMind 6-in-1 80A",
     category: "六合一电调",
-    image: "https://ueeshop.ly200-cdn.com/u_file/UPBD/UPBD023/2510/31/products/1.jpg",
+    image: "/src/assets/products/fc-esc-80a.jpg",
     images: [
-      "https://ueeshop.ly200-cdn.com/u_file/UPBD/UPBD023/2510/31/products/1.jpg",
-      "https://ueeshop.ly200-cdn.com/u_file/UPBD/UPBD023/2510/31/products/1-.jpg",
-      "https://ueeshop.ly200-cdn.com/u_file/UPBD/UPBD023/2510/31/products/3.jpg",
-      "https://ueeshop.ly200-cdn.com/u_file/UPBD/UPBD023/2510/31/products/4.jpg",
-      "https://ueeshop.ly200-cdn.com/u_file/UPBD/UPBD023/2510/31/products/5.jpg"
+      "/src/assets/products/fc-esc-80a.jpg",
+      "/src/assets/products/fc-esc-pcb-back.jpg",
+      "/src/assets/products/fc-esc-100a.jpg",
+      "/src/assets/products/fc-esc-100a-angle.jpg"
     ],
     price: "¥729",
     highlights: [
@@ -406,10 +405,12 @@ export const sixInOneEscProducts: FcEscProduct[] = [
     name: "FlyMind六合一100A电调",
     model: "FlyMind 6-in-1 100A",
     category: "六合一电调",
-    image: "https://ueeshop.ly200-cdn.com/u_file/UPBD/UPBD023/2510/31/products/4.jpg",
+    image: "/src/assets/products/fc-esc-100a.jpg",
     images: [
-      "https://ueeshop.ly200-cdn.com/u_file/UPBD/UPBD023/2510/31/products/4.jpg",
-      "https://ueeshop.ly200-cdn.com/u_file/UPBD/UPBD023/2510/31/products/5.jpg"
+      "/src/assets/products/fc-esc-100a.jpg",
+      "/src/assets/products/fc-esc-100a-angle.jpg",
+      "/src/assets/products/fc-esc-80a.jpg",
+      "/src/assets/products/fc-esc-pcb-back.jpg"
     ],
     price: "¥899",
     highlights: [
