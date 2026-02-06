@@ -661,10 +661,10 @@ export const escProducts: FcEscProduct[] = [
     name: "FlyMind ECO 60A V2电调",
     model: "FlyMind ECO 60A V2",
     category: "四合一电调",
-    image: "https://ueeshop.ly200-cdn.com/u_file/UPBD/UPBD023/2411/09/products/ab393fb2ff.jpg",
+    image: "/src/assets/products/esc-60a-1.jpg",
     images: [
-      "https://ueeshop.ly200-cdn.com/u_file/UPBD/UPBD023/2411/09/products/ab393fb2ff.jpg",
-      "https://ueeshop.ly200-cdn.com/u_file/UPBD/UPBD023/2411/09/products/09c807f148.jpg",
+      "/src/assets/products/esc-60a-1.jpg",
+      "/src/assets/products/esc-60a-2.jpg",
       "https://ueeshop.ly200-cdn.com/u_file/UPBD/UPBD023/2411/09/products/fcecd99917.jpg"
     ],
     price: "¥335",
