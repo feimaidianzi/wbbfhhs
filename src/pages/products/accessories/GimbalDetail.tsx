@@ -10,41 +10,34 @@ import { getGimbalProductById } from "@/data/gimbalProducts";
 import { useState } from "react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useLanguage } from "@/contexts/LanguageContext";
-
 const GimbalDetail = () => {
-  const { productId } = useParams<{ productId: string }>();
+  const {
+    productId
+  } = useParams<{
+    productId: string;
+  }>();
   const product = productId ? getGimbalProductById(productId) : null;
   const [selectedImage, setSelectedImage] = useState(0);
-  const { t } = useLanguage();
-
+  const {
+    t
+  } = useLanguage();
   if (!product) {
     return <Navigate to="/products/accessories/gimbal" replace />;
   }
-
   const images = product.images || [product.image];
-
-  return (
-    <>
-      <SEO 
-        title={`${t(product.nameKey)} - ${t('company.name')}`}
-        description={`${t(product.nameKey)}，${t(product.categoryKey)}，${product.highlightKeys.slice(0, 3).map(k => t(k)).join('，')}，${t('accessoryDetail.gimbal.seoDesc')}`}
-      />
+  return <>
+      <SEO title={`${t(product.nameKey)} - ${t('company.name')}`} description={`${t(product.nameKey)}，${t(product.categoryKey)}，${product.highlightKeys.slice(0, 3).map(k => t(k)).join('，')}，${t('accessoryDetail.gimbal.seoDesc')}`} />
       <Header />
       <main className="min-h-screen bg-background">
         <BackButton to="/products/accessories/gimbal" />
 
         {/* Hero Section with slogan */}
-        {product.sloganKey && (
-          <section className="pt-20 pb-16 bg-gradient-to-br from-zinc-900 via-zinc-800 to-zinc-900 text-white">
+        {product.sloganKey && <section className="pt-20 pb-16 bg-gradient-to-br from-zinc-900 via-zinc-800 to-zinc-900 text-white">
             <div className="container mx-auto px-4">
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
                 {/* Product Image */}
                 <div className="flex items-center justify-center">
-                  <img 
-                    src={images[selectedImage]} 
-                    alt={t(product.nameKey)}
-                    className="max-h-[400px] max-w-full object-contain drop-shadow-2xl"
-                  />
+                  <img src={images[selectedImage]} alt={t(product.nameKey)} className="max-h-[400px] max-w-full object-contain drop-shadow-2xl" />
                 </div>
                 
                 {/* Slogan & Key Features */}
@@ -52,30 +45,25 @@ const GimbalDetail = () => {
                   <h1 className="text-4xl md:text-5xl font-bold mb-2">{t(product.sloganKey)}</h1>
                   <p className="text-2xl text-zinc-400 mb-8">{product.subSloganKey ? t(product.subSloganKey) : ''}</p>
                   
-                  {product.keyFeatures && (
-                    <div className="grid grid-cols-2 gap-4 mb-8">
-                      {product.keyFeatures.map((feature, idx) => (
-                        <div key={idx} className="text-center p-4 bg-zinc-800/50 rounded-lg border border-zinc-700">
+                  {product.keyFeatures && <div className="grid grid-cols-2 gap-4 mb-8 bg-primary">
+                      {product.keyFeatures.map((feature, idx) => <div key={idx} className="text-center p-4 rounded-lg border border-zinc-700 bg-primary-foreground">
                           <div className="text-2xl md:text-3xl font-bold text-primary mb-1">{feature.value}</div>
                           <div className="text-sm text-zinc-400">{t(feature.labelKey)}</div>
-                        </div>
-                      ))}
-                    </div>
-                  )}
+                        </div>)}
+                    </div>}
                   
                   <div className="flex justify-center lg:justify-start gap-4">
                     <Button size="lg" asChild>
                       <Link to="/contact">{t('accessoryDetail.getQuote')}</Link>
                     </Button>
-                    <Button size="lg" variant="outline" className="border-zinc-400 text-white hover:bg-zinc-800 hover:text-white" asChild>
+                    <Button size="lg" variant="outline" className="border-zinc-600 hover:bg-zinc-800" asChild>
                       <a href="#specs">{t('accessoryDetail.viewSpecs')}</a>
                     </Button>
                   </div>
                 </div>
               </div>
             </div>
-          </section>
-        )}
+          </section>}
 
         {/* Product Info Section */}
         <section className="py-20 bg-gradient-to-br from-primary/5 via-background to-background">
@@ -84,27 +72,13 @@ const GimbalDetail = () => {
               {/* Product Images */}
               <div className="space-y-4">
                 <div className="bg-card rounded-2xl p-8 border border-border aspect-square flex items-center justify-center">
-                  <img 
-                    src={images[selectedImage]} 
-                    alt={t(product.nameKey)}
-                    className="max-h-full max-w-full object-contain"
-                  />
+                  <img src={images[selectedImage]} alt={t(product.nameKey)} className="max-h-full max-w-full object-contain" />
                 </div>
-                {images.length > 1 && (
-                  <div className="flex gap-2 overflow-x-auto pb-2">
-                    {images.map((img, idx) => (
-                      <button
-                        key={idx}
-                        onClick={() => setSelectedImage(idx)}
-                        className={`flex-shrink-0 w-20 h-20 rounded-lg border-2 overflow-hidden transition-all ${
-                          selectedImage === idx ? 'border-primary' : 'border-border hover:border-primary/50'
-                        }`}
-                      >
+                {images.length > 1 && <div className="flex gap-2 overflow-x-auto pb-2">
+                    {images.map((img, idx) => <button key={idx} onClick={() => setSelectedImage(idx)} className={`flex-shrink-0 w-20 h-20 rounded-lg border-2 overflow-hidden transition-all ${selectedImage === idx ? 'border-primary' : 'border-border hover:border-primary/50'}`}>
                         <img src={img} alt={`${t(product.nameKey)} ${idx + 1}`} className="w-full h-full object-cover" />
-                      </button>
-                    ))}
-                  </div>
-                )}
+                      </button>)}
+                  </div>}
               </div>
 
               {/* Product Info */}
@@ -118,12 +92,10 @@ const GimbalDetail = () => {
                 
                 {/* Highlights */}
                 <div className="space-y-2 mb-8">
-                  {product.highlightKeys.map((highlightKey, idx) => (
-                    <div key={idx} className="flex items-start gap-2">
+                  {product.highlightKeys.map((highlightKey, idx) => <div key={idx} className="flex items-start gap-2">
                       <Check className="w-5 h-5 text-primary mt-0.5 flex-shrink-0" />
                       <span>{t(highlightKey)}</span>
-                    </div>
-                  ))}
+                    </div>)}
                 </div>
 
                 <div className="flex gap-4">
@@ -144,36 +116,19 @@ const GimbalDetail = () => {
           <div className="container mx-auto px-4">
             <Tabs defaultValue="specs" className="w-full">
               <TabsList className="w-full justify-start border-b rounded-none h-auto p-0 bg-transparent mb-8">
-                <TabsTrigger 
-                  value="specs" 
-                  className="rounded-none border-b-2 border-transparent data-[state=active]:border-primary data-[state=active]:bg-transparent px-6 py-3"
-                >
+                <TabsTrigger value="specs" className="rounded-none border-b-2 border-transparent data-[state=active]:border-primary data-[state=active]:bg-transparent px-6 py-3">
                   {t('accessoryDetail.techSpecs')}
                 </TabsTrigger>
-                <TabsTrigger 
-                  value="features" 
-                  className="rounded-none border-b-2 border-transparent data-[state=active]:border-primary data-[state=active]:bg-transparent px-6 py-3"
-                >
+                <TabsTrigger value="features" className="rounded-none border-b-2 border-transparent data-[state=active]:border-primary data-[state=active]:bg-transparent px-6 py-3">
                   {t('accessoryDetail.productFeatures')}
                 </TabsTrigger>
-                <TabsTrigger 
-                  value="applications" 
-                  className="rounded-none border-b-2 border-transparent data-[state=active]:border-primary data-[state=active]:bg-transparent px-6 py-3"
-                >
+                <TabsTrigger value="applications" className="rounded-none border-b-2 border-transparent data-[state=active]:border-primary data-[state=active]:bg-transparent px-6 py-3">
                   {t('accessoryDetail.applications')}
                 </TabsTrigger>
-                {product.downloads && product.downloads.length > 0 && (
-                  <TabsTrigger 
-                    value="downloads" 
-                    className="rounded-none border-b-2 border-transparent data-[state=active]:border-primary data-[state=active]:bg-transparent px-6 py-3"
-                  >
+                {product.downloads && product.downloads.length > 0 && <TabsTrigger value="downloads" className="rounded-none border-b-2 border-transparent data-[state=active]:border-primary data-[state=active]:bg-transparent px-6 py-3">
                     {t('accessoryDetail.downloads')}
-                  </TabsTrigger>
-                )}
-                <TabsTrigger 
-                  value="faq" 
-                  className="rounded-none border-b-2 border-transparent data-[state=active]:border-primary data-[state=active]:bg-transparent px-6 py-3"
-                >
+                  </TabsTrigger>}
+                <TabsTrigger value="faq" className="rounded-none border-b-2 border-transparent data-[state=active]:border-primary data-[state=active]:bg-transparent px-6 py-3">
                   {t('accessoryDetail.faq')}
                 </TabsTrigger>
               </TabsList>
@@ -182,44 +137,36 @@ const GimbalDetail = () => {
               <TabsContent value="specs" id="specs">
                 <div className="space-y-6">
                   {(() => {
-                    const categories = [...new Set(product.specs.map(s => s.categoryKey).filter(Boolean))];
-                    if (categories.length > 0) {
-                      return categories.map((categoryKey) => {
-                        const categorySpecs = product.specs.filter(s => s.categoryKey === categoryKey);
-                        return (
-                          <div key={categoryKey} className="bg-card rounded-xl border border-border overflow-hidden">
+                  const categories = [...new Set(product.specs.map(s => s.categoryKey).filter(Boolean))];
+                  if (categories.length > 0) {
+                    return categories.map(categoryKey => {
+                      const categorySpecs = product.specs.filter(s => s.categoryKey === categoryKey);
+                      return <div key={categoryKey} className="bg-card rounded-xl border border-border overflow-hidden">
                             <div className="px-6 py-3 bg-muted/50 border-b border-border">
                               <h4 className="font-semibold">{t(categoryKey!)}</h4>
                             </div>
                             <table className="w-full">
                               <tbody>
-                                {categorySpecs.map((spec, idx) => (
-                                  <tr key={idx} className="border-b border-border last:border-b-0">
+                                {categorySpecs.map((spec, idx) => <tr key={idx} className="border-b border-border last:border-b-0">
                                     <td className="px-6 py-4 font-medium bg-muted/30 w-1/3">{t(spec.labelKey)}</td>
                                     <td className="px-6 py-4">{spec.value}</td>
-                                  </tr>
-                                ))}
+                                  </tr>)}
                               </tbody>
                             </table>
-                          </div>
-                        );
-                      });
-                    }
-                    return (
-                      <div className="bg-card rounded-xl border border-border overflow-hidden">
+                          </div>;
+                    });
+                  }
+                  return <div className="bg-card rounded-xl border border-border overflow-hidden">
                         <table className="w-full">
                           <tbody>
-                            {product.specs.map((spec, idx) => (
-                              <tr key={idx} className="border-b border-border last:border-b-0">
+                            {product.specs.map((spec, idx) => <tr key={idx} className="border-b border-border last:border-b-0">
                                 <td className="px-6 py-4 font-medium bg-muted/30 w-1/3">{t(spec.labelKey)}</td>
                                 <td className="px-6 py-4">{spec.value}</td>
-                              </tr>
-                            ))}
+                              </tr>)}
                           </tbody>
                         </table>
-                      </div>
-                    );
-                  })()}
+                      </div>;
+                })()}
                 </div>
               </TabsContent>
 
@@ -229,70 +176,54 @@ const GimbalDetail = () => {
                   <div>
                     <h3 className="text-xl font-bold mb-4">{t('accessoryDetail.productDescription')}</h3>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                      {product.descriptionKeys.map((descKey, idx) => (
-                        <div key={idx} className="flex items-start gap-3 p-4 bg-card rounded-lg border border-border">
+                      {product.descriptionKeys.map((descKey, idx) => <div key={idx} className="flex items-start gap-3 p-4 bg-card rounded-lg border border-border">
                           <Check className="w-5 h-5 text-primary mt-0.5 flex-shrink-0" />
                           <span>{t(descKey)}</span>
-                        </div>
-                      ))}
+                        </div>)}
                     </div>
                   </div>
 
-                  {product.featureKeys && product.featureKeys.length > 0 && (
-                    <div>
+                  {product.featureKeys && product.featureKeys.length > 0 && <div>
                       <h3 className="text-xl font-bold mb-4">{t('accessoryDetail.featureHighlights')}</h3>
                       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                        {product.featureKeys.map((featureKey, idx) => (
-                          <div key={idx} className="flex items-start gap-3 p-4 bg-card rounded-lg border border-border">
+                        {product.featureKeys.map((featureKey, idx) => <div key={idx} className="flex items-start gap-3 p-4 bg-card rounded-lg border border-border">
                             <Check className="w-5 h-5 text-primary mt-0.5 flex-shrink-0" />
                             <span>{t(featureKey)}</span>
-                          </div>
-                        ))}
+                          </div>)}
                       </div>
-                    </div>
-                  )}
+                    </div>}
 
-                  {product.packageIncludeKeys && product.packageIncludeKeys.length > 0 && (
-                    <div>
+                  {product.packageIncludeKeys && product.packageIncludeKeys.length > 0 && <div>
                       <h3 className="text-xl font-bold mb-4 flex items-center gap-2">
                         <Package className="w-5 h-5 text-primary" />
                         {t('accessoryDetail.packageContents')}
                       </h3>
                       <div className="bg-card rounded-xl border border-border p-6">
                         <ul className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
-                          {product.packageIncludeKeys.map((itemKey, idx) => (
-                            <li key={idx} className="flex items-center gap-2">
+                          {product.packageIncludeKeys.map((itemKey, idx) => <li key={idx} className="flex items-center gap-2">
                               <span className="w-2 h-2 bg-primary rounded-full flex-shrink-0"></span>
                               <span>{t(itemKey)}</span>
-                            </li>
-                          ))}
+                            </li>)}
                         </ul>
                       </div>
-                    </div>
-                  )}
+                    </div>}
 
-                  {product.noteKeys && product.noteKeys.length > 0 && (
-                    <div>
+                  {product.noteKeys && product.noteKeys.length > 0 && <div>
                       <h3 className="text-xl font-bold mb-4">{t('accessoryDetail.notes')}</h3>
                       <div className="space-y-3">
-                        {product.noteKeys.map((noteKey, idx) => (
-                          <div key={idx} className="flex items-start gap-3 p-4 bg-amber-500/10 rounded-lg border border-amber-500/20">
+                        {product.noteKeys.map((noteKey, idx) => <div key={idx} className="flex items-start gap-3 p-4 bg-amber-500/10 rounded-lg border border-amber-500/20">
                             <AlertTriangle className="w-5 h-5 text-amber-500 mt-0.5 flex-shrink-0" />
                             <span className="text-sm">{t(noteKey)}</span>
-                          </div>
-                        ))}
+                          </div>)}
                       </div>
-                    </div>
-                  )}
+                    </div>}
                 </div>
               </TabsContent>
 
               {/* Applications Tab */}
               <TabsContent value="applications">
-                {product.applicationKeys && product.applicationKeys.length > 0 ? (
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    {product.applicationKeys.map((appKey, idx) => (
-                      <div key={idx} className="p-6 bg-card rounded-xl border border-border hover:border-primary/50 transition-colors">
+                {product.applicationKeys && product.applicationKeys.length > 0 ? <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    {product.applicationKeys.map((appKey, idx) => <div key={idx} className="p-6 bg-card rounded-xl border border-border hover:border-primary/50 transition-colors">
                         <div className="flex items-start gap-4">
                           <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center text-primary font-bold flex-shrink-0">
                             {idx + 1}
@@ -301,54 +232,35 @@ const GimbalDetail = () => {
                             <p className="text-foreground">{t(appKey)}</p>
                           </div>
                         </div>
-                      </div>
-                    ))}
-                  </div>
-                ) : (
-                  <div className="text-center py-12 text-muted-foreground">
+                      </div>)}
+                  </div> : <div className="text-center py-12 text-muted-foreground">
                     <p>{t('accessoryDetail.noApplications')}</p>
-                  </div>
-                )}
+                  </div>}
               </TabsContent>
 
               {/* Downloads Tab */}
               <TabsContent value="downloads">
-                {product.downloads && product.downloads.length > 0 ? (
-                  <div className="space-y-6">
-                    {[t('accessoryDetail.software'), t('accessoryDetail.documents'), t('accessoryDetail.drawings')].map((category) => {
-                      const categoryFiles = product.downloads?.filter(f => f.category === category || 
-                        (category === t('accessoryDetail.software') && f.category === '软件') ||
-                        (category === t('accessoryDetail.documents') && f.category === '文档') ||
-                        (category === t('accessoryDetail.drawings') && f.category === '图纸')
-                      ) || [];
-                      if (categoryFiles.length === 0) return null;
-                      return (
-                        <div key={category}>
+                {product.downloads && product.downloads.length > 0 ? <div className="space-y-6">
+                    {[t('accessoryDetail.software'), t('accessoryDetail.documents'), t('accessoryDetail.drawings')].map(category => {
+                  const categoryFiles = product.downloads?.filter(f => f.category === category || category === t('accessoryDetail.software') && f.category === '软件' || category === t('accessoryDetail.documents') && f.category === '文档' || category === t('accessoryDetail.drawings') && f.category === '图纸') || [];
+                  if (categoryFiles.length === 0) return null;
+                  return <div key={category}>
                           <h4 className="text-lg font-semibold mb-3">{category}</h4>
                           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                            {categoryFiles.map((file, idx) => (
-                              <div
-                                key={idx}
-                                className="flex items-center gap-4 p-4 bg-card rounded-xl border border-border hover:border-primary/50 transition-colors group cursor-pointer"
-                              >
+                            {categoryFiles.map((file, idx) => <div key={idx} className="flex items-center gap-4 p-4 bg-card rounded-xl border border-border hover:border-primary/50 transition-colors group cursor-pointer">
                                 <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center text-primary">
                                   <Download className="w-6 h-6" />
                                 </div>
                                 <div className="flex-1">
                                   <p className="font-medium group-hover:text-primary transition-colors">{file.name}</p>
                                 </div>
-                              </div>
-                            ))}
+                              </div>)}
                           </div>
-                        </div>
-                      );
-                    })}
-                  </div>
-                ) : (
-                  <div className="text-center py-12 text-muted-foreground">
+                        </div>;
+                })}
+                  </div> : <div className="text-center py-12 text-muted-foreground">
                     <p>{t('accessoryDetail.noDownloads')}</p>
-                  </div>
-                )}
+                  </div>}
               </TabsContent>
 
               {/* FAQ Tab */}
@@ -382,8 +294,6 @@ const GimbalDetail = () => {
       </main>
       <Footer />
       <FloatingContact />
-    </>
-  );
+    </>;
 };
-
 export default GimbalDetail;
