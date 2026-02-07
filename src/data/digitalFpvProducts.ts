@@ -1,10 +1,17 @@
 import wifilink2Image from "@/assets/fpv/wifilink2-new.jpg";
 import wifilinkRxImage from "@/assets/fpv/wifilink-rx-new.jpg";
+import s900Datalink1 from "@/assets/fpv/s900-datalink-1.jpg";
+import s900Datalink2 from "@/assets/fpv/s900-datalink-2.jpg";
+import s900Datalink3 from "@/assets/fpv/s900-datalink-3.jpg";
+import s900Datalink4 from "@/assets/fpv/s900-datalink-4.jpg";
+import s900Datalink5 from "@/assets/fpv/s900-datalink-5.jpg";
+import s900Datalink6 from "@/assets/fpv/s900-datalink-6.jpg";
+import s900Datalink7 from "@/assets/fpv/s900-datalink-7.jpg";
 
 export interface DigitalFpvProduct {
   id: string;
   nameKey: string;
-  category: "transmitter" | "receiver";
+  category: "transmitter" | "receiver" | "datalink";
   sloganKey: string;
   subSloganKey: string;
   descriptionKey: string;
@@ -23,6 +30,99 @@ export interface DigitalFpvProduct {
 }
 
 export const digitalFpvProducts: DigitalFpvProduct[] = [
+  {
+    id: "s900-datalink",
+    nameKey: "digitalFpv.s900.name",
+    category: "datalink",
+    sloganKey: "digitalFpv.s900.slogan",
+    subSloganKey: "digitalFpv.s900.subSlogan",
+    descriptionKey: "digitalFpv.s900.description",
+    price: "询价",
+    image: s900Datalink1,
+    keyFeatureKeys: [
+      "digitalFpv.s900.keyFeature.1",
+      "digitalFpv.s900.keyFeature.2",
+      "digitalFpv.s900.keyFeature.3",
+      "digitalFpv.s900.keyFeature.4"
+    ],
+    specs: [
+      {
+        categoryKey: "digitalFpv.spec.category.basic",
+        items: [
+          { labelKey: "digitalFpv.spec.label.model", value: "S900 Radio" },
+          { labelKey: "digitalFpv.spec.label.freqRange", value: "902-928MHz" },
+          { labelKey: "digitalFpv.s900.spec.maxDistance", value: "12KM" },
+          { labelKey: "digitalFpv.s900.spec.airRate", value: "低速/中速/高速三挡" },
+        ]
+      },
+      {
+        categoryKey: "digitalFpv.spec.category.electrical",
+        items: [
+          { labelKey: "digitalFpv.spec.label.voltage", value: "2S-20S 宽电压" },
+          { labelKey: "digitalFpv.spec.label.txPower", value: "20dBm (100mW)" },
+        ]
+      },
+      {
+        categoryKey: "digitalFpv.s900.spec.category.communication",
+        items: [
+          { labelKey: "digitalFpv.s900.spec.baudRate", value: "9600~230400 可调 (默认115200)" },
+          { labelKey: "digitalFpv.s900.spec.workMode", value: "点对点/点对多点/中继组网" },
+          { labelKey: "digitalFpv.s900.spec.fhss", value: "FHSS自动跳频" },
+        ]
+      },
+      {
+        categoryKey: "digitalFpv.spec.category.physical",
+        items: [
+          { labelKey: "digitalFpv.spec.label.size", value: "39×31×15mm" },
+          { labelKey: "digitalFpv.spec.label.weight", value: "21±2g (不含天线)" },
+          { labelKey: "digitalFpv.s900.spec.workTemp", value: "-20~50℃" },
+        ]
+      },
+      {
+        categoryKey: "digitalFpv.spec.category.interface",
+        items: [
+          { labelKey: "digitalFpv.s900.spec.antenna", value: "SMA内孔外螺 (915胶棒天线)" },
+          { labelKey: "digitalFpv.s900.spec.usbInterface", value: "Type-C (地面端连接PC)" },
+          { labelKey: "digitalFpv.s900.spec.fcInterface", value: "GH1.25-4P (连接飞控)" },
+        ]
+      }
+    ],
+    features: [
+      {
+        titleKey: "digitalFpv.s900.feature.1.title",
+        descriptionKey: "digitalFpv.s900.feature.1.desc"
+      },
+      {
+        titleKey: "digitalFpv.s900.feature.2.title",
+        descriptionKey: "digitalFpv.s900.feature.2.desc"
+      },
+      {
+        titleKey: "digitalFpv.s900.feature.3.title",
+        descriptionKey: "digitalFpv.s900.feature.3.desc"
+      },
+      {
+        titleKey: "digitalFpv.s900.feature.4.title",
+        descriptionKey: "digitalFpv.s900.feature.4.desc"
+      },
+      {
+        titleKey: "digitalFpv.s900.feature.5.title",
+        descriptionKey: "digitalFpv.s900.feature.5.desc"
+      },
+      {
+        titleKey: "digitalFpv.s900.feature.6.title",
+        descriptionKey: "digitalFpv.s900.feature.6.desc"
+      }
+    ],
+    gallery: [
+      s900Datalink1,
+      s900Datalink2,
+      s900Datalink3,
+      s900Datalink4,
+      s900Datalink5,
+      s900Datalink6,
+      s900Datalink7,
+    ]
+  },
   {
     id: "wifilink2",
     nameKey: "digitalFpv.wifilink2.name",
@@ -204,6 +304,11 @@ export const digitalFpvProducts: DigitalFpvProduct[] = [
 ];
 
 export const digitalFpvCategories = [
+  {
+    id: "datalink",
+    nameKey: "digitalFpv.category.datalink",
+    descriptionKey: "digitalFpv.category.datalink.desc",
+  },
   {
     id: "transmitter",
     nameKey: "digitalFpv.category.transmitter",
