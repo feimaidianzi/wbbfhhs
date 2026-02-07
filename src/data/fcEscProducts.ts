@@ -1,4 +1,33 @@
 // FC/ESC 产品数据
+// 图片资产导入
+import fcEsc80a from '@/assets/products/fc-esc-80a.jpg';
+import fcEsc100a from '@/assets/products/fc-esc-100a.jpg';
+import fcEsc100aAngle from '@/assets/products/fc-esc-100a-angle.jpg';
+import fcEscPcbBack from '@/assets/products/fc-esc-pcb-back.jpg';
+import fcF405_1 from '@/assets/products/fc-f405-1.jpg';
+import fcF405_2 from '@/assets/products/fc-f405-2.jpg';
+import fcF405_4 from '@/assets/products/fc-f405-4.jpg';
+import fcF722_1 from '@/assets/products/fc-f722-1.jpg';
+import fcF722_2 from '@/assets/products/fc-f722-2.jpg';
+import fcF722_3 from '@/assets/products/fc-f722-3.jpg';
+import fcF722_4 from '@/assets/products/fc-f722-4.jpg';
+import fcF722_5 from '@/assets/products/fc-f722-5.jpg';
+import fcF722_6 from '@/assets/products/fc-f722-6.jpg';
+import esc55a_1 from '@/assets/products/esc-55a-1.jpg';
+import esc55a_2 from '@/assets/products/esc-55a-2.jpg';
+import esc55a_3 from '@/assets/products/esc-55a-3.jpg';
+import esc55a_4 from '@/assets/products/esc-55a-4.jpg';
+import esc55a_5 from '@/assets/products/esc-55a-5.jpg';
+import esc55a_6 from '@/assets/products/esc-55a-6.jpg';
+import esc60a_1 from '@/assets/products/esc-60a-1.jpg';
+import esc60a_2 from '@/assets/products/esc-60a-2.jpg';
+import esc80a_1 from '@/assets/products/esc-80a-1.jpg';
+import esc80a_2 from '@/assets/products/esc-80a-2.jpg';
+import esc80a_3 from '@/assets/products/esc-80a-3.jpg';
+import esc80a_4 from '@/assets/products/esc-80a-4.jpg';
+import esc80a_5 from '@/assets/products/esc-80a-5.jpg';
+import esc100a_1 from '@/assets/products/esc-100a-1.jpg';
+import esc100a_2 from '@/assets/products/esc-100a-2.jpg';
 
 export interface FcEscProduct {
   id: string;
@@ -290,10 +319,10 @@ export const stackProducts: FcEscProduct[] = [
     image: "https://ueeshop.ly200-cdn.com/u_file/UPBD/UPBD023/2508/04/products/1-1-1417311ad5.jpg",
     images: [
       "https://ueeshop.ly200-cdn.com/u_file/UPBD/UPBD023/2508/04/products/1-1-1417311ad5.jpg",
-      "/src/assets/products/fc-esc-80a.jpg",
-      "/src/assets/products/fc-esc-100a.jpg",
-      "/src/assets/products/fc-esc-100a-angle.jpg",
-      "/src/assets/products/fc-esc-pcb-back.jpg"
+      fcEsc80a,
+      fcEsc100a,
+      fcEsc100aAngle,
+      fcEscPcbBack
     ],
     price: "¥959",
     highlights: [
@@ -361,12 +390,12 @@ export const sixInOneEscProducts: FcEscProduct[] = [
     name: "FlyMind六合一80A电调",
     model: "FlyMind 6-in-1 80A",
     category: "六合一电调",
-    image: "/src/assets/products/fc-esc-80a.jpg",
+    image: fcEsc80a,
     images: [
-      "/src/assets/products/fc-esc-80a.jpg",
-      "/src/assets/products/fc-esc-pcb-back.jpg",
-      "/src/assets/products/fc-esc-100a.jpg",
-      "/src/assets/products/fc-esc-100a-angle.jpg"
+      fcEsc80a,
+      fcEscPcbBack,
+      fcEsc100a,
+      fcEsc100aAngle
     ],
     price: "¥729",
     highlights: [
@@ -405,12 +434,12 @@ export const sixInOneEscProducts: FcEscProduct[] = [
     name: "FlyMind六合一100A电调",
     model: "FlyMind 6-in-1 100A",
     category: "六合一电调",
-    image: "/src/assets/products/fc-esc-100a.jpg",
+    image: fcEsc100a,
     images: [
-      "/src/assets/products/fc-esc-100a.jpg",
-      "/src/assets/products/fc-esc-100a-angle.jpg",
-      "/src/assets/products/fc-esc-80a.jpg",
-      "/src/assets/products/fc-esc-pcb-back.jpg"
+      fcEsc100a,
+      fcEsc100aAngle,
+      fcEsc80a,
+      fcEscPcbBack
     ],
     price: "¥899",
     highlights: [
@@ -519,12 +548,12 @@ export const flightControllerProducts: FcEscProduct[] = [
     name: "FlyMind F405飞控",
     model: "FlyMind F405",
     category: "飞控",
-    image: "/src/assets/products/fc-f405-1.jpg",
+    image: fcF405_1,
     images: [
-      "/src/assets/products/fc-f405-1.jpg",
-      "/src/assets/products/fc-f405-2.jpg",
+      fcF405_1,
+      fcF405_2,
       "https://ueeshop.ly200-cdn.com/u_file/UPBD/UPBD023/2509/25/products/3.jpg",
-      "/src/assets/products/fc-f405-4.jpg"
+      fcF405_4
     ],
     price: "¥229",
     highlights: [
@@ -565,14 +594,14 @@ export const flightControllerProducts: FcEscProduct[] = [
     name: "FlyMind F7飞控",
     model: "FlyMind F722",
     category: "飞控",
-    image: "/src/assets/products/fc-f722-1.jpg",
+    image: fcF722_1,
     images: [
-      "/src/assets/products/fc-f722-1.jpg",
-      "/src/assets/products/fc-f722-2.jpg",
-      "/src/assets/products/fc-f722-3.jpg",
-      "/src/assets/products/fc-f722-4.jpg",
-      "/src/assets/products/fc-f722-5.jpg",
-      "/src/assets/products/fc-f722-6.jpg"
+      fcF722_1,
+      fcF722_2,
+      fcF722_3,
+      fcF722_4,
+      fcF722_5,
+      fcF722_6
     ],
     price: "¥399",
     highlights: [
@@ -616,14 +645,14 @@ export const escProducts: FcEscProduct[] = [
     name: "FlyMind 55/65A电调",
     model: "FlyMind 55/65A 4-in-1",
     category: "四合一电调",
-    image: "/src/assets/products/esc-55a-1.jpg",
+    image: esc55a_1,
     images: [
-      "/src/assets/products/esc-55a-1.jpg",
-      "/src/assets/products/esc-55a-2.jpg",
-      "/src/assets/products/esc-55a-3.jpg",
-      "/src/assets/products/esc-55a-4.jpg",
-      "/src/assets/products/esc-55a-5.jpg",
-      "/src/assets/products/esc-55a-6.jpg"
+      esc55a_1,
+      esc55a_2,
+      esc55a_3,
+      esc55a_4,
+      esc55a_5,
+      esc55a_6
     ],
     price: "¥449",
     highlights: [
@@ -661,10 +690,10 @@ export const escProducts: FcEscProduct[] = [
     name: "FlyMind ECO 60A V2电调",
     model: "FlyMind ECO 60A V2",
     category: "四合一电调",
-    image: "/src/assets/products/esc-60a-1.jpg",
+    image: esc60a_1,
     images: [
-      "/src/assets/products/esc-60a-1.jpg",
-      "/src/assets/products/esc-60a-2.jpg",
+      esc60a_1,
+      esc60a_2,
       "https://ueeshop.ly200-cdn.com/u_file/UPBD/UPBD023/2411/09/products/fcecd99917.jpg"
     ],
     price: "¥335",
@@ -703,13 +732,13 @@ export const escProducts: FcEscProduct[] = [
     name: "FlyMind Pro 80A电调",
     model: "FlyMind Pro 80A 4-in-1",
     category: "四合一电调",
-    image: "/src/assets/products/esc-80a-1.jpg",
+    image: esc80a_1,
     images: [
-      "/src/assets/products/esc-80a-1.jpg",
-      "/src/assets/products/esc-80a-2.jpg",
-      "/src/assets/products/esc-80a-3.jpg",
-      "/src/assets/products/esc-80a-4.jpg",
-      "/src/assets/products/esc-80a-5.jpg"
+      esc80a_1,
+      esc80a_2,
+      esc80a_3,
+      esc80a_4,
+      esc80a_5
     ],
     price: "¥759",
     highlights: [
@@ -747,10 +776,10 @@ export const escProducts: FcEscProduct[] = [
     name: "FlyMind Pro 100A电调",
     model: "FlyMind Pro 100A 4-in-1",
     category: "四合一电调",
-    image: "/src/assets/products/esc-100a-1.jpg",
+    image: esc100a_1,
     images: [
-      "/src/assets/products/esc-100a-1.jpg",
-      "/src/assets/products/esc-100a-2.jpg"
+      esc100a_1,
+      esc100a_2
     ],
     price: "¥959",
     highlights: [
