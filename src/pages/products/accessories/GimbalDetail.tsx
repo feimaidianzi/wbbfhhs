@@ -56,8 +56,8 @@ const GimbalDetail = () => {
                     <Button size="lg" asChild>
                       <Link to="/contact">{t('accessoryDetail.getQuote')}</Link>
                     </Button>
-                    <Button size="lg" variant="outline" className="border-zinc-600 hover:bg-zinc-800" asChild>
-                      <a href="#specs">{t('accessoryDetail.viewSpecs')}</a>
+                    <Button size="lg" variant="outline" className="border-zinc-400 bg-transparent text-white hover:bg-zinc-800 hover:text-white" asChild>
+                      <a href="#specs" className="text-white">{t('accessoryDetail.viewSpecs')}</a>
                     </Button>
                   </div>
                 </div>
@@ -285,8 +285,8 @@ const GimbalDetail = () => {
               <Button size="lg" variant="secondary" asChild>
                 <Link to="/contact">{t('accessoryDetail.contactUs')}</Link>
               </Button>
-              <Button size="lg" variant="outline" className="border-white/30 hover:bg-white/10" asChild>
-                <Link to="/products/accessories/gimbal">{t('accessoryDetail.viewMoreProducts')}</Link>
+              <Button size="lg" variant="outline" className="border-white/30 bg-transparent text-white hover:bg-white/10 hover:text-white" asChild>
+                <Link to="/products/accessories/gimbal" className="text-white">{t('accessoryDetail.viewMoreProducts')}</Link>
               </Button>
             </div>
           </div>
