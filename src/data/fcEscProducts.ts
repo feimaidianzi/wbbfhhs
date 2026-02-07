@@ -33,6 +33,8 @@ import separateEsc80a_2 from '@/assets/products/separate-esc-80a-2.jpg';
 import separateEsc80a_3 from '@/assets/products/separate-esc-80a-3.jpg';
 import separateEsc80a_4 from '@/assets/products/separate-esc-80a-4.jpg';
 import separateEsc80a_5 from '@/assets/products/separate-esc-80a-5.jpg';
+import separateEsc100a_1 from '@/assets/products/separate-esc-100a-1.jpg';
+import separateEsc100a_2 from '@/assets/products/separate-esc-100a-2.jpg';
 
 export interface FcEscProduct {
   id: string;
@@ -868,11 +870,10 @@ export const separateEscProducts: FcEscProduct[] = [
     name: "FlyMind 100A分体电调",
     model: "FlyMind 100A SEP",
     category: "分体电调",
-    image: "https://ueeshop.ly200-cdn.com/u_file/UPBD/UPBD023/2511/01/products/3-095056bd79.jpg",
+    image: separateEsc100a_1,
     images: [
-      "https://ueeshop.ly200-cdn.com/u_file/UPBD/UPBD023/2511/01/products/3-095056bd79.jpg",
-      "https://ueeshop.ly200-cdn.com/u_file/UPBD/UPBD023/2511/01/products/4-095056336a.jpg",
-      "https://ueeshop.ly200-cdn.com/u_file/UPBD/UPBD023/2511/01/products/5-095057288e.jpg"
+      separateEsc100a_1,
+      separateEsc100a_2
     ],
     price: "¥289",
     highlights: [
