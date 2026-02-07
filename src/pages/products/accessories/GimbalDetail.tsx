@@ -67,7 +67,7 @@ const GimbalDetail = () => {
                     <Button size="lg" asChild>
                       <Link to="/contact">{t('accessoryDetail.getQuote')}</Link>
                     </Button>
-                    <Button size="lg" variant="outline" className="border-zinc-600 hover:bg-zinc-800" asChild>
+                    <Button size="lg" variant="outline" className="border-zinc-400 text-white hover:bg-zinc-800 hover:text-white" asChild>
                       <a href="#specs">{t('accessoryDetail.viewSpecs')}</a>
                     </Button>
                   </div>
