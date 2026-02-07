@@ -28,6 +28,11 @@ import esc80a_4 from '@/assets/products/esc-80a-4.jpg';
 import esc80a_5 from '@/assets/products/esc-80a-5.jpg';
 import esc100a_1 from '@/assets/products/esc-100a-1.jpg';
 import esc100a_2 from '@/assets/products/esc-100a-2.jpg';
+import separateEsc80a_1 from '@/assets/products/separate-esc-80a-1.jpg';
+import separateEsc80a_2 from '@/assets/products/separate-esc-80a-2.jpg';
+import separateEsc80a_3 from '@/assets/products/separate-esc-80a-3.jpg';
+import separateEsc80a_4 from '@/assets/products/separate-esc-80a-4.jpg';
+import separateEsc80a_5 from '@/assets/products/separate-esc-80a-5.jpg';
 
 export interface FcEscProduct {
   id: string;
@@ -821,14 +826,13 @@ export const separateEscProducts: FcEscProduct[] = [
     name: "FlyMind 80A分体电调",
     model: "FlyMind 80A SEP",
     category: "分体电调",
-    image: "https://ueeshop.ly200-cdn.com/u_file/UPBD/UPBD023/2511/01/products/1--0950563810.jpg",
+    image: separateEsc80a_1,
     images: [
-      "https://ueeshop.ly200-cdn.com/u_file/UPBD/UPBD023/2511/01/products/1--0950563810.jpg",
-      "https://ueeshop.ly200-cdn.com/u_file/UPBD/UPBD023/2511/01/products/1-0950568c66.jpg",
-      "https://ueeshop.ly200-cdn.com/u_file/UPBD/UPBD023/2511/01/products/2-095056dae0.jpg",
-      "https://ueeshop.ly200-cdn.com/u_file/UPBD/UPBD023/2511/01/products/3-095056bd79.jpg",
-      "https://ueeshop.ly200-cdn.com/u_file/UPBD/UPBD023/2511/01/products/4-095056336a.jpg",
-      "https://ueeshop.ly200-cdn.com/u_file/UPBD/UPBD023/2511/01/products/5-095057288e.jpg"
+      separateEsc80a_1,
+      separateEsc80a_2,
+      separateEsc80a_3,
+      separateEsc80a_4,
+      separateEsc80a_5
     ],
     price: "¥219",
     highlights: [
