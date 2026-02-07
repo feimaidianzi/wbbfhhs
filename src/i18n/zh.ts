@@ -4514,6 +4514,42 @@ export const zhTranslations: Record<string, string> = {
   'digitalFpv.s900.spec.antenna': '天线接口',
   'digitalFpv.s900.spec.usbInterface': 'USB接口',
   'digitalFpv.s900.spec.fcInterface': '飞控接口',
+  
+  // S900 Stats
+  'digitalFpv.s900.stat.range': '最大通信距离',
+  'digitalFpv.s900.stat.airRate': '空中速率',
+  'digitalFpv.s900.stat.power': '发射功率',
+  'digitalFpv.s900.stat.weight': '机身重量',
+  
+  // S900 Interface Section
+  'digitalFpv.s900.interface.title': '接口与引脚定义',
+  'digitalFpv.s900.interface.antenna': 'SMA天线接口',
+  'digitalFpv.s900.interface.antennaDesc': 'SMA内孔外螺接口，用于安装915胶棒天线，提供稳定的射频连接',
+  'digitalFpv.s900.interface.modeSwitch': '模式切换开关',
+  'digitalFpv.s900.interface.modeSwitchDesc': '切换数传电台模式，有M/S两种模式可切换，中继模式可通过软件配置',
+  'digitalFpv.s900.interface.bind': '对频按键',
+  'digitalFpv.s900.interface.bindDesc': '两个设备模式分别切换为M和S，长按3秒进入对频状态，绿灯常亮即为配对成功',
+  'digitalFpv.s900.interface.led': '状态指示灯',
+  'digitalFpv.s900.interface.ledDesc': '指示当前设备状态信息，便于快速判断工作状态',
+  'digitalFpv.s900.interface.typec': 'Type-C接口',
+  'digitalFpv.s900.interface.typecDesc': '地面端通过USB Type-C线连接PC，用于参数配置和固件升级',
+  'digitalFpv.s900.interface.gh125': 'GH1.25-4P接口',
+  'digitalFpv.s900.interface.gh125Desc': '连接飞控数据接入口，提供5V/RX/TX/GND信号线',
+  
+  // S900 Software Section
+  'digitalFpv.s900.software.title': '软件配置功能',
+  'digitalFpv.s900.software.desc': '通过上位机软件可灵活配置各项参数，打开COM口后自动获取数传电台当前参数',
+  'digitalFpv.s900.software.baudRate': '波特率配置',
+  'digitalFpv.s900.software.baudRateDesc': '支持9600、19200、38400、57600、115200、230400多档波特率，选择后立即生效',
+  'digitalFpv.s900.software.airRate': '空中速率',
+  'digitalFpv.s900.software.airRateDesc': '分低速(250Kbps)、中速(500Kbps)、高速(1Mbps)三挡，速率越低距离越远',
+  'digitalFpv.s900.software.txPower': '发射功率',
+  'digitalFpv.s900.software.txPowerDesc': '分高、中、低三挡，同样空中速率下功率越大传输距离越远',
+  'digitalFpv.s900.software.workMode': '工作模式',
+  'digitalFpv.s900.software.workModeDesc': '支持主机模式、从机模式、中继模式，可通过滑动开关或软件配置',
+  
+  // Common Gallery
+  'common.productGallery': '产品图片',
   'digitalFpv.wifilink2.name': 'FlyMind Link2 数字高清图传',
   'digitalFpv.wifilink2.slogan': '高清数字图传',
   'digitalFpv.wifilink2.subSlogan': 'WiFi数字传输 低延迟高画质',

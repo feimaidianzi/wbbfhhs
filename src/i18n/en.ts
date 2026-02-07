@@ -105,6 +105,42 @@ export const enTranslations: Record<string, string> = {
   'custom.payload': 'Payload Customization',
   'custom.payload.desc': 'Professional payload customization',
 
+  // S900 Stats
+  'digitalFpv.s900.stat.range': 'Max Range',
+  'digitalFpv.s900.stat.airRate': 'Air Rate',
+  'digitalFpv.s900.stat.power': 'TX Power',
+  'digitalFpv.s900.stat.weight': 'Weight',
+  
+  // S900 Interface Section
+  'digitalFpv.s900.interface.title': 'Interface & Pin Definition',
+  'digitalFpv.s900.interface.antenna': 'SMA Antenna Port',
+  'digitalFpv.s900.interface.antennaDesc': 'SMA female connector for 915MHz antenna, provides stable RF connection',
+  'digitalFpv.s900.interface.modeSwitch': 'Mode Switch',
+  'digitalFpv.s900.interface.modeSwitchDesc': 'Switch between M/S modes, relay mode configurable via software',
+  'digitalFpv.s900.interface.bind': 'Bind Button',
+  'digitalFpv.s900.interface.bindDesc': 'Set devices to M and S modes respectively, hold 3s to enter binding mode, green LED indicates success',
+  'digitalFpv.s900.interface.led': 'Status LED',
+  'digitalFpv.s900.interface.ledDesc': 'Indicates current device status for quick status identification',
+  'digitalFpv.s900.interface.typec': 'Type-C Port',
+  'digitalFpv.s900.interface.typecDesc': 'Connect ground station to PC via USB Type-C for parameter configuration and firmware update',
+  'digitalFpv.s900.interface.gh125': 'GH1.25-4P Port',
+  'digitalFpv.s900.interface.gh125Desc': 'Flight controller data port, provides 5V/RX/TX/GND signal lines',
+  
+  // S900 Software Section
+  'digitalFpv.s900.software.title': 'Software Configuration',
+  'digitalFpv.s900.software.desc': 'Flexibly configure parameters via PC software, auto-detect current settings when COM port opens',
+  'digitalFpv.s900.software.baudRate': 'Baud Rate',
+  'digitalFpv.s900.software.baudRateDesc': 'Supports 9600, 19200, 38400, 57600, 115200, 230400 baud rates, takes effect immediately',
+  'digitalFpv.s900.software.airRate': 'Air Rate',
+  'digitalFpv.s900.software.airRateDesc': 'Low (250Kbps), Medium (500Kbps), High (1Mbps) - lower rate means longer range',
+  'digitalFpv.s900.software.txPower': 'TX Power',
+  'digitalFpv.s900.software.txPowerDesc': 'High, Medium, Low levels - higher power means longer range at same air rate',
+  'digitalFpv.s900.software.workMode': 'Work Mode',
+  'digitalFpv.s900.software.workModeDesc': 'Supports Master, Slave, and Relay modes, configurable via switch or software',
+  
+  // Common Gallery
+  'common.productGallery': 'Product Gallery',
+
   // Software
   'software.exam': 'Exam System',
   'software.exam.desc': 'Drone training assessment platform',
