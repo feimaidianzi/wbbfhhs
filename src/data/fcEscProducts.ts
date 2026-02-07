@@ -35,6 +35,7 @@ import separateEsc80a_4 from '@/assets/products/separate-esc-80a-4.jpg';
 import separateEsc80a_5 from '@/assets/products/separate-esc-80a-5.jpg';
 import separateEsc100a_1 from '@/assets/products/separate-esc-100a-1.jpg';
 import separateEsc100a_2 from '@/assets/products/separate-esc-100a-2.jpg';
+import separateEsc100a_3 from '@/assets/products/separate-esc-100a-3.jpg';
 
 export interface FcEscProduct {
   id: string;
@@ -873,7 +874,8 @@ export const separateEscProducts: FcEscProduct[] = [
     image: separateEsc100a_1,
     images: [
       separateEsc100a_1,
-      separateEsc100a_2
+      separateEsc100a_2,
+      separateEsc100a_3
     ],
     price: "¥289",
     highlights: [
