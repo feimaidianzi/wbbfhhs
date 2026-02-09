@@ -120,8 +120,7 @@ const ElrsDetail = () => {
                     </Button>
                   </Link>
                   <Button 
-                    variant="outline" 
-                    className="border-white/50 text-white hover:bg-white/10 px-6 py-3"
+                    className="bg-transparent border border-white/50 text-white hover:bg-white/10 px-6 py-3"
                   >
                     {t('accessoryDetail.downloadManual')}
                   </Button>
