@@ -1,4 +1,5 @@
 // ELRS 产品数据 - 多语言版本
+import elrs24gLnaImage from "@/assets/elrs/elrs-2-4g-lna.jpg";
 
 export interface ElrsProduct {
   id: string;
@@ -247,7 +248,7 @@ export const elrsProducts: ElrsProduct[] = [
     subSloganKey: "elrs.product.24glna.subSlogan",
     descriptionKey: "elrs.product.24glna.desc",
     price: "¥129",
-    image: "https://inew.foxeer.com//upload/s/goods/2022-10-21/17-17-13-6352639957740.images.400x400.jpg",
+    image: elrs24gLnaImage,
     keyFeatureKeys: [
       "elrs.feature.24ghz",
       "elrs.feature.lnaBoost",
@@ -309,7 +310,7 @@ export const elrsProducts: ElrsProduct[] = [
       }
     ],
     gallery: [
-      "https://inew.foxeer.com//upload/s/goods/2022-10-21/17-17-13-6352639957740.images.400x400.jpg"
+      elrs24gLnaImage
     ]
   },
   // 天线类
