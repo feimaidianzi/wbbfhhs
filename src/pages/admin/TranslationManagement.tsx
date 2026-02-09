@@ -351,8 +351,41 @@ const TranslationManagement = () => {
           console.log(`[AutoTranslate] ${langName}: Request timeout, waiting 10s before retry...`);
           toast.info(`${langName} 请求超时，后台仍在翻译中，10秒后自动继续...`);
           await new Promise(r => setTimeout(r, 10000)); // 等待10秒
+          
           // 刷新状态检查进度
           await loadTranslationStatuses();
+          
+          // 超时后需要查询当前语言的实际翻译状态来更新进度
+          try {
+            const { data: langData } = await supabase
+              .from('system_settings')
+              .select('value')
+              .eq('key', `translations_${lang}`)
+              .maybeSingle();
+            
+            if (langData?.value) {
+              const existingTranslations = JSON.parse(langData.value);
+              const translatedCount = Object.keys(existingTranslations).length;
+              const currentRemaining = Math.max(0, totalKeys - translatedCount);
+              const currentDone = translatedCount;
+              const currentPercent = totalKeys > 0 ? Math.min(100, Math.round((currentDone / totalKeys) * 100)) : 0;
+              
+              setCurrentProgress({ done: currentDone, total: totalKeys, remaining: currentRemaining });
+              setProgress(currentPercent);
+              console.log(`[AutoTranslate] ${langName}: After timeout refresh: ${currentDone}/${totalKeys} done, ${currentRemaining} remaining, ${currentPercent}%`);
+              
+              // 如果翻译已完成，直接返回
+              if (currentRemaining <= 0) {
+                setProgress(100);
+                setCurrentProgress({ done: totalKeys, total: totalKeys, remaining: 0 });
+                toast.success(`${langName} 翻译完成！共 ${totalKeys} 条`);
+                return true;
+              }
+            }
+          } catch (e) {
+            console.error('[AutoTranslate] Failed to refresh progress after timeout:', e);
+          }
+          
           retryCount = 0; // 超时不计入失败重试
           continue;
         }
