@@ -417,6 +417,8 @@ Deno.serve(async (req) => {
               lang,
               success: true,
               translated: 0,
+              count: 0,
+              remaining: 0,
               total: totalSourceKeys,
               existing: Object.keys(existingTranslations).length,
               message: 'Already completed'
@@ -455,13 +457,30 @@ Deno.serve(async (req) => {
             updated_at: new Date().toISOString()
           });
         
-        console.log(`✓ ${lang}: Saved ${Object.keys(mergedTranslations).length} total translations (provider: ${usedProvider})`);
+        // 重新计算剩余未翻译的键数
+        const translatedKeysAfter = new Set<string>();
+        for (const [key, value] of Object.entries(mergedTranslations)) {
+          const sourceValue = actualSourceContent[key];
+          if (!sourceValue) continue;
+          if (isValidTranslationForLang(sourceValue, value, lang)) {
+            translatedKeysAfter.add(key);
+          }
+        }
+        
+        const remainingAfter = Object.keys(actualSourceContent).filter(key => {
+          if (forceKeysSet.has(key) && !translatedKeysAfter.has(key)) return true;
+          return !translatedKeysAfter.has(key);
+        }).length;
+        
+        console.log(`✓ ${lang}: Saved ${Object.keys(mergedTranslations).length} total translations, ${remainingAfter} remaining (provider: ${usedProvider})`);
         
         return {
           lang,
           success: true,
           translated: Object.keys(newTranslations).length,
-          total: Object.keys(mergedTranslations).length,
+          count: Object.keys(newTranslations).length,
+          remaining: remainingAfter,
+          total: totalSourceKeys,
           provider: usedProvider
         };
       } catch (error) {
