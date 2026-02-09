@@ -85,7 +85,6 @@ const GimbalDetail = () => {
               <div>
                 <div className="flex items-center gap-3 mb-4">
                   <span className="px-3 py-1 text-sm bg-primary/10 text-primary rounded-full font-medium">{t(product.categoryKey)}</span>
-                  <span className="px-3 py-1 text-sm bg-secondary text-secondary-foreground rounded-full">{product.price}</span>
                 </div>
                 <h2 className="text-3xl md:text-4xl font-bold mb-2">{t(product.nameKey)}</h2>
                 <p className="text-xl text-muted-foreground mb-6">{product.model}</p>

@@ -72,8 +72,7 @@ const FcEsc = () => {
             ))}
           </ul>
 
-          <div className="flex items-center justify-between pt-3 border-t border-border">
-            <span className="text-lg font-bold text-primary">{product.price}</span>
+          <div className="flex items-center justify-end pt-3 border-t border-border">
             <span className="text-xs text-primary flex items-center">
               {t('fcesc.viewDetail')}
               <ChevronRight className="w-3 h-3 ml-1" />

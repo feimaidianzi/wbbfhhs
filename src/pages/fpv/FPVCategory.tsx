@@ -294,8 +294,7 @@ const FPVCategory = () => {
                       ))}
                     </div>
 
-                    <div className="flex items-center justify-between">
-                      <span className="text-2xl font-bold text-accent">{product.price}</span>
+                    <div className="flex items-center justify-end">
                       <Button className="bg-accent hover:bg-accent/90 text-accent-foreground">
                         <ShoppingCart className="w-4 h-4 mr-2" />
                         {t('fpvCategory.buyNow')}

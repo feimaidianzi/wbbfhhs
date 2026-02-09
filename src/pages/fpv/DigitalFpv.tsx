@@ -94,11 +94,6 @@ const DigitalFpv = () => {
                           alt={t(product.nameKey)}
                           className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                         />
-                        <div className="absolute top-4 right-4">
-                          <span className="bg-accent text-accent-foreground px-3 py-1 rounded-full text-sm font-medium">
-                            {product.price}
-                          </span>
-                        </div>
                       </div>
                       <div className="p-6">
                         <div className="text-accent text-sm font-medium mb-2">{t(product.sloganKey)}</div>
