@@ -10,6 +10,16 @@ import { useLanguage } from "@/contexts/LanguageContext";
 import { ProductCollectionSEO } from "@/components/ProductCollectionSEO";
 import { RichSEOContent, getSEOContentForCategory } from "@/components/RichSEOContent";
 
+// Helper function for template text (used for structured data and UI)
+const getTemplateText = (isEn: boolean, t: (key: string) => string, key: string, fallbackZh: string, fallbackEn: string) => {
+  const translated = t(`template.${key}`);
+  // If translation returns the key itself, use fallback
+  if (translated === `template.${key}`) {
+    return isEn ? fallbackEn : fallbackZh;
+  }
+  return translated;
+};
+
 interface Feature {
   icon: LucideIcon;
   title: string;
@@ -123,7 +133,7 @@ const ProductPageTemplate = ({
   seoKeywords = [],
   seoKeywordsEn = [],
 }: ProductPageTemplateProps) => {
-  const { language } = useLanguage();
+  const { language, t } = useLanguage();
   const isEn = language === 'en';
 
   // 获取预定义的SEO内容
@@ -190,7 +200,7 @@ const ProductPageTemplate = ({
               transition={{ duration: 0.8, delay: 0.2 }}
             >
               <span className="inline-block px-4 py-2 rounded-full bg-black/60 border border-white/20 text-white text-sm font-medium mb-6">
-                {isEn ? 'CANI Technology · Professional Solutions' : '长凌科技 · 专业解决方案'}
+                {t('template.brandSlogan')}
               </span>
             </motion.div>
 
@@ -224,14 +234,14 @@ const ProductPageTemplate = ({
             >
               <Link to="/contact">
                 <Button className="bg-accent hover:bg-accent/90 text-accent-foreground px-8 py-6 text-lg font-semibold rounded-full group">
-                  {isEn ? 'Get Quote' : '获取报价'}
+                  {t('template.getQuote')}
                   <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" />
                 </Button>
               </Link>
               <a href="tel:+8617674048404">
                 <Button variant="outline" className="border-accent/30 hover:border-accent text-foreground px-8 py-6 text-lg font-semibold rounded-full">
                   <Phone className="w-5 h-5 mr-2" />
-                  {isEn ? 'Call Now' : '电话咨询'}
+                  {t('template.callNow')}
                 </Button>
               </a>
             </motion.div>
@@ -289,7 +299,7 @@ const ProductPageTemplate = ({
               className="text-center mb-16"
             >
               <span className="inline-block px-4 py-1.5 rounded-full bg-accent/10 text-accent text-sm font-medium mb-6">
-                {isEn ? 'Why Choose Us' : '为什么选择我们'}
+                {t('template.whyChooseUs')}
               </span>
               <h2 className="text-3xl md:text-4xl lg:text-5xl font-black text-foreground">
                 {isEn ? featuresTitleEn : featuresTitle}
@@ -339,7 +349,7 @@ const ProductPageTemplate = ({
               className="text-center mb-16"
             >
               <span className="inline-block px-4 py-1.5 rounded-full bg-accent/10 text-accent text-sm font-medium mb-6">
-                {isEn ? 'Product Lineup' : '产品阵容'}
+                {t('template.productLineup')}
               </span>
               <h2 className="text-3xl md:text-4xl lg:text-5xl font-black text-foreground mb-4">
                 {isEn ? productsTitleEn : productsTitle}
@@ -396,13 +406,13 @@ const ProductPageTemplate = ({
                       {product.link ? (
                         <Link to={product.link}>
                           <Button className="w-full bg-accent/10 hover:bg-accent text-accent hover:text-accent-foreground font-semibold group/btn">
-                            {isEn ? 'Learn More' : '了解详情'}
+                            {t('template.learnMore')}
                             <ArrowRight className="w-4 h-4 ml-2 group-hover/btn:translate-x-1 transition-transform" />
                           </Button>
                         </Link>
                       ) : (
                         <Button className="w-full bg-accent/10 hover:bg-accent text-accent hover:text-accent-foreground font-semibold group/btn">
-                          {isEn ? 'Learn More' : '了解详情'}
+                          {t('template.learnMore')}
                           <ArrowRight className="w-4 h-4 ml-2 group-hover/btn:translate-x-1 transition-transform" />
                         </Button>
                       )}
@@ -426,10 +436,10 @@ const ProductPageTemplate = ({
                 className="text-center mb-16"
               >
                 <span className="inline-block px-4 py-1.5 rounded-full bg-accent/10 text-accent text-sm font-medium mb-6">
-                  {isEn ? 'Case Studies' : '成功案例'}
+                  {t('template.caseStudies')}
                 </span>
                 <h2 className="text-3xl md:text-4xl lg:text-5xl font-black text-foreground">
-                  {isEn ? 'Success Cases' : '成功案例'}
+                  {t('template.successCases')}
                 </h2>
               </motion.div>
 
@@ -480,7 +490,7 @@ const ProductPageTemplate = ({
                 className="text-center mb-16"
               >
                 <span className="inline-block px-4 py-1.5 rounded-full bg-accent/10 text-accent text-sm font-medium mb-6">
-                  {isEn ? 'Use Cases' : '应用领域'}
+                  {t('template.useCases')}
                 </span>
                 <h2 className="text-3xl md:text-4xl lg:text-5xl font-black text-foreground">
                   {isEn ? applicationsTitleEn : applicationsTitle}
@@ -528,18 +538,16 @@ const ProductPageTemplate = ({
               className="max-w-3xl mx-auto text-center"
             >
               <h2 className="text-3xl md:text-4xl lg:text-5xl font-black text-foreground mb-6">
-                {isEn ? 'Ready to Get Started?' : '准备开始您的项目？'}
+                {t('template.readyToStart')}
               </h2>
               <p className="text-lg text-muted-foreground mb-10">
-                {isEn 
-                  ? 'Contact our professional team for customized solutions and detailed quotes'
-                  : '联系我们的专业团队，获取定制化解决方案和详细报价'}
+                {t('template.readyToStartDesc')}
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <Link to="/contact">
                   <Button className="bg-accent hover:bg-accent/90 text-accent-foreground px-10 py-6 text-lg font-semibold rounded-full group">
                     <Mail className="w-5 h-5 mr-2" />
-                    {isEn ? 'Contact Us' : '立即咨询'}
+                    {t('template.contactUs')}
                   </Button>
                 </Link>
                 <a href="tel:+8617674048404">

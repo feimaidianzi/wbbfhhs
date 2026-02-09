@@ -104,7 +104,7 @@ const ProductDetailTemplate = ({
   productCategory,
   productPrice,
 }: ProductDetailTemplateProps) => {
-  const { language } = useLanguage();
+  const { language, t } = useLanguage();
   const location = useLocation();
   const isEn = language === 'en';
   const langCode = language as LanguageCode;
@@ -136,7 +136,7 @@ const ProductDetailTemplate = ({
     category: productCategory || breadcrumbs[breadcrumbs.length - 2]?.label || 'Industrial Drone',
     manufacturer: {
       '@type': 'Organization',
-      name: isEn ? 'CANI Technology Co., Ltd.' : '长凌科技有限公司',
+      name: t('template.companyNameFull'),
       url: currentDomain,
     },
     offers: productPrice ? {
@@ -146,14 +146,14 @@ const ProductDetailTemplate = ({
       availability: 'https://schema.org/InStock',
       seller: {
         '@type': 'Organization',
-        name: isEn ? 'CANI Technology' : '长凌科技',
+        name: t('template.companyName'),
       },
     } : {
       '@type': 'Offer',
       availability: 'https://schema.org/InStock',
       seller: {
         '@type': 'Organization',
-        name: isEn ? 'CANI Technology' : '长凌科技',
+        name: t('template.companyName'),
       },
     },
     additionalProperty: specs.map(spec => ({
@@ -236,13 +236,13 @@ const ProductDetailTemplate = ({
               <div className="flex flex-wrap gap-4">
                 <Link to="/contact">
                   <Button size="lg" className="bg-accent text-accent-foreground hover:bg-accent/90 font-bold shadow-lg group">
-                    {isEn ? 'Get Quote' : '获取报价'}
+                    {t('template.getQuote')}
                     <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
                   </Button>
                 </Link>
                 <Button size="lg" className="bg-white/95 text-primary hover:bg-white font-bold shadow-lg">
                   <Phone className="mr-2 h-4 w-4" />
-                  {isEn ? 'Call Us' : '电话咨询'}
+                  {t('template.callUs')}
                 </Button>
               </div>
               </div>
@@ -351,7 +351,7 @@ const ProductDetailTemplate = ({
               <Link to="/contact">
                 <Button size="lg" className="bg-accent text-white hover:bg-accent/90 font-bold shadow-lg group">
                   <Mail className="mr-2 h-4 w-4" />
-                  {isEn ? 'Contact Us' : '立即咨询'}
+                  {t('template.contactUs')}
                   <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
                 </Button>
               </Link>

@@ -50,8 +50,12 @@ export const ProductCollectionSEO = ({
   buyingGuide,
   technicalInfo,
 }: ProductCollectionSEOProps) => {
-  const { language } = useLanguage();
+  const { language, t } = useLanguage();
   const isEn = language === 'en';
+
+  // Get localized company name
+  const companyName = t('template.companyName');
+  const companyNameFull = t('template.companyNameFull');
 
   // 生成 ItemList 结构化数据
   const itemListStructuredData = {
@@ -75,7 +79,7 @@ export const ProductCollectionSEO = ({
         },
         manufacturer: {
           '@type': 'Organization',
-          name: isEn ? 'CANI Technology Co., Ltd.' : '长凌科技有限公司',
+          name: companyNameFull,
         },
         offers: product.price ? {
           '@type': 'Offer',
