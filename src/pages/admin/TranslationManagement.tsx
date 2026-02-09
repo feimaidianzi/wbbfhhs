@@ -251,7 +251,7 @@ const TranslationManagement = () => {
   }, []);
 
   // 翻译单个语言的一个批次
-  const translateOneBatch = async (lang: LanguageCode): Promise<{ success: boolean; remaining: number; count: number; total: number }> => {
+  const translateOneBatch = async (lang: LanguageCode): Promise<{ success: boolean; remaining: number; count: number; total: number; isTimeout?: boolean }> => {
     try {
       // 从数据库获取最新的待翻译内容，确保使用最新数据
       let currentPendingContent: Record<string, string> = {};
@@ -313,9 +313,11 @@ const TranslationManagement = () => {
                               error?.context?.message?.includes('Failed to fetch') ||
                               error?.name === 'FunctionsFetchError';
       if (isTimeoutError) {
-        toast.error('翻译请求超时，请稍后重试。后台翻译仍可能在进行中。');
+        // 超时错误不算失败，后台可能仍在处理，返回特殊标记让调用者等待后重试
+        console.log('[TranslateOneBatch] Request timeout, backend may still be processing...');
+        return { success: false, remaining: -2, count: 0, total: totalSourceKeys, isTimeout: true };
       }
-      return { success: false, remaining: -1, count: 0, total: totalSourceKeys };
+      return { success: false, remaining: -1, count: 0, total: totalSourceKeys, isTimeout: false };
     }
   };
 
@@ -343,6 +345,18 @@ const TranslationManagement = () => {
       
       if (!result.success) {
         retryCount++;
+        
+        // 超时错误特殊处理：后台可能仍在处理，等待更长时间后继续
+        if (result.isTimeout) {
+          console.log(`[AutoTranslate] ${langName}: Request timeout, waiting 10s before retry...`);
+          toast.info(`${langName} 请求超时，后台仍在翻译中，10秒后自动继续...`);
+          await new Promise(r => setTimeout(r, 10000)); // 等待10秒
+          // 刷新状态检查进度
+          await loadTranslationStatuses();
+          retryCount = 0; // 超时不计入失败重试
+          continue;
+        }
+        
         if (retryCount >= maxRetries) {
           toast.error(`${langName} 翻译失败，已重试${maxRetries}次`);
           return false;
