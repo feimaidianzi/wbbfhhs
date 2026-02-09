@@ -337,6 +337,34 @@ const TranslationManagement = () => {
 
     console.log(`[AutoTranslate] Starting ${langName}, total keys: ${totalKeys} (base: ${Object.keys(zhTranslations).length}, pending: ${pendingKeysCount})`);
 
+    // 初始化进度状态 - 查询当前语言的已翻译数量
+    try {
+      const { data: langData } = await supabase
+        .from('system_settings')
+        .select('value')
+        .eq('key', `translations_${lang}`)
+        .maybeSingle();
+      
+      if (langData?.value) {
+        const existingTranslations = JSON.parse(langData.value);
+        const translatedCount = Object.keys(existingTranslations).length;
+        const initialRemaining = Math.max(0, totalKeys - translatedCount);
+        const initialPercent = totalKeys > 0 ? Math.min(100, Math.round((translatedCount / totalKeys) * 100)) : 0;
+        
+        setCurrentProgress({ done: translatedCount, total: totalKeys, remaining: initialRemaining });
+        setProgress(initialPercent);
+        console.log(`[AutoTranslate] ${langName}: Initial state: ${translatedCount}/${totalKeys} done, ${initialRemaining} remaining, ${initialPercent}%`);
+      } else {
+        // 没有翻译记录，从0开始
+        setCurrentProgress({ done: 0, total: totalKeys, remaining: totalKeys });
+        setProgress(0);
+      }
+    } catch (e) {
+      // 初始化失败，使用默认值
+      setCurrentProgress({ done: 0, total: totalKeys, remaining: totalKeys });
+      setProgress(0);
+    }
+
     while (!stopAutoRef.current) {
       batchCount++;
       const result = await translateOneBatch(lang);
