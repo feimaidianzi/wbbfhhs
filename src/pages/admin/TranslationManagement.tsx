@@ -306,8 +306,15 @@ const TranslationManagement = () => {
         count: result.count ?? 0,
         total: result.total ?? totalKeys,
       };
-    } catch (error) {
+    } catch (error: any) {
       console.error('Translation batch error:', error);
+      // 检测是否是网络超时错误
+      const isTimeoutError = error?.message?.includes('Failed to fetch') || 
+                              error?.context?.message?.includes('Failed to fetch') ||
+                              error?.name === 'FunctionsFetchError';
+      if (isTimeoutError) {
+        toast.error('翻译请求超时，请稍后重试。后台翻译仍可能在进行中。');
+      }
       return { success: false, remaining: -1, count: 0, total: totalSourceKeys };
     }
   };
