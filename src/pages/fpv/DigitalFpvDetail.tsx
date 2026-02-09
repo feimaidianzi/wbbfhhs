@@ -89,10 +89,6 @@ const DigitalFpvDetail = () => {
                   ))}
                 </div>
                 
-                <div className="flex flex-wrap gap-4">
-                  <div className="text-3xl font-bold text-accent">{product.price}</div>
-                </div>
-                
                 <div className="flex flex-wrap gap-4 mt-6">
                   <Link to="/contact">
                     <Button className="bg-accent hover:bg-accent/90 text-accent-foreground px-6">

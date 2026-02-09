@@ -60,7 +60,6 @@ const FcEscDetail = () => {
               <div>
                 <div className="flex items-center gap-3 mb-4">
                   <span className="px-3 py-1 text-sm bg-primary/10 text-primary rounded-full font-medium">{product.category}</span>
-                  <span className="px-3 py-1 text-sm bg-secondary text-secondary-foreground rounded-full">{product.price}</span>
                 </div>
                 <h1 className="text-3xl md:text-4xl font-bold mb-2">{product.name}</h1>
                 <p className="text-xl text-muted-foreground mb-6">{product.model}</p>

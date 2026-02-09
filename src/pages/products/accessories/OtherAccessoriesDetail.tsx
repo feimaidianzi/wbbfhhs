@@ -114,23 +114,20 @@ const OtherAccessoriesDetail = () => {
                   ))}
                 </div>
 
-                {/* Price & CTA */}
-                <div className="flex flex-col sm:flex-row items-start sm:items-center gap-6 mb-8">
-                  <div className="text-4xl font-bold text-accent">{product.price}</div>
-                  <div className="flex gap-4">
-                    <Link to="/contact">
-                      <Button className="bg-accent hover:bg-accent/90 text-accent-foreground px-6 py-3">
-                        <Phone className="w-4 h-4 mr-2" />
-                        {t('accessoryDetail.inquireNow')}
-                      </Button>
-                    </Link>
-                    <Button 
-                      variant="outline" 
-                      className="border-white/50 text-white hover:bg-white/10 px-6 py-3"
-                    >
-                      {t('accessoryDetail.downloadManual')}
+                {/* CTA */}
+                <div className="flex gap-4 mb-8">
+                  <Link to="/contact">
+                    <Button className="bg-accent hover:bg-accent/90 text-accent-foreground px-6 py-3">
+                      <Phone className="w-4 h-4 mr-2" />
+                      {t('accessoryDetail.inquireNow')}
                     </Button>
-                  </div>
+                  </Link>
+                  <Button 
+                    variant="outline" 
+                    className="border-white/50 text-white hover:bg-white/10 px-6 py-3"
+                  >
+                    {t('accessoryDetail.downloadManual')}
+                  </Button>
                 </div>
               </div>
             </div>

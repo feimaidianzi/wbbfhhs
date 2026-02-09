@@ -273,18 +273,6 @@ const DatabaseProductList = () => {
                       <p className="text-muted-foreground text-sm mb-4 line-clamp-2">
                         {getProductDescription(product) || t('productList.noDescription')}
                       </p>
-                      {product.price && (
-                        <div className="flex items-baseline gap-2">
-                          <span className="text-lg font-bold text-primary">
-                            ¥{product.price.toLocaleString()}
-                          </span>
-                          {product.original_price && product.original_price > product.price && (
-                            <span className="text-sm text-muted-foreground line-through">
-                              ¥{product.original_price.toLocaleString()}
-                            </span>
-                          )}
-                        </div>
-                      )}
                     </div>
                   </Link>
                 ))}
@@ -331,12 +319,7 @@ const DatabaseProductList = () => {
                         {getProductDescription(product) || t('productList.noDescription')}
                       </p>
                     </div>
-                    <div className="flex flex-col items-end justify-between">
-                      {product.price && (
-                        <span className="text-lg font-bold text-primary">
-                          ¥{product.price.toLocaleString()}
-                        </span>
-                      )}
+                    <div className="flex flex-col items-end justify-center">
                       <ArrowRight className="w-5 h-5 text-muted-foreground group-hover:text-primary group-hover:translate-x-1 transition-all" />
                     </div>
                   </Link>

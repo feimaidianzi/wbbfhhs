@@ -92,12 +92,9 @@ const CameraPage = () => {
                         />
                       </div>
                       <div className="p-5">
-                        <div className="flex items-center justify-between mb-2">
+                        <div className="flex items-center mb-2">
                           <span className="px-2 py-1 text-xs bg-primary/10 text-primary rounded-full">
                             {product.model}
-                          </span>
-                          <span className="text-sm text-muted-foreground">
-                            {product.price}
                           </span>
                         </div>
                         <h3 className="font-semibold text-lg mb-2 group-hover:text-primary transition-colors line-clamp-2">
