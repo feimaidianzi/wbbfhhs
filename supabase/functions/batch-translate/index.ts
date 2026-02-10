@@ -359,7 +359,7 @@ Deno.serve(async (req) => {
     };
 
     // Process all languages in parallel if we have enough keys
-    const languagesToProcess = languages.filter(l => l !== 'zh' && l !== 'en');
+    const languagesToProcess = languages.filter(l => l !== 'zh');
     
     // With multiple keys, we can process multiple languages simultaneously
     const processLanguage = async (lang: string) => {
