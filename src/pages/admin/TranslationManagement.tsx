@@ -121,7 +121,7 @@ const TranslationManagement = () => {
     setTotalSourceKeys(currentTotalSourceKeys);
 
     for (const lang of SUPPORTED_LANGUAGES) {
-      if (lang.code === 'zh' || lang.code === 'en') {
+      if (lang.code === 'zh') {
         results.push({
           lang: lang.code,
           name: lang.name,
@@ -577,7 +577,7 @@ const TranslationManagement = () => {
 
     const pendingKeys = Object.keys(pendingTranslations.content);
     const languagesToCheck = SUPPORTED_LANGUAGES
-      .filter(l => l.code !== 'zh' && l.code !== 'en')
+      .filter(l => l.code !== 'zh')
       .map(l => l.code);
 
     let allTranslated = true;
@@ -625,7 +625,7 @@ const TranslationManagement = () => {
   // 自动翻译所有语言
   const autoTranslateAll = async () => {
     const languagesToTranslate = SUPPORTED_LANGUAGES
-      .filter(l => l.code !== 'zh' && l.code !== 'en')
+      .filter(l => l.code !== 'zh')
       .map(l => l.code);
 
     setIsTranslating(true);
@@ -710,7 +710,7 @@ const TranslationManagement = () => {
       // Merge pending translations with existing zhTranslations
       const mergedContent = { ...zhTranslations, ...pendingTranslations.content };
       const targetLanguages = SUPPORTED_LANGUAGES
-        .filter(l => l.code !== 'zh' && l.code !== 'en')
+        .filter(l => l.code !== 'zh')
         .map(l => l.code);
 
       toast.info(`开始翻译 ${Object.keys(pendingTranslations.content).length} 个新key到 ${targetLanguages.length} 种语言...`);

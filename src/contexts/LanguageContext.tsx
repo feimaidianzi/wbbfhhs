@@ -140,8 +140,37 @@ export const LanguageProvider: React.FC<LanguageProviderProps> = ({ children }) 
       return true;
     }
     
+    // For English: merge static enTranslations with DB translations (DB takes priority)
+    // This ensures keys missing from en.ts but present in DB are still available
     if (targetLang === 'en') {
+      // Start with static translations immediately
       setCurrentTranslations(enTranslations);
+      
+      // Then try to load richer translations from DB
+      try {
+        const cached = localStorage.getItem('translations_en');
+        if (cached) {
+          const parsed = JSON.parse(cached);
+          setCurrentTranslations({ ...enTranslations, ...parsed });
+          return true;
+        }
+        
+        const { data } = await supabase
+          .from('system_settings')
+          .select('value')
+          .eq('key', 'translations_en')
+          .maybeSingle();
+        
+        if (data?.value) {
+          const dbTranslations = JSON.parse(data.value);
+          const merged = { ...enTranslations, ...dbTranslations };
+          setCurrentTranslations(merged);
+          setTranslations(targetLang, merged);
+          localStorage.setItem('translations_en', data.value);
+        }
+      } catch (e) {
+        console.error('Error loading EN translations from DB:', e);
+      }
       return true;
     }
 
