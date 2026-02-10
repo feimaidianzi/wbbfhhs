@@ -250,7 +250,7 @@ const TranslationManagement = () => {
     loadBackgroundStatus();
   }, []);
 
-  // 翻译单个语言的一个批次
+  // 翻译单个语言的一个批次 - 前端预过滤，只发送未翻译的keys
   const translateOneBatch = async (lang: LanguageCode): Promise<{ success: boolean; remaining: number; count: number; total: number; isTimeout?: boolean }> => {
     try {
       // 从数据库获取最新的待翻译内容，确保使用最新数据
@@ -277,14 +277,60 @@ const TranslationManagement = () => {
       const forceTranslateKeys = Object.keys(currentPendingContent);
       
       const totalKeys = Object.keys(mergedContent).length;
-      console.log(`[TranslateOneBatch] Starting for ${lang}, source has ${totalKeys} keys (base: ${Object.keys(zhTranslations).length}, pending: ${Object.keys(currentPendingContent).length}, forceKeys: ${forceTranslateKeys.length})`);
+
+      // *** 前端预过滤：只发送未翻译的keys，避免大payload导致超时 ***
+      let existingTranslations: Record<string, string> = {};
+      try {
+        const { data: langData } = await supabase
+          .from('system_settings')
+          .select('value')
+          .eq('key', `translations_${lang}`)
+          .maybeSingle();
+        if (langData?.value) {
+          existingTranslations = JSON.parse(langData.value);
+        }
+      } catch (e) {
+        console.error('Failed to get existing translations:', e);
+      }
+
+      const existingKeys = new Set(Object.keys(existingTranslations));
+      const forceKeysSet = new Set(forceTranslateKeys);
       
+      // 过滤出未翻译的keys
+      const filteredContent: Record<string, string> = {};
+      const filteredForceKeys: string[] = [];
+      for (const [key, value] of Object.entries(mergedContent)) {
+        if (forceKeysSet.has(key)) {
+          filteredContent[key] = value;
+          filteredForceKeys.push(key);
+        } else if (!existingKeys.has(key)) {
+          filteredContent[key] = value;
+        }
+      }
+
+      const filteredCount = Object.keys(filteredContent).length;
+      console.log(`[TranslateOneBatch] ${lang}: ${filteredCount}/${totalKeys} keys need translation (${existingKeys.size} already done)`);
+
+      // 如果没有需要翻译的key，直接返回完成
+      if (filteredCount === 0) {
+        return { success: true, remaining: 0, count: 0, total: totalKeys };
+      }
+
+      // 限制单次发送量，最多发送500个keys（约33个chunk），避免超时
+      const maxKeysPerBatch = 500;
+      let contentToSend = filteredContent;
+      if (filteredCount > maxKeysPerBatch) {
+        const entries = Object.entries(filteredContent).slice(0, maxKeysPerBatch);
+        contentToSend = Object.fromEntries(entries);
+        console.log(`[TranslateOneBatch] ${lang}: Capped to ${maxKeysPerBatch} keys this batch`);
+      }
+
       const { data, error } = await supabase.functions.invoke('batch-translate', {
         body: {
           mode: 'incremental',
           languages: [lang],
-          sourceContent: mergedContent,
-          forceTranslateKeys, // 强制翻译这些 key，即使已存在
+          sourceContent: contentToSend,
+          forceTranslateKeys: filteredForceKeys,
         },
       });
 
