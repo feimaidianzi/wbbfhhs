@@ -577,7 +577,7 @@ const TranslationManagement = () => {
 
     const pendingKeys = Object.keys(pendingTranslations.content);
     const languagesToCheck = SUPPORTED_LANGUAGES
-      .filter(l => l.code !== 'zh' && l.code !== 'en')
+      .filter(l => l.code !== 'zh')
       .map(l => l.code);
 
     let allTranslated = true;
