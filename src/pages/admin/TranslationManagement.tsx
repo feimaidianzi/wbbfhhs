@@ -1012,10 +1012,11 @@ const TranslationManagement = () => {
               // 判断是否完成：keyCount >= totalSourceKeys 且没有待处理的 pending keys
               const isComplete = status.keyCount >= totalSourceKeys && status.pendingMissing === 0;
               
-              // 进度计算 - 使用 Math.floor 避免提前显示100%
+              // 进度计算 - baseMissing已包含pendingMissing（因为pending keys已合并到totalSourceKeys中）
               const effectiveCount = Math.min(status.keyCount, totalSourceKeys);
               const baseMissing = Math.max(0, totalSourceKeys - status.keyCount);
-              const totalMissing = baseMissing + status.pendingMissing;
+              // 不要double-count: baseMissing已经包含了pendingMissing
+              const totalMissing = baseMissing;
               const progressPercent = totalSourceKeys > 0 
                 ? (totalMissing <= 0 ? 100 : Math.min(99, Math.floor((effectiveCount / totalSourceKeys) * 100)))
                 : 0;
