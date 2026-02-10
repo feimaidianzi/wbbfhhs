@@ -710,7 +710,7 @@ const TranslationManagement = () => {
       // Merge pending translations with existing zhTranslations
       const mergedContent = { ...zhTranslations, ...pendingTranslations.content };
       const targetLanguages = SUPPORTED_LANGUAGES
-        .filter(l => l.code !== 'zh' && l.code !== 'en')
+        .filter(l => l.code !== 'zh')
         .map(l => l.code);
 
       toast.info(`开始翻译 ${Object.keys(pendingTranslations.content).length} 个新key到 ${targetLanguages.length} 种语言...`);
