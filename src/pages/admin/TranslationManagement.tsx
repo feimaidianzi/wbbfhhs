@@ -244,7 +244,27 @@ const TranslationManagement = () => {
     }
   };
 
+  // 同步 zhTranslations 到数据库，让后端也能访问源字典
+  const syncSourceToDatabase = async () => {
+    try {
+      const sourceJson = JSON.stringify(zhTranslations);
+      const { error } = await supabase.from('system_settings').upsert({
+        key: 'source_translations_zh',
+        value: sourceJson,
+        description: '源中文翻译字典（自动同步）',
+      }, { onConflict: 'key' });
+      if (error) {
+        console.error('[SyncSource] Failed to sync zhTranslations to DB:', error);
+      } else {
+        console.log(`[SyncSource] Synced ${Object.keys(zhTranslations).length} keys to database`);
+      }
+    } catch (e) {
+      console.error('[SyncSource] Error:', e);
+    }
+  };
+
   useEffect(() => {
+    syncSourceToDatabase(); // 每次进入页面时同步源字典
     loadTranslationStatuses();
     loadPendingTranslations();
     loadBackgroundStatus();
