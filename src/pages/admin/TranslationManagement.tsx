@@ -121,7 +121,7 @@ const TranslationManagement = () => {
     setTotalSourceKeys(currentTotalSourceKeys);
 
     for (const lang of SUPPORTED_LANGUAGES) {
-      if (lang.code === 'zh' || lang.code === 'en') {
+      if (lang.code === 'zh') {
         results.push({
           lang: lang.code,
           name: lang.name,
