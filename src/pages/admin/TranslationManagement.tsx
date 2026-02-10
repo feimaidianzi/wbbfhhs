@@ -296,15 +296,15 @@ const TranslationManagement = () => {
       const existingKeys = new Set(Object.keys(existingTranslations));
       const forceKeysSet = new Set(forceTranslateKeys);
       
-      // 过滤出未翻译的keys
+      // 过滤出未翻译的keys（force keys 也需要检查是否已存在，避免重复发送）
       const filteredContent: Record<string, string> = {};
       const filteredForceKeys: string[] = [];
       for (const [key, value] of Object.entries(mergedContent)) {
-        if (forceKeysSet.has(key)) {
+        if (!existingKeys.has(key)) {
           filteredContent[key] = value;
-          filteredForceKeys.push(key);
-        } else if (!existingKeys.has(key)) {
-          filteredContent[key] = value;
+          if (forceKeysSet.has(key)) {
+            filteredForceKeys.push(key);
+          }
         }
       }
 
