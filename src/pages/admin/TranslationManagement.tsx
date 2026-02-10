@@ -625,7 +625,7 @@ const TranslationManagement = () => {
   // 自动翻译所有语言
   const autoTranslateAll = async () => {
     const languagesToTranslate = SUPPORTED_LANGUAGES
-      .filter(l => l.code !== 'zh' && l.code !== 'en')
+      .filter(l => l.code !== 'zh')
       .map(l => l.code);
 
     setIsTranslating(true);
