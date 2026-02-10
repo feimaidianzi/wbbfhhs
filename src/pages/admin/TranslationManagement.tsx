@@ -346,11 +346,34 @@ const TranslationManagement = () => {
         throw new Error(result?.error || '翻译失败');
       }
 
+      // CRITICAL FIX: Don't trust backend's remaining count since we only sent a subset.
+      // Re-query DB to get true remaining count based on full mergedContent.
+      let trueRemaining = totalKeys;
+      try {
+        const { data: updatedLangData } = await supabase
+          .from('system_settings')
+          .select('value')
+          .eq('key', `translations_${lang}`)
+          .maybeSingle();
+        if (updatedLangData?.value) {
+          const updatedTranslations = JSON.parse(updatedLangData.value);
+          const updatedCount = Object.keys(updatedTranslations).length;
+          // True remaining = keys in mergedContent that are NOT in stored translations
+          const updatedKeySet = new Set(Object.keys(updatedTranslations));
+          trueRemaining = Object.keys(mergedContent).filter(k => !updatedKeySet.has(k)).length;
+          console.log(`[TranslateOneBatch] ${lang}: DB now has ${updatedCount} keys, true remaining: ${trueRemaining}`);
+        }
+      } catch (e) {
+        console.error('[TranslateOneBatch] Failed to re-query remaining:', e);
+        // Fallback: estimate remaining based on what we sent
+        trueRemaining = Math.max(0, filteredCount - (result.count ?? 0));
+      }
+
       return {
         success: true,
-        remaining: result.remaining ?? 0,
+        remaining: trueRemaining,
         count: result.count ?? 0,
-        total: result.total ?? totalKeys,
+        total: totalKeys,
       };
     } catch (error: any) {
       console.error('Translation batch error:', error);
@@ -989,15 +1012,15 @@ const TranslationManagement = () => {
               // 判断是否完成：keyCount >= totalSourceKeys 且没有待处理的 pending keys
               const isComplete = status.keyCount >= totalSourceKeys && status.pendingMissing === 0;
               
-              // 进度计算
+              // 进度计算 - 使用 Math.floor 避免提前显示100%
               const effectiveCount = Math.min(status.keyCount, totalSourceKeys);
-              const progressPercent = totalSourceKeys > 0 
-                ? Math.round((effectiveCount / totalSourceKeys) * 100) 
-                : 0;
-              
-              // 缺失数量 = 基础缺失 + pending缺失
               const baseMissing = Math.max(0, totalSourceKeys - status.keyCount);
               const totalMissing = baseMissing + status.pendingMissing;
+              const progressPercent = totalSourceKeys > 0 
+                ? (totalMissing <= 0 ? 100 : Math.min(99, Math.floor((effectiveCount / totalSourceKeys) * 100)))
+                : 0;
+              
+              
               
               // 有 pending 缺失时需要特殊标记
               const hasPendingWork = status.pendingMissing > 0;
