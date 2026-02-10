@@ -1100,7 +1100,7 @@ const TranslationManagement = () => {
                         </div>
                       )}
                     </div>
-                    {status.lang !== 'zh' && status.lang !== 'en' && (
+                    {status.lang !== 'zh' && (
                       <Button
                         variant="outline"
                         size="sm"
