@@ -271,13 +271,6 @@ Deno.serve(async (req) => {
         { status: 400, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
       );
     }
-    
-    if (mode === 'full' && !sourceContent) {
-      return new Response(
-        JSON.stringify({ error: 'Missing sourceContent for full mode' }),
-        { status: 400, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
-      );
-    }
 
     // Collect all DeepSeek API keys
     const deepseekApiKeys = getDeepSeekApiKeys();
@@ -294,10 +287,22 @@ Deno.serve(async (req) => {
       Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')!
     );
 
-    const actualSourceContent = sourceContent;
-    
+    // If sourceContent not provided or empty, try loading from database
+    let actualSourceContent = sourceContent;
     if (!actualSourceContent || Object.keys(actualSourceContent).length === 0) {
-      throw new Error('No source content provided - frontend must send zhTranslations');
+      console.log('[batch-translate] No sourceContent provided, loading from database...');
+      const { data: sourceData } = await supabase
+        .from('system_settings')
+        .select('value')
+        .eq('key', 'source_translations_zh')
+        .single();
+      
+      if (sourceData?.value) {
+        actualSourceContent = JSON.parse(sourceData.value);
+        console.log(`[batch-translate] Loaded ${Object.keys(actualSourceContent).length} keys from database`);
+      } else {
+        throw new Error('No source content provided and none found in database. Please visit Translation Management page first to sync.');
+      }
     }
     
     const forceKeysSet = new Set(forceTranslateKeys);
