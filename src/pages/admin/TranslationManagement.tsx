@@ -927,6 +927,43 @@ const TranslationManagement = () => {
           </CardContent>
         </Card>
 
+        {/* Clear Translation Cache */}
+        <Card className="mb-6 border-red-200 bg-gradient-to-r from-red-50 to-orange-50">
+          <CardContent className="pt-6">
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-4">
+                <div className="w-12 h-12 rounded-xl bg-red-500/10 flex items-center justify-center">
+                  <Trash2 className="w-6 h-6 text-red-600" />
+                </div>
+                <div>
+                  <h3 className="font-semibold text-lg">清除翻译缓存</h3>
+                  <p className="text-sm text-muted-foreground">
+                    清除浏览器中所有语言的翻译缓存，确保加载最新数据库翻译
+                  </p>
+                </div>
+              </div>
+              <Button
+                variant="outline"
+                className="border-red-300 text-red-600 hover:bg-red-100"
+                onClick={() => {
+                  const keysToRemove: string[] = [];
+                  for (let i = 0; i < localStorage.length; i++) {
+                    const key = localStorage.key(i);
+                    if (key && (key.startsWith('translations_') || key === 'language' || key === 'language_manual')) {
+                      keysToRemove.push(key);
+                    }
+                  }
+                  keysToRemove.forEach(k => localStorage.removeItem(k));
+                  toast.success(`已清除 ${keysToRemove.length} 项翻译缓存，请刷新页面`);
+                }}
+              >
+                <Trash2 className="w-4 h-4 mr-2" />
+                清除缓存
+              </Button>
+            </div>
+          </CardContent>
+        </Card>
+
         {/* Page Migration Tool Link */}
         <Card className="mb-6 border-blue-200 bg-gradient-to-r from-blue-50 to-indigo-50">
           <CardContent className="pt-6">
@@ -1100,7 +1137,7 @@ const TranslationManagement = () => {
                         </div>
                       )}
                     </div>
-                    {status.lang !== 'zh' && status.lang !== 'en' && (
+                    {status.lang !== 'zh' && (
                       <Button
                         variant="outline"
                         size="sm"
