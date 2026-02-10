@@ -411,7 +411,7 @@ Deno.serve(async (req) => {
                 key: `translations_${lang}`,
                 value: JSON.stringify(existingTranslations),
                 updated_at: new Date().toISOString()
-              });
+              }, { onConflict: 'key' });
             
             return {
               lang,
