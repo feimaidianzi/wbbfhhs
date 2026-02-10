@@ -411,7 +411,7 @@ Deno.serve(async (req) => {
                 key: `translations_${lang}`,
                 value: JSON.stringify(existingTranslations),
                 updated_at: new Date().toISOString()
-              });
+              }, { onConflict: 'key' });
             
             return {
               lang,
@@ -449,13 +449,18 @@ Deno.serve(async (req) => {
         
         const mergedTranslations = { ...existingTranslations, ...newTranslations };
         
-        await supabase
+        const { error: upsertError } = await supabase
           .from('system_settings')
           .upsert({
             key: `translations_${lang}`,
             value: JSON.stringify(mergedTranslations),
             updated_at: new Date().toISOString()
-          });
+          }, { onConflict: 'key' });
+        
+        if (upsertError) {
+          console.error(`[CRITICAL] Failed to save translations for ${lang}:`, upsertError);
+          throw new Error(`Failed to save translations: ${upsertError.message}`);
+        }
         
         // 重新计算剩余未翻译的键数
         const translatedKeysAfter = new Set<string>();
