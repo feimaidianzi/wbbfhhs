@@ -37,8 +37,8 @@ const getOrCreateVisitorId = (): string => {
 };
 
 export const AIAssistant = () => {
-  const { language } = useLanguage();
-  const isEn = language === "en";
+  const { baseLang } = useLanguage();
+  const isEn = baseLang === "en";
   const { toast } = useToast();
   const [isOpen, setIsOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(false);

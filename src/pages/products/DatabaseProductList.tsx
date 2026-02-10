@@ -28,8 +28,8 @@ interface Product {
 const ITEMS_PER_PAGE = 12;
 
 const DatabaseProductList = () => {
-  const { language, t } = useLanguage();
-  const isEn = language === 'en';
+  const { baseLang, t } = useLanguage();
+  const isEn = baseLang === 'en';
   
   const [products, setProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState(true);

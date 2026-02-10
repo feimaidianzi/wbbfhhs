@@ -50,8 +50,8 @@ export const ProductCollectionSEO = ({
   buyingGuide,
   technicalInfo,
 }: ProductCollectionSEOProps) => {
-  const { language, t } = useLanguage();
-  const isEn = language === 'en';
+  const { baseLang, t } = useLanguage();
+  const isEn = baseLang === 'en';
 
   // Get localized company name
   const companyName = t('template.companyName');
