@@ -1020,9 +1020,7 @@ const TranslationManagement = () => {
                 ? (totalMissing <= 0 ? 100 : Math.min(99, Math.floor((effectiveCount / totalSourceKeys) * 100)))
                 : 0;
               
-              // 缺失数量 = 基础缺失 + pending缺失
-              const baseMissing = Math.max(0, totalSourceKeys - status.keyCount);
-              const totalMissing = baseMissing + status.pendingMissing;
+              
               
               // 有 pending 缺失时需要特殊标记
               const hasPendingWork = status.pendingMissing > 0;
