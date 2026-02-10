@@ -30,8 +30,8 @@ export const RichSEOContent = ({
   additionalKeywords = [],
   additionalKeywordsEn = [],
 }: RichSEOContentProps) => {
-  const { language } = useLanguage();
-  const isEn = language === 'en';
+  const { baseLang } = useLanguage();
+  const isEn = baseLang === 'en';
 
   return (
     <div className="sr-only" aria-hidden="false">

@@ -104,9 +104,9 @@ const ProductDetailTemplate = ({
   productCategory,
   productPrice,
 }: ProductDetailTemplateProps) => {
-  const { language, t } = useLanguage();
+  const { language, baseLang, t } = useLanguage();
   const location = useLocation();
-  const isEn = language === 'en';
+  const isEn = baseLang === 'en';
   const langCode = language as LanguageCode;
   
   const getAppText = (app: string | { zh: string; en: string }) => {

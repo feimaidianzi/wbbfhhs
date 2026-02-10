@@ -133,8 +133,8 @@ const ProductPageTemplate = ({
   seoKeywords = [],
   seoKeywordsEn = [],
 }: ProductPageTemplateProps) => {
-  const { language, t } = useLanguage();
-  const isEn = language === 'en';
+  const { baseLang, t } = useLanguage();
+  const isEn = baseLang === 'en';
 
   // 获取预定义的SEO内容
   const categorySlug = seoCategory || heroTitle.toLowerCase().replace(/\s+/g, '-');

@@ -9,8 +9,8 @@ import wifilink2 from "@/assets/fpv/wifilink2.jpg";
 import sj4000Image from "@/assets/camera/sj4000-wifi.png";
 
 const Accessories = () => {
-  const { language } = useLanguage();
-  const isEn = language === 'en';
+  const { baseLang } = useLanguage();
+  const isEn = baseLang === 'en';
 
   const features = [
     { icon: Radio, title: "VTX/VRX图传", titleEn: "VTX/VRX Video TX", description: "4.9-7.2GHz全频段视频发射器，2.5W-37W多功率可选，高清远距离传输", descriptionEn: "4.9-7.2GHz full-band video transmitter, 2.5W-37W power options, HD long-range transmission" },

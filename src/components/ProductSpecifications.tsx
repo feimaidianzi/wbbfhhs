@@ -26,8 +26,8 @@ const ProductSpecifications = ({
   titleEn = 'Technical Specifications',
   className = '',
 }: ProductSpecificationsProps) => {
-  const { language } = useLanguage();
-  const isEn = language === 'en';
+  const { baseLang } = useLanguage();
+  const isEn = baseLang === 'en';
 
   // Parse specifications into array format
   const parseSpecs = (): SpecField[] => {
