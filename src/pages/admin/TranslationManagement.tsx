@@ -442,7 +442,7 @@ const TranslationManagement = () => {
                 const translatedCount = Object.keys(existingTranslations).length;
                 const currentRemaining = Math.max(0, totalKeys - translatedCount);
                 const currentDone = translatedCount;
-                const currentPercent = totalKeys > 0 ? Math.min(100, Math.round((currentDone / totalKeys) * 100)) : 0;
+                const currentPercent = totalKeys > 0 ? Math.min(99, Math.floor((currentDone / totalKeys) * 100)) : 0;
                 
                 setCurrentProgress({ done: currentDone, total: totalKeys, remaining: currentRemaining });
                 setProgress(currentPercent);
