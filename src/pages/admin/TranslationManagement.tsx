@@ -496,7 +496,7 @@ const TranslationManagement = () => {
       });
       
       // Calculate progress percentage using frontend total
-      const progressPercent = totalKeys > 0 ? Math.min(100, Math.round((done / totalKeys) * 100)) : 0;
+      const progressPercent = totalKeys > 0 ? (remaining <= 0 ? 100 : Math.min(99, Math.floor((done / totalKeys) * 100))) : 0;
       setProgress(progressPercent);
       
       console.log(`[AutoTranslate] ${langName}: ${done}/${totalKeys} done, ${remaining} remaining, ${progressPercent}%`);
