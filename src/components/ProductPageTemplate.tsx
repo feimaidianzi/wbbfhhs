@@ -405,12 +405,12 @@ const ProductPageTemplate = ({
                       </div>
 
                       {product.link ? (
-                        <Link to={product.link}>
+                        <LangLink to={product.link}>
                           <Button className="w-full bg-accent/10 hover:bg-accent text-accent hover:text-accent-foreground font-semibold group/btn">
                             {t('template.learnMore')}
                             <ArrowRight className="w-4 h-4 ml-2 group-hover/btn:translate-x-1 transition-transform" />
                           </Button>
-                        </Link>
+                        </LangLink>
                       ) : (
                         <Button className="w-full bg-accent/10 hover:bg-accent text-accent hover:text-accent-foreground font-semibold group/btn">
                           {t('template.learnMore')}
