@@ -349,13 +349,13 @@ const ProductDetailTemplate = ({
               </p>
             )}
             <div className="flex flex-wrap justify-center gap-4">
-              <Link to="/contact">
+              <LangLink to="/contact">
                 <Button size="lg" className="bg-accent text-white hover:bg-accent/90 font-bold shadow-lg group">
                   <Mail className="mr-2 h-4 w-4" />
                   {t('template.contactUs')}
                   <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
                 </Button>
-              </Link>
+              </LangLink>
               <a href="tel:+8617674048404">
                 <Button size="lg" className="bg-white/95 text-primary hover:bg-white font-bold shadow-lg">
                   <Phone className="mr-2 h-4 w-4" />
