@@ -19,83 +19,84 @@ import {
   MapPin,
   ChevronRight
 } from "lucide-react";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 // 导入图片
 import heroImage from "@/assets/products/logistics-hero.jpg";
 import deliveryImage from "@/assets/products/logistics-delivery.jpg";
-import modelsImage from "@/assets/products/logistics-models.jpg";
 import dropImage from "@/assets/products/logistics-drop.jpg";
 import foldImage from "@/assets/products/logistics-fold.jpg";
 import waypointImage from "@/assets/products/logistics-waypoint.jpg";
 import applicationsImage from "@/assets/products/logistics-applications.jpg";
 import speakerImage from "@/assets/products/logistics-speaker.jpg";
 import carbonImage from "@/assets/products/logistics-carbon.jpg";
-import featuresImage from "@/assets/products/logistics-features.jpg";
-import sixRotorImage from "@/assets/products/logistics-six-rotor.jpg";
 
 const Logistics = () => {
+  const { t } = useLanguage();
+
   const highlights = [
-    { title: "折叠便捷", description: "机身可折叠，便于收纳携带" },
-    { title: "超强运输", description: "定制运载重量可达1-100斤" },
-    { title: "功能定制", description: "支持多种载荷定制配置" },
-    { title: "操作便捷", description: "智能操控，简单易学" },
-    { title: "坚固耐用", description: "碳纤维机身，坚固耐用" },
+    { title: t('logistics.sy800.h1.title'), description: t('logistics.sy800.h1.desc') },
+    { title: t('logistics.sy800.h2.title'), description: t('logistics.sy800.h2.desc') },
+    { title: t('logistics.sy800.h3.title'), description: t('logistics.sy800.h3.desc') },
+    { title: t('logistics.sy800.h4.title'), description: t('logistics.sy800.h4.desc') },
+    { title: t('logistics.sy800.h5.title'), description: t('logistics.sy800.h5.desc') },
   ];
 
   const features = [
-    { icon: Wind, title: "7级抗风", description: "极端环境稳定飞行" },
-    { icon: Wifi, title: "数字图传", description: "5.8GHz/2.4GHz双频" },
-    { icon: BatteryCharging, title: "超长续航", description: "空载续航30分钟" },
-    { icon: Navigation, title: "自动起降", description: "一键起飞返航" },
-    { icon: Package, title: "远程投放", description: "双路投放系统" },
-    { icon: Camera, title: "俯仰自稳云台", description: "稳定拍摄画面" },
-    { icon: Image, title: "实时图传", description: "2K/1080P高清传输" },
-    { icon: Lightbulb, title: "夜间照明", description: "底部LED照明" },
-    { icon: Mic, title: "高音喊话", description: "远距离语音传达" },
-    { icon: Target, title: "指点飞行", description: "地图打点飞行" },
-    { icon: Compass, title: "一键返航", description: "自动安全返航" },
-    { icon: MapPin, title: "航线规划", description: "智能航点规划" },
+    { icon: Wind, title: t('logistics.sy800.f1.title'), description: t('logistics.sy800.f1.desc') },
+    { icon: Wifi, title: t('logistics.sy800.f2.title'), description: t('logistics.sy800.f2.desc') },
+    { icon: BatteryCharging, title: t('logistics.sy800.f3.title'), description: t('logistics.sy800.f3.desc') },
+    { icon: Navigation, title: t('logistics.sy800.f4.title'), description: t('logistics.sy800.f4.desc') },
+    { icon: Package, title: t('logistics.sy800.f5.title'), description: t('logistics.sy800.f5.desc') },
+    { icon: Camera, title: t('logistics.sy800.f6.title'), description: t('logistics.sy800.f6.desc') },
+    { icon: Image, title: t('logistics.sy800.f7.title'), description: t('logistics.sy800.f7.desc') },
+    { icon: Lightbulb, title: t('logistics.sy800.f8.title'), description: t('logistics.sy800.f8.desc') },
+    { icon: Mic, title: t('logistics.sy800.f9.title'), description: t('logistics.sy800.f9.desc') },
+    { icon: Target, title: t('logistics.sy800.f10.title'), description: t('logistics.sy800.f10.desc') },
+    { icon: Compass, title: t('logistics.sy800.f11.title'), description: t('logistics.sy800.f11.desc') },
+    { icon: MapPin, title: t('logistics.sy800.f12.title'), description: t('logistics.sy800.f12.desc') },
   ];
 
   const specs = [
-    { label: "型号", value: "SY800-2" },
-    { label: "图传方式", value: "手持地面站【液晶遥控】" },
-    { label: "机身材料", value: "碳纤维+尼龙纤维" },
-    { label: "机型", value: "多旋翼4轴可折叠" },
-    { label: "桨叶", value: "碳纤维15寸桨" },
-    { label: "无刷电机型号", value: "D4114" },
-    { label: "电池容量及电压", value: "6S10000毫安/22.8V-26.1V" },
-    { label: "充电时间", value: "3-4小时" },
-    { label: "轴距", value: "800mm" },
-    { label: "机身尺寸（长宽高）", value: "1180mm*950mm*230mm" },
-    { label: "折叠尺寸（长宽高）", value: "320mm*320mm*40mm" },
-    { label: "最大起飞重量", value: "6KG" },
-    { label: "机身重量（不含电池）", value: "2.25KG" },
-    { label: "空中照明", value: "照明/爆闪可切换" },
-    { label: "远程投放", value: "双路投放" },
-    { label: "远程高音喊话", value: "实时喊话/循环喊话/文本喊话/MP3播放" },
-    { label: "续航时间【空载】", value: "30分钟左右" },
-    { label: "遥控距离", value: "10公里（无干扰、无遮挡）" },
-    { label: "飞行高度", value: "500米（无干扰、无遮挡）" },
-    { label: "图像回传距离", value: "5公里（无干扰、无遮挡）" },
-    { label: "最大载荷重量", value: "2KG" },
+    { label: t('logistics.sy800.spec.model'), value: "SY800-2" },
+    { label: t('logistics.sy800.spec.datalink'), value: t('logistics.sy800.spec.datalinkVal') },
+    { label: t('logistics.sy800.spec.material'), value: t('logistics.sy800.spec.materialVal') },
+    { label: t('logistics.sy800.spec.type'), value: t('logistics.sy800.spec.typeVal') },
+    { label: t('logistics.sy800.spec.propeller'), value: t('logistics.sy800.spec.propellerVal') },
+    { label: t('logistics.sy800.spec.motor'), value: "D4114" },
+    { label: t('logistics.sy800.spec.battery'), value: t('logistics.sy800.spec.batteryVal') },
+    { label: t('logistics.sy800.spec.chargeTime'), value: t('logistics.sy800.spec.chargeTimeVal') },
+    { label: t('logistics.sy800.spec.wheelbase'), value: "800mm" },
+    { label: t('logistics.sy800.spec.bodySize'), value: "1180mm*950mm*230mm" },
+    { label: t('logistics.sy800.spec.foldSize'), value: "320mm*320mm*40mm" },
+    { label: t('logistics.sy800.spec.maxWeight'), value: "6KG" },
+    { label: t('logistics.sy800.spec.bodyWeight'), value: "2.25KG" },
+    { label: t('logistics.sy800.spec.light'), value: t('logistics.sy800.spec.lightVal') },
+    { label: t('logistics.sy800.spec.drop'), value: t('logistics.sy800.spec.dropVal') },
+    { label: t('logistics.sy800.spec.loudspeaker'), value: t('logistics.sy800.spec.loudspeakerVal') },
+    { label: t('logistics.sy800.spec.flightTime'), value: t('logistics.sy800.spec.flightTimeVal') },
+    { label: t('logistics.sy800.spec.rcRange'), value: t('logistics.sy800.spec.rcRangeVal') },
+    { label: t('logistics.sy800.spec.altitude'), value: t('logistics.sy800.spec.altitudeVal') },
+    { label: t('logistics.sy800.spec.videoRange'), value: t('logistics.sy800.spec.videoRangeVal') },
+    { label: t('logistics.sy800.spec.payload'), value: "2KG" },
   ];
 
-  const applications = [
-    { title: "应急搜救", image: applicationsImage },
-    { title: "消防救援", image: applicationsImage },
-    { title: "警用执法", image: applicationsImage },
-    { title: "电力巡检", image: applicationsImage },
-    { title: "油气巡检", image: applicationsImage },
-    { title: "地理信息测绘", image: applicationsImage },
+  const appNames = [
+    t('logistics.sy800.app1'),
+    t('logistics.sy800.app2'),
+    t('logistics.sy800.app3'),
+    t('logistics.sy800.app4'),
+    t('logistics.sy800.app5'),
+    t('logistics.sy800.app6'),
   ];
 
   return (
     <div className="min-h-screen bg-background">
       <MultiLanguageSEO 
-        title="载重无人机 SY800-2 - 世翼运载无人机"
-        description="世翼运载无人机SY800-2，新一代升级版多功能载重无人机。碳纤维机身，可折叠设计，定制运载重量可达1-100斤，续航30分钟，10公里遥控距离。"
+        title={t('logistics.sy800.seo.title')}
+        description={t('logistics.sy800.seo.desc')}
         path="/products/logistics"
+        type="product"
       />
       <Header />
       <FloatingContact />
@@ -105,30 +106,30 @@ const Logistics = () => {
         <div className="absolute inset-0">
           <img 
             src={heroImage} 
-            alt="世翼运载无人机"
+            alt={t('logistics.sy800.heroTitle')}
             className="w-full h-full object-cover"
           />
         </div>
         <div className="container mx-auto px-4 relative z-10">
           <div className="max-w-2xl rounded-3xl bg-black/70 border border-white/20 p-6 md:p-8 shadow-lg">
             <h1 className="text-4xl md:text-6xl font-bold mb-4 text-white">
-              世翼运载无人机
+              {t('logistics.sy800.heroTitle')}
             </h1>
             <p className="text-xl md:text-2xl text-white/80 mb-2">
-              新一代升级版多功能载重无人机
+              {t('logistics.sy800.heroSubtitle')}
             </p>
             <p className="text-lg text-cyan-400 font-semibold mb-8">
-              性能 · 从未如此稳定
+              {t('logistics.sy800.heroSlogan')}
             </p>
             <div className="flex flex-wrap gap-4">
               <Link to="/contact">
                 <Button size="lg" className="bg-primary hover:bg-primary/90">
-                  获取报价
+                  {t('logistics.sy800.getQuote')}
                 </Button>
               </Link>
               <a href="#specs">
                 <Button size="lg" variant="outline">
-                  查看规格
+                  {t('logistics.sy800.viewSpecs')}
                 </Button>
               </a>
             </div>
@@ -153,191 +154,197 @@ const Logistics = () => {
         </div>
       </section>
 
-      {/* 专为运载而生 */}
+      {/* Built for Transport */}
       <section className="py-20">
         <div className="container mx-auto px-4">
           <div className="grid md:grid-cols-2 gap-12 items-center">
             <div>
               <h2 className="text-3xl md:text-4xl font-bold mb-4 text-foreground">
-                专为运载而生
+                {t('logistics.sy800.delivery.title')}
               </h2>
               <h3 className="text-2xl md:text-3xl font-bold text-primary mb-6">
-                远近到达 快速高效
+                {t('logistics.sy800.delivery.subtitle')}
               </h3>
               <p className="text-muted-foreground mb-4">
-                以大载重，长航程，突破空间限制
+                {t('logistics.sy800.delivery.desc')}
               </p>
               <p className="text-lg font-semibold text-foreground">
-                定制运载重量可达1-100斤
+                {t('logistics.sy800.delivery.weight')}
               </p>
             </div>
             <div className="flex justify-center">
               <img 
                 src={deliveryImage} 
-                alt="专为运载而生"
+                alt={t('logistics.sy800.delivery.title')}
                 className="w-full max-w-lg rounded-2xl shadow-xl"
+                loading="lazy"
               />
             </div>
           </div>
         </div>
       </section>
 
-      {/* 底部双投放 */}
+      {/* Dual Drop */}
       <section className="py-20 bg-muted/30">
         <div className="container mx-auto px-4">
           <div className="grid md:grid-cols-2 gap-12 items-center">
             <div className="order-2 md:order-1 flex justify-center">
               <img 
                 src={dropImage} 
-                alt="底部双投放多功能抛投器"
+                alt={t('logistics.sy800.drop.subtitle')}
                 className="w-full max-w-lg rounded-2xl shadow-xl"
+                loading="lazy"
               />
             </div>
             <div className="order-1 md:order-2">
               <h2 className="text-3xl md:text-4xl font-bold mb-4 text-foreground">
-                底部双投放
+                {t('logistics.sy800.drop.title')}
               </h2>
               <h3 className="text-2xl font-bold text-primary mb-6">
-                多功能抛投器
+                {t('logistics.sy800.drop.subtitle')}
               </h3>
               <p className="text-muted-foreground mb-4">
-                多功能挂物抛投器，可以实现1-100斤负载
+                {t('logistics.sy800.drop.desc')}
               </p>
               <p className="text-lg text-foreground">
-                挂物远程派送、空投
+                {t('logistics.sy800.drop.detail')}
               </p>
               <div className="mt-6 p-4 bg-primary/10 rounded-xl">
-                <p className="font-semibold text-foreground">底部双钩设计</p>
-                <p className="text-sm text-muted-foreground">独立控制，精准投放</p>
+                <p className="font-semibold text-foreground">{t('logistics.sy800.drop.hookTitle')}</p>
+                <p className="text-sm text-muted-foreground">{t('logistics.sy800.drop.hookDesc')}</p>
               </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* 机身可折叠 */}
+      {/* Foldable */}
       <section className="py-20">
         <div className="container mx-auto px-4">
           <div className="text-center mb-12">
             <h2 className="text-3xl md:text-4xl font-bold mb-4 text-foreground">
-              机身可折叠展开
+              {t('logistics.sy800.fold.title')}
             </h2>
             <h3 className="text-2xl font-bold text-primary mb-4">
-              便于收纳携带
+              {t('logistics.sy800.fold.subtitle')}
             </h3>
             <p className="text-muted-foreground max-w-2xl mx-auto">
-              碳纤维机身运载无人机 轻松单人作业
+              {t('logistics.sy800.fold.desc')}
             </p>
           </div>
           <div className="flex justify-center">
             <img 
               src={foldImage} 
-              alt="可折叠设计"
+              alt={t('logistics.sy800.fold.title')}
               className="w-full max-w-4xl rounded-2xl shadow-xl"
+              loading="lazy"
             />
           </div>
         </div>
       </section>
 
-      {/* 定点规划 */}
+      {/* Waypoint Planning */}
       <section className="py-20 bg-muted/30">
         <div className="container mx-auto px-4">
           <div className="grid md:grid-cols-2 gap-12 items-center">
             <div>
               <h2 className="text-3xl md:text-4xl font-bold mb-4 text-foreground">
-                定点规划 无需操控
+                {t('logistics.sy800.waypoint.title')}
               </h2>
               <h3 className="text-2xl font-bold text-primary mb-6">
-                尽享智能操控
+                {t('logistics.sy800.waypoint.subtitle')}
               </h3>
               <p className="text-muted-foreground mb-4">
-                可在APP上画出想要的飞行轨迹
+                {t('logistics.sy800.waypoint.desc')}
               </p>
               <p className="text-lg text-foreground mb-6">
-                实现自动飞行，无需遥控
+                {t('logistics.sy800.waypoint.autoFly')}
               </p>
               <div className="space-y-3">
                 <div className="flex items-start gap-3">
                   <ChevronRight className="w-5 h-5 text-primary mt-0.5" />
-                  <span className="text-muted-foreground">支持地图打点、飞机打点、飞行路径转换航点、输入经纬度坐标打点</span>
+                  <span className="text-muted-foreground">{t('logistics.sy800.waypoint.point1')}</span>
                 </div>
                 <div className="flex items-start gap-3">
                   <ChevronRight className="w-5 h-5 text-primary mt-0.5" />
-                  <span className="text-muted-foreground">支持自定义航点高度、速度、悬停时间，跟随地形</span>
+                  <span className="text-muted-foreground">{t('logistics.sy800.waypoint.point2')}</span>
                 </div>
               </div>
             </div>
             <div className="flex justify-center">
               <img 
                 src={waypointImage} 
-                alt="智能航点规划"
+                alt={t('logistics.sy800.waypoint.title')}
                 className="w-full max-w-lg rounded-2xl shadow-xl"
+                loading="lazy"
               />
             </div>
           </div>
         </div>
       </section>
 
-      {/* 高音量喊话器 */}
+      {/* Speaker */}
       <section className="py-20">
         <div className="container mx-auto px-4">
           <div className="grid md:grid-cols-2 gap-12 items-center">
             <div className="order-2 md:order-1 flex justify-center">
               <img 
                 src={speakerImage} 
-                alt="高音量喊话器"
+                alt={t('logistics.sy800.speaker.title')}
                 className="w-full max-w-lg rounded-2xl shadow-xl"
+                loading="lazy"
               />
             </div>
             <div className="order-1 md:order-2">
               <h2 className="text-3xl md:text-4xl font-bold mb-4 text-foreground">
-                高音量喊话器
+                {t('logistics.sy800.speaker.title')}
               </h2>
               <h3 className="text-2xl font-bold text-primary mb-6">
-                你的空中"话筒"
+                {t('logistics.sy800.speaker.subtitle')}
               </h3>
               <p className="text-muted-foreground text-lg">
-                超远距离传音，声音清晰饱满
+                {t('logistics.sy800.speaker.desc')}
               </p>
               <ul className="mt-6 space-y-2 text-muted-foreground">
-                <li>• 实时喊话</li>
-                <li>• 循环喊话</li>
-                <li>• 文本喊话</li>
-                <li>• MP3播放</li>
+                <li>• {t('logistics.sy800.speaker.realtime')}</li>
+                <li>• {t('logistics.sy800.speaker.loop')}</li>
+                <li>• {t('logistics.sy800.speaker.text')}</li>
+                <li>• {t('logistics.sy800.speaker.mp3')}</li>
               </ul>
             </div>
           </div>
         </div>
       </section>
 
-      {/* 碳纤维机身 */}
+      {/* Carbon Fiber */}
       <section className="py-20 bg-muted/30">
         <div className="container mx-auto px-4">
           <div className="text-center mb-12">
             <h2 className="text-3xl md:text-4xl font-bold mb-4 text-foreground">
-              碳纤维运载无人机
+              {t('logistics.sy800.carbon.title')}
             </h2>
-            <p className="text-muted-foreground">四轴 / 六轴 可选配置</p>
+            <p className="text-muted-foreground">{t('logistics.sy800.carbon.desc')}</p>
           </div>
           <div className="flex justify-center">
             <img 
               src={carbonImage} 
-              alt="碳纤维机身"
+              alt={t('logistics.sy800.carbon.title')}
               className="w-full max-w-4xl rounded-2xl shadow-xl"
+              loading="lazy"
             />
           </div>
         </div>
       </section>
 
-      {/* 产品特性 */}
+      {/* Features Grid */}
       <section className="py-20">
         <div className="container mx-auto px-4">
           <div className="text-center mb-12">
             <h2 className="text-3xl md:text-4xl font-bold mb-4 text-foreground">
-              六旋翼大载重运输无人机
+              {t('logistics.sy800.feat.title')}
             </h2>
             <p className="text-muted-foreground max-w-2xl mx-auto">
-              专业级多功能载重平台，满足各种行业应用需求
+              {t('logistics.sy800.feat.desc')}
             </p>
           </div>
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
@@ -357,16 +364,16 @@ const Logistics = () => {
         </div>
       </section>
 
-      {/* 应用领域 */}
+      {/* Applications */}
       <section className="py-20 bg-muted/30">
         <div className="container mx-auto px-4">
           <div className="text-center mb-12">
             <h2 className="text-3xl md:text-4xl font-bold mb-4 text-foreground">
-              运载无人机应用领域/场景
+              {t('logistics.sy800.appTitle')}
             </h2>
           </div>
           <div className="grid grid-cols-2 md:grid-cols-3 gap-6">
-            {["应急搜救", "消防救援", "警用执法", "电力巡检", "油气巡检", "地理信息测绘"].map((title, index) => (
+            {appNames.map((title, index) => (
               <div 
                 key={index}
                 className="relative group overflow-hidden rounded-xl aspect-[4/3]"
@@ -375,6 +382,7 @@ const Logistics = () => {
                   src={applicationsImage} 
                   alt={title}
                   className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                  loading="lazy"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent" />
                 <div className="absolute bottom-4 left-4">
@@ -386,14 +394,14 @@ const Logistics = () => {
         </div>
       </section>
 
-      {/* 技术规格 */}
+      {/* Specs */}
       <section id="specs" className="py-20">
         <div className="container mx-auto px-4">
           <div className="text-center mb-12">
             <h2 className="text-3xl md:text-4xl font-bold mb-4 text-foreground">
-              技术规格
+              {t('logistics.sy800.specsTitle')}
             </h2>
-            <p className="text-muted-foreground">SY800-2 详细参数</p>
+            <p className="text-muted-foreground">{t('logistics.sy800.specsSubtitle')}</p>
           </div>
           <div className="max-w-4xl mx-auto">
             <div className="grid gap-1">
@@ -415,20 +423,20 @@ const Logistics = () => {
       <section className="py-20 bg-primary text-primary-foreground">
         <div className="container mx-auto px-4 text-center">
           <h2 className="text-3xl md:text-4xl font-bold mb-4">
-            了解更多SY800-2解决方案
+            {t('logistics.sy800.cta.title')}
           </h2>
           <p className="text-xl mb-8 opacity-90">
-            专业团队为您提供定制化载重无人机解决方案
+            {t('logistics.sy800.cta.desc')}
           </p>
           <div className="flex flex-wrap justify-center gap-4">
             <Link to="/contact">
               <Button size="lg" variant="secondary">
-                联系我们
+                {t('logistics.sy800.cta.contact')}
               </Button>
             </Link>
             <a href="tel:+8617674048404">
               <Button size="lg" variant="outline" className="border-primary-foreground text-primary-foreground hover:bg-primary-foreground hover:text-primary">
-                电话咨询
+                {t('logistics.sy800.cta.phone')}
               </Button>
             </a>
           </div>
