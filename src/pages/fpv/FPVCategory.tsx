@@ -116,7 +116,7 @@ const categoryData: Record<string, {
       },
     ],
   },
-  "远航系列": {
+  "longrange": {
     titleKey: 'fpvCategory.longrange.title',
     descriptionKey: 'fpvCategory.longrange.description',
     heroImage: "https://images.unsplash.com/photo-1559827260-dc66d52bef19?w=1920&q=80",
