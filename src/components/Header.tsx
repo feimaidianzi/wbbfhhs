@@ -296,7 +296,7 @@ export const Header = () => {
               {navItems.map((item) => (
                 <div key={item.name}>
                   <Link
-                    to={item.href}
+                    to={langPath(item.href)}
                     className="flex items-center justify-between px-4 py-3 text-foreground hover:bg-secondary rounded-lg transition-colors"
                     onClick={() => !item.children && setIsOpen(false)}
                   >
