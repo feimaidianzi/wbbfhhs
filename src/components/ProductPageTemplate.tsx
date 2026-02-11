@@ -267,7 +267,7 @@ const ProductPageTemplate = ({
                   <motion.div key={index} variants={itemVariants} className="text-center">
                     <div className="text-4xl md:text-5xl font-black text-accent mb-2">{stat.value}</div>
                     <div className="text-lg font-semibold text-foreground mb-1">
-                      {isEn && stat.titleEn ? stat.titleEn : stat.title}
+                      {stat.title}
                     </div>
                     <div className="text-sm text-muted-foreground">
                       {isEn && stat.descriptionEn ? stat.descriptionEn : stat.description}
