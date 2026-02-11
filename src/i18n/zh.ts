@@ -3766,6 +3766,8 @@ export const zhTranslations: Record<string, string> = {
   'tethered.th300.spec.bodyMaterial.value': '碳纤维材料',
   'tethered.th300.spec.deployTime': '部署时间',
   'tethered.th300.spec.deployTime.value': '≤1分钟（2人）',
+  'tethered.th300.spec.windResistance.value': '7级',
+  'tethered.th300.spec.operatingTemp.value': '-40℃至+70℃',
   // TH-300 feature.desc keys (new format for ProductDetailTemplate)
   'tethered.th300.feature.heavyPayload.desc': '≥20KG最大载重，支持多载荷同时挂载',
   'tethered.th300.feature.ip56.desc': '防尘防水设计，可在中雨天气飞行',
