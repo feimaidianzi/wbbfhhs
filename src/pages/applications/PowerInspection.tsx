@@ -1,5 +1,6 @@
 import ApplicationPageTemplate from "@/components/ApplicationPageTemplate";
 import { Zap, Shield, Target, TrendingUp, AlertTriangle, Eye, Database, FileText, Map, Cpu } from "lucide-react";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 // 导入配图
 import heroPowerGrid from "@/assets/power/hero-power-grid.jpg";
