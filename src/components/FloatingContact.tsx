@@ -99,12 +99,12 @@ export const FloatingContact = () => {
               <p className="text-sm opacity-90 mb-3">
                 {t('floating.aiModuleDesc')}
               </p>
-              <Link
+              <LangLink
                 to="/products"
                 className="inline-block bg-accent hover:bg-accent/90 text-accent-foreground px-4 py-2 rounded-lg font-medium text-sm transition-colors"
               >
                 {t('floating.learnMore')}
-              </Link>
+              </LangLink>
             </div>
           </div>
         </div>

@@ -75,33 +75,13 @@ export const NewsSection = () => {
               transition={{ duration: 0.5, delay: index * 0.1 }}
               className="group cursor-pointer"
             >
-              <Link to="/news" className="block">
+              <LangLink to="/news" className="block">
                 <div className="aspect-[16/10] overflow-hidden rounded-xl mb-4">
                   <img
-                    src={item.image}
-                    alt={item.title}
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                  />
-                </div>
-                <div>
-                  <div className="flex items-center gap-3 mb-3">
-                    <span className="text-xs font-medium px-2.5 py-1 bg-accent/10 text-accent rounded-full">
-                      {item.category}
-                    </span>
-                    <span className="text-sm text-muted-foreground">{item.date}</span>
-                  </div>
-                  <h3 className="text-lg font-semibold text-foreground mb-2 line-clamp-2 group-hover:text-accent transition-colors">
-                    {item.title}
-                  </h3>
-                  <p className="text-muted-foreground text-sm line-clamp-2 mb-3">
-                    {item.excerpt}
-                  </p>
-                  <span className="inline-flex items-center text-sm text-foreground font-medium group-hover:text-accent transition-colors">
-                    {t('news.section.readMore')}
-                    <ArrowUpRight className="w-4 h-4 ml-1 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+...
                   </span>
                 </div>
-              </Link>
+              </LangLink>
             </motion.article>
           ))}
         </div>

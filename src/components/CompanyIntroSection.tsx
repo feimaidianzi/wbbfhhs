@@ -94,12 +94,12 @@ export const CompanyIntroSection = () => {
               ))}
             </div>
 
-            <Link to="/about">
+            <LangLink to="/about">
               <Button className="group bg-accent hover:bg-accent/90 text-accent-foreground px-8 py-6 text-lg font-semibold rounded-full">
                 {t('companyIntro.learnMore')}
                 <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" />
               </Button>
-            </Link>
+            </LangLink>
           </motion.div>
 
           {/* Right - Advantages Grid */}

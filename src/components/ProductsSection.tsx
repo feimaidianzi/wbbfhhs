@@ -208,12 +208,12 @@ export const ProductsSection = () => {
           transition={{ duration: 0.8, delay: 0.5 }}
           className="text-center mt-12"
         >
-          <Link to="/products">
+          <LangLink to="/products">
             <button className="group inline-flex items-center gap-3 px-8 py-4 rounded-full border border-accent/30 hover:border-accent hover:bg-accent/5 text-foreground font-semibold transition-all duration-300">
               {t('productsSection.viewAll')}
               <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
             </button>
-          </Link>
+          </LangLink>
         </motion.div>
       </div>
     </section>

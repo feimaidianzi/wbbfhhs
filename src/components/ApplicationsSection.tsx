@@ -200,13 +200,13 @@ export const ApplicationsSection = () => {
           transition={{ duration: 0.8, delay: 0.3 }}
           className="text-center mt-12"
         >
-          <Link 
+          <LangLink 
             to="/applications"
             className="inline-flex items-center gap-3 text-accent hover:text-accent/80 font-semibold text-lg group"
           >
             {t('applications.viewAll')}
             <ArrowRight className="w-5 h-5 group-hover:translate-x-2 transition-transform" />
-          </Link>
+          </LangLink>
         </motion.div>
       </div>
     </section>
