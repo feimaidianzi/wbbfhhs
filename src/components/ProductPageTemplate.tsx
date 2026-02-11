@@ -24,18 +24,13 @@ const getTemplateText = (isEn: boolean, t: (key: string) => string, key: string,
 interface Feature {
   icon: LucideIcon;
   title: string;
-  titleEn?: string;
   description: string;
-  descriptionEn?: string;
 }
 
 interface Product {
   name: string;
-  nameEn?: string;
   description: string;
-  descriptionEn?: string;
   specs: string[];
-  specsEn?: string[];
   image: string;
   link?: string;
 }
@@ -43,53 +38,38 @@ interface Product {
 interface Stat {
   value: string;
   title: string;
-  titleEn?: string;
   description: string;
-  descriptionEn?: string;
 }
 
 interface Application {
   title: string;
-  titleEn?: string;
   description: string;
-  descriptionEn?: string;
   image?: string;
 }
 
 interface Case {
   title: string;
-  titleEn?: string;
   description: string;
-  descriptionEn?: string;
   image: string;
 }
 
 interface ProductPageTemplateProps {
   heroTitle: string;
-  heroTitleEn?: string;
   heroSubtitle: string;
-  heroSubtitleEn?: string;
   heroImage: string;
   features: Feature[];
   featuresTitle?: string;
-  featuresTitleEn?: string;
   products: Product[];
   productsTitle?: string;
-  productsTitleEn?: string;
   productsSubtitle?: string;
-  productsSubtitleEn?: string;
   stats?: Stat[];
   applications?: Application[];
   applicationsTitle?: string;
-  applicationsTitleEn?: string;
-  techSpecs?: { label: string; labelEn?: string; value: string; valueEn?: string }[];
+  techSpecs?: { label: string; value: string }[];
   cases?: Case[];
-  // SEO增强属性
   seoCategory?: string;
   seoCategoryDescription?: string;
-  seoCategoryDescriptionEn?: string;
   seoKeywords?: string[];
-  seoKeywordsEn?: string[];
   seoPath?: string;
   seoTitle?: string;
   seoDescription?: string;
