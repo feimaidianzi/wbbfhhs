@@ -134,9 +134,6 @@ const Gimbal = () => {
               >
                 {t('gimbal.cta.btn')}
               </LangLink>
-              >
-                {t('gimbal.cta.btn')}
-              </Link>
             </div>
           </div>
         </section>
