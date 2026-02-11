@@ -162,13 +162,13 @@ export const ApplicationsSection = () => {
                       <p className="text-lg text-white/70 mb-6">
                         {t(app.descKey)}
                       </p>
-                      <Link 
+                      <LangLink 
                         to={app.link}
                         className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-accent text-accent-foreground font-semibold hover:bg-accent/90 transition-colors"
                       >
                         {t('applications.learnMore')}
                         <ArrowRight className="w-5 h-5" />
-                      </Link>
+                      </LangLink>
                     </div>
                   </div>
                 </motion.div>
