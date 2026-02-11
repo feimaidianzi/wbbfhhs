@@ -387,7 +387,7 @@ const ProductPageTemplate = ({
 
                       {/* Specs */}
                       <div className="space-y-2 mb-6 p-4 rounded-xl bg-secondary/50">
-                        {(isEn && product.specsEn ? product.specsEn : product.specs).map((spec, i) => (
+                        {product.specs.map((spec, i) => (
                           <div key={i} className="flex items-center gap-2 text-sm">
                             <CheckCircle className="w-4 h-4 text-accent flex-shrink-0" />
                             <span className="text-foreground/80">{spec}</span>
