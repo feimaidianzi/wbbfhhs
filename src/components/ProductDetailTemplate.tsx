@@ -74,9 +74,7 @@ interface ProductDetailTemplateProps {
 
 const ProductDetailTemplate = ({
   seoTitle,
-  seoTitleEn,
   seoDescription,
-  seoDescriptionEn,
   seoKeywords,
   breadcrumbs,
   heroTitle,
