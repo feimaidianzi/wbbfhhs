@@ -33,44 +33,34 @@ interface LanguageProviderProps {
   children: ReactNode;
 }
 
-// Subdomain to language mapping
-const subdomainToLanguage: Record<string, LanguageCode> = {
-  'www': 'zh',
-  'cn': 'zh',
-  'en': 'en',
-  'vi': 'vi',
-  'th': 'th',
-  'ms': 'ms',
-  'id': 'id',
-  'ja': 'ja',
-  'ko': 'ko',
-  'fr': 'fr',
-  'de': 'de',
-  'es': 'es',
-  'ru': 'ru',
-  'ar': 'ar',
-  'tr': 'tr',
+// Valid language codes set for fast lookup
+const VALID_LANG_CODES = new Set<string>(SUPPORTED_LANGUAGES.map(l => l.code));
+
+// Detect language from URL path prefix (e.g., /en/about -> 'en')
+const detectLanguageFromPath = (): LanguageCode | null => {
+  const pathname = window.location.pathname;
+  const firstSegment = pathname.split('/')[1]; // e.g., "en" from "/en/about"
+  
+  if (firstSegment && VALID_LANG_CODES.has(firstSegment) && firstSegment !== 'zh') {
+    return firstSegment as LanguageCode;
+  }
+  
+  // No prefix or 'zh' prefix means Chinese (default)
+  return null;
 };
 
-// Detect language from subdomain
-const detectLanguageFromSubdomain = (): LanguageCode | null => {
-  const hostname = window.location.hostname;
+// Get the current path without the language prefix
+export const getPathWithoutLang = (): string => {
+  const pathname = window.location.pathname;
+  const firstSegment = pathname.split('/')[1];
   
-  // Handle localhost and preview domains
-  if (hostname === 'localhost' || hostname.includes('lovable.app') || hostname.includes('lovableproject.com') || hostname.includes('127.0.0.1')) {
-    return null;
+  if (firstSegment && VALID_LANG_CODES.has(firstSegment) && firstSegment !== 'zh') {
+    // Remove the language prefix
+    const rest = pathname.slice(firstSegment.length + 1); // +1 for the leading /
+    return rest || '/';
   }
   
-  // Extract subdomain from hostname (e.g., en.cani.com -> en)
-  const parts = hostname.split('.');
-  if (parts.length >= 2) {
-    const subdomain = parts[0].toLowerCase();
-    if (subdomainToLanguage[subdomain]) {
-      return subdomainToLanguage[subdomain];
-    }
-  }
-  
-  return null;
+  return pathname;
 };
 
 // Country to language mapping (fallback for IP detection)
@@ -107,11 +97,11 @@ const countryToLanguage: Record<string, LanguageCode> = {
 
 export const LanguageProvider: React.FC<LanguageProviderProps> = ({ children }) => {
   const [language, setLanguageState] = useState<LanguageCode>(() => {
-    // Priority 1: Subdomain detection (highest priority for multi-domain setup)
-    const subdomainLang = detectLanguageFromSubdomain();
-    if (subdomainLang) {
-      console.log(`Language detected from subdomain: ${subdomainLang}`);
-      return subdomainLang;
+    // Priority 1: URL path prefix detection (highest priority)
+    const pathLang = detectLanguageFromPath();
+    if (pathLang) {
+      console.log(`Language detected from path: ${pathLang}`);
+      return pathLang;
     }
     
     // Priority 2: Previously saved preference
@@ -141,12 +131,9 @@ export const LanguageProvider: React.FC<LanguageProviderProps> = ({ children }) 
     }
     
     // For English: merge static enTranslations with DB translations (DB takes priority)
-    // This ensures keys missing from en.ts but present in DB are still available
     if (targetLang === 'en') {
-      // Start with static translations immediately
       setCurrentTranslations(enTranslations);
       
-      // Then try to load richer translations from DB
       try {
         const cached = localStorage.getItem('translations_en');
         if (cached) {
@@ -208,7 +195,6 @@ export const LanguageProvider: React.FC<LanguageProviderProps> = ({ children }) 
         const translations = JSON.parse(data.value);
         setTranslations(targetLang, translations);
         setCurrentTranslations(translations);
-        // Cache in localStorage
         localStorage.setItem(`translations_${targetLang}`, data.value);
         return true;
       }
@@ -225,7 +211,6 @@ export const LanguageProvider: React.FC<LanguageProviderProps> = ({ children }) 
 
   // Auto-detect language based on IP
   const detectLanguageFromIP = useCallback(async () => {
-    // Only auto-detect if user hasn't manually set a language
     const manuallySet = localStorage.getItem('language_manual');
     if (manuallySet === 'true') {
       return;
@@ -241,6 +226,11 @@ export const LanguageProvider: React.FC<LanguageProviderProps> = ({ children }) 
         const detectedLang = countryToLanguage[country];
         if (detectedLang !== language) {
           console.log(`Auto-detected language: ${detectedLang} for country: ${country}`);
+          // Navigate to the detected language path
+          const currentPath = getPathWithoutLang();
+          const prefix = detectedLang === 'zh' ? '' : `/${detectedLang}`;
+          const newPath = `${prefix}${currentPath === '/' ? '' : currentPath}` || '/';
+          window.history.replaceState(null, '', newPath);
           setLanguageState(detectedLang);
           localStorage.setItem('language', detectedLang);
           await loadSavedTranslations(detectedLang);
@@ -252,41 +242,18 @@ export const LanguageProvider: React.FC<LanguageProviderProps> = ({ children }) 
   }, [language, loadSavedTranslations]);
 
   const setLanguage = useCallback((lang: LanguageCode) => {
-    const hostname = window.location.hostname;
-    const isProductionDomain = !hostname.includes('localhost') && !hostname.includes('lovable.app') && !hostname.includes('lovableproject.com') && !hostname.includes('127.0.0.1');
+    // Build new URL with language prefix
+    const currentPath = getPathWithoutLang();
+    const prefix = lang === 'zh' ? '' : `/${lang}`;
+    const newPath = `${prefix}${currentPath === '/' ? '' : currentPath}` || '/';
     
-    if (isProductionDomain) {
-      // On production: redirect to the corresponding subdomain
-      const parts = hostname.split('.');
-      // Remove existing subdomain if it's a language code or 'www'/'cn'
-      let baseDomain: string;
-      if (parts.length >= 3 && (subdomainToLanguage[parts[0]] !== undefined)) {
-        baseDomain = parts.slice(1).join('.');
-      } else if (parts.length >= 2) {
-        baseDomain = hostname;
-      } else {
-        baseDomain = hostname;
-      }
-      
-      // Map language to subdomain prefix
-      const subdomainPrefix = lang === 'zh' ? 'www' : lang;
-      const newHost = `${subdomainPrefix}.${baseDomain}`;
-      const newUrl = `${window.location.protocol}//${newHost}${window.location.pathname}${window.location.search}${window.location.hash}`;
-      
-      // Save preference before redirecting
-      localStorage.setItem('language', lang);
-      localStorage.setItem('language_manual', 'true');
-      
-      window.location.href = newUrl;
-      return;
-    }
-    
-    // On preview/localhost: just switch language in-place
-    setLanguageState(lang);
+    // Save preference
     localStorage.setItem('language', lang);
     localStorage.setItem('language_manual', 'true');
-    loadSavedTranslations(lang);
-  }, [loadSavedTranslations]);
+    
+    // Navigate to new path
+    window.location.href = `${window.location.origin}${newPath}`;
+  }, []);
 
   const t = useCallback((key: string): string => {
     return currentTranslations[key] || zhTranslations[key] || key;
@@ -300,17 +267,17 @@ export const LanguageProvider: React.FC<LanguageProviderProps> = ({ children }) 
     // Load translations for current language
     loadSavedTranslations(language);
 
-    // Check subdomain on mount - subdomain always takes priority
-    const subdomainLang = detectLanguageFromSubdomain();
-    if (subdomainLang && subdomainLang !== language) {
-      console.log(`Subdomain language override: ${subdomainLang}`);
-      setLanguageState(subdomainLang);
-      localStorage.setItem('language', subdomainLang);
+    // Check path on mount - path prefix always takes priority
+    const pathLang = detectLanguageFromPath();
+    if (pathLang && pathLang !== language) {
+      console.log(`Path language override: ${pathLang}`);
+      setLanguageState(pathLang);
+      localStorage.setItem('language', pathLang);
       return;
     }
 
-    // Auto-detect language on first visit (only if no subdomain detected)
-    if (!autoDetected && !subdomainLang) {
+    // Auto-detect language on first visit (only if no path lang detected)
+    if (!autoDetected && !pathLang) {
       setAutoDetected(true);
       const hasManualLanguage = localStorage.getItem('language_manual') === 'true';
       if (!hasManualLanguage) {

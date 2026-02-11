@@ -3,29 +3,35 @@ import { LanguageCode, SUPPORTED_LANGUAGES, getLanguageByCode } from '@/i18n/lan
 // Base domain configuration
 export const BASE_DOMAIN = 'cani.com';
 
-// Language to subdomain mapping
-export const getSubdomain = (lang: LanguageCode): string => {
-  if (lang === 'zh') return 'www';
-  return lang;
+// Get language path prefix (empty for Chinese default)
+export const getLangPrefix = (lang: LanguageCode): string => {
+  if (lang === 'zh') return '';
+  return `/${lang}`;
 };
 
-// Get full domain for a language
+// Get full domain URL for a language (path-prefix based)
 export const getDomainForLanguage = (lang: LanguageCode): string => {
-  const subdomain = getSubdomain(lang);
-  return `https://${subdomain}.${BASE_DOMAIN}`;
+  return `https://www.${BASE_DOMAIN}`;
+};
+
+// Get full URL for a language + path
+export const getUrlForLanguage = (lang: LanguageCode, path: string): string => {
+  const prefix = getLangPrefix(lang);
+  const cleanPath = path === '/' ? '' : path;
+  return `https://www.${BASE_DOMAIN}${prefix}${cleanPath}`;
 };
 
 // Get all alternate URLs for hreflang
 export const getAlternateUrls = (path: string): Array<{ lang: LanguageCode; url: string }> => {
   return SUPPORTED_LANGUAGES.map(lang => ({
     lang: lang.code,
-    url: `${getDomainForLanguage(lang.code)}${path}`,
+    url: getUrlForLanguage(lang.code, path),
   }));
 };
 
 // Get canonical URL for current language
 export const getCanonicalUrl = (lang: LanguageCode, path: string): string => {
-  return `${getDomainForLanguage(lang)}${path}`;
+  return getUrlForLanguage(lang, path);
 };
 
 // Get OG locale from language code
@@ -82,8 +88,8 @@ export const createLocalizedOrganizationData = (lang: LanguageCode, t: (key: str
   '@type': 'Organization',
   name: lang === 'zh' ? '长凌科技有限公司' : 'CANI Technology Co., Ltd.',
   alternateName: 'CANI',
-  url: getDomainForLanguage(lang),
-  logo: `${getDomainForLanguage(lang)}/logo.png`,
+  url: getUrlForLanguage(lang, '/'),
+  logo: `https://www.${BASE_DOMAIN}/logo.png`,
   description: t('footer.company.desc'),
   address: {
     '@type': 'PostalAddress',
@@ -110,7 +116,7 @@ export const createLocalizedBreadcrumb = (
     '@type': 'ListItem',
     position: index + 1,
     name: item.name,
-    item: `${getDomainForLanguage(lang)}${item.url}`,
+    item: getUrlForLanguage(lang, item.url),
   })),
 });
 
@@ -169,7 +175,7 @@ export const createLocalizedArticleData = (
     name: lang === 'zh' ? '长凌科技有限公司' : 'CANI Technology Co., Ltd.',
     logo: {
       '@type': 'ImageObject',
-      url: `${getDomainForLanguage(lang)}/logo.png`,
+      url: `https://www.${BASE_DOMAIN}/logo.png`,
     },
   },
 });
@@ -180,11 +186,11 @@ export const createWebSiteData = (lang: LanguageCode, t: (key: string) => string
   '@type': 'WebSite',
   name: lang === 'zh' ? '长凌科技' : 'CANI Technology',
   alternateName: 'CANI',
-  url: getDomainForLanguage(lang),
+  url: getUrlForLanguage(lang, '/'),
   inLanguage: getHtmlLang(lang),
   potentialAction: {
     '@type': 'SearchAction',
-    target: `${getDomainForLanguage(lang)}/search?q={search_term_string}`,
+    target: `https://www.${BASE_DOMAIN}${getLangPrefix(lang)}/search?q={search_term_string}`,
     'query-input': 'required name=search_term_string',
   },
 });
