@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { LangLink } from "@/components/LangLink";
 import logoImage from "@/assets/logo-cani.png";
 
 interface LogoProps {
