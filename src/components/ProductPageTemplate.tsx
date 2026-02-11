@@ -156,7 +156,7 @@ const ProductPageTemplate = ({
       {seoContent && (
         <RichSEOContent
           pageName={heroTitle}
-          pageNameEn={heroTitleEn || heroTitle}
+          pageNameEn={heroTitle}
           contentBlocks={seoContent.contentBlocks}
           additionalKeywords={seoContent.keywords}
           additionalKeywordsEn={seoContent.keywordsEn}
