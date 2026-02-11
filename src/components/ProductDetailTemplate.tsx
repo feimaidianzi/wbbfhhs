@@ -30,9 +30,7 @@ interface Feature {
 interface ProductDetailTemplateProps {
   // SEO
   seoTitle: string;
-  seoTitleEn?: string;
   seoDescription: string;
-  seoDescriptionEn?: string;
   seoKeywords?: string;
   
   // Breadcrumb
