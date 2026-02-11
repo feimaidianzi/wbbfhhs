@@ -1500,6 +1500,21 @@ export const zhTranslations: Record<string, string> = {
   // ===== Common =====
   'common.backTo': '返回',
 
+  // ===== Common Spec Labels =====
+  'specs.wheelbase': '轴距',
+  'specs.maxPayload': '最大载荷',
+  'specs.flightTime': '续航时间',
+  'specs.windResistance': '抗风等级',
+  'specs.flightSpeed': '最大飞行速度',
+  'specs.controlRange': '遥控距离',
+  'specs.operatingTemp': '工作温度',
+  'specs.protection': '防护等级',
+
+  // ===== Template Section Titles =====
+  'template.keyFeatures': '核心功能',
+  'template.specifications': '技术规格',
+  'template.applications': '应用场景',
+
   // ===== Header Categories (for t() migration) =====
   'header.multiRotor': '多旋翼无人机',
   'header.multiRotor.desc': '专业多旋翼无人机系列',
