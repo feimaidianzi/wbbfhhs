@@ -23,7 +23,7 @@ const categoryData: Record<string, {
     featuresKeys: string[];
   }[];
 }> = {
-  "套装系列": {
+  "kit": {
     titleKey: 'fpvCategory.kit.title',
     descriptionKey: 'fpvCategory.kit.description',
     heroImage: "https://images.unsplash.com/photo-1473968512647-3e447244af8f?w=1920&q=80",
