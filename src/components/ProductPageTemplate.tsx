@@ -460,7 +460,7 @@ const ProductPageTemplate = ({
                         {caseItem.title}
                       </h3>
                       <p className="text-muted-foreground text-sm">
-                        {isEn && caseItem.descriptionEn ? caseItem.descriptionEn : caseItem.description}
+                        {caseItem.description}
                       </p>
                     </div>
                   </motion.div>
