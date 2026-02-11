@@ -451,7 +451,7 @@ const ProductPageTemplate = ({
                     <div className="aspect-[16/10] overflow-hidden">
                       <img
                         src={caseItem.image}
-                        alt={isEn && caseItem.titleEn ? caseItem.titleEn : caseItem.title}
+                        alt={caseItem.title}
                         className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
                       />
                     </div>
