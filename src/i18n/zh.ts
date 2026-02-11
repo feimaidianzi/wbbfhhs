@@ -5121,9 +5121,9 @@ export const zhTranslations: Record<string, string> = {
   'tethered.page.products.subtitle': '多种规格系留无人机，满足不同场景的长时间滞空需求',
   'tethered.page.app.title': '应用场景',
 
-  // ===== Training Page =====
-  'training.hero.title': '教练无人机',
-  'training.hero.subtitle': '专业无人机培训解决方案',
+  // ===== Training Product Page =====
+  'trainingDrone.hero.title': '教练无人机',
+  'trainingDrone.hero.subtitle': '专业无人机培训解决方案',
   'training.f1.title': '专业教学',
   'training.f1.desc': '针对无人机培训设计，循序渐进的学习体验',
   'training.f2.title': '安全防护',
