@@ -109,7 +109,7 @@ export const ProductsSection = () => {
         >
           {/* Featured Large Card */}
           <motion.div variants={itemVariants} className="md:col-span-2 lg:col-span-2 lg:row-span-2">
-            <Link to={categories[0].link} className="group block h-full">
+            <LangLink to={categories[0].link} className="group block h-full">
               <div className="relative h-full min-h-[400px] lg:min-h-[600px] rounded-3xl overflow-hidden bg-gradient-to-br from-accent/20 to-cyan-500/10 border border-accent/20">
                 {/* Background Image */}
                 <div className="absolute inset-0">
@@ -149,7 +149,7 @@ export const ProductsSection = () => {
                   </div>
                 </div>
               </div>
-            </Link>
+            </LangLink>
           </motion.div>
 
           {/* Small Cards */}
