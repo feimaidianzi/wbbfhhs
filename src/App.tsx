@@ -113,7 +113,100 @@ import VisitorTracker from "./components/VisitorTracker";
 import NewsDetail from "./pages/NewsDetail";
 import DatabaseProductDetail from "./pages/products/DatabaseProductDetail";
 import DatabaseProductList from "./pages/products/DatabaseProductList";
+import React from "react";
+
 const queryClient = new QueryClient();
+
+// Define all public routes as data to avoid duplication
+const publicRoutes = [
+  { path: "/", element: <Index /> },
+  { path: "/auth", element: <Auth /> },
+  { path: "/about", element: <About /> },
+  { path: "/applications", element: <Applications /> },
+  { path: "/applications/power-inspection", element: <PowerInspection /> },
+  { path: "/applications/power-inspection/transmission-line", element: <TransmissionLine /> },
+  { path: "/applications/power-inspection/substation", element: <Substation /> },
+  { path: "/applications/power-inspection/solar-panel", element: <SolarPanel /> },
+  { path: "/applications/power-inspection/case/:caseId", element: <CaseDetail /> },
+  { path: "/applications/logistics", element: <LogisticsApp /> },
+  { path: "/applications/military", element: <Military /> },
+  { path: "/applications/environment", element: <EnvironmentApp /> },
+  { path: "/applications/firefighting", element: <FirefightingApp /> },
+  { path: "/applications/tethered", element: <TetheredApp /> },
+  { path: "/applications/solutions", element: <Solutions /> },
+  { path: "/software", element: <Software /> },
+  { path: "/software/exam-system", element: <ExamSystem /> },
+  { path: "/software/pv-inspection", element: <PVInspection /> },
+  { path: "/software/drone-management", element: <DroneManagement /> },
+  { path: "/software/power-inspection-system", element: <PowerInspectionSystem /> },
+  { path: "/software/pv-system", element: <PVSystem /> },
+  { path: "/software/environment-system", element: <EnvironmentSystem /> },
+  { path: "/software/ground-station", element: <GroundStation /> },
+  { path: "/software/swarm-ground-station", element: <SwarmGroundStation /> },
+  { path: "/projects", element: <Projects /> },
+  { path: "/projects/training", element: <ProjectTraining /> },
+  { path: "/projects/show", element: <DroneShow /> },
+  { path: "/projects/flight-service", element: <FlightService /> },
+  { path: "/projects/cooperation", element: <ProjectCooperation /> },
+  { path: "/custom-research", element: <CustomResearch /> },
+  { path: "/custom-research/airport", element: <AirportCustom /> },
+  { path: "/custom-research/swarm", element: <SwarmCustom /> },
+  { path: "/custom-research/software", element: <SoftwareCustom /> },
+  { path: "/custom-research/payload", element: <PayloadCustom /> },
+  { path: "/custom-research/accessories", element: <AccessoriesCustom /> },
+  { path: "/custom-research/drone", element: <DroneCustom /> },
+  { path: "/fpv", element: <FPV /> },
+  { path: "/fpv/:category", element: <FPVCategory /> },
+  { path: "/news", element: <News /> },
+  { path: "/news/:id", element: <NewsDetail /> },
+  { path: "/contact", element: <Contact /> },
+  { path: "/products", element: <Products /> },
+  { path: "/products/catalog", element: <DatabaseProductList /> },
+  { path: "/products/airport", element: <Airport /> },
+  { path: "/products/airport/vehicle-mounted", element: <VehicleMountedAirport /> },
+  { path: "/products/airport/uhs-1000", element: <UHS1000 /> },
+  { path: "/products/airport/uhs-600", element: <UHS600 /> },
+  { path: "/products/airport/uhs-400p", element: <UHS400P /> },
+  { path: "/products/tethered", element: <Tethered /> },
+  { path: "/products/tethered/th-100", element: <TH100 /> },
+  { path: "/products/tethered/th-200", element: <TH200 /> },
+  { path: "/products/tethered/th-300", element: <TH300 /> },
+  { path: "/products/logistics", element: <Logistics /> },
+  { path: "/products/logistics/wl-10", element: <WL10 /> },
+  { path: "/products/logistics/wl-20", element: <WL20 /> },
+  { path: "/products/logistics/wl-30", element: <WL30 /> },
+  { path: "/products/firefighting", element: <Firefighting /> },
+  { path: "/products/wire-laying", element: <WireLaying /> },
+  { path: "/products/multi-rotor", element: <MultiRotor /> },
+  { path: "/products/multi-rotor/x650", element: <X650 /> },
+  { path: "/products/multi-rotor/x850", element: <X850 /> },
+  { path: "/products/multi-rotor/x1200", element: <X1200 /> },
+  { path: "/products/multi-rotor/x1600", element: <X1600 /> },
+  { path: "/products/swarm", element: <Swarm /> },
+  { path: "/products/swarm-kit", element: <SwarmKit /> },
+  { path: "/products/agriculture", element: <Agriculture /> },
+  { path: "/products/training", element: <Training /> },
+  { path: "/products/work-drone", element: <WorkDrone /> },
+  { path: "/products/accessories", element: <Accessories /> },
+  { path: "/products/accessories/vtx-vrx", element: <VtxVrx /> },
+  { path: "/products/accessories/vtx-vrx/:productId", element: <VtxDetail /> },
+  { path: "/products/accessories/fc-esc", element: <FcEsc /> },
+  { path: "/products/accessories/fc-esc/:productId", element: <FcEscDetail /> },
+  { path: "/products/accessories/gimbal", element: <Gimbal /> },
+  { path: "/products/accessories/gimbal/:productId", element: <GimbalDetail /> },
+  { path: "/products/accessories/camera", element: <CameraPage /> },
+  { path: "/products/accessories/camera/:productId", element: <CameraDetail /> },
+  { path: "/products/accessories/digital-fpv", element: <DigitalFpv /> },
+  { path: "/products/accessories/digital-fpv/:productId", element: <DigitalFpvDetail /> },
+  { path: "/products/accessories/elrs", element: <Elrs /> },
+  { path: "/products/accessories/elrs/:productId", element: <ElrsDetail /> },
+  { path: "/products/accessories/others", element: <OtherAccessories /> },
+  { path: "/products/accessories/others/:productId", element: <OtherAccessoriesDetail /> },
+  { path: "/products/detail/:productId", element: <DatabaseProductDetail /> },
+];
+
+// Language codes for path prefix (excluding 'zh' which uses no prefix)
+const langCodes = ['en', 'vi', 'th', 'ms', 'id', 'ja', 'ko', 'fr', 'de', 'es', 'ru', 'ar', 'tr'];
 
 const App = () => (
   <QueryClientProvider client={queryClient}>
@@ -123,8 +216,7 @@ const App = () => (
         <Sonner />
         <BrowserRouter>
           <Routes>
-            <Route path="/" element={<Index />} />
-            <Route path="/auth" element={<Auth />} />
+            {/* Admin routes - no language prefix needed */}
             <Route path="/admin/login" element={<AdminLogin />} />
             <Route path="/admin" element={<AdminDashboard />} />
             <Route path="/admin/users" element={<UserManagement />} />
@@ -145,90 +237,19 @@ const App = () => (
             <Route path="/admin/seo-management" element={<SEOManagement />} />
             <Route path="/admin/auto-translate" element={<AutoTranslation />} />
             <Route path="/admin/page-migration" element={<PageMigration />} />
-          <Route path="/about" element={<About />} />
-          <Route path="/applications" element={<Applications />} />
-          <Route path="/applications/power-inspection" element={<PowerInspection />} />
-          <Route path="/applications/power-inspection/transmission-line" element={<TransmissionLine />} />
-          <Route path="/applications/power-inspection/substation" element={<Substation />} />
-          <Route path="/applications/power-inspection/solar-panel" element={<SolarPanel />} />
-          <Route path="/applications/power-inspection/case/:caseId" element={<CaseDetail />} />
-          <Route path="/applications/logistics" element={<LogisticsApp />} />
-          <Route path="/applications/military" element={<Military />} />
-          <Route path="/applications/environment" element={<EnvironmentApp />} />
-          <Route path="/applications/firefighting" element={<FirefightingApp />} />
-          <Route path="/applications/tethered" element={<TetheredApp />} />
-          <Route path="/applications/solutions" element={<Solutions />} />
-          <Route path="/software" element={<Software />} />
-          <Route path="/software/exam-system" element={<ExamSystem />} />
-          <Route path="/software/pv-inspection" element={<PVInspection />} />
-          <Route path="/software/drone-management" element={<DroneManagement />} />
-          <Route path="/software/power-inspection-system" element={<PowerInspectionSystem />} />
-          <Route path="/software/pv-system" element={<PVSystem />} />
-          <Route path="/software/environment-system" element={<EnvironmentSystem />} />
-          <Route path="/software/ground-station" element={<GroundStation />} />
-          <Route path="/software/swarm-ground-station" element={<SwarmGroundStation />} />
-          <Route path="/projects" element={<Projects />} />
-          <Route path="/projects/training" element={<ProjectTraining />} />
-          <Route path="/projects/show" element={<DroneShow />} />
-          <Route path="/projects/flight-service" element={<FlightService />} />
-          <Route path="/projects/cooperation" element={<ProjectCooperation />} />
-          <Route path="/custom-research" element={<CustomResearch />} />
-          <Route path="/custom-research/airport" element={<AirportCustom />} />
-          <Route path="/custom-research/swarm" element={<SwarmCustom />} />
-          <Route path="/custom-research/software" element={<SoftwareCustom />} />
-          <Route path="/custom-research/payload" element={<PayloadCustom />} />
-          <Route path="/custom-research/accessories" element={<AccessoriesCustom />} />
-          <Route path="/custom-research/drone" element={<DroneCustom />} />
-          <Route path="/fpv" element={<FPV />} />
-          <Route path="/fpv/:category" element={<FPVCategory />} />
-          <Route path="/news" element={<News />} />
-          <Route path="/news/:id" element={<NewsDetail />} />
-          <Route path="/contact" element={<Contact />} />
-          <Route path="/products" element={<Products />} />
-          <Route path="/products/catalog" element={<DatabaseProductList />} />
-          <Route path="/products/airport" element={<Airport />} />
-          <Route path="/products/airport/vehicle-mounted" element={<VehicleMountedAirport />} />
-          <Route path="/products/airport/uhs-1000" element={<UHS1000 />} />
-          <Route path="/products/airport/uhs-600" element={<UHS600 />} />
-          <Route path="/products/airport/uhs-400p" element={<UHS400P />} />
-          <Route path="/products/tethered" element={<Tethered />} />
-          <Route path="/products/tethered/th-100" element={<TH100 />} />
-          <Route path="/products/tethered/th-200" element={<TH200 />} />
-          <Route path="/products/tethered/th-300" element={<TH300 />} />
-          <Route path="/products/logistics" element={<Logistics />} />
-          <Route path="/products/logistics/wl-10" element={<WL10 />} />
-          <Route path="/products/logistics/wl-20" element={<WL20 />} />
-          <Route path="/products/logistics/wl-30" element={<WL30 />} />
-          <Route path="/products/firefighting" element={<Firefighting />} />
-          <Route path="/products/wire-laying" element={<WireLaying />} />
-          <Route path="/products/multi-rotor" element={<MultiRotor />} />
-          <Route path="/products/multi-rotor/x650" element={<X650 />} />
-          <Route path="/products/multi-rotor/x850" element={<X850 />} />
-          <Route path="/products/multi-rotor/x1200" element={<X1200 />} />
-          <Route path="/products/multi-rotor/x1600" element={<X1600 />} />
-          <Route path="/products/swarm" element={<Swarm />} />
-          <Route path="/products/swarm-kit" element={<SwarmKit />} />
-          <Route path="/products/agriculture" element={<Agriculture />} />
-          <Route path="/products/training" element={<Training />} />
-          <Route path="/products/work-drone" element={<WorkDrone />} />
-          <Route path="/products/accessories" element={<Accessories />} />
-          <Route path="/products/accessories/vtx-vrx" element={<VtxVrx />} />
-          <Route path="/products/accessories/vtx-vrx/:productId" element={<VtxDetail />} />
-          <Route path="/products/accessories/fc-esc" element={<FcEsc />} />
-          <Route path="/products/accessories/fc-esc/:productId" element={<FcEscDetail />} />
-          <Route path="/products/accessories/gimbal" element={<Gimbal />} />
-          <Route path="/products/accessories/gimbal/:productId" element={<GimbalDetail />} />
-          <Route path="/products/accessories/camera" element={<CameraPage />} />
-          <Route path="/products/accessories/camera/:productId" element={<CameraDetail />} />
-          <Route path="/products/accessories/digital-fpv" element={<DigitalFpv />} />
-          <Route path="/products/accessories/digital-fpv/:productId" element={<DigitalFpvDetail />} />
-          <Route path="/products/accessories/elrs" element={<Elrs />} />
-          <Route path="/products/accessories/elrs/:productId" element={<ElrsDetail />} />
-          <Route path="/products/accessories/others" element={<OtherAccessories />} />
-          <Route path="/products/accessories/others/:productId" element={<OtherAccessoriesDetail />} />
-          <Route path="/products/detail/:productId" element={<DatabaseProductDetail />} />
-          {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
-          <Route path="*" element={<NotFound />} />
+
+            {/* Public routes - no prefix (Chinese default) */}
+            {publicRoutes.map(({ path, element }) => (
+              <Route key={path} path={path} element={element} />
+            ))}
+
+            {/* Public routes - with language prefix (e.g., /en/about, /ja/products) */}
+            {langCodes.map(lang => (
+              <Route key={lang} path={`/${lang}/*`} element={<LangRoutes />} />
+            ))}
+
+            {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
+            <Route path="*" element={<NotFound />} />
           </Routes>
           {/* Global Visitor Tracking */}
           <VisitorTracker />
@@ -238,6 +259,18 @@ const App = () => (
       </TooltipProvider>
     </LanguageProvider>
   </QueryClientProvider>
+);
+
+// Sub-routes rendered under /:lang/* prefix
+const LangRoutes = () => (
+  <Routes>
+    {publicRoutes.map(({ path, element }) => {
+      // Convert absolute path to relative (remove leading /)
+      const relativePath = path === '/' ? '/' : path.slice(1);
+      return <Route key={path} path={relativePath === '/' ? '/' : relativePath} element={element} />;
+    })}
+    <Route path="*" element={<NotFound />} />
+  </Routes>
 );
 
 export default App;
