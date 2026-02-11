@@ -285,7 +285,7 @@ export const Header = () => {
                     {t('auth.logout')}
                   </Button>
                 ) : (
-                  <Link to="/auth" onClick={() => setIsOpen(false)}>
+                  <Link to={langPath("/auth")} onClick={() => setIsOpen(false)}>
                     <Button variant="ghost" size="sm" className="text-foreground">
                       <User className="w-4 h-4 mr-1" />
                       {t('auth.login')}
