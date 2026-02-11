@@ -10,6 +10,7 @@ import caseSubstationInspection from "@/assets/power/case-substation-inspection.
 import caseSolarInspection from "@/assets/power/case-solar-inspection.jpg";
 
 const PowerInspection = () => {
+  const { t } = useLanguage();
   const features = [
     { icon: Zap, title: "效率提升20倍", description: "无人机巡线效率是传统人工的20倍以上，大幅缩短巡检周期" },
     { icon: Shield, title: "安全性强", description: "恶劣环境监测不需要人员靠近，降低人身安全风险" },

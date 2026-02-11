@@ -37,9 +37,7 @@ const X1200 = () => {
   return (
     <ProductDetailTemplate
       seoTitle={t('multiRotor.x1200.seoTitle')}
-      seoTitleEn="X1200 Multi-Rotor Drone - Large Industrial UAV"
       seoDescription={t('multiRotor.x1200.seoDescription')}
-      seoDescriptionEn="X1200 large industrial drone with 10kg payload and 55-minute flight time for professional mapping and emergency rescue"
       seoKeywords={t('multiRotor.x1200.seoKeywords')}
       breadcrumbs={[
         { label: t('nav.home'), labelEn: "Home", path: "/" },
