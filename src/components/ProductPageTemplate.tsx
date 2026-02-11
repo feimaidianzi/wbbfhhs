@@ -457,7 +457,7 @@ const ProductPageTemplate = ({
                     </div>
                     <div className="p-6">
                       <h3 className="font-bold text-lg text-foreground mb-2 group-hover:text-accent transition-colors">
-                        {isEn && caseItem.titleEn ? caseItem.titleEn : caseItem.title}
+                        {caseItem.title}
                       </h3>
                       <p className="text-muted-foreground text-sm">
                         {isEn && caseItem.descriptionEn ? caseItem.descriptionEn : caseItem.description}
