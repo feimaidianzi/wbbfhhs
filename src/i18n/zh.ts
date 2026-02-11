@@ -5502,7 +5502,7 @@ export const zhTranslations: Record<string, string> = {
   'multiRotor.rt17.spec2': '起飞重量: 2.3kg',
   'multiRotor.rt17.spec3': '续航时间: 16分钟',
   'multiRotor.rt17.spec4': '机载计算机: Intel i5',
-  'multiRotor.page.productsSubtitle': '涵盖科研无人机与工业多旋翼全系列产品',
+  
 };
 
 export default zhTranslations;
