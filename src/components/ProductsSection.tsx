@@ -155,7 +155,7 @@ export const ProductsSection = () => {
           {/* Small Cards */}
           {categories.slice(1).map((product, index) => (
             <motion.div key={index} variants={itemVariants}>
-              <Link to={product.link} className="group block h-full">
+              <LangLink to={product.link} className="group block h-full">
                 <div className="relative h-full min-h-[280px] rounded-2xl overflow-hidden bg-card border border-accent/10 hover:border-accent/40 transition-all duration-500">
                   {/* Background Image */}
                   <div className="absolute inset-0">
@@ -195,7 +195,7 @@ export const ProductsSection = () => {
                     </div>
                   </div>
                 </div>
-              </Link>
+              </LangLink>
             </motion.div>
           ))}
         </motion.div>
