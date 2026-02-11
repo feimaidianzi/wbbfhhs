@@ -198,14 +198,14 @@ export const Footer = () => {
                   <h4 className="font-semibold mb-4 text-background">{t('footer.quickLinks')}</h4>
                   <ul className="space-y-2.5">
                     <li>
-                      <Link to="/about" className="text-sm text-background/60 hover:text-background transition-colors">
+                      <LangLink to="/about" className="text-sm text-background/60 hover:text-background transition-colors">
                         {t('footer.aboutUs')}
-                      </Link>
+                      </LangLink>
                     </li>
                     <li>
-                      <Link to="/contact" className="text-sm text-background/60 hover:text-background transition-colors">
+                      <LangLink to="/contact" className="text-sm text-background/60 hover:text-background transition-colors">
                         {t('footer.contactUs')}
-                      </Link>
+                      </LangLink>
                     </li>
                   </ul>
                 </div>
