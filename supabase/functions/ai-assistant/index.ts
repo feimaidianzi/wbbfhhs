@@ -199,6 +199,38 @@ Deno.serve(async (req) => {
 
     const { messages, conversationId, sessionId, action = "chat" } = await req.json() as RequestBody;
 
+    // Handle loading conversation history (for visitors who can't read via RLS)
+    if (action === "load_history" && sessionId) {
+      // Find active conversation for this session
+      const { data: conv } = await supabase
+        .from("ai_conversations")
+        .select("id, is_transferred_to_human")
+        .eq("session_id", sessionId)
+        .neq("status", "resolved")
+        .order("created_at", { ascending: false })
+        .limit(1)
+        .single();
+
+      if (!conv) {
+        return new Response(JSON.stringify({ conversation: null, messages: [] }), {
+          headers: { ...corsHeaders, "Content-Type": "application/json" },
+        });
+      }
+
+      const { data: historyMessages } = await supabase
+        .from("ai_conversation_messages")
+        .select("id, role, content, created_at")
+        .eq("conversation_id", conv.id)
+        .order("created_at", { ascending: true });
+
+      return new Response(JSON.stringify({
+        conversation: { id: conv.id, is_transferred_to_human: conv.is_transferred_to_human },
+        messages: historyMessages || [],
+      }), {
+        headers: { ...corsHeaders, "Content-Type": "application/json" },
+      });
+    }
+
     // Handle lead extraction (manual)
     if (action === "extract_lead" && conversationId) {
       const leadInfo = await autoExtractLeadInfo(messages, DOUBAO_API_KEY);
