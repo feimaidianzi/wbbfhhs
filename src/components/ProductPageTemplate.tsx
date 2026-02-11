@@ -316,7 +316,7 @@ const ProductPageTemplate = ({
                       <Icon className="w-7 h-7 text-accent" />
                     </div>
                     <h3 className="font-bold text-xl text-foreground mb-3 group-hover:text-accent transition-colors">
-                      {isEn && feature.titleEn ? feature.titleEn : feature.title}
+                      {feature.title}
                     </h3>
                     <p className="text-muted-foreground leading-relaxed">
                       {isEn && feature.descriptionEn ? feature.descriptionEn : feature.description}
