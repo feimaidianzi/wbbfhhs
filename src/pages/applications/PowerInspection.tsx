@@ -73,9 +73,9 @@ const PowerInspection = () => {
 
   return (
     <ApplicationPageTemplate
-      seoTitle="电力巡检 - 无人机电力巡线解决方案"
-      seoDescription="专业的无人机电力巡检服务，涵盖输电线路、变电站、光伏电站等场景，AI智能识别缺陷，提升巡检效率20倍以上"
-      seoKeywords="电力巡检,无人机巡线,输电线路巡检,变电站巡检,光伏巡检"
+      seoTitle={t('powerInspection.seo.title')}
+      seoDescription={t('powerInspection.seo.description')}
+      seoKeywords={t('powerInspection.seo.keywords')}
       heroTitle="电力巡检解决方案"
       heroSubtitle="行业应用"
       heroDescription="电力巡检是指通过对电力设施的定期检查与维护，确保电力系统的安全、稳定运行。无人机在电力巡检中的应用，已经成为一种重要的技术手段。"
