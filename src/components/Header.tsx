@@ -209,7 +209,8 @@ export const Header = () => {
 
           {/* Right Side Actions */}
           <div className="flex items-center gap-3">
-            <div className="hidden md:block">
+            <LanguageSwitcher variant="minimal" className="lg:hidden" />
+            <div className="hidden lg:block">
               <LanguageSwitcher />
             </div>
             
