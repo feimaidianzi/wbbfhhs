@@ -5251,12 +5251,6 @@ export const zhTranslations: Record<string, string> = {
   'workDrone.spec6.label': '定位精度',
   'workDrone.spec7.label': '控制距离',
   'workDrone.spec8.label': '防护等级',
-  'workDrone.case1.title': '新疆地质勘测项目',
-  'workDrone.case1.desc': '完成50万公顷区域高精度地形测绘，效率提升20倍',
-  'workDrone.case2.title': '海上风电场巡检',
-  'workDrone.case2.desc': '为海上风电场提供定期巡检服务，及时发现设备隐患',
-  'workDrone.case3.title': '边境线巡逻任务',
-  'workDrone.case3.desc': '配合边防执勤，实现长距离边境线自动化巡逻',
 
   // ===== LogisticsApp SEO Keywords =====
   'logisticsApp.seo.keywords': '物流无人机,无人机配送,应急物资投送,末端配送,大载重无人机,海岛配送',
