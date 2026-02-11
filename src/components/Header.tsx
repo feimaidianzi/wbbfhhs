@@ -309,7 +309,7 @@ export const Header = () => {
                       {item.children.map((child) => (
                         <Link
                           key={child.name}
-                          to={langPath(child.href)}
+                          to={child.href}
                           className="block px-4 py-2 text-sm text-muted-foreground hover:text-foreground transition-colors"
                           onClick={() => setIsOpen(false)}
                         >
