@@ -1,6 +1,6 @@
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
-import { Link } from "react-router-dom";
+import { LangLink as Link } from "@/components/LangLink";
 import { BackButton } from "@/components/BackButton";
 import { LayoutGrid, Droplets, Settings, Cpu, Zap, Truck, Monitor } from "lucide-react";
 import { useLanguage } from "@/contexts/LanguageContext";

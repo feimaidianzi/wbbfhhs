@@ -3,7 +3,7 @@ import { Footer } from "@/components/Footer";
 import { FloatingContact } from "@/components/FloatingContact";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Wifi, Monitor, Zap, Radio } from "lucide-react";
-import { Link } from "react-router-dom";
+import { LangLink as Link } from "@/components/LangLink";
 import { BackButton } from "@/components/BackButton";
 import { digitalFpvProducts, digitalFpvCategories } from "@/data/digitalFpvProducts";
 import { useLanguage } from "@/contexts/LanguageContext";
