@@ -128,9 +128,12 @@ const Gimbal = () => {
               {t('gimbal.cta.desc')}
             </p>
             <div className="flex justify-center gap-4 flex-wrap">
-              <Link
+              <LangLink
                 to="/contact"
                 className="px-8 py-3 bg-background text-foreground font-medium rounded-lg hover:bg-background/90 transition-colors"
+              >
+                {t('gimbal.cta.btn')}
+              </LangLink>
               >
                 {t('gimbal.cta.btn')}
               </Link>
