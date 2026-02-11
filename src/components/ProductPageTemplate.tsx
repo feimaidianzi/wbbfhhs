@@ -343,11 +343,11 @@ const ProductPageTemplate = ({
                 {t('template.productLineup')}
               </span>
               <h2 className="text-3xl md:text-4xl lg:text-5xl font-black text-foreground mb-4">
-                {isEn ? productsTitleEn : productsTitle}
+                {displayProductsTitle}
               </h2>
-              {(productsSubtitle || productsSubtitleEn) && (
+              {productsSubtitle && (
                 <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
-                  {isEn && productsSubtitleEn ? productsSubtitleEn : productsSubtitle}
+                  {productsSubtitle}
                 </p>
               )}
             </motion.div>
