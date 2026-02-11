@@ -529,4 +529,82 @@ export const enTranslations: Record<string, string> = {
   'logistics.sy800.cta.desc': 'Our team provides customized heavy-lift drone solutions',
   'logistics.sy800.cta.contact': 'Contact Us',
   'logistics.sy800.cta.phone': 'Call Now',
+
+  // ===== Common Spec Labels =====
+  'specs.wheelbase': 'Wheelbase',
+  'specs.maxPayload': 'Max Payload',
+  'specs.flightTime': 'Flight Time',
+  'specs.windResistance': 'Wind Resistance',
+  'specs.flightSpeed': 'Max Speed',
+  'specs.controlRange': 'Control Range',
+  'specs.operatingTemp': 'Operating Temp',
+  'specs.protection': 'Protection',
+
+  // ===== Template Section Titles =====
+  'template.keyFeatures': 'Key Features',
+  'template.specifications': 'Specifications',
+  'template.applications': 'Applications',
+
+  // ===== Common =====
+  'common.backTo': 'Back to ',
+
+  // ===== Multi-Rotor X650 Shared Features =====
+  'multiRotor.features.compactPortable': 'Compact & Portable',
+  'multiRotor.features.compactPortableDesc': '650mm wheelbase, lightweight and easy to transport',
+  'multiRotor.features.quickDeploy': 'Quick Deploy',
+  'multiRotor.features.quickDeployDesc': 'Ready to fly in 5 minutes',
+  'multiRotor.features.stableReliable': 'Stable & Reliable',
+  'multiRotor.features.stableReliableDesc': 'Industrial-grade flight control system',
+  'multiRotor.features.smartControl': 'Smart Control',
+  'multiRotor.features.smartControlDesc': 'Autonomous waypoint planning, smart RTH',
+  'multiRotor.features.longEndurance': 'Long Endurance',
+  'multiRotor.features.longEnduranceDesc': '35 minutes continuous operation',
+  'multiRotor.features.windResistant': 'Wind Resistant',
+  'multiRotor.features.windResistantDesc': 'Stable flight in Level 5 winds',
+  'multiRotor.applications.routineInspection': 'Routine Inspection',
+  'multiRotor.applications.dataCollection': 'Data Collection & Analysis',
+  'multiRotor.applications.fieldSurvey': 'Field Survey & Documentation',
+  'multiRotor.applications.smallMapping': 'Small Area Mapping',
+  'multiRotor.applications.securityPatrol': 'Security Patrol',
+  'multiRotor.applications.training': 'Flight Training',
+
+  // ===== Spec Values =====
+  'multiRotor.x650.spec.flightTime': '35 min',
+  'multiRotor.x650.spec.windResistance': 'Level 5',
+  'multiRotor.x850.spec.flightTime': '45 min',
+  'multiRotor.x850.spec.windResistance': 'Level 6',
+  'multiRotor.x1200.spec.flightTime': '55 min',
+  'multiRotor.x1200.spec.windResistance': 'Level 7',
+  'multiRotor.x1600.spec.flightTime': '40 min',
+  'multiRotor.x1600.spec.windResistance': 'Level 7',
+  'logistics.wl10.spec.flightTime': '45 min',
+  'logistics.wl10.spec.windResistance': 'Level 5',
+  'logistics.wl20.spec.flightTime': '50 min',
+  'logistics.wl20.spec.windResistance': 'Level 6',
+  'logistics.wl30.spec.flightTime': '60 min',
+  'logistics.wl30.spec.windResistance': 'Level 7',
+
+  // ===== TH-200 Spec Values =====
+  'tethered.th200.spec.maxTakeoffWeight': 'Max Takeoff Weight',
+  'tethered.th200.spec.maxFlightSpeed': 'Max Flight Speed',
+  'tethered.th200.spec.maxFlightSpeed.value': 'Ascent 5m/s, Descent 3m/s, Horizontal 15m/s',
+  'tethered.th200.spec.windResistance.value': '15m/s (Level 7)',
+  'tethered.th200.spec.flightTime.value': '60min (no load) / 20min (10kg) / 24h tethered',
+  'tethered.th200.spec.maxFlightAltitude': 'Max Flight Altitude',
+  'tethered.th200.spec.maxFlightAltitude.value': '1000m',
+  'tethered.th200.spec.positionAccuracy': 'Position Accuracy',
+  'tethered.th200.spec.positionAccuracy.value': 'Vertical ±0.1m / Horizontal ±0.1m (RTK)',
+  'tethered.th200.spec.maxElevation': 'Max Operating Elevation',
+  'tethered.th200.spec.maxElevation.value': '5000m',
+
+  // ===== Navigation Products =====
+  'nav.products.multiRotor': 'Multi-Rotor UAV',
+  'nav.products.logistics': 'Logistics Drone',
+  'nav.products.tethered': 'Tethered Drone',
+
+  // ===== Logistics Common =====
+  'logistics.specs.range': 'Range',
+  'logistics.specs.cruiseSpeed': 'Cruise Speed',
+  'logistics.specs.deliveryAccuracy': 'Delivery Accuracy',
+  'logistics.specs.cargoVolume': 'Cargo Volume',
 };
