@@ -1,6 +1,6 @@
 import { motion, useScroll, useTransform } from "framer-motion";
 import { useRef } from "react";
-import { Link } from "react-router-dom";
+import { LangLink } from "@/components/LangLink";
 import { Button } from "@/components/ui/button";
 import { CheckCircle2, Headphones, Truck, Settings, ArrowRight, Award, Users, Clock } from "lucide-react";
 import { useLanguage } from "@/contexts/LanguageContext";
