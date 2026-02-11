@@ -57,7 +57,7 @@ const detectLanguageFromSubdomain = (): LanguageCode | null => {
   const hostname = window.location.hostname;
   
   // Handle localhost and preview domains
-  if (hostname === 'localhost' || hostname.includes('lovable.app') || hostname.includes('127.0.0.1')) {
+  if (hostname === 'localhost' || hostname.includes('lovable.app') || hostname.includes('lovableproject.com') || hostname.includes('127.0.0.1')) {
     return null;
   }
   
@@ -253,7 +253,7 @@ export const LanguageProvider: React.FC<LanguageProviderProps> = ({ children }) 
 
   const setLanguage = useCallback((lang: LanguageCode) => {
     const hostname = window.location.hostname;
-    const isProductionDomain = !hostname.includes('localhost') && !hostname.includes('lovable.app') && !hostname.includes('127.0.0.1');
+    const isProductionDomain = !hostname.includes('localhost') && !hostname.includes('lovable.app') && !hostname.includes('lovableproject.com') && !hostname.includes('127.0.0.1');
     
     if (isProductionDomain) {
       // On production: redirect to the corresponding subdomain
