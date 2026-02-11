@@ -33,13 +33,13 @@ export const FloatingContact = () => {
     <>
       {/* Floating buttons - small, bottom right */}
       <div className="fixed right-4 bottom-24 z-30 flex flex-col gap-1.5">
-        <Link
+        <LangLink
           to="/"
           className="w-9 h-9 bg-accent/90 rounded-full shadow-md flex items-center justify-center text-accent-foreground hover:bg-accent transition-colors"
           title={t('floating.home')}
         >
           <Home className="w-4 h-4" />
-        </Link>
+        </LangLink>
         <a
           href="mailto:market@caniuav.com"
           className="w-9 h-9 bg-primary/90 rounded-full shadow-md flex items-center justify-center text-primary-foreground hover:bg-primary transition-colors"
