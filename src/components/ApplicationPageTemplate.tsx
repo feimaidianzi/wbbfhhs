@@ -551,12 +551,12 @@ const ApplicationPageTemplate = ({
                     <p className="text-muted-foreground text-sm text-center mb-6">
                       {product.description}
                     </p>
-                    <Link to={product.link}>
+                    <LangLink to={product.link}>
                       <Button className="w-full bg-accent/10 hover:bg-accent text-accent hover:text-accent-foreground font-semibold group/btn">
                         了解详情
                         <ArrowRight className="ml-2 h-4 w-4 group-hover/btn:translate-x-1 transition-transform" />
                       </Button>
-                    </Link>
+                    </LangLink>
                   </motion.div>
                 ))}
               </motion.div>
