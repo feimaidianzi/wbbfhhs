@@ -3,7 +3,7 @@ import { LangLink as Link } from "@/components/LangLink";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { FloatingContact } from "@/components/FloatingContact";
-import { SEO } from "@/components/SEO";
+import { MultiLanguageSEO } from "@/components/MultiLanguageSEO";
 import { Button } from "@/components/ui/button";
 import { BackButton } from "@/components/BackButton";
 import { Check, AlertTriangle, Package, Download, Play, HelpCircle } from "lucide-react";
@@ -27,7 +27,7 @@ const GimbalDetail = () => {
   }
   const images = product.images || [product.image];
   return <>
-      <SEO title={`${t(product.nameKey)} - ${t('company.name')}`} description={`${t(product.nameKey)}，${t(product.categoryKey)}，${product.highlightKeys.slice(0, 3).map(k => t(k)).join('，')}，${t('accessoryDetail.gimbal.seoDesc')}`} />
+      <MultiLanguageSEO title={t(product.nameKey)} description={`${t(product.nameKey)}，${t(product.categoryKey)}，${product.highlightKeys.slice(0, 3).map(k => t(k)).join('，')}，${t('accessoryDetail.gimbal.seoDesc')}`} path={`/products/accessories/gimbal/${productId}`} type="product" />
       <Header />
       <main className="min-h-screen bg-background">
         <BackButton to="/products/accessories/gimbal" />

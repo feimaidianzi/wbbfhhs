@@ -4,7 +4,7 @@ import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { FloatingContact } from "@/components/FloatingContact";
 import { Button } from "@/components/ui/button";
-import { SEO } from "@/components/SEO";
+import { MultiLanguageSEO } from "@/components/MultiLanguageSEO";
 import { BackButton } from "@/components/BackButton";
 import { ArrowRight, Phone, Monitor, Tv, Satellite, Navigation, Check, Shield, Zap, Settings } from "lucide-react";
 import { otherAccessoriesProducts } from "@/data/otherAccessoriesProducts";
@@ -68,10 +68,12 @@ const OtherAccessoriesDetail = () => {
 
   return (
     <div className="min-h-screen">
-      <SEO 
+      <MultiLanguageSEO 
         title={`${productName} - ${t('accessory.others')}`}
         description={productDesc}
         keywords={`${productName},${product.keyFeatureKeys.map(k => t(k)).join(',')}`}
+        path={`/products/accessories/others/${productId}`}
+        type="product"
       />
       <Header />
       <main className="pt-16 md:pt-20">

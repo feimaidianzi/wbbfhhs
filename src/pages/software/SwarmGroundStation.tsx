@@ -4,7 +4,7 @@ import { FloatingContact } from "@/components/FloatingContact";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, CheckCircle, Users, Cpu, Network, Zap } from "lucide-react";
 import { LangLink as Link } from "@/components/LangLink";
-import { SEO } from "@/components/SEO";
+import { MultiLanguageSEO } from "@/components/MultiLanguageSEO";
 import { useLanguage } from "@/contexts/LanguageContext";
 
 const SwarmGroundStation = () => {
@@ -28,11 +28,11 @@ const SwarmGroundStation = () => {
 
   return (
     <div className="min-h-screen">
-      <SEO
+      <MultiLanguageSEO
         title={t('softwarePage.swarm.seo.title')}
         description={t('softwarePage.swarm.seo.desc')}
         keywords={t('softwarePage.swarm.seo.keywords')}
-        url="/software/swarm-ground-station"
+        path="/software/swarm-ground-station"
       />
       <Header />
       <main className="pt-16 md:pt-20">

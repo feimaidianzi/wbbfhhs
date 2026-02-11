@@ -4,7 +4,7 @@ import { FloatingContact } from "@/components/FloatingContact";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, CheckCircle, Monitor, Map, Radio, Settings } from "lucide-react";
 import { LangLink as Link } from "@/components/LangLink";
-import { SEO } from "@/components/SEO";
+import { MultiLanguageSEO } from "@/components/MultiLanguageSEO";
 import { useLanguage } from "@/contexts/LanguageContext";
 
 const GroundStation = () => {
@@ -28,11 +28,11 @@ const GroundStation = () => {
 
   return (
     <div className="min-h-screen">
-      <SEO
+      <MultiLanguageSEO
         title={t('softwarePage.groundStation.seo.title')}
         description={t('softwarePage.groundStation.seo.desc')}
         keywords={t('softwarePage.groundStation.seo.keywords')}
-        url="/software/ground-station"
+        path="/software/ground-station"
       />
       <Header />
       <main className="pt-16 md:pt-20">

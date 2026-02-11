@@ -4,7 +4,7 @@ import { FloatingContact } from "@/components/FloatingContact";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, CheckCircle, MapPin, Users, BarChart, Shield } from "lucide-react";
 import { LangLink as Link } from "@/components/LangLink";
-import { SEO } from "@/components/SEO";
+import { MultiLanguageSEO } from "@/components/MultiLanguageSEO";
 import { useLanguage } from "@/contexts/LanguageContext";
 
 const DroneManagement = () => {
@@ -28,11 +28,11 @@ const DroneManagement = () => {
 
   return (
     <div className="min-h-screen">
-      <SEO
+      <MultiLanguageSEO
         title={t('softwarePage.management.seo.title')}
         description={t('softwarePage.management.seo.desc')}
         keywords={t('softwarePage.management.seo.keywords')}
-        url="/software/drone-management"
+        path="/software/drone-management"
       />
       <Header />
       <main className="pt-16 md:pt-20">

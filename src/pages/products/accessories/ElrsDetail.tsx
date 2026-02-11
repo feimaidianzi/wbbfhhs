@@ -4,7 +4,7 @@ import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { FloatingContact } from "@/components/FloatingContact";
 import { Button } from "@/components/ui/button";
-import { SEO } from "@/components/SEO";
+import { MultiLanguageSEO } from "@/components/MultiLanguageSEO";
 import { BackButton } from "@/components/BackButton";
 import { ArrowRight, Phone, Radio, Wifi, Zap, Signal, Shield, Settings, Check } from "lucide-react";
 import { elrsProducts } from "@/data/elrsProducts";
@@ -65,10 +65,12 @@ const ElrsDetail = () => {
 
   return (
     <div className="min-h-screen">
-      <SEO 
+      <MultiLanguageSEO 
         title={`${productName} - ${t('elrsDetail.seoTitle')}`}
         description={productDesc}
         keywords={`${productName},ELRS,ExpressLRS,${product.keyFeatureKeys.map(k => t(k)).join(',')}`}
+        path={`/products/accessories/elrs/${productId}`}
+        type="product"
       />
       <Header />
       <main className="pt-16 md:pt-20">

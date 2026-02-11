@@ -4,7 +4,7 @@ import { FloatingContact } from "@/components/FloatingContact";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, CheckCircle, Sun, Eye, Zap, BarChart } from "lucide-react";
 import { LangLink as Link } from "@/components/LangLink";
-import { SEO } from "@/components/SEO";
+import { MultiLanguageSEO } from "@/components/MultiLanguageSEO";
 import { useLanguage } from "@/contexts/LanguageContext";
 
 const PVInspection = () => {
@@ -28,11 +28,11 @@ const PVInspection = () => {
 
   return (
     <div className="min-h-screen">
-      <SEO
+      <MultiLanguageSEO
         title={t('softwarePage.pvInspection.seo.title')}
         description={t('softwarePage.pvInspection.seo.desc')}
         keywords={t('softwarePage.pvInspection.seo.keywords')}
-        url="/software/pv-inspection"
+        path="/software/pv-inspection"
       />
       <Header />
       <main className="pt-16 md:pt-20">

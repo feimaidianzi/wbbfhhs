@@ -3,7 +3,7 @@ import { LangLink as Link } from "@/components/LangLink";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { FloatingContact } from "@/components/FloatingContact";
-import { SEO } from "@/components/SEO";
+import { MultiLanguageSEO } from "@/components/MultiLanguageSEO";
 import { Button } from "@/components/ui/button";
 import { BackButton } from "@/components/BackButton";
 import { Check, AlertTriangle, Settings, Radio } from "lucide-react";
@@ -20,9 +20,11 @@ const VtxDetail = () => {
 
   return (
     <>
-      <SEO 
-        title={`${t(product.nameKey)} ${product.model} - ${t('company.name')}`}
+      <MultiLanguageSEO 
+        title={`${t(product.nameKey)} ${product.model}`}
         description={`${t(product.nameKey)}，${product.frequency}${t('vtxDetail.seo.band')}，${product.channels}${t('vtxDetail.seo.channels')}，${product.power}${t('vtxDetail.seo.power')}，${t('vtxDetail.seo.vtxDesc')}`}
+        path={`/products/accessories/vtx-vrx/${productId}`}
+        type="product"
       />
       <Header />
       <main className="min-h-screen bg-background">

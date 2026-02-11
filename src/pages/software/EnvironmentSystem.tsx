@@ -4,7 +4,7 @@ import { FloatingContact } from "@/components/FloatingContact";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, CheckCircle, Leaf, Wind, Droplet, BarChart } from "lucide-react";
 import { LangLink as Link } from "@/components/LangLink";
-import { SEO } from "@/components/SEO";
+import { MultiLanguageSEO } from "@/components/MultiLanguageSEO";
 import { useLanguage } from "@/contexts/LanguageContext";
 
 const EnvironmentSystem = () => {
@@ -28,11 +28,11 @@ const EnvironmentSystem = () => {
 
   return (
     <div className="min-h-screen">
-      <SEO
+      <MultiLanguageSEO
         title={t('softwarePage.envSystem.seo.title')}
         description={t('softwarePage.envSystem.seo.desc')}
         keywords={t('softwarePage.envSystem.seo.keywords')}
-        url="/software/environment-system"
+        path="/software/environment-system"
       />
       <Header />
       <main className="pt-16 md:pt-20">

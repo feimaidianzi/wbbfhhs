@@ -4,7 +4,7 @@ import { FloatingContact } from "@/components/FloatingContact";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, CheckCircle, Zap, Eye, FileText, AlertTriangle } from "lucide-react";
 import { LangLink as Link } from "@/components/LangLink";
-import { SEO } from "@/components/SEO";
+import { MultiLanguageSEO } from "@/components/MultiLanguageSEO";
 import { useLanguage } from "@/contexts/LanguageContext";
 
 const PowerInspectionSystem = () => {
@@ -28,11 +28,11 @@ const PowerInspectionSystem = () => {
 
   return (
     <div className="min-h-screen">
-      <SEO
+      <MultiLanguageSEO
         title={t('softwarePage.powerInspection.seo.title')}
         description={t('softwarePage.powerInspection.seo.desc')}
         keywords={t('softwarePage.powerInspection.seo.keywords')}
-        url="/software/power-inspection-system"
+        path="/software/power-inspection-system"
       />
       <Header />
       <main className="pt-16 md:pt-20">

@@ -3,7 +3,7 @@ import { LangLink as Link } from "@/components/LangLink";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { FloatingContact } from "@/components/FloatingContact";
-import { SEO } from "@/components/SEO";
+import { MultiLanguageSEO } from "@/components/MultiLanguageSEO";
 import { Button } from "@/components/ui/button";
 import { BackButton } from "@/components/BackButton";
 import { Check, AlertTriangle, Cpu, Zap, Package } from "lucide-react";
@@ -25,9 +25,11 @@ const FcEscDetail = () => {
 
   return (
     <>
-      <SEO 
-        title={`${product.name} ${product.model} - ${t('company.name')}`}
+      <MultiLanguageSEO 
+        title={`${product.name} ${product.model}`}
         description={`${product.name}，${product.category}，${product.highlights.slice(0, 3).join('，')}，${t('fcEscDetail.seoDesc')}`}
+        path={`/products/accessories/fc-esc/${productId}`}
+        type="product"
       />
       <Header />
       <main className="min-h-screen bg-background">
