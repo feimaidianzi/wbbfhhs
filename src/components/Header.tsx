@@ -20,7 +20,7 @@ export const Header = () => {
   const { t } = useLanguage();
   const navigate = useNavigate();
   const { toast } = useToast();
-  const langPath = useLangPath();
+  
 
   useEffect(() => {
     const handleScroll = () => {
