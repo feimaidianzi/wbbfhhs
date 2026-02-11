@@ -85,7 +85,7 @@ const categoryData: Record<string, {
       },
     ],
   },
-  "花飞系列": {
+  "freestyle": {
     titleKey: 'fpvCategory.freestyle.title',
     descriptionKey: 'fpvCategory.freestyle.description',
     heroImage: "https://images.unsplash.com/photo-1506947411487-a56738267384?w=1920&q=80",
