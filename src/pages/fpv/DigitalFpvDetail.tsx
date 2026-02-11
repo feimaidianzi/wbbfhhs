@@ -21,23 +21,25 @@ const DigitalFpvDetail = () => {
     return <Navigate to="/products/accessories/digital-fpv" replace />;
   }
 
-  const iconMap: Record<string, typeof Wifi> = {
-    "高清数字传输": Monitor,
-    "低延迟设计": Zap,
-    "1080P高清输出": Monitor,
-    "内置录像功能": HardDrive,
-    "超远距离通信": Radio,
-    "SDR先进技术": Settings,
-    "FHSS自动跳频": Antenna,
-    "多种组网模式": Cable,
-    "宽电压输入": Zap,
-    "主流飞控兼容": Target,
-    "Ultra Long Range": Radio,
-    "Advanced SDR Technology": Settings,
-    "FHSS Auto Hopping": Antenna,
-    "Multiple Networking Modes": Cable,
-    "Wide Voltage Input": Zap,
-    "FC Compatibility": Target,
+  // Use a function to map feature title keys to icons
+  const getFeatureIcon = (titleKey: string): typeof Wifi => {
+    const keyMap: Record<string, typeof Wifi> = {
+      'digitalFpv.feature.hd': Monitor,
+      'digitalFpv.feature.lowLatency': Zap,
+      'digitalFpv.feature.1080p': Monitor,
+      'digitalFpv.feature.recording': HardDrive,
+      'digitalFpv.feature.longRange': Radio,
+      'digitalFpv.feature.sdr': Settings,
+      'digitalFpv.feature.fhss': Antenna,
+      'digitalFpv.feature.networking': Cable,
+      'digitalFpv.feature.wideVoltage': Zap,
+      'digitalFpv.feature.fcCompat': Target,
+    };
+    // Try to match by the key itself
+    for (const [key, icon] of Object.entries(keyMap)) {
+      if (titleKey.includes(key) || titleKey === key) return icon;
+    }
+    return Wifi;
   };
 
   const isS900 = product.id === "s900-datalink";
