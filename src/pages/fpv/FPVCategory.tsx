@@ -147,7 +147,7 @@ const categoryData: Record<string, {
       },
     ],
   },
-  "航拍系列": {
+  "cinematic": {
     titleKey: 'fpvCategory.cinematic.title',
     descriptionKey: 'fpvCategory.cinematic.description',
     heroImage: "https://images.unsplash.com/photo-1508614589041-895b88991e3e?w=1920&q=80",

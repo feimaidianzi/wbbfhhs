@@ -240,8 +240,7 @@ const DigitalFpvDetail = () => {
             
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
               {product.features.map((feature, index) => {
-                const titleText = t(feature.titleKey);
-                const IconComponent = iconMap[titleText] || Wifi;
+                const IconComponent = getFeatureIcon(feature.titleKey);
                 return (
                   <div key={index} className="bg-card rounded-xl p-6 shadow-card hover:shadow-card-hover transition-all">
                     <div className="w-12 h-12 bg-accent/10 rounded-xl flex items-center justify-center mb-4">
