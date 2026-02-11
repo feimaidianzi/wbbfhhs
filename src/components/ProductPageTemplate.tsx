@@ -90,6 +90,9 @@ interface ProductPageTemplateProps {
   seoCategoryDescriptionEn?: string;
   seoKeywords?: string[];
   seoKeywordsEn?: string[];
+  seoPath?: string;
+  seoTitle?: string;
+  seoDescription?: string;
 }
 
 const containerVariants = {
