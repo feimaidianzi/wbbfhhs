@@ -503,10 +503,10 @@ const ProductPageTemplate = ({
                     className="group p-6 rounded-2xl bg-card border border-accent/10 hover:border-accent/30 transition-all duration-500 hover:-translate-y-2"
                   >
                     <h3 className="font-bold text-lg text-foreground mb-3 group-hover:text-accent transition-colors">
-                      {isEn && app.titleEn ? app.titleEn : app.title}
+                      {app.title}
                     </h3>
                     <p className="text-muted-foreground text-sm leading-relaxed">
-                      {isEn && app.descriptionEn ? app.descriptionEn : app.description}
+                      {app.description}
                     </p>
                   </motion.div>
                 ))}
