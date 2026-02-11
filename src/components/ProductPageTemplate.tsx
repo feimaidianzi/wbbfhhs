@@ -24,18 +24,13 @@ const getTemplateText = (isEn: boolean, t: (key: string) => string, key: string,
 interface Feature {
   icon: LucideIcon;
   title: string;
-  titleEn?: string;
   description: string;
-  descriptionEn?: string;
 }
 
 interface Product {
   name: string;
-  nameEn?: string;
   description: string;
-  descriptionEn?: string;
   specs: string[];
-  specsEn?: string[];
   image: string;
   link?: string;
 }
@@ -43,53 +38,38 @@ interface Product {
 interface Stat {
   value: string;
   title: string;
-  titleEn?: string;
   description: string;
-  descriptionEn?: string;
 }
 
 interface Application {
   title: string;
-  titleEn?: string;
   description: string;
-  descriptionEn?: string;
   image?: string;
 }
 
 interface Case {
   title: string;
-  titleEn?: string;
   description: string;
-  descriptionEn?: string;
   image: string;
 }
 
 interface ProductPageTemplateProps {
   heroTitle: string;
-  heroTitleEn?: string;
   heroSubtitle: string;
-  heroSubtitleEn?: string;
   heroImage: string;
   features: Feature[];
   featuresTitle?: string;
-  featuresTitleEn?: string;
   products: Product[];
   productsTitle?: string;
-  productsTitleEn?: string;
   productsSubtitle?: string;
-  productsSubtitleEn?: string;
   stats?: Stat[];
   applications?: Application[];
   applicationsTitle?: string;
-  applicationsTitleEn?: string;
-  techSpecs?: { label: string; labelEn?: string; value: string; valueEn?: string }[];
+  techSpecs?: { label: string; value: string }[];
   cases?: Case[];
-  // SEO增强属性
   seoCategory?: string;
   seoCategoryDescription?: string;
-  seoCategoryDescriptionEn?: string;
   seoKeywords?: string[];
-  seoKeywordsEn?: string[];
   seoPath?: string;
   seoTitle?: string;
   seoDescription?: string;
@@ -114,28 +94,20 @@ const itemVariants = {
 
 const ProductPageTemplate = ({
   heroTitle,
-  heroTitleEn,
   heroSubtitle,
-  heroSubtitleEn,
   heroImage,
   features,
-  featuresTitle = "核心优势",
-  featuresTitleEn = "Core Advantages",
+  featuresTitle,
   products,
-  productsTitle = "产品系列",
-  productsTitleEn = "Product Series",
+  productsTitle,
   productsSubtitle,
-  productsSubtitleEn,
   stats,
   applications,
-  applicationsTitle = "应用场景",
-  applicationsTitleEn = "Applications",
+  applicationsTitle,
   cases,
   seoCategory,
   seoCategoryDescription,
-  seoCategoryDescriptionEn,
   seoKeywords = [],
-  seoKeywordsEn = [],
   seoPath = '',
   seoTitle,
   seoDescription,
@@ -143,19 +115,20 @@ const ProductPageTemplate = ({
   const { baseLang, t } = useLanguage();
   const isEn = baseLang === 'en';
 
+  const displayFeaturesTitle = featuresTitle || t('template.coreAdvantages');
+  const displayProductsTitle = productsTitle || t('template.productSeries');
+  const displayApplicationsTitle = applicationsTitle || t('template.applications');
+
   // 获取预定义的SEO内容
   const categorySlug = seoCategory || heroTitle.toLowerCase().replace(/\s+/g, '-');
   const seoContent = getSEOContentForCategory(categorySlug);
-
-  const displayTitle = isEn && heroTitleEn ? heroTitleEn : heroTitle;
-  const displaySubtitle = isEn && heroSubtitleEn ? heroSubtitleEn : heroSubtitle;
 
   return (
     <div className="min-h-screen bg-background">
       {/* Multi-language SEO head tags */}
       <MultiLanguageSEO
-        title={seoTitle || displayTitle}
-        description={seoDescription || displaySubtitle}
+        title={seoTitle || heroTitle}
+        description={seoDescription || heroSubtitle}
         keywords={seoKeywords.join(',')}
         path={seoPath}
         type="product"
@@ -165,12 +138,12 @@ const ProductPageTemplate = ({
       {/* SEO增强组件 */}
       <ProductCollectionSEO
         category={heroTitle}
-        categoryEn={heroTitleEn || heroTitle}
+        categoryEn={heroTitle}
         categoryDescription={seoCategoryDescription || heroSubtitle}
-        categoryDescriptionEn={seoCategoryDescriptionEn || heroSubtitleEn || heroSubtitle}
+        categoryDescriptionEn={seoCategoryDescription || heroSubtitle}
         products={products}
         keywords={seoKeywords.length > 0 ? seoKeywords : (seoContent?.keywords || [])}
-        keywordsEn={seoKeywordsEn.length > 0 ? seoKeywordsEn : (seoContent?.keywordsEn || [])}
+        keywordsEn={seoKeywords.length > 0 ? seoKeywords : (seoContent?.keywordsEn || [])}
         buyingGuide={seoContent ? {
           title: seoContent.contentBlocks[0]?.title || '购买指南',
           titleEn: seoContent.contentBlocks[0]?.titleEn || 'Buying Guide',
@@ -183,7 +156,7 @@ const ProductPageTemplate = ({
       {seoContent && (
         <RichSEOContent
           pageName={heroTitle}
-          pageNameEn={heroTitleEn || heroTitle}
+          pageNameEn={heroTitle}
           contentBlocks={seoContent.contentBlocks}
           additionalKeywords={seoContent.keywords}
           additionalKeywordsEn={seoContent.keywordsEn}
@@ -229,7 +202,7 @@ const ProductPageTemplate = ({
               className="text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-black mb-6 leading-tight"
             >
               <span className="inline-block px-6 py-4 rounded-3xl bg-black/60 border border-white/20 text-white">
-                {isEn && heroTitleEn ? heroTitleEn : heroTitle}
+                {heroTitle}
               </span>
             </motion.h1>
 
@@ -240,7 +213,7 @@ const ProductPageTemplate = ({
               className="text-lg md:text-xl max-w-3xl mx-auto mb-10"
             >
               <span className="inline-block px-6 py-4 rounded-3xl bg-black/60 border border-white/20 text-white/90">
-                {isEn && heroSubtitleEn ? heroSubtitleEn : heroSubtitle}
+                {heroSubtitle}
               </span>
             </motion.p>
 
@@ -294,10 +267,10 @@ const ProductPageTemplate = ({
                   <motion.div key={index} variants={itemVariants} className="text-center">
                     <div className="text-4xl md:text-5xl font-black text-accent mb-2">{stat.value}</div>
                     <div className="text-lg font-semibold text-foreground mb-1">
-                      {isEn && stat.titleEn ? stat.titleEn : stat.title}
+                      {stat.title}
                     </div>
                     <div className="text-sm text-muted-foreground">
-                      {isEn && stat.descriptionEn ? stat.descriptionEn : stat.description}
+                      {stat.description}
                     </div>
                   </motion.div>
                 ))}
@@ -320,7 +293,7 @@ const ProductPageTemplate = ({
                 {t('template.whyChooseUs')}
               </span>
               <h2 className="text-3xl md:text-4xl lg:text-5xl font-black text-foreground">
-                {isEn ? featuresTitleEn : featuresTitle}
+                {displayFeaturesTitle}
               </h2>
             </motion.div>
 
@@ -343,10 +316,10 @@ const ProductPageTemplate = ({
                       <Icon className="w-7 h-7 text-accent" />
                     </div>
                     <h3 className="font-bold text-xl text-foreground mb-3 group-hover:text-accent transition-colors">
-                      {isEn && feature.titleEn ? feature.titleEn : feature.title}
+                      {feature.title}
                     </h3>
                     <p className="text-muted-foreground leading-relaxed">
-                      {isEn && feature.descriptionEn ? feature.descriptionEn : feature.description}
+                      {feature.description}
                     </p>
                   </motion.div>
                 );
@@ -370,11 +343,11 @@ const ProductPageTemplate = ({
                 {t('template.productLineup')}
               </span>
               <h2 className="text-3xl md:text-4xl lg:text-5xl font-black text-foreground mb-4">
-                {isEn ? productsTitleEn : productsTitle}
+                {displayProductsTitle}
               </h2>
-              {(productsSubtitle || productsSubtitleEn) && (
+              {productsSubtitle && (
                 <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
-                  {isEn && productsSubtitleEn ? productsSubtitleEn : productsSubtitle}
+                  {productsSubtitle}
                 </p>
               )}
             </motion.div>
@@ -397,7 +370,7 @@ const ProductPageTemplate = ({
                     <div className="aspect-[4/3] overflow-hidden relative">
                       <img
                         src={product.image}
-                        alt={isEn && product.nameEn ? product.nameEn : product.name}
+                        alt={product.name}
                         loading="lazy"
                         className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
                       />
@@ -406,15 +379,15 @@ const ProductPageTemplate = ({
                     {/* Content */}
                     <div className="p-8">
                       <h3 className="text-xl font-bold text-foreground mb-3 group-hover:text-accent transition-colors">
-                        {isEn && product.nameEn ? product.nameEn : product.name}
+                        {product.name}
                       </h3>
                       <p className="text-muted-foreground mb-5 line-clamp-2">
-                        {isEn && product.descriptionEn ? product.descriptionEn : product.description}
+                        {product.description}
                       </p>
 
                       {/* Specs */}
                       <div className="space-y-2 mb-6 p-4 rounded-xl bg-secondary/50">
-                        {(isEn && product.specsEn ? product.specsEn : product.specs).map((spec, i) => (
+                        {product.specs.map((spec, i) => (
                           <div key={i} className="flex items-center gap-2 text-sm">
                             <CheckCircle className="w-4 h-4 text-accent flex-shrink-0" />
                             <span className="text-foreground/80">{spec}</span>
@@ -478,16 +451,16 @@ const ProductPageTemplate = ({
                     <div className="aspect-[16/10] overflow-hidden">
                       <img
                         src={caseItem.image}
-                        alt={isEn && caseItem.titleEn ? caseItem.titleEn : caseItem.title}
+                        alt={caseItem.title}
                         className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
                       />
                     </div>
                     <div className="p-6">
                       <h3 className="font-bold text-lg text-foreground mb-2 group-hover:text-accent transition-colors">
-                        {isEn && caseItem.titleEn ? caseItem.titleEn : caseItem.title}
+                        {caseItem.title}
                       </h3>
                       <p className="text-muted-foreground text-sm">
-                        {isEn && caseItem.descriptionEn ? caseItem.descriptionEn : caseItem.description}
+                        {caseItem.description}
                       </p>
                     </div>
                   </motion.div>
@@ -512,7 +485,7 @@ const ProductPageTemplate = ({
                   {t('template.useCases')}
                 </span>
                 <h2 className="text-3xl md:text-4xl lg:text-5xl font-black text-foreground">
-                  {isEn ? applicationsTitleEn : applicationsTitle}
+                  {displayApplicationsTitle}
                 </h2>
               </motion.div>
 
@@ -530,10 +503,10 @@ const ProductPageTemplate = ({
                     className="group p-6 rounded-2xl bg-card border border-accent/10 hover:border-accent/30 transition-all duration-500 hover:-translate-y-2"
                   >
                     <h3 className="font-bold text-lg text-foreground mb-3 group-hover:text-accent transition-colors">
-                      {isEn && app.titleEn ? app.titleEn : app.title}
+                      {app.title}
                     </h3>
                     <p className="text-muted-foreground text-sm leading-relaxed">
-                      {isEn && app.descriptionEn ? app.descriptionEn : app.description}
+                      {app.description}
                     </p>
                   </motion.div>
                 ))}

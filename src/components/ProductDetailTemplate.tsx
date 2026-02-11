@@ -14,17 +14,13 @@ import { getDomainForLanguage, getHtmlLang, createLocalizedBreadcrumb } from "@/
 
 interface Spec {
   label: string;
-  labelEn?: string;
   value: string;
-  valueEn?: string;
 }
 
 interface Feature {
   icon: LucideIcon;
   title: string;
-  titleEn?: string;
   description: string;
-  descriptionEn?: string;
 }
 
 interface ProductDetailTemplateProps {
@@ -34,37 +30,30 @@ interface ProductDetailTemplateProps {
   seoKeywords?: string;
   
   // Breadcrumb
-  breadcrumbs: { label: string; labelEn?: string; path?: string }[];
+  breadcrumbs: { label: string; path?: string }[];
   
   // Hero Section
   heroTitle: string;
-  heroTitleEn?: string;
   heroDescription: string;
-  heroDescriptionEn?: string;
   heroImage: string;
-  heroHighlight?: { value: string; label: string; labelEn?: string };
-  backLink: { label: string; labelEn?: string; path: string };
+  heroHighlight?: { value: string; label: string };
+  backLink: { label: string; path: string };
   
   // Features Section
   features: Feature[];
   featuresTitle?: string;
-  featuresTitleEn?: string;
   
   // Specs Section
   specs: Spec[];
   specsTitle?: string;
-  specsTitleEn?: string;
   
   // Applications Section
-  applications: string[] | { zh: string; en: string }[];
+  applications: string[];
   applicationsTitle?: string;
-  applicationsTitleEn?: string;
   
   // CTA Section
   ctaTitle: string;
-  ctaTitleEn?: string;
   ctaDescription?: string;
-  ctaDescriptionEn?: string;
   
   // Optional product metadata for structured data
   productSku?: string;
@@ -78,42 +67,31 @@ const ProductDetailTemplate = ({
   seoKeywords,
   breadcrumbs,
   heroTitle,
-  heroTitleEn,
   heroDescription,
-  heroDescriptionEn,
   heroImage,
   heroHighlight,
   backLink,
   features,
-  featuresTitle = "核心优势",
-  featuresTitleEn = "Key Features",
+  featuresTitle,
   specs,
-  specsTitle = "技术参数",
-  specsTitleEn = "Specifications",
+  specsTitle,
   applications,
-  applicationsTitle = "应用场景",
-  applicationsTitleEn = "Applications",
+  applicationsTitle,
   ctaTitle,
-  ctaTitleEn,
   ctaDescription,
-  ctaDescriptionEn,
   productSku,
   productCategory,
   productPrice,
 }: ProductDetailTemplateProps) => {
   const { language, baseLang, t } = useLanguage();
   const location = useLocation();
-  const isEn = baseLang === 'en';
   const langCode = language as LanguageCode;
-  
-  const getAppText = (app: string | { zh: string; en: string }) => {
-    if (typeof app === 'string') return app;
-    return isEn ? app.en : app.zh;
-  };
+
+  const displayFeaturesTitle = featuresTitle || t('template.keyFeatures');
+  const displaySpecsTitle = specsTitle || t('template.specifications');
+  const displayApplicationsTitle = applicationsTitle || t('template.applications');
 
   // Create product structured data
-  const productName = isEn && heroTitleEn ? heroTitleEn : heroTitle;
-  const productDescription = seoDescription;
   const currentDomain = getDomainForLanguage(langCode);
   const productUrl = `${currentDomain}${location.pathname}`;
   const productImage = heroImage.startsWith('http') ? heroImage : `${currentDomain}${heroImage}`;
@@ -121,8 +99,8 @@ const ProductDetailTemplate = ({
   const productStructuredData = {
     '@context': 'https://schema.org',
     '@type': 'Product',
-    name: productName,
-    description: productDescription,
+    name: heroTitle,
+    description: seoDescription,
     image: productImage,
     url: productUrl,
     sku: productSku || location.pathname.split('/').pop(),
@@ -155,8 +133,8 @@ const ProductDetailTemplate = ({
     },
     additionalProperty: specs.map(spec => ({
       '@type': 'PropertyValue',
-      name: isEn && spec.labelEn ? spec.labelEn : spec.label,
-      value: isEn && spec.valueEn ? spec.valueEn : spec.value,
+      name: spec.label,
+      value: spec.value,
     })),
     inLanguage: getHtmlLang(langCode),
   };
@@ -164,7 +142,7 @@ const ProductDetailTemplate = ({
   // Create breadcrumb structured data
   const breadcrumbData = createLocalizedBreadcrumb(
     breadcrumbs.map(b => ({
-      name: isEn && b.labelEn ? b.labelEn : b.label,
+      name: b.label,
       url: b.path || '',
     })),
     langCode
@@ -189,7 +167,7 @@ const ProductDetailTemplate = ({
       </Helmet>
       <Header />
       <FloatingContact />
-      <BackButton to={backLink.path} label={isEn && backLink.labelEn ? backLink.labelEn : backLink.label} />
+      <BackButton to={backLink.path} label={backLink.label} />
       <main>
         {/* Hero Section */}
         <section className="relative h-[500px] md:h-[600px] overflow-hidden">
@@ -206,10 +184,10 @@ const ProductDetailTemplate = ({
                   <span key={index} className="flex items-center gap-2">
                     {item.path ? (
                       <Link to={item.path} className="hover:text-white transition-colors">
-                        {isEn && item.labelEn ? item.labelEn : item.label}
+                        {item.label}
                       </Link>
                     ) : (
-                      <span className="text-white">{isEn && item.labelEn ? item.labelEn : item.label}</span>
+                      <span className="text-white">{item.label}</span>
                     )}
                     {index < breadcrumbs.length - 1 && <span>/</span>}
                   </span>
@@ -217,16 +195,16 @@ const ProductDetailTemplate = ({
               </div>
               
               <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight text-white">
-                {isEn && heroTitleEn ? heroTitleEn : heroTitle}
+                {heroTitle}
               </h1>
               <p className="text-lg md:text-xl text-muted-foreground mb-8 leading-relaxed">
-                {isEn && heroDescriptionEn ? heroDescriptionEn : heroDescription}
+                {heroDescription}
               </p>
               
               {heroHighlight && (
                 <div className="inline-flex items-center gap-4 bg-background/60 backdrop-blur-md px-6 py-3 rounded-xl mb-8 border border-border">
                   <div className="text-3xl font-bold text-foreground">{heroHighlight.value}</div>
-                  <div className="text-muted-foreground">{isEn && heroHighlight.labelEn ? heroHighlight.labelEn : heroHighlight.label}</div>
+                  <div className="text-muted-foreground">{heroHighlight.label}</div>
                 </div>
               )}
               
@@ -252,7 +230,7 @@ const ProductDetailTemplate = ({
           <div className="container-custom">
             <div className="text-center mb-16">
               <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
-                {isEn ? featuresTitleEn : featuresTitle}
+                {displayFeaturesTitle}
               </h2>
             </div>
 
@@ -266,10 +244,10 @@ const ProductDetailTemplate = ({
                     <feature.icon className="h-8 w-8 text-primary" />
                   </div>
                   <h3 className="text-xl font-bold text-card-foreground mb-2">
-                    {isEn && feature.titleEn ? feature.titleEn : feature.title}
+                    {feature.title}
                   </h3>
                   <p className="text-muted-foreground text-sm">
-                    {isEn && feature.descriptionEn ? feature.descriptionEn : feature.description}
+                    {feature.description}
                   </p>
                 </div>
               ))}
@@ -282,7 +260,7 @@ const ProductDetailTemplate = ({
           <div className="container-custom">
             <div className="text-center mb-16">
               <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
-                {isEn ? specsTitleEn : specsTitle}
+                {displaySpecsTitle}
               </h2>
             </div>
 
@@ -295,10 +273,10 @@ const ProductDetailTemplate = ({
                       className={`${index % 2 === 0 ? 'bg-muted/50' : 'bg-card'} hover:bg-primary/5 transition-colors`}
                     >
                       <td className="px-6 py-4 font-medium text-foreground border-b border-border/30 w-1/3">
-                        {isEn && spec.labelEn ? spec.labelEn : spec.label}
+                        {spec.label}
                       </td>
                       <td className="px-6 py-4 text-muted-foreground border-b border-border/30">
-                        {isEn && spec.valueEn ? spec.valueEn : spec.value}
+                        {spec.value}
                       </td>
                     </tr>
                   ))}
@@ -313,7 +291,7 @@ const ProductDetailTemplate = ({
           <div className="container-custom">
             <div className="text-center mb-16">
               <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
-                {isEn ? applicationsTitleEn : applicationsTitle}
+                {displayApplicationsTitle}
               </h2>
             </div>
 
@@ -326,7 +304,7 @@ const ProductDetailTemplate = ({
                   <div className="w-10 h-10 bg-primary/10 rounded-full flex items-center justify-center flex-shrink-0">
                     <CheckCircle className="w-5 h-5 text-primary" />
                   </div>
-                  <span className="font-medium text-foreground">{getAppText(app)}</span>
+                  <span className="font-medium text-foreground">{app}</span>
                 </div>
               ))}
             </div>
@@ -337,11 +315,11 @@ const ProductDetailTemplate = ({
         <section className="py-20 bg-primary text-primary-foreground">
           <div className="container-custom text-center">
             <h2 className="text-3xl md:text-4xl font-bold mb-6">
-              {isEn && ctaTitleEn ? ctaTitleEn : ctaTitle}
+              {ctaTitle}
             </h2>
-            {(ctaDescription || ctaDescriptionEn) && (
+            {ctaDescription && (
               <p className="text-lg opacity-90 mb-8 max-w-2xl mx-auto">
-                {isEn && ctaDescriptionEn ? ctaDescriptionEn : ctaDescription}
+                {ctaDescription}
               </p>
             )}
             <div className="flex flex-wrap justify-center gap-4">
