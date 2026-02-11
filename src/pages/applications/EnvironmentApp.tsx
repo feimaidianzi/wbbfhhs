@@ -71,6 +71,7 @@ const EnvironmentApp = () => {
       seoTitle={t('environment.seo.title')}
       seoDescription={t('environment.seo.description')}
       seoKeywords={t('environment.seo.keywords')}
+      seoPath="/applications/environment"
       heroTitle={t('environment.hero.title')}
       heroSubtitle={t('environment.hero.subtitle')}
       heroDescription={t('environment.hero.description')}

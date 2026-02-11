@@ -93,6 +93,7 @@ const LogisticsApp = () => {
       seoTitle={t('logisticsApp.hero.title')}
       seoDescription={t('logisticsApp.hero.description')}
       seoKeywords="物流无人机,无人机配送,应急物资投送,末端配送,大载重无人机,海岛配送"
+      seoPath="/applications/logistics"
       heroTitle={t('logisticsApp.hero.title')}
       heroSubtitle={t('logisticsApp.hero.subtitle')}
       heroDescription={t('logisticsApp.hero.description')}

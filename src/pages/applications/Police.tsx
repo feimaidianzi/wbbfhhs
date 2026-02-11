@@ -85,6 +85,7 @@ const Police = () => {
       seoTitle={t('police.seo.title')}
       seoDescription={t('police.seo.description')}
       seoKeywords={t('police.seo.keywords')}
+      seoPath="/applications/police"
       heroTitle="警用解决方案"
       heroSubtitle="行业应用"
       heroDescription="警用无人机空中平台搭载多种传感器设备，为治安巡逻、活动安保、案件侦查、应急处突等警务工作提供强有力的空中支援能力。"
