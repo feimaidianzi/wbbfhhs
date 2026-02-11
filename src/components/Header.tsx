@@ -154,7 +154,7 @@ export const Header = () => {
                 onMouseLeave={handleMouseLeave}
               >
                 <Link
-                  to={item.href}
+                  to={langPath(item.href)}
                   className={`flex items-center gap-1 px-4 py-2 text-sm font-medium transition-colors rounded-full ${
                     isScrolled
                       ? 'text-foreground hover:text-accent hover:bg-accent/5'
