@@ -54,7 +54,7 @@ const categoryData: Record<string, {
       },
     ],
   },
-  "竞速系列": {
+  "racing": {
     titleKey: 'fpvCategory.racing.title',
     descriptionKey: 'fpvCategory.racing.description',
     heroImage: "https://images.unsplash.com/photo-1527977966376-1c8408f9f108?w=1920&q=80",
