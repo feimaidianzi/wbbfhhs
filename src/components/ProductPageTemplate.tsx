@@ -94,28 +94,20 @@ const itemVariants = {
 
 const ProductPageTemplate = ({
   heroTitle,
-  heroTitleEn,
   heroSubtitle,
-  heroSubtitleEn,
   heroImage,
   features,
-  featuresTitle = "核心优势",
-  featuresTitleEn = "Core Advantages",
+  featuresTitle,
   products,
-  productsTitle = "产品系列",
-  productsTitleEn = "Product Series",
+  productsTitle,
   productsSubtitle,
-  productsSubtitleEn,
   stats,
   applications,
-  applicationsTitle = "应用场景",
-  applicationsTitleEn = "Applications",
+  applicationsTitle,
   cases,
   seoCategory,
   seoCategoryDescription,
-  seoCategoryDescriptionEn,
   seoKeywords = [],
-  seoKeywordsEn = [],
   seoPath = '',
   seoTitle,
   seoDescription,
@@ -123,19 +115,20 @@ const ProductPageTemplate = ({
   const { baseLang, t } = useLanguage();
   const isEn = baseLang === 'en';
 
+  const displayFeaturesTitle = featuresTitle || t('template.coreAdvantages');
+  const displayProductsTitle = productsTitle || t('template.productSeries');
+  const displayApplicationsTitle = applicationsTitle || t('template.applications');
+
   // 获取预定义的SEO内容
   const categorySlug = seoCategory || heroTitle.toLowerCase().replace(/\s+/g, '-');
   const seoContent = getSEOContentForCategory(categorySlug);
-
-  const displayTitle = isEn && heroTitleEn ? heroTitleEn : heroTitle;
-  const displaySubtitle = isEn && heroSubtitleEn ? heroSubtitleEn : heroSubtitle;
 
   return (
     <div className="min-h-screen bg-background">
       {/* Multi-language SEO head tags */}
       <MultiLanguageSEO
-        title={seoTitle || displayTitle}
-        description={seoDescription || displaySubtitle}
+        title={seoTitle || heroTitle}
+        description={seoDescription || heroSubtitle}
         keywords={seoKeywords.join(',')}
         path={seoPath}
         type="product"
@@ -145,12 +138,12 @@ const ProductPageTemplate = ({
       {/* SEO增强组件 */}
       <ProductCollectionSEO
         category={heroTitle}
-        categoryEn={heroTitleEn || heroTitle}
+        categoryEn={heroTitle}
         categoryDescription={seoCategoryDescription || heroSubtitle}
-        categoryDescriptionEn={seoCategoryDescriptionEn || heroSubtitleEn || heroSubtitle}
+        categoryDescriptionEn={seoCategoryDescription || heroSubtitle}
         products={products}
         keywords={seoKeywords.length > 0 ? seoKeywords : (seoContent?.keywords || [])}
-        keywordsEn={seoKeywordsEn.length > 0 ? seoKeywordsEn : (seoContent?.keywordsEn || [])}
+        keywordsEn={seoKeywords.length > 0 ? seoKeywords : (seoContent?.keywordsEn || [])}
         buyingGuide={seoContent ? {
           title: seoContent.contentBlocks[0]?.title || '购买指南',
           titleEn: seoContent.contentBlocks[0]?.titleEn || 'Buying Guide',
