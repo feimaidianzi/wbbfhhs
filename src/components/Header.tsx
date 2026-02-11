@@ -230,7 +230,7 @@ export const Header = () => {
                   {t('auth.logout')}
                 </Button>
               ) : (
-                <Link to={langPath("/auth")}>
+                <Link to="/auth">
                   <Button
                     variant="ghost"
                     size="sm"
