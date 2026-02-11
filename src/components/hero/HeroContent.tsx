@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
-import { Link } from "react-router-dom";
+import { LangLink } from "@/components/LangLink";
 import { ArrowRight, Play, ChevronDown } from "lucide-react";
 import { useLanguage } from "@/contexts/LanguageContext";
 

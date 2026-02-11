@@ -1,6 +1,6 @@
 import { Mail, MapPin, ArrowUpRight } from "lucide-react";
 import { Logo } from "@/components/Logo";
-import { Link } from "react-router-dom";
+import { LangLink } from "@/components/LangLink";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Send } from "lucide-react";

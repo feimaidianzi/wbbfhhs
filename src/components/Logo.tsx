@@ -16,7 +16,7 @@ export const Logo = ({ className = "", showLink = true }: LogoProps) => {
   );
 
   if (showLink) {
-    return <Link to="/">{logoContent}</Link>;
+    return <LangLink to="/">{logoContent}</LangLink>;
   }
 
   return logoContent;
