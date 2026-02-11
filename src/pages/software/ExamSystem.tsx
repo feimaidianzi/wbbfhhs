@@ -104,6 +104,7 @@ const ExamSystem = () => {
                   src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=800&q=80"
                   alt={t('softwarePage.exam.title')}
                   className="w-full h-full object-cover"
+                  loading="lazy"
                 />
               </div>
             </div>

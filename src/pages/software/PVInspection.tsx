@@ -88,6 +88,7 @@ const PVInspection = () => {
                   src="https://images.unsplash.com/photo-1508514177221-188b1cf16e9d?w=800&q=80"
                   alt={t('softwarePage.pvInspection.title')}
                   className="w-full h-full object-cover"
+                  loading="lazy"
                 />
               </div>
               <div>

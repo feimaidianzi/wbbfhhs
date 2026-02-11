@@ -104,6 +104,7 @@ const DroneManagement = () => {
                   src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&q=80"
                   alt={t('softwarePage.management.title')}
                   className="w-full h-full object-cover"
+                  loading="lazy"
                 />
               </div>
             </div>

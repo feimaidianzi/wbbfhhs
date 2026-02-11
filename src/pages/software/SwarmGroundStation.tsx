@@ -88,6 +88,7 @@ const SwarmGroundStation = () => {
                   src="https://images.unsplash.com/photo-1473968512647-3e447244af8f?w=800&q=80"
                   alt={t('softwarePage.swarm.title')}
                   className="w-full h-full object-cover"
+                  loading="lazy"
                 />
               </div>
               <div>
