@@ -3,7 +3,7 @@ import { LangLink as Link } from "@/components/LangLink";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { FloatingContact } from "@/components/FloatingContact";
-import { SEO } from "@/components/SEO";
+import { MultiLanguageSEO } from "@/components/MultiLanguageSEO";
 import { BackButton } from "@/components/BackButton";
 import { cameraProducts } from "@/data/cameraProducts";
 import { ArrowRight, Check, Camera, Wifi, Droplets, Monitor, Battery, Aperture, Package } from "lucide-react";

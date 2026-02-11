@@ -4,7 +4,7 @@ import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { FloatingContact } from "@/components/FloatingContact";
 import { Button } from "@/components/ui/button";
-import { SEO } from "@/components/SEO";
+import { MultiLanguageSEO } from "@/components/MultiLanguageSEO";
 import { BackButton } from "@/components/BackButton";
 import { ArrowRight, Phone, Radio, Wifi, Zap, Signal, Shield, Settings, Check } from "lucide-react";
 import { elrsProducts } from "@/data/elrsProducts";
