@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 import { useState } from "react";
 import { ArrowRight, Droplets, Car, Leaf, Zap, AlertTriangle, MapPin } from "lucide-react";
-import { Link } from "react-router-dom";
+import { LangLink } from "@/components/LangLink";
 import { useLanguage } from "@/contexts/LanguageContext";
 
 export const ApplicationsSection = () => {
