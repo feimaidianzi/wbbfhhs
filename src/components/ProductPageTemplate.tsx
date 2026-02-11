@@ -382,7 +382,7 @@ const ProductPageTemplate = ({
                         {product.name}
                       </h3>
                       <p className="text-muted-foreground mb-5 line-clamp-2">
-                        {isEn && product.descriptionEn ? product.descriptionEn : product.description}
+                        {product.description}
                       </p>
 
                       {/* Specs */}
