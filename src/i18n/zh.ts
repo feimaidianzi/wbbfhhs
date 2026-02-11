@@ -5595,7 +5595,67 @@ export const zhTranslations: Record<string, string> = {
   'accessories.case2.desc': '为专业FPV竞速队提供飞塔套装和ELRS遥控系统，助力比赛取得优异成绩',
   'accessories.case3.title': '航拍团队设备升级',
   'accessories.case3.desc': '为航拍服务团队提供数字图传和云台相机方案，提升拍摄画质和稳定性',
-  
+
+  // ===== Missing Spec Value Keys =====
+  // X650 shared features & applications
+  'multiRotor.features.compactPortable': '紧凑便携',
+  'multiRotor.features.compactPortableDesc': '650mm轴距，轻便易携，快速转场',
+  'multiRotor.features.quickDeploy': '快速部署',
+  'multiRotor.features.quickDeployDesc': '5分钟完成起飞准备，即到即飞',
+  'multiRotor.features.stableReliable': '稳定可靠',
+  'multiRotor.features.stableReliableDesc': '工业级飞控系统，性能稳定',
+  'multiRotor.features.smartControl': '智能控制',
+  'multiRotor.features.smartControlDesc': '自主航线规划，智能返航',
+  'multiRotor.features.longEndurance': '长续航',
+  'multiRotor.features.longEnduranceDesc': '35分钟持续作业，高效完成任务',
+  'multiRotor.features.windResistant': '抗风性强',
+  'multiRotor.features.windResistantDesc': '5级风稳定飞行，适应多种环境',
+  'multiRotor.applications.routineInspection': '日常巡检作业',
+  'multiRotor.applications.dataCollection': '数据采集分析',
+  'multiRotor.applications.fieldSurvey': '现场勘查取证',
+  'multiRotor.applications.smallMapping': '小区域测绘',
+  'multiRotor.applications.securityPatrol': '安防巡逻监控',
+  'multiRotor.applications.training': '飞行培训教学',
+
+  // X650 spec values
+  'multiRotor.x650.spec.flightTime': '35分钟',
+  'multiRotor.x650.spec.windResistance': '5级',
+
+  // X850 spec values
+  'multiRotor.x850.spec.flightTime': '45分钟',
+  'multiRotor.x850.spec.windResistance': '6级',
+
+  // X1200 spec values
+  'multiRotor.x1200.spec.flightTime': '55分钟',
+  'multiRotor.x1200.spec.windResistance': '7级',
+
+  // X1600 spec values
+  'multiRotor.x1600.spec.flightTime': '40分钟',
+  'multiRotor.x1600.spec.windResistance': '7级',
+
+  // WL-10 spec values
+  'logistics.wl10.spec.flightTime': '45分钟',
+  'logistics.wl10.spec.windResistance': '5级',
+
+  // WL-20 spec values
+  'logistics.wl20.spec.flightTime': '50分钟',
+  'logistics.wl20.spec.windResistance': '6级',
+
+  // WL-30 spec values
+  'logistics.wl30.spec.flightTime': '60分钟',
+  'logistics.wl30.spec.windResistance': '7级',
+
+  // TH-200 spec values used in TH200.tsx component
+  'tethered.th200.spec.maxTakeoffWeight': '最大起飞重量',
+  'tethered.th200.spec.maxFlightSpeed': '最大飞行速度',
+  'tethered.th200.spec.maxFlightSpeed.value': '上升5m/s 下降3m/s 水平飞行15m/s',
+  'tethered.th200.spec.windResistance.value': '15m/s（7级）',
+  'tethered.th200.spec.flightTime.value': '60min空载/20min-10kg负载/系留模式24小时',
+  'tethered.th200.spec.maxFlightAltitude': '最大飞行高度',
+  'tethered.th200.spec.maxFlightAltitude.value': '1000米',
+  'tethered.th200.spec.positionAccuracy': '定位精度',
+  'tethered.th200.spec.positionAccuracy.value': '垂直±0.1m/水平±0.1m（RTK）',
+
 };
 
 export default zhTranslations;
