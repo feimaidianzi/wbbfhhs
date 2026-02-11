@@ -582,19 +582,19 @@ const ApplicationPageTemplate = ({
                 <p className="text-lg text-muted-foreground mb-10 max-w-2xl mx-auto">{ctaDescription}</p>
               )}
               <div className="flex flex-wrap justify-center gap-4">
-                <Link to="/contact">
+                <LangLink to="/contact">
                   <Button className="bg-accent hover:bg-accent/90 text-accent-foreground px-10 py-6 text-lg font-semibold rounded-full group">
                     <Mail className="mr-2 h-5 w-5" />
                     立即咨询
                     <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
                   </Button>
-                </Link>
+                </LangLink>
                 {ctaProductLink && (
-                  <Link to={ctaProductLink}>
+                  <LangLink to={ctaProductLink}>
                     <Button variant="outline" className="border-accent/30 hover:border-accent text-foreground px-10 py-6 text-lg font-semibold rounded-full">
                       查看产品
                     </Button>
-                  </Link>
+                  </LangLink>
                 )}
               </div>
             </motion.div>
