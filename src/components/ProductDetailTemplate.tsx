@@ -4,6 +4,7 @@ import { FloatingContact } from "@/components/FloatingContact";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, CheckCircle, Phone, Mail, LucideIcon } from "lucide-react";
 import { Link, useLocation } from "react-router-dom";
+import { LangLink } from "@/components/LangLink";
 import { MultiLanguageSEO, createLocalizedProductSchema } from "@/components/MultiLanguageSEO";
 import { BackButton } from "@/components/BackButton";
 import { useLanguage } from "@/contexts/LanguageContext";
