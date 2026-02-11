@@ -23,7 +23,7 @@ const categoryData: Record<string, {
     featuresKeys: string[];
   }[];
 }> = {
-  "套装系列": {
+  "kit": {
     titleKey: 'fpvCategory.kit.title',
     descriptionKey: 'fpvCategory.kit.description',
     heroImage: "https://images.unsplash.com/photo-1473968512647-3e447244af8f?w=1920&q=80",
@@ -54,7 +54,7 @@ const categoryData: Record<string, {
       },
     ],
   },
-  "竞速系列": {
+  "racing": {
     titleKey: 'fpvCategory.racing.title',
     descriptionKey: 'fpvCategory.racing.description',
     heroImage: "https://images.unsplash.com/photo-1527977966376-1c8408f9f108?w=1920&q=80",
@@ -85,7 +85,7 @@ const categoryData: Record<string, {
       },
     ],
   },
-  "花飞系列": {
+  "freestyle": {
     titleKey: 'fpvCategory.freestyle.title',
     descriptionKey: 'fpvCategory.freestyle.description',
     heroImage: "https://images.unsplash.com/photo-1506947411487-a56738267384?w=1920&q=80",
@@ -116,7 +116,7 @@ const categoryData: Record<string, {
       },
     ],
   },
-  "远航系列": {
+  "longrange": {
     titleKey: 'fpvCategory.longrange.title',
     descriptionKey: 'fpvCategory.longrange.description',
     heroImage: "https://images.unsplash.com/photo-1559827260-dc66d52bef19?w=1920&q=80",
@@ -147,7 +147,7 @@ const categoryData: Record<string, {
       },
     ],
   },
-  "航拍系列": {
+  "cinematic": {
     titleKey: 'fpvCategory.cinematic.title',
     descriptionKey: 'fpvCategory.cinematic.description',
     heroImage: "https://images.unsplash.com/photo-1508614589041-895b88991e3e?w=1920&q=80",
