@@ -182,13 +182,13 @@ export const Footer = () => {
                 <ul className="space-y-2.5">
                   {softwareLinks.map(item => (
                     <li key={item.name}>
-                      <Link 
+                      <LangLink 
                         to={item.path} 
                         className="text-sm text-background/60 hover:text-background transition-colors inline-flex items-center gap-1 group"
                       >
                         {item.name}
                         <ArrowUpRight className="w-3 h-3 opacity-0 -translate-y-0.5 translate-x-0 group-hover:opacity-100 group-hover:translate-y-0 transition-all" />
-                      </Link>
+                      </LangLink>
                     </li>
                   ))}
                 </ul>
