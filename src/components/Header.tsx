@@ -1,7 +1,8 @@
 import { useState, useRef, useEffect } from "react";
 import { Menu, X, Phone, ChevronDown, User, LogOut } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Link, useNavigate } from "react-router-dom";
+import { LangLink as Link } from "@/components/LangLink";
+import { useNavigate } from "react-router-dom";
 import { Logo } from "@/components/Logo";
 import { LanguageSwitcher } from "@/components/LanguageSwitcher";
 import { useLanguage } from "@/contexts/LanguageContext";
