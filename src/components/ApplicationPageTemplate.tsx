@@ -5,6 +5,7 @@ import { FloatingContact } from "@/components/FloatingContact";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, CheckCircle, Phone, Mail, ChevronDown, LucideIcon } from "lucide-react";
 import { Link } from "react-router-dom";
+import { LangLink } from "@/components/LangLink";
 import { MultiLanguageSEO } from "@/components/MultiLanguageSEO";
 
 interface Feature {
