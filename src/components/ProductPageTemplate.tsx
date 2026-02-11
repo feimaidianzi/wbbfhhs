@@ -485,7 +485,7 @@ const ProductPageTemplate = ({
                   {t('template.useCases')}
                 </span>
                 <h2 className="text-3xl md:text-4xl lg:text-5xl font-black text-foreground">
-                  {isEn ? applicationsTitleEn : applicationsTitle}
+                  {displayApplicationsTitle}
                 </h2>
               </motion.div>
 
