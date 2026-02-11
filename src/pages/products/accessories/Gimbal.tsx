@@ -76,7 +76,7 @@ const Gimbal = () => {
 
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
                   {products.map((product) => (
-                    <Link
+                    <LangLink
                       key={product.id}
                       to={`/products/accessories/gimbal/${product.id}`}
                       className="group bg-card rounded-xl border border-border overflow-hidden hover:border-primary/50 hover:shadow-lg transition-all duration-300"
@@ -110,7 +110,7 @@ const Gimbal = () => {
                           <ArrowRight className="w-4 h-4 opacity-0 -ml-4 group-hover:opacity-100 group-hover:ml-0 transition-all" />
                         </div>
                       </div>
-                    </Link>
+                    </LangLink>
                   ))}
                 </div>
               </div>
