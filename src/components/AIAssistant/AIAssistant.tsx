@@ -55,37 +55,36 @@ export const AIAssistant = () => {
     if (conversationId) return conversationId;
 
     try {
-      // 先查找该访客是否有未结束的会话
-      const { data: existingConv } = await supabase
-        .from("ai_conversations")
-        .select("id, is_transferred_to_human")
-        .eq("session_id", visitorId)
-        .neq("status", "resolved")
-        .order("created_at", { ascending: false })
-        .limit(1)
-        .single();
-
-      if (existingConv) {
-        setConversationId(existingConv.id);
-        setIsHumanMode(!!existingConv.is_transferred_to_human);
-        
-        // 加载历史消息
-        const { data: historyMessages } = await supabase
-          .from("ai_conversation_messages")
-          .select("*")
-          .eq("conversation_id", existingConv.id)
-          .order("created_at", { ascending: true });
-        
-        if (historyMessages && historyMessages.length > 0) {
-          setMessages(historyMessages.map(m => ({
-            id: m.id,
-            role: m.role as "user" | "assistant" | "system",
-            content: m.content,
-            timestamp: new Date(m.created_at),
-          })));
+      // Load history via edge function (RLS blocks direct client reads)
+      const historyResponse = await fetch(
+        `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/ai-assistant`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY}`,
+          },
+          body: JSON.stringify({ action: "load_history", sessionId: visitorId }),
         }
-        
-        return existingConv.id;
+      );
+
+      if (historyResponse.ok) {
+        const data = await historyResponse.json();
+        if (data.conversation) {
+          setConversationId(data.conversation.id);
+          setIsHumanMode(!!data.conversation.is_transferred_to_human);
+          
+          if (data.messages && data.messages.length > 0) {
+            setMessages(data.messages.map((m: any) => ({
+              id: m.id,
+              role: m.role as "user" | "assistant" | "system",
+              content: m.content,
+              timestamp: new Date(m.created_at),
+            })));
+          }
+          
+          return data.conversation.id;
+        }
       }
 
       // 创建新会话
