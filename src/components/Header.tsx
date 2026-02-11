@@ -190,7 +190,7 @@ export const Header = () => {
                     {item.children.map((child, index) => (
                       <Link
                         key={child.name}
-                        to={child.href}
+                        to={langPath(child.href)}
                         className="group p-4 rounded-xl bg-secondary/50 hover:bg-secondary transition-all duration-300 hover:-translate-y-0.5"
                         onClick={() => setActiveDropdown(null)}
                         style={{ animationDelay: `${index * 30}ms` }}
