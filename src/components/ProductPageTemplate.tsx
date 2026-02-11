@@ -293,7 +293,7 @@ const ProductPageTemplate = ({
                 {t('template.whyChooseUs')}
               </span>
               <h2 className="text-3xl md:text-4xl lg:text-5xl font-black text-foreground">
-                {isEn ? featuresTitleEn : featuresTitle}
+                {displayFeaturesTitle}
               </h2>
             </motion.div>
 
