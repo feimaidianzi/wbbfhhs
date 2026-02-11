@@ -379,7 +379,7 @@ const ProductPageTemplate = ({
                     {/* Content */}
                     <div className="p-8">
                       <h3 className="text-xl font-bold text-foreground mb-3 group-hover:text-accent transition-colors">
-                        {isEn && product.nameEn ? product.nameEn : product.name}
+                        {product.name}
                       </h3>
                       <p className="text-muted-foreground mb-5 line-clamp-2">
                         {isEn && product.descriptionEn ? product.descriptionEn : product.description}
