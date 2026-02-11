@@ -213,7 +213,7 @@ const ProductPageTemplate = ({
               className="text-lg md:text-xl max-w-3xl mx-auto mb-10"
             >
               <span className="inline-block px-6 py-4 rounded-3xl bg-black/60 border border-white/20 text-white/90">
-                {isEn && heroSubtitleEn ? heroSubtitleEn : heroSubtitle}
+                {heroSubtitle}
               </span>
             </motion.p>
 
