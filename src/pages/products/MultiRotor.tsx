@@ -72,6 +72,7 @@ const MultiRotor = () => {
 
   return (
     <ProductPageTemplate
+      seoPath="/products/multi-rotor"
       heroTitle={t('multiRotor.page.title')}
       heroTitleEn="Multi-Rotor Drone Platform"
       heroSubtitle={t('multiRotor.page.subtitle')}

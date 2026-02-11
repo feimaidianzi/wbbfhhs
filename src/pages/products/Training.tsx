@@ -120,6 +120,7 @@ const cases = [
 const Training = () => {
   return (
     <ProductPageTemplate
+      seoPath="/products/training"
       heroTitle="教练无人机"
       heroSubtitle="专业无人机培训解决方案"
       heroImage="https://images.unsplash.com/photo-1473968512647-3e447244af8f?w=1920&q=80"

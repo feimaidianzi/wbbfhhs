@@ -52,6 +52,7 @@ const cases = [
 const Firefighting = () => {
   return (
     <ProductPageTemplate
+      seoPath="/products/firefighting"
       heroTitle="消防救援无人机"
       heroTitleEn="Firefighting & Rescue Drones"
       heroSubtitle="快速响应、精准定位、高效灭火，守护生命财产安全。突破传统消防限制，让救援更快速、更安全、更高效"

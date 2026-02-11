@@ -127,6 +127,7 @@ const cases = [
 const WorkDrone = () => {
   return (
     <ProductPageTemplate
+      seoPath="/products/work-drone"
       heroTitle="作业无人机"
       heroSubtitle="复合翼长航时作业平台"
       heroImage="https://images.unsplash.com/photo-1559827260-dc66d52bef19?w=1920&q=80"

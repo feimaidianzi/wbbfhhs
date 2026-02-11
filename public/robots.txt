@@ -1,4 +1,4 @@
-# CANI 长凌科技 - 工业无人机制造商
+# CANI Technology - Industrial Drone Manufacturer
 # https://www.cani.com
 
 User-agent: Googlebot
@@ -44,8 +44,22 @@ Disallow: /admin/
 Disallow: /auth
 Disallow: /api/
 
-# 站点地图
+# Sitemap Index
 Sitemap: https://www.cani.com/sitemap.xml
+Sitemap: https://www.cani.com/sitemap-zh.xml
+Sitemap: https://www.cani.com/sitemap-en.xml
+Sitemap: https://www.cani.com/sitemap-ja.xml
+Sitemap: https://www.cani.com/sitemap-ko.xml
+Sitemap: https://www.cani.com/sitemap-vi.xml
+Sitemap: https://www.cani.com/sitemap-th.xml
+Sitemap: https://www.cani.com/sitemap-ms.xml
+Sitemap: https://www.cani.com/sitemap-id.xml
+Sitemap: https://www.cani.com/sitemap-fr.xml
+Sitemap: https://www.cani.com/sitemap-de.xml
+Sitemap: https://www.cani.com/sitemap-es.xml
+Sitemap: https://www.cani.com/sitemap-ru.xml
+Sitemap: https://www.cani.com/sitemap-ar.xml
+Sitemap: https://www.cani.com/sitemap-tr.xml
 
-# 主机
+# Host
 Host: https://www.cani.com

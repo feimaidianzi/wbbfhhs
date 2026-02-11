@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import { ArrowRight, CheckCircle, Phone, Mail, ChevronDown, LucideIcon } from "lucide-react";
 import { LangLink } from "@/components/LangLink";
 import { MultiLanguageSEO } from "@/components/MultiLanguageSEO";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 interface Feature {
   icon: LucideIcon;
@@ -42,6 +43,7 @@ interface ApplicationPageTemplateProps {
   seoTitle: string;
   seoDescription: string;
   seoKeywords?: string;
+  seoPath?: string;
   heroTitle: string;
   heroSubtitle?: string;
   heroDescription: string;
@@ -85,6 +87,7 @@ const ApplicationPageTemplate = ({
   seoTitle,
   seoDescription,
   seoKeywords,
+  seoPath = '',
   heroTitle,
   heroSubtitle,
   heroDescription,
@@ -95,24 +98,26 @@ const ApplicationPageTemplate = ({
   introImage,
   introPoints,
   advantages,
-  advantagesTitle = "核心优势",
+  advantagesTitle,
   features,
-  featuresTitle = "技术特点",
+  featuresTitle,
   scenarios,
-  scenariosTitle = "应用场景",
+  scenariosTitle,
   products,
-  productsTitle = "产品系列",
+  productsTitle,
   ctaTitle,
   ctaDescription,
   ctaProductLink,
 }: ApplicationPageTemplateProps) => {
+  const { t } = useLanguage();
+
   return (
     <div className="min-h-screen bg-background">
       <MultiLanguageSEO
         title={seoTitle}
         description={seoDescription}
         keywords={seoKeywords}
-        path=""
+        path={seoPath}
       />
       <Header />
       <FloatingContact />
@@ -198,14 +203,14 @@ const ApplicationPageTemplate = ({
             >
               <LangLink to="/contact">
                 <Button className="bg-accent hover:bg-accent/90 text-accent-foreground px-8 py-6 text-lg font-semibold rounded-full group">
-                  咨询方案
+                  {t('template.consultSolution')}
                   <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" />
                 </Button>
               </LangLink>
               <a href="tel:+8617674048404">
                 <Button variant="outline" className="border-accent/30 hover:border-accent text-foreground px-8 py-6 text-lg font-semibold rounded-full">
                   <Phone className="w-5 h-5 mr-2" />
-                  电话咨询
+                  {t('template.phoneConsult')}
                 </Button>
               </a>
             </motion.div>
@@ -234,10 +239,10 @@ const ApplicationPageTemplate = ({
                 className="text-center mb-16"
               >
                 <span className="inline-block px-4 py-1.5 rounded-full bg-accent/10 text-accent text-sm font-medium mb-6">
-                  概述
+                  {t('template.overview')}
                 </span>
                 <h2 className="text-3xl md:text-4xl lg:text-5xl font-black text-foreground mb-4">
-                  {introTitle || `${heroTitle}概述`}
+                  {introTitle || `${heroTitle}${t('template.overview')}`}
                 </h2>
                 {introDescription && (
                   <p className="text-muted-foreground max-w-3xl mx-auto text-lg">
@@ -259,6 +264,7 @@ const ApplicationPageTemplate = ({
                       <img
                         src={introImage}
                         alt={introTitle || heroTitle}
+                        loading="lazy"
                         className="w-full h-auto object-cover"
                       />
                     </motion.div>
@@ -303,10 +309,10 @@ const ApplicationPageTemplate = ({
                 className="text-center mb-16"
               >
                 <span className="inline-block px-4 py-1.5 rounded-full bg-accent/10 text-accent text-sm font-medium mb-6">
-                  核心价值
+                  {t('template.coreValue')}
                 </span>
                 <h2 className="text-3xl md:text-4xl lg:text-5xl font-black text-foreground">
-                  {advantagesTitle}
+                  {advantagesTitle || t('template.coreAdvantages')}
                 </h2>
               </motion.div>
 
@@ -352,10 +358,10 @@ const ApplicationPageTemplate = ({
               className="text-center mb-16"
             >
               <span className="inline-block px-4 py-1.5 rounded-full bg-accent/10 text-accent text-sm font-medium mb-6">
-                技术亮点
+                {t('template.techHighlight')}
               </span>
               <h2 className="text-3xl md:text-4xl lg:text-5xl font-black text-foreground">
-                {featuresTitle}
+                {featuresTitle || t('template.techFeatures')}
               </h2>
             </motion.div>
 
@@ -397,10 +403,10 @@ const ApplicationPageTemplate = ({
               className="text-center mb-16"
             >
               <span className="inline-block px-4 py-1.5 rounded-full bg-accent/10 text-accent text-sm font-medium mb-6">
-                实际应用
+                {t('template.realApplication')}
               </span>
               <h2 className="text-3xl md:text-4xl lg:text-5xl font-black text-foreground">
-                {scenariosTitle}
+                {scenariosTitle || t('template.applicationScenarios')}
               </h2>
             </motion.div>
 
@@ -423,6 +429,7 @@ const ApplicationPageTemplate = ({
                           <img
                             src={scenario.image}
                             alt={scenario.title}
+                            loading="lazy"
                             className="w-full h-full object-cover hover:scale-105 transition-transform duration-700"
                           />
                         </div>
@@ -482,6 +489,7 @@ const ApplicationPageTemplate = ({
                       <img
                         src={scenario.image}
                         alt={scenario.title}
+                        loading="lazy"
                         className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
                       />
                     </div>
@@ -508,10 +516,10 @@ const ApplicationPageTemplate = ({
                 className="text-center mb-16"
               >
                 <span className="inline-block px-4 py-1.5 rounded-full bg-accent/10 text-accent text-sm font-medium mb-6">
-                  推荐产品
+                  {t('template.recommendedProducts')}
                 </span>
                 <h2 className="text-3xl md:text-4xl lg:text-5xl font-black text-foreground">
-                  {productsTitle}
+                  {productsTitle || t('template.productSeries')}
                 </h2>
               </motion.div>
 
@@ -536,13 +544,13 @@ const ApplicationPageTemplate = ({
                         {product.payload && (
                           <div className="text-center p-4 bg-secondary rounded-xl">
                             <div className="text-xl font-black text-accent">{product.payload}</div>
-                            <div className="text-xs text-muted-foreground">载荷</div>
+                            <div className="text-xs text-muted-foreground">{t('template.payload')}</div>
                           </div>
                         )}
                         {product.range && (
                           <div className="text-center p-4 bg-secondary rounded-xl">
                             <div className="text-xl font-black text-accent">{product.range}</div>
-                            <div className="text-xs text-muted-foreground">航程/高度</div>
+                            <div className="text-xs text-muted-foreground">{t('template.rangeHeight')}</div>
                           </div>
                         )}
                       </div>
@@ -552,7 +560,7 @@ const ApplicationPageTemplate = ({
                     </p>
                     <LangLink to={product.link}>
                       <Button className="w-full bg-accent/10 hover:bg-accent text-accent hover:text-accent-foreground font-semibold group/btn">
-                        了解详情
+                        {t('template.viewDetails')}
                         <ArrowRight className="ml-2 h-4 w-4 group-hover/btn:translate-x-1 transition-transform" />
                       </Button>
                     </LangLink>
@@ -584,14 +592,14 @@ const ApplicationPageTemplate = ({
                 <LangLink to="/contact">
                   <Button className="bg-accent hover:bg-accent/90 text-accent-foreground px-10 py-6 text-lg font-semibold rounded-full group">
                     <Mail className="mr-2 h-5 w-5" />
-                    立即咨询
+                    {t('template.inquiryNow')}
                     <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
                   </Button>
                 </LangLink>
                 {ctaProductLink && (
                   <LangLink to={ctaProductLink}>
                     <Button variant="outline" className="border-accent/30 hover:border-accent text-foreground px-10 py-6 text-lg font-semibold rounded-full">
-                      查看产品
+                      {t('template.viewProducts')}
                     </Button>
                   </LangLink>
                 )}

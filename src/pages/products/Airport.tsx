@@ -55,6 +55,7 @@ const cases = [
 const Airport = () => {
   return (
     <ProductPageTemplate
+      seoPath="/products/airport"
       heroTitle="飞迈机场系统"
       heroTitleEn="Feimai Drone Nest System"
       heroSubtitle="全自动无人机起降平台，实现无人值守、智能巡检、自动充电的一体化解决方案，让无人机真正实现7×24小时全天候作业能力"

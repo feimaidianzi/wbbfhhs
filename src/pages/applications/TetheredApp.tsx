@@ -72,6 +72,7 @@ const TetheredApp = () => {
       seoTitle={t('tetheredApp.seo.title')}
       seoDescription={t('tetheredApp.seo.description')}
       seoKeywords={t('tetheredApp.seo.keywords')}
+      seoPath="/applications/tethered"
       heroTitle={t('tetheredApp.hero.title')}
       heroSubtitle={t('tetheredApp.hero.subtitle')}
       heroDescription={t('tetheredApp.hero.description')}

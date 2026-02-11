@@ -649,6 +649,17 @@ export const zhTranslations: Record<string, string> = {
   'template.brandSlogan': '长凌科技 · 专业解决方案',
   'template.companyNameFull': '长凌科技有限公司',
   'template.companyName': '长凌科技',
+  'template.overview': '概述',
+  'template.coreValue': '核心价值',
+  'template.techHighlight': '技术亮点',
+  'template.realApplication': '实际应用',
+  'template.recommendedProducts': '推荐产品',
+  'template.inquiryNow': '立即咨询',
+  'template.viewProducts': '查看产品',
+  'template.payload': '载荷',
+  'template.rangeHeight': '航程/高度',
+  'template.consultSolution': '咨询方案',
+  'template.phoneConsult': '电话咨询',
 
   // Product Categories Extended - 产品分类扩展
   'category.fcEsc': '飞控/电调',

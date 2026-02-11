@@ -72,6 +72,7 @@ const FirefightingApp = () => {
       seoTitle={t('firefighting.seo.title')}
       seoDescription={t('firefighting.seo.description')}
       seoKeywords={t('firefighting.seo.keywords')}
+      seoPath="/applications/firefighting"
       heroTitle={t('firefighting.hero.title')}
       heroSubtitle={t('firefighting.hero.subtitle')}
       heroDescription={t('firefighting.hero.description')}

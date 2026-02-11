@@ -78,6 +78,7 @@ const PowerInspection = () => {
       seoTitle={t('powerInspection.seo.title')}
       seoDescription={t('powerInspection.seo.description')}
       seoKeywords={t('powerInspection.seo.keywords')}
+      seoPath="/applications/power-inspection"
       heroTitle="电力巡检解决方案"
       heroSubtitle="行业应用"
       heroDescription="电力巡检是指通过对电力设施的定期检查与维护，确保电力系统的安全、稳定运行。无人机在电力巡检中的应用，已经成为一种重要的技术手段。"
