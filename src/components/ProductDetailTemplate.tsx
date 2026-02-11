@@ -113,7 +113,7 @@ const ProductDetailTemplate = ({
 
   // Create product structured data
   const productName = isEn && heroTitleEn ? heroTitleEn : heroTitle;
-  const productDescription = isEn && seoDescriptionEn ? seoDescriptionEn : seoDescription;
+  const productDescription = seoDescription;
   const currentDomain = getDomainForLanguage(langCode);
   const productUrl = `${currentDomain}${location.pathname}`;
   const productImage = heroImage.startsWith('http') ? heroImage : `${currentDomain}${heroImage}`;
