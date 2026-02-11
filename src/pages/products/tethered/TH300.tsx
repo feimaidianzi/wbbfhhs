@@ -15,7 +15,7 @@ const TH300 = () => {
     { label: t('specs.maxPayload'), labelEn: "Max Payload", value: "≥20KG", valueEn: "≥20KG" },
     { label: t('tethered.th300.spec.standardFlightTime'), labelEn: "Flight Time", value: t('tethered.th300.spec.standardFlightTime.value'), valueEn: "≥40min (empty)" },
     { label: t('tethered.th300.spec.chargingTime'), labelEn: "Charging Time", value: t('tethered.th300.spec.chargingTime.value'), valueEn: "50 minutes" },
-    { label: t('specs.windResistance'), labelEn: "Wind Resistance", value: "7级", valueEn: "Level 7" },
+    { label: t('specs.windResistance'), labelEn: "Wind Resistance", value: t('tethered.th300.spec.windResistance.value'), valueEn: "Level 7" },
     { label: t('tethered.th300.spec.flightElevation'), labelEn: "Flight Elevation", value: t('tethered.th300.spec.flightElevation.value'), valueEn: "≥4000m" },
     { label: t('tethered.th300.spec.flightAltitude'), labelEn: "Flight Altitude", value: t('tethered.th300.spec.flightAltitude.value'), valueEn: "≥2000m" },
     { label: t('specs.controlRange'), labelEn: "Control Range", value: "20KM", valueEn: "20KM" },
@@ -23,7 +23,7 @@ const TH300 = () => {
     { label: t('specs.protection'), labelEn: "Protection Rating", value: t('tethered.th300.spec.protection.value'), valueEn: "IP56 Dust/Water Resistant" },
     { label: t('tethered.th300.spec.bodyMaterial'), labelEn: "Body Material", value: t('tethered.th300.spec.bodyMaterial.value'), valueEn: "Carbon Fiber" },
     { label: t('tethered.th300.spec.deployTime'), labelEn: "Deployment Time", value: t('tethered.th300.spec.deployTime.value'), valueEn: "≤1 min (2 persons)" },
-    { label: t('specs.operatingTemp'), labelEn: "Operating Temp", value: "-40℃至+70℃", valueEn: "-40°C to +70°C" },
+    { label: t('specs.operatingTemp'), labelEn: "Operating Temp", value: t('tethered.th300.spec.operatingTemp.value'), valueEn: "-40°C to +70°C" },
   ];
 
   const features = [
