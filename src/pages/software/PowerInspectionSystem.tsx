@@ -28,11 +28,11 @@ const PowerInspectionSystem = () => {
 
   return (
     <div className="min-h-screen">
-      <SEO
+      <MultiLanguageSEO
         title={t('softwarePage.powerInspection.seo.title')}
         description={t('softwarePage.powerInspection.seo.desc')}
         keywords={t('softwarePage.powerInspection.seo.keywords')}
-        url="/software/power-inspection-system"
+        path="/software/power-inspection-system"
       />
       <Header />
       <main className="pt-16 md:pt-20">

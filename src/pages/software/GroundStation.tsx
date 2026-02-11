@@ -28,11 +28,11 @@ const GroundStation = () => {
 
   return (
     <div className="min-h-screen">
-      <SEO
+      <MultiLanguageSEO
         title={t('softwarePage.groundStation.seo.title')}
         description={t('softwarePage.groundStation.seo.desc')}
         keywords={t('softwarePage.groundStation.seo.keywords')}
-        url="/software/ground-station"
+        path="/software/ground-station"
       />
       <Header />
       <main className="pt-16 md:pt-20">

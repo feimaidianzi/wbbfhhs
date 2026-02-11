@@ -28,11 +28,11 @@ const DroneManagement = () => {
 
   return (
     <div className="min-h-screen">
-      <SEO
+      <MultiLanguageSEO
         title={t('softwarePage.management.seo.title')}
         description={t('softwarePage.management.seo.desc')}
         keywords={t('softwarePage.management.seo.keywords')}
-        url="/software/drone-management"
+        path="/software/drone-management"
       />
       <Header />
       <main className="pt-16 md:pt-20">

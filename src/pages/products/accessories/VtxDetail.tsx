@@ -20,9 +20,11 @@ const VtxDetail = () => {
 
   return (
     <>
-      <SEO 
-        title={`${t(product.nameKey)} ${product.model} - ${t('company.name')}`}
+      <MultiLanguageSEO 
+        title={`${t(product.nameKey)} ${product.model}`}
         description={`${t(product.nameKey)}，${product.frequency}${t('vtxDetail.seo.band')}，${product.channels}${t('vtxDetail.seo.channels')}，${product.power}${t('vtxDetail.seo.power')}，${t('vtxDetail.seo.vtxDesc')}`}
+        path={`/products/accessories/vtx-vrx/${productId}`}
+        type="product"
       />
       <Header />
       <main className="min-h-screen bg-background">

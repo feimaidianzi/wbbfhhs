@@ -28,11 +28,11 @@ const ExamSystem = () => {
 
   return (
     <div className="min-h-screen">
-      <SEO
+      <MultiLanguageSEO
         title={t('softwarePage.exam.seo.title')}
         description={t('softwarePage.exam.seo.desc')}
         keywords={t('softwarePage.exam.seo.keywords')}
-        url="/software/exam-system"
+        path="/software/exam-system"
       />
       <Header />
       <main className="pt-16 md:pt-20">

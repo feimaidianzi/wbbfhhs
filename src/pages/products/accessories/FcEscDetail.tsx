@@ -25,9 +25,11 @@ const FcEscDetail = () => {
 
   return (
     <>
-      <SEO 
-        title={`${product.name} ${product.model} - ${t('company.name')}`}
+      <MultiLanguageSEO 
+        title={`${product.name} ${product.model}`}
         description={`${product.name}，${product.category}，${product.highlights.slice(0, 3).join('，')}，${t('fcEscDetail.seoDesc')}`}
+        path={`/products/accessories/fc-esc/${productId}`}
+        type="product"
       />
       <Header />
       <main className="min-h-screen bg-background">

@@ -28,11 +28,11 @@ const PVSystem = () => {
 
   return (
     <div className="min-h-screen">
-      <SEO
+      <MultiLanguageSEO
         title={t('softwarePage.pvSystem.seo.title')}
         description={t('softwarePage.pvSystem.seo.desc')}
         keywords={t('softwarePage.pvSystem.seo.keywords')}
-        url="/software/pv-system"
+        path="/software/pv-system"
       />
       <Header />
       <main className="pt-16 md:pt-20">

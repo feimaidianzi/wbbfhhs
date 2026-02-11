@@ -68,10 +68,12 @@ const OtherAccessoriesDetail = () => {
 
   return (
     <div className="min-h-screen">
-      <SEO 
+      <MultiLanguageSEO 
         title={`${productName} - ${t('accessory.others')}`}
         description={productDesc}
         keywords={`${productName},${product.keyFeatureKeys.map(k => t(k)).join(',')}`}
+        path={`/products/accessories/others/${productId}`}
+        type="product"
       />
       <Header />
       <main className="pt-16 md:pt-20">

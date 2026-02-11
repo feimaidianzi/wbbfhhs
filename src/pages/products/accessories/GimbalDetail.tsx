@@ -27,7 +27,7 @@ const GimbalDetail = () => {
   }
   const images = product.images || [product.image];
   return <>
-      <SEO title={`${t(product.nameKey)} - ${t('company.name')}`} description={`${t(product.nameKey)}，${t(product.categoryKey)}，${product.highlightKeys.slice(0, 3).map(k => t(k)).join('，')}，${t('accessoryDetail.gimbal.seoDesc')}`} />
+      <MultiLanguageSEO title={t(product.nameKey)} description={`${t(product.nameKey)}，${t(product.categoryKey)}，${product.highlightKeys.slice(0, 3).map(k => t(k)).join('，')}，${t('accessoryDetail.gimbal.seoDesc')}`} path={`/products/accessories/gimbal/${productId}`} type="product" />
       <Header />
       <main className="min-h-screen bg-background">
         <BackButton to="/products/accessories/gimbal" />

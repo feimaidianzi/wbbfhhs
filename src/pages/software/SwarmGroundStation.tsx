@@ -28,11 +28,11 @@ const SwarmGroundStation = () => {
 
   return (
     <div className="min-h-screen">
-      <SEO
+      <MultiLanguageSEO
         title={t('softwarePage.swarm.seo.title')}
         description={t('softwarePage.swarm.seo.desc')}
         keywords={t('softwarePage.swarm.seo.keywords')}
-        url="/software/swarm-ground-station"
+        path="/software/swarm-ground-station"
       />
       <Header />
       <main className="pt-16 md:pt-20">

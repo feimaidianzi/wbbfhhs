@@ -65,10 +65,12 @@ const ElrsDetail = () => {
 
   return (
     <div className="min-h-screen">
-      <SEO 
+      <MultiLanguageSEO 
         title={`${productName} - ${t('elrsDetail.seoTitle')}`}
         description={productDesc}
         keywords={`${productName},ELRS,ExpressLRS,${product.keyFeatureKeys.map(k => t(k)).join(',')}`}
+        path={`/products/accessories/elrs/${productId}`}
+        type="product"
       />
       <Header />
       <main className="pt-16 md:pt-20">

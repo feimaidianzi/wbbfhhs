@@ -47,10 +47,12 @@ const CameraDetail = () => {
 
   return (
     <>
-      <SEO
-        title={`${t(product.nameKey)} - ${t('company.name')}`}
+      <MultiLanguageSEO
+        title={t(product.nameKey)}
         description={`${t(product.sloganKey)}。${product.highlightKeys.map(k => t(k)).join("，")}`}
         keywords={`${product.model},${t('accessoryDetail.cameraKeywords')}`}
+        path={`/products/accessories/camera/${productId}`}
+        type="product"
       />
       <Header />
       <main className="min-h-screen bg-background">
