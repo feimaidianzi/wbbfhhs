@@ -3,7 +3,7 @@ import { Footer } from "@/components/Footer";
 import { FloatingContact } from "@/components/FloatingContact";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Monitor, Navigation, Tv, Satellite } from "lucide-react";
-import { Link } from "react-router-dom";
+import { LangLink as Link } from "@/components/LangLink";
 import { BackButton } from "@/components/BackButton";
 import { otherAccessoriesProducts, otherAccessoriesCategories } from "@/data/otherAccessoriesProducts";
 import { MultiLanguageSEO } from "@/components/MultiLanguageSEO";

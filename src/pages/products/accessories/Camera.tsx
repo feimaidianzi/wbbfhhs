@@ -3,7 +3,7 @@ import { Footer } from "@/components/Footer";
 import { FloatingContact } from "@/components/FloatingContact";
 import { MultiLanguageSEO } from "@/components/MultiLanguageSEO";
 import { BackButton } from "@/components/BackButton";
-import { Link } from "react-router-dom";
+import { LangLink as Link } from "@/components/LangLink";
 import { ArrowRight, Camera, Wifi, Droplets } from "lucide-react";
 import { cameraProducts, cameraCategories } from "@/data/cameraProducts";
 import { useLanguage } from "@/contexts/LanguageContext";
