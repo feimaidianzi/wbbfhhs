@@ -50,6 +50,7 @@ const cases = [
 const Agriculture = () => {
   return (
     <ProductPageTemplate
+      seoPath="/products/agriculture"
       heroTitle="植保无人机"
       heroTitleEn="Agricultural Drones"
       heroSubtitle="智慧农业解决方案"

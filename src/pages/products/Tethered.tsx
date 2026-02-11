@@ -52,6 +52,7 @@ const cases = [
 const Tethered = () => {
   return (
     <ProductPageTemplate
+      seoPath="/products/tethered"
       heroTitle="系留无人机系统"
       heroTitleEn="Tethered Drone System"
       heroSubtitle="24小时不间断工作，最高升空高度达300米，5分钟快速部署。突破传统无人机续航限制，实现真正的全天候持续作业"

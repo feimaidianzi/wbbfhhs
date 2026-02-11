@@ -79,6 +79,7 @@ const cases = [
 const WireLaying = () => {
   return (
     <ProductPageTemplate
+      seoPath="/products/wire-laying"
       heroTitle="架线无人机系统"
       heroSubtitle="跨越山川河流，高效完成电力架线作业。革命性的架线方式，让工程建设更安全、更高效、更经济"
       heroImage="https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?w=1920&q=80"

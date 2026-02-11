@@ -63,6 +63,7 @@ const Accessories = () => {
 
   return (
     <ProductPageTemplate
+      seoPath="/products/accessories"
       heroTitle="无人机配件"
       heroTitleEn="Drone Accessories"
       heroSubtitle="VTX图传 | 飞控电调 | 云台吊舱 | ELRS遥控 | 数字图传"

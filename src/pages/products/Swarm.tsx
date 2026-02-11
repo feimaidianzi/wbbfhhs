@@ -52,6 +52,7 @@ const cases = [
 const Swarm = () => {
   return (
     <ProductPageTemplate
+      seoPath="/products/swarm"
       heroTitle="集群无人机系统"
       heroTitleEn="Swarm Drone System"
       heroSubtitle="智能集群控制，多机协同作业，开启无人机应用新纪元。从震撼表演到高效作业，让无人机发挥更大价值"
