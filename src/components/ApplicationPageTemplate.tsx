@@ -5,6 +5,7 @@ import { FloatingContact } from "@/components/FloatingContact";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, CheckCircle, Phone, Mail, ChevronDown, LucideIcon } from "lucide-react";
 import { Link } from "react-router-dom";
+import { LangLink } from "@/components/LangLink";
 import { MultiLanguageSEO } from "@/components/MultiLanguageSEO";
 
 interface Feature {
@@ -196,12 +197,12 @@ const ApplicationPageTemplate = ({
               transition={{ duration: 0.8, delay: 1 }}
               className="flex flex-col sm:flex-row gap-4 justify-center"
             >
-              <Link to="/contact">
+              <LangLink to="/contact">
                 <Button className="bg-accent hover:bg-accent/90 text-accent-foreground px-8 py-6 text-lg font-semibold rounded-full group">
                   咨询方案
                   <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" />
                 </Button>
-              </Link>
+              </LangLink>
               <a href="tel:+8617674048404">
                 <Button variant="outline" className="border-accent/30 hover:border-accent text-foreground px-8 py-6 text-lg font-semibold rounded-full">
                   <Phone className="w-5 h-5 mr-2" />
@@ -550,12 +551,12 @@ const ApplicationPageTemplate = ({
                     <p className="text-muted-foreground text-sm text-center mb-6">
                       {product.description}
                     </p>
-                    <Link to={product.link}>
+                    <LangLink to={product.link}>
                       <Button className="w-full bg-accent/10 hover:bg-accent text-accent hover:text-accent-foreground font-semibold group/btn">
                         了解详情
                         <ArrowRight className="ml-2 h-4 w-4 group-hover/btn:translate-x-1 transition-transform" />
                       </Button>
-                    </Link>
+                    </LangLink>
                   </motion.div>
                 ))}
               </motion.div>
@@ -581,19 +582,19 @@ const ApplicationPageTemplate = ({
                 <p className="text-lg text-muted-foreground mb-10 max-w-2xl mx-auto">{ctaDescription}</p>
               )}
               <div className="flex flex-wrap justify-center gap-4">
-                <Link to="/contact">
+                <LangLink to="/contact">
                   <Button className="bg-accent hover:bg-accent/90 text-accent-foreground px-10 py-6 text-lg font-semibold rounded-full group">
                     <Mail className="mr-2 h-5 w-5" />
                     立即咨询
                     <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
                   </Button>
-                </Link>
+                </LangLink>
                 {ctaProductLink && (
-                  <Link to={ctaProductLink}>
+                  <LangLink to={ctaProductLink}>
                     <Button variant="outline" className="border-accent/30 hover:border-accent text-foreground px-10 py-6 text-lg font-semibold rounded-full">
                       查看产品
                     </Button>
-                  </Link>
+                  </LangLink>
                 )}
               </div>
             </motion.div>

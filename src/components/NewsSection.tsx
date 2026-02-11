@@ -1,5 +1,5 @@
 import { ArrowRight, ArrowUpRight } from "lucide-react";
-import { Link } from "react-router-dom";
+import { LangLink } from "@/components/LangLink";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { motion } from "framer-motion";
 
@@ -54,13 +54,13 @@ export const NewsSection = () => {
             viewport={{ once: true }}
             transition={{ duration: 0.5, delay: 0.1 }}
           >
-            <Link 
+            <LangLink 
               to="/news"
               className="inline-flex items-center gap-2 text-foreground hover:text-accent font-medium group"
             >
               {t('news.section.viewAll')}
               <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-            </Link>
+            </LangLink>
           </motion.div>
         </div>
 
@@ -75,7 +75,7 @@ export const NewsSection = () => {
               transition={{ duration: 0.5, delay: index * 0.1 }}
               className="group cursor-pointer"
             >
-              <Link to="/news" className="block">
+              <LangLink to="/news" className="block">
                 <div className="aspect-[16/10] overflow-hidden rounded-xl mb-4">
                   <img
                     src={item.image}
@@ -101,7 +101,7 @@ export const NewsSection = () => {
                     <ArrowUpRight className="w-4 h-4 ml-1 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
                   </span>
                 </div>
-              </Link>
+              </LangLink>
             </motion.article>
           ))}
         </div>

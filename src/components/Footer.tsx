@@ -1,6 +1,6 @@
 import { Mail, MapPin, ArrowUpRight } from "lucide-react";
 import { Logo } from "@/components/Logo";
-import { Link } from "react-router-dom";
+import { LangLink } from "@/components/LangLink";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Send } from "lucide-react";
@@ -146,13 +146,13 @@ export const Footer = () => {
                 <ul className="space-y-2.5">
                   {productLinks.map(item => (
                     <li key={item.name}>
-                      <Link 
+                      <LangLink 
                         to={item.path} 
                         className="text-sm text-background/60 hover:text-background transition-colors inline-flex items-center gap-1 group"
                       >
                         {item.name}
                         <ArrowUpRight className="w-3 h-3 opacity-0 -translate-y-0.5 translate-x-0 group-hover:opacity-100 group-hover:translate-y-0 transition-all" />
-                      </Link>
+                      </LangLink>
                     </li>
                   ))}
                 </ul>
@@ -164,13 +164,13 @@ export const Footer = () => {
                 <ul className="space-y-2.5">
                   {applicationLinks.map(item => (
                     <li key={item.name}>
-                      <Link 
+                      <LangLink 
                         to={item.path} 
                         className="text-sm text-background/60 hover:text-background transition-colors inline-flex items-center gap-1 group"
                       >
                         {item.name}
                         <ArrowUpRight className="w-3 h-3 opacity-0 -translate-y-0.5 translate-x-0 group-hover:opacity-100 group-hover:translate-y-0 transition-all" />
-                      </Link>
+                      </LangLink>
                     </li>
                   ))}
                 </ul>
@@ -182,13 +182,13 @@ export const Footer = () => {
                 <ul className="space-y-2.5">
                   {softwareLinks.map(item => (
                     <li key={item.name}>
-                      <Link 
+                      <LangLink 
                         to={item.path} 
                         className="text-sm text-background/60 hover:text-background transition-colors inline-flex items-center gap-1 group"
                       >
                         {item.name}
                         <ArrowUpRight className="w-3 h-3 opacity-0 -translate-y-0.5 translate-x-0 group-hover:opacity-100 group-hover:translate-y-0 transition-all" />
-                      </Link>
+                      </LangLink>
                     </li>
                   ))}
                 </ul>
@@ -198,14 +198,14 @@ export const Footer = () => {
                   <h4 className="font-semibold mb-4 text-background">{t('footer.quickLinks')}</h4>
                   <ul className="space-y-2.5">
                     <li>
-                      <Link to="/about" className="text-sm text-background/60 hover:text-background transition-colors">
+                      <LangLink to="/about" className="text-sm text-background/60 hover:text-background transition-colors">
                         {t('footer.aboutUs')}
-                      </Link>
+                      </LangLink>
                     </li>
                     <li>
-                      <Link to="/contact" className="text-sm text-background/60 hover:text-background transition-colors">
+                      <LangLink to="/contact" className="text-sm text-background/60 hover:text-background transition-colors">
                         {t('footer.contactUs')}
-                      </Link>
+                      </LangLink>
                     </li>
                   </ul>
                 </div>

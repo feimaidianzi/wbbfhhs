@@ -4,6 +4,7 @@ import { FloatingContact } from "@/components/FloatingContact";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, CheckCircle, Phone, Mail, LucideIcon } from "lucide-react";
 import { Link, useLocation } from "react-router-dom";
+import { LangLink } from "@/components/LangLink";
 import { MultiLanguageSEO, createLocalizedProductSchema } from "@/components/MultiLanguageSEO";
 import { BackButton } from "@/components/BackButton";
 import { useLanguage } from "@/contexts/LanguageContext";
@@ -234,12 +235,12 @@ const ProductDetailTemplate = ({
               )}
               
               <div className="flex flex-wrap gap-4">
-                <Link to="/contact">
+                <LangLink to="/contact">
                   <Button size="lg" className="bg-accent text-accent-foreground hover:bg-accent/90 font-bold shadow-lg group">
                     {t('template.getQuote')}
                     <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
                   </Button>
-                </Link>
+                </LangLink>
                 <Button size="lg" className="bg-white/95 text-primary hover:bg-white font-bold shadow-lg">
                   <Phone className="mr-2 h-4 w-4" />
                   {t('template.callUs')}
@@ -348,13 +349,13 @@ const ProductDetailTemplate = ({
               </p>
             )}
             <div className="flex flex-wrap justify-center gap-4">
-              <Link to="/contact">
+              <LangLink to="/contact">
                 <Button size="lg" className="bg-accent text-white hover:bg-accent/90 font-bold shadow-lg group">
                   <Mail className="mr-2 h-4 w-4" />
                   {t('template.contactUs')}
                   <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
                 </Button>
-              </Link>
+              </LangLink>
               <a href="tel:+8617674048404">
                 <Button size="lg" className="bg-white/95 text-primary hover:bg-white font-bold shadow-lg">
                   <Phone className="mr-2 h-4 w-4" />

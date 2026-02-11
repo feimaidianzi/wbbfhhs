@@ -3,7 +3,7 @@ import { Footer } from "@/components/Footer";
 import { FloatingContact } from "@/components/FloatingContact";
 import { MultiLanguageSEO } from "@/components/MultiLanguageSEO";
 import { BackButton } from "@/components/BackButton";
-import { Link } from "react-router-dom";
+import { LangLink } from "@/components/LangLink";
 import { ArrowRight, Video, Thermometer, Layers } from "lucide-react";
 import { gimbalProducts, gimbalCategories } from "@/data/gimbalProducts";
 import { useLanguage } from "@/contexts/LanguageContext";
@@ -76,7 +76,7 @@ const Gimbal = () => {
 
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
                   {products.map((product) => (
-                    <Link
+                    <LangLink
                       key={product.id}
                       to={`/products/accessories/gimbal/${product.id}`}
                       className="group bg-card rounded-xl border border-border overflow-hidden hover:border-primary/50 hover:shadow-lg transition-all duration-300"
@@ -110,7 +110,7 @@ const Gimbal = () => {
                           <ArrowRight className="w-4 h-4 opacity-0 -ml-4 group-hover:opacity-100 group-hover:ml-0 transition-all" />
                         </div>
                       </div>
-                    </Link>
+                    </LangLink>
                   ))}
                 </div>
               </div>
@@ -128,12 +128,12 @@ const Gimbal = () => {
               {t('gimbal.cta.desc')}
             </p>
             <div className="flex justify-center gap-4 flex-wrap">
-              <Link
+              <LangLink
                 to="/contact"
                 className="px-8 py-3 bg-background text-foreground font-medium rounded-lg hover:bg-background/90 transition-colors"
               >
                 {t('gimbal.cta.btn')}
-              </Link>
+              </LangLink>
             </div>
           </div>
         </section>

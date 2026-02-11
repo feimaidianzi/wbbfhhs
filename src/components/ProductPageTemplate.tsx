@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import { ArrowRight, CheckCircle, Phone, Mail, ChevronDown } from "lucide-react";
 import { LucideIcon } from "lucide-react";
 import { Link } from "react-router-dom";
+import { LangLink } from "@/components/LangLink";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { ProductCollectionSEO } from "@/components/ProductCollectionSEO";
 import { RichSEOContent, getSEOContentForCategory } from "@/components/RichSEOContent";
@@ -232,12 +233,12 @@ const ProductPageTemplate = ({
               transition={{ duration: 0.8, delay: 0.8 }}
               className="flex flex-col sm:flex-row gap-4 justify-center"
             >
-              <Link to="/contact">
+              <LangLink to="/contact">
                 <Button className="bg-accent hover:bg-accent/90 text-accent-foreground px-8 py-6 text-lg font-semibold rounded-full group">
                   {t('template.getQuote')}
                   <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" />
                 </Button>
-              </Link>
+              </LangLink>
               <a href="tel:+8617674048404">
                 <Button variant="outline" className="border-accent/30 hover:border-accent text-foreground px-8 py-6 text-lg font-semibold rounded-full">
                   <Phone className="w-5 h-5 mr-2" />
@@ -404,12 +405,12 @@ const ProductPageTemplate = ({
                       </div>
 
                       {product.link ? (
-                        <Link to={product.link}>
+                        <LangLink to={product.link}>
                           <Button className="w-full bg-accent/10 hover:bg-accent text-accent hover:text-accent-foreground font-semibold group/btn">
                             {t('template.learnMore')}
                             <ArrowRight className="w-4 h-4 ml-2 group-hover/btn:translate-x-1 transition-transform" />
                           </Button>
-                        </Link>
+                        </LangLink>
                       ) : (
                         <Button className="w-full bg-accent/10 hover:bg-accent text-accent hover:text-accent-foreground font-semibold group/btn">
                           {t('template.learnMore')}
@@ -544,12 +545,12 @@ const ProductPageTemplate = ({
                 {t('template.readyToStartDesc')}
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <Link to="/contact">
+                <LangLink to="/contact">
                   <Button className="bg-accent hover:bg-accent/90 text-accent-foreground px-10 py-6 text-lg font-semibold rounded-full group">
                     <Mail className="w-5 h-5 mr-2" />
                     {t('template.contactUs')}
                   </Button>
-                </Link>
+                </LangLink>
                 <a href="tel:+8617674048404">
                   <Button variant="outline" className="border-accent/30 hover:border-accent text-foreground px-10 py-6 text-lg font-semibold rounded-full">
                     <Phone className="w-5 h-5 mr-2" />

@@ -1,5 +1,5 @@
 import { Mail, Home, X, MessageSquare } from "lucide-react";
-import { Link } from "react-router-dom";
+import { LangLink } from "@/components/LangLink";
 import { useState, useEffect } from "react";
 import { useLanguage } from "@/contexts/LanguageContext";
 
@@ -33,13 +33,13 @@ export const FloatingContact = () => {
     <>
       {/* Floating buttons - small, bottom right */}
       <div className="fixed right-4 bottom-24 z-30 flex flex-col gap-1.5">
-        <Link
+        <LangLink
           to="/"
           className="w-9 h-9 bg-accent/90 rounded-full shadow-md flex items-center justify-center text-accent-foreground hover:bg-accent transition-colors"
           title={t('floating.home')}
         >
           <Home className="w-4 h-4" />
-        </Link>
+        </LangLink>
         <a
           href="mailto:market@caniuav.com"
           className="w-9 h-9 bg-primary/90 rounded-full shadow-md flex items-center justify-center text-primary-foreground hover:bg-primary transition-colors"
@@ -99,12 +99,12 @@ export const FloatingContact = () => {
               <p className="text-sm opacity-90 mb-3">
                 {t('floating.aiModuleDesc')}
               </p>
-              <Link
+              <LangLink
                 to="/products"
                 className="inline-block bg-accent hover:bg-accent/90 text-accent-foreground px-4 py-2 rounded-lg font-medium text-sm transition-colors"
               >
                 {t('floating.learnMore')}
-              </Link>
+              </LangLink>
             </div>
           </div>
         </div>

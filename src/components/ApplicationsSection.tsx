@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 import { useState } from "react";
 import { ArrowRight, Droplets, Car, Leaf, Zap, AlertTriangle, MapPin } from "lucide-react";
-import { Link } from "react-router-dom";
+import { LangLink } from "@/components/LangLink";
 import { useLanguage } from "@/contexts/LanguageContext";
 
 export const ApplicationsSection = () => {
@@ -162,13 +162,13 @@ export const ApplicationsSection = () => {
                       <p className="text-lg text-white/70 mb-6">
                         {t(app.descKey)}
                       </p>
-                      <Link 
+                      <LangLink 
                         to={app.link}
                         className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-accent text-accent-foreground font-semibold hover:bg-accent/90 transition-colors"
                       >
                         {t('applications.learnMore')}
                         <ArrowRight className="w-5 h-5" />
-                      </Link>
+                      </LangLink>
                     </div>
                   </div>
                 </motion.div>
@@ -200,13 +200,13 @@ export const ApplicationsSection = () => {
           transition={{ duration: 0.8, delay: 0.3 }}
           className="text-center mt-12"
         >
-          <Link 
+          <LangLink 
             to="/applications"
             className="inline-flex items-center gap-3 text-accent hover:text-accent/80 font-semibold text-lg group"
           >
             {t('applications.viewAll')}
             <ArrowRight className="w-5 h-5 group-hover:translate-x-2 transition-transform" />
-          </Link>
+          </LangLink>
         </motion.div>
       </div>
     </section>

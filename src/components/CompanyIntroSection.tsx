@@ -1,6 +1,6 @@
 import { motion, useScroll, useTransform } from "framer-motion";
 import { useRef } from "react";
-import { Link } from "react-router-dom";
+import { LangLink } from "@/components/LangLink";
 import { Button } from "@/components/ui/button";
 import { CheckCircle2, Headphones, Truck, Settings, ArrowRight, Award, Users, Clock } from "lucide-react";
 import { useLanguage } from "@/contexts/LanguageContext";
@@ -94,12 +94,12 @@ export const CompanyIntroSection = () => {
               ))}
             </div>
 
-            <Link to="/about">
+            <LangLink to="/about">
               <Button className="group bg-accent hover:bg-accent/90 text-accent-foreground px-8 py-6 text-lg font-semibold rounded-full">
                 {t('companyIntro.learnMore')}
                 <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" />
               </Button>
-            </Link>
+            </LangLink>
           </motion.div>
 
           {/* Right - Advantages Grid */}

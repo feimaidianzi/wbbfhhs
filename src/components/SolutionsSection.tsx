@@ -1,5 +1,5 @@
 import { ArrowRight, Zap } from "lucide-react";
-import { Link } from "react-router-dom";
+import { LangLink } from "@/components/LangLink";
 import { useLanguage } from "@/contexts/LanguageContext";
 
 export const SolutionsSection = () => {
@@ -61,7 +61,7 @@ export const SolutionsSection = () => {
         {/* Solutions Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {solutions.map((solution, index) => (
-            <Link
+            <LangLink
               key={index}
               to={solution.link}
               className="group relative h-[280px] md:h-[320px] rounded-xl overflow-hidden glass-card border border-accent/10 hover:border-accent/40 transition-all duration-500"
@@ -88,19 +88,19 @@ export const SolutionsSection = () => {
                   <ArrowRight className="w-4 h-4 ml-1 group-hover:translate-x-2 transition-transform duration-300" />
                 </div>
               </div>
-            </Link>
+            </LangLink>
           ))}
         </div>
 
         {/* View All */}
         <div className="text-center mt-12">
-          <Link
+          <LangLink
             to="/applications"
             className="inline-flex items-center gap-2 px-8 py-4 bg-accent text-accent-foreground font-semibold rounded-lg shadow-neon hover:shadow-neon-intense transition-all duration-300 hover:scale-105 group"
           >
             {t('solutionsSection.viewAll')}
             <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform duration-300" />
-          </Link>
+          </LangLink>
         </div>
       </div>
     </section>

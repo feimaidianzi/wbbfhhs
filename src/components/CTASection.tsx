@@ -1,5 +1,5 @@
 import { MessageCircle, Mail, MapPin, ArrowRight, Zap } from "lucide-react";
-import { Link } from "react-router-dom";
+import { LangLink } from "@/components/LangLink";
 import { Button } from "@/components/ui/button";
 import { useLanguage } from "@/contexts/LanguageContext";
 
@@ -76,12 +76,12 @@ export const CTASection = () => {
               {t('ctaSection.description')}
             </p>
             <div className="flex flex-col sm:flex-row gap-4">
-              <Link to="/contact">
+              <LangLink to="/contact">
                 <Button className="bg-accent hover:bg-accent/90 text-accent-foreground px-8 py-6 text-lg shadow-neon hover:shadow-neon-intense transition-all duration-300 hover:scale-105 group">
                   {t('ctaSection.contactNow')}
                   <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform duration-300" />
                 </Button>
-              </Link>
+              </LangLink>
               <a href="https://wa.me/84123456789" target="_blank" rel="noopener noreferrer">
                 <Button variant="outline" className="border-green-500 text-green-600 hover:bg-green-50 hover:border-green-600 px-8 py-6 text-lg transition-all duration-300">
                   <WhatsAppIcon className="w-5 h-5 mr-2" />

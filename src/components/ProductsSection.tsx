@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 import { ArrowRight, Sparkles, Zap, Radio, Camera, Gamepad2, Cpu } from "lucide-react";
-import { Link } from "react-router-dom";
+import { LangLink } from "@/components/LangLink";
 import { useLanguage } from "@/contexts/LanguageContext";
 
 const containerVariants = {
@@ -109,7 +109,7 @@ export const ProductsSection = () => {
         >
           {/* Featured Large Card */}
           <motion.div variants={itemVariants} className="md:col-span-2 lg:col-span-2 lg:row-span-2">
-            <Link to={categories[0].link} className="group block h-full">
+            <LangLink to={categories[0].link} className="group block h-full">
               <div className="relative h-full min-h-[400px] lg:min-h-[600px] rounded-3xl overflow-hidden bg-gradient-to-br from-accent/20 to-cyan-500/10 border border-accent/20">
                 {/* Background Image */}
                 <div className="absolute inset-0">
@@ -149,13 +149,13 @@ export const ProductsSection = () => {
                   </div>
                 </div>
               </div>
-            </Link>
+            </LangLink>
           </motion.div>
 
           {/* Small Cards */}
           {categories.slice(1).map((product, index) => (
             <motion.div key={index} variants={itemVariants}>
-              <Link to={product.link} className="group block h-full">
+              <LangLink to={product.link} className="group block h-full">
                 <div className="relative h-full min-h-[280px] rounded-2xl overflow-hidden bg-card border border-accent/10 hover:border-accent/40 transition-all duration-500">
                   {/* Background Image */}
                   <div className="absolute inset-0">
@@ -195,7 +195,7 @@ export const ProductsSection = () => {
                     </div>
                   </div>
                 </div>
-              </Link>
+              </LangLink>
             </motion.div>
           ))}
         </motion.div>
@@ -208,12 +208,12 @@ export const ProductsSection = () => {
           transition={{ duration: 0.8, delay: 0.5 }}
           className="text-center mt-12"
         >
-          <Link to="/products">
+          <LangLink to="/products">
             <button className="group inline-flex items-center gap-3 px-8 py-4 rounded-full border border-accent/30 hover:border-accent hover:bg-accent/5 text-foreground font-semibold transition-all duration-300">
               {t('productsSection.viewAll')}
               <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
             </button>
-          </Link>
+          </LangLink>
         </motion.div>
       </div>
     </section>

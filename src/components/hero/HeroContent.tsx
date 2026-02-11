@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
-import { Link } from "react-router-dom";
+import { LangLink } from "@/components/LangLink";
 import { ArrowRight, Play, ChevronDown } from "lucide-react";
 import { useLanguage } from "@/contexts/LanguageContext";
 
@@ -107,7 +107,7 @@ export const HeroContent = () => {
           variants={itemVariants}
           className="flex flex-col sm:flex-row gap-4 mb-20"
         >
-          <Link to="/products">
+          <LangLink to="/products">
             <Button 
               size="lg" 
               className="group relative overflow-hidden bg-gradient-to-r from-cyan-500 to-blue-600 text-white hover:from-cyan-400 hover:to-blue-500 px-8 py-6 text-lg font-semibold rounded-xl shadow-lg shadow-cyan-500/25 transition-all duration-300 hover:shadow-cyan-500/40 hover:scale-105"
@@ -117,9 +117,9 @@ export const HeroContent = () => {
                 <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
               </span>
             </Button>
-          </Link>
+          </LangLink>
           
-          <Link to="/about">
+          <LangLink to="/about">
             <Button 
               variant="outline" 
               size="lg"
@@ -128,7 +128,7 @@ export const HeroContent = () => {
               <Play className="w-5 h-5 mr-2 group-hover:scale-110 transition-transform" />
               {t('hero.cta.about')}
             </Button>
-          </Link>
+          </LangLink>
         </motion.div>
 
         {/* Stats - 水平排列 */}
