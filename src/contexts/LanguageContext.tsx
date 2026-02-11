@@ -252,9 +252,39 @@ export const LanguageProvider: React.FC<LanguageProviderProps> = ({ children }) 
   }, [language, loadSavedTranslations]);
 
   const setLanguage = useCallback((lang: LanguageCode) => {
+    const hostname = window.location.hostname;
+    const isProductionDomain = !hostname.includes('localhost') && !hostname.includes('lovable.app') && !hostname.includes('127.0.0.1');
+    
+    if (isProductionDomain) {
+      // On production: redirect to the corresponding subdomain
+      const parts = hostname.split('.');
+      // Remove existing subdomain if it's a language code or 'www'/'cn'
+      let baseDomain: string;
+      if (parts.length >= 3 && (subdomainToLanguage[parts[0]] !== undefined)) {
+        baseDomain = parts.slice(1).join('.');
+      } else if (parts.length >= 2) {
+        baseDomain = hostname;
+      } else {
+        baseDomain = hostname;
+      }
+      
+      // Map language to subdomain prefix
+      const subdomainPrefix = lang === 'zh' ? 'www' : lang;
+      const newHost = `${subdomainPrefix}.${baseDomain}`;
+      const newUrl = `${window.location.protocol}//${newHost}${window.location.pathname}${window.location.search}${window.location.hash}`;
+      
+      // Save preference before redirecting
+      localStorage.setItem('language', lang);
+      localStorage.setItem('language_manual', 'true');
+      
+      window.location.href = newUrl;
+      return;
+    }
+    
+    // On preview/localhost: just switch language in-place
     setLanguageState(lang);
     localStorage.setItem('language', lang);
-    localStorage.setItem('language_manual', 'true'); // Mark as manually set
+    localStorage.setItem('language_manual', 'true');
     loadSavedTranslations(lang);
   }, [loadSavedTranslations]);
 
