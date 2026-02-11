@@ -136,6 +136,9 @@ const ProductPageTemplate = ({
   seoCategoryDescriptionEn,
   seoKeywords = [],
   seoKeywordsEn = [],
+  seoPath = '',
+  seoTitle,
+  seoDescription,
 }: ProductPageTemplateProps) => {
   const { baseLang, t } = useLanguage();
   const isEn = baseLang === 'en';
@@ -144,8 +147,19 @@ const ProductPageTemplate = ({
   const categorySlug = seoCategory || heroTitle.toLowerCase().replace(/\s+/g, '-');
   const seoContent = getSEOContentForCategory(categorySlug);
 
+  const displayTitle = isEn && heroTitleEn ? heroTitleEn : heroTitle;
+  const displaySubtitle = isEn && heroSubtitleEn ? heroSubtitleEn : heroSubtitle;
+
   return (
     <div className="min-h-screen bg-background">
+      {/* Multi-language SEO head tags */}
+      <MultiLanguageSEO
+        title={seoTitle || displayTitle}
+        description={seoDescription || displaySubtitle}
+        keywords={seoKeywords.join(',')}
+        path={seoPath}
+        type="product"
+      />
       <Header />
       
       {/* SEO增强组件 */}
