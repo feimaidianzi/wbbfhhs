@@ -319,7 +319,7 @@ const ProductPageTemplate = ({
                       {feature.title}
                     </h3>
                     <p className="text-muted-foreground leading-relaxed">
-                      {isEn && feature.descriptionEn ? feature.descriptionEn : feature.description}
+                      {feature.description}
                     </p>
                   </motion.div>
                 );
