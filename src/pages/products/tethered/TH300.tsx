@@ -23,7 +23,7 @@ const TH300 = () => {
     { label: t('specs.protection'), labelEn: "Protection Rating", value: t('tethered.th300.spec.protection.value'), valueEn: "IP56 Dust/Water Resistant" },
     { label: t('tethered.th300.spec.bodyMaterial'), labelEn: "Body Material", value: t('tethered.th300.spec.bodyMaterial.value'), valueEn: "Carbon Fiber" },
     { label: t('tethered.th300.spec.deployTime'), labelEn: "Deployment Time", value: t('tethered.th300.spec.deployTime.value'), valueEn: "≤1 min (2 persons)" },
-    { label: t('specs.operatingTemp'), labelEn: "Operating Temp", value: "-40℃至+70℃", valueEn: "-40°C to +70°C" },
+    { label: t('specs.operatingTemp'), labelEn: "Operating Temp", value: t('tethered.th300.spec.operatingTemp.value'), valueEn: "-40°C to +70°C" },
   ];
 
   const features = [
