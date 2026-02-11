@@ -54,13 +54,13 @@ export const NewsSection = () => {
             viewport={{ once: true }}
             transition={{ duration: 0.5, delay: 0.1 }}
           >
-            <Link 
+            <LangLink 
               to="/news"
               className="inline-flex items-center gap-2 text-foreground hover:text-accent font-medium group"
             >
               {t('news.section.viewAll')}
               <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-            </Link>
+            </LangLink>
           </motion.div>
         </div>
 
