@@ -61,7 +61,7 @@ export const SolutionsSection = () => {
         {/* Solutions Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {solutions.map((solution, index) => (
-            <Link
+            <LangLink
               key={index}
               to={solution.link}
               className="group relative h-[280px] md:h-[320px] rounded-xl overflow-hidden glass-card border border-accent/10 hover:border-accent/40 transition-all duration-500"
@@ -88,7 +88,7 @@ export const SolutionsSection = () => {
                   <ArrowRight className="w-4 h-4 ml-1 group-hover:translate-x-2 transition-transform duration-300" />
                 </div>
               </div>
-            </Link>
+            </LangLink>
           ))}
         </div>
 
