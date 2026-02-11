@@ -1,5 +1,5 @@
 import { MessageCircle, Mail, MapPin, ArrowRight, Zap } from "lucide-react";
-import { Link } from "react-router-dom";
+import { LangLink } from "@/components/LangLink";
 import { Button } from "@/components/ui/button";
 import { useLanguage } from "@/contexts/LanguageContext";
 
