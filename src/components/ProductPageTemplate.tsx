@@ -270,7 +270,7 @@ const ProductPageTemplate = ({
                       {stat.title}
                     </div>
                     <div className="text-sm text-muted-foreground">
-                      {isEn && stat.descriptionEn ? stat.descriptionEn : stat.description}
+                      {stat.description}
                     </div>
                   </motion.div>
                 ))}
