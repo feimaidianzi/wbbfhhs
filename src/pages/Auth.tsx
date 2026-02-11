@@ -9,7 +9,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { useToast } from '@/hooks/use-toast';
 import { Mail, Lock, Loader2, ArrowLeft } from 'lucide-react';
-import { Link } from 'react-router-dom';
+import { LangLink as Link } from "@/components/LangLink";
 import { z } from 'zod';
 
 const emailSchema = z.string().email();
