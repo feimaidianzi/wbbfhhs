@@ -15,7 +15,7 @@ const TH300 = () => {
     { label: t('specs.maxPayload'), labelEn: "Max Payload", value: "≥20KG", valueEn: "≥20KG" },
     { label: t('tethered.th300.spec.standardFlightTime'), labelEn: "Flight Time", value: t('tethered.th300.spec.standardFlightTime.value'), valueEn: "≥40min (empty)" },
     { label: t('tethered.th300.spec.chargingTime'), labelEn: "Charging Time", value: t('tethered.th300.spec.chargingTime.value'), valueEn: "50 minutes" },
-    { label: t('specs.windResistance'), labelEn: "Wind Resistance", value: "7级", valueEn: "Level 7" },
+    { label: t('specs.windResistance'), labelEn: "Wind Resistance", value: t('tethered.th300.spec.windResistance.value'), valueEn: "Level 7" },
     { label: t('tethered.th300.spec.flightElevation'), labelEn: "Flight Elevation", value: t('tethered.th300.spec.flightElevation.value'), valueEn: "≥4000m" },
     { label: t('tethered.th300.spec.flightAltitude'), labelEn: "Flight Altitude", value: t('tethered.th300.spec.flightAltitude.value'), valueEn: "≥2000m" },
     { label: t('specs.controlRange'), labelEn: "Control Range", value: "20KM", valueEn: "20KM" },
