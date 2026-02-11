@@ -88,6 +88,7 @@ const EnvironmentSystem = () => {
                   src="https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=800&q=80"
                   alt={t('softwarePage.envSystem.title')}
                   className="w-full h-full object-cover"
+                  loading="lazy"
                 />
               </div>
               <div>

@@ -88,6 +88,7 @@ const PowerInspectionSystem = () => {
                   src="https://images.unsplash.com/photo-1558449028-b53a39d100fc?w=800&q=80"
                   alt={t('softwarePage.powerInspection.title')}
                   className="w-full h-full object-cover"
+                  loading="lazy"
                 />
               </div>
               <div>

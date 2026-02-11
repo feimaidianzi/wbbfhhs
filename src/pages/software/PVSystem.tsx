@@ -104,6 +104,7 @@ const PVSystem = () => {
                   src="https://images.unsplash.com/photo-1509391366360-2e959784a276?w=800&q=80"
                   alt={t('softwarePage.pvSystem.title')}
                   className="w-full h-full object-cover"
+                  loading="lazy"
                 />
               </div>
             </div>
