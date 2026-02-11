@@ -4702,6 +4702,11 @@ export const zhTranslations: Record<string, string> = {
   'camera.sj4000.package.12': '3M贴纸',
   'camera.sj4000.package.13': '说明书',
   'camera.sj4000.package.14': '清洁布',
+
+  // ===== Power Inspection Application SEO =====
+  'powerInspection.seo.title': '电力巡检 - 无人机电力巡线解决方案',
+  'powerInspection.seo.description': '专业的无人机电力巡检服务，涵盖输电线路、变电站、光伏电站等场景，AI智能识别缺陷，提升巡检效率20倍以上',
+  'powerInspection.seo.keywords': '电力巡检,无人机巡线,输电线路巡检,变电站巡检,光伏巡检',
 };
 
 export default zhTranslations;

@@ -51,9 +51,7 @@ const TH300 = () => {
   return (
     <ProductDetailTemplate
       seoTitle={t('tethered.th300.seoTitle')}
-      seoTitleEn="TH-300 Tethered Firefighting Drone - Multi-function Platform"
       seoDescription={t('tethered.th300.seoDescription')}
-      seoDescriptionEn="TH-300 tethered firefighting drone, 1380mm wheelbase, ≥20KG payload, 40min endurance, supports searchlight, speaker, fire extinguishing balls and more"
       seoKeywords={t('tethered.th300.seoKeywords')}
       breadcrumbs={[
         { label: t('nav.home'), labelEn: "Home", path: "/" },

@@ -37,9 +37,7 @@ const WL10 = () => {
   return (
     <ProductDetailTemplate
       seoTitle={t('logistics.wl10.seoTitle')}
-      seoTitleEn="WL-10 Logistics Drone - Last-Mile Urban Delivery Solution"
       seoDescription={t('logistics.wl10.seoDescription')}
-      seoDescriptionEn="WL-10 lightweight logistics drone with 10kg payload and 30km range for last-mile urban and instant delivery"
       seoKeywords={t('logistics.wl10.seoKeywords')}
       breadcrumbs={[
         { label: t('nav.home'), labelEn: "Home", path: "/" },

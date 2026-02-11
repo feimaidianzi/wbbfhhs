@@ -30,9 +30,7 @@ interface Feature {
 interface ProductDetailTemplateProps {
   // SEO
   seoTitle: string;
-  seoTitleEn?: string;
   seoDescription: string;
-  seoDescriptionEn?: string;
   seoKeywords?: string;
   
   // Breadcrumb
@@ -76,9 +74,7 @@ interface ProductDetailTemplateProps {
 
 const ProductDetailTemplate = ({
   seoTitle,
-  seoTitleEn,
   seoDescription,
-  seoDescriptionEn,
   seoKeywords,
   breadcrumbs,
   heroTitle,
@@ -117,7 +113,7 @@ const ProductDetailTemplate = ({
 
   // Create product structured data
   const productName = isEn && heroTitleEn ? heroTitleEn : heroTitle;
-  const productDescription = isEn && seoDescriptionEn ? seoDescriptionEn : seoDescription;
+  const productDescription = seoDescription;
   const currentDomain = getDomainForLanguage(langCode);
   const productUrl = `${currentDomain}${location.pathname}`;
   const productImage = heroImage.startsWith('http') ? heroImage : `${currentDomain}${heroImage}`;
@@ -177,8 +173,8 @@ const ProductDetailTemplate = ({
   return (
     <div className="min-h-screen bg-background">
       <MultiLanguageSEO
-        title={isEn && seoTitleEn ? seoTitleEn : seoTitle}
-        description={isEn && seoDescriptionEn ? seoDescriptionEn : seoDescription}
+        title={seoTitle}
+        description={seoDescription}
         keywords={seoKeywords}
         path={location.pathname}
       />

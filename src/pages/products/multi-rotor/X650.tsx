@@ -37,9 +37,7 @@ const X650 = () => {
   return (
     <ProductDetailTemplate
       seoTitle={t('multiRotor.x650.seoTitle')}
-      seoTitleEn="X650 Multi-Rotor Drone - Compact Industrial UAV"
       seoDescription={t('multiRotor.x650.seoDescription')}
-      seoDescriptionEn="X650 compact industrial drone with 650mm wheelbase and 2kg payload, ideal for routine inspection and data collection"
       seoKeywords={t('multiRotor.x650.seoKeywords')}
       breadcrumbs={[
         { label: t('nav.home'), labelEn: "Home", path: "/" },

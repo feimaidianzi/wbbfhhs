@@ -48,9 +48,7 @@ const TH200 = () => {
   return (
     <ProductDetailTemplate
       seoTitle={t('tethered.th200.seoTitle')}
-      seoTitleEn="TH-200 Tethered Lighting Drone - Professional Tethered Platform"
       seoDescription={t('tethered.th200.seoDescription')}
-      seoDescriptionEn="TH-200 tethered lighting drone, 200m altitude, 10kg payload, 24-hour continuous flight for emergency lighting and communication relay"
       seoKeywords={t('tethered.th200.seoKeywords')}
       breadcrumbs={[
         { label: t('nav.home'), labelEn: "Home", path: "/" },
