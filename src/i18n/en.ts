@@ -189,6 +189,21 @@ export const enTranslations: Record<string, string> = {
   'footer.contactUs': 'Contact Us',
   'footer.privacy': 'Privacy Policy',
   'footer.terms': 'Terms of Service',
+  'footer.seoDesc': 'CANI Technology – Professional industrial drone accessories manufacturer with 10+ years R&D experience. OEM/ODM services for digital FPV, flight controllers, gimbals, and ELRS systems.',
+  'footer.siteMap': 'Site Map',
+  'footer.qualification': 'National High-tech Enterprise',
+
+  // 404 Page
+  'notFound.title': '404',
+  'notFound.message': 'Page Not Found',
+  'notFound.description': 'The page you are looking for might have been removed, had its name changed, or is temporarily unavailable.',
+  'notFound.backHome': 'Back to Home',
+  'notFound.backPrevious': 'Go Back',
+  'notFound.popularPages': 'Popular Pages',
+  'notFound.products': 'Products',
+  'notFound.applications': 'Applications',
+  'notFound.contact': 'Contact Us',
+  'notFound.about': 'About Us',
 
   // Hero Section
   'hero.tagline': 'CANI · Professional Drone Accessories Supplier',

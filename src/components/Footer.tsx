@@ -231,6 +231,35 @@ export const Footer = () => {
         </div>
       </div>
 
+      {/* SEO Content Section */}
+      <div className="border-t border-background/10">
+        <div className="container-custom py-8">
+          <p className="text-sm text-background/50 leading-relaxed mb-4">
+            {t('footer.seoDesc')}
+          </p>
+          <div className="flex flex-wrap gap-x-6 gap-y-2 text-sm text-background/40">
+            <span>{t('footer.qualification')}</span>
+            <span>Tel: +86-17674048404</span>
+            <span>Email: market@caniuav.com</span>
+          </div>
+          {/* Sitemap quick links for crawlers */}
+          <nav className="mt-4 flex flex-wrap gap-x-4 gap-y-1 text-xs text-background/30" aria-label={t('footer.siteMap')}>
+            <LangLink to="/" className="hover:text-background/60 transition-colors">{t('nav.home')}</LangLink>
+            <LangLink to="/products" className="hover:text-background/60 transition-colors">{t('footer.products')}</LangLink>
+            <LangLink to="/products/accessories/vtx-vrx" className="hover:text-background/60 transition-colors">{t('accessory.vtx')}</LangLink>
+            <LangLink to="/products/accessories/fc-esc" className="hover:text-background/60 transition-colors">{t('accessory.fc')}</LangLink>
+            <LangLink to="/products/accessories/gimbal" className="hover:text-background/60 transition-colors">{t('accessory.gimbal')}</LangLink>
+            <LangLink to="/applications" className="hover:text-background/60 transition-colors">{t('footer.applications')}</LangLink>
+            <LangLink to="/applications/power-inspection" className="hover:text-background/60 transition-colors">{t('app.power')}</LangLink>
+            <LangLink to="/software" className="hover:text-background/60 transition-colors">{t('footer.software')}</LangLink>
+            <LangLink to="/custom-research" className="hover:text-background/60 transition-colors">{t('footer.custom')}</LangLink>
+            <LangLink to="/about" className="hover:text-background/60 transition-colors">{t('footer.aboutUs')}</LangLink>
+            <LangLink to="/contact" className="hover:text-background/60 transition-colors">{t('footer.contactUs')}</LangLink>
+            <LangLink to="/news" className="hover:text-background/60 transition-colors">{t('nav.news')}</LangLink>
+          </nav>
+        </div>
+      </div>
+
       {/* Bottom Bar */}
       <div className="border-t border-background/10">
         <div className="container-custom py-6">

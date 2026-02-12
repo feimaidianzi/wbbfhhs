@@ -443,6 +443,9 @@ export const zhTranslations: Record<string, string> = {
   'footer.contactUs': '联系我们',
   'footer.privacy': '隐私政策',
   'footer.terms': '服务条款',
+  'footer.seoDesc': '长凌科技 — 专业工业无人机核心配件制造商，10年+研发经验，提供数字图传、飞控电调、云台吊舱、ELRS遥控等配件OEM/ODM定制服务。',
+  'footer.siteMap': '站点地图',
+  'footer.qualification': '国家高新技术企业',
 
   // Hero Section (legacy keys - kept for compatibility)
   'hero.title': '智能飞行 · 无限可能',
@@ -1265,7 +1268,14 @@ export const zhTranslations: Record<string, string> = {
   // 404 Page - 404页面
   'notFound.title': '404',
   'notFound.message': '哎呀！页面未找到',
+  'notFound.description': '您访问的页面可能已被移除、名称已更改或暂时不可用。',
   'notFound.backHome': '返回首页',
+  'notFound.backPrevious': '返回上一页',
+  'notFound.popularPages': '热门页面',
+  'notFound.products': '产品中心',
+  'notFound.applications': '行业应用',
+  'notFound.contact': '联系我们',
+  'notFound.about': '关于我们',
 
   // ===== MultiRotor Page Content =====
   'multiRotor.ctaTitle': '了解更多解决方案',
