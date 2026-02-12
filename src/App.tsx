@@ -115,7 +115,7 @@ import DatabaseProductDetail from "./pages/products/DatabaseProductDetail";
 import DatabaseProductList from "./pages/products/DatabaseProductList";
 import React from "react";
 
-const queryClient = new QueryClient();
+const queryClient = new QueryClient(); // force rebuild
 
 // Define all public routes as data to avoid duplication
 const publicRoutes = [
