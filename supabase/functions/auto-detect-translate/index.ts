@@ -183,6 +183,10 @@ Deno.serve(async (req) => {
   }
 
   try {
+    // Require authenticated admin user
+    const authError = await verifyAdminAccess(req);
+    if (authError) return authError;
+
     const { action, sourceContent, targetLanguages = allLanguages, batchSize = 20 } = await req.json();
 
     const DEEPSEEK_API_KEY = Deno.env.get('DEEPSEEK_API_KEY');
