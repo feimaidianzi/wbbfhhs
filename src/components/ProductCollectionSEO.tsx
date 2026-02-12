@@ -97,7 +97,7 @@ export const ProductCollectionSEO = ({
     '@type': 'CollectionPage',
     name: isEn ? categoryEn : category,
     description: isEn ? categoryDescriptionEn : categoryDescription,
-    url: `https://www.cani.com/products/${category.toLowerCase().replace(/\s+/g, '-')}`,
+    url: `https://www.caniuav.com/products/${category.toLowerCase().replace(/\s+/g, '-')}`,
     mainEntity: itemListStructuredData,
     breadcrumb: {
       '@type': 'BreadcrumbList',
