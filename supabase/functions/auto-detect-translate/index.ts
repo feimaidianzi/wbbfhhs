@@ -5,6 +5,35 @@ const corsHeaders = {
   'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type, x-supabase-client-platform, x-supabase-client-platform-version, x-supabase-client-runtime, x-supabase-client-runtime-version',
 };
 
+// Auth helper: verify admin access
+async function verifyAdminAccess(req: Request): Promise<Response | null> {
+  const authHeader = req.headers.get('Authorization');
+  if (!authHeader?.startsWith('Bearer ')) {
+    return new Response(JSON.stringify({ error: 'Unauthorized' }), {
+      status: 401, headers: { ...corsHeaders, 'Content-Type': 'application/json' }
+    });
+  }
+  const supabaseAuth = createClient(
+    Deno.env.get('SUPABASE_URL')!,
+    Deno.env.get('SUPABASE_ANON_KEY')!,
+    { global: { headers: { Authorization: authHeader } } }
+  );
+  const token = authHeader.replace('Bearer ', '');
+  const { data: claimsData, error: claimsError } = await supabaseAuth.auth.getClaims(token);
+  if (claimsError || !claimsData?.claims) {
+    return new Response(JSON.stringify({ error: 'Invalid token' }), {
+      status: 401, headers: { ...corsHeaders, 'Content-Type': 'application/json' }
+    });
+  }
+  const { data: isAdmin } = await supabaseAuth.rpc('has_role', { _user_id: claimsData.claims.sub, _role: 'admin' });
+  if (!isAdmin) {
+    return new Response(JSON.stringify({ error: 'Forbidden: admin access required' }), {
+      status: 403, headers: { ...corsHeaders, 'Content-Type': 'application/json' }
+    });
+  }
+  return null; // Access granted
+}
+
 const languageNames: Record<string, string> = {
   'zh': '中文',
   'en': 'English',
@@ -154,6 +183,10 @@ Deno.serve(async (req) => {
   }
 
   try {
+    // Require authenticated admin user
+    const authError = await verifyAdminAccess(req);
+    if (authError) return authError;
+
     const { action, sourceContent, targetLanguages = allLanguages, batchSize = 20 } = await req.json();
 
     const DEEPSEEK_API_KEY = Deno.env.get('DEEPSEEK_API_KEY');

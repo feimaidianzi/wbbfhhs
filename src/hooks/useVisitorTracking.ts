@@ -211,28 +211,42 @@ export const useVisitorTracking = () => {
     }
   }, [location.pathname]);
 
-  // 记录事件
+  // 记录事件 - with input sanitization
   const trackEvent = useCallback(async (eventData: EventData) => {
     const sessionId = sessionIdRef.current || localStorage.getItem('visitor_session_id');
-    if (!sessionId) return;
+    if (!sessionId || sessionId.length > 100) return;
+
+    // Sanitize string inputs - truncate to safe lengths
+    const sanitize = (val: string | undefined, maxLen: number): string | undefined => {
+      if (!val) return undefined;
+      return val.substring(0, maxLen);
+    };
+
+    // Validate numeric inputs
+    const safeNum = (val: number | undefined, max: number): number | undefined => {
+      if (val === undefined || val === null) return undefined;
+      const n = Math.floor(Number(val));
+      if (isNaN(n) || n < 0) return 0;
+      return Math.min(n, max);
+    };
 
     await supabase.from('visitor_events').insert({
-      session_id: sessionId,
-      event_type: eventData.eventType,
-      event_name: eventData.eventName,
+      session_id: sanitize(sessionId, 100)!,
+      event_type: sanitize(eventData.eventType, 50) || 'unknown',
+      event_name: sanitize(eventData.eventName, 200),
       event_data: eventData.eventData || {},
-      page_url: eventData.pageUrl || window.location.href,
-      page_title: eventData.pageTitle || document.title,
-      page_path: eventData.pagePath || location.pathname,
-      element_id: eventData.elementId,
-      element_class: eventData.elementClass,
-      element_text: eventData.elementText?.substring(0, 100),
-      element_tag: eventData.elementTag,
-      product_id: eventData.productId,
-      product_name: eventData.productName,
-      product_category: eventData.productCategory,
-      duration_seconds: eventData.durationSeconds,
-      scroll_depth: eventData.scrollDepth,
+      page_url: sanitize(eventData.pageUrl || window.location.href, 2000),
+      page_title: sanitize(eventData.pageTitle || document.title, 500),
+      page_path: sanitize(eventData.pagePath || location.pathname, 500),
+      element_id: sanitize(eventData.elementId, 200),
+      element_class: sanitize(eventData.elementClass, 500),
+      element_text: sanitize(eventData.elementText, 100),
+      element_tag: sanitize(eventData.elementTag, 50),
+      product_id: sanitize(eventData.productId, 100),
+      product_name: sanitize(eventData.productName, 200),
+      product_category: sanitize(eventData.productCategory, 100),
+      duration_seconds: safeNum(eventData.durationSeconds, 86400),
+      scroll_depth: safeNum(eventData.scrollDepth, 100),
     });
 
     // 更新会话最后活动时间
