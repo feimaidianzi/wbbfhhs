@@ -57,6 +57,23 @@ const ProjectCooperation = () => {
             </div>
           </div>
         </section>
+        {/* SEO Business Introduction */}
+        <section className="py-12 bg-secondary">
+          <div className="container-custom">
+            <div className="max-w-4xl mx-auto text-center">
+              <p className="text-muted-foreground text-lg leading-relaxed mb-6">
+                {t('cooperation.seo.intro')}
+              </p>
+              <Link to="/contact">
+                <Button className="bg-accent hover:bg-accent/90 text-accent-foreground px-8 py-3">
+                  {t('cooperation.seo.cta')}
+                  <ArrowRight className="w-4 h-4 ml-2" />
+                </Button>
+              </Link>
+            </div>
+          </div>
+        </section>
+
         <section className="py-16 bg-background">
           <div className="container-custom">
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-16">

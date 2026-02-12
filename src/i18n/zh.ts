@@ -5699,11 +5699,38 @@ export const zhTranslations: Record<string, string> = {
   'product.trust.iso': 'ISO 9001质量认证',
   'product.trust.experience': '10年+研发经验',
 
-  // Company Intro SEO Description
+  // Company Intro SEO Description (with internal links)
+  'companyIntro.seoDesc.prefix': '长凌科技是专业的无人机配件制造商，专注',
+  'companyIntro.seoDesc.sep1': '、',
+  'companyIntro.seoDesc.sep2': '、',
+  'companyIntro.seoDesc.suffix': '等核心产品的研发、生产与销售，提供高品质工业无人机OEM定制服务，产品适配电力巡检、消防应急、测绘勘探等多个工业场景，以稳定性能赢得行业客户信赖。',
   'companyIntro.seoDescription': '长凌科技是专业的无人机配件制造商，专注数字图传、飞控电调、云台吊舱等核心产品的研发、生产与销售，提供高品质工业无人机OEM定制服务，产品适配电力巡检、消防应急、测绘勘探等多个工业场景，以稳定性能赢得行业客户信赖。',
+
+  // Applications Section SEO (with internal links)
+  'applications.section.desc.prefix': '长凌无人机产品广泛应用于水利、交通、环保、',
+  'applications.section.keyword.power': '电力巡检',
+  'applications.section.desc.sep1': '、',
+  'applications.section.keyword.fire': '消防应急',
+  'applications.section.desc.suffix': '、测绘等多个行业领域',
 
   // Products Section SEO Subtitle
   'productsSection.seoSubtitle': '涵盖数字图传、飞控电调、云台吊舱等核心无人机配件，支持工业无人机OEM定制，满足电力巡检、消防应急、测绘勘探等不同行业作业需求。',
+
+  // Power Inspection Case Study
+  'powerInspection.caseStudy.title': '场景适配说明',
+  'powerInspection.caseStudy.content': '本页面介绍的无人机电力巡检方案，适配各类电压等级的电力线路巡检场景，搭配我司核心电力线路巡检无人机配件（数字图传、云台吊舱），可满足不同区域、不同环境的巡检需求，无需复杂调试，快速落地使用，助力企业提升巡检效率、降低运营成本。',
+
+  // Firefighting Case Study
+  'firefighting.caseStudy.title': '场景适配说明',
+  'firefighting.caseStudy.content': '针对消防应急场景，长凌科技推出专属的无人机消防救援方案，搭配高性能的消防应急无人机图传系统与工业无人机消防应用配件，可快速抵达火灾现场，实时回传现场画面，助力救援人员掌握现场情况、制定救援策略，提升消防救援效率，保障救援人员安全。',
+
+  // Low Altitude SEO Intro
+  'lowAltitude.seo.intro': '长凌科技深耕低空经济领域，提供专业的低空经济无人机方案与低空无人机配件定制服务，聚焦低空安防、低空物流、低空测绘等核心场景。我们依托核心技术研发实力，打造适配低空经济场景的无人机核心配件与整体方案，支持按需定制，具备性能稳定、性价比高、落地性强等优势，助力客户抢占低空经济市场先机。',
+  'lowAltitude.cta.products': '了解更多详情',
+
+  // Project Cooperation SEO Intro
+  'cooperation.seo.intro': '长凌科技面向全国开展无人机项目合作与工业无人机配件供应业务，主营数字图传、飞控电调、云台吊舱等核心配件，产品通过ISO 9001质量认证，性能稳定可靠。我们可与电力、消防、测绘等行业企业、科研机构开展多元化合作（联合研发、配件供应、项目共建等），依托自身研发与生产实力，为合作伙伴提供高品质的产品与全方位的技术支持，实现互利共赢。',
+  'cooperation.seo.cta': '提交合作需求',
 
 };
 

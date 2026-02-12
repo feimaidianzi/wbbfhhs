@@ -104,6 +104,10 @@ const PowerInspection = () => {
       ctaTitle="获取电力巡检解决方案"
       ctaDescription="长凌科技为您提供专业的电力巡检无人机解决方案"
       ctaProductLink="/products/multi-rotor"
+      caseStudy={{
+        title: t('powerInspection.caseStudy.title'),
+        content: t('powerInspection.caseStudy.content'),
+      }}
     />
   );
 };

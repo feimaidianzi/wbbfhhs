@@ -76,7 +76,13 @@ export const CompanyIntroSection = () => {
               {t('companyIntro.description')}
             </p>
             <p className="text-base text-muted-foreground mb-8 leading-relaxed">
-              {t('companyIntro.seoDescription')}
+              {t('companyIntro.seoDesc.prefix')}
+              <LangLink to="/products/accessories/digital-fpv" className="text-accent hover:underline">{t('footer.seo.keyword.digitalFPV')}</LangLink>
+              {t('companyIntro.seoDesc.sep1')}
+              <LangLink to="/products/accessories/fc-esc" className="text-accent hover:underline">{t('footer.seo.keyword.fcEsc')}</LangLink>
+              {t('companyIntro.seoDesc.sep2')}
+              <LangLink to="/products/accessories/gimbal" className="text-accent hover:underline">{t('footer.seo.keyword.gimbal')}</LangLink>
+              {t('companyIntro.seoDesc.suffix')}
             </p>
 
             {/* Stats */}
