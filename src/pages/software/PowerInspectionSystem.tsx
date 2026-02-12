@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { ArrowRight, CheckCircle, Zap, Eye, FileText, AlertTriangle } from "lucide-react";
 import { LangLink as Link } from "@/components/LangLink";
 import { MultiLanguageSEO } from "@/components/MultiLanguageSEO";
+import { PageStructuredData } from "@/components/PageStructuredData";
 import { useLanguage } from "@/contexts/LanguageContext";
 
 const PowerInspectionSystem = () => {
@@ -34,6 +35,7 @@ const PowerInspectionSystem = () => {
         keywords={t('softwarePage.powerInspection.seo.keywords')}
         path="/software/power-inspection-system"
       />
+      <PageStructuredData data={{ type: 'SoftwareApplication', name: t('softwarePage.powerInspection.seo.title'), description: t('softwarePage.powerInspection.seo.desc'), category: 'BusinessApplication' }} />
       <Header />
       <main className="pt-16 md:pt-20">
         <section className="relative h-[400px] md:h-[500px] overflow-hidden">

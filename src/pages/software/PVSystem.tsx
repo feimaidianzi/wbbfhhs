@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { ArrowRight, CheckCircle, Sun, BarChart, Database, Settings } from "lucide-react";
 import { LangLink as Link } from "@/components/LangLink";
 import { MultiLanguageSEO } from "@/components/MultiLanguageSEO";
+import { PageStructuredData } from "@/components/PageStructuredData";
 import { useLanguage } from "@/contexts/LanguageContext";
 
 const PVSystem = () => {
@@ -34,6 +35,7 @@ const PVSystem = () => {
         keywords={t('softwarePage.pvSystem.seo.keywords')}
         path="/software/pv-system"
       />
+      <PageStructuredData data={{ type: 'SoftwareApplication', name: t('softwarePage.pvSystem.seo.title'), description: t('softwarePage.pvSystem.seo.desc'), category: 'BusinessApplication' }} />
       <Header />
       <main className="pt-16 md:pt-20">
         <section className="relative h-[400px] md:h-[500px] overflow-hidden">

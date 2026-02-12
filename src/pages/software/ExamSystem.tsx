@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { ArrowRight, CheckCircle, BookOpen, Award, Users, Clock } from "lucide-react";
 import { LangLink as Link } from "@/components/LangLink";
 import { MultiLanguageSEO } from "@/components/MultiLanguageSEO";
+import { PageStructuredData } from "@/components/PageStructuredData";
 import { useLanguage } from "@/contexts/LanguageContext";
 
 const ExamSystem = () => {
@@ -34,6 +35,7 @@ const ExamSystem = () => {
         keywords={t('softwarePage.exam.seo.keywords')}
         path="/software/exam-system"
       />
+      <PageStructuredData data={{ type: 'SoftwareApplication', name: t('softwarePage.exam.seo.title'), description: t('softwarePage.exam.seo.desc'), category: 'EducationalApplication' }} />
       <Header />
       <main className="pt-16 md:pt-20">
         <section className="relative h-[400px] md:h-[500px] overflow-hidden">

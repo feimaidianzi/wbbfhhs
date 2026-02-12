@@ -7,6 +7,7 @@ import { LangLink as Link } from "@/components/LangLink";
 import { BackButton } from "@/components/BackButton";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { MultiLanguageSEO } from "@/components/MultiLanguageSEO";
+import { PageStructuredData } from "@/components/PageStructuredData";
 
 const SwarmCustom = () => {
   const { t } = useLanguage();
@@ -45,6 +46,7 @@ const SwarmCustom = () => {
         keywords={t('customSwarm.seo.keywords')}
         path="/custom-research/swarm"
       />
+      <PageStructuredData data={{ type: 'Service', name: t('customSwarm.seo.title'), description: t('customSwarm.seo.desc'), serviceType: 'Swarm System Custom' }} />
       <Header />
       <main className="pt-16 md:pt-20">
         <div className="bg-secondary py-4">

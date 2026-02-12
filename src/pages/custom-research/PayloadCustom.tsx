@@ -7,6 +7,7 @@ import { LangLink as Link } from "@/components/LangLink";
 import { BackButton } from "@/components/BackButton";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { MultiLanguageSEO } from "@/components/MultiLanguageSEO";
+import { PageStructuredData } from "@/components/PageStructuredData";
 
 const PayloadCustom = () => {
   const { t } = useLanguage();
@@ -45,6 +46,7 @@ const PayloadCustom = () => {
         keywords={t('customPayload.seo.keywords')}
         path="/custom-research/payload"
       />
+      <PageStructuredData data={{ type: 'Service', name: t('customPayload.seo.title'), description: t('customPayload.seo.desc'), serviceType: 'Payload Custom R&D' }} />
       <Header />
       <main className="pt-16 md:pt-20">
         <div className="bg-secondary py-4">

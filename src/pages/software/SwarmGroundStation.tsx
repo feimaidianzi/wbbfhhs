@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { ArrowRight, CheckCircle, Users, Cpu, Network, Zap } from "lucide-react";
 import { LangLink as Link } from "@/components/LangLink";
 import { MultiLanguageSEO } from "@/components/MultiLanguageSEO";
+import { PageStructuredData } from "@/components/PageStructuredData";
 import { useLanguage } from "@/contexts/LanguageContext";
 
 const SwarmGroundStation = () => {
@@ -34,6 +35,7 @@ const SwarmGroundStation = () => {
         keywords={t('softwarePage.swarm.seo.keywords')}
         path="/software/swarm-ground-station"
       />
+      <PageStructuredData data={{ type: 'SoftwareApplication', name: t('softwarePage.swarm.seo.title'), description: t('softwarePage.swarm.seo.desc'), category: 'BusinessApplication' }} />
       <Header />
       <main className="pt-16 md:pt-20">
         <section className="relative h-[400px] md:h-[500px] overflow-hidden">

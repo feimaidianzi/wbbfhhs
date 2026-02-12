@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { ArrowRight, CheckCircle, Sparkles, Users, Palette, Shield } from "lucide-react";
 import { LangLink as Link } from "@/components/LangLink";
 import { MultiLanguageSEO } from "@/components/MultiLanguageSEO";
+import { PageStructuredData } from "@/components/PageStructuredData";
 import { useLanguage } from "@/contexts/LanguageContext";
 
 const DroneShow = () => {
@@ -34,6 +35,7 @@ const DroneShow = () => {
         keywords={t('droneShow.seo.keywords')} 
         path="/projects/show" 
       />
+      <PageStructuredData data={{ type: 'Service', name: t('droneShow.seo.title'), description: t('droneShow.seo.description'), serviceType: 'Drone Show Performance' }} />
       <Header />
       <main className="pt-16 md:pt-20">
         <section className="relative h-[400px] overflow-hidden">
