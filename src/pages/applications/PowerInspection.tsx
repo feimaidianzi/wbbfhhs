@@ -108,6 +108,16 @@ const PowerInspection = () => {
         title: t('powerInspection.caseStudy.title'),
         content: t('powerInspection.caseStudy.content'),
       }}
+      relatedProducts={[
+        { label: t('accessory.digitalFpv'), path: '/products/accessories/digital-fpv' },
+        { label: t('accessory.gimbal'), path: '/products/accessories/gimbal' },
+        { label: t('accessory.fc'), path: '/products/accessories/fc-esc' },
+      ]}
+      relatedApplications={[
+        { label: t('app.firefighting'), path: '/applications/firefighting' },
+        { label: t('app.environment'), path: '/applications/environment' },
+        { label: t('app.tethered'), path: '/applications/tethered' },
+      ]}
     />
   );
 };

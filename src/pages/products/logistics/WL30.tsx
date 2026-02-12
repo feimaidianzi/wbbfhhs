@@ -54,6 +54,15 @@ const WL30 = () => {
       applications={applications}
       ctaTitle={t('logistics.ctaTitle').replace('{{model}}', 'WL-30')}
       ctaDescription={t('logistics.ctaDescription')}
+      relatedProducts={[
+        { label: 'WL-10', path: '/products/logistics/wl-10' },
+        { label: 'WL-20', path: '/products/logistics/wl-20' },
+        { label: t('accessory.gimbal'), path: '/products/accessories/gimbal' },
+      ]}
+      relatedApplications={[
+        { label: t('app.logistics'), path: '/applications/logistics' },
+        { label: t('app.firefighting'), path: '/applications/firefighting' },
+      ]}
     />
   );
 };
