@@ -9,6 +9,8 @@ import uavInspection from "@/assets/power/uav-inspection.jpg";
 import caseTransmissionInspection from "@/assets/power/case-transmission-inspection.jpg";
 import caseSubstationInspection from "@/assets/power/case-substation-inspection.jpg";
 import caseSolarInspection from "@/assets/power/case-solar-inspection.jpg";
+import powerInspectionScene from "@/assets/seo/power-inspection-scene.jpg";
+import powerInspectionFlight from "@/assets/seo/power-inspection-flight.jpg";
 
 const PowerInspection = () => {
   const { t } = useLanguage();
@@ -126,8 +128,13 @@ const PowerInspection = () => {
       <section className="py-16 bg-background">
         <div className="container mx-auto px-4">
           <h2 className="text-3xl font-bold text-center mb-8">{t('powerInspection.solution.title')}</h2>
-          <div className="max-w-3xl mx-auto">
-            <p className="text-muted-foreground leading-relaxed">{t('powerInspection.solution.content')}</p>
+          <div className="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+            <div>
+              <p className="text-muted-foreground leading-relaxed">{t('powerInspection.solution.content')}</p>
+            </div>
+            <div className="rounded-xl overflow-hidden shadow-card">
+              <img src={powerInspectionScene} alt="无人机电力巡检应用实景 - UAV power line inspection" className="w-full h-auto object-cover" loading="lazy" />
+            </div>
           </div>
         </div>
       </section>
@@ -136,8 +143,11 @@ const PowerInspection = () => {
       <section className="py-16 bg-muted/30">
         <div className="container mx-auto px-4">
           <h2 className="text-3xl font-bold text-center mb-8">{t('powerInspection.caseDetail.title')}</h2>
-          <div className="max-w-3xl mx-auto">
-            <div className="p-6 bg-card rounded-xl border border-border">
+          <div className="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+            <div className="rounded-xl overflow-hidden shadow-card order-2 md:order-1">
+              <img src={powerInspectionFlight} alt="无人机电力巡检飞行实景 - UAV power inspection flight" className="w-full h-auto object-cover" loading="lazy" />
+            </div>
+            <div className="p-6 bg-card rounded-xl border border-border order-1 md:order-2">
               <p className="text-muted-foreground leading-relaxed">{t('powerInspection.caseDetail')}</p>
             </div>
           </div>
