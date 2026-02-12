@@ -482,7 +482,7 @@ const SEOManagement = () => {
               <Info className="h-5 w-5 text-blue-500 flex-shrink-0 mt-0.5" />
               <div className="text-sm text-blue-800">
                 <p className="font-medium mb-1">DNS配置说明：</p>
-                <p>为每个子域名（如 en.cani.com, ja.cani.com）添加 A 记录或 CNAME 记录，指向您的服务器IP。</p>
+                <p>为每个子域名（如 en.caniuav.com, ja.caniuav.com）添加 A 记录或 CNAME 记录，指向您的服务器IP。</p>
                 <p className="mt-1">服务器需配置虚拟主机或反向代理，根据子域名设置对应的语言环境变量。</p>
               </div>
             </div>
