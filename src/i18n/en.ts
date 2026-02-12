@@ -607,4 +607,66 @@ export const enTranslations: Record<string, string> = {
   'logistics.specs.cruiseSpeed': 'Cruise Speed',
   'logistics.specs.deliveryAccuracy': 'Delivery Accuracy',
   'logistics.specs.cargoVolume': 'Cargo Volume',
+
+  // ===== Page-Level SEO Keys =====
+  // Home Page SEO
+  'home.seo.title': 'CANI Technology - Professional Drone Accessories Manufacturer | Digital FPV_FC_Gimbal',
+  'home.seo.description': 'CANI Technology specializes in drone digital FPV, flight controllers, gimbals and other core accessories R&D for 10 years, providing industrial drone accessories OEM/ODM services for power inspection, firefighting and more.',
+  'home.seo.keywords': 'drone accessories,digital FPV,drone flight controller,gimbal pod,ELRS remote control,industrial drone accessories,drone VTX,drone accessories OEM,drone FC ESC,drone accessories manufacturer',
+  'home.structured.name': 'CANI Technology Co., Ltd.',
+  'home.structured.description': 'Professional drone accessories supplier, providing digital FPV, VTX video transmitters, flight controllers, gimbals and other drone accessories.',
+  'home.structured.addressLocality': 'Changsha',
+  'home.structured.addressRegion': 'Hunan',
+  'home.structured.contactType': 'customer service',
+  'home.structured.availableLanguage': 'English',
+
+  // Products Page SEO
+  'products.page.title': 'Products',
+  'products.page.description': 'CANI Technology product center, offering industrial drones, automatic airports, tethered drones, logistics drones, agricultural drones, drone accessories and full-range products.',
+  'products.page.keywords': 'industrial drone,automatic airport,tethered drone,logistics drone,agricultural drone,drone accessories,multi-rotor drone',
+
+  // Applications Page SEO
+  'applications.seo.title': 'Industry Applications',
+  'applications.seo.description': 'CANI Technology drone industry application solutions, covering power inspection, logistics delivery, military, environmental monitoring, firefighting, tethered applications and more.',
+  'applications.seo.keywords': 'drone industry applications,power inspection,logistics drone,military drone,environmental monitoring,firefighting,tethered drone',
+
+  // Contact Page SEO
+  'contact.page.title': 'Contact Us',
+  'contact.page.subtitle': 'Looking forward to cooperating with you, providing professional drone solutions',
+  'contact.page.description': 'Contact CANI Technology for professional drone solution consultation. Phone: +8617674048404, headquarters in Changsha, Hunan, China.',
+  'contact.page.keywords': 'contact CANI,drone consultation,drone custom service,Changsha drone company',
+  'contact.structured.name': 'Contact CANI Technology',
+  'contact.structured.description': 'Get CANI Technology contact information, consult about drone products and custom services',
+
+  // About Page SEO
+  'about.seoDescription': 'CANI Technology Co., Ltd., founded in 2015, is a high-tech enterprise specializing in industrial drone R&D, manufacturing and sales, with 200+ professionals and 50+ patents.',
+  'about.seoKeywords': 'CANI Technology,about us,drone company,industrial drone enterprise,drone R&D',
+
+  // Applications sub-page hero/CTA
+  'applications.hero.badge': 'Industry Solutions',
+  'applications.hero.title': 'Industry Applications',
+  'applications.hero.subtitle': 'CANI drones are widely used in multiple industry fields, providing professional solutions',
+  'applications.cta.title': 'Customize Your Industry Solution',
+  'applications.cta.subtitle': 'CANI Technology has rich industry experience and can provide customized solutions based on your specific needs',
+  'applications.cta.btn': 'Contact Us Now',
+
+  // Contact form keys
+  'contact.office.title': 'Office Location',
+  'contact.form.title': 'Online Inquiry',
+  'contact.form.subtitle': 'Fill out the form below and our professional team will contact you soon',
+  'contact.form.namePlaceholder': 'Enter your name',
+  'contact.form.phonePlaceholder': 'Enter phone number',
+  'contact.form.emailPlaceholder': 'Enter email address',
+  'contact.form.companyPlaceholder': 'Enter company name',
+  'contact.form.subject': 'Subject',
+  'contact.form.subjectPlaceholder': 'Enter inquiry subject',
+  'contact.form.messagePlaceholder': 'Describe your requirements or questions',
+  'contact.form.submitting': 'Submitting...',
+  'contact.form.waitSeconds': 'Please wait {{seconds}} seconds',
+  'contact.form.defaultSubject': 'Website Inquiry',
+
+  // News Detail
+  'news.detail.backToList': 'Back to News',
+  'news.detail.relatedArticles': 'Related Articles',
+  'news.detail.imageAlt': 'Article Image',
 };
