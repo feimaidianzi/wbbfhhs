@@ -137,6 +137,29 @@ const Products = () => {
           </motion.div>
         </section>
 
+        {/* Product Overview Text */}
+        <section className="py-12 bg-background">
+          <div className="container-custom">
+            <p className="text-base text-muted-foreground leading-relaxed max-w-4xl mx-auto mb-8">
+              {t('products.seo.overview')}
+            </p>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              <div className="p-6 bg-card rounded-xl border border-border">
+                <h3 className="font-semibold text-foreground mb-2">{t('accessory.digitalFpv')}</h3>
+                <p className="text-sm text-muted-foreground">{t('products.seo.cat.vtx')}</p>
+              </div>
+              <div className="p-6 bg-card rounded-xl border border-border">
+                <h3 className="font-semibold text-foreground mb-2">{t('accessory.fc')}</h3>
+                <p className="text-sm text-muted-foreground">{t('products.seo.cat.fcesc')}</p>
+              </div>
+              <div className="p-6 bg-card rounded-xl border border-border">
+                <h3 className="font-semibold text-foreground mb-2">{t('accessory.gimbal')}</h3>
+                <p className="text-sm text-muted-foreground">{t('products.seo.cat.gimbal')}</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
         {/* Category Filter & Products */}
         <section className="py-16 bg-secondary">
           <div className="container-custom">

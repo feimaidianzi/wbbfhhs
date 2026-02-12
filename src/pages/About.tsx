@@ -2,7 +2,7 @@ import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { FloatingContact } from "@/components/FloatingContact";
 import { Button } from "@/components/ui/button";
-import { Target, Users, Award, ArrowRight } from "lucide-react";
+import { Target, Users, Award, ArrowRight, Cpu, BarChart3, Globe2, ShieldCheck } from "lucide-react";
 import { MultiLanguageSEO, createLocalizedBreadcrumbData } from "@/components/MultiLanguageSEO";
 import { useLanguage as useLanguageHook } from "@/contexts/LanguageContext";
 import { useLanguage } from "@/contexts/LanguageContext";
@@ -178,6 +178,51 @@ const About = () => {
                   </div>
                 ))}
               </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Core Team */}
+        <section className="py-16 bg-secondary">
+          <div className="container-custom">
+            <h2 className="text-2xl md:text-3xl font-bold text-center mb-12">
+              {t('about.coreTeam.title')}
+            </h2>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+              {[
+                { nameKey: 'about.team.rd.name', roleKey: 'about.team.rd.role', descKey: 'about.team.rd.desc', icon: Cpu },
+                { nameKey: 'about.team.prod.name', roleKey: 'about.team.prod.role', descKey: 'about.team.prod.desc', icon: BarChart3 },
+                { nameKey: 'about.team.market.name', roleKey: 'about.team.market.role', descKey: 'about.team.market.desc', icon: Globe2 },
+              ].map((member, index) => (
+                <div key={index} className="bg-card rounded-xl p-8 shadow-card text-center">
+                  <member.icon className="w-12 h-12 text-accent mx-auto mb-4" />
+                  <h3 className="text-xl font-bold text-card-foreground">{t(member.nameKey)}</h3>
+                  <p className="text-accent text-sm mb-3">{t(member.roleKey)}</p>
+                  <p className="text-muted-foreground text-sm">{t(member.descKey)}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* Certifications */}
+        <section className="py-16 bg-background">
+          <div className="container-custom">
+            <h2 className="text-2xl md:text-3xl font-bold text-center mb-12">
+              {t('about.certifications.title')}
+            </h2>
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+              {[
+                { key: 'about.cert.hightech', icon: Award },
+                { key: 'about.cert.patents', icon: Cpu },
+                { key: 'about.cert.iso', icon: ShieldCheck },
+                { key: 'about.cert.member', icon: Users },
+              ].map((cert, index) => (
+                <div key={index} className="bg-card rounded-xl p-6 shadow-card text-center border border-border">
+                  <cert.icon className="w-10 h-10 text-accent mx-auto mb-3" />
+                  <p className="text-sm font-medium text-card-foreground">{t(cert.key)}</p>
+                </div>
+              ))}
             </div>
           </div>
         </section>

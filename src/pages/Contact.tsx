@@ -2,7 +2,8 @@ import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { FloatingContact } from "@/components/FloatingContact";
 import { Button } from "@/components/ui/button";
-import { Phone, Mail, MapPin, Clock, MessageCircle, Send, Loader2 } from "lucide-react";
+import { Phone, Mail, MapPin, Clock, MessageCircle, Send, Loader2, Headphones, Shield, Settings, ChevronRight } from "lucide-react";
+import { PageFAQ } from "@/components/PageFAQ";
 import { useState, useEffect } from "react";
 import { useToast } from "@/hooks/use-toast";
 import { MultiLanguageSEO } from "@/components/MultiLanguageSEO";
@@ -405,6 +406,53 @@ const Contact = () => {
             </div>
           </div>
         </section>
+
+        {/* Service Support */}
+        <section className="py-16 bg-secondary">
+          <div className="container-custom">
+            <h2 className="text-2xl md:text-3xl font-bold text-center mb-12">{t('contact.service.title')}</h2>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+              {[
+                { titleKey: 'contact.service.tech.title', descKey: 'contact.service.tech.desc', icon: Headphones },
+                { titleKey: 'contact.service.warranty.title', descKey: 'contact.service.warranty.desc', icon: Shield },
+                { titleKey: 'contact.service.custom.title', descKey: 'contact.service.custom.desc', icon: Settings },
+              ].map((service, index) => (
+                <div key={index} className="bg-card rounded-xl p-8 shadow-card">
+                  <service.icon className="w-10 h-10 text-accent mb-4" />
+                  <h3 className="text-lg font-bold text-card-foreground mb-3">{t(service.titleKey)}</h3>
+                  <p className="text-muted-foreground text-sm leading-relaxed">{t(service.descKey)}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* After-Sales Process */}
+        <section className="py-16 bg-background">
+          <div className="container-custom">
+            <h2 className="text-2xl md:text-3xl font-bold text-center mb-12">{t('contact.afterSales.title')}</h2>
+            <div className="max-w-3xl mx-auto flex flex-col gap-4">
+              {['contact.afterSales.step1', 'contact.afterSales.step2', 'contact.afterSales.step3', 'contact.afterSales.step4'].map((stepKey, index) => (
+                <div key={index} className="flex items-start gap-4 p-4 bg-card rounded-xl border border-border">
+                  <div className="w-8 h-8 rounded-full bg-accent text-accent-foreground flex items-center justify-center flex-shrink-0 font-bold text-sm">
+                    {index + 1}
+                  </div>
+                  <p className="text-muted-foreground pt-1">{t(stepKey)}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* FAQ */}
+        <PageFAQ
+          titleKey="contact.faq.title"
+          items={[
+            { questionKey: 'contact.faq.q1', answerKey: 'contact.faq.a1' },
+            { questionKey: 'contact.faq.q2', answerKey: 'contact.faq.a2' },
+            { questionKey: 'contact.faq.q3', answerKey: 'contact.faq.a3' },
+          ]}
+        />
       </main>
       <Footer />
       <FloatingContact />

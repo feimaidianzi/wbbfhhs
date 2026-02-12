@@ -739,4 +739,102 @@ export const enTranslations: Record<string, string> = {
   // Related internal links
   'product.relatedProducts': 'Related Accessories',
   'product.relatedApplications': 'Related Applications',
+
+  // ===== SEO Content Optimization (Report) =====
+
+  // Homepage SEO Intro
+  'home.seoIntro': 'CANI Technology — 10 years of expertise in industrial-grade drone core accessories R&D and manufacturing. Specializing in digital FPV transmission, flight controllers & ESCs, and gimbal pods. Serving 500+ global partners with customized drone accessory solutions. National High-Tech Enterprise certified, quality guaranteed.',
+  'home.brandSummary': 'CANI Technology\'s core products cover three major series: digital video transmission systems, flight controller & ESC systems, and gimbal pods. These meet multi-scenario demands including industrial inspection, security monitoring, and FPV racing. As a professional drone core accessories manufacturer, we empower global partners with technology innovation, providing one-stop OEM/ODM customization services to deliver stable, efficient, and reliable drone accessory solutions.',
+
+  // Products Page SEO
+  'products.seo.overview': 'CANI Technology Product Center brings together a full range of industrial-grade drone core accessories, covering digital FPV transmission systems, flight controller & ESC systems, and gimbal pods — three core categories with 200+ product models. Compatible with multi-rotor, fixed-wing and other drone types, serving power inspection, firefighting, FPV racing, surveying and more. All products undergo strict quality testing with a 99.8% factory pass rate, supporting OEM/ODM customization.',
+  'products.seo.cat.vtx': 'HD Digital FPV Transmission Series — Using Rogers 4350B RF material for low loss and high stability. Latency ≤30ms, transmission range up to 50km. Compatible with industrial inspection, FPV racing and more.',
+  'products.seo.cat.fcesc': 'Professional FC/ESC Series — High-precision control, fast response, compatible with all industrial drones. Supports autonomous route planning with customizable parameters for stable flight.',
+  'products.seo.cat.gimbal': 'Stabilized Gimbal Pod Series — Anti-shake design for clear, stable footage. HD shooting compatible, IP67 waterproof/dustproof for complex outdoor environments. Widely used in security and inspection scenarios.',
+
+  // VTX FAQ
+  'vtx.faq.title': 'Frequently Asked Questions',
+  'vtx.faq.q1': 'Does this product support customization?',
+  'vtx.faq.a1': 'Yes, we support OEM/ODM customization. Transmission range, power, appearance and other parameters can be adjusted per customer requirements. Customization cycle: 15-30 days.',
+  'vtx.faq.q2': 'How is the signal anti-interference capability?',
+  'vtx.faq.a2': 'Advanced anti-interference algorithms combined with Rogers 4350B low-loss material effectively resist complex outdoor signal interference, ensuring stable transmission.',
+  'vtx.faq.q3': 'What is the warranty period?',
+  'vtx.faq.a3': '1-year warranty. Free repair or replacement for non-human damage within the warranty period.',
+  'vtx.techDetail': 'This VTX/VRX system features industrial-grade core parameters: full-band 4.9-7.2GHz transmission, 0.1-1W adjustable output power, 1080P/720P resolution switching, operating temperature -20°C to 60°C. The 2mm aluminum alloy heat dissipation shell improves cooling efficiency by 40%, ensuring 8 hours of continuous operation without overheating.',
+  'vtx.techDetail.title': 'Technical Parameters',
+  'vtx.caseStudy.title': 'Application Case Study',
+  'vtx.caseStudy.content': 'A provincial power company used this FPV transmission system to inspect 5,000km of transmission lines. At 200m altitude, the system delivered clear 1080P HD footage with latency below 30ms, enabling real-time inspection of line details. This improved inspection efficiency by 300% while eliminating high-altitude manual inspection safety risks.',
+
+  // FC/ESC SEO Content
+  'fcesc.seo.intro': 'CANI Technology professional FC/ESC system serves as the "core brain" and "power hub" of industrial drones. It provides high-precision control and stable power output solutions for multi-rotor and fixed-wing UAVs. Advanced control algorithms with premium components deliver high precision and fast response, adaptable to power inspection, firefighting, surveying and other industrial scenarios.',
+  'fcesc.seo.intro.title': 'Product Overview',
+  'fcesc.techDetail.title': 'Technical Details',
+  'fcesc.techDetail': 'This FC/ESC system uses imported STM32 main controller chips for fast computation, achieving precise attitude control and route planning with ±0.1° accuracy and ≤10ms response time. The ESC features efficient heat dissipation, 20A-60A adjustable current, and over-current, over-voltage, and over-temperature protection for enhanced longevity and safety.',
+  'fcesc.caseStudy.title': 'Application Case Study',
+  'fcesc.caseStudy': 'A drone manufacturer adopted our FC/ESC system for industrial inspection drone production. Testing showed autonomous route planning, fixed-point hovering, and auto-return functions. Flight stability improved by 60% with failure rate reduced to below 0.5%, significantly boosting product competitiveness and leading to a long-term strategic partnership.',
+
+  // Gimbal SEO Content
+  'gimbal.seo.intro.title': 'Product Overview',
+  'gimbal.seo.intro': 'CANI Technology drone gimbal pods focus on industrial-grade HD anti-shake solutions. Triple-axis stabilization technology effectively counteracts airflow turbulence and fuselage vibration during flight, ensuring clear and stable footage. Compatible with HD cameras supporting 1080P shooting, IP67 waterproof/dustproof rated for complex outdoor environments.',
+  'gimbal.techDetail.title': 'Technical Details',
+  'gimbal.techDetail': 'This gimbal pod features a triple-axis mechanical stabilization structure with ±0.01° precision, 360° panoramic shooting, adjustable pitch (-90° to +30°). High-strength aluminum alloy construction is lightweight yet durable, with waterproof, dustproof, and impact-resistant capabilities for extreme outdoor conditions. Multiple HD camera interfaces available with remote parameter control.',
+  'gimbal.faq.title': 'Frequently Asked Questions',
+  'gimbal.faq.q1': 'Which camera models does this gimbal support?',
+  'gimbal.faq.a1': 'Compatible with mainstream HD cameras. Custom interfaces available to accommodate different pixel counts and sizes.',
+  'gimbal.faq.q2': 'Can IP67-rated gimbal be used in rain?',
+  'gimbal.faq.a2': 'IP67 rating withstands brief rain and dust exposure, suitable for light rain outdoor operations. Additional protection recommended in heavy rain.',
+  'gimbal.faq.q3': 'Does it support remote control?',
+  'gimbal.faq.a3': 'Yes, remote control of gimbal pitch, rotation, and shooting parameters is supported, compatible with UAV remote control systems.',
+
+  // Power Inspection FAQ & Details
+  'powerInspection.solution.title': 'Complete Accessory Solution',
+  'powerInspection.solution.content': 'We provide a complete set of drone accessory solutions for power inspection, including HD digital FPV transmission, stabilized gimbal pods, and FC/ESC systems. The HD transmission delivers real-time 1080P footage with <30ms latency; the gimbal maintains stable footage despite airflow turbulence; the FC/ESC ensures stable flight with autonomous route planning.',
+  'powerInspection.caseDetail': 'A provincial power company deployed our power inspection drone accessory solution to inspect 5,000km of transmission lines province-wide. Inspection efficiency improved by 300% — work previously requiring 10 people for one month now takes just 2 people in 10 days. Accuracy also improved, detecting line damage, foreign objects, and insulator defects in time, saving over 2 million RMB annually in maintenance costs.',
+  'powerInspection.caseDetail.title': 'Customer Case Study',
+  'powerInspection.faq.title': 'Frequently Asked Questions',
+  'powerInspection.faq.q1': 'Which drone models does this solution support?',
+  'powerInspection.faq.a1': 'Compatible with multi-rotor, fixed-wing, and other industrial drone types. Accessories can be adapted to customers\' existing drones.',
+  'powerInspection.faq.q2': 'What training is provided?',
+  'powerInspection.faq.a2': 'Free operation training is provided to ensure inspection personnel can quickly master the equipment, with long-term technical support.',
+  'powerInspection.faq.q3': 'What are the costs?',
+  'powerInspection.faq.a3': 'Compared to manual inspection, this solution saves 80% of labor costs while reducing safety risks. Highly cost-effective for long-term use.',
+
+  // About Page - Team Members & Certifications
+  'about.coreTeam.title': 'Core Team',
+  'about.team.rd.name': 'Mr. Zhang',
+  'about.team.rd.role': 'R&D Director',
+  'about.team.rd.desc': '15 years of drone industry R&D experience, participated in multiple national-level UAV projects, leading CANI Technology\'s core technology development.',
+  'about.team.prod.name': 'Mr. Li',
+  'about.team.prod.role': 'Production Director',
+  'about.team.prod.desc': '12 years of manufacturing production management experience, responsible for workshop management and quality control.',
+  'about.team.market.name': 'Mr. Wang',
+  'about.team.market.role': 'Marketing Director',
+  'about.team.market.desc': '10 years of drone industry market experience, responsible for global market expansion and customer service, establishing a comprehensive global sales network.',
+  'about.certifications.title': 'Qualifications & Honors',
+  'about.cert.hightech': 'National High-Tech Enterprise Certification',
+  'about.cert.patents': '20+ drone accessory technology patents',
+  'about.cert.iso': 'ISO 9001 Quality Management Certification',
+  'about.cert.member': 'UAV Industry Association Member',
+
+  // Contact Page - Service & FAQ
+  'contact.service.title': 'Comprehensive Service Support',
+  'contact.service.tech.title': 'Technical Support',
+  'contact.service.tech.desc': '24/7 technical support hotline, 2-hour response time, solutions within 48 hours. Remote and on-site technical support available.',
+  'contact.service.warranty.title': 'After-Sales Warranty',
+  'contact.service.warranty.desc': '1-year warranty with free repair or replacement for quality issues. Post-warranty repairs available at component cost only.',
+  'contact.service.custom.title': 'Customization Service',
+  'contact.service.custom.desc': 'OEM/ODM customization for appearance, functionality, and parameters. 15-30 day cycle with sample confirmation service.',
+  'contact.afterSales.title': 'After-Sales Process',
+  'contact.afterSales.step1': 'Customer reports issue via hotline, email, or online support',
+  'contact.afterSales.step2': 'Technical staff responds within 2 hours with remote diagnosis',
+  'contact.afterSales.step3': 'Solution or repair arranged within 48 hours',
+  'contact.afterSales.step4': 'Quality re-inspection after repair to ensure resolution',
+  'contact.faq.title': 'Frequently Asked Questions',
+  'contact.faq.q1': 'How are products shipped?',
+  'contact.faq.a1': 'Domestic: SF Express, ZTO Express. International: DHL, FedEx. Typical delivery: 3-7 business days.',
+  'contact.faq.q2': 'Are samples available for testing?',
+  'contact.faq.a2': 'Yes, sample purchases are supported. Customers can verify product performance before bulk ordering to reduce procurement risk.',
+  'contact.faq.q3': 'What is the lead time for custom products?',
+  'contact.faq.a3': 'Standard customization: 15-30 days, depending on complexity. Rush orders can be negotiated.',
+
 };
