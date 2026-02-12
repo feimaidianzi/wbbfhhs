@@ -119,6 +119,15 @@ const LogisticsApp = () => {
       ctaTitle={t('logisticsApp.cta.title')}
       ctaDescription={t('logisticsApp.cta.description')}
       ctaProductLink="/products/logistics"
+      relatedProducts={[
+        { label: 'WL-10', path: '/products/logistics/wl-10' },
+        { label: 'WL-20', path: '/products/logistics/wl-20' },
+        { label: 'WL-30', path: '/products/logistics/wl-30' },
+      ]}
+      relatedApplications={[
+        { label: t('app.power'), path: '/applications/power-inspection' },
+        { label: t('app.environment'), path: '/applications/environment' },
+      ]}
     />
   );
 };

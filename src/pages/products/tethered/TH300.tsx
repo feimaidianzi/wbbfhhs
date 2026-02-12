@@ -68,6 +68,15 @@ const TH300 = () => {
       applications={applications}
       ctaTitle={t('tethered.ctaTitle').replace('{{model}}', 'TH-300')}
       ctaDescription={t('tethered.ctaDescription')}
+      relatedProducts={[
+        { label: 'TH-200', path: '/products/tethered/th-200' },
+        { label: t('accessory.digitalFpv'), path: '/products/accessories/digital-fpv' },
+        { label: t('accessory.gimbal'), path: '/products/accessories/gimbal' },
+      ]}
+      relatedApplications={[
+        { label: t('app.tethered'), path: '/applications/tethered' },
+        { label: t('app.power'), path: '/applications/power-inspection' },
+      ]}
     />
   );
 };

@@ -735,4 +735,8 @@ export const enTranslations: Record<string, string> = {
   // Project Cooperation SEO Intro
   'cooperation.seo.intro': 'CANI Technology conducts drone project cooperation and industrial drone accessories supply nationwide. Our main products include digital FPV transmission, flight controllers & ESCs, and gimbal pods, all ISO 9001 certified with stable and reliable performance. We partner with enterprises and research institutions in power, firefighting, surveying and other industries for joint R&D, accessories supply, and project collaboration.',
   'cooperation.seo.cta': 'Submit Cooperation Request',
+
+  // Related internal links
+  'product.relatedProducts': 'Related Accessories',
+  'product.relatedApplications': 'Related Applications',
 };

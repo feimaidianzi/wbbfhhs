@@ -102,6 +102,15 @@ const FirefightingApp = () => {
         title: t('firefighting.caseStudy.title'),
         content: t('firefighting.caseStudy.content'),
       }}
+      relatedProducts={[
+        { label: t('accessory.digitalFpv'), path: '/products/accessories/digital-fpv' },
+        { label: t('accessory.gimbal'), path: '/products/accessories/gimbal' },
+        { label: 'TH-300', path: '/products/tethered/th-300' },
+      ]}
+      relatedApplications={[
+        { label: t('app.power'), path: '/applications/power-inspection' },
+        { label: t('app.tethered'), path: '/applications/tethered' },
+      ]}
     />
   );
 };

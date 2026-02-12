@@ -5732,6 +5732,11 @@ export const zhTranslations: Record<string, string> = {
   'cooperation.seo.intro': '长凌科技面向全国开展无人机项目合作与工业无人机配件供应业务，主营数字图传、飞控电调、云台吊舱等核心配件，产品通过ISO 9001质量认证，性能稳定可靠。我们可与电力、消防、测绘等行业企业、科研机构开展多元化合作（联合研发、配件供应、项目共建等），依托自身研发与生产实力，为合作伙伴提供高品质的产品与全方位的技术支持，实现互利共赢。',
   'cooperation.seo.cta': '提交合作需求',
 
+
+  // Related internal links
+  'product.relatedProducts': '相关配件推荐',
+  'product.relatedApplications': '相关行业应用',
+
 };
 
 export default zhTranslations;

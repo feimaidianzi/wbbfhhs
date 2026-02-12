@@ -23,6 +23,12 @@ interface Feature {
   description: string;
 }
 
+interface RelatedLink {
+  label: string;
+  path: string;
+  description?: string;
+}
+
 interface ProductDetailTemplateProps {
   // SEO
   seoTitle: string;
@@ -59,6 +65,10 @@ interface ProductDetailTemplateProps {
   productSku?: string;
   productCategory?: string;
   productPrice?: number;
+
+  // Related products/applications for internal linking
+  relatedProducts?: RelatedLink[];
+  relatedApplications?: RelatedLink[];
 }
 
 const ProductDetailTemplate = ({
@@ -82,6 +92,8 @@ const ProductDetailTemplate = ({
   productSku,
   productCategory,
   productPrice,
+  relatedProducts,
+  relatedApplications,
 }: ProductDetailTemplateProps) => {
   const { language, baseLang, t } = useLanguage();
   const location = useLocation();
@@ -330,6 +342,48 @@ const ProductDetailTemplate = ({
             </div>
           </div>
         </section>
+
+        {/* Related Products & Applications Internal Links */}
+        {(relatedProducts?.length || relatedApplications?.length) && (
+          <section className="py-16 bg-muted/50">
+            <div className="container-custom">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
+                {relatedProducts && relatedProducts.length > 0 && (
+                  <div>
+                    <h3 className="text-xl font-bold text-foreground mb-6">{t('product.relatedProducts')}</h3>
+                    <div className="space-y-3">
+                      {relatedProducts.map((item, idx) => (
+                        <LangLink key={idx} to={item.path} className="flex items-center gap-3 p-4 bg-card rounded-xl border border-border/30 hover:border-accent/30 transition-all group">
+                          <ArrowRight className="w-4 h-4 text-accent shrink-0 group-hover:translate-x-1 transition-transform" />
+                          <div>
+                            <span className="font-medium text-foreground group-hover:text-accent transition-colors">{item.label}</span>
+                            {item.description && <p className="text-xs text-muted-foreground mt-1">{item.description}</p>}
+                          </div>
+                        </LangLink>
+                      ))}
+                    </div>
+                  </div>
+                )}
+                {relatedApplications && relatedApplications.length > 0 && (
+                  <div>
+                    <h3 className="text-xl font-bold text-foreground mb-6">{t('product.relatedApplications')}</h3>
+                    <div className="space-y-3">
+                      {relatedApplications.map((item, idx) => (
+                        <LangLink key={idx} to={item.path} className="flex items-center gap-3 p-4 bg-card rounded-xl border border-border/30 hover:border-accent/30 transition-all group">
+                          <ArrowRight className="w-4 h-4 text-accent shrink-0 group-hover:translate-x-1 transition-transform" />
+                          <div>
+                            <span className="font-medium text-foreground group-hover:text-accent transition-colors">{item.label}</span>
+                            {item.description && <p className="text-xs text-muted-foreground mt-1">{item.description}</p>}
+                          </div>
+                        </LangLink>
+                      ))}
+                    </div>
+                  </div>
+                )}
+              </div>
+            </div>
+          </section>
+        )}
 
         {/* CTA Section */}
         <section className="py-20 bg-primary text-primary-foreground">
