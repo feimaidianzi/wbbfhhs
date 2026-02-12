@@ -686,7 +686,7 @@ const SEOManagement = () => {
           <CardContent className="space-y-3 text-sm text-gray-600">
             <div className="flex gap-3">
               <Badge variant="outline" className="h-6 w-6 rounded-full flex items-center justify-center flex-shrink-0">1</Badge>
-              <p><strong>DNS配置</strong>：为每种语言添加子域名记录（en.cani.com, ja.cani.com 等）</p>
+              <p><strong>DNS配置</strong>：为每种语言添加子域名记录（en.caniuav.com, ja.caniuav.com 等）</p>
             </div>
             <div className="flex gap-3">
               <Badge variant="outline" className="h-6 w-6 rounded-full flex items-center justify-center flex-shrink-0">2</Badge>
