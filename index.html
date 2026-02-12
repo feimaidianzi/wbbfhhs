@@ -26,10 +26,6 @@
     <meta name="twitter:description" content="长凌科技专注无人机图传、飞控、云台等核心配件研发，提供工业无人机配件OEM/ODM定制服务。" />
     <meta name="twitter:image" content="https://www.caniuav.com/logo.png" />
 
-    <!-- Favicon -->
-    <link rel="icon" type="image/png" href="/favicon.png" />
-    <link rel="apple-touch-icon" href="/favicon.png" />
-
     <!-- Hreflang tags for multi-language SEO -->
     <link rel="alternate" hreflang="zh-CN" href="https://www.caniuav.com" />
     <link rel="alternate" hreflang="en" href="https://www.caniuav.com/en" />
@@ -46,6 +42,95 @@
     <link rel="alternate" hreflang="ar" href="https://www.caniuav.com/ar" />
     <link rel="alternate" hreflang="tr" href="https://www.caniuav.com/tr" />
     <link rel="alternate" hreflang="x-default" href="https://www.caniuav.com/en" />
+
+    <!-- Instant SEO tag updater: runs synchronously before React, updates meta tags based on URL path -->
+    <script>
+    (function(){
+      var B='https://www.caniuav.com',p=location.pathname,L=['zh-CN','en','ja','ko','vi','th','ms','id','fr','de','es','ru','ar','tr'];
+      var langs=['en','ja','ko','vi','th','ms','id','fr','de','es','ru','ar','tr'];
+      var lang='zh',pagePath=p;
+      for(var i=0;i<langs.length;i++){if(p==='/'+langs[i]||p.indexOf('/'+langs[i]+'/')===0){lang=langs[i];pagePath=p.substring(langs[i].length+1)||'/';break;}}
+      var isEn=lang!=='zh';
+      // Page SEO database: [title, description, keywords]
+      var pages={
+        '/':[
+          isEn?'CANI Technology - Professional Drone Accessories Manufacturer':'长凌科技 - 专业无人机核心配件制造商 | CANI',
+          isEn?'CANI Technology specializes in drone digital FPV, flight controllers, gimbals and other core accessories R&D, providing industrial drone accessories OEM/ODM services.':'长凌科技专注无人机图传、飞控、云台等核心配件研发，提供工业无人机配件OEM/ODM定制服务，覆盖电力巡检、消防应急等多行业解决方案。',
+          isEn?'drone accessories,digital FPV,flight controller,gimbal,ELRS,industrial drone,OEM':'无人机配件,数字图传,无人机飞控,云台吊舱,ELRS遥控,工业无人机配件,长凌科技,CANI'
+        ],
+        '/products':[
+          isEn?'Products - CANI Technology':'产品中心 | CANI 长凌科技',
+          isEn?'CANI Technology product center, offering industrial drones, automatic airports, tethered drones, logistics drones, drone accessories and full-range products.':'长凌科技产品中心，提供工业无人机、自动机场、系留无人机、物流无人机、无人机配件等全系列产品。',
+          isEn?'industrial drone,automatic airport,tethered drone,logistics drone,drone accessories':'工业无人机,自动机场,系留无人机,物流无人机,无人机配件'
+        ],
+        '/applications':[
+          isEn?'Industry Applications - CANI Technology':'行业应用 | CANI 长凌科技',
+          isEn?'CANI Technology drone industry application solutions, covering power inspection, logistics, firefighting, environmental monitoring and more.':'长凌科技无人机行业应用解决方案，覆盖电力巡检、物流配送、消防应急、环境监测等多领域。',
+          isEn?'drone applications,power inspection,logistics drone,firefighting,environmental monitoring':'无人机行业应用,电力巡检,物流无人机,消防应急,环境监测'
+        ],
+        '/about':[
+          isEn?'About Us - CANI Technology':'关于我们 | CANI 长凌科技',
+          isEn?'CANI Technology Co., Ltd., a high-tech enterprise specializing in industrial drone R&D, manufacturing and sales.':'长凌科技有限公司，专注工业无人机研发、制造与销售的高新技术企业。',
+          isEn?'CANI Technology,about us,drone company,industrial drone':'长凌科技,关于我们,无人机公司,工业无人机企业'
+        ],
+        '/contact':[
+          isEn?'Contact Us - CANI Technology':'联系我们 | CANI 长凌科技',
+          isEn?'Contact CANI Technology for professional drone solution consultation.':'联系长凌科技，获取专业无人机解决方案咨询服务。',
+          isEn?'contact CANI,drone consultation,drone custom service':'联系长凌,无人机咨询,无人机定制服务'
+        ],
+        '/news':[
+          isEn?'News - CANI Technology':'新闻资讯 | CANI 长凌科技',
+          isEn?'Latest news and industry insights from CANI Technology.':'长凌科技最新新闻动态与行业资讯。',
+          isEn?'CANI news,drone industry news,UAV technology':'长凌新闻,无人机行业资讯,无人机技术动态'
+        ],
+        '/fpv':[
+          isEn?'FPV Systems - CANI Technology':'FPV图传系统 | CANI 长凌科技',
+          isEn?'Professional digital FPV video transmission systems for drones.':'专业无人机数字图传系统，支持高清远距离传输。',
+          isEn?'FPV,digital video transmission,drone FPV,long range FPV':'FPV,数字图传,无人机图传,远距离图传'
+        ],
+        '/software':[
+          isEn?'Software Solutions - CANI Technology':'软件系统 | CANI 长凌科技',
+          isEn?'CANI Technology drone software solutions including ground station and management systems.':'长凌科技无人机软件解决方案，包括地面站与管理系统。',
+          isEn?'drone software,ground station,drone management':'无人机软件,地面站,无人机管理系统'
+        ]
+      };
+      // Match page
+      var seo=pages[pagePath];
+      if(!seo){for(var k in pages){if(pagePath.indexOf(k)===0&&k!=='/'){seo=pages[k];break;}}}
+      if(!seo)seo=pages['/'];
+      // Update tags
+      var siteName=isEn?'CANI Technology':'CANI 长凌科技';
+      var fullTitle=seo[0]+(seo[0].indexOf(siteName)<0?' | '+siteName:'');
+      document.title=fullTitle;
+      var fullUrl=B+(lang==='zh'?pagePath:'/'+lang+pagePath);
+      // Helper to set meta content
+      function setM(sel,val){var e=document.querySelector(sel);if(e)e.setAttribute('content',val);}
+      setM('meta[name="description"]',seo[1]);
+      setM('meta[name="keywords"]',seo[2]);
+      setM('meta[name="author"]',isEn?'CANI Technology Co., Ltd.':'长凌科技有限公司');
+      // Canonical
+      var can=document.querySelector('link[rel="canonical"]');if(can)can.href=fullUrl;
+      // OG
+      setM('meta[property="og:title"]',fullTitle);
+      setM('meta[property="og:description"]',seo[1]);
+      setM('meta[property="og:url"]',fullUrl);
+      setM('meta[property="og:locale"]',isEn?'en_US':'zh_CN');
+      setM('meta[property="og:site_name"]',siteName);
+      // Twitter
+      setM('meta[name="twitter:title"]',fullTitle);
+      setM('meta[name="twitter:description"]',seo[1]);
+      // HTML lang
+      document.documentElement.lang=lang==='zh'?'zh-CN':lang;
+      // Hreflang - update to point to current page path
+      var hreflangs=document.querySelectorAll('link[hreflang]');
+      for(var j=0;j<hreflangs.length;j++){
+        var hl=hreflangs[j].getAttribute('hreflang');
+        if(hl==='x-default'){hreflangs[j].href=B+'/en'+pagePath;}
+        else if(hl==='zh-CN'){hreflangs[j].href=B+pagePath;}
+        else{hreflangs[j].href=B+'/'+hl+pagePath;}
+      }
+    })();
+    </script>
 
     <!-- JSON-LD Organization structured data (static fallback for non-JS crawlers) -->
     <script type="application/ld+json">
