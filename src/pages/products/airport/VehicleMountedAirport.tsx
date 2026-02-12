@@ -6,6 +6,8 @@ import { ArrowRight, CheckCircle, Phone, Mail, Car, Zap, Clock, Shield, Wifi, Se
 import { LangLink as Link } from "@/components/LangLink";
 import { BackButton } from "@/components/BackButton";
 import { useLanguage } from "@/contexts/LanguageContext";
+import { MultiLanguageSEO } from "@/components/MultiLanguageSEO";
+import { PageStructuredData } from "@/components/PageStructuredData";
 
 const VehicleMountedAirport = () => {
   const { t } = useLanguage();
@@ -41,6 +43,8 @@ const VehicleMountedAirport = () => {
 
   return (
     <div className="min-h-screen">
+      <MultiLanguageSEO title={t('airport.vehicle.name')} description={t('airport.vehicle.hero.desc')} keywords="vehicle mounted drone airport,车载无人机机场,移动式无人机起降平台" path="/products/airport/vehicle-mounted" />
+      <PageStructuredData data={{ type: 'Product', name: t('airport.vehicle.name'), description: t('airport.vehicle.hero.desc'), category: 'Vehicle Mounted Drone Airport', sku: 'VMA-01' }} />
       <Header />
       <main className="pt-16 md:pt-20">
         {/* Breadcrumb */}

@@ -105,6 +105,23 @@ const News = () => {
     return key ? getCategoryLabel(key) : dbCategory;
   };
 
+  const newsCollectionData = {
+    '@context': 'https://schema.org',
+    '@type': 'CollectionPage',
+    name: t('news.page.title'),
+    description: t('news.page.metaDesc'),
+    url: 'https://www.caniuav.com/news',
+    mainEntity: {
+      '@type': 'ItemList',
+      numberOfItems: articles.length,
+      itemListElement: articles.slice(0, 10).map((a, i) => ({
+        '@type': 'ListItem',
+        position: i + 1,
+        item: { '@type': 'Article', headline: baseLang === 'en' && a.title_en ? a.title_en : a.title, description: baseLang === 'en' && a.summary_en ? a.summary_en : a.summary, datePublished: a.published_at || a.created_at, image: a.cover_image },
+      })),
+    },
+  };
+
   return (
     <div className="min-h-screen">
       <MultiLanguageSEO
@@ -112,6 +129,7 @@ const News = () => {
         description={t('news.page.metaDesc')}
         keywords={t('news.page.metaKeywords')}
         path="/news"
+        structuredData={newsCollectionData}
       />
       <Header />
       <main className="pt-16 md:pt-20">

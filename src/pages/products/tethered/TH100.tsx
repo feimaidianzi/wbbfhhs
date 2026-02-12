@@ -5,6 +5,7 @@ import { BackButton } from "@/components/BackButton";
 import { LayoutGrid, Droplets, Settings, Cpu, Zap, Truck, Monitor } from "lucide-react";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { MultiLanguageSEO } from "@/components/MultiLanguageSEO";
+import { PageStructuredData } from "@/components/PageStructuredData";
 import th100Hero from "@/assets/products/th-100-hero.png";
 import th100GroundUnit from "@/assets/products/th-100-ground-unit.png";
 import th100CleaningModes from "@/assets/products/th-100-cleaning-modes.png";
@@ -104,6 +105,7 @@ const TH100 = () => {
         keywords={t('th100.seo.keywords')} 
         path="/products/tethered/th-100"
       />
+      <PageStructuredData data={{ type: 'Product', name: 'TH-100', description: t('th100.seo.description'), category: 'Tethered Cleaning Drone', sku: 'TH-100' }} />
       <Header />
 
       {/* Hero Section */}

@@ -87,6 +87,23 @@ const Applications = () => {
     },
   };
 
+  const collectionData = {
+    '@context': 'https://schema.org',
+    '@type': 'CollectionPage',
+    name: t('applications.seo.title'),
+    description: t('applications.seo.description'),
+    url: 'https://www.caniuav.com/applications',
+    mainEntity: {
+      '@type': 'ItemList',
+      numberOfItems: applications.length,
+      itemListElement: applications.map((app, i) => ({
+        '@type': 'ListItem',
+        position: i + 1,
+        item: { '@type': 'Service', name: app.name, description: app.description, url: `https://www.caniuav.com${app.href}` },
+      })),
+    },
+  };
+
   return (
     <div className="min-h-screen bg-background">
       <MultiLanguageSEO
@@ -94,6 +111,7 @@ const Applications = () => {
         description={t('applications.seo.description')}
         keywords={t('applications.seo.keywords')}
         path="/applications"
+        structuredData={collectionData}
       />
       <Header />
 

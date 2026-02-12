@@ -6,6 +6,8 @@ import { ArrowRight, CheckCircle, Phone, Mail, Zap, Cloud, Wifi, Settings, Shiel
 import { LangLink as Link } from "@/components/LangLink";
 import { BackButton } from "@/components/BackButton";
 import { useLanguage } from "@/contexts/LanguageContext";
+import { MultiLanguageSEO } from "@/components/MultiLanguageSEO";
+import { PageStructuredData } from "@/components/PageStructuredData";
 
 const UHS400P = () => {
   const { t } = useLanguage();
@@ -42,6 +44,8 @@ const UHS400P = () => {
 
   return (
     <div className="min-h-screen">
+      <MultiLanguageSEO title={t('airport.uhs400p.name')} description={t('airport.uhs400p.hero.desc')} keywords="UHS-400P,drone airport,无人机机场,小型无人机停机坪" path="/products/airport/uhs-400p" />
+      <PageStructuredData data={{ type: 'Product', name: 'UHS-400P', description: t('airport.uhs400p.hero.desc'), category: 'Drone Airport System', sku: 'UHS-400P' }} />
       <Header />
       <main className="pt-16 md:pt-20">
         {/* Breadcrumb */}
