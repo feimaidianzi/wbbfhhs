@@ -410,7 +410,8 @@ const Contact = () => {
         {/* Service Support */}
         <section className="py-16 bg-secondary">
           <div className="container-custom">
-            <h2 className="text-2xl md:text-3xl font-bold text-center mb-12">{t('contact.service.title')}</h2>
+            <h2 className="text-2xl md:text-3xl font-bold text-center mb-4">{t('contact.service.title')}</h2>
+            <p className="text-center text-muted-foreground mb-12 max-w-2xl mx-auto">{t('contact.service.intro')}</p>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
               {[
                 { titleKey: 'contact.service.tech.title', descKey: 'contact.service.tech.desc', icon: Headphones },
