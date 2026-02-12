@@ -254,7 +254,7 @@ async function sendEmailNotification(
   errorMessage: string | null
 ) {
   const RESEND_API_KEY = Deno.env.get('RESEND_API_KEY');
-  const ADMIN_EMAIL = Deno.env.get('ADMIN_EMAIL') || 'admin@cani.com';
+  const ADMIN_EMAIL = Deno.env.get('ADMIN_EMAIL') || 'admin@caniuav.com';
   
   if (!RESEND_API_KEY) {
     console.log('RESEND_API_KEY not configured, skipping email notification');
