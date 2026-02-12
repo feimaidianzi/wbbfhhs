@@ -1,7 +1,7 @@
 import { LanguageCode, SUPPORTED_LANGUAGES, getLanguageByCode } from '@/i18n/languages';
 
 // Base domain configuration
-export const BASE_DOMAIN = 'cani.com';
+export const BASE_DOMAIN = 'caniuav.com';
 
 // Get language path prefix (empty for Chinese default)
 export const getLangPrefix = (lang: LanguageCode): string => {
