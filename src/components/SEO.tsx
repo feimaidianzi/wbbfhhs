@@ -113,7 +113,7 @@ export const createBreadcrumbStructuredData = (
     '@type': 'ListItem',
     position: index + 1,
     name: item.name,
-    item: `https://www.cani.com${item.url}`,
+    item: `https://www.caniuav.com${item.url}`,
   })),
 });
 
