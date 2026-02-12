@@ -3,6 +3,7 @@ import { Footer } from "@/components/Footer";
 import { FloatingContact } from "@/components/FloatingContact";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Plane, Building, Truck, Camera, Globe, TrendingUp } from "lucide-react";
+import { LangLink as Link } from "@/components/LangLink";
 import { MultiLanguageSEO } from "@/components/MultiLanguageSEO";
 import { useLanguage } from "@/contexts/LanguageContext";
 
@@ -81,17 +82,28 @@ const LowAltitude = () => {
           </div>
         </section>
 
-        {/* Introduction */}
+        {/* SEO Introduction */}
         <section className="py-16 bg-background">
           <div className="container-custom">
             <div className="max-w-4xl mx-auto text-center">
               <h2 className="text-2xl md:text-3xl font-bold mb-6">{t('lowAltitude.intro.title')}</h2>
+              <p className="text-muted-foreground text-lg leading-relaxed mb-6">
+                {t('lowAltitude.seo.intro')}
+              </p>
               <p className="text-muted-foreground text-lg leading-relaxed mb-6">
                 {t('lowAltitude.intro.p1')}
               </p>
               <p className="text-muted-foreground text-lg leading-relaxed">
                 {t('lowAltitude.intro.p2')}
               </p>
+              <div className="mt-8">
+                <Link to="/products">
+                  <Button className="bg-accent hover:bg-accent/90 text-accent-foreground px-8 py-3">
+                    {t('lowAltitude.cta.products')}
+                    <ArrowRight className="w-4 h-4 ml-2" />
+                  </Button>
+                </Link>
+              </div>
             </div>
           </div>
         </section>

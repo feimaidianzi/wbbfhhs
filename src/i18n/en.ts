@@ -703,9 +703,36 @@ export const enTranslations: Record<string, string> = {
   'product.trust.iso': 'ISO 9001 Quality Certified',
   'product.trust.experience': '10+ Years R&D',
 
-  // Company Intro SEO Description
-  'companyIntro.seoDescription': 'CANI Technology is a professional drone core accessories manufacturer, specializing in the R&D, production and sales of digital FPV transmission, flight controllers & ESCs, and gimbal pods. We provide high-quality industrial drone OEM customization services, with products widely used in power inspection, firefighting, surveying and other industrial scenarios.',
+  // Company Intro SEO Description (with internal links)
+  'companyIntro.seoDesc.prefix': 'CANI Technology is a professional drone core accessories manufacturer, specializing in ',
+  'companyIntro.seoDesc.sep1': ', ',
+  'companyIntro.seoDesc.sep2': ', and ',
+  'companyIntro.seoDesc.suffix': '. We provide high-quality industrial drone OEM customization services, with products widely used in power inspection, firefighting, surveying and other industrial scenarios.',
+  'companyIntro.seoDescription': 'CANI Technology is a professional drone core accessories manufacturer, specializing in the R&D, production and sales of digital FPV transmission, flight controllers & ESCs, and gimbal pods.',
+
+  // Applications Section SEO (with internal links)
+  'applications.section.desc.prefix': 'CANI drone products are widely used in water conservancy, transportation, environmental protection, ',
+  'applications.section.keyword.power': 'Power Inspection',
+  'applications.section.desc.sep1': ', ',
+  'applications.section.keyword.fire': 'Firefighting',
+  'applications.section.desc.suffix': ', surveying and other industry fields',
 
   // Products Section SEO Subtitle
   'productsSection.seoSubtitle': 'Covering digital FPV transmission, flight controllers & ESCs, gimbal pods and other core drone accessories. Supporting industrial drone OEM customization for power inspection, firefighting, surveying and other industry needs.',
+
+  // Power Inspection Case Study
+  'powerInspection.caseStudy.title': 'Scenario Adaptation',
+  'powerInspection.caseStudy.content': 'The UAV power inspection solution described on this page is compatible with power line inspection scenarios across all voltage levels. Combined with our core power line inspection drone accessories (digital FPV transmission, gimbal pods), it meets inspection requirements across different regions and environments, enabling quick deployment and helping enterprises improve inspection efficiency and reduce operating costs.',
+
+  // Firefighting Case Study
+  'firefighting.caseStudy.title': 'Scenario Adaptation',
+  'firefighting.caseStudy.content': 'For fire emergency scenarios, CANI Technology offers a dedicated drone fire rescue solution, equipped with high-performance fire emergency drone FPV transmission systems and industrial drone firefighting accessories. It can quickly reach the fire scene, transmit real-time footage, and help rescue personnel assess the situation and formulate rescue strategies.',
+
+  // Low Altitude SEO Intro
+  'lowAltitude.seo.intro': 'CANI Technology is deeply engaged in the low-altitude economy sector, offering professional low-altitude drone solutions and customized low-altitude drone accessories. We focus on core scenarios such as low-altitude security, logistics, and surveying, leveraging our R&D capabilities to create drone accessories and integrated solutions optimized for the low-altitude economy.',
+  'lowAltitude.cta.products': 'Explore Products',
+
+  // Project Cooperation SEO Intro
+  'cooperation.seo.intro': 'CANI Technology conducts drone project cooperation and industrial drone accessories supply nationwide. Our main products include digital FPV transmission, flight controllers & ESCs, and gimbal pods, all ISO 9001 certified with stable and reliable performance. We partner with enterprises and research institutions in power, firefighting, surveying and other industries for joint R&D, accessories supply, and project collaboration.',
+  'cooperation.seo.cta': 'Submit Cooperation Request',
 };

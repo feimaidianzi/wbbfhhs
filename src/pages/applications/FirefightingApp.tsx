@@ -98,6 +98,10 @@ const FirefightingApp = () => {
       ctaTitle={t('firefighting.cta.title')}
       ctaDescription={t('firefighting.cta.description')}
       ctaProductLink="/products/multi-rotor"
+      caseStudy={{
+        title: t('firefighting.caseStudy.title'),
+        content: t('firefighting.caseStudy.content'),
+      }}
     />
   );
 };

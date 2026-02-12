@@ -77,7 +77,11 @@ export const ApplicationsSection = () => {
             {t('applications.section.title')}
           </h2>
           <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
-            {t('applications.section.desc')}
+            {t('applications.section.desc.prefix')}
+            <LangLink to="/applications/power-inspection" className="text-accent hover:underline">{t('applications.section.keyword.power')}</LangLink>
+            {t('applications.section.desc.sep1')}
+            <LangLink to="/applications/firefighting" className="text-accent hover:underline">{t('applications.section.keyword.fire')}</LangLink>
+            {t('applications.section.desc.suffix')}
           </p>
         </motion.div>
 
