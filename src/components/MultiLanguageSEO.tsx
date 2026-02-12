@@ -80,6 +80,8 @@ export const MultiLanguageSEO = ({
       <meta property="og:type" content={type} />
       <meta property="og:url" content={canonicalUrl} />
       <meta property="og:image" content={image.startsWith('http') ? image : `${canonicalUrl}${image}`} />
+      <meta property="og:image:width" content="1200" />
+      <meta property="og:image:height" content="630" />
       <meta property="og:site_name" content={siteName} />
       <meta property="og:locale" content={ogLocale} />
       {/* Alternate locales */}

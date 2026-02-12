@@ -86,15 +86,29 @@ const About = () => {
                 <p className="text-muted-foreground mb-4 leading-relaxed">
                   {t('about.profile.p2')}
                 </p>
-                <p className="text-muted-foreground leading-relaxed">
+                <p className="text-muted-foreground leading-relaxed mb-6">
                   {t('about.profile.p3')}
                 </p>
+                {/* E-E-A-T Trust Signals */}
+                <div className="flex flex-wrap gap-3">
+                  <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-primary/10 text-primary text-sm font-medium">
+                    <Award className="w-3.5 h-3.5" />
+                    {t('footer.qualification')}
+                  </span>
+                  <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-accent/10 text-accent text-sm font-medium">
+                    10+ {t('hero.stat.years')}
+                  </span>
+                  <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-muted text-muted-foreground text-sm font-medium">
+                    ISO 9001
+                  </span>
+                </div>
               </div>
               <div className="aspect-video rounded-xl overflow-hidden shadow-card">
                 <img
                   src="https://images.unsplash.com/photo-1560179707-f14e90ef3623?w=800&q=80"
                   alt={t('about.profile.title')}
                   className="w-full h-full object-cover"
+                  loading="lazy"
                 />
               </div>
             </div>

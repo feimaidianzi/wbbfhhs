@@ -17,6 +17,8 @@
     <meta property="og:title" content="长凌科技 - 专业无人机核心配件制造商 | CANI" />
     <meta property="og:description" content="长凌科技专注无人机图传、飞控、云台等核心配件研发，提供工业无人机配件OEM/ODM定制服务。" />
     <meta property="og:image" content="https://www.caniuav.com/logo.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
     <meta property="og:site_name" content="长凌科技 CANI" />
     <meta property="og:locale" content="zh_CN" />
 
@@ -202,12 +204,61 @@
           isEn?'Projects & Cooperation - CANI Technology':'项目合作 | CANI 长凌科技',
           isEn?'CANI Technology project cooperation including drone shows, flight services and training.':'长凌科技项目合作，包括无人机表演、飞行服务和培训。',
           isEn?'drone projects,drone show,flight service,drone training':'无人机项目,无人机表演,飞行服务,无人机培训'
+        ],
+        '/products/tethered/th-100':[
+          isEn?'TH-100 Tethered Drone - CANI Technology':'TH-100系留无人机 | CANI 长凌科技',
+          isEn?'TH-100 tethered drone system for continuous aerial operations with stable power supply.':'TH-100系留无人机系统，稳定供电，支持持续空中作业。',
+          isEn?'TH-100,tethered drone,aerial surveillance':'TH-100,系留无人机,空中监控'
+        ],
+        '/products/tethered/th-200':[
+          isEn?'TH-200 Tethered Drone - CANI Technology':'TH-200系留无人机 | CANI 长凌科技',
+          isEn?'TH-200 tethered drone with advanced lighting and payload capabilities.':'TH-200系留无人机，先进照明与载荷能力。',
+          isEn?'TH-200,tethered drone,emergency lighting':'TH-200,系留无人机,应急照明'
+        ],
+        '/products/tethered/th-300':[
+          isEn?'TH-300 Tethered Drone - CANI Technology':'TH-300系留无人机 | CANI 长凌科技',
+          isEn?'TH-300 heavy-duty tethered drone for firefighting and industrial applications.':'TH-300重型系留无人机，适用于消防和工业应用。',
+          isEn?'TH-300,tethered drone,firefighting drone':'TH-300,系留无人机,消防无人机'
+        ],
+        '/products/accessories/other':[
+          isEn?'Other Drone Accessories - CANI Technology':'其他无人机配件 | CANI 长凌科技',
+          isEn?'Additional drone accessories and components for various applications.':'更多无人机配件与组件，适用于各种应用场景。',
+          isEn?'drone accessories,drone parts,UAV components':'无人机配件,无人机零件,配件组件'
+        ],
+        '/applications/smart-city':[
+          isEn?'Smart City Solution - CANI Technology':'智慧城市解决方案 | CANI 长凌科技',
+          isEn?'Drone solutions for smart city management and urban planning.':'无人机智慧城市管理与城市规划解决方案。',
+          isEn?'smart city,urban drone,city management':'智慧城市,城市无人机,城市管理'
+        ],
+        '/applications/military':[
+          isEn?'Defense & Military Solution - CANI Technology':'国防军事解决方案 | CANI 长凌科技',
+          isEn?'Drone solutions for defense reconnaissance and military applications.':'无人机国防侦察与军事应用解决方案。',
+          isEn?'military drone,defense UAV,reconnaissance':'军用无人机,国防无人机,侦察无人机'
+        ],
+        '/applications/tethered':[
+          isEn?'Tethered Drone Applications - CANI Technology':'系留无人机应用 | CANI 长凌科技',
+          isEn?'Tethered drone application solutions for communications and surveillance.':'系留无人机通信与监控应用解决方案。',
+          isEn?'tethered drone applications,communications relay':'系留无人机应用,通信中继'
+        ],
+        '/applications/five-g':[
+          isEn?'5G + Drone Solution - CANI Technology':'5G+无人机解决方案 | CANI 长凌科技',
+          isEn?'5G integrated drone solutions for enhanced connectivity and operations.':'5G融合无人机解决方案，增强连接与运营能力。',
+          isEn?'5G drone,5G UAV,connected drone':'5G无人机,5G融合,智联无人机'
         ]
       };
-      // Match page
+      // Match page - exact match first, then prefix match, then smart fallback
       var seo=pages[pagePath];
       if(!seo){for(var k in pages){if(pagePath.indexOf(k)===0&&k!=='/'){seo=pages[k];break;}}}
-      if(!seo)seo=pages['/'];
+      if(!seo){
+        // Smart fallback: extract meaningful title from URL path
+        var parts=pagePath.split('/').filter(function(s){return s;});
+        if(parts.length>0){
+          var last=parts[parts.length-1].replace(/-/g,' ').replace(/\b\w/g,function(c){return c.toUpperCase();});
+          var fallbackTitle=isEn?last+' - CANI Technology':last+' | CANI 长凌科技';
+          var fallbackDesc=isEn?'CANI Technology - Professional drone accessories manufacturer. Learn more about '+last+'.':'长凌科技 - 专业无人机核心配件制造商。了解更多关于'+last+'的信息。';
+          seo=[fallbackTitle,fallbackDesc,pages['/'][2]];
+        }else{seo=pages['/'];}
+      }
       // Update tags
       var siteName=isEn?'CANI Technology':'CANI 长凌科技';
       var fullTitle=seo[0]+(seo[0].indexOf(siteName)<0?' | '+siteName:'');
