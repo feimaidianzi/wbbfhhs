@@ -132,33 +132,16 @@ const ProductPageTemplate = ({
       />
       <Header />
       
-      {/* SEO增强组件 */}
+      {/* SEO结构化数据 */}
       <ProductCollectionSEO
         category={heroTitle}
         categoryEn={heroTitle}
         categoryDescription={seoCategoryDescription || heroSubtitle}
         categoryDescriptionEn={seoCategoryDescription || heroSubtitle}
         products={products}
-        keywords={seoKeywords.length > 0 ? seoKeywords : (seoContent?.keywords || [])}
-        keywordsEn={seoKeywords.length > 0 ? seoKeywords : (seoContent?.keywordsEn || [])}
-        buyingGuide={seoContent ? {
-          title: seoContent.contentBlocks[0]?.title || '购买指南',
-          titleEn: seoContent.contentBlocks[0]?.titleEn || 'Buying Guide',
-          content: seoContent.contentBlocks[0]?.paragraphs || [],
-          contentEn: seoContent.contentBlocks[0]?.paragraphsEn || [],
-        } : undefined}
+        keywords={seoKeywords}
+        keywordsEn={seoKeywords}
       />
-
-      {/* 额外的富文本SEO内容 */}
-      {seoContent && (
-        <RichSEOContent
-          pageName={heroTitle}
-          pageNameEn={heroTitle}
-          contentBlocks={seoContent.contentBlocks}
-          additionalKeywords={seoContent.keywords}
-          additionalKeywordsEn={seoContent.keywordsEn}
-        />
-      )}
 
       <main>
         {/* Immersive Hero Section */}
