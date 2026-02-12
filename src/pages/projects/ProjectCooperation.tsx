@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { ArrowRight, CheckCircle, Handshake, Building, Users, FileText } from "lucide-react";
 import { LangLink as Link } from "@/components/LangLink";
 import { MultiLanguageSEO } from "@/components/MultiLanguageSEO";
+import { PageStructuredData } from "@/components/PageStructuredData";
 import { useLanguage } from "@/contexts/LanguageContext";
 
 const ProjectCooperation = () => {
@@ -34,6 +35,7 @@ const ProjectCooperation = () => {
         keywords={t('cooperation.seo.keywords')} 
         path="/projects/cooperation" 
       />
+      <PageStructuredData data={{ type: 'Service', name: t('cooperation.seo.title'), description: t('cooperation.seo.description'), serviceType: 'Project Cooperation' }} />
       <Header />
       <main className="pt-16 md:pt-20">
         <section className="relative h-[400px] overflow-hidden">

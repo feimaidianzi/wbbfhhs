@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { ArrowRight, Camera, Zap, Droplet, Map } from "lucide-react";
 import { LangLink as Link } from "@/components/LangLink";
 import { MultiLanguageSEO } from "@/components/MultiLanguageSEO";
+import { PageStructuredData } from "@/components/PageStructuredData";
 import { useLanguage } from "@/contexts/LanguageContext";
 
 const FlightService = () => {
@@ -25,6 +26,7 @@ const FlightService = () => {
         keywords={t('flightService.seo.keywords')} 
         path="/projects/flight-service" 
       />
+      <PageStructuredData data={{ type: 'Service', name: t('flightService.seo.title'), description: t('flightService.seo.description'), serviceType: 'Drone Flight Service' }} />
       <Header />
       <main className="pt-16 md:pt-20">
         <section className="relative h-[400px] overflow-hidden">

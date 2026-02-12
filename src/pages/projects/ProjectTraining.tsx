@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { ArrowRight, CheckCircle, Award, Users, Clock, BookOpen } from "lucide-react";
 import { LangLink as Link } from "@/components/LangLink";
 import { MultiLanguageSEO } from "@/components/MultiLanguageSEO";
+import { PageStructuredData } from "@/components/PageStructuredData";
 import { useLanguage } from "@/contexts/LanguageContext";
 
 const ProjectTraining = () => {
@@ -34,6 +35,7 @@ const ProjectTraining = () => {
         keywords={t('training.seo.keywords')} 
         path="/projects/training" 
       />
+      <PageStructuredData data={{ type: 'Service', name: t('training.seo.title'), description: t('training.seo.description'), serviceType: 'Drone Training' }} />
       <Header />
       <main className="pt-16 md:pt-20">
         <section className="relative h-[400px] overflow-hidden">

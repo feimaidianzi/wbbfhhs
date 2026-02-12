@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { ArrowRight, CheckCircle, Leaf, Wind, Droplet, BarChart } from "lucide-react";
 import { LangLink as Link } from "@/components/LangLink";
 import { MultiLanguageSEO } from "@/components/MultiLanguageSEO";
+import { PageStructuredData } from "@/components/PageStructuredData";
 import { useLanguage } from "@/contexts/LanguageContext";
 
 const EnvironmentSystem = () => {
@@ -34,6 +35,7 @@ const EnvironmentSystem = () => {
         keywords={t('softwarePage.envSystem.seo.keywords')}
         path="/software/environment-system"
       />
+      <PageStructuredData data={{ type: 'SoftwareApplication', name: t('softwarePage.envSystem.seo.title'), description: t('softwarePage.envSystem.seo.desc'), category: 'BusinessApplication' }} />
       <Header />
       <main className="pt-16 md:pt-20">
         <section className="relative h-[400px] md:h-[500px] overflow-hidden">

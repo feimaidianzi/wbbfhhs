@@ -7,6 +7,7 @@ import { LangLink as Link } from "@/components/LangLink";
 import { BackButton } from "@/components/BackButton";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { MultiLanguageSEO } from "@/components/MultiLanguageSEO";
+import { PageStructuredData } from "@/components/PageStructuredData";
 
 const AirportCustom = () => {
   const { t } = useLanguage();
@@ -45,6 +46,7 @@ const AirportCustom = () => {
         keywords={t('customAirport.seo.keywords')}
         path="/custom-research/airport"
       />
+      <PageStructuredData data={{ type: 'Service', name: t('customAirport.seo.title'), description: t('customAirport.seo.desc'), serviceType: 'Airport Custom R&D' }} />
       <Header />
       <main className="pt-16 md:pt-20">
         <div className="bg-secondary py-4">
