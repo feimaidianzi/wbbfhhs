@@ -24,8 +24,8 @@ const Index = () => {
     '@type': 'Organization',
     name: t('home.structured.name'),
     alternateName: 'CANI',
-    url: 'https://www.cani.com',
-    logo: 'https://www.cani.com/logo.png',
+    url: 'https://www.caniuav.com',
+    logo: 'https://www.caniuav.com/logo.png',
     description: t('home.structured.description'),
     address: {
       '@type': 'PostalAddress',

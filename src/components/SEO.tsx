@@ -141,7 +141,7 @@ export const createArticleStructuredData = (article: {
     name: '长凌科技有限公司',
     logo: {
       '@type': 'ImageObject',
-      url: 'https://www.cani.com/logo.png',
+      url: 'https://www.caniuav.com/logo.png',
     },
   },
 });
