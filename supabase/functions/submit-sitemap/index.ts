@@ -11,7 +11,7 @@ const SUPPORTED_LANGUAGES = [
   'fr', 'de', 'es', 'ru', 'ar', 'tr'
 ];
 
-const BASE_DOMAIN = 'cani.com';
+const BASE_DOMAIN = 'caniuav.com';
 
 // Static routes for sitemap
 const STATIC_ROUTES = [
@@ -254,7 +254,7 @@ async function sendEmailNotification(
   errorMessage: string | null
 ) {
   const RESEND_API_KEY = Deno.env.get('RESEND_API_KEY');
-  const ADMIN_EMAIL = Deno.env.get('ADMIN_EMAIL') || 'admin@cani.com';
+  const ADMIN_EMAIL = Deno.env.get('ADMIN_EMAIL') || 'admin@caniuav.com';
   
   if (!RESEND_API_KEY) {
     console.log('RESEND_API_KEY not configured, skipping email notification');
@@ -287,7 +287,7 @@ async function sendEmailNotification(
         'Authorization': `Bearer ${RESEND_API_KEY}`,
       },
       body: JSON.stringify({
-        from: 'CANI SEO <noreply@cani.com>',
+        from: 'CANI SEO <noreply@caniuav.com>',
         to: [ADMIN_EMAIL],
         subject: subject,
         html: html,

@@ -21,7 +21,7 @@ export const SEO = ({
 }: SEOProps) => {
   const siteName = 'CANI 长凌';
   const fullTitle = `${title} | ${siteName}`;
-  const baseUrl = 'https://www.cani.com';
+  const baseUrl = 'https://www.caniuav.com';
   const fullUrl = url ? `${baseUrl}${url}` : baseUrl;
 
   const defaultStructuredData = {
@@ -113,7 +113,7 @@ export const createBreadcrumbStructuredData = (
     '@type': 'ListItem',
     position: index + 1,
     name: item.name,
-    item: `https://www.cani.com${item.url}`,
+    item: `https://www.caniuav.com${item.url}`,
   })),
 });
 
@@ -141,7 +141,7 @@ export const createArticleStructuredData = (article: {
     name: '长凌科技有限公司',
     logo: {
       '@type': 'ImageObject',
-      url: 'https://www.cani.com/logo.png',
+      url: 'https://www.caniuav.com/logo.png',
     },
   },
 });

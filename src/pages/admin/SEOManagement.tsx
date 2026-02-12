@@ -482,7 +482,7 @@ const SEOManagement = () => {
               <Info className="h-5 w-5 text-blue-500 flex-shrink-0 mt-0.5" />
               <div className="text-sm text-blue-800">
                 <p className="font-medium mb-1">DNS配置说明：</p>
-                <p>为每个子域名（如 en.cani.com, ja.cani.com）添加 A 记录或 CNAME 记录，指向您的服务器IP。</p>
+                <p>为每个子域名（如 en.caniuav.com, ja.caniuav.com）添加 A 记录或 CNAME 记录，指向您的服务器IP。</p>
                 <p className="mt-1">服务器需配置虚拟主机或反向代理，根据子域名设置对应的语言环境变量。</p>
               </div>
             </div>
@@ -594,7 +594,7 @@ const SEOManagement = () => {
                       onClick={() => {
                         const tags = SUPPORTED_LANGUAGES.map(l => 
                           `<link rel="alternate" hreflang="${getHtmlLang(l.code)}" href="${getDomainForLanguage(l.code)}/" />`
-                        ).join('\n') + '\n<link rel="alternate" hreflang="x-default" href="https://en.cani.com/" />';
+                        ).join('\n') + '\n<link rel="alternate" hreflang="x-default" href="https://www.caniuav.com/en/" />';
                         copyToClipboard(tags, 'hreflang');
                       }}
                     >
@@ -607,7 +607,7 @@ const SEOManagement = () => {
 {SUPPORTED_LANGUAGES.map(l => 
   `<link rel="alternate" hreflang="${getHtmlLang(l.code)}" href="${getDomainForLanguage(l.code)}/" />`
 ).join('\n')}
-{'\n<link rel="alternate" hreflang="x-default" href="https://en.cani.com/" />'}
+{'\n<link rel="alternate" hreflang="x-default" href="https://www.caniuav.com/en/" />'}
                     </pre>
                   </ScrollArea>
                 </div>
@@ -686,7 +686,7 @@ const SEOManagement = () => {
           <CardContent className="space-y-3 text-sm text-gray-600">
             <div className="flex gap-3">
               <Badge variant="outline" className="h-6 w-6 rounded-full flex items-center justify-center flex-shrink-0">1</Badge>
-              <p><strong>DNS配置</strong>：为每种语言添加子域名记录（en.cani.com, ja.cani.com 等）</p>
+              <p><strong>DNS配置</strong>：为每种语言添加子域名记录（en.caniuav.com, ja.caniuav.com 等）</p>
             </div>
             <div className="flex gap-3">
               <Badge variant="outline" className="h-6 w-6 rounded-full flex items-center justify-center flex-shrink-0">2</Badge>
