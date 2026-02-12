@@ -102,8 +102,8 @@ export const ProductCollectionSEO = ({
     breadcrumb: {
       '@type': 'BreadcrumbList',
       itemListElement: [
-        { '@type': 'ListItem', position: 1, name: isEn ? 'Home' : '首页', item: 'https://www.cani.com' },
-        { '@type': 'ListItem', position: 2, name: isEn ? 'Products' : '产品', item: 'https://www.cani.com/products' },
+        { '@type': 'ListItem', position: 1, name: isEn ? 'Home' : '首页', item: 'https://www.caniuav.com' },
+        { '@type': 'ListItem', position: 2, name: isEn ? 'Products' : '产品', item: 'https://www.caniuav.com/products' },
         { '@type': 'ListItem', position: 3, name: isEn ? categoryEn : category },
       ],
     },
