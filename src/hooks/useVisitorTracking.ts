@@ -31,6 +31,24 @@ interface EventData {
   scrollDepth?: number;
 }
 
+// Helper to update visitor session via edge function (service_role)
+const updateVisitorSession = async (sessionId: string, updates: Record<string, any>) => {
+  try {
+    const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
+    const supabaseKey = import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY;
+    await fetch(`${supabaseUrl}/functions/v1/update-visitor-session`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${supabaseKey}`,
+      },
+      body: JSON.stringify({ sessionId, updates }),
+    });
+  } catch (err) {
+    console.error('Failed to update visitor session:', err);
+  }
+};
+
 // 生成唯一会话ID
 const generateSessionId = (): string => {
   return `vs_${Date.now()}_${Math.random().toString(36).substring(2, 15)}`;
@@ -47,12 +65,10 @@ const getOrCreateSessionId = (): string => {
   const expiry = localStorage.getItem(sessionExpiry);
 
   if (existingId && expiry && Date.now() < parseInt(expiry)) {
-    // 刷新过期时间
     localStorage.setItem(sessionExpiry, String(Date.now() + THIRTY_MINUTES));
     return existingId;
   }
 
-  // 检查是否有来自AIAssistant的遗留ID
   const legacyId = localStorage.getItem(legacyKey);
   if (legacyId) {
     localStorage.setItem(storageKey, legacyId);
@@ -63,7 +79,6 @@ const getOrCreateSessionId = (): string => {
   const newId = generateSessionId();
   localStorage.setItem(storageKey, newId);
   localStorage.setItem(sessionExpiry, String(Date.now() + THIRTY_MINUTES));
-  // 同时设置legacyKey让AIAssistant也能识别
   localStorage.setItem(legacyKey, newId);
   return newId;
 };
@@ -79,17 +94,12 @@ const detectTrafficSource = (): { source: string; referrerUrl: string; referrerD
       const url = new URL(referrer);
       referrerDomain = url.hostname;
 
-      // 搜索引擎检测
       const searchEngines = ['google', 'bing', 'baidu', 'sogou', '360', 'yahoo', 'duckduckgo'];
       if (searchEngines.some(se => referrerDomain.includes(se))) {
         source = 'search_engine';
-      }
-      // 社交媒体检测
-      else if (['weixin', 'wechat', 'weibo', 'qq.com', 'douyin', 'tiktok', 'facebook', 'twitter', 'linkedin'].some(sm => referrerDomain.includes(sm))) {
+      } else if (['weixin', 'wechat', 'weibo', 'qq.com', 'douyin', 'tiktok', 'facebook', 'twitter', 'linkedin'].some(sm => referrerDomain.includes(sm))) {
         source = 'social_media';
-      }
-      // 其他外链
-      else if (referrerDomain !== window.location.hostname) {
+      } else if (referrerDomain !== window.location.hostname) {
         source = 'referral';
       }
     } catch {
@@ -117,19 +127,16 @@ const getDeviceInfo = () => {
   let browser = 'unknown';
   let os = 'unknown';
 
-  // 设备类型
   if (/Mobile|Android|iPhone|iPad/i.test(ua)) {
     deviceType = /iPad/i.test(ua) ? 'tablet' : 'mobile';
   }
 
-  // 浏览器检测
   if (ua.includes('Chrome')) browser = 'Chrome';
   else if (ua.includes('Firefox')) browser = 'Firefox';
   else if (ua.includes('Safari')) browser = 'Safari';
   else if (ua.includes('Edge')) browser = 'Edge';
   else if (ua.includes('Opera')) browser = 'Opera';
 
-  // 操作系统
   if (ua.includes('Windows')) os = 'Windows';
   else if (ua.includes('Mac')) os = 'macOS';
   else if (ua.includes('Linux')) os = 'Linux';
@@ -164,7 +171,6 @@ export const useVisitorTracking = () => {
     const { utmSource, utmMedium, utmCampaign } = getUtmParams();
     const deviceInfo = getDeviceInfo();
 
-    // 检查是否是新会话
     const { data: existingSession } = await supabase
       .from('visitor_sessions')
       .select('id')
@@ -172,7 +178,6 @@ export const useVisitorTracking = () => {
       .single();
 
     if (!existingSession) {
-      // 创建新会话
       await supabase.from('visitor_sessions').insert({
         session_id: sessionId,
         traffic_source: source,
@@ -190,10 +195,8 @@ export const useVisitorTracking = () => {
       });
     }
 
-    // 存储到localStorage供其他组件使用
     localStorage.setItem('current_visitor_session', sessionId);
     
-    // 调用Edge Function获取IP和地理位置
     try {
       const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
       const supabaseKey = import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY;
@@ -216,13 +219,11 @@ export const useVisitorTracking = () => {
     const sessionId = sessionIdRef.current || localStorage.getItem('visitor_session_id');
     if (!sessionId || sessionId.length > 100) return;
 
-    // Sanitize string inputs - truncate to safe lengths
     const sanitize = (val: string | undefined, maxLen: number): string | undefined => {
       if (!val) return undefined;
       return val.substring(0, maxLen);
     };
 
-    // Validate numeric inputs
     const safeNum = (val: number | undefined, max: number): number | undefined => {
       if (val === undefined || val === null) return undefined;
       const n = Math.floor(Number(val));
@@ -249,11 +250,10 @@ export const useVisitorTracking = () => {
       scroll_depth: safeNum(eventData.scrollDepth, 100),
     });
 
-    // 更新会话最后活动时间
-    await supabase
-      .from('visitor_sessions')
-      .update({ last_activity_at: new Date().toISOString() })
-      .eq('session_id', sessionId);
+    // Update session via edge function (service_role)
+    await updateVisitorSession(sessionId, {
+      last_activity_at: new Date().toISOString(),
+    });
   }, [location.pathname]);
 
   // 记录页面浏览
@@ -266,7 +266,6 @@ export const useVisitorTracking = () => {
       pagePath: location.pathname,
     });
 
-    // 更新会话的页面列表
     const sessionId = sessionIdRef.current || localStorage.getItem('visitor_session_id');
     if (sessionId) {
       const { data } = await supabase
@@ -279,14 +278,11 @@ export const useVisitorTracking = () => {
         const pages = data.pages_visited || [];
         if (!pages.includes(location.pathname)) {
           pages.push(location.pathname);
-          await supabase
-            .from('visitor_sessions')
-            .update({ 
-              pages_visited: pages,
-              last_activity_at: new Date().toISOString(),
-              total_page_views: pages.length,
-            })
-            .eq('session_id', sessionId);
+          await updateVisitorSession(sessionId, {
+            pages_visited: pages,
+            last_activity_at: new Date().toISOString(),
+            total_page_views: pages.length,
+          });
         }
       }
     }
@@ -324,7 +320,6 @@ export const useVisitorTracking = () => {
       eventData: { keyword },
     });
 
-    // 更新会话的搜索关键词
     const sessionId = sessionIdRef.current || localStorage.getItem('visitor_session_id');
     if (sessionId) {
       const { data } = await supabase
@@ -337,10 +332,9 @@ export const useVisitorTracking = () => {
         const keywords = data.search_keywords || [];
         if (!keywords.includes(keyword)) {
           keywords.push(keyword);
-          await supabase
-            .from('visitor_sessions')
-            .update({ search_keywords: keywords })
-            .eq('session_id', sessionId);
+          await updateVisitorSession(sessionId, {
+            search_keywords: keywords,
+          });
         }
       }
     }
@@ -379,7 +373,6 @@ export const useVisitorTracking = () => {
 
       const duration = Math.round((Date.now() - pageStartTimeRef.current) / 1000);
 
-      // 记录页面退出事件
       await trackEvent({
         eventType: 'page_exit',
         eventName: 'Page Exit',
@@ -387,15 +380,12 @@ export const useVisitorTracking = () => {
         scrollDepth: scrollDepthRef.current,
       });
 
-      // 更新会话退出页面
-      await supabase
-        .from('visitor_sessions')
-        .update({
-          exit_page: location.pathname,
-          total_duration_seconds: duration,
-          last_activity_at: new Date().toISOString(),
-        })
-        .eq('session_id', sessionId);
+      // Update via edge function
+      await updateVisitorSession(sessionId, {
+        exit_page: location.pathname,
+        total_duration_seconds: duration,
+        last_activity_at: new Date().toISOString(),
+      });
     };
 
     window.addEventListener('beforeunload', handleBeforeUnload);
@@ -420,7 +410,6 @@ export const useVisitorTracking = () => {
     const handleGlobalClick = (e: MouseEvent) => {
       const target = e.target as HTMLElement;
       
-      // 只追踪有意义的点击（按钮、链接、带有data-track属性的元素）
       if (
         target.tagName === 'BUTTON' ||
         target.tagName === 'A' ||

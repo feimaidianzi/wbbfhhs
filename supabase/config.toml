@@ -29,3 +29,6 @@ timeout = 300
 
 [functions.scan-code-chinese]
 verify_jwt = false
+
+[functions.update-visitor-session]
+verify_jwt = false
