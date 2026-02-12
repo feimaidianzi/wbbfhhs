@@ -1,5 +1,5 @@
 import { Header } from "@/components/Header";
-import { SEOTextContent } from "@/components/SEOTextContent";
+
 import { FAQSection } from "@/components/FAQSection";
 import { HeroSection } from "@/components/HeroSection";
 import { ProductsSection } from "@/components/ProductsSection";
