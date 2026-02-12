@@ -72,8 +72,11 @@ export const CompanyIntroSection = () => {
               <span className="text-accent">{t('companyIntro.title.line2')}</span>
             </h2>
             
-            <p className="text-lg text-muted-foreground mb-8 leading-relaxed">
+            <p className="text-lg text-muted-foreground mb-4 leading-relaxed">
               {t('companyIntro.description')}
+            </p>
+            <p className="text-base text-muted-foreground mb-8 leading-relaxed">
+              {t('companyIntro.seoDescription')}
             </p>
 
             {/* Stats */}
