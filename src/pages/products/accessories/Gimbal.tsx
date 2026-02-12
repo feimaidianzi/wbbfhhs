@@ -8,6 +8,7 @@ import { ArrowRight, Video, Thermometer, Layers } from "lucide-react";
 import { gimbalProducts, gimbalCategories } from "@/data/gimbalProducts";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { PageFAQ } from "@/components/PageFAQ";
+import gimbalDualLight from "@/assets/seo/gimbal-dual-light.jpg";
 
 const categoryIcons: Record<string, React.ReactNode> = {
   "gimbal.category.quad": <Layers className="w-6 h-6" />,
@@ -57,11 +58,18 @@ const Gimbal = () => {
 
         {/* Product Intro */}
         <section className="py-12 bg-background">
-          <div className="container mx-auto px-4 max-w-4xl">
-            <h2 className="text-2xl font-bold mb-4">{t('gimbal.seo.intro.title')}</h2>
-            <p className="text-muted-foreground leading-relaxed mb-6">{t('gimbal.seo.intro')}</p>
-            <h3 className="text-xl font-bold mb-3">{t('gimbal.techDetail.title')}</h3>
-            <p className="text-muted-foreground leading-relaxed">{t('gimbal.techDetail')}</p>
+          <div className="container mx-auto px-4 max-w-5xl">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+              <div>
+                <h2 className="text-2xl font-bold mb-4">{t('gimbal.seo.intro.title')}</h2>
+                <p className="text-muted-foreground leading-relaxed mb-6">{t('gimbal.seo.intro')}</p>
+                <h3 className="text-xl font-bold mb-3">{t('gimbal.techDetail.title')}</h3>
+                <p className="text-muted-foreground leading-relaxed">{t('gimbal.techDetail')}</p>
+              </div>
+              <div className="rounded-xl overflow-hidden shadow-card">
+                <img src={gimbalDualLight} alt="无人机双光云台吊舱实拍 - UAV dual-light gimbal pod" className="w-full h-auto object-cover" loading="lazy" />
+              </div>
+            </div>
           </div>
         </section>
 

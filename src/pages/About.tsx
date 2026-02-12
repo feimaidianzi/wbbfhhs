@@ -3,6 +3,7 @@ import { Footer } from "@/components/Footer";
 import { FloatingContact } from "@/components/FloatingContact";
 import { Button } from "@/components/ui/button";
 import { Target, Users, Award, ArrowRight, Cpu, BarChart3, Globe2, ShieldCheck } from "lucide-react";
+import workshopAssembly from "@/assets/seo/workshop-assembly.jpg";
 import { MultiLanguageSEO, createLocalizedBreadcrumbData } from "@/components/MultiLanguageSEO";
 import { useLanguage as useLanguageHook } from "@/contexts/LanguageContext";
 import { useLanguage } from "@/contexts/LanguageContext";
@@ -105,8 +106,8 @@ const About = () => {
               </div>
               <div className="aspect-video rounded-xl overflow-hidden shadow-card">
                 <img
-                  src="https://images.unsplash.com/photo-1560179707-f14e90ef3623?w=800&q=80"
-                  alt={t('about.profile.title')}
+                  src={workshopAssembly}
+                  alt="长凌科技无人机组装车间实拍 - CANI Technology drone assembly workshop"
                   className="w-full h-full object-cover"
                   loading="lazy"
                 />
