@@ -1405,9 +1405,9 @@ export const zhTranslations: Record<string, string> = {
   'about.cta.button': '联系我们',
 
   // ===== Index/Home Page Content =====
-  'home.seo.title': '首页',
-  'home.seo.description': '长凌科技有限公司，专注于工业无人机零配件，提供数字图传、VTX视频发射器、飞控电调、云台吊舱、ELRS遥控等专业无人机配件。',
-  'home.seo.keywords': '无人机配件,数字图传,VTX视频发射器,飞控电调,云台吊舱,ELRS遥控,长凌,CANI',
+  'home.seo.title': '长凌科技 - 专业无人机核心配件制造商 | 数字图传_飞控_云台',
+  'home.seo.description': '长凌科技专注无人机图传、飞控、云台等核心配件研发10年，提供工业无人机配件OEM/ODM定制服务，覆盖电力巡检、消防应急等多行业解决方案',
+  'home.seo.keywords': '无人机配件,数字图传,无人机飞控,云台吊舱,ELRS遥控,工业无人机配件,无人机VTX图传,无人机配件OEM定制,无人机飞控电调,无人机配件厂家',
   'home.structured.name': '长凌科技有限公司',
   'home.structured.description': '专业无人机配件供应商，提供数字图传、VTX视频发射器、飞控电调、云台吊舱等无人机配件',
   'home.structured.addressLocality': '长沙',

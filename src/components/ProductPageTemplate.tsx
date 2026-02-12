@@ -8,7 +8,7 @@ import { LucideIcon } from "lucide-react";
 import { LangLink } from "@/components/LangLink";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { ProductCollectionSEO } from "@/components/ProductCollectionSEO";
-import { RichSEOContent, getSEOContentForCategory } from "@/components/RichSEOContent";
+
 import { MultiLanguageSEO } from "@/components/MultiLanguageSEO";
 
 // Helper function for template text (used for structured data and UI)
@@ -119,9 +119,6 @@ const ProductPageTemplate = ({
   const displayProductsTitle = productsTitle || t('template.productSeries');
   const displayApplicationsTitle = applicationsTitle || t('template.applications');
 
-  // 获取预定义的SEO内容
-  const categorySlug = seoCategory || heroTitle.toLowerCase().replace(/\s+/g, '-');
-  const seoContent = getSEOContentForCategory(categorySlug);
 
   return (
     <div className="min-h-screen bg-background">
@@ -135,33 +132,16 @@ const ProductPageTemplate = ({
       />
       <Header />
       
-      {/* SEO增强组件 */}
+      {/* SEO结构化数据 */}
       <ProductCollectionSEO
         category={heroTitle}
         categoryEn={heroTitle}
         categoryDescription={seoCategoryDescription || heroSubtitle}
         categoryDescriptionEn={seoCategoryDescription || heroSubtitle}
         products={products}
-        keywords={seoKeywords.length > 0 ? seoKeywords : (seoContent?.keywords || [])}
-        keywordsEn={seoKeywords.length > 0 ? seoKeywords : (seoContent?.keywordsEn || [])}
-        buyingGuide={seoContent ? {
-          title: seoContent.contentBlocks[0]?.title || '购买指南',
-          titleEn: seoContent.contentBlocks[0]?.titleEn || 'Buying Guide',
-          content: seoContent.contentBlocks[0]?.paragraphs || [],
-          contentEn: seoContent.contentBlocks[0]?.paragraphsEn || [],
-        } : undefined}
+        keywords={seoKeywords}
+        keywordsEn={seoKeywords}
       />
-
-      {/* 额外的富文本SEO内容 */}
-      {seoContent && (
-        <RichSEOContent
-          pageName={heroTitle}
-          pageNameEn={heroTitle}
-          contentBlocks={seoContent.contentBlocks}
-          additionalKeywords={seoContent.keywords}
-          additionalKeywordsEn={seoContent.keywordsEn}
-        />
-      )}
 
       <main>
         {/* Immersive Hero Section */}
