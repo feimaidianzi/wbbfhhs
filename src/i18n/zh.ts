@@ -5681,6 +5681,30 @@ export const zhTranslations: Record<string, string> = {
   'tethered.th200.spec.positionAccuracy': '定位精度',
   'tethered.th200.spec.positionAccuracy.value': '垂直±0.1m/水平±0.1m（RTK）',
 
+  // ===== SEO Enhancement Keys =====
+  // Footer SEO
+  'footer.seo.companyTitle': '【国家高新技术企业】长凌科技 - 专业无人机核心配件制造商 | 专注数字图传、飞控电调、云台吊舱研发生产',
+  'footer.trust.highTech': '国家高新技术企业研发',
+  'footer.trust.iso': 'ISO 9001质量认证',
+  'footer.trust.experience': '10年+工业无人机配件研发经验',
+  'footer.seo.keyword.droneAccessories': '无人机配件',
+  'footer.seo.keyword.industrialOEM': '工业无人机OEM',
+  'footer.seo.keyword.digitalFPV': '数字图传',
+  'footer.seo.keyword.fcEsc': '飞控电调',
+  'footer.seo.keyword.gimbal': '云台吊舱',
+  'footer.projects': '项目合作',
+
+  // Product E-E-A-T Trust Badges
+  'product.trust.highTech': '国家高新技术企业研发',
+  'product.trust.iso': 'ISO 9001质量认证',
+  'product.trust.experience': '10年+研发经验',
+
+  // Company Intro SEO Description
+  'companyIntro.seoDescription': '长凌科技是专业的无人机配件制造商，专注数字图传、飞控电调、云台吊舱等核心产品的研发、生产与销售，提供高品质工业无人机OEM定制服务，产品适配电力巡检、消防应急、测绘勘探等多个工业场景，以稳定性能赢得行业客户信赖。',
+
+  // Products Section SEO Subtitle
+  'productsSection.seoSubtitle': '涵盖数字图传、飞控电调、云台吊舱等核心无人机配件，支持工业无人机OEM定制，满足电力巡检、消防应急、测绘勘探等不同行业作业需求。',
+
 };
 
 export default zhTranslations;

@@ -1,291 +1,271 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
         xmlns:xhtml="http://www.w3.org/1999/xhtml">
-  <!-- 首页 -->
+
+  <!-- ===== 首页 / Home ===== -->
   <url>
     <loc>https://www.caniuav.com/</loc>
     <lastmod>2026-02-12</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://www.caniuav.com/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.caniuav.com/en/" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://www.caniuav.com/ja/" />
+    <xhtml:link rel="alternate" hreflang="ko" href="https://www.caniuav.com/ko/" />
+    <xhtml:link rel="alternate" hreflang="vi" href="https://www.caniuav.com/vi/" />
+    <xhtml:link rel="alternate" hreflang="th" href="https://www.caniuav.com/th/" />
+    <xhtml:link rel="alternate" hreflang="ms" href="https://www.caniuav.com/ms/" />
+    <xhtml:link rel="alternate" hreflang="id" href="https://www.caniuav.com/id/" />
+    <xhtml:link rel="alternate" hreflang="fr" href="https://www.caniuav.com/fr/" />
+    <xhtml:link rel="alternate" hreflang="de" href="https://www.caniuav.com/de/" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.caniuav.com/es/" />
+    <xhtml:link rel="alternate" hreflang="ru" href="https://www.caniuav.com/ru/" />
+    <xhtml:link rel="alternate" hreflang="ar" href="https://www.caniuav.com/ar/" />
+    <xhtml:link rel="alternate" hreflang="tr" href="https://www.caniuav.com/tr/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.caniuav.com/en/" />
   </url>
-  
-  <!-- 关于我们 -->
+
+  <!-- ===== 关于我们 / About ===== -->
   <url>
     <loc>https://www.caniuav.com/about</loc>
     <lastmod>2026-02-12</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://www.caniuav.com/about" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.caniuav.com/en/about" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.caniuav.com/en/about" />
   </url>
-  
-  <!-- 产品中心 -->
-  <url>
-    <loc>https://www.caniuav.com/products</loc>
-    <lastmod>2026-02-12</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
-  </url>
-  
-  <!-- 无人机机场 -->
-  <url>
-    <loc>https://www.caniuav.com/products/airport</loc>
-    <lastmod>2026-02-12</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://www.caniuav.com/products/airport/uhs-1000</loc>
-    <lastmod>2026-02-12</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://www.caniuav.com/products/airport/uhs-600</loc>
-    <lastmod>2026-02-12</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://www.caniuav.com/products/airport/uhs-400p</loc>
-    <lastmod>2026-02-12</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  
-  <!-- 系留无人机 -->
-  <url>
-    <loc>https://www.caniuav.com/products/tethered</loc>
-    <lastmod>2026-02-12</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://www.caniuav.com/products/tethered/th-100</loc>
-    <lastmod>2026-02-12</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://www.caniuav.com/products/tethered/th-200</loc>
-    <lastmod>2026-02-12</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://www.caniuav.com/products/tethered/th-300</loc>
-    <lastmod>2026-02-12</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  
-  <!-- 物流无人机 -->
-  <url>
-    <loc>https://www.caniuav.com/products/logistics</loc>
-    <lastmod>2026-02-12</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://www.caniuav.com/products/logistics/wl-10</loc>
-    <lastmod>2026-02-12</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://www.caniuav.com/products/logistics/wl-20</loc>
-    <lastmod>2026-02-12</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://www.caniuav.com/products/logistics/wl-30</loc>
-    <lastmod>2026-02-12</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  
-  <!-- 多旋翼无人机 -->
-  <url>
-    <loc>https://www.caniuav.com/products/multi-rotor</loc>
-    <lastmod>2026-02-12</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://www.caniuav.com/products/multi-rotor/x650</loc>
-    <lastmod>2026-02-12</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://www.caniuav.com/products/multi-rotor/x850</loc>
-    <lastmod>2026-02-12</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://www.caniuav.com/products/multi-rotor/x1200</loc>
-    <lastmod>2026-02-12</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://www.caniuav.com/products/multi-rotor/x1600</loc>
-    <lastmod>2026-02-12</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  
-  <!-- 配件 -->
-  <url>
-    <loc>https://www.caniuav.com/products/accessories</loc>
-    <lastmod>2026-02-12</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://www.caniuav.com/products/accessories/vtx-vrx</loc>
-    <lastmod>2026-02-12</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://www.caniuav.com/products/accessories/fc-esc</loc>
-    <lastmod>2026-02-12</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://www.caniuav.com/products/accessories/gimbal</loc>
-    <lastmod>2026-02-12</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://www.caniuav.com/products/accessories/camera</loc>
-    <lastmod>2026-02-12</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://www.caniuav.com/products/accessories/digital-fpv</loc>
-    <lastmod>2026-02-12</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://www.caniuav.com/products/accessories/elrs</loc>
-    <lastmod>2026-02-12</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  
-  <!-- 应用领域 -->
-  <url>
-    <loc>https://www.caniuav.com/applications</loc>
-    <lastmod>2026-02-12</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://www.caniuav.com/applications/power-inspection</loc>
-    <lastmod>2026-02-12</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://www.caniuav.com/applications/logistics</loc>
-    <lastmod>2026-02-12</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://www.caniuav.com/applications/environment</loc>
-    <lastmod>2026-02-12</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://www.caniuav.com/applications/firefighting</loc>
-    <lastmod>2026-02-12</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://www.caniuav.com/applications/tethered</loc>
-    <lastmod>2026-02-12</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  
-  <!-- 软件系统 -->
-  <url>
-    <loc>https://www.caniuav.com/software</loc>
-    <lastmod>2026-02-12</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://www.caniuav.com/software/ground-station</loc>
-    <lastmod>2026-02-12</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://www.caniuav.com/software/power-inspection-system</loc>
-    <lastmod>2026-02-12</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  
-  <!-- 项目合作 -->
-  <url>
-    <loc>https://www.caniuav.com/projects</loc>
-    <lastmod>2026-02-12</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://www.caniuav.com/projects/training</loc>
-    <lastmod>2026-02-12</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://www.caniuav.com/projects/show</loc>
-    <lastmod>2026-02-12</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  
-  <!-- 定制研发 -->
-  <url>
-    <loc>https://www.caniuav.com/custom-research</loc>
-    <lastmod>2026-02-12</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  
-  <!-- FPV -->
-  <url>
-    <loc>https://www.caniuav.com/fpv</loc>
-    <lastmod>2026-02-12</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  
-  <!-- 新闻中心 -->
-  <url>
-    <loc>https://www.caniuav.com/news</loc>
-    <lastmod>2026-02-12</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.8</priority>
-  </url>
-  
-  <!-- 联系我们 -->
+
+  <!-- ===== 联系我们 / Contact ===== -->
   <url>
     <loc>https://www.caniuav.com/contact</loc>
     <lastmod>2026-02-12</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://www.caniuav.com/contact" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.caniuav.com/en/contact" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.caniuav.com/en/contact" />
   </url>
+
+  <!-- ===== 新闻中心 / News ===== -->
+  <url>
+    <loc>https://www.caniuav.com/news</loc>
+    <lastmod>2026-02-12</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://www.caniuav.com/news" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.caniuav.com/en/news" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.caniuav.com/en/news" />
+  </url>
+
+  <!-- ===== 产品中心 / Products ===== -->
+  <url>
+    <loc>https://www.caniuav.com/products</loc>
+    <lastmod>2026-02-12</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://www.caniuav.com/products" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.caniuav.com/en/products" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.caniuav.com/en/products" />
+  </url>
+
+  <!-- 产品子分类 -->
+  <url><loc>https://www.caniuav.com/products/accessories</loc><lastmod>2026-02-12</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://www.caniuav.com/products/airport</loc><lastmod>2026-02-12</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://www.caniuav.com/products/tethered</loc><lastmod>2026-02-12</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://www.caniuav.com/products/logistics</loc><lastmod>2026-02-12</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://www.caniuav.com/products/multi-rotor</loc><lastmod>2026-02-12</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://www.caniuav.com/products/swarm</loc><lastmod>2026-02-12</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://www.caniuav.com/products/agriculture</loc><lastmod>2026-02-12</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://www.caniuav.com/products/firefighting</loc><lastmod>2026-02-12</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://www.caniuav.com/products/training</loc><lastmod>2026-02-12</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://www.caniuav.com/products/wire-laying</loc><lastmod>2026-02-12</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://www.caniuav.com/products/work-drone</loc><lastmod>2026-02-12</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
+
+  <!-- 无人机机场详情 -->
+  <url><loc>https://www.caniuav.com/products/airport/uhs-1000</loc><lastmod>2026-02-12</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://www.caniuav.com/products/airport/uhs-600</loc><lastmod>2026-02-12</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://www.caniuav.com/products/airport/uhs-400p</loc><lastmod>2026-02-12</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://www.caniuav.com/products/airport/vehicle-mounted</loc><lastmod>2026-02-12</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+
+  <!-- 系留无人机详情 -->
+  <url><loc>https://www.caniuav.com/products/tethered/th-100</loc><lastmod>2026-02-12</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://www.caniuav.com/products/tethered/th-200</loc><lastmod>2026-02-12</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://www.caniuav.com/products/tethered/th-300</loc><lastmod>2026-02-12</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+
+  <!-- 物流无人机详情 -->
+  <url><loc>https://www.caniuav.com/products/logistics/wl-10</loc><lastmod>2026-02-12</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://www.caniuav.com/products/logistics/wl-20</loc><lastmod>2026-02-12</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://www.caniuav.com/products/logistics/wl-30</loc><lastmod>2026-02-12</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+
+  <!-- 多旋翼无人机详情 -->
+  <url><loc>https://www.caniuav.com/products/multi-rotor/x650</loc><lastmod>2026-02-12</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://www.caniuav.com/products/multi-rotor/x850</loc><lastmod>2026-02-12</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://www.caniuav.com/products/multi-rotor/x1200</loc><lastmod>2026-02-12</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://www.caniuav.com/products/multi-rotor/x1600</loc><lastmod>2026-02-12</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+
+  <!-- 配件子分类 -->
+  <url><loc>https://www.caniuav.com/products/accessories/vtx-vrx</loc><lastmod>2026-02-12</lastmod><changefreq>weekly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://www.caniuav.com/products/accessories/fc-esc</loc><lastmod>2026-02-12</lastmod><changefreq>weekly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://www.caniuav.com/products/accessories/gimbal</loc><lastmod>2026-02-12</lastmod><changefreq>weekly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://www.caniuav.com/products/accessories/camera</loc><lastmod>2026-02-12</lastmod><changefreq>weekly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://www.caniuav.com/products/accessories/elrs</loc><lastmod>2026-02-12</lastmod><changefreq>weekly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://www.caniuav.com/products/accessories/other</loc><lastmod>2026-02-12</lastmod><changefreq>weekly</changefreq><priority>0.7</priority></url>
+
+  <!-- ===== 行业应用 / Applications ===== -->
+  <url>
+    <loc>https://www.caniuav.com/applications</loc>
+    <lastmod>2026-02-12</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://www.caniuav.com/applications" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.caniuav.com/en/applications" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.caniuav.com/en/applications" />
+  </url>
+
+  <url><loc>https://www.caniuav.com/applications/power</loc><lastmod>2026-02-12</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://www.caniuav.com/applications/power-inspection</loc><lastmod>2026-02-12</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://www.caniuav.com/applications/logistics</loc><lastmod>2026-02-12</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://www.caniuav.com/applications/environment</loc><lastmod>2026-02-12</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://www.caniuav.com/applications/firefighting</loc><lastmod>2026-02-12</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://www.caniuav.com/applications/tethered</loc><lastmod>2026-02-12</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://www.caniuav.com/applications/emergency</loc><lastmod>2026-02-12</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://www.caniuav.com/applications/military</loc><lastmod>2026-02-12</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://www.caniuav.com/applications/police</loc><lastmod>2026-02-12</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://www.caniuav.com/applications/smart-city</loc><lastmod>2026-02-12</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://www.caniuav.com/applications/surveying</loc><lastmod>2026-02-12</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://www.caniuav.com/applications/traffic</loc><lastmod>2026-02-12</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://www.caniuav.com/applications/water</loc><lastmod>2026-02-12</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://www.caniuav.com/applications/five-g</loc><lastmod>2026-02-12</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://www.caniuav.com/applications/solutions</loc><lastmod>2026-02-12</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
+
+  <!-- 电力巡检子页面 -->
+  <url><loc>https://www.caniuav.com/applications/power/transmission-line</loc><lastmod>2026-02-12</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://www.caniuav.com/applications/power/substation</loc><lastmod>2026-02-12</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://www.caniuav.com/applications/power/solar-panel</loc><lastmod>2026-02-12</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+
+  <!-- ===== FPV ===== -->
+  <url><loc>https://www.caniuav.com/fpv</loc><lastmod>2026-02-12</lastmod><changefreq>weekly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://www.caniuav.com/fpv/digital-fpv</loc><lastmod>2026-02-12</lastmod><changefreq>weekly</changefreq><priority>0.7</priority></url>
+
+  <!-- ===== 软件系统 / Software ===== -->
+  <url>
+    <loc>https://www.caniuav.com/software</loc>
+    <lastmod>2026-02-12</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://www.caniuav.com/software" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.caniuav.com/en/software" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.caniuav.com/en/software" />
+  </url>
+
+  <url><loc>https://www.caniuav.com/software/exam-system</loc><lastmod>2026-02-12</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://www.caniuav.com/software/drone-management</loc><lastmod>2026-02-12</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://www.caniuav.com/software/ground-station</loc><lastmod>2026-02-12</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://www.caniuav.com/software/swarm-station</loc><lastmod>2026-02-12</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://www.caniuav.com/software/pv-system</loc><lastmod>2026-02-12</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://www.caniuav.com/software/pv-inspection</loc><lastmod>2026-02-12</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://www.caniuav.com/software/power-inspection-system</loc><lastmod>2026-02-12</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://www.caniuav.com/software/environment-system</loc><lastmod>2026-02-12</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+
+  <!-- ===== 定制研发 / Custom Research ===== -->
+  <url>
+    <loc>https://www.caniuav.com/custom-research</loc>
+    <lastmod>2026-02-12</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://www.caniuav.com/custom-research" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.caniuav.com/en/custom-research" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.caniuav.com/en/custom-research" />
+  </url>
+
+  <url><loc>https://www.caniuav.com/custom-research/drone</loc><lastmod>2026-02-12</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://www.caniuav.com/custom-research/payload</loc><lastmod>2026-02-12</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://www.caniuav.com/custom-research/accessories</loc><lastmod>2026-02-12</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://www.caniuav.com/custom-research/airport</loc><lastmod>2026-02-12</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://www.caniuav.com/custom-research/swarm</loc><lastmod>2026-02-12</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://www.caniuav.com/custom-research/software</loc><lastmod>2026-02-12</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+
+  <!-- ===== 项目合作 / Projects ===== -->
+  <url>
+    <loc>https://www.caniuav.com/projects</loc>
+    <lastmod>2026-02-12</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://www.caniuav.com/projects" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.caniuav.com/en/projects" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.caniuav.com/en/projects" />
+  </url>
+
+  <url><loc>https://www.caniuav.com/projects/training</loc><lastmod>2026-02-12</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://www.caniuav.com/projects/drone-show</loc><lastmod>2026-02-12</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://www.caniuav.com/projects/flight-service</loc><lastmod>2026-02-12</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://www.caniuav.com/projects/cooperation</loc><lastmod>2026-02-12</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+
+  <!-- ===== 多语言首页 / Multi-language Home Pages ===== -->
+  <url><loc>https://www.caniuav.com/en</loc><lastmod>2026-02-12</lastmod><changefreq>daily</changefreq><priority>0.9</priority></url>
+  <url><loc>https://www.caniuav.com/ja</loc><lastmod>2026-02-12</lastmod><changefreq>daily</changefreq><priority>0.8</priority></url>
+  <url><loc>https://www.caniuav.com/ko</loc><lastmod>2026-02-12</lastmod><changefreq>daily</changefreq><priority>0.8</priority></url>
+  <url><loc>https://www.caniuav.com/vi</loc><lastmod>2026-02-12</lastmod><changefreq>daily</changefreq><priority>0.8</priority></url>
+  <url><loc>https://www.caniuav.com/th</loc><lastmod>2026-02-12</lastmod><changefreq>daily</changefreq><priority>0.8</priority></url>
+  <url><loc>https://www.caniuav.com/ms</loc><lastmod>2026-02-12</lastmod><changefreq>daily</changefreq><priority>0.8</priority></url>
+  <url><loc>https://www.caniuav.com/id</loc><lastmod>2026-02-12</lastmod><changefreq>daily</changefreq><priority>0.8</priority></url>
+  <url><loc>https://www.caniuav.com/fr</loc><lastmod>2026-02-12</lastmod><changefreq>daily</changefreq><priority>0.8</priority></url>
+  <url><loc>https://www.caniuav.com/de</loc><lastmod>2026-02-12</lastmod><changefreq>daily</changefreq><priority>0.8</priority></url>
+  <url><loc>https://www.caniuav.com/es</loc><lastmod>2026-02-12</lastmod><changefreq>daily</changefreq><priority>0.8</priority></url>
+  <url><loc>https://www.caniuav.com/ru</loc><lastmod>2026-02-12</lastmod><changefreq>daily</changefreq><priority>0.8</priority></url>
+  <url><loc>https://www.caniuav.com/ar</loc><lastmod>2026-02-12</lastmod><changefreq>daily</changefreq><priority>0.8</priority></url>
+  <url><loc>https://www.caniuav.com/tr</loc><lastmod>2026-02-12</lastmod><changefreq>daily</changefreq><priority>0.8</priority></url>
+
+  <!-- ===== 多语言核心页面 / Multi-language Core Pages ===== -->
+  <!-- English -->
+  <url><loc>https://www.caniuav.com/en/products</loc><lastmod>2026-02-12</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://www.caniuav.com/en/applications</loc><lastmod>2026-02-12</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://www.caniuav.com/en/software</loc><lastmod>2026-02-12</lastmod><changefreq>weekly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://www.caniuav.com/en/custom-research</loc><lastmod>2026-02-12</lastmod><changefreq>weekly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://www.caniuav.com/en/projects</loc><lastmod>2026-02-12</lastmod><changefreq>weekly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://www.caniuav.com/en/about</loc><lastmod>2026-02-12</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://www.caniuav.com/en/contact</loc><lastmod>2026-02-12</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://www.caniuav.com/en/news</loc><lastmod>2026-02-12</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
+  <url><loc>https://www.caniuav.com/en/fpv</loc><lastmod>2026-02-12</lastmod><changefreq>weekly</changefreq><priority>0.6</priority></url>
+
+  <!-- Japanese -->
+  <url><loc>https://www.caniuav.com/ja/products</loc><lastmod>2026-02-12</lastmod><changefreq>weekly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://www.caniuav.com/ja/applications</loc><lastmod>2026-02-12</lastmod><changefreq>weekly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://www.caniuav.com/ja/about</loc><lastmod>2026-02-12</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://www.caniuav.com/ja/contact</loc><lastmod>2026-02-12</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
+
+  <!-- Korean -->
+  <url><loc>https://www.caniuav.com/ko/products</loc><lastmod>2026-02-12</lastmod><changefreq>weekly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://www.caniuav.com/ko/applications</loc><lastmod>2026-02-12</lastmod><changefreq>weekly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://www.caniuav.com/ko/about</loc><lastmod>2026-02-12</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://www.caniuav.com/ko/contact</loc><lastmod>2026-02-12</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
+
+  <!-- Vietnamese -->
+  <url><loc>https://www.caniuav.com/vi/products</loc><lastmod>2026-02-12</lastmod><changefreq>weekly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://www.caniuav.com/vi/applications</loc><lastmod>2026-02-12</lastmod><changefreq>weekly</changefreq><priority>0.7</priority></url>
+
+  <!-- French -->
+  <url><loc>https://www.caniuav.com/fr/products</loc><lastmod>2026-02-12</lastmod><changefreq>weekly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://www.caniuav.com/fr/applications</loc><lastmod>2026-02-12</lastmod><changefreq>weekly</changefreq><priority>0.7</priority></url>
+
+  <!-- German -->
+  <url><loc>https://www.caniuav.com/de/products</loc><lastmod>2026-02-12</lastmod><changefreq>weekly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://www.caniuav.com/de/applications</loc><lastmod>2026-02-12</lastmod><changefreq>weekly</changefreq><priority>0.7</priority></url>
+
+  <!-- Spanish -->
+  <url><loc>https://www.caniuav.com/es/products</loc><lastmod>2026-02-12</lastmod><changefreq>weekly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://www.caniuav.com/es/applications</loc><lastmod>2026-02-12</lastmod><changefreq>weekly</changefreq><priority>0.7</priority></url>
+
+  <!-- Russian -->
+  <url><loc>https://www.caniuav.com/ru/products</loc><lastmod>2026-02-12</lastmod><changefreq>weekly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://www.caniuav.com/ru/applications</loc><lastmod>2026-02-12</lastmod><changefreq>weekly</changefreq><priority>0.7</priority></url>
+
+  <!-- Arabic -->
+  <url><loc>https://www.caniuav.com/ar/products</loc><lastmod>2026-02-12</lastmod><changefreq>weekly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://www.caniuav.com/ar/applications</loc><lastmod>2026-02-12</lastmod><changefreq>weekly</changefreq><priority>0.7</priority></url>
+
+  <!-- Turkish -->
+  <url><loc>https://www.caniuav.com/tr/products</loc><lastmod>2026-02-12</lastmod><changefreq>weekly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://www.caniuav.com/tr/applications</loc><lastmod>2026-02-12</lastmod><changefreq>weekly</changefreq><priority>0.7</priority></url>
 </urlset>

@@ -94,8 +94,11 @@ export const ProductsSection = () => {
           <h2 className="text-3xl md:text-4xl lg:text-5xl font-black text-foreground mb-6">
             {t('productsSection.title')}
           </h2>
-          <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
+          <p className="text-muted-foreground text-lg max-w-2xl mx-auto mb-4">
             {t('productsSection.subtitle')}
+          </p>
+          <p className="text-muted-foreground text-base max-w-3xl mx-auto">
+            {t('productsSection.seoSubtitle')}
           </p>
         </motion.div>
 

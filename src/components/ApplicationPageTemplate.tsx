@@ -67,6 +67,11 @@ interface ApplicationPageTemplateProps {
   ctaTitle: string;
   ctaDescription?: string;
   ctaProductLink?: string;
+  /** Optional case study or scenario adaptation text for E-E-A-T */
+  caseStudy?: {
+    title: string;
+    content: string;
+  };
 }
 
 const containerVariants = {
@@ -111,6 +116,7 @@ const ApplicationPageTemplate = ({
   ctaTitle,
   ctaDescription,
   ctaProductLink,
+  caseStudy,
 }: ApplicationPageTemplateProps) => {
   const { language, t } = useLanguage();
   const langCode = language as LanguageCode;
@@ -607,6 +613,32 @@ const ApplicationPageTemplate = ({
                     </LangLink>
                   </motion.div>
                 ))}
+              </motion.div>
+            </div>
+          </section>
+        )}
+
+        {/* Case Study / E-E-A-T Section */}
+        {caseStudy && (
+          <section className="py-16 bg-secondary">
+            <div className="container-custom max-w-4xl">
+              <motion.div
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6 }}
+                className="bg-card rounded-2xl p-8 border border-accent/10"
+              >
+                <h3 className="text-xl font-bold text-foreground mb-4 flex items-center gap-2">
+                  <CheckCircle className="w-5 h-5 text-accent" />
+                  {caseStudy.title}
+                </h3>
+                <p className="text-muted-foreground leading-relaxed">{caseStudy.content}</p>
+                <div className="mt-4 flex flex-wrap gap-3 text-xs text-muted-foreground">
+                  <span className="px-3 py-1 bg-accent/5 rounded-full">✅ {t('product.trust.highTech')}</span>
+                  <span className="px-3 py-1 bg-accent/5 rounded-full">✅ {t('product.trust.iso')}</span>
+                  <span className="px-3 py-1 bg-accent/5 rounded-full">✅ {t('product.trust.experience')}</span>
+                </div>
               </motion.div>
             </div>
           </section>

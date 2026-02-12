@@ -225,6 +225,26 @@ const ProductDetailTemplate = ({
           </div>
         </section>
 
+        {/* E-E-A-T Trust Badges */}
+        <section className="py-8 bg-background border-b border-border/30">
+          <div className="container-custom">
+            <div className="flex flex-wrap justify-center items-center gap-6 text-sm text-muted-foreground">
+              <span className="flex items-center gap-2">
+                <CheckCircle className="w-4 h-4 text-accent" />
+                {t('product.trust.highTech')}
+              </span>
+              <span className="flex items-center gap-2">
+                <CheckCircle className="w-4 h-4 text-accent" />
+                {t('product.trust.iso')}
+              </span>
+              <span className="flex items-center gap-2">
+                <CheckCircle className="w-4 h-4 text-accent" />
+                {t('product.trust.experience')}
+              </span>
+            </div>
+          </div>
+        </section>
+
         {/* Features Section */}
         <section className="py-20 bg-muted">
           <div className="container-custom">

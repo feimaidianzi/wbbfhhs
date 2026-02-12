@@ -684,4 +684,28 @@ export const enTranslations: Record<string, string> = {
   'news.detail.backToList': 'Back to News',
   'news.detail.relatedArticles': 'Related Articles',
   'news.detail.imageAlt': 'Article Image',
+
+  // ===== SEO Enhancement Keys =====
+  // Footer SEO
+  'footer.seo.companyTitle': '【National High-tech Enterprise】CANI Technology - Professional Drone Core Accessories Manufacturer | Digital FPV, FC/ESC, Gimbal R&D',
+  'footer.trust.highTech': 'National High-tech Enterprise',
+  'footer.trust.iso': 'ISO 9001 Certified',
+  'footer.trust.experience': '10+ Years R&D Experience',
+  'footer.seo.keyword.droneAccessories': 'Drone Accessories',
+  'footer.seo.keyword.industrialOEM': 'Industrial Drone OEM',
+  'footer.seo.keyword.digitalFPV': 'Digital FPV Transmission',
+  'footer.seo.keyword.fcEsc': 'Flight Controller & ESC',
+  'footer.seo.keyword.gimbal': 'Gimbal Pod',
+  'footer.projects': 'Projects',
+
+  // Product E-E-A-T Trust Badges
+  'product.trust.highTech': 'National High-tech Enterprise R&D',
+  'product.trust.iso': 'ISO 9001 Quality Certified',
+  'product.trust.experience': '10+ Years R&D',
+
+  // Company Intro SEO Description
+  'companyIntro.seoDescription': 'CANI Technology is a professional drone core accessories manufacturer, specializing in the R&D, production and sales of digital FPV transmission, flight controllers & ESCs, and gimbal pods. We provide high-quality industrial drone OEM customization services, with products widely used in power inspection, firefighting, surveying and other industrial scenarios.',
+
+  // Products Section SEO Subtitle
+  'productsSection.seoSubtitle': 'Covering digital FPV transmission, flight controllers & ESCs, gimbal pods and other core drone accessories. Supporting industrial drone OEM customization for power inspection, firefighting, surveying and other industry needs.',
 };
