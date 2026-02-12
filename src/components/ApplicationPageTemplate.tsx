@@ -7,6 +7,9 @@ import { ArrowRight, CheckCircle, Phone, Mail, ChevronDown, LucideIcon } from "l
 import { LangLink } from "@/components/LangLink";
 import { MultiLanguageSEO } from "@/components/MultiLanguageSEO";
 import { useLanguage } from "@/contexts/LanguageContext";
+import { Helmet } from "react-helmet-async";
+import { LanguageCode } from "@/i18n/languages";
+import { getDomainForLanguage, getHtmlLang } from "@/utils/seoConfig";
 
 interface Feature {
   icon: LucideIcon;
