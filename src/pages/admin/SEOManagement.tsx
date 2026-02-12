@@ -594,7 +594,7 @@ const SEOManagement = () => {
                       onClick={() => {
                         const tags = SUPPORTED_LANGUAGES.map(l => 
                           `<link rel="alternate" hreflang="${getHtmlLang(l.code)}" href="${getDomainForLanguage(l.code)}/" />`
-                        ).join('\n') + '\n<link rel="alternate" hreflang="x-default" href="https://en.cani.com/" />';
+                        ).join('\n') + '\n<link rel="alternate" hreflang="x-default" href="https://www.caniuav.com/en/" />';
                         copyToClipboard(tags, 'hreflang');
                       }}
                     >
