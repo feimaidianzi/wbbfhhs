@@ -56,6 +56,23 @@ const Products = () => {
     },
   };
 
+  const itemListData = {
+    '@context': 'https://schema.org',
+    '@type': 'CollectionPage',
+    name: t('products.page.title'),
+    description: t('products.page.description'),
+    url: `https://www.caniuav.com/products`,
+    mainEntity: {
+      '@type': 'ItemList',
+      numberOfItems: products.length,
+      itemListElement: products.map((p, i) => ({
+        '@type': 'ListItem',
+        position: i + 1,
+        item: { '@type': 'Product', name: p.name, description: p.description, url: `https://www.caniuav.com${p.link}`, brand: { '@type': 'Brand', name: 'CANI' } },
+      })),
+    },
+  };
+
   return (
     <div className="min-h-screen bg-background">
       <MultiLanguageSEO
@@ -63,7 +80,7 @@ const Products = () => {
         description={t('products.page.description')}
         keywords={t('products.page.keywords')}
         path="/products"
-        structuredData={breadcrumbData}
+        structuredData={[breadcrumbData, itemListData]}
       />
       <Header />
 

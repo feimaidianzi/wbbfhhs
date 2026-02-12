@@ -6,6 +6,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { MultiLanguageSEO } from "@/components/MultiLanguageSEO";
+import { PageStructuredData } from "@/components/PageStructuredData";
 import { BackButton } from "@/components/BackButton";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { motion } from "framer-motion";
@@ -123,6 +124,7 @@ const SwarmKit = () => {
         keywords={t("swarm.seo.keywords")}
         path="/products/swarm-kit"
       />
+      <PageStructuredData data={{ type: 'Product', name: 'P230 UWB Swarm Kit', description: t("swarm.seo.description"), category: 'Swarm Drone System', sku: 'P230-UWB' }} />
       <Header />
 
       <main>
