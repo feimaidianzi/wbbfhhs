@@ -1,6 +1,7 @@
 import ApplicationPageTemplate from "@/components/ApplicationPageTemplate";
 import { Zap, Shield, Target, TrendingUp, AlertTriangle, Eye, Database, FileText, Map, Cpu } from "lucide-react";
 import { useLanguage } from "@/contexts/LanguageContext";
+import { PageFAQ } from "@/components/PageFAQ";
 
 // 导入配图
 import heroPowerGrid from "@/assets/power/hero-power-grid.jpg";
@@ -74,51 +75,85 @@ const PowerInspection = () => {
   ];
 
   return (
-    <ApplicationPageTemplate
-      seoTitle={t('powerInspection.seo.title')}
-      seoDescription={t('powerInspection.seo.description')}
-      seoKeywords={t('powerInspection.seo.keywords')}
-      seoPath="/applications/power-inspection"
-      heroTitle="电力巡检解决方案"
-      heroSubtitle="行业应用"
-      heroDescription="电力巡检是指通过对电力设施的定期检查与维护，确保电力系统的安全、稳定运行。无人机在电力巡检中的应用，已经成为一种重要的技术手段。"
-      heroImage={heroPowerGrid}
-      heroStats={[
-        { value: "20倍", label: "效率提升" },
-        { value: "95%", label: "识别精度" },
-        { value: "零风险", label: "高空作业" },
-      ]}
-      introTitle="无人机电力巡检概述"
-      introDescription="随着电力设施的规模和复杂性不断增加，传统的人工巡检方式面临效率和安全性等方面的挑战"
-      introImage={uavInspection}
-      introPoints={[
-        "突破地形限制，高效完成巡检任务",
-        "AI智能识别，缺陷检出率大幅提升",
-        "全天候作业，不受恶劣天气影响",
-        "数据可追溯，建立电力设施健康档案",
-      ]}
-      advantages={advantages}
-      features={features}
-      scenarios={scenarios}
-      products={products}
-      ctaTitle="获取电力巡检解决方案"
-      ctaDescription="长凌科技为您提供专业的电力巡检无人机解决方案"
-      ctaProductLink="/products/multi-rotor"
-      caseStudy={{
-        title: t('powerInspection.caseStudy.title'),
-        content: t('powerInspection.caseStudy.content'),
-      }}
-      relatedProducts={[
-        { label: t('accessory.digitalFpv'), path: '/products/accessories/digital-fpv' },
-        { label: t('accessory.gimbal'), path: '/products/accessories/gimbal' },
-        { label: t('accessory.fc'), path: '/products/accessories/fc-esc' },
-      ]}
-      relatedApplications={[
-        { label: t('app.firefighting'), path: '/applications/firefighting' },
-        { label: t('app.environment'), path: '/applications/environment' },
-        { label: t('app.tethered'), path: '/applications/tethered' },
-      ]}
-    />
+    <>
+      <ApplicationPageTemplate
+        seoTitle={t('powerInspection.seo.title')}
+        seoDescription={t('powerInspection.seo.description')}
+        seoKeywords={t('powerInspection.seo.keywords')}
+        seoPath="/applications/power-inspection"
+        heroTitle="电力巡检解决方案"
+        heroSubtitle="行业应用"
+        heroDescription="电力巡检是指通过对电力设施的定期检查与维护，确保电力系统的安全、稳定运行。无人机在电力巡检中的应用，已经成为一种重要的技术手段。"
+        heroImage={heroPowerGrid}
+        heroStats={[
+          { value: "20倍", label: "效率提升" },
+          { value: "95%", label: "识别精度" },
+          { value: "零风险", label: "高空作业" },
+        ]}
+        introTitle="无人机电力巡检概述"
+        introDescription="随着电力设施的规模和复杂性不断增加，传统的人工巡检方式面临效率和安全性等方面的挑战"
+        introImage={uavInspection}
+        introPoints={[
+          "突破地形限制，高效完成巡检任务",
+          "AI智能识别，缺陷检出率大幅提升",
+          "全天候作业，不受恶劣天气影响",
+          "数据可追溯，建立电力设施健康档案",
+        ]}
+        advantages={advantages}
+        features={features}
+        scenarios={scenarios}
+        products={products}
+        ctaTitle="获取电力巡检解决方案"
+        ctaDescription="长凌科技为您提供专业的电力巡检无人机解决方案"
+        ctaProductLink="/products/multi-rotor"
+        caseStudy={{
+          title: t('powerInspection.caseStudy.title'),
+          content: t('powerInspection.caseStudy.content'),
+        }}
+        relatedProducts={[
+          { label: t('accessory.digitalFpv'), path: '/products/accessories/digital-fpv' },
+          { label: t('accessory.gimbal'), path: '/products/accessories/gimbal' },
+          { label: t('accessory.fc'), path: '/products/accessories/fc-esc' },
+        ]}
+        relatedApplications={[
+          { label: t('app.firefighting'), path: '/applications/firefighting' },
+          { label: t('app.environment'), path: '/applications/environment' },
+          { label: t('app.tethered'), path: '/applications/tethered' },
+        ]}
+      />
+
+      {/* Additional Solution Details */}
+      <section className="py-16 bg-background">
+        <div className="container mx-auto px-4">
+          <h2 className="text-3xl font-bold text-center mb-8">{t('powerInspection.solution.title')}</h2>
+          <div className="max-w-3xl mx-auto">
+            <p className="text-muted-foreground leading-relaxed">{t('powerInspection.solution.content')}</p>
+          </div>
+        </div>
+      </section>
+
+      {/* Detailed Case Study */}
+      <section className="py-16 bg-muted/30">
+        <div className="container mx-auto px-4">
+          <h2 className="text-3xl font-bold text-center mb-8">{t('powerInspection.caseDetail.title')}</h2>
+          <div className="max-w-3xl mx-auto">
+            <div className="p-6 bg-card rounded-xl border border-border">
+              <p className="text-muted-foreground leading-relaxed">{t('powerInspection.caseDetail')}</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* FAQ */}
+      <PageFAQ
+        titleKey="powerInspection.faq.title"
+        items={[
+          { questionKey: 'powerInspection.faq.q1', answerKey: 'powerInspection.faq.a1' },
+          { questionKey: 'powerInspection.faq.q2', answerKey: 'powerInspection.faq.a2' },
+          { questionKey: 'powerInspection.faq.q3', answerKey: 'powerInspection.faq.a3' },
+        ]}
+      />
+    </>
   );
 };
 

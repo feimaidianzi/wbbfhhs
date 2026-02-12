@@ -5737,6 +5737,103 @@ export const zhTranslations: Record<string, string> = {
   'product.relatedProducts': '相关配件推荐',
   'product.relatedApplications': '相关行业应用',
 
+  // ===== SEO Content Optimization (Report) =====
+
+  // Homepage SEO Intro
+  'home.seoIntro': '长凌科技——10年深耕工业级无人机核心配件研发制造，专注数字图传、飞控电调、云台吊舱生产，服务全球500+合作伙伴，提供定制化无人机配件解决方案，高新技术企业认证，品质有保障。',
+  'home.brandSummary': '长凌科技核心产品涵盖数字图传系统、飞控电调、云台吊舱三大系列，可满足工业巡检、安防监控、FPV竞速等多场景需求，作为专业无人机核心配件制造商，我们以技术创新赋能全球合作伙伴，提供一站式OEM/ODM定制服务，打造稳定、高效、可靠的无人机配件解决方案。',
+
+  // Products Page SEO
+  'products.seo.overview': '长凌科技产品中心，汇聚工业级无人机核心配件全系列产品，涵盖数字图传系统、飞控电调系统、云台吊舱三大核心品类，200+产品型号，适配多旋翼、固定翼等多种无人机机型，覆盖电力巡检、消防应急、FPV竞速、测绘勘探等全场景。所有产品经过严格质量检测，出厂合格率达99.8%，支持OEM/ODM定制，满足不同客户的个性化需求。',
+  'products.seo.cat.vtx': '高清数字图传系列——采用罗杰斯4350B射频材料，低损耗、高稳定，延迟≤30ms，传输距离可达50km，适配工业巡检、FPV竞速等场景，多款型号可选。',
+  'products.seo.cat.fcesc': '专业飞控电调系列——高精度控制、快速响应，适配各类工业无人机，支持自主航线规划，稳定性强，可根据机型定制参数，保障无人机稳定飞行。',
+  'products.seo.cat.gimbal': '稳定云台吊舱系列——防抖设计，拍摄画面清晰稳定，适配高清拍摄需求，防水防尘，可应对复杂户外作业环境，广泛应用于安防、巡检等场景。',
+
+  // VTX FAQ
+  'vtx.faq.title': '常见疑问解答',
+  'vtx.faq.q1': '本产品是否支持定制？',
+  'vtx.faq.a1': '支持OEM/ODM定制，可根据客户需求调整传输距离、功率、外观等参数，定制周期15-30天。',
+  'vtx.faq.q2': '图传信号抗干扰能力如何？',
+  'vtx.faq.a2': '采用先进抗干扰算法，搭配罗杰斯4350B低损耗材料，可有效抵御户外复杂信号干扰，确保传输稳定。',
+  'vtx.faq.q3': '产品质保期多久？',
+  'vtx.faq.a3': '提供1年质保，质保期内非人为损坏可免费维修或更换。',
+  'vtx.techDetail': '本款VTX/VRX图传系统核心参数适配工业级需求，传输频段4.9-7.2GHz全频段，输出功率0.1-1W可调，分辨率支持1080P/720P切换，工作温度-20℃~60℃，可应对高低温户外环境；铝合金散热外壳厚度2mm，散热效率提升40%，确保设备连续工作8小时无过热，满足长时间巡检、竞速等场景的使用需求。',
+  'vtx.techDetail.title': '技术参数解读',
+  'vtx.caseStudy.title': '应用案例',
+  'vtx.caseStudy.content': '某省级电力公司使用本图传系统对5000km输电线路进行巡检，在200米高的输电线路巡检中，图传系统能够清晰传输1080P高清画面，延迟低于30ms，巡检人员能够实时查看线路的细节，及时发现线路的破损、异物悬挂等问题，提升巡检效率300%，同时避免了人工高空巡检的安全风险。',
+
+  // FC/ESC SEO Content
+  'fcesc.seo.intro': '长凌科技专业飞控电调系统，是工业无人机的"核心大脑"与"动力中枢"，专注于为多旋翼、固定翼无人机提供高精度控制与稳定动力输出解决方案。产品采用先进的控制算法，搭配高品质元器件，控制精度高、响应速度快，适配电力巡检、消防应急、测绘勘探等多种工业场景，支持定制化参数调整，满足不同机型的使用需求。',
+  'fcesc.seo.intro.title': '产品简介',
+  'fcesc.techDetail.title': '技术详情',
+  'fcesc.techDetail': '本款飞控电调系统采用进口STM32主控芯片，运算速度快，可实现精准的姿态控制与航线规划，控制精度达±0.1°，响应时间≤10ms，确保无人机在复杂气流环境下仍能稳定飞行。电调部分采用高效散热设计，支持20A-60A电流可调，适配不同功率的无人机电机，同时具备过流、过压、过热保护功能，提升产品使用寿命与使用安全性。',
+  'fcesc.caseStudy.title': '应用案例',
+  'fcesc.caseStudy': '某无人机制造商使用我们的飞控电调系统，用于工业巡检无人机的生产装配，经过实际测试，无人机可实现自主航线规划、定点悬停、自动返航等功能，飞行稳定性提升60%，故障率降低至0.5%以下，大幅提升了产品竞争力，双方达成长期战略合作。',
+
+  // Gimbal SEO Content
+  'gimbal.seo.intro.title': '产品简介',
+  'gimbal.seo.intro': '长凌科技无人机云台吊舱，专注于工业级无人机高清拍摄防抖解决方案，采用三轴防抖技术，有效抵消无人机飞行过程中的气流波动、机身抖动，确保拍摄画面清晰稳定。产品适配高清摄像头，支持1080P高清拍摄，防水防尘等级达IP67，可应对复杂户外作业环境，广泛应用于电力巡检、安防监控、测绘勘探等场景，支持定制化适配不同无人机机型。',
+  'gimbal.techDetail.title': '技术详情',
+  'gimbal.techDetail': '本款云台吊舱采用三轴机械防抖结构，防抖角度达±0.01°，可实现360°全景拍摄、俯仰角度可调（-90°~+30°），满足不同拍摄需求。云台材质采用高强度铝合金，重量轻、硬度高，可有效减轻无人机负载，同时具备防水防尘、抗冲击功能，适应户外高低温、雨雪等复杂环境。镜头接口支持多种高清摄像头，可根据客户需求搭配，同时支持远程控制拍摄参数，提升作业效率。',
+  'gimbal.faq.title': '常见疑问解答',
+  'gimbal.faq.q1': '本云台吊舱支持哪些摄像头型号？',
+  'gimbal.faq.a1': '支持主流高清摄像头，可根据客户需求定制接口，适配不同像素、不同尺寸的摄像头。',
+  'gimbal.faq.q2': '防水防尘等级IP67，可在雨天使用吗？',
+  'gimbal.faq.a2': 'IP67等级可抵御短时淋雨、扬尘，适合户外小雨环境作业，大雨天气建议做好防护。',
+  'gimbal.faq.q3': '是否支持远程控制？',
+  'gimbal.faq.a3': '支持远程控制云台俯仰、旋转及拍摄参数，适配无人机远程操控系统。',
+
+  // Power Inspection FAQ & Details
+  'powerInspection.solution.title': '全套配件解决方案',
+  'powerInspection.solution.content': '我们为电力巡检提供全套的无人机配件解决方案，包括高清数字图传系统、稳定云台吊舱、飞控电调系统等配件。高清数字图传系统能够实时传输1080P高清画面，延迟低于30ms，确保巡检人员能够实时查看电力线路的细节；稳定云台吊舱能够保持拍摄画面的稳定，即使在无人机飞行过程中遇到气流波动，也能保持画面的清晰稳定；飞控电调系统能够确保无人机的稳定飞行，实现自主航线规划，减少人工操控的难度。',
+  'powerInspection.caseDetail': '某省级电力公司使用我们的电力巡检无人机配件解决方案，对全省5000km的输电线路进行巡检。使用该解决方案后，巡检效率提升了300%，原来需要10人1个月完成的巡检工作，现在只需要2人10天就能完成。同时，巡检的准确率也得到了提升，能够及时发现线路的破损、异物悬挂、绝缘子损坏等问题，避免了因线路问题导致的电力故障，每年为电力公司节省维修成本200+万元。',
+  'powerInspection.caseDetail.title': '客户案例',
+  'powerInspection.faq.title': '常见疑问解答',
+  'powerInspection.faq.q1': '该方案适配哪些无人机机型？',
+  'powerInspection.faq.a1': '适配多旋翼、固定翼等多种工业无人机机型，可根据客户现有无人机进行配件适配。',
+  'powerInspection.faq.q2': '方案的培训服务如何？',
+  'powerInspection.faq.a2': '我们提供免费的操作培训，确保巡检人员能够快速掌握无人机配件的使用方法，同时提供长期的技术支持。',
+  'powerInspection.faq.q3': '方案的成本如何？',
+  'powerInspection.faq.a3': '相比人工巡检，该方案可节省80%的人力成本，同时降低安全风险，长期使用性价比极高。',
+
+  // About Page - Team Members & Certifications
+  'about.coreTeam.title': '核心团队',
+  'about.team.rd.name': '张工',
+  'about.team.rd.role': '研发总监',
+  'about.team.rd.desc': '15年无人机行业研发经验，曾参与多个国家级无人机项目的研发，主导长凌科技核心技术的研发。',
+  'about.team.prod.name': '李工',
+  'about.team.prod.role': '生产总监',
+  'about.team.prod.desc': '12年制造业生产管理经验，负责生产车间的管理和质量控制，确保产品的生产质量。',
+  'about.team.market.name': '王经理',
+  'about.team.market.role': '市场总监',
+  'about.team.market.desc': '10年无人机行业市场经验，负责全球市场的拓展和客户服务，建立了完善的全球销售网络。',
+  'about.certifications.title': '资质荣誉',
+  'about.cert.hightech': '国家高新技术企业认证',
+  'about.cert.patents': '20+项无人机配件相关技术专利',
+  'about.cert.iso': 'ISO9001质量管理体系认证',
+  'about.cert.member': '无人机行业协会会员单位',
+
+  // Contact Page - Service & FAQ
+  'contact.service.title': '全方位服务支持',
+  'contact.service.tech.title': '技术支持',
+  'contact.service.tech.desc': '7×24小时技术支持热线，2小时内响应客户的技术问题，48小时内提供解决方案，同时提供远程技术支持和现场技术支持服务。',
+  'contact.service.warranty.title': '售后保障',
+  'contact.service.warranty.desc': '产品提供1年质保服务，质保期内产品出现质量问题可免费维修或更换；质保期外提供有偿维修服务，维修费用仅收取配件成本费。',
+  'contact.service.custom.title': '定制服务',
+  'contact.service.custom.desc': '提供OEM/ODM定制服务，可根据客户的需求定制产品的外观、功能、参数等，定制周期为15-30天，提供定制样品确认服务。',
+  'contact.afterSales.title': '售后流程',
+  'contact.afterSales.step1': '客户通过热线、邮箱、在线客服等方式反馈产品问题',
+  'contact.afterSales.step2': '技术人员2小时内响应，远程诊断问题',
+  'contact.afterSales.step3': '48小时内提供解决方案或安排维修',
+  'contact.afterSales.step4': '维修完成后进行质量复检，确保问题解决',
+  'contact.faq.title': '常见疑问解答',
+  'contact.faq.q1': '产品如何发货？',
+  'contact.faq.a1': '国内客户支持顺丰、中通等快递发货，海外客户支持DHL、FedEx等国际物流，一般3-7个工作日送达。',
+  'contact.faq.q2': '是否支持样品试用？',
+  'contact.faq.a2': '支持样品购买试用，客户确认产品性能后再进行批量采购，降低采购风险。',
+  'contact.faq.q3': '定制产品的交期多久？',
+  'contact.faq.a3': '标准定制周期为15-30天，具体根据定制需求的复杂度而定，急单可协商加急处理。',
+
 };
 
 export default zhTranslations;

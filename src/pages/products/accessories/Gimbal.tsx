@@ -7,6 +7,7 @@ import { LangLink } from "@/components/LangLink";
 import { ArrowRight, Video, Thermometer, Layers } from "lucide-react";
 import { gimbalProducts, gimbalCategories } from "@/data/gimbalProducts";
 import { useLanguage } from "@/contexts/LanguageContext";
+import { PageFAQ } from "@/components/PageFAQ";
 
 const categoryIcons: Record<string, React.ReactNode> = {
   "gimbal.category.quad": <Layers className="w-6 h-6" />,
@@ -51,6 +52,16 @@ const Gimbal = () => {
                 ))}
               </div>
             </div>
+          </div>
+        </section>
+
+        {/* Product Intro */}
+        <section className="py-12 bg-background">
+          <div className="container mx-auto px-4 max-w-4xl">
+            <h2 className="text-2xl font-bold mb-4">{t('gimbal.seo.intro.title')}</h2>
+            <p className="text-muted-foreground leading-relaxed mb-6">{t('gimbal.seo.intro')}</p>
+            <h3 className="text-xl font-bold mb-3">{t('gimbal.techDetail.title')}</h3>
+            <p className="text-muted-foreground leading-relaxed">{t('gimbal.techDetail')}</p>
           </div>
         </section>
 
@@ -117,6 +128,16 @@ const Gimbal = () => {
             </section>
           );
         })}
+
+        {/* FAQ Section */}
+        <PageFAQ
+          titleKey="gimbal.faq.title"
+          items={[
+            { questionKey: 'gimbal.faq.q1', answerKey: 'gimbal.faq.a1' },
+            { questionKey: 'gimbal.faq.q2', answerKey: 'gimbal.faq.a2' },
+            { questionKey: 'gimbal.faq.q3', answerKey: 'gimbal.faq.a3' },
+          ]}
+        />
 
         {/* CTA Section */}
         <section className="py-20 bg-primary text-primary-foreground">

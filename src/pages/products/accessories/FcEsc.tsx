@@ -7,7 +7,8 @@ import { Button } from "@/components/ui/button";
 import { ArrowLeft, Cpu, Zap, Shield, Settings, Thermometer, Gauge, ChevronRight } from "lucide-react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useLanguage } from "@/contexts/LanguageContext";
-import { 
+import { PageFAQ } from "@/components/PageFAQ";
+import {
   stackProducts, 
   sixInOneEscProducts, 
   researchFlightControllers,
@@ -119,6 +120,14 @@ const FcEsc = () => {
           </div>
         </section>
 
+        {/* Product Intro */}
+        <section className="py-12 bg-background">
+          <div className="container mx-auto px-4">
+            <h2 className="text-2xl font-bold mb-4">{t('fcesc.seo.intro.title')}</h2>
+            <p className="text-muted-foreground leading-relaxed max-w-4xl">{t('fcesc.seo.intro')}</p>
+          </div>
+        </section>
+
         {/* Features Section */}
         <section className="py-12 bg-muted/30">
           <div className="container mx-auto px-4">
@@ -187,6 +196,28 @@ const FcEsc = () => {
                 </div>
               </TabsContent>
             </Tabs>
+          </div>
+        </section>
+
+        {/* Technical Details */}
+        <section className="py-16 bg-background">
+          <div className="container mx-auto px-4">
+            <h2 className="text-3xl font-bold text-center mb-8">{t('fcesc.techDetail.title')}</h2>
+            <div className="max-w-3xl mx-auto">
+              <p className="text-muted-foreground leading-relaxed">{t('fcesc.techDetail')}</p>
+            </div>
+          </div>
+        </section>
+
+        {/* Application Case Study */}
+        <section className="py-16 bg-muted/30">
+          <div className="container mx-auto px-4">
+            <h2 className="text-3xl font-bold text-center mb-8">{t('fcesc.caseStudy.title')}</h2>
+            <div className="max-w-3xl mx-auto">
+              <div className="p-6 bg-card rounded-xl border border-border">
+                <p className="text-muted-foreground leading-relaxed">{t('fcesc.caseStudy')}</p>
+              </div>
+            </div>
           </div>
         </section>
 

@@ -53,8 +53,28 @@ const Index = () => {
       <Header />
       <main>
         <HeroSection />
+        
+        {/* SEO Intro Text */}
+        <section className="py-12 bg-background">
+          <div className="container-custom">
+            <p className="text-lg text-muted-foreground leading-relaxed max-w-4xl mx-auto text-center">
+              {t('home.seoIntro')}
+            </p>
+          </div>
+        </section>
+
         <ProductsSection />
         <CompanyIntroSection />
+        
+        {/* Brand Summary */}
+        <section className="py-12 bg-secondary">
+          <div className="container-custom">
+            <p className="text-base text-muted-foreground leading-relaxed max-w-4xl mx-auto">
+              {t('home.brandSummary')}
+            </p>
+          </div>
+        </section>
+
         <WhyChooseUsSection />
         <SolutionsSection />
         <ApplicationsSection />
