@@ -764,6 +764,8 @@ export const enTranslations: Record<string, string> = {
   'vtx.techDetail.title': 'Technical Parameters',
   'vtx.caseStudy.title': 'Application Case Study',
   'vtx.caseStudy.content': 'A provincial power company used this FPV transmission system to inspect 5,000km of transmission lines. At 200m altitude, the system delivered clear 1080P HD footage with latency below 30ms, enabling real-time inspection of line details. This improved inspection efficiency by 300% while eliminating high-altitude manual inspection safety risks.',
+  'vtx.hero.desc': 'This industrial drone video transmission system is a professional FPV transmission system, using Rogers 4350B high-performance RF materials, providing power options from 2.5W to 37W, supporting 4.9-6.1GHz and 6.1-7.2GHz dual bands, meeting all long-range HD transmission needs.',
+  'vtx.notes.intro': 'As professional drone video transmission accessories, please strictly follow the installation requirements during video transmission system setup to ensure proper device operation.',
 
   // FC/ESC SEO Content
   'fcesc.seo.intro': 'CANI Technology professional FC/ESC system serves as the "core brain" and "power hub" of industrial drones. It provides high-precision control and stable power output solutions for multi-rotor and fixed-wing UAVs. Advanced control algorithms with premium components deliver high precision and fast response, adaptable to power inspection, firefighting, surveying and other industrial scenarios.',
@@ -818,12 +820,13 @@ export const enTranslations: Record<string, string> = {
 
   // Contact Page - Service & FAQ
   'contact.service.title': 'Comprehensive Service Support',
+  'contact.service.intro': 'As a professional industrial drone accessories manufacturer, we provide expert drone accessories customization services to meet your personalized needs.',
   'contact.service.tech.title': 'Technical Support',
   'contact.service.tech.desc': '24/7 technical support hotline, 2-hour response time, solutions within 48 hours. Remote and on-site technical support available.',
   'contact.service.warranty.title': 'After-Sales Warranty',
   'contact.service.warranty.desc': '1-year warranty with free repair or replacement for quality issues. Post-warranty repairs available at component cost only.',
   'contact.service.custom.title': 'Customization Service',
-  'contact.service.custom.desc': 'OEM/ODM customization for appearance, functionality, and parameters. 15-30 day cycle with sample confirmation service.',
+  'contact.service.custom.desc': 'Specialized in industrial drone accessories OEM/ODM customization for appearance, functionality, and parameters. 15-30 day cycle with sample confirmation service.',
   'contact.afterSales.title': 'After-Sales Process',
   'contact.afterSales.step1': 'Customer reports issue via hotline, email, or online support',
   'contact.afterSales.step2': 'Technical staff responds within 2 hours with remote diagnosis',

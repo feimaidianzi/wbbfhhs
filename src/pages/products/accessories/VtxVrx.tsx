@@ -235,7 +235,8 @@ const VtxVrx = () => {
         {/* Usage Notes */}
         <section className="py-16 bg-muted/30">
           <div className="container mx-auto px-4">
-            <h2 className="text-3xl font-bold text-center mb-12">{t('vtx.notes.title')}</h2>
+            <h2 className="text-3xl font-bold text-center mb-4">{t('vtx.notes.title')}</h2>
+            <p className="text-center text-muted-foreground mb-12 max-w-2xl mx-auto">{t('vtx.notes.intro')}</p>
             <div className="max-w-3xl mx-auto space-y-4">
               <div className="p-4 bg-card rounded-lg border border-border">
                 <h4 className="font-semibold mb-2">{t('vtx.notes.power.title')}</h4>
