@@ -119,9 +119,6 @@ const ProductPageTemplate = ({
   const displayProductsTitle = productsTitle || t('template.productSeries');
   const displayApplicationsTitle = applicationsTitle || t('template.applications');
 
-  // 获取预定义的SEO内容
-  const categorySlug = seoCategory || heroTitle.toLowerCase().replace(/\s+/g, '-');
-  const seoContent = getSEOContentForCategory(categorySlug);
 
   return (
     <div className="min-h-screen bg-background">
