@@ -212,9 +212,6 @@ const SEOManagement = () => {
       const { data, error } = await supabase.functions.invoke('submit-sitemap', {
         body: { 
           action: 'submit',
-          googleToken: apiKeys.googleToken || undefined,
-          baiduToken: apiKeys.baiduToken || undefined,
-          bingApiKey: apiKeys.bingApiKey || undefined,
           sendNotify: sendEmailNotify,
         }
       });

@@ -17,14 +17,6 @@ import {
 import { toast } from 'sonner';
 import { supabase } from '@/integrations/supabase/client';
 
-interface ApiKey {
-  id: string;
-  key_name: string;
-  key_value: string | null;
-  is_configured: boolean;
-  last_used_at: string | null;
-}
-
 interface SEOApiKeyManagerProps {
   onKeysLoaded?: (keys: { googleToken: string; baiduToken: string; bingApiKey: string }) => void;
 }
@@ -46,50 +38,33 @@ const SEOApiKeyManager: React.FC<SEOApiKeyManagerProps> = ({ onKeysLoaded }) => 
   });
 
   useEffect(() => {
-    loadApiKeys();
+    loadApiKeyStatus();
   }, []);
 
-  const loadApiKeys = async () => {
+  const loadApiKeyStatus = async () => {
     setIsLoading(true);
     try {
-      const { data, error } = await supabase
-        .from('seo_api_keys')
-        .select('*');
+      const { data, error } = await supabase.functions.invoke('manage-seo-keys', {
+        body: { action: 'get-status' },
+      });
 
       if (error) throw error;
 
-      const keyMap: Record<string, ApiKey> = {};
-      data?.forEach(key => {
-        keyMap[key.key_name] = key;
-      });
-
-      setConfiguredKeys({
-        google_oauth_token: keyMap['google_oauth_token']?.is_configured || false,
-        baidu_token: keyMap['baidu_token']?.is_configured || false,
-        bing_api_key: keyMap['bing_api_key']?.is_configured || false,
-      });
-
-      // Set values if they exist
-      if (keyMap['google_oauth_token']?.key_value) {
-        setGoogleToken(keyMap['google_oauth_token'].key_value);
-      }
-      if (keyMap['baidu_token']?.key_value) {
-        setBaiduToken(keyMap['baidu_token'].key_value);
-      }
-      if (keyMap['bing_api_key']?.key_value) {
-        setBingApiKey(keyMap['bing_api_key'].key_value);
-      }
-
-      // Notify parent of loaded keys
-      if (onKeysLoaded) {
-        onKeysLoaded({
-          googleToken: keyMap['google_oauth_token']?.key_value || '',
-          baiduToken: keyMap['baidu_token']?.key_value || '',
-          bingApiKey: keyMap['bing_api_key']?.key_value || '',
+      if (data?.status) {
+        setConfiguredKeys({
+          google_oauth_token: data.status.google_oauth_token || false,
+          baidu_token: data.status.baidu_token || false,
+          bing_api_key: data.status.bing_api_key || false,
         });
       }
+
+      // Keys are no longer sent to client - notify parent with empty strings
+      // The submit-sitemap edge function reads keys server-side
+      if (onKeysLoaded) {
+        onKeysLoaded({ googleToken: '', baiduToken: '', bingApiKey: '' });
+      }
     } catch (error) {
-      console.error('Failed to load API keys:', error);
+      console.error('Failed to load API key status:', error);
     } finally {
       setIsLoading(false);
     }
@@ -98,35 +73,18 @@ const SEOApiKeyManager: React.FC<SEOApiKeyManagerProps> = ({ onKeysLoaded }) => 
   const saveApiKeys = async () => {
     setIsSaving(true);
     try {
-      const updates = [
-        { 
-          key_name: 'google_oauth_token', 
-          key_value: googleToken || null,
-          is_configured: !!googleToken,
-          updated_at: new Date().toISOString()
+      const { data, error } = await supabase.functions.invoke('manage-seo-keys', {
+        body: {
+          action: 'save-keys',
+          keys: {
+            google_oauth_token: googleToken || null,
+            baidu_token: baiduToken || null,
+            bing_api_key: bingApiKey || null,
+          },
         },
-        { 
-          key_name: 'baidu_token', 
-          key_value: baiduToken || null,
-          is_configured: !!baiduToken,
-          updated_at: new Date().toISOString()
-        },
-        { 
-          key_name: 'bing_api_key', 
-          key_value: bingApiKey || null,
-          is_configured: !!bingApiKey,
-          updated_at: new Date().toISOString()
-        },
-      ];
+      });
 
-      for (const update of updates) {
-        const { error } = await supabase
-          .from('seo_api_keys')
-          .update(update)
-          .eq('key_name', update.key_name);
-
-        if (error) throw error;
-      }
+      if (error) throw error;
 
       setConfiguredKeys({
         google_oauth_token: !!googleToken,
@@ -134,12 +92,12 @@ const SEOApiKeyManager: React.FC<SEOApiKeyManagerProps> = ({ onKeysLoaded }) => 
         bing_api_key: !!bingApiKey,
       });
 
-      // Notify parent of updated keys
-      if (onKeysLoaded) {
-        onKeysLoaded({ googleToken, baiduToken, bingApiKey });
-      }
+      // Clear local state after save - keys stay server-side only
+      setGoogleToken('');
+      setBaiduToken('');
+      setBingApiKey('');
 
-      toast.success('API密钥已保存');
+      toast.success('API密钥已安全保存');
     } catch (error) {
       console.error('Failed to save API keys:', error);
       toast.error('保存失败');
@@ -229,7 +187,7 @@ const SEOApiKeyManager: React.FC<SEOApiKeyManagerProps> = ({ onKeysLoaded }) => 
                 <Input
                   id="googleToken"
                   type={showKeys ? 'text' : 'password'}
-                  placeholder="Google API Token"
+                  placeholder={configuredKeys.google_oauth_token ? '••••••••（已配置，留空不修改）' : 'Google API Token'}
                   value={googleToken}
                   onChange={(e) => setGoogleToken(e.target.value)}
                 />
@@ -242,7 +200,7 @@ const SEOApiKeyManager: React.FC<SEOApiKeyManagerProps> = ({ onKeysLoaded }) => 
                 <Input
                   id="baiduToken"
                   type={showKeys ? 'text' : 'password'}
-                  placeholder="百度推送Token"
+                  placeholder={configuredKeys.baidu_token ? '••••••••（已配置，留空不修改）' : '百度推送Token'}
                   value={baiduToken}
                   onChange={(e) => setBaiduToken(e.target.value)}
                 />
@@ -255,7 +213,7 @@ const SEOApiKeyManager: React.FC<SEOApiKeyManagerProps> = ({ onKeysLoaded }) => 
                 <Input
                   id="bingApiKey"
                   type={showKeys ? 'text' : 'password'}
-                  placeholder="Bing Webmaster API Key"
+                  placeholder={configuredKeys.bing_api_key ? '••••••••（已配置，留空不修改）' : 'Bing Webmaster API Key'}
                   value={bingApiKey}
                   onChange={(e) => setBingApiKey(e.target.value)}
                 />
@@ -281,7 +239,7 @@ const SEOApiKeyManager: React.FC<SEOApiKeyManagerProps> = ({ onKeysLoaded }) => 
             <div className="p-3 bg-amber-50 rounded-lg flex items-start gap-2">
               <AlertCircle className="h-4 w-4 text-amber-600 flex-shrink-0 mt-0.5" />
               <div className="text-sm text-amber-800">
-                <p>API密钥将安全存储在数据库中。不配置时系统将使用Ping方式通知搜索引擎。</p>
+                <p>API密钥安全存储在服务端，不会传输到浏览器。不配置时系统将使用Ping方式通知搜索引擎。</p>
               </div>
             </div>
           </>
