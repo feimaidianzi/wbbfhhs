@@ -607,7 +607,7 @@ const SEOManagement = () => {
 {SUPPORTED_LANGUAGES.map(l => 
   `<link rel="alternate" hreflang="${getHtmlLang(l.code)}" href="${getDomainForLanguage(l.code)}/" />`
 ).join('\n')}
-{'\n<link rel="alternate" hreflang="x-default" href="https://en.cani.com/" />'}
+{'\n<link rel="alternate" hreflang="x-default" href="https://www.caniuav.com/en/" />'}
                     </pre>
                   </ScrollArea>
                 </div>

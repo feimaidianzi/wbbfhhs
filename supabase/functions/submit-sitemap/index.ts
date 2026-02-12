@@ -287,7 +287,7 @@ async function sendEmailNotification(
         'Authorization': `Bearer ${RESEND_API_KEY}`,
       },
       body: JSON.stringify({
-        from: 'CANI SEO <noreply@cani.com>',
+        from: 'CANI SEO <noreply@caniuav.com>',
         to: [ADMIN_EMAIL],
         subject: subject,
         html: html,
