@@ -8,7 +8,7 @@ import { LucideIcon } from "lucide-react";
 import { LangLink } from "@/components/LangLink";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { ProductCollectionSEO } from "@/components/ProductCollectionSEO";
-import { RichSEOContent, getSEOContentForCategory } from "@/components/RichSEOContent";
+
 import { MultiLanguageSEO } from "@/components/MultiLanguageSEO";
 
 // Helper function for template text (used for structured data and UI)
