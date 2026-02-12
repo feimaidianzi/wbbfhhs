@@ -54,6 +54,15 @@ const X650 = () => {
       applications={applications}
       ctaTitle={t('multiRotor.x650.ctaTitle')}
       ctaDescription={t('multiRotor.x650.ctaDescription')}
+      relatedProducts={[
+        { label: 'X850', path: '/products/multi-rotor/x850' },
+        { label: 'X1200', path: '/products/multi-rotor/x1200' },
+        { label: t('accessory.digitalFpv'), path: '/products/accessories/digital-fpv' },
+      ]}
+      relatedApplications={[
+        { label: t('app.police'), path: '/applications/police' },
+        { label: t('app.surveying'), path: '/applications/surveying' },
+      ]}
     />
   );
 };

@@ -54,6 +54,16 @@ const X850 = () => {
       applications={applications}
       ctaTitle={t('multiRotor.ctaTitle').replace('{{model}}', 'X850')}
       ctaDescription={t('multiRotor.ctaDescription')}
+      relatedProducts={[
+        { label: 'X650', path: '/products/multi-rotor/x650' },
+        { label: 'X1200', path: '/products/multi-rotor/x1200' },
+        { label: t('accessory.gimbal'), path: '/products/accessories/gimbal' },
+      ]}
+      relatedApplications={[
+        { label: t('app.powerInspection'), path: '/applications/power-inspection' },
+        { label: t('app.environment'), path: '/applications/environment' },
+        { label: t('app.police'), path: '/applications/police' },
+      ]}
     />
   );
 };

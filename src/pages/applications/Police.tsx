@@ -111,6 +111,16 @@ const Police = () => {
       ctaTitle={t('police.cta.title')}
       ctaDescription={t('police.cta.desc')}
       ctaProductLink="/products/multi-rotor"
+      relatedProducts={[
+        { label: 'X650', path: '/products/multi-rotor/x650' },
+        { label: 'X850', path: '/products/multi-rotor/x850' },
+        { label: 'TH-200', path: '/products/tethered/th-200' },
+        { label: t('accessory.digitalFpv'), path: '/products/accessories/digital-fpv' },
+      ]}
+      relatedApplications={[
+        { label: t('app.firefighting'), path: '/applications/firefighting' },
+        { label: t('app.tethered'), path: '/applications/tethered' },
+      ]}
     />
   );
 };

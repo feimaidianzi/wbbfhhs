@@ -97,6 +97,15 @@ const EnvironmentApp = () => {
       ctaTitle={t('environment.cta.title')}
       ctaDescription={t('environment.cta.description')}
       ctaProductLink="/products/multi-rotor"
+      relatedProducts={[
+        { label: 'X850', path: '/products/multi-rotor/x850' },
+        { label: 'X1200', path: '/products/multi-rotor/x1200' },
+        { label: t('accessory.gimbal'), path: '/products/accessories/gimbal' },
+      ]}
+      relatedApplications={[
+        { label: t('app.powerInspection'), path: '/applications/power-inspection' },
+        { label: t('app.surveying'), path: '/applications/surveying' },
+      ]}
     />
   );
 };

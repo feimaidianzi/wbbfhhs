@@ -98,6 +98,16 @@ const TetheredApp = () => {
       ctaTitle={t('tetheredApp.cta.title')}
       ctaDescription={t('tetheredApp.cta.description')}
       ctaProductLink="/products/tethered"
+      relatedProducts={[
+        { label: 'TH-100', path: '/products/tethered/th-100' },
+        { label: 'TH-200', path: '/products/tethered/th-200' },
+        { label: 'TH-300', path: '/products/tethered/th-300' },
+      ]}
+      relatedApplications={[
+        { label: t('app.police'), path: '/applications/police' },
+        { label: t('app.firefighting'), path: '/applications/firefighting' },
+        { label: t('app.powerInspection'), path: '/applications/power-inspection' },
+      ]}
     />
   );
 };
