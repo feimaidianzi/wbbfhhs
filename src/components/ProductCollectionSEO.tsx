@@ -72,7 +72,7 @@ export const ProductCollectionSEO = ({
         name: isEn && product.nameEn ? product.nameEn : product.name,
         description: isEn && product.descriptionEn ? product.descriptionEn : product.description,
         image: product.image,
-        url: product.link ? `https://www.cani.com${product.link}` : undefined,
+        url: product.link ? `https://www.caniuav.com${product.link}` : undefined,
         brand: {
           '@type': 'Brand',
           name: 'CANI',
