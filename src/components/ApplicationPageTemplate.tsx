@@ -112,7 +112,40 @@ const ApplicationPageTemplate = ({
   ctaDescription,
   ctaProductLink,
 }: ApplicationPageTemplateProps) => {
-  const { t } = useLanguage();
+  const { language, t } = useLanguage();
+  const langCode = language as LanguageCode;
+
+  // Service structured data for application pages
+  const currentDomain = getDomainForLanguage(langCode);
+  const serviceStructuredData = {
+    '@context': 'https://schema.org',
+    '@type': 'Service',
+    name: seoTitle,
+    description: seoDescription,
+    provider: {
+      '@type': 'Organization',
+      name: langCode === 'zh' ? '长凌科技有限公司' : 'CANI Technology Co., Ltd.',
+      url: currentDomain,
+      logo: `${currentDomain}/logo.png`,
+    },
+    areaServed: 'Worldwide',
+    inLanguage: getHtmlLang(langCode),
+    ...(products && products.length > 0 ? {
+      hasOfferCatalog: {
+        '@type': 'OfferCatalog',
+        name: productsTitle || t('template.relatedProducts'),
+        itemListElement: products.map((p, i) => ({
+          '@type': 'Offer',
+          itemOffered: {
+            '@type': 'Product',
+            name: p.model,
+            description: p.description,
+            brand: { '@type': 'Brand', name: 'CANI' },
+          },
+        })),
+      },
+    } : {}),
+  };
 
   return (
     <div className="min-h-screen bg-background">
@@ -122,6 +155,11 @@ const ApplicationPageTemplate = ({
         keywords={seoKeywords}
         path={seoPath}
       />
+      <Helmet>
+        <script type="application/ld+json">
+          {JSON.stringify(serviceStructuredData)}
+        </script>
+      </Helmet>
       <Header />
       <FloatingContact />
 
