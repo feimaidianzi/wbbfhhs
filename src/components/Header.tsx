@@ -214,7 +214,7 @@ export const Header = () => {
           <div className="flex items-center gap-3">
             <LanguageSwitcher variant="minimal" className="lg:hidden" />
             <div className="hidden lg:block">
-              <LanguageSwitcher />
+              <LanguageSwitcher className={isScrolled ? 'bg-secondary text-foreground hover:bg-secondary/80' : ''} />
             </div>
             
             {/* Auth Buttons */}
