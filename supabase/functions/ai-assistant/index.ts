@@ -197,7 +197,28 @@ Deno.serve(async (req) => {
     const supabaseKey = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!;
     const supabase = createClient(supabaseUrl, supabaseKey);
 
-    const { messages, conversationId, sessionId, action = "chat" } = await req.json() as RequestBody;
+    const body = await req.json() as RequestBody;
+    const { messages, conversationId, sessionId, action = "chat" } = body;
+
+    // Basic input validation
+    if (messages && (!Array.isArray(messages) || messages.length > 50)) {
+      return new Response(JSON.stringify({ error: "Invalid messages" }), {
+        status: 400,
+        headers: { ...corsHeaders, "Content-Type": "application/json" },
+      });
+    }
+    if (sessionId && (typeof sessionId !== 'string' || sessionId.length > 128)) {
+      return new Response(JSON.stringify({ error: "Invalid sessionId" }), {
+        status: 400,
+        headers: { ...corsHeaders, "Content-Type": "application/json" },
+      });
+    }
+    if (conversationId && (typeof conversationId !== 'string' || conversationId.length > 64)) {
+      return new Response(JSON.stringify({ error: "Invalid conversationId" }), {
+        status: 400,
+        headers: { ...corsHeaders, "Content-Type": "application/json" },
+      });
+    }
 
     // Handle loading conversation history (for visitors who can't read via RLS)
     if (action === "load_history" && sessionId) {

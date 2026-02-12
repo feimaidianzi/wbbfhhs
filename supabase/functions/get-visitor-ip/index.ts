@@ -37,8 +37,13 @@ Deno.serve(async (req) => {
         try {
           const parsed = JSON.parse(body);
           sessionId = parsed.sessionId || null;
+          // Validate sessionId format: must be a non-empty string, max 128 chars, alphanumeric/hyphens/underscores only
+          if (sessionId && (typeof sessionId !== 'string' || sessionId.length > 128 || !/^[a-zA-Z0-9_-]+$/.test(sessionId))) {
+            console.warn("Invalid sessionId format, ignoring:", sessionId);
+            sessionId = null;
+          }
         } catch (parseError) {
-          console.error("JSON parse error:", parseError, "Body:", body);
+          console.error("JSON parse error:", parseError);
           // Continue without sessionId - not a fatal error
         }
       }
