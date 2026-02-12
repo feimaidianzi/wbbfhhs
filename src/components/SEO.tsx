@@ -21,7 +21,7 @@ export const SEO = ({
 }: SEOProps) => {
   const siteName = 'CANI 长凌';
   const fullTitle = `${title} | ${siteName}`;
-  const baseUrl = 'https://www.cani.com';
+  const baseUrl = 'https://www.caniuav.com';
   const fullUrl = url ? `${baseUrl}${url}` : baseUrl;
 
   const defaultStructuredData = {
