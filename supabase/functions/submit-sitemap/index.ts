@@ -11,7 +11,7 @@ const SUPPORTED_LANGUAGES = [
   'fr', 'de', 'es', 'ru', 'ar', 'tr'
 ];
 
-const BASE_DOMAIN = 'cani.com';
+const BASE_DOMAIN = 'caniuav.com';
 
 // Static routes for sitemap
 const STATIC_ROUTES = [
