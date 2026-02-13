@@ -262,7 +262,7 @@ const SceneContent = ({ mousePosition }: { mousePosition: { x: number, y: number
       <ParticleField mousePosition={mousePosition} />
       <GridFloor />
       
-      <Environment preset="city" />
+      {/* Removed Environment preset to avoid external HDR fetch failures */}
       <OrbitControls 
         enableZoom={false} 
         enablePan={false}
