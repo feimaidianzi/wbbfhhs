@@ -24,7 +24,7 @@ export const MultiLanguageSEO = ({
   title,
   description,
   keywords,
-  image = '/logo.png',
+  image = '/og-image.png',
   path,
   type = 'website',
   structuredData,
