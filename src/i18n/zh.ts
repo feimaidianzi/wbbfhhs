@@ -1416,11 +1416,11 @@ export const zhTranslations: Record<string, string> = {
   'about.cta.button': '联系我们',
 
   // ===== Index/Home Page Content =====
-  'home.seo.title': '工业无人机配件制造商 | 37W大功率图传&数字视频链路 | CANI长凌科技',
-  'home.seo.description': '领先的37W大功率图传、高清数字链路及AI制导模块供应商，15年以上研发积累，200+专利，ISO认证，专注电力巡检与物流无人机解决方案。立即获取报价。',
-  'home.seo.keywords': '37W图传,大功率视频发射器,工业无人机配件,数字视频链路,AI制导模块,无人机制造商,电力巡检无人机,CANI长凌科技,无人机配件OEM定制',
+  'home.seo.title': '工业无人机配件制造商 | 高清数字图传&数字视频链路 | CANI长凌科技',
+  'home.seo.description': '领先的高清数字图传、数字视频链路及AI制导模块供应商，15年以上研发积累，200+专利，ISO认证，专注电力巡检与物流无人机解决方案。立即获取报价。',
+  'home.seo.keywords': '数字图传,大功率视频发射器,工业无人机配件,数字视频链路,AI制导模块,无人机制造商,电力巡检无人机,CANI长凌科技,无人机配件OEM定制',
   'home.structured.name': '长凌科技有限公司',
-  'home.structured.description': '领先的工业无人机配件制造商，专注37W大功率图传、高清数字视频链路和AI制导模块研发制造',
+  'home.structured.description': '领先的工业无人机配件制造商，专注高清数字图传、数字视频链路和AI制导模块研发制造',
   'home.structured.addressLocality': '长沙',
   'home.structured.addressRegion': '湖南',
   'home.structured.contactType': 'customer service',
@@ -1687,7 +1687,7 @@ export const zhTranslations: Record<string, string> = {
   'companyIntro.badge': '关于长凌',
   'companyIntro.title.line1': '专注无人机配件',
   'companyIntro.title.line2': '10年技术沉淀',
-  'companyIntro.description': '作为一家拥有15年以上研发经验的领先工业无人机零部件制造商，CANI（长凌科技）专注于高可靠性系统。我们旗舰级的37W大功率图传和4.9-7.2GHz全频段数字链路，旨在为关键任务提供稳定的50公里以上传输距离。我们拥有超过200项专利技术，并获得ISO、CE和FCC的全面认证，提供符合NDAA标准的无人机AI导航模块和飞行控制器，可将电力巡检效率提高多达10倍。',
+  'companyIntro.description': '作为一家拥有15年以上研发经验的领先工业无人机零部件制造商，CANI（长凌科技）专注于高可靠性系统。我们旗舰级的高清数字图传和4.9-7.2GHz全频段数字链路，旨在为关键任务提供稳定的50公里以上传输距离。我们拥有超过200项专利技术，并获得ISO、CE和FCC的全面认证，提供符合NDAA标准的无人机AI导航模块和飞行控制器，可将电力巡检效率提高多达10倍。',
   'companyIntro.stat1.value': '200+',
   'companyIntro.stat1.label': '产品型号',
   'companyIntro.stat2.value': '10+',
@@ -2085,11 +2085,11 @@ export const zhTranslations: Record<string, string> = {
 
   // Water Application Page - 智慧水利无人机解决方案
   'water.seo.title': '智慧水利无人机解决方案 | 50km超视距河道大坝巡检',
-  'water.seo.desc': 'CANI长凌科技工业级无人机智慧水利解决方案，50km+超视距河道巡查、AI非法采砂识别、厘米级三维大坝健康监测，搭载37W高功率图传与热成像技术。',
-  'water.seo.keywords': '智慧水利无人机,河道巡检无人机,水库大坝监测,超视距BVLOS巡查,非法采砂监控,防汛无人机,37W高功率图传,水利行业解决方案',
+  'water.seo.desc': 'CANI长凌科技工业级无人机智慧水利解决方案，50km+超视距河道巡查、AI非法采砂识别、厘米级三维大坝健康监测，搭载高清数字图传与热成像技术。',
+  'water.seo.keywords': '智慧水利无人机,河道巡检无人机,水库大坝监测,超视距BVLOS巡查,非法采砂监控,防汛无人机,数字图传,水利行业解决方案',
   'water.badge': '智慧水利解决方案',
   'water.title': '用于智慧水资源管理的智能无人机遥感网络',
-  'water.hero': '传统水利巡检依赖人工步行或船只，效率低且存在巨大的数据盲区。CANI（长凌科技）凭借15年工业级研发积累，构建"空天地"一体化无人机监测网。通过将37W高功率图传与AI边缘计算深度融合，协助管理部门实现从"被动响应"到"精准预警"的水务数字化升级。',
+  'water.hero': '传统水利巡检依赖人工步行或船只，效率低且存在巨大的数据盲区。CANI（长凌科技）凭借15年工业级研发积累，构建"空天地"一体化无人机监测网。通过将高清数字图传与AI边缘计算深度融合，协助管理部门实现从"被动响应"到"精准预警"的水务数字化升级。',
 
   'water.pain.title': '现代水文监测的核心挑战',
   'water.pain.terrain.title': '地形障碍',
@@ -2107,7 +2107,7 @@ export const zhTranslations: Record<string, string> = {
   'water.scene3.title': '水库大坝健康状况及渗漏监测',
   'water.scene3.desc': '结合热成像技术与RTK定位，无人机可对坝体进行厘米级三维建模。系统能实时探测坝体渗漏产生的温差异常，及早识别管涌、裂隙及结构侵蚀风险，确保基础设施安全运行。',
 
-  'water.vtx.link': '探索37W VTX技术参数 →',
+  'water.vtx.link': '探索数字图传技术参数 →',
 
   'water.adv.title': '专为关键任务而设计',
   'water.adv.range.title': '50km+长距离传输',
@@ -2164,7 +2164,7 @@ export const zhTranslations: Record<string, string> = {
   'transport.pain.signal.desc': '山区高速或密集城市高层环境存在严重信号遮挡，传统民用图传系统在5公里范围外即会出现丢包或黑屏。',
   'transport.scenarios.title': '全场景巡检与监测',
   'transport.scene1.title': '高速公路自动巡逻及交通流量分析',
-  'transport.scene1.desc': '搭载CANI 37W高功率VTX系统，单架次巡检无人机的有效指挥半径提升至50km以上，彻底解决长距离路网监管中"看得见但传不回"的痛点。集成AI引导模块，系统可执行自主车辆统计、平均车速测算及逆行/违停自动取证。在120km/h行进速度下，车辆识别准确率达91.8%，F1分数达90.5%。',
+  'transport.scene1.desc': '搭载CANI高清数字图传系统，单架次巡检无人机的有效指挥半径提升至50km以上，彻底解决长距离路网监管中"看得见但传不回"的痛点。集成AI引导模块，系统可执行自主车辆统计、平均车速测算及逆行/违停自动取证。在120km/h行进速度下，车辆识别准确率达91.8%，F1分数达90.5%。',
   'transport.scene2.title': '桥梁结构健康监测（SHM）',
   'transport.scene2.desc': '传统桥梁检测需封锁车道并使用昂贵的桥梁检测车。CANI方案利用具备GPS-Denied（无GPS环境）导航能力的无人机，实现不中断交通的精准作业。搭载45MP高分辨率传感器，可生成亚毫米级正射图像，自动识别混凝土剥落、露筋及0.2mm级别的结构裂缝。利用红外传感器监测路面坑洞及细微积水，热成像结构检测准确率高达95.12%。',
   'transport.vtx.link': '探索50km超远距图传系统',
@@ -2178,8 +2178,8 @@ export const zhTranslations: Record<string, string> = {
   'transport.faq.title': '常见问题',
   'transport.faq.q1': 'CANI无人机在没有GPS的情况下，能否在桥面下保持精确飞行？',
   'transport.faq.a1': '是的。对于桥底或隧道等GPS信号受限的环境，我们的系统采用基于视觉的导航和IMU传感器融合技术，确保在没有卫星信号的情况下实现稳定悬停和亚厘米级路径跟踪。',
-  'transport.faq.q2': '37W VTX 如何应对山区高速公路上的信号遮挡？',
-  'transport.faq.a2': '37W高功率发射提供了卓越的链路预算。结合定向地面天线，即使在山区道路网络中常见的地形障碍和多径干扰情况下，也能保持稳定的高清视频信号传输。',
+  'transport.faq.q2': '数字图传如何应对山区高速公路上的信号遮挡？',
+  'transport.faq.a2': '高清数字图传提供了卓越的链路预算。结合定向地面天线，即使在山区道路网络中常见的地形障碍和多径干扰情况下，也能保持稳定的高清视频信号传输。',
   'transport.cta.title': '获取智慧交通解决方案',
   'transport.cta.subtitle': '联系我们的专业团队，获取交通行业无人机应用方案及投资回报分析',
   'transport.cta.btn': '立即咨询',
@@ -5907,8 +5907,8 @@ export const zhTranslations: Record<string, string> = {
   // ===== AEO 技术问答（首页） =====
   'aeo.faq.title': '技术问答',
   'aeo.faq.subtitle': '关于CANI工业无人机配件的核心技术问题解答',
-  'aeo.faq.q1': 'CANI 37W图传的最大传输距离是多少？',
-  'aeo.faq.a1': '在最佳条件下，CANI的37W高功率VTX可为工业无人机提供稳定的50公里以上远程数字视频链路，确保可靠的超视距（BVLOS）作业。',
+  'aeo.faq.q1': 'CANI数字图传的最大传输距离是多少？',
+  'aeo.faq.a1': '在最佳条件下，CANI的高清数字图传可为工业无人机提供稳定的50公里以上远程数字视频链路，确保可靠的超视距（BVLOS）作业。',
   'aeo.faq.q2': 'CANI的无人机硬件是否符合NDAA要求？',
   'aeo.faq.a2': '是的，我们的核心组件设计符合NDAA和安全标准，确保全球企业任务的数据隐私。',
   'aeo.faq.q3': 'CANI的AI制导模块具备哪些能力？',
@@ -5920,7 +5920,7 @@ export const zhTranslations: Record<string, string> = {
 
   // ===== Environmental Monitoring Solution =====
   'envmon.seo.title': '环保监测无人机解决方案 | 大气与水质传感器 | 长凌科技',
-  'envmon.seo.desc': '一体化工业无人机环保监测方案。实时VOCs/气体监测，基于NDVI的森林健康分析，非法排放检测。37W高功率图传搭配多光谱载荷，污染溯源精度99%。',
+  'envmon.seo.desc': '一体化工业无人机环保监测方案。实时VOCs/气体监测，基于NDVI的森林健康分析，非法排放检测。高清数字图传搭配多光谱载荷，污染溯源精度99%。',
   'envmon.seo.keywords': '大气监测无人机,VOCs泄漏检测无人机,NDVI森林调查,甲烷检测无人机,环境遥感,环保无人机,工业无人机环保',
 
   'envmon.badge': '环保监测方案',
@@ -5937,13 +5937,13 @@ export const zhTranslations: Record<string, string> = {
 
   'envmon.scenarios.title': 'CANI 多维环境应用',
   'envmon.scene1.title': '大气监测与三维气体扩散图',
-  'envmon.scene1.desc': '依托集成式气体传感器（如Sniffer4D系列），无人机可实时采集PM2.5、SO2、NO2、CO、VOCs及CH4等10余种指标。配备CANI 37W高功率图传系统，数据可在50km范围内实时回传至指挥中心。自动生成三维浓度云图，帮助执法部门在数分钟内锁定偷排源头。',
+  'envmon.scene1.desc': '依托集成式气体传感器（如Sniffer4D系列），无人机可实时采集PM2.5、SO2、NO2、CO、VOCs及CH4等10余种指标。配备CANI高清数字图传系统，数据可在50km范围内实时回传至指挥中心。自动生成三维浓度云图，帮助执法部门在数分钟内锁定偷排源头。',
   'envmon.scene2.title': '精准林业与生物多样性保护（NDVI）',
   'envmon.scene2.desc': '利用NDVI（归一化植被指数）和多光谱传感器，CANI方案可实现单株树木级别的健康评估。系统自动计算生物量、水分胁迫指数及病虫害受灾面积，无人机调查比传统林业调查节省99%的时间成本。搭载长距离红外云台，可在夜间通过热成像识别非法盗猎行为，识别距离可达20公里。',
   'envmon.scene3.title': '非法排放与废物倾倒监管',
   'envmon.scene3.desc': '针对城市周边的非法固废倾倒点，CANI方案利用AI制导模块的边缘计算能力，实现"飞过即识别"。水环境治理方面，可监测河道油污、工业废水非法直排口。即使排污口隐藏在水下，系统也能通过热成像异常热场信号精准抓拍取证。',
 
-  'envmon.vtx.link': '探索37W高功率图传技术规格 →',
+  'envmon.vtx.link': '探索高清数字图传技术规格 →',
   'envmon.gimbal.link': '探索红外多光谱云台 →',
 
   'envmon.adv.title': 'CANI 技术为何脱颖而出',
@@ -5983,8 +5983,8 @@ export const zhTranslations: Record<string, string> = {
   'fireEmergency.wildfire.thermal.desc': '利用长波红外（LWIR）传感器，CANI无人机可穿透浓烟发现肉眼不可见的地下火（隐火）与高温热点。',
   'fireEmergency.wildfire.thermal.advantage': '技术优势：配合CANI AI引导模块，系统可自动计算火场辐射矢径，为指挥官实时标注安全隔离带位置。',
   'fireEmergency.wildfire.vtx.h3': '2. 50公里超远距离战术链路',
-  'fireEmergency.wildfire.vtx.desc': '森林区域通常缺乏蜂窝网络覆盖。通过CANI 37W高功率VTX系统，无人机可在50公里范围内的深山林区保持1080P高清指挥画面回传，彻底解决通信盲区的行业痛点。',
-  'fireEmergency.link.vtx': '了解37W高功率图传 →',
+  'fireEmergency.wildfire.vtx.desc': '森林区域通常缺乏蜂窝网络覆盖。通过CANI高清数字图传系统，无人机可在50公里范围内的深山林区保持1080P高清指挥画面回传，彻底解决通信盲区的行业痛点。',
+  'fireEmergency.link.vtx': '了解数字图传系统 →',
 
   'fireEmergency.leadMagnet.roi.title': '获取应急无人机部署ROI指南',
   'fireEmergency.leadMagnet.roi.desc': '了解无人机如何将您的应急响应效率提升70%并降低人员风险',
@@ -6018,8 +6018,8 @@ export const zhTranslations: Record<string, string> = {
   'fireEmergency.faq.title': '消防应急无人机常见问题',
   'fireEmergency.faq.q1': '无人机真的能穿透建筑物火灾中的浓烟吗？',
   'fireEmergency.faq.a1': '是的。CANI的救援无人机利用长波红外（LWIR）传感器，可以绕过烟雾中的光学颗粒，在零能见度条件下可视化热点和被困人员的热信号。',
-  'fireEmergency.faq.q2': '37W VTX如何应对城市灾区信号丢失的情况？',
-  'fireEmergency.faq.a2': '我们的37W高功率传输提供高链路预算，可以克服混凝土结构和金属碎片造成的多径干扰和信号衰减，在标准无人机无法做到的情况下保持1080p信号传输。',
+  'fireEmergency.faq.q2': '数字图传如何应对城市灾区信号丢失的情况？',
+  'fireEmergency.faq.a2': '我们的高清数字图传提供高链路预算，可以克服混凝土结构和金属碎片造成的多径干扰和信号衰减，在标准无人机无法做到的情况下保持1080p信号传输。',
 
   'fireEmergency.cta.title': '获取消防应急解决方案',
   'fireEmergency.cta.desc': '联系我们的专家团队，获取定制化消防应急无人机部署方案与投资回报分析报告',
