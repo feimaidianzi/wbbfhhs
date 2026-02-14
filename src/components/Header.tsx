@@ -53,7 +53,6 @@ export const Header = () => {
 
   // All categories now use t() function
   const droneCategories = [
-    { name: t('header.droneNest'), href: "/products/airport", description: t('header.droneNest.desc') },
     { name: t('header.tethered'), href: "/products/tethered", description: t('header.tethered.desc') },
     { name: t('header.logistics'), href: "/products/logistics", description: t('header.logistics.desc') },
     { name: t('header.swarm'), href: "/products/swarm", description: t('header.swarm.desc') },

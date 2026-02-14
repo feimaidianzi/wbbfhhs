@@ -280,7 +280,7 @@ export const Footer = () => {
             <LangLink to="/products/tethered" className="hover:text-background/60 transition-colors">{t('product.tethered')}</LangLink>
             <LangLink to="/products/logistics" className="hover:text-background/60 transition-colors">{t('product.logistics')}</LangLink>
             <LangLink to="/products/multi-rotor" className="hover:text-background/60 transition-colors">{t('product.multiRotor')}</LangLink>
-            <LangLink to="/products/airport" className="hover:text-background/60 transition-colors">{t('product.airport')}</LangLink>
+            
             <LangLink to="/applications" className="hover:text-background/60 transition-colors">{t('footer.applications')}</LangLink>
             <LangLink to="/applications/power-inspection" className="hover:text-background/60 transition-colors">{t('app.power')}</LangLink>
             <LangLink to="/applications/firefighting" className="hover:text-background/60 transition-colors">{t('app.firefighting')}</LangLink>
