@@ -1078,4 +1078,8 @@ export const enTranslations: Record<string, string> = {
   'applications.transport.desc': 'Autonomous UAV solutions for highway network monitoring and bridge structural health management with 50km long-range video backhaul and AI edge computing.',
   'applications.transport.stat1': '50km Backhaul',
   'applications.transport.stat2': 'mm-Level Inspection',
+
+  // Header nav - Transportation
+  'header.transport': 'Smart Transportation',
+  'header.transport.desc': 'Highway & Bridge Inspection',
 };

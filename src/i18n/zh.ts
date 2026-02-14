@@ -1563,6 +1563,8 @@ export const zhTranslations: Record<string, string> = {
   'header.environment.desc': '环境监测与治理',
   'header.firefighting': '消防应急',
   'header.firefighting.desc': '火情侦察与应急救援',
+  'header.transport': '智慧交通',
+  'header.transport.desc': '高速公路与桥梁巡检',
   'header.tetheredApp': '系留应用',
   'header.tetheredApp.desc': '24小时持续滞空',
   'header.solutions': '解决方案',
