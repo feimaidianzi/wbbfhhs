@@ -2,30 +2,83 @@ import { motion } from "framer-motion";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { FloatingContact } from "@/components/FloatingContact";
-import { ArrowRight, ChevronDown, Box, Cpu, Camera, Radio, Joystick, Wifi, Package, Plane, Link2, Truck, Users, Gamepad2 } from "lucide-react";
+import { ArrowRight, ChevronDown, Box, Cpu, Camera, Radio, Joystick, Wifi, Package, Plane, Link2, Truck, Users, Gamepad2, Brain, Satellite, FileDown, ShieldCheck } from "lucide-react";
 import { LangLink as Link } from "@/components/LangLink";
 import { MultiLanguageSEO, createLocalizedBreadcrumbData } from "@/components/MultiLanguageSEO";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { LanguageCode } from "@/i18n/languages";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
 
 const Products = () => {
   const { language, t } = useLanguage();
 
-  const droneCategories = [
-    { name: t('header.tethered'), href: "/products/tethered", description: t('header.tethered.desc'), icon: Link2 },
-    { name: t('header.logistics'), href: "/products/logistics", description: t('header.logistics.desc'), icon: Truck },
-    { name: t('header.swarm'), href: "/products/swarm", description: t('header.swarm.desc'), icon: Users },
-    { name: t('header.fpvDrone'), href: "/fpv", description: t('header.fpvDrone.desc'), icon: Gamepad2 },
+  // Technical capability clusters
+  const techClusters = [
+    {
+      title: t('products.cluster.digitalLink.title'),
+      desc: t('products.cluster.digitalLink.desc'),
+      icon: Satellite,
+      links: [
+        { label: t('products.anchor.digitalFpv'), href: "/products/accessories/digital-fpv" },
+        { label: t('products.anchor.vtx'), href: "/products/accessories/vtx-vrx" },
+      ],
+    },
+    {
+      title: t('products.cluster.fc.title'),
+      desc: t('products.cluster.fc.desc'),
+      icon: Cpu,
+      links: [
+        { label: t('products.anchor.fc'), href: "/products/accessories/fc-esc" },
+      ],
+    },
+    {
+      title: t('products.cluster.ai.title'),
+      desc: t('products.cluster.ai.desc'),
+      icon: Brain,
+      links: [
+        { label: t('products.anchor.gimbal'), href: "/products/accessories/gimbal" },
+        { label: t('products.anchor.camera'), href: "/products/accessories/camera" },
+      ],
+    },
+    {
+      title: t('products.cluster.platform.title'),
+      desc: t('products.cluster.platform.desc'),
+      icon: Box,
+      links: [
+        { label: t('products.anchor.tethered'), href: "/products/tethered" },
+        { label: t('products.anchor.logistics'), href: "/products/logistics" },
+        { label: t('products.anchor.swarm'), href: "/products/swarm" },
+      ],
+    },
   ];
 
   const accessoryCategories = [
-    { name: t('header.vtx'), href: "/products/accessories/vtx-vrx", description: t('header.vtx.desc'), icon: Radio },
-    { name: t('header.fcEsc'), href: "/products/accessories/fc-esc", description: t('header.fcEsc.desc'), icon: Cpu },
-    { name: t('header.gimbal'), href: "/products/accessories/gimbal", description: t('header.gimbal.desc'), icon: Joystick },
-    { name: t('header.digitalFpv'), href: "/products/accessories/digital-fpv", description: t('header.digitalFpv.desc'), icon: Wifi },
-    { name: t('header.camera'), href: "/products/accessories/camera", description: t('header.camera.desc'), icon: Camera },
-    { name: t('header.elrs'), href: "/products/accessories/elrs", description: t('header.elrs.desc'), icon: Plane },
-    { name: t('header.others'), href: "/products/accessories/others", description: t('header.others.desc'), icon: Package },
+    { name: t('header.digitalFpv'), href: "/products/accessories/digital-fpv", description: t('header.digitalFpv.desc'), icon: Wifi, anchor: t('products.anchor.digitalFpv') },
+    { name: t('header.vtx'), href: "/products/accessories/vtx-vrx", description: t('header.vtx.desc'), icon: Radio, anchor: t('products.anchor.vtx') },
+    { name: t('header.fcEsc'), href: "/products/accessories/fc-esc", description: t('header.fcEsc.desc'), icon: Cpu, anchor: t('products.anchor.fc') },
+    { name: t('header.gimbal'), href: "/products/accessories/gimbal", description: t('header.gimbal.desc'), icon: Joystick, anchor: t('products.anchor.gimbal') },
+    { name: t('header.elrs'), href: "/products/accessories/elrs", description: t('header.elrs.desc'), icon: Plane, anchor: t('products.anchor.elrs') },
+    { name: t('header.camera'), href: "/products/accessories/camera", description: t('header.camera.desc'), icon: Camera, anchor: t('products.anchor.camera') },
+    { name: t('header.others'), href: "/products/accessories/others", description: t('header.others.desc'), icon: Package, anchor: t('products.anchor.others') },
+  ];
+
+  const droneCategories = [
+    { name: t('header.tethered'), href: "/products/tethered", description: t('header.tethered.desc'), icon: Link2, anchor: t('products.anchor.tethered') },
+    { name: t('header.logistics'), href: "/products/logistics", description: t('header.logistics.desc'), icon: Truck, anchor: t('products.anchor.logistics') },
+    { name: t('header.swarm'), href: "/products/swarm", description: t('header.swarm.desc'), icon: Users, anchor: t('products.anchor.swarm') },
+    { name: t('header.fpvDrone'), href: "/fpv", description: t('header.fpvDrone.desc'), icon: Gamepad2, anchor: t('products.anchor.fpv') },
+  ];
+
+  const faqs = [
+    { q: t('products.faq.q1'), a: t('products.faq.a1') },
+    { q: t('products.faq.q2'), a: t('products.faq.a2') },
+    { q: t('products.faq.q3'), a: t('products.faq.a3') },
+    { q: t('products.faq.q4'), a: t('products.faq.a4') },
   ];
 
   const breadcrumbData = createLocalizedBreadcrumbData([
@@ -33,29 +86,12 @@ const Products = () => {
     { name: t('nav.products'), url: '/products' },
   ], language as LanguageCode);
 
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: { staggerChildren: 0.06 },
-    },
-  };
-
-  const itemVariants = {
-    hidden: { opacity: 0, y: 30 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: { duration: 0.5, ease: [0.25, 0.46, 0.45, 0.94] },
-    },
-  };
-
   const allCategories = [...droneCategories, ...accessoryCategories];
 
   const itemListData = {
     '@context': 'https://schema.org',
     '@type': 'CollectionPage',
-    name: t('products.page.title'),
+    name: t('products.hero.title'),
     description: t('products.page.description'),
     url: 'https://www.caniuav.com/products',
     mainEntity: {
@@ -69,6 +105,26 @@ const Products = () => {
     },
   };
 
+  const faqStructuredData = {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: faqs.map(f => ({
+      '@type': 'Question',
+      name: f.q,
+      acceptedAnswer: { '@type': 'Answer', text: f.a },
+    })),
+  };
+
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: { opacity: 1, transition: { staggerChildren: 0.06 } },
+  };
+
+  const itemVariants = {
+    hidden: { opacity: 0, y: 30 },
+    visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: [0.25, 0.46, 0.45, 0.94] } },
+  };
+
   return (
     <div className="min-h-screen bg-background">
       <MultiLanguageSEO
@@ -76,7 +132,7 @@ const Products = () => {
         description={t('products.page.description')}
         keywords={t('products.page.keywords')}
         path="/products"
-        structuredData={[breadcrumbData, itemListData]}
+        structuredData={[breadcrumbData, itemListData, faqStructuredData]}
       />
       <Header />
 
@@ -96,8 +152,11 @@ const Products = () => {
             <motion.h1 initial={{ opacity: 0, y: 50 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.2 }} className="text-4xl md:text-5xl lg:text-6xl font-black text-white mb-6">
               {t('products.hero.title')}
             </motion.h1>
-            <motion.p initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.4 }} className="text-lg md:text-xl text-white/80 max-w-2xl mx-auto mb-8">
+            <motion.p initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.4 }} className="text-lg md:text-xl text-white/80 max-w-2xl mx-auto mb-4">
               {t('products.hero.subtitle')}
+            </motion.p>
+            <motion.p initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.6 }} className="text-base text-white/60 max-w-3xl mx-auto leading-relaxed">
+              {t('products.hero.overview')}
             </motion.p>
           </div>
           <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 1, delay: 0.8 }} className="absolute bottom-8 left-1/2 -translate-x-1/2">
@@ -105,14 +164,55 @@ const Products = () => {
           </motion.div>
         </section>
 
-        {/* Drone Systems */}
+        {/* Technical Capability Clusters */}
         <section className="py-16 bg-background">
           <div className="container-custom">
-            <div className="mb-10">
-              <h2 className="text-2xl md:text-3xl font-bold text-foreground mb-2">{t('header.multiRotor')}</h2>
+            <div className="mb-12">
+              <h2 className="text-2xl md:text-3xl font-bold text-foreground mb-3">{t('products.h2.techCapability')}</h2>
               <div className="w-12 h-0.5 bg-accent mt-2" />
             </div>
-            <motion.div variants={containerVariants} initial="hidden" whileInView="visible" viewport={{ once: true }} className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+              {techClusters.map((cluster, idx) => {
+                const Icon = cluster.icon;
+                return (
+                  <motion.div
+                    key={idx}
+                    initial={{ opacity: 0, y: 30 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.5, delay: idx * 0.1 }}
+                    className="p-6 md:p-8 bg-card rounded-2xl border border-border hover:border-accent/30 transition-colors"
+                  >
+                    <div className="flex items-center gap-4 mb-4">
+                      <div className="w-14 h-14 rounded-xl bg-accent/10 flex items-center justify-center">
+                        <Icon className="w-7 h-7 text-accent" />
+                      </div>
+                      <h3 className="text-xl font-bold text-foreground">{cluster.title}</h3>
+                    </div>
+                    <p className="text-muted-foreground leading-relaxed mb-6">{cluster.desc}</p>
+                    <div className="flex flex-wrap gap-3">
+                      {cluster.links.map((link, li) => (
+                        <Link key={li} to={link.href} className="inline-flex items-center gap-1.5 text-sm font-medium text-accent hover:underline min-h-[44px]">
+                          {link.label}
+                          <ArrowRight className="w-4 h-4" />
+                        </Link>
+                      ))}
+                    </div>
+                  </motion.div>
+                );
+              })}
+            </div>
+          </div>
+        </section>
+
+        {/* Drone Systems */}
+        <section className="py-16 bg-secondary">
+          <div className="container-custom">
+            <div className="mb-10">
+              <h2 className="text-2xl md:text-3xl font-bold text-foreground mb-2">{t('products.cluster.platform.title')}</h2>
+              <div className="w-12 h-0.5 bg-accent mt-2" />
+            </div>
+            <motion.div variants={containerVariants} initial="hidden" whileInView="visible" viewport={{ once: true }} className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
               {droneCategories.map((cat) => {
                 const Icon = cat.icon;
                 return (
@@ -123,8 +223,8 @@ const Products = () => {
                       </div>
                       <h3 className="text-lg font-bold text-foreground mb-2 group-hover:text-accent transition-colors">{cat.name}</h3>
                       <p className="text-sm text-muted-foreground mb-4 line-clamp-3">{cat.description}</p>
-                      <div className="flex items-center text-accent text-sm font-medium">
-                        {t('common.learnMore')}
+                      <div className="flex items-center text-accent text-sm font-medium min-h-[44px]">
+                        {cat.anchor}
                         <ArrowRight className="w-4 h-4 ml-1 group-hover:translate-x-1 transition-transform" />
                       </div>
                     </Link>
@@ -136,7 +236,7 @@ const Products = () => {
         </section>
 
         {/* Accessories */}
-        <section className="py-16 bg-secondary">
+        <section className="py-16 bg-background">
           <div className="container-custom">
             <div className="mb-10">
               <h2 className="text-2xl md:text-3xl font-bold text-foreground mb-2">{t('products.category.accessories')}</h2>
@@ -153,8 +253,8 @@ const Products = () => {
                       </div>
                       <h3 className="text-lg font-bold text-foreground mb-2 group-hover:text-accent transition-colors">{cat.name}</h3>
                       <p className="text-sm text-muted-foreground mb-4 line-clamp-3">{cat.description}</p>
-                      <div className="flex items-center text-accent text-sm font-medium">
-                        {t('common.learnMore')}
+                      <div className="flex items-center text-accent text-sm font-medium min-h-[44px]">
+                        {cat.anchor}
                         <ArrowRight className="w-4 h-4 ml-1 group-hover:translate-x-1 transition-transform" />
                       </div>
                     </Link>
@@ -162,6 +262,46 @@ const Products = () => {
                 );
               })}
             </motion.div>
+          </div>
+        </section>
+
+        {/* PDF Download CTA */}
+        <section className="py-12 bg-secondary">
+          <div className="container-custom text-center">
+            <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.6 }}>
+              <div className="inline-flex items-center gap-3 px-8 py-4 bg-card border border-accent/20 rounded-2xl shadow-sm">
+                <FileDown className="w-6 h-6 text-accent" />
+                <span className="text-foreground font-semibold">{t('products.downloadGuide')}</span>
+              </div>
+            </motion.div>
+          </div>
+        </section>
+
+        {/* AEO FAQ */}
+        <section className="py-16 bg-background">
+          <div className="container-custom">
+            <div className="text-center mb-12">
+              <h2 className="text-2xl md:text-3xl font-bold text-foreground mb-4">{t('products.faq.title')}</h2>
+              <p className="text-muted-foreground max-w-2xl mx-auto">{t('products.faq.subtitle')}</p>
+            </div>
+            <div className="max-w-3xl mx-auto">
+              <Accordion type="single" collapsible className="space-y-4">
+                {faqs.map((faq, index) => (
+                  <AccordionItem
+                    key={index}
+                    value={`faq-${index}`}
+                    className="bg-card rounded-xl border border-border px-6 shadow-sm"
+                  >
+                    <AccordionTrigger className="text-left font-semibold text-foreground hover:text-accent py-5">
+                      {faq.q}
+                    </AccordionTrigger>
+                    <AccordionContent className="text-muted-foreground pb-5 leading-relaxed">
+                      {faq.a}
+                    </AccordionContent>
+                  </AccordionItem>
+                ))}
+              </Accordion>
+            </div>
           </div>
         </section>
 
@@ -177,7 +317,7 @@ const Products = () => {
               <p className="text-lg text-muted-foreground mb-8 max-w-2xl mx-auto">{t('products.cta.subtitle')}</p>
               <Link to="/contact">
                 <button className="bg-accent hover:bg-accent/90 text-accent-foreground px-8 py-4 text-lg font-semibold rounded-full min-h-[44px] min-w-[44px] inline-flex items-center gap-2 transition-colors">
-                  {t('common.contact')}
+                  {t('products.cta.button')}
                   <ArrowRight className="w-5 h-5" />
                 </button>
               </Link>
