@@ -67,9 +67,8 @@ import SolarPanel from "./pages/applications/power/SolarPanel";
 import CaseDetail from "./pages/applications/power/CaseDetail";
 import LogisticsApp from "./pages/applications/LogisticsApp";
 import Military from "./pages/applications/Military";
-import EnvironmentApp from "./pages/applications/EnvironmentApp";
 import FirefightingApp from "./pages/applications/FirefightingApp";
-
+import EnvironmentalMonitoring from "./pages/applications/EnvironmentalMonitoring";
 import Solutions from "./pages/applications/Solutions";
 import WaterConservancy from "./pages/applications/WaterConservancy";
 // Accessories detail pages
@@ -129,7 +128,7 @@ const publicRoutes = [
   { path: "/applications/power-inspection/case/:caseId", element: <CaseDetail /> },
   { path: "/applications/logistics", element: <LogisticsApp /> },
   { path: "/applications/military", element: <Military /> },
-  { path: "/applications/environment", element: <EnvironmentApp /> },
+  { path: "/solutions/industrial-uav-environmental-monitoring", element: <EnvironmentalMonitoring /> },
   { path: "/applications/firefighting", element: <FirefightingApp /> },
   
   { path: "/applications/solutions", element: <Solutions /> },

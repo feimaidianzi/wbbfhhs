@@ -31,7 +31,7 @@ export const ApplicationsSection = () => {
       descKey: "applications.environment.desc",
       image: "https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=1200&q=80",
       icon: Leaf,
-      link: "/applications/environment",
+      link: "/solutions/industrial-uav-environmental-monitoring",
     },
     {
       id: "power",
