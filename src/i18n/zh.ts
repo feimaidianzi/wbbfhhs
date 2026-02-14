@@ -5875,6 +5875,53 @@ export const zhTranslations: Record<string, string> = {
   'aeo.faq.q5': 'CANI产品有哪些认证？',
   'aeo.faq.a5': 'CANI产品拥有ISO 9001质量管理体系认证、CE标志、FCC认证，以及电力巡检和工业应用的多项行业专用认证。',
 
+  // ===== Environmental Monitoring Solution =====
+  'envmon.seo.title': '环保监测无人机解决方案 | 大气与水质传感器 | 长凌科技',
+  'envmon.seo.desc': '一体化工业无人机环保监测方案。实时VOCs/气体监测，基于NDVI的森林健康分析，非法排放检测。37W高功率图传搭配多光谱载荷，污染溯源精度99%。',
+  'envmon.seo.keywords': '大气监测无人机,VOCs泄漏检测无人机,NDVI森林调查,甲烷检测无人机,环境遥感,环保无人机,工业无人机环保',
+
+  'envmon.badge': '环保监测方案',
+  'envmon.title': '用于生态保护与污染控制的自主无人机解决方案',
+  'envmon.hero': '在全球ESG标准日趋严格的背景下，传统人工监测已无法满足化工厂区高空排放、原始森林火险预警及河道溢油事故的快速响应需求。CANI凭借15年工业级无人机核心研发经验，提供集成多传感器、超视距传输与AI识别的一站式环保监测平台，将响应速度提升95%以上。',
+
+  'envmon.pain.title': '环境保护中的关键挑战',
+  'envmon.pain.access.title': '高空监测死角',
+  'envmon.pain.access.desc': '工业烟囱和化工厂塔顶排放难以触达，人工采样存在呼吸危险性，传统方法无法覆盖高空排放源的实时监测。',
+  'envmon.pain.density.title': '空间数据密度不足',
+  'envmon.pain.density.desc': '固定监测站只能提供"点"的数据，无法形成三维气体扩散热力图，难以精准溯源偷排企业。',
+  'envmon.pain.response.title': '应急响应延迟',
+  'envmon.pain.response.desc': '突发水污染或危化品泄漏时，卫星数据更新缓慢，地面车辆难以进入核心区域，贻误最佳处置时机。',
+
+  'envmon.scenarios.title': 'CANI 多维环境应用',
+  'envmon.scene1.title': '大气监测与三维气体扩散图',
+  'envmon.scene1.desc': '依托集成式气体传感器（如Sniffer4D系列），无人机可实时采集PM2.5、SO2、NO2、CO、VOCs及CH4等10余种指标。配备CANI 37W高功率图传系统，数据可在50km范围内实时回传至指挥中心。自动生成三维浓度云图，帮助执法部门在数分钟内锁定偷排源头。',
+  'envmon.scene2.title': '精准林业与生物多样性保护（NDVI）',
+  'envmon.scene2.desc': '利用NDVI（归一化植被指数）和多光谱传感器，CANI方案可实现单株树木级别的健康评估。系统自动计算生物量、水分胁迫指数及病虫害受灾面积，无人机调查比传统林业调查节省99%的时间成本。搭载长距离红外云台，可在夜间通过热成像识别非法盗猎行为，识别距离可达20公里。',
+  'envmon.scene3.title': '非法排放与废物倾倒监管',
+  'envmon.scene3.desc': '针对城市周边的非法固废倾倒点，CANI方案利用AI制导模块的边缘计算能力，实现"飞过即识别"。水环境治理方面，可监测河道油污、工业废水非法直排口。即使排污口隐藏在水下，系统也能通过热成像异常热场信号精准抓拍取证。',
+
+  'envmon.vtx.link': '探索37W高功率图传技术规格 →',
+  'envmon.gimbal.link': '探索红外多光谱云台 →',
+
+  'envmon.adv.title': 'CANI 技术为何脱颖而出',
+  'envmon.adv.latency.title': '超低时延视频链路',
+  'envmon.adv.latency.desc': '延迟低于200ms，确保在精密仪器密集的厂区安全避障飞行，实时传输高清传感器数据。',
+  'envmon.adv.emi.title': '高抗电磁干扰',
+  'envmon.adv.emi.desc': '针对变电站等强电磁环境专项设计，确保传感器读数不因干扰而产生偏差，数据可靠性达99%。',
+  'envmon.adv.ndaa.title': 'NDAA与蓝色无人机标准',
+  'envmon.adv.ndaa.desc': '核心硬件符合国际安全合规标准，是全球政府机构替代传统方案的首选，满足数据主权与合规要求。',
+
+  'envmon.faq.title': '常见问题',
+  'envmon.faq.q1': 'CANI的环境无人机能否在夜间检测VOCs？',
+  'envmon.faq.a1': '可以。通过集成VOx热传感器和光学气体成像（OGI）载荷，我们的无人机即使在完全黑暗的环境下也能对甲烷和VOC等有害气体羽流进行可视化监测。',
+  'envmon.faq.q2': '与人工监测相比，使用无人机进行森林监测的投资回报率是多少？',
+  'envmon.faq.a2': '最新案例研究表明，基于无人机的多光谱调查与传统地面采样相比，可节省高达99.16%的人工时间，并将数据密度提高100倍，大幅降低长期运营成本。',
+
+  'envmon.cta.title': '获取环保监测解决方案',
+  'envmon.cta.subtitle': '联系我们的专家团队，获取环保无人机应用方案与投资回报分析',
+  'envmon.cta.btn': '立即咨询',
+  'envmon.whitepaper.btn': '下载环保无人机方案白皮书',
+
 };
 
 export default zhTranslations;
