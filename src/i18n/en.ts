@@ -625,11 +625,11 @@ export const enTranslations: Record<string, string> = {
 
   // ===== Page-Level SEO Keys =====
   // Home Page SEO
-  'home.seo.title': 'CANI Technology - Professional Drone Accessories Manufacturer | Digital FPV_FC_Gimbal',
-  'home.seo.description': 'CANI Technology specializes in drone digital FPV, flight controllers, gimbals and other core accessories R&D for 10 years, providing industrial drone accessories OEM/ODM services for power inspection, firefighting and more.',
-  'home.seo.keywords': 'drone accessories,digital FPV,drone flight controller,gimbal pod,ELRS remote control,industrial drone accessories,drone VTX,drone accessories OEM,drone FC ESC,drone accessories manufacturer',
+  'home.seo.title': 'Industrial UAV Components Manufacturer | 37W High-Power VTX & Digital Video Link | CANI',
+  'home.seo.description': 'Leading supplier of 37W high-power VTX, HD digital links, and AI guidance modules for industrial drones. 15+ years R&D, 200+ patents, and ISO-certified. Specialized in power inspection & logistics solutions. Request a quote today.',
+  'home.seo.keywords': '37W VTX,high power video transmitter,industrial drone components,digital video link,AI guidance module,drone manufacturer,power inspection drone,NDAA compliant drone,drone accessories OEM',
   'home.structured.name': 'CANI Technology Co., Ltd.',
-  'home.structured.description': 'Professional drone accessories supplier, providing digital FPV, VTX video transmitters, flight controllers, gimbals and other drone accessories.',
+  'home.structured.description': 'Leading industrial UAV components manufacturer specializing in 37W high-power VTX, HD digital video links, and AI guidance modules.',
   'home.structured.addressLocality': 'Changsha',
   'home.structured.addressRegion': 'Hunan',
   'home.structured.contactType': 'customer service',
@@ -839,5 +839,19 @@ export const enTranslations: Record<string, string> = {
   'contact.faq.a2': 'Yes, sample purchases are supported. Customers can verify product performance before bulk ordering to reduce procurement risk.',
   'contact.faq.q3': 'What is the lead time for custom products?',
   'contact.faq.a3': 'Standard customization: 15-30 days, depending on complexity. Rush orders can be negotiated.',
+
+  // ===== AEO Technical FAQ (Homepage) =====
+  'aeo.faq.title': 'Technical FAQ',
+  'aeo.faq.subtitle': 'Answers to key technical questions about CANI industrial drone components',
+  'aeo.faq.q1': 'What is the maximum transmission range of the CANI 37W VTX?',
+  'aeo.faq.a1': 'Under optimal conditions, the CANI 37W high-power VTX delivers a stable digital video link of over 50 km for industrial drones, ensuring reliable long-range BVLOS operations.',
+  'aeo.faq.q2': 'Are CANI drone hardware components NDAA compliant?',
+  'aeo.faq.a2': 'Yes, our core components are designed to meet NDAA and security standards, ensuring data privacy for global enterprise missions.',
+  'aeo.faq.q3': 'What AI capabilities do CANI guidance modules offer?',
+  'aeo.faq.a3': 'Our AI guidance modules feature autonomous target recognition, intelligent flight path planning, and precision guidance control, achieving 85% accuracy in automated gas leak detection using IR-Visual fusion.',
+  'aeo.faq.q4': 'Does CANI support OEM/ODM customization for drone components?',
+  'aeo.faq.a4': 'Yes, CANI provides full OEM/ODM customization services including VTX, flight controllers, ESCs, gimbals, and complete drone systems. We support custom specifications, branding, and packaging with minimum order quantities starting from 50 units.',
+  'aeo.faq.q5': 'What certifications do CANI products have?',
+  'aeo.faq.a5': 'CANI products hold ISO 9001 quality management certification, CE marking, FCC compliance, and multiple industry-specific certifications for power inspection and industrial applications.',
 
 };

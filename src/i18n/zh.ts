@@ -1416,11 +1416,11 @@ export const zhTranslations: Record<string, string> = {
   'about.cta.button': '联系我们',
 
   // ===== Index/Home Page Content =====
-  'home.seo.title': '长凌科技 - 专业无人机核心配件制造商 | 数字图传_飞控_云台',
-  'home.seo.description': '长凌科技专注无人机图传、飞控、云台等核心配件研发10年，提供工业无人机配件OEM/ODM定制服务，覆盖电力巡检、消防应急等多行业解决方案',
-  'home.seo.keywords': '无人机配件,数字图传,无人机飞控,云台吊舱,ELRS遥控,工业无人机配件,无人机VTX图传,无人机配件OEM定制,无人机飞控电调,无人机配件厂家',
+  'home.seo.title': '工业无人机配件制造商 | 37W大功率图传&数字视频链路 | CANI长凌科技',
+  'home.seo.description': '领先的37W大功率图传、高清数字链路及AI制导模块供应商，15年以上研发积累，200+专利，ISO认证，专注电力巡检与物流无人机解决方案。立即获取报价。',
+  'home.seo.keywords': '37W图传,大功率视频发射器,工业无人机配件,数字视频链路,AI制导模块,无人机制造商,电力巡检无人机,CANI长凌科技,无人机配件OEM定制',
   'home.structured.name': '长凌科技有限公司',
-  'home.structured.description': '专业无人机配件供应商，提供数字图传、VTX视频发射器、飞控电调、云台吊舱等无人机配件',
+  'home.structured.description': '领先的工业无人机配件制造商，专注37W大功率图传、高清数字视频链路和AI制导模块研发制造',
   'home.structured.addressLocality': '长沙',
   'home.structured.addressRegion': '湖南',
   'home.structured.contactType': 'customer service',
@@ -5835,6 +5835,20 @@ export const zhTranslations: Record<string, string> = {
   'contact.faq.a2': '支持样品购买试用，客户确认产品性能后再进行批量采购，降低采购风险。',
   'contact.faq.q3': '定制产品的交期多久？',
   'contact.faq.a3': '标准定制周期为15-30天，具体根据定制需求的复杂度而定，急单可协商加急处理。',
+
+  // ===== AEO 技术问答（首页） =====
+  'aeo.faq.title': '技术问答',
+  'aeo.faq.subtitle': '关于CANI工业无人机配件的核心技术问题解答',
+  'aeo.faq.q1': 'CANI 37W图传的最大传输距离是多少？',
+  'aeo.faq.a1': '在最佳条件下，CANI的37W高功率VTX可为工业无人机提供稳定的50公里以上远程数字视频链路，确保可靠的超视距（BVLOS）作业。',
+  'aeo.faq.q2': 'CANI的无人机硬件是否符合NDAA要求？',
+  'aeo.faq.a2': '是的，我们的核心组件设计符合NDAA和安全标准，确保全球企业任务的数据隐私。',
+  'aeo.faq.q3': 'CANI的AI制导模块具备哪些能力？',
+  'aeo.faq.a3.aeo': '我们的AI制导模块具备自主目标识别、智能航迹规划和精准制导控制功能，采用红外-可见光融合技术实现85%的自动气体泄漏检测精度。',
+  'aeo.faq.q4': 'CANI是否支持无人机配件的OEM/ODM定制？',
+  'aeo.faq.a4': '是的，CANI提供全面的OEM/ODM定制服务，涵盖图传、飞控、电调、云台及整机系统。支持定制规格、品牌标识和包装，最低起订量50台起。',
+  'aeo.faq.q5': 'CANI产品有哪些认证？',
+  'aeo.faq.a5': 'CANI产品拥有ISO 9001质量管理体系认证、CE标志、FCC认证，以及电力巡检和工业应用的多项行业专用认证。',
 
 };
 

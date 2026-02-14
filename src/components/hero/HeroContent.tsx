@@ -110,7 +110,7 @@ export const HeroContent = () => {
           <LangLink to="/products">
             <Button 
               size="lg" 
-              className="group relative overflow-hidden bg-gradient-to-r from-cyan-500 to-blue-600 text-white hover:from-cyan-400 hover:to-blue-500 px-8 py-6 text-lg font-semibold rounded-xl shadow-lg shadow-cyan-500/25 transition-all duration-300 hover:shadow-cyan-500/40 hover:scale-105"
+              className="group relative overflow-hidden bg-gradient-to-r from-cyan-500 to-blue-600 text-white hover:from-cyan-400 hover:to-blue-500 px-8 py-6 text-lg font-semibold rounded-xl shadow-lg shadow-cyan-500/25 transition-all duration-300 hover:shadow-cyan-500/40 hover:scale-105 min-h-[44px] min-w-[44px]"
             >
               <span className="relative z-10 flex items-center gap-2">
                 {t('hero.cta.explore')}
@@ -123,7 +123,7 @@ export const HeroContent = () => {
             <Button 
               variant="outline" 
               size="lg"
-              className="group relative overflow-hidden border border-white/20 bg-white/5 hover:bg-white/10 hover:border-white/40 text-white px-8 py-6 text-lg font-semibold rounded-xl backdrop-blur-sm transition-all duration-300 hover:scale-105"
+              className="group relative overflow-hidden border border-white/20 bg-white/5 hover:bg-white/10 hover:border-white/40 text-white px-8 py-6 text-lg font-semibold rounded-xl backdrop-blur-sm transition-all duration-300 hover:scale-105 min-h-[44px] min-w-[44px]"
             >
               <Play className="w-5 h-5 mr-2 group-hover:scale-110 transition-transform" />
               {t('hero.cta.about')}
