@@ -9,6 +9,10 @@ import { LangLink as Link } from "@/components/LangLink";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { motion } from "framer-motion";
 import { ArrowRight, Shield, Flame, Radio, Eye, Zap, Target, Download, FileText } from "lucide-react";
+import heroImg from "@/assets/emergency/hero-firefighting.jpg";
+import wildfireImg from "@/assets/emergency/wildfire-thermal.jpg";
+import urbanImg from "@/assets/emergency/urban-fire.jpg";
+import sarImg from "@/assets/emergency/sar-night-search.jpg";
 
 const FirefightingEmergency = () => {
   const { t } = useLanguage();
@@ -55,7 +59,7 @@ const FirefightingEmergency = () => {
         <section className="relative min-h-[70vh] flex items-center overflow-hidden">
           <div className="absolute inset-0">
             <img
-              src="https://images.pexels.com/photos/20343603/pexels-photo-20343603.jpeg?auto=compress&cs=tinysrgb&w=1920"
+              src={heroImg}
               alt="CANI industrial UAV for emergency rescue and firefighting operations"
               className="w-full h-full object-cover"
               loading="eager"
@@ -132,7 +136,7 @@ const FirefightingEmergency = () => {
                 transition={{ duration: 0.6 }}
               >
                 <img
-                  src="https://images.pexels.com/photos/3382442/pexels-photo-3382442.jpeg?auto=compress&cs=tinysrgb&w=800"
+                  src={wildfireImg}
                   alt="CANI firefighting drone wildfire thermal detection over forest fire line"
                   className="rounded-2xl shadow-lg w-full"
                   loading="lazy"
@@ -168,7 +172,7 @@ const FirefightingEmergency = () => {
                 className="order-2 lg:order-1"
               >
                 <img
-                  src="https://images.pexels.com/photos/11119566/pexels-photo-11119566.jpeg?auto=compress&cs=tinysrgb&w=800"
+                  src={urbanImg}
                   alt="CANI UAV search and rescue SAR thermal imaging in urban industrial fire"
                   className="rounded-2xl shadow-lg w-full"
                   loading="lazy"
@@ -241,7 +245,7 @@ const FirefightingEmergency = () => {
                 transition={{ duration: 0.6 }}
               >
                 <img
-                  src="https://images.pexels.com/photos/10313531/pexels-photo-10313531.jpeg?auto=compress&cs=tinysrgb&w=800"
+                  src={sarImg}
                   alt="CANI industrial UAV for emergency rescue SAR night water search"
                   className="rounded-2xl shadow-lg w-full"
                   loading="lazy"
