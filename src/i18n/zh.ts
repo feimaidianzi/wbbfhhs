@@ -2120,6 +2120,7 @@ export const zhTranslations: Record<string, string> = {
   'water.cta.title': '获取智慧水利解决方案',
   'water.cta.subtitle': '联系我们的专业团队，获取水利行业无人机应用方案及投资回报分析',
   'water.cta.btn': '立即咨询',
+  'water.whitepaper.btn': '下载智慧水利白皮书',
 
   // Traffic Application Page - 交通行业应用
   'traffic.seo.title': '交通行业应用',
