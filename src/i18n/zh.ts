@@ -7,8 +7,8 @@ export const zhTranslations: Record<string, string> = {
 
   // ===== Hero Section =====
   'hero.tagline': '无人机核心配件专家',
-  'hero.title.line1': '重新定义',
-  'hero.title.line2': '飞行体验',
+  'hero.title.line1': '工业无人机核心',
+  'hero.title.line2': '系统与AI组件',
   'hero.subtitle': '专注无人机图传、飞控、云台等核心配件研发，10年技术沉淀，为全球飞手提供专业级解决方案',
   'hero.cta.explore': '探索产品',
   'hero.cta.about': '了解长凌',
@@ -1685,14 +1685,14 @@ export const zhTranslations: Record<string, string> = {
   'companyIntro.badge': '关于长凌',
   'companyIntro.title.line1': '专注无人机配件',
   'companyIntro.title.line2': '10年技术沉淀',
-  'companyIntro.description': '长凌科技是专业的无人机配件厂家，专注于工业无人机配件研发与制造，10年技术沉淀，为全球飞手提供专业级解决方案。从产品选型到系统集成，从技术培训到售后保障，全程陪伴您的无人机项目落地。我们服务电力、物流、消防等500+企业客户，积累了丰富的实战经验。',
+  'companyIntro.description': '作为一家拥有15年以上研发经验的领先工业无人机零部件制造商，CANI（长凌科技）专注于高可靠性系统。我们旗舰级的37W大功率图传和4.9-7.2GHz全频段数字链路，旨在为关键任务提供稳定的50公里以上传输距离。我们拥有超过200项专利技术，并获得ISO、CE和FCC的全面认证，提供符合NDAA标准的无人机AI导航模块和飞行控制器，可将电力巡检效率提高多达10倍。',
   'companyIntro.stat1.value': '200+',
   'companyIntro.stat1.label': '产品型号',
   'companyIntro.stat2.value': '10+',
   'companyIntro.stat2.label': '年深耕',
   'companyIntro.stat3.value': '500+',
   'companyIntro.stat3.label': '合作伙伴',
-  'companyIntro.learnMore': '了解更多',
+  'companyIntro.learnMore': '无人机AI制导模块技术规格',
   'companyIntro.advantage1.title': '产品矩阵完整',
   'companyIntro.advantage1.desc': '图传、飞控、云台、遥控全覆盖，一站式采购无人机核心配件',
   'companyIntro.advantage2.title': '技术响应迅速',
@@ -1704,7 +1704,7 @@ export const zhTranslations: Record<string, string> = {
 
   // ===== Why Choose Us Section =====
   'whyChoose.badge': '核心优势',
-  'whyChoose.title': '为什么信赖长凌',
+  'whyChoose.title': '自主无人机AI制导与智能飞控模块',
   'whyChoose.subtitle': '我们提供专业的无人机配件定制服务，为客户打造一站式工业无人机配件解决方案，满足不同场景的使用需求。作为全球无人机配件供应商，我们凭借高新技术研发实力，为客户提供稳定可靠的产品。',
   'whyChoose.stat1.value': '15',
   'whyChoose.stat1.suffix': '+',
@@ -1727,10 +1727,10 @@ export const zhTranslations: Record<string, string> = {
 
   // ===== Products Section =====
   'productsSection.badge': '核心产品',
-  'productsSection.title': '专业无人机配件',
+  'productsSection.title': '先进4.9-7.2GHz全频段数字图传系统',
   'productsSection.subtitle': '深耕无人机核心部件10余年，从图传到飞控，从云台到遥控，为专业飞手提供可靠装备',
   'productsSection.exploreNow': '立即探索',
-  'productsSection.viewAll': '查看全部产品',
+  'productsSection.viewAll': '探索远距离图传与数字视频链路',
   'productsSection.hot': 'HOT',
   'productsSection.new': 'NEW',
   'productsSection.category.digitalFpv': '数字图传',
@@ -1751,9 +1751,9 @@ export const zhTranslations: Record<string, string> = {
 
   // ===== Solutions Section =====
   'solutionsSection.badge': '行业方案',
-  'solutionsSection.title': '场景化解决方案',
+  'solutionsSection.title': '电网巡检与智慧物流一体化解决方案',
   'solutionsSection.subtitle': '不只提供产品，更提供从硬件到软件、从单机到集群的完整行业方案',
-  'solutionsSection.viewAll': '查看全部方案',
+  'solutionsSection.viewAll': '效率提升10倍：智能电网巡检案例',
   'solutionsSection.learnMore': '了解详情',
   'solutionsSection.solution1.title': '电力巡检',
   'solutionsSection.solution1.desc': '自主航线规划，AI缺陷识别，将巡检效率提升10倍，人工成本降低80%',
@@ -1803,9 +1803,9 @@ export const zhTranslations: Record<string, string> = {
 
   // ===== CTA Section =====
   'ctaSection.badge': '开始合作',
-  'ctaSection.title': '让飞行更智能',
+  'ctaSection.title': '获取工业无人机配件报价',
   'ctaSection.description': '无论是产品选型、技术咨询，还是定制化方案，我们的专家团队随时准备为您提供专业支持。立即联系，获取免费技术咨询。',
-  'ctaSection.contactNow': '立即咨询',
+  'ctaSection.contactNow': '获取报价',
   'ctaSection.contactInfo': '联系方式',
   'ctaSection.email': '商务邮箱',
   'ctaSection.socialMedia': '社交媒体',

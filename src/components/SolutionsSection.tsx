@@ -68,8 +68,9 @@ export const SolutionsSection = () => {
             >
               <img
                 src={solution.image}
-                alt={solution.title}
+                alt={`CANI ${solution.title} - Industrial UAV Application`}
                 className="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+                loading="lazy"
               />
               
               {/* Content */}
@@ -95,8 +96,8 @@ export const SolutionsSection = () => {
         {/* View All */}
         <div className="text-center mt-12">
           <LangLink
-            to="/applications"
-            className="inline-flex items-center gap-2 px-8 py-4 bg-accent text-accent-foreground font-semibold rounded-lg shadow-neon hover:shadow-neon-intense transition-all duration-300 hover:scale-105 group"
+            to="/applications/power-inspection"
+            className="inline-flex items-center gap-2 px-8 py-4 bg-accent text-accent-foreground font-semibold rounded-lg shadow-neon hover:shadow-neon-intense transition-all duration-300 hover:scale-105 group min-h-[44px] min-w-[44px]"
           >
             {t('solutionsSection.viewAll')}
             <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform duration-300" />

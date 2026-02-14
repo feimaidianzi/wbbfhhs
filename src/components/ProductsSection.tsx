@@ -116,11 +116,12 @@ export const ProductsSection = () => {
               <div className="relative h-full min-h-[400px] lg:min-h-[600px] rounded-3xl overflow-hidden bg-gradient-to-br from-accent/20 to-cyan-500/10 border border-accent/20">
                 {/* Background Image */}
                 <div className="absolute inset-0">
-                  <img
-                    src={categories[0].image}
-                    alt={categories[0].name}
-                    className="w-full h-full object-cover group-hover:scale-110 transition-all duration-700"
-                  />
+                    <img
+                      src={categories[0].image}
+                      alt={`CANI ${categories[0].name} - Industrial UAV HD Digital Video Transmission System`}
+                      className="w-full h-full object-cover group-hover:scale-110 transition-all duration-700"
+                      loading="lazy"
+                    />
                 </div>
                 
                 {/* Hot Badge */}
@@ -164,8 +165,9 @@ export const ProductsSection = () => {
                   <div className="absolute inset-0">
                     <img
                       src={product.image}
-                      alt={product.name}
+                      alt={`CANI ${product.name} - Professional UAV Component`}
                       className="w-full h-full object-cover group-hover:scale-110 transition-all duration-700"
+                      loading="lazy"
                     />
                   </div>
                   
@@ -212,7 +214,7 @@ export const ProductsSection = () => {
           className="text-center mt-12"
         >
           <LangLink to="/products">
-            <button className="group inline-flex items-center gap-3 px-8 py-4 rounded-full border border-accent/30 hover:border-accent hover:bg-accent/5 text-foreground font-semibold transition-all duration-300">
+            <button className="group inline-flex items-center gap-3 px-8 py-4 rounded-full border border-accent/30 hover:border-accent hover:bg-accent/5 text-foreground font-semibold transition-all duration-300 min-h-[44px] min-w-[44px]">
               {t('productsSection.viewAll')}
               <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
             </button>
