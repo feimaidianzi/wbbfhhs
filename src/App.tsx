@@ -71,6 +71,7 @@ import EnvironmentApp from "./pages/applications/EnvironmentApp";
 import FirefightingApp from "./pages/applications/FirefightingApp";
 import TetheredApp from "./pages/applications/TetheredApp";
 import Solutions from "./pages/applications/Solutions";
+import WaterConservancy from "./pages/applications/WaterConservancy";
 // Accessories detail pages
 import VtxVrx from "./pages/products/accessories/VtxVrx";
 import VtxDetail from "./pages/products/accessories/VtxDetail";
@@ -132,6 +133,7 @@ const publicRoutes = [
   { path: "/applications/firefighting", element: <FirefightingApp /> },
   { path: "/applications/tethered", element: <TetheredApp /> },
   { path: "/applications/solutions", element: <Solutions /> },
+  { path: "/solutions/industrial-uav-water-conservancy", element: <WaterConservancy /> },
   { path: "/software", element: <Software /> },
   { path: "/software/exam-system", element: <ExamSystem /> },
   { path: "/software/pv-inspection", element: <PVInspection /> },

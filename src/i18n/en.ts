@@ -943,4 +943,48 @@ export const enTranslations: Record<string, string> = {
   'applications.section.title': 'Multi-Industry Scenario Coverage',
   'applications.learnMore': 'View Details',
   'applications.viewAll': 'Explore All Industry Application Cases',
+
+  // Water Conservancy Solution Page
+  'water.seo.title': 'Smart Water Management UAV Solutions | 50km BVLOS River & Dam Inspection',
+  'water.seo.desc': 'Advanced industrial UAV solutions for smart water affairs. Featuring 50km+ BVLOS river patrol, AI-driven illegal sand mining detection, and centimeter-level 3D dam health monitoring with 37W high-power VTX and thermal imaging.',
+  'water.seo.keywords': 'smart water UAV,river inspection drone,dam monitoring,BVLOS patrol,illegal sand mining surveillance,flood prevention drone,37W VTX,water conservancy solution',
+  'water.badge': 'Smart Water Solutions',
+  'water.title': 'Intelligent UAV Remote Sensing Network for Smart Water Management',
+  'water.hero': 'Traditional water conservancy inspection relies on manual walking or boats — low efficiency with massive data blind spots. With 15 years of industrial-grade R&D, CANI builds an integrated "Air-Space-Ground" UAV monitoring network. By deeply integrating 37W high-power VTX with AI edge computing, we help management agencies upgrade from "reactive response" to "precision early warning".',
+
+  'water.pain.title': 'Core Challenges in Modern Hydrological Monitoring',
+  'water.pain.terrain.title': 'Terrain Obstacles',
+  'water.pain.terrain.desc': 'Many check dams and spillways are located in deep mountain valleys, posing fall and rockfall risks for manual inspectors, with some areas completely inaccessible.',
+  'water.pain.delay.title': 'Data Latency',
+  'water.pain.delay.desc': 'Traditional civilian systems struggle to maintain stable 1080P HD video transmission beyond 10km, causing critical delays in on-site command decision-making.',
+  'water.pain.manual.title': 'Manual Inefficiency',
+  'water.pain.manual.desc': 'Manual river/lake chief patrol cycles are long, making it difficult to detect illegal discharge and sand mining in real-time, leaving massive blind spots in management.',
+
+  'water.scenarios.title': 'Full-Scenario Business Coverage',
+  'water.scene1.title': 'Automated River Patrol with AI Pollution Detection',
+  'water.scene1.desc': 'Using UAVs equipped with AI guidance modules, the system autonomously plans flight paths. The triple-light gimbal automatically identifies discharge outlets, floating debris, and illegal structures. AI recognition accuracy exceeds 95%, with GPS coordinates and HD images transmitted in real-time via 50km long-range data link.',
+  'water.scene2.title': '50km BVLOS Anti-Illegal Sand Mining Surveillance',
+  'water.scene2.desc': 'Illegal sand mining often occurs at night or in remote waters. CANI\'s 37W high-power VTX system supports Beyond Visual Line of Sight (BVLOS) operations, ensuring uninterrupted 1080P/60fps evidence footage even in electromagnetically complex river environments — solving the industry bottleneck of signal loss.',
+  'water.scene3.title': 'Dam Health & Seepage Monitoring',
+  'water.scene3.desc': 'Combining thermal imaging with RTK positioning, UAVs perform centimeter-level 3D modeling of dam structures. The system detects temperature anomalies from seepage in real-time, identifying piping, cracks, and structural erosion risks early to ensure infrastructure safety.',
+
+  'water.vtx.link': 'Explore 37W VTX Technical Specs →',
+
+  'water.adv.title': 'Engineered for Mission-Critical Operations',
+  'water.adv.range.title': '50km+ Long-Range Transmission',
+  'water.adv.range.desc': 'Equipped with proprietary 37W VTX, breaking line-of-sight limitations for blind-spot-free monitoring across vast water bodies.',
+  'water.adv.latency.title': 'Low-Latency Command & Control',
+  'water.adv.latency.desc': '<200ms end-to-end latency ensures responsive control during operations near dam danger zones.',
+  'water.adv.standard.title': 'Global Safety Standards',
+  'water.adv.standard.desc': 'Products comply with NDAA, CE, and FCC standards, meeting global government and enterprise requirements for data sovereignty and compliance.',
+
+  'water.faq.title': 'Frequently Asked Questions',
+  'water.faq.q1': 'Can CANI UAVs operate in high-humidity water conservancy environments?',
+  'water.faq.a1': 'Yes, our components feature industrial-grade IP55 weatherproof sealing and anti-corrosion coatings, specifically designed for 24/7 hydrological monitoring in reservoir and humid river basin environments.',
+  'water.faq.q2': 'What are the practical benefits of the 37W VTX for river inspection?',
+  'water.faq.a2': 'The 37W high-power VTX delivers stable 1080P video transmission over 50km+, allowing operators to monitor vast water bodies without moving the ground station — improving efficiency by approximately 8x compared to traditional methods.',
+
+  'water.cta.title': 'Get Smart Water Solutions',
+  'water.cta.subtitle': 'Contact our expert team for water conservancy UAV application plans and ROI analysis',
+  'water.cta.btn': 'Request Consultation',
 };
