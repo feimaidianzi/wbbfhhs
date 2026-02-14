@@ -153,8 +153,9 @@ export const ApplicationsSection = () => {
                 >
                   <img
                     src={app.image}
-                    alt={t(app.nameKey)}
+                    alt={`CANI ${t(app.nameKey)} - UAV Industry Application Scenario`}
                     className="w-full h-full object-cover"
+                    loading="lazy"
                   />
                   
                   {/* Content Overlay */}
