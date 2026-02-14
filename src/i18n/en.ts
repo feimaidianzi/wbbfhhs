@@ -964,7 +964,7 @@ export const enTranslations: Record<string, string> = {
   'water.scene1.title': 'Automated River Patrol with AI Pollution Detection',
   'water.scene1.desc': 'Using UAVs equipped with AI guidance modules, the system autonomously plans flight paths. The triple-light gimbal automatically identifies discharge outlets, floating debris, and illegal structures. AI recognition accuracy exceeds 95%, with GPS coordinates and HD images transmitted in real-time via 50km long-range data link.',
   'water.scene2.title': '50km BVLOS Anti-Illegal Sand Mining Surveillance',
-  'water.scene2.desc': 'Illegal sand mining often occurs at night or in remote waters. CANI\'s 37W high-power VTX system supports Beyond Visual Line of Sight (BVLOS) operations, ensuring uninterrupted 1080P/60fps evidence footage even in electromagnetically complex river environments — solving the industry bottleneck of signal loss.',
+  'water.scene2.desc': 'Illegal sand mining often occurs at night or in remote waters. CANI\'s HD digital video transmission system supports Beyond Visual Line of Sight (BVLOS) operations, ensuring uninterrupted 1080P/60fps evidence footage even in electromagnetically complex river environments — solving the industry bottleneck of signal loss.',
   'water.scene3.title': 'Dam Health & Seepage Monitoring',
   'water.scene3.desc': 'Combining thermal imaging with RTK positioning, UAVs perform centimeter-level 3D modeling of dam structures. The system detects temperature anomalies from seepage in real-time, identifying piping, cracks, and structural erosion risks early to ensure infrastructure safety.',
 
@@ -981,8 +981,8 @@ export const enTranslations: Record<string, string> = {
   'water.faq.title': 'Frequently Asked Questions',
   'water.faq.q1': 'Can CANI UAVs operate in high-humidity water conservancy environments?',
   'water.faq.a1': 'Yes, our components feature industrial-grade IP55 weatherproof sealing and anti-corrosion coatings, specifically designed for 24/7 hydrological monitoring in reservoir and humid river basin environments.',
-  'water.faq.q2': 'What are the practical benefits of the 37W VTX for river inspection?',
-  'water.faq.a2': 'The 37W high-power VTX delivers stable 1080P video transmission over 50km+, allowing operators to monitor vast water bodies without moving the ground station — improving efficiency by approximately 8x compared to traditional methods.',
+  'water.faq.q2': 'What are the practical benefits of digital video transmission for river inspection?',
+  'water.faq.a2': 'The HD digital video transmission system delivers stable 1080P video over 50km+, allowing operators to monitor vast water bodies without moving the ground station — improving efficiency by approximately 8x compared to traditional methods.',
 
   'water.cta.title': 'Get Smart Water Solutions',
   'water.cta.subtitle': 'Contact our expert team for water conservancy UAV application plans and ROI analysis',
