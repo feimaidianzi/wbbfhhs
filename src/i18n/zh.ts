@@ -2185,7 +2185,7 @@ export const zhTranslations: Record<string, string> = {
   'transport.cta.btn': '立即咨询',
   'transport.whitepaper.btn': '下载智慧交通方案白皮书',
 
-  // Surveying Application Page - 测绘行业应用
+  // Surveying Application Page - 测绘行业应用 (old simple page keys retained for compatibility)
   'surveying.seo.title': '测绘行业应用',
   'surveying.seo.desc': '长凌科技无人机测绘行业解决方案，应用于航空测绘、地形测量、正射影像等领域。',
   'surveying.seo.keywords': '测绘无人机,航空测绘,地形测量,正射影像,三维建模',
@@ -2204,6 +2204,67 @@ export const zhTranslations: Record<string, string> = {
   'surveying.cta.title': '获取测绘行业解决方案',
   'surveying.cta.subtitle': '联系我们的专业团队，了解更多测绘行业无人机应用详情',
   'surveying.cta.btn': '立即咨询',
+
+  // ===== Surveying & Mapping Solution Page (Deep) =====
+  'surveyMap.seo.title': 'Professional UAV 3D Mapping & RTK Surveying | Digital Twin Modeling | CANI',
+  'surveyMap.seo.desc': '测量级工业无人机解决方案，厘米级精度。集成RTK/PPK高精度差分、LiDAR三维点云生成与数字孪生建模，数字高清链路实时任务监控，降低现场勘测成本70%。',
+  'surveyMap.seo.keywords': 'UAV Topographic Survey,RTK Drone Mapping,LiDAR 3D Modeling,Volumetric Calculation Drone,Digital Twin Urban Planning,GSD Precision Mapping,测绘无人机,RTK航测,三维建模',
+  'surveyMap.hero.badge': '测绘行业解决方案',
+  'surveyMap.hero.h1': '测量级无人机解决方案：3D建模与数字孪生',
+  'surveyMap.hero.desc': '在2026年的地理空间经济中，精度即是生命线。CANI（长凌科技）利用集成RTK/PPK高精度差分技术的工业级平台，为矿山、建筑及城市规划提供"数字化克隆"能力。我们的方案可实现1cm的绝对水平精度，并将数据采集速度提升30倍以上。',
+  'surveyMap.hero.cta': '获取测绘行业解决方案',
+
+  'surveyMap.pain.title': '传统测绘的"效率鸿沟"',
+  'surveyMap.pain.terrain.title': '不可及区域',
+  'surveyMap.pain.terrain.desc': '陡峭的山体、湿地或活跃的露天矿区，人工进入极具安全风险且效率低下。',
+  'surveyMap.pain.density.title': '数据密度稀疏',
+  'surveyMap.pain.density.desc': '传统方法只能测量有限的特征点，无法捕捉地表的细微起伏，导致土方量计算误差超过5%。',
+  'surveyMap.pain.satellite.title': '卫星图盲区',
+  'surveyMap.pain.satellite.desc': '卫星图像更新频率低（月/季），且分辨率（0.3m）远达不到工程级建模的要求（0.03m）。',
+
+  'surveyMap.scene1.tag': '地形测绘',
+  'surveyMap.scene1.h3': '地形测绘与厘米级精度 (DEM/DSM)',
+  'surveyMap.scene1.desc': '利用搭载工业级数字高清图传系统的无人机，测绘师可在指挥车内实时监控飞行姿态与图像重叠度，自动生成高精度数字正射影像（DOM）、数字高程模型（DEM）及数字表面模型（DSM）。',
+  'surveyMap.scene1.output': '技术产出：自动生成DOM、DEM、DSM三大核心测绘数据成果',
+  'surveyMap.scene1.precision': '精度指标：飞行高度120m时，GSD（地面采样间距）可达2cm/pixel，满足1:500国家测量规范',
+
+  'surveyMap.scene2.tag': '矿区算量',
+  'surveyMap.scene2.h3': '矿区库存算量与岩土监测',
+  'surveyMap.scene2.desc': '相比传统测量需3-5天，无人机仅需30分钟即可完成10平方公里矿区的扫描，土石方计算误差精确至1%以内。CANI无人机是矿区运营中最高效的库存管理工具。',
+  'surveyMap.scene2.slope': '边坡安全：定期对比高精度3D模型，系统可自动捕捉毫米级的滑坡预警信号，显著预防重大安全事故',
+
+  'surveyMap.scene3.tag': '数字孪生',
+  'surveyMap.scene3.h3': '数字孪生与智慧城市规划',
+  'surveyMap.scene3.desc': '采用倾斜摄影技术，采集建筑物的五个立面信息，生成具备真实纹理的3D Mesh模型，为现代城市建立三维镜像，支持城市更新与基础设施管理。',
+  'surveyMap.scene3.bim': 'BIM协同：数据可无缝导入CAD、ArcGIS及BIM平台，支持施工进度比对与城市天际线模拟',
+
+  'surveyMap.leadMagnet.title': '下载无人机测绘精度实测报告',
+  'surveyMap.leadMagnet.desc': '测绘客户是参数敏感型，一份详细的精度实测报告是获取RFQ的最佳参考依据。',
+  'surveyMap.leadMagnet.btn': '下载测绘精度报告 (PDF)',
+
+  'surveyMap.tech.title': 'CANI 测绘核心技术',
+  'surveyMap.tech.subtitle': '专为测绘工程师打造的技术优势',
+  'surveyMap.tech.rtk.title': '集成 RTK/PPK 模块',
+  'surveyMap.tech.rtk.desc': '消除传统测绘对大量地面控制点（GCPs）的依赖，现场部署时间缩短80%。',
+  'surveyMap.tech.link.title': '数字高清图传（低延迟）',
+  'surveyMap.tech.link.desc': '采用数字协议，确保在大规模网格飞行过程中，操作员可清晰监控载荷工作状态，避免因丢帧导致的重飞。',
+  'surveyMap.tech.gis.title': '深度 GIS 兼容',
+  'surveyMap.tech.gis.desc': '产出的 .las、.obj、.tiff 等格式完美适配 Pix4D、DJI Terra 及 Bentley 系统。',
+
+  'surveyMap.link.fc': '探索高精度飞控系统',
+  'surveyMap.link.vtx': '探索数字高清图传产品',
+
+  'surveyMap.faq.title': '测绘行业常见问题',
+  'surveyMap.faq.q1': 'RTK无人机与非RTK无人机在测绘精度上有何区别？',
+  'surveyMap.faq.a1': 'RTK无人机通过接收基站实时校正信号，可实现1-2cm水平精度和2-3cm垂直精度。非RTK无人机通常有2-5米的误差，不适合测量级工程项目。',
+  'surveyMap.faq.q2': '测绘用LiDAR和摄影测量哪个更好？',
+  'surveyMap.faq.a2': 'LiDAR在植被茂密区域表现更优，因为激光可穿透树叶到达裸露地面；而摄影测量在开阔区域更具性价比，且能提供视觉逼真的纹理三维模型。',
+
+  'surveyMap.cta.title': '获取测绘行业定制方案',
+  'surveyMap.cta.desc': '联系我们的测绘行业专家，获取RTK无人机方案与精度实测报告，助力您的数字化转型。',
+  'surveyMap.cta.contact': '立即咨询测绘专家',
+
+  'surveyMap.whitepaper.btn': '下载测绘精度报告',
 
   // Emergency Application Page - 应急救援应用
   'emergency.seo.title': '应急救援应用',

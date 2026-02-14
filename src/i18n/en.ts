@@ -1083,6 +1083,67 @@ export const enTranslations: Record<string, string> = {
   'header.transport': 'Smart Transportation',
   'header.transport.desc': 'Highway & Bridge Inspection',
 
+  // ===== Surveying & Mapping Solution Page (Deep) =====
+  'surveyMap.seo.title': 'Professional UAV 3D Mapping & RTK Surveying | Digital Twin Modeling | CANI',
+  'surveyMap.seo.desc': 'Survey-grade industrial UAV solutions with centimeter-level precision. Features RTK/PPK integration, LiDAR 3D point cloud generation, and digital twin modeling. High-bandwidth digital HD link for real-time mission monitoring. Reduce site survey costs by 70%.',
+  'surveyMap.seo.keywords': 'UAV Topographic Survey,RTK Drone Mapping,LiDAR 3D Modeling,Volumetric Calculation Drone,Digital Twin Urban Planning,GSD Precision Mapping',
+  'surveyMap.hero.badge': 'Surveying & Mapping Solutions',
+  'surveyMap.hero.h1': 'Survey-Grade UAV Solutions for 3D Modeling & Digital Twins',
+  'surveyMap.hero.desc': 'In the 2026 geospatial economy, precision is the lifeline. CANI leverages industrial-grade platforms with integrated RTK/PPK high-precision differential technology, providing "digital cloning" capabilities for mining, construction, and urban planning. Our solutions achieve 1cm absolute horizontal accuracy and boost data acquisition speed by over 30x.',
+  'surveyMap.hero.cta': 'Get Surveying Solutions',
+
+  'surveyMap.pain.title': 'Challenges in Conventional Geospatial Data Acquisition',
+  'surveyMap.pain.terrain.title': 'Inaccessible Terrains',
+  'surveyMap.pain.terrain.desc': 'Steep mountainsides, wetlands, or active open-pit mines pose extreme safety risks and low efficiency for manual entry.',
+  'surveyMap.pain.density.title': 'Low Data Density',
+  'surveyMap.pain.density.desc': 'Traditional methods can only measure limited feature points, failing to capture subtle surface undulations, resulting in earthwork volume calculation errors exceeding 5%.',
+  'surveyMap.pain.satellite.title': 'Low-Resolution Satellite Gaps',
+  'surveyMap.pain.satellite.desc': 'Satellite imagery updates infrequently (monthly/quarterly) and resolution (0.3m) falls far short of engineering-grade modeling requirements (0.03m).',
+
+  'surveyMap.scene1.tag': 'Topographic Mapping',
+  'surveyMap.scene1.h3': 'Topographic Mapping & Centimeter-Level Precision (DEM/DSM)',
+  'surveyMap.scene1.desc': 'Using UAVs equipped with industrial-grade digital HD video links, surveyors can monitor flight attitude and image overlap in real-time from the command vehicle, automatically generating high-precision DOM, DEM, and DSM.',
+  'surveyMap.scene1.output': 'Technical Output: Automatic generation of DOM, DEM, DSM — three core surveying deliverables',
+  'surveyMap.scene1.precision': 'Precision: At 120m flight altitude, GSD reaches 2cm/pixel, meeting 1:500 national survey standards',
+
+  'surveyMap.scene2.tag': 'Mine Volumetrics',
+  'surveyMap.scene2.h3': 'Mine Stockpile Volumetric Calculation & Geotechnical Monitoring',
+  'surveyMap.scene2.desc': 'Compared to traditional surveys requiring 3-5 days, UAVs complete 10 sq km mine scans in just 30 minutes with earthwork volume errors within 1%. CANI UAVs are the most efficient inventory management tool for mine operations.',
+  'surveyMap.scene2.slope': 'Slope Safety: Periodic comparison of high-precision 3D models enables automatic detection of millimeter-level landslide warning signals',
+
+  'surveyMap.scene3.tag': 'Digital Twins',
+  'surveyMap.scene3.h3': 'Digital Twins & Smart City Urban Planning',
+  'surveyMap.scene3.desc': 'Using oblique photogrammetry to capture five facade orientations, generating realistic textured 3D Mesh models to create three-dimensional mirrors of modern cities, supporting urban renewal and infrastructure management.',
+  'surveyMap.scene3.bim': 'BIM Integration: Data seamlessly imports into CAD, ArcGIS, and BIM platforms for construction progress comparison and skyline simulation',
+
+  'surveyMap.leadMagnet.title': 'Download UAV Mapping Accuracy Report',
+  'surveyMap.leadMagnet.desc': 'Surveying clients are parameter-sensitive — a detailed accuracy validation report is the best reference for procurement decisions.',
+  'surveyMap.leadMagnet.btn': 'Download Mapping Accuracy Report (PDF)',
+
+  'surveyMap.tech.title': 'CANI Mapping Technology: Accuracy Redefined',
+  'surveyMap.tech.subtitle': 'Technical edge built for professional surveyors and mapping engineers',
+  'surveyMap.tech.rtk.title': 'Integrated RTK/PPK Module',
+  'surveyMap.tech.rtk.desc': 'Eliminates dependency on large numbers of Ground Control Points (GCPs), reducing on-site deployment time by 80%.',
+  'surveyMap.tech.link.title': 'Digital HD Video Link (Low Latency)',
+  'surveyMap.tech.link.desc': 'Digital protocol ensures operators can clearly monitor payload status during large-scale grid flights, preventing re-flights due to frame drops.',
+  'surveyMap.tech.gis.title': 'Deep GIS Compatibility',
+  'surveyMap.tech.gis.desc': 'Output formats (.las, .obj, .tiff) perfectly compatible with Pix4D, DJI Terra, and Bentley systems.',
+
+  'surveyMap.link.fc': 'Explore High-Precision Flight Controllers',
+  'surveyMap.link.vtx': 'Explore Digital HD Video Link Products',
+
+  'surveyMap.faq.title': 'Surveying & Mapping FAQ',
+  'surveyMap.faq.q1': 'What is the accuracy difference between RTK and non-RTK drones in mapping?',
+  'surveyMap.faq.a1': 'RTK drones provide 1-2 cm horizontal accuracy and 2-3 cm vertical accuracy by receiving real-time corrections from a base station. Non-RTK drones usually have 2-5 meters of error, making them unsuitable for survey-grade engineering projects.',
+  'surveyMap.faq.q2': 'Which is better for mapping: LiDAR or Photogrammetry?',
+  'surveyMap.faq.a2': 'LiDAR excels in dense vegetation as it can penetrate foliage to reach the bare earth, while Photogrammetry is more cost-effective for open areas and providing visually realistic textured 3D models.',
+
+  'surveyMap.cta.title': 'Get Your Custom Surveying Solution',
+  'surveyMap.cta.desc': 'Contact our surveying experts for RTK UAV solutions and precision validation reports to power your digital transformation.',
+  'surveyMap.cta.contact': 'Consult Surveying Experts',
+
+  'surveyMap.whitepaper.btn': 'Download Accuracy Report',
+
   // ===== Firefighting & Emergency Rescue Solution Page =====
   'fireEmergency.seo.title': 'UAV Firefighting & Emergency Response | Search and Rescue (SAR) Drone | CANI',
   'fireEmergency.seo.desc': 'Specialized industrial UAV solutions for emergency rescue. Features 3x faster fire detection, thermal hotspot mapping, 50km BVLOS situational awareness, and AI-driven SAR. NDAA compliant hardware for global public safety.',
