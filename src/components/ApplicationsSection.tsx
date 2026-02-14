@@ -149,7 +149,7 @@ export const ApplicationsSection = () => {
                     scale: activeIndex === index ? 1 : 1.1,
                   }}
                   transition={{ duration: 0.7 }}
-                  className="absolute inset-0"
+                  className={`absolute inset-0 ${activeIndex === index ? 'pointer-events-auto' : 'pointer-events-none'}`}
                 >
                   <img
                     src={app.image}
