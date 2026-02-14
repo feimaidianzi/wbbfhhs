@@ -1729,7 +1729,7 @@ export const zhTranslations: Record<string, string> = {
 
   // ===== Products Section =====
   'productsSection.badge': '核心产品',
-  'productsSection.title': '先进4.9-7.2GHz全频段数字图传系统',
+  'productsSection.title': '先进高清数字图传系统',
   'productsSection.subtitle': '深耕无人机核心部件10余年，从图传到飞控，从云台到遥控，为专业飞手提供可靠装备',
   'productsSection.exploreNow': '立即探索',
   'productsSection.viewAll': '探索远距离图传与数字视频链路',
