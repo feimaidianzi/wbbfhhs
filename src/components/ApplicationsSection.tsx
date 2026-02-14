@@ -47,7 +47,7 @@ export const ApplicationsSection = () => {
       descKey: "applications.emergency.desc",
       image: "https://images.unsplash.com/photo-1569863959165-56dae551d4fc?w=1200&q=80",
       icon: AlertTriangle,
-      link: "/applications/firefighting",
+      link: "/solutions/uav-firefighting-emergency-rescue",
     },
     {
       id: "surveying",

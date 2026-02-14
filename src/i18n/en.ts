@@ -1082,4 +1082,64 @@ export const enTranslations: Record<string, string> = {
   // Header nav - Transportation
   'header.transport': 'Smart Transportation',
   'header.transport.desc': 'Highway & Bridge Inspection',
+
+  // ===== Firefighting & Emergency Rescue Solution Page =====
+  'fireEmergency.seo.title': 'UAV Firefighting & Emergency Response | Search and Rescue (SAR) Drone | CANI',
+  'fireEmergency.seo.desc': 'Specialized industrial UAV solutions for emergency rescue. Features 3x faster fire detection, thermal hotspot mapping, 50km BVLOS situational awareness, and AI-driven SAR. NDAA compliant hardware for global public safety.',
+  'fireEmergency.seo.keywords': 'Firefighting Drone,Search and Rescue UAV,Wildfire Monitoring Drone,Hazmat Response Drone,BVLOS Emergency Communication,Thermal Imaging Search and Rescue',
+
+  'fireEmergency.hero.badge': 'Emergency Rescue Solution',
+  'fireEmergency.hero.h1': 'Next-Generation UAV Technology for Public Safety & Disaster Response',
+  'fireEmergency.hero.desc': 'In the face of extreme disasters and sudden fires, every second counts. Traditional ground response is often hampered by terrain, smoke, or communication blackouts, resulting in lost golden rescue time. CANI leverages 15 years of industrial-grade R&D to deliver an integrated emergency command loop with BVLOS transmission, thermal imaging, and AI target positioning — designed to accelerate fire detection by 5x and improve SAR efficiency by 35%.',
+  'fireEmergency.hero.cta': 'Get Emergency Solution Consultation',
+
+  'fireEmergency.wildfire.tag': 'Wildfire Management',
+  'fireEmergency.wildfire.h2': 'BVLOS Wildfire Monitoring & Tactical Fireline Mapping',
+  'fireEmergency.wildfire.intro': 'Large-scale wildfires are unpredictable and fast-spreading. Traditional monitoring satellites have low refresh rates, and ground personnel cannot approach the fire head.',
+  'fireEmergency.wildfire.thermal.h3': '1. Thermal Hotspot Detection Through Thick Smoke',
+  'fireEmergency.wildfire.thermal.desc': 'Using Long-Wave Infrared (LWIR) sensors, CANI UAVs can see through dense smoke to detect invisible underground fires and high-temperature hotspots.',
+  'fireEmergency.wildfire.thermal.advantage': 'Technical Edge: Paired with CANI AI guidance modules, the system automatically calculates fire radiation vectors, providing commanders with real-time safe isolation zone positioning.',
+  'fireEmergency.wildfire.vtx.h3': '2. 50km Ultra-Long-Range Tactical Link',
+  'fireEmergency.wildfire.vtx.desc': 'Forest areas typically lack cellular network coverage. Through the CANI 37W High-Power VTX system, UAVs maintain 1080P HD command video backhaul across 50km of deep mountain forests, solving the industry pain point of communication blind spots.',
+  'fireEmergency.link.vtx': 'Explore 37W High-Power VTX →',
+
+  'fireEmergency.leadMagnet.roi.title': 'Request Emergency UAV Deployment ROI Guide',
+  'fireEmergency.leadMagnet.roi.desc': 'Learn how UAVs can improve your emergency response efficiency by 70% while reducing personnel risk.',
+  'fireEmergency.leadMagnet.roi.btn': 'Request Emergency UAV Deployment ROI Guide',
+
+  'fireEmergency.urban.tag': 'Urban & Industrial Fire',
+  'fireEmergency.urban.h2': 'Situational Awareness for High-Rise & Chemical Facilities',
+  'fireEmergency.urban.structure.h3': '1. Pre-Entry Structural Integrity Assessment',
+  'fireEmergency.urban.structure.desc': 'Before firefighters enter a building, UAVs can rapidly survey exterior walls and enter through broken windows, using LiDAR to scan for interior structural collapse risks — significantly reducing first responder safety hazards.',
+  'fireEmergency.urban.gas.h3': '2. Integrated Gas & Chemical Detection',
+  'fireEmergency.urban.gas.desc': 'Equipped with multi-gas monitoring sensors (VOCs, CO, H₂S), UAVs can identify toxic gas cloud distribution without approaching the fire source, providing critical data for evacuation decisions.',
+  'fireEmergency.urban.roi': 'ROI Value: Deployment time reduced by 70% compared to traditional ground reconnaissance, significantly lowering first responder occupational health risks.',
+
+  'fireEmergency.sar.tag': 'Search & Rescue (SAR)',
+  'fireEmergency.sar.h2': 'Autonomous Human Detection & Communication Relay',
+  'fireEmergency.sar.intro': 'For areas cut off by earthquakes or flash floods, UAVs are the only rapid search and early warning platform.',
+  'fireEmergency.sar.ai.h3': '1. AI-Powered Vital Sign Recognition',
+  'fireEmergency.sar.ai.desc': 'AI modules with integrated deep learning models can automatically identify distressed persons in rubble, forest floors, or water surfaces — with a recognition accuracy of up to 92.1%.',
+  'fireEmergency.sar.relay.h3': '2. Critical Supply Drop & Communication Relay',
+  'fireEmergency.sar.relay.desc': 'UAVs can be equipped with Airborne Relay systems, establishing a 20km-diameter temporary communication network for ground SAR teams, while precisely dropping first aid kits or AED defibrillators.',
+
+  'fireEmergency.whyCani.h2': 'Engineered to Withstand Disasters',
+  'fireEmergency.whyCani.subtitle': 'Every core technology is validated in extreme scenarios to ensure reliable operation in the harshest rescue environments.',
+  'fireEmergency.tech.ip55.title': 'IP55 Weather-Sealed',
+  'fireEmergency.tech.ip55.desc': 'Specially anti-corrosion treated and sealed to ensure stable flight operations in rain or high humidity environments.',
+  'fireEmergency.tech.latency.title': 'Low-Latency Command (<200ms)',
+  'fireEmergency.tech.latency.desc': 'Ultra-low latency ensures operators can perform precision obstacle avoidance in complex structures such as bridge tunnels or indoor environments.',
+  'fireEmergency.tech.compliance.title': 'Global Safety Compliance',
+  'fireEmergency.tech.compliance.desc': 'Hardware meets NDAA, CE, and FCC certifications, ensuring government and enterprise data security while meeting international safety standards.',
+
+  'fireEmergency.faq.title': 'Firefighting & Emergency UAV FAQ',
+  'fireEmergency.faq.q1': 'Can a drone really see through thick smoke in a building fire?',
+  'fireEmergency.faq.a1': 'Yes. CANI rescue UAVs use Long-Wave Infrared (LWIR) sensors that bypass optical particles in smoke, visualizing hotspots and thermal signatures of trapped persons under zero-visibility conditions.',
+  'fireEmergency.faq.q2': 'How does the 37W VTX handle signal loss in urban disaster zones?',
+  'fireEmergency.faq.a2': 'Our 37W high-power transmission provides a high link budget that overcomes multipath interference and signal attenuation caused by concrete structures and metal debris, maintaining 1080p video feed where standard drones cannot.',
+
+  'fireEmergency.cta.title': 'Get Your Firefighting & Emergency Solution',
+  'fireEmergency.cta.desc': 'Contact our expert team for a customized emergency UAV deployment plan and ROI analysis report.',
+  'fireEmergency.cta.download': 'Download Search and Rescue Solution (PDF)',
+  'fireEmergency.cta.contact': 'Contact Expert Team',
 };

@@ -5965,6 +5965,67 @@ export const zhTranslations: Record<string, string> = {
   'envmon.cta.btn': '立即咨询',
   'envmon.whitepaper.btn': '下载环保无人机方案白皮书',
 
+
+  // ===== Firefighting & Emergency Rescue Solution Page =====
+  'fireEmergency.seo.title': '消防应急无人机解决方案 | 搜救无人机(SAR) | CANI长凌科技',
+  'fireEmergency.seo.desc': '专业工业无人机消防应急解决方案，火情发现速度提升5倍，50km超视距态势感知，AI驱动搜救定位，NDAA合规硬件，服务全球公共安全。',
+  'fireEmergency.seo.keywords': '消防无人机,搜救无人机,野火监测无人机,危化品应急无人机,超视距应急通信,热成像搜救',
+
+  'fireEmergency.hero.badge': '应急救援解决方案',
+  'fireEmergency.hero.h1': '面向公共安全和灾害响应的下一代无人机技术',
+  'fireEmergency.hero.desc': '在极端灾害和突发火情面前，每一秒都关乎生死。传统的地面响应往往受限于高原、浓烟或通信中断，导致黄金救援时间的流失。CANI（长凌科技）利用15年工业级研发积淀，构建了集成超视距传输、热成像与AI目标定位的应急指挥闭环。我们的技术旨在将火情发现速度提升5倍，搜救效率（SAR）提高35%。',
+  'fireEmergency.hero.cta': '获取应急方案咨询',
+
+  'fireEmergency.wildfire.tag': '森林与野外火灾',
+  'fireEmergency.wildfire.h2': '超视距野火监测与战术火线测绘',
+  'fireEmergency.wildfire.intro': '大规模森林火灾具有不可预测性和传播速度快的特征，传统的监测卫星频率低，地面人员难以接近火头。',
+  'fireEmergency.wildfire.thermal.h3': '1. 通过浓烟进行热热点检测',
+  'fireEmergency.wildfire.thermal.desc': '利用长波红外（LWIR）传感器，CANI无人机可穿透浓烟发现肉眼不可见的地下火（隐火）与高温热点。',
+  'fireEmergency.wildfire.thermal.advantage': '技术优势：配合CANI AI引导模块，系统可自动计算火场辐射矢径，为指挥官实时标注安全隔离带位置。',
+  'fireEmergency.wildfire.vtx.h3': '2. 50公里超远距离战术链路',
+  'fireEmergency.wildfire.vtx.desc': '森林区域通常缺乏蜂窝网络覆盖。通过CANI 37W高功率VTX系统，无人机可在50公里范围内的深山林区保持1080P高清指挥画面回传，彻底解决通信盲区的行业痛点。',
+  'fireEmergency.link.vtx': '了解37W高功率图传 →',
+
+  'fireEmergency.leadMagnet.roi.title': '获取应急无人机部署ROI指南',
+  'fireEmergency.leadMagnet.roi.desc': '了解无人机如何将您的应急响应效率提升70%并降低人员风险',
+  'fireEmergency.leadMagnet.roi.btn': 'Request Emergency UAV Deployment ROI Guide',
+
+  'fireEmergency.urban.tag': '城市消防与工业事故',
+  'fireEmergency.urban.h2': '高层建筑和化工设施态势感知',
+  'fireEmergency.urban.structure.h3': '1. 进场前结构完整性评估',
+  'fireEmergency.urban.structure.desc': '在消防员进入建筑前，无人机可快速巡视外墙并进入破碎窗口，利用激光雷达扫描室内结构坍塌风险，大幅降低一线救援人员的安全隐患。',
+  'fireEmergency.urban.gas.h3': '2. 集成气体化学检测',
+  'fireEmergency.urban.gas.desc': '搭载多气体监测传感器（VOCs、CO、H₂S），无人机可在不接触火源的情况下识别有毒气体群分布，为疏散决策提供关键数据支持。',
+  'fireEmergency.urban.roi': '投资回报价值：部署时间比传统地面侦查缩短70%，大幅降低一线救援人员的职业健康风险。',
+
+  'fireEmergency.sar.tag': '搜救任务（SAR）',
+  'fireEmergency.sar.h2': '自主人体检测与通信中继',
+  'fireEmergency.sar.intro': '针对地震、山洪导致的失联区域，无人机是唯一的快速搜寻与预警平台。',
+  'fireEmergency.sar.ai.h3': '1. AI驱动生命体征识别',
+  'fireEmergency.sar.ai.desc': '集成深度学习模型的AI模块可自动识别废墟中、森林底层、或水面的遇险人员坐标，识别准确率高达92.1%。',
+  'fireEmergency.sar.relay.h3': '2. 关键补给与通信中继',
+  'fireEmergency.sar.relay.desc': '无人机可配备应急通信中继（Airborne Relay），为地面搜救小组建立20公里直径的临时通信网，并精准投放急救包或除颤仪（AED）。',
+
+  'fireEmergency.whyCani.h2': '专为应对灾害而设计',
+  'fireEmergency.whyCani.subtitle': '每一项核心技术都经过极端场景验证，确保在最严苛的救援环境中稳定运行',
+  'fireEmergency.tech.ip55.title': 'IP55耐候密封',
+  'fireEmergency.tech.ip55.desc': '经过特殊防腐蚀和密封处理，确保在雨天或高湿度环境下稳定飞行作业。',
+  'fireEmergency.tech.latency.title': '低延迟指挥（<200ms）',
+  'fireEmergency.tech.latency.desc': '极低延迟确保操作员在复杂结构（如桥洞或室内）中进行精细避障操作。',
+  'fireEmergency.tech.compliance.title': '全球安全合规',
+  'fireEmergency.tech.compliance.desc': '硬件符合NDAA、CE及FCC认证，确保政企数据安全不外泄，满足国际安全标准。',
+
+  'fireEmergency.faq.title': '消防应急无人机常见问题',
+  'fireEmergency.faq.q1': '无人机真的能穿透建筑物火灾中的浓烟吗？',
+  'fireEmergency.faq.a1': '是的。CANI的救援无人机利用长波红外（LWIR）传感器，可以绕过烟雾中的光学颗粒，在零能见度条件下可视化热点和被困人员的热信号。',
+  'fireEmergency.faq.q2': '37W VTX如何应对城市灾区信号丢失的情况？',
+  'fireEmergency.faq.a2': '我们的37W高功率传输提供高链路预算，可以克服混凝土结构和金属碎片造成的多径干扰和信号衰减，在标准无人机无法做到的情况下保持1080p信号传输。',
+
+  'fireEmergency.cta.title': '获取消防应急解决方案',
+  'fireEmergency.cta.desc': '联系我们的专家团队，获取定制化消防应急无人机部署方案与投资回报分析报告',
+  'fireEmergency.cta.download': 'Download Search and Rescue Solution (PDF)',
+  'fireEmergency.cta.contact': '联系专家团队',
+
 };
 
 export default zhTranslations;

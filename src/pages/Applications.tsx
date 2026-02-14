@@ -48,7 +48,7 @@ const Applications = () => {
       name: t('applications.firefighting.name'),
       description: t('applications.firefighting.desc'),
       image: "https://images.unsplash.com/photo-1569863959165-56dae551d4fc?w=800&q=80",
-      href: "/applications/firefighting",
+      href: "/solutions/uav-firefighting-emergency-rescue",
       icon: Flame,
       stats: [t('applications.firefighting.stat1'), t('applications.firefighting.stat2')],
     },

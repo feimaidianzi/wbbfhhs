@@ -67,7 +67,7 @@ import SolarPanel from "./pages/applications/power/SolarPanel";
 import CaseDetail from "./pages/applications/power/CaseDetail";
 import LogisticsApp from "./pages/applications/LogisticsApp";
 import Military from "./pages/applications/Military";
-import FirefightingApp from "./pages/applications/FirefightingApp";
+import FirefightingEmergency from "./pages/solutions/FirefightingEmergency";
 import EnvironmentalMonitoring from "./pages/applications/EnvironmentalMonitoring";
 import Solutions from "./pages/applications/Solutions";
 import TransportationMonitoring from "./pages/applications/TransportationMonitoring";
@@ -130,7 +130,7 @@ const publicRoutes = [
   { path: "/applications/logistics", element: <LogisticsApp /> },
   { path: "/applications/military", element: <Military /> },
   { path: "/solutions/industrial-uav-environmental-monitoring", element: <EnvironmentalMonitoring /> },
-  { path: "/applications/firefighting", element: <FirefightingApp /> },
+  { path: "/solutions/uav-firefighting-emergency-rescue", element: <FirefightingEmergency /> },
   
   { path: "/applications/solutions", element: <Solutions /> },
   { path: "/solutions/industrial-uav-water-conservancy", element: <WaterConservancy /> },
