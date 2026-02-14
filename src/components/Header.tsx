@@ -106,7 +106,7 @@ export const Header = () => {
   ];
 
   const productCenterCategories = [
-    { name: t('header.multiRotor'), href: "/products", description: t('header.multiRotor.desc'), hasSubmenu: true, submenuItems: droneCategories },
+    { name: t('header.multiRotor'), href: "/products/multi-rotor", description: t('header.multiRotor.desc'), hasSubmenu: true, submenuItems: droneCategories },
     ...accessoryCategories
   ];
 

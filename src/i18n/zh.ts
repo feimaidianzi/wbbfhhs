@@ -6121,6 +6121,92 @@ export const zhTranslations: Record<string, string> = {
   'fireEmergency.cta.download': 'Download Search and Rescue Solution (PDF)',
   'fireEmergency.cta.contact': '联系专家团队',
 
+  // ===== 无人机整机平台页面 =====
+  'platforms.page.title': '无人机整机平台与系统',
+  'platforms.page.description': '长凌科技工业无人机整机系统选型中心，涵盖系留无人机、物流货运无人机、集群无人机及工业FPV穿越机，冗余动力系统，AES-256加密链路。',
+  'platforms.page.keywords': '无人机整机平台,系留无人机,物流无人机,集群无人机,工业穿越机,无人机系统,CANI',
+  'platforms.hero.badge': '无人机整机平台',
+  'platforms.hero.title': '工业级无人机整机平台与交钥匙系统',
+  'platforms.hero.subtitle': '从持续监控到重载物流——为每项任务选择最佳的即飞系统',
+  'platforms.hero.overview': 'CANI（长凌科技）设计任务关键型无人机平台，具备冗余动力架构、AES-256硬件加密数字高清链路及工业级飞控系统。我们的交钥匙解决方案服务于全球公共安全、能源基础设施和精准物流运营商。',
+
+  'platforms.advantages.title': '平台级工程优势',
+  'platforms.adv.redundant': '冗余动力系统',
+  'platforms.adv.redundant.desc': '双冗余电调与电池故障切换，确保任务关键可靠性',
+  'platforms.adv.endurance': '超长续航',
+  'platforms.adv.endurance.desc': '系留模式24小时+，自由飞行55分钟+',
+  'platforms.adv.wind': '全天候作业',
+  'platforms.adv.wind.desc': '7级风稳定作业，IP55防护等级',
+  'platforms.adv.encryption': 'AES-256加密链路',
+  'platforms.adv.encryption.desc': '硬件加密数字高清视频与遥测传输',
+
+  'platforms.categories.title': '按任务场景分类的平台系列',
+  'platforms.categories.subtitle': '每款平台均针对特定作战场景进行专项优化，涵盖机身结构、动力系统和通信架构。',
+
+  'platforms.tethered.title': '系留无人机系统',
+  'platforms.tethered.desc': '24/7持续空中监控与应急通信',
+  'platforms.tethered.detail': '线缆供电平台支持24-36小时连续飞行。物理系留确保100%抗干扰数据传输。适用于边境安防、大型集会安保及快速临时基站部署。',
+  'platforms.tethered.anchor': '了解系留无人机无限续航方案',
+
+  'platforms.logistics.title': '物流货运无人机',
+  'platforms.logistics.desc': '大载重自主末端配送解决方案',
+  'platforms.logistics.detail': '六旋翼货运平台，载重30-100kg+。突破山区、岛屿等地形限制，配送效率提升5倍，成本比直升机运输降低70%以上。搭载CANI数字高清链路，确保稳定的远程监控。',
+  'platforms.logistics.anchor': '了解重载货运无人机方案',
+
+  'platforms.swarm.title': '集群无人机系统',
+  'platforms.swarm.desc': '协同多机自主作业',
+  'platforms.swarm.detail': '去中心化智能，每个个体具备AI避障与实时位置对齐能力。支持数百架无人机同时动员，执行大面积搜救、农业喷洒或同步巡检任务。',
+  'platforms.swarm.anchor': '了解自主集群技术',
+
+  'platforms.fpv.title': '工业FPV穿越机',
+  'platforms.fpv.desc': '紧凑型狭窄空间进入与数字高清FPV',
+  'platforms.fpv.detail': '超高灵活性平台，可进入30cm直径管道、锅炉内部及桥梁箱梁。采用数字高清FPV链路（非模拟），确保裂纹检测精度与零延迟视频回传。',
+  'platforms.fpv.anchor': '了解工业FPV巡检无人机',
+
+  'platforms.compare.title': '平台对比与选型指南',
+  'platforms.compare.header.platform': '平台类型',
+  'platforms.compare.header.endurance': '续航时间',
+  'platforms.compare.header.payload': '最大载重',
+  'platforms.compare.header.range': '控制距离',
+  'platforms.compare.header.link': '通信链路',
+  'platforms.compare.tethered.endurance': '24-36小时（系留）',
+  'platforms.compare.tethered.payload': '15 kg',
+  'platforms.compare.tethered.range': '系留长度',
+  'platforms.compare.tethered.link': '物理光纤 + 数字高清',
+  'platforms.compare.logistics.endurance': '30-60分钟',
+  'platforms.compare.logistics.payload': '30-100 kg',
+  'platforms.compare.logistics.range': '50 km',
+  'platforms.compare.logistics.link': 'COFDM数字高清',
+  'platforms.compare.swarm.endurance': '25-40分钟',
+  'platforms.compare.swarm.payload': '2-5 kg/台',
+  'platforms.compare.swarm.range': '10 km',
+  'platforms.compare.swarm.link': 'Mesh组网',
+  'platforms.compare.fpv.endurance': '15-25分钟',
+  'platforms.compare.fpv.payload': '0.5-2 kg',
+  'platforms.compare.fpv.range': '5 km',
+  'platforms.compare.fpv.link': '数字高清FPV',
+
+  'platforms.crossLink.title': '寻找核心零部件？',
+  'platforms.crossLink.desc': '所有CANI平台均由我们自主研发的高性能组件驱动。访问零部件中心，探索系统集成或OEM项目的独立模块。',
+  'platforms.crossLink.components': '浏览无人机核心组件与模块',
+  'platforms.crossLink.vtx': '了解50km数字高清图传',
+  'platforms.crossLink.fc': 'NDAA合规飞控系统',
+
+  'platforms.downloadGuide': '下载2026年无人机整机平台选型手册 (PDF)',
+
+  'platforms.faq.title': '整机平台选型FAQ',
+  'platforms.faq.subtitle': '关于选择合适工业无人机整机平台的常见问题',
+  'platforms.faq.q1': 'CANI物流无人机与消费级无人机有何区别？',
+  'platforms.faq.a1': 'CANI物流无人机配备冗余动力系统、重载六旋翼机身和AES-256加密数字链路，实现工业级载荷交付能力，而消费级无人机不具备商业货运所需的耐久性和载荷能力。',
+  'platforms.faq.q2': '系留无人机可以安装在移动车辆上吗？',
+  'platforms.faq.a2': '可以。我们的系留平台支持车载移动部署，在车队护卫或灾区巡逻中提供持续的"空中之眼"能力，无需降落更换电池。',
+  'platforms.faq.q3': '集群系统和单台重载平台如何选择？',
+  'platforms.faq.a3': '集群系统擅长同时覆盖大面积区域（搜救、农业喷洒），而单台重载平台更适合集中式载荷投送或固定点持续监控。',
+
+  'platforms.cta.title': '为您的任务找到合适的无人机平台',
+  'platforms.cta.subtitle': '我们的工程团队提供从平台选型到系统集成与现场部署的端到端支持。',
+  'platforms.cta.button': '获取无人机整机批量报价',
+
 };
 
 export default zhTranslations;
