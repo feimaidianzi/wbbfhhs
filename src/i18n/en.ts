@@ -625,11 +625,11 @@ export const enTranslations: Record<string, string> = {
 
   // ===== Page-Level SEO Keys =====
   // Home Page SEO
-  'home.seo.title': 'Industrial UAV Components Manufacturer | 37W High-Power VTX & 50km Digital Video Link | CANI',
-  'home.seo.description': 'Leading supplier of 37W high-power VTX, HD digital links, and AI guidance modules for industrial drones. 15+ years R&D, 200+ patents, and ISO-certified. Specialized in power inspection & logistics solutions. Request a quote.',
-  'home.seo.keywords': '37W VTX,high power video transmitter,industrial drone components,digital video link,AI guidance module,drone manufacturer,power inspection drone,NDAA compliant drone,drone accessories OEM',
+  'home.seo.title': 'Industrial UAV Components Manufacturer | HD Digital Video Transmission & 50km Digital Video Link | CANI',
+  'home.seo.description': 'Leading supplier of HD digital video transmission systems, digital links, and AI guidance modules for industrial drones. 15+ years R&D, 200+ patents, and ISO-certified. Specialized in power inspection & logistics solutions. Request a quote.',
+  'home.seo.keywords': 'digital video transmission,high power video transmitter,industrial drone components,digital video link,AI guidance module,drone manufacturer,power inspection drone,NDAA compliant drone,drone accessories OEM',
   'home.structured.name': 'CANI Technology Co., Ltd.',
-  'home.structured.description': 'Leading industrial UAV components manufacturer specializing in 37W high-power VTX, HD digital video links, and AI guidance modules.',
+  'home.structured.description': 'Leading industrial UAV components manufacturer specializing in HD digital video transmission, digital video links, and AI guidance modules.',
   'home.structured.addressLocality': 'Changsha',
   'home.structured.addressRegion': 'Hunan',
   'home.structured.contactType': 'customer service',
@@ -843,8 +843,8 @@ export const enTranslations: Record<string, string> = {
   // ===== AEO Technical FAQ (Homepage) =====
   'aeo.faq.title': 'Technical FAQ',
   'aeo.faq.subtitle': 'Answers to key technical questions about CANI industrial drone components',
-  'aeo.faq.q1': 'What is the maximum transmission range of the CANI 37W VTX?',
-  'aeo.faq.a1': 'Under optimal conditions, the CANI 37W high-power VTX delivers a stable digital video link of over 50 km for industrial drones, ensuring reliable long-range BVLOS operations.',
+  'aeo.faq.q1': 'What is the maximum transmission range of the CANI digital video transmission system?',
+  'aeo.faq.a1': 'Under optimal conditions, the CANI HD digital video transmission system delivers a stable digital video link of over 50 km for industrial drones, ensuring reliable long-range BVLOS operations.',
   'aeo.faq.q2': 'Are CANI drone hardware components NDAA compliant?',
   'aeo.faq.a2': 'Yes, our core components are designed to meet NDAA and security standards, ensuring data privacy for global enterprise missions.',
   'aeo.faq.q3': 'What AI capabilities do CANI guidance modules offer?',
@@ -895,7 +895,7 @@ export const enTranslations: Record<string, string> = {
   'companyIntro.badge': 'About CANI',
   'companyIntro.title.line1': 'Professional Industrial',
   'companyIntro.title.line2': 'UAV Components R&D',
-  'companyIntro.description': 'As a leading industrial UAV components manufacturer with 15+ years of R&D experience, CANI (Changling Technology) specializes in high-reliability systems. Our flagship 37W high-power VTX and 4.9-7.2GHz full-band digital links deliver stable 50km+ transmission for critical missions. With 200+ patented technologies and ISO, CE, FCC certifications, we offer NDAA-compliant UAV AI guidance modules and flight controllers that improve power inspection efficiency by up to 10x.',
+  'companyIntro.description': 'As a leading industrial UAV components manufacturer with 15+ years of R&D experience, CANI (Changling Technology) specializes in high-reliability systems. Our flagship HD digital video transmission and 4.9-7.2GHz full-band digital links deliver stable 50km+ transmission for critical missions. With 200+ patented technologies and ISO, CE, FCC certifications, we offer NDAA-compliant UAV AI guidance modules and flight controllers that improve power inspection efficiency by up to 10x.',
   'companyIntro.stat1.value': '200+',
   'companyIntro.stat1.label': 'Product Models',
   'companyIntro.stat2.value': '10+',
@@ -946,11 +946,11 @@ export const enTranslations: Record<string, string> = {
 
   // Water Conservancy Solution Page
   'water.seo.title': 'Smart Water Management UAV Solutions | 50km BVLOS River & Dam Inspection',
-  'water.seo.desc': 'Advanced industrial UAV solutions for smart water affairs. Featuring 50km+ BVLOS river patrol, AI-driven illegal sand mining detection, and centimeter-level 3D dam health monitoring with 37W high-power VTX and thermal imaging.',
-  'water.seo.keywords': 'smart water UAV,river inspection drone,dam monitoring,BVLOS patrol,illegal sand mining surveillance,flood prevention drone,37W VTX,water conservancy solution',
+  'water.seo.desc': 'Advanced industrial UAV solutions for smart water affairs. Featuring 50km+ BVLOS river patrol, AI-driven illegal sand mining detection, and centimeter-level 3D dam health monitoring with HD digital video transmission and thermal imaging.',
+  'water.seo.keywords': 'smart water UAV,river inspection drone,dam monitoring,BVLOS patrol,illegal sand mining surveillance,flood prevention drone,digital video transmission,water conservancy solution',
   'water.badge': 'Smart Water Solutions',
   'water.title': 'Intelligent UAV Remote Sensing Network for Smart Water Management',
-  'water.hero': 'Traditional water conservancy inspection relies on manual walking or boats — low efficiency with massive data blind spots. With 15 years of industrial-grade R&D, CANI builds an integrated "Air-Space-Ground" UAV monitoring network. By deeply integrating 37W high-power VTX with AI edge computing, we help management agencies upgrade from "reactive response" to "precision early warning".',
+  'water.hero': 'Traditional water conservancy inspection relies on manual walking or boats — low efficiency with massive data blind spots. With 15 years of industrial-grade R&D, CANI builds an integrated "Air-Space-Ground" UAV monitoring network. By deeply integrating HD digital video transmission with AI edge computing, we help management agencies upgrade from "reactive response" to "precision early warning".',
 
   'water.pain.title': 'Core Challenges in Modern Hydrological Monitoring',
   'water.pain.terrain.title': 'Terrain Obstacles',
@@ -968,11 +968,11 @@ export const enTranslations: Record<string, string> = {
   'water.scene3.title': 'Dam Health & Seepage Monitoring',
   'water.scene3.desc': 'Combining thermal imaging with RTK positioning, UAVs perform centimeter-level 3D modeling of dam structures. The system detects temperature anomalies from seepage in real-time, identifying piping, cracks, and structural erosion risks early to ensure infrastructure safety.',
 
-  'water.vtx.link': 'Explore 37W VTX Technical Specs →',
+  'water.vtx.link': 'Explore Digital Video Transmission Specs →',
 
   'water.adv.title': 'Engineered for Mission-Critical Operations',
   'water.adv.range.title': '50km+ Long-Range Transmission',
-  'water.adv.range.desc': 'Equipped with proprietary 37W VTX, breaking line-of-sight limitations for blind-spot-free monitoring across vast water bodies.',
+  'water.adv.range.desc': 'Equipped with proprietary digital video transmission system, breaking line-of-sight limitations for blind-spot-free monitoring across vast water bodies.',
   'water.adv.latency.title': 'Low-Latency Command & Control',
   'water.adv.latency.desc': '<200ms end-to-end latency ensures responsive control during operations near dam danger zones.',
   'water.adv.standard.title': 'Global Safety Standards',
@@ -991,7 +991,7 @@ export const enTranslations: Record<string, string> = {
 
   // ===== Environmental Monitoring Solution =====
   'envmon.seo.title': 'Environmental Monitoring UAV Solutions | Air & Water Quality Sensors | CANI',
-  'envmon.seo.desc': 'Integrated industrial UAV solutions for ecological conservation. Real-time VOCs/gas monitoring, NDVI-based forest health analysis, and illegal dumping detection. 99% accuracy in pollution source tracing with 37W high-power VTX and multispectral payloads.',
+  'envmon.seo.desc': 'Integrated industrial UAV solutions for ecological conservation. Real-time VOCs/gas monitoring, NDVI-based forest health analysis, and illegal dumping detection. 99% accuracy in pollution source tracing with HD digital video transmission and multispectral payloads.',
   'envmon.seo.keywords': 'Atmospheric Monitoring Drone, VOCs Leak Detection UAV, NDVI Forest Survey, Methane Detection Drone, Environmental Remote Sensing',
 
   'envmon.badge': 'Environmental Monitoring',
@@ -1008,13 +1008,13 @@ export const enTranslations: Record<string, string> = {
 
   'envmon.scenarios.title': 'CANI Multi-Dimensional Environmental Applications',
   'envmon.scene1.title': 'Atmospheric Monitoring & 3D Gas Diffusion Mapping',
-  'envmon.scene1.desc': 'Using integrated gas sensors (e.g., Sniffer4D series), UAVs collect real-time data on 10+ parameters including PM2.5, SO2, NO2, CO, VOCs, and CH4. Equipped with CANI\'s 37W high-power VTX, data is transmitted in real-time to command centers within a 50km range. The system auto-generates 3D concentration contour maps, enabling enforcement agencies to pinpoint illegal emission sources within minutes.',
+  'envmon.scene1.desc': 'Using integrated gas sensors (e.g., Sniffer4D series), UAVs collect real-time data on 10+ parameters including PM2.5, SO2, NO2, CO, VOCs, and CH4. Equipped with CANI\'s HD digital video transmission system, data is transmitted in real-time to command centers within a 50km range. The system auto-generates 3D concentration contour maps, enabling enforcement agencies to pinpoint illegal emission sources within minutes.',
   'envmon.scene2.title': 'Precision Forestry & Biodiversity Conservation (NDVI)',
   'envmon.scene2.desc': 'Using NDVI (Normalized Difference Vegetation Index) and multispectral sensors, CANI solutions enable individual-tree-level health assessment. The system automatically calculates biomass, water stress index, and pest-affected areas — saving 99% of time compared to traditional forestry surveys. With long-range infrared gimbals, the system identifies illegal poaching through thermal imaging at ranges up to 20km.',
   'envmon.scene3.title': 'Illegal Discharge & Waste Dumping Surveillance',
   'envmon.scene3.desc': 'For illegal solid waste dumping sites near urban areas, CANI solutions leverage edge computing in AI guidance modules for instant fly-over detection. For water environment governance, the system monitors river oil pollution and illegal industrial discharge outlets. Even underwater hidden discharge points are detected through thermal anomaly signatures.',
 
-  'envmon.vtx.link': 'Explore 37W High-Power VTX Specs →',
+  'envmon.vtx.link': 'Explore HD Digital Transmission Specs →',
   'envmon.gimbal.link': 'Explore IR Multispectral Gimbals →',
 
   'envmon.adv.title': 'Why CANI Technology Stands Out',
@@ -1052,7 +1052,7 @@ export const enTranslations: Record<string, string> = {
   'transport.pain.signal.desc': 'Mountain highways and dense urban environments cause severe signal obstruction. Conventional consumer-grade video links experience packet loss or blackout beyond 5km range.',
   'transport.scenarios.title': 'Full-Scenario Patrol & Monitoring',
   'transport.scene1.title': 'Highway Autonomous Patrol & Traffic Flow Analysis',
-  'transport.scene1.desc': 'Equipped with the CANI 37W high-power VTX system, a single patrol UAV sortie achieves an effective command radius exceeding 50km, solving the critical pain point of "visible but not transmittable" in long-range highway monitoring. Integrated AI guidance modules enable autonomous vehicle counting, average speed estimation, and automatic evidence capture for wrong-way driving and illegal parking. At 120km/h cruising speed, vehicle recognition accuracy reaches 91.8% with an F1 score of 90.5%.',
+  'transport.scene1.desc': 'Equipped with CANI\'s HD digital video transmission system, a single patrol UAV sortie achieves an effective command radius exceeding 50km, solving the critical pain point of "visible but not transmittable" in long-range highway monitoring. Integrated AI guidance modules enable autonomous vehicle counting, average speed estimation, and automatic evidence capture for wrong-way driving and illegal parking. At 120km/h cruising speed, vehicle recognition accuracy reaches 91.8% with an F1 score of 90.5%.',
   'transport.scene2.title': 'Bridge Structural Health Monitoring (SHM)',
   'transport.scene2.desc': 'Traditional bridge inspection requires lane closures and expensive bridge inspection vehicles. CANI solutions utilize UAVs with GPS-Denied navigation capabilities for precision operations without traffic interruption. Equipped with a 45MP high-resolution sensor, the system generates sub-millimeter orthoimagery, automatically identifying concrete spalling, rebar exposure, and structural cracks as fine as 0.2mm. Infrared sensors detect potholes and subtle ponding with thermal imaging detection accuracy up to 95.12%.',
   'transport.vtx.link': 'Explore 50km Long-Range VTX Systems',
@@ -1066,8 +1066,8 @@ export const enTranslations: Record<string, string> = {
   'transport.faq.title': 'Frequently Asked Questions',
   'transport.faq.q1': 'Can CANI UAVs maintain precise flight under a bridge deck without GPS?',
   'transport.faq.a1': 'Yes. For GPS-denied environments such as under bridges or inside tunnels, our system employs vision-based navigation and IMU sensor fusion technology, ensuring stable hover and sub-centimeter path tracking without satellite signals.',
-  'transport.faq.q2': 'How does the 37W VTX handle signal obstruction on mountain highways?',
-  'transport.faq.a2': 'The 37W high-power output provides an exceptional link budget. Combined with directional ground antennas, it maintains stable HD video signal transmission even through terrain obstacles and multipath interference common in mountain road networks.',
+  'transport.faq.q2': 'How does the digital video transmission handle signal obstruction on mountain highways?',
+  'transport.faq.a2': 'The HD digital transmission provides an exceptional link budget. Combined with directional ground antennas, it maintains stable HD video signal transmission even through terrain obstacles and multipath interference common in mountain road networks.',
   'transport.cta.title': 'Get Smart Transportation Solutions',
   'transport.cta.subtitle': 'Contact our expert team for transportation UAV application plans and ROI analysis',
   'transport.cta.btn': 'Request Consultation',
@@ -1100,8 +1100,8 @@ export const enTranslations: Record<string, string> = {
   'fireEmergency.wildfire.thermal.desc': 'Using Long-Wave Infrared (LWIR) sensors, CANI UAVs can see through dense smoke to detect invisible underground fires and high-temperature hotspots.',
   'fireEmergency.wildfire.thermal.advantage': 'Technical Edge: Paired with CANI AI guidance modules, the system automatically calculates fire radiation vectors, providing commanders with real-time safe isolation zone positioning.',
   'fireEmergency.wildfire.vtx.h3': '2. 50km Ultra-Long-Range Tactical Link',
-  'fireEmergency.wildfire.vtx.desc': 'Forest areas typically lack cellular network coverage. Through the CANI 37W High-Power VTX system, UAVs maintain 1080P HD command video backhaul across 50km of deep mountain forests, solving the industry pain point of communication blind spots.',
-  'fireEmergency.link.vtx': 'Explore 37W High-Power VTX →',
+  'fireEmergency.wildfire.vtx.desc': 'Forest areas typically lack cellular network coverage. Through CANI\'s HD digital video transmission system, UAVs maintain 1080P HD command video backhaul across 50km of deep mountain forests, solving the industry pain point of communication blind spots.',
+  'fireEmergency.link.vtx': 'Explore Digital Video Transmission →',
 
   'fireEmergency.leadMagnet.roi.title': 'Request Emergency UAV Deployment ROI Guide',
   'fireEmergency.leadMagnet.roi.desc': 'Learn how UAVs can improve your emergency response efficiency by 70% while reducing personnel risk.',
@@ -1135,8 +1135,8 @@ export const enTranslations: Record<string, string> = {
   'fireEmergency.faq.title': 'Firefighting & Emergency UAV FAQ',
   'fireEmergency.faq.q1': 'Can a drone really see through thick smoke in a building fire?',
   'fireEmergency.faq.a1': 'Yes. CANI rescue UAVs use Long-Wave Infrared (LWIR) sensors that bypass optical particles in smoke, visualizing hotspots and thermal signatures of trapped persons under zero-visibility conditions.',
-  'fireEmergency.faq.q2': 'How does the 37W VTX handle signal loss in urban disaster zones?',
-  'fireEmergency.faq.a2': 'Our 37W high-power transmission provides a high link budget that overcomes multipath interference and signal attenuation caused by concrete structures and metal debris, maintaining 1080p video feed where standard drones cannot.',
+  'fireEmergency.faq.q2': 'How does the digital video transmission handle signal loss in urban disaster zones?',
+  'fireEmergency.faq.a2': 'Our HD digital transmission provides a high link budget that overcomes multipath interference and signal attenuation caused by concrete structures and metal debris, maintaining 1080p video feed where standard drones cannot.',
 
   'fireEmergency.cta.title': 'Get Your Firefighting & Emergency Solution',
   'fireEmergency.cta.desc': 'Contact our expert team for a customized emergency UAV deployment plan and ROI analysis report.',
