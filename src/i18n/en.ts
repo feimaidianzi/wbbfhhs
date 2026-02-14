@@ -791,19 +791,71 @@ export const enTranslations: Record<string, string> = {
   'products.seo.cat.fcesc': 'Professional FC/ESC Series — High-precision control, fast response, compatible with all industrial drones. Supports autonomous route planning with customizable parameters for stable flight.',
   'products.seo.cat.gimbal': 'Stabilized Gimbal Pod Series — Anti-shake design for clear, stable footage. HD shooting compatible, IP67 waterproof/dustproof for complex outdoor environments. Widely used in security and inspection scenarios.',
 
-  // VTX FAQ
-  'vtx.faq.title': 'Frequently Asked Questions',
-  'vtx.faq.q1': 'Does this product support customization?',
-  'vtx.faq.a1': 'Yes, we support OEM/ODM customization. Transmission range, power, appearance and other parameters can be adjusted per customer requirements. Customization cycle: 15-30 days.',
-  'vtx.faq.q2': 'How is the signal anti-interference capability?',
-  'vtx.faq.a2': 'Advanced anti-interference algorithms combined with Rogers 4350B low-loss material effectively resist complex outdoor signal interference, ensuring stable transmission.',
-  'vtx.faq.q3': 'What is the warranty period?',
-  'vtx.faq.a3': '1-year warranty. Free repair or replacement for non-human damage within the warranty period.',
-  'vtx.techDetail': 'This VTX/VRX system features industrial-grade core parameters: full-band 4.9-7.2GHz transmission, 0.1-1W adjustable output power, 1080P/720P resolution switching, operating temperature -20°C to 60°C. The 2mm aluminum alloy heat dissipation shell improves cooling efficiency by 40%, ensuring 8 hours of continuous operation without overheating.',
-  'vtx.techDetail.title': 'Technical Parameters',
+  // VTX/VRX Page SEO
+  'vtx.seo.title': 'Industrial UAV VTX & VRX Systems | 50km Long-Range Digital HD Links | CANI',
+  'vtx.seo.description': 'High-performance drone video transmitters & receivers. Featuring 50km COFDM digital HD links, 1080P/60fps low-latency video, and AES-256 hardware encryption. Specialized in high-power analog VTX and secure telemetry for BVLOS missions.',
+  'vtx.hero.title': 'Industrial UAV Video Transmission Systems',
+  'vtx.hero.desc': 'CANI delivers mission-critical video transmission hardware for industrial UAVs. Our portfolio spans high-power analog VTX modules (2.5W–37W) and secure digital HD links with COFDM modulation and AES-256 encryption, engineered for BVLOS power inspection, public safety, and precision surveying missions.',
+  'vtx.techOverview': 'CANI (Changling Technology) is a leading supplier of industrial-grade UAV video transmission systems, backed by 15+ years of RF engineering expertise and 200+ patented technologies. Our VTX/VRX product line is built on Rogers 4350B high-frequency PCB substrates, delivering superior signal integrity across extreme temperature ranges (-20°C to 60°C). From compact 2.5W FPV racing modules to our flagship 37W ultra-long-range transmitter, every product undergoes rigorous EMI testing and thermal validation. We serve global system integrators in high-voltage grid inspection, emergency response, and autonomous logistics with end-to-end support from component selection to complex payload integration.',
+
+  // VTX Architecture Section
+  'vtx.archTitle': 'Digital vs. Analog: Choose Your Mission Architecture',
+  'vtx.archDesc': 'Two distinct technology paths engineered for different operational requirements. Select the architecture that matches your mission profile.',
+  'vtx.arch.digitalBadge': 'DIGITAL HD',
+  'vtx.arch.digitalTitle': 'COFDM Digital HD Video Links',
+  'vtx.arch.digitalDesc': 'Utilizing COFDM modulation with AES-256 hardware encryption, our digital HD links deliver lossless 1080P/60fps video over 50km+ ranges. Designed for BVLOS missions requiring secure, interference-resistant communication in complex urban and mountainous terrain.',
+  'vtx.arch.digital.f1': '50km+ stable transmission with COFDM anti-multipath technology',
+  'vtx.arch.digital.f2': 'AES-256 hardware encryption for government & defense compliance',
+  'vtx.arch.digital.f3': '1080P/60fps real-time HD video with <200ms end-to-end latency',
+  'vtx.arch.digitalCta': 'Explore 50km Digital HD Video Links',
+  'vtx.arch.analogBadge': 'ANALOG HIGH-POWER',
+  'vtx.arch.analogTitle': 'High-Power Analog VTX Modules',
+  'vtx.arch.analogDesc': 'Featuring custom 37W power amplifiers across the full 4.9–7.2GHz band, our analog VTX modules deliver extreme signal penetration through dense forests, underground tunnels, and confined industrial spaces where digital signals may struggle.',
+  'vtx.arch.analog.f1': 'Up to 37W output power with custom PA design for extreme penetration',
+  'vtx.arch.analog.f2': 'Full 4.9–7.2GHz dual-band coverage with 80+ channels',
+  'vtx.arch.analog.f3': 'Ultra-low latency (<1ms) ideal for real-time FPV piloting & inspection',
+  'vtx.arch.analogCta': 'Browse High-Power Analog VTX Products',
+
+  // VTX Analog Products Section
+  'vtx.analogProducts.title': 'High-Power Analog VTX Product Line',
+  'vtx.analogProducts.desc': 'Industry-leading analog video transmitters from 2.5W to 37W, built on Rogers 4350B RF substrates. Click any product for full technical specifications.',
+
+  // VTX FAQ (AEO optimized)
+  'vtx.faq.title': 'Technical FAQ — UAV Video Transmission Selection Guide',
+  'vtx.faq.q1': 'How to choose the right digital link for 50km BVLOS missions?',
+  'vtx.faq.a1': 'For long-range BVLOS missions, we recommend CANI Digital HD links using COFDM technology and dual high-gain antennas. This ensures stable 1080P video transmission across terrain obstacles, offering superior reliability compared to standard analog FPV systems. The AES-256 hardware encryption also meets government and defense-grade security requirements.',
+  'vtx.faq.q2': 'How does the 37W high-power VTX achieve such extreme range?',
+  'vtx.faq.a2': 'The 37W VTX uses a custom-designed power amplifier with full 4.9–7.2GHz dual-band support, providing extreme signal penetration through dense forests, underground tunnels, and confined industrial structures. Paired with CNC aluminum alloy thermal management, it maintains stable operation during extended 8-hour missions.',
+  'vtx.faq.q3': 'What is the advantage of CANI digital links over analog VTX for transmission distance?',
+  'vtx.faq.a3': 'CANI digital HD links provide clear 1080P resolution with AES-256 encryption and maintain stable transmission up to 50km. Unlike analog VTX (low latency but susceptible to noise interference), digital systems use COFDM technology to eliminate multipath interference in complex urban or mountainous terrain.',
+  'vtx.faq.q4': 'Does this product support OEM/ODM customization?',
+  'vtx.faq.a4': 'Yes. We support full OEM/ODM customization including transmission range, power levels, frequency configuration (step 1MHz), enclosure design, and interface protocols. Typical customization cycle is 15–30 business days.',
+  'vtx.faq.q5': 'Are CANI VTX modules compatible with open-source flight controllers?',
+  'vtx.faq.a5': 'Yes. Our VTX modules support SmartAudio protocol and are fully compatible with Betaflight, Ardupilot, and PX4 ecosystems. They feature standard mounting sizes (30.5×30.5mm) and JST/SMA interfaces for seamless integration into existing drone airframes.',
+
+  'vtx.techDetail': 'This VTX/VRX system features industrial-grade core parameters: full-band 4.9-7.2GHz transmission, 0.1–37W adjustable output power, 1080P/720P resolution switching, operating temperature -20°C to 60°C. The 2mm CNC aluminum alloy heat dissipation shell improves cooling efficiency by 40%, ensuring 8 hours of continuous operation without overheating.',
+  'vtx.techDetail.title': 'Technical Parameter Interpretation',
   'vtx.caseStudy.title': 'Application Case Study',
-  'vtx.caseStudy.content': 'A provincial power company used this FPV transmission system to inspect 5,000km of transmission lines. At 200m altitude, the system delivered clear 1080P HD footage with latency below 30ms, enabling real-time inspection of line details. This improved inspection efficiency by 300% while eliminating high-altitude manual inspection safety risks.',
-  'vtx.hero.desc': 'This industrial drone video transmission system is a professional FPV transmission system, using Rogers 4350B high-performance RF materials, providing power options from 2.5W to 37W, supporting 4.9-6.1GHz and 6.1-7.2GHz dual bands, meeting all long-range HD transmission needs.',
+  'vtx.caseStudy.content': 'A provincial power company deployed CANI\'s VTX system for 5,000km transmission line inspection. At 200m altitude, the system delivered clear 1080P HD footage with latency below 30ms, enabling real-time detection of line damage and foreign object hazards. Inspection efficiency improved by 300% while eliminating high-altitude manual inspection safety risks.',
+
+  // VTX Related / Cross-linking
+  'vtx.relatedTitle': 'Compatible CANI Accessories',
+  'vtx.relatedDesc': 'Build a complete UAV communication stack with these complementary modules.',
+  'vtx.related.fc': 'NDAA-Compliant Flight Controllers',
+  'vtx.related.fc.desc': 'Industrial FC/ESC systems with redundant IMUs and EMI shielding.',
+  'vtx.related.fc.cta': 'Buy NDAA Compliant Flight Controllers',
+  'vtx.related.gimbal': 'Stabilized Gimbal Pods',
+  'vtx.related.gimbal.desc': 'Triple-axis stabilized camera systems for HD aerial imaging.',
+  'vtx.related.gimbal.cta': 'Explore Gimbal & Payload Systems',
+  'vtx.related.digital': 'Digital HD Video Links',
+  'vtx.related.digital.desc': '50km COFDM digital links with AES-256 encryption.',
+  'vtx.related.digital.cta': 'Explore 50km Digital HD Video Links',
+
+  // VTX PDF Lead Magnet
+  'vtx.pdfTitle': 'Download UAV Link Comparison Chart (Digital vs Analog)',
+  'vtx.pdfDesc': 'Get our 2026 comprehensive comparison guide covering range, latency, encryption, and integration specifications for all CANI video transmission products.',
+  'vtx.pdfCta': 'Request Selection Guide (PDF)',
+
   'vtx.notes.intro': 'As professional drone video transmission accessories, please strictly follow the installation requirements during video transmission system setup to ensure proper device operation.',
 
   // FC/ESC SEO Content
