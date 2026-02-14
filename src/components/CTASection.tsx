@@ -77,13 +77,13 @@ export const CTASection = () => {
             </p>
             <div className="flex flex-col sm:flex-row gap-4">
               <LangLink to="/contact">
-                <Button className="bg-accent hover:bg-accent/90 text-accent-foreground px-8 py-6 text-lg shadow-neon hover:shadow-neon-intense transition-all duration-300 hover:scale-105 group">
+                <Button className="bg-accent hover:bg-accent/90 text-accent-foreground px-8 py-6 text-lg shadow-neon hover:shadow-neon-intense transition-all duration-300 hover:scale-105 group min-h-[44px] min-w-[44px]">
                   {t('ctaSection.contactNow')}
                   <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform duration-300" />
                 </Button>
               </LangLink>
               <a href="https://wa.me/84123456789" target="_blank" rel="noopener noreferrer">
-                <Button variant="outline" className="border-green-500 text-green-600 hover:bg-green-50 hover:border-green-600 px-8 py-6 text-lg transition-all duration-300">
+                <Button variant="outline" className="border-green-500 text-green-600 hover:bg-green-50 hover:border-green-600 px-8 py-6 text-lg transition-all duration-300 min-h-[44px] min-w-[44px]">
                   <WhatsAppIcon className="w-5 h-5 mr-2" />
                   WhatsApp
                 </Button>
