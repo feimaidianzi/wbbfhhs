@@ -23,7 +23,7 @@ export const ApplicationsSection = () => {
       descKey: "applications.traffic.desc",
       image: "https://images.unsplash.com/photo-1449824913935-59a10b8d2000?w=1200&q=80",
       icon: Car,
-      link: "/applications/solutions",
+      link: "/solutions/industrial-uav-transportation-monitoring",
     },
     {
       id: "environment",

@@ -70,6 +70,7 @@ import Military from "./pages/applications/Military";
 import FirefightingApp from "./pages/applications/FirefightingApp";
 import EnvironmentalMonitoring from "./pages/applications/EnvironmentalMonitoring";
 import Solutions from "./pages/applications/Solutions";
+import TransportationMonitoring from "./pages/applications/TransportationMonitoring";
 import WaterConservancy from "./pages/applications/WaterConservancy";
 // Accessories detail pages
 import VtxVrx from "./pages/products/accessories/VtxVrx";
@@ -133,6 +134,7 @@ const publicRoutes = [
   
   { path: "/applications/solutions", element: <Solutions /> },
   { path: "/solutions/industrial-uav-water-conservancy", element: <WaterConservancy /> },
+  { path: "/solutions/industrial-uav-transportation-monitoring", element: <TransportationMonitoring /> },
   { path: "/software", element: <Software /> },
   { path: "/software/exam-system", element: <ExamSystem /> },
   { path: "/software/pv-inspection", element: <PVInspection /> },
