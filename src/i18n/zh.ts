@@ -2111,7 +2111,7 @@ export const zhTranslations: Record<string, string> = {
 
   'water.adv.title': '专为关键任务而设计',
   'water.adv.range.title': '50km+长距离传输',
-  'water.adv.range.desc': '搭载自主研发的37W VTX，打破视距限制，覆盖广阔水域的无盲区监控需求。',
+  'water.adv.range.desc': '搭载自主研发的数字图传系统，打破视距限制，覆盖广阔水域的无盲区监控需求。',
   'water.adv.latency.title': '低延迟指挥控制',
   'water.adv.latency.desc': '<200ms端到端延迟，确保在近坝危险区域作业时具备良好的操控实时性。',
   'water.adv.standard.title': '全球安全标准',
