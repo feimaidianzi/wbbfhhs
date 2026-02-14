@@ -31,7 +31,7 @@ export const SolutionsSection = () => {
       title: t('solutionsSection.solution4.title'),
       description: t('solutionsSection.solution4.desc'),
       image: "https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=600&q=80",
-      link: "/applications/environment",
+      link: "/solutions/industrial-uav-environmental-monitoring",
       stats: t('solutionsSection.solution4.stats'),
     },
   ];

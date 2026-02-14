@@ -61,7 +61,7 @@ const X1200 = () => {
       ]}
       relatedApplications={[
         { label: t('app.powerInspection'), path: '/applications/power-inspection' },
-        { label: t('app.environment'), path: '/applications/environment' },
+        { label: t('app.environment'), path: '/solutions/industrial-uav-environmental-monitoring' },
         { label: t('app.firefighting'), path: '/applications/firefighting' },
       ]}
     />

@@ -52,7 +52,7 @@ export const Footer = () => {
   const applicationLinks = [
     { name: t('app.power'), path: "/applications/power-inspection" },
     { name: t('app.logistics'), path: "/applications/logistics" },
-    { name: t('app.environment'), path: "/applications/environment" },
+    { name: t('app.environment'), path: "/solutions/industrial-uav-environmental-monitoring" },
     { name: t('app.firefighting'), path: "/applications/firefighting" },
     { name: t('app.tethered'), path: "/applications/tethered" },
   ];
@@ -284,7 +284,7 @@ export const Footer = () => {
             <LangLink to="/applications" className="hover:text-background/60 transition-colors">{t('footer.applications')}</LangLink>
             <LangLink to="/applications/power-inspection" className="hover:text-background/60 transition-colors">{t('app.power')}</LangLink>
             <LangLink to="/applications/firefighting" className="hover:text-background/60 transition-colors">{t('app.firefighting')}</LangLink>
-            <LangLink to="/applications/environment" className="hover:text-background/60 transition-colors">{t('app.environment')}</LangLink>
+            <LangLink to="/solutions/industrial-uav-environmental-monitoring" className="hover:text-background/60 transition-colors">{t('app.environment')}</LangLink>
             <LangLink to="/applications/logistics" className="hover:text-background/60 transition-colors">{t('app.logistics')}</LangLink>
             <LangLink to="/applications/tethered" className="hover:text-background/60 transition-colors">{t('app.tethered')}</LangLink>
             <LangLink to="/software" className="hover:text-background/60 transition-colors">{t('footer.software')}</LangLink>

@@ -40,7 +40,7 @@ const Applications = () => {
       name: t('applications.environment.name'),
       description: t('applications.environment.desc'),
       image: "https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=800&q=80",
-      href: "/applications/environment",
+      href: "/solutions/industrial-uav-environmental-monitoring",
       icon: Leaf,
       stats: [t('applications.environment.stat1'), t('applications.environment.stat2')],
     },
