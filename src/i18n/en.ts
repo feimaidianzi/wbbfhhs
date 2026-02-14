@@ -987,4 +987,5 @@ export const enTranslations: Record<string, string> = {
   'water.cta.title': 'Get Smart Water Solutions',
   'water.cta.subtitle': 'Contact our expert team for water conservancy UAV application plans and ROI analysis',
   'water.cta.btn': 'Request Consultation',
+  'water.whitepaper.btn': 'Download Smart Water Whitepaper',
 };
