@@ -72,6 +72,7 @@ import EnvironmentalMonitoring from "./pages/applications/EnvironmentalMonitorin
 import Solutions from "./pages/applications/Solutions";
 import TransportationMonitoring from "./pages/applications/TransportationMonitoring";
 import WaterConservancy from "./pages/applications/WaterConservancy";
+import SurveyingMapping from "./pages/solutions/SurveyingMapping";
 // Accessories detail pages
 import VtxVrx from "./pages/products/accessories/VtxVrx";
 import VtxDetail from "./pages/products/accessories/VtxDetail";
@@ -135,6 +136,7 @@ const publicRoutes = [
   { path: "/applications/solutions", element: <Solutions /> },
   { path: "/solutions/industrial-uav-water-conservancy", element: <WaterConservancy /> },
   { path: "/solutions/industrial-uav-transportation-monitoring", element: <TransportationMonitoring /> },
+  { path: "/solutions/industrial-uav-surveying-mapping", element: <SurveyingMapping /> },
   { path: "/software", element: <Software /> },
   { path: "/software/exam-system", element: <ExamSystem /> },
   { path: "/software/pv-inspection", element: <PVInspection /> },
