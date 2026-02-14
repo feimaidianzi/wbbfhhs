@@ -1072,4 +1072,10 @@ export const enTranslations: Record<string, string> = {
   'transport.cta.subtitle': 'Contact our expert team for transportation UAV application plans and ROI analysis',
   'transport.cta.btn': 'Request Consultation',
   'transport.whitepaper.btn': 'Download Smart Transportation Solution (PDF)',
+
+  // Applications hub - Transportation card
+  'applications.transport.name': 'Smart Transportation',
+  'applications.transport.desc': 'Autonomous UAV solutions for highway network monitoring and bridge structural health management with 50km long-range video backhaul and AI edge computing.',
+  'applications.transport.stat1': '50km Backhaul',
+  'applications.transport.stat2': 'mm-Level Inspection',
 };

@@ -3,7 +3,7 @@ import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { FloatingContact } from "@/components/FloatingContact";
 import { Button } from "@/components/ui/button";
-import { ArrowRight, Zap, Truck, Shield, Leaf, Flame, Link2, Lightbulb, ChevronDown } from "lucide-react";
+import { ArrowRight, Zap, Truck, Shield, Leaf, Flame, Link2, Lightbulb, Car, ChevronDown } from "lucide-react";
 import { LangLink as Link } from "@/components/LangLink";
 import { MultiLanguageSEO } from "@/components/MultiLanguageSEO";
 import { useLanguage } from "@/contexts/LanguageContext";
@@ -59,6 +59,14 @@ const Applications = () => {
       href: "/applications/tethered",
       icon: Link2,
       stats: [t('applications.tethered.stat1'), t('applications.tethered.stat2')],
+    },
+    {
+      name: t('applications.transport.name'),
+      description: t('applications.transport.desc'),
+      image: "https://images.unsplash.com/photo-1449824913935-59a10b8d2000?w=800&q=80",
+      href: "/solutions/industrial-uav-transportation-monitoring",
+      icon: Car,
+      stats: [t('applications.transport.stat1'), t('applications.transport.stat2')],
     },
     {
       name: t('applications.solutions.name'),
