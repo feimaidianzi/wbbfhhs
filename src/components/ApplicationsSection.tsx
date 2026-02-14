@@ -15,7 +15,7 @@ export const ApplicationsSection = () => {
       descKey: "applications.water.desc",
       image: "https://images.unsplash.com/photo-1534224039826-c7a0eda0e6b3?w=1200&q=80",
       icon: Droplets,
-      link: "/applications/environment",
+      link: "/solutions/industrial-uav-water-conservancy",
     },
     {
       id: "traffic",
