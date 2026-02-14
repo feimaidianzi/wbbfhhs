@@ -15,7 +15,7 @@ export const ApplicationsSection = () => {
       descKey: "applications.water.desc",
       image: "https://images.unsplash.com/photo-1534224039826-c7a0eda0e6b3?w=1200&q=80",
       icon: Droplets,
-      link: "/applications/water",
+      link: "/applications/environment",
     },
     {
       id: "traffic",
@@ -23,7 +23,7 @@ export const ApplicationsSection = () => {
       descKey: "applications.traffic.desc",
       image: "https://images.unsplash.com/photo-1449824913935-59a10b8d2000?w=1200&q=80",
       icon: Car,
-      link: "/applications/traffic",
+      link: "/applications/solutions",
     },
     {
       id: "environment",
@@ -39,7 +39,7 @@ export const ApplicationsSection = () => {
       descKey: "applications.power.desc",
       image: "https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?w=1200&q=80",
       icon: Zap,
-      link: "/applications/power",
+      link: "/applications/power-inspection",
     },
     {
       id: "emergency",
@@ -47,7 +47,7 @@ export const ApplicationsSection = () => {
       descKey: "applications.emergency.desc",
       image: "https://images.unsplash.com/photo-1569863959165-56dae551d4fc?w=1200&q=80",
       icon: AlertTriangle,
-      link: "/applications/emergency",
+      link: "/applications/firefighting",
     },
     {
       id: "surveying",
@@ -55,7 +55,7 @@ export const ApplicationsSection = () => {
       descKey: "applications.surveying.desc",
       image: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1200&q=80",
       icon: MapPin,
-      link: "/applications/surveying",
+      link: "/applications/tethered",
     },
   ];
 
