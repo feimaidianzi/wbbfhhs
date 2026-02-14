@@ -136,10 +136,11 @@ export const zhTranslations: Record<string, string> = {
   'gimbal.cta.btn': '联系我们',
 
   // ===== VTX/VRX Page =====
-  'vtx.seo.title': 'VTX/VRX 视频发射器与接收器 - 长凌科技',
-  'vtx.seo.description': '长凌科技VTX视频发射器与VRX接收器系列，提供4.9-6.1GHz和6.1-7.2GHz两大频段，功率从2.5W到37W全覆盖，专业FPV图传解决方案',
-  'vtx.hero.title': 'VTX/VRX 图传系统',
-  'vtx.hero.desc': '这款工业无人机图传系统，是专业的FPV图传系统，采用罗杰斯4350B高性能射频材料，满足各类远距离高清图传需求，适用于电力巡检图传系统、FPV竞速图传等多种场景。',
+  'vtx.seo.title': '工业无人机VTX/VRX图传系统 | 50km远距数字高清链路 | CANI 长凌科技',
+  'vtx.seo.description': '高性能无人机视频发射器与接收器，支持50km COFDM数字高清链路、1080P/60fps低延迟视频及AES-256硬件加密。专注大功率模拟VTX与BVLOS安全遥测，满足电力巡检、应急指挥等工业级需求。',
+  'vtx.hero.title': '工业级无人机图传系统',
+  'vtx.hero.desc': 'CANI 长凌科技提供任务关键型无人机视频传输硬件。产品涵盖大功率模拟VTX模块（2.5W–37W）和采用COFDM调制及AES-256加密的安全数字高清链路，专为超视距电力巡检、公共安全及精密测绘任务工程化设计。',
+  'vtx.techOverview': 'CANI（长凌科技）是工业级无人机图传系统领域的领先供应商，拥有15年以上射频工程研发积淀和200余项专利技术。VTX/VRX产品线基于罗杰斯4350B高频PCB基材打造，在极端温度范围（-20℃至60℃）下保持卓越的信号完整性。从紧凑型2.5W FPV竞速模块到旗舰37W超远距离发射器，每款产品均经过严格的EMI测试和热验证。我们为全球系统集成商提供从元器件选型到复杂载荷集成的端到端支持，服务领域涵盖高压电网巡检、应急救援和自主物流。',
   'vtx.back': '返回配件列表',
   'vtx.getQuote': '获取报价',
   'vtx.viewProducts': '查看产品',
@@ -188,6 +189,46 @@ export const zhTranslations: Record<string, string> = {
   'vtx.cta.desc': '我们支持任意频点及频率组合定制（step 1MHz），功率档位定制，满足您的特殊需求。',
   'vtx.cta.btn': '联系我们',
   'vtx.freqTable.band': '频段',
+
+  // VTX Architecture Section
+  'vtx.archTitle': '数字 vs. 模拟：选择您的任务架构',
+  'vtx.archDesc': '两条截然不同的技术路径，专为不同作业需求工程化设计。根据您的任务特征选择最佳架构。',
+  'vtx.arch.digitalBadge': '数字高清',
+  'vtx.arch.digitalTitle': 'COFDM 数字高清视频链路',
+  'vtx.arch.digitalDesc': '采用COFDM调制搭配AES-256硬件加密，数字高清链路可在50km+范围内实现无损1080P/60fps视频传输。专为需要安全、抗干扰通信的超视距（BVLOS）任务设计，适应复杂城市和山区地形。',
+  'vtx.arch.digital.f1': '50km+ 稳定传输，COFDM抗多径技术',
+  'vtx.arch.digital.f2': 'AES-256 硬件加密，满足政府及军工安全合规',
+  'vtx.arch.digital.f3': '1080P/60fps 实时高清视频，端到端延迟 <200ms',
+  'vtx.arch.digitalCta': '探索 50km 数字高清视频链路',
+  'vtx.arch.analogBadge': '模拟大功率',
+  'vtx.arch.analogTitle': '大功率模拟VTX模块',
+  'vtx.arch.analogDesc': '搭载定制37W功率放大器，覆盖4.9–7.2GHz全频段，模拟VTX模块可在茂密森林、地下隧道及封闭工业空间中提供极强的信号穿透力——数字信号在此类场景中往往力不从心。',
+  'vtx.arch.analog.f1': '最高37W输出功率，定制PA设计实现极限穿透',
+  'vtx.arch.analog.f2': '4.9–7.2GHz 全双频段覆盖，80+频道',
+  'vtx.arch.analog.f3': '超低延迟（<1ms），适用于实时FPV操控与巡检',
+  'vtx.arch.analogCta': '浏览大功率模拟VTX产品',
+
+  // VTX Analog Products Section
+  'vtx.analogProducts.title': '大功率模拟VTX产品线',
+  'vtx.analogProducts.desc': '业内领先的2.5W至37W模拟视频发射器，基于Rogers 4350B射频基材打造。点击任意产品查看完整技术规格。',
+
+  // VTX Related / Cross-linking
+  'vtx.relatedTitle': '兼容CANI配件',
+  'vtx.relatedDesc': '搭配以下互补模块，构建完整的无人机通信栈。',
+  'vtx.related.fc': 'NDAA合规飞控系统',
+  'vtx.related.fc.desc': '工业级飞控电调系统，冗余IMU和EMI屏蔽设计。',
+  'vtx.related.fc.cta': '选购NDAA合规飞控',
+  'vtx.related.gimbal': '稳定云台吊舱',
+  'vtx.related.gimbal.desc': '三轴稳定相机系统，满足高清航拍需求。',
+  'vtx.related.gimbal.cta': '探索云台与载荷系统',
+  'vtx.related.digital': '数字高清视频链路',
+  'vtx.related.digital.desc': '50km COFDM数字链路，AES-256加密。',
+  'vtx.related.digital.cta': '探索50km数字高清链路',
+
+  // VTX PDF Lead Magnet
+  'vtx.pdfTitle': '下载无人机图传对比选型表（数字 vs 模拟）',
+  'vtx.pdfDesc': '获取2026年综合对比指南，涵盖所有CANI图传产品的传输距离、延迟、加密和集成规格。',
+  'vtx.pdfCta': '获取选型指南 (PDF)',
 
   // ===== VTX Product Data =====
   // Product Names
@@ -5913,18 +5954,22 @@ export const zhTranslations: Record<string, string> = {
   'products.seo.cat.fcesc': '专业飞控电调系列——高精度控制、快速响应，适配各类工业无人机，支持自主航线规划，稳定性强，可根据机型定制参数，保障无人机稳定飞行。',
   'products.seo.cat.gimbal': '稳定云台吊舱系列——防抖设计，拍摄画面清晰稳定，适配高清拍摄需求，防水防尘，可应对复杂户外作业环境，广泛应用于安防、巡检等场景。',
 
-  // VTX FAQ
-  'vtx.faq.title': '常见疑问解答',
-  'vtx.faq.q1': '本产品是否支持定制？',
-  'vtx.faq.a1': '支持OEM/ODM定制，可根据客户需求调整传输距离、功率、外观等参数，定制周期15-30天。',
-  'vtx.faq.q2': '图传信号抗干扰能力如何？',
-  'vtx.faq.a2': '采用先进抗干扰算法，搭配罗杰斯4350B低损耗材料，可有效抵御户外复杂信号干扰，确保传输稳定。',
-  'vtx.faq.q3': '产品质保期多久？',
-  'vtx.faq.a3': '提供1年质保，质保期内非人为损坏可免费维修或更换。',
-  'vtx.techDetail': '本款VTX/VRX图传系统核心参数适配工业级需求，传输频段4.9-7.2GHz全频段，输出功率0.1-1W可调，分辨率支持1080P/720P切换，工作温度-20℃~60℃，可应对高低温户外环境；铝合金散热外壳厚度2mm，散热效率提升40%，确保设备连续工作8小时无过热，满足长时间巡检、竞速等场景的使用需求。',
+  // VTX FAQ (AEO)
+  'vtx.faq.title': '技术选型FAQ — 无人机图传系统选择指南',
+  'vtx.faq.q1': '如何为50km超视距任务选择合适的数字链路？',
+  'vtx.faq.a1': '对于远距离超视距（BVLOS）任务，推荐使用CANI数字高清链路，该链路采用COFDM技术搭配双高增益天线，确保在复杂地形障碍下稳定传输1080P视频，可靠性远超标准模拟FPV系统。AES-256硬件加密同时满足政府及军事级安全要求。',
+  'vtx.faq.q2': '37W大功率VTX是如何实现如此远距离传输的？',
+  'vtx.faq.a2': '37W VTX采用定制功率放大器，支持4.9–7.2GHz全双频段，可在茂密森林、地下隧道及封闭工业结构中提供极强的信号穿透力。搭配CNC铝合金热管理系统，可在8小时长时间任务中保持稳定运行。',
+  'vtx.faq.q3': 'CANI数字链路相比模拟VTX，传输距离优势是什么？',
+  'vtx.faq.a3': 'CANI数字高清链路提供清晰的1080P分辨率和AES-256加密，可保持高达50公里的稳定传输。与模拟VTX（延迟低但易受噪声干扰）不同，数字系统采用COFDM技术消除复杂城市或山区地形中的多径干扰。',
+  'vtx.faq.q4': '产品是否支持OEM/ODM定制？',
+  'vtx.faq.a4': '完全支持。可定制内容包括传输距离、功率档位、频率配置（step 1MHz）、外壳设计及接口协议。典型定制周期15-30个工作日。',
+  'vtx.faq.q5': 'CANI VTX模块是否兼容开源飞控？',
+  'vtx.faq.a5': '完全兼容。我们的VTX模块支持SmartAudio协议，与Betaflight、Ardupilot和PX4生态系统无缝对接，采用标准安装尺寸（30.5×30.5mm）和JST/SMA接口，可快速集成到现有无人机机架中。',
+  'vtx.techDetail': '本款VTX/VRX图传系统核心参数适配工业级需求：传输频段4.9-7.2GHz全频段，输出功率0.1–37W可调，分辨率支持1080P/720P切换，工作温度-20℃~60℃；CNC铝合金散热外壳厚度2mm，散热效率提升40%，确保设备连续工作8小时无过热。',
   'vtx.techDetail.title': '技术参数解读',
   'vtx.caseStudy.title': '应用案例',
-  'vtx.caseStudy.content': '某省级电力公司使用本图传系统对5000km输电线路进行巡检，在200米高的输电线路巡检中，图传系统能够清晰传输1080P高清画面，延迟低于30ms，巡检人员能够实时查看线路的细节，及时发现线路的破损、异物悬挂等问题，提升巡检效率300%，同时避免了人工高空巡检的安全风险。',
+  'vtx.caseStudy.content': '某省级电力公司部署CANI图传系统对5000km输电线路进行巡检。在200米高空，系统能够清晰传输1080P高清画面，延迟低于30ms，实现对线路破损和异物悬挂的实时检测。巡检效率提升300%，同时消除了人工高空巡检的安全风险。',
 
   // FC/ESC SEO Content
   'fcesc.seo.intro': '长凌科技专业飞控电调系统，是工业无人机的"核心大脑"与"动力中枢"，专注于为多旋翼、固定翼无人机提供高精度控制与稳定动力输出解决方案。产品采用先进的控制算法，搭配高品质元器件，控制精度高、响应速度快，适配电力巡检、消防应急、测绘勘探等多种工业场景，支持定制化参数调整，满足不同机型的使用需求。',

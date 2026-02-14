@@ -4,12 +4,11 @@ import { Footer } from "@/components/Footer";
 import { FloatingContact } from "@/components/FloatingContact";
 import { MultiLanguageSEO } from "@/components/MultiLanguageSEO";
 import { Button } from "@/components/ui/button";
-import { ArrowLeft, Radio, Zap, Settings, Shield, Thermometer, Cpu, ChevronRight } from "lucide-react";
+import { ArrowLeft, Radio, Zap, Settings, Shield, Thermometer, Cpu, ChevronRight, Download, ExternalLink } from "lucide-react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { getProducts49to61, getProducts61to72, frequencyTable49to61, frequencyTable61to72, VtxProduct } from "@/data/vtxProducts";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { PageFAQ } from "@/components/PageFAQ";
-
 
 const VtxVrx = () => {
   const { t } = useLanguage();
@@ -30,14 +29,24 @@ const VtxVrx = () => {
       to={`/products/accessories/vtx-vrx/${product.id}`} 
       className="bg-card rounded-xl overflow-hidden border border-border hover:border-primary/50 transition-all duration-300 group block"
     >
-      <div className="aspect-video bg-muted/30 p-4 flex items-center justify-center">
-        <img src={product.image} alt={t(product.nameKey)} className="max-h-full max-w-full object-contain group-hover:scale-105 transition-transform duration-300" />
+      <div className="aspect-video bg-muted/30 p-4 flex items-center justify-center relative">
+        <img 
+          src={product.image} 
+          alt={`CANI ${product.power} ${product.frequency} industrial UAV video transmitter VTX`}
+          title={`CANI ${product.model} - ${product.power} VTX ${product.frequency}`}
+          className="max-h-full max-w-full object-contain group-hover:scale-105 transition-transform duration-300" 
+          loading="lazy"
+        />
+        {/* Technical spec overlay */}
+        <div className="absolute top-2 left-2 flex flex-col gap-1">
+          <span className="px-2 py-0.5 text-[10px] font-bold bg-primary/90 text-primary-foreground rounded">{product.power} Max Power</span>
+          <span className="px-2 py-0.5 text-[10px] font-bold bg-accent/90 text-accent-foreground rounded">{product.frequency}</span>
+        </div>
+        <div className="absolute bottom-2 right-2">
+          <span className="px-2 py-0.5 text-[10px] font-medium bg-background/80 text-foreground rounded border border-border">{product.channels}CH</span>
+        </div>
       </div>
       <div className="p-6">
-        <div className="flex items-center gap-2 mb-2">
-          <span className="px-2 py-1 text-xs bg-primary/10 text-primary rounded-full">{product.power}</span>
-          <span className="px-2 py-1 text-xs bg-secondary text-secondary-foreground rounded-full">{product.channels}CH</span>
-        </div>
         <h3 className="text-xl font-bold mb-1">{t(product.nameKey)}</h3>
         <p className="text-sm text-muted-foreground mb-4">{product.model}</p>
         
@@ -118,6 +127,29 @@ const VtxVrx = () => {
     </div>
   );
 
+  // CollectionPage + Product structured data
+  const collectionSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'CollectionPage',
+    name: t('vtx.seo.title'),
+    description: t('vtx.seo.description'),
+    url: 'https://www.caniuav.com/products/accessories/vtx-vrx',
+    mainEntity: {
+      '@type': 'ItemList',
+      itemListElement: [...products49to61, ...products61to72].map((p, i) => ({
+        '@type': 'ListItem',
+        position: i + 1,
+        item: {
+          '@type': 'Product',
+          name: t(p.nameKey),
+          brand: { '@type': 'Brand', name: 'CANI' },
+          description: `${p.power} industrial UAV video transmitter, ${p.frequency}, ${p.channels} channels`,
+          model: p.model,
+        }
+      }))
+    }
+  };
+
   return (
     <>
       <MultiLanguageSEO
@@ -154,6 +186,55 @@ const VtxVrx = () => {
           </div>
         </section>
 
+        {/* Technical Overview - E-E-A-T */}
+        <section className="py-12 bg-muted/20">
+          <div className="container mx-auto px-4">
+            <div className="max-w-4xl mx-auto">
+              <p className="text-muted-foreground leading-relaxed text-base">
+                {t('vtx.techOverview')}
+              </p>
+            </div>
+          </div>
+        </section>
+
+        {/* Binary Architecture: Digital vs Analog */}
+        <section className="py-16 bg-background">
+          <div className="container mx-auto px-4">
+            <h2 className="text-3xl font-bold text-center mb-4">{t('vtx.archTitle')}</h2>
+            <p className="text-center text-muted-foreground mb-12 max-w-2xl mx-auto">{t('vtx.archDesc')}</p>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+              {/* Digital HD */}
+              <div className="p-8 bg-card rounded-xl border-2 border-primary/30 relative">
+                <span className="absolute -top-3 left-6 px-3 py-1 text-xs font-bold bg-primary text-primary-foreground rounded-full">{t('vtx.arch.digitalBadge')}</span>
+                <h3 className="text-xl font-bold mb-4 mt-2">{t('vtx.arch.digitalTitle')}</h3>
+                <p className="text-sm text-muted-foreground leading-relaxed mb-4">{t('vtx.arch.digitalDesc')}</p>
+                <ul className="space-y-2 text-sm">
+                  <li className="flex items-start gap-2"><span className="text-primary font-bold">•</span>{t('vtx.arch.digital.f1')}</li>
+                  <li className="flex items-start gap-2"><span className="text-primary font-bold">•</span>{t('vtx.arch.digital.f2')}</li>
+                  <li className="flex items-start gap-2"><span className="text-primary font-bold">•</span>{t('vtx.arch.digital.f3')}</li>
+                </ul>
+                <Button variant="outline" className="mt-6 w-full" asChild>
+                  <Link to="/fpv/digital-fpv">{t('vtx.arch.digitalCta')}</Link>
+                </Button>
+              </div>
+              {/* Analog High-Power */}
+              <div className="p-8 bg-card rounded-xl border-2 border-border relative">
+                <span className="absolute -top-3 left-6 px-3 py-1 text-xs font-bold bg-secondary text-secondary-foreground rounded-full">{t('vtx.arch.analogBadge')}</span>
+                <h3 className="text-xl font-bold mb-4 mt-2">{t('vtx.arch.analogTitle')}</h3>
+                <p className="text-sm text-muted-foreground leading-relaxed mb-4">{t('vtx.arch.analogDesc')}</p>
+                <ul className="space-y-2 text-sm">
+                  <li className="flex items-start gap-2"><span className="text-primary font-bold">•</span>{t('vtx.arch.analog.f1')}</li>
+                  <li className="flex items-start gap-2"><span className="text-primary font-bold">•</span>{t('vtx.arch.analog.f2')}</li>
+                  <li className="flex items-start gap-2"><span className="text-primary font-bold">•</span>{t('vtx.arch.analog.f3')}</li>
+                </ul>
+                <Button variant="outline" className="mt-6 w-full" asChild>
+                  <a href="#products">{t('vtx.arch.analogCta')}</a>
+                </Button>
+              </div>
+            </div>
+          </div>
+        </section>
+
         {/* Features Section */}
         <section className="py-16 bg-muted/30">
           <div className="container mx-auto px-4">
@@ -174,12 +255,12 @@ const VtxVrx = () => {
           </div>
         </section>
 
-        {/* Products Section */}
+        {/* Analog Products Section */}
         <section id="products" className="py-16">
           <div className="container mx-auto px-4">
-            <h2 className="text-3xl font-bold text-center mb-4">{t('vtx.products.title')}</h2>
+            <h2 className="text-3xl font-bold text-center mb-4">{t('vtx.analogProducts.title')}</h2>
             <p className="text-center text-muted-foreground mb-12 max-w-2xl mx-auto">
-              {t('vtx.products.desc')}
+              {t('vtx.analogProducts.desc')}
             </p>
 
             <Tabs defaultValue="49-61" className="w-full">
@@ -284,13 +365,63 @@ const VtxVrx = () => {
           </div>
         </section>
 
-        {/* FAQ Section */}
+        {/* Cross-linking: Related Accessories */}
+        <section className="py-16 bg-background">
+          <div className="container mx-auto px-4">
+            <h2 className="text-3xl font-bold text-center mb-4">{t('vtx.relatedTitle')}</h2>
+            <p className="text-center text-muted-foreground mb-10 max-w-2xl mx-auto">{t('vtx.relatedDesc')}</p>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto">
+              <Link to="/products/accessories/fc-esc" className="p-6 bg-card rounded-xl border border-border hover:border-primary/50 transition-colors group block text-center">
+                <Cpu className="w-10 h-10 text-primary mx-auto mb-3" />
+                <h3 className="font-bold mb-2">{t('vtx.related.fc')}</h3>
+                <p className="text-sm text-muted-foreground mb-4">{t('vtx.related.fc.desc')}</p>
+                <span className="text-primary text-sm font-medium inline-flex items-center gap-1">
+                  {t('vtx.related.fc.cta')} <ExternalLink className="w-3 h-3" />
+                </span>
+              </Link>
+              <Link to="/products/accessories/gimbal" className="p-6 bg-card rounded-xl border border-border hover:border-primary/50 transition-colors group block text-center">
+                <Radio className="w-10 h-10 text-primary mx-auto mb-3" />
+                <h3 className="font-bold mb-2">{t('vtx.related.gimbal')}</h3>
+                <p className="text-sm text-muted-foreground mb-4">{t('vtx.related.gimbal.desc')}</p>
+                <span className="text-primary text-sm font-medium inline-flex items-center gap-1">
+                  {t('vtx.related.gimbal.cta')} <ExternalLink className="w-3 h-3" />
+                </span>
+              </Link>
+              <Link to="/fpv/digital-fpv" className="p-6 bg-card rounded-xl border border-border hover:border-primary/50 transition-colors group block text-center">
+                <Zap className="w-10 h-10 text-primary mx-auto mb-3" />
+                <h3 className="font-bold mb-2">{t('vtx.related.digital')}</h3>
+                <p className="text-sm text-muted-foreground mb-4">{t('vtx.related.digital.desc')}</p>
+                <span className="text-primary text-sm font-medium inline-flex items-center gap-1">
+                  {t('vtx.related.digital.cta')} <ExternalLink className="w-3 h-3" />
+                </span>
+              </Link>
+            </div>
+          </div>
+        </section>
+
+        {/* PDF Download Lead Magnet */}
+        <section className="py-12 bg-muted/30">
+          <div className="container mx-auto px-4">
+            <div className="max-w-3xl mx-auto p-8 bg-card rounded-xl border border-primary/20 text-center">
+              <Download className="w-10 h-10 text-primary mx-auto mb-4" />
+              <h3 className="text-xl font-bold mb-2">{t('vtx.pdfTitle')}</h3>
+              <p className="text-sm text-muted-foreground mb-6">{t('vtx.pdfDesc')}</p>
+              <Button size="lg" asChild>
+                <Link to="/contact">{t('vtx.pdfCta')}</Link>
+              </Button>
+            </div>
+          </div>
+        </section>
+
+        {/* AEO FAQ Section */}
         <PageFAQ
           titleKey="vtx.faq.title"
           items={[
             { questionKey: 'vtx.faq.q1', answerKey: 'vtx.faq.a1' },
             { questionKey: 'vtx.faq.q2', answerKey: 'vtx.faq.a2' },
             { questionKey: 'vtx.faq.q3', answerKey: 'vtx.faq.a3' },
+            { questionKey: 'vtx.faq.q4', answerKey: 'vtx.faq.a4' },
+            { questionKey: 'vtx.faq.q5', answerKey: 'vtx.faq.a5' },
           ]}
         />
 
@@ -309,6 +440,12 @@ const VtxVrx = () => {
       </main>
       <Footer />
       <FloatingContact />
+
+      {/* Structured Data */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(collectionSchema) }}
+      />
     </>
   );
 };
