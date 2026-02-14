@@ -181,7 +181,7 @@ const SurveyingMapping = () => {
                 className="order-2 lg:order-1"
               >
                 <img
-                  src="https://images.pexels.com/photos/16864197/pexels-photo-16864197.jpeg?w=1200&q=80"
+                  src="https://images.unsplash.com/photo-1513828583688-c52646db42da?w=1200&q=80"
                   alt="CANI UAV mine stockpile volumetric calculation at open-pit mining site"
                   className="rounded-2xl shadow-lg w-full"
                   loading="lazy"
