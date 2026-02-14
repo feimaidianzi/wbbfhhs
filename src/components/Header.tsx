@@ -73,7 +73,7 @@ export const Header = () => {
     { name: t('header.powerInspection'), href: "/applications/power-inspection", description: t('header.powerInspection.desc') },
     { name: t('header.logisticsApp'), href: "/applications/logistics", description: t('header.logisticsApp.desc') },
     { name: t('header.military'), href: "/applications/military", description: t('header.military.desc') },
-    { name: t('header.environment'), href: "/applications/environment", description: t('header.environment.desc') },
+    { name: t('header.environment'), href: "/solutions/industrial-uav-environmental-monitoring", description: t('header.environment.desc') },
     { name: t('header.firefighting'), href: "/applications/firefighting", description: t('header.firefighting.desc') },
     { name: t('header.tetheredApp'), href: "/applications/tethered", description: t('header.tetheredApp.desc') },
     { name: t('header.solutions'), href: "/applications/solutions", description: t('header.solutions.desc') },

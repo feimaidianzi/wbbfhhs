@@ -119,7 +119,7 @@ const PowerInspection = () => {
         ]}
         relatedApplications={[
           { label: t('app.firefighting'), path: '/applications/firefighting' },
-          { label: t('app.environment'), path: '/applications/environment' },
+          { label: t('app.environment'), path: '/solutions/industrial-uav-environmental-monitoring' },
           { label: t('app.tethered'), path: '/applications/tethered' },
         ]}
       />
