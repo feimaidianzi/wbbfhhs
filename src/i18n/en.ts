@@ -895,7 +895,7 @@ export const enTranslations: Record<string, string> = {
   'companyIntro.badge': 'About CANI',
   'companyIntro.title.line1': 'Professional Industrial',
   'companyIntro.title.line2': 'UAV Components R&D',
-  'companyIntro.description': 'As a leading industrial UAV components manufacturer with 15+ years of R&D experience, CANI (Changling Technology) specializes in high-reliability systems. Our flagship HD digital video transmission and 4.9-7.2GHz full-band digital links deliver stable 50km+ transmission for critical missions. With 200+ patented technologies and ISO, CE, FCC certifications, we offer NDAA-compliant UAV AI guidance modules and flight controllers that improve power inspection efficiency by up to 10x.',
+  'companyIntro.description': 'As a leading industrial UAV components manufacturer with 15+ years of R&D experience, CANI (Changling Technology) specializes in high-reliability systems. Our flagship HD digital video transmission system delivers stable 50km+ transmission for critical missions. With 200+ patented technologies and ISO, CE, FCC certifications, we offer NDAA-compliant UAV AI guidance modules and flight controllers that improve power inspection efficiency by up to 10x.',
   'companyIntro.stat1.value': '200+',
   'companyIntro.stat1.label': 'Product Models',
   'companyIntro.stat2.value': '10+',

@@ -1687,7 +1687,7 @@ export const zhTranslations: Record<string, string> = {
   'companyIntro.badge': '关于长凌',
   'companyIntro.title.line1': '专注无人机配件',
   'companyIntro.title.line2': '10年技术沉淀',
-  'companyIntro.description': '作为一家拥有15年以上研发经验的领先工业无人机零部件制造商，CANI（长凌科技）专注于高可靠性系统。我们旗舰级的高清数字图传和4.9-7.2GHz全频段数字链路，旨在为关键任务提供稳定的50公里以上传输距离。我们拥有超过200项专利技术，并获得ISO、CE和FCC的全面认证，提供符合NDAA标准的无人机AI导航模块和飞行控制器，可将电力巡检效率提高多达10倍。',
+  'companyIntro.description': '作为一家拥有15年以上研发经验的领先工业无人机零部件制造商，CANI（长凌科技）专注于高可靠性系统。我们旗舰级的高清数字图传系统，旨在为关键任务提供稳定的50公里以上传输距离。我们拥有超过200项专利技术，并获得ISO、CE和FCC的全面认证，提供符合NDAA标准的无人机AI导航模块和飞行控制器，可将电力巡检效率提高多达10倍。',
   'companyIntro.stat1.value': '200+',
   'companyIntro.stat1.label': '产品型号',
   'companyIntro.stat2.value': '10+',
