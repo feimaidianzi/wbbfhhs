@@ -27,21 +27,21 @@ const EnvironmentalMonitoring = () => {
     {
       titleKey: 'envmon.scene1.title',
       descKey: 'envmon.scene1.desc',
-      image: "https://images.pexels.com/photos/18413472/pexels-photo-18413472.jpeg?w=1200",
+      image: "https://images.unsplash.com/photo-1611273426858-450d8e3c9fce?w=1200&q=80",
       alt: "CANI industrial UAV atmospheric monitoring with 3D gas diffusion mapping over industrial zone",
       hasVtxLink: true,
     },
     {
       titleKey: 'envmon.scene2.title',
       descKey: 'envmon.scene2.desc',
-      image: "https://images.pexels.com/photos/1179229/pexels-photo-1179229.jpeg?w=1200",
+      image: "https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=1200&q=80",
       alt: "CANI UAV NDVI multispectral forest health survey with vegetation index analysis",
       hasGimbalLink: true,
     },
     {
       titleKey: 'envmon.scene3.title',
       descKey: 'envmon.scene3.desc',
-      image: "https://images.pexels.com/photos/2280571/pexels-photo-2280571.jpeg?w=1200",
+      image: "https://images.unsplash.com/photo-1504386106331-3e4e71712b38?w=1200&q=80",
       alt: "CANI UAV illegal discharge detection over river with thermal imaging evidence capture",
     },
   ];
