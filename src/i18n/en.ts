@@ -856,7 +856,7 @@ export const enTranslations: Record<string, string> = {
 
   // ===== Homepage Section Content (EN overrides) =====
   'productsSection.badge': 'Core Products',
-  'productsSection.title': 'Advanced 4.9-7.2GHz Full-Band Digital Image Transmission Systems',
+  'productsSection.title': 'Advanced HD Digital Video Transmission Systems',
   'productsSection.subtitle': '10+ years of deep expertise in UAV core components — from VTX to flight controllers, gimbals to ELRS',
   'productsSection.viewAll': 'Explore Long-Range VTX & Digital Video Links',
   'productsSection.exploreNow': 'Explore Now',
