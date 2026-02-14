@@ -12,7 +12,6 @@ const Products = () => {
   const { language, t } = useLanguage();
 
   const droneCategories = [
-    { name: t('header.droneNest'), href: "/products/airport", description: t('header.droneNest.desc'), icon: Box },
     { name: t('header.tethered'), href: "/products/tethered", description: t('header.tethered.desc'), icon: Link2 },
     { name: t('header.logistics'), href: "/products/logistics", description: t('header.logistics.desc'), icon: Truck },
     { name: t('header.swarm'), href: "/products/swarm", description: t('header.swarm.desc'), icon: Users },

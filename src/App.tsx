@@ -29,7 +29,7 @@ import FPVCategory from "./pages/fpv/FPVCategory";
 import News from "./pages/News";
 import Contact from "./pages/Contact";
 import Products from "./pages/Products";
-import Airport from "./pages/products/Airport";
+
 import Tethered from "./pages/products/Tethered";
 import Logistics from "./pages/products/Logistics";
 import Firefighting from "./pages/products/Firefighting";
@@ -41,10 +41,8 @@ import WorkDrone from "./pages/products/WorkDrone";
 import Accessories from "./pages/products/Accessories";
 import Swarm from "./pages/products/Swarm";
 import SwarmKit from "./pages/products/SwarmKit";
-import VehicleMountedAirport from "./pages/products/airport/VehicleMountedAirport";
-import UHS1000 from "./pages/products/airport/UHS1000";
-import UHS600 from "./pages/products/airport/UHS600";
-import UHS400P from "./pages/products/airport/UHS400P";
+
+
 import TH100 from "./pages/products/tethered/TH100";
 import TH200 from "./pages/products/tethered/TH200";
 import TH300 from "./pages/products/tethered/TH300";
@@ -55,7 +53,7 @@ import X650 from "./pages/products/multi-rotor/X650";
 import X850 from "./pages/products/multi-rotor/X850";
 import X1200 from "./pages/products/multi-rotor/X1200";
 import X1600 from "./pages/products/multi-rotor/X1600";
-import AirportCustom from "./pages/custom-research/AirportCustom";
+
 import SwarmCustom from "./pages/custom-research/SwarmCustom";
 import SoftwareCustom from "./pages/custom-research/Software";
 import PayloadCustom from "./pages/custom-research/PayloadCustom";
@@ -149,7 +147,7 @@ const publicRoutes = [
   { path: "/projects/flight-service", element: <FlightService /> },
   { path: "/projects/cooperation", element: <ProjectCooperation /> },
   { path: "/custom-research", element: <CustomResearch /> },
-  { path: "/custom-research/airport", element: <AirportCustom /> },
+  
   { path: "/custom-research/swarm", element: <SwarmCustom /> },
   { path: "/custom-research/software", element: <SoftwareCustom /> },
   { path: "/custom-research/payload", element: <PayloadCustom /> },
@@ -162,11 +160,8 @@ const publicRoutes = [
   { path: "/contact", element: <Contact /> },
   { path: "/products", element: <Products /> },
   { path: "/products/catalog", element: <DatabaseProductList /> },
-  { path: "/products/airport", element: <Airport /> },
-  { path: "/products/airport/vehicle-mounted", element: <VehicleMountedAirport /> },
-  { path: "/products/airport/uhs-1000", element: <UHS1000 /> },
-  { path: "/products/airport/uhs-600", element: <UHS600 /> },
-  { path: "/products/airport/uhs-400p", element: <UHS400P /> },
+
+
   { path: "/products/tethered", element: <Tethered /> },
   { path: "/products/tethered/th-100", element: <TH100 /> },
   { path: "/products/tethered/th-200", element: <TH200 /> },
