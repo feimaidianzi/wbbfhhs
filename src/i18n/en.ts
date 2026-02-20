@@ -932,6 +932,8 @@ export const enTranslations: Record<string, string> = {
   'fcEscDetail.downloads.step': 'Download STEP File',
   'fcEscDetail.downloads.manual': 'Download PDF Manual',
   'fcEscDetail.downloads.datasheet': 'Download Datasheet',
+  'fcEscDetail.downloads.betaflightConfig': 'Download Betaflight Config Profiles',
+  'fcEscDetail.downloads.cliDump': 'Download CLI Dump Files',
   'fcEscDetail.faq.title': 'Product FAQ',
   'fcEscDetail.faq.subtitle': 'Common technical questions about this product.',
   'fcEscDetail.faq.q1': 'Why choose an H7 flight controller for industrial UAVs?',
@@ -940,6 +942,97 @@ export const enTranslations: Record<string, string> = {
   'fcEscDetail.faq.a2': 'Three independent inertial sensors on separate buses allow the FC to detect anomalies instantly and switch to a healthy sensor within milliseconds, preventing catastrophic failures from vibration or sensor drift.',
   'fcEscDetail.faq.q3': 'What are the advantages of FOC ESCs for heavy-lift drones?',
   'fcEscDetail.faq.a3': 'FOC ESCs deliver higher efficiency, lower noise, smoother motor control, and real-time DroneCAN/UART telemetry. This translates to up to 10% longer flight time and industrial-grade reliability.',
+
+  // Per-SKU SEO TDK
+  'fcEscDetail.tdk.stack-mini-f7-55a.title': 'Mini F7 Flight Controller Stack | 55A 4-in-1 ESC | 20×20mm FPV Stack',
+  'fcEscDetail.tdk.stack-mini-f7-55a.desc': 'Ultra-compact Mini F7 stack with 55A BLHeli_32 ESC. Designed for 2-4 inch cinewhoops and sub-250g long-range drones. Features STM32F722 MCU and ≤30ms latency.',
+  'fcEscDetail.tdk.stack-mini-f7-55a.h1': 'Mini F7 + 55A Stack: Ultra-Compact 20×20mm FPV Power System',
+  'fcEscDetail.tdk.stack-mini-f7-40a.title': 'Mini F7 Flight Controller Stack | 40A 4-in-1 ESC | 20×20mm FPV Stack',
+  'fcEscDetail.tdk.stack-mini-f7-40a.desc': 'Ultra-compact Mini F7 stack with 40A BLHeli_32 ESC. Designed for 2-3 inch cinewhoops and sub-250g micro drones. Features STM32F722 MCU and BMI270 gyro.',
+  'fcEscDetail.tdk.stack-mini-f7-40a.h1': 'Mini F7 + 40A Stack: Micro FPV 20×20mm Power System',
+  'fcEscDetail.tdk.stack-f405-55a.title': 'F405 FPV Stack 55A 4-in-1 ESC | Reliable 30.5mm Flight Tower',
+  'fcEscDetail.tdk.stack-f405-55a.desc': 'High-performance F405 flight controller stack with 55A BLHeli_32 ESC. Best value for 5-7 inch freestyle and racing drones. Supports 3-6S Lipo input.',
+  'fcEscDetail.tdk.stack-f405-55a.h1': 'F405 + 55A Stack: Best-Value 30.5mm FPV Flight Tower',
+  'fcEscDetail.tdk.stack-f405-60a.title': 'F405 FPV Stack 60A 4-in-1 ESC | Racing-Grade 30.5mm Flight Tower',
+  'fcEscDetail.tdk.stack-f405-60a.desc': 'High-performance F405 flight controller stack with 60A BLHeli_S/32 ESC. Best for 5-7 inch freestyle and racing drones. Supports 3-6S Lipo input.',
+  'fcEscDetail.tdk.stack-f405-60a.h1': 'F405 + 60A Stack: Racing-Grade 30.5mm FPV Flight Tower',
+  'fcEscDetail.tdk.stack-pro-f722-100a.title': 'Pro F722 Stack 100A 4-in-1 ESC | 8S Heavy Lift FPV Tower',
+  'fcEscDetail.tdk.stack-pro-f722-100a.desc': 'Professional-grade F722 stack with 100A extreme power ESC. Supports up to 8S voltage for high-torque motors and heavy-lift cinematic FPV. Dual BEC output included.',
+  'fcEscDetail.tdk.stack-pro-f722-100a.h1': 'Pro F722 + 100A Stack: 8S Heavy-Lift FPV Power Tower',
+
+  // 6-in-1 ESC TDK
+  'fcEscDetail.tdk.6in1-80a.title': 'FV 6-in-1 ESC 80A | Industrial Hexacopter Power Module',
+  'fcEscDetail.tdk.6in1-80a.desc': 'Industrial-grade 6-in-1 ESC for hexacopters, supporting 80A per channel. Integrated real-time telemetry for RPM, temperature, and current monitoring. Ideal for 8S heavy-lift mapping and delivery drones.',
+  'fcEscDetail.tdk.6in1-80a.h1': '6-in-1 80A ESC: Centralized Power Hub for Industrial Hexacopters',
+  'fcEscDetail.tdk.6in1-100a.title': 'FV 6-in-1 ESC 100A | Industrial Hexacopter Power Module',
+  'fcEscDetail.tdk.6in1-100a.desc': 'Industrial-grade 6-in-1 ESC for hexacopters, supporting 100A per channel with 120A peak. Real-time telemetry for RPM, temperature, and current monitoring. 12S-14S heavy-lift drone optimized.',
+  'fcEscDetail.tdk.6in1-100a.h1': '6-in-1 100A ESC: Maximum Power Hub for Industrial Hexacopters',
+
+  // Separate ESC TDK
+  'fcEscDetail.tdk.separate-esc-80a.title': 'FV Separate ESC 80A | High-Voltage Industrial Single ESC',
+  'fcEscDetail.tdk.separate-esc-80a.desc': 'Industrial-grade separate ESC with 80A continuous current. Individual arm-mount design for easy maintenance on heavy-lift drones. Supports 4-8S LiPo.',
+  'fcEscDetail.tdk.separate-esc-80a.h1': '80A Separate ESC: Individual Arm-Mount Industrial Power Unit',
+  'fcEscDetail.tdk.separate-esc-100a.title': 'FV Separate ESC 100A | High-Voltage Industrial Single ESC',
+  'fcEscDetail.tdk.separate-esc-100a.desc': 'Industrial-grade separate ESC with 100A continuous output. Designed for heavy-lift UAVs with independent heatsink. Supports up to 12S LiPo for maximum thrust.',
+  'fcEscDetail.tdk.separate-esc-100a.h1': '100A Separate ESC: Heavy-Lift Industrial Power Module',
+
+  // 4-in-1 ESC TDK
+  'fcEscDetail.tdk.esc-55a.title': 'CANI 4-in-1 ESC 55A BLHeli_32 | FPV Propulsion System',
+  'fcEscDetail.tdk.esc-55a.desc': 'High-performance 55A 4-in-1 ESC with BLHeli_32 firmware. Low-resistance MOSFETs and 4-layer PCB for efficient heat dissipation. Ideal for 5-inch FPV drones.',
+  'fcEscDetail.tdk.esc-55a.h1': '55A 4-in-1 ESC: High-Efficiency FPV Propulsion System',
+  'fcEscDetail.tdk.esc-60a.title': 'CANI 4-in-1 ESC 60A | High Efficiency FPV Propulsion System',
+  'fcEscDetail.tdk.esc-60a.desc': 'ECO series 60A 4-in-1 ESC with 48KHz PWM and built-in current sensor. Optimized PCB thermal design for 5-inch freestyle and racing drones.',
+  'fcEscDetail.tdk.esc-60a.h1': '60A 4-in-1 ESC: High-Efficiency FPV Propulsion System',
+  'fcEscDetail.tdk.esc-80a.title': 'CANI 4-in-1 ESC 80A Pro | Heavy-Lift FPV Power System',
+  'fcEscDetail.tdk.esc-80a.desc': 'Professional 80A 4-in-1 ESC with 8-layer PCB for extreme thermal management. Supports 3-8S LiPo for 7-inch heavy-lift and long-range FPV drones.',
+  'fcEscDetail.tdk.esc-80a.h1': '80A 4-in-1 ESC: Pro Heavy-Lift FPV Power System',
+  'fcEscDetail.tdk.esc-100a.title': 'CANI 4-in-1 ESC 100A BLHeli_32 | Extreme Power for 7-10 inch Drones',
+  'fcEscDetail.tdk.esc-100a.desc': 'Extreme 100A 4-in-1 ESC with 120A peak. 8-layer PCB and parallel MOSFET array for maximum current capacity. Ideal for 7-10 inch heavy-lift cinematography drones.',
+  'fcEscDetail.tdk.esc-100a.h1': '100A 4-in-1 ESC: Extreme Power for Heavy-Lift Drones',
+
+  // FC TDK
+  'fcEscDetail.tdk.fc-f405.title': 'FlyMind F405 Flight Controller | Reliable FPV Autopilot',
+  'fcEscDetail.tdk.fc-f405.desc': 'Reliable STM32F405 flight controller with ICM42688 gyro. Supports Betaflight/INAV firmware. Standard 30.5mm mounting for 5-7 inch FPV drones.',
+  'fcEscDetail.tdk.fc-f405.h1': 'F405 Flight Controller: Reliable FPV Autopilot',
+  'fcEscDetail.tdk.fc-f722.title': 'FlyMind F722 Flight Controller | Dual Gyro High-Performance FC',
+  'fcEscDetail.tdk.fc-f722.desc': 'High-performance STM32F722 flight controller with dual ICM42688 gyro redundancy. 5x UART, supports HD VTX control. For serious FPV pilots.',
+  'fcEscDetail.tdk.fc-f722.h1': 'F722 Flight Controller: Dual-Gyro High-Performance Autopilot',
+
+  // Research FC TDK
+  'fcEscDetail.tdk.cani-fmt.title': 'CANI-FMT Advanced Flight Management & Firmware Transition Tool',
+  'fcEscDetail.tdk.cani-fmt.desc': 'CANI-FMT: Advanced Flight Management & Firmware Transition Tool. Seamlessly bridge hardware protocols and optimize PID tuning across multi-platform UAV fleets. Supports Matlab/Simulink auto code generation.',
+  'fcEscDetail.tdk.cani-fmt.h1': 'CANI-FMT: Advanced Flight Management & Firmware Transition Tool',
+
+  // Per-SKU matching guide recommendations
+  'fcEscDetail.match.stack-mini-f7-55a': '2207/2306 motors, 5-inch high-pitch propellers, 4-6S LiPo',
+  'fcEscDetail.match.stack-mini-f7-40a': '1404/1507 motors, 3-inch propellers, 3-4S LiPo',
+  'fcEscDetail.match.stack-f405-55a': '2207/2306 motors, 5-inch propellers, 4-6S LiPo',
+  'fcEscDetail.match.stack-f405-60a': '2207/2507 motors, 5-inch high-pitch propellers, 4-6S LiPo',
+  'fcEscDetail.match.stack-pro-f722-100a': '2810/3110 motors, 7-9 inch propellers, 6-8S LiPo',
+  'fcEscDetail.match.6in1-80a': 'U8/U10 motors, 28-32 inch propellers, 6-8S LiPo hexacopter',
+  'fcEscDetail.match.6in1-100a': 'U10/U15 motors, 30-40 inch propellers, 8-14S LiPo hexacopter',
+  'fcEscDetail.match.esc-55a': '2207/2306 motors, 5-inch propellers, 4-6S LiPo',
+  'fcEscDetail.match.esc-60a': '2207/2306 motors, 5-inch high-pitch propellers, 4-6S LiPo',
+  'fcEscDetail.match.esc-80a': '2810/3110 motors, 7-9 inch propellers, 6-8S LiPo',
+  'fcEscDetail.match.esc-100a': '2810/3110 motors, 7-9 inch propellers, 6-8S LiPo',
+  'fcEscDetail.match.separate-esc-80a': 'U8/U10 motors, 28-32 inch propellers, 6-8S LiPo',
+  'fcEscDetail.match.separate-esc-100a': 'U10/U15 motors, 30-40 inch propellers, 8-12S LiPo',
+
+  // Per-SKU dynamic FAQs
+  'fcEscDetail.faq.6in1.q1': 'When should my drone use a 6-in-1 ESC?',
+  'fcEscDetail.faq.6in1.a1': 'A 6-in-1 ESC is optimal for hexacopter configurations, providing a centralized power hub that simplifies wiring and reduces overall weight compared to six separate ESCs. It is ideal for industrial platforms requiring high current density and space efficiency.',
+  'fcEscDetail.faq.6in1.q2': 'Does the CANI 100A ESC support 8S LiPo batteries?',
+  'fcEscDetail.faq.6in1.a2': 'Yes. Our 100A series (both separate and stacked) uses high-voltage MOSFETs and low ESR capacitors to safely support up to 8S LiPo (33.6V), meeting extreme thrust demands.',
+  'fcEscDetail.faq.stack.q1': 'What is the advantage of a flight tower (stack) over separate components?',
+  'fcEscDetail.faq.stack.a1': 'A stack integrates FC and ESC into a single compact unit, reducing wiring complexity, saving weight, and minimizing electromagnetic interference. This results in cleaner builds and more reliable flights.',
+  'fcEscDetail.faq.stack.q2': 'Can I use this stack with Betaflight and INAV?',
+  'fcEscDetail.faq.stack.a2': 'Yes. All CANI stacks support Betaflight firmware out-of-the-box, and most models also support INAV and ArduPilot for GPS autonomous missions.',
+
+  // EEAT Quality Statement
+  'fcEscDetail.eeat.title': 'Quality Assurance',
+  'fcEscDetail.eeat.statement': 'Every CANI flight controller and ESC assembly undergoes a 48-hour stress test and factory power consistency calibration to ensure zero-defect, ready-to-fly performance out of the box.',
+  'fcEscDetail.eeat.protocol': 'Supports SmartAudio v2.1 and IRC Tramp protocols for seamless OSD control.',
+  'fcEscDetail.eeat.protocolTitle': 'Protocol Compatibility',
 
   // Gimbal SEO Content
   'gimbal.seo.intro.title': 'Product Overview',
