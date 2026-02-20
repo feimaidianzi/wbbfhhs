@@ -4509,6 +4509,26 @@ export const zhTranslations: Record<string, string> = {
   'vtxDetail.pv02.application.inspection': '工业巡检：为电力线和管道巡检提供可靠的视频回传，无人机可在 8km 半径范围内稳定作业。',
   'vtxDetail.pv02.application.sar': '搜救：高功率穿透力有助于穿透稀疏树叶或城市建筑物，在关键任务中保持稳定信号传输。',
 
+  // PV03 FLYM-PV03W000-A1
+  'vtxDetail.pv03.seo.title': 'FLYM-PV03W000-A1 3W 超大功率FPV图传 | 10km远距离视频发射器 | CANI长凌科技',
+  'vtxDetail.pv03.seo.desc': '终极3W（3000mW）5.8GHz穿越机图传。可实现稳定10km视距传输，主动风冷+CNC散热片设计，支持SmartAudio协议、≤30ms超低延迟及7-36V宽压输入，专为7-10英寸远距离飞行框架打造。',
+  'vtxDetail.pv03.h1': 'FLYM-PV03W000-A1：3000mW（3W）极限功率穿越机图传，10km远距离',
+  'vtxDetail.pv03.overview': 'FLYM-PV03W000-A1 提供3000mW原始射频输出功率，在视距（LOS）条件下实现稳定10km传输，端到端延迟≤30ms。专为极限远距离FPV设计——山地冲浪、城区穿透与重型挂载平台。主动风扇冷却+CNC散热片确保在满功率持续工作时不降频。支持SmartAudio & IRC Tramp协议，可通过Betaflight OSD全程控制。',
+  'vtxDetail.pv03.faq.title': 'FLYM-PV03W000-A1 常见问题',
+  'vtxDetail.pv03.faq.q1': '我可以使用 FLYM-PV03W000-A1 进行 10 公里远程 FPV 飞行吗？',
+  'vtxDetail.pv03.faq.a1': '可以。3W（3000mW）输出功率提供了实现稳定10km视距传输所需的链路预算，使其成为专业远距离FPV山地冲浪与探险飞行的理想选择。',
+  'vtxDetail.pv03.faq.q2': '3W 大功率图传在地面调试时如何控制发热？',
+  'vtxDetail.pv03.faq.a2': 'FLYM-PV03W000-A1 配备集成高速风扇与CNC加工散热片。在地面测试台上，建议启用Pit模式（功率降至25mW）并确保充足气流通畅后再进行调试，这样可以有效防止地面检测期间的热量积累。',
+  'vtxDetail.pv03.faq.q3': '这款大功率图传是否支持 OSD 配置？',
+  'vtxDetail.pv03.faq.a3': '支持。本产品兼容SmartAudio和IRC Tramp协议，可通过Betaflight OSD或遥控器直接调节功率级别与频率通道，无需在飞行中手动接触模块。',
+  'vtxDetail.pv03.application.title': 'FPV 应用场景',
+  'vtxDetail.pv03.application.mountainTitle': '山地冲浪与远距离飞行',
+  'vtxDetail.pv03.application.mountain': '专为挑战极限的7-10英寸远距离框架设计，为数公里的山地探险提供所需的信号支撑，不断连。',
+  'vtxDetail.pv03.application.bandoTitle': 'Bando 与城市穿透',
+  'vtxDetail.pv03.application.bando': '3000mW输出对Bando探险者来说是颠覆性突破，能够穿透厚厚的混凝土墙与射频密集的城市环境，提供卓越的信号穿透能力。',
+  'vtxDetail.pv03.application.heavyFpvTitle': '重型 FPV 平台',
+  'vtxDetail.pv03.application.heavyFpv': '兼容搭载重型摄像机的大型FPV平台，确保飞手在整个任务过程中保持高清视觉接触。',
+
   // ===== Database Product Detail Page =====
   'productDetail.backToList': '返回产品列表',
   'productDetail.noImage': '暂无图片',

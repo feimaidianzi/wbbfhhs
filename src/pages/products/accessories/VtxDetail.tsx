@@ -17,6 +17,7 @@ const VtxDetail = () => {
   const product = productId ? getProductById(productId) : null;
   const { t } = useLanguage();
   const isPV02 = productId === "flym-pv02w500-a1";
+  const isPV03 = productId === "flym-pv03w000-a1";
 
   if (!product) {
     return <Navigate to="/products/accessories/vtx-vrx" replace />;
@@ -56,9 +57,45 @@ const VtxDetail = () => {
     { questionKey: "vtxDetail.pv02.faq.q3", answerKey: "vtxDetail.pv02.faq.a3" },
   ];
 
-  // SEO: PV02 使用专属 TDK，其他产品使用通用逻辑
-  const seoTitle = isPV02 ? t('vtxDetail.pv02.seo.title') : `${t(product.nameKey)} ${product.model}`;
-  const seoDesc = isPV02 ? t('vtxDetail.pv02.seo.desc') : `${t(product.nameKey)}，${product.frequency}${t('vtxDetail.seo.band')}，${product.channels}${t('vtxDetail.seo.channels')}，${product.power}${t('vtxDetail.seo.power')}，${t('vtxDetail.seo.vtxDesc')}`;
+  // PV03 JSON-LD
+  const pv03JsonLd = isPV03 ? {
+    "@context": "https://schema.org/",
+    "@type": "Product",
+    "name": "FLYM-PV03W000-A1 3W FPV VTX",
+    "description": "Extreme 3W (3000mW) high-power video transmitter for long-range FPV drones. Features active fan cooling and 10km LOS range. Supports SmartAudio & IRC Tramp.",
+    "brand": { "@type": "Brand", "name": "CANI Technology" },
+    "sku": "PV03W000-A1-3W-FPV",
+    "mpn": "FLYM-PV03W000-A1",
+    "image": "https://www.caniuav.com/assets/vtx/vtx-low-power.png",
+    "keywords": "FPV VTX, Long Range FPV, 3W VTX, 3000mW Video Transmitter, 5.8GHz VTX",
+    "additionalProperty": [
+      { "@type": "PropertyValue", "name": "RF Output Power", "value": "3000mW (3W)" },
+      { "@type": "PropertyValue", "name": "Transmission Range", "value": "10km LOS" },
+      { "@type": "PropertyValue", "name": "Input Voltage", "value": "DC 7-36V (2-8S LiPo)" },
+      { "@type": "PropertyValue", "name": "End-to-End Latency", "value": "≤30ms" },
+      { "@type": "PropertyValue", "name": "Cooling System", "value": "Active Fan + CNC Heatsink" },
+      { "@type": "PropertyValue", "name": "Protocol", "value": "SmartAudio / IRC Tramp" },
+      { "@type": "PropertyValue", "name": "Frequency Band", "value": "4.9-6.1GHz" },
+      { "@type": "PropertyValue", "name": "Channels", "value": "80" },
+      { "@type": "PropertyValue", "name": "Weight", "value": "23g" }
+    ],
+    "offers": {
+      "@type": "Offer",
+      "url": "https://www.caniuav.com/products/accessories/vtx-vrx/flym-pv03w000-a1",
+      "priceCurrency": "USD",
+      "availability": "https://schema.org/InStock"
+    }
+  } : null;
+
+  const pv03FaqItems = [
+    { questionKey: "vtxDetail.pv03.faq.q1", answerKey: "vtxDetail.pv03.faq.a1" },
+    { questionKey: "vtxDetail.pv03.faq.q2", answerKey: "vtxDetail.pv03.faq.a2" },
+    { questionKey: "vtxDetail.pv03.faq.q3", answerKey: "vtxDetail.pv03.faq.a3" },
+  ];
+
+  // SEO: PV02/PV03 使用专属 TDK，其他产品使用通用逻辑
+  const seoTitle = isPV02 ? t('vtxDetail.pv02.seo.title') : isPV03 ? t('vtxDetail.pv03.seo.title') : `${t(product.nameKey)} ${product.model}`;
+  const seoDesc = isPV02 ? t('vtxDetail.pv02.seo.desc') : isPV03 ? t('vtxDetail.pv03.seo.desc') : `${t(product.nameKey)}，${product.frequency}${t('vtxDetail.seo.band')}，${product.channels}${t('vtxDetail.seo.channels')}，${product.power}${t('vtxDetail.seo.power')}，${t('vtxDetail.seo.vtxDesc')}`;
 
   return (
     <>
@@ -73,6 +110,11 @@ const VtxDetail = () => {
           <script type="application/ld+json">{JSON.stringify(pv02JsonLd)}</script>
         </Helmet>
       )}
+      {isPV03 && pv03JsonLd && (
+        <Helmet>
+          <script type="application/ld+json">{JSON.stringify(pv03JsonLd)}</script>
+        </Helmet>
+      )}
       <Header />
       <main className="min-h-screen bg-background">
         <BackButton to="/products/accessories/vtx-vrx" />
@@ -85,8 +127,16 @@ const VtxDetail = () => {
               <div className="bg-card rounded-2xl p-8 border border-border">
                 <img 
                   src={product.image} 
-                  alt={isPV02 ? "FLYM-PV02W500-A1 2.5W VTX with active cooling fan, 8km range UAV video transmitter industrial grade" : t(product.nameKey)}
-                  title={isPV02 ? "FLYM-PV02W500-A1 2.5W High-Power UAV VTX" : t(product.nameKey)}
+                  alt={
+                    isPV02 ? "FLYM-PV02W500-A1 2.5W VTX with active cooling fan, 8km range UAV video transmitter industrial grade" :
+                    isPV03 ? "FLYM-PV03W000-A1 3W 3000mW FPV VTX with active cooling, 10km long-range UAV video transmitter" :
+                    t(product.nameKey)
+                  }
+                  title={
+                    isPV02 ? "FLYM-PV02W500-A1 2.5W High-Power UAV VTX" :
+                    isPV03 ? "FLYM-PV03W000-A1 3W Ultra High-Power FPV VTX" :
+                    t(product.nameKey)
+                  }
                   className="w-full max-w-md mx-auto object-contain"
                   loading="lazy"
                 />
@@ -94,19 +144,26 @@ const VtxDetail = () => {
 
               {/* Product Info */}
               <div>
-                <div className="flex items-center gap-3 mb-4">
+                <div className="flex items-center gap-3 mb-4 flex-wrap">
                   <span className="px-3 py-1 text-sm bg-primary/10 text-primary rounded-full font-medium">{product.power}</span>
                   <span className="px-3 py-1 text-sm bg-secondary text-secondary-foreground rounded-full">{product.channels}CH</span>
                   <span className="px-3 py-1 text-sm bg-muted text-muted-foreground rounded-full">{product.frequency}</span>
                   {isPV02 && <span className="px-3 py-1 text-sm bg-primary/10 text-primary rounded-full font-medium">8km LOS</span>}
+                  {isPV03 && <span className="px-3 py-1 text-sm bg-primary/10 text-primary rounded-full font-medium">10km LOS</span>}
+                  {isPV03 && <span className="px-3 py-1 text-sm bg-accent text-accent-foreground rounded-full font-medium">3000mW</span>}
                 </div>
                 <h1 className="text-3xl md:text-4xl font-bold mb-2">
-                  {isPV02 ? t('vtxDetail.pv02.h1') : t(product.nameKey)}
+                  {isPV02 ? t('vtxDetail.pv02.h1') : isPV03 ? t('vtxDetail.pv03.h1') : t(product.nameKey)}
                 </h1>
                 <p className="text-xl text-muted-foreground mb-4">{product.model}</p>
                 {isPV02 && (
                   <p className="text-sm text-muted-foreground mb-6 leading-relaxed border-l-2 border-primary pl-4">
                     {t('vtxDetail.pv02.overview')}
+                  </p>
+                )}
+                {isPV03 && (
+                  <p className="text-sm text-muted-foreground mb-6 leading-relaxed border-l-2 border-primary pl-4">
+                    {t('vtxDetail.pv03.overview')}
                   </p>
                 )}
                 
@@ -364,6 +421,47 @@ const VtxDetail = () => {
           <PageFAQ
             titleKey="vtxDetail.pv02.faq.title"
             items={pv02FaqItems}
+            className="py-20"
+          />
+        )}
+
+        {/* PV03 Application Scenarios */}
+        {isPV03 && (
+          <section className="py-20 bg-muted/30">
+            <div className="container mx-auto px-4">
+              <h2 className="text-2xl font-bold mb-8">{t('vtxDetail.pv03.application.title')}</h2>
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div className="p-6 bg-card rounded-xl border border-border">
+                  <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center mb-4">
+                    <Zap className="w-6 h-6 text-primary" />
+                  </div>
+                  <h3 className="font-semibold mb-2">{t('vtxDetail.pv03.application.mountainTitle')}</h3>
+                  <p className="text-sm text-muted-foreground">{t('vtxDetail.pv03.application.mountain')}</p>
+                </div>
+                <div className="p-6 bg-card rounded-xl border border-border">
+                  <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center mb-4">
+                    <Shield className="w-6 h-6 text-primary" />
+                  </div>
+                  <h3 className="font-semibold mb-2">{t('vtxDetail.pv03.application.bandoTitle')}</h3>
+                  <p className="text-sm text-muted-foreground">{t('vtxDetail.pv03.application.bando')}</p>
+                </div>
+                <div className="p-6 bg-card rounded-xl border border-border">
+                  <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center mb-4">
+                    <Thermometer className="w-6 h-6 text-primary" />
+                  </div>
+                  <h3 className="font-semibold mb-2">{t('vtxDetail.pv03.application.heavyFpvTitle')}</h3>
+                  <p className="text-sm text-muted-foreground">{t('vtxDetail.pv03.application.heavyFpv')}</p>
+                </div>
+              </div>
+            </div>
+          </section>
+        )}
+
+        {/* PV03 FAQ */}
+        {isPV03 && (
+          <PageFAQ
+            titleKey="vtxDetail.pv03.faq.title"
+            items={pv03FaqItems}
             className="py-20"
           />
         )}
