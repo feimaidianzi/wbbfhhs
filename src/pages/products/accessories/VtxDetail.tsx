@@ -18,6 +18,7 @@ const VtxDetail = () => {
   const { t } = useLanguage();
   const isPV02 = productId === "flym-pv02w500-a1";
   const isPV03 = productId === "flym-pv03w000-a1";
+  const isFV10W = productId === "fv10w-a1";
 
   if (!product) {
     return <Navigate to="/products/accessories/vtx-vrx" replace />;
@@ -93,9 +94,42 @@ const VtxDetail = () => {
     { questionKey: "vtxDetail.pv03.faq.q3", answerKey: "vtxDetail.pv03.faq.a3" },
   ];
 
-  // SEO: PV02/PV03 使用专属 TDK，其他产品使用通用逻辑
-  const seoTitle = isPV02 ? t('vtxDetail.pv02.seo.title') : isPV03 ? t('vtxDetail.pv03.seo.title') : `${t(product.nameKey)} ${product.model}`;
-  const seoDesc = isPV02 ? t('vtxDetail.pv02.seo.desc') : isPV03 ? t('vtxDetail.pv03.seo.desc') : `${t(product.nameKey)}，${product.frequency}${t('vtxDetail.seo.band')}，${product.channels}${t('vtxDetail.seo.channels')}，${product.power}${t('vtxDetail.seo.power')}，${t('vtxDetail.seo.vtxDesc')}`;
+  // FV10W-A1 JSON-LD
+  const fv10wJsonLd = isFV10W ? {
+    "@context": "https://schema.org/",
+    "@type": "Product",
+    "name": "FV10W-A1 10W Extreme Power FPV VTX",
+    "description": "The most powerful 10W (10000mW) 5.8GHz video transmitter for extreme long-range and high-penetration FPV drones. 5-step adjustable power (1W/3W/5W/7W/10W), 80-channel spectrum, dual active cooling.",
+    "brand": { "@type": "Brand", "name": "CANI Technology" },
+    "sku": "FV10W-A1-10W",
+    "mpn": "FV10W-A1",
+    "additionalProperty": [
+      { "@type": "PropertyValue", "name": "RF Output Power", "value": "10000mW (10W)" },
+      { "@type": "PropertyValue", "name": "Power Steps", "value": "1W / 3W / 5W / 7W / 10W" },
+      { "@type": "PropertyValue", "name": "Frequency Band", "value": "4.9-6.1GHz" },
+      { "@type": "PropertyValue", "name": "Channels", "value": "80CH" },
+      { "@type": "PropertyValue", "name": "Input Voltage", "value": "DC 12-28V (3-6S LiPo)" },
+      { "@type": "PropertyValue", "name": "Cooling System", "value": "Active Fan + CNC Aluminum Heatsink" },
+      { "@type": "PropertyValue", "name": "Protocol", "value": "SmartAudio / IRC Tramp" },
+      { "@type": "PropertyValue", "name": "Mounting Size", "value": "30.5×30.5mm" },
+      { "@type": "PropertyValue", "name": "Weight", "value": "47g" }
+    ],
+    "offers": {
+      "@type": "Offer",
+      "url": "https://www.caniuav.com/products/accessories/vtx-vrx/fv10w-a1",
+      "availability": "https://schema.org/InStock"
+    }
+  } : null;
+
+  const fv10wFaqItems = [
+    { questionKey: "vtxDetail.fv10w.faq.q1", answerKey: "vtxDetail.fv10w.faq.a1" },
+    { questionKey: "vtxDetail.fv10w.faq.q2", answerKey: "vtxDetail.fv10w.faq.a2" },
+    { questionKey: "vtxDetail.fv10w.faq.q3", answerKey: "vtxDetail.fv10w.faq.a3" },
+  ];
+
+  // SEO: PV02/PV03/FV10W 使用专属 TDK，其他产品使用通用逻辑
+  const seoTitle = isPV02 ? t('vtxDetail.pv02.seo.title') : isPV03 ? t('vtxDetail.pv03.seo.title') : isFV10W ? t('vtxDetail.fv10w.seo.title') : `${t(product.nameKey)} ${product.model}`;
+  const seoDesc = isPV02 ? t('vtxDetail.pv02.seo.desc') : isPV03 ? t('vtxDetail.pv03.seo.desc') : isFV10W ? t('vtxDetail.fv10w.seo.desc') : `${t(product.nameKey)}，${product.frequency}${t('vtxDetail.seo.band')}，${product.channels}${t('vtxDetail.seo.channels')}，${product.power}${t('vtxDetail.seo.power')}，${t('vtxDetail.seo.vtxDesc')}`;
 
   return (
     <>
@@ -130,11 +164,13 @@ const VtxDetail = () => {
                   alt={
                     isPV02 ? "FLYM-PV02W500-A1 2.5W VTX with active cooling fan, 8km range UAV video transmitter industrial grade" :
                     isPV03 ? "FLYM-PV03W000-A1 3W 3000mW FPV VTX with active cooling, 10km long-range UAV video transmitter" :
+                    isFV10W ? "FV10W-A1 10W 10000mW extreme power FPV VTX with dual active cooling, 80CH 5.8GHz video transmitter" :
                     t(product.nameKey)
                   }
                   title={
                     isPV02 ? "FLYM-PV02W500-A1 2.5W High-Power UAV VTX" :
                     isPV03 ? "FLYM-PV03W000-A1 3W Ultra High-Power FPV VTX" :
+                    isFV10W ? "FV10W-A1 10W Extreme Power 80CH FPV Video Transmitter" :
                     t(product.nameKey)
                   }
                   className="w-full max-w-md mx-auto object-contain"
@@ -151,9 +187,12 @@ const VtxDetail = () => {
                   {isPV02 && <span className="px-3 py-1 text-sm bg-primary/10 text-primary rounded-full font-medium">8km LOS</span>}
                   {isPV03 && <span className="px-3 py-1 text-sm bg-primary/10 text-primary rounded-full font-medium">10km LOS</span>}
                   {isPV03 && <span className="px-3 py-1 text-sm bg-accent text-accent-foreground rounded-full font-medium">3000mW</span>}
+                  {isFV10W && <span className="px-3 py-1 text-sm bg-destructive/10 text-destructive rounded-full font-bold">10000mW</span>}
+                  {isFV10W && <span className="px-3 py-1 text-sm bg-primary/10 text-primary rounded-full font-medium">80CH</span>}
+                  {isFV10W && <span className="px-3 py-1 text-sm bg-accent text-accent-foreground rounded-full font-medium">5-Step Power</span>}
                 </div>
                 <h1 className="text-3xl md:text-4xl font-bold mb-2">
-                  {isPV02 ? t('vtxDetail.pv02.h1') : isPV03 ? t('vtxDetail.pv03.h1') : t(product.nameKey)}
+                  {isPV02 ? t('vtxDetail.pv02.h1') : isPV03 ? t('vtxDetail.pv03.h1') : isFV10W ? t('vtxDetail.fv10w.h1') : t(product.nameKey)}
                 </h1>
                 <p className="text-xl text-muted-foreground mb-4">{product.model}</p>
                 {isPV02 && (
@@ -164,6 +203,11 @@ const VtxDetail = () => {
                 {isPV03 && (
                   <p className="text-sm text-muted-foreground mb-6 leading-relaxed border-l-2 border-primary pl-4">
                     {t('vtxDetail.pv03.overview')}
+                  </p>
+                )}
+                {isFV10W && (
+                  <p className="text-sm text-muted-foreground mb-6 leading-relaxed border-l-2 border-primary pl-4">
+                    {t('vtxDetail.fv10w.overview')}
                   </p>
                 )}
                 
@@ -462,6 +506,71 @@ const VtxDetail = () => {
           <PageFAQ
             titleKey="vtxDetail.pv03.faq.title"
             items={pv03FaqItems}
+            className="py-20"
+          />
+        )}
+
+        {/* FV10W Application Scenarios */}
+        {isFV10W && (
+          <section className="py-20 bg-muted/30">
+            <div className="container mx-auto px-4">
+              <h2 className="text-2xl font-bold mb-8">{t('vtxDetail.fv10w.application.title')}</h2>
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div className="p-6 bg-card rounded-xl border border-border">
+                  <div className="w-12 h-12 rounded-lg bg-destructive/10 flex items-center justify-center mb-4">
+                    <Zap className="w-6 h-6 text-destructive" />
+                  </div>
+                  <h3 className="font-semibold mb-2">{t('vtxDetail.fv10w.application.bandoTitle')}</h3>
+                  <p className="text-sm text-muted-foreground">{t('vtxDetail.fv10w.application.bando')}</p>
+                </div>
+                <div className="p-6 bg-card rounded-xl border border-border">
+                  <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center mb-4">
+                    <Shield className="w-6 h-6 text-primary" />
+                  </div>
+                  <h3 className="font-semibold mb-2">{t('vtxDetail.fv10w.application.mountainTitle')}</h3>
+                  <p className="text-sm text-muted-foreground">{t('vtxDetail.fv10w.application.mountain')}</p>
+                </div>
+                <div className="p-6 bg-card rounded-xl border border-border">
+                  <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center mb-4">
+                    <Thermometer className="w-6 h-6 text-primary" />
+                  </div>
+                  <h3 className="font-semibold mb-2">{t('vtxDetail.fv10w.application.heavyFpvTitle')}</h3>
+                  <p className="text-sm text-muted-foreground">{t('vtxDetail.fv10w.application.heavyFpv')}</p>
+                </div>
+              </div>
+            </div>
+          </section>
+        )}
+
+        {/* FV10W Safety Warning */}
+        {isFV10W && (
+          <section className="py-12">
+            <div className="container mx-auto px-4">
+              <div className="bg-destructive/10 border border-destructive/30 rounded-xl p-6">
+                <div className="flex items-start gap-3 mb-4">
+                  <AlertTriangle className="w-6 h-6 text-destructive flex-shrink-0 mt-0.5" />
+                  <h2 className="text-lg font-bold text-destructive">{t('vtxDetail.fv10w.safety.title')}</h2>
+                </div>
+                <ul className="space-y-2">
+                  <li className="flex items-start gap-2 text-sm">
+                    <span className="text-destructive font-bold mt-0.5">▶</span>
+                    <span>{t('vtxDetail.fv10w.safety.noAntenna')}</span>
+                  </li>
+                  <li className="flex items-start gap-2 text-sm">
+                    <span className="text-destructive font-bold mt-0.5">▶</span>
+                    <span>{t('vtxDetail.fv10w.safety.benchTest')}</span>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </section>
+        )}
+
+        {/* FV10W FAQ */}
+        {isFV10W && (
+          <PageFAQ
+            titleKey="vtxDetail.fv10w.faq.title"
+            items={fv10wFaqItems}
             className="py-20"
           />
         )}
