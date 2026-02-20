@@ -6147,6 +6147,8 @@ export const zhTranslations: Record<string, string> = {
   'fcEscDetail.downloads.step': '下载STEP文件',
   'fcEscDetail.downloads.manual': '下载PDF手册',
   'fcEscDetail.downloads.datasheet': '下载数据表',
+  'fcEscDetail.downloads.betaflightConfig': '下载Betaflight配置文件',
+  'fcEscDetail.downloads.cliDump': '下载CLI导出文件',
   'fcEscDetail.faq.title': '产品问答',
   'fcEscDetail.faq.subtitle': '关于本产品的常见技术问题。',
   'fcEscDetail.faq.q1': '为什么工业无人机要选择H7飞控？',
@@ -6155,6 +6157,97 @@ export const zhTranslations: Record<string, string> = {
   'fcEscDetail.faq.a2': '三个独立惯性传感器部署在不同总线上，飞控可即时检测异常并在毫秒内切换至正常传感器，防止振动或传感器漂移导致的灾难性故障。',
   'fcEscDetail.faq.q3': 'FOC电调对重型无人机有什么优势？',
   'fcEscDetail.faq.a3': 'FOC电调提供更高效率、更低噪音、更平滑的电机控制，以及DroneCAN/UART实时遥测。可延长飞行时间达10%，实现工业级可靠性。',
+
+  // Per-SKU SEO TDK
+  'fcEscDetail.tdk.stack-mini-f7-55a.title': 'Mini F7飞塔套装 | 55A四合一电调 | 20×20mm FPV飞塔',
+  'fcEscDetail.tdk.stack-mini-f7-55a.desc': '超紧凑Mini F7飞塔，搭配55A BLHeli_32电调，专为2-4寸穿越机和亚250g长航时无人机设计，STM32F722 MCU，延迟≤30ms。',
+  'fcEscDetail.tdk.stack-mini-f7-55a.h1': 'Mini F7 + 55A飞塔：超紧凑20×20mm FPV动力系统',
+  'fcEscDetail.tdk.stack-mini-f7-40a.title': 'Mini F7飞塔套装 | 40A四合一电调 | 20×20mm FPV飞塔',
+  'fcEscDetail.tdk.stack-mini-f7-40a.desc': '超紧凑Mini F7飞塔，搭配40A BLHeli_32电调，专为2-3寸穿越机和亚250g微型无人机设计，STM32F722 MCU + BMI270陀螺仪。',
+  'fcEscDetail.tdk.stack-mini-f7-40a.h1': 'Mini F7 + 40A飞塔：微型FPV 20×20mm动力系统',
+  'fcEscDetail.tdk.stack-f405-55a.title': 'F405 FPV飞塔 55A四合一电调 | 可靠30.5mm飞行塔',
+  'fcEscDetail.tdk.stack-f405-55a.desc': '高性能F405飞控飞塔，搭配55A BLHeli_32电调，5-7寸自由飞和竞速穿越机的最佳性价比之选，支持3-6S电池。',
+  'fcEscDetail.tdk.stack-f405-55a.h1': 'F405 + 55A飞塔：最高性价比30.5mm FPV飞行塔',
+  'fcEscDetail.tdk.stack-f405-60a.title': 'F405 FPV飞塔 60A四合一电调 | 竞速级30.5mm飞行塔',
+  'fcEscDetail.tdk.stack-f405-60a.desc': '高性能F405飞控飞塔，搭配60A BLHeli_S/32电调，适合5-7寸自由飞和竞速穿越机，支持3-6S电池。',
+  'fcEscDetail.tdk.stack-f405-60a.h1': 'F405 + 60A飞塔：竞速级30.5mm FPV飞行塔',
+  'fcEscDetail.tdk.stack-pro-f722-100a.title': 'Pro F722飞塔 100A四合一电调 | 8S大载重FPV飞行塔',
+  'fcEscDetail.tdk.stack-pro-f722-100a.desc': '专业级F722飞塔，搭配100A极致动力电调，支持8S高压大扭矩电机，适合大载重FPV航拍，双BEC输出。',
+  'fcEscDetail.tdk.stack-pro-f722-100a.h1': 'Pro F722 + 100A飞塔：8S大载重FPV动力塔',
+
+  // 6-in-1 ESC TDK
+  'fcEscDetail.tdk.6in1-80a.title': 'FV六合一电调 80A | 工业级六轴动力模块',
+  'fcEscDetail.tdk.6in1-80a.desc': '工业级六合一电调，每通道80A持续电流，集成RPM/温度/电流实时遥测，8S重载测绘和物流无人机理想之选。',
+  'fcEscDetail.tdk.6in1-80a.h1': '六合一80A电调：工业六轴集中式动力枢纽',
+  'fcEscDetail.tdk.6in1-100a.title': 'FV六合一电调 100A | 工业级六轴动力模块',
+  'fcEscDetail.tdk.6in1-100a.desc': '工业级六合一电调，每通道100A持续/120A峰值，RPM/温度/电流实时遥测，12S-14S重载无人机优化。',
+  'fcEscDetail.tdk.6in1-100a.h1': '六合一100A电调：工业六轴最大功率动力枢纽',
+
+  // Separate ESC TDK
+  'fcEscDetail.tdk.separate-esc-80a.title': 'FV分体电调 80A | 高压工业级单体电调',
+  'fcEscDetail.tdk.separate-esc-80a.desc': '工业级80A分体电调，单臂独立安装设计，便于重载无人机维护更换，支持4-8S LiPo。',
+  'fcEscDetail.tdk.separate-esc-80a.h1': '80A分体电调：单臂独立安装工业动力单元',
+  'fcEscDetail.tdk.separate-esc-100a.title': 'FV分体电调 100A | 高压工业级单体电调',
+  'fcEscDetail.tdk.separate-esc-100a.desc': '工业级100A分体电调，配独立散热片，专为重载无人机设计，支持12S LiPo实现最大推力。',
+  'fcEscDetail.tdk.separate-esc-100a.h1': '100A分体电调：重载工业动力模块',
+
+  // 4-in-1 ESC TDK
+  'fcEscDetail.tdk.esc-55a.title': 'CANI四合一电调 55A BLHeli_32 | FPV推进系统',
+  'fcEscDetail.tdk.esc-55a.desc': '高性能55A四合一电调，BLHeli_32固件，低内阻MOS管，4层PCB高效散热，5寸FPV穿越机理想之选。',
+  'fcEscDetail.tdk.esc-55a.h1': '55A四合一电调：高效FPV推进系统',
+  'fcEscDetail.tdk.esc-60a.title': 'CANI四合一电调 60A | 高效FPV推进系统',
+  'fcEscDetail.tdk.esc-60a.desc': 'ECO系列60A四合一电调，48KHz PWM频率，内置电流传感器，优化PCB散热设计，适合5寸自由飞和竞速穿越机。',
+  'fcEscDetail.tdk.esc-60a.h1': '60A四合一电调：高效FPV推进系统',
+  'fcEscDetail.tdk.esc-80a.title': 'CANI四合一电调 80A Pro | 大载重FPV动力系统',
+  'fcEscDetail.tdk.esc-80a.desc': '专业级80A四合一电调，8层PCB极致散热，支持3-8S LiPo，7寸大载重长航时FPV穿越机专用。',
+  'fcEscDetail.tdk.esc-80a.h1': '80A四合一电调：专业大载重FPV动力系统',
+  'fcEscDetail.tdk.esc-100a.title': 'CANI四合一电调 100A BLHeli_32 | 7-10寸极致动力',
+  'fcEscDetail.tdk.esc-100a.desc': '极致100A四合一电调，峰值120A，8层PCB并联MOS阵列，7-10寸大载重航拍穿越机理想之选。',
+  'fcEscDetail.tdk.esc-100a.h1': '100A四合一电调：大载重无人机极致动力',
+
+  // FC TDK
+  'fcEscDetail.tdk.fc-f405.title': 'FlyMind F405飞控 | 可靠FPV自动驾驶仪',
+  'fcEscDetail.tdk.fc-f405.desc': '稳定可靠的STM32F405飞控，ICM42688陀螺仪，支持Betaflight/INAV固件，30.5mm标准孔距适配5-7寸FPV穿越机。',
+  'fcEscDetail.tdk.fc-f405.h1': 'F405飞控：可靠FPV自动驾驶仪',
+  'fcEscDetail.tdk.fc-f722.title': 'FlyMind F722飞控 | 双陀螺仪高性能飞控',
+  'fcEscDetail.tdk.fc-f722.desc': '高性能STM32F722飞控，双ICM42688陀螺仪冗余设计，5个UART接口，支持HD数字图传控制，进阶FPV飞手首选。',
+  'fcEscDetail.tdk.fc-f722.h1': 'F722飞控：双陀螺仪高性能自动驾驶仪',
+
+  // Research FC TDK
+  'fcEscDetail.tdk.cani-fmt.title': 'CANI-FMT 先进飞行管理与固件转换工具',
+  'fcEscDetail.tdk.cani-fmt.desc': 'CANI-FMT：先进飞行管理与固件转换工具，无缝衔接硬件协议，优化多平台无人机机队PID调参，支持Matlab/Simulink自动代码生成。',
+  'fcEscDetail.tdk.cani-fmt.h1': 'CANI-FMT：先进飞行管理与固件转换工具',
+
+  // Per-SKU matching guide
+  'fcEscDetail.match.stack-mini-f7-55a': '2207/2306电机，5寸高螺距螺旋桨，4-6S LiPo',
+  'fcEscDetail.match.stack-mini-f7-40a': '1404/1507电机，3寸螺旋桨，3-4S LiPo',
+  'fcEscDetail.match.stack-f405-55a': '2207/2306电机，5寸螺旋桨，4-6S LiPo',
+  'fcEscDetail.match.stack-f405-60a': '2207/2507电机，5寸高螺距螺旋桨，4-6S LiPo',
+  'fcEscDetail.match.stack-pro-f722-100a': '2810/3110电机，7-9寸螺旋桨，6-8S LiPo',
+  'fcEscDetail.match.6in1-80a': 'U8/U10电机，28-32寸螺旋桨，6-8S LiPo六轴',
+  'fcEscDetail.match.6in1-100a': 'U10/U15电机，30-40寸螺旋桨，8-14S LiPo六轴',
+  'fcEscDetail.match.esc-55a': '2207/2306电机，5寸螺旋桨，4-6S LiPo',
+  'fcEscDetail.match.esc-60a': '2207/2306电机，5寸高螺距螺旋桨，4-6S LiPo',
+  'fcEscDetail.match.esc-80a': '2810/3110电机，7-9寸螺旋桨，6-8S LiPo',
+  'fcEscDetail.match.esc-100a': '2810/3110电机，7-9寸螺旋桨，6-8S LiPo',
+  'fcEscDetail.match.separate-esc-80a': 'U8/U10电机，28-32寸螺旋桨，6-8S LiPo',
+  'fcEscDetail.match.separate-esc-100a': 'U10/U15电机，30-40寸螺旋桨，8-12S LiPo',
+
+  // Per-SKU dynamic FAQs
+  'fcEscDetail.faq.6in1.q1': '我的无人机何时应该使用六合一电调？',
+  'fcEscDetail.faq.6in1.a1': '对于六旋翼飞行器配置而言，六合一电调是最佳选择，它提供了一个集中式电源枢纽，与六个独立的电调相比，简化了布线并减轻了整体重量。它非常适合需要高电流密度和空间利用率的工业平台。',
+  'fcEscDetail.faq.6in1.q2': 'CANI 100A电调是否支持8S锂电池？',
+  'fcEscDetail.faq.6in1.a2': '是的。我们的100A系列（分体式和堆叠式）采用高压MOSFET和低ESR电容器，可安全支持最高8S LiPo（33.6V），满足极高的推力需求。',
+  'fcEscDetail.faq.stack.q1': '飞塔（Stack）相比分体组件有什么优势？',
+  'fcEscDetail.faq.stack.a1': '飞塔将飞控和电调集成为一个紧凑单元，减少布线复杂度，节省重量，最大限度降低电磁干扰。这使装机更整洁、飞行更可靠。',
+  'fcEscDetail.faq.stack.q2': '这款飞塔可以使用Betaflight和INAV吗？',
+  'fcEscDetail.faq.stack.a2': '可以。所有CANI飞塔开箱即支持Betaflight固件，大多数型号还支持INAV和ArduPilot进行GPS自主任务飞行。',
+
+  // EEAT Quality Statement
+  'fcEscDetail.eeat.title': '品质保证',
+  'fcEscDetail.eeat.statement': '每套CANI飞控和电调组合都经过48小时压力测试和工厂功率一致性校准，确保开箱即用，零故障。',
+  'fcEscDetail.eeat.protocol': '支持SmartAudio v2.1和IRC Tramp协议，实现无缝OSD控制。',
+  'fcEscDetail.eeat.protocolTitle': '协议兼容性',
 
   // Gimbal SEO Content
   'gimbal.seo.intro.title': '产品简介',

@@ -6,7 +6,7 @@ import { FloatingContact } from "@/components/FloatingContact";
 import { MultiLanguageSEO } from "@/components/MultiLanguageSEO";
 import { Button } from "@/components/ui/button";
 import { BackButton } from "@/components/BackButton";
-import { Check, AlertTriangle, Cpu, Zap, Package, Shield, Download, FileText } from "lucide-react";
+import { Check, AlertTriangle, Cpu, Zap, Package, Shield, Download, FileText, Settings } from "lucide-react";
 import { getFcEscProductById } from "@/data/fcEscProducts";
 import { useState } from "react";
 import { useLanguage } from "@/contexts/LanguageContext";
@@ -44,15 +44,26 @@ const FcEscDetail = () => {
   const productUrl = `${domain}/products/accessories/fc-esc/${productId}`;
   const productImage = images[0]?.startsWith('http') ? images[0] : `${domain}${images[0]}`;
 
+  // Dynamic TDK per SKU
+  const skuTitleKey = `fcEscDetail.tdk.${productId}.title`;
+  const skuDescKey = `fcEscDetail.tdk.${productId}.desc`;
+  const skuH1Key = `fcEscDetail.tdk.${productId}.h1`;
+  const skuMatchKey = `fcEscDetail.match.${productId}`;
+
+  const hasDynamicTdk = t(skuTitleKey) !== skuTitleKey;
+  const seoTitle = hasDynamicTdk ? t(skuTitleKey) : `${product.name} ${product.model}`;
+  const seoDesc = hasDynamicTdk ? t(skuDescKey) : `${product.name} - ${product.highlights.slice(0, 3).join(', ')}. ${t('fcEscDetail.seoDesc')}`;
+  const h1Text = hasDynamicTdk ? t(skuH1Key) : product.name;
+
   // JSON-LD Product schema with additionalProperty
   const productJsonLd = {
     '@context': 'https://schema.org/',
     '@type': 'Product',
-    name: product.name,
-    description: product.highlights.join('. '),
+    name: hasDynamicTdk ? t(skuTitleKey).split(' | ')[0] : product.name,
+    description: seoDesc,
     image: images.map(img => img.startsWith('http') ? img : `${domain}${img}`),
     url: productUrl,
-    sku: product.id,
+    sku: product.id.toUpperCase().replace(/-/g, '-'),
     mpn: product.model,
     brand: { '@type': 'Brand', name: 'CANI Technology' },
     category: product.category,
@@ -62,11 +73,14 @@ const FcEscDetail = () => {
         { '@type': 'PropertyValue', name: 'Gyroscope', value: product.fcSpecs.gyro },
         { '@type': 'PropertyValue', name: 'Voltage Input', value: product.fcSpecs.voltage },
         ...(product.fcSpecs.firmware ? [{ '@type': 'PropertyValue', name: 'Firmware', value: product.fcSpecs.firmware }] : []),
+        ...(product.fcSpecs.size ? [{ '@type': 'PropertyValue', name: 'Mounting Size', value: product.fcSpecs.size }] : []),
       ] : []),
       ...(product.escSpecs ? [
         { '@type': 'PropertyValue', name: 'Continuous Current', value: product.escSpecs.current },
+        ...(product.escSpecs.peakCurrent ? [{ '@type': 'PropertyValue', name: 'Peak Current', value: product.escSpecs.peakCurrent }] : []),
         { '@type': 'PropertyValue', name: 'Voltage Input', value: product.escSpecs.voltage },
         { '@type': 'PropertyValue', name: 'Protocol', value: product.escSpecs.protocol },
+        ...(product.escSpecs.pcbLayers ? [{ '@type': 'PropertyValue', name: 'PCB Layers', value: product.escSpecs.pcbLayers }] : []),
       ] : []),
     ],
     manufacturer: {
@@ -95,12 +109,25 @@ const FcEscDetail = () => {
     ],
   };
 
-  // FAQ data
-  const faqs = [
+  // Dynamic FAQ data based on product type
+  const is6in1 = product.category === '六合一电调';
+  const isStack = product.category === '飞塔';
+
+  const baseFaqs = [
     { question: t('fcEscDetail.faq.q1'), answer: t('fcEscDetail.faq.a1') },
     { question: t('fcEscDetail.faq.q2'), answer: t('fcEscDetail.faq.a2') },
     { question: t('fcEscDetail.faq.q3'), answer: t('fcEscDetail.faq.a3') },
   ];
+
+  const dynamicFaqs = is6in1 ? [
+    { question: t('fcEscDetail.faq.6in1.q1'), answer: t('fcEscDetail.faq.6in1.a1') },
+    { question: t('fcEscDetail.faq.6in1.q2'), answer: t('fcEscDetail.faq.6in1.a2') },
+  ] : isStack ? [
+    { question: t('fcEscDetail.faq.stack.q1'), answer: t('fcEscDetail.faq.stack.a1') },
+    { question: t('fcEscDetail.faq.stack.q2'), answer: t('fcEscDetail.faq.stack.a2') },
+  ] : [];
+
+  const faqs = [...dynamicFaqs, ...baseFaqs];
 
   const faqJsonLd = {
     '@context': 'https://schema.org',
@@ -112,11 +139,14 @@ const FcEscDetail = () => {
     })),
   };
 
-  // Matching guide data based on product category
-  const isEsc = product.category.toLowerCase().includes('esc') || !!product.escSpecs;
-  const isFc = product.category.toLowerCase().includes('fc') || product.category.toLowerCase().includes('飞控') || !!product.fcSpecs;
+  // Dynamic matching guide based on SKU
+  const isEsc = product.category.toLowerCase().includes('esc') || product.category.includes('电调') || !!product.escSpecs;
+  const isFc = product.category.toLowerCase().includes('fc') || product.category.includes('飞控') || !!product.fcSpecs;
+  const hasSkuMatch = t(skuMatchKey) !== skuMatchKey;
 
-  const matchingItems = isEsc ? [
+  const matchingItems = hasSkuMatch ? [
+    { component: t('fcEscDetail.matchingGuide.title'), recommendation: t(skuMatchKey) },
+  ] : isEsc ? [
     { component: t('fcEscDetail.matchingGuide.motor'), recommendation: 'CANI U8 / U10 Series Motor' },
     { component: t('fcEscDetail.matchingGuide.propeller'), recommendation: '28-40 inch Carbon Fiber Propeller' },
     { component: t('fcEscDetail.matchingGuide.battery'), recommendation: '6S-14S LiPo (22.2V-51.8V)' },
@@ -131,8 +161,8 @@ const FcEscDetail = () => {
   return (
     <>
       <MultiLanguageSEO 
-        title={`${product.name} ${product.model}`}
-        description={`${product.name} - ${product.highlights.slice(0, 3).join(', ')}. ${t('fcEscDetail.seoDesc')}`}
+        title={seoTitle}
+        description={seoDesc}
         path={`/products/accessories/fc-esc/${productId}`}
         type="product"
       />
@@ -154,8 +184,8 @@ const FcEscDetail = () => {
                 <div className="bg-card rounded-2xl p-8 border border-border aspect-square flex items-center justify-center">
                   <img 
                     src={images[selectedImage]} 
-                    alt={`${product.name} - CANI industrial UAV ${product.category}`}
-                    title={`${product.name} ${product.model}`}
+                    alt={`${product.name} - CANI ${isStack ? 'drone-power-system-stack-fc-esc' : is6in1 ? 'industrial-hexacopter-6in1-esc' : isEsc ? 'high-voltage-drone-esc' : 'industrial-flight-controller'}`}
+                    title={`${h1Text} | ${product.model}`}
                     className="max-h-full max-w-full object-contain" 
                   />
                 </div>
@@ -179,8 +209,8 @@ const FcEscDetail = () => {
                 <div className="flex items-center gap-3 mb-4">
                   <span className="px-3 py-1 text-sm bg-primary/10 text-primary rounded-full font-medium">{product.category}</span>
                 </div>
-                <h1 className="text-3xl md:text-4xl font-bold mb-2">{product.name}</h1>
-                <p className="text-xl text-muted-foreground mb-6">{product.model}</p>
+                <h1 className="text-3xl md:text-4xl font-bold mb-2">{h1Text}</h1>
+                <p className="text-xl text-muted-foreground mb-2">{product.model}</p>
                 
                 {/* Highlights */}
                 <div className="space-y-2 mb-8">
@@ -439,6 +469,14 @@ const FcEscDetail = () => {
                     <FileText className="w-5 h-5 text-primary flex-shrink-0" />
                     <span className="font-medium text-primary">{t('fcEscDetail.downloads.datasheet')}</span>
                   </Link>
+                  <Link to="/contact" className="flex items-center gap-3 p-4 bg-card rounded-lg border border-border hover:border-primary/50 transition-colors">
+                    <FileText className="w-5 h-5 text-primary flex-shrink-0" />
+                    <span className="font-medium text-primary">{t('fcEscDetail.downloads.betaflightConfig')}</span>
+                  </Link>
+                  <Link to="/contact" className="flex items-center gap-3 p-4 bg-card rounded-lg border border-border hover:border-primary/50 transition-colors">
+                    <FileText className="w-5 h-5 text-primary flex-shrink-0" />
+                    <span className="font-medium text-primary">{t('fcEscDetail.downloads.cliDump')}</span>
+                  </Link>
                 </div>
               </div>
             </div>
@@ -512,6 +550,28 @@ const FcEscDetail = () => {
                   </AccordionItem>
                 ))}
               </Accordion>
+            </div>
+          </div>
+        </section>
+
+        {/* EEAT Quality Statement */}
+        <section className="py-16 bg-muted/30">
+          <div className="container mx-auto px-4">
+            <div className="max-w-3xl mx-auto space-y-6">
+              <div className="p-6 bg-card rounded-xl border border-border">
+                <h2 className="text-2xl font-bold mb-4 flex items-center gap-2">
+                  <Shield className="w-6 h-6 text-primary" />
+                  {t('fcEscDetail.eeat.title')}
+                </h2>
+                <p className="text-muted-foreground leading-relaxed">{t('fcEscDetail.eeat.statement')}</p>
+              </div>
+              <div className="p-6 bg-card rounded-xl border border-border">
+                <h3 className="font-bold mb-2 flex items-center gap-2">
+                  <Settings className="w-5 h-5 text-primary" />
+                  {t('fcEscDetail.eeat.protocolTitle')}
+                </h3>
+                <p className="text-muted-foreground leading-relaxed">{t('fcEscDetail.eeat.protocol')}</p>
+              </div>
             </div>
           </div>
         </section>
