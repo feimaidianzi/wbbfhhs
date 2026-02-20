@@ -6,31 +6,141 @@ import { FloatingContact } from "@/components/FloatingContact";
 import { MultiLanguageSEO } from "@/components/MultiLanguageSEO";
 import { Button } from "@/components/ui/button";
 import { BackButton } from "@/components/BackButton";
-import { Check, AlertTriangle, Cpu, Zap, Package } from "lucide-react";
+import { Check, AlertTriangle, Cpu, Zap, Package, Shield, Download, FileText } from "lucide-react";
 import { getFcEscProductById } from "@/data/fcEscProducts";
 import { useState } from "react";
 import { useLanguage } from "@/contexts/LanguageContext";
+import { Helmet } from "react-helmet-async";
+import { LanguageCode } from "@/i18n/languages";
+import { getDomainForLanguage, getHtmlLang } from "@/utils/seoConfig";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
 
 const FcEscDetail = () => {
   const { productId } = useParams<{ productId: string }>();
   const product = productId ? getFcEscProductById(productId) : null;
   const [selectedImage, setSelectedImage] = useState(0);
-  const { t } = useLanguage();
+  const { language, t } = useLanguage();
+  const langCode = language as LanguageCode;
 
   if (!product) {
     return <Navigate to="/products/accessories/fc-esc" replace />;
   }
 
   const images = product.images || [product.image];
+  const domain = getDomainForLanguage(langCode);
+  const productUrl = `${domain}/products/accessories/fc-esc/${productId}`;
+  const productImage = images[0]?.startsWith('http') ? images[0] : `${domain}${images[0]}`;
+
+  // JSON-LD Product schema with additionalProperty
+  const productJsonLd = {
+    '@context': 'https://schema.org/',
+    '@type': 'Product',
+    name: product.name,
+    description: product.highlights.join('. '),
+    image: images.map(img => img.startsWith('http') ? img : `${domain}${img}`),
+    url: productUrl,
+    sku: product.id,
+    mpn: product.model,
+    brand: { '@type': 'Brand', name: 'CANI Technology' },
+    category: product.category,
+    additionalProperty: [
+      ...(product.fcSpecs ? [
+        { '@type': 'PropertyValue', name: 'MCU', value: product.fcSpecs.mcu },
+        { '@type': 'PropertyValue', name: 'Gyroscope', value: product.fcSpecs.gyro },
+        { '@type': 'PropertyValue', name: 'Voltage Input', value: product.fcSpecs.voltage },
+        ...(product.fcSpecs.firmware ? [{ '@type': 'PropertyValue', name: 'Firmware', value: product.fcSpecs.firmware }] : []),
+      ] : []),
+      ...(product.escSpecs ? [
+        { '@type': 'PropertyValue', name: 'Continuous Current', value: product.escSpecs.current },
+        { '@type': 'PropertyValue', name: 'Voltage Input', value: product.escSpecs.voltage },
+        { '@type': 'PropertyValue', name: 'Protocol', value: product.escSpecs.protocol },
+      ] : []),
+    ],
+    manufacturer: {
+      '@type': 'Organization',
+      name: t('company.fullName') || 'CANI Technology Co., Ltd.',
+      url: domain,
+    },
+    offers: {
+      '@type': 'Offer',
+      availability: 'https://schema.org/InStock',
+      url: productUrl,
+      seller: { '@type': 'Organization', name: 'CANI Technology' },
+    },
+    inLanguage: getHtmlLang(langCode),
+  };
+
+  // Breadcrumb JSON-LD
+  const breadcrumbJsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: t('nav.home'), item: domain },
+      { '@type': 'ListItem', position: 2, name: t('nav.products'), item: `${domain}/products` },
+      { '@type': 'ListItem', position: 3, name: 'FC/ESC', item: `${domain}/products/accessories/fc-esc` },
+      { '@type': 'ListItem', position: 4, name: product.name, item: productUrl },
+    ],
+  };
+
+  // FAQ data
+  const faqs = [
+    { question: t('fcEscDetail.faq.q1'), answer: t('fcEscDetail.faq.a1') },
+    { question: t('fcEscDetail.faq.q2'), answer: t('fcEscDetail.faq.a2') },
+    { question: t('fcEscDetail.faq.q3'), answer: t('fcEscDetail.faq.a3') },
+  ];
+
+  const faqJsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: faqs.map(faq => ({
+      '@type': 'Question',
+      name: faq.question,
+      acceptedAnswer: { '@type': 'Answer', text: faq.answer },
+    })),
+  };
+
+  // Matching guide data based on product category
+  const isEsc = product.category.toLowerCase().includes('esc') || !!product.escSpecs;
+  const isFc = product.category.toLowerCase().includes('fc') || product.category.toLowerCase().includes('飞控') || !!product.fcSpecs;
+
+  const matchingItems = isEsc ? [
+    { component: t('fcEscDetail.matchingGuide.motor'), recommendation: 'CANI U8 / U10 Series Motor' },
+    { component: t('fcEscDetail.matchingGuide.propeller'), recommendation: '28-40 inch Carbon Fiber Propeller' },
+    { component: t('fcEscDetail.matchingGuide.battery'), recommendation: '6S-14S LiPo (22.2V-51.8V)' },
+    { component: t('fcEscDetail.matchingGuide.fc'), recommendation: 'CANI H7 Pro / RT17 Flight Controller' },
+  ] : isFc ? [
+    { component: t('fcEscDetail.matchingGuide.esc'), recommendation: 'CANI 80A-200A FOC ESC' },
+    { component: t('fcEscDetail.matchingGuide.motor'), recommendation: 'CANI U8 / U10 Series Motor' },
+    { component: t('fcEscDetail.matchingGuide.propeller'), recommendation: '28-40 inch Carbon Fiber Propeller' },
+    { component: t('fcEscDetail.matchingGuide.battery'), recommendation: '6S-14S LiPo (22.2V-51.8V)' },
+  ] : [];
 
   return (
     <>
       <MultiLanguageSEO 
         title={`${product.name} ${product.model}`}
-        description={`${product.name}，${product.category}，${product.highlights.slice(0, 3).join('，')}，${t('fcEscDetail.seoDesc')}`}
+        description={`${product.name} - ${product.highlights.slice(0, 3).join(', ')}. ${t('fcEscDetail.seoDesc')}`}
         path={`/products/accessories/fc-esc/${productId}`}
         type="product"
       />
+      <Helmet>
+        <script type="application/ld+json">{JSON.stringify(productJsonLd)}</script>
+        <script type="application/ld+json">{JSON.stringify(breadcrumbJsonLd)}</script>
+        <script type="application/ld+json">{JSON.stringify(faqJsonLd)}</script>
+      </Helmet>
       <Header />
       <main className="min-h-screen bg-background">
         <BackButton to="/products/accessories/fc-esc" />
@@ -42,7 +152,12 @@ const FcEscDetail = () => {
               {/* Product Images */}
               <div className="space-y-4">
                 <div className="bg-card rounded-2xl p-8 border border-border aspect-square flex items-center justify-center">
-                  <img src={images[selectedImage]} alt={product.name} className="max-h-full max-w-full object-contain" />
+                  <img 
+                    src={images[selectedImage]} 
+                    alt={`${product.name} - CANI industrial UAV ${product.category}`}
+                    title={`${product.name} ${product.model}`}
+                    className="max-h-full max-w-full object-contain" 
+                  />
                 </div>
                 {images.length > 1 && (
                   <div className="flex gap-2 overflow-x-auto pb-2">
@@ -52,7 +167,7 @@ const FcEscDetail = () => {
                         onClick={() => setSelectedImage(idx)} 
                         className={`flex-shrink-0 w-20 h-20 rounded-lg border-2 overflow-hidden transition-all ${selectedImage === idx ? 'border-primary' : 'border-border hover:border-primary/50'}`}
                       >
-                        <img src={img} alt={`${product.name} ${idx + 1}`} className="w-full h-full object-cover" />
+                        <img src={img} alt={`${product.name} view ${idx + 1}`} className="w-full h-full object-cover" />
                       </button>
                     ))}
                   </div>
@@ -251,6 +366,85 @@ const FcEscDetail = () => {
           </section>
         )}
 
+        {/* Matching Guide */}
+        {matchingItems.length > 0 && (
+          <section className="py-16 bg-muted/30">
+            <div className="container mx-auto px-4">
+              <h2 className="text-2xl font-bold mb-2">{t('fcEscDetail.matchingGuide.title')}</h2>
+              <p className="text-muted-foreground mb-8">{t('fcEscDetail.matchingGuide.subtitle')}</p>
+              <div className="max-w-2xl">
+                <Table>
+                  <TableHeader>
+                    <TableRow>
+                      <TableHead>{t('fcEscDetail.matchingGuide.component')}</TableHead>
+                      <TableHead>{t('fcEscDetail.matchingGuide.recommendation')}</TableHead>
+                    </TableRow>
+                  </TableHeader>
+                  <TableBody>
+                    {matchingItems.map((item, idx) => (
+                      <TableRow key={idx}>
+                        <TableCell className="font-medium">{item.component}</TableCell>
+                        <TableCell>{item.recommendation}</TableCell>
+                      </TableRow>
+                    ))}
+                  </TableBody>
+                </Table>
+              </div>
+            </div>
+          </section>
+        )}
+
+        {/* Compliance & Downloads */}
+        <section className="py-16">
+          <div className="container mx-auto px-4">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
+              {/* Compliance Badges */}
+              <div>
+                <h2 className="text-2xl font-bold mb-6 flex items-center gap-2">
+                  <Shield className="w-6 h-6 text-primary" />
+                  {t('fcEscDetail.compliance.title')}
+                </h2>
+                <div className="space-y-3">
+                  <div className="flex items-center gap-3 p-4 bg-card rounded-lg border border-border">
+                    <Check className="w-5 h-5 text-primary flex-shrink-0" />
+                    <span className="font-medium">{t('fcEscDetail.compliance.ndaa')}</span>
+                  </div>
+                  <div className="flex items-center gap-3 p-4 bg-card rounded-lg border border-border">
+                    <Check className="w-5 h-5 text-primary flex-shrink-0" />
+                    <span className="font-medium">{t('fcEscDetail.compliance.blueuas')}</span>
+                  </div>
+                  <div className="flex items-center gap-3 p-4 bg-card rounded-lg border border-border">
+                    <Check className="w-5 h-5 text-primary flex-shrink-0" />
+                    <span className="font-medium">{t('fcEscDetail.compliance.rohs')}</span>
+                  </div>
+                </div>
+              </div>
+
+              {/* Downloads */}
+              <div>
+                <h2 className="text-2xl font-bold mb-6 flex items-center gap-2">
+                  <Download className="w-6 h-6 text-primary" />
+                  {t('fcEscDetail.downloads.title')}
+                </h2>
+                <div className="space-y-3">
+                  <Link to="/contact" className="flex items-center gap-3 p-4 bg-card rounded-lg border border-border hover:border-primary/50 transition-colors">
+                    <FileText className="w-5 h-5 text-primary flex-shrink-0" />
+                    <span className="font-medium text-primary">{t('fcEscDetail.downloads.step')}</span>
+                  </Link>
+                  <Link to="/contact" className="flex items-center gap-3 p-4 bg-card rounded-lg border border-border hover:border-primary/50 transition-colors">
+                    <FileText className="w-5 h-5 text-primary flex-shrink-0" />
+                    <span className="font-medium text-primary">{t('fcEscDetail.downloads.manual')}</span>
+                  </Link>
+                  <Link to="/contact" className="flex items-center gap-3 p-4 bg-card rounded-lg border border-border hover:border-primary/50 transition-colors">
+                    <FileText className="w-5 h-5 text-primary flex-shrink-0" />
+                    <span className="font-medium text-primary">{t('fcEscDetail.downloads.datasheet')}</span>
+                  </Link>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
         {/* Package Includes */}
         {product.packageIncludes && product.packageIncludes.length > 0 && (
           <section className="py-20 bg-muted/30">
@@ -289,6 +483,38 @@ const FcEscDetail = () => {
             </div>
           </section>
         )}
+
+        {/* FAQ Section */}
+        <section className="py-16 bg-secondary">
+          <div className="container mx-auto px-4">
+            <div className="text-center mb-12">
+              <h2 className="text-2xl md:text-3xl font-bold text-foreground mb-4">
+                {t('fcEscDetail.faq.title')}
+              </h2>
+              <p className="text-muted-foreground max-w-2xl mx-auto">
+                {t('fcEscDetail.faq.subtitle')}
+              </p>
+            </div>
+            <div className="max-w-3xl mx-auto">
+              <Accordion type="single" collapsible className="space-y-4">
+                {faqs.map((faq, index) => (
+                  <AccordionItem
+                    key={index}
+                    value={`detail-faq-${index}`}
+                    className="bg-card rounded-xl border border-border px-6 shadow-sm"
+                  >
+                    <AccordionTrigger className="text-left font-semibold text-foreground hover:text-accent py-5">
+                      {faq.question}
+                    </AccordionTrigger>
+                    <AccordionContent className="text-muted-foreground pb-5 leading-relaxed">
+                      {faq.answer}
+                    </AccordionContent>
+                  </AccordionItem>
+                ))}
+              </Accordion>
+            </div>
+          </div>
+        </section>
 
         {/* CTA Section */}
         <section className="py-20 bg-primary text-primary-foreground">

@@ -8,6 +8,13 @@ import { ArrowLeft, Cpu, Zap, Shield, Settings, Thermometer, Gauge, ChevronRight
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { PageFAQ } from "@/components/PageFAQ";
+import { Helmet } from "react-helmet-async";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
 import {
   stackProducts, 
   sixInOneEscProducts, 
@@ -29,6 +36,48 @@ const FcEsc = () => {
     { icon: Gauge, titleKey: 'fcesc.feature.plug', descKey: 'fcesc.feature.plug.desc' },
   ];
 
+  const faqs = [
+    { question: t('fcesc.faq.q1'), answer: t('fcesc.faq.a1') },
+    { question: t('fcesc.faq.q2'), answer: t('fcesc.faq.a2') },
+    { question: t('fcesc.faq.q3'), answer: t('fcesc.faq.a3') },
+    { question: t('fcesc.faq.q4'), answer: t('fcesc.faq.a4') },
+    { question: t('fcesc.faq.q5'), answer: t('fcesc.faq.a5') },
+  ];
+
+  const faqStructuredData = {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: faqs.map(faq => ({
+      '@type': 'Question',
+      name: faq.question,
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: faq.answer,
+      },
+    })),
+  };
+
+  const categoryJsonLd = {
+    '@context': 'https://schema.org/',
+    '@type': 'Product',
+    'name': 'CANI H7 Pro Industrial Flight Controller',
+    'description': 'High-performance STM32H743 flight controller with triple IMU redundancy and DroneCAN support. Ideal for PX4 and ArduPilot industrial UAVs.',
+    'brand': { '@type': 'Brand', 'name': 'CANI Technology' },
+    'sku': 'CANI-H7-PRO-01',
+    'additionalProperty': [
+      { '@type': 'PropertyValue', 'name': 'MCU', 'value': 'STM32H743VIT6 (480MHz)' },
+      { '@type': 'PropertyValue', 'name': 'IMU Redundancy', 'value': 'Triple (ICM-42688-P + BMI270)' },
+      { '@type': 'PropertyValue', 'name': 'Firmware Support', 'value': 'PX4 v1.14+ / ArduPilot 4.5+ / Betaflight' },
+      { '@type': 'PropertyValue', 'name': 'Connectivity', 'value': 'Dual DroneCAN, 8x UART, 100Mbps Ethernet' },
+      { '@type': 'PropertyValue', 'name': 'Voltage Input', 'value': '3S-14S Lipo (12V-60V)' },
+    ],
+    'offers': {
+      '@type': 'Offer',
+      'availability': 'https://schema.org/InStock',
+      'url': 'https://www.caniuav.com/products/accessories/fc-esc',
+    },
+  };
+
   interface ProductCardProps {
     product: {
       id: string;
@@ -48,7 +97,8 @@ const FcEsc = () => {
         <div className="aspect-square bg-muted/30 p-6 flex items-center justify-center relative">
           <img 
             src={product.image} 
-            alt={product.name}
+            alt={`${product.name} - CANI industrial UAV ${product.category}`}
+            title={`${product.name} ${product.model}`}
             className="max-h-full max-w-full object-contain group-hover:scale-105 transition-transform duration-300"
           />
           {product.hot && (
@@ -91,6 +141,10 @@ const FcEsc = () => {
         description={t('fcesc.seo.description')}
         path="/products/accessories/fc-esc"
       />
+      <Helmet>
+        <script type="application/ld+json">{JSON.stringify(categoryJsonLd)}</script>
+        <script type="application/ld+json">{JSON.stringify(faqStructuredData)}</script>
+      </Helmet>
       <Header />
       <main className="min-h-screen bg-background">
         {/* Hero Section */}
@@ -128,9 +182,10 @@ const FcEsc = () => {
           </div>
         </section>
 
-        {/* Features Section */}
+        {/* Features Section with Semantic H2 */}
         <section className="py-12 bg-muted/30">
           <div className="container mx-auto px-4">
+            <h2 className="text-2xl font-bold mb-8 text-center">{t('fcesc.h2.autopilots')}</h2>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {features.map((feature, idx) => (
                 <div key={idx} className="flex gap-4 p-5 bg-card rounded-xl border border-border">
@@ -161,6 +216,7 @@ const FcEsc = () => {
               </TabsList>
 
               <TabsContent value="stack">
+                <h2 className="text-xl font-bold mb-6">{t('fcesc.h2.stacks')}</h2>
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
                   {stackProducts.map(product => <ProductCard key={product.id} product={product} />)}
                 </div>
@@ -185,6 +241,7 @@ const FcEsc = () => {
               </TabsContent>
 
               <TabsContent value="4in1">
+                <h2 className="text-xl font-bold mb-6">{t('fcesc.h2.esc')}</h2>
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
                   {escProducts.map(product => <ProductCard key={product.id} product={product} />)}
                 </div>
@@ -217,6 +274,38 @@ const FcEsc = () => {
               <div className="p-6 bg-card rounded-xl border border-border">
                 <p className="text-muted-foreground leading-relaxed">{t('fcesc.caseStudy')}</p>
               </div>
+            </div>
+          </div>
+        </section>
+
+        {/* FAQ Section */}
+        <section className="py-16 bg-secondary">
+          <div className="container mx-auto px-4">
+            <div className="text-center mb-12">
+              <h2 className="text-2xl md:text-3xl font-bold text-foreground mb-4">
+                {t('fcesc.faq.title')}
+              </h2>
+              <p className="text-muted-foreground max-w-2xl mx-auto">
+                {t('fcesc.faq.subtitle')}
+              </p>
+            </div>
+            <div className="max-w-3xl mx-auto">
+              <Accordion type="single" collapsible className="space-y-4">
+                {faqs.map((faq, index) => (
+                  <AccordionItem
+                    key={index}
+                    value={`fcesc-faq-${index}`}
+                    className="bg-card rounded-xl border border-border px-6 shadow-sm"
+                  >
+                    <AccordionTrigger className="text-left font-semibold text-foreground hover:text-accent py-5">
+                      {faq.question}
+                    </AccordionTrigger>
+                    <AccordionContent className="text-muted-foreground pb-5 leading-relaxed">
+                      {faq.answer}
+                    </AccordionContent>
+                  </AccordionItem>
+                ))}
+              </Accordion>
             </div>
           </div>
         </section>
