@@ -75,24 +75,24 @@ export const vtxProducts: VtxProduct[] = [
     channels: 80,
     image: vtx25w,
     specs: {
-      inputVoltageKey: "vtxProduct.specs.inputVoltage.12to28v",
+      inputVoltageKey: "vtxProduct.specs.inputVoltage.7to36v",
       outputVoltage: "5V",
       powerLevels: "25mW/2.5W",
       mountingSize: "30.5×30.5mm",
       antennaInterface: "MMCX",
       consumptionKey: "vtxProduct.specs.consumption.25w",
-      featuresKey: "vtxProduct.specs.features.fanHeatsink",
+      featuresKey: "vtxProduct.specs.features.fanHeatsinkCnc",
       microphoneKey: "vtxProduct.specs.microphone.no",
       cableInterfaceKey: "vtxProduct.specs.cable.jst6pin",
       weight: "23g",
       size: "36×36×8mm"
     },
     highlightKeys: [
-      "vtxProduct.highlight.rfPcb",
-      "vtxProduct.highlight.heatDesign",
+      "vtxProduct.highlight.2500mw8km",
+      "vtxProduct.highlight.wideVoltage7to36v",
+      "vtxProduct.highlight.activeCooling",
       "vtxProduct.highlight.80ch49to61",
       "vtxProduct.highlight.saPit",
-      "vtxProduct.highlight.cncCase",
       "vtxProduct.highlight.light23g"
     ],
     descriptionKeys: [

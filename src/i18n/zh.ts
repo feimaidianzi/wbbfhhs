@@ -242,6 +242,8 @@ export const zhTranslations: Record<string, string> = {
 
   // Specs
   'vtxProduct.specs.inputVoltage.12to28v': '12-28V，推荐使用6S电池',
+  'vtxProduct.specs.inputVoltage.7to36v': 'DC 7-36V（2-8S LiPo），宽压兼容',
+  'vtxProduct.specs.features.fanHeatsinkCnc': '主动冷却风扇 + CNC散热片',
   'vtxProduct.specs.consumption.25w': '12V@800mA 或 28V@300mA',
   'vtxProduct.specs.consumption.10w': '12V/2.8A 或 28V/1.1A',
   'vtxProduct.specs.consumption.16w': '12V-28V',
@@ -260,6 +262,9 @@ export const zhTranslations: Record<string, string> = {
   'vtxProduct.highlight.saPit': '支持SA协议与PIT模式',
   'vtxProduct.highlight.cncCase': '高强度CNC铝合金外壳',
   'vtxProduct.highlight.light23g': '轻量化设计，仅23g',
+  'vtxProduct.highlight.2500mw8km': '2500mW大功率输出，最远8km视距传输',
+  'vtxProduct.highlight.wideVoltage7to36v': '宽压输入DC 7-36V，兼容2-8S锂电池',
+  'vtxProduct.highlight.activeCooling': '主动冷却风扇+CNC铝制散热片，稳定全功率工作',
   'vtxProduct.highlight.10w5levels': '5档功率可调 (1W/3W/5W/7W/10W)',
   'vtxProduct.highlight.fanMic': '内置散热风扇与麦克风',
   'vtxProduct.highlight.heatsinkProtection': '所有元件均置于散热器保护下',
@@ -4487,6 +4492,22 @@ export const zhTranslations: Record<string, string> = {
   'vtxDetail.level': '档位',
   'vtxDetail.band': '频段',
   'vtxDetail.ledNote': '设置完成后，LED将依次显示「频段→频道→功率」。注意：显示功率时，LED会快速闪烁对应数字2次。',
+
+  // FLYM-PV02W500-A1 专属内容
+  'vtxDetail.pv02.seo.title': 'FLYM-PV02W500-A1 2.5W 大功率视频发射器 | 8km远距图传 | 长凌科技',
+  'vtxDetail.pv02.seo.desc': '专业2.5W无人机视频发射器，视距传输最远8km，端到端延迟≤30ms，DC 7-36V宽压输入，主动冷却系统稳定全功率工作。',
+  'vtxDetail.pv02.h1': 'FLYM-PV02W500-A1：2.5W大功率 8km工业级无人机视频发射器',
+  'vtxDetail.pv02.overview': '凭借2500mW射频输出功率与优化射频电路，FLYM-PV02W500-A1在视距（LOS）条件下可实现最远8km的稳定视频传输，端到端延迟≤30ms。DC 7-36V宽压设计（兼容2-8S锂电）、主动风扇+CNC铝制散热片确保在最大功率下长时间稳定工作，无降频。适用于FPV远距离飞行、电力线/管道巡检、搜救等专业场景。',
+  'vtxDetail.pv02.faq.title': '产品常见问题 FAQ',
+  'vtxDetail.pv02.faq.q1': 'FLYM-PV02W500-A1 VTX 的最大传输距离是多少？',
+  'vtxDetail.pv02.faq.a1': 'FLYM-PV02W500-A1 在视距（LOS）条件下最大传输距离可达 8km。这得益于其高效率 2.5W（2500mW）功率输出与优化的射频电路设计。',
+  'vtxDetail.pv02.faq.q2': '2.5W 的输出功率对工业无人机作业有何优势？',
+  'vtxDetail.pv02.faq.a2': '2.5W 输出功率即使在复杂环境中也能确保信号稳定，在低功率发射器（25mW-800mW）可能出现信号中断的场景（如山地、茂密植被、建筑群）下仍能保持可靠连接。',
+  'vtxDetail.pv02.faq.q3': 'FLYM-PV02W500-A1 是否需要特殊冷却？',
+  'vtxDetail.pv02.faq.a3': '是的。为维持全部 2.5W 性能且不过热降频，本产品集成了主动冷却风扇与 CNC 加工铝制外壳，提供最优热管理方案，适合持续高功率工作环境。',
+  'vtxDetail.pv02.application.fpv': 'FPV 远距离飞行：为 7-10 英寸远程四轴飞行器提供所需的链路稳定性，支持 5km+ 山地与探险飞行。',
+  'vtxDetail.pv02.application.inspection': '工业巡检：为电力线和管道巡检提供可靠的视频回传，无人机可在 8km 半径范围内稳定作业。',
+  'vtxDetail.pv02.application.sar': '搜救：高功率穿透力有助于穿透稀疏树叶或城市建筑物，在关键任务中保持稳定信号传输。',
 
   // ===== Database Product Detail Page =====
   'productDetail.backToList': '返回产品列表',
