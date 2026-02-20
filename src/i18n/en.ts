@@ -1380,4 +1380,27 @@ export const enTranslations: Record<string, string> = {
   'platforms.cta.title': 'Find the Right UAV Platform for Your Mission',
   'platforms.cta.subtitle': 'Our engineering team provides end-to-end support from platform selection to system integration and field deployment.',
   'platforms.cta.button': 'Request Wholesale Quote for UAV Platforms',
+
+  // ===== VTX Product Data (EN) =====
+  'vtxProduct.specs.inputVoltage.7to36v': 'DC 7-36V (2-8S LiPo), Wide Voltage Compatible',
+  'vtxProduct.specs.features.fanHeatsinkCnc': 'Active Cooling Fan + CNC Heatsink',
+  'vtxProduct.highlight.2500mw8km': '2500mW Output Power — Up to 8km LOS Range',
+  'vtxProduct.highlight.wideVoltage7to36v': 'Wide Voltage DC 7-36V, Compatible with 2-8S LiPo',
+  'vtxProduct.highlight.activeCooling': 'Active Cooling Fan + CNC Aluminum Heatsink for Sustained Full-Power Operation',
+
+  // ===== VTX Detail Page (EN) =====
+  'vtxDetail.pv02.seo.title': 'FLYM-PV02W500-A1 2.5W High-Power VTX | 8km Long Range Video Link | CANI Technology',
+  'vtxDetail.pv02.seo.desc': 'Professional 2.5W UAV Video Transmitter with 8km LOS range and ≤30ms ultra-low latency. Active cooling design for stable long-range FPV and industrial drone missions. Supports wide voltage 7-36V.',
+  'vtxDetail.pv02.h1': 'FLYM-PV02W500-A1: 2.5W High-Power 8km Industrial UAV VTX',
+  'vtxDetail.pv02.overview': 'Delivering 2500mW of RF output power with an optimized RF circuit, the FLYM-PV02W500-A1 achieves stable 8km LOS video transmission with ≤30ms end-to-end latency. Wide voltage DC 7-36V (2-8S LiPo compatible), active fan + CNC aluminum heatsink ensure full-power sustained operation without thermal throttling. Ideal for long-range FPV, power line / pipeline inspection, and search & rescue missions.',
+  'vtxDetail.pv02.faq.title': 'Product FAQ',
+  'vtxDetail.pv02.faq.q1': 'What is the maximum transmission range of the FLYM-PV02W500-A1 VTX?',
+  'vtxDetail.pv02.faq.a1': 'The FLYM-PV02W500-A1 provides reliable transmission up to 8km in line-of-sight (LOS) conditions. This is achieved through its high-efficiency 2.5W (2500mW) power output and optimized RF circuit design.',
+  'vtxDetail.pv02.faq.q2': 'How does the 2.5W output power benefit industrial drone operations?',
+  'vtxDetail.pv02.faq.a2': '2.5W output ensures stable signal even in complex environments where lower-power transmitters (25mW-800mW) may experience signal dropout — such as mountainous terrain, dense vegetation, or urban building clusters.',
+  'vtxDetail.pv02.faq.q3': 'Does the FLYM-PV02W500-A1 require special cooling?',
+  'vtxDetail.pv02.faq.a3': 'Yes. To maintain full 2.5W performance without thermal throttling, it features an integrated active cooling fan and CNC-machined aluminum housing for optimal heat dissipation during sustained high-power operation.',
+  'vtxDetail.pv02.application.fpv': 'Long-Range FPV: Optimized for 7-10 inch long-range quads, providing link stability needed for 5km+ mountain and expedition flights.',
+  'vtxDetail.pv02.application.inspection': 'Industrial Inspection: Reliable video feedback for power line and pipeline inspection, with drones operating within an 8km radius.',
+  'vtxDetail.pv02.application.sar': 'Search & Rescue: High-power penetration maintains signal through sparse foliage or urban structures in mission-critical scenarios.',
 };
