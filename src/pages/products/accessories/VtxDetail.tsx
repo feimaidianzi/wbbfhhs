@@ -20,6 +20,7 @@ const VtxDetail = () => {
   const isPV03 = productId === "flym-pv03w000-a1";
   const isFV10W = productId === "fv10w-a1";
   const isFV16W = productId === "fv16w-a1";
+  const isFV25W = productId === "fv25w-a1";
 
   if (!product) {
     return <Navigate to="/products/accessories/vtx-vrx" replace />;
@@ -163,9 +164,44 @@ const VtxDetail = () => {
     { questionKey: "vtxDetail.fv16w.faq.q3", answerKey: "vtxDetail.fv16w.faq.a3" },
   ];
 
-  // SEO: PV02/PV03/FV10W/FV16W 使用专属 TDK，其他产品使用通用逻辑
-  const seoTitle = isPV02 ? t('vtxDetail.pv02.seo.title') : isPV03 ? t('vtxDetail.pv03.seo.title') : isFV10W ? t('vtxDetail.fv10w.seo.title') : isFV16W ? t('vtxDetail.fv16w.seo.title') : `${t(product.nameKey)} ${product.model}`;
-  const seoDesc = isPV02 ? t('vtxDetail.pv02.seo.desc') : isPV03 ? t('vtxDetail.pv03.seo.desc') : isFV10W ? t('vtxDetail.fv10w.seo.desc') : isFV16W ? t('vtxDetail.fv16w.seo.desc') : `${t(product.nameKey)}，${product.frequency}${t('vtxDetail.seo.band')}，${product.channels}${t('vtxDetail.seo.channels')}，${product.power}${t('vtxDetail.seo.power')}，${t('vtxDetail.seo.vtxDesc')}`;
+  // FV25W-A1 JSON-LD
+  const fv25wJsonLd = isFV25W ? {
+    "@context": "https://schema.org/",
+    "@type": "Product",
+    "name": "FV25W-A1 25W Extreme Power FPV VTX",
+    "description": "The world's most powerful 25W (25000mW) 5.8GHz video transmitter for extreme long-range and obstacle-penetration FPV drones. Dual industrial fan cooling, CNC housing, SmartAudio compatible.",
+    "brand": { "@type": "Brand", "name": "CANI Technology" },
+    "sku": "FV25W-A1-25W",
+    "mpn": "FV25W-A1",
+    "additionalProperty": [
+      { "@type": "PropertyValue", "name": "RF Output Power", "value": "25000mW (25W)" },
+      { "@type": "PropertyValue", "name": "Power Steps", "value": "Customizable (incl. 16W / 25W)" },
+      { "@type": "PropertyValue", "name": "Transmission Range", "value": "15-20km LOS" },
+      { "@type": "PropertyValue", "name": "Frequency Band", "value": "4.9-6.1GHz" },
+      { "@type": "PropertyValue", "name": "Channels", "value": "80CH / 96CH (Ultra-Wide)" },
+      { "@type": "PropertyValue", "name": "Input Voltage", "value": "DC 22-36V (6-8S LiPo)" },
+      { "@type": "PropertyValue", "name": "Cooling System", "value": "Dual High-RPM Fan + CNC Fin Array" },
+      { "@type": "PropertyValue", "name": "End-to-End Latency", "value": "≤30ms" },
+      { "@type": "PropertyValue", "name": "Protocol", "value": "SmartAudio / IRC Tramp" },
+      { "@type": "PropertyValue", "name": "Mounting Size", "value": "30.5×30.5mm" }
+    ],
+    "offers": {
+      "@type": "Offer",
+      "url": "https://www.caniuav.com/products/accessories/vtx-vrx/fv25w-a1",
+      "priceCurrency": "USD",
+      "availability": "https://schema.org/InStock"
+    }
+  } : null;
+
+  const fv25wFaqItems = [
+    { questionKey: "vtxDetail.fv25w.faq.q1", answerKey: "vtxDetail.fv25w.faq.a1" },
+    { questionKey: "vtxDetail.fv25w.faq.q2", answerKey: "vtxDetail.fv25w.faq.a2" },
+    { questionKey: "vtxDetail.fv25w.faq.q3", answerKey: "vtxDetail.fv25w.faq.a3" },
+  ];
+
+  // SEO: 各产品使用专属 TDK
+  const seoTitle = isPV02 ? t('vtxDetail.pv02.seo.title') : isPV03 ? t('vtxDetail.pv03.seo.title') : isFV10W ? t('vtxDetail.fv10w.seo.title') : isFV16W ? t('vtxDetail.fv16w.seo.title') : isFV25W ? t('vtxDetail.fv25w.seo.title') : `${t(product.nameKey)} ${product.model}`;
+  const seoDesc = isPV02 ? t('vtxDetail.pv02.seo.desc') : isPV03 ? t('vtxDetail.pv03.seo.desc') : isFV10W ? t('vtxDetail.fv10w.seo.desc') : isFV16W ? t('vtxDetail.fv16w.seo.desc') : isFV25W ? t('vtxDetail.fv25w.seo.desc') : `${t(product.nameKey)}，${product.frequency}${t('vtxDetail.seo.band')}，${product.channels}${t('vtxDetail.seo.channels')}，${product.power}${t('vtxDetail.seo.power')}，${t('vtxDetail.seo.vtxDesc')}`;
 
   return (
     <>
@@ -190,6 +226,11 @@ const VtxDetail = () => {
           <script type="application/ld+json">{JSON.stringify(fv16wJsonLd)}</script>
         </Helmet>
       )}
+      {isFV25W && fv25wJsonLd && (
+        <Helmet>
+          <script type="application/ld+json">{JSON.stringify(fv25wJsonLd)}</script>
+        </Helmet>
+      )}
       <Header />
       <main className="min-h-screen bg-background">
         <BackButton to="/products/accessories/vtx-vrx" />
@@ -207,6 +248,7 @@ const VtxDetail = () => {
                     isPV03 ? "FLYM-PV03W000-A1 3W 3000mW FPV VTX with active cooling, 10km long-range UAV video transmitter" :
                     isFV10W ? "FV10W-A1 10W 10000mW extreme power FPV VTX with dual active cooling, 80CH 5.8GHz video transmitter" :
                     isFV16W ? "FV16W-A1 25W 25000mW world's strongest FPV VTX with quad fan CNC cooling, 16W/25W dual-power video transmitter" :
+                    isFV25W ? "FV25W-A1 25W 25000mW absolute power FPV VTX with dual industrial fan CNC housing, 15-20km extreme range video transmitter" :
                     t(product.nameKey)
                   }
                   title={
@@ -214,6 +256,7 @@ const VtxDetail = () => {
                     isPV03 ? "FLYM-PV03W000-A1 3W Ultra High-Power FPV VTX" :
                     isFV10W ? "FV10W-A1 10W Extreme Power 80CH FPV Video Transmitter" :
                     isFV16W ? "FV16W-A1 25W / 16W Adjustable Extreme Custom FPV VTX" :
+                    isFV25W ? "FV25W-A1 25000mW (25W) Absolute Power FPV Video Transmitter" :
                     t(product.nameKey)
                   }
                   className="w-full max-w-md mx-auto object-contain"
@@ -237,9 +280,13 @@ const VtxDetail = () => {
                   {isFV16W && <span className="px-3 py-1 text-sm bg-destructive/20 text-destructive rounded-full font-bold">16W/25W</span>}
                   {isFV16W && <span className="px-3 py-1 text-sm bg-primary/10 text-primary rounded-full font-medium">15km+ LOS</span>}
                   {isFV16W && <span className="px-3 py-1 text-sm bg-accent text-accent-foreground rounded-full font-medium">Custom OEM</span>}
+                  {isFV25W && <span className="px-3 py-1 text-sm bg-destructive/10 text-destructive rounded-full font-bold">25000mW</span>}
+                  {isFV25W && <span className="px-3 py-1 text-sm bg-destructive/20 text-destructive rounded-full font-bold">15-20km LOS</span>}
+                  {isFV25W && <span className="px-3 py-1 text-sm bg-primary/10 text-primary rounded-full font-medium">80/96CH</span>}
+                  {isFV25W && <span className="px-3 py-1 text-sm bg-accent text-accent-foreground rounded-full font-medium">≤30ms</span>}
                 </div>
                 <h1 className="text-3xl md:text-4xl font-bold mb-2">
-                  {isPV02 ? t('vtxDetail.pv02.h1') : isPV03 ? t('vtxDetail.pv03.h1') : isFV10W ? t('vtxDetail.fv10w.h1') : isFV16W ? t('vtxDetail.fv16w.h1') : t(product.nameKey)}
+                  {isPV02 ? t('vtxDetail.pv02.h1') : isPV03 ? t('vtxDetail.pv03.h1') : isFV10W ? t('vtxDetail.fv10w.h1') : isFV16W ? t('vtxDetail.fv16w.h1') : isFV25W ? t('vtxDetail.fv25w.h1') : t(product.nameKey)}
                 </h1>
                 <p className="text-xl text-muted-foreground mb-4">{product.model}</p>
                 {isPV02 && (
@@ -260,6 +307,11 @@ const VtxDetail = () => {
                 {isFV16W && (
                   <p className="text-sm text-muted-foreground mb-6 leading-relaxed border-l-2 border-primary pl-4">
                     {t('vtxDetail.fv16w.overview')}
+                  </p>
+                )}
+                {isFV25W && (
+                  <p className="text-sm text-muted-foreground mb-6 leading-relaxed border-l-2 border-primary pl-4">
+                    {t('vtxDetail.fv25w.overview')}
                   </p>
                 )}
                 
@@ -692,6 +744,70 @@ const VtxDetail = () => {
           />
         )}
 
+        {/* FV25W Application Scenarios */}
+        {isFV25W && (
+          <section className="py-20 bg-muted/30">
+            <div className="container mx-auto px-4">
+              <h2 className="text-2xl font-bold mb-8">{t('vtxDetail.fv25w.application.title')}</h2>
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div className="p-6 bg-card rounded-xl border border-border">
+                  <div className="w-12 h-12 rounded-lg bg-destructive/10 flex items-center justify-center mb-4">
+                    <Zap className="w-6 h-6 text-destructive" />
+                  </div>
+                  <h3 className="font-semibold mb-2">{t('vtxDetail.fv25w.application.bandoTitle')}</h3>
+                  <p className="text-sm text-muted-foreground">{t('vtxDetail.fv25w.application.bando')}</p>
+                </div>
+                <div className="p-6 bg-card rounded-xl border border-border">
+                  <div className="w-12 h-12 rounded-lg bg-destructive/10 flex items-center justify-center mb-4">
+                    <Shield className="w-6 h-6 text-destructive" />
+                  </div>
+                  <h3 className="font-semibold mb-2">{t('vtxDetail.fv25w.application.cinemaTitle')}</h3>
+                  <p className="text-sm text-muted-foreground">{t('vtxDetail.fv25w.application.cinema')}</p>
+                </div>
+                <div className="p-6 bg-card rounded-xl border border-border">
+                  <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center mb-4">
+                    <Thermometer className="w-6 h-6 text-primary" />
+                  </div>
+                  <h3 className="font-semibold mb-2">{t('vtxDetail.fv25w.application.terrainTitle')}</h3>
+                  <p className="text-sm text-muted-foreground">{t('vtxDetail.fv25w.application.terrain')}</p>
+                </div>
+              </div>
+            </div>
+          </section>
+        )}
+
+        {/* FV25W Safety Warning */}
+        {isFV25W && (
+          <section className="py-12">
+            <div className="container mx-auto px-4">
+              <div className="bg-destructive/10 border border-destructive/30 rounded-xl p-6">
+                <div className="flex items-start gap-3 mb-4">
+                  <AlertTriangle className="w-6 h-6 text-destructive flex-shrink-0 mt-0.5" />
+                  <h2 className="text-lg font-bold text-destructive">{t('vtxDetail.fv25w.safety.title')}</h2>
+                </div>
+                <ul className="space-y-2">
+                  <li className="flex items-start gap-2 text-sm">
+                    <span className="text-destructive font-bold mt-0.5">▶</span>
+                    <span>{t('vtxDetail.fv25w.safety.rfWarning')}</span>
+                  </li>
+                  <li className="flex items-start gap-2 text-sm">
+                    <span className="text-destructive font-bold mt-0.5">▶</span>
+                    <span>{t('vtxDetail.fv25w.safety.oemCustom')}</span>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </section>
+        )}
+
+        {/* FV25W FAQ */}
+        {isFV25W && (
+          <PageFAQ
+            titleKey="vtxDetail.fv25w.faq.title"
+            items={fv25wFaqItems}
+            className="py-20"
+          />
+        )}
 
         <section className="py-20 bg-primary text-primary-foreground">
           <div className="container mx-auto px-4 text-center">
