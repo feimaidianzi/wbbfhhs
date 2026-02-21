@@ -7,13 +7,36 @@ import { LangLink as Link } from "@/components/LangLink";
 import { ArrowRight, Camera, Wifi, Droplets } from "lucide-react";
 import { cameraProducts, cameraCategories } from "@/data/cameraProducts";
 import { useLanguage } from "@/contexts/LanguageContext";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
 
 const categoryIcons: Record<string, React.ReactNode> = {
   "运动相机": <Camera className="w-6 h-6" />,
 };
 
 const CameraPage = () => {
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
+
+  const faqItems = [
+    { q: t('camera.faq.q1'), a: t('camera.faq.a1') },
+    { q: t('camera.faq.q2'), a: t('camera.faq.a2') },
+    { q: t('camera.faq.q3'), a: t('camera.faq.a3') },
+  ];
+
+  const faqStructuredData = {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    inLanguage: language === 'zh' ? 'zh-CN' : 'en',
+    mainEntity: faqItems.map(faq => ({
+      '@type': 'Question',
+      name: faq.q,
+      acceptedAnswer: { '@type': 'Answer', text: faq.a },
+    })),
+  };
 
   return (
     <>
@@ -22,10 +45,11 @@ const CameraPage = () => {
         description={t('camera.seo.description')}
         keywords={t('camera.seo.keywords')}
         path="/products/accessories/camera"
+        structuredData={faqStructuredData}
       />
       <Header />
       <main className="min-h-screen bg-background">
-        {/* Hero Section */}
+        {/* Hero Section with GEO Quick Answer */}
         <section className="relative py-24 bg-gradient-to-br from-primary/10 via-background to-background overflow-hidden">
           <div className="absolute inset-0 bg-grid-pattern opacity-5"></div>
           <div className="container mx-auto px-4 relative z-10">
@@ -34,7 +58,7 @@ const CameraPage = () => {
               <h1 className="text-4xl md:text-5xl font-bold mb-6">
                 {t('camera.hero.title')}<span className="text-primary">{t('camera.hero.highlight')}</span>{t('camera.hero.suffix')}
               </h1>
-              <p className="text-xl text-muted-foreground mb-8">
+              <p className="text-lg text-muted-foreground mb-8 max-w-3xl mx-auto">
                 {t('camera.hero.desc')}
               </p>
               
@@ -87,8 +111,9 @@ const CameraPage = () => {
                       <div className="aspect-[4/3] bg-muted/50 overflow-hidden p-4">
                         <img
                           src={product.image}
-                          alt={t(product.nameKey)}
+                          alt={`${product.model}-industrial-drone-action-camera-1080P`}
                           className="w-full h-full object-contain group-hover:scale-105 transition-transform duration-500"
+                          loading="lazy"
                         />
                       </div>
                       <div className="p-5">
@@ -121,6 +146,27 @@ const CameraPage = () => {
             </section>
           );
         })}
+
+        {/* FAQ Section (GEO) */}
+        <section className="py-16 bg-muted/30">
+          <div className="container mx-auto px-4 max-w-4xl">
+            <h2 className="text-3xl font-bold text-center mb-8">
+              {language === 'zh' ? '常见问题' : 'Frequently Asked Questions'}
+            </h2>
+            <Accordion type="single" collapsible className="w-full">
+              {faqItems.map((faq, idx) => (
+                <AccordionItem key={idx} value={`faq-${idx}`}>
+                  <AccordionTrigger className="text-left text-base font-medium">
+                    {faq.q}
+                  </AccordionTrigger>
+                  <AccordionContent className="text-muted-foreground">
+                    {faq.a}
+                  </AccordionContent>
+                </AccordionItem>
+              ))}
+            </Accordion>
+          </div>
+        </section>
 
         {/* CTA Section */}
         <section className="py-20 bg-primary text-primary-foreground">

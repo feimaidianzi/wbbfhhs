@@ -1,4 +1,4 @@
-import { useParams, Navigate } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { LangLink as Link } from "@/components/LangLink";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
@@ -6,8 +6,14 @@ import { FloatingContact } from "@/components/FloatingContact";
 import { MultiLanguageSEO } from "@/components/MultiLanguageSEO";
 import { BackButton } from "@/components/BackButton";
 import { cameraProducts } from "@/data/cameraProducts";
-import { ArrowRight, Check, Camera, Wifi, Droplets, Monitor, Battery, Aperture, Package } from "lucide-react";
+import { ArrowRight, Check, Camera, Wifi, Droplets, Monitor, Battery, Aperture } from "lucide-react";
 import { useLanguage } from "@/contexts/LanguageContext";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
 import sj4000Lens from "@/assets/camera/sj4000-lens.png";
 import sj4000Colors from "@/assets/camera/sj4000-colors.png";
 import sj4000Accessories from "@/assets/camera/sj4000-accessories.png";
@@ -16,17 +22,23 @@ import sj4000AppShare from "@/assets/camera/sj4000-app-share.png";
 
 const featureIcons: Record<string, React.ReactNode> = {
   "1200万像素COMS大广角成像": <Aperture className="w-8 h-8" />,
+  "12MP CMOS Ultra-Wide Imaging": <Aperture className="w-8 h-8" />,
   "1080P高清画质": <Monitor className="w-8 h-8" />,
+  "1080P Full HD Video": <Monitor className="w-8 h-8" />,
   "WiFi无线传输": <Wifi className="w-8 h-8" />,
+  "WiFi Wireless Streaming": <Wifi className="w-8 h-8" />,
   "30米防水设计": <Droplets className="w-8 h-8" />,
+  "30m Waterproof Design": <Droplets className="w-8 h-8" />,
   "多种安装配件": <Camera className="w-8 h-8" />,
+  "Versatile Mounting Accessories": <Camera className="w-8 h-8" />,
   "移动侦测功能": <Battery className="w-8 h-8" />,
+  "Motion Detection Recording": <Battery className="w-8 h-8" />,
 };
 
 const CameraDetail = () => {
   const { productId } = useParams<{ productId: string }>();
   const product = cameraProducts.find((p) => p.id === productId);
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
 
   if (!product) {
     return (
@@ -45,14 +57,74 @@ const CameraDetail = () => {
     );
   }
 
+  // SKU-specific TDK
+  const seoTitle = t(`camera.tdk.${productId}.title`) !== `camera.tdk.${productId}.title`
+    ? t(`camera.tdk.${productId}.title`)
+    : t(product.nameKey);
+  const seoDesc = t(`camera.tdk.${productId}.desc`) !== `camera.tdk.${productId}.desc`
+    ? t(`camera.tdk.${productId}.desc`)
+    : `${t(product.sloganKey)}. ${product.highlightKeys.map(k => t(k)).join(', ')}`;
+  const seoKeywords = t(`camera.tdk.${productId}.keywords`) !== `camera.tdk.${productId}.keywords`
+    ? t(`camera.tdk.${productId}.keywords`)
+    : `${product.model},${t('accessoryDetail.cameraKeywords')}`;
+
+  // FAQ data
+  const faqItems = [
+    { q: t('camera.faq.q1'), a: t('camera.faq.a1') },
+    { q: t('camera.faq.q2'), a: t('camera.faq.a2') },
+    { q: t('camera.faq.q3'), a: t('camera.faq.a3') },
+  ];
+
+  // JSON-LD Product structured data
+  const productStructuredData = {
+    '@context': 'https://schema.org/',
+    '@type': 'Product',
+    name: language === 'zh' ? `CaniUAV ${product.model} 无人机运动相机` : `CaniUAV ${product.model} Action Camera`,
+    description: seoDesc,
+    brand: { '@type': 'Brand', name: 'CaniUAV' },
+    sku: `CANI-${product.model.replace(/\s+/g, '-').toUpperCase()}`,
+    manufacturer: {
+      '@type': 'Organization',
+      name: language === 'zh' ? 'CANI长凌科技' : 'CANI Technology Co., Ltd.',
+    },
+    additionalProperty: [
+      { '@type': 'PropertyValue', name: 'Video Resolution', value: '1080P Full HD (1920×1080) @30fps' },
+      { '@type': 'PropertyValue', name: 'Sensor', value: '12MP CMOS (AR0330)' },
+      { '@type': 'PropertyValue', name: 'Field of View', value: '170° Ultra-Wide Angle' },
+      { '@type': 'PropertyValue', name: 'Wireless', value: 'WiFi (Android/iOS)' },
+      { '@type': 'PropertyValue', name: 'Waterproof', value: '30m (IP68 Housing)' },
+      { '@type': 'PropertyValue', name: 'Storage', value: 'MicroSD up to 64GB' },
+      { '@type': 'PropertyValue', name: 'Weight', value: '62.5g (with battery)' },
+      { '@type': 'PropertyValue', name: 'Display', value: '2.0" LCD' },
+    ],
+    offers: {
+      '@type': 'Offer',
+      availability: 'https://schema.org/InStock',
+      priceCurrency: 'USD',
+    },
+  };
+
+  const faqStructuredData = {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: faqItems.map(faq => ({
+      '@type': 'Question',
+      name: faq.q,
+      acceptedAnswer: { '@type': 'Answer', text: faq.a },
+    })),
+  };
+
+  const quickAnswerText = t('camera.sj4000.quickAnswer');
+
   return (
     <>
       <MultiLanguageSEO
-        title={t(product.nameKey)}
-        description={`${t(product.sloganKey)}。${product.highlightKeys.map(k => t(k)).join("，")}`}
-        keywords={`${product.model},${t('accessoryDetail.cameraKeywords')}`}
+        title={seoTitle}
+        description={seoDesc}
+        keywords={seoKeywords}
         path={`/products/accessories/camera/${productId}`}
         type="product"
+        structuredData={[productStructuredData, faqStructuredData]}
       />
       <Header />
       <main className="min-h-screen bg-background">
@@ -95,7 +167,7 @@ const CameraDetail = () => {
                   <div className="aspect-square bg-gradient-to-br from-white/10 to-white/5 rounded-2xl p-8 backdrop-blur-sm border border-white/10">
                     <img
                       src={product.image}
-                      alt={t(product.nameKey)}
+                      alt={`SJ4000-WiFi-Industrial-Drone-Camera-1080P`}
                       className="w-full h-full object-contain"
                     />
                   </div>
@@ -105,6 +177,20 @@ const CameraDetail = () => {
           </div>
         </section>
 
+        {/* GEO Quick Answer Module */}
+        {quickAnswerText && quickAnswerText !== 'camera.sj4000.quickAnswer' && (
+          <section className="py-12 bg-muted/30">
+            <div className="container mx-auto px-4 max-w-4xl">
+              <div className="bg-card rounded-xl border border-border p-6 md:p-8">
+                <h2 className="text-xl font-bold mb-3 text-primary">
+                  {language === 'zh' ? '为什么选择SJ4000 WiFi用于工业无人机？' : 'Why Choose SJ4000 WiFi for Industrial Drones?'}
+                </h2>
+                <p className="text-muted-foreground leading-relaxed">{quickAnswerText}</p>
+              </div>
+            </div>
+          </section>
+        )}
+
         {/* Lens & Sensor Section */}
         <section className="py-20 bg-muted/30">
           <div className="container mx-auto px-4">
@@ -112,8 +198,9 @@ const CameraDetail = () => {
               <div>
                 <img
                   src={sj4000Lens}
-                  alt={t('accessoryDetail.camera.wideAngle')}
+                  alt="SJ4000-WiFi-170-degree-ultra-wide-angle-lens-12MP-CMOS"
                   className="w-full max-w-lg mx-auto"
+                  loading="lazy"
                 />
               </div>
               <div>
@@ -147,8 +234,9 @@ const CameraDetail = () => {
           <div className="absolute inset-0">
             <img
               src={sj4000HdQuality}
-              alt={t('accessoryDetail.camera.hdQuality')}
+              alt="SJ4000-WiFi-1080P-Full-HD-video-quality-WDR"
               className="w-full h-full object-cover"
+              loading="lazy"
             />
           </div>
           <div className="container mx-auto px-4 relative z-10">
@@ -210,8 +298,9 @@ const CameraDetail = () => {
               <div>
                 <img
                   src={sj4000AppShare}
-                  alt={t('accessoryDetail.camera.smartApp')}
+                  alt="SJ4000-WiFi-mobile-app-real-time-preview-sharing"
                   className="w-full rounded-xl"
+                  loading="lazy"
                 />
               </div>
             </div>
@@ -238,7 +327,7 @@ const CameraDetail = () => {
                     <div className="w-16 h-16 bg-primary/10 rounded-xl flex items-center justify-center text-primary mb-4">
                       {featureIcons[titleText] || <Camera className="w-8 h-8" />}
                     </div>
-                    <h3 className="text-lg font-semibold mb-2">{t(feature.titleKey)}</h3>
+                    <h3 className="text-lg font-semibold mb-2">{titleText}</h3>
                     <p className="text-muted-foreground text-sm">{t(feature.descriptionKey)}</p>
                   </div>
                 );
@@ -259,8 +348,9 @@ const CameraDetail = () => {
             <div className="max-w-4xl mx-auto">
               <img
                 src={sj4000Colors}
-                alt={t('accessoryDetail.camera.colorful')}
+                alt="SJ4000-WiFi-action-camera-multiple-color-options"
                 className="w-full rounded-xl"
+                loading="lazy"
               />
             </div>
           </div>
@@ -322,11 +412,33 @@ const CameraDetail = () => {
               <div>
                 <img
                   src={sj4000Accessories}
-                  alt={t('accessoryDetail.packageContents')}
+                  alt="SJ4000-WiFi-complete-mounting-accessories-kit"
                   className="w-full max-w-lg mx-auto rounded-xl"
+                  loading="lazy"
                 />
               </div>
             </div>
+          </div>
+        </section>
+
+        {/* FAQ Section (GEO) */}
+        <section className="py-16">
+          <div className="container mx-auto px-4 max-w-4xl">
+            <h2 className="text-3xl font-bold text-center mb-8">
+              {language === 'zh' ? '常见问题' : 'Frequently Asked Questions'}
+            </h2>
+            <Accordion type="single" collapsible className="w-full">
+              {faqItems.map((faq, idx) => (
+                <AccordionItem key={idx} value={`faq-${idx}`}>
+                  <AccordionTrigger className="text-left text-base font-medium">
+                    {faq.q}
+                  </AccordionTrigger>
+                  <AccordionContent className="text-muted-foreground">
+                    {faq.a}
+                  </AccordionContent>
+                </AccordionItem>
+              ))}
+            </Accordion>
           </div>
         </section>
 
