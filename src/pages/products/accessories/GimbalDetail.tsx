@@ -6,7 +6,8 @@ import { FloatingContact } from "@/components/FloatingContact";
 import { MultiLanguageSEO } from "@/components/MultiLanguageSEO";
 import { Button } from "@/components/ui/button";
 import { BackButton } from "@/components/BackButton";
-import { Check, AlertTriangle, Package, Download, Play, HelpCircle } from "lucide-react";
+import { Check, AlertTriangle, Package, Download, Play, HelpCircle, ChevronDown } from "lucide-react";
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { getGimbalProductById } from "@/data/gimbalProducts";
 import { useState } from "react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -25,9 +26,56 @@ const GimbalDetail = () => {
   if (!product) {
     return <Navigate to="/products/accessories/gimbal" replace />;
   }
+  // SKU-specific TDK
+  const skuTitle = t(`gimbal.tdk.${productId}.title`) !== `gimbal.tdk.${productId}.title` 
+    ? t(`gimbal.tdk.${productId}.title`) 
+    : t(product.nameKey);
+  const skuDesc = t(`gimbal.tdk.${productId}.desc`) !== `gimbal.tdk.${productId}.desc`
+    ? t(`gimbal.tdk.${productId}.desc`)
+    : `${t(product.nameKey)}，${t(product.categoryKey)}，${product.highlightKeys.slice(0, 3).map(k => t(k)).join('，')}`;
+
+  // Build product structured data with additionalProperty for GEO
+  const productStructuredData = {
+    '@context': 'https://schema.org',
+    '@type': 'Product',
+    name: t(product.nameKey),
+    description: skuDesc,
+    image: product.image,
+    sku: product.model,
+    brand: { '@type': 'Brand', name: 'CANI Technology' },
+    manufacturer: { '@type': 'Organization', name: 'CANI Technology Co., Ltd.' },
+    category: t(product.categoryKey),
+    additionalProperty: product.specs.slice(0, 8).map(spec => ({
+      '@type': 'PropertyValue',
+      name: t(spec.labelKey),
+      value: spec.value,
+    })),
+    offers: {
+      '@type': 'Offer',
+      availability: 'https://schema.org/InStock',
+      url: `https://www.caniuav.com/products/accessories/gimbal/${productId}`,
+    },
+  };
+
+  // Build FAQ structured data for GEO
+  const faqItems = [];
+  for (let i = 1; i <= 6; i++) {
+    const q = t(`gimbal.faq.q${i}`);
+    const a = t(`gimbal.faq.a${i}`);
+    if (q !== `gimbal.faq.q${i}` && a !== `gimbal.faq.a${i}`) {
+      faqItems.push({ '@type': 'Question', name: q, acceptedAnswer: { '@type': 'Answer', text: a } });
+    }
+  }
+  const faqStructuredData = faqItems.length > 0 ? {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: faqItems,
+  } : null;
+
   const images = product.images || [product.image];
+
   return <>
-      <MultiLanguageSEO title={t(product.nameKey)} description={`${t(product.nameKey)}，${t(product.categoryKey)}，${product.highlightKeys.slice(0, 3).map(k => t(k)).join('，')}，${t('accessoryDetail.gimbal.seoDesc')}`} path={`/products/accessories/gimbal/${productId}`} type="product" />
+      <MultiLanguageSEO title={skuTitle} description={skuDesc} path={`/products/accessories/gimbal/${productId}`} type="product" structuredData={[productStructuredData, ...(faqStructuredData ? [faqStructuredData] : [])]} />
       <Header />
       <main className="min-h-screen bg-background">
         <BackButton to="/products/accessories/gimbal" />
@@ -265,10 +313,19 @@ const GimbalDetail = () => {
 
               {/* FAQ Tab */}
               <TabsContent value="faq">
-                <div className="text-center py-12 text-muted-foreground">
-                  <HelpCircle className="w-12 h-12 mx-auto mb-4 opacity-50" />
-                  <p>{t('accessoryDetail.faqComingSoon')}</p>
-                </div>
+                <Accordion type="single" collapsible className="space-y-2">
+                  {[1, 2, 3, 4, 5, 6].map(i => {
+                    const q = t(`gimbal.faq.q${i}`);
+                    const a = t(`gimbal.faq.a${i}`);
+                    if (q === `gimbal.faq.q${i}`) return null;
+                    return (
+                      <AccordionItem key={i} value={`faq-${i}`} className="bg-card rounded-xl border border-border px-6">
+                        <AccordionTrigger className="text-left">{q}</AccordionTrigger>
+                        <AccordionContent className="text-muted-foreground">{a}</AccordionContent>
+                      </AccordionItem>
+                    );
+                  })}
+                </Accordion>
               </TabsContent>
             </Tabs>
           </div>
