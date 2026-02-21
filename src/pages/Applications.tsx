@@ -7,6 +7,7 @@ import { ArrowRight, Zap, Truck, Shield, Leaf, Flame, Link2, Lightbulb, Car, Che
 import { LangLink as Link } from "@/components/LangLink";
 import { MultiLanguageSEO } from "@/components/MultiLanguageSEO";
 import { useLanguage } from "@/contexts/LanguageContext";
+import { PageFAQ } from "@/components/PageFAQ";
 
 const Applications = () => {
   const { t } = useLanguage();
@@ -95,6 +96,16 @@ const Applications = () => {
     },
   };
 
+  const faqStructuredData = {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: [
+      { '@type': 'Question', name: t('applications.hub.faq.q1'), acceptedAnswer: { '@type': 'Answer', text: t('applications.hub.faq.a1') } },
+      { '@type': 'Question', name: t('applications.hub.faq.q2'), acceptedAnswer: { '@type': 'Answer', text: t('applications.hub.faq.a2') } },
+      { '@type': 'Question', name: t('applications.hub.faq.q3'), acceptedAnswer: { '@type': 'Answer', text: t('applications.hub.faq.a3') } },
+    ],
+  };
+
   const collectionData = {
     '@context': 'https://schema.org',
     '@type': 'CollectionPage',
@@ -112,6 +123,8 @@ const Applications = () => {
     },
   };
 
+  const mergedStructuredData = [collectionData, faqStructuredData];
+
   return (
     <div className="min-h-screen bg-background">
       <MultiLanguageSEO
@@ -119,7 +132,7 @@ const Applications = () => {
         description={t('applications.seo.description')}
         keywords={t('applications.seo.keywords')}
         path="/applications"
-        structuredData={collectionData}
+        structuredData={mergedStructuredData}
       />
       <Header />
 
@@ -177,6 +190,14 @@ const Applications = () => {
           >
             <ChevronDown className="w-6 h-6 text-muted-foreground animate-bounce" />
           </motion.div>
+        </section>
+
+        {/* GEO Quick Answer Module */}
+        <section className="py-12 bg-accent/5 border-b border-border">
+          <div className="container-custom max-w-4xl">
+            <h2 className="text-2xl md:text-3xl font-bold text-foreground mb-4">{t('applications.hub.quickAnswer.title')}</h2>
+            <p className="text-muted-foreground leading-relaxed text-lg">{t('applications.hub.quickAnswer.content')}</p>
+          </div>
         </section>
 
         {/* Applications Grid */}
@@ -270,6 +291,15 @@ const Applications = () => {
             </motion.div>
           </div>
         </section>
+      {/* FAQ Section for GEO */}
+      <PageFAQ
+        titleKey="applications.hub.faq.title"
+        items={[
+          { questionKey: 'applications.hub.faq.q1', answerKey: 'applications.hub.faq.a1' },
+          { questionKey: 'applications.hub.faq.q2', answerKey: 'applications.hub.faq.a2' },
+          { questionKey: 'applications.hub.faq.q3', answerKey: 'applications.hub.faq.a3' },
+        ]}
+      />
       </main>
 
       <Footer />

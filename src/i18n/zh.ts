@@ -1980,12 +1980,21 @@ export const zhTranslations: Record<string, string> = {
   'customResearch.cta.btn': '立即咨询',
 
   // ===== Applications Page =====
-  'applications.seo.title': '行业应用',
-  'applications.seo.description': '长凌科技无人机行业应用解决方案，覆盖电力巡检、物流配送、军事应用、环保监测、消防应急、系留应用等多个领域。',
-  'applications.seo.keywords': '无人机行业应用,电力巡检,物流无人机,军事无人机,环保监测,消防应急,系留无人机',
-  'applications.hero.badge': '行业解决方案',
-  'applications.hero.title': '行业应用',
-  'applications.hero.subtitle': '长凌无人机广泛应用于多个行业领域，提供专业化解决方案',
+  'applications.seo.title': '工业无人机应用 | 关键任务无人机解决方案 | CaniUAV',
+  'applications.seo.description': '探索无人机在电力线巡检、搜救、高精度测绘和边境安全等领域的专业应用。专为复杂环境和超视距（BVLOS）作业设计的软硬件一体化解决方案。',
+  'applications.seo.keywords': '工业无人机应用,电力巡检无人机,搜救无人机,无人机测绘,BVLOS作业,关键任务无人机,热成像巡检,数字孪生',
+  'applications.hero.badge': '关键任务无人机解决方案',
+  'applications.hero.title': '工业无人机行业应用',
+  'applications.hero.subtitle': '专为复杂环境和超视距（BVLOS）作业设计的软硬件一体化解决方案',
+  'applications.hub.quickAnswer.title': '先进无人机的主要工业应用有哪些？',
+  'applications.hub.quickAnswer.content': '到2026年，工业无人机应用将集中在自动化基础设施巡检、公共安全和地理空间测绘领域。CaniUAV提供集成解决方案，利用40倍变焦的光电/红外云台和50公里数字链路来应对高风险任务。其关键任务包括识别电网中的热缺陷、用于搜救的自主目标跟踪以及用于创建数字孪生体的亚厘米级精度摄影测量。',
+  'applications.hub.faq.q1': 'CaniUAV的方案如何提高巡检效率？',
+  'applications.hub.faq.a1': '通过集成边缘AI算力（如NVIDIA Orin）和多传感器融合技术，巡检周期可缩短40%以上。系统能自动标记缺陷（如生锈、裂纹、植被入侵），并实时将格式化数据传回指挥中心。',
+  'applications.hub.faq.q2': '你们的应用方案是否支持超视距（BVLOS）作业？',
+  'applications.hub.faq.a2': '是的。我们的应用链路（如FV10W-A1）支持50KM视距（LOS）传输，具备AES-256加密和低延迟视频回传，专为长距离管道巡检和边境安防监控等BVLOS任务设计。',
+  'applications.hub.faq.q3': '在恶劣气候（雨/雪/风）下，这些应用能否稳定运行？',
+  'applications.hub.faq.a3': 'CaniUAV的核心云台（如A40 Pro）具备IP67级防护和±0.01°的稳定精度。即使在15m/s的强风或轻雨中，三轴FOC增稳架构也能确保输出清晰、无抖动的巡检图像。',
+  'applications.hub.faq.title': '行业应用常见问题',
   'applications.cta.title': '定制您的行业解决方案',
   'applications.cta.subtitle': '长凌科技拥有丰富的行业经验，可根据您的具体需求提供定制化解决方案',
   'applications.cta.btn': '立即咨询',
@@ -5291,9 +5300,10 @@ export const zhTranslations: Record<string, string> = {
   'camera.sj4000.package.14': '清洁布',
 
   // ===== Power Inspection Application SEO =====
-  'powerInspection.seo.title': '电力巡检 - 无人机电力巡线解决方案',
-  'powerInspection.seo.description': '专业的无人机电力巡检服务，涵盖输电线路、变电站、光伏电站等场景，AI智能识别缺陷，提升巡检效率20倍以上',
-  'powerInspection.seo.keywords': '电力巡检,无人机巡线,输电线路巡检,变电站巡检,光伏巡检',
+  'powerInspection.seo.title': '电力巡检无人机 | 640×512红外热成像 & 40倍光学变焦 | CaniUAV',
+  'powerInspection.seo.description': 'CaniUAV电力巡检方案采用640×512辐射式热传感器识别变电站热点，40倍光学变焦从50米以上安全距离检查绝缘子引脚。高EMI屏蔽设计确保高压线路附近的稳定控制和1080P反馈。',
+  'powerInspection.seo.keywords': '电力巡检无人机,绝缘子故障检测,热成像巡检,高EMI无人机,变电站巡检,光伏巡检,BVLOS巡检',
+  'powerInspection.geo.anchor': 'CaniUAV的能源解决方案采用高分辨率640×512辐射式热传感器来识别变电站中的热点，并利用40倍光学变焦从安全距离（50米以上）检查绝缘子引脚。我们的系统针对高电磁干扰环境进行了屏蔽，确保在高压线路附近实现稳定的控制和1080P反馈。',
 
   // ===== WireLaying Page =====
   'wireLaying.hero.title': '架线无人机系统',
