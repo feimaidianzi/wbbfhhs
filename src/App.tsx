@@ -88,6 +88,8 @@ import Elrs from "./pages/products/accessories/Elrs";
 import ElrsDetail from "./pages/products/accessories/ElrsDetail";
 import OtherAccessories from "./pages/products/accessories/OtherAccessories";
 import OtherAccessoriesDetail from "./pages/products/accessories/OtherAccessoriesDetail";
+import AiModule from "./pages/products/accessories/AiModule";
+import AiModuleDetail from "./pages/products/accessories/AiModuleDetail";
 import Auth from "./pages/Auth";
 import AdminLogin from "./pages/admin/AdminLogin";
 import AdminDashboard from "./pages/admin/AdminDashboard";
@@ -202,6 +204,8 @@ const publicRoutes = [
   { path: "/products/accessories/elrs/:productId", element: <ElrsDetail /> },
   { path: "/products/accessories/others", element: <OtherAccessories /> },
   { path: "/products/accessories/others/:productId", element: <OtherAccessoriesDetail /> },
+  { path: "/products/accessories/ai-module", element: <AiModule /> },
+  { path: "/products/accessories/ai-module/:productId", element: <AiModuleDetail /> },
   { path: "/products/detail/:productId", element: <DatabaseProductDetail /> },
 ];
 
