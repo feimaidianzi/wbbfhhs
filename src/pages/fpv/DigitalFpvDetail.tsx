@@ -10,10 +10,11 @@ import { digitalFpvProducts } from "@/data/digitalFpvProducts";
 import { MultiLanguageSEO } from "@/components/MultiLanguageSEO";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { useState } from "react";
+import { Helmet } from "react-helmet-async";
 
 const DigitalFpvDetail = () => {
   const { productId } = useParams<{ productId: string }>();
-  const { t } = useLanguage();
+  const { language, t } = useLanguage();
   const product = digitalFpvProducts.find(p => p.id === productId);
   const [selectedImage, setSelectedImage] = useState(0);
 
@@ -35,7 +36,6 @@ const DigitalFpvDetail = () => {
       'digitalFpv.feature.wideVoltage': Zap,
       'digitalFpv.feature.fcCompat': Target,
     };
-    // Try to match by the key itself
     for (const [key, icon] of Object.entries(keyMap)) {
       if (titleKey.includes(key) || titleKey === key) return icon;
     }
@@ -43,6 +43,28 @@ const DigitalFpvDetail = () => {
   };
 
   const isS900 = product.id === "s900-datalink";
+
+  // Build JSON-LD Product schema with additionalProperty
+  const productJsonLd = {
+    '@context': 'https://schema.org/',
+    '@type': 'Product',
+    name: `CaniUAV ${t(product.nameKey)}`,
+    description: t(product.descriptionKey),
+    image: product.image,
+    brand: { '@type': 'Brand', name: 'CaniUAV' },
+    sku: `CANI-${product.id.toUpperCase()}`,
+    manufacturer: {
+      '@type': 'Organization',
+      name: language === 'zh' ? '长凌科技有限公司' : 'CANI Technology Co., Ltd.',
+    },
+    additionalProperty: product.specs.flatMap(specGroup =>
+      specGroup.items.map(item => ({
+        '@type': 'PropertyValue',
+        name: t(item.labelKey),
+        value: item.value,
+      }))
+    ),
+  };
 
   return (
     <div className="min-h-screen">
@@ -52,6 +74,9 @@ const DigitalFpvDetail = () => {
         keywords={`${t('digitalFpv.title')},${t(product.nameKey)},FPV,${t('digitalFpv.seo.keywords')}`}
         path={`/products/accessories/digital-fpv/${productId}`}
       />
+      <Helmet>
+        <script type="application/ld+json">{JSON.stringify(productJsonLd)}</script>
+      </Helmet>
       <Header />
       <main className="pt-16 md:pt-20">
         {/* Breadcrumb */}
@@ -110,7 +135,7 @@ const DigitalFpvDetail = () => {
                 <div className="bg-white/10 backdrop-blur rounded-3xl p-8">
                   <img
                     src={product.gallery[selectedImage] || product.image}
-                    alt={t(product.nameKey)}
+                    alt={`${t(product.nameKey)} - CaniUAV industrial digital video transmission system`}
                     className="w-full h-auto rounded-2xl"
                   />
                 </div>
@@ -125,7 +150,7 @@ const DigitalFpvDetail = () => {
                           selectedImage === idx ? 'border-accent' : 'border-transparent opacity-60 hover:opacity-100'
                         }`}
                       >
-                        <img src={img} alt={`${t(product.nameKey)} ${idx + 1}`} className="w-full h-full object-cover" />
+                        <img src={img} alt={`${t(product.nameKey)} view ${idx + 1}`} className="w-full h-full object-cover" />
                       </button>
                     ))}
                   </div>
@@ -220,10 +245,10 @@ const DigitalFpvDetail = () => {
                 </div>
                 
                 <div className="grid grid-cols-2 gap-4">
-                  <img src={product.gallery[0]} alt="S900 Front" className="rounded-xl shadow-lg" />
-                  <img src={product.gallery[3]} alt="S900 Side" className="rounded-xl shadow-lg" />
-                  <img src={product.gallery[6]} alt="S900 Interface" className="rounded-xl shadow-lg" />
-                  <img src={product.gallery[1]} alt="S900 Top" className="rounded-xl shadow-lg" />
+                  <img src={product.gallery[0]} alt="S900 UAV Datalink Radio front view" className="rounded-xl shadow-lg" />
+                  <img src={product.gallery[3]} alt="S900 UAV Datalink Radio side view" className="rounded-xl shadow-lg" />
+                  <img src={product.gallery[6]} alt="S900 UAV Datalink Radio interface detail" className="rounded-xl shadow-lg" />
+                  <img src={product.gallery[1]} alt="S900 UAV Datalink Radio top view" className="rounded-xl shadow-lg" />
                 </div>
               </div>
             </div>
@@ -317,7 +342,7 @@ const DigitalFpvDetail = () => {
                   >
                     <img 
                       src={img} 
-                      alt={`${t(product.nameKey)} - ${idx + 1}`} 
+                      alt={`${t(product.nameKey)} - industrial UAV datalink view ${idx + 1}`} 
                       className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
                     />
                   </div>

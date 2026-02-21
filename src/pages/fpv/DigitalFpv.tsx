@@ -2,15 +2,52 @@ import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { FloatingContact } from "@/components/FloatingContact";
 import { Button } from "@/components/ui/button";
-import { ArrowRight, Wifi, Monitor, Zap, Radio } from "lucide-react";
+import { ArrowRight, Wifi, Monitor, Zap, Radio, ShieldCheck } from "lucide-react";
 import { LangLink as Link } from "@/components/LangLink";
 import { BackButton } from "@/components/BackButton";
 import { digitalFpvProducts, digitalFpvCategories } from "@/data/digitalFpvProducts";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { MultiLanguageSEO } from "@/components/MultiLanguageSEO";
+import { Helmet } from "react-helmet-async";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
 
 const DigitalFpv = () => {
-  const { t } = useLanguage();
+  const { language, t } = useLanguage();
+
+  // GEO FAQ data
+  const faqItems = [
+    { q: t('digitalFpv.geo.faq.q1'), a: t('digitalFpv.geo.faq.a1') },
+    { q: t('digitalFpv.geo.faq.q2'), a: t('digitalFpv.geo.faq.a2') },
+    { q: t('digitalFpv.geo.faq.q3'), a: t('digitalFpv.geo.faq.a3') },
+    { q: t('digitalFpv.geo.faq.q4'), a: t('digitalFpv.geo.faq.a4') },
+    { q: t('digitalFpv.geo.faq.q5'), a: t('digitalFpv.geo.faq.a5') },
+    { q: t('digitalFpv.geo.faq.q6'), a: t('digitalFpv.geo.faq.a6') },
+  ];
+
+  // JSON-LD FAQPage schema
+  const faqSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: faqItems.map(item => ({
+      '@type': 'Question',
+      name: item.q,
+      acceptedAnswer: { '@type': 'Answer', text: item.a },
+    })),
+  };
+
+  // Comparison data rows
+  const comparisonRows = [
+    { key: 'maxPower', cani: 'cani.power', dji: 'dji.power', walksnail: 'walksnail.power' },
+    { key: 'range', cani: 'cani.range', dji: 'dji.range', walksnail: 'walksnail.range' },
+    { key: 'modulation', cani: 'cani.modulation', dji: 'dji.modulation', walksnail: 'walksnail.modulation' },
+    { key: 'encryption', cani: 'cani.encryption', dji: 'dji.encryption', walksnail: 'walksnail.encryption' },
+    { key: 'platform', cani: 'cani.platform', dji: 'dji.platform', walksnail: 'walksnail.platform' },
+  ];
 
   return (
     <div className="min-h-screen">
@@ -20,6 +57,9 @@ const DigitalFpv = () => {
         keywords={t('digitalFpv.seo.keywords')}
         path="/products/accessories/digital-fpv"
       />
+      <Helmet>
+        <script type="application/ld+json">{JSON.stringify(faqSchema)}</script>
+      </Helmet>
       <Header />
       <main className="pt-16 md:pt-20">
         {/* Breadcrumb */}
@@ -35,18 +75,24 @@ const DigitalFpv = () => {
           </div>
         </div>
 
-        {/* Hero */}
-        <section className="relative h-[400px] md:h-[500px] overflow-hidden bg-gradient-to-br from-primary via-primary/90 to-accent/30">
+        {/* Hero with GEO Quick Answer */}
+        <section className="relative h-auto min-h-[400px] md:min-h-[500px] overflow-hidden bg-gradient-to-br from-primary via-primary/90 to-accent/30">
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_50%,rgba(255,255,255,0.1),transparent_50%)]" />
-          <div className="relative container-custom h-full flex items-center">
-            <div className="max-w-2xl">
+          <div className="relative container-custom py-16 flex items-center">
+            <div className="max-w-3xl">
               <BackButton to="/products/accessories" label={t('digitalFpv.backToAccessories')} />
               <h1 className="text-3xl md:text-5xl font-bold text-primary-foreground mb-4">
                 {t('digitalFpv.title')}
               </h1>
-              <p className="text-lg text-primary-foreground/90 mb-6">
+              <p className="text-lg text-primary-foreground/90 mb-4">
                 {t('digitalFpv.hero.subtitle')}
               </p>
+              {/* GEO Quick Answer Block */}
+              <div className="bg-primary-foreground/10 backdrop-blur-sm border border-primary-foreground/20 rounded-xl p-5 mb-6">
+                <p className="text-primary-foreground/85 text-sm leading-relaxed">
+                  {t('digitalFpv.hero.quickAnswer')}
+                </p>
+              </div>
               <div className="flex flex-wrap gap-4">
                 <div className="flex items-center gap-2 bg-white/10 backdrop-blur px-4 py-2 rounded-full">
                   <Wifi className="w-5 h-5 text-accent" />
@@ -59,6 +105,10 @@ const DigitalFpv = () => {
                 <div className="flex items-center gap-2 bg-white/10 backdrop-blur px-4 py-2 rounded-full">
                   <Zap className="w-5 h-5 text-accent" />
                   <span className="text-primary-foreground text-sm">{t('digitalFpv.feature.lowLatency')}</span>
+                </div>
+                <div className="flex items-center gap-2 bg-white/10 backdrop-blur px-4 py-2 rounded-full">
+                  <ShieldCheck className="w-5 h-5 text-accent" />
+                  <span className="text-primary-foreground text-sm">AES-256</span>
                 </div>
               </div>
             </div>
@@ -123,6 +173,70 @@ const DigitalFpv = () => {
             </section>
           );
         })}
+
+        {/* B2B Comparison Table */}
+        <section className="py-16 bg-secondary">
+          <div className="container-custom">
+            <div className="text-center mb-12">
+              <h2 className="text-2xl md:text-3xl font-bold mb-4">{t('digitalFpv.comparison.title')}</h2>
+              <div className="w-20 h-1 bg-accent mx-auto rounded-full" />
+            </div>
+            <div className="overflow-x-auto">
+              <table className="w-full bg-card rounded-xl overflow-hidden shadow-card">
+                <thead>
+                  <tr className="bg-primary text-primary-foreground">
+                    <th className="px-6 py-4 text-left font-bold">{t('digitalFpv.comparison.dimension')}</th>
+                    <th className="px-6 py-4 text-left font-bold">CaniUAV FV10W-A1</th>
+                    <th className="px-6 py-4 text-left font-bold">DJI Transmission</th>
+                    <th className="px-6 py-4 text-left font-bold">Walksnail Avatar HD</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {comparisonRows.map((row, idx) => (
+                    <tr key={row.key} className={idx % 2 === 0 ? 'bg-card' : 'bg-secondary/30'}>
+                      <td className="px-6 py-4 font-medium text-foreground">{t(`digitalFpv.comparison.${row.key}`)}</td>
+                      <td className="px-6 py-4 text-accent font-semibold">{t(`digitalFpv.comparison.${row.cani}`)}</td>
+                      <td className="px-6 py-4 text-muted-foreground">{t(`digitalFpv.comparison.${row.dji}`)}</td>
+                      <td className="px-6 py-4 text-muted-foreground">{t(`digitalFpv.comparison.${row.walksnail}`)}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        {/* GEO FAQ Section */}
+        <section className="py-16 bg-background">
+          <div className="container-custom">
+            <div className="text-center mb-12">
+              <h2 className="text-2xl md:text-3xl font-bold text-foreground mb-4">
+                {t('digitalFpv.geo.faq.title')}
+              </h2>
+              <p className="text-muted-foreground max-w-2xl mx-auto">
+                {t('digitalFpv.geo.faq.subtitle')}
+              </p>
+            </div>
+            <div className="max-w-3xl mx-auto">
+              <Accordion type="single" collapsible className="space-y-4">
+                {faqItems.map((faq, index) => (
+                  <AccordionItem
+                    key={index}
+                    value={`faq-${index}`}
+                    className="bg-card rounded-xl border border-border px-6 shadow-sm"
+                  >
+                    <AccordionTrigger className="text-left font-semibold text-foreground hover:text-accent py-5">
+                      {faq.q}
+                    </AccordionTrigger>
+                    <AccordionContent className="text-muted-foreground pb-5 leading-relaxed">
+                      {faq.a}
+                    </AccordionContent>
+                  </AccordionItem>
+                ))}
+              </Accordion>
+            </div>
+          </div>
+        </section>
 
         {/* CTA */}
         <section className="py-16 bg-primary">
