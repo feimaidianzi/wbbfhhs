@@ -105,13 +105,13 @@ export const zhTranslations: Record<string, string> = {
   'accessory.others.desc': '辅助配件装备',
 
   // ===== Camera Page =====
-  'camera.seo.title': '高清数字相机 - 长凌科技',
-  'camera.seo.description': '专业运动相机产品，支持1080P高清录制、WiFi传输、30米防水，适用于FPV航拍、运动摄影等多种场景',
-  'camera.seo.keywords': '运动相机,高清相机,WiFi相机,防水相机,1080P,FPV相机,长凌,CANI',
-  'camera.hero.title': '高清',
-  'camera.hero.highlight': '数字相机',
+  'camera.seo.title': '工业级无人机运动相机 | 经济实惠的无人机成像解决方案 | CaniUAV',
+  'camera.seo.description': '高性能、高性价比的无人机运动相机。SJ4000 WiFi系列支持1080P全高清录制，配备170°广角镜头，可与无人机无缝集成，适用于轻型巡检和FPV任务。',
+  'camera.seo.keywords': '无人机运动相机,1080P无人机相机,WiFi FPV相机,170度广角无人机相机,30米防水相机,经济实惠无人机相机,SJ4000 WiFi,CaniUAV,CANI长凌科技',
+  'camera.hero.title': '工业级无人机',
+  'camera.hero.highlight': '运动相机',
   'camera.hero.suffix': '系列',
-  'camera.hero.desc': '专业运动摄像设备，支持1080P高清录制、WiFi无线传输、30米防水深度，适用于FPV航拍、运动摄影、水下拍摄等多种场景',
+  'camera.hero.desc': '正在寻找性价比最高的无人机集成相机？CaniUAV提供专为轻型无人机任务设计的专业级运动相机。我们目前的旗舰产品SJ4000 WiFi完美平衡了1080P全高清视频、1200万像素照片和170度超广角视野，使其成为入门级基础设施监控和战术FPV反馈的行业标准。',
   'camera.feature.pixel': '1200万像素',
   'camera.feature.wifi': 'WiFi传输',
   'camera.feature.waterproof': '30M防水',
@@ -120,6 +120,22 @@ export const zhTranslations: Record<string, string> = {
   'camera.cta.title': '需要定制化相机解决方案？',
   'camera.cta.desc': '我们提供OEM/ODM定制服务，可根据您的需求定制传感器配置、接口协议、外观设计等',
   'camera.cta.btn': '联系我们',
+
+  // Camera Hub FAQ (GEO)
+  'camera.faq.q1': 'SJ4000 WiFi是否可以作为无人机的FPV相机使用？',
+  'camera.faq.a1': '是的。其具备170°视野和超轻量化机身，SJ4000 WiFi非常适合作为FPV（第一人称视角）摄像头。通过其内置的WiFi模块或AV输出端口，可以将高清实时视频回传至操作终端，辅助飞行员进行精准定位和导航。',
+  'camera.faq.q2': '在复杂的工业环境下，SJ4000的稳定性如何？',
+  'camera.faq.a2': 'SJ4000 WiFi配备了IP68级防护外壳，支持最高30米水深作业，具备出色的防震性能。其成熟的CMOS传感器技术保证了在振动的无人机平台（如多旋翼或固定翼）上依然能输出稳定的1080P影像数据。',
+  'camera.faq.q3': 'SJ4000 WiFi与CaniUAV的云台系统兼容吗？',
+  'camera.faq.a3': 'SJ4000采用通用的运动相机安装接口，可与CaniUAV的两轴或三轴轻量化云台无缝集成，进一步提升画面稳定性。',
+
+  // SJ4000 Detail TDK
+  'camera.tdk.sj4000.title': 'SJ4000 WiFi无人机运动相机 | 1080P高清 & 170°广角镜头 | CaniUAV',
+  'camera.tdk.sj4000.desc': 'SJ4000 WiFi是一款轻巧、经济实惠的运动相机，专为工业无人机应用而优化。配备1200万像素CMOS传感器、集成WiFi实时预览，30米防水外壳，适用于轻型巡检和FPV任务。',
+  'camera.tdk.sj4000.keywords': 'SJ4000 WiFi,无人机运动相机,1080P无人机相机,170度广角,WiFi FPV相机,30米防水,1200万像素,CaniUAV',
+
+  // SJ4000 Quick Answer (GEO)
+  'camera.sj4000.quickAnswer': '为什么选择SJ4000 WiFi用于工业无人机？SJ4000 WiFi是无人机集成的首选，尤其适用于重量（SWaP）和成本至关重要的应用场景。它支持通过WiFi进行1080P实时视频流传输，实现远程监控，并配备170°广角镜头，有效消除盲区。凭借其坚固耐用的设计和1200万像素图像传感器，对于非地理空间检测任务而言，它是一款可靠且高性价比的高端测绘相机替代方案。',
 
   // ===== Gimbal Page =====
   'gimbal.seo.title': '工业无人机云台吊舱 | 四光/双光/单光AI云台相机 - CANI长凌科技',
@@ -3269,6 +3285,27 @@ export const zhTranslations: Record<string, string> = {
   'cameraDetail.accessoriesDesc': '丰富的安装配件，满足各种使用场景',
   'cameraDetail.ctaTitle': '准备好开启您的拍摄之旅？',
   'cameraDetail.ctaDesc': '联系我们获取详细报价和技术支持',
+
+  // Camera Detail Page - accessoryDetail.camera.* keys (used by CameraDetail.tsx)
+  'accessoryDetail.camera.wideAngle': '1200万像素COMS大广角成像',
+  'accessoryDetail.camera.wideAngleDesc': '170度大广角，拍摄视野更加宽广，1200万像素拍照图像质量进一步提升。配备2.0英寸高清炫丽显示屏，边看边拍。',
+  'accessoryDetail.camera.12mp': '1200万像素',
+  'accessoryDetail.camera.170deg': '170°广角',
+  'accessoryDetail.camera.2inch': '2.0寸屏幕',
+  'accessoryDetail.camera.hdQuality': '高清画质 影院级享受',
+  'accessoryDetail.camera.hdQualityDesc': 'SJ4000 WIFI可录制1080P高清视频（1920×1080），WDR宽动态效果让画质更加真实自然。',
+  'accessoryDetail.camera.hdVideo': '高清视频',
+  'accessoryDetail.camera.wideDynamic': '宽动态',
+  'accessoryDetail.camera.smartApp': '智能APP 分享无界',
+  'accessoryDetail.camera.smartAppDesc': 'CANI APP支持快速分享图片、视频到多种社交平台，同时支持图片和视频编辑。',
+  'accessoryDetail.camera.colorful': '多彩外观',
+  'accessoryDetail.camera.colorfulDesc': '多种颜色可选，展现你的个性风格',
+  'accessoryDetail.camera.featuresDesc': '专为工业无人机和运动场景打造的核心功能',
+  'accessoryDetail.camera.accessoriesDesc': '丰富的安装配件，满足各种使用场景',
+  'accessoryDetail.camera.ctaTitle': '准备好开启您的拍摄之旅？',
+  'accessoryDetail.camera.ctaDesc': '联系我们获取详细报价和技术支持',
+  'accessoryDetail.cameraKeywords': '运动相机,无人机相机,SJ4000,WiFi相机,1080P,FPV相机,CaniUAV',
+  'accessoryDetail.specsOverview': '详细的技术参数，满足您的专业需求',
 
   // Power Inspection Page
   'powerInspection.hero.title': '电力巡检解决方案',
