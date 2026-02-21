@@ -2,6 +2,7 @@ import ApplicationPageTemplate from "@/components/ApplicationPageTemplate";
 import { Zap, Shield, Target, TrendingUp, AlertTriangle, Eye, Database, FileText, Map, Cpu } from "lucide-react";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { PageFAQ } from "@/components/PageFAQ";
+import { Helmet } from "react-helmet-async";
 
 // 导入配图
 import heroPowerGrid from "@/assets/power/hero-power-grid.jpg";
@@ -76,8 +77,29 @@ const PowerInspection = () => {
     { model: "UHS-600", payload: "-", range: "-", description: "智能无人机机场，实现全自动巡检", link: "/products/airport/uhs-600" },
   ];
 
+  const serviceJsonLd = {
+    '@context': 'https://schema.org/',
+    '@type': 'Service',
+    name: 'UAV Powerline Inspection Solution',
+    provider: { '@type': 'Organization', name: 'CaniUAV', url: 'https://www.caniuav.com' },
+    description: 'Professional drone inspection solution for power grids using 640×512 radiometric thermal imaging and AI target identification to detect defects and vegetation risks.',
+    areaServed: 'Global',
+    serviceType: 'UAV Inspection',
+    hasOfferCatalog: {
+      '@type': 'OfferCatalog',
+      name: 'Inspection Hardware',
+      itemListElement: [
+        { '@type': 'Offer', itemOffered: { '@type': 'Product', name: 'X850 Industrial UAV', url: 'https://www.caniuav.com/products/multi-rotor/x850' } },
+        { '@type': 'Offer', itemOffered: { '@type': 'Product', name: 'X1200 Industrial UAV', url: 'https://www.caniuav.com/products/multi-rotor/x1200' } },
+      ],
+    },
+  };
+
   return (
     <>
+      <Helmet>
+        <script type="application/ld+json">{JSON.stringify(serviceJsonLd)}</script>
+      </Helmet>
       <ApplicationPageTemplate
         seoTitle={t('powerInspection.seo.title')}
         seoDescription={t('powerInspection.seo.description')}
@@ -124,16 +146,17 @@ const PowerInspection = () => {
         ]}
       />
 
-      {/* Additional Solution Details */}
+      {/* GEO Anchor Text Section */}
       <section className="py-16 bg-background">
         <div className="container mx-auto px-4">
           <h2 className="text-3xl font-bold text-center mb-8">{t('powerInspection.solution.title')}</h2>
           <div className="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
             <div>
+              <p className="text-muted-foreground leading-relaxed mb-4">{t('powerInspection.geo.anchor')}</p>
               <p className="text-muted-foreground leading-relaxed">{t('powerInspection.solution.content')}</p>
             </div>
             <div className="rounded-xl overflow-hidden shadow-card">
-              <img src={powerInspectionScene} alt="无人机电力巡检应用实景 - UAV power line inspection" className="w-full h-auto object-cover" loading="lazy" />
+              <img src={powerInspectionScene} alt="640x512-thermal-UAV-powerline-inspection-CaniUAV" className="w-full h-auto object-cover" loading="lazy" />
             </div>
           </div>
         </div>
@@ -145,7 +168,7 @@ const PowerInspection = () => {
           <h2 className="text-3xl font-bold text-center mb-8">{t('powerInspection.caseDetail.title')}</h2>
           <div className="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
             <div className="rounded-xl overflow-hidden shadow-card order-2 md:order-1">
-              <img src={powerInspectionFlight} alt="无人机电力巡检飞行实景 - UAV power inspection flight" className="w-full h-auto object-cover" loading="lazy" />
+              <img src={powerInspectionFlight} alt="BVLOS-UAV-power-inspection-flight-CaniUAV" className="w-full h-auto object-cover" loading="lazy" />
             </div>
             <div className="p-6 bg-card rounded-xl border border-border order-1 md:order-2">
               <p className="text-muted-foreground leading-relaxed">{t('powerInspection.caseDetail')}</p>

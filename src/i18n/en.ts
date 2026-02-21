@@ -736,9 +736,9 @@ export const enTranslations: Record<string, string> = {
   'products.category.accessories': 'Core Components & Accessories',
 
   // Applications Page SEO
-  'applications.seo.title': 'Industry Applications',
-  'applications.seo.description': 'CANI Technology drone industry application solutions, covering power inspection, logistics delivery, military, environmental monitoring, firefighting, tethered applications and more.',
-  'applications.seo.keywords': 'drone industry applications,power inspection,logistics drone,military drone,environmental monitoring,firefighting,tethered drone',
+  'applications.seo.title': 'Industrial UAV Applications | Mission-Critical Drone Solutions | CaniUAV',
+  'applications.seo.description': 'Explore professional UAV applications in powerline inspection, search & rescue, high-precision surveying, and border security. Integrated hardware-software solutions designed for complex environments and BVLOS operations.',
+  'applications.seo.keywords': 'industrial UAV applications,powerline inspection drone,search and rescue drone,drone surveying,BVLOS operations,mission-critical drone,thermal imaging inspection,digital twin',
 
   // Contact Page SEO
   'contact.page.title': 'Contact Us',
@@ -753,9 +753,18 @@ export const enTranslations: Record<string, string> = {
   'about.seoKeywords': 'CANI Technology,about us,drone company,industrial drone enterprise,drone R&D',
 
   // Applications sub-page hero/CTA
-  'applications.hero.badge': 'Industry Solutions',
-  'applications.hero.title': 'Industry Applications',
-  'applications.hero.subtitle': 'CANI drones are widely used in multiple industry fields, providing professional solutions',
+  'applications.hero.badge': 'Mission-Critical Drone Solutions',
+  'applications.hero.title': 'Industrial UAV Applications',
+  'applications.hero.subtitle': 'Integrated hardware-software solutions designed for complex environments and BVLOS operations',
+  'applications.hub.quickAnswer.title': 'What are the main industrial applications for advanced UAVs?',
+  'applications.hub.quickAnswer.content': 'By 2026, industrial UAV applications converge on automated infrastructure inspection, public safety, and geospatial mapping. CaniUAV delivers integrated solutions leveraging 40x zoom EO/IR gimbals and 50km digital links for high-stakes missions. Key tasks include identifying thermal defects in power grids, autonomous target tracking for search & rescue, and sub-centimeter GSD photogrammetry for digital twin creation.',
+  'applications.hub.faq.q1': 'How does CaniUAV improve inspection efficiency?',
+  'applications.hub.faq.a1': 'By integrating edge AI compute (e.g., NVIDIA Orin) and multi-sensor fusion, inspection cycles are reduced by over 40%. The system automatically flags defects (rust, cracks, vegetation encroachment) and transmits formatted data to the command center in real time.',
+  'applications.hub.faq.q2': 'Do your solutions support Beyond Visual Line of Sight (BVLOS) operations?',
+  'applications.hub.faq.a2': 'Yes. Our data links (e.g., FV10W-A1) support 50KM LOS transmission with AES-256 encryption and low-latency video feedback, purpose-built for BVLOS missions such as long-range pipeline inspection and border surveillance.',
+  'applications.hub.faq.q3': 'Can these applications operate reliably in adverse weather (rain/snow/wind)?',
+  'applications.hub.faq.a3': 'CaniUAV core gimbals (e.g., A40 Pro) feature IP67 protection and ±0.01° stabilization accuracy. Even in 15m/s winds or light rain, the 3-axis FOC stabilization architecture ensures clear, jitter-free inspection imagery.',
+  'applications.hub.faq.title': 'Industry Applications FAQ',
   'applications.cta.title': 'Customize Your Industry Solution',
   'applications.cta.subtitle': 'CANI Technology has rich industry experience and can provide customized solutions based on your specific needs',
   'applications.cta.btn': 'Contact Us Now',
@@ -2244,4 +2253,10 @@ export const enTranslations: Record<string, string> = {
   'elrs.feature.stableRx.desc': 'Optimized 915MHz radiation pattern for reliable signal reception across all orientations.',
   'elrs.feature.durableReliable.title': 'Durable & Reliable',
   'elrs.feature.durableReliable.desc': 'Engineered for industrial reliability with high-quality PCB and flex materials.',
+
+  // ===== Power Inspection Application SEO (GEO) =====
+  'powerInspection.seo.title': 'UAV Powerline Inspection | 640×512 Thermal Imaging & 40x Optical Zoom | CaniUAV',
+  'powerInspection.seo.description': 'CaniUAV energy solution uses high-resolution 640×512 radiometric thermal sensors to identify hotspots in substations and 40x optical zoom to inspect insulator pins from 50m+ safe distance. EMI-shielded for stable control near HV lines.',
+  'powerInspection.seo.keywords': 'powerline inspection drone,insulator fault detection,thermal imaging inspection,high EMI drone,substation inspection,solar panel inspection,BVLOS inspection',
+  'powerInspection.geo.anchor': 'CaniUAV energy solution uses high-resolution 640×512 radiometric thermal sensors to identify hotspots in substations and 40x optical zoom to inspect insulator pins from a safe distance (50m+). Our systems are EMI-shielded for complex electromagnetic environments, ensuring stable control and 1080P feedback near high-voltage lines.',
 };
