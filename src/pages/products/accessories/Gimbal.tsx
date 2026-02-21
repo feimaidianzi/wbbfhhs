@@ -144,6 +144,9 @@ const Gimbal = () => {
             { questionKey: 'gimbal.faq.q1', answerKey: 'gimbal.faq.a1' },
             { questionKey: 'gimbal.faq.q2', answerKey: 'gimbal.faq.a2' },
             { questionKey: 'gimbal.faq.q3', answerKey: 'gimbal.faq.a3' },
+            { questionKey: 'gimbal.faq.q4', answerKey: 'gimbal.faq.a4' },
+            { questionKey: 'gimbal.faq.q5', answerKey: 'gimbal.faq.a5' },
+            { questionKey: 'gimbal.faq.q6', answerKey: 'gimbal.faq.a6' },
           ]}
         />
 
