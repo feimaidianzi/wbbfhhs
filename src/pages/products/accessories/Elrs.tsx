@@ -8,9 +8,32 @@ import { BackButton } from "@/components/BackButton";
 import { elrsProducts, elrsCategories } from "@/data/elrsProducts";
 import { MultiLanguageSEO } from "@/components/MultiLanguageSEO";
 import { useLanguage } from "@/contexts/LanguageContext";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
 
 const Elrs = () => {
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
+
+  const faqItems = [
+    { q: t('elrs.faq.q1'), a: t('elrs.faq.a1') },
+    { q: t('elrs.faq.q2'), a: t('elrs.faq.a2') },
+    { q: t('elrs.faq.q3'), a: t('elrs.faq.a3') },
+  ];
+
+  const faqStructuredData = {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    inLanguage: language === 'zh' ? 'zh-CN' : 'en',
+    mainEntity: faqItems.map(faq => ({
+      '@type': 'Question',
+      name: faq.q,
+      acceptedAnswer: { '@type': 'Answer', text: faq.a },
+    })),
+  };
 
   return (
     <div className="min-h-screen">
@@ -19,6 +42,7 @@ const Elrs = () => {
         description={t('elrs.seo.description')}
         keywords={t('elrs.seo.keywords')}
         path="/products/accessories/elrs"
+        structuredData={faqStructuredData}
       />
       <Header />
       <main className="pt-16 md:pt-20">
@@ -35,16 +59,16 @@ const Elrs = () => {
           </div>
         </div>
 
-        {/* Hero */}
-        <section className="relative h-[400px] md:h-[500px] overflow-hidden bg-gradient-to-br from-primary via-primary/90 to-accent/30">
+        {/* Hero with GEO Quick Answer */}
+        <section className="relative h-auto min-h-[400px] md:min-h-[500px] overflow-hidden bg-gradient-to-br from-primary via-primary/90 to-accent/30 py-16">
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_50%,rgba(255,255,255,0.1),transparent_50%)]" />
           <div className="relative container-custom h-full flex items-center">
-            <div className="max-w-2xl">
+            <div className="max-w-3xl">
               <BackButton to="/products/accessories" label={t('elrs.back')} />
               <h1 className="text-3xl md:text-5xl font-bold text-primary-foreground mb-4">
                 {t('elrs.hero.title')}
               </h1>
-              <p className="text-lg text-primary-foreground/90 mb-6">
+              <p className="text-lg text-primary-foreground/90 mb-6 leading-relaxed">
                 {t('elrs.hero.desc')}
               </p>
               <div className="flex flex-wrap gap-4">
@@ -91,8 +115,9 @@ const Elrs = () => {
                       <div className="aspect-square overflow-hidden bg-gradient-to-br from-secondary to-secondary/50 relative p-4">
                         <img
                           src={product.image}
-                          alt={t(product.nameKey)}
+                          alt={`industrial-UAV-ELRS-${product.id}`}
                           className="w-full h-full object-contain group-hover:scale-105 transition-transform duration-500"
+                          loading="lazy"
                         />
                       </div>
                       <div className="p-5">
@@ -123,6 +148,27 @@ const Elrs = () => {
             </section>
           );
         })}
+
+        {/* FAQ Section (GEO) */}
+        <section className="py-16 bg-muted/30">
+          <div className="container-custom max-w-4xl mx-auto">
+            <h2 className="text-2xl md:text-3xl font-bold text-center mb-8">
+              {language === 'zh' ? '常见问题' : 'Frequently Asked Questions'}
+            </h2>
+            <Accordion type="single" collapsible className="w-full">
+              {faqItems.map((faq, idx) => (
+                <AccordionItem key={idx} value={`faq-${idx}`}>
+                  <AccordionTrigger className="text-left text-base font-medium">
+                    {faq.q}
+                  </AccordionTrigger>
+                  <AccordionContent className="text-muted-foreground">
+                    {faq.a}
+                  </AccordionContent>
+                </AccordionItem>
+              ))}
+            </Accordion>
+          </div>
+        </section>
 
         {/* CTA */}
         <section className="py-16 bg-primary">

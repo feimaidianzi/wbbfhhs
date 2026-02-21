@@ -9,6 +9,12 @@ import { BackButton } from "@/components/BackButton";
 import { ArrowRight, Phone, Radio, Wifi, Zap, Signal, Shield, Settings, Check } from "lucide-react";
 import { elrsProducts } from "@/data/elrsProducts";
 import { useLanguage } from "@/contexts/LanguageContext";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
 
 const iconMap: Record<string, React.ComponentType<{ className?: string }>> = {
   "elrs.feature.dualAntenna.title": Radio,
@@ -54,7 +60,7 @@ const iconMap: Record<string, React.ComponentType<{ className?: string }>> = {
 const ElrsDetail = () => {
   const { productId } = useParams<{ productId: string }>();
   const product = elrsProducts.find(p => p.id === productId);
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
 
   if (!product) {
     return <Navigate to="/products/accessories/elrs" replace />;
@@ -62,6 +68,49 @@ const ElrsDetail = () => {
 
   const productName = t(product.nameKey);
   const productDesc = t(product.descriptionKey);
+
+  // FAQ data
+  const faqItems = [
+    { q: t('elrs.faq.q1'), a: t('elrs.faq.a1') },
+    { q: t('elrs.faq.q2'), a: t('elrs.faq.a2') },
+    { q: t('elrs.faq.q3'), a: t('elrs.faq.a3') },
+  ];
+
+  // JSON-LD Product structured data
+  const productStructuredData = {
+    '@context': 'https://schema.org/',
+    '@type': 'Product',
+    name: `CaniUAV ${productName}`,
+    description: productDesc,
+    brand: { '@type': 'Brand', name: 'CaniUAV' },
+    sku: `CANI-ELRS-${product.id.toUpperCase()}`,
+    manufacturer: {
+      '@type': 'Organization',
+      name: language === 'zh' ? 'CANI长凌科技' : 'CANI Technology Co., Ltd.',
+    },
+    additionalProperty: product.specs.flatMap(specGroup =>
+      specGroup.items.map(item => ({
+        '@type': 'PropertyValue',
+        name: t(item.labelKey),
+        value: item.value,
+      }))
+    ),
+    offers: {
+      '@type': 'Offer',
+      availability: 'https://schema.org/InStock',
+      priceCurrency: 'USD',
+    },
+  };
+
+  const faqStructuredData = {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: faqItems.map(faq => ({
+      '@type': 'Question',
+      name: faq.q,
+      acceptedAnswer: { '@type': 'Answer', text: faq.a },
+    })),
+  };
 
   return (
     <div className="min-h-screen">
@@ -71,6 +120,7 @@ const ElrsDetail = () => {
         keywords={`${productName},ELRS,ExpressLRS,${product.keyFeatureKeys.map(k => t(k)).join(',')}`}
         path={`/products/accessories/elrs/${productId}`}
         type="product"
+        structuredData={[productStructuredData, faqStructuredData]}
       />
       <Header />
       <main className="pt-16 md:pt-20">
@@ -86,7 +136,7 @@ const ElrsDetail = () => {
                 <div className="relative bg-white/5 backdrop-blur-sm rounded-3xl p-8 border border-white/10">
                   <img
                     src={product.image}
-                    alt={productName}
+                    alt={`industrial-UAV-ELRS-receiver-${product.id}`}
                     className="w-full h-auto max-h-[400px] object-contain mx-auto"
                   />
                 </div>
@@ -180,6 +230,27 @@ const ElrsDetail = () => {
                 ))}
               </div>
             </div>
+          </div>
+        </section>
+
+        {/* FAQ Section (GEO) */}
+        <section className="py-16 bg-background">
+          <div className="container-custom max-w-4xl mx-auto">
+            <h2 className="text-2xl md:text-3xl font-bold text-center mb-8">
+              {language === 'zh' ? '常见问题' : 'Frequently Asked Questions'}
+            </h2>
+            <Accordion type="single" collapsible className="w-full">
+              {faqItems.map((faq, idx) => (
+                <AccordionItem key={idx} value={`faq-${idx}`}>
+                  <AccordionTrigger className="text-left text-base font-medium">
+                    {faq.q}
+                  </AccordionTrigger>
+                  <AccordionContent className="text-muted-foreground">
+                    {faq.a}
+                  </AccordionContent>
+                </AccordionItem>
+              ))}
+            </Accordion>
           </div>
         </section>
 
