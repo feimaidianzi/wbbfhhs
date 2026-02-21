@@ -2,7 +2,7 @@ import { motion } from "framer-motion";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { FloatingContact } from "@/components/FloatingContact";
-import { ArrowRight, ChevronDown, Box, Cpu, Camera, Radio, Joystick, Wifi, Package, Plane, Link2, Truck, Users, Gamepad2, Brain, Satellite, FileDown, ShieldCheck } from "lucide-react";
+import { ArrowRight, ChevronDown, Box, Cpu, Camera, Radio, Joystick, Wifi, Package, Plane, Link2, Truck, Users, Gamepad2, Brain, Satellite, FileDown, ShieldCheck, Crosshair } from "lucide-react";
 import { LangLink as Link } from "@/components/LangLink";
 import { MultiLanguageSEO, createLocalizedBreadcrumbData } from "@/components/MultiLanguageSEO";
 import { useLanguage } from "@/contexts/LanguageContext";
@@ -43,6 +43,7 @@ const Products = () => {
       links: [
         { label: t('products.anchor.gimbal'), href: "/products/accessories/gimbal" },
         { label: t('products.anchor.camera'), href: "/products/accessories/camera" },
+        { label: t('products.anchor.aiModule'), href: "/products/accessories/ai-module" },
       ],
     },
     {
@@ -65,6 +66,7 @@ const Products = () => {
     { name: t('header.elrs'), href: "/products/accessories/elrs", description: t('header.elrs.desc'), icon: Plane, anchor: t('products.anchor.elrs') },
     { name: t('header.camera'), href: "/products/accessories/camera", description: t('header.camera.desc'), icon: Camera, anchor: t('products.anchor.camera') },
     { name: t('header.others'), href: "/products/accessories/others", description: t('header.others.desc'), icon: Package, anchor: t('products.anchor.others') },
+    { name: t('header.aiModule'), href: "/products/accessories/ai-module", description: t('header.aiModule.desc'), icon: Crosshair, anchor: t('products.anchor.aiModule') },
   ];
 
   const droneCategories = [
