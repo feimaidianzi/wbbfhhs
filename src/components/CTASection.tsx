@@ -52,7 +52,7 @@ export const CTASection = () => {
   ];
 
   const socialContacts = [
-    { icon: WeChatIcon, label: "WeChat", id: "cani_uav", href: "#" },
+    { icon: WeChatIcon, label: "WeChat", id: "+8617558423252", href: "weixin://dl/chat?+8617558423252" },
     { icon: WhatsAppIcon, label: "WhatsApp", href: "https://wa.me/8618163685410" },
     { icon: MessengerIcon, label: "Messenger", href: "https://m.me/caniuav" },
     { icon: TelegramIcon, label: "Telegram", href: "https://t.me/caniuav" },
@@ -99,7 +99,7 @@ export const CTASection = () => {
           </div>
 
           {/* Right Content - Contact Info */}
-          <div className="glass-card rounded-2xl p-8 border border-accent/20 bg-primary-foreground">
+          <div className="glass-card rounded-2xl p-8 border border-accent/20 bg-card">
             <h3 className="text-xl font-bold text-foreground mb-6">
               {t('ctaSection.contactInfo')}
             </h3>
@@ -133,8 +133,8 @@ export const CTASection = () => {
                         href={social.href}
                         target={social.href.startsWith('http') ? '_blank' : undefined}
                         rel={social.href.startsWith('http') ? 'noopener noreferrer' : undefined}
-                        className="w-9 h-9 bg-muted rounded-full flex items-center justify-center text-muted-foreground hover:text-foreground hover:bg-accent/20 transition-colors"
-                        title={social.label}
+                        className="w-9 h-9 bg-muted rounded-full flex items-center justify-center text-muted-foreground hover:text-foreground hover:bg-accent/20 transition-colors flex-shrink-0"
+                        title={`${social.label}${social.id ? ': ' + social.id : ''}`}
                       >
                         <social.icon className="w-4 h-4" />
                       </a>
