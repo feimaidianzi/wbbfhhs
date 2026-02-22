@@ -3,12 +3,13 @@ import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { FloatingContact } from "@/components/FloatingContact";
 import { Button } from "@/components/ui/button";
-import { ArrowRight, CheckCircle, Phone, Mail, Camera, Radio, Thermometer, Radar, Package, Settings, Shield, Cpu, Crosshair } from "lucide-react";
+import { ArrowRight, CheckCircle, Phone, Mail, Camera, Radio, Thermometer, Radar, Package, Settings, Shield, Cpu, Crosshair, Zap, Link2 } from "lucide-react";
 import { LangLink as Link } from "@/components/LangLink";
 import { BackButton } from "@/components/BackButton";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { MultiLanguageSEO } from "@/components/MultiLanguageSEO";
 import { PageFAQ } from "@/components/PageFAQ";
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 
 const PayloadCustom = () => {
   const { t } = useLanguage();
@@ -16,33 +17,51 @@ const PayloadCustom = () => {
   const jsonLd = {
     "@context": "https://schema.org/",
     "@type": "Service",
-    "serviceType": "Industrial UAV Payload Customization",
+    "name": "长凌科技工业无人机载荷定制服务",
+    "serviceType": "UAV Payload OEM/ODM",
+    "description": "提供37W高功率图传、高精度EO/IR吊舱、LiDAR及气体检测等全系列无人机挂载定制方案。",
     "provider": {
       "@type": "Organization",
-      "name": "CANI Technology (长凌科技)",
-      "url": "https://www.caniuav.com/custom-research/payload",
+      "name": "CANI Technology 长凌科技",
+      "url": "https://www.caniuav.com/",
       "logo": "https://www.caniuav.com/logo.png"
     },
     "areaServed": "Global",
-    "description": "专业级无人机载荷定制服务，包括37W高功率图传系统、EO/IR双光云台及工业级OEM/ODM研发方案。",
     "hasOfferCatalog": {
       "@type": "OfferCatalog",
       "name": "Industrial UAV Payloads",
       "itemListElement": [
-        { "@type": "Offer", "name": "37W High-Power Video Transmission System", "description": "1080P/30ms, 50km max link range" },
-        { "@type": "Offer", "name": "EO/IR Dual-Sensor Gimbal Pod", "description": "≤0.1mrad stabilization, 640×512 IR thermal" },
+        { "@type": "Offer", "name": "EO/IR Dual-Sensor Gimbal Pod", "description": "30x/33x optical zoom, 640×512 IR, ≤0.1mrad stabilization" },
+        { "@type": "Offer", "name": "37W BVLOS Communication System", "description": "1080P/30ms, 50km max link range" },
+        { "@type": "Offer", "name": "Survey LiDAR Payload", "description": "3D point cloud, cm-level RTK/PPK positioning" },
+        { "@type": "Offer", "name": "Gas Detection Payload", "description": "Multi-gas real-time detection (CH₄, CO, O₂, SO₂)" },
+        { "@type": "Offer", "name": "Emergency Drop Payload", "description": "Modular dropper for emergency supply transport" },
         { "@type": "Offer", "name": "PDK Payload Development Kit", "description": "CAD models, electrical interfaces, SDK libraries" }
       ]
     }
   };
 
+  const matrixRows = [
+    { component: 'customPayload.matrix.r1.component', spec: 'customPayload.matrix.r1.spec', value: 'customPayload.matrix.r1.value' },
+    { component: 'customPayload.matrix.r2.component', spec: 'customPayload.matrix.r2.spec', value: 'customPayload.matrix.r2.value' },
+    { component: 'customPayload.matrix.r3.component', spec: 'customPayload.matrix.r3.spec', value: 'customPayload.matrix.r3.value' },
+    { component: 'customPayload.matrix.r4.component', spec: 'customPayload.matrix.r4.spec', value: 'customPayload.matrix.r4.value' },
+    { component: 'customPayload.matrix.r5.component', spec: 'customPayload.matrix.r5.spec', value: 'customPayload.matrix.r5.value' },
+  ];
+
   const features = [
     { icon: Camera, titleKey: 'customPayload.types.optical', descKey: 'customPayload.types.optical.desc' },
-    { icon: Radio, titleKey: 'customPayload.types.communication', descKey: 'customPayload.types.communication.desc' },
+    { icon: Radar, titleKey: 'customPayload.types.communication', descKey: 'customPayload.types.communication.desc' },
     { icon: Thermometer, titleKey: 'customPayload.types.sensor', descKey: 'customPayload.types.sensor.desc' },
-    { icon: Radar, titleKey: 'customPayload.types.radar', descKey: 'customPayload.types.radar.desc' },
+    { icon: Radio, titleKey: 'customPayload.types.radar', descKey: 'customPayload.types.radar.desc' },
     { icon: Package, titleKey: 'customPayload.types.drop', descKey: 'customPayload.types.drop.desc' },
     { icon: Settings, titleKey: 'customPayload.types.interface', descKey: 'customPayload.types.interface.desc' },
+  ];
+
+  const swapItems = [
+    { icon: Zap, titleKey: 'customPayload.swap.hw', descKey: 'customPayload.swap.hw.desc' },
+    { icon: Link2, titleKey: 'customPayload.swap.protocol', descKey: 'customPayload.swap.protocol.desc' },
+    { icon: Shield, titleKey: 'customPayload.swap.emi', descKey: 'customPayload.swap.emi.desc' },
   ];
 
   const serviceKeys = [
@@ -54,20 +73,6 @@ const PayloadCustom = () => {
     'customPayload.services.data',
     'customPayload.services.protocol',
     'customPayload.services.damping',
-  ];
-
-  const matrixRows = [
-    { component: 'customPayload.matrix.r1.component', spec: 'customPayload.matrix.r1.spec', value: 'customPayload.matrix.r1.value' },
-    { component: 'customPayload.matrix.r2.component', spec: 'customPayload.matrix.r2.spec', value: 'customPayload.matrix.r2.value' },
-    { component: 'customPayload.matrix.r3.component', spec: 'customPayload.matrix.r3.spec', value: 'customPayload.matrix.r3.value' },
-    { component: 'customPayload.matrix.r4.component', spec: 'customPayload.matrix.r4.spec', value: 'customPayload.matrix.r4.value' },
-    { component: 'customPayload.matrix.r5.component', spec: 'customPayload.matrix.r5.spec', value: 'customPayload.matrix.r5.value' },
-  ];
-
-  const customItems = [
-    { icon: Settings, titleKey: 'customPayload.custom.pdk', descKey: 'customPayload.custom.pdk.desc' },
-    { icon: Cpu, titleKey: 'customPayload.custom.swap', descKey: 'customPayload.custom.swap.desc' },
-    { icon: Shield, titleKey: 'customPayload.custom.emi', descKey: 'customPayload.custom.emi.desc' },
   ];
 
   const cases = [
@@ -143,59 +148,59 @@ const PayloadCustom = () => {
           </div>
         </section>
 
-        {/* Technical Specification Matrix */}
+        {/* Payload System Matrix */}
         <section className="py-20 bg-secondary">
           <div className="container-custom">
             <h2 className="text-2xl md:text-4xl font-bold text-center mb-14">{t('customPayload.matrix.title')}</h2>
-            <div className="overflow-x-auto">
-              <table className="w-full border-collapse bg-card rounded-2xl overflow-hidden shadow-card">
-                <thead>
-                  <tr className="bg-primary text-primary-foreground">
-                    <th className="p-4 text-left font-semibold">{t('customPayload.matrix.component')}</th>
-                    <th className="p-4 text-left font-semibold">{t('customPayload.matrix.spec')}</th>
-                    <th className="p-4 text-left font-semibold">{t('customPayload.matrix.value')}</th>
-                  </tr>
-                </thead>
-                <tbody>
+            <div className="max-w-5xl mx-auto overflow-x-auto">
+              <Table>
+                <TableHeader>
+                  <TableRow>
+                    <TableHead className="font-bold">{t('customPayload.matrix.component')}</TableHead>
+                    <TableHead className="font-bold">{t('customPayload.matrix.spec')}</TableHead>
+                    <TableHead className="font-bold">{t('customPayload.matrix.value')}</TableHead>
+                  </TableRow>
+                </TableHeader>
+                <TableBody>
                   {matrixRows.map((row, i) => (
-                    <tr key={i} className={i % 2 === 0 ? 'bg-card' : 'bg-muted/30'}>
-                      <td className="p-4 font-semibold text-foreground">{t(row.component)}</td>
-                      <td className="p-4 text-muted-foreground">{t(row.spec)}</td>
-                      <td className="p-4 text-muted-foreground">{t(row.value)}</td>
-                    </tr>
+                    <TableRow key={i}>
+                      <TableCell className="font-semibold text-accent whitespace-nowrap">{t(row.component)}</TableCell>
+                      <TableCell>{t(row.spec)}</TableCell>
+                      <TableCell className="text-muted-foreground">{t(row.value)}</TableCell>
+                    </TableRow>
                   ))}
-                </tbody>
-              </table>
+                </TableBody>
+              </Table>
             </div>
           </div>
         </section>
 
-        {/* Payload Types */}
+        {/* Deep Custom & Integration (OEM/ODM) */}
         <section className="py-20 bg-background">
           <div className="container-custom">
             <h2 className="text-2xl md:text-4xl font-bold text-center mb-14">{t('customPayload.types.title')}</h2>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
               {features.map((feature, index) => (
-                <div key={index} className="bg-card p-8 rounded-2xl shadow-card">
+                <div key={index} className="bg-card p-8 rounded-2xl shadow-card border border-border">
                   <div className="w-14 h-14 bg-accent/10 rounded-xl flex items-center justify-center mb-6">
                     <feature.icon className="w-7 h-7 text-accent" />
                   </div>
                   <h3 className="text-xl font-bold mb-3">{t(feature.titleKey)}</h3>
-                  <p className="text-muted-foreground">{t(feature.descKey)}</p>
+                  <p className="text-muted-foreground text-sm leading-relaxed">{t(feature.descKey)}</p>
                 </div>
               ))}
             </div>
           </div>
         </section>
 
-        {/* Deep Custom R&D (OEM/ODM) */}
+        {/* SWaP-C & Protocol Standards */}
         <section className="py-20 bg-secondary">
           <div className="container-custom">
-            <h2 className="text-2xl md:text-4xl font-bold text-center mb-4">{t('customPayload.custom.title')}</h2>
-            <p className="text-muted-foreground text-center mb-14 max-w-3xl mx-auto">{t('customPayload.custom.insight')}</p>
+            <h2 className="text-2xl md:text-4xl font-bold text-center mb-4">{t('customPayload.swap.title')}</h2>
+            <p className="text-muted-foreground text-center mb-14 max-w-3xl mx-auto">{t('customPayload.swap.desc')}</p>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
-              {customItems.map((item, index) => (
-                <div key={index} className="bg-card p-8 rounded-2xl shadow-card">
+              {swapItems.map((item, index) => (
+                <div key={index} className="bg-card p-8 rounded-2xl shadow-card border border-border">
                   <div className="w-14 h-14 bg-accent/10 rounded-xl flex items-center justify-center mb-6">
                     <item.icon className="w-7 h-7 text-accent" />
                   </div>
