@@ -37,8 +37,7 @@ const getOrCreateVisitorId = (): string => {
 };
 
 export const AIAssistant = () => {
-  const { baseLang } = useLanguage();
-  const isEn = baseLang === "en";
+  const { t } = useLanguage();
   const { toast } = useToast();
   const [isOpen, setIsOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
@@ -204,16 +203,14 @@ export const AIAssistant = () => {
         const timeoutMsg: Message = {
           id: crypto.randomUUID(),
           role: "system",
-          content: isEn 
-            ? "Human chat ended due to inactivity. AI assistant is back to help you."
-            : "由于长时间未回复，人工服务已结束。AI助手继续为您服务。",
+          content: t('chat.sessionEndedMsg'),
           timestamp: new Date(),
         };
         setMessages(prev => [...prev, timeoutMsg]);
         
         toast({
-          title: isEn ? "Session Ended" : "会话结束",
-          description: isEn ? "Human chat ended due to inactivity" : "因超时未回复，人工服务已结束",
+          title: t('chat.sessionEnded'),
+          description: t('chat.sessionEndedDesc'),
         });
       }
     }, 30000); // 每30秒检查一次
@@ -223,7 +220,7 @@ export const AIAssistant = () => {
         clearInterval(timeoutCheckRef.current);
       }
     };
-  }, [isHumanMode, conversationId, isEn, toast]);
+  }, [isHumanMode, conversationId, t, toast]);
 
   // Save message to database
   const saveMessage = useCallback(async (convId: string, role: string, content: string) => {
@@ -267,8 +264,8 @@ export const AIAssistant = () => {
     const convId = await ensureConversation();
     if (!convId) {
       toast({
-        title: isEn ? "Error" : "错误",
-        description: isEn ? "Failed to start conversation" : "无法开始对话",
+        title: t('chat.error'),
+        description: t('chat.failedToStart'),
         variant: "destructive",
       });
       return;
@@ -290,8 +287,8 @@ export const AIAssistant = () => {
     // If already transferred to human, do NOT call AI anymore.
     if (isHumanMode) {
       toast({
-        title: isEn ? "Sent" : "已发送",
-        description: isEn ? "Message sent to human agent" : "消息已发送给人工客服",
+        title: t('chat.sent'),
+        description: t('chat.sentToAgent'),
       });
       return;
     }
@@ -321,9 +318,9 @@ export const AIAssistant = () => {
 
       if (!response.ok) {
         if (response.status === 429) {
-          throw new Error(isEn ? "Too many requests, please wait" : "请求过于频繁,请稍后再试");
-        }
-        throw new Error(isEn ? "Failed to get response" : "获取回复失败");
+            throw new Error(t('chat.tooManyRequests'));
+          }
+          throw new Error(t('chat.failedToGetResponse'));
       }
 
       // Handle streaming response
@@ -396,23 +393,23 @@ export const AIAssistant = () => {
     } catch (error) {
       console.error("Chat error:", error);
       toast({
-        title: isEn ? "Error" : "错误",
-        description: error instanceof Error ? error.message : (isEn ? "Unknown error" : "未知错误"),
+        title: t('chat.error'),
+        description: error instanceof Error ? error.message : t('chat.unknownError'),
         variant: "destructive",
       });
     } finally {
       setIsLoading(false);
       setIsSpeaking(false);
     }
-  }, [messages, ensureConversation, saveMessage, extractLeadInfo, visitorId, toast, isEn, isHumanMode]);
+  }, [messages, ensureConversation, saveMessage, extractLeadInfo, visitorId, toast, t, isHumanMode]);
 
   // Handle transfer to human
   const handleTransferToHuman = useCallback(async () => {
     const convId = await ensureConversation();
     if (!convId) {
       toast({
-        title: isEn ? "Error" : "错误",
-        description: isEn ? "Failed to create session" : "无法创建会话",
+        title: t('chat.error'),
+        description: t('chat.failedToStart'),
         variant: "destructive",
       });
       return;
@@ -431,17 +428,15 @@ export const AIAssistant = () => {
       const systemMessage: Message = {
         id: crypto.randomUUID(),
         role: "system",
-        content: isEn 
-          ? "Transfer request sent! A human agent will reply to you shortly. You can continue chatting here or call +86 176-7404-8404." 
-          : "已请求转接人工客服！客服人员将在此聊天窗口回复您，您也可以拨打 176-7404-8404 联系我们。",
+        content: t('chat.transferMsg'),
         timestamp: new Date(),
       };
       setMessages(prev => [...prev, systemMessage]);
       await saveMessage(convId, "system", systemMessage.content);
 
       toast({
-        title: isEn ? "Transfer Requested" : "转接成功",
-        description: isEn ? "Human agent will reply in this chat" : "人工客服将在此对话中回复您",
+        title: t('chat.transferRequested'),
+        description: t('chat.agentWillReply'),
       });
 
       setIsHumanMode(true);
@@ -450,12 +445,12 @@ export const AIAssistant = () => {
     } catch (error) {
       console.error("Transfer error:", error);
       toast({
-        title: isEn ? "Transfer Failed" : "转接失败",
-        description: isEn ? "Please try again or call us directly" : "请重试或直接拨打电话联系我们",
+        title: t('chat.transferFailed'),
+        description: t('chat.tryAgainOrCall'),
         variant: "destructive",
       });
     }
-  }, [ensureConversation, saveMessage, toast, isEn]);
+  }, [ensureConversation, saveMessage, toast, t]);
 
   // Handle closing human mode
   const handleCloseHumanMode = useCallback(async () => {
@@ -472,22 +467,20 @@ export const AIAssistant = () => {
       const systemMessage: Message = {
         id: crypto.randomUUID(),
         role: "system",
-        content: isEn 
-          ? "Human chat ended. AI assistant is back to help you."
-          : "已结束人工服务，AI助手继续为您服务。",
+        content: t('chat.humanEndedMsg'),
         timestamp: new Date(),
       };
       setMessages(prev => [...prev, systemMessage]);
       await saveMessage(conversationId, "system", systemMessage.content);
 
       toast({
-        title: isEn ? "Ended" : "已结束",
-        description: isEn ? "AI assistant is back" : "AI助手继续为您服务",
+        title: t('chat.ended'),
+        description: t('chat.aiIsBack'),
       });
     } catch (error) {
       console.error("Error closing human mode:", error);
     }
-  }, [conversationId, saveMessage, toast, isEn]);
+  }, [conversationId, saveMessage, toast, t]);
 
   // Handle complaint
   const handleComplaint = useCallback(async (content: string) => {
@@ -503,27 +496,25 @@ export const AIAssistant = () => {
       const systemMessage: Message = {
         id: crypto.randomUUID(),
         role: "system",
-        content: isEn 
-          ? "Your complaint has been submitted. Our complaint specialist will handle it shortly."
-          : "您的投诉已提交，我们的投诉专员将尽快处理。",
+        content: t('chat.complaintSubmittedMsg'),
         timestamp: new Date(),
       };
       setMessages(prev => [...prev, systemMessage]);
       await saveMessage(conversationId, "system", systemMessage.content);
 
       toast({
-        title: isEn ? "Submitted" : "已提交",
-        description: isEn ? "Complaint specialist will handle your issue" : "投诉专员将处理您的问题",
+        title: t('chat.submitted'),
+        description: t('chat.complaintSubmittedDesc'),
       });
     } catch (error) {
       console.error("Error submitting complaint:", error);
       toast({
-        title: isEn ? "Failed" : "提交失败",
-        description: isEn ? "Please try again" : "请重试",
+        title: t('chat.failed'),
+        description: t('chat.pleaseTryAgain'),
         variant: "destructive",
       });
     }
-  }, [conversationId, visitorId, saveMessage, toast, isEn]);
+  }, [conversationId, visitorId, saveMessage, toast, t]);
 
   // 订阅人工客服的回复
   useEffect(() => {

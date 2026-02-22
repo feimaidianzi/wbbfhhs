@@ -30,7 +30,7 @@ export const RichSEOContent = ({
   additionalKeywords = [],
   additionalKeywordsEn = [],
 }: RichSEOContentProps) => {
-  const { baseLang } = useLanguage();
+  const { baseLang, t } = useLanguage();
   const isEn = baseLang === 'en';
 
   return (
@@ -51,8 +51,8 @@ export const RichSEOContent = ({
 
         {/* 相关链接 */}
         {relatedLinks && relatedLinks.length > 0 && (
-          <nav aria-label={isEn ? 'Related Links' : '相关链接'}>
-            <h2>{isEn ? 'Related Pages' : '相关页面'}</h2>
+          <nav aria-label={t('seo.relatedLinks')}>
+            <h2>{t('seo.relatedPages')}</h2>
             <ul>
               {relatedLinks.map((link, index) => (
                 <li key={index}>
