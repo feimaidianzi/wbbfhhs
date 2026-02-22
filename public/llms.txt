@@ -1,0 +1,37 @@
+# CaniUAV — Industrial UAV Accessories & Custom R&D
+> High-performance UAV components and custom engineering services by CANI Technology (长凌科技).
+
+## Core Products
+
+### Digital Video Transmission (/products/accessories/fpv)
+1080P HD COFDM digital link, 30ms end-to-end latency, 50km range. AES-256-GCM encrypted. Ideal for BVLOS missions and power inspection.
+
+### Gimbal & Pods (/products/accessories/gimbal)
+IP67-rated tri-axis stabilized gimbals with IR + RGB dual-sensor fusion. Supports DJI PSDK and MAVLink interfaces. Operational range: -40°C to 60°C.
+
+### High-Power VTX (/products/accessories/vtx)
+Analog video transmitters from 2.5W to 37W output. Long-range line-of-sight up to 50km. Multiple frequency band options.
+
+### Flight Controller & ESC (/products/accessories/fc-esc)
+Industrial-grade FC/ESC combos with dual-redundancy IMU, DShot protocol, and programmable firmware. MIL-STD-461G EMC certified.
+
+### ELRS Control System (/products/accessories/elrs)
+ExpressLRS-based long-range control links. Sub-millisecond latency, open-source protocol, frequency-hopping spread spectrum.
+
+### AI Vision Modules (/products/accessories/ai-module)
+Edge AI modules with dual-light (visible + thermal) sensors for autonomous target tracking and defect detection.
+
+## Custom R&D Services (/custom-research/accessories)
+Full OEM/ODM engineering: PCB layout → firmware development → structural design → extreme-environment testing (-40°C to 60°C). 200+ R&D engineers. Prototype delivery in 30 days.
+
+## Compliance & Certifications
+- MIL-STD-461G (EMC)
+- RTCA DO-160G (Vibration)
+- IP67 Protection Rating
+- ISO 9001 Quality Management
+- AES-256-GCM Data Encryption
+
+## Contact
+- Website: https://www.caniuav.com
+- Email: info@caniuav.com
+- Phone: +86 176 7404 8404
