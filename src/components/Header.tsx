@@ -245,7 +245,7 @@ export const Header = () => {
             </div>
             
             <a
-              href="mailto:market@caniuav.com"
+              href="mailto:sales@caniuav.com"
               className={`hidden md:flex items-center gap-2 px-4 py-2 rounded-full transition-colors ${
                 isScrolled 
                   ? 'bg-accent text-accent-foreground hover:bg-accent/90' 
@@ -253,7 +253,7 @@ export const Header = () => {
               }`}
             >
               <Mail className="w-4 h-4" />
-              <span className="text-sm font-medium">market@caniuav.com</span>
+              <span className="text-sm font-medium">sales@caniuav.com</span>
             </a>
 
             <Button

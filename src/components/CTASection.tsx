@@ -106,7 +106,7 @@ export const CTASection = () => {
                   <div className="text-sm text-muted-foreground mb-1">
                     {t('ctaSection.email')}
                   </div>
-                  <div className="font-semibold text-foreground">market@caniuav.com</div>
+                  <div className="font-semibold text-foreground">sales@caniuav.com</div>
                 </div>
               </div>
 

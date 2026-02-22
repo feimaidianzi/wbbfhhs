@@ -286,6 +286,13 @@ export const enTranslations: Record<string, string> = {
   'contact.form.message': 'Message',
   'contact.form.submit': 'Submit',
   'contact.info.title': 'Contact Information',
+  'contact.info.email': 'Business Email',
+  'contact.info.salesEmail': 'Sales Email',
+  'contact.info.techEmail': 'Technical Support',
+  'contact.info.feedbackEmail': 'Feedback',
+  'contact.info.wechat': 'WeChat',
+  'contact.info.workingHours': 'Working Hours',
+  'contact.info.workingHours.value': 'Mon-Fri 9:00-18:00 (UTC+8)',
   'contact.map.title': 'Our Location',
 
   // About Page (basic)

@@ -1553,7 +1553,10 @@ export const zhTranslations: Record<string, string> = {
 
   // ===== Contact Page Content =====
   'contact.info.phone': '电话咨询',
-  'contact.info.email': '邮箱',
+  'contact.info.email': '商务邮箱',
+  'contact.info.salesEmail': '销售邮箱',
+  'contact.info.techEmail': '技术支持',
+  'contact.info.feedbackEmail': '意见反馈',
   'contact.info.wechat': '微信客服',
   'contact.info.workingHours': '工作时间',
   'contact.info.workingHours.value': '周一至周五 9:00-18:00',
