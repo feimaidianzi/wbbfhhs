@@ -232,6 +232,7 @@ export const Footer = () => {
                       <div>
                         <span className="text-sm font-medium text-background/80">{office.country}</span>
                         <p className="text-xs">{office.city}</p>
+                        {office.address && <p className="text-xs text-background/40">{office.address}</p>}
                       </div>
                     </li>
                   ))}

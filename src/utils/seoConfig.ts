@@ -93,16 +93,24 @@ export const createLocalizedOrganizationData = (lang: LanguageCode, t: (key: str
   description: t('footer.company.desc'),
   address: {
     '@type': 'PostalAddress',
+    streetAddress: lang === 'zh' ? '望城区月亮岛街道罐子岭澳优全球总部大楼' : 'Ausnutria Global HQ, Guanziling, Yueliangdao Street, Wangcheng District',
     addressLocality: lang === 'zh' ? '长沙' : 'Changsha',
     addressRegion: lang === 'zh' ? '湖南' : 'Hunan',
-    addressCountry: lang === 'zh' ? 'CN' : 'China',
+    postalCode: '410200',
+    addressCountry: 'CN',
   },
   contactPoint: {
     '@type': 'ContactPoint',
-    telephone: '+86-17674048404',
+    telephone: '+86-18163685410',
     contactType: 'customer service',
     availableLanguage: getLanguageDisplayName(lang),
   },
+  sameAs: [
+    'https://linkedin.com/company/caniuav',
+    'https://instagram.com/868163685410',
+    'https://t.me/caniuav',
+    'https://m.me/caniuav',
+  ],
 });
 
 // Create localized breadcrumb structured data

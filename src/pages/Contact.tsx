@@ -2,7 +2,7 @@ import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { FloatingContact } from "@/components/FloatingContact";
 import { Button } from "@/components/ui/button";
-import { Phone, Mail, MapPin, Clock, MessageCircle, Send, Loader2, Headphones, Shield, Settings, ChevronRight } from "lucide-react";
+import { Phone, Mail, MapPin, Clock, MessageCircle, Send, Loader2, Headphones, Shield, Settings, ChevronRight, Briefcase, Wrench } from "lucide-react";
 import { PageFAQ } from "@/components/PageFAQ";
 import { useState, useEffect } from "react";
 import { useToast } from "@/hooks/use-toast";
@@ -18,6 +18,7 @@ const Contact = () => {
   const [submitting, setSubmitting] = useState(false);
   const [canSubmit, setCanSubmit] = useState(true);
   const [cooldown, setCooldown] = useState(0);
+  const [inquiryType, setInquiryType] = useState<'business' | 'technical'>('business');
   const [formData, setFormData] = useState({
     name: "",
     phone: "",
@@ -25,6 +26,7 @@ const Contact = () => {
     company: "",
     subject: "",
     message: "",
+    productInterest: "",
   });
 
   useEffect(() => {
@@ -108,7 +110,8 @@ const Contact = () => {
 
     setSubmitting(true);
     try {
-      const inquirySubject = formData.subject.trim() || t('contact.form.defaultSubject');
+      const inquirySubject = formData.subject.trim() || 
+        (inquiryType === 'business' ? t('contact.form.defaultSubjectBusiness') : t('contact.form.defaultSubjectTech'));
       
       const { error } = await supabase
         .from('inquiries')
@@ -117,13 +120,14 @@ const Contact = () => {
           email: formData.email.trim(),
           phone: formData.phone.trim() || null,
           company: formData.company.trim() || null,
-          subject: inquirySubject,
+          subject: `[${inquiryType === 'business' ? 'Business' : 'Tech'}] ${inquirySubject}`,
           message: formData.message.trim(),
+          product_interest: formData.productInterest.trim() || null,
         });
 
       if (error) throw error;
 
-      let adminEmail = 'market@caniuav.com';
+      let adminEmail = inquiryType === 'business' ? 'sales@caniuav.com' : 'support@caniuav.com';
       try {
         const { data: settingData } = await supabase
           .from('system_settings')
@@ -161,7 +165,7 @@ const Contact = () => {
         title: t('contact.success.title'),
         description: t('contact.success.message'),
       });
-      setFormData({ name: "", phone: "", email: "", company: "", subject: "", message: "" });
+      setFormData({ name: "", phone: "", email: "", company: "", subject: "", message: "", productInterest: "" });
     } catch (error: any) {
       console.error('Submit error:', error);
       toast({
@@ -277,6 +281,44 @@ const Contact = () => {
                   {t('contact.form.subtitle')}
                 </p>
                 <form onSubmit={handleSubmit} className="space-y-6">
+                  {/* Inquiry Type Selector */}
+                  <div className="grid grid-cols-2 gap-3">
+                    <button
+                      type="button"
+                      onClick={() => setInquiryType('business')}
+                      className={`flex items-center gap-3 p-4 rounded-xl border-2 transition-all ${
+                        inquiryType === 'business' 
+                          ? 'border-accent bg-accent/5 shadow-sm' 
+                          : 'border-border hover:border-accent/50'
+                      }`}
+                    >
+                      <Briefcase className={`w-5 h-5 ${inquiryType === 'business' ? 'text-accent' : 'text-muted-foreground'}`} />
+                      <div className="text-left">
+                        <div className={`text-sm font-semibold ${inquiryType === 'business' ? 'text-accent' : 'text-foreground'}`}>
+                          {t('contact.form.typeBusiness')}
+                        </div>
+                        <div className="text-xs text-muted-foreground">{t('contact.form.typeBusinessDesc')}</div>
+                      </div>
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => setInquiryType('technical')}
+                      className={`flex items-center gap-3 p-4 rounded-xl border-2 transition-all ${
+                        inquiryType === 'technical' 
+                          ? 'border-accent bg-accent/5 shadow-sm' 
+                          : 'border-border hover:border-accent/50'
+                      }`}
+                    >
+                      <Wrench className={`w-5 h-5 ${inquiryType === 'technical' ? 'text-accent' : 'text-muted-foreground'}`} />
+                      <div className="text-left">
+                        <div className={`text-sm font-semibold ${inquiryType === 'technical' ? 'text-accent' : 'text-foreground'}`}>
+                          {t('contact.form.typeTech')}
+                        </div>
+                        <div className="text-xs text-muted-foreground">{t('contact.form.typeTechDesc')}</div>
+                      </div>
+                    </button>
+                  </div>
+
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div>
                       <label className="block text-sm font-medium text-foreground mb-2">
@@ -321,14 +363,19 @@ const Contact = () => {
                     </div>
                     <div>
                       <label className="block text-sm font-medium text-foreground mb-2">
-                        {t('contact.form.company')}
+                        {inquiryType === 'business' ? t('contact.form.company') : t('contact.form.productModel')}
                       </label>
                       <input
                         type="text"
-                        value={formData.company}
-                        onChange={(e) => setFormData({ ...formData, company: e.target.value })}
+                        value={inquiryType === 'business' ? formData.company : formData.productInterest}
+                        onChange={(e) => setFormData({ 
+                          ...formData, 
+                          ...(inquiryType === 'business' 
+                            ? { company: e.target.value } 
+                            : { productInterest: e.target.value })
+                        })}
                         className="w-full px-4 py-3 rounded-lg border border-border bg-card text-foreground focus:outline-none focus:ring-2 focus:ring-accent"
-                        placeholder={t('contact.form.companyPlaceholder')}
+                        placeholder={inquiryType === 'business' ? t('contact.form.companyPlaceholder') : t('contact.form.productModelPlaceholder')}
                       />
                     </div>
                   </div>
@@ -341,7 +388,7 @@ const Contact = () => {
                       value={formData.subject}
                       onChange={(e) => setFormData({ ...formData, subject: e.target.value })}
                       className="w-full px-4 py-3 rounded-lg border border-border bg-card text-foreground focus:outline-none focus:ring-2 focus:ring-accent"
-                      placeholder={t('contact.form.subjectPlaceholder')}
+                      placeholder={inquiryType === 'business' ? t('contact.form.subjectPlaceholderBusiness') : t('contact.form.subjectPlaceholderTech')}
                     />
                   </div>
                   <div>

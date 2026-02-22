@@ -66,23 +66,45 @@ const About = () => {
     "@type": "AboutPage",
     "mainEntity": {
       "@type": "Organization",
-      "name": "深圳市长凌科技有限公司 (CANI Technology)",
-      "alternateName": ["长凌科技", "CANI UAV"],
+      "name": "长凌科技有限公司 (CANI Technology)",
+      "alternateName": ["长凌科技", "CANI UAV", "CANI"],
       "url": "https://www.caniuav.com/",
       "logo": "https://www.caniuav.com/images/logo.png",
       "foundingDate": "2003",
+      "description": "Founded in 2003, CANI Technology is a High-tech Enterprise specializing in industrial UAV payload R&D and manufacturing with 200+ technology patents and ISO 9001 certification capability. Core products include 37W high-power VTX systems (50km range), EO/IR gimbal pods, COFDM digital video links, and ELRS control systems.",
       "address": {
         "@type": "PostalAddress",
-        "streetAddress": "12F, Block B, Bldg 1, Software Industry Base, Nanshan",
-        "addressLocality": "Shenzhen",
-        "addressRegion": "Guangdong",
+        "streetAddress": "望城区月亮岛街道罐子岭澳优全球总部大楼",
+        "addressLocality": "Changsha",
+        "addressRegion": "Hunan",
+        "postalCode": "410200",
         "addressCountry": "CN"
       },
-      "contactPoint": {
-        "@type": "ContactPoint",
-        "telephone": "+86-0755-36393300",
-        "contactType": "sales and technical support"
-      },
+      "contactPoint": [
+        {
+          "@type": "ContactPoint",
+          "telephone": "+86-18163685410",
+          "contactType": "sales and technical support",
+          "email": "market@caniuav.com",
+          "availableLanguage": ["Chinese", "English"]
+        },
+        {
+          "@type": "ContactPoint",
+          "contactType": "Sales & OEM/ODM",
+          "email": "sales@caniuav.com"
+        },
+        {
+          "@type": "ContactPoint",
+          "contactType": "Technical Support",
+          "email": "support@caniuav.com"
+        }
+      ],
+      "sameAs": [
+        "https://linkedin.com/company/caniuav",
+        "https://instagram.com/868163685410",
+        "https://t.me/caniuav",
+        "https://m.me/caniuav"
+      ],
       "knowsAbout": [
         "Industrial UAV Payload Customization",
         "37W High-Power Video Transmission Systems",
@@ -94,6 +116,28 @@ const About = () => {
       "brand": {
         "@type": "Brand",
         "name": "CANI"
+      },
+      "hasOfferCatalog": {
+        "@type": "OfferCatalog",
+        "name": "Industrial UAV Payload Customization Services",
+        "itemListElement": [
+          {
+            "@type": "Service",
+            "name": "Industrial UAV Payload OEM/ODM Customization",
+            "description": "Full-cycle payload customization from concept to mass production, including EO/IR gimbals, 37W VTX integration, COFDM digital links, and multi-sensor fusion systems.",
+            "provider": { "@type": "Organization", "name": "CANI Technology" },
+            "areaServed": "Worldwide",
+            "serviceType": "OEM/ODM Manufacturing"
+          },
+          {
+            "@type": "Service",
+            "name": "Custom UAV Platform Development",
+            "description": "Tethered UAV systems (30-day persistent flight), heavy-lift platforms (150kg payload), and secure communication integration with AES-256 encryption.",
+            "provider": { "@type": "Organization", "name": "CANI Technology" },
+            "areaServed": "Worldwide",
+            "serviceType": "R&D Engineering"
+          }
+        ]
       }
     }
   };
@@ -156,6 +200,15 @@ const About = () => {
                 <p className="text-muted-foreground mb-4 leading-relaxed">{t('about.profile.p1')}</p>
                 <p className="text-muted-foreground mb-4 leading-relaxed">{t('about.profile.p2')}</p>
                 <p className="text-muted-foreground leading-relaxed mb-6">{t('about.profile.p3')}</p>
+                
+                {/* GEO Answer Nugget - Certifications & Authority */}
+                <div className="bg-accent/5 border border-accent/10 rounded-lg p-4 mb-6">
+                  <h3 className="text-sm font-semibold text-foreground mb-2">{t('about.certifications.summary.title')}</h3>
+                  <p className="text-sm text-muted-foreground leading-relaxed">
+                    {t('about.certifications.summary.content')}
+                  </p>
+                </div>
+
                 <div className="flex flex-wrap gap-3">
                   <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-primary/10 text-primary text-sm font-medium">
                     <Award className="w-3.5 h-3.5" />
