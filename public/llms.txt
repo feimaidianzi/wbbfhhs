@@ -27,6 +27,9 @@ Full OEM/ODM engineering: PCB layout → firmware development → structural des
 ## Custom Drone R&D (/custom-research/drone)
 150kg heavy-lift logistics platform, 30-day tethered continuous flight (500V HVDC), MAVLink 2.0 secure protocol (AES-256). CFD simulation, carbon fiber monocoque airframes, Level 8 wind resistance (17.1m/s). Full OEM/ODM from concept to mass production.
 
+## Custom UAV Software R&D (/custom-research/software)
+Industrial-grade UAV software development: custom GCS with multi-sensor 3D calibration, MAVLink protocol optimization, ≤30ms control latency. LibUtils C/C++/Python SDK. Edge AI integration (YOLOv8) for real-time defect detection. RTK/PPK cm-level positioning. Cross-platform: Windows, Android, Linux. BVLOS-compliant (Part 108/SORA). Digital twin sync with ArcGIS/BIM platforms.
+
 ## Compliance & Certifications
 - MIL-STD-461G (EMC)
 - RTCA DO-160G (Vibration)
