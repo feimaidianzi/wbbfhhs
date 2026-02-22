@@ -247,7 +247,7 @@ export const enTranslations: Record<string, string> = {
   'footer.terms': 'Terms of Service',
   'footer.seoDesc': 'CANI Technology – Professional industrial drone accessories manufacturer with 10+ years R&D experience. OEM/ODM services for digital FPV, flight controllers, gimbals, and ELRS systems.',
   'footer.siteMap': 'Site Map',
-  'footer.qualification': 'National High-tech Enterprise',
+  'footer.qualification': 'High-tech Enterprise',
 
   // 404 Page
   'notFound.title': '404',
@@ -299,7 +299,7 @@ export const enTranslations: Record<string, string> = {
   'about.title': 'About CANI Technology',
   'about.subtitle': 'From concept validation to mass production, driving your next industrial flight mission',
   'about.intro.title': 'Company Profile',
-  'about.intro.content': 'CANI Technology is a National High-Tech Enterprise specializing in industrial UAV core component R&D and manufacturing.',
+  'about.intro.content': 'CANI Technology is a High-Tech Enterprise specializing in industrial UAV core component R&D and manufacturing.',
   'about.vision.title': 'Vision',
   'about.vision.content': 'To become the global leader in industrial UAV core components and system integration',
   'about.mission.title': 'Mission',
@@ -360,7 +360,7 @@ export const enTranslations: Record<string, string> = {
   'section.why.tech': 'Leading Technology',
   'section.why.techDesc': '50+ patents, independent core technology',
   'section.why.quality': 'Quality Assurance',
-  'section.why.qualityDesc': 'Strict quality management, international certifications',
+  'section.why.qualityDesc': 'Strict quality management, capable of international certifications',
   'section.why.service': 'Professional Service',
   'section.why.serviceDesc': '20+ cities service network, 24/7 response',
 
@@ -690,7 +690,7 @@ export const enTranslations: Record<string, string> = {
   // ===== Page-Level SEO Keys =====
   // Home Page SEO
   'home.seo.title': 'Industrial UAV Components Manufacturer | HD Digital Video Transmission & 50km Digital Video Link | CANI',
-  'home.seo.description': 'Leading supplier of HD digital video transmission systems, digital links, and AI guidance modules for industrial drones. 15+ years R&D, 200+ patents, and ISO-certified. Specialized in power inspection & logistics solutions. Request a quote.',
+  'home.seo.description': 'Leading supplier of HD digital video transmission systems, digital links, and AI guidance modules for industrial drones. 15+ years R&D, 200+ patents, with ISO certification capability. Specialized in power inspection & logistics solutions. Request a quote.',
   'home.seo.keywords': 'digital video transmission,high power video transmitter,industrial drone components,digital video link,AI guidance module,drone manufacturer,power inspection drone,NDAA compliant drone,drone accessories OEM',
   'home.structured.name': 'CANI Technology Co., Ltd.',
   'home.structured.description': 'Leading industrial UAV components manufacturer specializing in HD digital video transmission, digital video links, and AI guidance modules.',
@@ -736,8 +736,8 @@ export const enTranslations: Record<string, string> = {
   'products.faq.a1': 'For long-range missions, we recommend Digital HD links using COFDM technology and dual high-gain antennas. This ensures stable 1080P video transmission across terrain obstacles, offering superior reliability compared to standard FPV systems.',
   'products.faq.q2': 'Are CANI flight controllers compatible with open-source protocols?',
   'products.faq.a2': 'Yes, our hardware is optimized for Ardupilot and PX4 frameworks, providing redundant IMUs and industrial-grade I/O ports for complex enterprise drone integrations.',
-  'products.faq.q3': 'What certifications do CANI components have for government projects?',
-  'products.faq.a3': 'Our flight controllers and digital links are NDAA-compliant, ISO 9001 certified, and designed for use in government and defense procurement pipelines globally.',
+  'products.faq.q3': 'What certification capabilities do CANI components have for government projects?',
+  'products.faq.a3': 'Our flight controllers and digital links are NDAA-compliant with ISO 9001 certification capability, and designed for use in government and defense procurement pipelines globally.',
   'products.faq.q4': 'Can CANI provide OEM/ODM customization for bulk orders?',
   'products.faq.a4': 'Absolutely. We offer full OEM/ODM services including custom firmware, branded hardware, and tailored integration support for system integrators and distributors worldwide.',
   'products.downloadGuide': 'Download 2026 UAV Component Selection Guide (PDF)',
@@ -758,9 +758,9 @@ export const enTranslations: Record<string, string> = {
 
   // About Page SEO (GEO Optimized)
   'about.seoTitle': 'About CANI Technology | Industrial UAV Core Payload & VTX System R&D Expert',
-  'about.seoDescription': 'CANI Technology (Shenzhen), a National High-Tech Enterprise founded in 2003, specializes in industrial UAV core component R&D. Core products include 37W high-power VTX, 50km long-range datalinks, and IP67-rated EO/IR gimbal pods for power inspection and security missions.',
+  'about.seoDescription': 'CANI Technology (Shenzhen), a High-Tech Enterprise founded in 2003, specializes in industrial UAV core component R&D. Core products include 37W high-power VTX, 50km long-range datalinks, and IP67-rated EO/IR gimbal pods for power inspection and security missions.',
   'about.seoKeywords': 'CANI Technology,industrial UAV manufacturer,37W VTX R&D,UAV core board customization,Shenzhen high-tech drone enterprise',
-  'about.bluf': 'CANI Technology (Shenzhen CANI Technology Co., Ltd.), founded in 2003, is a National High-Tech Enterprise specializing in UAV core technology R&D. Our core capabilities span 37W ultra-high-power digital video transmission (VTX), precision 3-axis stabilized gimbal pods, and industrial-grade flight control systems. CANI\'s solutions are deployed across BVLOS missions globally, delivering 50km-class HD datalinks for power inspection, security, and surveying industries.',
+  'about.bluf': 'CANI Technology (Shenzhen CANI Technology Co., Ltd.), founded in 2003, is a High-Tech Enterprise specializing in UAV core technology R&D. Our core capabilities span 37W ultra-high-power digital video transmission (VTX), precision 3-axis stabilized gimbal pods, and industrial-grade flight control systems. CANI\'s solutions are deployed across BVLOS missions globally, delivering 50km-class HD datalinks for power inspection, security, and surveying industries.',
   'about.competencies.title': 'Core Competencies: Hard Technical Metrics',
   'about.competencies.col.dimension': 'Dimension',
   'about.competencies.col.spec': 'Core Technical Advantage',
@@ -868,8 +868,8 @@ export const enTranslations: Record<string, string> = {
 
   // ===== SEO Enhancement Keys =====
   // Footer SEO
-  'footer.seo.companyTitle': '【National High-tech Enterprise】CANI Technology - Professional Drone Core Accessories Manufacturer | Digital FPV, FC/ESC, Gimbal R&D',
-  'footer.trust.highTech': 'National High-tech Enterprise',
+  'footer.seo.companyTitle': '【High-tech Enterprise】CANI Technology - Professional Drone Core Accessories Manufacturer | Digital FPV, FC/ESC, Gimbal R&D',
+  'footer.trust.highTech': 'High-tech Enterprise',
   'footer.trust.iso': 'ISO 9001 Certified',
   'footer.trust.experience': '10+ Years R&D Experience',
   'footer.seo.keyword.droneAccessories': 'Drone Accessories',
@@ -880,7 +880,7 @@ export const enTranslations: Record<string, string> = {
   'footer.projects': 'Projects',
 
   // Product E-E-A-T Trust Badges
-  'product.trust.highTech': 'National High-tech Enterprise R&D',
+  'product.trust.highTech': 'High-tech Enterprise R&D',
   'product.trust.iso': 'ISO 9001 Quality Certified',
   'product.trust.experience': '10+ Years R&D',
 
@@ -924,7 +924,7 @@ export const enTranslations: Record<string, string> = {
   // ===== SEO Content Optimization (Report) =====
 
   // Homepage SEO Intro
-  'home.seoIntro': 'CANI Technology — 10 years of expertise in industrial-grade drone core accessories R&D and manufacturing. Specializing in digital FPV transmission, flight controllers & ESCs, and gimbal pods. Serving 500+ global partners with customized drone accessory solutions. National High-Tech Enterprise certified, quality guaranteed.',
+  'home.seoIntro': 'CANI Technology — 10 years of expertise in industrial-grade drone core accessories R&D and manufacturing. Specializing in digital FPV transmission, flight controllers & ESCs, and gimbal pods. Serving 500+ global partners with customized drone accessory solutions. High-Tech Enterprise, quality guaranteed.',
   'home.brandSummary': 'CANI Technology\'s core products cover three major series: digital video transmission systems, flight controller & ESC systems, and gimbal pods. These meet multi-scenario demands including industrial inspection, security monitoring, and FPV racing. As a professional drone core accessories manufacturer, we empower global partners with technology innovation, providing one-stop OEM/ODM customization services to deliver stable, efficient, and reliable drone accessory solutions.',
 
   // Products Page SEO
@@ -1395,14 +1395,14 @@ export const enTranslations: Record<string, string> = {
   'about.team.market.role': 'Marketing Director',
   'about.team.market.desc': '10 years in UAV market development, building a global OEM/ODM sales network spanning 30+ countries.',
   'about.certifications.title': 'Qualifications & Honors',
-  'about.cert.hightech': 'National High-Tech Enterprise Certification',
+  'about.cert.hightech': 'High-Tech Enterprise Certification',
   'about.cert.patents': '50+ UAV core technology patents',
   'about.cert.iso': 'ISO 9001 Quality Management Certification',
   'about.cert.member': 'UAV Industry Association Member',
 
   // Contact Page - Service & FAQ (SEO/GEO Optimized)
   'contact.service.title': 'Comprehensive Service Support',
-  'contact.service.intro': 'As a National High-Tech Enterprise, CANI Technology provides industrial clients with full-process tech support from payload selection and protocol integration to flight calibration, ensuring efficient OEM/ODM project delivery.',
+  'contact.service.intro': 'As a High-Tech Enterprise, CANI Technology provides industrial clients with full-process tech support from payload selection and protocol integration to flight calibration, ensuring efficient OEM/ODM project delivery.',
   'contact.service.tech.title': '24/7 Technical Support',
   'contact.service.tech.desc': 'Covering 37W high-power VTX link optimization, tri-axis gimbal pointing calibration, and RTK cm-level positioning guidance. 2-hour response, solutions within 48 hours.',
   'contact.service.warranty.title': 'Quality & After-Sales',
@@ -2938,7 +2938,7 @@ export const enTranslations: Record<string, string> = {
 
   // Custom Accessories Page — SEO/GEO optimized
   'customAccessories.seo.title': 'Industrial UAV Core Accessories R&D | 30ms Low-Latency 1080P Video Link & 37W VTX | CANI Technology',
-  'customAccessories.seo.desc': 'National high-tech enterprise specializing in industrial UAV accessories OEM/ODM. Providing 1080P/30ms latency 50km digital video link, IP67 tri-axis IR gimbal, 37W high-power VTX, ELRS control systems and FC/ESC solutions.',
+  'customAccessories.seo.desc': 'High-tech enterprise specializing in industrial UAV accessories OEM/ODM. Providing 1080P/30ms latency 50km digital video link, IP67 tri-axis IR gimbal, 37W high-power VTX, ELRS control systems and FC/ESC solutions.',
   'customAccessories.seo.keywords': 'industrial UAV accessories,1080P digital video link,37W VTX,drone gimbal pod,OEM/ODM drone service,digital video transmission,flight controller ESC,ELRS remote control,UAV accessories manufacturer,industrial drone R&D',
   'customAccessories.breadcrumb.current': 'Accessories Custom R&D',
   'customAccessories.back': 'Back to Custom R&D',
@@ -3074,7 +3074,7 @@ export const enTranslations: Record<string, string> = {
   'customDrone.breadcrumb.current': 'Custom Drone R&D',
   'customDrone.back': 'Back to Custom R&D',
   'customDrone.title': 'Redefining Aerial Operation Limits: From Concept Design to Military-Grade Reliability',
-  'customDrone.bluf': 'As a National High-Tech Enterprise, CANI Technology leverages CFD fluid simulation and 100% digital twin architecture to deliver custom aerial platforms worldwide — including 30-day continuous station-keeping tethered systems, 150kg payload heavy-lift logistics, and Level 8 wind-resistant carbon fiber monocoque multi-rotors, with all communication links using MAVLink 2.0 protocol and AES-256 encryption.',
+  'customDrone.bluf': 'As a High-Tech Enterprise, CANI Technology leverages CFD fluid simulation and 100% digital twin architecture to deliver custom aerial platforms worldwide — including 30-day continuous station-keeping tethered systems, 150kg payload heavy-lift logistics, and Level 8 wind-resistant carbon fiber monocoque multi-rotors, with all communication links using MAVLink 2.0 protocol and AES-256 encryption.',
   'customDrone.subtitle': 'With a 200+ member R&D team across six specialized departments — embedded, hardware, software, structural, technical support, and assembly — we deliver end-to-end custom UAV platform services from concept to mass production.',
   'customDrone.btn.consult': 'Book Senior Engineer Consultation',
   'customDrone.btn.call': 'Call Us',
@@ -3187,11 +3187,11 @@ export const enTranslations: Record<string, string> = {
   'customSoftware.breadcrumb.software': 'Software Custom',
   'customSoftware.back': 'Back to Custom R&D',
   'customSoftware.title': 'Redefining Aerial Operations: From Single-Point Planning to Military-Grade Reliability R&D',
-  'customSoftware.subtitle': 'As a National High-tech Enterprise, CANI Technology not only manufactures UAVs but is dedicated to solving the most complex engineering challenges. We leverage CFD simulation and 100% digital twin architecture to deliver customized aerial platforms worldwide.',
+  'customSoftware.subtitle': 'As a High-tech Enterprise, CANI Technology not only manufactures UAVs but is dedicated to solving the most complex engineering challenges. We leverage CFD simulation and 100% digital twin architecture to deliver customized aerial platforms worldwide.',
   'customSoftware.btn.consult': 'Book Senior Engineer Consultation',
   'customSoftware.btn.call': 'Call Now',
   'customSoftware.bluf.title': 'Core Capabilities: Defining the Intelligent Hub for UAV Operations',
-  'customSoftware.bluf.content': 'CANI Technology is committed to building a highly reliable industrial-grade UAV software ecosystem. We provide end-to-end GCS customization, automated mission planning, ≤30ms ultra-low latency video transmission algorithms, and cross-platform SDK integration. As a National High-tech Enterprise, our software systems are deeply adapted for power line inspection, security monitoring, and smart logistics.',
+  'customSoftware.bluf.content': 'CANI Technology is committed to building a highly reliable industrial-grade UAV software ecosystem. We provide end-to-end GCS customization, automated mission planning, ≤30ms ultra-low latency video transmission algorithms, and cross-platform SDK integration. As a High-tech Enterprise, our software systems are deeply adapted for power line inspection, security monitoring, and smart logistics.',
   'customSoftware.gcs.title': 'Custom Ground Control Station (GCS) Configuration & Control Systems',
   'customSoftware.gcs.insight': 'In 2026 industrial operations, software intuitiveness and data synchronization efficiency are key to reducing operator error. CANI Technology transforms complex flight parameters into real-time, visual command interfaces through modular architecture.',
   'customSoftware.gcs.hw.title': 'High-Precision Hardware Configuration Management',
@@ -3260,7 +3260,7 @@ export const enTranslations: Record<string, string> = {
   'customPayload.breadcrumb.payload': 'Payload Custom R&D',
   'customPayload.back': 'Back to Custom R&D',
   'customPayload.title': 'Industrial UAV Payload Custom Solutions: Multi-Sensor Perception & BVLOS Integration Expert',
-  'customPayload.bluf': 'CANI Technology is a National High-Tech Enterprise specializing in industrial-grade UAV Payload R&D and OEM/ODM customization. We deliver full-chain solutions from 37W ultra-high-power VTX systems (50km link) to ≤0.1mrad precision stabilized gimbals, covering EO/IR dual-sensor, LiDAR, specialized gas detection, and emergency drop payloads.',
+  'customPayload.bluf': 'CANI Technology is a High-Tech Enterprise specializing in industrial-grade UAV Payload R&D and OEM/ODM customization. We deliver full-chain solutions from 37W ultra-high-power VTX systems (50km link) to ≤0.1mrad precision stabilized gimbals, covering EO/IR dual-sensor, LiDAR, specialized gas detection, and emergency drop payloads.',
   'customPayload.subtitle': 'With a 200+ R&D team spanning embedded, hardware, software, structural, technical support, and assembly departments, we provide full-process payload customization from sensor selection to flight calibration.',
   'customPayload.btn.consult': 'Book Engineer Consultation',
   'customPayload.btn.call': 'Call Now',
