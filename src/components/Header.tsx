@@ -67,6 +67,7 @@ export const Header = () => {
     { name: t('header.camera'), href: "/products/accessories/camera", description: t('header.camera.desc') },
     { name: t('header.elrs'), href: "/products/accessories/elrs", description: t('header.elrs.desc') },
     { name: t('header.others'), href: "/products/accessories/others", description: t('header.others.desc') },
+    { name: t('header.aiModule'), href: "/products/accessories/ai-module", description: t('header.aiModule.desc') },
   ];
 
   const applicationCategories = [
