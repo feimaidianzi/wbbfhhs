@@ -114,9 +114,45 @@ export const LanguageProvider: React.FC<LanguageProviderProps> = ({ children }) 
     return DEFAULT_LANGUAGE;
   });
   
-  const [isLoading, setIsLoading] = useState(false);
+  // Synchronously initialize translations from localStorage cache to avoid flicker
   const [currentTranslations, setCurrentTranslations] = useState<Record<string, string>>(() => {
-    return getTranslations(language);
+    const lang = (() => {
+      const pathLang = detectLanguageFromPath();
+      if (pathLang) return pathLang;
+      const saved = localStorage.getItem('language');
+      if (saved && SUPPORTED_LANGUAGES.some(l => l.code === saved)) return saved as LanguageCode;
+      return DEFAULT_LANGUAGE;
+    })();
+
+    if (lang === 'zh') return zhTranslations;
+    if (lang === 'en') {
+      const cached = localStorage.getItem('translations_en');
+      if (cached) {
+        try { return { ...enTranslations, ...JSON.parse(cached) }; } catch (e) { /* ignore */ }
+      }
+      return enTranslations;
+    }
+    // For other languages, try localStorage cache synchronously
+    const cached = localStorage.getItem(`translations_${lang}`);
+    if (cached) {
+      try { return JSON.parse(cached); } catch (e) { /* ignore */ }
+    }
+    // No cache available - will need async load
+    return {};
+  });
+
+  // isLoading = true when we have no translations yet (empty object means need to fetch)
+  const [isLoading, setIsLoading] = useState(() => {
+    const lang = (() => {
+      const pathLang = detectLanguageFromPath();
+      if (pathLang) return pathLang;
+      const saved = localStorage.getItem('language');
+      if (saved && SUPPORTED_LANGUAGES.some(l => l.code === saved)) return saved as LanguageCode;
+      return DEFAULT_LANGUAGE;
+    })();
+    if (lang === 'zh' || lang === 'en') return false;
+    const cached = localStorage.getItem(`translations_${lang}`);
+    return !cached; // loading if no cache
   });
   const [autoDetected, setAutoDetected] = useState(false);
 
@@ -127,6 +163,7 @@ export const LanguageProvider: React.FC<LanguageProviderProps> = ({ children }) 
   const loadSavedTranslations = useCallback(async (targetLang: LanguageCode) => {
     if (targetLang === 'zh') {
       setCurrentTranslations(zhTranslations);
+      setIsLoading(false);
       return true;
     }
     
@@ -139,6 +176,7 @@ export const LanguageProvider: React.FC<LanguageProviderProps> = ({ children }) 
         if (cached) {
           const parsed = JSON.parse(cached);
           setCurrentTranslations({ ...enTranslations, ...parsed });
+          setIsLoading(false);
           return true;
         }
         
@@ -158,12 +196,14 @@ export const LanguageProvider: React.FC<LanguageProviderProps> = ({ children }) 
       } catch (e) {
         console.error('Error loading EN translations from DB:', e);
       }
+      setIsLoading(false);
       return true;
     }
 
     // Check memory cache first
     if (hasTranslations(targetLang)) {
       setCurrentTranslations(getTranslations(targetLang));
+      setIsLoading(false);
       return true;
     }
 
@@ -174,6 +214,7 @@ export const LanguageProvider: React.FC<LanguageProviderProps> = ({ children }) 
         const parsed = JSON.parse(cached);
         setTranslations(targetLang, parsed);
         setCurrentTranslations(parsed);
+        setIsLoading(false);
         return true;
       } catch (e) {
         console.error('Error parsing cached translations:', e);
@@ -196,14 +237,14 @@ export const LanguageProvider: React.FC<LanguageProviderProps> = ({ children }) 
         setTranslations(targetLang, translations);
         setCurrentTranslations(translations);
         localStorage.setItem(`translations_${targetLang}`, data.value);
+        setIsLoading(false);
         return true;
       }
     } catch (error) {
       console.error('Error loading translations:', error);
-    } finally {
-      setIsLoading(false);
     }
-
+    
+    setIsLoading(false);
     // Fallback to English if no translation found
     setCurrentTranslations(enTranslations);
     return false;
@@ -256,8 +297,9 @@ export const LanguageProvider: React.FC<LanguageProviderProps> = ({ children }) 
   }, []);
 
   const t = useCallback((key: string): string => {
+    if (isLoading) return '\u00A0'; // placeholder while loading translations
     return currentTranslations[key] || zhTranslations[key] || key;
-  }, [currentTranslations]);
+  }, [currentTranslations, isLoading]);
 
   // Initial load
   useEffect(() => {
