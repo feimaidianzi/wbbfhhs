@@ -380,9 +380,9 @@ export const enTranslations: Record<string, string> = {
   'section.partners.desc': 'Long-term technical partnerships with industry clients in 30+ countries',
 
   // CertificationsSection
-  'section.certs.badge': 'Certifications',
-  'section.certs.title': 'Authorized Certifications',
-  'section.certs.desc': 'Multiple industry certifications, trusted quality',
+  'section.certs.badge': 'Certification Support',
+  'section.certs.title': 'Certification Engineering Capability',
+  'section.certs.desc': 'We have full engineering capability to help clients obtain global certifications. Certification for custom products is available on a per-project basis with separate quotation.',
 
   // CTASection
   'section.cta.title': 'Start the Era of Smart Flight',
