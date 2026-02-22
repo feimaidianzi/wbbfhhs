@@ -404,10 +404,10 @@ const ProductDetailTemplate = ({
                   <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
                 </Button>
               </LangLink>
-              <a href="mailto:market@caniuav.com">
+              <a href="mailto:sales@caniuav.com">
                 <Button size="lg" className="bg-white/95 text-primary hover:bg-white font-bold shadow-lg">
                   <Mail className="mr-2 h-4 w-4" />
-                  market@caniuav.com
+                  sales@caniuav.com
                 </Button>
               </a>
             </div>

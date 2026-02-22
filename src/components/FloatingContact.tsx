@@ -41,7 +41,7 @@ export const FloatingContact = () => {
           <Home className="w-4 h-4" />
         </LangLink>
         <a
-          href="mailto:market@caniuav.com"
+          href="mailto:sales@caniuav.com"
           className="w-9 h-9 bg-primary/90 rounded-full shadow-md flex items-center justify-center text-primary-foreground hover:bg-primary transition-colors"
           title={t('floating.email')}
         >

@@ -111,9 +111,13 @@ export const Footer = () => {
 
             {/* Contact Info */}
             <div className="space-y-3 mb-6">
-              <a href="mailto:market@caniuav.com" className="flex items-center gap-3 text-background/70 hover:text-background transition-colors group">
+              <a href="mailto:sales@caniuav.com" className="flex items-center gap-3 text-background/70 hover:text-background transition-colors group">
                 <Mail className="w-4 h-4" />
-                <span className="text-sm">market@caniuav.com</span>
+                <span className="text-sm">sales@caniuav.com</span>
+              </a>
+              <a href="mailto:support@caniuav.com" className="flex items-center gap-3 text-background/70 hover:text-background transition-colors group">
+                <Mail className="w-4 h-4" />
+                <span className="text-sm">support@caniuav.com</span>
               </a>
             </div>
 
@@ -240,7 +244,7 @@ export const Footer = () => {
               {t('footer.seo.companyTitle')}
             </p>
             <p className="text-xs text-background/50">
-              Email: market@caniuav.com | support@caniuav.com
+              Email: market@caniuav.com | sales@caniuav.com | support@caniuav.com | feedback@caniuav.com
             </p>
           </div>
 

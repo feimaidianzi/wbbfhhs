@@ -61,7 +61,9 @@ const Contact = () => {
 
   const contactInfo = [
     { icon: Mail, title: t('contact.info.email'), value: "market@caniuav.com", href: "mailto:market@caniuav.com" },
+    { icon: Mail, title: t('contact.info.salesEmail') || 'Sales', value: "sales@caniuav.com", href: "mailto:sales@caniuav.com" },
     { icon: Mail, title: t('contact.info.techEmail'), value: "support@caniuav.com", href: "mailto:support@caniuav.com" },
+    { icon: Mail, title: t('contact.info.feedbackEmail') || 'Feedback', value: "feedback@caniuav.com", href: "mailto:feedback@caniuav.com" },
     { icon: MessageCircle, title: t('contact.info.wechat'), value: "CANI_UAV", href: "#" },
     { icon: Clock, title: t('contact.info.workingHours'), value: t('contact.info.workingHours.value'), href: null },
   ];
@@ -187,7 +189,7 @@ const Contact = () => {
         {
           '@type': 'ContactPoint',
           contactType: 'Sales & OEM/ODM',
-          email: 'market@caniuav.com',
+          email: 'sales@caniuav.com',
           availableLanguage: ['Chinese', 'English'],
         },
         {

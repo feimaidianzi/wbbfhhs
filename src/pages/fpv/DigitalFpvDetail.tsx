@@ -412,7 +412,7 @@ const DigitalFpvDetail = () => {
                   </div>
                   <div>
                     <div className="text-primary-foreground/60 text-sm">{t('contact.info.email')}</div>
-                    <div className="text-primary-foreground font-bold">market@caniuav.com</div>
+                    <div className="text-primary-foreground font-bold">sales@caniuav.com</div>
                   </div>
                 </div>
                 <div className="flex items-center gap-4">
