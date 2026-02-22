@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect } from "react";
-import { Menu, X, Phone, ChevronDown, User, LogOut } from "lucide-react";
+import { Menu, X, Mail, ChevronDown, User, LogOut } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { LangLink as Link } from "@/components/LangLink";
 import { useNavigate } from "react-router-dom";
@@ -245,15 +245,15 @@ export const Header = () => {
             </div>
             
             <a
-              href="tel:+8617674048404"
+              href="mailto:market@caniuav.com"
               className={`hidden md:flex items-center gap-2 px-4 py-2 rounded-full transition-colors ${
                 isScrolled 
                   ? 'bg-accent text-accent-foreground hover:bg-accent/90' 
                   : 'bg-white/10 text-white hover:bg-white/20'
               }`}
             >
-              <Phone className="w-4 h-4" />
-              <span className="text-sm font-medium">176-7404-8404</span>
+              <Mail className="w-4 h-4" />
+              <span className="text-sm font-medium">market@caniuav.com</span>
             </a>
 
             <Button

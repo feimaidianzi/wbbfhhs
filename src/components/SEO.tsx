@@ -40,7 +40,7 @@ export const SEO = ({
     },
     contactPoint: {
       '@type': 'ContactPoint',
-      telephone: '+86-17674048404',
+      email: 'market@caniuav.com',
       contactType: 'customer service',
       availableLanguage: 'Chinese',
     },

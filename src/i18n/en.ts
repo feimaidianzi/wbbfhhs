@@ -456,8 +456,8 @@ export const enTranslations: Record<string, string> = {
   'template.newArrival': 'New',
   'template.bestSeller': 'Best Seller',
   'template.getQuote': 'Get Quote',
-  'template.callNow': 'Call Now',
-  'template.callUs': 'Call Us',
+  'template.callNow': 'Email Us',
+  'template.callUs': 'Email Us',
   'template.whyChooseUs': 'Why Choose Us',
   'template.productLineup': 'Product Lineup',
   'template.caseStudies': 'Case Studies',
@@ -479,7 +479,8 @@ export const enTranslations: Record<string, string> = {
   'template.payload': 'Payload',
   'template.rangeHeight': 'Range/Altitude',
   'template.consultSolution': 'Get Solution',
-  'template.phoneConsult': 'Call Now',
+  'template.phoneConsult': 'Email Us',
+  'template.emailConsult': 'Email Us',
 
   // Logistics SY800 Product Detail Page
   'logistics.sy800.seo.title': 'Heavy-Lift Drone SY800-2 - Transport UAV',

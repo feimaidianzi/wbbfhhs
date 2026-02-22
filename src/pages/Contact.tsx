@@ -60,9 +60,9 @@ const Contact = () => {
   }, [cooldown]);
 
   const contactInfo = [
-    { icon: Phone, title: t('contact.info.phone'), value: "+8617674048404", href: "tel:+8617674048404" },
     { icon: Mail, title: t('contact.info.email'), value: "market@caniuav.com", href: "mailto:market@caniuav.com" },
-    { icon: MessageCircle, title: t('contact.info.wechat'), value: "17674048404", href: "#" },
+    { icon: Mail, title: t('contact.info.techEmail'), value: "support@caniuav.com", href: "mailto:support@caniuav.com" },
+    { icon: MessageCircle, title: t('contact.info.wechat'), value: "CANI_UAV", href: "#" },
     { icon: Clock, title: t('contact.info.workingHours'), value: t('contact.info.workingHours.value'), href: null },
   ];
 
@@ -70,7 +70,7 @@ const Contact = () => {
     {
       city: t('contact.office.changsha'),
       address: t('contact.office.changsha.address'),
-      phone: "+8617674048404",
+      email: "market@caniuav.com",
     },
   ];
 
@@ -182,12 +182,10 @@ const Contact = () => {
       name: '长凌科技 (CANI Technology)',
       url: 'https://www.caniuav.com/',
       logo: 'https://www.caniuav.com/logo.png',
-      telephone: '+8617674048404',
       email: 'market@caniuav.com',
       contactPoint: [
         {
           '@type': 'ContactPoint',
-          telephone: '+8617674048404',
           contactType: 'Sales & OEM/ODM',
           email: 'market@caniuav.com',
           availableLanguage: ['Chinese', 'English'],
@@ -397,8 +395,8 @@ const Contact = () => {
                           {office.address}
                         </p>
                         <p className="flex items-center gap-2">
-                          <Phone className="w-5 h-5 text-accent" />
-                          {office.phone}
+                          <Mail className="w-5 h-5 text-accent" />
+                          {office.email}
                         </p>
                       </div>
                     </div>
