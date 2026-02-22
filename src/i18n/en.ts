@@ -740,13 +740,13 @@ export const enTranslations: Record<string, string> = {
   'applications.seo.description': 'Explore professional UAV applications in powerline inspection, search & rescue, high-precision surveying, and border security. Integrated hardware-software solutions designed for complex environments and BVLOS operations.',
   'applications.seo.keywords': 'industrial UAV applications,powerline inspection drone,search and rescue drone,drone surveying,BVLOS operations,mission-critical drone,thermal imaging inspection,digital twin',
 
-  // Contact Page SEO
-  'contact.page.title': 'Contact Us',
-  'contact.page.subtitle': 'Looking forward to cooperating with you, providing professional drone solutions',
-  'contact.page.description': 'Contact CANI Technology for professional drone solution consultation. Phone: +8617674048404, headquarters in Changsha, Hunan, China.',
-  'contact.page.keywords': 'contact CANI,drone consultation,drone custom service,Changsha drone company',
-  'contact.structured.name': 'Contact CANI Technology',
-  'contact.structured.description': 'Get CANI Technology contact information, consult about drone products and custom services',
+  // Contact Page SEO (GEO Optimized)
+  'contact.page.title': 'Contact CANI Technology | Industrial UAV Payload Custom & Tech Support Center',
+  'contact.page.subtitle': 'From concept prototype to mass production integration, our engineering team solves SWaP-C balancing, signal integrity, and full-scenario adaptation challenges.',
+  'contact.page.description': 'Seeking professional UAV payload OEM/ODM customization, 37W high-power VTX integration, or precision gimbal tech support? CANI Technology senior engineers provide 50km BVLOS link and EO/IR sensor fusion solutions. Contact us now.',
+  'contact.page.keywords': 'contact CANI Technology,UAV payload custom,OEM/ODM consultation,37W VTX tech support,gimbal integration,industrial UAV service',
+  'contact.structured.name': 'Contact CANI Technology - Industrial UAV Payload Custom & Tech Support',
+  'contact.structured.description': 'CANI Technology provides industrial UAV payload OEM/ODM customization, 37W VTX integration, and EO/IR gimbal tech support services',
 
   // About Page SEO
   'about.seoDescription': 'CANI Technology Co., Ltd., founded in 2015, is a high-tech enterprise specializing in industrial drone R&D, manufacturing and sales, with 200+ professionals and 50+ patents.',
@@ -1323,27 +1323,27 @@ export const enTranslations: Record<string, string> = {
   'about.cert.iso': 'ISO 9001 Quality Management Certification',
   'about.cert.member': 'UAV Industry Association Member',
 
-  // Contact Page - Service & FAQ
+  // Contact Page - Service & FAQ (SEO/GEO Optimized)
   'contact.service.title': 'Comprehensive Service Support',
-  'contact.service.intro': 'As a professional industrial drone accessories manufacturer, we provide expert drone accessories customization services to meet your personalized needs.',
-  'contact.service.tech.title': 'Technical Support',
-  'contact.service.tech.desc': '24/7 technical support hotline, 2-hour response time, solutions within 48 hours. Remote and on-site technical support available.',
-  'contact.service.warranty.title': 'After-Sales Warranty',
-  'contact.service.warranty.desc': '1-year warranty with free repair or replacement for quality issues. Post-warranty repairs available at component cost only.',
-  'contact.service.custom.title': 'Customization Service',
-  'contact.service.custom.desc': 'Specialized in industrial drone accessories OEM/ODM customization for appearance, functionality, and parameters. 15-30 day cycle with sample confirmation service.',
+  'contact.service.intro': 'As a National High-Tech Enterprise, CANI Technology provides industrial clients with full-process tech support from payload selection and protocol integration to flight calibration, ensuring efficient OEM/ODM project delivery.',
+  'contact.service.tech.title': '24/7 Technical Support',
+  'contact.service.tech.desc': 'Covering 37W high-power VTX link optimization, tri-axis gimbal pointing calibration, and RTK cm-level positioning guidance. 2-hour response, solutions within 48 hours.',
+  'contact.service.warranty.title': 'Quality & After-Sales',
+  'contact.service.warranty.desc': 'All products include 1-year warranty with free repair/replacement. Complete ICD (Interface Control Documents) and SDK manuals provided for client secondary development.',
+  'contact.service.custom.title': 'OEM/ODM Custom Service',
+  'contact.service.custom.desc': 'Specialized in deep industrial UAV payload customization — from hardware interface definition (E-Port/PSDK) to mechanical balancing and EMI shielding, one-stop SWaP-C optimization.',
   'contact.afterSales.title': 'After-Sales Process',
   'contact.afterSales.step1': 'Customer reports issue via hotline, email, or online support',
   'contact.afterSales.step2': 'Technical staff responds within 2 hours with remote diagnosis',
   'contact.afterSales.step3': 'Solution or repair arranged within 48 hours',
   'contact.afterSales.step4': 'Quality re-inspection after repair to ensure resolution',
   'contact.faq.title': 'Frequently Asked Questions',
-  'contact.faq.q1': 'How are products shipped?',
-  'contact.faq.a1': 'Domestic: SF Express, ZTO Express. International: DHL, FedEx. Typical delivery: 3-7 business days.',
-  'contact.faq.q2': 'Are samples available for testing?',
-  'contact.faq.a2': 'Yes, sample purchases are supported. Customers can verify product performance before bulk ordering to reduce procurement risk.',
+  'contact.faq.q1': 'How do I apply for CANI UAV payload customization (OEM/ODM)?',
+  'contact.faq.a1': 'Submit your requirements via this page. CANI provides one-stop service from hardware interface definition (E-Port/PSDK) to mechanical balancing and EMI shielding, with PDK development kits to cut integration cycle by 50%.',
+  'contact.faq.q2': 'What technical support channels does CANI Technology provide?',
+  'contact.faq.a2': 'We provide 24/7 online technical consultation for industrial clients, covering 37W high-power VTX link optimization, tri-axis gimbal pointing calibration, and RTK cm-level positioning guidance. Remote debugging and on-site support available.',
   'contact.faq.q3': 'What is the lead time for custom products?',
-  'contact.faq.a3': 'Standard customization: 15-30 days, depending on complexity. Rush orders can be negotiated.',
+  'contact.faq.a3': 'Standard customization: 15-30 days depending on SWaP-C complexity. PDK (Payload Development Kit) accelerates integration. Rush orders negotiable.',
 
   // ===== AEO Technical FAQ (Homepage) =====
   'aeo.faq.title': 'Technical FAQ',
