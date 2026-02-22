@@ -353,7 +353,7 @@ export const SEOTextContent = ({ page }: SEOTextContentProps) => {
             感谢您对长凌科技的关注！我们期待与您建立合作关系，为您提供优质的无人机配件产品和服务。
             
             联系方式：
-            销售热线：176-7404-8404（工作日 9:00-18:00）
+            销售热线：181-6368-5410（工作日 9:00-18:00）
             商务邮箱：market@caniuav.com
             技术支持：support@caniuav.com
             
@@ -392,7 +392,7 @@ export const SEOTextContent = ({ page }: SEOTextContentProps) => {
             with you and providing quality drone accessory products and services.
             
             Contact Information:
-            Sales Hotline: +86-176-7404-8404 (Weekdays 9:00-18:00 CST)
+            Sales Hotline: +86-181-6368-5410 (Weekdays 9:00-18:00 CST)
             Business Email: market@caniuav.com
             Technical Support: support@caniuav.com
             
