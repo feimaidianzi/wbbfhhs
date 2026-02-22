@@ -30,6 +30,9 @@ Full OEM/ODM engineering: PCB layout → firmware development → structural des
 ## Custom UAV Software R&D (/custom-research/software)
 Industrial-grade UAV software development: custom GCS with multi-sensor 3D calibration, MAVLink protocol optimization, ≤30ms control latency. LibUtils C/C++/Python SDK. Edge AI integration (YOLOv8) for real-time defect detection. RTK/PPK cm-level positioning. Cross-platform: Windows, Android, Linux. BVLOS-compliant (Part 108/SORA). Digital twin sync with ArcGIS/BIM platforms.
 
+## Custom Payload R&D (/custom-research/payload)
+Industrial UAV payload customization: 37W high-power VTX (1080P/30ms, 50km link), EO/IR dual-sensor gimbal (≤0.1mrad stabilization, 640×512 IR thermal), PDK payload development kit. SWaP-C optimization (≤1.1kg AI+multispectral integration). MAVLink/PSDK/ELRS protocol support. RF zone EMI shielding for high-power links. IP67 protection, -20°C to +55°C. Full OEM/ODM from concept to flight calibration.
+
 ## Compliance & Certifications
 - MIL-STD-461G (EMC)
 - RTCA DO-160G (Vibration)
