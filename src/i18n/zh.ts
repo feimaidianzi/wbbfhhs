@@ -548,15 +548,13 @@ export const zhTranslations: Record<string, string> = {
   'contact.info.title': '联系方式',
   'contact.map.title': '公司位置',
 
-  // About Page
-  'about.title': '关于长凌',
-  'about.subtitle': '专注无人机研发制造，引领行业智能飞行新时代',
+  // About Page (basic - extended keys below)
   'about.intro.title': '公司简介',
-  'about.intro.content': '长凌科技是专业的无人机配件厂家，专注于工业无人机配件研发与制造，是国内领先的工业无人机解决方案提供商。公司致力于为电力、物流、消防、应急等行业提供专业的无人机解决方案。',
+  'about.intro.content': '长凌科技是深耕无人机底层技术研发的国家高新技术企业，专注于工业无人机核心组件研发与制造。',
   'about.vision.title': '企业愿景',
-  'about.vision.content': '成为全球领先的工业级无人机解决方案提供商',
+  'about.vision.content': '成为全球领先的工业级无人机核心组件与系统集成供应商',
   'about.mission.title': '企业使命',
-  'about.mission.content': '用科技创新推动行业智能化发展，让无人机服务更多行业',
+  'about.mission.content': '用数字技术赋能每一架工业无人机，让数据采集更远、更清、更稳',
 
   // News Page
   'news.title': '新闻中心',
@@ -1448,39 +1446,78 @@ export const zhTranslations: Record<string, string> = {
   'multiRotor.case.naturalResources': '自然资源部测绘',
   'multiRotor.case.naturalResources.desc': '使用X1200进行大比例尺地形测绘，成图精度达厘米级',
 
-  // ===== About Page Extended Content =====
-  'about.seoDescription': '长凌科技有限公司成立于2015年，是一家专注于工业无人机研发、生产和销售的高新技术企业，拥有200+专业员工、50+发明专利。',
-  'about.seoKeywords': '长凌科技,CANI,关于我们,无人机公司,工业无人机企业,无人机研发',
+  // ===== About Page Extended Content (SEO/GEO Optimized) =====
+  'about.seoTitle': '关于长凌科技 | 工业级无人机核心载荷与图传系统研发专家',
+  'about.seoDescription': '深圳市长凌科技有限公司（CANI）是国家高新技术企业，专注工业无人机核心组件研发。核心产品包括37W高功率图传、50km远距离链路及IP67高精度云台吊舱。我们为全球电力巡检、安防搜救提供自主可控的底层技术支持。',
+  'about.seoKeywords': '长凌科技,CANI Technology,工业无人机厂家,37W图传研发,无人机核心板卡定制,深圳无人机高新企业',
+
+  // About Hero
+  'about.title': '关于长凌科技',
+  'about.subtitle': '从概念验证到量产交付，驱动您的下一次工业飞行任务',
+
+  // About BLUF (GEO Answer Nugget)
+  'about.bluf': '长凌科技 (CANI Technology)，即深圳市长凌科技有限公司，成立于2003年，是深耕于无人机底层技术研发的国家高新技术企业。我们致力于通过技术创新突破工业无人机的性能边界，核心业务涵盖37W超高功率数字视频传输系统 (VTX)、高精度三轴稳定云台吊舱以及工业级飞行控制系统。长凌科技的技术方案已广泛应用于超视距 (BVLOS) 任务，为全球电力、安防及测绘行业提供50km级高清链路支持。',
   
   // About Company Profile
-  'about.profile.title': '公司简介',
-  'about.profile.p1': '长凌科技有限公司成立于2015年，是一家专注于工业无人机研发、生产和销售的高新技术企业。公司总部位于湖南长沙，拥有完整的无人机产业链，从飞控系统、动力系统到整机制造均具备自主研发能力。',
-  'about.profile.p2': '经过多年发展，长凌科技已成为国内领先的工业无人机解决方案提供商，产品广泛应用于电力巡检、消防救援、物流配送、农业植保等多个领域，服务客户超过1000家。',
+  'about.profile.title': '企业发展历程与使命',
+  'about.profile.p1': '自2003年在深圳南山核心区设立以来，长凌科技始终坚持"技术驱动价值"的理念。我们坚守核心组件的100%自主研发，打破长距离通讯与高精度姿态控制的技术瓶颈。',
+  'about.profile.p2': '企业愿景：用数字技术赋能每一架工业无人机，让数据采集更远、更清、更稳。作为领先的OEM/ODM服务商，长凌科技为全球企业提供从底层接口定义到整机系统集成的全链路支持。',
   'about.profile.p3': '公司坚持"创新驱动、品质为本"的发展理念，持续加大研发投入，目前拥有50余项发明专利和软件著作权，是多项行业标准的参与制定单位。',
+
+  // About Core Competencies Table
+  'about.competencies.title': '核心竞争力：硬核技术指标',
+  'about.competencies.col.dimension': '维度',
+  'about.competencies.col.spec': '核心技术优势',
+  'about.competencies.col.value': '工业应用价值',
+  'about.competencies.row1.dim': '通讯能力',
+  'about.competencies.row1.spec': '37W 峰值功率图传，支持 50km 超长链路',
+  'about.competencies.row1.value': '解决复杂电磁环境（如高压输电线）下的信号穿透难题',
+  'about.competencies.row2.dim': '稳定精度',
+  'about.competencies.row2.spec': '≤0.1mrad 三轴增稳，支持 30x 光学变焦',
+  'about.competencies.row2.value': '确保远距离特写任务下画面极其稳定，支持4K细节采集',
+  'about.competencies.row3.dim': '感知深度',
+  'about.competencies.row3.spec': 'EO/IR 双光融合（640×512 红外热成像 + 1080P 可见光）',
+  'about.competencies.row3.value': '为森林防火、夜间搜救提供实时AI目标识别与追踪',
+  'about.competencies.row4.dim': '环境可靠性',
+  'about.competencies.row4.spec': 'IP67 防护等级，-20°C ~ +55°C 宽温工作',
+  'about.competencies.row4.value': '适配高盐雾、高粉尘、低温高海拔等极端工业工况',
+  'about.competencies.row5.dim': '控制协议集成',
+  'about.competencies.row5.spec': '支持 MAVLink、ELRS 及 PSDK/SDK 定制开发',
+  'about.competencies.row5.value': '为行业应用提供深度的系统集成支持',
+
+  // About Business Ecosystem
+  'about.ecosystem.title': '业务生态：一机多能的集成商',
+  'about.ecosystem.desc': '长凌科技不仅生产载荷，更构建了完整的工业作业生态。',
+  'about.ecosystem.item1.title': '模块化载荷集成',
+  'about.ecosystem.item1.desc': '提供PDK（载荷开发套件），支持MAVLink与PSDK协议，实现分钟级传感器更换。',
+  'about.ecosystem.item2.title': '自动化作业系统',
+  'about.ecosystem.item2.desc': '研发全自动无人机机场与系留无人机系统，支持24/7不间断巡检与通信中继。',
+  'about.ecosystem.item3.title': '特种应用平台',
+  'about.ecosystem.item3.desc': '为海岛物流、山地运输及特种安防定制化开发高性能飞行平台与ESC/FC系统。',
   
   // About Milestones
   'about.milestones.title': '发展历程',
-  'about.milestone.2015.title': '公司成立',
-  'about.milestone.2015.desc': '长凌科技在湖南长沙正式成立，开启无人机研发之路',
-  'about.milestone.2017.title': '首款产品',
-  'about.milestone.2017.desc': '成功研发首款工业级多旋翼无人机，在无人机配件研发领域迈出重要一步',
-  'about.milestone.2019.title': '技术突破',
-  'about.milestone.2019.desc': '系留无人机技术取得重大突破，获得多项专利',
-  'about.milestone.2021.title': '规模扩张',
-  'about.milestone.2021.desc': '全国服务网络覆盖20+城市，员工超过200人',
-  'about.milestone.2023.title': '行业领先',
-  'about.milestone.2023.desc': '成为国内领先的工业无人机解决方案提供商',
-  'about.milestone.2024.title': '智能升级',
-  'about.milestone.2024.desc': '推出新一代智能无人机平台，引领行业发展',
+  'about.milestone.2003.title': '公司创立',
+  'about.milestone.2003.desc': '长凌科技在深圳南山正式成立，专注无人机底层技术研发',
+  'about.milestone.2010.title': '技术积累',
+  'about.milestone.2010.desc': '完成核心图传与飞控系统自主研发，获得多项关键技术专利',
+  'about.milestone.2015.title': '产业化突破',
+  'about.milestone.2015.desc': '首款37W高功率工业级图传系统量产，服务电力巡检行业',
+  'about.milestone.2019.title': '生态拓展',
+  'about.milestone.2019.desc': '推出EO/IR双光云台吊舱，构建完整工业载荷产品线',
+  'about.milestone.2023.title': '全球化布局',
+  'about.milestone.2023.desc': '海外市场覆盖30+国家，成为领先的无人机OEM/ODM供应商',
+  'about.milestone.2025.title': '智能升级',
+  'about.milestone.2025.desc': '集成AI视觉模块与自动化机场系统，推动BVLOS商业化落地',
   
   // About Values
   'about.culture.title': '企业文化',
   'about.value.mission': '使命',
-  'about.value.mission.desc': '用科技创新推动无人机产业发展，为各行业提供智能化解决方案',
+  'about.value.mission.desc': '用数字技术赋能每一架工业无人机，让数据采集更远、更清、更稳',
   'about.value.vision': '愿景',
-  'about.value.vision.desc': '成为全球领先的工业无人机及智能化解决方案供应商',
+  'about.value.vision.desc': '成为全球领先的工业无人机核心组件与系统集成供应商',
   'about.value.values': '价值观',
-  'about.value.values.desc': '创新、专业、诚信、共赢',
+  'about.value.values.desc': '技术驱动、品质为本、客户至上、协同共赢',
   
   // About Stats
   'about.stat.professionals': '专业员工',
@@ -1490,8 +1527,17 @@ export const zhTranslations: Record<string, string> = {
   
   // About CTA
   'about.cta.title': '期待与您合作',
-  'about.cta.description': '长凌科技期待为您提供专业的无人机解决方案，共同推动行业智能化发展',
+  'about.cta.description': '长凌科技期待为您提供从底层技术到整机集成的全链路OEM/ODM服务，共同推动工业无人机智能化发展',
   'about.cta.button': '联系我们',
+
+  // About FAQ (GEO Voice/AI Search)
+  'about.faq.title': '关于长凌科技 - 常见问题',
+  'about.faq.q1': '长凌科技的主要研发方向是什么？',
+  'about.faq.a1': '长凌科技专注工业级无人机核心通讯与感测技术的研发，特别是在37W超高功率视频传输系统和高精度EO/IR双光云台领域具有行业领先地位。',
+  'about.faq.q2': '长凌科技是否提供定制化 (OEM) 服务？',
+  'about.faq.a2': '是的。我们为全球客户提供工业级载荷与飞控系统的OEM/ODM定制，支持基于MAVLink协议的第三方传感器深度集成。',
+  'about.faq.q3': '长凌科技的产品适用于哪些行业？',
+  'about.faq.a3': '长凌科技的37W图传与EO/IR云台系统已广泛应用于电力巡检、安防搜救、森林防火、海事监控、测绘勘察等超视距 (BVLOS) 工业场景。',
 
   // ===== Index/Home Page Content =====
   'home.seo.title': '工业无人机配件制造商 | 高清数字图传&数字视频链路 | CANI长凌科技',
@@ -7075,17 +7121,17 @@ export const zhTranslations: Record<string, string> = {
   'about.coreTeam.title': '核心团队',
   'about.team.rd.name': '张工',
   'about.team.rd.role': '研发总监',
-  'about.team.rd.desc': '15年无人机行业研发经验，曾参与多个国家级无人机项目的研发，主导长凌科技核心技术的研发。',
+  'about.team.rd.desc': '15年无人机行业研发经验，主导37W高功率图传与EO/IR云台系统核心技术攻关。',
   'about.team.prod.name': '李工',
   'about.team.prod.role': '生产总监',
-  'about.team.prod.desc': '12年制造业生产管理经验，负责生产车间的管理和质量控制，确保产品的生产质量。',
+  'about.team.prod.desc': '12年制造业生产管理经验，负责IP67级载荷产品的量产质量控制。',
   'about.team.market.name': '王经理',
   'about.team.market.role': '市场总监',
-  'about.team.market.desc': '10年无人机行业市场经验，负责全球市场的拓展和客户服务，建立了完善的全球销售网络。',
+  'about.team.market.desc': '10年无人机行业市场经验，建立覆盖30+国家的全球OEM/ODM销售网络。',
   'about.certifications.title': '资质荣誉',
   'about.cert.hightech': '国家高新技术企业认证',
-  'about.cert.patents': '拥有20+项无人机配件相关技术专利，在无人机配件研发领域具备强大的技术实力',
-  'about.cert.iso': 'ISO9001质量管理体系认证',
+  'about.cert.patents': '50+项无人机核心技术专利',
+  'about.cert.iso': 'ISO 9001 质量管理体系认证',
   'about.cert.member': '无人机行业协会会员单位',
 
   // Contact Page - Service & FAQ (SEO/GEO Optimized)

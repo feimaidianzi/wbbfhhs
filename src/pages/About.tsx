@@ -2,22 +2,25 @@ import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { FloatingContact } from "@/components/FloatingContact";
 import { Button } from "@/components/ui/button";
-import { Target, Users, Award, ArrowRight, Cpu, BarChart3, Globe2, ShieldCheck } from "lucide-react";
+import { Target, Users, Award, ArrowRight, Cpu, BarChart3, Globe2, ShieldCheck, Layers, Radio, Settings } from "lucide-react";
 import workshopAssembly from "@/assets/seo/workshop-assembly.jpg";
 import { MultiLanguageSEO, createLocalizedBreadcrumbData } from "@/components/MultiLanguageSEO";
-import { useLanguage as useLanguageHook } from "@/contexts/LanguageContext";
 import { useLanguage } from "@/contexts/LanguageContext";
+import { LangLink } from "@/components/LangLink";
+import { PageFAQ } from "@/components/PageFAQ";
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
+import { Helmet } from "react-helmet-async";
 
 const About = () => {
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
 
   const milestones = [
+    { year: "2003", title: t('about.milestone.2003.title'), description: t('about.milestone.2003.desc') },
+    { year: "2010", title: t('about.milestone.2010.title'), description: t('about.milestone.2010.desc') },
     { year: "2015", title: t('about.milestone.2015.title'), description: t('about.milestone.2015.desc') },
-    { year: "2017", title: t('about.milestone.2017.title'), description: t('about.milestone.2017.desc') },
     { year: "2019", title: t('about.milestone.2019.title'), description: t('about.milestone.2019.desc') },
-    { year: "2021", title: t('about.milestone.2021.title'), description: t('about.milestone.2021.desc') },
     { year: "2023", title: t('about.milestone.2023.title'), description: t('about.milestone.2023.desc') },
-    { year: "2024", title: t('about.milestone.2024.title'), description: t('about.milestone.2024.desc') },
+    { year: "2025", title: t('about.milestone.2025.title'), description: t('about.milestone.2025.desc') },
   ];
 
   const values = [
@@ -30,25 +33,83 @@ const About = () => {
     { value: "200+", label: t('about.stat.professionals') },
     { value: "50+", label: t('about.stat.patents') },
     { value: "1000+", label: t('about.stat.clientsServed') },
-    { value: "20+", label: t('about.stat.citiesCovered') },
+    { value: "30+", label: t('about.stat.citiesCovered') },
   ];
 
-  const { language } = useLanguageHook();
-  
+  const competencyRows = [
+    { dim: t('about.competencies.row1.dim'), spec: t('about.competencies.row1.spec'), value: t('about.competencies.row1.value') },
+    { dim: t('about.competencies.row2.dim'), spec: t('about.competencies.row2.spec'), value: t('about.competencies.row2.value') },
+    { dim: t('about.competencies.row3.dim'), spec: t('about.competencies.row3.spec'), value: t('about.competencies.row3.value') },
+    { dim: t('about.competencies.row4.dim'), spec: t('about.competencies.row4.spec'), value: t('about.competencies.row4.value') },
+    { dim: t('about.competencies.row5.dim'), spec: t('about.competencies.row5.spec'), value: t('about.competencies.row5.value') },
+  ];
+
+  const ecosystemItems = [
+    { icon: Layers, title: t('about.ecosystem.item1.title'), desc: t('about.ecosystem.item1.desc') },
+    { icon: Radio, title: t('about.ecosystem.item2.title'), desc: t('about.ecosystem.item2.desc') },
+    { icon: Settings, title: t('about.ecosystem.item3.title'), desc: t('about.ecosystem.item3.desc') },
+  ];
+
+  const faqItems = [
+    { questionKey: 'about.faq.q1', answerKey: 'about.faq.a1' },
+    { questionKey: 'about.faq.q2', answerKey: 'about.faq.a2' },
+    { questionKey: 'about.faq.q3', answerKey: 'about.faq.a3' },
+  ];
+
   const breadcrumbData = createLocalizedBreadcrumbData([
     { name: t('nav.home'), url: '/' },
     { name: t('about.title'), url: '/about' },
   ], language);
 
+  const aboutPageJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "AboutPage",
+    "mainEntity": {
+      "@type": "Organization",
+      "name": "深圳市长凌科技有限公司 (CANI Technology)",
+      "alternateName": ["长凌科技", "CANI UAV"],
+      "url": "https://www.caniuav.com/",
+      "logo": "https://www.caniuav.com/images/logo.png",
+      "foundingDate": "2003",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "12F, Block B, Bldg 1, Software Industry Base, Nanshan",
+        "addressLocality": "Shenzhen",
+        "addressRegion": "Guangdong",
+        "addressCountry": "CN"
+      },
+      "contactPoint": {
+        "@type": "ContactPoint",
+        "telephone": "+86-0755-36393300",
+        "contactType": "sales and technical support"
+      },
+      "knowsAbout": [
+        "Industrial UAV Payload Customization",
+        "37W High-Power Video Transmission Systems",
+        "EO/IR Dual-Sensor Gimbal Pods",
+        "Flight Controller & ESC Systems",
+        "BVLOS Operations",
+        "MAVLink Protocol Integration"
+      ],
+      "brand": {
+        "@type": "Brand",
+        "name": "CANI"
+      }
+    }
+  };
+
   return (
     <div className="min-h-screen">
       <MultiLanguageSEO
-        title={t('about.title')}
+        title={t('about.seoTitle') !== 'about.seoTitle' ? t('about.seoTitle') : t('about.title')}
         description={t('about.seoDescription')}
         keywords={t('about.seoKeywords')}
         path="/about"
         structuredData={breadcrumbData}
       />
+      <Helmet>
+        <script type="application/ld+json">{JSON.stringify(aboutPageJsonLd)}</script>
+      </Helmet>
       <Header />
       <main className="pt-16 md:pt-20">
         {/* Hero Section */}
@@ -73,7 +134,18 @@ const About = () => {
           </div>
         </section>
 
-        {/* Company Intro */}
+        {/* BLUF - GEO Answer Nugget */}
+        <section className="py-12 bg-accent/5 border-b border-accent/10">
+          <div className="container-custom">
+            <div className="max-w-4xl mx-auto">
+              <p className="text-lg text-foreground leading-relaxed font-medium">
+                {t('about.bluf')}
+              </p>
+            </div>
+          </div>
+        </section>
+
+        {/* Company Profile */}
         <section className="py-16 bg-background">
           <div className="container-custom">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
@@ -81,23 +153,16 @@ const About = () => {
                 <h2 className="text-2xl md:text-3xl font-bold mb-6">
                   {t('about.profile.title')}
                 </h2>
-                <p className="text-muted-foreground mb-4 leading-relaxed">
-                  {t('about.profile.p1')}
-                </p>
-                <p className="text-muted-foreground mb-4 leading-relaxed">
-                  {t('about.profile.p2')}
-                </p>
-                <p className="text-muted-foreground leading-relaxed mb-6">
-                  {t('about.profile.p3')}
-                </p>
-                {/* E-E-A-T Trust Signals */}
+                <p className="text-muted-foreground mb-4 leading-relaxed">{t('about.profile.p1')}</p>
+                <p className="text-muted-foreground mb-4 leading-relaxed">{t('about.profile.p2')}</p>
+                <p className="text-muted-foreground leading-relaxed mb-6">{t('about.profile.p3')}</p>
                 <div className="flex flex-wrap gap-3">
                   <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-primary/10 text-primary text-sm font-medium">
                     <Award className="w-3.5 h-3.5" />
                     {t('footer.qualification')}
                   </span>
                   <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-accent/10 text-accent text-sm font-medium">
-                    10+ {t('hero.stat.years')}
+                    20+ {t('hero.stat.years')}
                   </span>
                   <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-muted text-muted-foreground text-sm font-medium">
                     ISO 9001
@@ -107,7 +172,7 @@ const About = () => {
               <div className="aspect-video rounded-xl overflow-hidden shadow-card">
                 <img
                   src={workshopAssembly}
-                  alt="长凌科技无人机组装车间实拍 - CANI Technology drone assembly workshop"
+                  alt="CANI Technology drone assembly workshop - 长凌科技无人机组装车间实拍"
                   className="w-full h-full object-cover"
                   loading="lazy"
                 />
@@ -130,8 +195,58 @@ const About = () => {
           </div>
         </section>
 
-        {/* Mission & Vision */}
+        {/* Core Competencies Table */}
+        <section className="py-16 bg-background">
+          <div className="container-custom">
+            <h2 className="text-2xl md:text-3xl font-bold text-center mb-10">
+              {t('about.competencies.title')}
+            </h2>
+            <div className="max-w-5xl mx-auto overflow-x-auto">
+              <Table>
+                <TableHeader>
+                  <TableRow>
+                    <TableHead className="font-bold">{t('about.competencies.col.dimension')}</TableHead>
+                    <TableHead className="font-bold">{t('about.competencies.col.spec')}</TableHead>
+                    <TableHead className="font-bold">{t('about.competencies.col.value')}</TableHead>
+                  </TableRow>
+                </TableHeader>
+                <TableBody>
+                  {competencyRows.map((row, idx) => (
+                    <TableRow key={idx}>
+                      <TableCell className="font-semibold text-accent whitespace-nowrap">{row.dim}</TableCell>
+                      <TableCell>{row.spec}</TableCell>
+                      <TableCell className="text-muted-foreground">{row.value}</TableCell>
+                    </TableRow>
+                  ))}
+                </TableBody>
+              </Table>
+            </div>
+          </div>
+        </section>
+
+        {/* Business Ecosystem */}
         <section className="py-16 bg-secondary">
+          <div className="container-custom">
+            <h2 className="text-2xl md:text-3xl font-bold text-center mb-4">
+              {t('about.ecosystem.title')}
+            </h2>
+            <p className="text-muted-foreground text-center mb-10 max-w-2xl mx-auto">
+              {t('about.ecosystem.desc')}
+            </p>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+              {ecosystemItems.map((item, index) => (
+                <div key={index} className="bg-card rounded-xl p-8 shadow-card text-center border border-border">
+                  <item.icon className="w-12 h-12 text-accent mx-auto mb-4" />
+                  <h3 className="text-xl font-bold text-card-foreground mb-3">{item.title}</h3>
+                  <p className="text-muted-foreground">{item.desc}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* Mission & Vision */}
+        <section className="py-16 bg-background">
           <div className="container-custom">
             <h2 className="text-2xl md:text-3xl font-bold text-center mb-12">
               {t('about.culture.title')}
@@ -149,7 +264,7 @@ const About = () => {
         </section>
 
         {/* Timeline */}
-        <section className="py-16 bg-background">
+        <section className="py-16 bg-secondary">
           <div className="container-custom">
             <h2 className="text-2xl md:text-3xl font-bold text-center mb-12">
               {t('about.milestones.title')}
@@ -184,7 +299,7 @@ const About = () => {
         </section>
 
         {/* Core Team */}
-        <section className="py-16 bg-secondary">
+        <section className="py-16 bg-background">
           <div className="container-custom">
             <h2 className="text-2xl md:text-3xl font-bold text-center mb-12">
               {t('about.coreTeam.title')}
@@ -207,7 +322,7 @@ const About = () => {
         </section>
 
         {/* Certifications */}
-        <section className="py-16 bg-background">
+        <section className="py-16 bg-secondary">
           <div className="container-custom">
             <h2 className="text-2xl md:text-3xl font-bold text-center mb-12">
               {t('about.certifications.title')}
@@ -228,6 +343,12 @@ const About = () => {
           </div>
         </section>
 
+        {/* FAQ for AI/Voice Search */}
+        <PageFAQ
+          titleKey="about.faq.title"
+          items={faqItems}
+        />
+
         {/* CTA */}
         <section className="py-16 bg-primary">
           <div className="container-custom text-center">
@@ -237,10 +358,12 @@ const About = () => {
             <p className="text-primary-foreground/80 mb-8 max-w-2xl mx-auto">
               {t('about.cta.description')}
             </p>
-            <Button className="bg-accent hover:bg-orange-light text-accent-foreground px-8 py-3">
-              {t('about.cta.button')}
-              <ArrowRight className="w-4 h-4 ml-2" />
-            </Button>
+            <LangLink to="/contact">
+              <Button className="bg-accent hover:bg-accent/90 text-accent-foreground px-8 py-3">
+                {t('about.cta.button')}
+                <ArrowRight className="w-4 h-4 ml-2" />
+              </Button>
+            </LangLink>
           </div>
         </section>
       </main>
