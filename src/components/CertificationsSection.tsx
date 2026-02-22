@@ -15,7 +15,7 @@ export const CertificationsSection = () => {
   ];
 
   return (
-    <section className="py-16 md:py-20 bg-background border-t border-border/50">
+    <section className="py-16 md:py-20 bg-background border-t border-border/50" id="certifications">
       <div className="container-custom">
         <div className="flex flex-col lg:flex-row items-start lg:items-center gap-12">
           {/* Left Content */}
