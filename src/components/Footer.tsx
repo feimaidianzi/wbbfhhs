@@ -256,7 +256,7 @@ export const Footer = () => {
             </p>
           </div>
 
-          <p className="text-sm text-background/50 leading-relaxed mb-4">
+          <p className="text-sm text-background/50 leading-relaxed mb-4 text-center">
             {t('footer.seoDesc')}
           </p>
 
