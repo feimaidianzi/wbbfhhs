@@ -179,13 +179,32 @@ const Contact = () => {
     description: t('contact.structured.description'),
     mainEntity: {
       '@type': 'Organization',
-      name: 'CANI Technology',
+      name: '长凌科技 (CANI Technology)',
+      url: 'https://www.caniuav.com/',
+      logo: 'https://www.caniuav.com/logo.png',
       telephone: '+8617674048404',
       email: 'market@caniuav.com',
+      contactPoint: [
+        {
+          '@type': 'ContactPoint',
+          telephone: '+8617674048404',
+          contactType: 'Sales & OEM/ODM',
+          email: 'market@caniuav.com',
+          availableLanguage: ['Chinese', 'English'],
+        },
+        {
+          '@type': 'ContactPoint',
+          email: 'support@caniuav.com',
+          contactType: 'Technical Support',
+          productSupported: 'Industrial UAV Payloads, VTX Systems, Gimbal Pods',
+        },
+      ],
       address: {
         '@type': 'PostalAddress',
+        streetAddress: '望城区月亮岛街道罐子岭澳优全球总部大楼',
         addressLocality: 'Changsha',
         addressRegion: 'Hunan',
+        postalCode: '410200',
         addressCountry: 'CN',
       },
     },
