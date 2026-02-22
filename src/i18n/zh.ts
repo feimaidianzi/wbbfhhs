@@ -524,7 +524,7 @@ export const zhTranslations: Record<string, string> = {
   'footer.terms': '服务条款',
   'footer.seoDesc': '长凌科技作为高新技术无人机配件厂家，专注于工业无人机配件研发与制造，为全球客户提供优质的产品和服务。',
   'footer.siteMap': '站点地图',
-  'footer.qualification': '国家高新技术企业',
+  'footer.qualification': '高新技术企业',
 
   // Hero Section (legacy keys - kept for compatibility)
   'hero.title': '智能飞行 · 无限可能',
@@ -550,7 +550,7 @@ export const zhTranslations: Record<string, string> = {
 
   // About Page (basic - extended keys below)
   'about.intro.title': '公司简介',
-  'about.intro.content': '长凌科技是深耕无人机底层技术研发的国家高新技术企业，专注于工业无人机核心组件研发与制造。',
+  'about.intro.content': '长凌科技是深耕无人机底层技术研发的高新技术企业，专注于工业无人机核心组件研发与制造。',
   'about.vision.title': '企业愿景',
   'about.vision.content': '成为全球领先的工业级无人机核心组件与系统集成供应商',
   'about.mission.title': '企业使命',
@@ -616,7 +616,7 @@ export const zhTranslations: Record<string, string> = {
   'section.why.tech': '技术领先',
   'section.why.techDesc': '拥有50+项发明专利，核心技术自主可控',
   'section.why.quality': '品质保障',
-  'section.why.qualityDesc': '严格的质量管理体系，通过多项国际认证',
+  'section.why.qualityDesc': '严格的质量管理体系，具备多项国际认证能力',
   'section.why.service': '专业服务',
   'section.why.serviceDesc': '全国20+城市服务网络，7x24小时响应',
 
@@ -643,9 +643,9 @@ export const zhTranslations: Record<string, string> = {
   'section.partners.desc': '与众多知名企业建立长期战略合作关系',
 
   // CertificationsSection
-  'section.certs.badge': '资质认证',
-  'section.certs.title': '权威认证保障',
-  'section.certs.desc': '通过多项行业权威认证，品质值得信赖',
+  'section.certs.badge': '认证能力',
+  'section.certs.title': '认证工程能力',
+  'section.certs.desc': '具备协助客户通过多项行业权威认证的工程能力',
 
   // CTASection
   'section.cta.title': '开启智能飞行新时代',
@@ -1449,7 +1449,7 @@ export const zhTranslations: Record<string, string> = {
 
   // ===== About Page Extended Content (SEO/GEO Optimized) =====
   'about.seoTitle': '关于长凌科技 | 工业级无人机核心载荷与图传系统研发专家',
-  'about.seoDescription': '深圳市长凌科技有限公司（CANI）是国家高新技术企业，专注工业无人机核心组件研发。核心产品包括37W高功率图传、50km远距离链路及IP67高精度云台吊舱。我们为全球电力巡检、安防搜救提供自主可控的底层技术支持。',
+  'about.seoDescription': '深圳市长凌科技有限公司（CANI）是高新技术企业，专注工业无人机核心组件研发。核心产品包括37W高功率图传、50km远距离链路及IP67高精度云台吊舱。我们为全球电力巡检、安防搜救提供自主可控的底层技术支持。',
   'about.seoKeywords': '长凌科技,CANI Technology,工业无人机厂家,37W图传研发,无人机核心板卡定制,深圳无人机高新企业',
 
   // About Hero
@@ -1457,7 +1457,7 @@ export const zhTranslations: Record<string, string> = {
   'about.subtitle': '从概念验证到量产交付，驱动您的下一次工业飞行任务',
 
   // About BLUF (GEO Answer Nugget)
-  'about.bluf': '长凌科技 (CANI Technology)，即深圳市长凌科技有限公司，成立于2003年，是深耕于无人机底层技术研发的国家高新技术企业。我们致力于通过技术创新突破工业无人机的性能边界，核心业务涵盖37W超高功率数字视频传输系统 (VTX)、高精度三轴稳定云台吊舱以及工业级飞行控制系统。长凌科技的技术方案已广泛应用于超视距 (BVLOS) 任务，为全球电力、安防及测绘行业提供50km级高清链路支持。',
+  'about.bluf': '长凌科技 (CANI Technology)，即深圳市长凌科技有限公司，成立于2003年，是深耕于无人机底层技术研发的高新技术企业。我们致力于通过技术创新突破工业无人机的性能边界，核心业务涵盖37W超高功率数字视频传输系统 (VTX)、高精度三轴稳定云台吊舱以及工业级飞行控制系统。长凌科技的技术方案已广泛应用于超视距 (BVLOS) 任务，为全球电力、安防及测绘行业提供50km级高清链路支持。',
   
   // About Company Profile
   'about.profile.title': '企业发展历程与使命',
@@ -1542,7 +1542,7 @@ export const zhTranslations: Record<string, string> = {
 
   // ===== Index/Home Page Content =====
   'home.seo.title': '工业无人机配件制造商 | 高清数字图传&数字视频链路 | CANI长凌科技',
-  'home.seo.description': '领先的高清数字图传、数字视频链路及AI制导模块供应商，15年以上研发积累，200+专利，ISO认证，专注电力巡检与物流无人机解决方案。立即获取报价。',
+  'home.seo.description': '领先的高清数字图传、数字视频链路及AI制导模块供应商，15年以上研发积累，200+专利，具备ISO认证能力，专注电力巡检与物流无人机解决方案。立即获取报价。',
   'home.seo.keywords': '数字图传,大功率视频发射器,工业无人机配件,数字视频链路,AI制导模块,无人机制造商,电力巡检无人机,CANI长凌科技,无人机配件OEM定制',
   'home.structured.name': '长凌科技有限公司',
   'home.structured.description': '领先的工业无人机配件制造商，专注高清数字图传、数字视频链路和AI制导模块研发制造',
@@ -1815,7 +1815,7 @@ export const zhTranslations: Record<string, string> = {
   'companyIntro.badge': '关于长凌',
   'companyIntro.title.line1': '专注无人机配件',
   'companyIntro.title.line2': '10年技术沉淀',
-  'companyIntro.description': '作为一家拥有15年以上研发经验的领先工业无人机零部件制造商，CANI（长凌科技）专注于高可靠性系统。我们旗舰级的高清数字图传系统，旨在为关键任务提供稳定的50公里以上传输距离。我们拥有超过200项专利技术，并获得ISO、CE和FCC的全面认证，提供符合NDAA标准的无人机AI导航模块和飞行控制器，可将电力巡检效率提高多达10倍。',
+  'companyIntro.description': '作为一家拥有15年以上研发经验的领先工业无人机零部件制造商，CANI（长凌科技）专注于高可靠性系统。我们旗舰级的高清数字图传系统，旨在为关键任务提供稳定的50公里以上传输距离。我们拥有超过200项专利技术，具备ISO、CE和FCC等认证能力，提供符合NDAA标准的无人机AI导航模块和飞行控制器，可将电力巡检效率提高多达10倍。',
   'companyIntro.stat1.value': '200+',
   'companyIntro.stat1.label': '产品型号',
   'companyIntro.stat2.value': '10+',
@@ -3171,13 +3171,13 @@ export const zhTranslations: Record<string, string> = {
   'customSoftware.breadcrumb.software': '软件定制',
   'customSoftware.back': '返回科研定制',
   'customSoftware.title': '重新定义空中作业极限：从单点规划到军事级可靠性研发',
-  'customSoftware.subtitle': '作为国家高新技术企业，长凌科技（CANI）不仅制造无人机，更致力于解决最复杂的工程难题。我们利用CFD流体模拟与100%仿真架构，为全球客户交付定制化空中平台。',
+  'customSoftware.subtitle': '作为高新技术企业，长凌科技（CANI）不仅制造无人机，更致力于解决最复杂的工程难题。我们利用CFD流体模拟与100%仿真架构，为全球客户交付定制化空中平台。',
   'customSoftware.btn.consult': '预约高级工程师技术咨询',
   'customSoftware.btn.call': '电话咨询',
 
   // BLUF Section
   'customSoftware.bluf.title': '核心能力概览：定义无人机操作的智能中枢',
-  'customSoftware.bluf.content': '长凌科技（CANI Technology）致力于构建高可靠性的工业级无人机软件生态。我们提供端到端的地面站（GCS）定制、自动任务规划、≤30ms极低延迟图传算法以及跨平台SDK集成。作为国家高新技术企业，我们的软件系统深度适配电力巡检、安防监测及智慧物流等复杂工业环境。',
+  'customSoftware.bluf.content': '长凌科技（CANI Technology）致力于构建高可靠性的工业级无人机软件生态。我们提供端到端的地面站（GCS）定制、自动任务规划、≤30ms极低延迟图传算法以及跨平台SDK集成。作为高新技术企业，我们的软件系统深度适配电力巡检、安防监测及智慧物流等复杂工业环境。',
 
   // GCS Section
   'customSoftware.gcs.title': '定制化地面站（GCS）配置与控制系统',
@@ -3280,7 +3280,7 @@ export const zhTranslations: Record<string, string> = {
   'customPayload.breadcrumb.payload': '载荷定制研发',
   'customPayload.back': '返回科研定制',
   'customPayload.title': '工业级无人机载荷定制解决方案：多维感知与超视距集成专家',
-  'customPayload.bluf': '长凌科技 (CANI Technology) 是国家高新技术企业，专注于工业级无人机载荷 (UAV Payloads) 的研发与 OEM/ODM 定制。我们提供从 37W 超高功率图传系统（支持 50km 链路）到 ≤0.1mrad 高精度稳定云台的全链路方案，涵盖 EO/IR 双光系统、LiDAR 激光雷达、特种气体监测及应急抛投等载荷。',
+  'customPayload.bluf': '长凌科技 (CANI Technology) 是高新技术企业，专注于工业级无人机载荷 (UAV Payloads) 的研发与 OEM/ODM 定制。我们提供从 37W 超高功率图传系统（支持 50km 链路）到 ≤0.1mrad 高精度稳定云台的全链路方案，涵盖 EO/IR 双光系统、LiDAR 激光雷达、特种气体监测及应急抛投等载荷。',
   'customPayload.subtitle': '拥有200多人的研发团队，涵盖嵌入式、硬件、软件、结构、技术支持和装配六大部门，提供从传感器选型到飞行标定的全流程载荷定制服务。',
   'customPayload.btn.consult': '预约工程师技术咨询',
   'customPayload.btn.call': '电话咨询',
@@ -3379,7 +3379,7 @@ export const zhTranslations: Record<string, string> = {
   'customDrone.breadcrumb.current': '整机定制研发',
   'customDrone.back': '返回科研定制',
   'customDrone.title': '重新定义空中作业极限：从概念设计到军工级可靠性交付',
-  'customDrone.bluf': '作为国家高新技术企业，长凌科技（CANI）利用CFD流体仿真与100%数字孪生架构，为全球客户交付定制化空中平台——涵盖30天连续驻空系留系统、150kg有效载荷重载物流、以及8级抗风碳纤维一体成型多旋翼，所有通信链路均采用MAVLink 2.0协议与AES-256加密。',
+  'customDrone.bluf': '作为高新技术企业，长凌科技（CANI）利用CFD流体仿真与100%数字孪生架构，为全球客户交付定制化空中平台——涵盖30天连续驻空系留系统、150kg有效载荷重载物流、以及8级抗风碳纤维一体成型多旋翼，所有通信链路均采用MAVLink 2.0协议与AES-256加密。',
   'customDrone.subtitle': '拥有200多人的研发团队，涵盖嵌入式、硬件、软件、结构、技术支持和装配六大部门，提供从概念到量产的端到端无人机平台定制服务，满足各行业应用需求。',
   'customDrone.btn.consult': '预约高级工程师技术咨询',
   'customDrone.btn.call': '电话咨询',
@@ -6866,8 +6866,8 @@ export const zhTranslations: Record<string, string> = {
 
   // ===== SEO Enhancement Keys =====
   // Footer SEO
-  'footer.seo.companyTitle': '【国家高新技术企业】长凌科技 - 专业无人机核心配件制造商 | 专注数字图传、飞控电调、云台吊舱研发生产',
-  'footer.trust.highTech': '国家高新技术企业研发',
+  'footer.seo.companyTitle': '【高新技术企业】长凌科技 - 专业无人机核心配件制造商 | 专注数字图传、飞控电调、云台吊舱研发生产',
+  'footer.trust.highTech': '高新技术企业研发',
   'footer.trust.iso': 'ISO 9001质量认证',
   'footer.trust.experience': '10年+工业无人机配件研发经验',
   'footer.seo.keyword.droneAccessories': '无人机配件',
@@ -6878,7 +6878,7 @@ export const zhTranslations: Record<string, string> = {
   'footer.projects': '项目合作',
 
   // Product E-E-A-T Trust Badges
-  'product.trust.highTech': '国家高新技术企业研发',
+  'product.trust.highTech': '高新技术企业研发',
   'product.trust.iso': 'ISO 9001质量认证',
   'product.trust.experience': '10年+研发经验',
 
@@ -6923,7 +6923,7 @@ export const zhTranslations: Record<string, string> = {
   // ===== SEO Content Optimization (Report) =====
 
   // Homepage SEO Intro
-  'home.seoIntro': '长凌科技——10年深耕工业级无人机核心配件研发制造，专注数字图传、飞控电调、云台吊舱生产，服务全球500+合作伙伴，提供定制化无人机配件解决方案，高新技术企业认证，品质有保障。',
+  'home.seoIntro': '长凌科技——10年深耕工业级无人机核心配件研发制造，专注数字图传、飞控电调、云台吊舱生产，服务全球500+合作伙伴，提供定制化无人机配件解决方案，高新技术企业，品质有保障。',
   'home.brandSummary': '长凌科技核心产品涵盖数字图传系统、飞控电调、云台吊舱三大系列，可满足工业巡检、安防监控、FPV竞速等多场景需求，作为专业无人机核心配件制造商，我们以技术创新赋能全球合作伙伴，提供一站式OEM/ODM定制服务，打造稳定、高效、可靠的无人机配件解决方案。',
 
   // Products Page SEO
@@ -7142,14 +7142,14 @@ export const zhTranslations: Record<string, string> = {
   'about.team.market.role': '市场总监',
   'about.team.market.desc': '10年无人机行业市场经验，建立覆盖30+国家的全球OEM/ODM销售网络。',
   'about.certifications.title': '资质荣誉',
-  'about.cert.hightech': '国家高新技术企业认证',
+  'about.cert.hightech': '高新技术企业认证',
   'about.cert.patents': '50+项无人机核心技术专利',
   'about.cert.iso': 'ISO 9001 质量管理体系认证',
   'about.cert.member': '无人机行业协会会员单位',
 
   // Contact Page - Service & FAQ (SEO/GEO Optimized)
   'contact.service.title': '全方位服务支持',
-  'contact.service.intro': '作为国家高新技术企业，长凌科技为工业客户提供从载荷选型、协议集成到飞行标定的全流程技术支持，确保OEM/ODM项目高效交付。',
+  'contact.service.intro': '作为高新技术企业，长凌科技为工业客户提供从载荷选型、协议集成到飞行标定的全流程技术支持，确保OEM/ODM项目高效交付。',
   'contact.service.tech.title': '24/7技术支持',
   'contact.service.tech.desc': '涵盖37W高功率图传链路优化、三轴云台指向精度标定以及基于RTK的厘米级定位接入指导。2小时内响应，48小时内提供解决方案。',
   'contact.service.warranty.title': '品质与售后保障',
