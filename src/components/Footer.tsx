@@ -80,7 +80,7 @@ export const Footer = () => {
 
   const socialLinks = [
     { icon: WeChatIcon, href: "weixin://dl/chat?+8617558423252", label: "WeChat", id: "+8617558423252" },
-    { icon: WhatsAppIcon, href: "https://wa.me/8618163685410", label: "WhatsApp" },
+    { icon: WhatsAppIcon, href: "https://wa.me/8617585423252", label: "WhatsApp" },
     { icon: MessengerIcon, href: "https://m.me/caniuav", label: "Messenger" },
     { icon: TelegramIcon, href: "https://t.me/caniuav", label: "Telegram" },
     { icon: LinkedInIcon, href: "https://linkedin.com/company/caniuav", label: "LinkedIn" },

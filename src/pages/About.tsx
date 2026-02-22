@@ -83,7 +83,7 @@ const About = () => {
       "contactPoint": [
         {
           "@type": "ContactPoint",
-          "telephone": "+86-18163685410",
+          "telephone": "+86-17585423252",
           "contactType": "sales and technical support",
           "email": "market@caniuav.com",
           "availableLanguage": ["Chinese", "English"]
