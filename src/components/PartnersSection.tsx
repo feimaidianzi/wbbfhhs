@@ -1,4 +1,4 @@
-import { Building2, GraduationCap, Landmark, Factory, Zap, Rocket, FlaskConical, Fuel } from "lucide-react";
+import { Globe, Plane, Shield, Factory, Zap, Radar, Mountain, Waves } from "lucide-react";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { motion } from "framer-motion";
 
@@ -6,26 +6,26 @@ export const PartnersSection = () => {
   const { t } = useLanguage();
 
   const partners = [
-    { name: t('partnersSection.partner.csic'), icon: Factory },
-    { name: t('partnersSection.partner.chinaTower'), icon: Building2 },
-    { name: t('partnersSection.partner.hubeiCivil'), icon: Landmark },
-    { name: t('partnersSection.partner.qinghaiUni'), icon: GraduationCap },
-    { name: t('partnersSection.partner.shandongUni'), icon: GraduationCap },
-    { name: t('partnersSection.partner.hust'), icon: GraduationCap },
-    { name: t('partnersSection.partner.tsinghua'), icon: GraduationCap },
-    { name: t('partnersSection.partner.cas'), icon: FlaskConical },
-    { name: t('partnersSection.partner.caep'), icon: FlaskConical },
-    { name: t('partnersSection.partner.hubeiPower'), icon: Zap },
-    { name: t('partnersSection.partner.calt'), icon: Rocket },
-    { name: t('partnersSection.partner.hebangPower'), icon: Zap },
-    { name: t('partnersSection.partner.pipeChina'), icon: Factory },
-    { name: t('partnersSection.partner.comac'), icon: Rocket },
-    { name: t('partnersSection.partner.avicOptronics'), icon: FlaskConical },
-    { name: t('partnersSection.partner.casic'), icon: Rocket },
-    { name: t('partnersSection.partner.wuhanUni'), icon: GraduationCap },
-    { name: t('partnersSection.partner.spic'), icon: Zap },
-    { name: t('partnersSection.partner.sinopec'), icon: Fuel },
-    { name: t('partnersSection.partner.petroChina'), icon: Fuel },
+    { name: t('partnersSection.partner.skywatch'), icon: Radar, region: '🇨🇦' },
+    { name: t('partnersSection.partner.wingtra'), icon: Plane, region: '🇨🇭' },
+    { name: t('partnersSection.partner.acecore'), icon: Factory, region: '🇳🇱' },
+    { name: t('partnersSection.partner.quaternium'), icon: Zap, region: '🇪🇸' },
+    { name: t('partnersSection.partner.flyability'), icon: Shield, region: '🇨🇭' },
+    { name: t('partnersSection.partner.skydio'), icon: Radar, region: '🇺🇸' },
+    { name: t('partnersSection.partner.parazero'), icon: Shield, region: '🇮🇱' },
+    { name: t('partnersSection.partner.delair'), icon: Plane, region: '🇫🇷' },
+    { name: t('partnersSection.partner.ideaforge'), icon: Factory, region: '🇮🇳' },
+    { name: t('partnersSection.partner.terra'), icon: Globe, region: '🇯🇵' },
+    { name: t('partnersSection.partner.microdrones'), icon: Plane, region: '🇩🇪' },
+    { name: t('partnersSection.partner.droneup'), icon: Mountain, region: '🇺🇸' },
+    { name: t('partnersSection.partner.aerodyne'), icon: Globe, region: '🇲🇾' },
+    { name: t('partnersSection.partner.doosan'), icon: Zap, region: '🇰🇷' },
+    { name: t('partnersSection.partner.hubsan'), icon: Factory, region: '🇨🇳' },
+    { name: t('partnersSection.partner.flymotion'), icon: Radar, region: '🇺🇸' },
+    { name: t('partnersSection.partner.heven'), icon: Waves, region: '🇧🇷' },
+    { name: t('partnersSection.partner.airobotics'), icon: Shield, region: '🇮🇱' },
+    { name: t('partnersSection.partner.corvus'), icon: Plane, region: '🇹🇷' },
+    { name: t('partnersSection.partner.skyeton'), icon: Radar, region: '🇺🇦' },
   ];
 
   const stats = [
@@ -95,6 +95,7 @@ export const PartnersSection = () => {
                   key={index}
                   className="flex-shrink-0 mx-3 px-5 py-2.5 bg-background rounded-full border border-border/50 flex items-center gap-2"
                 >
+                  <span className="text-base">{partner.region}</span>
                   <IconComponent className="w-4 h-4 text-accent" />
                   <span className="text-sm font-medium text-foreground whitespace-nowrap">
                     {partner.name}
