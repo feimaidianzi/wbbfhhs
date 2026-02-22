@@ -240,7 +240,7 @@ export const Footer = () => {
               {t('footer.seo.companyTitle')}
             </p>
             <p className="text-xs text-background/50">
-              Tel: +86-17674048404 | Email: market@caniuav.com
+              Email: market@caniuav.com | support@caniuav.com
             </p>
           </div>
 

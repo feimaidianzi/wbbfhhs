@@ -209,10 +209,10 @@ const ProductPageTemplate = ({
                   <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" />
                 </Button>
               </LangLink>
-              <a href="tel:+8617674048404">
+              <a href="mailto:market@caniuav.com">
                 <Button variant="outline" className="border-accent/30 hover:border-accent text-foreground px-8 py-6 text-lg font-semibold rounded-full">
-                  <Phone className="w-5 h-5 mr-2" />
-                  {t('template.callNow')}
+                  <Mail className="w-5 h-5 mr-2" />
+                  {t('template.emailConsult')}
                 </Button>
               </a>
             </motion.div>
@@ -522,10 +522,10 @@ const ProductPageTemplate = ({
                     {t('template.contactUs')}
                   </Button>
                 </LangLink>
-                <a href="tel:+8617674048404">
+                <a href="mailto:market@caniuav.com">
                   <Button variant="outline" className="border-accent/30 hover:border-accent text-foreground px-10 py-6 text-lg font-semibold rounded-full">
-                    <Phone className="w-5 h-5 mr-2" />
-                    17674048404
+                    <Mail className="w-5 h-5 mr-2" />
+                    market@caniuav.com
                   </Button>
                 </a>
               </div>

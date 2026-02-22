@@ -41,7 +41,7 @@ const Index = () => {
         },
         contactPoint: {
           '@type': 'ContactPoint',
-          telephone: '+86-17674048404',
+          email: 'market@caniuav.com',
           contactType: t('home.structured.contactType'),
           availableLanguage: t('home.structured.availableLanguage'),
         },

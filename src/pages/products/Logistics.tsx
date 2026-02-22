@@ -434,9 +434,9 @@ const Logistics = () => {
                 {t('logistics.sy800.cta.contact')}
               </Button>
             </Link>
-            <a href="tel:+8617674048404">
+            <a href="mailto:market@caniuav.com">
               <Button size="lg" variant="outline" className="border-primary-foreground text-primary-foreground hover:bg-primary-foreground hover:text-primary">
-                {t('logistics.sy800.cta.phone')}
+                {t('template.emailConsult')}
               </Button>
             </a>
           </div>

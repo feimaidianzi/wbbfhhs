@@ -716,8 +716,8 @@ export const zhTranslations: Record<string, string> = {
   'template.newArrival': '新品',
   'template.bestSeller': '畅销',
   'template.getQuote': '获取报价',
-  'template.callNow': '电话咨询',
-  'template.callUs': '电话咨询',
+  'template.callNow': '邮箱咨询',
+  'template.callUs': '邮箱咨询',
   'template.whyChooseUs': '为什么选择我们',
   'template.productLineup': '产品阵容',
   'template.caseStudies': '成功案例',
@@ -739,7 +739,8 @@ export const zhTranslations: Record<string, string> = {
   'template.payload': '载荷',
   'template.rangeHeight': '航程/高度',
   'template.consultSolution': '咨询方案',
-  'template.phoneConsult': '电话咨询',
+  'template.phoneConsult': '邮箱咨询',
+  'template.emailConsult': '邮箱咨询',
 
   // Product Categories Extended - 产品分类扩展
   'category.fcEsc': '飞控/电调',
