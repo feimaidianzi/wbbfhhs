@@ -58,21 +58,18 @@ const PVInspection = () => {
   }));
 
   const softwareStructuredData = {
-    "@context": "https://schema.org/",
+    "@context": "https://schema.org",
     "@type": "SoftwareApplication",
-    "name": "CANI PV Inspection AI System",
-    "operatingSystem": "Web-based, Windows 11, macOS, Linux",
+    "name": "CANI PV Inspection Software",
+    "operatingSystem": "Web, Windows, Android",
     "applicationCategory": "BusinessApplication",
+    "featureList": "AI-powered anomaly detection, IEC 62446-3 compliance, 3D solar digital twins, Automated reporting",
     "description": "Enterprise-grade solar farm UAV inspection software featuring 640×512 radiometric thermal imaging, AI defect classification, and IEC 62446-3 automated compliance.",
-    "aggregateRating": {
-      "@type": "AggregateRating",
-      "ratingValue": "4.8",
-      "ratingCount": "85"
-    },
     "offers": {
       "@type": "Offer",
       "price": "0",
-      "priceCurrency": "USD"
+      "priceCurrency": "USD",
+      "description": "Free demo available"
     }
   };
 
