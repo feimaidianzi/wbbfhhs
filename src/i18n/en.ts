@@ -375,9 +375,9 @@ export const enTranslations: Record<string, string> = {
   'section.news.readMore': 'Read More',
 
   // PartnersSection
-  'section.partners.badge': 'Partners',
-  'section.partners.title': 'Trusted Partners',
-  'section.partners.desc': 'Long-term strategic partnerships with renowned enterprises',
+  'section.partners.badge': 'Global Trust',
+  'section.partners.title': 'Global Partners',
+  'section.partners.desc': 'Long-term technical partnerships with industry clients in 30+ countries',
 
   // CertificationsSection
   'section.certs.badge': 'Certifications',
