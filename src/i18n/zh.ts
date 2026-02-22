@@ -3112,40 +3112,71 @@ export const zhTranslations: Record<string, string> = {
   'softwarePage.common.contactUs': '联系我们',
   'softwarePage.common.consult': '立即咨询',
 
-  // Custom Research - Software Customization
-  'customSoftware.seo.title': '软件定制',
-  'customSoftware.seo.desc': '专业的无人机软件系统定制开发服务',
-  'customSoftware.seo.keywords': '无人机软件,地面站,算法开发,云平台',
+  // Custom Research - Software Customization (SEO/GEO Optimized)
+  'customSoftware.seo.title': '工业级无人机软件开发与地面站系统定制 (GCS) | 长凌科技 CANI',
+  'customSoftware.seo.desc': '长凌科技提供专业无人机软件研发服务，涵盖定制化地面站(GCS)开发、MAVLink协议优化、低延迟图传系统及全功能SDK集成。专注电力巡检、应急抢险等工业场景，实现控制延迟≤30ms。',
+  'customSoftware.seo.keywords': '无人机地面站开发, 工业无人机软件定制, 无人机SDK集成, MAVLink协议定制, 无人机管理系统 R&D',
   'customSoftware.breadcrumb.home': '首页',
   'customSoftware.breadcrumb.custom': '科研定制',
   'customSoftware.breadcrumb.software': '软件定制',
   'customSoftware.back': '返回科研定制',
-  'customSoftware.title': '软件定制',
-  'customSoftware.subtitle': '提供专业的无人机软件系统定制开发服务，包括地面站、移动端、云平台、数据处理等全套软件解决方案。',
-  'customSoftware.btn.consult': '咨询定制',
+  'customSoftware.title': '重新定义空中作业极限：从单点规划到军事级可靠性研发',
+  'customSoftware.subtitle': '作为国家高新技术企业，长凌科技（CANI）不仅制造无人机，更致力于解决最复杂的工程难题。我们利用CFD流体模拟与100%仿真架构，为全球客户交付定制化空中平台。',
+  'customSoftware.btn.consult': '预约高级工程师技术咨询',
   'customSoftware.btn.call': '电话咨询',
-  'customSoftware.types.title': '软件类型',
-  'customSoftware.types.groundStation': '地面站定制',
-  'customSoftware.types.groundStation.desc': '定制化地面控制站软件',
-  'customSoftware.types.algorithm': '算法开发',
-  'customSoftware.types.algorithm.desc': '自主导航与控制算法',
-  'customSoftware.types.route': '航线规划',
-  'customSoftware.types.route.desc': '智能航线规划系统',
-  'customSoftware.types.data': '数据处理',
-  'customSoftware.types.data.desc': '采集数据处理分析',
-  'customSoftware.types.cloud': '云平台',
-  'customSoftware.types.cloud.desc': '云端管理与监控平台',
-  'customSoftware.types.ai': 'AI集成',
-  'customSoftware.types.ai.desc': 'AI识别与分析功能',
-  'customSoftware.services.title': '定制服务内容',
-  'customSoftware.services.groundStation': '地面站软件定制',
-  'customSoftware.services.mobileApp': '移动端APP开发',
-  'customSoftware.services.routePlanning': '航线规划算法',
-  'customSoftware.services.avoidance': '自主避障算法',
-  'customSoftware.services.recognition': '目标识别算法',
-  'customSoftware.services.dataProcessing': '数据处理软件',
-  'customSoftware.services.cloudPlatform': '云平台开发',
-  'customSoftware.services.api': 'API接口开发',
+
+  // BLUF Section
+  'customSoftware.bluf.title': '核心能力概览：定义无人机操作的智能中枢',
+  'customSoftware.bluf.content': '长凌科技（CANI Technology）致力于构建高可靠性的工业级无人机软件生态。我们提供端到端的地面站（GCS）定制、自动任务规划、≤30ms极低延迟图传算法以及跨平台SDK集成。作为国家高新技术企业，我们的软件系统深度适配电力巡检、安防监测及智慧物流等复杂工业环境。',
+
+  // GCS Section
+  'customSoftware.gcs.title': '定制化地面站（GCS）配置与控制系统',
+  'customSoftware.gcs.insight': '在 2026 年的工业作业中，软件的直观性与数据同步效率是降低误操作率的关键。长凌科技通过模块化架构，将复杂的飞行参数转化为实时、可视化的指挥界面。',
+  'customSoftware.gcs.hw.title': '高精度硬件配置管理',
+  'customSoftware.gcs.hw.sensor': '传感器 3D 标定系统',
+  'customSoftware.gcs.hw.sensor.desc': '集成直观的交互界面，支持磁力计、IMU 及加速度计的一键式三维校准，确保在强干扰环境下的飞行安全性。',
+  'customSoftware.gcs.hw.payload': '多路载荷协同控制',
+  'customSoftware.gcs.hw.payload.desc': '支持 IP67 等级红外云台与各型吊舱的并发控制，实现 1080P 高清视频流的实时回传与动态参数调整。',
+  'customSoftware.gcs.auto.title': '自动化任务执行与算法',
+  'customSoftware.gcs.auto.route': '智能航线规划',
+  'customSoftware.gcs.auto.route.desc': '支持自动网格生成、走廊扫描（针对电力线/管道）及环绕建模模式，显著提升测绘与巡检效率。',
+  'customSoftware.gcs.auto.dynamic': '动态指令下发',
+  'customSoftware.gcs.auto.dynamic.desc': '允许在作业过程中实时修改航点和任务逻辑，无需降落即可响应突发状况。',
+
+  // Tech Matrix
+  'customSoftware.matrix.title': '面向未来的无人机自主性与数据智能',
+  'customSoftware.matrix.insight': '未来的竞争在于"边缘算力"与"分析智能"。长凌科技软件集成了边缘 AI 模块，使系统具备实时环境感知能力。',
+  'customSoftware.matrix.col.feature': '技术特性',
+  'customSoftware.matrix.col.desc': '功能描述',
+  'customSoftware.matrix.col.benefit': '客户收益',
+  'customSoftware.matrix.r1.feature': '边缘 AI 识别',
+  'customSoftware.matrix.r1.desc': '本地化运行 YOLOv8 等算法，毫秒级识别缺陷',
+  'customSoftware.matrix.r1.benefit': '降低 80% 视频链路带宽，实现即时预警',
+  'customSoftware.matrix.r2.feature': 'RTK 厘米级定位',
+  'customSoftware.matrix.r2.desc': '无缝集成 RTK/PPK 差分系统，定位精度达 1-3cm',
+  'customSoftware.matrix.r2.benefit': '为地形制图与精准起降提供 survey 级数据支持',
+  'customSoftware.matrix.r3.feature': '自动化机场管理',
+  'customSoftware.matrix.r3.desc': '支持无人机自动充电、定时出动及数据自动上云',
+  'customSoftware.matrix.r3.benefit': '实现真正的 24/7 "无人化"闭环作业流',
+
+  // Data Analytics
+  'customSoftware.data.title': '数据分析与遥测可视化',
+  'customSoftware.data.log': '多格式日志审计',
+  'customSoftware.data.log.desc': '记录完整飞行轨迹与传感器数据，支持导出 KML/KMZ 格式进行 3D 回放与事故复盘。',
+  'customSoftware.data.twin': '数字孪生同步',
+  'customSoftware.data.twin.desc': '生成的 orthomosaic 影像可无缝对接 ArcGIS、Autodesk 等 GIS/BIM 平台，辅助资产全生命周期管理。',
+
+  // Developer & OEM/ODM
+  'customSoftware.dev.title': '开发者支持与 OEM/ODM 深度定制',
+  'customSoftware.dev.insight': '我们为 OEM/ODM 合作伙伴提供开放式架构，打破软件黑盒限制。',
+  'customSoftware.dev.sdk': '全功能 SDK 接口',
+  'customSoftware.dev.sdk.desc': '提供 C/C++、Python 开发库（LibUtils），支持 MAVLink 及多种私有协议，助力客户快速构建行业应用。',
+  'customSoftware.dev.cross': '跨平台兼容性',
+  'customSoftware.dev.cross.desc': '系统可稳定运行于 Windows、Linux、Android 及各类手持地面站终端。',
+  'customSoftware.dev.ui': 'UI/UX 品牌定制',
+  'customSoftware.dev.ui.desc': '根据客户品牌视觉体系，深度定制专属操作界面，增强产品市场辨识度。',
+
+  // Cases
   'customSoftware.cases.title': '案例展示',
   'customSoftware.cases.subtitle': '成功为多家企业和科研机构提供软件定制服务',
   'customSoftware.cases.power.client': '某电力公司',
@@ -3157,7 +3188,17 @@ export const zhTranslations: Record<string, string> = {
   'customSoftware.cases.survey.client': '某测绘院',
   'customSoftware.cases.survey.title': '测绘数据处理',
   'customSoftware.cases.survey.desc': '开发航测数据自动处理软件，实现从原始数据到成果的一键生成。',
+
+  // FAQ
+  'customSoftware.faq.title': '常见问题',
+  'customSoftware.faq.q1': '工业级地面站（GCS）与消费级 App 相比有何核心优势？',
+  'customSoftware.faq.a1': '工业级 GCS 优先保障链路的"确定性执行"与"安全性隔离"。相比消费级应用，长凌科技的系统支持 128 位加密链路、多源遥测数据融合及复杂的传感器原位校准。它不仅是简单的遥控器，更是具备日志审计与应急故障处理能力的专业任务管理平台。',
+  'customSoftware.faq.q2': '长凌科技的无人机软件是否支持超视距（BVLOS）作业？',
+  'customSoftware.faq.a2': '是的。我们的软件系统符合 2026 年最新的 BVLOS 监管标准（如 Part 108/SORA 框架），集成了 Remote ID 身份广播与实时空域预警功能，并支持通过 4G/5G 网络实现全球范围内的远程指挥与控制。',
+
+  // CTA
   'customSoftware.cta.title': '开启软件定制项目',
+  'customSoftware.cta.desc': '联系我们的高级工程师团队，获取专属技术方案与OEM/ODM报价',
   'customSoftware.cta.consult': '立即咨询',
 
   // Power Application Page

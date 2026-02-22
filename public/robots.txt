@@ -50,6 +50,12 @@ Allow: /
 User-agent: DeepSeekBot
 Allow: /
 
+User-agent: GPTBot
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
 User-agent: *
 Allow: /
 Disallow: /admin/
