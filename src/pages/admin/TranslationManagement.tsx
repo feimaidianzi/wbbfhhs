@@ -84,13 +84,13 @@ const TranslationManagement = () => {
     // 先刷新待翻译队列
     await loadPendingTranslations();
     // 再重新加载翻译状态，确保进度显示正确
-    await loadTranslationStatuses();
+    await loadTranslationStatuses(false);
     console.log('[handleNewItemsMigrated] Refresh complete');
     toast.success(`已将 ${count} 个缺失翻译添加到队列，翻译进度已更新`);
   }, [loadPendingTranslations]);
 
-  const loadTranslationStatuses = async () => {
-    setIsLoading(true);
+  const loadTranslationStatuses = async (showLoading = true) => {
+    if (showLoading) setIsLoading(true);
     const results: TranslationStatus[] = [];
     
     // 获取最新的pending translations并计算合并后的唯一key数
@@ -232,7 +232,7 @@ const TranslationManagement = () => {
       
       if (data?.translated > 0) {
         toast.success(`后台翻译完成：${data.translated} 个key`);
-        await loadTranslationStatuses();
+        await loadTranslationStatuses(false);
       } else {
         toast.info(data?.message || '暂无需要翻译的内容');
       }
@@ -505,7 +505,7 @@ const TranslationManagement = () => {
           }
           
           // 刷新全局状态
-          await loadTranslationStatuses();
+          await loadTranslationStatuses(false);
           
           retryCount = 0; // 超时不计入失败重试
           continue;
@@ -546,7 +546,7 @@ const TranslationManagement = () => {
       
       // Refresh the status list to update language cards in sync
       // This ensures the bottom cards show the same progress as the top bar
-      await loadTranslationStatuses();
+      await loadTranslationStatuses(false);
 
       // Check if translation is complete
       if (remaining <= 0) {
@@ -653,7 +653,7 @@ const TranslationManagement = () => {
         toast.warning(`${langName} 未完成，继续处理下一个语言`);
       }
 
-      await loadTranslationStatuses();
+      await loadTranslationStatuses(false);
     }
 
     setIsTranslating(false);
@@ -679,7 +679,7 @@ const TranslationManagement = () => {
     toast.info(`开始自动翻译 ${langName}...`);
 
     await autoTranslateSingleLanguage(lang);
-    await loadTranslationStatuses();
+    await loadTranslationStatuses(false);
     
     // 单语言翻译完成后也检查待翻译队列
     await checkAndClearPendingQueue();
@@ -748,7 +748,7 @@ const TranslationManagement = () => {
           toast.success(`${langName} 翻译完成`);
         }
 
-        await loadTranslationStatuses();
+        await loadTranslationStatuses(false);
         await new Promise(r => setTimeout(r, 500));
       }
 
