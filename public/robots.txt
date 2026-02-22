@@ -38,6 +38,18 @@ User-agent: Sogou web spider
 Allow: /
 Crawl-delay: 1
 
+User-agent: OAI-SearchBot
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: DeepSeekBot
+Allow: /
+
 User-agent: *
 Allow: /
 Disallow: /admin/
