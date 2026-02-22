@@ -82,6 +82,8 @@ interface ApplicationPageTemplateProps {
   relatedProducts?: RelatedLink[];
   /** Related application pages for internal cross-linking */
   relatedApplications?: RelatedLink[];
+  /** Extra sections rendered before CTA */
+  children?: React.ReactNode;
 }
 
 const containerVariants = {
@@ -129,6 +131,7 @@ const ApplicationPageTemplate = ({
   caseStudy,
   relatedProducts,
   relatedApplications,
+  children,
 }: ApplicationPageTemplateProps) => {
   const { language, t } = useLanguage();
   const langCode = language as LanguageCode;
@@ -697,6 +700,9 @@ const ApplicationPageTemplate = ({
             </div>
           </section>
         )}
+
+        {/* Extra sections from children */}
+        {children}
 
         {/* CTA Section */}
         <section className="py-24 bg-gradient-to-br from-accent/10 via-background to-cyan-500/10 relative overflow-hidden">
