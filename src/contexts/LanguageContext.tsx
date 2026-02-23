@@ -207,7 +207,7 @@ export const LanguageProvider: React.FC<LanguageProviderProps> = ({ children }) 
       return true;
     }
 
-    // Check localStorage cache
+    // Check localStorage cache - use immediately but also refresh from DB
     const cached = localStorage.getItem(`translations_${targetLang}`);
     if (cached) {
       try {
@@ -215,13 +215,32 @@ export const LanguageProvider: React.FC<LanguageProviderProps> = ({ children }) 
         setTranslations(targetLang, parsed);
         setCurrentTranslations(parsed);
         setIsLoading(false);
+        
+        // Background refresh from DB to catch any updates
+        (async () => {
+          try {
+            const { data } = await supabase
+              .from('system_settings')
+              .select('value')
+              .eq('key', `translations_${targetLang}`)
+              .single();
+            if (data?.value && data.value !== cached) {
+              const fresh = JSON.parse(data.value);
+              setTranslations(targetLang, fresh);
+              setCurrentTranslations(fresh);
+              localStorage.setItem(`translations_${targetLang}`, data.value);
+              console.log(`Translations for ${targetLang} updated from DB`);
+            }
+          } catch (_) { /* silently fail */ }
+        })();
+        
         return true;
       } catch (e) {
         console.error('Error parsing cached translations:', e);
       }
     }
 
-    // Load from database
+    // No cache - load from database
     setIsLoading(true);
     try {
       const { data, error } = await supabase
@@ -245,7 +264,6 @@ export const LanguageProvider: React.FC<LanguageProviderProps> = ({ children }) 
     }
     
     setIsLoading(false);
-    // Fallback to English if no translation found
     setCurrentTranslations(enTranslations);
     return false;
   }, []);
