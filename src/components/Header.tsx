@@ -147,17 +147,17 @@ export const Header = () => {
           <Logo />
 
           {/* Desktop Navigation */}
-          <nav className="hidden xl:flex items-center gap-0 flex-1 min-w-0 mx-1 overflow-hidden">
+          <nav className="hidden xl:flex items-center gap-0 flex-1 min-w-0 mx-1">
             {navItems.map((item) => (
               <div
                 key={item.name}
-                className="relative flex-shrink-0"
+                className="relative"
                 onMouseEnter={() => item.children && handleMouseEnter(item.name)}
                 onMouseLeave={handleMouseLeave}
               >
                 <Link
                   to={item.href}
-                  className={`flex items-center gap-0.5 px-1.5 xl:px-2 py-1.5 text-xs font-medium transition-colors rounded-full whitespace-nowrap ${
+                  className={`flex items-center gap-0.5 px-1.5 xl:px-2 2xl:px-3 py-1.5 text-xs 2xl:text-sm font-medium transition-colors rounded-full whitespace-nowrap ${
                     isScrolled
                       ? 'text-foreground hover:text-accent hover:bg-accent/5'
                       : 'text-white/90 hover:text-white hover:bg-white/10'
