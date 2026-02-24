@@ -58,7 +58,7 @@ export const MultiLanguageSEO = ({
       <title>{fullTitle}</title>
       <meta name="description" content={description} />
       {keywords && <meta name="keywords" content={keywords} />}
-      <meta name="author" content={language === 'zh' ? '长凌科技有限公司' : 'CANI Technology Co., Ltd.'} />
+      <meta name="author" content={language === 'zh' ? '长凌科技' : 'CANI Technology'} />
       <meta name="robots" content={noIndex ? 'noindex, nofollow' : 'index, follow'} />
       <link rel="canonical" href={canonicalUrl} />
 
@@ -149,7 +149,7 @@ export const createLocalizedProductSchema = (
   category: product.category,
   manufacturer: {
     '@type': 'Organization',
-    name: language === 'zh' ? '长凌科技有限公司' : 'CANI Technology Co., Ltd.',
+    name: language === 'zh' ? '长凌科技' : 'CANI Technology',
   },
   inLanguage: getHtmlLang(language),
 });

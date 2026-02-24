@@ -55,7 +55,7 @@ const DigitalFpvDetail = () => {
     sku: `CANI-${product.id.toUpperCase()}`,
     manufacturer: {
       '@type': 'Organization',
-      name: language === 'zh' ? '长凌科技有限公司' : 'CANI Technology Co., Ltd.',
+      name: language === 'zh' ? '长凌科技' : 'CANI Technology',
     },
     additionalProperty: product.specs.flatMap(specGroup =>
       specGroup.items.map(item => ({

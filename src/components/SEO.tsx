@@ -27,7 +27,7 @@ export const SEO = ({
   const defaultStructuredData = {
     '@context': 'https://schema.org',
     '@type': 'Organization',
-    name: '长凌科技有限公司',
+    name: '长凌科技',
     alternateName: 'CANI',
     url: baseUrl,
     logo: `${baseUrl}/logo.png`,
@@ -53,7 +53,7 @@ export const SEO = ({
       <title>{fullTitle}</title>
       <meta name="description" content={description} />
       <meta name="keywords" content={keywords} />
-      <meta name="author" content="长凌科技有限公司" />
+      <meta name="author" content="长凌科技" />
       <meta name="robots" content="index, follow" />
       <link rel="canonical" href={fullUrl} />
 
@@ -99,7 +99,7 @@ export const createProductStructuredData = (product: {
   category: product.category,
   manufacturer: {
     '@type': 'Organization',
-    name: '长凌科技有限公司',
+    name: '长凌科技',
   },
 });
 
@@ -138,7 +138,7 @@ export const createArticleStructuredData = (article: {
   },
   publisher: {
     '@type': 'Organization',
-    name: '长凌科技有限公司',
+    name: '长凌科技',
     logo: {
       '@type': 'ImageObject',
       url: 'https://www.caniuav.com/logo.png',

@@ -19,7 +19,7 @@ const SurveyingMapping = () => {
     name: 'Professional UAV 3D Mapping & RTK Surveying',
     provider: {
       '@type': 'Organization',
-      name: 'CANI Technology Co., Ltd.',
+      name: 'CANI Technology',
       url: 'https://www.caniuav.com',
     },
     description: t('surveyMap.seo.desc'),

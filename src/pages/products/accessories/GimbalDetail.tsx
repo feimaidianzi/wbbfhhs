@@ -43,7 +43,7 @@ const GimbalDetail = () => {
     image: product.image,
     sku: product.model,
     brand: { '@type': 'Brand', name: 'CANI Technology' },
-    manufacturer: { '@type': 'Organization', name: 'CANI Technology Co., Ltd.' },
+    manufacturer: { '@type': 'Organization', name: 'CANI Technology' },
     category: t(product.categoryKey),
     additionalProperty: product.specs.slice(0, 8).map(spec => ({
       '@type': 'PropertyValue',

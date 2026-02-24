@@ -20,12 +20,12 @@ const SoftwareCustom = () => {
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",
-    "name": "长凌科技工业无人机软件系统 (CANI UAV GCS)",
+    "name": "CANI UAV GCS",
     "operatingSystem": "Windows, Linux, Android",
     "applicationCategory": "IndustrialSoftware",
     "provider": {
       "@type": "Organization",
-      "name": "长凌科技 (CANI Technology)",
+      "name": "CANI Technology",
       "url": "https://www.caniuav.com"
     },
     "offers": {

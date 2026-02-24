@@ -86,7 +86,7 @@ export const getLanguageDisplayName = (lang: LanguageCode): string => {
 export const createLocalizedOrganizationData = (lang: LanguageCode, t: (key: string) => string) => ({
   '@context': 'https://schema.org',
   '@type': 'Organization',
-  name: lang === 'zh' ? '长凌科技有限公司' : 'CANI Technology Co., Ltd.',
+  name: lang === 'zh' ? '长凌科技' : 'CANI Technology',
   alternateName: 'CANI',
   url: getUrlForLanguage(lang, '/'),
   logo: `https://www.${BASE_DOMAIN}/logo.png`,
@@ -150,7 +150,7 @@ export const createLocalizedProductData = (
   category: product.category,
   manufacturer: {
     '@type': 'Organization',
-    name: lang === 'zh' ? '长凌科技有限公司' : 'CANI Technology Co., Ltd.',
+    name: lang === 'zh' ? '长凌科技' : 'CANI Technology',
   },
   inLanguage: getHtmlLang(lang),
 });
@@ -180,7 +180,7 @@ export const createLocalizedArticleData = (
   },
   publisher: {
     '@type': 'Organization',
-    name: lang === 'zh' ? '长凌科技有限公司' : 'CANI Technology Co., Ltd.',
+    name: lang === 'zh' ? '长凌科技' : 'CANI Technology',
     logo: {
       '@type': 'ImageObject',
       url: `https://www.${BASE_DOMAIN}/logo.png`,

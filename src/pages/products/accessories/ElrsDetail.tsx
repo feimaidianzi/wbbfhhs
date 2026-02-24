@@ -86,7 +86,7 @@ const ElrsDetail = () => {
     sku: `CANI-ELRS-${product.id.toUpperCase()}`,
     manufacturer: {
       '@type': 'Organization',
-      name: language === 'zh' ? 'CANI长凌科技' : 'CANI Technology Co., Ltd.',
+      name: language === 'zh' ? '长凌科技' : 'CANI Technology',
     },
     additionalProperty: product.specs.flatMap(specGroup =>
       specGroup.items.map(item => ({

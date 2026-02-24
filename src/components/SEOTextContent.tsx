@@ -19,7 +19,7 @@ export const SEOTextContent = ({ page }: SEOTextContentProps) => {
         return language === 'zh' ? {
           title: '长凌科技 - 专业无人机配件制造商 | CANI Technology',
           content: `
-            长凌科技有限公司是中国领先的工业级无人机配件研发与制造企业，专注于为全球无人机行业提供高品质的核心零部件解决方案。
+            长凌科技是中国领先的工业级无人机配件研发与制造企业，专注于为全球无人机行业提供高品质的核心零部件解决方案。
             
             我们的产品线涵盖数字图传系统、VTX视频发射器、飞控电调模块、云台吊舱、ELRS远程遥控等多个品类，
             产品广泛应用于航拍、测绘、巡检、物流、农业等领域。
@@ -60,7 +60,7 @@ export const SEOTextContent = ({ page }: SEOTextContentProps) => {
         } : {
           title: 'CANI Technology - Professional Drone Accessories Manufacturer',
           content: `
-            CANI Technology Co., Ltd. is a leading Chinese manufacturer of industrial-grade drone accessories, 
+            CANI Technology is a leading Chinese manufacturer of industrial-grade drone accessories, 
             dedicated to providing high-quality core component solutions for the global drone industry.
             
             Our product line covers digital FPV systems, VTX video transmitters, flight controller ESC modules, 
@@ -287,7 +287,7 @@ export const SEOTextContent = ({ page }: SEOTextContentProps) => {
         return language === 'zh' ? {
           title: '关于长凌科技',
           content: `
-            长凌科技有限公司成立于2015年，总部位于湖南省长沙市，是一家集研发、生产、销售于一体的
+            长凌科技成立于2015年，是一家集研发、生产、销售于一体的
             高新技术企业，专注于工业级无人机核心零部件的开发与制造。
             
             公司发展历程：
@@ -315,7 +315,7 @@ export const SEOTextContent = ({ page }: SEOTextContentProps) => {
         } : {
           title: 'About CANI Technology',
           content: `
-            CANI Technology Co., Ltd., founded in 2015 and headquartered in Changsha, Hunan Province, 
+            CANI Technology, founded in 2015, 
             is a high-tech enterprise integrating R&D, production, and sales, focusing on the development 
             and manufacturing of industrial-grade drone core components.
             

@@ -145,7 +145,7 @@ const ApplicationPageTemplate = ({
     description: seoDescription,
     provider: {
       '@type': 'Organization',
-      name: langCode === 'zh' ? '长凌科技有限公司' : 'CANI Technology Co., Ltd.',
+      name: langCode === 'zh' ? '长凌科技' : 'CANI Technology',
       url: currentDomain,
       logo: `${currentDomain}/logo.png`,
     },
