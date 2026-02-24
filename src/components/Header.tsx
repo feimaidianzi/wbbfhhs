@@ -147,26 +147,26 @@ export const Header = () => {
           <Logo />
 
           {/* Desktop Navigation */}
-          <nav className="hidden xl:flex items-center gap-0 flex-1 min-w-0 mx-1">
+          <nav className="hidden nav:flex items-center gap-0 flex-1 min-w-0 mx-1">
             {navItems.map((item) => (
               <div
-                key={item.name}
-                className="relative"
-                onMouseEnter={() => item.children && handleMouseEnter(item.name)}
+                key={item.href}
+                className="relative flex-shrink-0"
+                onMouseEnter={() => item.children && handleMouseEnter(item.href)}
                 onMouseLeave={handleMouseLeave}
               >
                 <Link
                   to={item.href}
-                  className={`flex items-center gap-0.5 px-1.5 xl:px-2 2xl:px-3 py-1.5 text-xs 2xl:text-sm font-medium transition-colors rounded-full whitespace-nowrap ${
+                  className={`flex items-center gap-0.5 px-2 py-1.5 text-xs 2xl:text-sm font-medium transition-colors rounded-full whitespace-nowrap ${
                     isScrolled
                       ? 'text-foreground hover:text-accent hover:bg-accent/5'
                       : 'text-white/90 hover:text-white hover:bg-white/10'
-                  } ${activeDropdown === item.name ? (isScrolled ? 'text-accent bg-accent/5' : 'text-white bg-white/10') : ''}`}
+                  } ${activeDropdown === item.href ? (isScrolled ? 'text-accent bg-accent/5' : 'text-white bg-white/10') : ''}`}
                 >
                   {item.name}
                   {item.hasDropdown && (
                     <ChevronDown className={`w-3 h-3 flex-shrink-0 transition-transform duration-200 ${
-                      activeDropdown === item.name ? 'rotate-180' : ''
+                      activeDropdown === item.href ? 'rotate-180' : ''
                     }`} />
                   )}
                 </Link>
@@ -176,11 +176,11 @@ export const Header = () => {
 
           {/* Full-width Dropdown Menu */}
           {navItems.map((item) => (
-            item.children && activeDropdown === item.name && (
+            item.children && activeDropdown === item.href && (
               <div
-                key={`dropdown-${item.name}`}
+                key={`dropdown-${item.href}`}
                 className="fixed left-0 right-0 top-16 md:top-20 bg-background border-b border-border shadow-lg dropdown-enter z-40"
-                onMouseEnter={() => handleMouseEnter(item.name)}
+                onMouseEnter={() => handleMouseEnter(item.href)}
                 onMouseLeave={handleMouseLeave}
               >
                 <div className="container-custom py-8">
@@ -191,7 +191,7 @@ export const Header = () => {
                   <div className={`grid gap-4 ${item.children.length <= 4 ? 'grid-cols-2 md:grid-cols-4' : 'grid-cols-2 md:grid-cols-3 lg:grid-cols-5'}`}>
                     {item.children.map((child, index) => (
                       <Link
-                        key={child.name}
+                        key={child.href}
                         to={child.href}
                         className="group p-4 rounded-xl bg-secondary/50 hover:bg-secondary transition-all duration-300 hover:-translate-y-0.5"
                         onClick={() => setActiveDropdown(null)}
@@ -213,8 +213,8 @@ export const Header = () => {
 
           {/* Right Side Actions */}
           <div className="flex items-center gap-3">
-            <LanguageSwitcher variant="minimal" className="xl:hidden" />
-            <div className="hidden xl:block">
+            <LanguageSwitcher variant="minimal" className="nav:hidden" />
+            <div className="hidden nav:block">
               <LanguageSwitcher className={isScrolled ? 'bg-secondary text-foreground hover:bg-secondary/80' : ''} />
             </div>
             
@@ -246,7 +246,7 @@ export const Header = () => {
             
             <a
               href="mailto:sales@caniuav.com"
-              className={`hidden xl:flex items-center gap-1.5 px-3 py-1.5 rounded-full transition-colors ${
+              className={`hidden nav:flex items-center gap-1.5 px-3 py-1.5 rounded-full transition-colors ${
                 isScrolled 
                   ? 'bg-accent text-accent-foreground hover:bg-accent/90' 
                   : 'bg-white/10 text-white hover:bg-white/20'
@@ -260,7 +260,7 @@ export const Header = () => {
             <Button
               variant="ghost"
               size="icon"
-              className={`xl:hidden ${isScrolled ? 'text-foreground' : 'text-white'}`}
+              className={`nav:hidden ${isScrolled ? 'text-foreground' : 'text-white'}`}
               onClick={() => setIsOpen(!isOpen)}
             >
               {isOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
@@ -270,7 +270,7 @@ export const Header = () => {
 
         {/* Mobile Navigation */}
         {isOpen && (
-          <nav className="xl:hidden py-4 border-t border-border bg-background max-h-[70vh] overflow-y-auto">
+          <nav className="nav:hidden py-4 border-t border-border bg-background max-h-[70vh] overflow-y-auto">
             <div className="flex flex-col gap-1">
               <div className="px-4 py-2 mb-2 flex items-center justify-between">
                 <LanguageSwitcher />
@@ -297,7 +297,7 @@ export const Header = () => {
                 )}
               </div>
               {navItems.map((item) => (
-                <div key={item.name}>
+                <div key={item.href}>
                   <Link
                     to={item.href}
                     className="flex items-center justify-between px-4 py-3 text-foreground hover:bg-secondary rounded-lg transition-colors"
@@ -310,7 +310,7 @@ export const Header = () => {
                     <div className="ml-4 mt-1 space-y-1">
                       {item.children.map((child) => (
                         <Link
-                          key={child.name}
+                          key={child.href}
                           to={child.href}
                           className="block px-4 py-2 text-sm text-muted-foreground hover:text-foreground transition-colors"
                           onClick={() => setIsOpen(false)}
