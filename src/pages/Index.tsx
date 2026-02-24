@@ -28,7 +28,7 @@ const Index = () => {
     '@graph': [
       {
         '@type': 'Organization',
-        name: isZh ? '长凌科技有限公司' : 'CANI Technology Co., Ltd.',
+        name: isZh ? '长凌科技' : 'CANI Technology',
         alternateName: 'CANI',
         url: 'https://www.caniuav.com',
         logo: 'https://www.caniuav.com/logo.png',

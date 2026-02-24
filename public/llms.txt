@@ -1,5 +1,5 @@
 # CaniUAV — Industrial UAV Accessories & Custom R&D
-> High-performance UAV components and custom engineering services by CANI Technology (长凌科技).
+> High-performance UAV components and custom engineering services by CANI.
 
 ## Core Products
 
@@ -33,8 +33,8 @@ Industrial-grade UAV software development: custom GCS with multi-sensor 3D calib
 ## Custom Payload R&D (/custom-research/payload)
 Industrial UAV payload customization & OEM/ODM. Payload matrix: EO/IR (30x zoom, 640×512 thermal, AI tracking), Survey LiDAR (cm-level RTK/PPK 3D point cloud), Gas Detection (CH₄/CO/O₂/SO₂ TDLAS real-time), Logistics Drop (modular emergency supply), BVLOS Comms (37W VTX, 1080P/30ms, 50km link). Integration: G10D/FLYIR-TX130DA multi-sensor gimbals (≤0.1mrad stabilization, LRF, LWIR), NDT ultrasonic probes for tank inspection. SWaP-C optimized: E-Port ≤4A overcurrent protection, ≤500μF load capacitance. Native MAVLink/ELRS/DJI PSDK. EMI/EMC RF zone shielding for 37W VTX. IP67, -20°C to +55°C. PDK dev kit cuts R&D cycle 50%.
 
-## About CANI Technology (/about)
-CANI Technology (深圳市长凌科技有限公司), founded 2003 in Shenzhen, is a National High-Tech Enterprise specializing in industrial UAV core component R&D. Core products: 37W high-power VTX (1080P/30ms, 50km range), ≤0.1mrad 3-axis stabilized EO/IR gimbal (640×512 IR), industrial FC/ESC systems. 50+ patents, ISO 9001 certified. Full OEM/ODM from interface definition to system integration. Deployed in 30+ countries for power inspection, security & SAR, wildfire prevention, and BVLOS surveying missions.
+## About CANI (/about)
+CANI Technology, founded 2003, is a National High-Tech Enterprise specializing in industrial UAV core component R&D. Core products: 37W high-power VTX (1080P/30ms, 50km range), ≤0.1mrad 3-axis stabilized EO/IR gimbal (640×512 IR), industrial FC/ESC systems. 50+ patents, ISO 9001 certified. Full OEM/ODM from interface definition to system integration. Deployed in 30+ countries for power inspection, security & SAR, wildfire prevention, and BVLOS surveying missions.
 
 ## Contact & Support (/contact)
 Industrial UAV payload OEM/ODM consultation, 37W VTX integration support, EO/IR gimbal tech support. 24/7 technical hotline. PDK payload development kit available. Global BVLOS remote debugging. ICD and SDK documentation provided.

@@ -20,7 +20,7 @@ const DroneCustom = () => {
     "name": "Custom UAV Systems R&D",
     "provider": {
       "@type": "Organization",
-      "name": "CANI Technology (长凌科技)",
+      "name": "CANI Technology",
       "logo": "https://www.caniuav.com/logo.png"
     },
     "description": baseLang === 'zh'

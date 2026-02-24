@@ -37,7 +37,7 @@ export const PageStructuredData = ({ data }: PageStructuredDataProps) => {
   const { language } = useLanguage();
   const langCode = language as LanguageCode;
   const domain = getDomainForLanguage(langCode);
-  const companyName = langCode === 'zh' ? '长凌科技有限公司' : 'CANI Technology Co., Ltd.';
+  const companyName = langCode === 'zh' ? '长凌科技' : 'CANI Technology';
 
   let jsonLd: object;
 

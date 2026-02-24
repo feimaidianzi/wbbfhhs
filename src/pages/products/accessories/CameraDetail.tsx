@@ -85,7 +85,7 @@ const CameraDetail = () => {
     sku: `CANI-${product.model.replace(/\s+/g, '-').toUpperCase()}`,
     manufacturer: {
       '@type': 'Organization',
-      name: language === 'zh' ? 'CANI长凌科技' : 'CANI Technology Co., Ltd.',
+      name: language === 'zh' ? '长凌科技' : 'CANI Technology',
     },
     additionalProperty: [
       { '@type': 'PropertyValue', name: 'Video Resolution', value: '1080P Full HD (1920×1080) @30fps' },

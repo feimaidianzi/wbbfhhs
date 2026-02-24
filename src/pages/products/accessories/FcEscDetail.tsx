@@ -85,7 +85,7 @@ const FcEscDetail = () => {
     ],
     manufacturer: {
       '@type': 'Organization',
-      name: t('company.fullName') || 'CANI Technology Co., Ltd.',
+      name: t('company.fullName') || 'CANI Technology',
       url: domain,
     },
     offers: {
