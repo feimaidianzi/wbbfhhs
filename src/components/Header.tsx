@@ -147,7 +147,7 @@ export const Header = () => {
           <Logo />
 
           {/* Desktop Navigation */}
-          <nav className="hidden nav:flex items-center gap-0 flex-1 min-w-0 mx-1">
+          <nav className="hidden nav:flex items-center justify-center gap-1 flex-1 min-w-0 mx-2 flex-wrap">
             {navItems.map((item) => (
               <div
                 key={item.href}
@@ -157,7 +157,7 @@ export const Header = () => {
               >
                 <Link
                   to={item.href}
-                  className={`flex items-center gap-0.5 px-2 py-1.5 text-xs 2xl:text-sm font-medium transition-colors rounded-full whitespace-nowrap ${
+                  className={`flex items-center gap-0.5 px-3 py-1.5 text-sm font-medium transition-colors rounded-full whitespace-nowrap ${
                     isScrolled
                       ? 'text-foreground hover:text-accent hover:bg-accent/5'
                       : 'text-white/90 hover:text-white hover:bg-white/10'
@@ -165,7 +165,7 @@ export const Header = () => {
                 >
                   {item.name}
                   {item.hasDropdown && (
-                    <ChevronDown className={`w-3 h-3 flex-shrink-0 transition-transform duration-200 ${
+                    <ChevronDown className={`w-3.5 h-3.5 flex-shrink-0 transition-transform duration-200 ${
                       activeDropdown === item.href ? 'rotate-180' : ''
                     }`} />
                   )}
@@ -212,7 +212,7 @@ export const Header = () => {
           ))}
 
           {/* Right Side Actions */}
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-3 flex-shrink-0">
             <LanguageSwitcher variant="minimal" className="nav:hidden" />
             <div className="hidden nav:block">
               <LanguageSwitcher className={isScrolled ? 'bg-secondary text-foreground hover:bg-secondary/80' : ''} />
