@@ -6,11 +6,11 @@ import tf2hd1 from "@/assets/products/ai-module-tf2hd-1.png";
 import tf2hd2 from "@/assets/products/ai-module-tf2hd-2.jpg";
 import tf2hd3 from "@/assets/products/ai-module-tf2hd-3.jpg";
 import tf2hd4 from "@/assets/products/ai-module-tf2hd-4_new.jpg";
-import tf2a1 from "@/assets/products/ai-module-tf2a-1.jpg";
+import tf2a1 from "@/assets/products/ai-module-tf2a-1.png";
 import tf2a2 from "@/assets/products/ai-module-tf2a-2.jpg";
 import tf2a3 from "@/assets/products/ai-module-tf2a-3.jpg";
 import tf2a4 from "@/assets/products/ai-module-tf2a-4.jpg";
-import tf2a5 from "@/assets/products/ai-module-tf2a-5.jpg";
+import tf2a5 from "@/assets/products/ai-module-tf2a-5.png";
 
 export interface AiModuleProduct {
   id: string;
