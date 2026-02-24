@@ -147,7 +147,7 @@ export const Header = () => {
           <Logo />
 
           {/* Desktop Navigation */}
-          <nav className="hidden lg:flex items-center gap-0.5">
+          <nav className="hidden lg:flex items-center gap-0">
             {navItems.map((item) => (
               <div
                 key={item.name}
@@ -157,7 +157,7 @@ export const Header = () => {
               >
                 <Link
                   to={item.href}
-                  className={`flex items-center gap-0.5 px-2.5 py-1.5 text-xs font-medium transition-colors rounded-full whitespace-nowrap ${
+                  className={`flex items-center gap-0.5 px-3 py-2 text-sm font-medium transition-colors rounded-full whitespace-nowrap ${
                     isScrolled
                       ? 'text-foreground hover:text-accent hover:bg-accent/5'
                       : 'text-white/90 hover:text-white hover:bg-white/10'
@@ -246,14 +246,15 @@ export const Header = () => {
             
             <a
               href="mailto:sales@caniuav.com"
-              className={`hidden md:flex items-center gap-2 px-4 py-2 rounded-full transition-colors ${
+              className={`hidden xl:flex items-center gap-1.5 px-3 py-1.5 rounded-full transition-colors ${
                 isScrolled 
                   ? 'bg-accent text-accent-foreground hover:bg-accent/90' 
                   : 'bg-white/10 text-white hover:bg-white/20'
               }`}
+              title="sales@caniuav.com"
             >
               <Mail className="w-4 h-4" />
-              <span className="text-sm font-medium">sales@caniuav.com</span>
+              <span className="text-xs font-medium hidden 2xl:inline">sales@caniuav.com</span>
             </a>
 
             <Button
