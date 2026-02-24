@@ -99,7 +99,7 @@ export const CTASection = () => {
           </div>
 
           {/* Right Content - Contact Info */}
-          <div className="glass-card rounded-2xl p-8 border border-accent/20 bg-card">
+          <div className="rounded-2xl p-8 border border-accent/20 bg-card shadow-card">
             <h3 className="text-xl font-bold text-foreground mb-6">
               {t('ctaSection.contactInfo')}
             </h3>
