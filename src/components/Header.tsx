@@ -147,17 +147,17 @@ export const Header = () => {
           <Logo />
 
           {/* Desktop Navigation */}
-          <nav className="hidden lg:flex items-center gap-0">
+          <nav className="hidden xl:flex items-center gap-0 flex-1 min-w-0 mx-1 overflow-hidden">
             {navItems.map((item) => (
               <div
                 key={item.name}
-                className="relative"
+                className="relative flex-shrink-0"
                 onMouseEnter={() => item.children && handleMouseEnter(item.name)}
                 onMouseLeave={handleMouseLeave}
               >
                 <Link
                   to={item.href}
-                  className={`flex items-center gap-0.5 px-3 py-2 text-sm font-medium transition-colors rounded-full whitespace-nowrap ${
+                  className={`flex items-center gap-0.5 px-1.5 xl:px-2 py-1.5 text-xs font-medium transition-colors rounded-full whitespace-nowrap ${
                     isScrolled
                       ? 'text-foreground hover:text-accent hover:bg-accent/5'
                       : 'text-white/90 hover:text-white hover:bg-white/10'
@@ -165,7 +165,7 @@ export const Header = () => {
                 >
                   {item.name}
                   {item.hasDropdown && (
-                    <ChevronDown className={`w-3.5 h-3.5 transition-transform duration-200 ${
+                    <ChevronDown className={`w-3 h-3 flex-shrink-0 transition-transform duration-200 ${
                       activeDropdown === item.name ? 'rotate-180' : ''
                     }`} />
                   )}
@@ -213,8 +213,8 @@ export const Header = () => {
 
           {/* Right Side Actions */}
           <div className="flex items-center gap-3">
-            <LanguageSwitcher variant="minimal" className="lg:hidden" />
-            <div className="hidden lg:block">
+            <LanguageSwitcher variant="minimal" className="xl:hidden" />
+            <div className="hidden xl:block">
               <LanguageSwitcher className={isScrolled ? 'bg-secondary text-foreground hover:bg-secondary/80' : ''} />
             </div>
             
@@ -260,7 +260,7 @@ export const Header = () => {
             <Button
               variant="ghost"
               size="icon"
-              className={`lg:hidden ${isScrolled ? 'text-foreground' : 'text-white'}`}
+              className={`xl:hidden ${isScrolled ? 'text-foreground' : 'text-white'}`}
               onClick={() => setIsOpen(!isOpen)}
             >
               {isOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
@@ -270,7 +270,7 @@ export const Header = () => {
 
         {/* Mobile Navigation */}
         {isOpen && (
-          <nav className="lg:hidden py-4 border-t border-border bg-background max-h-[70vh] overflow-y-auto">
+          <nav className="xl:hidden py-4 border-t border-border bg-background max-h-[70vh] overflow-y-auto">
             <div className="flex flex-col gap-1">
               <div className="px-4 py-2 mb-2 flex items-center justify-between">
                 <LanguageSwitcher />
