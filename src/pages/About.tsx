@@ -15,9 +15,8 @@ const About = () => {
   const { t, language } = useLanguage();
 
   const milestones = [
-    { year: "2003", title: t('about.milestone.2003.title'), description: t('about.milestone.2003.desc') },
-    { year: "2010", title: t('about.milestone.2010.title'), description: t('about.milestone.2010.desc') },
     { year: "2015", title: t('about.milestone.2015.title'), description: t('about.milestone.2015.desc') },
+    { year: "2017", title: t('about.milestone.2017.title'), description: t('about.milestone.2017.desc') },
     { year: "2019", title: t('about.milestone.2019.title'), description: t('about.milestone.2019.desc') },
     { year: "2023", title: t('about.milestone.2023.title'), description: t('about.milestone.2023.desc') },
     { year: "2025", title: t('about.milestone.2025.title'), description: t('about.milestone.2025.desc') },
@@ -70,8 +69,8 @@ const About = () => {
       "alternateName": ["长凌", "CANI UAV", "CANI"],
       "url": "https://www.caniuav.com/",
       "logo": "https://www.caniuav.com/images/logo.png",
-      "foundingDate": "2003",
-      "description": "Founded in 2003, CANI Technology is a High-tech Enterprise specializing in industrial UAV payload R&D and manufacturing with 200+ technology patents and ISO 9001 certification capability. Core products include 37W high-power VTX systems (50km range), EO/IR gimbal pods, COFDM digital video links, and ELRS control systems.",
+      "foundingDate": "2015",
+      "description": "Founded in 2015, CANI Technology is a High-tech Enterprise specializing in industrial UAV payload R&D and manufacturing with 200+ technology patents and ISO 9001 certification capability. Core products include 37W high-power VTX systems (50km range), EO/IR gimbal pods, COFDM digital video links, and ELRS control systems.",
       "address": {
         "@type": "PostalAddress",
         "streetAddress": "望城区月亮岛街道罐子岭澳优全球总部大楼",

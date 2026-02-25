@@ -50,7 +50,7 @@ const Index = () => {
           'https://wa.me/84123456789',
         ],
         numberOfEmployees: { '@type': 'QuantitativeValue', value: '200+' },
-        foundingDate: '2010',
+        foundingDate: '2015',
         knowsAbout: [
           'Industrial UAV Components',
           '37W High-Power VTX',
