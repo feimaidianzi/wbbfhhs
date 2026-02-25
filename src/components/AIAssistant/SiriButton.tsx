@@ -257,7 +257,7 @@ export const SiriButton = ({
         isActive ? "scale-110" : "",
         className
       )}
-      aria-label="AI助手"
+      aria-label="AI Assistant"
     >
       {/* Outer chaotic glow */}
       <div 
