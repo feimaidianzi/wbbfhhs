@@ -118,11 +118,9 @@ export default function QuickReplies({ onSelect, isManageMode = false }: QuickRe
           <MessageSquareText className="h-4 w-4" />
           快捷回复
         </span>
-        {isManageMode && (
-          <Button variant="ghost" size="sm" onClick={handleAdd}>
-            <Plus className="h-4 w-4" />
-          </Button>
-        )}
+        <Button variant="ghost" size="sm" onClick={handleAdd}>
+          <Plus className="h-4 w-4" />
+        </Button>
       </div>
 
       <ScrollArea className="h-[200px]">
@@ -131,7 +129,7 @@ export default function QuickReplies({ onSelect, isManageMode = false }: QuickRe
             <div
               key={reply.id}
               className="group flex items-center gap-2 p-2 rounded-lg hover:bg-muted cursor-pointer transition-colors"
-              onClick={() => !isManageMode && onSelect(reply.content)}
+              onClick={() => onSelect(reply.content)}
             >
               <div className="flex-1 min-w-0">
                 <div className="flex items-center gap-2">
@@ -142,16 +140,14 @@ export default function QuickReplies({ onSelect, isManageMode = false }: QuickRe
                 </div>
                 <p className="text-xs text-muted-foreground truncate">{reply.content}</p>
               </div>
-              {isManageMode && (
-                <div className="flex gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
-                  <Button variant="ghost" size="icon" className="h-6 w-6" onClick={(e) => { e.stopPropagation(); handleEdit(reply); }}>
-                    <Pencil className="h-3 w-3" />
-                  </Button>
-                  <Button variant="ghost" size="icon" className="h-6 w-6 text-destructive" onClick={(e) => { e.stopPropagation(); handleDelete(reply.id); }}>
-                    <Trash2 className="h-3 w-3" />
-                  </Button>
-                </div>
-              )}
+              <div className="flex gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
+                <Button variant="ghost" size="icon" className="h-6 w-6" onClick={(e) => { e.stopPropagation(); handleEdit(reply); }}>
+                  <Pencil className="h-3 w-3" />
+                </Button>
+                <Button variant="ghost" size="icon" className="h-6 w-6 text-destructive" onClick={(e) => { e.stopPropagation(); handleDelete(reply.id); }}>
+                  <Trash2 className="h-3 w-3" />
+                </Button>
+              </div>
             </div>
           ))}
         </div>
