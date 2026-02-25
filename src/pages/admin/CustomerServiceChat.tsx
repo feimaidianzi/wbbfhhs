@@ -70,7 +70,7 @@ export default function CustomerServiceChat() {
   const [soundEnabled, setSoundEnabled] = useState(true);
   const [loading, setLoading] = useState(true);
   const [searchQuery, setSearchQuery] = useState("");
-  const [statusFilter, setStatusFilter] = useState<'all' | 'pending' | 'resolved'>('all');
+  const [statusFilter, setStatusFilter] = useState<'all' | 'pending' | 'resolved' | 'transferred'>('all');
   const [mobileView, setMobileView] = useState<'list' | 'chat' | 'profile'>('list');
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
@@ -101,8 +101,7 @@ export default function CustomerServiceChat() {
     const { data, error } = await supabase
       .from('ai_conversations')
       .select('*')
-      .eq('is_transferred_to_human', true)
-      .order('transferred_at', { ascending: false });
+      .order('created_at', { ascending: false });
     
     if (error) {
       toast({ variant: "destructive", title: "加载失败", description: "无法加载会话列表" });
@@ -222,19 +221,27 @@ export default function CustomerServiceChat() {
     return () => { supabase.removeChannel(channel); };
   }, [selectedConversation, soundEnabled, toast]);
 
-  // Realtime: new transfers
+  // Realtime: new and updated conversations
   useEffect(() => {
     const channel = supabase
-      .channel('customer-service-transfers')
+      .channel('customer-service-conversations')
       .on('postgres_changes', {
-        event: 'UPDATE', schema: 'public', table: 'ai_conversations',
-        filter: 'is_transferred_to_human=eq.true'
+        event: 'INSERT', schema: 'public', table: 'ai_conversations'
+      }, (payload) => {
+        const newConv = payload.new as Conversation;
+        setConversations(prev => {
+          if (prev.find(c => c.id === newConv.id)) return prev;
+          return [newConv, ...prev];
+        });
+      })
+      .on('postgres_changes', {
+        event: 'UPDATE', schema: 'public', table: 'ai_conversations'
       }, (payload) => {
         const updated = payload.new as Conversation;
         setConversations(prev => {
           const exists = prev.find(c => c.id === updated.id);
           if (!exists) {
-            if (soundEnabled) {
+            if (updated.is_transferred_to_human && soundEnabled) {
               playNotificationSound();
               toast({ title: "新的转人工请求", description: "有用户请求人工客服" });
             }
@@ -355,6 +362,7 @@ export default function CustomerServiceChat() {
     return conversations.filter(c => {
       if (statusFilter === 'pending' && c.status === 'resolved') return false;
       if (statusFilter === 'resolved' && c.status !== 'resolved') return false;
+      if (statusFilter === 'transferred' && !c.is_transferred_to_human) return false;
       if (searchQuery) {
         const q = searchQuery.toLowerCase();
         return c.session_id.toLowerCase().includes(q) || 
@@ -370,8 +378,9 @@ export default function CustomerServiceChat() {
   const stats = useMemo(() => {
     const pending = conversations.filter(c => c.status !== 'resolved').length;
     const resolved = conversations.filter(c => c.status === 'resolved').length;
+    const transferred = conversations.filter(c => c.is_transferred_to_human).length;
     const totalUnread = conversations.reduce((sum, c) => sum + (c.unread_count || 0), 0);
-    return { pending, resolved, total: conversations.length, totalUnread };
+    return { pending, resolved, transferred, total: conversations.length, totalUnread };
   }, [conversations]);
 
   // Group messages by date
@@ -479,9 +488,12 @@ export default function CustomerServiceChat() {
                 
                 {/* Status filter tabs */}
                 <Tabs value={statusFilter} onValueChange={(v) => setStatusFilter(v as any)} className="w-full">
-                  <TabsList className="grid w-full grid-cols-3 h-7">
+                  <TabsList className="grid w-full grid-cols-4 h-7">
                     <TabsTrigger value="all" className="text-xs h-6 px-1">
                       全部 ({stats.total})
+                    </TabsTrigger>
+                    <TabsTrigger value="transferred" className="text-xs h-6 px-1">
+                      转人工 ({stats.transferred})
                     </TabsTrigger>
                     <TabsTrigger value="pending" className="text-xs h-6 px-1">
                       待处理 ({stats.pending})
@@ -537,10 +549,10 @@ export default function CustomerServiceChat() {
                               </p>
                               <div className="flex items-center gap-1.5 mt-1">
                                 <Badge 
-                                  variant={conversation.status === 'resolved' ? 'secondary' : 'default'}
+                                  variant={conversation.status === 'resolved' ? 'secondary' : conversation.is_transferred_to_human ? 'destructive' : 'outline'}
                                   className="text-[10px] h-4 px-1"
                                 >
-                                  {conversation.status === 'resolved' ? '已解决' : '待处理'}
+                                  {conversation.status === 'resolved' ? '已解决' : conversation.is_transferred_to_human ? '转人工' : 'AI对话'}
                                 </Badge>
                                 {conversation.visitor_location && (
                                   <span className="text-[10px] text-muted-foreground truncate">
