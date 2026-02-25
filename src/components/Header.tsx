@@ -132,7 +132,7 @@ export const Header = () => {
   const handleMouseLeave = () => {
     timeoutRef.current = setTimeout(() => {
       setActiveDropdown(null);
-    }, 100);
+    }, 300);
   };
 
   return (
