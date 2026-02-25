@@ -123,15 +123,7 @@ const NEWS_CATEGORIES = [
     bgColor: "bg-green-500/20",
     icon: Globe,
   },
-  { 
-    value: "产品资讯", 
-    label: "产品资讯", 
-    description: "新品发布、产品功能、应用场景",
-    color: "text-amber-400",
-    bgColor: "bg-amber-500/20",
-    icon: Sparkles,
-  },
-  { 
+  {
     value: "技术分享", 
     label: "技术分享", 
     description: "技术原理、教程、知识科普",
@@ -1114,7 +1106,6 @@ const NewsCollection = () => {
           dailyConfig: {
             "公司新闻": 1,
             "行业动态": 1,
-            "产品资讯": 1,
             "技术分享": 1,
           },
           autoPublish,
