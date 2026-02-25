@@ -173,7 +173,25 @@ export default function CustomerServiceChat() {
         
         if (newMsg.role === 'user' && soundEnabled) {
           playNotificationSound();
-          toast({ title: "新消息", description: newMsg.content.substring(0, 50) + (newMsg.content.length > 50 ? '...' : '') });
+          const convId = newMsg.conversation_id;
+          toast({
+            title: "新消息",
+            description: newMsg.content.substring(0, 50) + (newMsg.content.length > 50 ? '...' : ''),
+            action: (
+              <button
+                className="shrink-0 rounded-md border px-3 py-1.5 text-xs font-medium ring-offset-background transition-colors hover:bg-secondary focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2"
+                onClick={() => {
+                  const targetConv = conversations.find(c => c.id === convId);
+                  if (targetConv) {
+                    setSelectedConversation(targetConv);
+                    setMobileView('chat');
+                  }
+                }}
+              >
+                查看
+              </button>
+            ),
+          });
         }
         
         // Update conversation last message
