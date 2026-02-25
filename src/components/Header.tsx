@@ -173,8 +173,10 @@ export const Header = () => {
             {showLeftArrow && (
               <button
                 onClick={() => scrollNav('left')}
-                className={`absolute left-0 z-10 p-1 rounded-full transition-colors ${
-                  isScrolled ? 'bg-background/90 text-foreground hover:bg-secondary' : 'bg-foreground/60 text-white hover:bg-foreground/80'
+                className={`absolute left-0 z-10 p-1.5 rounded-full shadow-md border transition-all hover:scale-110 ${
+                  isScrolled 
+                    ? 'bg-accent text-accent-foreground border-accent/30 hover:bg-accent/90' 
+                    : 'bg-white/20 text-white border-white/30 hover:bg-white/30'
                 }`}
               >
                 <ChevronLeft className="w-4 h-4" />
@@ -214,8 +216,10 @@ export const Header = () => {
             {showRightArrow && (
               <button
                 onClick={() => scrollNav('right')}
-                className={`absolute right-0 z-10 p-1 rounded-full transition-colors ${
-                  isScrolled ? 'bg-background/90 text-foreground hover:bg-secondary' : 'bg-foreground/60 text-white hover:bg-foreground/80'
+                className={`absolute right-0 z-10 p-1.5 rounded-full shadow-md border transition-all hover:scale-110 ${
+                  isScrolled 
+                    ? 'bg-accent text-accent-foreground border-accent/30 hover:bg-accent/90' 
+                    : 'bg-white/20 text-white border-white/30 hover:bg-white/30'
                 }`}
               >
                 <ChevronRight className="w-4 h-4" />
