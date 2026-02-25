@@ -200,7 +200,7 @@ const DatabaseProductDetail = () => {
                   {images.length > 0 ? (
                     <img
                       src={images[activeImage]}
-                      alt={productName}
+                      alt={`CANI ${productName} - Industrial UAV Component Product Photo`}
                       className="max-w-full max-h-full object-contain"
                     />
                   ) : (
@@ -226,7 +226,7 @@ const DatabaseProductDetail = () => {
                       >
                         <img
                           src={img}
-                          alt={`${productName} ${index + 1}`}
+                          alt={`CANI ${productName} - Detail View ${index + 1}`}
                           className="w-full h-full object-cover"
                         />
                       </button>

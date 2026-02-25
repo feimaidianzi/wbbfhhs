@@ -350,7 +350,7 @@ const ProductPageTemplate = ({
                     <div className="aspect-[4/3] overflow-hidden relative">
                       <img
                         src={product.image}
-                        alt={product.name}
+                        alt={`CANI ${product.name} - Industrial UAV Core Component`}
                         loading="lazy"
                         className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
                       />
