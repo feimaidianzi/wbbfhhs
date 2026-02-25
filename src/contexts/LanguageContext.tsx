@@ -36,16 +36,16 @@ interface LanguageProviderProps {
 // Valid language codes set for fast lookup
 const VALID_LANG_CODES = new Set<string>(SUPPORTED_LANGUAGES.map(l => l.code));
 
-// Detect language from URL path prefix (e.g., /en/about -> 'en')
+// Detect language from URL path prefix (e.g., /zh/about -> 'zh', /ja/about -> 'ja')
 const detectLanguageFromPath = (): LanguageCode | null => {
   const pathname = window.location.pathname;
-  const firstSegment = pathname.split('/')[1]; // e.g., "en" from "/en/about"
+  const firstSegment = pathname.split('/')[1]; // e.g., "zh" from "/zh/about"
   
-  if (firstSegment && VALID_LANG_CODES.has(firstSegment) && firstSegment !== 'zh') {
+  if (firstSegment && VALID_LANG_CODES.has(firstSegment) && firstSegment !== 'en') {
     return firstSegment as LanguageCode;
   }
   
-  // No prefix or 'zh' prefix means Chinese (default)
+  // No prefix or 'en' prefix means English (international default)
   return null;
 };
 
@@ -54,7 +54,7 @@ export const getPathWithoutLang = (): string => {
   const pathname = window.location.pathname;
   const firstSegment = pathname.split('/')[1];
   
-  if (firstSegment && VALID_LANG_CODES.has(firstSegment) && firstSegment !== 'zh') {
+  if (firstSegment && VALID_LANG_CODES.has(firstSegment) && firstSegment !== 'en') {
     // Remove the language prefix
     const rest = pathname.slice(firstSegment.length + 1); // +1 for the leading /
     return rest || '/';
@@ -124,14 +124,8 @@ export const LanguageProvider: React.FC<LanguageProviderProps> = ({ children }) 
       return DEFAULT_LANGUAGE;
     })();
 
+    if (lang === 'en') return enTranslations;
     if (lang === 'zh') return zhTranslations;
-    if (lang === 'en') {
-      const cached = localStorage.getItem('translations_en');
-      if (cached) {
-        try { return { ...enTranslations, ...JSON.parse(cached) }; } catch (e) { /* ignore */ }
-      }
-      return enTranslations;
-    }
     // For other languages, try localStorage cache synchronously
     const cached = localStorage.getItem(`translations_${lang}`);
     if (cached) {
@@ -287,7 +281,7 @@ export const LanguageProvider: React.FC<LanguageProviderProps> = ({ children }) 
           console.log(`Auto-detected language: ${detectedLang} for country: ${country}`);
           // Navigate to the detected language path
           const currentPath = getPathWithoutLang();
-          const prefix = detectedLang === 'zh' ? '' : `/${detectedLang}`;
+          const prefix = detectedLang === 'en' ? '' : `/${detectedLang}`;
           const newPath = `${prefix}${currentPath === '/' ? '' : currentPath}` || '/';
           window.history.replaceState(null, '', newPath);
           setLanguageState(detectedLang);
@@ -303,7 +297,7 @@ export const LanguageProvider: React.FC<LanguageProviderProps> = ({ children }) 
   const setLanguage = useCallback((lang: LanguageCode) => {
     // Build new URL with language prefix
     const currentPath = getPathWithoutLang();
-    const prefix = lang === 'zh' ? '' : `/${lang}`;
+    const prefix = lang === 'en' ? '' : `/${lang}`;
     const newPath = `${prefix}${currentPath === '/' ? '' : currentPath}` || '/';
     
     // Save preference
@@ -316,7 +310,7 @@ export const LanguageProvider: React.FC<LanguageProviderProps> = ({ children }) 
 
   const t = useCallback((key: string): string => {
     if (isLoading) return '\u00A0'; // placeholder while loading translations
-    return currentTranslations[key] || zhTranslations[key] || key;
+    return currentTranslations[key] || enTranslations[key] || key;
   }, [currentTranslations, isLoading]);
 
   // Initial load

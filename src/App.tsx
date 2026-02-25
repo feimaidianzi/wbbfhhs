@@ -210,8 +210,8 @@ const publicRoutes = [
   { path: "/products/detail/:productId", element: <DatabaseProductDetail /> },
 ];
 
-// Language codes for path prefix (excluding 'zh' which uses no prefix)
-const langCodes = ['en', 'vi', 'th', 'ms', 'id', 'ja', 'ko', 'fr', 'de', 'es', 'ru', 'ar', 'tr'];
+// Language codes for path prefix (excluding 'en' which uses no prefix as international default)
+const langCodes = ['zh', 'vi', 'th', 'ms', 'id', 'ja', 'ko', 'fr', 'de', 'es', 'ru', 'ar', 'tr'];
 
 const App = () => (
   <QueryClientProvider client={queryClient}>
@@ -244,7 +244,7 @@ const App = () => (
             <Route path="/admin/auto-translate" element={<AutoTranslation />} />
             <Route path="/admin/page-migration" element={<PageMigration />} />
 
-            {/* Public routes - no prefix (Chinese default) */}
+            {/* Public routes - no prefix (English international default) */}
             {publicRoutes.map(({ path, element }) => (
               <Route key={path} path={path} element={element} />
             ))}
