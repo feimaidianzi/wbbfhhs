@@ -7,7 +7,7 @@ const corsHeaders = {
 
 // 使用豆包API
 const DOUBAO_API_URL = "https://ark.cn-beijing.volces.com/api/v3/chat/completions";
-const DOUBAO_MODEL = "doubao-pro-32k-241215";
+const DOUBAO_MODEL = "doubao-seed-1-6-lite-251015";
 
 const SYSTEM_PROMPT = `你是长凌科技的AI客服助手"小凌"。长凌科技(CANI)是一家专业的工业无人机配件供应商,主要产品包括:
 
