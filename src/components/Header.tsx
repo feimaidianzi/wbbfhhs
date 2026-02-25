@@ -1,5 +1,5 @@
-import { useState, useRef, useEffect } from "react";
-import { Menu, X, Mail, ChevronDown, User, LogOut } from "lucide-react";
+import { useState, useRef, useEffect, useCallback } from "react";
+import { Menu, X, Mail, ChevronDown, ChevronLeft, ChevronRight, User, LogOut } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { LangLink as Link } from "@/components/LangLink";
 import { useNavigate } from "react-router-dom";
@@ -20,7 +20,29 @@ export const Header = () => {
   const { t } = useLanguage();
   const navigate = useNavigate();
   const { toast } = useToast();
-  
+  const navScrollRef = useRef<HTMLElement>(null);
+  const [showLeftArrow, setShowLeftArrow] = useState(false);
+  const [showRightArrow, setShowRightArrow] = useState(false);
+
+  const checkNavScroll = useCallback(() => {
+    const el = navScrollRef.current;
+    if (!el) return;
+    setShowLeftArrow(el.scrollLeft > 5);
+    setShowRightArrow(el.scrollLeft + el.clientWidth < el.scrollWidth - 5);
+  }, []);
+
+  const scrollNav = useCallback((dir: 'left' | 'right') => {
+    const el = navScrollRef.current;
+    if (!el) return;
+    el.scrollBy({ left: dir === 'left' ? -150 : 150, behavior: 'smooth' });
+  }, []);
+
+  useEffect(() => {
+    checkNavScroll();
+    window.addEventListener('resize', checkNavScroll);
+    return () => window.removeEventListener('resize', checkNavScroll);
+  }, [checkNavScroll]);
+
 
   useEffect(() => {
     const handleScroll = () => {
@@ -147,32 +169,59 @@ export const Header = () => {
           <Logo />
 
           {/* Desktop Navigation */}
-          <nav className="hidden nav:flex items-center justify-center gap-0.5 flex-1 min-w-0 mx-1 overflow-hidden">
-            {navItems.map((item) => (
-              <div
-                key={item.href}
-                className="relative flex-shrink-0"
-                onMouseEnter={() => item.children && handleMouseEnter(item.href)}
-                onMouseLeave={handleMouseLeave}
+          <div className="hidden nav:flex items-center flex-1 min-w-0 mx-1 relative">
+            {showLeftArrow && (
+              <button
+                onClick={() => scrollNav('left')}
+                className={`absolute left-0 z-10 p-1 rounded-full transition-colors ${
+                  isScrolled ? 'bg-background/90 text-foreground hover:bg-secondary' : 'bg-foreground/60 text-white hover:bg-foreground/80'
+                }`}
               >
-                <Link
-                  to={item.href}
-                  className={`flex items-center gap-0.5 px-2 xl:px-3 py-1.5 text-xs xl:text-sm font-medium transition-colors rounded-full whitespace-nowrap ${
-                    isScrolled
-                      ? 'text-foreground hover:text-accent hover:bg-accent/5'
-                      : 'text-white/90 hover:text-white hover:bg-white/10'
-                  } ${activeDropdown === item.href ? (isScrolled ? 'text-accent bg-accent/5' : 'text-white bg-white/10') : ''}`}
+                <ChevronLeft className="w-4 h-4" />
+              </button>
+            )}
+            <nav
+              ref={navScrollRef}
+              onScroll={checkNavScroll}
+              className="flex items-center gap-0.5 overflow-x-auto scrollbar-hide scroll-smooth"
+              style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
+            >
+              {navItems.map((item) => (
+                <div
+                  key={item.href}
+                  className="relative flex-shrink-0"
+                  onMouseEnter={() => item.children && handleMouseEnter(item.href)}
+                  onMouseLeave={handleMouseLeave}
                 >
-                  {item.name}
-                  {item.hasDropdown && (
-                    <ChevronDown className={`w-3.5 h-3.5 flex-shrink-0 transition-transform duration-200 ${
-                      activeDropdown === item.href ? 'rotate-180' : ''
-                    }`} />
-                  )}
-                </Link>
-              </div>
-            ))}
-          </nav>
+                  <Link
+                    to={item.href}
+                    className={`flex items-center gap-0.5 px-2 xl:px-3 py-1.5 text-xs xl:text-sm font-medium transition-colors rounded-full whitespace-nowrap ${
+                      isScrolled
+                        ? 'text-foreground hover:text-accent hover:bg-accent/5'
+                        : 'text-white/90 hover:text-white hover:bg-white/10'
+                    } ${activeDropdown === item.href ? (isScrolled ? 'text-accent bg-accent/5' : 'text-white bg-white/10') : ''}`}
+                  >
+                    {item.name}
+                    {item.hasDropdown && (
+                      <ChevronDown className={`w-3.5 h-3.5 flex-shrink-0 transition-transform duration-200 ${
+                        activeDropdown === item.href ? 'rotate-180' : ''
+                      }`} />
+                    )}
+                  </Link>
+                </div>
+              ))}
+            </nav>
+            {showRightArrow && (
+              <button
+                onClick={() => scrollNav('right')}
+                className={`absolute right-0 z-10 p-1 rounded-full transition-colors ${
+                  isScrolled ? 'bg-background/90 text-foreground hover:bg-secondary' : 'bg-foreground/60 text-white hover:bg-foreground/80'
+                }`}
+              >
+                <ChevronRight className="w-4 h-4" />
+              </button>
+            )}
+          </div>
 
           {/* Full-width Dropdown Menu */}
           {navItems.map((item) => (
