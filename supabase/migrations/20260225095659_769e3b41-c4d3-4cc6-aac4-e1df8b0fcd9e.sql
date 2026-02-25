@@ -1,0 +1,2 @@
+ALTER TABLE public.ai_conversations DROP CONSTRAINT ai_conversations_status_check;
+ALTER TABLE public.ai_conversations ADD CONSTRAINT ai_conversations_status_check CHECK (status = ANY (ARRAY['active'::text, 'ended'::text, 'transferred'::text, 'resolved'::text]));
