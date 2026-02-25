@@ -213,7 +213,10 @@ export default function CustomerServiceChat() {
         }));
         
         if (selectedConversation && newMsg.conversation_id === selectedConversation.id) {
-          setMessages(prev => [...prev, newMsg]);
+          setMessages(prev => {
+            if (prev.some(m => m.id === newMsg.id)) return prev;
+            return [...prev, newMsg];
+          });
         }
       })
       .subscribe();
