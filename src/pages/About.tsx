@@ -3,7 +3,7 @@ import { Footer } from "@/components/Footer";
 import { FloatingContact } from "@/components/FloatingContact";
 import { Button } from "@/components/ui/button";
 import { Target, Users, Award, ArrowRight, Cpu, BarChart3, Globe2, ShieldCheck, Layers, Radio, Settings } from "lucide-react";
-import workshopAssembly from "@/assets/seo/workshop-assembly.jpg";
+import caniReception from "@/assets/about/cani-reception.png";
 import { MultiLanguageSEO, createLocalizedBreadcrumbData } from "@/components/MultiLanguageSEO";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { LangLink } from "@/components/LangLink";
@@ -224,8 +224,8 @@ const About = () => {
               </div>
               <div className="aspect-video rounded-xl overflow-hidden shadow-card">
                 <img
-                  src={workshopAssembly}
-                  alt="CANI Technology drone assembly workshop - 长凌科技无人机组装车间实拍"
+                  src={caniReception}
+                  alt="CANI Technology company reception - 长凌科技公司前台"
                   className="w-full h-full object-cover"
                   loading="lazy"
                 />
