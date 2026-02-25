@@ -179,18 +179,13 @@ export const Header = () => {
             item.children && activeDropdown === item.href && (
               <div
                 key={`dropdown-${item.href}`}
-                className="fixed left-0 right-0 top-0 z-40 pointer-events-none"
-                style={{ paddingTop: 0 }}
+                className="fixed left-0 right-0 z-[60]"
+                style={{ top: 0 }}
+                onMouseEnter={() => handleMouseEnter(item.href)}
                 onMouseLeave={handleMouseLeave}
               >
-                {/* Invisible bridge: covers header area, lets clicks pass through except hover detection */}
                 <div
-                  className="h-16 md:h-20 pointer-events-auto"
-                  onMouseEnter={() => handleMouseEnter(item.href)}
-                />
-                <div
-                  className="bg-background border-b border-border shadow-lg dropdown-enter pointer-events-auto"
-                  onMouseEnter={() => handleMouseEnter(item.href)}
+                  className="bg-background border-b border-border shadow-lg dropdown-enter"
                 >
                   <div className="container-custom py-8">
                     <div className="mb-6">
