@@ -9,6 +9,7 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 import { Separator } from "@/components/ui/separator";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useToast } from "@/hooks/use-toast";
+import { ToastAction } from "@/components/ui/toast";
 import EnhancedVisitorProfile from "@/components/admin/EnhancedVisitorProfile";
 import QuickReplies from "@/components/admin/QuickReplies";
 import ConversationNotes from "@/components/admin/ConversationNotes";
@@ -178,10 +179,9 @@ export default function CustomerServiceChat() {
             title: "新消息",
             description: newMsg.content.substring(0, 50) + (newMsg.content.length > 50 ? '...' : ''),
             action: (
-              <button
-                className="shrink-0 rounded-md border px-3 py-1.5 text-xs font-medium ring-offset-background transition-colors hover:bg-secondary focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2"
+              <ToastAction
+                altText="查看会话"
                 onClick={() => {
-                  // Use functional setState to access latest conversations
                   setConversations(prev => {
                     const targetConv = prev.find(c => c.id === convId);
                     if (targetConv) {
@@ -193,7 +193,7 @@ export default function CustomerServiceChat() {
                 }}
               >
                 查看
-              </button>
+              </ToastAction>
             ),
           });
         }
