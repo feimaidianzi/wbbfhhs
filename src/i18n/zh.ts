@@ -1795,7 +1795,6 @@ export const zhTranslations: Record<string, string> = {
   'news.notFound.back': '返回新闻列表',
   'news.category.company': '公司新闻',
   'news.category.industry': '行业动态',
-  'news.category.product': '产品资讯',
   'news.category.tech': '技术分享',
 
   // ===== FAQ Section =====

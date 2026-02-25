@@ -600,18 +600,6 @@ const CATEGORY_CONFIG = {
     description: "政策法规、市场分析、行业趋势等宏观信息",
     contentFocus: "关注全球无人机政策变化、市场动态、行业发展趋势",
   },
-  "产品资讯": {
-    keywords: [
-      "无人机技术突破 2025", "drone technology breakthrough",
-      "新型无人机发布", "new drone release 2025",
-      "无人机性能提升", "drone performance improvement",
-      "FPV设备创新", "FPV equipment innovation",
-      "无人机续航突破", "drone flight time breakthrough",
-    ],
-    style: "详细、技术性、突出产品特点和创新之处，介绍产品功能和应用场景",
-    description: "新品发布、技术突破、产品功能等产品相关内容",
-    contentFocus: "最新的无人机和配件产品发布、技术创新、性能提升",
-  },
   "技术分享": {
     keywords: [
       "VTX是什么 what is VTX",
@@ -2139,19 +2127,6 @@ const KEYWORD_GENERATION_GUIDE = {
       ]
     }
   },
-  "产品资讯": {
-    description: "新品发布、技术突破、产品功能等产品相关内容",
-    subcategories: {
-      "新品发布": [
-        "无人机技术突破 2025", "新型无人机发布", "FPV设备创新",
-        "无人机续航突破", "重载工业级无人机发布"
-      ],
-      "性能提升": [
-        "无人机性能提升", "碳纤维无人机载重提升", "AI动态路径规划算法",
-        "无人机抗干扰技术", "长航时能源方案"
-      ]
-    }
-  },
   "公司新闻": {
     description: "企业动态、合作、融资等公司相关新闻",
     subcategories: {
@@ -3320,14 +3295,13 @@ Deno.serve(async (req) => {
       );
     }
 
-    // 每日采集 - 按四分类
+    // 每日采集 - 按三分类
     if (action === "collect-daily") {
       console.log("Starting daily collection for all categories...");
       
       const dailyConfig = body.dailyConfig || {
         "公司新闻": 1,
         "行业动态": 1,
-        "产品资讯": 1,
         "技术分享": 1,
       };
       

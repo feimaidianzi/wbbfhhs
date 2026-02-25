@@ -646,28 +646,7 @@ Deno.serve(async (req) => {
           }
         }
       }
-    } else if (category === "产品资讯") {
-      const categories = Object.entries(PRODUCT_CATEGORIES);
-      let articlesGenerated = 0;
-      
-      for (const [key, catData] of categories) {
-        if (articlesGenerated >= articleLimit) break;
-        
-        for (let i = 0; i < Math.min(1, catData.products.length); i++) {
-          if (articlesGenerated >= articleLimit) break;
-          
-          try {
-            console.log(`Generating product news: ${catData.products[i].name}`);
-            const article = await generateProductNews(catData.products[i], catData.name, geminiApiKey);
-            if (article) {
-              await processArticle(article, "产品资讯");
-              articlesGenerated++;
-            }
-          } catch (e) {
-            console.error(`Error generating product news:`, e);
-          }
-        }
-      }
+    } else if (category === "公司新闻") {
     } else if (category === "公司新闻") {
       for (let i = 0; i < articleLimit; i++) {
         try {
