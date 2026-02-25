@@ -8,7 +8,8 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Skeleton } from "@/components/ui/skeleton";
 import { ArrowLeft, Calendar, User, Tag } from "lucide-react";
-import { SEO, createArticleStructuredData } from "@/components/SEO";
+import { MultiLanguageSEO } from "@/components/MultiLanguageSEO";
+import { createArticleStructuredData } from "@/components/SEO";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { supabase } from "@/integrations/supabase/client";
 import { sanitizeHtml } from "@/lib/sanitize";
@@ -190,11 +191,12 @@ const NewsDetail = () => {
 
   return (
     <div className="min-h-screen">
-      <SEO
+      <MultiLanguageSEO
         title={baseLang === 'en' && article.title_en ? article.title_en : article.title}
         description={baseLang === 'en' && article.summary_en ? article.summary_en : (article.summary || article.title)}
-        url={`/news/${article.id}`}
+        path={`/news/${article.id}`}
         image={article.cover_image || undefined}
+        type="article"
         structuredData={articleStructuredData}
       />
       <Header />

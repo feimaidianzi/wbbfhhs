@@ -30,7 +30,7 @@ export const RichSEOContent = ({
   additionalKeywords = [],
   additionalKeywordsEn = [],
 }: RichSEOContentProps) => {
-  const { baseLang, t } = useLanguage();
+  const { baseLang, t, language } = useLanguage();
   const isEn = baseLang === 'en';
 
   return (
@@ -73,7 +73,7 @@ export const RichSEOContent = ({
         )}
 
         <meta itemProp="url" content={`https://www.caniuav.com`} />
-        <meta itemProp="inLanguage" content={isEn ? 'en' : 'zh-CN'} />
+        <meta itemProp="inLanguage" content={language === 'zh' ? 'zh-CN' : language} />
       </article>
     </div>
   );
