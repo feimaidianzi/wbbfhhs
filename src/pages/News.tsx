@@ -22,13 +22,12 @@ interface NewsArticle {
   created_at: string;
 }
 
-const CATEGORY_KEYS = ['all', 'company', 'industry', 'product', 'tech'] as const;
+const CATEGORY_KEYS = ['all', 'company', 'industry', 'tech'] as const;
 
 // Map database category values to category keys
 const DB_CATEGORY_MAP: Record<string, string> = {
   '公司新闻': 'company',
   '行业动态': 'industry',
-  '产品资讯': 'product',
   '技术分享': 'tech',
 };
 
