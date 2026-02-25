@@ -42,7 +42,7 @@ interface RequestBody {
   messages: Message[];
   conversationId?: string;
   sessionId?: string;
-  action?: "chat" | "extract_lead" | "transfer_human" | "auto_extract";
+  action?: "chat" | "extract_lead" | "transfer_human" | "auto_extract" | "load_history" | "save_message";
 }
 
 // 使用豆包自动提取线索信息
@@ -264,6 +264,44 @@ Deno.serve(async (req) => {
       }
 
       return new Response(JSON.stringify({ success: false, message: "No lead info found" }), {
+        headers: { ...corsHeaders, "Content-Type": "application/json" },
+      });
+    }
+
+    // Handle saving a message (for visitors who can't insert via RLS)
+    if (action === "save_message" && conversationId) {
+      const { role: msgRole, content: msgContent } = body as any;
+      if (!msgRole || !msgContent || typeof msgContent !== 'string') {
+        return new Response(JSON.stringify({ error: "Invalid message data" }), {
+          status: 400,
+          headers: { ...corsHeaders, "Content-Type": "application/json" },
+        });
+      }
+      // Only allow visitor-safe roles
+      if (!['user', 'system'].includes(msgRole)) {
+        return new Response(JSON.stringify({ error: "Invalid role" }), {
+          status: 400,
+          headers: { ...corsHeaders, "Content-Type": "application/json" },
+        });
+      }
+      const { error: insertError } = await supabase
+        .from("ai_conversation_messages")
+        .insert({ conversation_id: conversationId, role: msgRole, content: msgContent.slice(0, 2000) });
+      if (insertError) {
+        console.error("Save message error:", insertError);
+        return new Response(JSON.stringify({ error: "Failed to save message" }), {
+          status: 500,
+          headers: { ...corsHeaders, "Content-Type": "application/json" },
+        });
+      }
+      // Update last_visitor_message_at if user message
+      if (msgRole === 'user') {
+        await supabase
+          .from("ai_conversations")
+          .update({ last_visitor_message_at: new Date().toISOString() })
+          .eq("id", conversationId);
+      }
+      return new Response(JSON.stringify({ success: true }), {
         headers: { ...corsHeaders, "Content-Type": "application/json" },
       });
     }

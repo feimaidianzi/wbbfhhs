@@ -222,22 +222,28 @@ export const AIAssistant = () => {
     };
   }, [isHumanMode, conversationId, t, toast]);
 
-  // Save message to database
+  // Save message to database via edge function (visitors can't insert directly)
   const saveMessage = useCallback(async (convId: string, role: string, content: string) => {
     try {
-      await supabase.from("ai_conversation_messages").insert({
-        conversation_id: convId,
-        role,
-        content,
-      });
+      await fetch(
+        `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/ai-assistant`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY}`,
+          },
+          body: JSON.stringify({
+            action: "save_message",
+            conversationId: convId,
+            role,
+            content,
+          }),
+        }
+      );
       
-      // 更新最后访客消息时间
       if (role === 'user') {
         lastMessageTimeRef.current = Date.now();
-        await supabase
-          .from("ai_conversations")
-          .update({ last_visitor_message_at: new Date().toISOString() })
-          .eq("id", convId);
       }
     } catch (error) {
       console.error("Failed to save message:", error);
