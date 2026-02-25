@@ -277,8 +277,8 @@ Deno.serve(async (req) => {
           headers: { ...corsHeaders, "Content-Type": "application/json" },
         });
       }
-      // Only allow visitor-safe roles
-      if (!['user', 'system'].includes(msgRole)) {
+      // Allow user, assistant, and system roles
+      if (!['user', 'assistant', 'system'].includes(msgRole)) {
         return new Response(JSON.stringify({ error: "Invalid role" }), {
           status: 400,
           headers: { ...corsHeaders, "Content-Type": "application/json" },
