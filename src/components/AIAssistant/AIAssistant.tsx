@@ -344,39 +344,44 @@ export const AIAssistant = () => {
       if (reader) {
         let buffer = "";
         
-        while (true) {
-          const { done, value } = await reader.read();
-          if (done) break;
+        try {
+          while (true) {
+            const { done, value } = await reader.read();
+            if (done) break;
 
-          buffer += decoder.decode(value, { stream: true });
-          
-          // Process SSE lines
-          const lines = buffer.split("\n");
-          buffer = lines.pop() || "";
+            buffer += decoder.decode(value, { stream: true });
+            
+            // Process SSE lines
+            const lines = buffer.split("\n");
+            buffer = lines.pop() || "";
 
-          for (const line of lines) {
-            if (line.startsWith("data: ")) {
-              const data = line.slice(6).trim();
-              if (data === "[DONE]") continue;
-              
-              try {
-                const parsed = JSON.parse(data);
-                const content = parsed.choices?.[0]?.delta?.content;
-                if (content) {
-                  assistantContent += content;
-                  setMessages(prev =>
-                    prev.map(m =>
-                      m.id === assistantMessageId
-                        ? { ...m, content: assistantContent }
-                        : m
-                    )
-                  );
+            for (const line of lines) {
+              if (line.startsWith("data: ")) {
+                const data = line.slice(6).trim();
+                if (data === "[DONE]") continue;
+                
+                try {
+                  const parsed = JSON.parse(data);
+                  // Support both content and reasoning_content from Doubao models
+                  const content = parsed.choices?.[0]?.delta?.content;
+                  if (content) {
+                    assistantContent += content;
+                    setMessages(prev =>
+                      prev.map(m =>
+                        m.id === assistantMessageId
+                          ? { ...m, content: assistantContent }
+                          : m
+                      )
+                    );
+                  }
+                } catch {
+                  // Ignore parse errors
                 }
-              } catch {
-                // Ignore parse errors
               }
             }
           }
+        } catch (streamError) {
+          console.error("Stream reading error:", streamError);
         }
       }
 

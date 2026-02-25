@@ -5,6 +5,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { LanguageProvider } from "@/contexts/LanguageContext";
 import { AIAssistant } from "@/components/AIAssistant";
+import { AIAssistantErrorBoundary } from "@/components/AIAssistant/ErrorBoundary";
 import { ScrollToTop } from "@/components/ScrollToTop";
 import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
@@ -260,7 +261,9 @@ const App = () => (
           {/* Global Visitor Tracking */}
           <VisitorTracker />
           {/* Global AI Assistant - visible on all pages */}
-          <AIAssistant />
+          <AIAssistantErrorBoundary>
+            <AIAssistant />
+          </AIAssistantErrorBoundary>
         </BrowserRouter>
       </TooltipProvider>
     </LanguageProvider>
