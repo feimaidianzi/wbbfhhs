@@ -10,6 +10,7 @@ import { LangLink } from "@/components/LangLink";
 import { PageFAQ } from "@/components/PageFAQ";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Helmet } from "react-helmet-async";
+import { FacilityGallery } from "@/components/FacilityGallery";
 
 const About = () => {
   const { t, language } = useLanguage();
@@ -246,6 +247,9 @@ const About = () => {
             </div>
           </div>
         </section>
+
+        {/* Facility Gallery */}
+        <FacilityGallery t={t} />
 
         {/* Core Competencies Table */}
         <section className="py-16 bg-background">
