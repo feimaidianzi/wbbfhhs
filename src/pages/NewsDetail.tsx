@@ -128,7 +128,6 @@ const NewsDetail = () => {
     const categoryMap: Record<string, string> = {
       '公司新闻': 'company',
       '行业动态': 'industry',
-      '产品资讯': 'product',
       '技术分享': 'tech',
     };
     const key = categoryMap[category];
