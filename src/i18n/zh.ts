@@ -22,7 +22,7 @@ export const zhTranslations: Record<string, string> = {
   'floating.email': '邮件咨询',
   'floating.whatsapp': 'WhatsApp咨询',
   'floating.close': '关闭',
-  'floating.comingSoon': '即将上市',
+  'floating.comingSoon': '新品上架',
   'floating.aiModule': '无人机AI制导模块',
   'floating.aiModuleDesc': '智能目标识别、自主航迹规划、精准制导控制',
   'floating.learnMore': '了解更多',

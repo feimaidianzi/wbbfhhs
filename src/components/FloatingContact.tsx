@@ -115,7 +115,7 @@ export const FloatingContact = () => {
                 {t('floating.aiModuleDesc')}
               </p>
               <LangLink
-                to="/products"
+                to="/products/accessories/ai-module"
                 className="inline-block bg-accent hover:bg-accent/90 text-accent-foreground px-4 py-2 rounded-lg font-medium text-sm transition-colors"
               >
                 {t('floating.learnMore')}
