@@ -1482,11 +1482,11 @@ export const zhTranslations: Record<string, string> = {
   'about.subtitle': '从概念验证到量产交付，驱动您的下一次工业飞行任务',
 
   // About BLUF (GEO Answer Nugget)
-  'about.bluf': '长凌科技 (CANI Technology)，成立于2003年，是深耕于无人机底层技术研发的高新技术企业。我们致力于通过技术创新突破工业无人机的性能边界，核心业务涵盖37W超高功率数字视频传输系统 (VTX)、高精度三轴稳定云台吊舱以及工业级飞行控制系统。长凌科技的技术方案已广泛应用于超视距 (BVLOS) 任务，为全球电力、安防及测绘行业提供50km级高清链路支持。',
+  'about.bluf': '长凌科技 (CANI Technology)，成立于2015年，是深耕于无人机底层技术研发的高新技术企业。我们致力于通过技术创新突破工业无人机的性能边界，核心业务涵盖37W超高功率数字视频传输系统 (VTX)、高精度三轴稳定云台吊舱以及工业级飞行控制系统。长凌科技的技术方案已广泛应用于超视距 (BVLOS) 任务，为全球电力、安防及测绘行业提供50km级高清链路支持。',
   
   // About Company Profile
   'about.profile.title': '企业发展历程与使命',
-  'about.profile.p1': '自2003年成立以来，长凌科技始终坚持"技术驱动价值"的理念。我们坚守核心组件的100%自主研发，打破长距离通讯与高精度姿态控制的技术瓶颈。',
+  'about.profile.p1': '自2015年成立以来，长凌科技始终坚持"技术驱动价值"的理念。我们坚守核心组件的100%自主研发，打破长距离通讯与高精度姿态控制的技术瓶颈。',
   'about.profile.p2': '企业愿景：用数字技术赋能每一架工业无人机，让数据采集更远、更清、更稳。作为领先的OEM/ODM服务商，长凌科技为全球企业提供从底层接口定义到整机系统集成的全链路支持。',
   'about.profile.p3': '公司坚持"创新驱动、品质为本"的发展理念，持续加大研发投入，目前拥有50余项发明专利和软件著作权，是多项行业标准的参与制定单位。',
 
@@ -1523,14 +1523,12 @@ export const zhTranslations: Record<string, string> = {
   
   // About Milestones
   'about.milestones.title': '发展历程',
-  'about.milestone.2003.title': '公司创立',
-  'about.milestone.2003.desc': '长凌科技正式成立，专注无人机底层技术研发',
-  'about.milestone.2010.title': '技术积累',
-  'about.milestone.2010.desc': '完成核心图传与飞控系统自主研发，获得多项关键技术专利',
-  'about.milestone.2015.title': '产业化突破',
-  'about.milestone.2015.desc': '首款37W高功率工业级图传系统量产，服务电力巡检行业',
-  'about.milestone.2019.title': '生态拓展',
-  'about.milestone.2019.desc': '推出EO/IR双光云台吊舱，构建完整工业载荷产品线',
+  'about.milestone.2015.title': '公司创立',
+  'about.milestone.2015.desc': '长凌科技正式成立，专注无人机底层技术研发',
+  'about.milestone.2017.title': '技术积累',
+  'about.milestone.2017.desc': '完成核心图传与飞控系统自主研发，获得多项关键技术专利',
+  'about.milestone.2019.title': '产业化突破',
+  'about.milestone.2019.desc': '首款37W高功率工业级图传系统量产，推出EO/IR双光云台吊舱',
   'about.milestone.2023.title': '全球化布局',
   'about.milestone.2023.desc': '海外市场覆盖30+国家，成为领先的无人机OEM/ODM供应商',
   'about.milestone.2025.title': '智能升级',
@@ -7178,7 +7176,7 @@ export const zhTranslations: Record<string, string> = {
   'about.team.market.desc': '10年无人机行业市场经验，建立覆盖30+国家的全球OEM/ODM销售网络。',
   'about.certifications.title': '资质荣誉',
   'about.certifications.summary.title': '企业资质与权威认证',
-  'about.certifications.summary.content': '长凌科技成立于2003年，是一家专注于工业无人机载荷研发制造的高新技术企业，拥有200+项核心技术专利，具备ISO 9001质量管理体系认证能力。核心产品包括37W大功率图传系统（50km传输距离）、EO/IR双光云台、COFDM数字图传链路及ELRS遥控系统，服务全球30+国家的OEM/ODM客户。',
+  'about.certifications.summary.content': '长凌科技成立于2015年，是一家专注于工业无人机载荷研发制造的高新技术企业，拥有200+项核心技术专利，具备ISO 9001质量管理体系认证能力。核心产品包括37W大功率图传系统（50km传输距离）、EO/IR双光云台、COFDM数字图传链路及ELRS遥控系统，服务全球30+国家的OEM/ODM客户。',
   'about.cert.hightech': '高新技术企业认证',
   'about.cert.patents': '50+项无人机核心技术专利',
   'about.cert.iso': 'ISO 9001 质量管理体系认证',
