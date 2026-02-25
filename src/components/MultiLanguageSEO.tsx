@@ -33,7 +33,9 @@ export const MultiLanguageSEO = ({
   const { language, t } = useLanguage();
   
   const siteName = language === 'zh' ? 'CANI 长凌科技' : 'CANI Technology';
-  const fullTitle = `${title} | ${siteName}`;
+  // Avoid double brand name: if title already contains siteName or 'CANI', don't append
+  const titleContainsBrand = title.includes(siteName) || title.includes('CANI');
+  const fullTitle = titleContainsBrand ? title : `${title} | ${siteName}`;
   const canonicalUrl = getCanonicalUrl(language, path);
   const alternateUrls = getAlternateUrls(path);
   const ogLocale = getOGLocale(language);

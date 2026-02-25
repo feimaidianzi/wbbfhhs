@@ -13,13 +13,13 @@ interface SEOProps {
 export const SEO = ({
   title,
   description,
-  keywords = '无人机配件,数字图传,VTX视频发射器,飞控电调,云台吊舱,ELRS遥控,长凌,CANI',
-  image = 'https://images.unsplash.com/photo-1473968512647-3e447244af8f?w=1200&q=80',
+  keywords = 'industrial drone components,digital video transmission,VTX transmitter,flight controller ESC,gimbal camera,ELRS receiver,CANI UAV',
+  image = 'https://www.caniuav.com/og-image.png',
   url,
   type = 'website',
   structuredData,
 }: SEOProps) => {
-  const siteName = 'CANI 长凌';
+  const siteName = 'CANI Technology';
   const fullTitle = `${title} | ${siteName}`;
   const baseUrl = 'https://www.caniuav.com';
   const fullUrl = url ? `${baseUrl}${url}` : baseUrl;
@@ -27,22 +27,22 @@ export const SEO = ({
   const defaultStructuredData = {
     '@context': 'https://schema.org',
     '@type': 'Organization',
-    name: '长凌科技',
+    name: 'CANI Technology',
     alternateName: 'CANI',
     url: baseUrl,
     logo: `${baseUrl}/logo.png`,
-    description: '专业工业无人机研发制造商，提供系留无人机、物流无人机、无人机机场等产品及解决方案',
+    description: 'Professional industrial UAV components manufacturer specializing in digital video transmission, flight controllers, gimbals, and ELRS systems.',
     address: {
       '@type': 'PostalAddress',
-      addressLocality: '长沙',
-      addressRegion: '湖南',
+      addressLocality: 'Changsha',
+      addressRegion: 'Hunan',
       addressCountry: 'CN',
     },
     contactPoint: {
       '@type': 'ContactPoint',
       email: 'market@caniuav.com',
       contactType: 'customer service',
-      availableLanguage: 'Chinese',
+      availableLanguage: ['Chinese', 'English'],
     },
     sameAs: [],
   };
