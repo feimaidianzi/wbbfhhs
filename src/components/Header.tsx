@@ -132,7 +132,7 @@ export const Header = () => {
   const handleMouseLeave = () => {
     timeoutRef.current = setTimeout(() => {
       setActiveDropdown(null);
-    }, 300);
+    }, 100);
   };
 
   return (
@@ -179,37 +179,32 @@ export const Header = () => {
             item.children && activeDropdown === item.href && (
               <div
                 key={`dropdown-${item.href}`}
-                className="fixed left-0 right-0 z-[60]"
-                style={{ top: 0 }}
+                className="fixed left-0 right-0 top-16 md:top-20 bg-background border-b border-border shadow-lg dropdown-enter z-40"
                 onMouseEnter={() => handleMouseEnter(item.href)}
                 onMouseLeave={handleMouseLeave}
               >
-                <div
-                  className="bg-background border-b border-border shadow-lg dropdown-enter"
-                >
-                  <div className="container-custom py-8">
-                    <div className="mb-6">
-                      <h3 className="text-lg font-semibold text-foreground">{item.name}</h3>
-                      <div className="w-12 h-0.5 bg-accent mt-2"></div>
-                    </div>
-                    <div className={`grid gap-4 ${item.children.length <= 4 ? 'grid-cols-2 md:grid-cols-4' : 'grid-cols-2 md:grid-cols-3 lg:grid-cols-5'}`}>
-                      {item.children.map((child, index) => (
-                        <Link
-                          key={child.href}
-                          to={child.href}
-                          className="group p-4 rounded-xl bg-secondary/50 hover:bg-secondary transition-all duration-300 hover:-translate-y-0.5"
-                          onClick={() => setActiveDropdown(null)}
-                          style={{ animationDelay: `${index * 30}ms` }}
-                        >
-                          <div className="font-medium text-foreground group-hover:text-accent transition-colors mb-1">
-                            {child.name}
-                          </div>
-                          <div className="text-sm text-muted-foreground line-clamp-2">
-                            {child.description}
-                          </div>
-                        </Link>
-                      ))}
-                    </div>
+                <div className="container-custom py-8">
+                  <div className="mb-6">
+                    <h3 className="text-lg font-semibold text-foreground">{item.name}</h3>
+                    <div className="w-12 h-0.5 bg-accent mt-2"></div>
+                  </div>
+                  <div className={`grid gap-4 ${item.children.length <= 4 ? 'grid-cols-2 md:grid-cols-4' : 'grid-cols-2 md:grid-cols-3 lg:grid-cols-5'}`}>
+                    {item.children.map((child, index) => (
+                      <Link
+                        key={child.href}
+                        to={child.href}
+                        className="group p-4 rounded-xl bg-secondary/50 hover:bg-secondary transition-all duration-300 hover:-translate-y-0.5"
+                        onClick={() => setActiveDropdown(null)}
+                        style={{ animationDelay: `${index * 30}ms` }}
+                      >
+                        <div className="font-medium text-foreground group-hover:text-accent transition-colors mb-1">
+                          {child.name}
+                        </div>
+                        <div className="text-sm text-muted-foreground line-clamp-2">
+                          {child.description}
+                        </div>
+                      </Link>
+                    ))}
                   </div>
                 </div>
               </div>
