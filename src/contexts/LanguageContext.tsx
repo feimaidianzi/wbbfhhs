@@ -330,8 +330,14 @@ export const LanguageProvider: React.FC<LanguageProviderProps> = ({ children }) 
       return;
     }
 
-    // IP-based auto-detection disabled for international SEO
-    // The site defaults to English; users can manually switch languages
+    // Auto-detect language on first visit (only if no path lang detected)
+    if (!autoDetected && !pathLang) {
+      setAutoDetected(true);
+      const hasManualLanguage = localStorage.getItem('language_manual') === 'true';
+      if (!hasManualLanguage) {
+        detectLanguageFromIP();
+      }
+    }
   }, [language, isRTL, loadSavedTranslations, autoDetected, detectLanguageFromIP]);
 
   const baseLang = toBaseLanguage(language);
