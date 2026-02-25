@@ -10,6 +10,16 @@ import { LangLink } from "@/components/LangLink";
 import { PageFAQ } from "@/components/PageFAQ";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Helmet } from "react-helmet-async";
+import { useState } from "react";
+
+import smtWorkshop from "@/assets/about/smt-workshop.jpg";
+import rdOffice from "@/assets/about/rd-office.jpeg";
+import warehouse from "@/assets/about/warehouse.jpg";
+import teamPhoto from "@/assets/about/team-photo.png";
+import cncWorkshop from "@/assets/about/cnc-workshop.jpg";
+import assemblyWorkshop from "@/assets/about/assembly-workshop.jpg";
+import aoiInspection from "@/assets/about/aoi-inspection.jpg";
+import officeBuilding from "@/assets/about/office-building.png";
 
 const About = () => {
   const { t, language } = useLanguage();
