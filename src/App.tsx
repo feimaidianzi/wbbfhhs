@@ -114,6 +114,7 @@ import SEOManagement from "./pages/admin/SEOManagement";
 import AutoTranslation from "./pages/admin/AutoTranslation";
 import PageMigration from "./pages/admin/PageMigration";
 import VisitorTracker from "./components/VisitorTracker";
+import { ImageAltScanner } from "./components/ImageAltScanner";
 import NewsDetail from "./pages/NewsDetail";
 import DatabaseProductDetail from "./pages/products/DatabaseProductDetail";
 import DatabaseProductList from "./pages/products/DatabaseProductList";
@@ -260,6 +261,8 @@ const App = () => (
           </Routes>
           {/* Global Visitor Tracking */}
           <VisitorTracker />
+          {/* Dev-only: Image Alt Tag Scanner */}
+          <ImageAltScanner />
           {/* Global AI Assistant - visible on all pages */}
           <AIAssistantErrorBoundary>
             <AIAssistant />
