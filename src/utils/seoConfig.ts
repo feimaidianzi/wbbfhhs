@@ -3,9 +3,9 @@ import { LanguageCode, SUPPORTED_LANGUAGES, getLanguageByCode } from '@/i18n/lan
 // Base domain configuration
 export const BASE_DOMAIN = 'caniuav.com';
 
-// Get language path prefix (empty for Chinese default)
+// Get language path prefix (empty for English as international default)
 export const getLangPrefix = (lang: LanguageCode): string => {
-  if (lang === 'zh') return '';
+  if (lang === 'en') return '';
   return `/${lang}`;
 };
 

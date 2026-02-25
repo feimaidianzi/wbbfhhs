@@ -56,8 +56,8 @@ export const getLanguagesByRegion = (region: LanguageConfig['region']): Language
   return SUPPORTED_LANGUAGES.filter(lang => lang.region === region);
 };
 
-export const DEFAULT_LANGUAGE: LanguageCode = 'zh';
-export const FALLBACK_LANGUAGE: LanguageCode = 'en';
+export const DEFAULT_LANGUAGE: LanguageCode = 'en';
+export const FALLBACK_LANGUAGE: LanguageCode = 'zh';
 
 /**
  * Helper to convert any LanguageCode to a base language ('zh' | 'en')

@@ -1,5 +1,5 @@
 import { SUPPORTED_LANGUAGES, LanguageCode } from '@/i18n/languages';
-import { getDomainForLanguage, getHtmlLang } from './seoConfig';
+import { getDomainForLanguage, getHtmlLang, getUrlForLanguage, getLangPrefix } from './seoConfig';
 
 // All routes that should be included in sitemap
 const allRoutes = [
@@ -111,22 +111,21 @@ const getChangeFreq = (route: string): string => {
 
 // Generate sitemap for a specific language
 export const generateLanguageSitemap = (lang: LanguageCode): string => {
-  const domain = getDomainForLanguage(lang);
   const today = new Date().toISOString().split('T')[0];
 
   const urls = allRoutes.map(route => {
     // Generate alternate links for all languages
     const alternateLinks = SUPPORTED_LANGUAGES.map(l => 
-      `    <xhtml:link rel="alternate" hreflang="${getHtmlLang(l.code)}" href="${getDomainForLanguage(l.code)}${route}" />`
+      `    <xhtml:link rel="alternate" hreflang="${getHtmlLang(l.code)}" href="${getUrlForLanguage(l.code, route)}" />`
     ).join('\n');
 
     return `  <url>
-    <loc>${domain}${route}</loc>
+    <loc>${getUrlForLanguage(lang, route)}</loc>
     <lastmod>${today}</lastmod>
     <changefreq>${getChangeFreq(route)}</changefreq>
     <priority>${getPriority(route)}</priority>
 ${alternateLinks}
-    <xhtml:link rel="alternate" hreflang="x-default" href="${getDomainForLanguage('en')}${route}" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="${getUrlForLanguage('en', route)}" />
   </url>`;
   }).join('\n');
 
@@ -144,12 +143,13 @@ ${urls}
 export const generateSitemapIndex = (): string => {
   const today = new Date().toISOString().split('T')[0];
 
-  const sitemaps = SUPPORTED_LANGUAGES.map(lang => 
-    `  <sitemap>
-    <loc>${getDomainForLanguage(lang.code)}/sitemap.xml</loc>
+  const sitemaps = SUPPORTED_LANGUAGES.map(lang => {
+    const prefix = getLangPrefix(lang.code);
+    return `  <sitemap>
+    <loc>${getDomainForLanguage(lang.code)}${prefix}/sitemap.xml</loc>
     <lastmod>${today}</lastmod>
-  </sitemap>`
-  ).join('\n');
+  </sitemap>`;
+  }).join('\n');
 
   return `<?xml version="1.0" encoding="UTF-8"?>
 <sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
