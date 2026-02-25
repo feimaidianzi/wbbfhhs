@@ -181,11 +181,15 @@ export default function CustomerServiceChat() {
               <button
                 className="shrink-0 rounded-md border px-3 py-1.5 text-xs font-medium ring-offset-background transition-colors hover:bg-secondary focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2"
                 onClick={() => {
-                  const targetConv = conversations.find(c => c.id === convId);
-                  if (targetConv) {
-                    setSelectedConversation(targetConv);
-                    setMobileView('chat');
-                  }
+                  // Use functional setState to access latest conversations
+                  setConversations(prev => {
+                    const targetConv = prev.find(c => c.id === convId);
+                    if (targetConv) {
+                      setSelectedConversation(targetConv);
+                      setMobileView('chat');
+                    }
+                    return prev;
+                  });
                 }}
               >
                 查看
