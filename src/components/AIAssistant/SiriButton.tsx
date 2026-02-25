@@ -87,6 +87,7 @@ export const SiriButton = ({
 
   // Draw chaotic Siri-style animation
   useEffect(() => {
+    try {
     const canvas = canvasRef.current;
     if (!canvas) return;
     
@@ -243,6 +244,10 @@ export const SiriButton = ({
         ctx.lineWidth = 1.5 - ring * 0.3;
         ctx.stroke();
       }
+    }
+    } catch (e) {
+      // Canvas rendering error - ignore to prevent crash
+      console.warn("SiriButton canvas render error:", e);
     }
   }, [animationPhase, isActive, isListening, isSpeaking, waveAmplitudes, chaosPoints]);
 

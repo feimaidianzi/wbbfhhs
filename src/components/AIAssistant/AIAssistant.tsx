@@ -97,7 +97,10 @@ export const AIAssistant = () => {
         .select("id")
         .single();
 
-      if (error) throw error;
+      if (error) {
+        console.error("Failed to create conversation:", error);
+        return null;
+      }
       setConversationId(data.id);
       
       // 关联到visitor_sessions表
@@ -323,6 +326,8 @@ export const AIAssistant = () => {
       );
 
       if (!response.ok) {
+        const errorText = await response.text().catch(() => "unknown");
+        console.error("AI assistant response error:", response.status, errorText);
         if (response.status === 429) {
             throw new Error(t('chat.tooManyRequests'));
           }
@@ -401,13 +406,18 @@ export const AIAssistant = () => {
           extractLeadInfo(convId, allMessages);
         }
       }
-    } catch (error) {
+    } catch (error: any) {
       console.error("Chat error:", error);
-      toast({
-        title: t('chat.error'),
-        description: error instanceof Error ? error.message : t('chat.unknownError'),
-        variant: "destructive",
-      });
+      // Don't throw - handle gracefully
+      try {
+        toast({
+          title: t('chat.error'),
+          description: error?.message || t('chat.unknownError'),
+          variant: "destructive",
+        });
+      } catch {
+        // toast itself might fail, ignore
+      }
     } finally {
       setIsLoading(false);
       setIsSpeaking(false);
@@ -567,8 +577,12 @@ export const AIAssistant = () => {
   // Extract lead info when closing chat
   useEffect(() => {
     return () => {
-      if (conversationId && messages.length >= 2) {
-        extractLeadInfo(conversationId, messages);
+      try {
+        if (conversationId && messages.length >= 2) {
+          extractLeadInfo(conversationId, messages);
+        }
+      } catch {
+        // ignore cleanup errors
       }
     };
   }, []);
