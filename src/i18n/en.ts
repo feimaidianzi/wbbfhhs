@@ -447,7 +447,7 @@ export const enTranslations: Record<string, string> = {
   'floating.wechat': 'WeChat',
   'floating.scanWechat': 'Scan to add WeChat',
   'floating.callPhone': 'Call Now',
-  'floating.comingSoon': 'Coming Soon',
+  'floating.comingSoon': 'Now Available',
   'floating.new': 'NEW',
   'floating.aiModule': 'Drone AI Guidance Module',
   'floating.aiDesc': 'Intelligent target recognition, autonomous path planning, precise guidance control',
