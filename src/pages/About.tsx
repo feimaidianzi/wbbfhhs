@@ -257,6 +257,9 @@ const About = () => {
           </div>
         </section>
 
+        {/* Facility Gallery */}
+        <FacilityGallery t={t} />
+
         {/* Core Competencies Table */}
         <section className="py-16 bg-background">
           <div className="container-custom">
