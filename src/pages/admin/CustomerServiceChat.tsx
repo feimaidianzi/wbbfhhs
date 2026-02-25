@@ -721,7 +721,7 @@ export default function CustomerServiceChat() {
                             setNewMessage(content);
                             if (window.innerWidth < 1024) setMobileView('chat');
                           }} 
-                          isManageMode={false}
+                          isManageMode={true}
                         />
                       </div>
                       <Separator />
