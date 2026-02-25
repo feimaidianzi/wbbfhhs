@@ -10,7 +10,7 @@ export const Logo = ({ className = "", showLink = true }: LogoProps) => {
   const logoContent = (
     <img 
       src={logoImage} 
-      alt="CANI" 
+      alt="CANI长凌科技 - 工业无人机核心配件制造商" 
       className={`h-8 md:h-10 w-auto ${className}`}
     />
   );
@@ -25,7 +25,7 @@ export const Logo = ({ className = "", showLink = true }: LogoProps) => {
 export const LogoDark = ({ className = "" }: { className?: string }) => (
   <img 
     src={logoImage} 
-    alt="CANI" 
+    alt="CANI长凌科技 - 工业无人机核心配件制造商" 
     className={`h-8 md:h-10 w-auto ${className}`}
   />
 );

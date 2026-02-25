@@ -136,7 +136,7 @@ const ElrsDetail = () => {
                 <div className="relative bg-white/5 backdrop-blur-sm rounded-3xl p-8 border border-white/10">
                   <img
                     src={product.image}
-                    alt={`industrial-UAV-ELRS-receiver-${product.id}`}
+                    alt={`CANI ${t(product.nameKey)} - Industrial ELRS 2.4GHz/915MHz Remote Control Receiver Hardware`}
                     className="w-full h-auto max-h-[400px] object-contain mx-auto"
                   />
                 </div>

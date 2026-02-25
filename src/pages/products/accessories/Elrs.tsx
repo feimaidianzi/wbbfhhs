@@ -115,7 +115,7 @@ const Elrs = () => {
                       <div className="aspect-square overflow-hidden bg-gradient-to-br from-secondary to-secondary/50 relative p-4">
                         <img
                           src={product.image}
-                          alt={`industrial-UAV-ELRS-${product.id}`}
+                          alt={`CANI ${t(product.nameKey)} - Industrial UAV ELRS 2.4GHz/915MHz Long-Range Control Link`}
                           className="w-full h-full object-contain group-hover:scale-105 transition-transform duration-500"
                           loading="lazy"
                         />

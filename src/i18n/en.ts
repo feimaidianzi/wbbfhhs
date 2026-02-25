@@ -387,7 +387,7 @@ export const enTranslations: Record<string, string> = {
   'section.company.stat1': 'Years Experience',
   'section.company.stat2': 'Patents',
   'section.company.stat3': 'Clients Served',
-  'section.company.learnMore': 'Learn More',
+  'section.company.learnMore': 'Explore CANI Manufacturing Capabilities',
 
   // WhyChooseUs
   'section.why.title': 'Why Choose CANI',
@@ -416,13 +416,13 @@ export const enTranslations: Record<string, string> = {
   // ApplicationsSection
   'section.apps.badge': 'Applications',
   'section.apps.title': 'Widely Used Across Industries',
-  'section.apps.learnMore': 'Learn More',
+  'section.apps.learnMore': 'View UAV Application Details',
 
   // NewsSection
   'section.news.badge': 'News',
   'section.news.title': 'Latest Updates',
   'section.news.viewAll': 'View All',
-  'section.news.readMore': 'Read More',
+  'section.news.readMore': 'Read UAV Industry News',
 
   // PartnersSection
   'section.partners.badge': 'Global Trust',
@@ -451,7 +451,7 @@ export const enTranslations: Record<string, string> = {
   'floating.new': 'NEW',
   'floating.aiModule': 'Drone AI Guidance Module',
   'floating.aiDesc': 'Intelligent target recognition, autonomous path planning, precise guidance control',
-  'floating.learnMore': 'Learn More',
+  'floating.learnMore': 'View AI Module Specifications',
 
   // Auth
   'auth.welcome': 'Welcome Back',
@@ -494,7 +494,7 @@ export const enTranslations: Record<string, string> = {
   'template.back': 'Back',
   'template.getSolution': 'Get Solution',
   'template.contactUs': 'Contact Us',
-  'template.viewDetails': 'View Details',
+  'template.viewDetails': 'View Product Technical Specifications',
   'template.downloadSpec': 'Download Specs',
   'template.requestQuote': 'Request Quote',
   'template.buyNow': 'Buy Now',
@@ -513,7 +513,7 @@ export const enTranslations: Record<string, string> = {
   'template.caseStudies': 'Case Studies',
   'template.successCases': 'Success Cases',
   'template.useCases': 'Use Cases',
-  'template.learnMore': 'Learn More',
+  'template.learnMore': 'View Technical Specifications',
   'template.readyToStart': 'Ready to Get Started?',
   'template.readyToStartDesc': 'Contact our professional team for customized solutions and detailed quotes',
   'template.brandSlogan': 'CANI Technology · Professional Solutions',
@@ -1576,8 +1576,8 @@ export const enTranslations: Record<string, string> = {
 
   'applications.section.tag': 'Industry Applications',
   'applications.section.title': 'Multi-Industry Scenario Coverage',
-  'applications.learnMore': 'View Details',
-  'applications.viewAll': 'Explore All Industry Application Cases',
+  'applications.learnMore': 'View UAV Industry Application Solutions',
+  'applications.viewAll': 'Explore All UAV Application Cases',
 
   // Water Conservancy Solution Page
   'water.seo.title': 'Smart Water Management UAV Solutions | 50km BVLOS River & Dam Inspection',

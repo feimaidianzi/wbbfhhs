@@ -25,7 +25,7 @@ export const zhTranslations: Record<string, string> = {
   'floating.comingSoon': '新品上架',
   'floating.aiModule': '无人机AI制导模块',
   'floating.aiModuleDesc': '智能目标识别、自主航迹规划、精准制导控制',
-  'floating.learnMore': '了解更多',
+  'floating.learnMore': '查看AI制导模块参数',
 
   // ===== Applications Section =====
   'applications.section.tag': '行业应用',
@@ -43,8 +43,8 @@ export const zhTranslations: Record<string, string> = {
   'applications.emergency.desc': '灾情侦察、搜救定位、物资投送，快速响应突发事件',
   'applications.surveying': '测绘',
   'applications.surveying.desc': '地形测绘、三维建模、工程勘察，厘米级精度作业',
-  'applications.learnMore': '了解详情',
-  'applications.viewAll': '查看全部应用案例',
+  'applications.learnMore': '查看无人机行业应用方案',
+  'applications.viewAll': '探索全部无人机应用案例',
 
   // ===== AI Chat Window =====
   'chat.humanAgent': '人工客服',
@@ -141,7 +141,7 @@ export const zhTranslations: Record<string, string> = {
   'camera.feature.wifi': 'WiFi传输',
   'camera.feature.waterproof': '30M防水',
   'camera.back': '返回配件中心',
-  'camera.viewDetail': '查看详情',
+  'camera.viewDetail': '查看运动相机技术参数',
   'camera.cta.title': '需要定制化相机解决方案？',
   'camera.cta.desc': '我们提供OEM/ODM定制服务，可根据您的需求定制传感器配置、接口协议、外观设计等',
   'camera.cta.btn': '联系我们',
@@ -171,7 +171,7 @@ export const zhTranslations: Record<string, string> = {
   'gimbal.hero.suffix': '系列',
   'gimbal.hero.desc': '覆盖四光AI、双光跟踪、单光识别三大产品线，±0.005°稳定精度与IP65防护等级，满足电力巡检、消防救援、公安执法、边防巡逻等严苛工业场景需求',
   'gimbal.back': '返回配件中心',
-  'gimbal.viewDetail': '查看详情',
+  'gimbal.viewDetail': '查看云台吊舱技术参数',
   'gimbal.cta.title': '需要定制化云台吊舱解决方案？',
   'gimbal.cta.desc': '我们提供OEM/ODM定制服务，可根据您的需求定制传感器配置、接口协议、外观设计。支持MAVLink/SBUS/PWM等多种协议，适配Pixhawk等主流飞控系统',
   'gimbal.cta.btn': '立即询价',
@@ -218,7 +218,7 @@ export const zhTranslations: Record<string, string> = {
   'vtx.specs.antenna': '天线接口',
   'vtx.specs.weight': '重量',
   'vtx.specs.size': '尺寸',
-  'vtx.viewDetail': '查看详情',
+  'vtx.viewDetail': '查看数字图传系统参数',
   'vtx.freqTable': '频段与频道频率表 (MHz)',
   'vtx.moreComingSoon': '更多6.1-7.2GHz频段产品即将上线，敬请期待...',
   'vtx.learnMore': '联系我们了解更多',
@@ -380,7 +380,7 @@ export const zhTranslations: Record<string, string> = {
   'elrs.feature.lowLatency': '500Hz超低延迟',
   'elrs.feature.longRange': '40KM+超远距离',
   'elrs.back': '返回配件及设备',
-  'elrs.viewDetail': '查看详情',
+  'elrs.viewDetail': '查看ELRS遥控链路参数',
   'elrs.cta.title': '需要ELRS技术支持？',
   'elrs.cta.desc': '联系我们的专业技术团队，获取ELRS产品选型建议和定制频段方案（支持360/433/530/750/868/915MHz及2.4GHz全频段定制）',
   'elrs.cta.btn': '联系我们',
@@ -414,7 +414,7 @@ export const zhTranslations: Record<string, string> = {
   'fcesc.feature.config.desc': '支持PX4、ArduPilot、Betaflight/iNav。DroneCAN、MAVLink和UART接口，全生态兼容。',
   'fcesc.feature.plug': '即插即用飞塔',
   'fcesc.feature.plug.desc': '预配线飞塔套装，开箱即用，专业FPV与航拍快速部署。',
-  'fcesc.viewDetail': '查看详情',
+  'fcesc.viewDetail': '查看飞控电调技术参数',
   'fcesc.category.stack': '飞塔',
   'fcesc.category.6in1': '六合一电调',
   'fcesc.category.research': '科研飞控',
@@ -435,7 +435,7 @@ export const zhTranslations: Record<string, string> = {
   'otherAccessories.feature.goggles': 'FPV眼镜',
   'otherAccessories.feature.gps': 'GPS模块',
   'otherAccessories.back': '返回配件及设备',
-  'otherAccessories.viewDetail': '查看详情',
+  'otherAccessories.viewDetail': '查看配件技术参数',
   'otherAccessories.cta.title': '需要技术支持？',
   'otherAccessories.cta.desc': '联系我们的专业技术团队，获取配件选型建议和技术支持',
   'otherAccessories.cta.btn': '联系我们',
@@ -584,7 +584,7 @@ export const zhTranslations: Record<string, string> = {
   // News Page
   'news.title': '新闻中心',
   'news.subtitle': '了解长凌科技最新动态与行业资讯',
-  'news.readMore': '阅读更多',
+  'news.readMore': '阅读无人机行业资讯全文',
   'news.latest': '最新资讯',
   'news.page.title': '新闻中心',
   'news.page.subtitle': '这里提供最新的无人机配件行业资讯和工业无人机配件技术分享，带您了解无人机配件行业动态、工业无人机配件研发技术和无人机配件行业趋势。',
@@ -625,7 +625,7 @@ export const zhTranslations: Record<string, string> = {
   'section.company.stat1': '行业经验',
   'section.company.stat2': '专利技术',
   'section.company.stat3': '服务客户',
-  'section.company.learnMore': '了解更多',
+  'section.company.learnMore': '了解长凌科技实力',
 
   // WhyChooseUs
   'section.why.title': '为什么选择长凌',
@@ -654,13 +654,13 @@ export const zhTranslations: Record<string, string> = {
   // ApplicationsSection
   'section.apps.badge': '应用场景',
   'section.apps.title': '广泛应用于各行业',
-  'section.apps.learnMore': '了解更多',
+  'section.apps.learnMore': '查看无人机应用详情',
 
   // NewsSection
   'section.news.badge': '新闻动态',
   'section.news.title': '最新资讯',
   'section.news.viewAll': '查看全部',
-  'section.news.readMore': '阅读全文',
+  'section.news.readMore': '阅读无人机行业资讯',
 
   // PartnersSection
   'section.partners.badge': '合作伙伴',
@@ -729,7 +729,7 @@ export const zhTranslations: Record<string, string> = {
   'template.backTo': '返回{page}',
   'template.getSolution': '获取解决方案',
   'template.contactUs': '立即咨询',
-  'template.viewDetails': '查看详情',
+  'template.viewDetails': '查看产品技术参数',
   'template.downloadSpec': '下载规格书',
   'template.requestQuote': '获取报价',
   'template.buyNow': '立即购买',
@@ -748,7 +748,7 @@ export const zhTranslations: Record<string, string> = {
   'template.caseStudies': '成功案例',
   'template.successCases': '成功案例',
   'template.useCases': '应用领域',
-  'template.learnMore': '了解详情',
+  'template.learnMore': '查看技术参数详情',
   'template.readyToStart': '准备开始您的项目？',
   'template.readyToStartDesc': '联系我们的专业团队，获取定制化解决方案和详细报价',
   'template.brandSlogan': '长凌科技 · 专业解决方案',
