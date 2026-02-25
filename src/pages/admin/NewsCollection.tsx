@@ -97,7 +97,7 @@ interface NewsKeyword {
   ai_rules?: AIRules;
 }
 
-// 固定的四分类 - 与新闻中心板块对应
+// 固定的三分类 - 与新闻中心板块对应
 const NEWS_CATEGORIES = [
   { 
     value: "全部", 
@@ -1090,12 +1090,12 @@ const NewsCollection = () => {
     }
   };
 
-  // Firecrawl 每日采集（四分类）
+  // Firecrawl 每日采集（三分类）
   const collectWithFirecrawl = async (autoPublish: boolean = false) => {
     setFirecrawlCollecting(true);
     stopBackgroundMonitor();
     clearCollectionLogs();
-    addCollectionLog({ type: 'step', step: 'search', message: '开始四分类采集...' });
+    addCollectionLog({ type: 'step', step: 'search', message: '开始三分类采集...' });
 
     let keepRunning = false;
     
@@ -1131,10 +1131,10 @@ const NewsCollection = () => {
       const totalCollected = Number(response.data.articlesCollected ?? 0);
       const totalFiltered = Number(response.data.articlesFiltered ?? 0);
 
-      addCollectionLog({ type: 'success', message: `四分类采集完成: ${details || `采集${totalCollected}篇`}` });
+      addCollectionLog({ type: 'success', message: `三分类采集完成: ${details || `采集${totalCollected}篇`}` });
 
       toast({
-        title: '四分类采集完成',
+        title: '三分类采集完成',
         description:
           details ||
           (totalCollected > 0
@@ -1503,7 +1503,7 @@ const NewsCollection = () => {
             </CardDescription>
           </CardHeader>
           <CardContent>
-            <div className="grid grid-cols-2 md:grid-cols-5 gap-3">
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
               {NEWS_CATEGORIES.map((cat) => {
                 const Icon = cat.icon;
                 const isActive = selectedCategory === cat.value;
@@ -1551,7 +1551,7 @@ const NewsCollection = () => {
           </CardContent>
         </Card>
 
-        {/* 四分类智能采集区域 */}
+        {/* 三分类智能采集区域 */}
         <Card className="bg-gradient-to-r from-purple-900/30 to-blue-900/30 border-purple-500/30">
           <CardHeader>
             <CardTitle className="text-white flex items-center gap-2">
@@ -1560,11 +1560,11 @@ const NewsCollection = () => {
               <Badge className="bg-purple-500/20 text-purple-300 ml-2">与前台对应</Badge>
             </CardTitle>
             <CardDescription className="text-slate-400">
-              按新闻中心四个板块（公司新闻、行业动态、产品资讯、技术分享）智能采集，AI 评分筛选后发布
+              按新闻中心三个板块（公司新闻、行业动态、技术分享）智能采集，AI 评分筛选后发布
             </CardDescription>
           </CardHeader>
           <CardContent className="space-y-4">
-            {/* 一键四分类采集 */}
+            {/* 一键三分类采集 */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <Button 
                 onClick={() => collectWithFirecrawl(false)}
@@ -1573,7 +1573,7 @@ const NewsCollection = () => {
                 className="border-purple-500/50 text-purple-300 hover:bg-purple-500/20"
               >
                 {firecrawlCollecting ? <Loader2 className="w-4 h-4 mr-2 animate-spin" /> : <Sparkles className="w-4 h-4 mr-2" />}
-                四分类采集 (草稿)
+                三分类采集 (草稿)
               </Button>
               <Button 
                 onClick={() => collectWithFirecrawl(true)}
@@ -1581,7 +1581,7 @@ const NewsCollection = () => {
                 className="bg-gradient-to-r from-purple-500 to-blue-500 hover:from-purple-600 hover:to-blue-600"
               >
                 {firecrawlCollecting ? <Loader2 className="w-4 h-4 mr-2 animate-spin" /> : <Zap className="w-4 h-4 mr-2" />}
-                四分类采集并发布
+                三分类采集并发布
               </Button>
             </div>
 
