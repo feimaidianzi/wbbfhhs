@@ -176,7 +176,7 @@ export const Header = () => {
                 className={`absolute left-0 z-10 p-2 rounded-full shadow-lg border-2 transition-all hover:scale-115 active:scale-95 ${
                   isScrolled 
                     ? 'bg-accent text-accent-foreground border-accent shadow-accent/30 hover:bg-accent/90' 
-                    : 'bg-white/30 text-white border-white/50 hover:bg-white/40 shadow-black/20'
+                    : 'bg-background text-foreground border-border shadow-black/20 hover:bg-secondary'
                 }`}
               >
                 <ChevronLeft className="w-5 h-5 stroke-[3]" />
@@ -219,7 +219,7 @@ export const Header = () => {
                 className={`absolute right-0 z-10 p-2 rounded-full shadow-lg border-2 transition-all hover:scale-115 active:scale-95 ${
                   isScrolled 
                     ? 'bg-accent text-accent-foreground border-accent shadow-accent/30 hover:bg-accent/90' 
-                    : 'bg-white/30 text-white border-white/50 hover:bg-white/40 shadow-black/20'
+                    : 'bg-background text-foreground border-border shadow-black/20 hover:bg-secondary'
                 }`}
               >
                 <ChevronRight className="w-5 h-5 stroke-[3]" />
