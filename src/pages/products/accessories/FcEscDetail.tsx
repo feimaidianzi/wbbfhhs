@@ -589,7 +589,7 @@ const FcEscDetail = () => {
               <Button size="lg" variant="secondary" asChild>
                 <Link to="/contact">{t('contact.title')}</Link>
               </Button>
-              <Button size="lg" variant="outline" className="border-primary-foreground/30 hover:bg-primary-foreground/10" asChild>
+              <Button size="lg" variant="outline" className="border-primary-foreground/30 text-primary-foreground hover:bg-primary-foreground/10" asChild>
                 <Link to="/products/accessories/fc-esc">{t('accessoryDetail.viewMoreProducts')}</Link>
               </Button>
             </div>
