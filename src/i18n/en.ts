@@ -2078,6 +2078,7 @@ export const enTranslations: Record<string, string> = {
   'camera.cta.btn': 'Contact Us',
 
   // Camera Hub FAQ (GEO)
+  'camera.faq.title': 'Frequently Asked Questions',
   'camera.faq.q1': 'Can the SJ4000 WiFi be used as an FPV camera on a drone?',
   'camera.faq.a1': 'Yes. With its 170° field of view and ultra-lightweight body, the SJ4000 WiFi is ideal as an FPV (First Person View) camera. Through its built-in WiFi module or AV output port, it can transmit HD live video back to the operator terminal for precise positioning and navigation.',
   'camera.faq.q2': 'How stable is the SJ4000 in complex industrial environments?',

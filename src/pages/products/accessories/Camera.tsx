@@ -15,7 +15,7 @@ import {
 } from "@/components/ui/accordion";
 
 const categoryIcons: Record<string, React.ReactNode> = {
-  "运动相机": <Camera className="w-6 h-6" />,
+  "camera.category.actionCamera": <Camera className="w-6 h-6" />,
 };
 
 const CameraPage = () => {
@@ -91,7 +91,7 @@ const CameraPage = () => {
               <div className="container mx-auto px-4">
                 <div className="flex items-center gap-3 mb-8">
                   <div className="p-3 bg-primary/10 rounded-xl text-primary">
-                    {categoryIcons["运动相机"]}
+                    {categoryIcons[category.nameKey] || <Camera className="w-6 h-6" />}
                   </div>
                   <div>
                     <h2 className="text-2xl font-bold">{t(category.nameKey)}</h2>
@@ -151,7 +151,7 @@ const CameraPage = () => {
         <section className="py-16 bg-muted/30">
           <div className="container mx-auto px-4 max-w-4xl">
             <h2 className="text-3xl font-bold text-center mb-8">
-              {language === 'zh' ? '常见问题' : 'Frequently Asked Questions'}
+              {t('camera.faq.title')}
             </h2>
             <Accordion type="single" collapsible className="w-full">
               {faqItems.map((faq, idx) => (
