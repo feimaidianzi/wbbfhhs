@@ -18,17 +18,17 @@ const FPV = () => {
   ];
 
   const categories = [
-    { name: t('fpv.categories.kits'), description: t('fpv.categories.kits.desc'), icon: Package, image: "https://images.unsplash.com/photo-1473968512647-3e447244af8f?w=600&q=80", link: "/fpv/套装系列", products: 8 },
-    { name: t('fpv.categories.racing'), description: t('fpv.categories.racing.desc'), icon: Gauge, image: "https://images.unsplash.com/photo-1527977966376-1c8408f9f108?w=600&q=80", link: "/fpv/竞速系列", products: 6 },
-    { name: t('fpv.categories.freestyle'), description: t('fpv.categories.freestyle.desc'), icon: Flower2, image: "https://images.unsplash.com/photo-1506947411487-a56738267384?w=600&q=80", link: "/fpv/花飞系列", products: 5 },
-    { name: t('fpv.categories.longRange'), description: t('fpv.categories.longRange.desc'), icon: Navigation, image: "https://images.unsplash.com/photo-1559827260-dc66d52bef19?w=600&q=80", link: "/fpv/远航系列", products: 4 },
-    { name: t('fpv.categories.cinewhoop'), description: t('fpv.categories.cinewhoop.desc'), icon: Plane, image: "https://images.unsplash.com/photo-1508614589041-895b88991e3e?w=600&q=80", link: "/fpv/航拍系列", products: 5 },
+    { name: t('fpv.categories.kits'), description: t('fpv.categories.kits.desc'), icon: Package, image: "https://images.unsplash.com/photo-1473968512647-3e447244af8f?w=600&q=80", link: "/fpv/kit", products: 8 },
+    { name: t('fpv.categories.racing'), description: t('fpv.categories.racing.desc'), icon: Gauge, image: "https://images.unsplash.com/photo-1527977966376-1c8408f9f108?w=600&q=80", link: "/fpv/racing", products: 6 },
+    { name: t('fpv.categories.freestyle'), description: t('fpv.categories.freestyle.desc'), icon: Flower2, image: "https://images.unsplash.com/photo-1506947411487-a56738267384?w=600&q=80", link: "/fpv/freestyle", products: 5 },
+    { name: t('fpv.categories.longRange'), description: t('fpv.categories.longRange.desc'), icon: Navigation, image: "https://images.unsplash.com/photo-1559827260-dc66d52bef19?w=600&q=80", link: "/fpv/longrange", products: 4 },
+    { name: t('fpv.categories.cinewhoop'), description: t('fpv.categories.cinewhoop.desc'), icon: Plane, image: "https://images.unsplash.com/photo-1508614589041-895b88991e3e?w=600&q=80", link: "/fpv/cinematic", products: 5 },
   ];
 
   const hotProducts = [
-    { name: t('fpv.hot.product1.name'), category: t('fpv.categories.racing'), description: t('fpv.hot.product1.desc'), specs: [t('fpv.hot.product1.spec1'), t('fpv.hot.product1.spec2'), t('fpv.hot.product1.spec3')], image: "https://images.unsplash.com/photo-1473968512647-3e447244af8f?w=600&q=80", price: "¥2,999" },
-    { name: t('fpv.hot.product2.name'), category: t('fpv.categories.freestyle'), description: t('fpv.hot.product2.desc'), specs: [t('fpv.hot.product2.spec1'), t('fpv.hot.product2.spec2'), t('fpv.hot.product2.spec3')], image: "https://images.unsplash.com/photo-1527977966376-1c8408f9f108?w=600&q=80", price: "¥1,299" },
-    { name: t('fpv.hot.product3.name'), category: t('fpv.categories.longRange'), description: t('fpv.hot.product3.desc'), specs: [t('fpv.hot.product3.spec1'), t('fpv.hot.product3.spec2'), t('fpv.hot.product3.spec3')], image: "https://images.unsplash.com/photo-1506947411487-a56738267384?w=600&q=80", price: "¥4,599" },
+    { name: t('fpv.hot.product1.name'), category: t('fpv.categories.racing'), description: t('fpv.hot.product1.desc'), specs: [t('fpv.hot.product1.spec1'), t('fpv.hot.product1.spec2'), t('fpv.hot.product1.spec3')], image: "https://images.unsplash.com/photo-1473968512647-3e447244af8f?w=600&q=80", price: t('fpv.hot.product1.price') },
+    { name: t('fpv.hot.product2.name'), category: t('fpv.categories.freestyle'), description: t('fpv.hot.product2.desc'), specs: [t('fpv.hot.product2.spec1'), t('fpv.hot.product2.spec2'), t('fpv.hot.product2.spec3')], image: "https://images.unsplash.com/photo-1527977966376-1c8408f9f108?w=600&q=80", price: t('fpv.hot.product2.price') },
+    { name: t('fpv.hot.product3.name'), category: t('fpv.categories.longRange'), description: t('fpv.hot.product3.desc'), specs: [t('fpv.hot.product3.spec1'), t('fpv.hot.product3.spec2'), t('fpv.hot.product3.spec3')], image: "https://images.unsplash.com/photo-1506947411487-a56738267384?w=600&q=80", price: t('fpv.hot.product3.price') },
   ];
 
   const accessories = [
