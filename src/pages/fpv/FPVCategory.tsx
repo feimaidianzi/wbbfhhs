@@ -19,7 +19,7 @@ const categoryData: Record<string, {
     descriptionKey: string;
     specsKeys: string[];
     image: string;
-    price: string;
+    priceKey: string;
     featuresKeys: string[];
   }[];
 }> = {
@@ -33,7 +33,7 @@ const categoryData: Record<string, {
         descriptionKey: 'fpvCategory.kit.product1.description',
         specsKeys: ['fpvCategory.kit.product1.spec1', 'fpvCategory.kit.product1.spec2', 'fpvCategory.kit.product1.spec3', 'fpvCategory.kit.product1.spec4'],
         image: "https://images.unsplash.com/photo-1473968512647-3e447244af8f?w=600&q=80",
-        price: "¥1,999",
+        priceKey: "fpvCategory.kit.product1.price",
         featuresKeys: ['fpvCategory.kit.product1.feature1', 'fpvCategory.kit.product1.feature2', 'fpvCategory.kit.product1.feature3', 'fpvCategory.kit.product1.feature4'],
       },
       {
@@ -41,7 +41,7 @@ const categoryData: Record<string, {
         descriptionKey: 'fpvCategory.kit.product2.description',
         specsKeys: ['fpvCategory.kit.product2.spec1', 'fpvCategory.kit.product2.spec2', 'fpvCategory.kit.product2.spec3', 'fpvCategory.kit.product2.spec4'],
         image: "https://images.unsplash.com/photo-1527977966376-1c8408f9f108?w=600&q=80",
-        price: "¥3,299",
+        priceKey: "fpvCategory.kit.product2.price",
         featuresKeys: ['fpvCategory.kit.product2.feature1', 'fpvCategory.kit.product2.feature2', 'fpvCategory.kit.product2.feature3', 'fpvCategory.kit.product2.feature4'],
       },
       {
@@ -49,7 +49,7 @@ const categoryData: Record<string, {
         descriptionKey: 'fpvCategory.kit.product3.description',
         specsKeys: ['fpvCategory.kit.product3.spec1', 'fpvCategory.kit.product3.spec2', 'fpvCategory.kit.product3.spec3', 'fpvCategory.kit.product3.spec4'],
         image: "https://images.unsplash.com/photo-1506947411487-a56738267384?w=600&q=80",
-        price: "¥5,999",
+        priceKey: "fpvCategory.kit.product3.price",
         featuresKeys: ['fpvCategory.kit.product3.feature1', 'fpvCategory.kit.product3.feature2', 'fpvCategory.kit.product3.feature3', 'fpvCategory.kit.product3.feature4'],
       },
     ],
@@ -64,7 +64,7 @@ const categoryData: Record<string, {
         descriptionKey: 'fpvCategory.racing.product1.description',
         specsKeys: ['fpvCategory.racing.product1.spec1', 'fpvCategory.racing.product1.spec2', 'fpvCategory.racing.product1.spec3', 'fpvCategory.racing.product1.spec4'],
         image: "https://images.unsplash.com/photo-1473968512647-3e447244af8f?w=600&q=80",
-        price: "¥2,999",
+        priceKey: "fpvCategory.racing.product1.price",
         featuresKeys: ['fpvCategory.racing.product1.feature1', 'fpvCategory.racing.product1.feature2', 'fpvCategory.racing.product1.feature3', 'fpvCategory.racing.product1.feature4'],
       },
       {
@@ -72,7 +72,7 @@ const categoryData: Record<string, {
         descriptionKey: 'fpvCategory.racing.product2.description',
         specsKeys: ['fpvCategory.racing.product2.spec1', 'fpvCategory.racing.product2.spec2', 'fpvCategory.racing.product2.spec3', 'fpvCategory.racing.product2.spec4'],
         image: "https://images.unsplash.com/photo-1527977966376-1c8408f9f108?w=600&q=80",
-        price: "¥4,599",
+        priceKey: "fpvCategory.racing.product2.price",
         featuresKeys: ['fpvCategory.racing.product2.feature1', 'fpvCategory.racing.product2.feature2', 'fpvCategory.racing.product2.feature3', 'fpvCategory.racing.product2.feature4'],
       },
       {
@@ -80,7 +80,7 @@ const categoryData: Record<string, {
         descriptionKey: 'fpvCategory.racing.product3.description',
         specsKeys: ['fpvCategory.racing.product3.spec1', 'fpvCategory.racing.product3.spec2', 'fpvCategory.racing.product3.spec3', 'fpvCategory.racing.product3.spec4'],
         image: "https://images.unsplash.com/photo-1506947411487-a56738267384?w=600&q=80",
-        price: "¥1,599",
+        priceKey: "fpvCategory.racing.product3.price",
         featuresKeys: ['fpvCategory.racing.product3.feature1', 'fpvCategory.racing.product3.feature2', 'fpvCategory.racing.product3.feature3', 'fpvCategory.racing.product3.feature4'],
       },
     ],
@@ -95,7 +95,7 @@ const categoryData: Record<string, {
         descriptionKey: 'fpvCategory.freestyle.product1.description',
         specsKeys: ['fpvCategory.freestyle.product1.spec1', 'fpvCategory.freestyle.product1.spec2', 'fpvCategory.freestyle.product1.spec3', 'fpvCategory.freestyle.product1.spec4'],
         image: "https://images.unsplash.com/photo-1473968512647-3e447244af8f?w=600&q=80",
-        price: "¥1,299",
+        priceKey: "fpvCategory.freestyle.product1.price",
         featuresKeys: ['fpvCategory.freestyle.product1.feature1', 'fpvCategory.freestyle.product1.feature2', 'fpvCategory.freestyle.product1.feature3', 'fpvCategory.freestyle.product1.feature4'],
       },
       {
@@ -103,7 +103,7 @@ const categoryData: Record<string, {
         descriptionKey: 'fpvCategory.freestyle.product2.description',
         specsKeys: ['fpvCategory.freestyle.product2.spec1', 'fpvCategory.freestyle.product2.spec2', 'fpvCategory.freestyle.product2.spec3', 'fpvCategory.freestyle.product2.spec4'],
         image: "https://images.unsplash.com/photo-1527977966376-1c8408f9f108?w=600&q=80",
-        price: "¥2,299",
+        priceKey: "fpvCategory.freestyle.product2.price",
         featuresKeys: ['fpvCategory.freestyle.product2.feature1', 'fpvCategory.freestyle.product2.feature2', 'fpvCategory.freestyle.product2.feature3', 'fpvCategory.freestyle.product2.feature4'],
       },
       {
@@ -111,7 +111,7 @@ const categoryData: Record<string, {
         descriptionKey: 'fpvCategory.freestyle.product3.description',
         specsKeys: ['fpvCategory.freestyle.product3.spec1', 'fpvCategory.freestyle.product3.spec2', 'fpvCategory.freestyle.product3.spec3', 'fpvCategory.freestyle.product3.spec4'],
         image: "https://images.unsplash.com/photo-1506947411487-a56738267384?w=600&q=80",
-        price: "¥3,599",
+        priceKey: "fpvCategory.freestyle.product3.price",
         featuresKeys: ['fpvCategory.freestyle.product3.feature1', 'fpvCategory.freestyle.product3.feature2', 'fpvCategory.freestyle.product3.feature3', 'fpvCategory.freestyle.product3.feature4'],
       },
     ],
@@ -126,7 +126,7 @@ const categoryData: Record<string, {
         descriptionKey: 'fpvCategory.longrange.product1.description',
         specsKeys: ['fpvCategory.longrange.product1.spec1', 'fpvCategory.longrange.product1.spec2', 'fpvCategory.longrange.product1.spec3', 'fpvCategory.longrange.product1.spec4'],
         image: "https://images.unsplash.com/photo-1473968512647-3e447244af8f?w=600&q=80",
-        price: "¥3,299",
+        priceKey: "fpvCategory.longrange.product1.price",
         featuresKeys: ['fpvCategory.longrange.product1.feature1', 'fpvCategory.longrange.product1.feature2', 'fpvCategory.longrange.product1.feature3', 'fpvCategory.longrange.product1.feature4'],
       },
       {
@@ -134,7 +134,7 @@ const categoryData: Record<string, {
         descriptionKey: 'fpvCategory.longrange.product2.description',
         specsKeys: ['fpvCategory.longrange.product2.spec1', 'fpvCategory.longrange.product2.spec2', 'fpvCategory.longrange.product2.spec3', 'fpvCategory.longrange.product2.spec4'],
         image: "https://images.unsplash.com/photo-1527977966376-1c8408f9f108?w=600&q=80",
-        price: "¥4,599",
+        priceKey: "fpvCategory.longrange.product2.price",
         featuresKeys: ['fpvCategory.longrange.product2.feature1', 'fpvCategory.longrange.product2.feature2', 'fpvCategory.longrange.product2.feature3', 'fpvCategory.longrange.product2.feature4'],
       },
       {
@@ -142,7 +142,7 @@ const categoryData: Record<string, {
         descriptionKey: 'fpvCategory.longrange.product3.description',
         specsKeys: ['fpvCategory.longrange.product3.spec1', 'fpvCategory.longrange.product3.spec2', 'fpvCategory.longrange.product3.spec3', 'fpvCategory.longrange.product3.spec4'],
         image: "https://images.unsplash.com/photo-1506947411487-a56738267384?w=600&q=80",
-        price: "¥7,999",
+        priceKey: "fpvCategory.longrange.product3.price",
         featuresKeys: ['fpvCategory.longrange.product3.feature1', 'fpvCategory.longrange.product3.feature2', 'fpvCategory.longrange.product3.feature3', 'fpvCategory.longrange.product3.feature4'],
       },
     ],
@@ -157,7 +157,7 @@ const categoryData: Record<string, {
         descriptionKey: 'fpvCategory.cinematic.product1.description',
         specsKeys: ['fpvCategory.cinematic.product1.spec1', 'fpvCategory.cinematic.product1.spec2', 'fpvCategory.cinematic.product1.spec3', 'fpvCategory.cinematic.product1.spec4'],
         image: "https://images.unsplash.com/photo-1473968512647-3e447244af8f?w=600&q=80",
-        price: "¥2,999",
+        priceKey: "fpvCategory.cinematic.product1.price",
         featuresKeys: ['fpvCategory.cinematic.product1.feature1', 'fpvCategory.cinematic.product1.feature2', 'fpvCategory.cinematic.product1.feature3', 'fpvCategory.cinematic.product1.feature4'],
       },
       {
@@ -165,7 +165,7 @@ const categoryData: Record<string, {
         descriptionKey: 'fpvCategory.cinematic.product2.description',
         specsKeys: ['fpvCategory.cinematic.product2.spec1', 'fpvCategory.cinematic.product2.spec2', 'fpvCategory.cinematic.product2.spec3', 'fpvCategory.cinematic.product2.spec4'],
         image: "https://images.unsplash.com/photo-1527977966376-1c8408f9f108?w=600&q=80",
-        price: "¥8,999",
+        priceKey: "fpvCategory.cinematic.product2.price",
         featuresKeys: ['fpvCategory.cinematic.product2.feature1', 'fpvCategory.cinematic.product2.feature2', 'fpvCategory.cinematic.product2.feature3', 'fpvCategory.cinematic.product2.feature4'],
       },
       {
@@ -173,7 +173,7 @@ const categoryData: Record<string, {
         descriptionKey: 'fpvCategory.cinematic.product3.description',
         specsKeys: ['fpvCategory.cinematic.product3.spec1', 'fpvCategory.cinematic.product3.spec2', 'fpvCategory.cinematic.product3.spec3', 'fpvCategory.cinematic.product3.spec4'],
         image: "https://images.unsplash.com/photo-1506947411487-a56738267384?w=600&q=80",
-        price: "¥15,999",
+        priceKey: "fpvCategory.cinematic.product3.price",
         featuresKeys: ['fpvCategory.cinematic.product3.feature1', 'fpvCategory.cinematic.product3.feature2', 'fpvCategory.cinematic.product3.feature3', 'fpvCategory.cinematic.product3.feature4'],
       },
     ],
@@ -295,7 +295,8 @@ const FPVCategory = () => {
                       ))}
                     </div>
 
-                    <div className="flex items-center justify-end">
+                    <div className="flex items-center justify-between">
+                      <span className="text-2xl font-bold text-accent">{t(product.priceKey)}</span>
                       <Button className="bg-accent hover:bg-accent/90 text-accent-foreground">
                         <ShoppingCart className="w-4 h-4 mr-2" />
                         {t('fpvCategory.buyNow')}
