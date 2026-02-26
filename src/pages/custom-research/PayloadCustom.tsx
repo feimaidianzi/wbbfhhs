@@ -8,6 +8,7 @@ import { LangLink as Link } from "@/components/LangLink";
 import { BackButton } from "@/components/BackButton";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { MultiLanguageSEO } from "@/components/MultiLanguageSEO";
+import payloadImg from "@/assets/seo/payload-gimbal-system.jpg";
 import { PageFAQ } from "@/components/PageFAQ";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 
@@ -139,7 +140,7 @@ const PayloadCustom = () => {
               </div>
               <div className="relative">
                 <img
-                  src="https://images.unsplash.com/photo-1506947411487-a56738267384?w=800&q=80"
+                  src={payloadImg}
                   alt="Industrial UAV payload R&D - EO/IR gimbal and 37W high-power video transmission system"
                   className="rounded-2xl shadow-2xl w-full"
                 />

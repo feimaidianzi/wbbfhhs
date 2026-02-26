@@ -9,6 +9,8 @@ import { PageStructuredData } from "@/components/PageStructuredData";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { Helmet } from "react-helmet-async";
 import { PageFAQ } from "@/components/PageFAQ";
+import envHeroImg from "@/assets/seo/environment-forest-monitoring.jpg";
+import envAppImg from "@/assets/seo/env-vegetation-monitoring.jpg";
 
 const EnvironmentSystem = () => {
   const { t } = useLanguage();
@@ -88,7 +90,7 @@ const EnvironmentSystem = () => {
         <section className="relative h-[500px] md:h-[600px] overflow-hidden">
           <div
             className="absolute inset-0 bg-cover bg-center"
-            style={{ backgroundImage: "url(https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=1920&q=80)" }}
+            style={{ backgroundImage: `url(${envHeroImg})` }}
           >
             <div className="absolute inset-0 bg-gradient-to-r from-primary/90 via-primary/70 to-primary/50" />
           </div>
@@ -191,7 +193,7 @@ const EnvironmentSystem = () => {
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
               <div className="aspect-video rounded-xl overflow-hidden shadow-card">
                 <img
-                  src="https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=800&q=80"
+                  src={envAppImg}
                   alt="UAV environment monitoring water quality vegetation analysis"
                   className="w-full h-full object-cover"
                   loading="lazy"

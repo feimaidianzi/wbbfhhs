@@ -9,6 +9,8 @@ import { PageStructuredData } from "@/components/PageStructuredData";
 import { PageFAQ } from "@/components/PageFAQ";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { Helmet } from "react-helmet-async";
+import gsHeroImg from "@/assets/seo/ground-station-software.jpg";
+import gsCapImg from "@/assets/seo/drone-management-dashboard.jpg";
 import {
   Table, TableBody, TableCell, TableHead, TableHeader, TableRow,
 } from "@/components/ui/table";
@@ -98,7 +100,7 @@ const GroundStation = () => {
         <section className="relative h-[500px] md:h-[600px] overflow-hidden">
           <div
             className="absolute inset-0 bg-cover bg-center"
-            style={{ backgroundImage: "url(https://images.unsplash.com/photo-1517694712202-14dd9538aa97?w=1920&q=80)" }}
+            style={{ backgroundImage: `url(${gsHeroImg})` }}
           >
             <div className="absolute inset-0 bg-gradient-to-r from-primary/90 via-primary/70 to-primary/50" />
           </div>
@@ -234,7 +236,7 @@ const GroundStation = () => {
               </div>
               <div className="aspect-video rounded-xl overflow-hidden shadow-sm border border-border">
                 <img
-                  src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&q=80"
+                  src={gsCapImg}
                   alt={t('softwarePage.groundStation.title')}
                   className="w-full h-full object-cover"
                   loading="lazy"

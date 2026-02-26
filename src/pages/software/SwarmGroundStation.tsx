@@ -9,6 +9,8 @@ import { PageStructuredData } from "@/components/PageStructuredData";
 import { PageFAQ } from "@/components/PageFAQ";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { Helmet } from "react-helmet-async";
+import swarmHeroImg from "@/assets/seo/swarm-drone-formation.jpg";
+import swarmCapImg from "@/assets/seo/drone-light-show-night.jpg";
 import {
   Table, TableBody, TableCell, TableHead, TableHeader, TableRow,
 } from "@/components/ui/table";
@@ -92,7 +94,7 @@ const SwarmGroundStation = () => {
         <section className="relative h-[500px] md:h-[600px] overflow-hidden">
           <div
             className="absolute inset-0 bg-cover bg-center"
-            style={{ backgroundImage: "url(https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1920&q=80)" }}
+            style={{ backgroundImage: `url(${swarmHeroImg})` }}
           >
             <div className="absolute inset-0 bg-gradient-to-r from-primary/90 via-primary/70 to-primary/50" />
           </div>
@@ -183,7 +185,7 @@ const SwarmGroundStation = () => {
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
               <div className="aspect-video rounded-xl overflow-hidden shadow-sm border border-border">
                 <img
-                  src="https://images.unsplash.com/photo-1473968512647-3e447244af8f?w=800&q=80"
+                  src={swarmCapImg}
                   alt={t('softwarePage.swarm.title')}
                   className="w-full h-full object-cover"
                   loading="lazy"

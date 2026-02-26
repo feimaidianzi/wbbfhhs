@@ -9,6 +9,8 @@ import { PageStructuredData } from "@/components/PageStructuredData";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { Helmet } from "react-helmet-async";
 import { PageFAQ } from "@/components/PageFAQ";
+import pvSystemImg from "@/assets/seo/pv-system-monitoring.jpg";
+import pvModulesImg from "@/assets/seo/solar-panel-inspection.jpg";
 
 const PVSystem = () => {
   const { t } = useLanguage();
@@ -88,7 +90,7 @@ const PVSystem = () => {
         <section className="relative h-[500px] md:h-[600px] overflow-hidden">
           <div
             className="absolute inset-0 bg-cover bg-center"
-            style={{ backgroundImage: "url(https://images.unsplash.com/photo-1508514177221-188b1cf16e9d?w=1920&q=80)" }}
+            style={{ backgroundImage: `url(${pvSystemImg})` }}
           >
             <div className="absolute inset-0 bg-gradient-to-r from-primary/90 via-primary/70 to-primary/50" />
           </div>
@@ -207,7 +209,7 @@ const PVSystem = () => {
               </div>
               <div className="aspect-video rounded-xl overflow-hidden shadow-card">
                 <img
-                  src="https://images.unsplash.com/photo-1509391366360-2e959784a276?w=800&q=80"
+                  src={pvModulesImg}
                   alt="Solar farm PV system monitoring platform digital twin dashboard"
                   className="w-full h-full object-cover"
                   loading="lazy"
