@@ -610,31 +610,94 @@ async function generateProductNews(product: { name: string; desc: string }, cate
   return safeParseJSON(aiContent);
 }
 
-// 生成公司新闻
+// 生成公司新闻（资深公关专家模式）
 async function generateCompanyNews(apiKey: string, newsIndex: number) {
   const companyNewsTopics = [
-    { title: "长凌科技完成新一轮产品升级", desc: "全系产品性能提升" },
-    { title: "长凌科技参加行业展会", desc: "展示最新产品" },
-    { title: "长凌科技与无人机厂商达成合作", desc: "拓展行业应用" },
-    { title: "长凌科技发布新品预告", desc: "即将推出重磅产品" },
+    // 产品发布型 (The Launch Pad)
+    { type: "product_launch", title: "CANI发布新一代超远距离数字图传系统", desc: "37W旗舰VTX + COFDM低延迟链路，定义工业巡检新标准。重点突出50km+传输距离、<30ms延迟、AES-256-GCM军事级加密三大杀手锏参数。" },
+    { type: "product_launch", title: "CANI推出双冗余飞控+100A电调飞塔套装", desc: "STM32H743双IMU + BLHeli_32 100A电调一体化方案。突出8层PCB工艺、3-8S宽电压、48KHz PWM调速精度。" },
+    { type: "product_launch", title: "CANI发布K40T四光AI云台相机", desc: "可见光+热成像+广角+激光测距四光融合，4T算力YOLOv8边缘推理。突出≤0.1mrad三轴稳定精度和IP67防护。" },
+    // 技术突破型 (Technical Breakthrough)
+    { type: "tech_update", title: "CANI图传系统抗干扰能力提升30%", desc: "自研COFDM调制算法重大升级，空间分集接收+自适应FHSS跳频扩频在城市多径环境下实测链路稳定性提升30%。" },
+    { type: "tech_update", title: "CANI ELRS遥控系统固件升级", desc: "LoRa调制算法优化，接收灵敏度提升至-132dBm，500Hz刷新率下实测控制距离突破55km。" },
+    { type: "tech_update", title: "CANI飞控PID算法优化升级", desc: "EKF状态估计引擎升级，双陀螺仪融合精度提升，6级风条件下悬停抖动降低40%。" },
+    // 展会/信任型 (Trust Builder)
+    { type: "event", title: "CANI亮相深圳国际无人机展", desc: "展示全系工业级无人机配件解决方案，现场技术咨询超500人次，与多家行业龙头签署战略合作意向。" },
+    { type: "event", title: "CANI通过ISO 9001国际质量体系认证升级", desc: "全流程质量管控体系获得国际权威认可，产品出口30+国家的品质基石。" },
+    { type: "event", title: "CANI获得第50项国家专利授权", desc: "覆盖COFDM调制、散热设计、天线优化等核心技术领域，研发实力获国家认可。" },
   ];
 
   const topic = companyNewsTopics[newsIndex % companyNewsTopics.length];
   
-  const prompt = `你是长凌科技（CANI）的新闻编辑，撰写公司新闻稿。
+  const typeInstructions: Record<string, string> = {
+    product_launch: `【撰写策略 - 产品发布型 The Launch Pad】
+- 核心指令：突出该产品解决了行业内哪个"久治不愈"的痛点
+- 列出3个竞争对手不具备的杀手锏参数（引用知识库数据）
+- 使用HTML <table> 展示3-5个关键技术指标对比
+- 语气：自信、突破性，多用"领先"、"首创"、"定义新标准"`,
+    tech_update: `【撰写策略 - 技术突破型 Technical Breakthrough】
+- 核心指令：详细解释这次技术升级背后的底层逻辑
+- 将复杂算法解释得通俗易懂，让客户明白升级后飞机更稳、更远、更安全
+- 必须包含"升级前 vs 升级后"参数对比表格
+- 语气：严谨、专业、有说服力`,
+    event: `【撰写策略 - 展会/信任型 Trust Builder】
+- 核心指令：记录CANI的行业影响力和客户认可度
+- 强调现场专家咨询量、客户反馈、合作签约等数据
+- 建立品牌在行业内的权威地位和信任感
+- 语气：稳重、权威、有温度`,
+  };
 
-公司：长凌科技（CANI），专注工业无人机零配件（数字图传、云台、飞控电调、ELRS接收机）。
-主题：${topic.title}
-方向：${topic.desc}
+  const prompt = `【角色】你是 CANI（长凌科技）的高级公关经理（PR Director），负责将内部素材转化为具有商业吸引力的企业新闻稿。每篇公司新闻都是一个强力的销售线索（Lead Generation）入口。
 
-要求：
-1. 正式新闻稿，600-1000字
-2. 使用HTML格式：<p>段落</p>、<h3>小标题</h3>、<strong>重点</strong>
-3. 文章中必须体现长凌科技（CANI）的品牌名称
-4. 不要使用换行符，段落之间用</p><p>分隔
+${CANI_TECH_KNOWLEDGE}
 
-返回纯净JSON格式（不要markdown代码块）：
-{"title":"中文标题","summary":"80字摘要","content":"<p>HTML正文</p><p>多个段落</p>","keywords":["关键词1","关键词2","关键词3"]}`;
+【新闻主题】${topic.title}
+【素材方向】${topic.desc}
+【新闻类型】${topic.type}
+
+${typeInstructions[topic.type] || typeInstructions.product_launch}
+
+【输出结构（严格遵守）】
+1. 权威标题：体现品牌领导地位（如"CANI发布新一代XXX，定义工业巡检新标准"）
+2. 导语（100字）：总结事件核心意义，第一句话直接切入主题
+3. 核心特性/事件详情（300字）：
+   - 产品发布型：技术参数表格 + 行业痛点解决方案
+   - 技术突破型：升级前后对比表格 + 底层技术逻辑
+   - 展会型：参展数据 + 客户反馈 + 合作成果
+4. 应用展望（200字）：描述如何改变下游客户的作业效率/ROI
+5. 品牌背书（100字）：固定包含CANI公司简介——"关于长凌科技：CANI（长凌科技）是国家高新技术企业，专注工业级无人机核心配件的研发与制造，产品覆盖数字图传、飞控电调、ELRS遥控、云台吊舱等全系列，服务全球30+国家的电力巡检、应急救援、测绘物流等关键行业。"
+6. CTA转化框：文末必须包含——"📩 对这款产品/技术感兴趣？<a href='/contact'>联系我们的技术工程师获取定制方案</a> 或 <a href='/products'>浏览完整产品中心</a>"
+
+【关键约束】
+- 总字数800-1200字
+- 每篇必须提及至少2个CANI产品系列的具体参数
+- 必须包含至少1个HTML <table> 参数表格
+- 数据和参数必须基于知识库，不要编造
+- 语气自信、专业、稳重
+- 禁止"据报道"、"近期"等词汇，以CANI官方第一视角叙述
+- SEO关键词必须包含CANI品牌词和产品型号
+
+【HTML格式】
+- <h3> 小标题
+- <p> 段落（不要使用换行符）
+- <table><thead><tbody><tr><th><td> 参数表格
+- <strong> 强调关键词
+- <ul><li> 列表
+- <blockquote> 重要引言
+
+【输出格式】返回纯净JSON（不要markdown代码块）：
+{
+  "title": "CANI品牌词+产品+价值主张的标题",
+  "title_en": "English title for international SEO",
+  "summary": "100字以内的新闻摘要",
+  "summary_en": "English summary under 160 chars",
+  "content": "<h3>导语</h3><p>HTML正文...</p><table>...</table><p>📩 对这款产品感兴趣？...</p>",
+  "keywords": ["CANI", "长凌科技", "产品关键词", "技术关键词", "应用场景"],
+  "faq": [
+    {"question": "CANI XX产品有哪些核心优势？", "answer": "..."},
+    {"question": "该技术如何应用于XX场景？", "answer": "..."}
+  ]
+}`;
 
   const response = await fetch("https://ark.cn-beijing.volces.com/api/v3/chat/completions", {
     method: "POST",
@@ -647,8 +710,8 @@ async function generateCompanyNews(apiKey: string, newsIndex: number) {
       messages: [
         { role: "user", content: prompt },
       ],
-      temperature: 0.7,
-      max_tokens: 4000,
+      temperature: 0.5,
+      max_tokens: 5000,
     }),
   });
 
