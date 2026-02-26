@@ -554,7 +554,7 @@ ${CANI_TECH_KNOWLEDGE}
       messages: [
         { role: "user", content: prompt },
       ],
-      temperature: 0.75,
+      temperature: 0.3,
       max_tokens: 6000,
     }),
   });
@@ -795,7 +795,6 @@ Deno.serve(async (req) => {
           }
         }
       }
-    } else if (category === "公司新闻") {
     } else if (category === "公司新闻") {
       for (let i = 0; i < articleLimit; i++) {
         try {

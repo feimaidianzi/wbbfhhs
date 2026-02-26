@@ -156,7 +156,7 @@ ${style}
             messages: [
               { role: "user", content: prompt },
             ],
-            temperature: 0.7,
+            temperature: category === "技术分享" ? 0.3 : 0.7,
             max_tokens: 8192,
           }),
         });
