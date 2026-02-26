@@ -183,16 +183,89 @@ async function detectBrandingWithDoubao(
   }
 }
 
-// 品牌信息检测后直接丢弃含品牌的图片（豆包不支持图片编辑）
+// 使用 Lovable AI (Gemini) 编辑图片去除品牌信息
 async function removeBrandingFromImage(
-  _imageBuffer: ArrayBuffer,
-  _contentType: string,
+  imageBuffer: ArrayBuffer,
+  contentType: string,
   brandingItems: string[],
-  _locations: string[]
+  locations: string[]
 ): Promise<{ buffer: ArrayBuffer; contentType: string } | null> {
-  // 豆包不支持图片编辑，直接返回null表示无法处理
-  console.log(`Image has branding (${brandingItems.join(', ')}), discarding (Doubao does not support image editing)`);
-  return null;
+  try {
+    const LOVABLE_API_KEY = Deno.env.get("LOVABLE_API_KEY");
+    if (!LOVABLE_API_KEY) {
+      console.log("LOVABLE_API_KEY not found, cannot edit image - discarding");
+      return null;
+    }
+
+    // Convert to base64
+    const uint8Array = new Uint8Array(imageBuffer);
+    let binary = '';
+    for (let i = 0; i < uint8Array.length; i++) {
+      binary += String.fromCharCode(uint8Array[i]);
+    }
+    const base64Image = btoa(binary);
+    const mimeType = contentType.includes('png') ? 'image/png' : 
+                     contentType.includes('webp') ? 'image/webp' : 'image/jpeg';
+
+    const editPrompt = `Remove ALL company logos, brand names, watermarks, QR codes, and contact information from this image.
+Specifically remove: ${brandingItems.join(", ")}
+Located at: ${locations.join(", ")}
+Fill the removed areas with the surrounding background naturally. Keep the rest of the image intact.`;
+
+    console.log("Using Lovable AI (Gemini) to remove branding from image...");
+
+    const response = await fetch("https://ai.gateway.lovable.dev/v1/chat/completions", {
+      method: "POST",
+      headers: {
+        "Authorization": `Bearer ${LOVABLE_API_KEY}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        model: "google/gemini-2.5-flash-image",
+        messages: [
+          {
+            role: "user",
+            content: [
+              { type: "text", text: editPrompt },
+              { type: "image_url", image_url: { url: `data:${mimeType};base64,${base64Image}` } }
+            ]
+          }
+        ],
+        modalities: ["image", "text"]
+      }),
+      signal: AbortSignal.timeout(60000),
+    });
+
+    if (!response.ok) {
+      console.error("Lovable AI image edit error:", response.status);
+      return null;
+    }
+
+    const data = await response.json();
+    const editedImageUrl = data.choices?.[0]?.message?.images?.[0]?.image_url?.url;
+
+    if (editedImageUrl && editedImageUrl.startsWith("data:image/")) {
+      const base64Match = editedImageUrl.match(/^data:image\/(\w+);base64,(.+)$/);
+      if (base64Match) {
+        const editedMimeType = `image/${base64Match[1]}`;
+        const editedBase64 = base64Match[2];
+        const editedBinary = atob(editedBase64);
+        const editedBuffer = new ArrayBuffer(editedBinary.length);
+        const editedView = new Uint8Array(editedBuffer);
+        for (let i = 0; i < editedBinary.length; i++) {
+          editedView[i] = editedBinary.charCodeAt(i);
+        }
+        console.log(`Successfully removed branding (${editedBuffer.byteLength} bytes)`);
+        return { buffer: editedBuffer, contentType: editedMimeType };
+      }
+    }
+
+    console.log("No edited image returned from Gemini");
+    return null;
+  } catch (error) {
+    console.error("Branding removal error:", error);
+    return null;
+  }
 }
 
 // 使用AI评估图片与文章的相关性

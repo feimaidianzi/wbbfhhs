@@ -138,11 +138,59 @@ async function processImageWithDoubao(imageData: Uint8Array, _contentType: strin
   return imageData;
 }
 
-// 使用 Doubao 生成无人机相关图片描述（用于配图选择）
+// 使用豆包 Seedream 模型生成图片
 async function generateImageWithDoubao(prompt: string): Promise<Uint8Array | null> {
-  // 豆包不支持图片生成，返回 null，使用默认图片
-  console.log("Image generation not supported with Doubao, using default images");
-  return null;
+  try {
+    const DOUBAO_API_KEY = Deno.env.get("DOUBAO_API_KEY");
+    if (!DOUBAO_API_KEY) {
+      console.log("DOUBAO_API_KEY not found, cannot generate image");
+      return null;
+    }
+
+    console.log("Generating image with Doubao Seedream...");
+    const response = await fetch("https://ark.cn-beijing.volces.com/api/v3/images/generations", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${DOUBAO_API_KEY}`,
+      },
+      body: JSON.stringify({
+        model: "doubao-seedream-4-0-250828",
+        prompt: prompt,
+        response_format: "b64_json",
+        size: "1024x1024",
+        sequential_image_generation: "disabled",
+        stream: false,
+        watermark: false,
+      }),
+      signal: AbortSignal.timeout(60000),
+    });
+
+    if (!response.ok) {
+      const errorText = await response.text();
+      console.error("Doubao Seedream error:", response.status, errorText);
+      return null;
+    }
+
+    const data = await response.json();
+    const b64 = data.data?.[0]?.b64_json;
+    if (!b64) {
+      console.log("No image data returned from Doubao Seedream");
+      return null;
+    }
+
+    // base64 → Uint8Array
+    const binaryStr = atob(b64);
+    const bytes = new Uint8Array(binaryStr.length);
+    for (let i = 0; i < binaryStr.length; i++) {
+      bytes[i] = binaryStr.charCodeAt(i);
+    }
+    console.log(`Doubao Seedream generated image: ${bytes.length} bytes`);
+    return bytes;
+  } catch (error) {
+    console.error("Doubao Seedream generation error:", error);
+    return null;
+  }
 }
 
 // 上传图片到存储
