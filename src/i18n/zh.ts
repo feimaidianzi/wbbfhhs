@@ -147,6 +147,7 @@ export const zhTranslations: Record<string, string> = {
   'camera.cta.btn': '联系我们',
 
   // Camera Hub FAQ (GEO)
+  'camera.faq.title': '常见问题',
   'camera.faq.q1': 'SJ4000 WiFi是否可以作为无人机的FPV相机使用？',
   'camera.faq.a1': '是的。其具备170°视野和超轻量化机身，SJ4000 WiFi非常适合作为FPV（第一人称视角）摄像头。通过其内置的WiFi模块或AV输出端口，可以将高清实时视频回传至操作终端，辅助飞行员进行精准定位和导航。',
   'camera.faq.q2': '在复杂的工业环境下，SJ4000的稳定性如何？',
