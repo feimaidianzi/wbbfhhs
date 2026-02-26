@@ -14,7 +14,7 @@ import {
 import {
   ArrowLeft, Save, Loader2, Sparkles, ExternalLink, FileText,
   Scissors, TrendingUp, HelpCircle, Type, Eye, Image, Download,
-  Send, RefreshCw, Zap
+  Send, RefreshCw, Zap, Expand, Eraser, Bot
 } from 'lucide-react';
 import RichTextEditor from '@/components/admin/RichTextEditor';
 import SingleImageUpload from '@/components/admin/SingleImageUpload';
@@ -46,11 +46,26 @@ interface ArticleEditorProps {
 
 const AI_TOOLS = [
   { label: '缩短篇幅', icon: Scissors, prompt: '请将文章精简至原来的60%长度，保留核心信息和关键数据' },
-  { label: '增加深度', icon: TrendingUp, prompt: '请增加更多技术细节和专业分析，引用CANI产品参数' },
-  { label: '优化标题', icon: Type, prompt: '请为这篇文章生成3个更具SEO吸引力的标题备选' },
+  { label: '增加深度', icon: TrendingUp, prompt: '请增加更多技术细节和专业分析，引用CANI产品参数，添加对比表格和Mermaid流程图代码' },
+  { label: '优化标题', icon: Type, prompt: '请为这篇文章生成3个更具SEO吸引力的标题备选，标题需包含CANI品牌词和核心产品型号' },
   { label: '生成FAQ', icon: HelpCircle, prompt: '请根据文章内容生成3-5个常见问题和答案（FAQ），使用JSON-LD格式的FAQPage Schema标记' },
   { label: '自动配图', icon: Image, prompt: '请根据文章标题和内容，为文章中的关键段落建议合适的配图描述，并搜索相关的免版权图片' },
   { label: '图片本地化', icon: Download, prompt: '请将文章中所有外部图片下载到本地存储，替换为本地链接，并自动生成SEO友好的alt标签' },
+];
+
+const DOUBAO_POWER_TOOLS = [
+  {
+    label: '豆包一键扩写',
+    icon: Expand,
+    description: '素材太短？AI根据知识库自动填充技术细节至800字+',
+    prompt: '这篇文章内容过短，请根据CANI核心知识库中的产品参数和技术细节，将文章扩写至800字以上。要求：1)补充相关的技术参数对比表格 2)添加应用场景描述 3)加入"CANI视角"专家点评段落 4)确保SEO关键词密度达标（CANI、图传、VTX等）5)保持原文核心观点不变',
+  },
+  {
+    label: '豆包智能修图',
+    icon: Eraser,
+    description: '一键擦除图片水印/Logo，重绘为CANI原创',
+    action: 'image-inpaint',
+  },
 ];
 
 const CATEGORY_LABELS: Record<string, { label: string; color: string }> = {
@@ -337,6 +352,14 @@ export const ArticleEditor = ({ article, onBack, onSaved, currentUserId }: Artic
               <Button
                 size="sm" variant="outline"
                 disabled={aiProcessing || !article?.id}
+                onClick={() => handleAITool(DOUBAO_POWER_TOOLS[0].prompt!)}
+                className="h-7 text-[10px] border-amber-500/30 text-amber-300 hover:text-amber-200 hover:bg-amber-500/10"
+              >
+                <Expand className="w-3 h-3 mr-1" />豆包扩写
+              </Button>
+              <Button
+                size="sm" variant="outline"
+                disabled={aiProcessing || !article?.id}
                 onClick={() => handleAITool('请根据文章内容生成3-5个常见问题和答案（FAQ），使用JSON-LD格式的FAQPage Schema标记，追加在文末')}
                 className="h-7 text-[10px] border-slate-700 text-slate-300 hover:text-white"
               >
@@ -400,6 +423,31 @@ export const ArticleEditor = ({ article, onBack, onSaved, currentUserId }: Artic
                     <Loader2 className="w-3 h-3 animate-spin" />AI处理中...
                   </div>
                 )}
+              </div>
+
+              {/* Doubao Power Tools */}
+              <div>
+                <p className="text-[10px] text-slate-500 mb-2 uppercase tracking-wider flex items-center gap-1">
+                  <Bot className="w-3 h-3" />豆包黑科技
+                </p>
+                <div className="space-y-1.5">
+                  {DOUBAO_POWER_TOOLS.map(tool => (
+                    <Button
+                      key={tool.label}
+                      variant="outline"
+                      size="sm"
+                      disabled={aiProcessing || !article?.id}
+                      onClick={() => tool.action === 'image-inpaint' ? handleImageLocalize() : handleAITool(tool.prompt!)}
+                      className="w-full h-auto py-2 text-[10px] border-amber-500/20 text-amber-300 hover:text-amber-200 hover:border-amber-500/40 hover:bg-amber-500/10 justify-start flex-col items-start gap-0.5"
+                    >
+                      <span className="flex items-center gap-1">
+                        <tool.icon className="w-3 h-3 flex-shrink-0" />
+                        {tool.label}
+                      </span>
+                      <span className="text-[9px] text-slate-500 font-normal">{tool.description}</span>
+                    </Button>
+                  ))}
+                </div>
               </div>
 
               {/* Keyword Density */}
