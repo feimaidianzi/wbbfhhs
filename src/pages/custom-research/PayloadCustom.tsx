@@ -17,12 +17,12 @@ const PayloadCustom = () => {
   const jsonLd = {
     "@context": "https://schema.org/",
     "@type": "Service",
-    "name": "长凌科技工业无人机载荷定制服务",
+    "name": "CANI Technology Industrial UAV Payload Customization",
     "serviceType": "UAV Payload OEM/ODM",
-    "description": "提供37W高功率图传、高精度EO/IR吊舱、LiDAR及气体检测等全系列无人机挂载定制方案。",
+    "description": "Full-range UAV payload customization including 37W high-power video transmitters, high-precision EO/IR gimbal pods, LiDAR and gas detection systems.",
     "provider": {
       "@type": "Organization",
-      "name": "CANI Technology 长凌科技",
+      "name": "CANI Technology",
       "url": "https://www.caniuav.com/",
       "logo": "https://www.caniuav.com/logo.png"
     },
@@ -140,7 +140,7 @@ const PayloadCustom = () => {
               <div className="relative">
                 <img
                   src="https://images.unsplash.com/photo-1506947411487-a56738267384?w=800&q=80"
-                  alt="工业级无人机载荷定制研发-EO/IR红外云台与37W高功率图传系统"
+                  alt="Industrial UAV payload R&D - EO/IR gimbal and 37W high-power video transmission system"
                   className="rounded-2xl shadow-2xl w-full"
                 />
               </div>

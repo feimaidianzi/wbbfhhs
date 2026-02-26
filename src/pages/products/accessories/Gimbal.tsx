@@ -67,7 +67,7 @@ const Gimbal = () => {
                 <p className="text-muted-foreground leading-relaxed">{t('gimbal.techDetail')}</p>
               </div>
               <div className="rounded-xl overflow-hidden shadow-card">
-                <img src={gimbalDualLight} alt="无人机双光云台吊舱实拍 - UAV dual-light gimbal pod" className="w-full h-auto object-cover" loading="lazy" />
+                <img src={gimbalDualLight} alt="UAV dual-light gimbal pod - CANI industrial drone camera system" className="w-full h-auto object-cover" loading="lazy" />
               </div>
             </div>
           </div>

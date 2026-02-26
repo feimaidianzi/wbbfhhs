@@ -26,24 +26,24 @@ const FPV = () => {
   ];
 
   const hotProducts = [
-    { name: "CL-R5 竞速套装", category: t('fpv.categories.racing'), description: "专业竞速级FPV无人机，5寸机架，适合赛事训练和极限飞行。", specs: ["最高时速: 160km/h", "电机: 2806.5 1300KV", "图传延迟: <28ms"], image: "https://images.unsplash.com/photo-1473968512647-3e447244af8f?w=600&q=80", price: "¥2,999" },
-    { name: "CL-F3 花飞入门版", category: t('fpv.categories.freestyle'), description: "3寸花飞穿越机，室内外皆可飞行，适合新手练习特技。", specs: ["轴距: 140mm", "重量: 180g", "续航: 8分钟"], image: "https://images.unsplash.com/photo-1527977966376-1c8408f9f108?w=600&q=80", price: "¥1,299" },
-    { name: "CL-LR7 远航版", category: t('fpv.categories.longRange'), description: "7寸长续航穿越机，搭载高效动力系统，探索更远距离。", specs: ["续航: 35分钟", "图传距离: 15km", "载重: 500g"], image: "https://images.unsplash.com/photo-1506947411487-a56738267384?w=600&q=80", price: "¥4,599" },
+    { name: t('fpv.hot.product1.name'), category: t('fpv.categories.racing'), description: t('fpv.hot.product1.desc'), specs: [t('fpv.hot.product1.spec1'), t('fpv.hot.product1.spec2'), t('fpv.hot.product1.spec3')], image: "https://images.unsplash.com/photo-1473968512647-3e447244af8f?w=600&q=80", price: "¥2,999" },
+    { name: t('fpv.hot.product2.name'), category: t('fpv.categories.freestyle'), description: t('fpv.hot.product2.desc'), specs: [t('fpv.hot.product2.spec1'), t('fpv.hot.product2.spec2'), t('fpv.hot.product2.spec3')], image: "https://images.unsplash.com/photo-1527977966376-1c8408f9f108?w=600&q=80", price: "¥1,299" },
+    { name: t('fpv.hot.product3.name'), category: t('fpv.categories.longRange'), description: t('fpv.hot.product3.desc'), specs: [t('fpv.hot.product3.spec1'), t('fpv.hot.product3.spec2'), t('fpv.hot.product3.spec3')], image: "https://images.unsplash.com/photo-1506947411487-a56738267384?w=600&q=80", price: "¥4,599" },
   ];
 
   const accessories = [
-    { name: "高清FPV眼镜", price: "¥1,299" },
-    { name: "遥控器", price: "¥599" },
-    { name: "电池充电器", price: "¥299" },
-    { name: "备用桨叶套装", price: "¥49" },
-    { name: "工具套装", price: "¥129" },
-    { name: "收纳背包", price: "¥199" },
+    { name: t('fpv.accessory.goggles'), price: t('fpv.accessory.goggles.price') },
+    { name: t('fpv.accessory.controller'), price: t('fpv.accessory.controller.price') },
+    { name: t('fpv.accessory.charger'), price: t('fpv.accessory.charger.price') },
+    { name: t('fpv.accessory.props'), price: t('fpv.accessory.props.price') },
+    { name: t('fpv.accessory.tools'), price: t('fpv.accessory.tools.price') },
+    { name: t('fpv.accessory.bag'), price: t('fpv.accessory.bag.price') },
   ];
 
   const articles = [
-    { title: "FPV穿越机入门全解析 | 新手如何玩转速度与激情", excerpt: "在无人机的众多类型中，FPV穿越机凭借独特的沉浸式体验和极速飞行的爽感，迅速成为无人机爱好者的新宠...", image: "https://images.unsplash.com/photo-1473968512647-3e447244af8f?w=400&q=80", date: "2025-08-15" },
-    { title: "穿越机FPV | 探索极限飞行的无限可能", excerpt: "随着无人机技术的飞速发展，穿越机FPV逐渐成为飞行爱好者和极限运动者的热宠...", image: "https://images.unsplash.com/photo-1527977966376-1c8408f9f108?w=400&q=80", date: "2025-05-20" },
-    { title: "穿越机 | 释放视角的边界，让飞行成为创意的新引擎", excerpt: "在视觉至上的短视频时代，一段震撼、独特的镜头，往往比千言万语更能打动人心...", image: "https://images.unsplash.com/photo-1506947411487-a56738267384?w=400&q=80", date: "2025-05-10" },
+    { title: t('fpv.article1.title'), excerpt: t('fpv.article1.excerpt'), image: "https://images.unsplash.com/photo-1473968512647-3e447244af8f?w=400&q=80", date: "2025-08-15" },
+    { title: t('fpv.article2.title'), excerpt: t('fpv.article2.excerpt'), image: "https://images.unsplash.com/photo-1527977966376-1c8408f9f108?w=400&q=80", date: "2025-05-20" },
+    { title: t('fpv.article3.title'), excerpt: t('fpv.article3.excerpt'), image: "https://images.unsplash.com/photo-1506947411487-a56738267384?w=400&q=80", date: "2025-05-10" },
   ];
 
   return (
