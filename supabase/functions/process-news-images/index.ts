@@ -205,9 +205,9 @@ async function removeCompanyBranding(
   contentType: string
 ): Promise<{ buffer: ArrayBuffer; contentType: string; wasEdited: boolean }> {
   try {
-    const DOUBAO_API_KEY = Deno.env.get("DOUBAO_API_KEY");
-    if (!DOUBAO_API_KEY) {
-      console.log("DOUBAO_API_KEY not found, skipping company branding removal");
+    const LOVABLE_API_KEY = Deno.env.get("LOVABLE_API_KEY");
+    if (!LOVABLE_API_KEY) {
+      console.log("LOVABLE_API_KEY not found, skipping company branding removal");
       return { buffer: imageBuffer, contentType, wasEdited: false };
     }
 
@@ -222,9 +222,9 @@ async function removeCompanyBranding(
                      contentType.includes('webp') ? 'image/webp' : 
                      contentType.includes('gif') ? 'image/gif' : 'image/jpeg';
 
-    console.log("Using Doubao AI to analyze image for company branding...");
+    console.log("Using Lovable AI to analyze image for company branding...");
 
-    // 首先使用豆包视觉模型检测图片中是否有公司信息
+    // 使用Lovable AI视觉模型检测图片中是否有公司信息
     const detectPrompt = `请仔细分析这张图片，检查是否存在以下内容：
 1. 公司logo或品牌标识
 2. 公司名称或商标文字
@@ -241,14 +241,14 @@ async function removeCompanyBranding(
   "suggestion": "处理建议"
 }`;
 
-    const detectResponse = await fetch("https://ark.cn-beijing.volces.com/api/v3/chat/completions", {
+    const detectResponse = await fetch("https://ai.gateway.lovable.dev/v1/chat/completions", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        "Authorization": `Bearer ${DOUBAO_API_KEY}`,
+        "Authorization": `Bearer ${LOVABLE_API_KEY}`,
       },
       body: JSON.stringify({
-        model: "doubao-1.5-vision-pro-250328",
+        model: "google/gemini-2.5-flash",
         messages: [
           {
             role: "user",
@@ -271,7 +271,7 @@ async function removeCompanyBranding(
 
     if (!detectResponse.ok) {
       const errorText = await detectResponse.text();
-      console.error("Doubao vision API error:", detectResponse.status, errorText);
+      console.error("Lovable AI vision API error:", detectResponse.status, errorText);
       return { buffer: imageBuffer, contentType, wasEdited: false };
     }
 
