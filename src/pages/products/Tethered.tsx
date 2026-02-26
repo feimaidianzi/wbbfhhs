@@ -1,6 +1,12 @@
 import ProductPageTemplate from "@/components/ProductPageTemplate";
 import { Clock, Zap, Shield, Radio, Eye, Settings } from "lucide-react";
 import { useLanguage } from "@/contexts/LanguageContext";
+import tetheredDroneImg from "@/assets/seo/tethered-drone.jpg";
+import industrialDroneFlightImg from "@/assets/seo/industrial-drone-flight.jpg";
+import wireLayingMountainImg from "@/assets/seo/wire-laying-mountain.jpg";
+import emergencyRescueNightImg from "@/assets/seo/emergency-rescue-night.jpg";
+import damMonitoringImg from "@/assets/seo/dam-monitoring.jpg";
+import powerInspectionSystemImg from "@/assets/seo/power-inspection-system.jpg";
 
 const Tethered = () => {
   const { t } = useLanguage();
@@ -15,9 +21,9 @@ const Tethered = () => {
   ];
 
   const products = [
-    { name: t('tethered.page.p1.name'), description: t('tethered.page.p1.desc'), specs: [t('tethered.page.p1.spec1'), t('tethered.page.p1.spec2'), t('tethered.page.p1.spec3'), t('tethered.page.p1.spec4')], image: "https://images.unsplash.com/photo-1473968512647-3e447244af8f?w=600&q=80", link: "/products/tethered/th-100" },
-    { name: t('tethered.page.p2.name'), description: t('tethered.page.p2.desc'), specs: [t('tethered.page.p2.spec1'), t('tethered.page.p2.spec2'), t('tethered.page.p2.spec3'), t('tethered.page.p2.spec4')], image: "https://images.unsplash.com/photo-1527977966376-1c8408f9f108?w=600&q=80", link: "/products/tethered/th-200" },
-    { name: t('tethered.page.p3.name'), description: t('tethered.page.p3.desc'), specs: [t('tethered.page.p3.spec1'), t('tethered.page.p3.spec2'), t('tethered.page.p3.spec3'), t('tethered.page.p3.spec4')], image: "https://images.unsplash.com/photo-1559827260-dc66d52bef19?w=600&q=80", link: "/products/tethered/th-300" },
+    { name: t('tethered.page.p1.name'), description: t('tethered.page.p1.desc'), specs: [t('tethered.page.p1.spec1'), t('tethered.page.p1.spec2'), t('tethered.page.p1.spec3'), t('tethered.page.p1.spec4')], image: tetheredDroneImg, link: "/products/tethered/th-100" },
+    { name: t('tethered.page.p2.name'), description: t('tethered.page.p2.desc'), specs: [t('tethered.page.p2.spec1'), t('tethered.page.p2.spec2'), t('tethered.page.p2.spec3'), t('tethered.page.p2.spec4')], image: wireLayingMountainImg, link: "/products/tethered/th-200" },
+    { name: t('tethered.page.p3.name'), description: t('tethered.page.p3.desc'), specs: [t('tethered.page.p3.spec1'), t('tethered.page.p3.spec2'), t('tethered.page.p3.spec3'), t('tethered.page.p3.spec4')], image: industrialDroneFlightImg, link: "/products/tethered/th-300" },
   ];
 
   const stats = [
@@ -48,9 +54,9 @@ const Tethered = () => {
   ];
 
   const cases = [
-    { title: t('tethered.page.case1.title'), description: t('tethered.page.case1.desc'), image: "https://images.unsplash.com/photo-1551698618-1dfe5d97d256?w=600&q=80" },
-    { title: t('tethered.page.case2.title'), description: t('tethered.page.case2.desc'), image: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=600&q=80" },
-    { title: t('tethered.page.case3.title'), description: t('tethered.page.case3.desc'), image: "https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?w=600&q=80" },
+    { title: t('tethered.page.case1.title'), description: t('tethered.page.case1.desc'), image: emergencyRescueNightImg },
+    { title: t('tethered.page.case2.title'), description: t('tethered.page.case2.desc'), image: damMonitoringImg },
+    { title: t('tethered.page.case3.title'), description: t('tethered.page.case3.desc'), image: powerInspectionSystemImg },
   ];
 
   return (
@@ -58,7 +64,7 @@ const Tethered = () => {
       seoPath="/products/tethered"
       heroTitle={t('tethered.page.hero.title')}
       heroSubtitle={t('tethered.page.hero.subtitle')}
-      heroImage="https://images.unsplash.com/photo-1473968512647-3e447244af8f?w=1920&q=80"
+      heroImage={tetheredDroneImg}
       features={features}
       featuresTitle={t('tethered.page.feat.title')}
       products={products}

@@ -9,6 +9,7 @@ import { useToast } from "@/hooks/use-toast";
 import { MultiLanguageSEO } from "@/components/MultiLanguageSEO";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { supabase } from "@/integrations/supabase/client";
+import contactOfficeImg from "@/assets/seo/contact-office.jpg";
 
 const RATE_LIMIT_SECONDS = 60;
 
@@ -230,7 +231,7 @@ const Contact = () => {
           <div
             className="absolute inset-0 bg-cover bg-center"
             style={{
-              backgroundImage: "url(https://images.unsplash.com/photo-1423666639041-f56000c27a9a?w=1920&q=80)",
+              backgroundImage: `url(${contactOfficeImg})`,
             }}
           >
             <div className="absolute inset-0 bg-gradient-to-r from-primary/90 via-primary/70 to-primary/50" />

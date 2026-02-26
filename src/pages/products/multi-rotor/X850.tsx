@@ -1,6 +1,7 @@
 import ProductDetailTemplate from "@/components/ProductDetailTemplate";
 import { Camera, Settings, Shield, Cpu, Zap, Wind } from "lucide-react";
 import { useLanguage } from "@/contexts/LanguageContext";
+import industrialDroneFlightImg from "@/assets/seo/industrial-drone-flight.jpg";
 
 const X850 = () => {
   const { t } = useLanguage();
@@ -46,7 +47,7 @@ const X850 = () => {
       ]}
       heroTitle={t('multiRotor.x850.name')}
       heroDescription={t('multiRotor.x850.description')}
-      heroImage="https://images.unsplash.com/photo-1473968512647-3e447244af8f?w=1200&q=80"
+      heroImage={industrialDroneFlightImg}
       heroHighlight={{ value: "5kg", label: t('specs.maxPayload') }}
       backLink={{ label: t('common.backTo') + t('nav.products.multiRotor'), path: "/products/multi-rotor" }}
       features={features}

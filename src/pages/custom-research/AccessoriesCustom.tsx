@@ -9,6 +9,7 @@ import { useLanguage } from "@/contexts/LanguageContext";
 import { MultiLanguageSEO } from "@/components/MultiLanguageSEO";
 import { PageFAQ } from "@/components/PageFAQ";
 import { Helmet } from "react-helmet-async";
+import customAccessoriesHardwareImg from "@/assets/seo/custom-accessories-hardware.jpg";
 
 const AccessoriesCustom = () => {
   const { t, language } = useLanguage();
@@ -147,7 +148,7 @@ const AccessoriesCustom = () => {
                 </div>
               </div>
               <div className="relative">
-                <img src="https://images.unsplash.com/photo-1518770660439-4636190af475?w=800&q=80" alt={t('customAccessories.title')} className="rounded-2xl shadow-2xl w-full" loading="lazy" />
+                <img src={customAccessoriesHardwareImg} alt={t('customAccessories.title')} className="rounded-2xl shadow-2xl w-full" loading="lazy" />
                 <div className="absolute -bottom-6 -right-6 bg-accent text-accent-foreground px-6 py-4 rounded-xl shadow-lg">
                   <div className="text-3xl font-bold">200+</div>
                   <div className="text-sm">{t('customAccessories.engineers')}</div>

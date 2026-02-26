@@ -9,6 +9,8 @@ import { LangLink as Link } from "@/components/LangLink";
 import { MultiLanguageSEO } from "@/components/MultiLanguageSEO";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { supabase } from "@/integrations/supabase/client";
+import newsMediaImg from "@/assets/seo/news-media.jpg";
+import newsPlaceholderImg from "@/assets/seo/news-placeholder.jpg";
 
 interface NewsArticle {
   id: string;
@@ -137,7 +139,7 @@ const News = () => {
           <div
             className="absolute inset-0 bg-cover bg-center"
             style={{
-              backgroundImage: "url(https://images.unsplash.com/photo-1504711434969-e33886168f5c?w=1920&q=80)",
+              backgroundImage: `url(${newsMediaImg})`,
             }}
           >
             <div className="absolute inset-0 bg-gradient-to-r from-primary/90 via-primary/70 to-primary/50" />
@@ -215,7 +217,7 @@ const News = () => {
                   >
                     <div className="aspect-video overflow-hidden bg-muted">
                       <img
-                        src={news.cover_image || "https://images.pexels.com/photos/442587/pexels-photo-442587.jpeg?auto=compress&cs=tinysrgb&w=600"}
+                        src={news.cover_image || newsPlaceholderImg}
                         alt={baseLang === 'en' && news.title_en ? news.title_en : news.title}
                         width={600}
                         height={338}
@@ -224,7 +226,7 @@ const News = () => {
                         className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                         onError={(e) => {
                           const target = e.target as HTMLImageElement;
-                          target.src = "https://images.pexels.com/photos/442587/pexels-photo-442587.jpeg?auto=compress&cs=tinysrgb&w=600";
+                          target.src = newsPlaceholderImg;
                         }}
                       />
                     </div>
