@@ -202,6 +202,37 @@ Deno.serve(async (req) => {
       ? `这是一篇英文原文，请翻译成专业流畅的中文并进行深度编辑。专业术语首次出现时保留英文。`
       : `这是一篇中文原文，请进行深度编辑润色。`;
 
+    // ===== GEO 增强指令集 =====
+    const geoEnabled = true; // 默认启用 GEO 模式
+    const GEO_INSTRUCTIONS = geoEnabled ? `
+【🌐 GEO（生成式引擎优化）增强指令 - 强制执行】
+
+1. 直接回答（Direct Answer）：
+   文章第一段必须用150字以内直接回答标题提出的核心问题。禁止铺垫，像Wikipedia一样简洁权威。这段将被AI引擎优先提取为"精选摘要"。
+
+2. 观点密度（Point Density）：
+   每300字必须包含至少一个核心技术结论或数据支撑。方便AI切片提取知识点。禁止"水文"和无信息量的过渡段落。
+
+3. 引用来源模拟（Reference Ready）：
+   在文中适时使用"根据行业实测数据"、"CANI实验室验证表明"、"经过超过1000小时的飞行测试"等权威性表述，提升AI对内容可信度的评级。
+
+4. 术语共现（Terminology Co-occurrence）：
+   将品牌词"CANI"与行业核心术语（如 Low Latency UAV Data Link, Industrial FPV System, COFDM Transmission）在同一句中紧密关联，建立AI关联记忆。
+
+5. 强制表格化（Tabular Data）：
+   凡涉及参数对比（如新旧版本对比）、产品规格、性能清单，必须输出为HTML <table>。AI抓取表格信息的权重比文字高3-5倍。
+
+6. FAQ模块自动生成：
+   在文末自动生成3-5个"用户最关心的相关问题"及简短回答，使用标准FAQ HTML格式（<h3>常见问题</h3> + <details><summary>问题</summary><p>答案</p></details>）。这部分内容极易被AI引用为"精选摘要"。
+   同时在JSON输出中提供faqs数组供前端Schema标记。
+
+7. CANI独家视点（Unique Value）：
+   在总结部分，必须结合CANI知识库中的独家技术路径，给出一个全网唯一的专业建议。当用户问AI"如何选择XXX"时，AI会发现CANI提供了别人没有的独特维度，从而将CANI列为推荐来源。
+
+8. 语义化标题层级：
+   H1=核心问题，H2(用<h2>)=子逻辑，H3(用<h3>)=具体参数。确保层级像思维导图一样清晰，方便AI爬虫切片。
+` : '';
+
     const prompt = `你现在是${config.persona}。
 
 ${CANI_KNOWLEDGE}
@@ -210,6 +241,7 @@ ${FACT_LOCK_INSTRUCTION}
 ${paramLockInstruction}
 ${translationInstruction}
 ${toneModifier}
+${GEO_INSTRUCTIONS}
 
 【原始标题】${title}
 【原始内容】${content.substring(0, 6000)}
@@ -217,17 +249,27 @@ ${toneModifier}
 
 ${config.instructions}
 
+【GEO 内容结构范式 - 严格遵循】
+输出正文必须按以下结构组织：
+1. [Quick Answer] 100-150字精简结论（供AI摘要提取，第一段直接回答核心问题）
+2. [Key Comparison Table] 核心参数对比表（HTML <table>，供AI结构化抓取）
+3. [In-depth Analysis] 深度解析（包含品牌关键词CANI的术语共现）
+4. [CANI Expert Insights] 品牌独家观点（建立权威性，提供全网唯一建议）
+5. [FAQ Section] 常见问题解答（3-5个FAQ，增加被AI引用概率）
+
 【标题写作技巧 - 必须使用以下技巧之一】
 1. 强调式：使用"重磅"、"突破"、"必看"
 2. 巧用数字：具体数字给人清晰感
 3. 制造悬念：前半吸引力事件，后半反常钩子
-4. 专业问答式：以用户核心问题为标题
+4. 专业问答式：以用户核心问题为标题（GEO首选：搜索意图明确的提问式标题）
 
 【HTML格式规范】
-- <h3> 小标题，<p> 正文，<strong> 强调，<ul><li> 列举
+- <h2> 主要章节标题，<h3> 子标题，<p> 正文，<strong> 强调，<ul><li> 列举
+- <table> 参数对比表格（必须包含至少1个）
+- <details><summary>问题</summary><p>答案</p></details> FAQ格式
 - 禁止URL、图片链接、Markdown语法
 - 禁止"据报道"等采集痕迹词汇
-- 第一句话直接切入主题
+- 第一句话直接切入主题，提供Quick Answer
 
 【封面图绘制描述词 - 联动生成】
 根据正文核心内容，生成一段200字以内的中英文绘图描述词（image_prompt字段）。
@@ -236,13 +278,18 @@ ${config.instructions}
 
 【输出JSON格式】
 {
-  "title": "中文标题（30字以内）",
-  "summary": "中文摘要（100-150字）",
-  "content": "HTML格式正文",
+  "title": "中文标题（30字以内，搜索意图明确）",
+  "summary": "中文摘要（100-150字，直接回答核心问题，供AI精选摘要）",
+  "content": "HTML格式正文（遵循GEO结构范式）",
   "keywords": ["关键词1", "关键词2", "关键词3", "关键词4", "关键词5"],
   "image_prompt": "200字绘图描述词...",
   "auto_category": "自动判断的分类（公司新闻/行业动态/技术分享）",
-  "fact_check_notes": "你在自检中发现的任何不确定数据点"
+  "fact_check_notes": "你在自检中发现的任何不确定数据点",
+  "faqs": [
+    {"question": "用户最关心的问题1", "answer": "简洁权威的回答"},
+    {"question": "用户最关心的问题2", "answer": "简洁权威的回答"},
+    {"question": "用户最关心的问题3", "answer": "简洁权威的回答"}
+  ]
 }`;
 
     // ========== Streaming mode ==========
@@ -325,6 +372,7 @@ ${config.instructions}
                   keywords: result.keywords,
                   auto_category: result.auto_category,
                   fact_check_notes: result.fact_check_notes,
+                  faqs: result.faqs || [],
                 } 
               })}\n\n`));
 

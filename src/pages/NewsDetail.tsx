@@ -9,7 +9,6 @@ import { Badge } from "@/components/ui/badge";
 import { Skeleton } from "@/components/ui/skeleton";
 import { ArrowLeft, Calendar, User, Tag } from "lucide-react";
 import { MultiLanguageSEO } from "@/components/MultiLanguageSEO";
-import { createLocalizedArticleData } from "@/utils/seoConfig";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { supabase } from "@/integrations/supabase/client";
 import { sanitizeHtml } from "@/lib/sanitize";
@@ -181,12 +180,51 @@ const NewsDetail = () => {
     );
   }
 
-  const articleStructuredData = createLocalizedArticleData({
-    title: baseLang === 'en' && article.title_en ? article.title_en : article.title,
+  // Determine schema type based on category
+  const schemaType = article.category === '技术分享' ? 'TechArticle' : 'Article';
+  
+  const articleStructuredData: any = {
+    '@context': 'https://schema.org',
+    '@type': schemaType,
+    headline: baseLang === 'en' && article.title_en ? article.title_en : article.title,
     description: baseLang === 'en' && article.summary_en ? article.summary_en : (article.summary || ''),
     image: article.cover_image || 'https://images.unsplash.com/photo-1473968512647-3e447244af8f?w=1200&q=80',
     datePublished: article.published_at || article.created_at,
-  }, language);
+    dateModified: article.published_at || article.created_at,
+    inLanguage: language === 'zh' ? 'zh-CN' : language,
+    author: { '@type': 'Organization', name: 'CANI' },
+    publisher: {
+      '@type': 'Organization',
+      name: language === 'zh' ? '长凌科技' : 'CANI Technology',
+      logo: { '@type': 'ImageObject', url: 'https://www.caniuav.com/logo.png' },
+    },
+    mainEntityOfPage: {
+      '@type': 'WebPage',
+      '@id': `https://www.caniuav.com/news/${article.id}`,
+    },
+  };
+
+  // Extract FAQ from content (matches <details><summary>Q</summary><p>A</p></details>)
+  const faqRegex = /<details>\s*<summary>(.*?)<\/summary>\s*<p>(.*?)<\/p>\s*<\/details>/gs;
+  const faqs: Array<{question: string; answer: string}> = [];
+  let faqMatch;
+  const rawContent = baseLang === 'en' && article.content_en ? article.content_en : article.content;
+  while ((faqMatch = faqRegex.exec(rawContent)) !== null) {
+    faqs.push({ question: faqMatch[1].replace(/<[^>]*>/g, ''), answer: faqMatch[2].replace(/<[^>]*>/g, '') });
+  }
+
+  const allStructuredData: any[] = [articleStructuredData];
+  if (faqs.length > 0) {
+    allStructuredData.push({
+      '@context': 'https://schema.org',
+      '@type': 'FAQPage',
+      mainEntity: faqs.map(f => ({
+        '@type': 'Question',
+        name: f.question,
+        acceptedAnswer: { '@type': 'Answer', text: f.answer },
+      })),
+    });
+  }
 
   return (
     <div className="min-h-screen">
@@ -196,7 +234,7 @@ const NewsDetail = () => {
         path={`/news/${article.id}`}
         image={article.cover_image || undefined}
         type="article"
-        structuredData={articleStructuredData}
+        structuredData={allStructuredData}
       />
       <Header />
       <main className="pt-16 md:pt-20">
