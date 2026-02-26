@@ -110,10 +110,7 @@ import CustomerServiceChat from "./pages/admin/CustomerServiceChat";
 import CustomerServiceLogin from "./pages/admin/CustomerServiceLogin";
 import VisitorAnalytics from "./pages/admin/VisitorAnalytics";
 import TranslationManagement from "./pages/admin/TranslationManagement";
-import HardcodedTextScanner from "./pages/admin/HardcodedTextScanner";
 import SEOManagement from "./pages/admin/SEOManagement";
-import AutoTranslation from "./pages/admin/AutoTranslation";
-import PageMigration from "./pages/admin/PageMigration";
 import VisitorTracker from "./components/VisitorTracker";
 import { ImageAltScanner } from "./components/ImageAltScanner";
 import NewsDetail from "./pages/NewsDetail";
@@ -243,10 +240,7 @@ const App = () => (
             <Route path="/admin/customer-service/login" element={<CustomerServiceLogin />} />
             <Route path="/admin/visitor-analytics" element={<VisitorAnalytics />} />
             <Route path="/admin/translations" element={<TranslationManagement />} />
-            <Route path="/admin/hardcoded-scanner" element={<HardcodedTextScanner />} />
             <Route path="/admin/seo-management" element={<SEOManagement />} />
-            <Route path="/admin/auto-translate" element={<AutoTranslation />} />
-            <Route path="/admin/page-migration" element={<PageMigration />} />
 
             {/* Public routes - no prefix (English international default) */}
             {publicRoutes.map(({ path, element }) => (
