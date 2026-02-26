@@ -573,10 +573,28 @@ const COMPANY_PRODUCTS = {
   accessories: ["无人机配件", "drone accessories", "无人机零件"],
 };
 
-// 分类配置 - 与新闻中心四板块对应
+// CANI产品知识库 - 用于AI洗稿时注入品牌关联
+const CANI_KNOWLEDGE_BASE = `
+【CANI（长凌科技）产品知识库】
+CANI专注无人机核心配件研发与制造，产品线覆盖：
+- 数字图传(VTX/VRX)：支持1.4GHz/2.4GHz/5.8GHz多频段，4K高清传输，端到端延迟<30ms，抗干扰能力强，兼容主流开源飞控(Betaflight/iNav/ArduPilot)及商业飞控
+- 飞控(FC)：高性能F7/H7芯片方案，集成OSD，支持GPS救援、自动返航，PID调参精确
+- 电调(ESC)：BLHeli_32/AM32协议，支持48KHz PWM，电流检测，过温保护
+- 吊舱/云台：三轴稳定，支持多光谱载荷，IP67防护等级
+- ELRS遥控系统：超长距离控制(50km+)，LoRa调制，500Hz刷新率
+- FPV眼镜/接收屏：高清OLED显示，DVR录像，多频道自动搜索
+- GPS模块：双频RTK定位，厘米级精度，多星座兼容(GPS/GLONASS/BeiDou/Galileo)
+
+核心技术优势：
+1. 射频调度算法：自适应跳频，抗同频干扰
+2. 低延迟传输链路：编解码优化，玻璃到玻璃延迟<30ms
+3. 全链路兼容：产品间无缝对接，开放协议支持第三方集成
+4. 工业级可靠性：宽温工作(-20°C~60°C)，EMC认证
+`;
+
+// 分类配置 - 与新闻中心三板块对应，包含角色约束和结构化输出模板
 const CATEGORY_CONFIG = {
   "公司新闻": {
-    // 基于公司产品生成的关键词
     keywords: [
       "长凌VTX发布", "Changling VTX release",
       "长凌无人机应用案例", "drone enterprise case study",
@@ -587,6 +605,27 @@ const CATEGORY_CONFIG = {
     style: "正式、专业、强调企业实力和国际影响力",
     description: "企业动态、产品发布、应用案例等公司相关新闻",
     contentFocus: "重点关注无人机设备制造商的企业新闻，产品发布，合作案例",
+    // AI角色约束
+    persona: "CANI（长凌科技）品牌公关总监",
+    rewriteInstructions: `【角色】你是CANI（长凌科技）的品牌公关总监，负责将素材改写为公司官网新闻稿。
+
+【改写策略 - 多维延展】
+对于已有素材，不要简单"复读"，而是从不同维度进行延展创作：
+- 用户视角：这个产品/事件如何解决用户的实际痛点？
+- 技术视角：深度解析背后的设计逻辑和技术创新
+- 行业视角：释放了行业发展的哪些信号？
+
+【输出结构】
+1. 标题：体现企业实力，包含品牌关键词
+2. 核心事件（200字）：交代事件背景、意义
+3. 技术/产品亮点（300字）：结合CANI产品线说明技术优势
+4. 行业影响（200字）：分析对无人机配件行业的影响
+5. CANI品牌声明（100字）：自然植入品牌价值观
+
+【关键约束】
+- 每篇必须提及至少2个CANI产品系列
+- 数据和参数必须准确，不要编造
+- 语气正式但不生硬，有温度感`,
   },
   "行业动态": {
     keywords: [
@@ -599,6 +638,24 @@ const CATEGORY_CONFIG = {
     style: "客观、全面、有深度分析，关注国际政策和市场趋势",
     description: "政策法规、市场分析、行业趋势等宏观信息",
     contentFocus: "关注全球无人机政策变化、市场动态、行业发展趋势",
+    persona: "无人机行业资深观察员",
+    rewriteInstructions: `【角色】你是无人机行业的资深观察员，拥有10年行业分析经验。
+
+【改写策略 - 重构二次创作】
+不要简单洗稿，而是"重构"：提取核心事实，加入专业分析，生成原创观点。
+
+【输出结构（严格遵守）】
+1. 吸引力标题：包含行业热点词，禁止"XX发布"等平庸标题
+2. 核心快讯（150字内）：三句话概括——背景、核心人物/公司、结果
+3. 深度解读（300字）：分析此动态对无人机配件行业（尤其图传、飞控、电调）的影响
+4. CANI视角（150字）：如果该动态利好技术升级，自然提及CANI的技术储备和产品优势
+5. 行业展望（100字）：未来趋势预判
+
+【关键约束】
+- 禁止出现"据报道"、"近期"、"相关人士"等采集感明显的词汇
+- 第一句话必须直接切入主题，不要任何铺垫
+- 数据和事实必须来源于原始素材，不要编造
+- 如果原文与无人机配件关系不大，也要从供应链或技术角度找到关联点`,
   },
   "技术分享": {
     keywords: [
@@ -613,6 +670,33 @@ const CATEGORY_CONFIG = {
     style: "专业科普、深入浅出、解释技术原理和工作方式，适合技术爱好者阅读",
     description: "技术原理、教程、知识科普等技术内容",
     contentFocus: "以产品科普为主，解释无人机配件的工作原理、选购指南、使用教程",
+    persona: "CANI（长凌科技）首席技术专家",
+    rewriteInstructions: `【角色】你是CANI（长凌科技）的首席技术专家（CTO），拥有深厚的无人机配件技术功底。
+
+【改写策略 - 知识库重组】
+不要简单洗稿！你需要将通用技术文章与CANI的产品线进行深度关联，输出像"技术博客"而非"新闻搬运"。
+
+【改写规则】
+1. 去同质化：删除原始素材中所有常识性废话，直接切入核心技术逻辑
+2. 知识注入：
+   - 提及"图传"→ 结合CANI数字图传的低延迟(<30ms)、4K传输、多频段抗干扰特性
+   - 提及"飞控"→ 关联CANI FC的F7/H7芯片方案、PID算法优化、GPS救援功能
+   - 提及"电调"→ 说明CANI ESC的BLHeli_32协议、48KHz PWM、电流检测技术
+   - 提及"遥控"→ 介绍CANI ELRS系统的LoRa调制、50km+超长距离、500Hz刷新率
+3. 专业口吻：使用行业术语（射频调度、PID算法、LoRa调制、跳频扩频），多用数据描述
+4. SEO结构：标题必须包含"[产品核心词] + [技术应用场景] + 解决方案"
+
+【输出结构】
+1. 技术主题引入（200字）：直接说明技术问题
+2. 技术原理深度解析（400字）：结合图表说明工作原理，注入CANI技术参数
+3. 实际应用场景（200字）：以具体场景说明技术价值
+4. CANI专家点评（150字）：以CTO视角总结，自然推荐CANI解决方案
+
+【关键约束】
+- 保留原文中所有技术参数和数据，不要丢失
+- 将通用方案替换为CANI的技术路径
+- 必须包含至少5个专业关键词：低延迟、抗干扰、高清传输、兼容性、工业级等
+- 字数800-1500字，确保技术深度`,
   },
 };
 
@@ -862,8 +946,64 @@ ${rawContent.substring(0, 8000)}
   }
 }
 
-// 完整清洗流程：先基础清洗，再AI深度清洗
+// 前置内容过滤 - 在消耗AI Token之前快速判断内容是否值得处理
+function preFilterContent(rawContent: string, title: string): { pass: boolean; reason: string } {
+  // 1. 字数过滤：低于500字符直接丢弃（通常是广告或短快讯）
+  if (rawContent.length < 500) {
+    return { pass: false, reason: `内容过短(${rawContent.length}字符)，可能是广告或快讯` };
+  }
+
+  // 2. 关键词初筛：必须包含至少2个核心词
+  const coreKeywords = [
+    "无人机", "drone", "UAV", "图传", "VTX", "飞控", "flight controller",
+    "电调", "ESC", "FPV", "遥控", "ELRS", "GPS", "云台", "gimbal",
+    "航拍", "aerial", "eVTOL", "低空", "无人系统", "UAS",
+    "多旋翼", "quadcopter", "hexacopter", "固定翼", "VTOL",
+    "吊舱", "payload", "传感器", "sensor", "遥感", "remote sensing",
+    "巡检", "inspection", "测绘", "mapping", "植保", "agriculture",
+  ];
+  
+  const lowerContent = (rawContent + " " + title).toLowerCase();
+  let matchCount = 0;
+  for (const kw of coreKeywords) {
+    if (lowerContent.includes(kw.toLowerCase())) {
+      matchCount++;
+      if (matchCount >= 2) break;
+    }
+  }
+  
+  if (matchCount < 2) {
+    return { pass: false, reason: `关键词匹配不足(${matchCount}/2)，内容可能与无人机行业无关` };
+  }
+
+  // 3. 广告/垃圾内容检测
+  const spamPatterns = [
+    /立即购买|立即下单|限时优惠|优惠券|折扣码|promo code|discount/gi,
+    /微信号|加我微信|扫码关注|二维码|QR code/gi,
+    /代理|加盟|招商|赚钱|passive income/gi,
+  ];
+  
+  let spamHits = 0;
+  for (const pattern of spamPatterns) {
+    if (pattern.test(rawContent)) spamHits++;
+  }
+  
+  if (spamHits >= 2) {
+    return { pass: false, reason: `检测到${spamHits}个垃圾/广告模式` };
+  }
+
+  return { pass: true, reason: "通过前置过滤" };
+}
+
+// 完整清洗流程：前置过滤 → 基础清洗 → AI深度清洗
 async function cleanContent(rawContent: string, title: string = ""): Promise<string> {
+  // 第零步：前置过滤
+  const filterResult = preFilterContent(rawContent, title);
+  if (!filterResult.pass) {
+    console.log(`Pre-filter rejected: ${filterResult.reason} - ${title.substring(0, 50)}`);
+    return "";
+  }
+
   // 第一步：基础正则清洗
   const basicCleaned = basicCleanContent(rawContent);
   
@@ -1339,7 +1479,15 @@ async function rewriteArticleWithAI(
     console.log(`Rewriting article with AI, original images: ${originalImages.length}`);
     addLog?.('info', '🤖 调用豆包AI进行内容创作...', { step: 'rewrite', details: `原标题: ${originalTitle.substring(0, 50)}` });
     
-    const prompt = `你是一位资深自媒体写手兼无人机行业新闻编辑，为专业无人机技术公司官网撰写高质量、高吸引力的新闻稿。
+    const categoryConfig = CATEGORY_CONFIG[category as keyof typeof CATEGORY_CONFIG];
+    const rewriteInstructions = categoryConfig?.rewriteInstructions || "";
+    const persona = categoryConfig?.persona || "资深无人机行业编辑";
+    const style = categoryConfig?.style || "专业、客观、信息丰富";
+    const focus = categoryConfig?.contentFocus || "无人机行业相关内容";
+    
+    const prompt = `${rewriteInstructions}
+
+${CANI_KNOWLEDGE_BASE}
 
 【原始标题】${originalTitle}
 
@@ -1351,69 +1499,46 @@ async function rewriteArticleWithAI(
 
 【内容重点】${focus}
 
-【我们的产品线】
-多旋翼无人机、VTX/VRX图传设备、飞控/电调、吊舱/云台、数字图传、无人机相机、ELRS遥控系统、GPS模块、接收屏、FPV眼镜、无人机配件
-
 【标题写作技巧 - 必须使用以下技巧之一】
-1. 强调式标题：使用强调词如"刚刚"、"突发"、"重磅"、"震惊"、"必看"等，利用损失厌恶心理吸引读者
-   范例：刚刚！无人机新规正式落地，这些变化你必须知道！
-   
-2. 制造反差：在相邻元素之间创建明显差异以吸引注意力
-   范例：我放弃了月薪3万的工作，投身无人机行业，结果让我意外
-
-3. 巧用数字：用具体数字给人清晰、具体、易操作的感觉
+1. 强调式标题：使用"重磅"、"突破"、"必看"等词，利用损失厌恶吸引读者
+   范例：重磅！低延迟图传技术突破30ms瓶颈，CANI方案引领行业变革
+2. 巧用数字：用具体数字给人清晰、具体的感觉
    范例：选购FPV图传，你必须知道这5个关键参数
-
-4. 制造悬念：前半部分强吸引力事件，后半部分用反常行为作钩子
-   范例：看完这个测试数据，我决定放弃传统图传设备
+3. 制造悬念：前半部分强吸引力，后半部分用反常行为作钩子
+   范例：看完这个延迟测试数据，我决定放弃传统模拟图传
+4. 专业问答式：以目标用户的核心问题为标题
+   范例：2025年工业级无人机图传如何选？这份参数对比告诉你答案
 
 【重要要求】
-1. 标题必须使用上述4种技巧之一，30字以内，只输出1个最合适的标题
-2. 完全重新创作文章，不要简单翻译或复制
-3. 文章需要同时提供中文版和英文版
-4. 每篇文章必须包含至少3个图片插入位置标记
+1. 标题30字以内，必须使用上述技巧之一
+2. 完全重新创作，不是翻译或复制
+3. 同时提供中文版和英文版
+4. 每篇包含至少3个图片插入标记
 5. 中文版800-1500字，英文版500-1000词
-6. 注重可读性和专业性
-7. 禁止包含任何URL、广告信息
+6. 禁止包含任何URL、广告
+7. 禁止出现"据报道"、"近期"、"相关人士"等采集痕迹词汇
+8. 第一句话必须直接切入主题
 
 【图片插入格式 - 必须包含至少3个】
-在文章适当位置插入图片标记：
 <!-- IMAGE_PLACEHOLDER_1 -->
 <!-- IMAGE_PLACEHOLDER_2 -->
 <!-- IMAGE_PLACEHOLDER_3 -->
 
-【图片搜索关键词 - 重要！】
-你需要额外生成3-5个英文图片搜索关键词（image_keywords字段），用于从Unsplash等图库搜索与文章内容相关的配图。
-这些关键词应该：
-- 必须是英文单词或短语（适合在Unsplash搜索）
-- 描述文章中可以配图的具体场景或物体
-- 例如：drone aerial view, industrial inspection, power line, agriculture spraying, FPV racing, quadcopter technology
-- 不要使用太抽象的词汇，要具体、视觉化
+【图片搜索关键词】
+生成3-5个英文图片搜索关键词（image_keywords字段），用于搜索配图。
+要求具体、视觉化，如：drone aerial inspection, FPV racing quadcopter, circuit board closeup
 
 【输出JSON格式】
 {
-  "title": "中文标题（使用上述技巧，30字以内）",
-  "title_en": "English Title (engaging, 5-12 words)",
+  "title": "中文标题（30字以内）",
+  "title_en": "English Title (5-12 words)",
   "summary": "中文摘要（100-150字）",
   "summary_en": "English summary (50-80 words)",
-  "content": "中文HTML正文（包含h3/p/strong标签和至少3个图片标记，800-1500字）",
-  "content_en": "English HTML content (with h3/p/strong tags and at least 3 image placeholders, 500-1000 words)",
+  "content": "中文HTML正文（h3/p/strong/ul标签 + 至少3个图片标记，800-1500字）",
+  "content_en": "English HTML content (h3/p/strong tags + 3 image placeholders, 500-1000 words)",
   "keywords": ["关键词1", "关键词2", "关键词3", "keyword4", "keyword5"],
   "image_keywords": ["drone aerial photography", "industrial inspection drone", "technology innovation"]
-}
-
-【正文结构示例】
-<h3>核心事件介绍</h3>
-<p>开篇段落...</p>
-<!-- IMAGE_PLACEHOLDER_1 -->
-<h3>详细分析</h3>
-<p>详细内容...</p>
-<!-- IMAGE_PLACEHOLDER_2 -->
-<h3>深入解读</h3>
-<p>更多内容...</p>
-<!-- IMAGE_PLACEHOLDER_3 -->
-<h3>总结与展望</h3>
-<p>结尾段落...</p>`;
+}`;
 
     const response = await fetch(`https://ark.cn-beijing.volces.com/api/v3/responses`, {
       method: "POST",
