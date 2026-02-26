@@ -60,11 +60,15 @@ const TranslationManagement = () => {
 
         if (data?.value) {
           const translations = JSON.parse(data.value);
+          const translatedKeySet = new Set(Object.keys(translations));
+          // Count how many source keys (from zh.ts) exist in the DB translations
+          const sourceKeys = Object.keys(zhTranslations);
+          const coveredCount = sourceKeys.filter(k => translatedKeySet.has(k)).length;
           results.push({
             lang: lang.code,
             name: lang.name,
             hasTranslation: true,
-            keyCount: Object.keys(translations).length,
+            keyCount: coveredCount,
             lastUpdated: new Date(data.updated_at).toLocaleString('zh-CN'),
           });
         } else {
