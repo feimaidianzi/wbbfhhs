@@ -4,121 +4,129 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { LanguageProvider } from "@/contexts/LanguageContext";
-import { AIAssistant } from "@/components/AIAssistant";
-import { AIAssistantErrorBoundary } from "@/components/AIAssistant/ErrorBoundary";
 import { ScrollToTop } from "@/components/ScrollToTop";
+import React, { Suspense } from "react";
+
+// Only eagerly load the homepage for fastest FCP
 import Index from "./pages/Index";
-import NotFound from "./pages/NotFound";
-import About from "./pages/About";
-import Applications from "./pages/Applications";
-import Software from "./pages/Software";
-import ExamSystem from "./pages/software/ExamSystem";
-import PVInspection from "./pages/software/PVInspection";
-import DroneManagement from "./pages/software/DroneManagement";
-import PowerInspectionSystem from "./pages/software/PowerInspectionSystem";
-import PVSystem from "./pages/software/PVSystem";
-import EnvironmentSystem from "./pages/software/EnvironmentSystem";
-import GroundStation from "./pages/software/GroundStation";
-import SwarmGroundStation from "./pages/software/SwarmGroundStation";
-import Projects from "./pages/Projects";
-import ProjectTraining from "./pages/projects/ProjectTraining";
-import DroneShow from "./pages/projects/DroneShow";
-import FlightService from "./pages/projects/FlightService";
-import ProjectCooperation from "./pages/projects/ProjectCooperation";
-import CustomResearch from "./pages/CustomResearch";
-import FPV from "./pages/FPV";
-import FPVCategory from "./pages/fpv/FPVCategory";
-import News from "./pages/News";
-import Contact from "./pages/Contact";
-import Products from "./pages/Products";
 
-import Tethered from "./pages/products/Tethered";
-import Logistics from "./pages/products/Logistics";
-import Firefighting from "./pages/products/Firefighting";
-import WireLaying from "./pages/products/WireLaying";
-import MultiRotor from "./pages/products/MultiRotor";
-import Agriculture from "./pages/products/Agriculture";
-import Training from "./pages/products/Training";
-import WorkDrone from "./pages/products/WorkDrone";
-import Accessories from "./pages/products/Accessories";
-import Swarm from "./pages/products/Swarm";
-import SwarmKit from "./pages/products/SwarmKit";
+// Lazy load everything else
+const NotFound = React.lazy(() => import("./pages/NotFound"));
+const About = React.lazy(() => import("./pages/About"));
+const Applications = React.lazy(() => import("./pages/Applications"));
+const Software = React.lazy(() => import("./pages/Software"));
+const ExamSystem = React.lazy(() => import("./pages/software/ExamSystem"));
+const PVInspection = React.lazy(() => import("./pages/software/PVInspection"));
+const DroneManagement = React.lazy(() => import("./pages/software/DroneManagement"));
+const PowerInspectionSystem = React.lazy(() => import("./pages/software/PowerInspectionSystem"));
+const PVSystem = React.lazy(() => import("./pages/software/PVSystem"));
+const EnvironmentSystem = React.lazy(() => import("./pages/software/EnvironmentSystem"));
+const GroundStation = React.lazy(() => import("./pages/software/GroundStation"));
+const SwarmGroundStation = React.lazy(() => import("./pages/software/SwarmGroundStation"));
+const Projects = React.lazy(() => import("./pages/Projects"));
+const ProjectTraining = React.lazy(() => import("./pages/projects/ProjectTraining"));
+const DroneShow = React.lazy(() => import("./pages/projects/DroneShow"));
+const FlightService = React.lazy(() => import("./pages/projects/FlightService"));
+const ProjectCooperation = React.lazy(() => import("./pages/projects/ProjectCooperation"));
+const CustomResearch = React.lazy(() => import("./pages/CustomResearch"));
+const FPV = React.lazy(() => import("./pages/FPV"));
+const FPVCategory = React.lazy(() => import("./pages/fpv/FPVCategory"));
+const News = React.lazy(() => import("./pages/News"));
+const Contact = React.lazy(() => import("./pages/Contact"));
+const Products = React.lazy(() => import("./pages/Products"));
+const Tethered = React.lazy(() => import("./pages/products/Tethered"));
+const Logistics = React.lazy(() => import("./pages/products/Logistics"));
+const Firefighting = React.lazy(() => import("./pages/products/Firefighting"));
+const WireLaying = React.lazy(() => import("./pages/products/WireLaying"));
+const MultiRotor = React.lazy(() => import("./pages/products/MultiRotor"));
+const Agriculture = React.lazy(() => import("./pages/products/Agriculture"));
+const Training = React.lazy(() => import("./pages/products/Training"));
+const WorkDrone = React.lazy(() => import("./pages/products/WorkDrone"));
+const Accessories = React.lazy(() => import("./pages/products/Accessories"));
+const Swarm = React.lazy(() => import("./pages/products/Swarm"));
+const SwarmKit = React.lazy(() => import("./pages/products/SwarmKit"));
+const TH100 = React.lazy(() => import("./pages/products/tethered/TH100"));
+const TH200 = React.lazy(() => import("./pages/products/tethered/TH200"));
+const TH300 = React.lazy(() => import("./pages/products/tethered/TH300"));
+const WL10 = React.lazy(() => import("./pages/products/logistics/WL10"));
+const WL20 = React.lazy(() => import("./pages/products/logistics/WL20"));
+const WL30 = React.lazy(() => import("./pages/products/logistics/WL30"));
+const X650 = React.lazy(() => import("./pages/products/multi-rotor/X650"));
+const X850 = React.lazy(() => import("./pages/products/multi-rotor/X850"));
+const X1200 = React.lazy(() => import("./pages/products/multi-rotor/X1200"));
+const X1600 = React.lazy(() => import("./pages/products/multi-rotor/X1600"));
+const SwarmCustom = React.lazy(() => import("./pages/custom-research/SwarmCustom"));
+const SoftwareCustom = React.lazy(() => import("./pages/custom-research/Software"));
+const PayloadCustom = React.lazy(() => import("./pages/custom-research/PayloadCustom"));
+const AccessoriesCustom = React.lazy(() => import("./pages/custom-research/AccessoriesCustom"));
+const DroneCustom = React.lazy(() => import("./pages/custom-research/DroneCustom"));
+const PowerInspection = React.lazy(() => import("./pages/applications/PowerInspection"));
+const TransmissionLine = React.lazy(() => import("./pages/applications/power/TransmissionLine"));
+const Substation = React.lazy(() => import("./pages/applications/power/Substation"));
+const SolarPanel = React.lazy(() => import("./pages/applications/power/SolarPanel"));
+const CaseDetail = React.lazy(() => import("./pages/applications/power/CaseDetail"));
+const LogisticsApp = React.lazy(() => import("./pages/applications/LogisticsApp"));
+const Military = React.lazy(() => import("./pages/applications/Military"));
+const FirefightingEmergency = React.lazy(() => import("./pages/solutions/FirefightingEmergency"));
+const EnvironmentalMonitoring = React.lazy(() => import("./pages/applications/EnvironmentalMonitoring"));
+const Solutions = React.lazy(() => import("./pages/applications/Solutions"));
+const TransportationMonitoring = React.lazy(() => import("./pages/applications/TransportationMonitoring"));
+const WaterConservancy = React.lazy(() => import("./pages/applications/WaterConservancy"));
+const SurveyingMapping = React.lazy(() => import("./pages/solutions/SurveyingMapping"));
+const VtxVrx = React.lazy(() => import("./pages/products/accessories/VtxVrx"));
+const VtxDetail = React.lazy(() => import("./pages/products/accessories/VtxDetail"));
+const FcEsc = React.lazy(() => import("./pages/products/accessories/FcEsc"));
+const FcEscDetail = React.lazy(() => import("./pages/products/accessories/FcEscDetail"));
+const Gimbal = React.lazy(() => import("./pages/products/accessories/Gimbal"));
+const GimbalDetail = React.lazy(() => import("./pages/products/accessories/GimbalDetail"));
+const CameraPage = React.lazy(() => import("./pages/products/accessories/Camera"));
+const CameraDetail = React.lazy(() => import("./pages/products/accessories/CameraDetail"));
+const DigitalFpv = React.lazy(() => import("./pages/fpv/DigitalFpv"));
+const DigitalFpvDetail = React.lazy(() => import("./pages/fpv/DigitalFpvDetail"));
+const Elrs = React.lazy(() => import("./pages/products/accessories/Elrs"));
+const ElrsDetail = React.lazy(() => import("./pages/products/accessories/ElrsDetail"));
+const OtherAccessories = React.lazy(() => import("./pages/products/accessories/OtherAccessories"));
+const OtherAccessoriesDetail = React.lazy(() => import("./pages/products/accessories/OtherAccessoriesDetail"));
+const AiModule = React.lazy(() => import("./pages/products/accessories/AiModule"));
+const AiModuleDetail = React.lazy(() => import("./pages/products/accessories/AiModuleDetail"));
+const Auth = React.lazy(() => import("./pages/Auth"));
+const AdminLogin = React.lazy(() => import("./pages/admin/AdminLogin"));
+const AdminDashboard = React.lazy(() => import("./pages/admin/AdminDashboard"));
+const UserManagement = React.lazy(() => import("./pages/admin/UserManagement"));
+const NewsManagement = React.lazy(() => import("./pages/admin/NewsManagement"));
+const ContentHub = React.lazy(() => import("./pages/admin/ContentHub"));
+const ProductManagement = React.lazy(() => import("./pages/admin/ProductManagement"));
+const InquiryManagement = React.lazy(() => import("./pages/admin/InquiryManagement"));
+const SystemSettings = React.lazy(() => import("./pages/admin/SystemSettings"));
+const ActivityLogs = React.lazy(() => import("./pages/admin/ActivityLogs"));
+const SpecificationTemplates = React.lazy(() => import("./pages/admin/SpecificationTemplates"));
+const NewsCollection = React.lazy(() => import("./pages/admin/NewsCollection"));
+const CustomerLeads = React.lazy(() => import("./pages/admin/CustomerLeads"));
+const CustomerServiceChat = React.lazy(() => import("./pages/admin/CustomerServiceChat"));
+const CustomerServiceLogin = React.lazy(() => import("./pages/admin/CustomerServiceLogin"));
+const VisitorAnalytics = React.lazy(() => import("./pages/admin/VisitorAnalytics"));
+const TranslationManagement = React.lazy(() => import("./pages/admin/TranslationManagement"));
+const SEOManagement = React.lazy(() => import("./pages/admin/SEOManagement"));
+const NewsDetail = React.lazy(() => import("./pages/NewsDetail"));
+const DatabaseProductDetail = React.lazy(() => import("./pages/products/DatabaseProductDetail"));
+const DatabaseProductList = React.lazy(() => import("./pages/products/DatabaseProductList"));
 
+// Lazy load heavy global components
+const VisitorTracker = React.lazy(() => import("./components/VisitorTracker"));
+const AIAssistant = React.lazy(() => import("./components/AIAssistant").then(m => ({ default: m.AIAssistant })));
+const ImageAltScanner = React.lazy(() => import("./components/ImageAltScanner").then(m => ({ default: m.ImageAltScanner })));
 
-import TH100 from "./pages/products/tethered/TH100";
-import TH200 from "./pages/products/tethered/TH200";
-import TH300 from "./pages/products/tethered/TH300";
-import WL10 from "./pages/products/logistics/WL10";
-import WL20 from "./pages/products/logistics/WL20";
-import WL30 from "./pages/products/logistics/WL30";
-import X650 from "./pages/products/multi-rotor/X650";
-import X850 from "./pages/products/multi-rotor/X850";
-import X1200 from "./pages/products/multi-rotor/X1200";
-import X1600 from "./pages/products/multi-rotor/X1600";
+// ErrorBoundary is a class component - import eagerly (tiny file)
+import { AIAssistantErrorBoundary } from "./components/AIAssistant/ErrorBoundary";
 
-import SwarmCustom from "./pages/custom-research/SwarmCustom";
-import SoftwareCustom from "./pages/custom-research/Software";
-import PayloadCustom from "./pages/custom-research/PayloadCustom";
-import AccessoriesCustom from "./pages/custom-research/AccessoriesCustom";
-import DroneCustom from "./pages/custom-research/DroneCustom";
-// Application detail pages
-import PowerInspection from "./pages/applications/PowerInspection";
-import TransmissionLine from "./pages/applications/power/TransmissionLine";
-import Substation from "./pages/applications/power/Substation";
-import SolarPanel from "./pages/applications/power/SolarPanel";
-import CaseDetail from "./pages/applications/power/CaseDetail";
-import LogisticsApp from "./pages/applications/LogisticsApp";
-import Military from "./pages/applications/Military";
-import FirefightingEmergency from "./pages/solutions/FirefightingEmergency";
-import EnvironmentalMonitoring from "./pages/applications/EnvironmentalMonitoring";
-import Solutions from "./pages/applications/Solutions";
-import TransportationMonitoring from "./pages/applications/TransportationMonitoring";
-import WaterConservancy from "./pages/applications/WaterConservancy";
-import SurveyingMapping from "./pages/solutions/SurveyingMapping";
-// Accessories detail pages
-import VtxVrx from "./pages/products/accessories/VtxVrx";
-import VtxDetail from "./pages/products/accessories/VtxDetail";
-import FcEsc from "./pages/products/accessories/FcEsc";
-import FcEscDetail from "./pages/products/accessories/FcEscDetail";
-import Gimbal from "./pages/products/accessories/Gimbal";
-import GimbalDetail from "./pages/products/accessories/GimbalDetail";
-import CameraPage from "./pages/products/accessories/Camera";
-import CameraDetail from "./pages/products/accessories/CameraDetail";
-import DigitalFpv from "./pages/fpv/DigitalFpv";
-import DigitalFpvDetail from "./pages/fpv/DigitalFpvDetail";
-import Elrs from "./pages/products/accessories/Elrs";
-import ElrsDetail from "./pages/products/accessories/ElrsDetail";
-import OtherAccessories from "./pages/products/accessories/OtherAccessories";
-import OtherAccessoriesDetail from "./pages/products/accessories/OtherAccessoriesDetail";
-import AiModule from "./pages/products/accessories/AiModule";
-import AiModuleDetail from "./pages/products/accessories/AiModuleDetail";
-import Auth from "./pages/Auth";
-import AdminLogin from "./pages/admin/AdminLogin";
-import AdminDashboard from "./pages/admin/AdminDashboard";
-import UserManagement from "./pages/admin/UserManagement";
-import NewsManagement from "./pages/admin/NewsManagement";
-import ContentHub from "./pages/admin/ContentHub";
-import ProductManagement from "./pages/admin/ProductManagement";
-import InquiryManagement from "./pages/admin/InquiryManagement";
-import SystemSettings from "./pages/admin/SystemSettings";
-import ActivityLogs from "./pages/admin/ActivityLogs";
-import SpecificationTemplates from "./pages/admin/SpecificationTemplates";
+const queryClient = new QueryClient();
 
-import NewsCollection from "./pages/admin/NewsCollection";
-import CustomerLeads from "./pages/admin/CustomerLeads";
-import CustomerServiceChat from "./pages/admin/CustomerServiceChat";
-import CustomerServiceLogin from "./pages/admin/CustomerServiceLogin";
-import VisitorAnalytics from "./pages/admin/VisitorAnalytics";
-import TranslationManagement from "./pages/admin/TranslationManagement";
-import SEOManagement from "./pages/admin/SEOManagement";
-import VisitorTracker from "./components/VisitorTracker";
-import { ImageAltScanner } from "./components/ImageAltScanner";
-import NewsDetail from "./pages/NewsDetail";
-import DatabaseProductDetail from "./pages/products/DatabaseProductDetail";
-import DatabaseProductList from "./pages/products/DatabaseProductList";
-import React from "react";
-
-const queryClient = new QueryClient(); // force rebuild
+// Loading fallback
+const PageLoader = () => (
+  <div className="min-h-screen flex items-center justify-center bg-background">
+    <div className="w-8 h-8 border-2 border-primary border-t-transparent rounded-full animate-spin" />
+  </div>
+);
 
 // Define all public routes as data to avoid duplication
 const publicRoutes = [
@@ -135,7 +143,6 @@ const publicRoutes = [
   { path: "/applications/military", element: <Military /> },
   { path: "/solutions/industrial-uav-environmental-monitoring", element: <EnvironmentalMonitoring /> },
   { path: "/solutions/uav-firefighting-emergency-rescue", element: <FirefightingEmergency /> },
-  
   { path: "/applications/solutions", element: <Solutions /> },
   { path: "/solutions/industrial-uav-water-conservancy", element: <WaterConservancy /> },
   { path: "/solutions/industrial-uav-transportation-monitoring", element: <TransportationMonitoring /> },
@@ -155,7 +162,6 @@ const publicRoutes = [
   { path: "/projects/flight-service", element: <FlightService /> },
   { path: "/projects/cooperation", element: <ProjectCooperation /> },
   { path: "/custom-research", element: <CustomResearch /> },
-  
   { path: "/custom-research/swarm", element: <SwarmCustom /> },
   { path: "/custom-research/software", element: <SoftwareCustom /> },
   { path: "/custom-research/payload", element: <PayloadCustom /> },
@@ -168,8 +174,6 @@ const publicRoutes = [
   { path: "/contact", element: <Contact /> },
   { path: "/products", element: <Products /> },
   { path: "/products/catalog", element: <DatabaseProductList /> },
-
-
   { path: "/products/tethered", element: <Tethered /> },
   { path: "/products/tethered/th-100", element: <TH100 /> },
   { path: "/products/tethered/th-200", element: <TH200 /> },
@@ -210,7 +214,7 @@ const publicRoutes = [
   { path: "/products/detail/:productId", element: <DatabaseProductDetail /> },
 ];
 
-// Language codes for path prefix (excluding 'en' which uses no prefix as international default)
+// Language codes for path prefix
 const langCodes = ['en', 'zh', 'vi', 'th', 'ms', 'id', 'ja', 'ko', 'fr', 'de', 'es', 'ru', 'ar', 'tr'];
 
 const App = () => (
@@ -221,48 +225,48 @@ const App = () => (
         <Sonner />
         <BrowserRouter>
           <ScrollToTop />
-          <Routes>
-            {/* Admin routes - no language prefix needed */}
-            <Route path="/admin/login" element={<AdminLogin />} />
-            <Route path="/admin" element={<AdminDashboard />} />
-            <Route path="/admin/users" element={<UserManagement />} />
-            <Route path="/admin/news" element={<NewsManagement />} />
-            <Route path="/admin/products" element={<ProductManagement />} />
-            <Route path="/admin/inquiries" element={<InquiryManagement />} />
-            <Route path="/admin/settings" element={<SystemSettings />} />
-            <Route path="/admin/logs" element={<ActivityLogs />} />
-            <Route path="/admin/specification-templates" element={<SpecificationTemplates />} />
-            
-            <Route path="/admin/news-collection" element={<NewsCollection />} />
-            <Route path="/admin/content-hub" element={<ContentHub />} />
-            <Route path="/admin/customer-leads" element={<CustomerLeads />} />
-            <Route path="/admin/customer-service" element={<CustomerServiceChat />} />
-            <Route path="/admin/customer-service/login" element={<CustomerServiceLogin />} />
-            <Route path="/admin/visitor-analytics" element={<VisitorAnalytics />} />
-            <Route path="/admin/translations" element={<TranslationManagement />} />
-            <Route path="/admin/seo-management" element={<SEOManagement />} />
+          <Suspense fallback={<PageLoader />}>
+            <Routes>
+              {/* Admin routes */}
+              <Route path="/admin/login" element={<AdminLogin />} />
+              <Route path="/admin" element={<AdminDashboard />} />
+              <Route path="/admin/users" element={<UserManagement />} />
+              <Route path="/admin/news" element={<NewsManagement />} />
+              <Route path="/admin/products" element={<ProductManagement />} />
+              <Route path="/admin/inquiries" element={<InquiryManagement />} />
+              <Route path="/admin/settings" element={<SystemSettings />} />
+              <Route path="/admin/logs" element={<ActivityLogs />} />
+              <Route path="/admin/specification-templates" element={<SpecificationTemplates />} />
+              <Route path="/admin/news-collection" element={<NewsCollection />} />
+              <Route path="/admin/content-hub" element={<ContentHub />} />
+              <Route path="/admin/customer-leads" element={<CustomerLeads />} />
+              <Route path="/admin/customer-service" element={<CustomerServiceChat />} />
+              <Route path="/admin/customer-service/login" element={<CustomerServiceLogin />} />
+              <Route path="/admin/visitor-analytics" element={<VisitorAnalytics />} />
+              <Route path="/admin/translations" element={<TranslationManagement />} />
+              <Route path="/admin/seo-management" element={<SEOManagement />} />
 
-            {/* Public routes - no prefix (English international default) */}
-            {publicRoutes.map(({ path, element }) => (
-              <Route key={path} path={path} element={element} />
-            ))}
+              {/* Public routes */}
+              {publicRoutes.map(({ path, element }) => (
+                <Route key={path} path={path} element={element} />
+              ))}
 
-            {/* Public routes - with language prefix (e.g., /en/about, /ja/products) */}
-            {langCodes.map(lang => (
-              <Route key={lang} path={`/${lang}/*`} element={<LangRoutes />} />
-            ))}
+              {/* Language-prefixed routes */}
+              {langCodes.map(lang => (
+                <Route key={lang} path={`/${lang}/*`} element={<LangRoutes />} />
+              ))}
 
-            {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
-            <Route path="*" element={<NotFound />} />
-          </Routes>
-          {/* Global Visitor Tracking */}
-          <VisitorTracker />
-          {/* Dev-only: Image Alt Tag Scanner */}
-          <ImageAltScanner />
-          {/* Global AI Assistant - visible on all pages */}
-          <AIAssistantErrorBoundary>
-            <AIAssistant />
-          </AIAssistantErrorBoundary>
+              <Route path="*" element={<NotFound />} />
+            </Routes>
+          </Suspense>
+          {/* Lazy load non-critical global components */}
+          <Suspense fallback={null}>
+            <VisitorTracker />
+            <ImageAltScanner />
+            <AIAssistantErrorBoundary>
+              <AIAssistant />
+            </AIAssistantErrorBoundary>
+          </Suspense>
         </BrowserRouter>
       </TooltipProvider>
     </LanguageProvider>
@@ -271,14 +275,15 @@ const App = () => (
 
 // Sub-routes rendered under /:lang/* prefix
 const LangRoutes = () => (
-  <Routes>
-    {publicRoutes.map(({ path, element }) => {
-      // Convert absolute path to relative (remove leading /)
-      const relativePath = path === '/' ? '/' : path.slice(1);
-      return <Route key={path} path={relativePath === '/' ? '/' : relativePath} element={element} />;
-    })}
-    <Route path="*" element={<NotFound />} />
-  </Routes>
+  <Suspense fallback={<PageLoader />}>
+    <Routes>
+      {publicRoutes.map(({ path, element }) => {
+        const relativePath = path === '/' ? '/' : path.slice(1);
+        return <Route key={path} path={relativePath === '/' ? '/' : relativePath} element={element} />;
+      })}
+      <Route path="*" element={<NotFound />} />
+    </Routes>
+  </Suspense>
 );
 
 export default App;
