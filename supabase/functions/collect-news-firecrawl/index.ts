@@ -629,6 +629,7 @@ const CATEGORY_CONFIG = {
 - 数据基于知识库事实，不编造
 - 以CANI官方第一视角叙述
 - 禁止"据报道"等采集痕迹词汇`,
+    imagePromptStyle: `风格：新品发布会/实验室精测。元素：无人机核心硬件特写、金属光泽、专业灯光、4K细节、CNC铝合金散热片纹理、电路板走线、CANI品牌色调（深蓝+银灰）。构图：产品居中、暗色背景、柔和的环境光打亮产品棱角。`,
   },
   "行业动态": {
     keywords: [
@@ -696,6 +697,7 @@ CANI专注工业级无人机核心配件：
 - 数据和事实必须来源于原始素材，不要编造
 - 从供应链或底层硬件角度分析，即使原文与配件无直接关系
 - 自动提取新闻主体公司名和技术词作为关键词标签`,
+    imagePromptStyle: `风格：行业快讯封面。元素：数字化智慧城市天际线、无人机飞行航线轨迹光带、科技蓝色调、数据流粒子效果、具有冲击力的俯视/仰视科技感视角。构图：宽景16:9、城市与天空各占一半、无人机集群点缀其中。`,
   },
   "技术分析": {
     keywords: [
@@ -764,6 +766,7 @@ CANI专注工业级无人机核心配件：
 - 字数1200-2000字，确保技术深度
 - 禁止"据报道"、"近期"等采集感明显的词汇
 - SEO结构：标题必须包含"[产品核心词]+[技术应用场景]+解决方案"`,
+    imagePromptStyle: `风格：工业3D渲染、赛博工业风。元素：无人机核心硬件（图传模块/飞控/电调）的拆解透视图、电路走线发光、射频信号波形可视化、技术参数浮动标注。构图：暗色背景、硬件居中、科幻蓝绿色光效勾勒硬件轮廓。`,
   },
 };
 
@@ -1537,6 +1540,8 @@ async function rewriteArticleWithAI(
     }
 
     const categoryConfig = CATEGORY_CONFIG[category as keyof typeof CATEGORY_CONFIG];
+    const rewriteInstructions = categoryConfig?.rewriteInstructions || "";
+    const persona = categoryConfig?.persona || "资深无人机行业编辑";
     const style = categoryConfig?.style || "专业、客观、信息丰富";
     const focus = categoryConfig?.contentFocus || "无人机行业相关内容";
 
@@ -1545,12 +1550,6 @@ async function rewriteArticleWithAI(
     
     console.log(`Rewriting article with AI, original images: ${originalImages.length}`);
     addLog?.('info', '🤖 调用豆包AI进行内容创作...', { step: 'rewrite', details: `原标题: ${originalTitle.substring(0, 50)}` });
-    
-    const categoryConfig = CATEGORY_CONFIG[category as keyof typeof CATEGORY_CONFIG];
-    const rewriteInstructions = categoryConfig?.rewriteInstructions || "";
-    const persona = categoryConfig?.persona || "资深无人机行业编辑";
-    const style = categoryConfig?.style || "专业、客观、信息丰富";
-    const focus = categoryConfig?.contentFocus || "无人机行业相关内容";
     
     const prompt = `${rewriteInstructions}
 
@@ -1595,6 +1594,14 @@ ${CANI_KNOWLEDGE_BASE}
 生成3-5个英文图片搜索关键词（image_keywords字段），用于搜索配图。
 要求具体、视觉化，如：drone aerial inspection, FPV racing quadcopter, circuit board closeup
 
+【封面图绘制描述词 - 联动生成】
+根据你刚刚改写的正文核心内容，生成一段200字以内的中英文混合绘图描述词（image_prompt字段）。
+要求：
+- 描述词必须与正文主题高度一致（如讲电力巡检就要有电塔元素）
+- 风格基础指令：${categoryConfig?.imagePromptStyle || '工业3D渲染、写实、赛博工业风、高清'}
+- 必须包含：具体的无人机硬件元素、光影氛围、构图指令、画面主体
+- 禁止出现文字/字母/Logo，纯视觉元素
+
 【输出JSON格式】
 {
   "title": "中文标题（30字以内）",
@@ -1604,7 +1611,8 @@ ${CANI_KNOWLEDGE_BASE}
   "content": "中文HTML正文（h3/p/strong/ul标签 + 至少3个图片标记，800-1500字）",
   "content_en": "English HTML content (h3/p/strong tags + 3 image placeholders, 500-1000 words)",
   "keywords": ["关键词1", "关键词2", "关键词3", "keyword4", "keyword5"],
-  "image_keywords": ["drone aerial photography", "industrial inspection drone", "technology innovation"]
+  "image_keywords": ["drone aerial photography", "industrial inspection drone", "technology innovation"],
+  "image_prompt": "A photorealistic 3D render of a drone VTX module... 工业级无人机数字图传模块特写..."
 }`;
 
     const response = await fetch(`https://ark.cn-beijing.volces.com/api/v3/responses`, {
@@ -1696,6 +1704,79 @@ ${CANI_KNOWLEDGE_BASE}
       });
     }
     
+    // ========== 豆包 Seedream 联动封面图生成 ==========
+    const imagePrompt = typeof result.image_prompt === 'string' ? result.image_prompt.trim() : '';
+    let generatedCoverUrl: string | null = null;
+    
+    if (imagePrompt && imagePrompt.length > 20) {
+      addLog?.('info', `🎨 豆包 Seedream 生成原创封面图...`, { step: 'image', details: `描述词: ${imagePrompt.substring(0, 80)}...` });
+      try {
+        const DOUBAO_API_KEY = Deno.env.get("DOUBAO_API_KEY");
+        if (DOUBAO_API_KEY) {
+          const imgResponse = await fetch("https://ark.cn-beijing.volces.com/api/v3/images/generations", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              "Authorization": `Bearer ${DOUBAO_API_KEY}`,
+            },
+            body: JSON.stringify({
+              model: "doubao-seedream-4-0-250828",
+              prompt: imagePrompt,
+              response_format: "b64_json",
+              size: "1792x1024", // 16:9 宽屏封面
+              sequential_image_generation: "disabled",
+              stream: false,
+              watermark: false,
+            }),
+            signal: AbortSignal.timeout(60000),
+          });
+          
+          if (imgResponse.ok) {
+            const imgData = await imgResponse.json();
+            const b64 = imgData.data?.[0]?.b64_json;
+            if (b64) {
+              // base64 → Uint8Array → 上传到 news-images bucket
+              const binaryStr = atob(b64);
+              const bytes = new Uint8Array(binaryStr.length);
+              for (let i = 0; i < binaryStr.length; i++) {
+                bytes[i] = binaryStr.charCodeAt(i);
+              }
+              
+              const SUPABASE_URL = Deno.env.get("SUPABASE_URL")!;
+              const SUPABASE_SERVICE_ROLE_KEY = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!;
+              const supabaseAdmin = createClient(SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY);
+              
+              const fileName = `cover-ai-${Date.now()}-${Math.random().toString(36).substring(2, 8)}.png`;
+              const filePath = `covers/${fileName}`;
+              
+              const { error: uploadError } = await supabaseAdmin.storage
+                .from("news-images")
+                .upload(filePath, bytes, { contentType: "image/png", upsert: true });
+              
+              if (!uploadError) {
+                const { data: urlData } = supabaseAdmin.storage.from("news-images").getPublicUrl(filePath);
+                generatedCoverUrl = urlData?.publicUrl || null;
+                addLog?.('success', `✅ Seedream 封面图生成成功`, { step: 'image', details: `文件: ${fileName}` });
+                console.log(`Seedream cover uploaded: ${generatedCoverUrl}`);
+              } else {
+                console.error("Cover upload error:", uploadError);
+                addLog?.('warning', `封面图上传失败: ${uploadError.message}`, { step: 'image' });
+              }
+            }
+          } else {
+            const errText = await imgResponse.text();
+            console.error("Seedream API error:", imgResponse.status, errText);
+            addLog?.('warning', `Seedream 生成失败 (${imgResponse.status})`, { step: 'image' });
+          }
+        }
+      } catch (imgError) {
+        console.error("Seedream cover generation error:", imgError);
+        addLog?.('warning', `封面图生成异常: ${String(imgError).substring(0, 100)}`, { step: 'image' });
+      }
+    } else {
+      addLog?.('info', '⏭️ 无有效绘图描述词，跳过封面生成', { step: 'image' });
+    }
+    
     // 准备图片列表
     let images: string[] = [];
     
@@ -1776,8 +1857,11 @@ ${CANI_KNOWLEDGE_BASE}
     const imgKeywordsStr = imageSearchKeywords.slice(0, 2).join(', ');
     addLog?.('success', `✨ AI创作完成: "${newTitle.substring(0, 40)}"`, { 
       step: 'rewrite', 
-      details: `豆包AI生成: 标题"${newTitle.substring(0, 30)}..." | 摘要${(result.summary || "").length}字 | 正文${(result.content || "").length}字 | 关键词: ${keywordsStr} | 图片关键词: ${imgKeywordsStr} | 配图: ${images.length}张`
+      details: `豆包AI生成: 标题"${newTitle.substring(0, 30)}..." | 摘要${(result.summary || "").length}字 | 正文${(result.content || "").length}字 | 关键词: ${keywordsStr} | 图片关键词: ${imgKeywordsStr} | 配图: ${images.length}张${generatedCoverUrl ? ' | 🎨 AI原创封面' : ''}`
     });
+
+    // 封面优先级：Seedream AI生成 > 原文OG封面 > 正文第一张图
+    const finalCover = generatedCoverUrl || coverImage || images[0] || null;
 
     return {
       title: newTitle,
@@ -1787,7 +1871,7 @@ ${CANI_KNOWLEDGE_BASE}
       content: contentWithImages,
       content_en: contentEnWithImages,
       keywords: Array.isArray(result.keywords) ? result.keywords.slice(0, 5) : [],
-      coverImage: coverImage || images[0] || null,
+      coverImage: finalCover,
       images,
       imageSearchKeywords,
     };
