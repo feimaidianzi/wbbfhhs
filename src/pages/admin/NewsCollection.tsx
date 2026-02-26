@@ -1273,7 +1273,7 @@ const NewsCollection = () => {
     setCleaningImages(true);
     setCleaningProgress(null);
     
-    const batchSize = 3; // 每批3篇避免超时
+    const batchSize = 2; // 每批2篇避免超时
     let offset = 0;
     let totalProcessed = 0;
     let totalUpdated = 0;
@@ -1281,6 +1281,7 @@ const NewsCollection = () => {
     let totalRejected = 0;
     let totalImagesProcessedCount = 0;
     const allErrors: string[] = [];
+    let consecutiveFailures = 0;
 
     addCollectionLog({ type: 'step', message: `开始清理历史文章图片（共${totalLimit}篇，每批${batchSize}篇）...` });
     
@@ -1289,28 +1290,37 @@ const NewsCollection = () => {
         const currentBatch = Math.min(batchSize, totalLimit - offset);
         addCollectionLog({ type: 'step', message: `处理第 ${offset + 1}-${offset + currentBatch} 篇...` });
 
-        const response = await supabase.functions.invoke('process-news-images', {
-          body: {
-            action: 'cleanup-history',
-            limit: currentBatch,
-            offset,
-          },
-        });
+        try {
+          const response = await supabase.functions.invoke('process-news-images', {
+            body: {
+              action: 'cleanup-history',
+              limit: currentBatch,
+              offset,
+            },
+          });
 
-        if (response.error) throw response.error;
+          if (response.error) throw response.error;
 
-        const data = response.data?.data;
-        if (data) {
-          totalProcessed += data.processedArticles || 0;
-          totalUpdated += data.updatedArticles || 0;
-          totalConverted += data.totalImagesConverted || 0;
-          totalRejected += data.totalImagesRejected || 0;
-          totalImagesProcessedCount += data.totalImagesProcessed || 0;
-          if (data.errors) allErrors.push(...data.errors);
+          const data = response.data?.data;
+          if (data) {
+            totalProcessed += data.processedArticles || 0;
+            totalUpdated += data.updatedArticles || 0;
+            totalConverted += data.totalImagesConverted || 0;
+            totalRejected += data.totalImagesRejected || 0;
+            totalImagesProcessedCount += data.totalImagesProcessed || 0;
+            if (data.errors) allErrors.push(...data.errors);
+            consecutiveFailures = 0;
 
-          // 如果返回的文章数少于请求数，说明没有更多文章了
-          if ((data.processedArticles || 0) < currentBatch) {
-            addCollectionLog({ type: 'step', message: '没有更多文章需要处理' });
+            if ((data.processedArticles || 0) < currentBatch) {
+              addCollectionLog({ type: 'step', message: '没有更多文章需要处理' });
+              break;
+            }
+          }
+        } catch (batchError: any) {
+          consecutiveFailures++;
+          addCollectionLog({ type: 'warning', message: `第 ${offset + 1}-${offset + currentBatch} 篇处理超时，跳过继续...` });
+          if (consecutiveFailures >= 3) {
+            addCollectionLog({ type: 'error', message: '连续3批失败，停止清理' });
             break;
           }
         }
@@ -1325,9 +1335,8 @@ const NewsCollection = () => {
 
         offset += currentBatch;
         
-        // 批次间短暂延迟
         if (offset < totalLimit) {
-          await new Promise(r => setTimeout(r, 1000));
+          await new Promise(r => setTimeout(r, 2000));
         }
       }
 
