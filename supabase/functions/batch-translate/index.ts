@@ -160,8 +160,8 @@ CRITICAL RULES:
   return translatedContent;
 }
 
-// BACKUP: Lovable AI - Fallback option (single key)
-async function translateWithLovableAI(
+// BACKUP: Doubao - Fallback option (single key)
+async function translateWithDoubao(
   content: Record<string, string>,
   targetLang: string,
   apiKey: string
@@ -197,16 +197,16 @@ CRITICAL RULES:
     const chunk = chunks[i];
     const contentToTranslate = Object.fromEntries(chunk);
 
-    console.log(`[Lovable AI] Translating chunk ${i + 1}/${chunks.length} for ${targetLang}...`);
+    console.log(`[Doubao] Translating chunk ${i + 1}/${chunks.length} for ${targetLang}...`);
 
-    const response = await fetch('https://ai.gateway.lovable.dev/v1/chat/completions', {
+    const response = await fetch('https://ark.cn-beijing.volces.com/api/v3/chat/completions', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
         'Authorization': `Bearer ${apiKey}`,
       },
       body: JSON.stringify({
-        model: 'google/gemini-3-flash-preview',
+        model: 'doubao-seed-1-6-lite-251015',
         messages: [
           { role: 'system', content: systemPrompt },
           { role: 'user', content: JSON.stringify(contentToTranslate) },
@@ -218,15 +218,15 @@ CRITICAL RULES:
 
     if (!response.ok) {
       const errorText = await response.text();
-      console.error(`Lovable AI error: ${response.status} - ${errorText}`);
-      throw new Error(`Lovable AI error: ${response.status}`);
+      console.error(`Doubao error: ${response.status} - ${errorText}`);
+      throw new Error(`Doubao error: ${response.status}`);
     }
 
     const data = await response.json();
     const translatedText = data.choices?.[0]?.message?.content;
 
     if (!translatedText) {
-      throw new Error('No translation returned from Lovable AI');
+      throw new Error('No translation returned from Doubao');
     }
 
     let cleanedText = translatedText.trim();
@@ -247,7 +247,7 @@ CRITICAL RULES:
         }
       }
       Object.assign(translatedContent, parsed);
-      console.log(`[Lovable AI] ✓ Chunk ${i + 1}/${chunks.length} completed, got ${Object.keys(parsed).length} keys`);
+      console.log(`[Doubao] ✓ Chunk ${i + 1}/${chunks.length} completed, got ${Object.keys(parsed).length} keys`);
     } catch (parseError) {
       console.error(`JSON parse error for chunk ${i + 1}:`, parseError);
       throw new Error(`Failed to parse translation for ${targetLang}`);
@@ -300,11 +300,11 @@ Deno.serve(async (req) => {
 
     // Collect all DeepSeek API keys
     const deepseekApiKeys = getDeepSeekApiKeys();
-    const LOVABLE_API_KEY = Deno.env.get('LOVABLE_API_KEY');
+    const DOUBAO_API_KEY = Deno.env.get('DOUBAO_API_KEY');
     
-    console.log(`API Keys status - DeepSeek: ${deepseekApiKeys.length} keys, Lovable: ${LOVABLE_API_KEY ? 'Available' : 'Missing'}`);
+    console.log(`API Keys status - DeepSeek: ${deepseekApiKeys.length} keys, Doubao: ${DOUBAO_API_KEY ? 'Available' : 'Missing'}`);
     
-    if (deepseekApiKeys.length === 0 && !LOVABLE_API_KEY) {
+    if (deepseekApiKeys.length === 0 && !DOUBAO_API_KEY) {
       throw new Error('No translation API key configured');
     }
 
@@ -468,14 +468,14 @@ Deno.serve(async (req) => {
           try {
             newTranslations = await translateWithDeepSeek(contentToTranslate, lang, deepseekApiKeys);
           } catch (deepseekError) {
-            console.error(`DeepSeek failed for ${lang}, falling back to Lovable AI:`, deepseekError);
-            if (!LOVABLE_API_KEY) throw deepseekError;
-            newTranslations = await translateWithLovableAI(contentToTranslate, lang, LOVABLE_API_KEY);
-            usedProvider = 'lovable';
+            console.error(`DeepSeek failed for ${lang}, falling back to Doubao:`, deepseekError);
+            if (!DOUBAO_API_KEY) throw deepseekError;
+            newTranslations = await translateWithDoubao(contentToTranslate, lang, DOUBAO_API_KEY);
+            usedProvider = 'doubao';
           }
         } else {
-          newTranslations = await translateWithLovableAI(contentToTranslate, lang, LOVABLE_API_KEY!);
-          usedProvider = 'lovable';
+          newTranslations = await translateWithDoubao(contentToTranslate, lang, DOUBAO_API_KEY!);
+          usedProvider = 'doubao';
         }
         
         const mergedTranslations = { ...existingTranslations, ...newTranslations };

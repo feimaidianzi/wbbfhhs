@@ -46,24 +46,24 @@ Deno.serve(async (req) => {
       );
     }
 
-    const LOVABLE_API_KEY = Deno.env.get("LOVABLE_API_KEY");
-    if (!LOVABLE_API_KEY) {
+    const DOUBAO_API_KEY = Deno.env.get("DOUBAO_API_KEY");
+    if (!DOUBAO_API_KEY) {
       return new Response(
-        JSON.stringify({ error: "翻译服务未配置" }),
+        JSON.stringify({ error: "翻译服务未配置 (DOUBAO_API_KEY)" }),
         { status: 500, headers: { ...corsHeaders, "Content-Type": "application/json" } }
       );
     }
 
     console.log(`Translating keyword: ${keyword}`);
 
-    const response = await fetch("https://ai.gateway.lovable.dev/v1/chat/completions", {
+    const response = await fetch("https://ark.cn-beijing.volces.com/api/v3/chat/completions", {
       method: "POST",
       headers: {
-        Authorization: `Bearer ${LOVABLE_API_KEY}`,
+        Authorization: `Bearer ${DOUBAO_API_KEY}`,
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        model: "google/gemini-2.5-flash",
+        model: "doubao-seed-1-6-lite-251015",
         messages: [
           {
             role: "system",
@@ -94,7 +94,7 @@ Deno.serve(async (req) => {
 
     if (!response.ok) {
       const errorText = await response.text();
-      console.error("AI translation error:", response.status, errorText);
+      console.error("Doubao translation error:", response.status, errorText);
       return new Response(
         JSON.stringify({ error: "翻译服务暂时不可用" }),
         { status: 500, headers: { ...corsHeaders, "Content-Type": "application/json" } }

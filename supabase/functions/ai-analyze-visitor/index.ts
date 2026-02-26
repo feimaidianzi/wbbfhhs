@@ -5,8 +5,8 @@ const corsHeaders = {
   "Access-Control-Allow-Headers": "authorization, x-client-info, apikey, content-type, x-supabase-client-platform, x-supabase-client-platform-version, x-supabase-client-runtime, x-supabase-client-runtime-version",
 };
 
-// 使用 Lovable AI 支持的模型
-const LOVABLE_AI_URL = "https://api.lovable.dev/v1/chat/completions";
+// 使用豆包模型
+const DOUBAO_API_URL = "https://ark.cn-beijing.volces.com/api/v3/chat/completions";
 
 Deno.serve(async (req) => {
   if (req.method === "OPTIONS") {
@@ -49,7 +49,7 @@ Deno.serve(async (req) => {
       );
     }
 
-    const LOVABLE_API_KEY = Deno.env.get("LOVABLE_API_KEY");
+    const DOUBAO_API_KEY = Deno.env.get("DOUBAO_API_KEY");
     
     // 构建分析提示词（数据已脱敏）
     const prompt = `分析以下访客行为数据，给出用户画像和购买意向分析：
@@ -77,16 +77,16 @@ ${visitorData.conversationSummary ? `- 对话概要：${visitorData.conversation
 
     let analysis = "";
 
-    if (LOVABLE_API_KEY) {
-      // 使用 Lovable AI
-      const response = await fetch(LOVABLE_AI_URL, {
+    if (DOUBAO_API_KEY) {
+      // 使用豆包
+      const response = await fetch(DOUBAO_API_URL, {
         method: "POST",
         headers: {
-          "Authorization": `Bearer ${LOVABLE_API_KEY}`,
+          "Authorization": `Bearer ${DOUBAO_API_KEY}`,
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          model: "google/gemini-2.5-flash",
+          model: "doubao-seed-1-6-lite-251015",
           messages: [
             { role: "system", content: "你是一个专业的客户行为分析师，擅长从用户行为数据中提取有价值的洞察。" },
             { role: "user", content: prompt }
@@ -104,36 +104,7 @@ ${visitorData.conversationSummary ? `- 对话概要：${visitorData.conversation
         analysis = generateRuleBasedAnalysis(visitorData);
       }
     } else {
-      // 使用 DeepSeek 作为备选
-      const DEEPSEEK_API_KEY = Deno.env.get("DEEPSEEK_API_KEY");
-      
-      if (DEEPSEEK_API_KEY) {
-        const response = await fetch("https://api.deepseek.com/v1/chat/completions", {
-          method: "POST",
-          headers: {
-            "Authorization": `Bearer ${DEEPSEEK_API_KEY}`,
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            model: "deepseek-chat",
-            messages: [
-              { role: "system", content: "你是一个专业的客户行为分析师，擅长从用户行为数据中提取有价值的洞察。" },
-              { role: "user", content: prompt }
-            ],
-            temperature: 0.7,
-            max_tokens: 500,
-          }),
-        });
-
-        if (response.ok) {
-          const data = await response.json();
-          analysis = data.choices?.[0]?.message?.content || "";
-        } else {
-          analysis = generateRuleBasedAnalysis(visitorData);
-        }
-      } else {
-        analysis = generateRuleBasedAnalysis(visitorData);
-      }
+      analysis = generateRuleBasedAnalysis(visitorData);
     }
 
     return new Response(
