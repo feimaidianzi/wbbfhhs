@@ -288,25 +288,11 @@ const AdminDashboard = () => {
       color: 'from-amber-500 to-orange-500'
     },
     { 
-      icon: Zap, 
-      title: '自动翻译', 
-      description: 'DeepSeek自动检测和翻译', 
-      href: '/admin/auto-translate',
-      color: 'from-cyan-500 to-blue-500'
-    },
-    { 
       icon: Languages, 
       title: '翻译管理', 
       description: '批量翻译和多语言管理', 
       href: '/admin/translations',
       color: 'from-sky-500 to-blue-500'
-    },
-    { 
-      icon: Search, 
-      title: '硬编码检测', 
-      description: '扫描未翻译的中文文本', 
-      href: '/admin/hardcoded-scanner',
-      color: 'from-rose-500 to-pink-500'
     },
     { 
       icon: Globe, 
