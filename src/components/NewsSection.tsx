@@ -2,6 +2,9 @@ import { ArrowRight, ArrowUpRight } from "lucide-react";
 import { LangLink } from "@/components/LangLink";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { motion } from "framer-motion";
+import fpvDroneImg from "@/assets/seo/fpv-drone-aerial.jpg";
+import gimbalCameraImg from "@/assets/seo/gimbal-camera-drone.jpg";
+import powerGridImg from "@/assets/seo/power-grid-sunset.jpg";
 
 export const NewsSection = () => {
   const { t } = useLanguage();
@@ -11,21 +14,21 @@ export const NewsSection = () => {
       title: t('news.sample1.title'),
       date: t('news.sample1.date'),
       excerpt: t('news.sample1.excerpt'),
-      image: "https://images.unsplash.com/photo-1473968512647-3e447244af8f?w=800&q=80",
+      image: fpvDroneImg,
       category: t('news.sample1.category')
     },
     {
       title: t('news.sample2.title'),
       date: t('news.sample2.date'),
       excerpt: t('news.sample2.excerpt'),
-      image: "https://images.unsplash.com/photo-1508614589041-895b88991e3e?w=800&q=80",
+      image: gimbalCameraImg,
       category: t('news.sample2.category')
     },
     {
       title: t('news.sample3.title'),
       date: t('news.sample3.date'),
       excerpt: t('news.sample3.excerpt'),
-      image: "https://images.unsplash.com/photo-1527977966376-1c8408f9f108?w=800&q=80",
+      image: powerGridImg,
       category: t('news.sample3.category')
     },
   ];
