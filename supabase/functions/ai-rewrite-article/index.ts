@@ -42,7 +42,7 @@ Deno.serve(async (req) => {
       );
     }
 
-    const geminiApiKey = Deno.env.get("GEMINI_API_KEY");
+    const doubaoApiKey = Deno.env.get("DOUBAO_API_KEY");
     
     // CANI产品知识库
     const CANI_KNOWLEDGE = `CANI（长凌科技）专注无人机核心配件：数字图传(VTX/VRX，1.4G/2.4G/5.8G多频段，4K传输，<30ms延迟)、飞控(F7/H7芯片，PID优化)、电调(BLHeli_32，48KHz PWM)、ELRS遥控(50km+，500Hz)、吊舱/云台(三轴稳定，IP67)、GPS模块(双频RTK，厘米级精度)、FPV眼镜/接收屏。`;
@@ -142,38 +142,40 @@ ${style}
 
     let result;
     
-    if (geminiApiKey) {
+    if (doubaoApiKey) {
       try {
-        console.log("Calling Gemini API for translation and rewrite...");
-        const response = await fetch("https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=" + geminiApiKey, {
+        console.log("Calling Doubao API for translation and rewrite...");
+        const response = await fetch("https://ark.cn-beijing.volces.com/api/v3/chat/completions", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
+            "Authorization": `Bearer ${doubaoApiKey}`,
           },
           body: JSON.stringify({
-            contents: [{ parts: [{ text: prompt }] }],
-            generationConfig: {
-              temperature: 0.7,
-              maxOutputTokens: 8192,
-            },
+            model: "doubao-seed-1-6-lite-251015",
+            messages: [
+              { role: "user", content: prompt },
+            ],
+            temperature: 0.7,
+            max_tokens: 8192,
           }),
         });
 
         if (response.ok) {
           const data = await response.json();
-          const aiContent = data.candidates?.[0]?.content?.parts?.[0]?.text || "";
+          const aiContent = data.choices?.[0]?.message?.content || "";
           
           const jsonMatch = aiContent.match(/\{[\s\S]*\}/);
           if (jsonMatch) {
             result = JSON.parse(jsonMatch[0]);
-            console.log("Gemini translation and rewrite successful");
+            console.log("Doubao translation and rewrite successful");
           }
         } else {
           const errorText = await response.text();
-          console.error("Gemini API error:", response.status, errorText);
+          console.error("Doubao API error:", response.status, errorText);
         }
       } catch (aiError) {
-        console.error("Gemini API failed:", aiError);
+        console.error("Doubao API failed:", aiError);
       }
     }
 

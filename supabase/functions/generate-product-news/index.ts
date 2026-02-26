@@ -132,34 +132,16 @@ async function downloadImage(imageUrl: string): Promise<{ imageData: Uint8Array 
   }
 }
 
-// 使用 Gemini API 处理图片 - 去除公司名称和产品内容
-async function processImageWithGemini(imageData: Uint8Array, contentType: string): Promise<Uint8Array | null> {
-  try {
-    const geminiApiKey = Deno.env.get("GEMINI_API_KEY");
-    if (!geminiApiKey) {
-      console.error("GEMINI_API_KEY not configured");
-      return null;
-    }
-    
-    // 将图片转为base64
-    const base64 = btoa(String.fromCharCode(...imageData));
-    
-    console.log("Processing image with Gemini API...");
-    
-    // 使用 Gemini 2.0 Flash 的图片理解能力（注意：Gemini API 不支持直接图片编辑，返回原图）
-    // 对于图片处理，我们直接返回原图，因为 Gemini API 主要用于文本生成
-    console.log("Image processing: returning original image (Gemini text API used)");
-    return imageData;
-  } catch (e) {
-    console.error("Image processing error:", e);
-    return null;
-  }
+// 豆包不支持图片编辑，直接返回原图
+async function processImageWithDoubao(imageData: Uint8Array, _contentType: string): Promise<Uint8Array | null> {
+  console.log("Image processing: returning original image (Doubao does not support image editing)");
+  return imageData;
 }
 
-// 使用 Gemini 生成无人机相关图片描述（用于配图选择）
-async function generateImageWithGemini(prompt: string): Promise<Uint8Array | null> {
-  // Gemini API 不支持图片生成，返回 null，使用默认图片
-  console.log("Image generation not supported with Gemini text API, using default images");
+// 使用 Doubao 生成无人机相关图片描述（用于配图选择）
+async function generateImageWithDoubao(prompt: string): Promise<Uint8Array | null> {
+  // 豆包不支持图片生成，返回 null，使用默认图片
+  console.log("Image generation not supported with Doubao, using default images");
   return null;
 }
 
@@ -192,7 +174,7 @@ async function uploadImageToStorage(supabase: any, imageData: Uint8Array, articl
   }
 }
 
-// 获取并处理文章配图（3-5张，使用Gemini处理或生成）
+// 获取并处理文章配图（3-5张）
 async function getArticleImages(
   imageCount: number,
   supabase: any,
@@ -220,18 +202,18 @@ async function getArticleImages(
         continue;
       }
       
-      // 使用 Gemini 处理图片
-      const processedImage = await processImageWithGemini(imageData, contentType);
+      // 使用 Doubao 处理图片（目前直接返回原图）
+      const processedImage = await processImageWithDoubao(imageData, contentType);
       
       if (processedImage) {
         const uploadedUrl = await uploadImageToStorage(supabase, processedImage, articleId, i, contentType);
         if (uploadedUrl) {
           images.push(uploadedUrl);
-          console.log(`Image ${i + 1} processed with Gemini and uploaded successfully`);
+          console.log(`Image ${i + 1} processed and uploaded successfully`);
         }
       } else {
         // 如果处理失败，直接上传原图
-        console.log("Gemini processing failed, uploading original...");
+        console.log("Processing failed, uploading original...");
         const uploadedUrl = await uploadImageToStorage(supabase, imageData, articleId, i, contentType);
         if (uploadedUrl) {
           images.push(uploadedUrl);
@@ -244,7 +226,7 @@ async function getArticleImages(
     }
   }
   
-  // 第二阶段：如果图片不够，使用Gemini生成新图片
+  // 第二阶段：如果图片不够，尝试生成新图片
   const imagePrompts = [
     `Generate a professional photo of a modern industrial drone with camera gimbal flying over a city skyline. Ultra high resolution, realistic photography style.`,
     `Generate a close-up photo of drone electronic components, circuit boards, and flight controllers. Professional product photography, clean background.`,
@@ -258,7 +240,7 @@ async function getArticleImages(
       const prompt = imagePrompts[generatedCount % imagePrompts.length];
       console.log(`Generating new image ${images.length + 1}...`);
       
-      const generatedImage = await generateImageWithGemini(prompt);
+      const generatedImage = await generateImageWithDoubao(prompt);
       
       if (generatedImage) {
         const uploadedUrl = await uploadImageToStorage(supabase, generatedImage, articleId, images.length, "image/png");
@@ -413,26 +395,28 @@ async function generateTechArticle(topic: { title: string; desc: string }, categ
 返回纯净JSON格式（不要markdown代码块）：
 {"title":"中文标题","summary":"100字摘要","content":"<p>HTML正文</p><p>多个段落</p>","keywords":["关键词1","关键词2","关键词3"]}`;
 
-  const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`, {
+  const response = await fetch("https://ark.cn-beijing.volces.com/api/v3/chat/completions", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
+      "Authorization": `Bearer ${apiKey}`,
     },
     body: JSON.stringify({
-      contents: [{ parts: [{ text: prompt }] }],
-      generationConfig: {
-        temperature: 0.7,
-        maxOutputTokens: 4000,
-      },
+      model: "doubao-seed-1-6-lite-251015",
+      messages: [
+        { role: "user", content: prompt },
+      ],
+      temperature: 0.7,
+      max_tokens: 4000,
     }),
   });
 
   if (!response.ok) {
-    throw new Error(`Gemini API error: ${response.status}`);
+    throw new Error(`Doubao API error: ${response.status}`);
   }
 
   const data = await response.json();
-  const aiContent = data.candidates?.[0]?.content?.parts?.[0]?.text || "";
+  const aiContent = data.choices?.[0]?.message?.content || "";
   return safeParseJSON(aiContent);
 }
 
@@ -453,26 +437,28 @@ async function generateProductNews(product: { name: string; desc: string }, cate
 返回纯净JSON格式（不要markdown代码块）：
 {"title":"中文标题","summary":"100字摘要","content":"<p>HTML正文</p><p>多个段落</p>","keywords":["关键词1","关键词2","关键词3"]}`;
 
-  const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`, {
+  const response = await fetch("https://ark.cn-beijing.volces.com/api/v3/chat/completions", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
+      "Authorization": `Bearer ${apiKey}`,
     },
     body: JSON.stringify({
-      contents: [{ parts: [{ text: prompt }] }],
-      generationConfig: {
-        temperature: 0.7,
-        maxOutputTokens: 4000,
-      },
+      model: "doubao-seed-1-6-lite-251015",
+      messages: [
+        { role: "user", content: prompt },
+      ],
+      temperature: 0.7,
+      max_tokens: 4000,
     }),
   });
 
   if (!response.ok) {
-    throw new Error(`Gemini API error: ${response.status}`);
+    throw new Error(`Doubao API error: ${response.status}`);
   }
 
   const data = await response.json();
-  const aiContent = data.candidates?.[0]?.content?.parts?.[0]?.text || "";
+  const aiContent = data.choices?.[0]?.message?.content || "";
   return safeParseJSON(aiContent);
 }
 
@@ -502,26 +488,28 @@ async function generateCompanyNews(apiKey: string, newsIndex: number) {
 返回纯净JSON格式（不要markdown代码块）：
 {"title":"中文标题","summary":"80字摘要","content":"<p>HTML正文</p><p>多个段落</p>","keywords":["关键词1","关键词2","关键词3"]}`;
 
-  const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`, {
+  const response = await fetch("https://ark.cn-beijing.volces.com/api/v3/chat/completions", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
+      "Authorization": `Bearer ${apiKey}`,
     },
     body: JSON.stringify({
-      contents: [{ parts: [{ text: prompt }] }],
-      generationConfig: {
-        temperature: 0.7,
-        maxOutputTokens: 4000,
-      },
+      model: "doubao-seed-1-6-lite-251015",
+      messages: [
+        { role: "user", content: prompt },
+      ],
+      temperature: 0.7,
+      max_tokens: 4000,
     }),
   });
 
   if (!response.ok) {
-    throw new Error(`Gemini API error: ${response.status}`);
+    throw new Error(`Doubao API error: ${response.status}`);
   }
 
   const data = await response.json();
-  const aiContent = data.candidates?.[0]?.content?.parts?.[0]?.text || "";
+  const aiContent = data.choices?.[0]?.message?.content || "";
   return safeParseJSON(aiContent);
 }
 
@@ -559,16 +547,16 @@ Deno.serve(async (req) => {
 
     const { category, count = 1, imageCount = 2, batchMode = false } = await req.json();
     
-    const geminiApiKey = Deno.env.get("GEMINI_API_KEY");
+    const doubaoApiKey = Deno.env.get("DOUBAO_API_KEY");
     
-    if (!geminiApiKey) {
+    if (!doubaoApiKey) {
       return new Response(
-        JSON.stringify({ success: false, error: "GEMINI_API_KEY not configured" }),
+        JSON.stringify({ success: false, error: "DOUBAO_API_KEY not configured" }),
         { status: 500, headers: { ...corsHeaders, "Content-Type": "application/json" } }
       );
     }
 
-    console.log("Using Gemini API for article generation");
+    console.log("Using Doubao API for article generation");
 
     const supabaseUrl = Deno.env.get("SUPABASE_URL")!;
     const supabaseKey = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!;
@@ -580,7 +568,7 @@ Deno.serve(async (req) => {
     const processArticle = async (article: any, category: string) => {
       const articleId = crypto.randomUUID();
       
-      // 获取并处理配图（3-5张，经过Gemini处理或生成）
+      // 获取并处理配图
       const images = await getArticleImages(
         imageCount,
         supabase,
@@ -636,7 +624,7 @@ Deno.serve(async (req) => {
           
           try {
             console.log(`Generating tech article: ${catData.techTopics[i].title}`);
-            const article = await generateTechArticle(catData.techTopics[i], catData.name, geminiApiKey);
+            const article = await generateTechArticle(catData.techTopics[i], catData.name, doubaoApiKey);
             if (article) {
               await processArticle(article, "技术分享");
               articlesGenerated++;
@@ -651,7 +639,7 @@ Deno.serve(async (req) => {
       for (let i = 0; i < articleLimit; i++) {
         try {
           console.log(`Generating company news ${i + 1}`);
-          const article = await generateCompanyNews(geminiApiKey, i);
+          const article = await generateCompanyNews(doubaoApiKey, i);
           if (article) {
             await processArticle(article, "公司新闻");
           }
@@ -666,7 +654,7 @@ Deno.serve(async (req) => {
         success: true, 
         count: results.length, 
         results,
-        message: `成功生成 ${results.length} 篇文章，使用Gemini API`
+        message: `成功生成 ${results.length} 篇文章，使用豆包API`
       }),
       { headers: { ...corsHeaders, "Content-Type": "application/json" } }
     );

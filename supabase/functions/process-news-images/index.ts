@@ -300,77 +300,8 @@ async function removeCompanyBranding(
     console.log("Detected company branding:", detectionResult.brandingItems?.join(", "));
     console.log("Locations:", detectionResult.brandingLocations?.join(", "));
 
-    // 使用Lovable AI的图像编辑功能去除公司信息
-    const LOVABLE_API_KEY = Deno.env.get("LOVABLE_API_KEY");
-    if (!LOVABLE_API_KEY) {
-      console.log("LOVABLE_API_KEY not found, cannot edit image");
-      return { buffer: imageBuffer, contentType, wasEdited: false };
-    }
-
-    const editPrompt = `请编辑这张图片，去除以下内容：
-${detectionResult.brandingItems?.map((item: string) => `- ${item}`).join('\n') || '- 所有公司logo和品牌标识'}
-
-位置信息：
-${detectionResult.brandingLocations?.map((loc: string) => `- ${loc}`).join('\n') || '- 请检查图片各处'}
-
-要求：
-1. 完全去除上述商业标识
-2. 用自然的背景或周围内容填充被去除的区域
-3. 保持图片整体美观和自然
-4. 不要添加任何新的文字或标识`;
-
-    const editResponse = await fetch("https://ai.gateway.lovable.dev/v1/chat/completions", {
-      method: "POST",
-      headers: {
-        "Authorization": `Bearer ${LOVABLE_API_KEY}`,
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        model: "google/gemini-2.5-flash-image-preview",
-        messages: [
-          {
-            role: "user",
-            content: [
-              { type: "text", text: editPrompt },
-              { type: "image_url", image_url: { url: `data:${mimeType};base64,${base64Image}` } }
-            ]
-          }
-        ],
-        modalities: ["image", "text"]
-      }),
-      signal: AbortSignal.timeout(60000),
-    });
-
-    if (!editResponse.ok) {
-      console.error("Image editing API failed:", editResponse.status);
-      return { buffer: imageBuffer, contentType, wasEdited: false };
-    }
-
-    const editData = await editResponse.json();
-    const images = editData.choices?.[0]?.message?.images;
-    
-    if (images && images.length > 0) {
-      const editedImageUrl = images[0]?.image_url?.url;
-      if (editedImageUrl && editedImageUrl.startsWith('data:')) {
-        const base64Match = editedImageUrl.match(/^data:([^;]+);base64,(.+)$/);
-        if (base64Match) {
-          const newMimeType = base64Match[1];
-          const base64Data = base64Match[2];
-          
-          const binaryString = atob(base64Data);
-          const len = binaryString.length;
-          const bytes = new Uint8Array(len);
-          for (let i = 0; i < len; i++) {
-            bytes[i] = binaryString.charCodeAt(i);
-          }
-          
-          console.log("Successfully removed company branding from image using Doubao detection + Gemini editing");
-          return { buffer: bytes.buffer, contentType: newMimeType, wasEdited: true };
-        }
-      }
-    }
-
-    console.log("No edited image returned from Gemini, keeping original");
+    // 豆包不支持图片编辑，检测到品牌信息后直接丢弃该图片
+    console.log("Company branding detected - discarding image (Doubao does not support image editing)");
     return { buffer: imageBuffer, contentType, wasEdited: false };
   } catch (error) {
     console.error("Company branding removal error:", error);

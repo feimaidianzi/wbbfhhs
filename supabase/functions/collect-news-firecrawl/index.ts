@@ -183,94 +183,16 @@ async function detectBrandingWithDoubao(
   }
 }
 
-// 使用AI编辑去除图片中的品牌信息
+// 品牌信息检测后直接丢弃含品牌的图片（豆包不支持图片编辑）
 async function removeBrandingFromImage(
-  imageBuffer: ArrayBuffer,
-  contentType: string,
+  _imageBuffer: ArrayBuffer,
+  _contentType: string,
   brandingItems: string[],
-  locations: string[]
+  _locations: string[]
 ): Promise<{ buffer: ArrayBuffer; contentType: string } | null> {
-  try {
-    const LOVABLE_API_KEY = Deno.env.get("LOVABLE_API_KEY");
-    if (!LOVABLE_API_KEY) {
-      return null;
-    }
-
-    const uint8Array = new Uint8Array(imageBuffer);
-    let binary = '';
-    for (let i = 0; i < uint8Array.length; i++) {
-      binary += String.fromCharCode(uint8Array[i]);
-    }
-    const base64Image = btoa(binary);
-    const mimeType = contentType.includes('png') ? 'image/png' : 
-                     contentType.includes('webp') ? 'image/webp' : 
-                     contentType.includes('gif') ? 'image/gif' : 'image/jpeg';
-
-    const editPrompt = `请编辑这张图片，去除以下内容：
-${brandingItems.map(item => `- ${item}`).join('\n')}
-
-位置信息：
-${locations.map(loc => `- ${loc}`).join('\n')}
-
-要求：
-1. 完全去除上述品牌标识、logo、水印
-2. 用自然的背景或周围内容填充被去除的区域
-3. 保持图片整体美观和自然
-4. 不要添加任何新的文字或标识`;
-
-    const response = await fetch("https://ai.gateway.lovable.dev/v1/chat/completions", {
-      method: "POST",
-      headers: {
-        "Authorization": `Bearer ${LOVABLE_API_KEY}`,
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        model: "google/gemini-2.5-flash-image-preview",
-        messages: [{
-          role: "user",
-          content: [
-            { type: "text", text: editPrompt },
-            { type: "image_url", image_url: { url: `data:${mimeType};base64,${base64Image}` } }
-          ]
-        }],
-        modalities: ["image", "text"]
-      }),
-      signal: AbortSignal.timeout(60000),
-    });
-
-    if (!response.ok) {
-      console.error("Image editing failed:", response.status);
-      return null;
-    }
-
-    const data = await response.json();
-    const images = data.choices?.[0]?.message?.images;
-    
-    if (images && images.length > 0) {
-      const editedImageUrl = images[0]?.image_url?.url;
-      if (editedImageUrl && editedImageUrl.startsWith('data:')) {
-        const base64Match = editedImageUrl.match(/^data:([^;]+);base64,(.+)$/);
-        if (base64Match) {
-          const newMimeType = base64Match[1];
-          const base64Data = base64Match[2];
-          
-          const binaryString = atob(base64Data);
-          const len = binaryString.length;
-          const bytes = new Uint8Array(len);
-          for (let i = 0; i < len; i++) {
-            bytes[i] = binaryString.charCodeAt(i);
-          }
-          
-          return { buffer: bytes.buffer, contentType: newMimeType };
-        }
-      }
-    }
-
-    return null;
-  } catch (error) {
-    console.error("Branding removal error:", error);
-    return null;
-  }
+  // 豆包不支持图片编辑，直接返回null表示无法处理
+  console.log(`Image has branding (${brandingItems.join(', ')}), discarding (Doubao does not support image editing)`);
+  return null;
 }
 
 // 使用AI评估图片与文章的相关性
