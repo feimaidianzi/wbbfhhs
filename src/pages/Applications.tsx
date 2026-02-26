@@ -8,6 +8,16 @@ import { LangLink as Link } from "@/components/LangLink";
 import { MultiLanguageSEO } from "@/components/MultiLanguageSEO";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { PageFAQ } from "@/components/PageFAQ";
+import { HeroImagePreload } from "@/components/HeroImagePreload";
+import solutionsHeroImg from "@/assets/seo/solutions-hero.jpg";
+import powerImg from "@/assets/seo/power-transmission-inspection.jpg";
+import logisticsImg from "@/assets/seo/logistics-cargo-drone.jpg";
+import militaryImg from "@/assets/seo/military-defense-drone.jpg";
+import environmentImg from "@/assets/seo/atmospheric-monitoring.jpg";
+import firefightingImg from "@/assets/seo/firefighting-drone.jpg";
+import tetheredImg from "@/assets/seo/tethered-drone.jpg";
+import transportImg from "@/assets/seo/highway-traffic-monitoring.jpg";
+
 
 const Applications = () => {
   const { t } = useLanguage();
@@ -16,7 +26,7 @@ const Applications = () => {
     {
       name: t('applications.power.name'),
       description: t('applications.power.desc'),
-      image: "https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?w=800&q=80",
+      image: powerImg,
       href: "/applications/power-inspection",
       icon: Zap,
       stats: [t('applications.power.stat1'), t('applications.power.stat2')],
@@ -24,7 +34,7 @@ const Applications = () => {
     {
       name: t('applications.logistics.name'),
       description: t('applications.logistics.desc'),
-      image: "https://images.unsplash.com/photo-1527977966376-1c8408f9f108?w=800&q=80",
+      image: logisticsImg,
       href: "/applications/logistics",
       icon: Truck,
       stats: [t('applications.logistics.stat1'), t('applications.logistics.stat2')],
@@ -32,7 +42,7 @@ const Applications = () => {
     {
       name: t('applications.military.name'),
       description: t('applications.military.desc'),
-      image: "https://images.unsplash.com/photo-1551698618-1dfe5d97d256?w=800&q=80",
+      image: militaryImg,
       href: "/applications/military",
       icon: Shield,
       stats: [t('applications.military.stat1'), t('applications.military.stat2')],
@@ -40,7 +50,7 @@ const Applications = () => {
     {
       name: t('applications.environment.name'),
       description: t('applications.environment.desc'),
-      image: "https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=800&q=80",
+      image: environmentImg,
       href: "/solutions/industrial-uav-environmental-monitoring",
       icon: Leaf,
       stats: [t('applications.environment.stat1'), t('applications.environment.stat2')],
@@ -48,7 +58,7 @@ const Applications = () => {
     {
       name: t('applications.firefighting.name'),
       description: t('applications.firefighting.desc'),
-      image: "https://images.unsplash.com/photo-1569863959165-56dae551d4fc?w=800&q=80",
+      image: firefightingImg,
       href: "/solutions/uav-firefighting-emergency-rescue",
       icon: Flame,
       stats: [t('applications.firefighting.stat1'), t('applications.firefighting.stat2')],
@@ -56,7 +66,7 @@ const Applications = () => {
     {
       name: t('applications.tethered.name'),
       description: t('applications.tethered.desc'),
-      image: "https://images.unsplash.com/photo-1473968512647-3e447244af8f?w=800&q=80",
+      image: tetheredImg,
       href: "/applications/tethered",
       icon: Link2,
       stats: [t('applications.tethered.stat1'), t('applications.tethered.stat2')],
@@ -64,7 +74,7 @@ const Applications = () => {
     {
       name: t('applications.transport.name'),
       description: t('applications.transport.desc'),
-      image: "https://images.unsplash.com/photo-1449824913935-59a10b8d2000?w=800&q=80",
+      image: transportImg,
       href: "/solutions/industrial-uav-transportation-monitoring",
       icon: Car,
       stats: [t('applications.transport.stat1'), t('applications.transport.stat2')],
@@ -72,7 +82,7 @@ const Applications = () => {
     {
       name: t('applications.solutions.name'),
       description: t('applications.solutions.desc'),
-      image: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=800&q=80",
+      image: solutionsHeroImg,
       href: "/applications/solutions",
       icon: Lightbulb,
       stats: [t('applications.solutions.stat1'), t('applications.solutions.stat2')],
@@ -140,7 +150,8 @@ const Applications = () => {
         {/* Hero Section */}
         <section className="relative min-h-[70vh] flex items-center justify-center overflow-hidden">
           <div className="absolute inset-0">
-            <div className="absolute inset-0 bg-cover bg-center" style={{ backgroundImage: "url(https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=1920&q=80)" }} />
+            <HeroImagePreload imageSrc={solutionsHeroImg} />
+            <div className="absolute inset-0 bg-cover bg-center" style={{ backgroundImage: `url(${solutionsHeroImg})` }} />
           </div>
 
           <div className="absolute inset-0 overflow-hidden pointer-events-none">
