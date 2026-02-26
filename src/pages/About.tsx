@@ -11,6 +11,7 @@ import { PageFAQ } from "@/components/PageFAQ";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Helmet } from "react-helmet-async";
 import { FacilityGallery } from "@/components/FacilityGallery";
+import corporateImg from "@/assets/seo/corporate-office.jpg";
 
 const About = () => {
   const { t, language } = useLanguage();
@@ -161,7 +162,7 @@ const About = () => {
           <div
             className="absolute inset-0 bg-cover bg-center"
             style={{
-              backgroundImage: "url(https://images.unsplash.com/photo-1497366216548-37526070297c?w=1920&q=80)",
+              backgroundImage: `url(${corporateImg})`,
             }}
           >
             <div className="absolute inset-0 bg-gradient-to-r from-primary/90 via-primary/70 to-primary/50" />

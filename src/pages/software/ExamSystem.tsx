@@ -8,6 +8,7 @@ import { MultiLanguageSEO } from "@/components/MultiLanguageSEO";
 import { PageStructuredData } from "@/components/PageStructuredData";
 import { PageFAQ } from "@/components/PageFAQ";
 import { useLanguage } from "@/contexts/LanguageContext";
+import examHeroImg from "@/assets/seo/exam-system.jpg";
 
 const ExamSystem = () => {
   const { t } = useLanguage();
@@ -79,7 +80,7 @@ const ExamSystem = () => {
         <section className="relative h-auto min-h-[500px] overflow-hidden">
           <div
             className="absolute inset-0 bg-cover bg-center"
-            style={{ backgroundImage: "url(https://images.unsplash.com/photo-1434030216411-0b793f4b4173?w=1920&q=80)" }}
+            style={{ backgroundImage: `url(${examHeroImg})` }}
           >
             <div className="absolute inset-0 bg-gradient-to-r from-primary/90 via-primary/70 to-primary/50" />
           </div>
@@ -187,7 +188,7 @@ const ExamSystem = () => {
               </div>
               <div className="aspect-video rounded-xl overflow-hidden shadow-card">
                 <img
-                  src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=800&q=80"
+                  src={examHeroImg}
                   alt={t('softwarePage.exam.title')}
                   className="w-full h-full object-cover"
                   loading="lazy"

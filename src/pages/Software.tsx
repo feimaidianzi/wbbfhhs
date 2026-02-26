@@ -6,9 +6,32 @@ import { ArrowRight, Monitor, Map, Cloud, Shield, Settings, Database, BookOpen, 
 import { LangLink as Link } from "@/components/LangLink";
 import { MultiLanguageSEO } from "@/components/MultiLanguageSEO";
 import { useLanguage } from "@/contexts/LanguageContext";
+import { Helmet } from "react-helmet-async";
+import softwareHeroImg from "@/assets/seo/software-dashboard.jpg";
 
 const Software = () => {
   const { t } = useLanguage();
+
+  const softwareCollectionSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'CollectionPage',
+    name: t('software.page.title'),
+    description: t('software.page.description'),
+    url: 'https://www.caniuav.com/software',
+    mainEntity: {
+      '@type': 'ItemList',
+      itemListElement: [
+        { '@type': 'SoftwareApplication', name: 'UAV Pilot Exam System', applicationCategory: 'EducationalApplication', operatingSystem: 'Web' },
+        { '@type': 'SoftwareApplication', name: 'PV Inspection Software', applicationCategory: 'BusinessApplication', operatingSystem: 'Web, Windows' },
+        { '@type': 'SoftwareApplication', name: 'Drone Fleet Management', applicationCategory: 'BusinessApplication', operatingSystem: 'Web' },
+        { '@type': 'SoftwareApplication', name: 'Power Inspection System', applicationCategory: 'BusinessApplication', operatingSystem: 'Web, Windows' },
+        { '@type': 'SoftwareApplication', name: 'PV System Monitoring', applicationCategory: 'BusinessApplication', operatingSystem: 'Web' },
+        { '@type': 'SoftwareApplication', name: 'Environment Monitoring', applicationCategory: 'BusinessApplication', operatingSystem: 'Web' },
+        { '@type': 'SoftwareApplication', name: 'Ground Control Station', applicationCategory: 'BusinessApplication', operatingSystem: 'Windows, Linux' },
+        { '@type': 'SoftwareApplication', name: 'Swarm Ground Station', applicationCategory: 'BusinessApplication', operatingSystem: 'Windows' },
+      ],
+    },
+  };
 
   const systems = [
     {
@@ -76,6 +99,7 @@ const Software = () => {
         description={t('software.page.description')}
         keywords={t('software.page.keywords')}
         path="/software"
+        structuredData={softwareCollectionSchema}
       />
       <Header />
       <main className="pt-16 md:pt-20">
@@ -83,9 +107,7 @@ const Software = () => {
         <section className="relative h-[300px] md:h-[400px] overflow-hidden">
           <div
             className="absolute inset-0 bg-cover bg-center"
-            style={{
-              backgroundImage: "url(https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=1920&q=80)",
-            }}
+            style={{ backgroundImage: `url(${softwareHeroImg})` }}
           >
             <div className="absolute inset-0 bg-gradient-to-r from-primary/90 via-primary/70 to-primary/50" />
           </div>
@@ -171,9 +193,10 @@ const Software = () => {
               </div>
               <div className="aspect-video rounded-xl overflow-hidden shadow-card">
                 <img
-                  src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&q=80"
+                  src={softwareHeroImg}
                   alt={t('software.integration.title')}
                   className="w-full h-full object-cover"
+                  loading="lazy"
                 />
               </div>
             </div>
