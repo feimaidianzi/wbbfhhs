@@ -323,6 +323,10 @@ const NewsDetail = () => {
                       <img
                         src={related.cover_image || DEFAULT_IMAGE}
                         alt={baseLang === 'en' && related.title_en ? related.title_en : related.title}
+                        width={400}
+                        height={225}
+                        loading="lazy"
+                        decoding="async"
                         className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                         onError={(e) => {
                           const target = e.target as HTMLImageElement;
