@@ -211,7 +211,7 @@ const publicRoutes = [
 ];
 
 // Language codes for path prefix (excluding 'en' which uses no prefix as international default)
-const langCodes = ['zh', 'vi', 'th', 'ms', 'id', 'ja', 'ko', 'fr', 'de', 'es', 'ru', 'ar', 'tr'];
+const langCodes = ['en', 'zh', 'vi', 'th', 'ms', 'id', 'ja', 'ko', 'fr', 'de', 'es', 'ru', 'ar', 'tr'];
 
 const App = () => (
   <QueryClientProvider client={queryClient}>
