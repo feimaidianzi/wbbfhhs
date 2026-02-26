@@ -7,6 +7,11 @@ import { ArrowRight, Lightbulb, Wrench, FileText, Users, CheckCircle, Cpu, Plane
 import { LangLink as Link } from "@/components/LangLink";
 import { MultiLanguageSEO } from "@/components/MultiLanguageSEO";
 import { useLanguage } from "@/contexts/LanguageContext";
+import customResearchHeroImg from "@/assets/seo/custom-research-lab.jpg";
+import customResearchCapImg from "@/assets/seo/custom-accessories-hardware.jpg";
+import customCase1Img from "@/assets/seo/custom-research-lab.jpg";
+import customCase2Img from "@/assets/seo/fpv-drone-aerial.jpg";
+import customCase3Img from "@/assets/seo/swarm-drone-formation.jpg";
 
 const CustomResearch = () => {
   const { t } = useLanguage();
@@ -26,9 +31,9 @@ const CustomResearch = () => {
   ];
 
   const cases = [
-    { title: t('customResearch.case1.title'), client: t('customResearch.case1.client'), description: t('customResearch.case1.desc'), image: "https://images.unsplash.com/photo-1562774053-701939374585?w=600&q=80" },
-    { title: t('customResearch.case2.title'), client: t('customResearch.case2.client'), description: t('customResearch.case2.desc'), image: "https://images.unsplash.com/photo-1473968512647-3e447244af8f?w=600&q=80" },
-    { title: t('customResearch.case3.title'), client: t('customResearch.case3.client'), description: t('customResearch.case3.desc'), image: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&q=80" },
+    { title: t('customResearch.case1.title'), client: t('customResearch.case1.client'), description: t('customResearch.case1.desc'), image: customCase1Img },
+    { title: t('customResearch.case2.title'), client: t('customResearch.case2.client'), description: t('customResearch.case2.desc'), image: customCase2Img },
+    { title: t('customResearch.case3.title'), client: t('customResearch.case3.client'), description: t('customResearch.case3.desc'), image: customCase3Img },
   ];
 
   const capabilities = [
@@ -64,7 +69,7 @@ const CustomResearch = () => {
       <main className="pt-16 md:pt-20">
         {/* Hero Section */}
         <section className="relative h-[400px] md:h-[500px] overflow-hidden">
-          <div className="absolute inset-0 bg-cover bg-center" style={{ backgroundImage: "url(https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=1920&q=80)" }}>
+          <div className="absolute inset-0 bg-cover bg-center" style={{ backgroundImage: `url(${customResearchHeroImg})` }}>
             <div className="absolute inset-0 bg-gradient-to-r from-primary/90 via-primary/70 to-primary/50" />
           </div>
           <div className="relative container-custom h-full flex items-center">
@@ -146,7 +151,7 @@ const CustomResearch = () => {
                 </div>
               </div>
               <div className="aspect-video rounded-xl overflow-hidden shadow-card">
-                <img src="https://images.unsplash.com/photo-1581092918056-0c4c3acd3789?w=800&q=80" alt={t('customResearch.capabilities.title')} className="w-full h-full object-cover" loading="lazy" />
+                <img src={customResearchCapImg} alt={t('customResearch.capabilities.title')} className="w-full h-full object-cover" loading="lazy" />
               </div>
             </div>
           </div>

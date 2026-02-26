@@ -9,6 +9,10 @@ import { LangLink } from "@/components/LangLink";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { motion } from "framer-motion";
 import { ArrowRight, Mountain, BarChart3, Building2, Crosshair, Radio, Layers, FileDown, AlertTriangle, Target, Satellite } from "lucide-react";
+import surveyHeroImg from "@/assets/seo/surveying-construction.jpg";
+import surveyDsmImg from "@/assets/seo/surveying-dsm-model.jpg";
+import surveyMineImg from "@/assets/seo/mine-volumetric.jpg";
+import surveyTwinImg from "@/assets/seo/digital-twin-city.jpg";
 
 const SurveyingMapping = () => {
   const { t } = useLanguage();
@@ -61,7 +65,7 @@ const SurveyingMapping = () => {
         <section className="relative min-h-[70vh] flex items-center overflow-hidden">
           <div className="absolute inset-0">
             <img
-              src="https://images.pexels.com/photos/15798293/pexels-photo-15798293.jpeg?w=1920&q=80"
+              src={surveyHeroImg}
               alt="CANI industrial UAV for 3D mapping and surveying over construction site"
               className="w-full h-full object-cover"
               loading="eager"
@@ -159,7 +163,7 @@ const SurveyingMapping = () => {
                 transition={{ duration: 0.6 }}
               >
                 <img
-                  src="https://images.pexels.com/photos/1072179/pexels-photo-1072179.jpeg?w=1200&q=80"
+                  src={surveyDsmImg}
                   alt="CANI UAV generated digital surface model DSM with elevation detail"
                   className="rounded-2xl shadow-lg w-full"
                   loading="lazy"
@@ -181,7 +185,7 @@ const SurveyingMapping = () => {
                 className="order-2 lg:order-1"
               >
                 <img
-                  src="https://images.unsplash.com/photo-1513828583688-c52646db42da?w=1200&q=80"
+                  src={surveyMineImg}
                   alt="CANI UAV mine stockpile volumetric calculation at open-pit mining site"
                   className="rounded-2xl shadow-lg w-full"
                   loading="lazy"
@@ -237,7 +241,7 @@ const SurveyingMapping = () => {
                 transition={{ duration: 0.6 }}
               >
                 <img
-                  src="https://images.pexels.com/photos/3133688/pexels-photo-3133688.jpeg?w=1200&q=80"
+                  src={surveyTwinImg}
                   alt="CANI UAV digital twin 3D mesh model for smart city urban planning"
                   className="rounded-2xl shadow-lg w-full"
                   loading="lazy"

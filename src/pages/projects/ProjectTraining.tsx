@@ -7,6 +7,8 @@ import { LangLink as Link } from "@/components/LangLink";
 import { MultiLanguageSEO } from "@/components/MultiLanguageSEO";
 import { PageStructuredData } from "@/components/PageStructuredData";
 import { useLanguage } from "@/contexts/LanguageContext";
+import trainingHeroImg from "@/assets/seo/drone-training-classroom.jpg";
+import trainingContentImg from "@/assets/seo/drone-training.jpg";
 
 const ProjectTraining = () => {
   const { t } = useLanguage();
@@ -39,7 +41,7 @@ const ProjectTraining = () => {
       <Header />
       <main className="pt-16 md:pt-20">
         <section className="relative h-[400px] overflow-hidden">
-          <div className="absolute inset-0 bg-cover bg-center" style={{ backgroundImage: "url(https://images.unsplash.com/photo-1434030216411-0b793f4b4173?w=1920&q=80)" }}>
+          <div className="absolute inset-0 bg-cover bg-center" style={{ backgroundImage: `url(${trainingHeroImg})` }}>
             <div className="absolute inset-0 bg-gradient-to-r from-primary/90 via-primary/70 to-primary/50" />
           </div>
           <div className="relative container-custom h-full flex items-center">
@@ -85,7 +87,7 @@ const ProjectTraining = () => {
                 </ul>
               </div>
               <div className="aspect-video rounded-xl overflow-hidden shadow-card">
-                <img src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=800&q=80" alt={t('training.hero.title')} className="w-full h-full object-cover" />
+                <img src={trainingContentImg} alt={t('training.hero.title')} className="w-full h-full object-cover" />
               </div>
             </div>
           </div>

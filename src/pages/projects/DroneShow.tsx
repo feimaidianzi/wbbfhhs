@@ -7,6 +7,8 @@ import { LangLink as Link } from "@/components/LangLink";
 import { MultiLanguageSEO } from "@/components/MultiLanguageSEO";
 import { PageStructuredData } from "@/components/PageStructuredData";
 import { useLanguage } from "@/contexts/LanguageContext";
+import droneShowHeroImg from "@/assets/seo/swarm-drone-formation.jpg";
+import droneShowContentImg from "@/assets/seo/drone-light-show-night.jpg";
 
 const DroneShow = () => {
   const { t } = useLanguage();
@@ -39,7 +41,7 @@ const DroneShow = () => {
       <Header />
       <main className="pt-16 md:pt-20">
         <section className="relative h-[400px] overflow-hidden">
-          <div className="absolute inset-0 bg-cover bg-center" style={{ backgroundImage: "url(https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1920&q=80)" }}>
+          <div className="absolute inset-0 bg-cover bg-center" style={{ backgroundImage: `url(${droneShowHeroImg})` }}>
             <div className="absolute inset-0 bg-gradient-to-r from-primary/90 via-primary/70 to-primary/50" />
           </div>
           <div className="relative container-custom h-full flex items-center">
@@ -74,7 +76,7 @@ const DroneShow = () => {
             </div>
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
               <div className="aspect-video rounded-xl overflow-hidden shadow-card">
-                <img src="https://images.unsplash.com/photo-1492684223066-81342ee5ff30?w=800&q=80" alt={t('droneShow.hero.title')} className="w-full h-full object-cover" />
+                <img src={droneShowContentImg} alt={t('droneShow.hero.title')} className="w-full h-full object-cover" />
               </div>
               <div>
                 <h2 className="text-2xl font-bold mb-6">{t('droneShow.scenarios.title')}</h2>

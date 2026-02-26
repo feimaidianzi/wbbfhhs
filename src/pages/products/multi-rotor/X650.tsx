@@ -1,6 +1,7 @@
 import ProductDetailTemplate from "@/components/ProductDetailTemplate";
 import { Camera, Settings, Shield, Cpu, Zap, Wind } from "lucide-react";
 import { useLanguage } from "@/contexts/LanguageContext";
+import x650Img from "@/assets/seo/multi-rotor-x650.jpg";
 
 const X650 = () => {
   const { t } = useLanguage();
@@ -46,7 +47,7 @@ const X650 = () => {
       ]}
       heroTitle={t('multiRotor.x650.name')}
       heroDescription={t('multiRotor.x650.description')}
-      heroImage="https://images.unsplash.com/photo-1506947411487-a56738267384?w=1200&q=80"
+      heroImage={x650Img}
       heroHighlight={{ value: "650mm", label: t('specs.wheelbase') }}
       backLink={{ label: t('common.backTo') + t('nav.products.multiRotor'), path: "/products/multi-rotor" }}
       features={features}

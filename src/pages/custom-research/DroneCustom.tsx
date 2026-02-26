@@ -8,6 +8,7 @@ import { BackButton } from "@/components/BackButton";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { MultiLanguageSEO } from "@/components/MultiLanguageSEO";
 import { Helmet } from "react-helmet-async";
+import droneCustomImg from "@/assets/seo/custom-research-lab.jpg";
 import { PageFAQ } from "@/components/PageFAQ";
 
 const DroneCustom = () => {
@@ -149,7 +150,7 @@ const DroneCustom = () => {
               </div>
               <div className="relative">
                 <img
-                  src="https://images.unsplash.com/photo-1473968512647-3e447244af8f?w=800&q=80"
+                  src={droneCustomImg}
                   alt={baseLang === 'zh' ? '定制无人机研发-CFD流体仿真与军工级可靠性平台' : 'Custom UAV R&D - CFD simulation and military-grade reliability platform'}
                   className="rounded-2xl shadow-2xl w-full"
                 />

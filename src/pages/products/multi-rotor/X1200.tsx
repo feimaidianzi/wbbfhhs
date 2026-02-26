@@ -1,6 +1,7 @@
 import ProductDetailTemplate from "@/components/ProductDetailTemplate";
 import { Camera, Settings, Shield, Cpu, Zap, Wind } from "lucide-react";
 import { useLanguage } from "@/contexts/LanguageContext";
+import x1200Img from "@/assets/seo/multi-rotor-x1200.jpg";
 
 const X1200 = () => {
   const { t } = useLanguage();
@@ -46,7 +47,7 @@ const X1200 = () => {
       ]}
       heroTitle={t('multiRotor.x1200.name')}
       heroDescription={t('multiRotor.x1200.description')}
-      heroImage="https://images.unsplash.com/photo-1579829366248-204fe8413f31?w=1200&q=80"
+      heroImage={x1200Img}
       heroHighlight={{ value: "10kg", label: t('specs.maxPayload') }}
       backLink={{ label: t('common.backTo') + t('product.multiRotor'), path: "/products/multi-rotor" }}
       features={features}

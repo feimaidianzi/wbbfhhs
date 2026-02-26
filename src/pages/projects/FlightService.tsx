@@ -7,6 +7,7 @@ import { LangLink as Link } from "@/components/LangLink";
 import { MultiLanguageSEO } from "@/components/MultiLanguageSEO";
 import { PageStructuredData } from "@/components/PageStructuredData";
 import { useLanguage } from "@/contexts/LanguageContext";
+import flightServiceImg from "@/assets/seo/flight-service-operator.jpg";
 
 const FlightService = () => {
   const { t } = useLanguage();
@@ -30,7 +31,7 @@ const FlightService = () => {
       <Header />
       <main className="pt-16 md:pt-20">
         <section className="relative h-[400px] overflow-hidden">
-          <div className="absolute inset-0 bg-cover bg-center" style={{ backgroundImage: "url(https://images.unsplash.com/photo-1473968512647-3e447244af8f?w=1920&q=80)" }}>
+          <div className="absolute inset-0 bg-cover bg-center" style={{ backgroundImage: `url(${flightServiceImg})` }}>
             <div className="absolute inset-0 bg-gradient-to-r from-primary/90 via-primary/70 to-primary/50" />
           </div>
           <div className="relative container-custom h-full flex items-center">

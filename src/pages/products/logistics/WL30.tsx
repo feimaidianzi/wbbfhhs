@@ -1,6 +1,7 @@
 import ProductDetailTemplate from "@/components/ProductDetailTemplate";
 import { Package, Truck, MapPin, Timer, Shield, Zap } from "lucide-react";
 import { useLanguage } from "@/contexts/LanguageContext";
+import wl30Img from "@/assets/seo/logistics-wl30.jpg";
 
 const WL30 = () => {
   const { t } = useLanguage();
@@ -46,7 +47,7 @@ const WL30 = () => {
       ]}
       heroTitle={t('logistics.wl30.name')}
       heroDescription={t('logistics.wl30.description')}
-      heroImage="https://images.unsplash.com/photo-1559827260-dc66d52bef19?w=1200&q=80"
+      heroImage={wl30Img}
       heroHighlight={{ value: "30kg", label: t('specs.maxPayload') }}
       backLink={{ label: t('common.backTo') + t('nav.products.logistics'), path: "/products/logistics" }}
       features={features}

@@ -8,6 +8,11 @@ import { LangLink as Link } from "@/components/LangLink";
 import { BackButton } from "@/components/BackButton";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { MultiLanguageSEO } from "@/components/MultiLanguageSEO";
+import fpvHeroImg from "@/assets/seo/fpv-drone-aerial.jpg";
+import fpvRacingImg from "@/assets/seo/fpv-racing-drone.jpg";
+import fpvFreestyleImg from "@/assets/seo/fpv-freestyle-drone.jpg";
+import fpvLongrangeImg from "@/assets/seo/fpv-longrange-drone.jpg";
+import fpvCinewhoopImg from "@/assets/seo/fpv-cinewhoop-drone.jpg";
 
 // Category data with translation keys
 const categoryData: Record<string, {
@@ -26,156 +31,51 @@ const categoryData: Record<string, {
   "kit": {
     titleKey: 'fpvCategory.kit.title',
     descriptionKey: 'fpvCategory.kit.description',
-    heroImage: "https://images.unsplash.com/photo-1473968512647-3e447244af8f?w=1920&q=80",
+    heroImage: fpvHeroImg,
     products: [
-      {
-        nameKey: 'fpvCategory.kit.product1.name',
-        descriptionKey: 'fpvCategory.kit.product1.description',
-        specsKeys: ['fpvCategory.kit.product1.spec1', 'fpvCategory.kit.product1.spec2', 'fpvCategory.kit.product1.spec3', 'fpvCategory.kit.product1.spec4'],
-        image: "https://images.unsplash.com/photo-1473968512647-3e447244af8f?w=600&q=80",
-        priceKey: "fpvCategory.kit.product1.price",
-        featuresKeys: ['fpvCategory.kit.product1.feature1', 'fpvCategory.kit.product1.feature2', 'fpvCategory.kit.product1.feature3', 'fpvCategory.kit.product1.feature4'],
-      },
-      {
-        nameKey: 'fpvCategory.kit.product2.name',
-        descriptionKey: 'fpvCategory.kit.product2.description',
-        specsKeys: ['fpvCategory.kit.product2.spec1', 'fpvCategory.kit.product2.spec2', 'fpvCategory.kit.product2.spec3', 'fpvCategory.kit.product2.spec4'],
-        image: "https://images.unsplash.com/photo-1527977966376-1c8408f9f108?w=600&q=80",
-        priceKey: "fpvCategory.kit.product2.price",
-        featuresKeys: ['fpvCategory.kit.product2.feature1', 'fpvCategory.kit.product2.feature2', 'fpvCategory.kit.product2.feature3', 'fpvCategory.kit.product2.feature4'],
-      },
-      {
-        nameKey: 'fpvCategory.kit.product3.name',
-        descriptionKey: 'fpvCategory.kit.product3.description',
-        specsKeys: ['fpvCategory.kit.product3.spec1', 'fpvCategory.kit.product3.spec2', 'fpvCategory.kit.product3.spec3', 'fpvCategory.kit.product3.spec4'],
-        image: "https://images.unsplash.com/photo-1506947411487-a56738267384?w=600&q=80",
-        priceKey: "fpvCategory.kit.product3.price",
-        featuresKeys: ['fpvCategory.kit.product3.feature1', 'fpvCategory.kit.product3.feature2', 'fpvCategory.kit.product3.feature3', 'fpvCategory.kit.product3.feature4'],
-      },
+      { nameKey: 'fpvCategory.kit.product1.name', descriptionKey: 'fpvCategory.kit.product1.description', specsKeys: ['fpvCategory.kit.product1.spec1', 'fpvCategory.kit.product1.spec2', 'fpvCategory.kit.product1.spec3', 'fpvCategory.kit.product1.spec4'], image: fpvHeroImg, priceKey: "fpvCategory.kit.product1.price", featuresKeys: ['fpvCategory.kit.product1.feature1', 'fpvCategory.kit.product1.feature2', 'fpvCategory.kit.product1.feature3', 'fpvCategory.kit.product1.feature4'] },
+      { nameKey: 'fpvCategory.kit.product2.name', descriptionKey: 'fpvCategory.kit.product2.description', specsKeys: ['fpvCategory.kit.product2.spec1', 'fpvCategory.kit.product2.spec2', 'fpvCategory.kit.product2.spec3', 'fpvCategory.kit.product2.spec4'], image: fpvRacingImg, priceKey: "fpvCategory.kit.product2.price", featuresKeys: ['fpvCategory.kit.product2.feature1', 'fpvCategory.kit.product2.feature2', 'fpvCategory.kit.product2.feature3', 'fpvCategory.kit.product2.feature4'] },
+      { nameKey: 'fpvCategory.kit.product3.name', descriptionKey: 'fpvCategory.kit.product3.description', specsKeys: ['fpvCategory.kit.product3.spec1', 'fpvCategory.kit.product3.spec2', 'fpvCategory.kit.product3.spec3', 'fpvCategory.kit.product3.spec4'], image: fpvFreestyleImg, priceKey: "fpvCategory.kit.product3.price", featuresKeys: ['fpvCategory.kit.product3.feature1', 'fpvCategory.kit.product3.feature2', 'fpvCategory.kit.product3.feature3', 'fpvCategory.kit.product3.feature4'] },
     ],
   },
   "racing": {
     titleKey: 'fpvCategory.racing.title',
     descriptionKey: 'fpvCategory.racing.description',
-    heroImage: "https://images.unsplash.com/photo-1527977966376-1c8408f9f108?w=1920&q=80",
+    heroImage: fpvRacingImg,
     products: [
-      {
-        nameKey: 'fpvCategory.racing.product1.name',
-        descriptionKey: 'fpvCategory.racing.product1.description',
-        specsKeys: ['fpvCategory.racing.product1.spec1', 'fpvCategory.racing.product1.spec2', 'fpvCategory.racing.product1.spec3', 'fpvCategory.racing.product1.spec4'],
-        image: "https://images.unsplash.com/photo-1473968512647-3e447244af8f?w=600&q=80",
-        priceKey: "fpvCategory.racing.product1.price",
-        featuresKeys: ['fpvCategory.racing.product1.feature1', 'fpvCategory.racing.product1.feature2', 'fpvCategory.racing.product1.feature3', 'fpvCategory.racing.product1.feature4'],
-      },
-      {
-        nameKey: 'fpvCategory.racing.product2.name',
-        descriptionKey: 'fpvCategory.racing.product2.description',
-        specsKeys: ['fpvCategory.racing.product2.spec1', 'fpvCategory.racing.product2.spec2', 'fpvCategory.racing.product2.spec3', 'fpvCategory.racing.product2.spec4'],
-        image: "https://images.unsplash.com/photo-1527977966376-1c8408f9f108?w=600&q=80",
-        priceKey: "fpvCategory.racing.product2.price",
-        featuresKeys: ['fpvCategory.racing.product2.feature1', 'fpvCategory.racing.product2.feature2', 'fpvCategory.racing.product2.feature3', 'fpvCategory.racing.product2.feature4'],
-      },
-      {
-        nameKey: 'fpvCategory.racing.product3.name',
-        descriptionKey: 'fpvCategory.racing.product3.description',
-        specsKeys: ['fpvCategory.racing.product3.spec1', 'fpvCategory.racing.product3.spec2', 'fpvCategory.racing.product3.spec3', 'fpvCategory.racing.product3.spec4'],
-        image: "https://images.unsplash.com/photo-1506947411487-a56738267384?w=600&q=80",
-        priceKey: "fpvCategory.racing.product3.price",
-        featuresKeys: ['fpvCategory.racing.product3.feature1', 'fpvCategory.racing.product3.feature2', 'fpvCategory.racing.product3.feature3', 'fpvCategory.racing.product3.feature4'],
-      },
+      { nameKey: 'fpvCategory.racing.product1.name', descriptionKey: 'fpvCategory.racing.product1.description', specsKeys: ['fpvCategory.racing.product1.spec1', 'fpvCategory.racing.product1.spec2', 'fpvCategory.racing.product1.spec3', 'fpvCategory.racing.product1.spec4'], image: fpvHeroImg, priceKey: "fpvCategory.racing.product1.price", featuresKeys: ['fpvCategory.racing.product1.feature1', 'fpvCategory.racing.product1.feature2', 'fpvCategory.racing.product1.feature3', 'fpvCategory.racing.product1.feature4'] },
+      { nameKey: 'fpvCategory.racing.product2.name', descriptionKey: 'fpvCategory.racing.product2.description', specsKeys: ['fpvCategory.racing.product2.spec1', 'fpvCategory.racing.product2.spec2', 'fpvCategory.racing.product2.spec3', 'fpvCategory.racing.product2.spec4'], image: fpvRacingImg, priceKey: "fpvCategory.racing.product2.price", featuresKeys: ['fpvCategory.racing.product2.feature1', 'fpvCategory.racing.product2.feature2', 'fpvCategory.racing.product2.feature3', 'fpvCategory.racing.product2.feature4'] },
+      { nameKey: 'fpvCategory.racing.product3.name', descriptionKey: 'fpvCategory.racing.product3.description', specsKeys: ['fpvCategory.racing.product3.spec1', 'fpvCategory.racing.product3.spec2', 'fpvCategory.racing.product3.spec3', 'fpvCategory.racing.product3.spec4'], image: fpvFreestyleImg, priceKey: "fpvCategory.racing.product3.price", featuresKeys: ['fpvCategory.racing.product3.feature1', 'fpvCategory.racing.product3.feature2', 'fpvCategory.racing.product3.feature3', 'fpvCategory.racing.product3.feature4'] },
     ],
   },
   "freestyle": {
     titleKey: 'fpvCategory.freestyle.title',
     descriptionKey: 'fpvCategory.freestyle.description',
-    heroImage: "https://images.unsplash.com/photo-1506947411487-a56738267384?w=1920&q=80",
+    heroImage: fpvFreestyleImg,
     products: [
-      {
-        nameKey: 'fpvCategory.freestyle.product1.name',
-        descriptionKey: 'fpvCategory.freestyle.product1.description',
-        specsKeys: ['fpvCategory.freestyle.product1.spec1', 'fpvCategory.freestyle.product1.spec2', 'fpvCategory.freestyle.product1.spec3', 'fpvCategory.freestyle.product1.spec4'],
-        image: "https://images.unsplash.com/photo-1473968512647-3e447244af8f?w=600&q=80",
-        priceKey: "fpvCategory.freestyle.product1.price",
-        featuresKeys: ['fpvCategory.freestyle.product1.feature1', 'fpvCategory.freestyle.product1.feature2', 'fpvCategory.freestyle.product1.feature3', 'fpvCategory.freestyle.product1.feature4'],
-      },
-      {
-        nameKey: 'fpvCategory.freestyle.product2.name',
-        descriptionKey: 'fpvCategory.freestyle.product2.description',
-        specsKeys: ['fpvCategory.freestyle.product2.spec1', 'fpvCategory.freestyle.product2.spec2', 'fpvCategory.freestyle.product2.spec3', 'fpvCategory.freestyle.product2.spec4'],
-        image: "https://images.unsplash.com/photo-1527977966376-1c8408f9f108?w=600&q=80",
-        priceKey: "fpvCategory.freestyle.product2.price",
-        featuresKeys: ['fpvCategory.freestyle.product2.feature1', 'fpvCategory.freestyle.product2.feature2', 'fpvCategory.freestyle.product2.feature3', 'fpvCategory.freestyle.product2.feature4'],
-      },
-      {
-        nameKey: 'fpvCategory.freestyle.product3.name',
-        descriptionKey: 'fpvCategory.freestyle.product3.description',
-        specsKeys: ['fpvCategory.freestyle.product3.spec1', 'fpvCategory.freestyle.product3.spec2', 'fpvCategory.freestyle.product3.spec3', 'fpvCategory.freestyle.product3.spec4'],
-        image: "https://images.unsplash.com/photo-1506947411487-a56738267384?w=600&q=80",
-        priceKey: "fpvCategory.freestyle.product3.price",
-        featuresKeys: ['fpvCategory.freestyle.product3.feature1', 'fpvCategory.freestyle.product3.feature2', 'fpvCategory.freestyle.product3.feature3', 'fpvCategory.freestyle.product3.feature4'],
-      },
+      { nameKey: 'fpvCategory.freestyle.product1.name', descriptionKey: 'fpvCategory.freestyle.product1.description', specsKeys: ['fpvCategory.freestyle.product1.spec1', 'fpvCategory.freestyle.product1.spec2', 'fpvCategory.freestyle.product1.spec3', 'fpvCategory.freestyle.product1.spec4'], image: fpvHeroImg, priceKey: "fpvCategory.freestyle.product1.price", featuresKeys: ['fpvCategory.freestyle.product1.feature1', 'fpvCategory.freestyle.product1.feature2', 'fpvCategory.freestyle.product1.feature3', 'fpvCategory.freestyle.product1.feature4'] },
+      { nameKey: 'fpvCategory.freestyle.product2.name', descriptionKey: 'fpvCategory.freestyle.product2.description', specsKeys: ['fpvCategory.freestyle.product2.spec1', 'fpvCategory.freestyle.product2.spec2', 'fpvCategory.freestyle.product2.spec3', 'fpvCategory.freestyle.product2.spec4'], image: fpvRacingImg, priceKey: "fpvCategory.freestyle.product2.price", featuresKeys: ['fpvCategory.freestyle.product2.feature1', 'fpvCategory.freestyle.product2.feature2', 'fpvCategory.freestyle.product2.feature3', 'fpvCategory.freestyle.product2.feature4'] },
+      { nameKey: 'fpvCategory.freestyle.product3.name', descriptionKey: 'fpvCategory.freestyle.product3.description', specsKeys: ['fpvCategory.freestyle.product3.spec1', 'fpvCategory.freestyle.product3.spec2', 'fpvCategory.freestyle.product3.spec3', 'fpvCategory.freestyle.product3.spec4'], image: fpvFreestyleImg, priceKey: "fpvCategory.freestyle.product3.price", featuresKeys: ['fpvCategory.freestyle.product3.feature1', 'fpvCategory.freestyle.product3.feature2', 'fpvCategory.freestyle.product3.feature3', 'fpvCategory.freestyle.product3.feature4'] },
     ],
   },
   "longrange": {
     titleKey: 'fpvCategory.longrange.title',
     descriptionKey: 'fpvCategory.longrange.description',
-    heroImage: "https://images.unsplash.com/photo-1559827260-dc66d52bef19?w=1920&q=80",
+    heroImage: fpvLongrangeImg,
     products: [
-      {
-        nameKey: 'fpvCategory.longrange.product1.name',
-        descriptionKey: 'fpvCategory.longrange.product1.description',
-        specsKeys: ['fpvCategory.longrange.product1.spec1', 'fpvCategory.longrange.product1.spec2', 'fpvCategory.longrange.product1.spec3', 'fpvCategory.longrange.product1.spec4'],
-        image: "https://images.unsplash.com/photo-1473968512647-3e447244af8f?w=600&q=80",
-        priceKey: "fpvCategory.longrange.product1.price",
-        featuresKeys: ['fpvCategory.longrange.product1.feature1', 'fpvCategory.longrange.product1.feature2', 'fpvCategory.longrange.product1.feature3', 'fpvCategory.longrange.product1.feature4'],
-      },
-      {
-        nameKey: 'fpvCategory.longrange.product2.name',
-        descriptionKey: 'fpvCategory.longrange.product2.description',
-        specsKeys: ['fpvCategory.longrange.product2.spec1', 'fpvCategory.longrange.product2.spec2', 'fpvCategory.longrange.product2.spec3', 'fpvCategory.longrange.product2.spec4'],
-        image: "https://images.unsplash.com/photo-1527977966376-1c8408f9f108?w=600&q=80",
-        priceKey: "fpvCategory.longrange.product2.price",
-        featuresKeys: ['fpvCategory.longrange.product2.feature1', 'fpvCategory.longrange.product2.feature2', 'fpvCategory.longrange.product2.feature3', 'fpvCategory.longrange.product2.feature4'],
-      },
-      {
-        nameKey: 'fpvCategory.longrange.product3.name',
-        descriptionKey: 'fpvCategory.longrange.product3.description',
-        specsKeys: ['fpvCategory.longrange.product3.spec1', 'fpvCategory.longrange.product3.spec2', 'fpvCategory.longrange.product3.spec3', 'fpvCategory.longrange.product3.spec4'],
-        image: "https://images.unsplash.com/photo-1506947411487-a56738267384?w=600&q=80",
-        priceKey: "fpvCategory.longrange.product3.price",
-        featuresKeys: ['fpvCategory.longrange.product3.feature1', 'fpvCategory.longrange.product3.feature2', 'fpvCategory.longrange.product3.feature3', 'fpvCategory.longrange.product3.feature4'],
-      },
+      { nameKey: 'fpvCategory.longrange.product1.name', descriptionKey: 'fpvCategory.longrange.product1.description', specsKeys: ['fpvCategory.longrange.product1.spec1', 'fpvCategory.longrange.product1.spec2', 'fpvCategory.longrange.product1.spec3', 'fpvCategory.longrange.product1.spec4'], image: fpvHeroImg, priceKey: "fpvCategory.longrange.product1.price", featuresKeys: ['fpvCategory.longrange.product1.feature1', 'fpvCategory.longrange.product1.feature2', 'fpvCategory.longrange.product1.feature3', 'fpvCategory.longrange.product1.feature4'] },
+      { nameKey: 'fpvCategory.longrange.product2.name', descriptionKey: 'fpvCategory.longrange.product2.description', specsKeys: ['fpvCategory.longrange.product2.spec1', 'fpvCategory.longrange.product2.spec2', 'fpvCategory.longrange.product2.spec3', 'fpvCategory.longrange.product2.spec4'], image: fpvRacingImg, priceKey: "fpvCategory.longrange.product2.price", featuresKeys: ['fpvCategory.longrange.product2.feature1', 'fpvCategory.longrange.product2.feature2', 'fpvCategory.longrange.product2.feature3', 'fpvCategory.longrange.product2.feature4'] },
+      { nameKey: 'fpvCategory.longrange.product3.name', descriptionKey: 'fpvCategory.longrange.product3.description', specsKeys: ['fpvCategory.longrange.product3.spec1', 'fpvCategory.longrange.product3.spec2', 'fpvCategory.longrange.product3.spec3', 'fpvCategory.longrange.product3.spec4'], image: fpvFreestyleImg, priceKey: "fpvCategory.longrange.product3.price", featuresKeys: ['fpvCategory.longrange.product3.feature1', 'fpvCategory.longrange.product3.feature2', 'fpvCategory.longrange.product3.feature3', 'fpvCategory.longrange.product3.feature4'] },
     ],
   },
   "cinematic": {
     titleKey: 'fpvCategory.cinematic.title',
     descriptionKey: 'fpvCategory.cinematic.description',
-    heroImage: "https://images.unsplash.com/photo-1508614589041-895b88991e3e?w=1920&q=80",
+    heroImage: fpvCinewhoopImg,
     products: [
-      {
-        nameKey: 'fpvCategory.cinematic.product1.name',
-        descriptionKey: 'fpvCategory.cinematic.product1.description',
-        specsKeys: ['fpvCategory.cinematic.product1.spec1', 'fpvCategory.cinematic.product1.spec2', 'fpvCategory.cinematic.product1.spec3', 'fpvCategory.cinematic.product1.spec4'],
-        image: "https://images.unsplash.com/photo-1473968512647-3e447244af8f?w=600&q=80",
-        priceKey: "fpvCategory.cinematic.product1.price",
-        featuresKeys: ['fpvCategory.cinematic.product1.feature1', 'fpvCategory.cinematic.product1.feature2', 'fpvCategory.cinematic.product1.feature3', 'fpvCategory.cinematic.product1.feature4'],
-      },
-      {
-        nameKey: 'fpvCategory.cinematic.product2.name',
-        descriptionKey: 'fpvCategory.cinematic.product2.description',
-        specsKeys: ['fpvCategory.cinematic.product2.spec1', 'fpvCategory.cinematic.product2.spec2', 'fpvCategory.cinematic.product2.spec3', 'fpvCategory.cinematic.product2.spec4'],
-        image: "https://images.unsplash.com/photo-1527977966376-1c8408f9f108?w=600&q=80",
-        priceKey: "fpvCategory.cinematic.product2.price",
-        featuresKeys: ['fpvCategory.cinematic.product2.feature1', 'fpvCategory.cinematic.product2.feature2', 'fpvCategory.cinematic.product2.feature3', 'fpvCategory.cinematic.product2.feature4'],
-      },
-      {
-        nameKey: 'fpvCategory.cinematic.product3.name',
-        descriptionKey: 'fpvCategory.cinematic.product3.description',
-        specsKeys: ['fpvCategory.cinematic.product3.spec1', 'fpvCategory.cinematic.product3.spec2', 'fpvCategory.cinematic.product3.spec3', 'fpvCategory.cinematic.product3.spec4'],
-        image: "https://images.unsplash.com/photo-1506947411487-a56738267384?w=600&q=80",
-        priceKey: "fpvCategory.cinematic.product3.price",
-        featuresKeys: ['fpvCategory.cinematic.product3.feature1', 'fpvCategory.cinematic.product3.feature2', 'fpvCategory.cinematic.product3.feature3', 'fpvCategory.cinematic.product3.feature4'],
-      },
+      { nameKey: 'fpvCategory.cinematic.product1.name', descriptionKey: 'fpvCategory.cinematic.product1.description', specsKeys: ['fpvCategory.cinematic.product1.spec1', 'fpvCategory.cinematic.product1.spec2', 'fpvCategory.cinematic.product1.spec3', 'fpvCategory.cinematic.product1.spec4'], image: fpvHeroImg, priceKey: "fpvCategory.cinematic.product1.price", featuresKeys: ['fpvCategory.cinematic.product1.feature1', 'fpvCategory.cinematic.product1.feature2', 'fpvCategory.cinematic.product1.feature3', 'fpvCategory.cinematic.product1.feature4'] },
+      { nameKey: 'fpvCategory.cinematic.product2.name', descriptionKey: 'fpvCategory.cinematic.product2.description', specsKeys: ['fpvCategory.cinematic.product2.spec1', 'fpvCategory.cinematic.product2.spec2', 'fpvCategory.cinematic.product2.spec3', 'fpvCategory.cinematic.product2.spec4'], image: fpvRacingImg, priceKey: "fpvCategory.cinematic.product2.price", featuresKeys: ['fpvCategory.cinematic.product2.feature1', 'fpvCategory.cinematic.product2.feature2', 'fpvCategory.cinematic.product2.feature3', 'fpvCategory.cinematic.product2.feature4'] },
+      { nameKey: 'fpvCategory.cinematic.product3.name', descriptionKey: 'fpvCategory.cinematic.product3.description', specsKeys: ['fpvCategory.cinematic.product3.spec1', 'fpvCategory.cinematic.product3.spec2', 'fpvCategory.cinematic.product3.spec3', 'fpvCategory.cinematic.product3.spec4'], image: fpvFreestyleImg, priceKey: "fpvCategory.cinematic.product3.price", featuresKeys: ['fpvCategory.cinematic.product3.feature1', 'fpvCategory.cinematic.product3.feature2', 'fpvCategory.cinematic.product3.feature3', 'fpvCategory.cinematic.product3.feature4'] },
     ],
   },
 };

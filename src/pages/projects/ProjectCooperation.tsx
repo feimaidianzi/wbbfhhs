@@ -7,6 +7,8 @@ import { LangLink as Link } from "@/components/LangLink";
 import { MultiLanguageSEO } from "@/components/MultiLanguageSEO";
 import { PageStructuredData } from "@/components/PageStructuredData";
 import { useLanguage } from "@/contexts/LanguageContext";
+import coopHeroImg from "@/assets/seo/business-cooperation.jpg";
+import coopContentImg from "@/assets/seo/team-cooperation.jpg";
 
 const ProjectCooperation = () => {
   const { t } = useLanguage();
@@ -39,7 +41,7 @@ const ProjectCooperation = () => {
       <Header />
       <main className="pt-16 md:pt-20">
         <section className="relative h-[400px] overflow-hidden">
-          <div className="absolute inset-0 bg-cover bg-center" style={{ backgroundImage: "url(https://images.unsplash.com/photo-1552664730-d307ca884978?w=1920&q=80)" }}>
+          <div className="absolute inset-0 bg-cover bg-center" style={{ backgroundImage: `url(${coopHeroImg})` }}>
             <div className="absolute inset-0 bg-gradient-to-r from-primary/90 via-primary/70 to-primary/50" />
           </div>
           <div className="relative container-custom h-full flex items-center">
@@ -102,7 +104,7 @@ const ProjectCooperation = () => {
                 </ul>
               </div>
               <div className="aspect-video rounded-xl overflow-hidden shadow-card">
-                <img src="https://images.unsplash.com/photo-1557804506-669a67965ba0?w=800&q=80" alt={t('cooperation.hero.title')} className="w-full h-full object-cover" />
+                <img src={coopContentImg} alt={t('cooperation.hero.title')} className="w-full h-full object-cover" />
               </div>
             </div>
           </div>

@@ -8,6 +8,7 @@ import { BackButton } from "@/components/BackButton";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { MultiLanguageSEO } from "@/components/MultiLanguageSEO";
 import { PageStructuredData } from "@/components/PageStructuredData";
+import softwareCustomHeroImg from "@/assets/seo/custom-software-dev.jpg";
 import { PageFAQ } from "@/components/PageFAQ";
 import { Helmet } from "react-helmet-async";
 import {
@@ -89,7 +90,7 @@ const SoftwareCustom = () => {
         <section className="relative h-[500px] md:h-[600px] overflow-hidden">
           <div
             className="absolute inset-0 bg-cover bg-center"
-            style={{ backgroundImage: "url(https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=1920&q=80)" }}
+            style={{ backgroundImage: `url(${softwareCustomHeroImg})` }}
           >
             <div className="absolute inset-0 bg-gradient-to-r from-primary/90 via-primary/70 to-primary/50" />
           </div>

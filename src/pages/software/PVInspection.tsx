@@ -8,6 +8,8 @@ import { MultiLanguageSEO } from "@/components/MultiLanguageSEO";
 import { PageFAQ } from "@/components/PageFAQ";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { Helmet } from "react-helmet-async";
+import pvInspectionHeroImg from "@/assets/seo/solar-panel-inspection.jpg";
+import pvThermalImg from "@/assets/seo/pv-thermal-defect.jpg";
 
 const PVInspection = () => {
   const { t, language } = useLanguage();
@@ -98,7 +100,7 @@ const PVInspection = () => {
         <section className="relative h-auto min-h-[500px] md:min-h-[600px] overflow-hidden">
           <div
             className="absolute inset-0 bg-cover bg-center"
-            style={{ backgroundImage: "url(https://images.unsplash.com/photo-1509391366360-2e959784a276?w=1920&q=80)" }}
+            style={{ backgroundImage: `url(${pvInspectionHeroImg})` }}
           >
             <div className="absolute inset-0 bg-gradient-to-r from-primary/90 via-primary/70 to-primary/50" />
           </div>
@@ -236,7 +238,7 @@ const PVInspection = () => {
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
               <div className="aspect-video rounded-xl overflow-hidden shadow-card">
                 <img
-                  src="https://images.unsplash.com/photo-1508514177221-188b1cf16e9d?w=800&q=80"
+                  src={pvThermalImg}
                   alt={t('softwarePage.pvInspection.defects.title')}
                   className="w-full h-full object-cover"
                   loading="lazy"

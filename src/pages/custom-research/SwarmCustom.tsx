@@ -8,6 +8,7 @@ import { BackButton } from "@/components/BackButton";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { MultiLanguageSEO } from "@/components/MultiLanguageSEO";
 import { PageStructuredData } from "@/components/PageStructuredData";
+import swarmImg from "@/assets/seo/swarm-drone-formation.jpg";
 
 const SwarmCustom = () => {
   const { t } = useLanguage();
@@ -80,7 +81,7 @@ const SwarmCustom = () => {
                 </div>
               </div>
               <div className="relative">
-                <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&q=80" alt={t('customSwarm.title')} className="rounded-2xl shadow-2xl w-full" />
+                <img src={swarmImg} alt={t('customSwarm.title')} className="rounded-2xl shadow-2xl w-full" />
               </div>
             </div>
           </div>
