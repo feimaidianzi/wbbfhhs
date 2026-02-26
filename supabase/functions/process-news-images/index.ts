@@ -300,8 +300,68 @@ async function removeCompanyBranding(
     console.log("Detected company branding:", detectionResult.brandingItems?.join(", "));
     console.log("Locations:", detectionResult.brandingLocations?.join(", "));
 
-    // 豆包不支持图片编辑，检测到品牌信息后直接丢弃该图片
-    console.log("Company branding detected - discarding image (Doubao does not support image editing)");
+    // 使用 Lovable AI (Gemini) 编辑图片去除品牌信息
+    const LOVABLE_API_KEY = Deno.env.get("LOVABLE_API_KEY");
+    if (!LOVABLE_API_KEY) {
+      console.log("LOVABLE_API_KEY not found, cannot edit image - discarding");
+      return { buffer: imageBuffer, contentType, wasEdited: false };
+    }
+
+    const editPrompt = `Remove ALL company logos, brand names, watermarks, QR codes, and contact information from this image. 
+Specifically remove: ${detectionResult.brandingItems?.join(", ")}
+Located at: ${detectionResult.brandingLocations?.join(", ")}
+Fill the removed areas with the surrounding background naturally. Keep the rest of the image intact.`;
+
+    console.log("Using Lovable AI (Gemini) to remove branding from image...");
+    
+    const editResponse = await fetch("https://ai.gateway.lovable.dev/v1/chat/completions", {
+      method: "POST",
+      headers: {
+        "Authorization": `Bearer ${LOVABLE_API_KEY}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        model: "google/gemini-2.5-flash-image",
+        messages: [
+          {
+            role: "user",
+            content: [
+              { type: "text", text: editPrompt },
+              { type: "image_url", image_url: { url: `data:${mimeType};base64,${base64Image}` } }
+            ]
+          }
+        ],
+        modalities: ["image", "text"]
+      }),
+      signal: AbortSignal.timeout(60000),
+    });
+
+    if (!editResponse.ok) {
+      console.error("Lovable AI image edit error:", editResponse.status);
+      return { buffer: imageBuffer, contentType, wasEdited: false };
+    }
+
+    const editData = await editResponse.json();
+    const editedImageUrl = editData.choices?.[0]?.message?.images?.[0]?.image_url?.url;
+
+    if (editedImageUrl && editedImageUrl.startsWith("data:image/")) {
+      // Extract base64 from data URL
+      const base64Match = editedImageUrl.match(/^data:image\/(\w+);base64,(.+)$/);
+      if (base64Match) {
+        const editedMimeType = `image/${base64Match[1]}`;
+        const editedBase64 = base64Match[2];
+        const editedBinary = atob(editedBase64);
+        const editedBuffer = new ArrayBuffer(editedBinary.length);
+        const editedView = new Uint8Array(editedBuffer);
+        for (let i = 0; i < editedBinary.length; i++) {
+          editedView[i] = editedBinary.charCodeAt(i);
+        }
+        console.log(`Successfully removed branding from image (${editedBuffer.byteLength} bytes)`);
+        return { buffer: editedBuffer, contentType: editedMimeType, wasEdited: true };
+      }
+    }
+
+    console.log("No edited image returned, keeping original");
     return { buffer: imageBuffer, contentType, wasEdited: false };
   } catch (error) {
     console.error("Company branding removal error:", error);
