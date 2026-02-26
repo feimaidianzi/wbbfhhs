@@ -1268,50 +1268,84 @@ const NewsCollection = () => {
     }
   };
 
-  // 清理历史文章图片
-  const cleanupHistoricalImages = async (limit: number = 50) => {
+  // 清理历史文章图片（分批处理避免超时）
+  const cleanupHistoricalImages = async (totalLimit: number = 50) => {
     setCleaningImages(true);
     setCleaningProgress(null);
     
-    addCollectionLog({ type: 'step', message: '开始清理历史文章图片...' });
+    const batchSize = 3; // 每批3篇避免超时
+    let offset = 0;
+    let totalProcessed = 0;
+    let totalUpdated = 0;
+    let totalConverted = 0;
+    let totalRejected = 0;
+    let totalImagesProcessedCount = 0;
+    const allErrors: string[] = [];
+
+    addCollectionLog({ type: 'step', message: `开始清理历史文章图片（共${totalLimit}篇，每批${batchSize}篇）...` });
     
     try {
-      const response = await supabase.functions.invoke('process-news-images', {
-        body: {
-          action: 'cleanup-history',
-          limit,
-          offset: 0,
-        },
+      while (offset < totalLimit) {
+        const currentBatch = Math.min(batchSize, totalLimit - offset);
+        addCollectionLog({ type: 'step', message: `处理第 ${offset + 1}-${offset + currentBatch} 篇...` });
+
+        const response = await supabase.functions.invoke('process-news-images', {
+          body: {
+            action: 'cleanup-history',
+            limit: currentBatch,
+            offset,
+          },
+        });
+
+        if (response.error) throw response.error;
+
+        const data = response.data?.data;
+        if (data) {
+          totalProcessed += data.processedArticles || 0;
+          totalUpdated += data.updatedArticles || 0;
+          totalConverted += data.totalImagesConverted || 0;
+          totalRejected += data.totalImagesRejected || 0;
+          totalImagesProcessedCount += data.totalImagesProcessed || 0;
+          if (data.errors) allErrors.push(...data.errors);
+
+          // 如果返回的文章数少于请求数，说明没有更多文章了
+          if ((data.processedArticles || 0) < currentBatch) {
+            addCollectionLog({ type: 'step', message: '没有更多文章需要处理' });
+            break;
+          }
+        }
+
+        setCleaningProgress({
+          processedArticles: totalProcessed,
+          updatedArticles: totalUpdated,
+          totalImagesProcessed: totalImagesProcessedCount,
+          totalImagesConverted: totalConverted,
+          totalImagesRejected: totalRejected,
+        });
+
+        offset += currentBatch;
+        
+        // 批次间短暂延迟
+        if (offset < totalLimit) {
+          await new Promise(r => setTimeout(r, 1000));
+        }
+      }
+
+      addCollectionLog({ 
+        type: 'success', 
+        message: `图片清理完成: 处理${totalProcessed}篇文章，更新${totalUpdated}篇`,
+        details: `转存${totalConverted}张，移除不相关${totalRejected}张`,
       });
 
-      if (response.error) throw response.error;
-
-      const data = response.data?.data;
-      if (data) {
-        setCleaningProgress({
-          processedArticles: data.processedArticles || 0,
-          updatedArticles: data.updatedArticles || 0,
-          totalImagesProcessed: data.totalImagesProcessed || 0,
-          totalImagesConverted: data.totalImagesConverted || 0,
-          totalImagesRejected: data.totalImagesRejected || 0,
+      if (allErrors.length > 0) {
+        allErrors.forEach((err: string) => {
+          addCollectionLog({ type: 'warning', message: err });
         });
-
-        addCollectionLog({ 
-          type: 'success', 
-          message: `图片清理完成: 处理${data.processedArticles}篇文章，更新${data.updatedArticles}篇`,
-          details: `转存${data.totalImagesConverted}张，移除不相关${data.totalImagesRejected}张`,
-        });
-
-        if (data.errors && data.errors.length > 0) {
-          data.errors.forEach((err: string) => {
-            addCollectionLog({ type: 'warning', message: err });
-          });
-        }
       }
 
       toast({
         title: '图片清理完成',
-        description: `处理了 ${data?.processedArticles || 0} 篇文章，更新了 ${data?.updatedArticles || 0} 篇`,
+        description: `处理了 ${totalProcessed} 篇文章，更新了 ${totalUpdated} 篇`,
       });
     } catch (error: any) {
       addCollectionLog({ type: 'error', message: `清理失败: ${error.message}` });
