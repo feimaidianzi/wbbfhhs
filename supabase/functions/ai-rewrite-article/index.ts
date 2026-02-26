@@ -5,46 +5,88 @@ const corsHeaders = {
   "Access-Control-Allow-Headers": "authorization, x-client-info, apikey, content-type",
 };
 
-// CANI产品知识库
+// CANI产品知识库 - 事实锚点（所有数字均为官方参数，AI不得修改）
 const CANI_KNOWLEDGE = `CANI（长凌科技）专注无人机核心配件：数字图传(VTX/VRX，1.4G/2.4G/5.8G多频段，4K传输，<30ms延迟，AES-256-GCM加密)、飞控(F7/H7芯片，双冗余IMU，PID优化)、电调(BLHeli_32，48KHz PWM，55A-100A)、ELRS遥控(50km+，LoRa调制，500Hz)、吊舱/云台(三轴稳定，IP67，4K 40x变焦)、GPS模块(双频RTK，厘米级精度)、FPV眼镜/接收屏。`;
 
-// 分类专用角色、指令与绘图风格
+// ===== 事实锁定指令：跨分类通用 =====
+const FACT_LOCK_INSTRUCTION = `
+【⚠️ 事实锁定指令 - 最高优先级】
+1. 以下参数为"硬事实"，严禁修改、推算或"四舍五入"：
+   - 所有频率数值（如 48KHz、500Hz、2.4GHz）
+   - 所有距离数值（如 50km、30km）
+   - 所有延迟数值（如 <30ms）
+   - 所有型号标识（如 F7、H7、BLHeli_32）
+   - 所有认证标识（如 AES-256-GCM、IP67）
+2. 如果输入素材中出现的数据与知识库冲突，以【输入素材】为准并标注"(以实测数据为准)"。
+3. 如果你不确定某个参数，使用"[待核实]"占位符，严禁自行编造。
+4. 自检：生成完成后，逐一核对你输出的每个数字是否能在【输入素材】或知识库中找到出处。`;
+
+// 分类专用角色、指令与绘图风格 - 深度差异化
 const CATEGORY_CONFIG: Record<string, { persona: string; instructions: string; imageStyle: string; temperature: number }> = {
   "公司新闻": {
-    persona: "CANI（长凌科技）高级公关经理（PR Director）",
-    temperature: 0.7,
+    persona: "CANI（长凌科技）高级公关经理（PR Director），拥有对公司产品线的完整了解，以第一人称'我们'的视角讲述公司故事",
+    temperature: 0.5, // 降低温度，减少幻觉
     imageStyle: "Premium texture, brushed metal, product close-up, minimalist, high-end commercial photography, dark backdrop, soft ambient rim lighting, CANI brand colors (deep blue + silver gray).",
-    instructions: `【改写策略 - 从"事实"到"营销叙事"】
-将冰冷的技术参数转化为具有商业吸引力的叙事，每篇公司新闻都是强力的Lead Generation入口。
-【多维延展创作】
-- 用户视角：产品/事件如何解决用户痛点？量化ROI
-- 技术视角：深度解析背后的设计逻辑和技术创新
-- 行业视角：释放了行业发展的哪些信号？
+    instructions: `【改写策略 - 企业主权叙事】
+公司新闻的核心是"主权感"——读者读完后应该感受到"这是一家有技术实力的公司在自信地分享成果"，而不是"一个局外人在转述消息"。
+
+【视角要求 - 第一人称企业视角】
+- 使用"我们的研发团队"、"经过内部严格测试"、"CANI工程师发现"等主权表述
+- 禁止使用"据了解"、"该公司"、"业内人士透露"等外部视角用语
+- 每个技术成就后面必须跟"为什么这对客户重要"的解释
+
+【场景化写作 - 禁止空话】
+❌ 错误示范："我们的图传性能领先，致力于为客户提供优质产品"
+✅ 正确示范："在深圳某电力巡检项目中，CANI 4K COFDM图传在35℃高温、强电磁干扰环境下连续工作8小时，图传延迟始终保持在30ms以内，零丢帧"
+
 【输出结构】
-1. 权威标题：包含CANI品牌词
-2. 导语（100字）
-3. 核心详情（300字）：技术参数表格 + 痛点解决方案
-4. 应用展望（200字）
-5. 品牌背书（100字）
-6. CTA转化框
-【约束】800-1200字，至少2个CANI产品参数，至少1个HTML <table>，自信专业语气`,
+1. 权威标题：包含CANI品牌词 + 具体技术亮点（非泛泛而谈）
+2. 导语（80-100字）：用一句话讲清"我们做了什么" + "为什么这很重要"
+3. 核心详情（400字）：
+   - 必须包含至少1个HTML <table>（参数对比或性能数据）
+   - 每个技术参数后附带应用场景解释
+   - 引用具体的测试数据或客户反馈
+4. 研发幕后（200字）：讲述研发过程中的挑战与解决方案，增加"人情味"
+5. 应用展望（150字）：这项技术/产品将如何改变用户的工作流程
+6. CTA转化框：HTML格式，包含"获取报价"(/contact)和"产品目录"(/products)链接
+
+【约束】800-1200字，至少3个CANI产品参数（必须与知识库一致），自信专业语气，禁止使用感叹号超过2个`,
   },
   "行业动态": {
-    persona: "无人机行业资深分析师，拥有10年行业观察经验",
+    persona: "全球无人机产业高级分析师，拥有覆盖中美欧日韩供应链的深度人脉，擅长从碎片化信息中提炼趋势转折点",
     temperature: 0.5,
     imageStyle: "Wide angle, cinematic lighting, outdoor environment, digital city skyline, drone flight path light trails, motion blur, technology blue tone.",
-    instructions: `【改写策略 - 快速精炼的行业观察】
+    instructions: `【改写策略 - 多源归纳型深度分析】
+行业动态的核心是"视野"和"中立深度"——读者读完后应该觉得"这篇分析比我看5篇外媒更有价值"，而不是"又一篇翻译搬运"。
+
+【多源综合要求】
+- 如果原文只有单一信源，必须主动补充行业背景和上下游关联分析
+- 引用数据时标注来源（如"据FAA最新数据"、"根据Drone Industry Insights报告"）
+- 禁止单纯翻译，必须增加独立分析层
+
+【分析框架 - 三层递进】
+第一层：发生了什么（事实层，简洁客观）
+第二层：为什么重要（影响层，对无人机配件供应链的连锁反应）
+第三层：中国厂商怎么应对（策略层，机遇与挑战并存分析）
+
 【输出结构】
-1. 爆款标题：【快讯】/【深度解析】前缀
-2. 核心摘要（50字内）
-3. 核心快讯（150字内）：三句话概括
-4. 深度解读（250字）：对无人机配件供应链的影响
-5. CANI观点（150字）：技术储备视角
-6. 行业展望（100字）
-【约束】600-800字，禁止"据报道"，第一句直接切入主题`,
+1. 标题：【行业观察】/【深度分析】/【全球快讯】前缀 + 核心事件 + 影响判断
+2. 核心摘要（50字内）：一句话概括事件+影响
+3. 事件快报（150字）：三句话概括What/Who/When，第一句直接切入
+4. 深度解读（300字）：
+   - 供应链影响分析（对图传、飞控、电调厂商的具体影响）
+   - 全球竞争格局变化
+   - 必须包含至少1个数据支撑
+5. 【CANI视点】（200字）：
+   - 以CANI技术储备为切入点，分析"我们已经准备好了什么"
+   - 引用至少1个CANI产品参数作为论据
+   - 语气：专业客观但不卑不亢，展示技术自信
+6. 趋势展望（100字）：未来6-12个月的趋势预判
+
+【约束】800-1200字，必须包含【CANI视点】段落，禁止"据报道"等搬运痕迹，第一句话直接切入主题，保持中立但有态度`,
   },
   "技术分享": {
-    persona: "CANI首席技术专家（CTO），资深无人机系统工程师",
+    persona: "CANI首席技术专家（CTO），资深无人机系统工程师，擅长将复杂技术转化为可操作的工程指南",
     temperature: 0.3,
     imageStyle: "Exploded view, internal hardware details, technical blueprints background, studio lighting, cyber industrial aesthetic, dark background with blue-green neon accents, circuit board traces glowing.",
     instructions: `【改写策略 - 知识库重组】
@@ -65,6 +107,32 @@ const CATEGORY_CONFIG: Record<string, { persona: string; instructions: string; i
 // 风格锚点
 const BASE_STYLE_ANCHOR = "Photorealistic, Industrial design, 8k resolution, shot on 35mm lens, sharp focus, clean background, no text, no words, no letters, no logo.";
 const NEGATIVE_PROMPT = "(worst quality, low quality, cartoon, anime, 2D, sketch, deformed, messy wires, blurry, text, watermark, logo, letters, words, childish, illustration)";
+
+// ===== 自动分类打标逻辑 =====
+const AUTO_CLASSIFY_RULES = {
+  "公司新闻": ["CANI", "长凌", "我们", "发布会", "新品发布", "签约", "战略合作", "自主研发", "cani"],
+  "行业动态": ["FAA", "DJI", "大疆", "政策", "法规", "Global", "市场规模", "融资", "IPO", "收购", "监管", "EASA", "CAAC", "适航"],
+  "技术分享": ["教程", "原理", "对比测试", "技术解析", "参数解读", "固件", "调参", "PID", "协议", "频谱"],
+};
+
+function autoClassifyContent(title: string, content: string): { category: string; confidence: number } {
+  const text = `${title} ${content.substring(0, 1000)}`.toLowerCase();
+  const scores: Record<string, number> = {};
+  
+  for (const [cat, keywords] of Object.entries(AUTO_CLASSIFY_RULES)) {
+    scores[cat] = keywords.reduce((score, kw) => {
+      const regex = new RegExp(kw.toLowerCase(), 'gi');
+      const matches = text.match(regex);
+      return score + (matches ? matches.length : 0);
+    }, 0);
+  }
+  
+  const sorted = Object.entries(scores).sort((a, b) => b[1] - a[1]);
+  const topScore = sorted[0][1];
+  const confidence = topScore > 0 ? Math.min(topScore / 5, 1) : 0;
+  
+  return { category: topScore > 0 ? sorted[0][0] : "行业动态", confidence };
+}
 
 Deno.serve(async (req) => {
   if (req.method === "OPTIONS") {
@@ -93,7 +161,13 @@ Deno.serve(async (req) => {
       return new Response(JSON.stringify({ success: false, error: "Forbidden" }), { status: 403, headers: { ...corsHeaders, "Content-Type": "application/json" } });
     }
 
-    const { title, content, category, coverImage, isEnglish = true, stream = false } = await req.json();
+    const { title, content, category, coverImage, isEnglish = true, stream = false, tone, lockedParams, action } = await req.json();
+
+    // ===== Action: auto-classify =====
+    if (action === 'auto-classify') {
+      const result = autoClassifyContent(title || '', content || '');
+      return new Response(JSON.stringify({ success: true, data: result }), { headers: { ...corsHeaders, "Content-Type": "application/json" } });
+    }
 
     if (!title || !content) {
       return new Response(
@@ -112,6 +186,18 @@ Deno.serve(async (req) => {
 
     const config = CATEGORY_CONFIG[category] || CATEGORY_CONFIG["行业动态"];
 
+    // ===== 情绪基调修饰器 =====
+    const toneModifier = tone === '严谨' ? '\n【语气要求】严谨学术风，数据为王，避免情绪化表述，多用"数据显示"、"测试表明"。' 
+      : tone === '振奋' ? '\n【语气要求】积极振奋，突出成就感和里程碑意义，可适当使用"突破"、"里程碑"、"行业首创"等词汇。'
+      : tone === '中立' ? '\n【语气要求】严格中立客观，平衡报道各方观点，禁止主观判断词，多用"据...表示"、"数据显示"。'
+      : tone === '专业分析' ? '\n【语气要求】深度分析师风格，逻辑严密，论据充分，可以有独到见解但必须基于事实支撑。'
+      : '';
+
+    // ===== 参数锁定指令 =====
+    const paramLockInstruction = lockedParams && Array.isArray(lockedParams) && lockedParams.length > 0
+      ? `\n【🔒 参数锁定 - 以下数值在生成过程中严禁修改】\n${lockedParams.map((p: string) => `- ${p}`).join('\n')}\n如果正文中需要引用这些数据，必须原封不动地使用。\n`
+      : '';
+
     const translationInstruction = isEnglish 
       ? `这是一篇英文原文，请翻译成专业流畅的中文并进行深度编辑。专业术语首次出现时保留英文。`
       : `这是一篇中文原文，请进行深度编辑润色。`;
@@ -120,7 +206,10 @@ Deno.serve(async (req) => {
 
 ${CANI_KNOWLEDGE}
 
+${FACT_LOCK_INSTRUCTION}
+${paramLockInstruction}
 ${translationInstruction}
+${toneModifier}
 
 【原始标题】${title}
 【原始内容】${content.substring(0, 6000)}
@@ -151,7 +240,9 @@ ${config.instructions}
   "summary": "中文摘要（100-150字）",
   "content": "HTML格式正文",
   "keywords": ["关键词1", "关键词2", "关键词3", "关键词4", "关键词5"],
-  "image_prompt": "200字绘图描述词..."
+  "image_prompt": "200字绘图描述词...",
+  "auto_category": "自动判断的分类（公司新闻/行业动态/技术分享）",
+  "fact_check_notes": "你在自检中发现的任何不确定数据点"
 }`;
 
     // ========== Streaming mode ==========
@@ -160,7 +251,6 @@ ${config.instructions}
       const readable = new ReadableStream({
         async start(controller) {
           try {
-            // Step 1: Stream text generation
             const response = await fetch("https://ark.cn-beijing.volces.com/api/v3/chat/completions", {
               method: "POST",
               headers: {
@@ -177,7 +267,6 @@ ${config.instructions}
             });
 
             if (!response.ok || !response.body) {
-              const errText = await response.text();
               controller.enqueue(encoder.encode(`data: ${JSON.stringify({ type: "error", message: `Doubao API error: ${response.status}` })}\n\n`));
               controller.close();
               return;
@@ -188,7 +277,6 @@ ${config.instructions}
             const decoder = new TextDecoder();
             let buffer = "";
 
-            // Stream SSE to client
             while (true) {
               const { done, value } = await reader.read();
               if (done) break;
@@ -213,7 +301,7 @@ ${config.instructions}
               }
             }
 
-            // Step 2: Parse result and extract image_prompt
+            // Parse result
             controller.enqueue(encoder.encode(`data: ${JSON.stringify({ type: "status", message: "parsing" })}\n\n`));
             
             const jsonMatch = fullContent.match(/\{[\s\S]*\}/);
@@ -228,9 +316,19 @@ ${config.instructions}
             }
 
             if (result) {
-              controller.enqueue(encoder.encode(`data: ${JSON.stringify({ type: "result", data: { title: result.title, summary: result.summary, content: result.content, keywords: result.keywords } })}\n\n`));
+              controller.enqueue(encoder.encode(`data: ${JSON.stringify({ 
+                type: "result", 
+                data: { 
+                  title: result.title, 
+                  summary: result.summary, 
+                  content: result.content, 
+                  keywords: result.keywords,
+                  auto_category: result.auto_category,
+                  fact_check_notes: result.fact_check_notes,
+                } 
+              })}\n\n`));
 
-              // Step 3: Generate cover image asynchronously
+              // Generate cover image
               const imagePrompt = typeof result.image_prompt === "string" ? result.image_prompt.trim() : "";
               if (imagePrompt.length > 20) {
                 controller.enqueue(encoder.encode(`data: ${JSON.stringify({ type: "status", message: "generating_cover" })}\n\n`));
@@ -302,7 +400,7 @@ ${config.instructions}
       });
     }
 
-    // ========== Non-streaming mode (original) ==========
+    // ========== Non-streaming mode ==========
     const response = await fetch("https://ark.cn-beijing.volces.com/api/v3/chat/completions", {
       method: "POST",
       headers: {
