@@ -9,7 +9,7 @@ import { Badge } from "@/components/ui/badge";
 import { Skeleton } from "@/components/ui/skeleton";
 import { ArrowLeft, Calendar, User, Tag } from "lucide-react";
 import { MultiLanguageSEO } from "@/components/MultiLanguageSEO";
-import { createArticleStructuredData } from "@/components/SEO";
+import { createLocalizedArticleData } from "@/utils/seoConfig";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { supabase } from "@/integrations/supabase/client";
 import { sanitizeHtml } from "@/lib/sanitize";
@@ -43,7 +43,7 @@ interface RelatedArticle {
 
 const NewsDetail = () => {
   const { id } = useParams<{ id: string }>();
-  const { t, baseLang } = useLanguage();
+  const { t, baseLang, language } = useLanguage();
   const [article, setArticle] = useState<NewsArticle | null>(null);
   const [loading, setLoading] = useState(true);
   const [relatedArticles, setRelatedArticles] = useState<RelatedArticle[]>([]);
@@ -181,12 +181,12 @@ const NewsDetail = () => {
     );
   }
 
-  const articleStructuredData = createArticleStructuredData({
+  const articleStructuredData = createLocalizedArticleData({
     title: baseLang === 'en' && article.title_en ? article.title_en : article.title,
     description: baseLang === 'en' && article.summary_en ? article.summary_en : (article.summary || ''),
     image: article.cover_image || 'https://images.unsplash.com/photo-1473968512647-3e447244af8f?w=1200&q=80',
     datePublished: article.published_at || article.created_at,
-  });
+  }, language);
 
   return (
     <div className="min-h-screen">
