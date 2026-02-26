@@ -252,13 +252,6 @@ const AdminDashboard = () => {
       color: 'from-purple-500 to-violet-500'
     },
     { 
-      icon: FileText, 
-      title: '新闻管理', 
-      description: '发布和管理新闻文章', 
-      href: '/admin/news',
-      color: 'from-orange-500 to-red-500'
-    },
-    { 
       icon: MessageSquare, 
       title: '咨询管理', 
       description: '查看和回复用户咨询', 
