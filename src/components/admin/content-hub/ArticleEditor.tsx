@@ -832,7 +832,7 @@ export const ArticleEditor = ({ article, onBack, onSaved, currentUserId }: Artic
 
               {/* SEO Quality Indicators */}
               <div>
-                <p className="text-[10px] text-slate-500 mb-2 uppercase tracking-wider">SEO 质量</p>
+                <p className="text-[10px] text-slate-500 mb-2 uppercase tracking-wider">SEO & GEO 质量</p>
                 <div className="space-y-1.5">
                   {[
                     { label: '标题含品牌词', pass: /CANI/i.test(form.title) },
@@ -840,7 +840,11 @@ export const ArticleEditor = ({ article, onBack, onSaved, currentUserId }: Artic
                     { label: '正文>500字', pass: wordCount > 500 },
                     { label: '封面图已设置', pass: !!form.cover_image },
                     { label: '含技术参数表', pass: /<table/i.test(form.content) },
-                    ...(form.category === '行业动态' ? [{ label: '含【CANI视点】', pass: /CANI视点|CANI观点/i.test(contentText) }] : []),
+                    { label: '🌐 Quick Answer首段', pass: contentText.substring(0, 200).length > 50 && !/^[\s\n]*$/.test(contentText.substring(0, 50)) },
+                    { label: '🌐 含FAQ模块', pass: /<details|常见问题|FAQ/i.test(form.content) },
+                    { label: '🌐 术语共现CANI+行业词', pass: /CANI.{0,30}(图传|VTX|Data Link|COFDM|UAV|飞控|Flight Controller)/i.test(contentText) },
+                    { label: '🌐 H2语义标题', pass: /<h2/i.test(form.content) },
+                    ...(form.category === '行业动态' ? [{ label: '含【CANI视点】', pass: /CANI视点|CANI观点|CANI Expert/i.test(contentText) }] : []),
                     ...(form.category === '公司新闻' ? [{ label: '含CTA转化框', pass: /获取报价|联系我们|contact/i.test(contentText) }] : []),
                   ].map(check => (
                     <div key={check.label} className="flex items-center gap-1.5">
