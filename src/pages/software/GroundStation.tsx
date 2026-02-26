@@ -9,6 +9,7 @@ import { PageStructuredData } from "@/components/PageStructuredData";
 import { PageFAQ } from "@/components/PageFAQ";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { Helmet } from "react-helmet-async";
+import { HeroImagePreload } from "@/components/HeroImagePreload";
 import gsHeroImg from "@/assets/seo/ground-station-software.jpg";
 import gsCapImg from "@/assets/seo/drone-management-dashboard.jpg";
 import {
@@ -98,6 +99,7 @@ const GroundStation = () => {
       <main className="pt-16 md:pt-20">
         {/* Hero + BLUF */}
         <section className="relative h-[500px] md:h-[600px] overflow-hidden">
+          <HeroImagePreload imageSrc={gsHeroImg} />
           <div
             className="absolute inset-0 bg-cover bg-center"
             style={{ backgroundImage: `url(${gsHeroImg})` }}

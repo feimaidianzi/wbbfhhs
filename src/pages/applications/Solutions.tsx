@@ -6,6 +6,12 @@ import { ArrowRight, Settings, Users, Lightbulb, Wrench } from "lucide-react";
 import { LangLink as Link } from "@/components/LangLink";
 import { MultiLanguageSEO } from "@/components/MultiLanguageSEO";
 import { useLanguage } from "@/contexts/LanguageContext";
+import { HeroImagePreload } from "@/components/HeroImagePreload";
+import solutionsHeroImg from "@/assets/seo/solutions-hero.jpg";
+import powerInspectionImg from "@/assets/seo/power-transmission-inspection.jpg";
+import militaryDefenseImg from "@/assets/seo/military-defense-drone.jpg";
+import envMonitoringImg from "@/assets/seo/atmospheric-monitoring.jpg";
+import logisticsCargoImg from "@/assets/seo/logistics-cargo-drone.jpg";
 
 const Solutions = () => {
   const { t } = useLanguage();
@@ -61,22 +67,22 @@ const Solutions = () => {
     {
       title: t('solutions.industry.power'),
       description: t('solutions.industry.power.desc'),
-      image: "https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?w=600&q=80"
+      image: powerInspectionImg
     },
     {
       title: t('solutions.industry.security'),
       description: t('solutions.industry.security.desc'),
-      image: "https://images.unsplash.com/photo-1551698618-1dfe5d97d256?w=600&q=80"
+      image: militaryDefenseImg
     },
     {
       title: t('solutions.industry.environment'),
       description: t('solutions.industry.environment.desc'),
-      image: "https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=600&q=80"
+      image: envMonitoringImg
     },
     {
       title: t('solutions.industry.logistics'),
       description: t('solutions.industry.logistics.desc'),
-      image: "https://images.unsplash.com/photo-1527977966376-1c8408f9f108?w=600&q=80"
+      image: logisticsCargoImg
     }
   ];
 
@@ -92,10 +98,11 @@ const Solutions = () => {
       <main className="pt-16 md:pt-20">
         {/* Hero Section */}
         <section className="relative h-[400px] md:h-[500px] overflow-hidden">
+          <HeroImagePreload imageSrc={solutionsHeroImg} />
           <div
             className="absolute inset-0 bg-cover bg-center"
             style={{
-              backgroundImage: "url(https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=1920&q=80)",
+              backgroundImage: `url(${solutionsHeroImg})`,
             }}
           >
             <div className="absolute inset-0 bg-gradient-to-r from-primary/90 via-primary/70 to-primary/50" />

@@ -13,7 +13,7 @@ import { useLanguage } from "@/contexts/LanguageContext";
 import { supabase } from "@/integrations/supabase/client";
 import { sanitizeHtml } from "@/lib/sanitize";
 
-const DEFAULT_IMAGE = "https://images.pexels.com/photos/442587/pexels-photo-442587.jpeg?auto=compress&cs=tinysrgb&w=800";
+const DEFAULT_IMAGE = "/placeholder.svg";
 
 interface NewsArticle {
   id: string;
@@ -188,7 +188,7 @@ const NewsDetail = () => {
     '@type': schemaType,
     headline: baseLang === 'en' && article.title_en ? article.title_en : article.title,
     description: baseLang === 'en' && article.summary_en ? article.summary_en : (article.summary || ''),
-    image: article.cover_image || 'https://images.unsplash.com/photo-1473968512647-3e447244af8f?w=1200&q=80',
+    image: article.cover_image || '/og-image.png',
     datePublished: article.published_at || article.created_at,
     dateModified: article.published_at || article.created_at,
     inLanguage: language === 'zh' ? 'zh-CN' : language,

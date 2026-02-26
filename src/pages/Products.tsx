@@ -7,6 +7,8 @@ import { LangLink as Link } from "@/components/LangLink";
 import { MultiLanguageSEO, createLocalizedBreadcrumbData } from "@/components/MultiLanguageSEO";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { LanguageCode } from "@/i18n/languages";
+import { HeroImagePreload } from "@/components/HeroImagePreload";
+import productsHeroImg from "@/assets/seo/products-hero.jpg";
 import {
   Accordion,
   AccordionContent,
@@ -142,7 +144,8 @@ const Products = () => {
         {/* Hero */}
         <section className="relative min-h-[60vh] flex items-center justify-center overflow-hidden">
           <div className="absolute inset-0">
-            <div className="absolute inset-0 bg-cover bg-center" style={{ backgroundImage: "url(https://images.unsplash.com/photo-1473968512647-3e447244af8f?w=1920&q=80)" }} />
+            <HeroImagePreload imageSrc={productsHeroImg} />
+            <div className="absolute inset-0 bg-cover bg-center" style={{ backgroundImage: `url(${productsHeroImg})` }} />
             <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/60 to-black/80" />
           </div>
           <div className="container-custom relative z-10 text-center py-20">

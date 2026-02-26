@@ -7,6 +7,12 @@ import { MultiLanguageSEO, createLocalizedBreadcrumbData } from "@/components/Mu
 import { useLanguage } from "@/contexts/LanguageContext";
 import { LanguageCode } from "@/i18n/languages";
 import { LangLink as Link } from "@/components/LangLink";
+import { HeroImagePreload } from "@/components/HeroImagePreload";
+import multiRotorHeroImg from "@/assets/seo/multi-rotor-hero.jpg";
+import tetheredImg from "@/assets/seo/tethered-drone.jpg";
+import logisticsImg from "@/assets/seo/logistics-cargo-drone.jpg";
+import swarmImg from "@/assets/seo/swarm-drone-formation.jpg";
+import fpvImg from "@/assets/seo/fpv-racing-drone.jpg";
 import {
   ArrowRight, ChevronDown, Link2, Truck, Users, Gamepad2,
   Shield, Zap, Wind, Cpu, Clock, Weight, FileDown, Radar
@@ -37,7 +43,7 @@ const MultiRotor = () => {
       detailKey: 'platforms.tethered.detail',
       href: "/products/tethered",
       anchorKey: 'platforms.tethered.anchor',
-      image: "https://images.unsplash.com/photo-1508614589041-895b88991e3e?w=600&q=80",
+      image: tetheredImg,
     },
     {
       icon: Truck,
@@ -46,7 +52,7 @@ const MultiRotor = () => {
       detailKey: 'platforms.logistics.detail',
       href: "/products/logistics",
       anchorKey: 'platforms.logistics.anchor',
-      image: "https://images.unsplash.com/photo-1473968512647-3e447244af8f?w=600&q=80",
+      image: logisticsImg,
     },
     {
       icon: Users,
@@ -55,7 +61,7 @@ const MultiRotor = () => {
       detailKey: 'platforms.swarm.detail',
       href: "/products/swarm",
       anchorKey: 'platforms.swarm.anchor',
-      image: "https://images.unsplash.com/photo-1527977966376-1c8408f9f108?w=600&q=80",
+      image: swarmImg,
     },
     {
       icon: Gamepad2,
@@ -64,7 +70,7 @@ const MultiRotor = () => {
       detailKey: 'platforms.fpv.detail',
       href: "/fpv",
       anchorKey: 'platforms.fpv.anchor',
-      image: "https://images.unsplash.com/photo-1579829366248-204fe8413f31?w=600&q=80",
+      image: fpvImg,
     },
   ];
 
@@ -149,7 +155,8 @@ const MultiRotor = () => {
         {/* Hero */}
         <section className="relative min-h-[60vh] flex items-center justify-center overflow-hidden">
           <div className="absolute inset-0">
-            <div className="absolute inset-0 bg-cover bg-center" style={{ backgroundImage: "url(https://images.unsplash.com/photo-1506947411487-a56738267384?w=1920&q=80)" }} />
+            <HeroImagePreload imageSrc={multiRotorHeroImg} />
+            <div className="absolute inset-0 bg-cover bg-center" style={{ backgroundImage: `url(${multiRotorHeroImg})` }} />
             <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/60 to-black/80" />
           </div>
           <div className="container mx-auto px-4 relative z-10 text-center py-20">

@@ -7,6 +7,7 @@ import { LangLink as Link } from "@/components/LangLink";
 import { MultiLanguageSEO } from "@/components/MultiLanguageSEO";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { Helmet } from "react-helmet-async";
+import { HeroImagePreload } from "@/components/HeroImagePreload";
 import militaryHeroImg from "@/assets/seo/military-defense-drone.jpg";
 import maritimeImg from "@/assets/seo/maritime-drone.jpg";
 import surveyingImg from "@/assets/seo/surveying-drone.jpg";
@@ -76,6 +77,7 @@ const Military = () => {
       <main className="pt-16 md:pt-20">
         {/* Hero Section */}
         <section className="relative h-[400px] md:h-[500px] overflow-hidden">
+          <HeroImagePreload imageSrc={militaryHeroImg} />
           <div
             className="absolute inset-0 bg-cover bg-center"
             style={{ backgroundImage: `url(${militaryHeroImg})` }}
