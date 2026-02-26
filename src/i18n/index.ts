@@ -1,34 +1,56 @@
-// Translation files
-import { zhTranslations } from './zh';
-import { enTranslations } from './en';
+// Dynamic translation loading - no static imports of large translation files
 import { LanguageCode } from './languages';
 
-// All translations registry
-const translations: Record<string, Record<string, string>> = {
-  zh: zhTranslations,
-  en: enTranslations,
-};
-
-// Cache for dynamically loaded translations
+// Cache for loaded translations
 const translationCache: Record<string, Record<string, string>> = {};
 
+// Loading promises to prevent duplicate fetches
+const loadingPromises: Record<string, Promise<Record<string, string>>> = {};
+
 /**
- * Get translations for a specific language
- * Returns cached/loaded translations, or falls back to English/Chinese
+ * Dynamically load translations for a specific language.
+ * Uses dynamic import() so Vite code-splits zh.ts and en.ts into separate chunks.
  */
-export const getTranslations = (lang: LanguageCode): Record<string, string> => {
-  // Check if we have static translations
-  if (translations[lang]) {
-    return translations[lang];
-  }
-  
-  // Check cache for dynamically translated content
+export const loadTranslations = async (lang: LanguageCode): Promise<Record<string, string>> => {
+  // Return from cache if available
   if (translationCache[lang]) {
     return translationCache[lang];
   }
-  
-  // Fallback to English
-  return translations.en;
+
+  // Prevent duplicate concurrent loads
+  if (loadingPromises[lang]) {
+    return loadingPromises[lang];
+  }
+
+  const promise = (async () => {
+    if (lang === 'zh') {
+      const { zhTranslations } = await import('./zh');
+      translationCache['zh'] = zhTranslations;
+      return zhTranslations;
+    }
+    if (lang === 'en') {
+      const { enTranslations } = await import('./en');
+      translationCache['en'] = enTranslations;
+      return enTranslations;
+    }
+    // For other languages, fall back to English
+    const { enTranslations } = await import('./en');
+    translationCache['en'] = enTranslations;
+    return enTranslations;
+  })();
+
+  loadingPromises[lang] = promise;
+  const result = await promise;
+  delete loadingPromises[lang];
+  return result;
+};
+
+/**
+ * Get translations synchronously (from cache only).
+ * Returns empty object if not yet loaded.
+ */
+export const getTranslations = (lang: LanguageCode): Record<string, string> => {
+  return translationCache[lang] || {};
 };
 
 /**
@@ -42,16 +64,16 @@ export const setTranslations = (lang: LanguageCode, trans: Record<string, string
  * Check if translations exist for a language
  */
 export const hasTranslations = (lang: LanguageCode): boolean => {
-  return !!translations[lang] || !!translationCache[lang];
+  return !!translationCache[lang];
 };
 
 /**
- * Get all translation keys
+ * Get all translation keys (loads zh synchronously for admin use)
  */
-export const getTranslationKeys = (): string[] => {
-  return Object.keys(zhTranslations);
+export const getTranslationKeys = async (): Promise<string[]> => {
+  const zh = await loadTranslations('zh');
+  return Object.keys(zh);
 };
 
-export { zhTranslations, enTranslations };
 export * from './languages';
 export { toBaseLanguage } from './languages';
