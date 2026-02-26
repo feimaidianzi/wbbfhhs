@@ -661,6 +661,89 @@ async function generateCompanyNews(apiKey: string, newsIndex: number) {
   return safeParseJSON(aiContent);
 }
 
+// 生成行业动态文章（资深分析师模式）
+async function generateIndustryNews(apiKey: string, newsIndex: number) {
+  const industryTopics = [
+    { title: "低空经济政策加速落地", desc: "多地发布低空经济政策，分析对无人机配件产业链的影响" },
+    { title: "eVTOL适航认证取得突破", desc: "全球eVTOL适航认证进展，对高可靠性飞控和图传的需求升级" },
+    { title: "工业无人机市场格局变化", desc: "行业巨头最新产品动态及市场格局变化分析" },
+    { title: "无人机供应链技术升级", desc: "核心配件技术迭代趋势：更高带宽图传、更智能飞控" },
+    { title: "全球无人机法规动态", desc: "FAA/EASA/CAAC最新法规变化，对BVLOS运营和配件认证的影响" },
+    { title: "无人机行业投融资热点", desc: "最新投融资事件分析，解读资本对配件供应链的影响" },
+  ];
+
+  const topic = industryTopics[newsIndex % industryTopics.length];
+  
+  const prompt = `【角色】你是无人机行业资深分析师，拥有10年行业观察经验。请撰写一篇行业动态简报。
+
+${CANI_TECH_KNOWLEDGE}
+
+【主题方向】${topic.title}
+【分析角度】${topic.desc}
+
+【写作要求 - 快速、精炼、观点独特】
+
+1. 标题要求：
+   - 使用【快讯】/【深度解析】/【行业周报】前缀
+   - 包含行业热点词，具有时效迫切感
+   - 禁止"XX发布"等平庸标题
+
+2. 内容结构（严格遵守）：
+   - 核心快讯（150字内）：三句话概括背景、核心人物/公司、结果
+   - 深度解读（250字）：分析对无人机配件供应链（图传、飞控、电调、ELRS）的具体影响
+   - CANI观点（150字）：以CANI技术储备分析机遇/挑战，引用具体产品参数
+   - 行业展望（100字）：未来趋势预判
+
+3. 关键约束：
+   - 总字数600-800字，精炼不废话
+   - 第一句话必须是标准事实陈述（利于Google精选摘要零位排名）
+   - 禁止"据报道"、"近期"等采集痕迹词汇
+   - 重要政策原文使用 <blockquote> 标签引用
+   - 从供应链和底层硬件角度分析
+   - 自动提取主体公司名和技术词作为关键词
+
+4. HTML格式：<p>段落</p>、<h3>小标题</h3>、<strong>重点</strong>、<blockquote>政策引用</blockquote>
+   不要使用换行符，段落用</p><p>分隔
+
+【输出格式】返回纯净JSON（不要markdown代码块）：
+{
+  "title": "【快讯】包含热点词的标题",
+  "title_en": "English title for SEO",
+  "summary": "一句话核心摘要（50字内）",
+  "summary_en": "English summary under 80 chars",
+  "content": "<h3>核心快讯</h3><p>HTML正文...</p><h3>CANI观点</h3><p>...</p>",
+  "keywords": ["低空经济", "无人机配件", "供应链", "keyword4", "keyword5"],
+  "faq": [
+    {"question": "该动态对无人机配件市场有何影响？", "answer": "..."},
+    {"question": "CANI如何应对这一趋势？", "answer": "..."}
+  ]
+}`;
+
+  const response = await fetch("https://ark.cn-beijing.volces.com/api/v3/chat/completions", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      "Authorization": `Bearer ${apiKey}`,
+    },
+    body: JSON.stringify({
+      model: "doubao-seed-1-6-lite-251015",
+      messages: [
+        { role: "user", content: prompt },
+      ],
+      temperature: 0.7,
+      max_tokens: 4000,
+    }),
+  });
+
+  if (!response.ok) {
+    throw new Error(`Doubao API error: ${response.status}`);
+  }
+
+  const data = await response.json();
+  const aiContent = data.choices?.[0]?.message?.content || "";
+  return safeParseJSON(aiContent);
+}
+
 Deno.serve(async (req) => {
   if (req.method === "OPTIONS") {
     return new Response(null, { headers: corsHeaders });
@@ -805,6 +888,18 @@ Deno.serve(async (req) => {
           }
         } catch (e) {
           console.error(`Error generating company news:`, e);
+        }
+      }
+    } else if (category === "行业动态") {
+      for (let i = 0; i < articleLimit; i++) {
+        try {
+          console.log(`Generating industry dynamics ${i + 1}`);
+          const article = await generateIndustryNews(doubaoApiKey, i);
+          if (article) {
+            await processArticle(article, "行业动态");
+          }
+        } catch (e) {
+          console.error(`Error generating industry news:`, e);
         }
       }
     }
