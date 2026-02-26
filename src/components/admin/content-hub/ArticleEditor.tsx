@@ -1,4 +1,4 @@
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useEffect } from 'react';
 import { supabase } from '@/integrations/supabase/client';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -13,9 +13,13 @@ import {
   Select, SelectContent, SelectItem, SelectTrigger, SelectValue,
 } from '@/components/ui/select';
 import {
+  Tooltip, TooltipContent, TooltipProvider, TooltipTrigger,
+} from '@/components/ui/tooltip';
+import {
   ArrowLeft, Save, Loader2, Sparkles, ExternalLink, FileText,
   Scissors, TrendingUp, HelpCircle, Type, Eye, Image, Download,
-  Send, RefreshCw, Zap, Expand, Eraser, Bot, ImagePlus
+  Send, RefreshCw, Zap, Expand, Eraser, Bot, ImagePlus, Lock,
+  Unlock, AlertTriangle, Tag, Globe, ShieldCheck
 } from 'lucide-react';
 import RichTextEditor from '@/components/admin/RichTextEditor';
 import SingleImageUpload from '@/components/admin/SingleImageUpload';
@@ -75,6 +79,29 @@ const CATEGORY_LABELS: Record<string, { label: string; color: string }> = {
   '公司新闻': { label: '公司', color: 'bg-blue-500/20 text-blue-300 border-blue-500/30' },
 };
 
+// 分类专用基调选项
+const TONE_OPTIONS: Record<string, { value: string; label: string; icon: string }[]> = {
+  '公司新闻': [
+    { value: '严谨', label: '严谨', icon: '🔬' },
+    { value: '振奋', label: '振奋', icon: '🚀' },
+  ],
+  '行业动态': [
+    { value: '中立', label: '中立', icon: '⚖️' },
+    { value: '专业分析', label: '专业分析', icon: '📊' },
+  ],
+  '技术分享': [
+    { value: '严谨', label: '严谨', icon: '🔬' },
+    { value: '专业分析', label: '专业分析', icon: '📊' },
+  ],
+};
+
+// 分类专用参数核对项（公司新闻重点核对）
+const PARAM_CHECK_ITEMS: Record<string, string[]> = {
+  '公司新闻': ['图传延迟 <30ms', '4K传输', 'AES-256-GCM加密', 'F7/H7芯片', '双冗余IMU', 'ELRS 50km+', 'BLHeli_32 48KHz', 'IP67', '4K 40x变焦'],
+  '行业动态': [],
+  '技术分享': ['图传延迟 <30ms', 'F7/H7芯片', 'BLHeli_32 48KHz', 'ELRS 500Hz', '双频RTK'],
+};
+
 export const ArticleEditor = ({ article, onBack, onSaved, currentUserId }: ArticleEditorProps) => {
   const { toast } = useToast();
   const [saving, setSaving] = useState(false);
@@ -82,6 +109,11 @@ export const ArticleEditor = ({ article, onBack, onSaved, currentUserId }: Artic
   const [publishing, setPublishing] = useState(false);
   const [coverGenerating, setCoverGenerating] = useState(false);
   const [rewriteStatus, setRewriteStatus] = useState<string | null>(null);
+  const [selectedTone, setSelectedTone] = useState<string>('');
+  const [lockedParams, setLockedParams] = useState<string[]>([]);
+  const [newLockedParam, setNewLockedParam] = useState('');
+  const [factCheckNotes, setFactCheckNotes] = useState<string | null>(null);
+  const [autoClassifyResult, setAutoClassifyResult] = useState<{ category: string; confidence: number } | null>(null);
 
   const [form, setForm] = useState({
     title: article?.title || '',
@@ -92,6 +124,21 @@ export const ArticleEditor = ({ article, onBack, onSaved, currentUserId }: Artic
     category: article?.category || '公司新闻',
     is_published: article?.is_published || false,
   });
+
+  // Auto-classify on load for new articles or when content changes significantly
+  useEffect(() => {
+    if (article && form.content.length > 100) {
+      const text = `${form.title} ${form.content.replace(/<[^>]*>/g, '').substring(0, 500)}`;
+      // Simple client-side pre-check
+      const hasCANI = /CANI|长凌|我们的|自主研发/i.test(text);
+      const hasIndustry = /FAA|DJI|大疆|政策|市场规模|融资|监管/i.test(text);
+      const hasTech = /教程|原理|对比测试|调参|PID|协议/i.test(text);
+      
+      if (hasCANI && !hasIndustry) setAutoClassifyResult({ category: '公司新闻', confidence: 0.8 });
+      else if (hasIndustry && !hasCANI) setAutoClassifyResult({ category: '行业动态', confidence: 0.7 });
+      else if (hasTech) setAutoClassifyResult({ category: '技术分享', confidence: 0.6 });
+    }
+  }, []);
 
   const handleSave = async () => {
     if (!form.title.trim() || !form.content.trim()) {
@@ -139,7 +186,6 @@ export const ArticleEditor = ({ article, onBack, onSaved, currentUserId }: Artic
     }
     setPublishing(true);
     try {
-      // 1. Publish article
       const { error: pubErr } = await supabase.from('news_articles').update({
         is_published: true,
         published_at: new Date().toISOString(),
@@ -147,7 +193,6 @@ export const ArticleEditor = ({ article, onBack, onSaved, currentUserId }: Artic
       }).eq('id', article.id);
       if (pubErr) throw pubErr;
 
-      // 2. Submit to search engine index
       try {
         await supabase.functions.invoke('submit-sitemap', {
           body: { action: 'ping', languages: ['zh', 'en'] },
@@ -203,6 +248,7 @@ export const ArticleEditor = ({ article, onBack, onSaved, currentUserId }: Artic
     setAiProcessing(true);
     setRewriteStatus('connecting');
     setCoverGenerating(false);
+    setFactCheckNotes(null);
 
     try {
       const FUNC_URL = `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/ai-rewrite-article`;
@@ -222,6 +268,8 @@ export const ArticleEditor = ({ article, onBack, onSaved, currentUserId }: Artic
           coverImage: form.cover_image,
           isEnglish: /[a-zA-Z]{10,}/.test(form.content.substring(0, 200)),
           stream: true,
+          tone: selectedTone || undefined,
+          lockedParams: lockedParams.length > 0 ? lockedParams : undefined,
         }),
       });
 
@@ -251,7 +299,7 @@ export const ArticleEditor = ({ article, onBack, onSaved, currentUserId }: Artic
             const parsed = JSON.parse(jsonStr);
             
             if (parsed.type === 'text') {
-              // Streaming text - we just accumulate (打字机效果在后面result中应用)
+              // Streaming text accumulation
             } else if (parsed.type === 'status') {
               if (parsed.message === 'parsing') setRewriteStatus('解析中...');
               else if (parsed.message === 'generating_cover') {
@@ -262,13 +310,19 @@ export const ArticleEditor = ({ article, onBack, onSaved, currentUserId }: Artic
                 toast({ title: '封面图生成失败', description: '已保留原封面', variant: 'destructive' });
               }
             } else if (parsed.type === 'result' && parsed.data) {
-              // Apply the full result to form
               setForm(prev => ({
                 ...prev,
                 title: parsed.data.title || prev.title,
                 summary: parsed.data.summary || prev.summary,
                 content: parsed.data.content || prev.content,
               }));
+              // Capture fact-check notes and auto-category
+              if (parsed.data.fact_check_notes) {
+                setFactCheckNotes(parsed.data.fact_check_notes);
+              }
+              if (parsed.data.auto_category && parsed.data.auto_category !== form.category) {
+                setAutoClassifyResult({ category: parsed.data.auto_category, confidence: 0.9 });
+              }
               setRewriteStatus('✨ 文字创作完成，等待封面...');
             } else if (parsed.type === 'cover' && parsed.url) {
               setForm(prev => ({ ...prev, cover_image: parsed.url }));
@@ -278,7 +332,7 @@ export const ArticleEditor = ({ article, onBack, onSaved, currentUserId }: Artic
               throw new Error(parsed.message);
             }
           } catch (e) {
-            if (e instanceof SyntaxError) continue; // partial JSON
+            if (e instanceof SyntaxError) continue;
             throw e;
           }
         }
@@ -293,7 +347,7 @@ export const ArticleEditor = ({ article, onBack, onSaved, currentUserId }: Artic
     } finally {
       setAiProcessing(false);
     }
-  }, [article?.id, form.title, form.content, form.category, form.cover_image, toast]);
+  }, [article?.id, form.title, form.content, form.category, form.cover_image, selectedTone, lockedParams, toast]);
 
   const handleImageLocalize = async () => {
     if (!article?.id) return;
@@ -315,6 +369,32 @@ export const ArticleEditor = ({ article, onBack, onSaved, currentUserId }: Artic
     }
   };
 
+  const addLockedParam = () => {
+    if (newLockedParam.trim() && !lockedParams.includes(newLockedParam.trim())) {
+      setLockedParams(prev => [...prev, newLockedParam.trim()]);
+      setNewLockedParam('');
+    }
+  };
+
+  const removeLockedParam = (param: string) => {
+    setLockedParams(prev => prev.filter(p => p !== param));
+  };
+
+  // Extract numbers/params from content for quick-lock
+  const extractParams = (): string[] => {
+    const text = form.content.replace(/<[^>]*>/g, '');
+    const patterns = [
+      /\d+(?:\.\d+)?(?:km|m|ms|Hz|KHz|MHz|GHz|W|A|V|dBm|fps|Mbps|Gbps|TOPS|℃|°C)/gi,
+      /(?:F7|H7|STM32|BLHeli_32|AES-256|IP67|IP65|COFDM|ELRS|MAVLink|DShot)/gi,
+    ];
+    const found = new Set<string>();
+    for (const p of patterns) {
+      const matches = text.match(p);
+      if (matches) matches.forEach(m => found.add(m));
+    }
+    return Array.from(found).slice(0, 15);
+  };
+
   // Keyword density & stats
   const contentText = form.content.replace(/<[^>]*>/g, '');
   const wordCount = contentText.length;
@@ -326,7 +406,8 @@ export const ArticleEditor = ({ article, onBack, onSaved, currentUserId }: Artic
     { word: 'ELRS', count: (contentText.match(/ELRS/gi) || []).length },
   ];
 
-  const catMeta = CATEGORY_LABELS[form.category] || CATEGORY_LABELS['公司新闻'];
+  const toneOptions = TONE_OPTIONS[form.category] || TONE_OPTIONS['行业动态'];
+  const paramChecks = PARAM_CHECK_ITEMS[form.category] || [];
 
   return (
     <div className="flex flex-col h-full">
@@ -337,19 +418,57 @@ export const ArticleEditor = ({ article, onBack, onSaved, currentUserId }: Artic
             <ArrowLeft className="w-4 h-4 mr-1" />返回
           </Button>
           <div className="h-5 w-px bg-slate-700" />
-          {/* Category Switcher - switching reloads AI context */}
+          {/* Category Switcher */}
           <div className="flex items-center gap-1">
             {Object.entries(CATEGORY_LABELS).map(([cat, meta]) => (
               <Button
                 key={cat}
                 variant={form.category === cat ? 'default' : 'ghost'}
                 size="sm"
-                onClick={() => setForm({ ...form, category: cat })}
+                onClick={() => { setForm({ ...form, category: cat }); setSelectedTone(''); }}
                 className={form.category === cat
                   ? 'h-7 text-[11px] bg-slate-600 text-white'
                   : 'h-7 text-[11px] text-slate-500 hover:text-white'}
               >
                 {cat}
+              </Button>
+            ))}
+          </div>
+          {/* Auto-classify suggestion */}
+          {autoClassifyResult && autoClassifyResult.category !== form.category && (
+            <TooltipProvider>
+              <Tooltip>
+                <TooltipTrigger asChild>
+                  <Button
+                    variant="ghost" size="sm"
+                    onClick={() => { setForm({ ...form, category: autoClassifyResult.category }); setAutoClassifyResult(null); }}
+                    className="h-7 text-[10px] text-amber-400 hover:text-amber-300 hover:bg-amber-500/10 gap-1"
+                  >
+                    <Tag className="w-3 h-3" />
+                    建议: {autoClassifyResult.category} ({Math.round(autoClassifyResult.confidence * 100)}%)
+                  </Button>
+                </TooltipTrigger>
+                <TooltipContent className="bg-slate-700 text-slate-200 border-slate-600">
+                  <p className="text-xs">AI根据内容自动判断，点击应用此分类</p>
+                </TooltipContent>
+              </Tooltip>
+            </TooltipProvider>
+          )}
+          {/* Tone Selector */}
+          <div className="h-5 w-px bg-slate-700" />
+          <div className="flex items-center gap-1">
+            <span className="text-[10px] text-slate-500">基调:</span>
+            {toneOptions.map(t => (
+              <Button
+                key={t.value}
+                variant={selectedTone === t.value ? 'default' : 'ghost'}
+                size="sm"
+                onClick={() => setSelectedTone(selectedTone === t.value ? '' : t.value)}
+                className={selectedTone === t.value
+                  ? 'h-6 text-[10px] bg-violet-600 text-white px-2'
+                  : 'h-6 text-[10px] text-slate-500 hover:text-white px-2'}
+              >
+                {t.icon} {t.label}
               </Button>
             ))}
           </div>
@@ -409,6 +528,15 @@ export const ArticleEditor = ({ article, onBack, onSaved, currentUserId }: Artic
                     </div>
                   </div>
                 )}
+                {/* Fact Check Notes from AI */}
+                {factCheckNotes && (
+                  <div className="p-2 rounded-lg bg-amber-500/10 border border-amber-500/20">
+                    <p className="text-[10px] text-amber-400 mb-1 flex items-center gap-1">
+                      <AlertTriangle className="w-3 h-3" />AI自检报告
+                    </p>
+                    <p className="text-[10px] text-amber-300/80 leading-relaxed">{factCheckNotes}</p>
+                  </div>
+                )}
               </div>
             </ScrollArea>
           </div>
@@ -461,7 +589,6 @@ export const ArticleEditor = ({ article, onBack, onSaved, currentUserId }: Artic
           {/* Floating Action Bar */}
           <div className="border-t border-slate-700 bg-slate-800/90 backdrop-blur-sm px-4 py-2.5 flex items-center justify-between">
             <div className="flex items-center gap-2">
-              {/* 核心：流式洗稿按钮 */}
               <Button
                 size="sm" variant="outline"
                 disabled={aiProcessing || !article?.id}
@@ -514,7 +641,7 @@ export const ArticleEditor = ({ article, onBack, onSaved, currentUserId }: Artic
         </div>
 
         {/* Right: SEO & AI Toolbox */}
-        <div className="w-64 border-l border-slate-700 bg-slate-800/30 flex flex-col">
+        <div className="w-72 border-l border-slate-700 bg-slate-800/30 flex flex-col">
           <div className="px-3 py-2 border-b border-slate-700">
             <h3 className="text-xs font-semibold text-slate-300 flex items-center gap-1.5">
               <Sparkles className="w-3.5 h-3.5 text-violet-400" />AI & SEO 工具箱
@@ -522,6 +649,99 @@ export const ArticleEditor = ({ article, onBack, onSaved, currentUserId }: Artic
           </div>
           <ScrollArea className="flex-1 p-3">
             <div className="space-y-4">
+              {/* 🔒 Parameter Lock (公司新闻 & 技术分享 重点) */}
+              {(form.category === '公司新闻' || form.category === '技术分享') && (
+                <div>
+                  <p className="text-[10px] text-slate-500 mb-2 uppercase tracking-wider flex items-center gap-1">
+                    <Lock className="w-3 h-3" />参数锁定
+                  </p>
+                  <p className="text-[9px] text-slate-600 mb-2">锁定的参数在AI处理时不会被修改</p>
+                  {/* Quick-lock from content */}
+                  {extractParams().length > 0 && (
+                    <div className="flex flex-wrap gap-1 mb-2">
+                      {extractParams().filter(p => !lockedParams.includes(p)).slice(0, 8).map(param => (
+                        <Button
+                          key={param}
+                          variant="ghost"
+                          size="sm"
+                          onClick={() => setLockedParams(prev => [...prev, param])}
+                          className="h-5 text-[9px] text-slate-500 hover:text-amber-300 hover:bg-amber-500/10 px-1.5 py-0"
+                        >
+                          <Unlock className="w-2.5 h-2.5 mr-0.5" />{param}
+                        </Button>
+                      ))}
+                    </div>
+                  )}
+                  {/* Locked params */}
+                  <div className="flex flex-wrap gap-1 mb-2">
+                    {lockedParams.map(param => (
+                      <Badge
+                        key={param}
+                        className="bg-amber-500/20 text-amber-300 border-amber-500/30 text-[9px] px-1.5 py-0 cursor-pointer hover:bg-red-500/20 hover:text-red-300"
+                        onClick={() => removeLockedParam(param)}
+                      >
+                        <Lock className="w-2.5 h-2.5 mr-0.5" />{param} ×
+                      </Badge>
+                    ))}
+                  </div>
+                  {/* Manual add */}
+                  <div className="flex gap-1">
+                    <Input
+                      value={newLockedParam}
+                      onChange={e => setNewLockedParam(e.target.value)}
+                      onKeyDown={e => e.key === 'Enter' && addLockedParam()}
+                      placeholder="手动添加参数..."
+                      className="h-6 text-[10px] bg-slate-700 border-slate-600 flex-1"
+                    />
+                    <Button size="sm" onClick={addLockedParam} className="h-6 w-6 p-0 bg-slate-700 hover:bg-slate-600">
+                      <Lock className="w-3 h-3" />
+                    </Button>
+                  </div>
+                </div>
+              )}
+
+              {/* 📋 Param Check Table (公司新闻) */}
+              {form.category === '公司新闻' && paramChecks.length > 0 && (
+                <div>
+                  <p className="text-[10px] text-slate-500 mb-2 uppercase tracking-wider flex items-center gap-1">
+                    <ShieldCheck className="w-3 h-3" />参数核对表
+                  </p>
+                  <div className="space-y-1">
+                    {paramChecks.map(param => {
+                      const found = contentText.includes(param.split(' ')[0]) || contentText.toLowerCase().includes(param.toLowerCase().split(' ')[0]);
+                      return (
+                        <div key={param} className="flex items-center gap-1.5">
+                          <div className={`w-1.5 h-1.5 rounded-full ${found ? 'bg-emerald-400' : 'bg-slate-600'}`} />
+                          <span className={`text-[10px] ${found ? 'text-slate-300' : 'text-slate-500'}`}>{param}</span>
+                        </div>
+                      );
+                    })}
+                  </div>
+                </div>
+              )}
+
+              {/* 🌐 Source Tracing (行业动态) */}
+              {form.category === '行业动态' && article?.source_url && (
+                <div>
+                  <p className="text-[10px] text-slate-500 mb-2 uppercase tracking-wider flex items-center gap-1">
+                    <Globe className="w-3 h-3" />全球信源追溯
+                  </p>
+                  <div className="p-2 rounded-lg bg-slate-700/30 border border-slate-700/50 space-y-1.5">
+                    <div className="flex items-center gap-1.5">
+                      <Badge className="bg-emerald-500/20 text-emerald-300 text-[9px] px-1 py-0">主源</Badge>
+                      <a href={article.source_url} target="_blank" rel="noopener noreferrer"
+                        className="text-[10px] text-amber-400 hover:text-amber-300 truncate flex-1">
+                        {article.source_name || new URL(article.source_url).hostname}
+                      </a>
+                    </div>
+                    {article.original_title && (
+                      <p className="text-[9px] text-slate-500 italic">"{article.original_title}"</p>
+                    )}
+                    <p className="text-[9px] text-slate-600">💡 行业动态应综合3-5个信源。AI洗稿时会自动补充行业背景分析。</p>
+                  </div>
+                </div>
+              )}
+
               {/* AI Quick Tools */}
               <div>
                 <p className="text-[10px] text-slate-500 mb-2 uppercase tracking-wider">AI 修改器</p>
@@ -620,6 +840,8 @@ export const ArticleEditor = ({ article, onBack, onSaved, currentUserId }: Artic
                     { label: '正文>500字', pass: wordCount > 500 },
                     { label: '封面图已设置', pass: !!form.cover_image },
                     { label: '含技术参数表', pass: /<table/i.test(form.content) },
+                    ...(form.category === '行业动态' ? [{ label: '含【CANI视点】', pass: /CANI视点|CANI观点/i.test(contentText) }] : []),
+                    ...(form.category === '公司新闻' ? [{ label: '含CTA转化框', pass: /获取报价|联系我们|contact/i.test(contentText) }] : []),
                   ].map(check => (
                     <div key={check.label} className="flex items-center gap-1.5">
                       <div className={`w-1.5 h-1.5 rounded-full ${check.pass ? 'bg-emerald-400' : 'bg-slate-600'}`} />
