@@ -117,9 +117,9 @@ async function evaluateImageRelevance(
   articleSummary: string
 ): Promise<{ score: number; reason: string; isRelevant: boolean }> {
   try {
-    const LOVABLE_API_KEY = Deno.env.get("LOVABLE_API_KEY");
-    if (!LOVABLE_API_KEY) {
-      console.log("LOVABLE_API_KEY not found, skipping AI image evaluation");
+    const DOUBAO_API_KEY = Deno.env.get("DOUBAO_API_KEY");
+    if (!DOUBAO_API_KEY) {
+      console.log("DOUBAO_API_KEY not found, skipping AI image evaluation");
       return { score: 7, reason: "未配置AI评估，默认通过", isRelevant: true };
     }
 
@@ -151,24 +151,23 @@ async function evaluateImageRelevance(
   "isRelevant": true
 }`;
 
-    const response = await fetch("https://ai.gateway.lovable.dev/v1/chat/completions", {
+    const response = await fetch("https://ark.cn-beijing.volces.com/api/v3/responses", {
       method: "POST",
       headers: {
-        "Authorization": `Bearer ${LOVABLE_API_KEY}`,
+        "Authorization": `Bearer ${DOUBAO_API_KEY}`,
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        model: "google/gemini-2.5-flash-image-preview",
-        messages: [
+        model: "doubao-seed-2-0-mini-260215",
+        input: [
           {
             role: "user",
             content: [
-              { type: "text", text: prompt },
-              { type: "image_url", image_url: { url: imageUrl } }
+              { type: "input_image", image_url: imageUrl },
+              { type: "input_text", text: prompt }
             ]
           }
-        ],
-        modalities: ["text"]
+        ]
       }),
       signal: AbortSignal.timeout(30000),
     });
@@ -179,7 +178,10 @@ async function evaluateImageRelevance(
     }
 
     const data = await response.json();
-    const content = data.choices?.[0]?.message?.content || "";
+    // Responses API format: output[].content[].text where type is "output_text"
+    const outputItem = data.output?.find((o: any) => o.type === "message");
+    const contentItem = outputItem?.content?.find((c: any) => c.type === "output_text");
+    const content = contentItem?.text || "";
     
     const jsonMatch = content.match(/\{[\s\S]*\}/);
     if (jsonMatch) {
@@ -205,9 +207,9 @@ async function removeCompanyBranding(
   contentType: string
 ): Promise<{ buffer: ArrayBuffer; contentType: string; wasEdited: boolean }> {
   try {
-    const LOVABLE_API_KEY = Deno.env.get("LOVABLE_API_KEY");
-    if (!LOVABLE_API_KEY) {
-      console.log("LOVABLE_API_KEY not found, skipping company branding removal");
+    const DOUBAO_API_KEY = Deno.env.get("DOUBAO_API_KEY");
+    if (!DOUBAO_API_KEY) {
+      console.log("DOUBAO_API_KEY not found, skipping company branding removal");
       return { buffer: imageBuffer, contentType, wasEdited: false };
     }
 
@@ -222,9 +224,9 @@ async function removeCompanyBranding(
                      contentType.includes('webp') ? 'image/webp' : 
                      contentType.includes('gif') ? 'image/gif' : 'image/jpeg';
 
-    console.log("Using Lovable AI to analyze image for company branding...");
+    console.log("Using Doubao AI to analyze image for company branding...");
 
-    // 使用Lovable AI视觉模型检测图片中是否有公司信息
+    // 使用豆包视觉模型检测图片中是否有公司信息
     const detectPrompt = `请仔细分析这张图片，检查是否存在以下内容：
 1. 公司logo或品牌标识
 2. 公司名称或商标文字
@@ -241,42 +243,38 @@ async function removeCompanyBranding(
   "suggestion": "处理建议"
 }`;
 
-    const detectResponse = await fetch("https://ai.gateway.lovable.dev/v1/chat/completions", {
+    const detectResponse = await fetch("https://ark.cn-beijing.volces.com/api/v3/responses", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        "Authorization": `Bearer ${LOVABLE_API_KEY}`,
+        "Authorization": `Bearer ${DOUBAO_API_KEY}`,
       },
       body: JSON.stringify({
-        model: "google/gemini-2.5-flash",
-        messages: [
+        model: "doubao-seed-2-0-mini-260215",
+        input: [
           {
             role: "user",
             content: [
-              { type: "text", text: detectPrompt },
-              { 
-                type: "image_url", 
-                image_url: { 
-                  url: `data:${mimeType};base64,${base64Image}` 
-                } 
-              }
+              { type: "input_image", image_url: `data:${mimeType};base64,${base64Image}` },
+              { type: "input_text", text: detectPrompt }
             ]
           }
-        ],
-        temperature: 0.3,
-        max_tokens: 1024,
+        ]
       }),
       signal: AbortSignal.timeout(30000),
     });
 
     if (!detectResponse.ok) {
       const errorText = await detectResponse.text();
-      console.error("Lovable AI vision API error:", detectResponse.status, errorText);
+      console.error("Doubao vision API error:", detectResponse.status, errorText);
       return { buffer: imageBuffer, contentType, wasEdited: false };
     }
 
     const detectData = await detectResponse.json();
-    const detectContent = detectData.choices?.[0]?.message?.content || "";
+    // Responses API format: output[].content[].text where type is "output_text"
+    const detectOutputItem = detectData.output?.find((o: any) => o.type === "message");
+    const detectContentItem = detectOutputItem?.content?.find((c: any) => c.type === "output_text");
+    const detectContent = detectContentItem?.text || "";
     
     // 解析检测结果
     const jsonMatch = detectContent.match(/\{[\s\S]*\}/);

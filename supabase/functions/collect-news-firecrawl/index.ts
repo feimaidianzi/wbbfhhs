@@ -132,23 +132,21 @@ async function detectBrandingWithDoubao(
   "locations": ["左上角", "右下角"等位置描述]
 }`;
 
-    const response = await fetch("https://ark.cn-beijing.volces.com/api/v3/chat/completions", {
+    const response = await fetch("https://ark.cn-beijing.volces.com/api/v3/responses", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
         "Authorization": `Bearer ${DOUBAO_API_KEY}`,
       },
       body: JSON.stringify({
-        model: "doubao-1.5-vision-pro-250328",
-        messages: [{
+        model: "doubao-seed-2-0-mini-260215",
+        input: [{
           role: "user",
           content: [
-            { type: "text", text: detectPrompt },
-            { type: "image_url", image_url: { url: `data:${mimeType};base64,${base64Image}` } }
+            { type: "input_image", image_url: `data:${mimeType};base64,${base64Image}` },
+            { type: "input_text", text: detectPrompt }
           ]
-        }],
-        temperature: 0.3,
-        max_tokens: 1024,
+        }]
       }),
       signal: AbortSignal.timeout(30000),
     });
@@ -159,7 +157,10 @@ async function detectBrandingWithDoubao(
     }
 
     const data = await response.json();
-    const content = data.choices?.[0]?.message?.content || "";
+    // Responses API format: output[].content[].text where type is "output_text"
+    const outputItem = data.output?.find((o: any) => o.type === "message");
+    const contentItem = outputItem?.content?.find((c: any) => c.type === "output_text");
+    const content = contentItem?.text || "";
     
     const jsonMatch = content.match(/\{[\s\S]*\}/);
     if (jsonMatch) {
@@ -279,8 +280,8 @@ async function evaluateImageRelevance(
   articleSummary: string
 ): Promise<{ score: number; reason: string; isRelevant: boolean }> {
   try {
-    const LOVABLE_API_KEY = Deno.env.get("LOVABLE_API_KEY");
-    if (!LOVABLE_API_KEY) {
+    const DOUBAO_API_KEY = Deno.env.get("DOUBAO_API_KEY");
+    if (!DOUBAO_API_KEY) {
       return { score: 7, reason: "未配置AI评估，默认通过", isRelevant: true };
     }
 
@@ -311,22 +312,21 @@ async function evaluateImageRelevance(
   "isRelevant": true
 }`;
 
-    const response = await fetch("https://ai.gateway.lovable.dev/v1/chat/completions", {
+    const response = await fetch("https://ark.cn-beijing.volces.com/api/v3/responses", {
       method: "POST",
       headers: {
-        "Authorization": `Bearer ${LOVABLE_API_KEY}`,
+        "Authorization": `Bearer ${DOUBAO_API_KEY}`,
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        model: "google/gemini-2.5-flash-image-preview",
-        messages: [{
+        model: "doubao-seed-2-0-mini-260215",
+        input: [{
           role: "user",
           content: [
-            { type: "text", text: prompt },
-            { type: "image_url", image_url: { url: imageUrl } }
+            { type: "input_image", image_url: imageUrl },
+            { type: "input_text", text: prompt }
           ]
-        }],
-        modalities: ["text"]
+        }]
       }),
       signal: AbortSignal.timeout(30000),
     });
@@ -336,7 +336,10 @@ async function evaluateImageRelevance(
     }
 
     const data = await response.json();
-    const content = data.choices?.[0]?.message?.content || "";
+    // Responses API format: output[].content[].text where type is "output_text"
+    const outputItem = data.output?.find((o: any) => o.type === "message");
+    const contentItem = outputItem?.content?.find((c: any) => c.type === "output_text");
+    const content = contentItem?.text || "";
     
     const jsonMatch = content.match(/\{[\s\S]*\}/);
     if (jsonMatch) {
