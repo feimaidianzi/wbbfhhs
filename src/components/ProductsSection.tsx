@@ -119,8 +119,11 @@ export const ProductsSection = () => {
                     <img
                       src={categories[0].image}
                       alt={`CANI ${categories[0].name} - Industrial UAV HD Digital Video Transmission System`}
+                      width={800}
+                      height={600}
                       className="w-full h-full object-cover group-hover:scale-110 transition-all duration-700"
                       loading="lazy"
+                      decoding="async"
                     />
                 </div>
                 
@@ -166,8 +169,11 @@ export const ProductsSection = () => {
                     <img
                       src={product.image}
                       alt={`CANI ${product.name} - Professional UAV Component`}
+                      width={400}
+                      height={280}
                       className="w-full h-full object-cover group-hover:scale-110 transition-all duration-700"
                       loading="lazy"
+                      decoding="async"
                     />
                   </div>
                   

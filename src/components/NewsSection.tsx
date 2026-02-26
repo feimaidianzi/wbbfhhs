@@ -76,10 +76,14 @@ export const NewsSection = () => {
               className="group cursor-pointer"
             >
               <LangLink to="/news" className="block">
-                <div className="aspect-[16/10] overflow-hidden rounded-xl mb-4">
+                <div className="aspect-[16/10] overflow-hidden rounded-xl mb-4 bg-muted">
                   <img
                     src={item.image}
                     alt={item.title}
+                    width={800}
+                    height={500}
+                    loading="lazy"
+                    decoding="async"
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                   />
                 </div>

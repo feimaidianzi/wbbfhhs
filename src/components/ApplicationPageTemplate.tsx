@@ -326,8 +326,12 @@ const ApplicationPageTemplate = ({
                       <img
                         src={introImage}
                         alt={introTitle || heroTitle}
+                        width={800}
+                        height={450}
                         loading="lazy"
+                        decoding="async"
                         className="w-full h-auto object-cover"
+                        style={{ aspectRatio: '16 / 9' }}
                       />
                     </motion.div>
                   )}
