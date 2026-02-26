@@ -655,46 +655,73 @@ const CATEGORY_CONFIG = {
 - 数据和事实必须来源于原始素材，不要编造
 - 如果原文与无人机配件关系不大，也要从供应链或技术角度找到关联点`,
   },
-  "技术分享": {
+  "技术分析": {
     keywords: [
-      "VTX是什么 what is VTX",
-      "模拟图传和数字图传区别 analog vs digital FPV",
-      "ELRS的作用 what is ELRS",
-      "飞控工作原理 how flight controller works",
-      "电调选择指南 ESC buying guide",
-      "FPV入门教程 FPV beginner guide",
-      "无人机GPS模块原理 drone GPS explained",
+      // 深水区素材：技术原理 + 性能测评
+      "UAV COFDM link budget analysis",
+      "drone digital video transmission latency test",
+      "VTX range test long range FPV",
+      "flight controller PID tuning methodology",
+      "ExpressLRS vs Crossfire performance comparison",
+      "drone RF interference mitigation techniques",
+      "OFDM modulation UAV video link",
+      "无人机图传 原理解析 COFDM",
+      "数字图传 抗干扰 技术方案",
+      "电力巡检 无人机 技术痛点",
+      "ELRS 性能测评 远距离控制",
+      "飞控电调 PID调参 原理",
+      "无人机链路预算 计算方法",
+      "VTX大功率 散热设计 方案",
+      "无人机 频谱管理 多机作业",
     ],
-    style: "专业科普、深入浅出、解释技术原理和工作方式，适合技术爱好者阅读",
-    description: "技术原理、教程、知识科普等技术内容",
-    contentFocus: "以产品科普为主，解释无人机配件的工作原理、选购指南、使用教程",
-    persona: "CANI（长凌科技）首席技术专家",
-    rewriteInstructions: `【角色】你是CANI（长凌科技）的首席技术专家（CTO），拥有深厚的无人机配件技术功底。
+    style: "专业深度技术分析、参数密集、逻辑严密，以系统工程师视角撰写",
+    description: "深度技术原理解析、性能测评、方案对比等建立行业权威的技术内容",
+    contentFocus: "锁定深水区干货：链路预算分析、调制原理、抗干扰算法、飞控逻辑、性能实测数据",
+    persona: "CANI（长凌科技）首席技术官（CTO），资深无人机系统工程师",
+    rewriteInstructions: `【角色】你是CANI（长凌科技）的CTO，资深无人机系统工程师，拥有深厚的射频工程和嵌入式系统技术功底。
 
-【改写策略 - 知识库重组】
-不要简单洗稿！你需要将通用技术文章与CANI的产品线进行深度关联，输出像"技术博客"而非"新闻搬运"。
+【CANI核心知识库 - 改写前必读】
+CANI专注工业级无人机核心配件：
+- 数字图传: COFDM调制, 1.4/2.4/5.8GHz多频段, 10-50km, <30ms延迟, AES-256-GCM加密, Rogers 4350B基材, IP67/-40~60°C
+- VTX: 2.5W-37W可调, 旗舰37W支持50km+, 80频道, CNC铝合金散热, 24h连续作业
+- 飞控: STM32F722/H743双冗余IMU, ICM42688双陀螺仪, 兼容Betaflight/ArduPilot/PX4
+- 电调: 55A-100A, BLHeli_32/AM32, DShot1200, 48KHz PWM
+- ELRS: 50km+控制距离, LoRa调制, 500Hz刷新率, <1ms延迟, -130dBm灵敏度
+- 云台: ≤0.1mrad三轴, 4K 40x变焦, 640×512热成像, 4T AI算力
 
-【改写规则】
-1. 去同质化：删除原始素材中所有常识性废话，直接切入核心技术逻辑
-2. 知识注入：
-   - 提及"图传"→ 结合CANI数字图传的低延迟(<30ms)、4K传输、多频段抗干扰特性
-   - 提及"飞控"→ 关联CANI FC的F7/H7芯片方案、PID算法优化、GPS救援功能
-   - 提及"电调"→ 说明CANI ESC的BLHeli_32协议、48KHz PWM、电流检测技术
-   - 提及"遥控"→ 介绍CANI ELRS系统的LoRa调制、50km+超长距离、500Hz刷新率
-3. 专业口吻：使用行业术语（射频调度、PID算法、LoRa调制、跳频扩频），多用数据描述
-4. SEO结构：标题必须包含"[产品核心词] + [技术应用场景] + 解决方案"
+【改写策略 - 从"洗文字"到"重构逻辑"】
 
-【输出结构】
-1. 技术主题引入（200字）：直接说明技术问题
-2. 技术原理深度解析（400字）：结合图表说明工作原理，注入CANI技术参数
-3. 实际应用场景（200字）：以具体场景说明技术价值
-4. CANI专家点评（150字）：以CTO视角总结，自然推荐CANI解决方案
+步骤A - 提取技术骨架：
+识别素材中的底层原理、硬件参数、应用场景、实测结论。去除所有常识性废话。
+
+步骤B - 知识注入与改写：
+- 提及"图传/传输"→ 注入CANI COFDM的抗干扰算法、<30ms延迟、AES-256加密
+- 提及"飞控"→ 关联CANI FC的双冗余IMU、PID算法优化、GPS救援
+- 提及"电调"→ 说明CANI ESC的BLHeli_32、48KHz PWM、电流检测
+- 提及"遥控/控制"→ 介绍CANI ELRS的LoRa调制、50km+、500Hz刷新率
+- 提及"VTX/发射"→ 强调37W旗舰、Rogers 4350B基材、CNC散热
+- 将通用技术方案替换为CANI的具体技术路径
+
+步骤C - 应用场景模拟：
+文末必须增加【CANI应用建议】段落，以具体场景+具体产品+具体参数给出方案建议。
+
+【输出结构（严格遵守）】
+1. H1标题：必须包含"[具体场景]+[核心技术词]"（如"城市高楼巡检中数字图传的抗干扰策略"）
+2. 技术痛点引入（200字）：直接切入核心技术问题
+3. 技术原理深度解析（400字）：工作原理+参数表格对比+技术图解说明
+4. 实际应用场景分析（200字）：以具体场景说明技术价值
+5. CANI专家点评（150字）：CTO视角总结，推荐CANI解决方案
+6. 常见问题FAQ（3个）：生成用户真实会搜索的技术长尾关键词问答
 
 【关键约束】
+- 多用技术参数（dBm, mW, ms, Mbps, Hz），少用形容词
+- 必须包含至少1个技术对比表格（HTML <table>格式）
+- 必须包含至少5个专业术语：OFDM/COFDM, Link Budget, FHSS, Latency, Spatial Diversity等
 - 保留原文中所有技术参数和数据，不要丢失
-- 将通用方案替换为CANI的技术路径
-- 必须包含至少5个专业关键词：低延迟、抗干扰、高清传输、兼容性、工业级等
-- 字数800-1500字，确保技术深度`,
+- 原创度必须≥80%，禁止简单替换同义词
+- 字数1200-2000字，确保技术深度
+- 禁止"据报道"、"近期"等采集感明显的词汇
+- SEO结构：标题必须包含"[产品核心词]+[技术应用场景]+解决方案"`,
   },
 };
 

@@ -16,8 +16,10 @@ const PRODUCT_CATEGORIES = {
       { name: "CANI Link-RX 数字高清接收器", desc: "1080P HDMI输出，内置32G存储，支持OpenIPC/Ruby FPV" }
     ],
     techTopics: [
-      { title: "什么是无人机数字图传？", desc: "数字图传的工作原理、技术特点、与模拟图传的区别" },
-      { title: "数字图传VS模拟图传：如何选择？", desc: "深度对比两种图传技术的优缺点和应用场景" }
+      { title: "COFDM调制在无人机数字图传中的抗干扰原理", desc: "深度解析COFDM编码正交频分复用技术如何在城市多径环境中保持链路稳定，包含Link Budget计算和空间分集接收算法分析" },
+      { title: "工业无人机数字图传的低延迟传输链路设计", desc: "从编解码优化到RF基材选型（Rogers 4350B），解析如何实现端到端<30ms的玻璃到玻璃延迟" },
+      { title: "数字图传vs模拟图传：工业应用场景下的技术选型指南", desc: "从延迟、抗干扰、加密、传输距离等维度进行参数化对比分析，附决策矩阵表格" },
+      { title: "50km超远距离无人机图传方案：链路预算与天线配置", desc: "以37W VTX + 高增益天线为例，计算自由空间路径损耗、接收灵敏度、链路余量" },
     ]
   },
   vtx: {
@@ -30,8 +32,9 @@ const PRODUCT_CATEGORIES = {
       { name: "25W视频发射器", desc: "大功率输出，远距离传输，专业级应用" }
     ],
     techTopics: [
-      { title: "什么是VTX（视频发射器）？", desc: "VTX的工作原理、功率选择、频率设置详解" },
-      { title: "5.8G图传频率与频道详解", desc: "常用频段介绍、频道分配、干扰避免方法" }
+      { title: "大功率VTX散热设计：从CNC铝合金到主动风道的工程实践", desc: "解析37W VTX在24小时连续作业中的热管理方案，包含热仿真数据和材料选型" },
+      { title: "5.8GHz频段VTX的频谱管理：多机并发作业抗干扰策略", desc: "80频道分配方案、跳频扩频（FHSS）原理、同频干扰消除算法" },
+      { title: "VTX功率选型与链路预算：2.5W到37W的应用场景匹配", desc: "不同功率等级的自由空间传输距离计算，结合国标法规的合规选型建议" },
     ]
   },
   gimbal: {
@@ -44,8 +47,8 @@ const PRODUCT_CATEGORIES = {
       { name: "K8-V2单光云台", desc: "4K高清，30倍光学变焦，AI目标追踪" }
     ],
     techTopics: [
-      { title: "什么是无人机云台？", desc: "云台的工作原理、稳定技术、轴数区别" },
-      { title: "双光融合成像技术详解", desc: "可见光与热成像融合的原理和应用" }
+      { title: "三轴云台稳定控制算法：从IMU融合到≤0.1mrad精度的实现路径", desc: "解析陀螺仪/加速度计数据融合、PID稳定控制、振动隔离设计" },
+      { title: "双光融合成像技术在电力巡检中的缺陷检测应用", desc: "可见光4K 40x变焦+640×512热成像融合，配合YOLOv8边缘AI实时识别绝缘子、导线缺陷" },
     ]
   },
   elrs: {
@@ -58,8 +61,8 @@ const PRODUCT_CATEGORIES = {
       { name: "ELRS 2.4G LNA接收机", desc: "LNA增益增强，高灵敏度" }
     ],
     techTopics: [
-      { title: "什么是ELRS（ExpressLRS）？", desc: "开源远程遥控链路协议介绍" },
-      { title: "ELRS与传统遥控协议对比", desc: "ELRS vs ACCST、CRSF等协议的优劣分析" }
+      { title: "ExpressLRS协议深度解析：LoRa调制如何实现50km+超远距离控制", desc: "从LoRa扩频调制原理、跳频序列、接收灵敏度（-130dBm）到实际50km控制链路的实测分析" },
+      { title: "ELRS vs CRSF vs ACCST：无人机遥控协议全面性能对比", desc: "延迟、刷新率、传输距离、开源性、兼容性的参数化对比矩阵" },
     ]
   },
   fcEsc: {
@@ -72,8 +75,9 @@ const PRODUCT_CATEGORIES = {
       { name: "Pro F722 100A飞塔", desc: "双陀螺仪，8层PCB，3-8S宽电压" }
     ],
     techTopics: [
-      { title: "什么是飞控？", desc: "飞行控制器的工作原理、核心组件、固件介绍" },
-      { title: "什么是电调（ESC）？", desc: "电子调速器的工作原理和选型指南" }
+      { title: "无人机飞控双冗余IMU架构：从传感器融合到故障切换的安全设计", desc: "解析ICM42688双陀螺仪方案、EKF状态估计、断链返航逻辑、多重降落保护机制" },
+      { title: "BLHeli_32电调协议与DShot1200：高性能电机驱动的技术原理", desc: "从PWM到DShot的演进，48KHz调速精度、电流检测、过温保护的工程实现" },
+      { title: "飞控电调一体化飞塔设计：8层PCB布局与EMC优化", desc: "3-8S宽电压设计、电源完整性、信号隔离、散热设计的工程实践" },
     ]
   }
 };
@@ -426,22 +430,118 @@ function safeParseJSON(text: string): any {
   return null;
 }
 
-// 生成技术分享文章
-async function generateTechArticle(topic: { title: string; desc: string }, categoryName: string, apiKey: string) {
-  const prompt = `你是长凌科技（CANI）的技术编辑，撰写产品技术科普文章。
+// CANI 核心知识库（技术文章 AI 注入用）
+const CANI_TECH_KNOWLEDGE = `
+【CANI（长凌科技）核心技术知识库 - AI 写作必读】
 
-标题：${topic.title}
-方向：${topic.desc}
+品牌：长凌科技 (CANI UAV)，国家高新技术企业，ISO 9001，50+ 专利，200+ 研发工程师，产品覆盖 30+ 国家。
+
+■ 数字图传系统 (COFDM Digital Video Link)
+- 频段: 1.4GHz/2.4GHz/5.8GHz 多频段自适应跳频
+- 距离: 10km-50km（工业级链路）
+- 延迟: 端到端 < 30ms
+- 视频: 1080P 60fps / 4K
+- 调制: 自研 COFDM 编码正交频分复用
+- 加密: AES-256-GCM 军事级
+- 抗干扰: 空间分集接收 + FHSS 跳频扩频
+- RF基材: Rogers 4350B 高频板材
+- 防护: IP67, -40°C~+60°C, MIL-STD-461G EMC
+
+■ VTX 视频发射器（模拟/大功率）
+- 功率: 2.5W-37W 多档可调
+- 旗舰 37W VTX: 50km+ 传输距离
+- 频道: 80频道宽频, 4.9-6.1GHz
+- 散热: 航空级铝合金 CNC + 主动散热风道
+- 连续作业: 24小时不间断
+
+■ 飞控 (FC) & 电调 (ESC)
+- FC: STM32F722/H743 双冗余IMU, ICM42688双陀螺仪
+- ESC: 55A-100A, BLHeli_32/AM32, DShot1200, 48KHz PWM
+- 兼容: Betaflight/iNav/ArduPilot/PX4
+- 工艺: 8层PCB, 3-8S宽电压
+
+■ ELRS 遥控系统 (ExpressLRS)
+- 距离: 50km+ (915MHz)
+- 调制: LoRa 扩频
+- 刷新率: 500Hz
+- 延迟: < 1ms 亚毫秒级
+- 灵敏度: -130dBm (LNA增强型)
+
+■ 云台吊舱
+- 稳定: ≤0.1mrad 三轴
+- 可见光: 4K 40x光学变焦
+- 热成像: 640×512 辐射测温
+- AI: 4T算力, YOLOv8边缘推理
+- 接口: DJI PSDK / MAVLink
+- 测距: 1.5km LRF
+
+■ 行业应用矩阵
+- 电力巡检: COFDM抗EMI + 37W VTX链路不丢包
+- 应急救援: 30ms低延迟 + 0.01lux夜视
+- 物流运输: 集群通信, 多机不串频
+- 测绘: 高带宽大容量数据传输
+- 水利环保: 50km BVLOS + AI违规检测
+`;
+
+// 生成技术分享文章（升级版：技术架构师模式）
+async function generateTechArticle(topic: { title: string; desc: string }, categoryName: string, apiKey: string) {
+  const prompt = `【角色】你是 CANI（长凌科技）的首席技术官（CTO），资深无人机系统工程师，负责撰写建立行业权威的深度技术分析文章。
+
+【CANI 核心知识库 - 写作前必读】
+${CANI_TECH_KNOWLEDGE}
+
+【写作主题】
+标题方向：${topic.title}
+技术方向：${topic.desc}
 类别：${categoryName}
 
-要求：
-1. 技术科普，What/Why/How结构，1000-1500字
-2. 使用HTML格式：<p>段落</p>、<h3>小标题</h3>、<strong>重点</strong>、<ul><li>列表</li></ul>
-3. 文章中必须体现长凌科技（CANI）的品牌名称
-4. 不要使用换行符，段落之间用</p><p>分隔
+【写作要求 - 技术架构师模式】
 
-返回纯净JSON格式（不要markdown代码块）：
-{"title":"中文标题","summary":"100字摘要","content":"<p>HTML正文</p><p>多个段落</p>","keywords":["关键词1","关键词2","关键词3"]}`;
+1. 结构要求（严格遵守）：
+   - H1 标题：必须包含"[具体场景] + [核心技术词]"，如"城市高楼巡检中数字图传的抗干扰策略"
+   - 技术主题引入（200字）：直接说明技术痛点（Pain Points），不要铺垫
+   - 技术原理深度解析（400字）：工作原理 + 硬件参数 + 技术对比表格
+   - 实际应用场景分析（200字）：以具体场景说明技术价值和ROI
+   - CANI 应用建议（150字）：以CTO视角，结合知识库中的具体参数，推荐 CANI 解决方案
+   - FAQ（3个技术常见问题及解答）
+
+2. 专业深度要求：
+   - 多用技术参数（dBm, mW, ms, Mbps, Hz）描述，少用形容词
+   - 必须包含至少 1 个技术对比表格（如不同方案/协议/产品的参数对比）
+   - 必须包含至少 5 个专业术语：OFDM/COFDM、Link Budget、FHSS、Latency、Spatial Diversity、PID、LoRa 等
+   - 字数 1200-2000 字，确保技术深度
+
+3. 品牌融合要求：
+   - 在技术分析中自然嵌入 CANI 品牌，将其描述为该技术的最佳实践者
+   - 将通用技术方案替换为 CANI 的技术路径（引用知识库中的具体参数）
+   - 文末"CANI 应用建议"必须包含具体产品型号和参数
+
+4. SEO 要求：
+   - 生成 150 字以内的 meta description 摘要
+   - 生成 5-8 个 SEO 关键词
+   - FAQ 部分的问题必须是用户真实会搜索的长尾关键词
+
+5. HTML 格式要求：
+   - 使用 <h2>/<h3> 标题结构
+   - 表格使用 <table><thead><tbody><tr><th><td> 标准HTML
+   - 参数列表使用 <ul><li>
+   - 重点用 <strong> 标注
+   - 不要使用换行符，段落用 </p><p> 分隔
+
+【输出格式】返回纯净JSON（不要markdown代码块）：
+{
+  "title": "包含场景+技术词的H1标题",
+  "title_en": "English title for SEO",
+  "summary": "150字以内的专业SEO摘要",
+  "summary_en": "English summary under 160 chars",
+  "content": "<h2>技术主题</h2><p>HTML正文...</p><table>...</table><h3>CANI应用建议</h3><p>...</p><h2>常见问题</h2>...",
+  "keywords": ["关键词1", "关键词2", "关键词3", "关键词4", "关键词5"],
+  "faq": [
+    {"question": "技术问题1？", "answer": "专业解答1"},
+    {"question": "技术问题2？", "answer": "专业解答2"},
+    {"question": "技术问题3？", "answer": "专业解答3"}
+  ]
+}`;
 
   const response = await fetch("https://ark.cn-beijing.volces.com/api/v3/chat/completions", {
     method: "POST",
@@ -454,8 +554,8 @@ async function generateTechArticle(topic: { title: string; desc: string }, categ
       messages: [
         { role: "user", content: prompt },
       ],
-      temperature: 0.7,
-      max_tokens: 4000,
+      temperature: 0.75,
+      max_tokens: 6000,
     }),
   });
 
@@ -630,11 +730,24 @@ Deno.serve(async (req) => {
       // 将所有其他图片插入到内容中
       const contentWithImages = insertImagesIntoContent(article.content, images.slice(1), article.title);
       
+      // Build FAQ HTML if available
+      let faqHtml = '';
+      if (article.faq && Array.isArray(article.faq) && article.faq.length > 0) {
+        faqHtml = '<h2>常见问题 (FAQ)</h2>';
+        article.faq.forEach((f: any) => {
+          faqHtml += `<h3>${f.question}</h3><p>${f.answer}</p>`;
+        });
+      }
+      
+      const finalContent = contentWithImages + faqHtml;
+      
       const { error } = await supabase.from("news_articles").insert({
         id: articleId,
         title: article.title,
+        title_en: article.title_en || null,
         summary: article.summary,
-        content: contentWithImages,
+        summary_en: article.summary_en || null,
+        content: finalContent,
         keywords: article.keywords,
         category: category,
         cover_image: coverImage,
