@@ -1713,6 +1713,23 @@ ${CANI_KNOWLEDGE_BASE}
       try {
         const DOUBAO_API_KEY = Deno.env.get("DOUBAO_API_KEY");
         if (DOUBAO_API_KEY) {
+          // ========== 风格稳定锚点：基础 + 板块特定氛围词 ==========
+          const BASE_STYLE_ANCHOR = "Photorealistic, Industrial design, 8k resolution, shot on 35mm lens, sharp focus, clean background, no text, no words, no letters, no logo.";
+          const CATEGORY_STYLE_MAP: Record<string, string> = {
+            "技术分析": "Exploded view, internal hardware details, technical blueprints background, studio lighting, cyber industrial aesthetic, dark background with blue-green neon accents.",
+            "行业动态": "Wide angle, cinematic lighting, outdoor environment, real-world application scene, motion blur, digital city skyline, drone flight path light trails.",
+            "公司新闻": "Premium texture, brushed metal, product close-up, minimalist, high-end commercial photography, dark backdrop, soft ambient rim lighting.",
+          };
+          const categoryStyle = CATEGORY_STYLE_MAP[category] || CATEGORY_STYLE_MAP["技术分析"];
+          
+          // 拼接最终 Prompt：AI生成描述 + 基础锚点 + 板块氛围
+          const finalImagePrompt = `${imagePrompt}. ${BASE_STYLE_ANCHOR} ${categoryStyle}`;
+          
+          // Negative prompt 排除低质量/卡通风格
+          const NEGATIVE_PROMPT = "(worst quality, low quality, cartoon, anime, 2D, sketch, deformed, messy wires, blurry, text, watermark, logo, letters, words, childish, illustration)";
+          
+          console.log(`Seedream final prompt (${finalImagePrompt.length} chars): ${finalImagePrompt.substring(0, 200)}...`);
+          
           const imgResponse = await fetch("https://ark.cn-beijing.volces.com/api/v3/images/generations", {
             method: "POST",
             headers: {
@@ -1721,9 +1738,12 @@ ${CANI_KNOWLEDGE_BASE}
             },
             body: JSON.stringify({
               model: "doubao-seedream-4-0-250828",
-              prompt: imagePrompt,
+              prompt: finalImagePrompt,
+              negative_prompt: NEGATIVE_PROMPT,
               response_format: "b64_json",
               size: "1792x1024", // 16:9 宽屏封面
+              guidance_scale: 8.5, // 严格遵循工业参数描述
+              seed: Math.floor(Math.random() * 2147483647), // 随机种子保证唯一性
               sequential_image_generation: "disabled",
               stream: false,
               watermark: false,
@@ -1735,7 +1755,7 @@ ${CANI_KNOWLEDGE_BASE}
             const imgData = await imgResponse.json();
             const b64 = imgData.data?.[0]?.b64_json;
             if (b64) {
-              // base64 → Uint8Array → 上传到 news-images bucket
+              // base64 → Uint8Array
               const binaryStr = atob(b64);
               const bytes = new Uint8Array(binaryStr.length);
               for (let i = 0; i < binaryStr.length; i++) {
@@ -1746,17 +1766,26 @@ ${CANI_KNOWLEDGE_BASE}
               const SUPABASE_SERVICE_ROLE_KEY = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!;
               const supabaseAdmin = createClient(SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY);
               
+              // 上传为 WebP 格式（更小体积，SEO 加分）
+              // 注：Deno 环境无 Canvas，先存 PNG，前端通过 <picture> 标签或 CDN 自动转换
               const fileName = `cover-ai-${Date.now()}-${Math.random().toString(36).substring(2, 8)}.png`;
               const filePath = `covers/${fileName}`;
               
               const { error: uploadError } = await supabaseAdmin.storage
                 .from("news-images")
-                .upload(filePath, bytes, { contentType: "image/png", upsert: true });
+                .upload(filePath, bytes, { 
+                  contentType: "image/png", 
+                  upsert: true,
+                  cacheControl: "31536000", // 1年缓存
+                });
               
               if (!uploadError) {
                 const { data: urlData } = supabaseAdmin.storage.from("news-images").getPublicUrl(filePath);
                 generatedCoverUrl = urlData?.publicUrl || null;
-                addLog?.('success', `✅ Seedream 封面图生成成功`, { step: 'image', details: `文件: ${fileName}` });
+                addLog?.('success', `✅ Seedream 封面图生成成功 (${(bytes.length / 1024).toFixed(0)}KB)`, { 
+                  step: 'image', 
+                  details: `文件: ${fileName} | 风格: ${category} | Guidance: 8.5` 
+                });
                 console.log(`Seedream cover uploaded: ${generatedCoverUrl}`);
               } else {
                 console.error("Cover upload error:", uploadError);
@@ -1834,9 +1863,14 @@ ${CANI_KNOWLEDGE_BASE}
     let contentWithImages = result.content || "";
     let contentEnWithImages = result.content_en || "";
     
+    const articleTitle = result.title || originalTitle || "";
+    const sanitizedTitle = articleTitle.replace(/"/g, '&quot;').substring(0, 80);
+    
     images.forEach((imgUrl, index) => {
       const placeholder = `<!-- IMAGE_PLACEHOLDER_${index + 1} -->`;
-      const imgHtml = `<figure class="my-6"><img src="${imgUrl}" alt="文章配图 ${index + 1}" class="rounded-lg shadow-md w-full" loading="lazy" /><figcaption class="text-center text-sm text-muted-foreground mt-2">图${index + 1}</figcaption></figure>`;
+      // SEO优化：使用"CANI-文章标题"格式的alt标签
+      const altText = `CANI-${sanitizedTitle}-无人机${index === 0 ? '图传' : index === 1 ? '飞控' : '技术'}解决方案`;
+      const imgHtml = `<figure class="my-6"><img src="${imgUrl}" alt="${altText}" class="rounded-lg shadow-md w-full" loading="lazy" /><figcaption class="text-center text-sm text-muted-foreground mt-2">图${index + 1}</figcaption></figure>`;
       contentWithImages = contentWithImages.replace(placeholder, imgHtml);
       contentEnWithImages = contentEnWithImages.replace(placeholder, imgHtml);
     });
