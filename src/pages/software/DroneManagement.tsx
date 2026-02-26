@@ -8,6 +8,8 @@ import { MultiLanguageSEO } from "@/components/MultiLanguageSEO";
 import { PageFAQ } from "@/components/PageFAQ";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { Helmet } from "react-helmet-async";
+import droneManagementDashboardImg from "@/assets/seo/drone-management-dashboard.jpg";
+import softwareDashboardImg from "@/assets/seo/software-dashboard.jpg";
 
 const DroneManagement = () => {
   const { t } = useLanguage();
@@ -87,7 +89,7 @@ const DroneManagement = () => {
         <section className="relative h-auto min-h-[500px] md:min-h-[600px] overflow-hidden">
           <div
             className="absolute inset-0 bg-cover bg-center"
-            style={{ backgroundImage: "url(https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=1920&q=80)" }}
+            style={{ backgroundImage: `url(${softwareDashboardImg})` }}
           >
             <div className="absolute inset-0 bg-gradient-to-r from-primary/90 via-primary/70 to-primary/50" />
           </div>
@@ -208,7 +210,7 @@ const DroneManagement = () => {
               </div>
               <div className="aspect-video rounded-xl overflow-hidden shadow-card">
                 <img
-                  src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&q=80"
+                  src={droneManagementDashboardImg}
                   alt={t('softwarePage.management.title')}
                   className="w-full h-full object-cover"
                   loading="lazy"

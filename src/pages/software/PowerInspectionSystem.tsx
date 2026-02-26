@@ -9,6 +9,8 @@ import { PageStructuredData } from "@/components/PageStructuredData";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { Helmet } from "react-helmet-async";
 import { PageFAQ } from "@/components/PageFAQ";
+import powerInspectionSystemImg from "@/assets/seo/power-inspection-system.jpg";
+import powerTransmissionImg from "@/assets/seo/power-transmission-inspection.jpg";
 
 const PowerInspectionSystem = () => {
   const { t } = useLanguage();
@@ -91,7 +93,7 @@ const PowerInspectionSystem = () => {
         <section className="relative h-[500px] md:h-[600px] overflow-hidden">
           <div
             className="absolute inset-0 bg-cover bg-center"
-            style={{ backgroundImage: "url(https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?w=1920&q=80)" }}
+            style={{ backgroundImage: `url(${powerInspectionSystemImg})` }}
           >
             <div className="absolute inset-0 bg-gradient-to-r from-primary/90 via-primary/70 to-primary/50" />
           </div>
@@ -195,7 +197,7 @@ const PowerInspectionSystem = () => {
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
               <div className="aspect-video rounded-xl overflow-hidden shadow-card">
                 <img
-                  src="https://images.unsplash.com/photo-1558449028-b53a39d100fc?w=800&q=80"
+                  src={powerTransmissionImg}
                   alt="Power line inspection UAV thermal imaging defect detection"
                   className="w-full h-full object-cover"
                   loading="lazy"

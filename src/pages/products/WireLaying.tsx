@@ -1,6 +1,10 @@
 import ProductPageTemplate from "@/components/ProductPageTemplate";
 import { Mountain, Wind, Target, Zap, Shield, Clock } from "lucide-react";
 import { useLanguage } from "@/contexts/LanguageContext";
+import wireLayingDroneImg from "@/assets/seo/wire-laying-drone.jpg";
+import industrialDroneFlightImg from "@/assets/seo/industrial-drone-flight.jpg";
+import wireLayingMountainImg from "@/assets/seo/wire-laying-mountain.jpg";
+import damMonitoringImg from "@/assets/seo/dam-monitoring.jpg";
 
 const WireLaying = () => {
   const { t } = useLanguage();
@@ -19,19 +23,19 @@ const WireLaying = () => {
       name: t('wireLaying.p1.name'),
       description: t('wireLaying.p1.desc'),
       specs: [t('wireLaying.p1.spec1'), t('wireLaying.p1.spec2'), t('wireLaying.p1.spec3'), t('wireLaying.p1.spec4')],
-      image: "https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?w=600&q=80",
+      image: wireLayingDroneImg,
     },
     {
       name: t('wireLaying.p2.name'),
       description: t('wireLaying.p2.desc'),
       specs: [t('wireLaying.p2.spec1'), t('wireLaying.p2.spec2'), t('wireLaying.p2.spec3'), t('wireLaying.p2.spec4')],
-      image: "https://images.unsplash.com/photo-1473968512647-3e447244af8f?w=600&q=80",
+      image: industrialDroneFlightImg,
     },
     {
       name: t('wireLaying.p3.name'),
       description: t('wireLaying.p3.desc'),
       specs: [t('wireLaying.p3.spec1'), t('wireLaying.p3.spec2'), t('wireLaying.p3.spec3'), t('wireLaying.p3.spec4')],
-      image: "https://images.unsplash.com/photo-1527977966376-1c8408f9f108?w=600&q=80",
+      image: wireLayingMountainImg,
     },
   ];
 
@@ -63,9 +67,9 @@ const WireLaying = () => {
   ];
 
   const cases = [
-    { title: t('wireLaying.case1.title'), description: t('wireLaying.case1.desc'), image: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=600&q=80" },
-    { title: t('wireLaying.case2.title'), description: t('wireLaying.case2.desc'), image: "https://images.unsplash.com/photo-1446776858070-70c3d5ed6758?w=600&q=80" },
-    { title: t('wireLaying.case3.title'), description: t('wireLaying.case3.desc'), image: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=600&q=80" },
+    { title: t('wireLaying.case1.title'), description: t('wireLaying.case1.desc'), image: damMonitoringImg },
+    { title: t('wireLaying.case2.title'), description: t('wireLaying.case2.desc'), image: wireLayingMountainImg },
+    { title: t('wireLaying.case3.title'), description: t('wireLaying.case3.desc'), image: wireLayingDroneImg },
   ];
 
   return (
@@ -73,7 +77,7 @@ const WireLaying = () => {
       seoPath="/products/wire-laying"
       heroTitle={t('wireLaying.hero.title')}
       heroSubtitle={t('wireLaying.hero.subtitle')}
-      heroImage="https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?w=1920&q=80"
+      heroImage={wireLayingDroneImg}
       features={features}
       featuresTitle={t('wireLaying.feat.title')}
       products={products}

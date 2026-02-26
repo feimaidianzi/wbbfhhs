@@ -7,6 +7,9 @@ import { LangLink } from "@/components/LangLink";
 import { MultiLanguageSEO } from "@/components/MultiLanguageSEO";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { motion } from "framer-motion";
+import riverPatrolImg from "@/assets/seo/river-patrol.jpg";
+import sandMiningSurveillanceImg from "@/assets/seo/sand-mining-surveillance.jpg";
+import damMonitoringImg from "@/assets/seo/dam-monitoring.jpg";
 import {
   Accordion,
   AccordionContent,
@@ -27,20 +30,20 @@ const WaterConservancy = () => {
     {
       titleKey: 'water.scene1.title',
       descKey: 'water.scene1.desc',
-      image: "https://images.unsplash.com/photo-1534224039826-c7a0eda0e6b3?w=1200&q=80",
+      image: riverPatrolImg,
       alt: "UAV automated river patrol with AI pollution detection over winding river",
     },
     {
       titleKey: 'water.scene2.title',
       descKey: 'water.scene2.desc',
-      image: "https://images.pexels.com/photos/12975936/pexels-photo-12975936.jpeg?w=1200",
+      image: sandMiningSurveillanceImg,
       alt: "50km BVLOS anti-illegal sand mining surveillance using 37W high-power VTX in low-light mode",
       hasVtxLink: true,
     },
     {
       titleKey: 'water.scene3.title',
       descKey: 'water.scene3.desc',
-      image: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1200&q=80",
+      image: damMonitoringImg,
       alt: "Dam health monitoring with thermal imaging and RTK centimeter-level 3D modeling",
     },
   ];
@@ -80,7 +83,7 @@ const WaterConservancy = () => {
         <section className="relative h-[450px] md:h-[560px] overflow-hidden">
           <div
             className="absolute inset-0 bg-cover bg-center"
-            style={{ backgroundImage: "url(https://images.unsplash.com/photo-1534224039826-c7a0eda0e6b3?w=1920&q=80)" }}
+            style={{ backgroundImage: `url(${riverPatrolImg})` }}
           />
           <div className="absolute inset-0 bg-black/70" />
           <div className="relative container-custom h-full flex items-center">

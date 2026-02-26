@@ -7,6 +7,9 @@ import { LangLink } from "@/components/LangLink";
 import { MultiLanguageSEO } from "@/components/MultiLanguageSEO";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { motion } from "framer-motion";
+import atmosphericMonitoringImg from "@/assets/seo/atmospheric-monitoring.jpg";
+import forestHealthSurveyImg from "@/assets/seo/forest-health-survey.jpg";
+import waterPollutionDetectionImg from "@/assets/seo/water-pollution-detection.jpg";
 import {
   Accordion,
   AccordionContent,
@@ -27,21 +30,21 @@ const EnvironmentalMonitoring = () => {
     {
       titleKey: 'envmon.scene1.title',
       descKey: 'envmon.scene1.desc',
-      image: "https://images.unsplash.com/photo-1611273426858-450d8e3c9fce?w=1200&q=80",
+      image: atmosphericMonitoringImg,
       alt: "CANI industrial UAV atmospheric monitoring with 3D gas diffusion mapping over industrial zone",
       hasVtxLink: true,
     },
     {
       titleKey: 'envmon.scene2.title',
       descKey: 'envmon.scene2.desc',
-      image: "https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=1200&q=80",
+      image: forestHealthSurveyImg,
       alt: "CANI UAV NDVI multispectral forest health survey with vegetation index analysis",
       hasGimbalLink: true,
     },
     {
       titleKey: 'envmon.scene3.title',
       descKey: 'envmon.scene3.desc',
-      image: "https://images.unsplash.com/photo-1504386106331-3e4e71712b38?w=1200&q=80",
+      image: waterPollutionDetectionImg,
       alt: "CANI UAV illegal discharge detection over river with thermal imaging evidence capture",
     },
   ];
@@ -81,7 +84,7 @@ const EnvironmentalMonitoring = () => {
         <section className="relative h-[450px] md:h-[560px] overflow-hidden">
           <div
             className="absolute inset-0 bg-cover bg-center"
-            style={{ backgroundImage: "url(https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=1920&q=80)" }}
+            style={{ backgroundImage: `url(${forestHealthSurveyImg})` }}
           />
           <div className="absolute inset-0 bg-black/70" />
           <div className="relative container-custom h-full flex items-center">

@@ -7,6 +7,8 @@ import { LangLink } from "@/components/LangLink";
 import { MultiLanguageSEO } from "@/components/MultiLanguageSEO";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { motion } from "framer-motion";
+import highwayTrafficImg from "@/assets/seo/highway-traffic-monitoring.jpg";
+import bridgeInspectionImg from "@/assets/seo/bridge-inspection.jpg";
 import {
   Accordion,
   AccordionContent,
@@ -27,14 +29,14 @@ const TransportationMonitoring = () => {
     {
       titleKey: 'transport.scene1.title',
       descKey: 'transport.scene1.desc',
-      image: "https://images.unsplash.com/photo-1449824913935-59a10b8d2000?w=1200&q=80",
+      image: highwayTrafficImg,
       alt: "CANI industrial UAV autonomous highway patrol with AI traffic flow analysis",
       hasVtxLink: true,
     },
     {
       titleKey: 'transport.scene2.title',
       descKey: 'transport.scene2.desc',
-      image: "https://images.unsplash.com/photo-1545296664-39db56ad95bd?w=1200&q=80",
+      image: bridgeInspectionImg,
       alt: "CANI UAV bridge structural health monitoring with millimeter precision inspection",
     },
   ];
@@ -88,7 +90,7 @@ const TransportationMonitoring = () => {
         <section className="relative h-[450px] md:h-[560px] overflow-hidden">
           <div
             className="absolute inset-0 bg-cover bg-center"
-            style={{ backgroundImage: "url(https://images.unsplash.com/photo-1449824913935-59a10b8d2000?w=1920&q=80)" }}
+            style={{ backgroundImage: `url(${highwayTrafficImg})` }}
           />
           <div className="absolute inset-0 bg-black/70" />
           <div className="relative container-custom h-full flex items-center">

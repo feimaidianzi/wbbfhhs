@@ -6,6 +6,10 @@ import { ArrowRight, GraduationCap, Sparkles, Plane, Handshake } from "lucide-re
 import { LangLink as Link } from "@/components/LangLink";
 import { MultiLanguageSEO } from "@/components/MultiLanguageSEO";
 import { useLanguage } from "@/contexts/LanguageContext";
+import droneTrainingImg from "@/assets/seo/drone-training.jpg";
+import droneLightShowImg from "@/assets/seo/drone-light-show.jpg";
+import industrialDroneFlightImg from "@/assets/seo/industrial-drone-flight.jpg";
+import teamCooperationImg from "@/assets/seo/team-cooperation.jpg";
 
 const Projects = () => {
   const { t } = useLanguage();
@@ -16,28 +20,28 @@ const Projects = () => {
       title: t('projects.training.title'),
       description: t('projects.training.description'),
       link: "/projects/training",
-      image: "https://images.unsplash.com/photo-1434030216411-0b793f4b4173?w=600&q=80",
+      image: droneTrainingImg,
     },
     {
       icon: Sparkles,
       title: t('projects.show.title'),
       description: t('projects.show.description'),
       link: "/projects/show",
-      image: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&q=80",
+      image: droneLightShowImg,
     },
     {
       icon: Plane,
       title: t('projects.flight.title'),
       description: t('projects.flight.description'),
       link: "/projects/flight-service",
-      image: "https://images.unsplash.com/photo-1473968512647-3e447244af8f?w=600&q=80",
+      image: industrialDroneFlightImg,
     },
     {
       icon: Handshake,
       title: t('projects.cooperation.title'),
       description: t('projects.cooperation.description'),
       link: "/projects/cooperation",
-      image: "https://images.unsplash.com/photo-1552664730-d307ca884978?w=600&q=80",
+      image: teamCooperationImg,
     },
   ];
 
@@ -56,7 +60,7 @@ const Projects = () => {
           <div
             className="absolute inset-0 bg-cover bg-center"
             style={{
-              backgroundImage: "url(https://images.unsplash.com/photo-1552664730-d307ca884978?w=1920&q=80)",
+              backgroundImage: `url(${teamCooperationImg})`,
             }}
           >
             <div className="absolute inset-0 bg-gradient-to-r from-primary/90 via-primary/70 to-primary/50" />
