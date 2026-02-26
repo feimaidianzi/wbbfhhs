@@ -3,6 +3,12 @@ import { useState } from "react";
 import { ArrowRight, Droplets, Car, Leaf, Zap, AlertTriangle, MapPin } from "lucide-react";
 import { LangLink } from "@/components/LangLink";
 import { useLanguage } from "@/contexts/LanguageContext";
+import waterConservationImg from "@/assets/seo/water-conservation.jpg";
+import trafficCityImg from "@/assets/seo/traffic-city.jpg";
+import forestEnvironmentImg from "@/assets/seo/forest-environment.jpg";
+import powerGridImg from "@/assets/seo/power-grid-sunset.jpg";
+import emergencyRescueImg from "@/assets/seo/emergency-rescue.jpg";
+import surveyingMountainImg from "@/assets/seo/surveying-mountain.jpg";
 
 export const ApplicationsSection = () => {
   const { t } = useLanguage();
@@ -13,7 +19,7 @@ export const ApplicationsSection = () => {
       id: "water",
       nameKey: "applications.water",
       descKey: "applications.water.desc",
-      image: "https://images.unsplash.com/photo-1534224039826-c7a0eda0e6b3?w=1200&q=80",
+      image: waterConservationImg,
       icon: Droplets,
       link: "/solutions/industrial-uav-water-conservancy",
     },
@@ -21,7 +27,7 @@ export const ApplicationsSection = () => {
       id: "traffic",
       nameKey: "applications.traffic",
       descKey: "applications.traffic.desc",
-      image: "https://images.unsplash.com/photo-1449824913935-59a10b8d2000?w=1200&q=80",
+      image: trafficCityImg,
       icon: Car,
       link: "/solutions/industrial-uav-transportation-monitoring",
     },
@@ -29,7 +35,7 @@ export const ApplicationsSection = () => {
       id: "environment",
       nameKey: "applications.environment",
       descKey: "applications.environment.desc",
-      image: "https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=1200&q=80",
+      image: forestEnvironmentImg,
       icon: Leaf,
       link: "/solutions/industrial-uav-environmental-monitoring",
     },
@@ -37,7 +43,7 @@ export const ApplicationsSection = () => {
       id: "power",
       nameKey: "applications.power",
       descKey: "applications.power.desc",
-      image: "https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?w=1200&q=80",
+      image: powerGridImg,
       icon: Zap,
       link: "/applications/power-inspection",
     },
@@ -45,7 +51,7 @@ export const ApplicationsSection = () => {
       id: "emergency",
       nameKey: "applications.emergency",
       descKey: "applications.emergency.desc",
-      image: "https://images.unsplash.com/photo-1569863959165-56dae551d4fc?w=1200&q=80",
+      image: emergencyRescueImg,
       icon: AlertTriangle,
       link: "/solutions/uav-firefighting-emergency-rescue",
     },
@@ -53,7 +59,7 @@ export const ApplicationsSection = () => {
       id: "surveying",
       nameKey: "applications.surveying",
       descKey: "applications.surveying.desc",
-      image: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1200&q=80",
+      image: surveyingMountainImg,
       icon: MapPin,
       link: "/solutions/industrial-uav-surveying-mapping",
     },

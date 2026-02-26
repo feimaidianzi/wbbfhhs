@@ -18,7 +18,7 @@ interface OptimizedImageProps {
   onError?: () => void;
 }
 
-const DEFAULT_FALLBACK = "https://images.pexels.com/photos/442587/pexels-photo-442587.jpeg?auto=compress&cs=tinysrgb&w=800";
+const DEFAULT_FALLBACK = "/placeholder.svg";
 
 /**
  * Performance-optimized image component:

@@ -2,6 +2,11 @@ import { motion } from "framer-motion";
 import { ArrowRight, Sparkles, Zap, Radio, Camera, Gamepad2, Cpu } from "lucide-react";
 import { LangLink } from "@/components/LangLink";
 import { useLanguage } from "@/contexts/LanguageContext";
+import fpvDroneImg from "@/assets/seo/fpv-drone-aerial.jpg";
+import circuitBoardImg from "@/assets/seo/circuit-board-closeup.jpg";
+import gimbalCameraImg from "@/assets/seo/gimbal-camera-drone.jpg";
+import elrsReceiverImg from "@/assets/seo/elrs-receiver.jpg";
+import vtxHighPowerImg from "@/assets/vtx/vtx-high-power.jpg";
 
 const containerVariants = {
   hidden: { opacity: 0 },
@@ -33,7 +38,7 @@ export const ProductsSection = () => {
       name: t('productsSection.category.digitalFpv'),
       description: t('productsSection.category.digitalFpv.desc'),
       subtitle: t('productsSection.category.digitalFpv.subtitle'),
-      image: "https://images.unsplash.com/photo-1473968512647-3e447244af8f?w=800&q=80",
+      image: fpvDroneImg,
       link: "/products/accessories/digital-fpv",
       icon: Radio,
       isHot: true,
@@ -42,7 +47,7 @@ export const ProductsSection = () => {
       name: t('productsSection.category.vtx'),
       description: t('productsSection.category.vtx.desc'),
       subtitle: t('productsSection.category.vtx.subtitle'),
-      image: "https://images.unsplash.com/photo-1518770660439-4636190af475?w=800&q=80",
+      image: vtxHighPowerImg,
       link: "/products/accessories/vtx-vrx",
       icon: Zap,
     },
@@ -50,7 +55,7 @@ export const ProductsSection = () => {
       name: t('productsSection.category.fc'),
       description: t('productsSection.category.fc.desc'),
       subtitle: t('productsSection.category.fc.subtitle'),
-      image: "https://images.unsplash.com/photo-1581094794329-c8112a89af12?w=800&q=80",
+      image: circuitBoardImg,
       link: "/products/accessories/fc-esc",
       icon: Cpu,
     },
@@ -58,7 +63,7 @@ export const ProductsSection = () => {
       name: t('productsSection.category.gimbal'),
       description: t('productsSection.category.gimbal.desc'),
       subtitle: t('productsSection.category.gimbal.subtitle'),
-      image: "https://images.unsplash.com/photo-1527977966376-1c8408f9f108?w=800&q=80",
+      image: gimbalCameraImg,
       link: "/products/accessories/gimbal",
       icon: Camera,
     },
@@ -66,7 +71,7 @@ export const ProductsSection = () => {
       name: t('productsSection.category.elrs'),
       description: t('productsSection.category.elrs.desc'),
       subtitle: t('productsSection.category.elrs.subtitle'),
-      image: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&q=80",
+      image: elrsReceiverImg,
       link: "/products/accessories/elrs",
       icon: Gamepad2,
       isNew: true,

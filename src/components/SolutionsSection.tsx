@@ -1,6 +1,10 @@
 import { ArrowRight, Zap } from "lucide-react";
 import { LangLink } from "@/components/LangLink";
 import { useLanguage } from "@/contexts/LanguageContext";
+import powerGridImg from "@/assets/seo/power-grid-sunset.jpg";
+import logisticsDroneImg from "@/assets/seo/logistics-drone-delivery.jpg";
+import emergencyRescueImg from "@/assets/seo/emergency-rescue.jpg";
+import forestEnvironmentImg from "@/assets/seo/forest-environment.jpg";
 
 export const SolutionsSection = () => {
   const { t } = useLanguage();
@@ -9,28 +13,28 @@ export const SolutionsSection = () => {
     {
       title: t('solutionsSection.solution1.title'),
       description: t('solutionsSection.solution1.desc'),
-      image: "https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?w=600&q=80",
+      image: powerGridImg,
       link: "/applications/power-inspection",
       stats: t('solutionsSection.solution1.stats'),
     },
     {
       title: t('solutionsSection.solution2.title'),
       description: t('solutionsSection.solution2.desc'),
-      image: "https://images.unsplash.com/photo-1527977966376-1c8408f9f108?w=600&q=80",
+      image: logisticsDroneImg,
       link: "/applications/logistics",
       stats: t('solutionsSection.solution2.stats'),
     },
     {
       title: t('solutionsSection.solution3.title'),
       description: t('solutionsSection.solution3.desc'),
-      image: "https://images.unsplash.com/photo-1569863959165-56dae551d4fc?w=600&q=80",
+      image: emergencyRescueImg,
       link: "/applications/firefighting",
       stats: t('solutionsSection.solution3.stats'),
     },
     {
       title: t('solutionsSection.solution4.title'),
       description: t('solutionsSection.solution4.desc'),
-      image: "https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=600&q=80",
+      image: forestEnvironmentImg,
       link: "/solutions/industrial-uav-environmental-monitoring",
       stats: t('solutionsSection.solution4.stats'),
     },
