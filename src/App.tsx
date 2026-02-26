@@ -97,6 +97,7 @@ import AdminLogin from "./pages/admin/AdminLogin";
 import AdminDashboard from "./pages/admin/AdminDashboard";
 import UserManagement from "./pages/admin/UserManagement";
 import NewsManagement from "./pages/admin/NewsManagement";
+import ContentHub from "./pages/admin/ContentHub";
 import ProductManagement from "./pages/admin/ProductManagement";
 import InquiryManagement from "./pages/admin/InquiryManagement";
 import SystemSettings from "./pages/admin/SystemSettings";
@@ -236,6 +237,7 @@ const App = () => (
             <Route path="/admin/specification-templates" element={<SpecificationTemplates />} />
             <Route path="/admin/data-import" element={<DataImport />} />
             <Route path="/admin/news-collection" element={<NewsCollection />} />
+            <Route path="/admin/content-hub" element={<ContentHub />} />
             <Route path="/admin/customer-leads" element={<CustomerLeads />} />
             <Route path="/admin/customer-service" element={<CustomerServiceChat />} />
             <Route path="/admin/customer-service/login" element={<CustomerServiceLogin />} />

@@ -282,9 +282,9 @@ const AdminDashboard = () => {
     },
     { 
       icon: Bot, 
-      title: '自动新闻采集', 
-      description: 'AI自动采集编辑行业新闻', 
-      href: '/admin/news-collection',
+      title: '内容中控台', 
+      description: '内容流控·AI编辑·采集引擎', 
+      href: '/admin/content-hub',
       color: 'from-amber-500 to-orange-500'
     },
     { 
