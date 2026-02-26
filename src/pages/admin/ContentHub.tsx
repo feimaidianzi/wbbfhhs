@@ -8,8 +8,13 @@ import {
   Tabs, TabsContent, TabsList, TabsTrigger,
 } from '@/components/ui/tabs';
 import {
+  AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent,
+  AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle,
+} from '@/components/ui/alert-dialog';
+import {
   Shield, LogOut, Home, Loader2, ArrowLeft, Plus,
-  LayoutDashboard, Kanban, PenLine, Cpu, Rss, BarChart3, FileText
+  LayoutDashboard, Kanban, PenLine, Cpu, Rss, BarChart3, FileText,
+  OctagonX, Power
 } from 'lucide-react';
 import { PipelineView } from '@/components/admin/content-hub/PipelineView';
 import { ArticleEditor } from '@/components/admin/content-hub/ArticleEditor';
@@ -45,6 +50,8 @@ const ContentHub = () => {
   const [activeTab, setActiveTab] = useState('pipeline');
   const [editingArticle, setEditingArticle] = useState<Article | null | 'new'>(null);
   const [categoryFilter, setCategoryFilter] = useState('全部');
+  const [killSwitchActive, setKillSwitchActive] = useState(false);
+  const [killSwitchConfirm, setKillSwitchConfirm] = useState(false);
 
   const fetchArticles = async () => {
     try {
@@ -59,6 +66,11 @@ const ContentHub = () => {
     }
   };
 
+  const checkKillSwitch = async () => {
+    const { data } = await supabase.from('system_settings').select('value').eq('key', 'kill_switch_active').maybeSingle();
+    setKillSwitchActive(data?.value === 'true');
+  };
+
   useEffect(() => {
     const checkAccess = async () => {
       const { data: { session } } = await supabase.auth.getSession();
@@ -66,7 +78,7 @@ const ContentHub = () => {
       setCurrentUserId(session.user.id);
       const { data: isAdmin } = await supabase.rpc('has_role', { _user_id: session.user.id, _role: 'admin' });
       if (!isAdmin) { toast({ title: '访问拒绝', variant: 'destructive' }); navigate('/admin/login'); return; }
-      await fetchArticles();
+      await Promise.all([fetchArticles(), checkKillSwitch()]);
       setLoading(false);
     };
     checkAccess();
@@ -75,6 +87,34 @@ const ContentHub = () => {
   const handleLogout = async () => {
     await supabase.auth.signOut();
     navigate('/admin/login');
+  };
+
+  const toggleKillSwitch = async () => {
+    const newState = !killSwitchActive;
+    try {
+      // Upsert kill_switch_active setting
+      const { error } = await supabase.from('system_settings').upsert({
+        key: 'kill_switch_active',
+        value: String(newState),
+        description: '紧急关停：禁用所有自动采集和自动发布',
+      }, { onConflict: 'key' });
+      if (error) throw error;
+
+      // If activating, also disable all scheduled tasks
+      if (newState) {
+        await supabase.from('scheduled_tasks').update({ is_enabled: false }).neq('id', '00000000-0000-0000-0000-000000000000');
+      }
+
+      setKillSwitchActive(newState);
+      toast({
+        title: newState ? '🛑 紧急关停已激活' : '✅ 系统已恢复',
+        description: newState ? '所有自动采集和发布已停止，定时任务已禁用' : '自动化系统已恢复运行，请手动启用需要的定时任务',
+        variant: newState ? 'destructive' : 'default',
+      });
+    } catch (err: any) {
+      toast({ title: '操作失败', description: err.message, variant: 'destructive' });
+    }
+    setKillSwitchConfirm(false);
   };
 
   // Stats
@@ -108,6 +148,18 @@ const ContentHub = () => {
 
   return (
     <div className="min-h-screen bg-slate-900">
+      {/* Kill Switch Banner */}
+      {killSwitchActive && (
+        <div className="bg-red-500/20 border-b border-red-500/30 px-4 py-2 flex items-center justify-center gap-2">
+          <OctagonX className="w-4 h-4 text-red-400" />
+          <span className="text-xs text-red-300 font-medium">紧急关停已激活 — 所有自动采集和发布已暂停</span>
+          <Button size="sm" variant="outline" className="h-6 text-[10px] border-red-500/50 text-red-300 hover:bg-red-500/20 ml-2"
+            onClick={() => setKillSwitchConfirm(true)}>
+            恢复系统
+          </Button>
+        </div>
+      )}
+
       {/* Header */}
       <header className="bg-slate-800/80 backdrop-blur-sm border-b border-slate-700/50 sticky top-0 z-50">
         <div className="container mx-auto px-4 py-3 flex items-center justify-between">
@@ -138,6 +190,17 @@ const ContentHub = () => {
           </div>
 
           <div className="flex items-center gap-2">
+            {/* Kill Switch */}
+            <Button
+              variant="ghost" size="sm"
+              onClick={() => setKillSwitchConfirm(true)}
+              className={killSwitchActive
+                ? 'text-red-400 hover:text-red-300 hover:bg-red-500/10'
+                : 'text-slate-400 hover:text-red-400 hover:bg-red-500/10'}
+              title="紧急关停"
+            >
+              <Power className="w-4 h-4" />
+            </Button>
             <Button variant="ghost" size="sm" onClick={() => setEditingArticle('new')}
               className="text-amber-400 hover:text-amber-300 hover:bg-amber-500/10">
               <Plus className="w-4 h-4 mr-1" />新文章
@@ -205,6 +268,32 @@ const ContentHub = () => {
           </TabsContent>
         </Tabs>
       </main>
+
+      {/* Kill Switch Confirmation */}
+      <AlertDialog open={killSwitchConfirm} onOpenChange={setKillSwitchConfirm}>
+        <AlertDialogContent className="bg-slate-800 border-slate-700">
+          <AlertDialogHeader>
+            <AlertDialogTitle className="text-white flex items-center gap-2">
+              <OctagonX className="w-5 h-5 text-red-400" />
+              {killSwitchActive ? '恢复自动化系统' : '紧急关停'}
+            </AlertDialogTitle>
+            <AlertDialogDescription className="text-slate-400">
+              {killSwitchActive
+                ? '确认恢复后，你需要手动重新启用所需的定时采集任务。'
+                : '激活后将立即停止所有自动采集、AI处理和自动发布。所有定时任务将被禁用。此操作可防止AI异常时产生大量垃圾内容。'}
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogCancel className="bg-slate-700 text-white border-slate-600">取消</AlertDialogCancel>
+            <AlertDialogAction
+              onClick={toggleKillSwitch}
+              className={killSwitchActive ? 'bg-emerald-500 hover:bg-emerald-600' : 'bg-red-500 hover:bg-red-600'}
+            >
+              {killSwitchActive ? '确认恢复' : '确认关停'}
+            </AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
     </div>
   );
 };
@@ -229,15 +318,6 @@ const ArticleListView = ({ articles, onEdit, onRefresh, categoryFilter, onCatego
       if (error) throw error;
       onRefresh();
     } catch (err: any) { toast({ title: '操作失败', description: err.message, variant: 'destructive' }); }
-  };
-
-  const deleteArticle = async (id: string) => {
-    try {
-      const { error } = await supabase.from('news_articles').delete().eq('id', id);
-      if (error) throw error;
-      toast({ title: '已删除' });
-      onRefresh();
-    } catch (err: any) { toast({ title: '删除失败', description: err.message, variant: 'destructive' }); }
   };
 
   return (

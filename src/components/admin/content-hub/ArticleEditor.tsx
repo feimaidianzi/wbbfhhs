@@ -6,7 +6,6 @@ import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { Badge } from '@/components/ui/badge';
 import { Switch } from '@/components/ui/switch';
-import { Card } from '@/components/ui/card';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { useToast } from '@/hooks/use-toast';
 import {
@@ -14,7 +13,8 @@ import {
 } from '@/components/ui/select';
 import {
   ArrowLeft, Save, Loader2, Sparkles, ExternalLink, FileText,
-  Scissors, TrendingUp, HelpCircle, Type, Image, X, Eye
+  Scissors, TrendingUp, HelpCircle, Type, Eye, Image, Download,
+  Send, RefreshCw, Zap
 } from 'lucide-react';
 import RichTextEditor from '@/components/admin/RichTextEditor';
 import SingleImageUpload from '@/components/admin/SingleImageUpload';
@@ -38,7 +38,7 @@ interface Article {
 }
 
 interface ArticleEditorProps {
-  article: Article | null; // null = create new
+  article: Article | null;
   onBack: () => void;
   onSaved: () => void;
   currentUserId: string | null;
@@ -48,13 +48,22 @@ const AI_TOOLS = [
   { label: '缩短篇幅', icon: Scissors, prompt: '请将文章精简至原来的60%长度，保留核心信息和关键数据' },
   { label: '增加深度', icon: TrendingUp, prompt: '请增加更多技术细节和专业分析，引用CANI产品参数' },
   { label: '优化标题', icon: Type, prompt: '请为这篇文章生成3个更具SEO吸引力的标题备选' },
-  { label: '生成FAQ', icon: HelpCircle, prompt: '请根据文章内容生成3-5个常见问题和答案（FAQ）' },
+  { label: '生成FAQ', icon: HelpCircle, prompt: '请根据文章内容生成3-5个常见问题和答案（FAQ），使用JSON-LD格式的FAQPage Schema标记' },
+  { label: '自动配图', icon: Image, prompt: '请根据文章标题和内容，为文章中的关键段落建议合适的配图描述，并搜索相关的免版权图片' },
+  { label: '图片本地化', icon: Download, prompt: '请将文章中所有外部图片下载到本地存储，替换为本地链接，并自动生成SEO友好的alt标签' },
 ];
+
+const CATEGORY_LABELS: Record<string, { label: string; color: string }> = {
+  '技术分享': { label: '技术', color: 'bg-violet-500/20 text-violet-300 border-violet-500/30' },
+  '行业动态': { label: '动态', color: 'bg-emerald-500/20 text-emerald-300 border-emerald-500/30' },
+  '公司新闻': { label: '公司', color: 'bg-blue-500/20 text-blue-300 border-blue-500/30' },
+};
 
 export const ArticleEditor = ({ article, onBack, onSaved, currentUserId }: ArticleEditorProps) => {
   const { toast } = useToast();
   const [saving, setSaving] = useState(false);
   const [aiProcessing, setAiProcessing] = useState(false);
+  const [publishing, setPublishing] = useState(false);
 
   const [form, setForm] = useState({
     title: article?.title || '',
@@ -105,6 +114,37 @@ export const ArticleEditor = ({ article, onBack, onSaved, currentUserId }: Artic
     }
   };
 
+  const handlePublishAndPush = async () => {
+    if (!article?.id) {
+      toast({ title: '请先保存文章', variant: 'destructive' });
+      return;
+    }
+    setPublishing(true);
+    try {
+      // 1. Publish article
+      const { error: pubErr } = await supabase.from('news_articles').update({
+        is_published: true,
+        published_at: new Date().toISOString(),
+        review_status: 'approved',
+      }).eq('id', article.id);
+      if (pubErr) throw pubErr;
+
+      // 2. Submit to search engine index
+      try {
+        await supabase.functions.invoke('submit-sitemap', {
+          body: { action: 'ping', languages: ['zh', 'en'] },
+        });
+      } catch { /* non-critical */ }
+
+      setForm(prev => ({ ...prev, is_published: true }));
+      toast({ title: '🚀 已发布并推送索引', description: '文章已同步到前台，索引已提交' });
+    } catch (err: any) {
+      toast({ title: '发布失败', description: err.message, variant: 'destructive' });
+    } finally {
+      setPublishing(false);
+    }
+  };
+
   const handleAITool = async (prompt: string) => {
     if (!article?.id) {
       toast({ title: '请先保存文章再使用AI工具', variant: 'destructive' });
@@ -113,11 +153,10 @@ export const ArticleEditor = ({ article, onBack, onSaved, currentUserId }: Artic
     setAiProcessing(true);
     try {
       const response = await supabase.functions.invoke('ai-modify-article', {
-        body: { articleId: article.id, modificationRequest: prompt, modifyImages: false },
+        body: { articleId: article.id, modificationRequest: prompt, modifyImages: prompt.includes('图片') },
       });
       if (response.error) throw new Error(response.error.message);
       toast({ title: 'AI修改完成', description: response.data?.changes || '文章已更新' });
-      // Reload article content
       const { data: refreshed } = await supabase.from('news_articles').select('*').eq('id', article.id).single();
       if (refreshed) {
         setForm({
@@ -137,7 +176,27 @@ export const ArticleEditor = ({ article, onBack, onSaved, currentUserId }: Artic
     }
   };
 
-  // Count keyword density
+  const handleImageLocalize = async () => {
+    if (!article?.id) return;
+    setAiProcessing(true);
+    try {
+      const response = await supabase.functions.invoke('process-news-images', {
+        body: { action: 'process-article', articleId: article.id },
+      });
+      if (response.error) throw new Error(response.error.message);
+      toast({ title: '图片本地化完成', description: `处理了 ${response.data?.processedCount || 0} 张图片` });
+      const { data: refreshed } = await supabase.from('news_articles').select('*').eq('id', article.id).single();
+      if (refreshed) {
+        setForm(prev => ({ ...prev, content: refreshed.content, cover_image: refreshed.cover_image || '' }));
+      }
+    } catch (err: any) {
+      toast({ title: '图片处理失败', description: err.message, variant: 'destructive' });
+    } finally {
+      setAiProcessing(false);
+    }
+  };
+
+  // Keyword density & stats
   const contentText = form.content.replace(/<[^>]*>/g, '');
   const wordCount = contentText.length;
   const keywordChecks = [
@@ -148,6 +207,8 @@ export const ArticleEditor = ({ article, onBack, onSaved, currentUserId }: Artic
     { word: 'ELRS', count: (contentText.match(/ELRS/gi) || []).length },
   ];
 
+  const catMeta = CATEGORY_LABELS[form.category] || CATEGORY_LABELS['公司新闻'];
+
   return (
     <div className="flex flex-col h-full">
       {/* Editor Header */}
@@ -157,16 +218,22 @@ export const ArticleEditor = ({ article, onBack, onSaved, currentUserId }: Artic
             <ArrowLeft className="w-4 h-4 mr-1" />返回
           </Button>
           <div className="h-5 w-px bg-slate-700" />
-          <Select value={form.category} onValueChange={v => setForm({ ...form, category: v })}>
-            <SelectTrigger className="w-28 h-8 text-xs bg-slate-700 border-slate-600">
-              <SelectValue />
-            </SelectTrigger>
-            <SelectContent className="bg-slate-800 border-slate-700">
-              <SelectItem value="公司新闻">公司新闻</SelectItem>
-              <SelectItem value="行业动态">行业动态</SelectItem>
-              <SelectItem value="技术分享">技术分享</SelectItem>
-            </SelectContent>
-          </Select>
+          {/* Category Switcher - switching reloads AI context */}
+          <div className="flex items-center gap-1">
+            {Object.entries(CATEGORY_LABELS).map(([cat, meta]) => (
+              <Button
+                key={cat}
+                variant={form.category === cat ? 'default' : 'ghost'}
+                size="sm"
+                onClick={() => setForm({ ...form, category: cat })}
+                className={form.category === cat
+                  ? 'h-7 text-[11px] bg-slate-600 text-white'
+                  : 'h-7 text-[11px] text-slate-500 hover:text-white'}
+              >
+                {cat}
+              </Button>
+            ))}
+          </div>
           {article?.ai_edited && (
             <Badge className="bg-purple-500/20 text-purple-300 border-purple-500/30 text-[10px]">
               <Sparkles className="w-3 h-3 mr-1" />AI已编辑
@@ -178,7 +245,7 @@ export const ArticleEditor = ({ article, onBack, onSaved, currentUserId }: Artic
             <Switch checked={form.is_published} onCheckedChange={c => setForm({ ...form, is_published: c })} id="pub" />
             <Label htmlFor="pub" className="text-xs text-slate-400">发布</Label>
           </div>
-          <Button size="sm" onClick={handleSave} disabled={saving} className="bg-amber-500 hover:bg-amber-600 h-8">
+          <Button size="sm" onClick={handleSave} disabled={saving} className="bg-slate-600 hover:bg-slate-500 h-8">
             {saving ? <Loader2 className="w-3.5 h-3.5 mr-1 animate-spin" /> : <Save className="w-3.5 h-3.5 mr-1" />}
             保存
           </Button>
@@ -189,7 +256,7 @@ export const ArticleEditor = ({ article, onBack, onSaved, currentUserId }: Artic
       <div className="flex-1 flex overflow-hidden">
         {/* Left: Reference Panel */}
         {article?.source_url && (
-          <div className="w-64 border-r border-slate-700 bg-slate-850 flex flex-col">
+          <div className="w-64 border-r border-slate-700 bg-slate-800/30 flex flex-col">
             <div className="px-3 py-2 border-b border-slate-700">
               <h3 className="text-xs font-semibold text-slate-300 flex items-center gap-1.5">
                 <FileText className="w-3.5 h-3.5" />参考源
@@ -231,7 +298,7 @@ export const ArticleEditor = ({ article, onBack, onSaved, currentUserId }: Artic
         {/* Center: Main Editor */}
         <div className="flex-1 flex flex-col overflow-hidden">
           <ScrollArea className="flex-1 p-4">
-            <div className="max-w-3xl mx-auto space-y-4">
+            <div className="max-w-3xl mx-auto space-y-4 pb-20">
               <Input
                 value={form.title}
                 onChange={e => setForm({ ...form, title: e.target.value })}
@@ -263,10 +330,46 @@ export const ArticleEditor = ({ article, onBack, onSaved, currentUserId }: Artic
               />
             </div>
           </ScrollArea>
+
+          {/* Floating Action Bar */}
+          <div className="border-t border-slate-700 bg-slate-800/90 backdrop-blur-sm px-4 py-2.5 flex items-center justify-between">
+            <div className="flex items-center gap-2">
+              <Button
+                size="sm" variant="outline"
+                disabled={aiProcessing || !article?.id}
+                onClick={() => handleAITool('请根据文章内容生成3-5个常见问题和答案（FAQ），使用JSON-LD格式的FAQPage Schema标记，追加在文末')}
+                className="h-7 text-[10px] border-slate-700 text-slate-300 hover:text-white"
+              >
+                <HelpCircle className="w-3 h-3 mr-1" />生成 FAQ
+              </Button>
+              <Button
+                size="sm" variant="outline"
+                disabled={aiProcessing || !article?.id}
+                onClick={handleImageLocalize}
+                className="h-7 text-[10px] border-slate-700 text-slate-300 hover:text-white"
+              >
+                <Download className="w-3 h-3 mr-1" />图片本地化
+              </Button>
+              {aiProcessing && (
+                <div className="flex items-center gap-1.5 text-[10px] text-violet-400">
+                  <Loader2 className="w-3 h-3 animate-spin" />处理中...
+                </div>
+              )}
+            </div>
+            <Button
+              size="sm"
+              disabled={publishing || !article?.id}
+              onClick={handlePublishAndPush}
+              className="h-8 bg-gradient-to-r from-amber-500 to-orange-600 hover:from-amber-600 hover:to-orange-700 text-white"
+            >
+              {publishing ? <Loader2 className="w-3.5 h-3.5 mr-1 animate-spin" /> : <Send className="w-3.5 h-3.5 mr-1" />}
+              一键发布并推送
+            </Button>
+          </div>
         </div>
 
         {/* Right: SEO & AI Toolbox */}
-        <div className="w-64 border-l border-slate-700 bg-slate-850 flex flex-col">
+        <div className="w-64 border-l border-slate-700 bg-slate-800/30 flex flex-col">
           <div className="px-3 py-2 border-b border-slate-700">
             <h3 className="text-xs font-semibold text-slate-300 flex items-center gap-1.5">
               <Sparkles className="w-3.5 h-3.5 text-violet-400" />AI & SEO 工具箱
@@ -284,7 +387,7 @@ export const ArticleEditor = ({ article, onBack, onSaved, currentUserId }: Artic
                       variant="outline"
                       size="sm"
                       disabled={aiProcessing || !article?.id}
-                      onClick={() => handleAITool(tool.prompt)}
+                      onClick={() => tool.label === '图片本地化' ? handleImageLocalize() : handleAITool(tool.prompt)}
                       className="h-8 text-[10px] border-slate-700 text-slate-300 hover:text-white hover:border-violet-500/50 hover:bg-violet-500/10 justify-start"
                     >
                       <tool.icon className="w-3 h-3 mr-1 flex-shrink-0" />
@@ -334,6 +437,25 @@ export const ArticleEditor = ({ article, onBack, onSaved, currentUserId }: Artic
                       {form.summary.length}/160
                     </span>
                   </div>
+                </div>
+              </div>
+
+              {/* SEO Quality Indicators */}
+              <div>
+                <p className="text-[10px] text-slate-500 mb-2 uppercase tracking-wider">SEO 质量</p>
+                <div className="space-y-1.5">
+                  {[
+                    { label: '标题含品牌词', pass: /CANI/i.test(form.title) },
+                    { label: '摘要已填写', pass: form.summary.length > 20 },
+                    { label: '正文>500字', pass: wordCount > 500 },
+                    { label: '封面图已设置', pass: !!form.cover_image },
+                    { label: '含技术参数表', pass: /<table/i.test(form.content) },
+                  ].map(check => (
+                    <div key={check.label} className="flex items-center gap-1.5">
+                      <div className={`w-1.5 h-1.5 rounded-full ${check.pass ? 'bg-emerald-400' : 'bg-slate-600'}`} />
+                      <span className={`text-[10px] ${check.pass ? 'text-slate-300' : 'text-slate-500'}`}>{check.label}</span>
+                    </div>
+                  ))}
                 </div>
               </div>
 
