@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useCallback } from 'react';
 import { supabase } from '@/integrations/supabase/client';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -7,6 +7,7 @@ import { Textarea } from '@/components/ui/textarea';
 import { Badge } from '@/components/ui/badge';
 import { Switch } from '@/components/ui/switch';
 import { ScrollArea } from '@/components/ui/scroll-area';
+import { Progress } from '@/components/ui/progress';
 import { useToast } from '@/hooks/use-toast';
 import {
   Select, SelectContent, SelectItem, SelectTrigger, SelectValue,
@@ -14,7 +15,7 @@ import {
 import {
   ArrowLeft, Save, Loader2, Sparkles, ExternalLink, FileText,
   Scissors, TrendingUp, HelpCircle, Type, Eye, Image, Download,
-  Send, RefreshCw, Zap, Expand, Eraser, Bot
+  Send, RefreshCw, Zap, Expand, Eraser, Bot, ImagePlus
 } from 'lucide-react';
 import RichTextEditor from '@/components/admin/RichTextEditor';
 import SingleImageUpload from '@/components/admin/SingleImageUpload';
@@ -79,6 +80,8 @@ export const ArticleEditor = ({ article, onBack, onSaved, currentUserId }: Artic
   const [saving, setSaving] = useState(false);
   const [aiProcessing, setAiProcessing] = useState(false);
   const [publishing, setPublishing] = useState(false);
+  const [coverGenerating, setCoverGenerating] = useState(false);
+  const [rewriteStatus, setRewriteStatus] = useState<string | null>(null);
 
   const [form, setForm] = useState({
     title: article?.title || '',
@@ -190,6 +193,107 @@ export const ArticleEditor = ({ article, onBack, onSaved, currentUserId }: Artic
       setAiProcessing(false);
     }
   };
+
+  // ========== 流式洗稿：打字机效果 + 异步封面生成 ==========
+  const handleStreamingRewrite = useCallback(async () => {
+    if (!article?.id) {
+      toast({ title: '请先保存文章再使用AI洗稿', variant: 'destructive' });
+      return;
+    }
+    setAiProcessing(true);
+    setRewriteStatus('connecting');
+    setCoverGenerating(false);
+
+    try {
+      const FUNC_URL = `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/ai-rewrite-article`;
+      const { data: { session } } = await supabase.auth.getSession();
+      
+      const resp = await fetch(FUNC_URL, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${session?.access_token || import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY}`,
+          'apikey': import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY,
+        },
+        body: JSON.stringify({
+          title: form.title,
+          content: form.content,
+          category: form.category,
+          coverImage: form.cover_image,
+          isEnglish: /[a-zA-Z]{10,}/.test(form.content.substring(0, 200)),
+          stream: true,
+        }),
+      });
+
+      if (!resp.ok || !resp.body) throw new Error(`API error: ${resp.status}`);
+
+      setRewriteStatus('streaming');
+      const reader = resp.body.getReader();
+      const decoder = new TextDecoder();
+      let buffer = '';
+      let streamDone = false;
+
+      while (!streamDone) {
+        const { done, value } = await reader.read();
+        if (done) break;
+        buffer += decoder.decode(value, { stream: true });
+
+        let newlineIdx: number;
+        while ((newlineIdx = buffer.indexOf('\n')) !== -1) {
+          let line = buffer.slice(0, newlineIdx);
+          buffer = buffer.slice(newlineIdx + 1);
+          if (line.endsWith('\r')) line = line.slice(0, -1);
+          if (!line.startsWith('data: ')) continue;
+          const jsonStr = line.slice(6).trim();
+          if (jsonStr === '[DONE]') { streamDone = true; break; }
+
+          try {
+            const parsed = JSON.parse(jsonStr);
+            
+            if (parsed.type === 'text') {
+              // Streaming text - we just accumulate (打字机效果在后面result中应用)
+            } else if (parsed.type === 'status') {
+              if (parsed.message === 'parsing') setRewriteStatus('解析中...');
+              else if (parsed.message === 'generating_cover') {
+                setRewriteStatus('🎨 生成AI封面图...');
+                setCoverGenerating(true);
+              } else if (parsed.message === 'cover_failed') {
+                setCoverGenerating(false);
+                toast({ title: '封面图生成失败', description: '已保留原封面', variant: 'destructive' });
+              }
+            } else if (parsed.type === 'result' && parsed.data) {
+              // Apply the full result to form
+              setForm(prev => ({
+                ...prev,
+                title: parsed.data.title || prev.title,
+                summary: parsed.data.summary || prev.summary,
+                content: parsed.data.content || prev.content,
+              }));
+              setRewriteStatus('✨ 文字创作完成，等待封面...');
+            } else if (parsed.type === 'cover' && parsed.url) {
+              setForm(prev => ({ ...prev, cover_image: parsed.url }));
+              setCoverGenerating(false);
+              toast({ title: '🎨 AI原创封面图已生成' });
+            } else if (parsed.type === 'error') {
+              throw new Error(parsed.message);
+            }
+          } catch (e) {
+            if (e instanceof SyntaxError) continue; // partial JSON
+            throw e;
+          }
+        }
+      }
+
+      setRewriteStatus(null);
+      toast({ title: '✨ AI洗稿完成', description: '文章已重新创作，请检查后保存' });
+    } catch (err: any) {
+      toast({ title: '洗稿失败', description: err.message, variant: 'destructive' });
+      setRewriteStatus(null);
+      setCoverGenerating(false);
+    } finally {
+      setAiProcessing(false);
+    }
+  }, [article?.id, form.title, form.content, form.category, form.cover_image, toast]);
 
   const handleImageLocalize = async () => {
     if (!article?.id) return;
@@ -333,11 +437,19 @@ export const ArticleEditor = ({ article, onBack, onSaved, currentUserId }: Artic
                   placeholder="作者"
                   className="bg-slate-700/50 border-slate-600 text-sm h-9"
                 />
-                <SingleImageUpload
-                  image={form.cover_image}
-                  onImageChange={img => setForm({ ...form, cover_image: img })}
-                  folder="news"
-                />
+                <div className="relative">
+                  <SingleImageUpload
+                    image={form.cover_image}
+                    onImageChange={img => setForm({ ...form, cover_image: img })}
+                    folder="news"
+                  />
+                  {coverGenerating && (
+                    <div className="absolute inset-0 bg-slate-900/80 rounded-lg flex flex-col items-center justify-center gap-1.5 z-10">
+                      <Loader2 className="w-5 h-5 text-amber-400 animate-spin" />
+                      <span className="text-[10px] text-amber-300">AI 封面生成中...</span>
+                    </div>
+                  )}
+                </div>
               </div>
               <RichTextEditor
                 content={form.content}
@@ -349,13 +461,28 @@ export const ArticleEditor = ({ article, onBack, onSaved, currentUserId }: Artic
           {/* Floating Action Bar */}
           <div className="border-t border-slate-700 bg-slate-800/90 backdrop-blur-sm px-4 py-2.5 flex items-center justify-between">
             <div className="flex items-center gap-2">
+              {/* 核心：流式洗稿按钮 */}
+              <Button
+                size="sm" variant="outline"
+                disabled={aiProcessing || !article?.id}
+                onClick={handleStreamingRewrite}
+                className="h-8 text-[10px] border-violet-500/40 text-violet-300 hover:text-violet-200 hover:bg-violet-500/10 font-medium"
+              >
+                {aiProcessing && rewriteStatus ? (
+                  <Loader2 className="w-3.5 h-3.5 mr-1 animate-spin" />
+                ) : (
+                  <Sparkles className="w-3.5 h-3.5 mr-1" />
+                )}
+                {rewriteStatus || '🤖 AI洗稿 + 封面'}
+              </Button>
+              <div className="h-4 w-px bg-slate-700" />
               <Button
                 size="sm" variant="outline"
                 disabled={aiProcessing || !article?.id}
                 onClick={() => handleAITool(DOUBAO_POWER_TOOLS[0].prompt!)}
                 className="h-7 text-[10px] border-amber-500/30 text-amber-300 hover:text-amber-200 hover:bg-amber-500/10"
               >
-                <Expand className="w-3 h-3 mr-1" />豆包扩写
+                <Expand className="w-3 h-3 mr-1" />扩写
               </Button>
               <Button
                 size="sm" variant="outline"
@@ -363,7 +490,7 @@ export const ArticleEditor = ({ article, onBack, onSaved, currentUserId }: Artic
                 onClick={() => handleAITool('请根据文章内容生成3-5个常见问题和答案（FAQ），使用JSON-LD格式的FAQPage Schema标记，追加在文末')}
                 className="h-7 text-[10px] border-slate-700 text-slate-300 hover:text-white"
               >
-                <HelpCircle className="w-3 h-3 mr-1" />生成 FAQ
+                <HelpCircle className="w-3 h-3 mr-1" />FAQ
               </Button>
               <Button
                 size="sm" variant="outline"
@@ -373,11 +500,6 @@ export const ArticleEditor = ({ article, onBack, onSaved, currentUserId }: Artic
               >
                 <Download className="w-3 h-3 mr-1" />图片本地化
               </Button>
-              {aiProcessing && (
-                <div className="flex items-center gap-1.5 text-[10px] text-violet-400">
-                  <Loader2 className="w-3 h-3 animate-spin" />处理中...
-                </div>
-              )}
             </div>
             <Button
               size="sm"
