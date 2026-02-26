@@ -103,7 +103,7 @@ import InquiryManagement from "./pages/admin/InquiryManagement";
 import SystemSettings from "./pages/admin/SystemSettings";
 import ActivityLogs from "./pages/admin/ActivityLogs";
 import SpecificationTemplates from "./pages/admin/SpecificationTemplates";
-import DataImport from "./pages/admin/DataImport";
+
 import NewsCollection from "./pages/admin/NewsCollection";
 import CustomerLeads from "./pages/admin/CustomerLeads";
 import CustomerServiceChat from "./pages/admin/CustomerServiceChat";
@@ -232,7 +232,7 @@ const App = () => (
             <Route path="/admin/settings" element={<SystemSettings />} />
             <Route path="/admin/logs" element={<ActivityLogs />} />
             <Route path="/admin/specification-templates" element={<SpecificationTemplates />} />
-            <Route path="/admin/data-import" element={<DataImport />} />
+            
             <Route path="/admin/news-collection" element={<NewsCollection />} />
             <Route path="/admin/content-hub" element={<ContentHub />} />
             <Route path="/admin/customer-leads" element={<CustomerLeads />} />

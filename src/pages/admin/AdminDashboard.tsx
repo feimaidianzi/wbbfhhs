@@ -19,7 +19,6 @@ import {
   TrendingUp,
   TrendingDown,
   Database,
-  Upload,
   Bot,
   Headphones,
   Eye,
@@ -273,14 +272,7 @@ const AdminDashboard = () => {
       href: '/admin/logs',
       color: 'from-indigo-500 to-blue-500'
     },
-    { 
-      icon: Upload, 
-      title: '数据导入', 
-      description: '导入硬编码产品到数据库', 
-      href: '/admin/data-import',
-      color: 'from-slate-500 to-slate-600'
-    },
-    { 
+    {
       icon: Bot, 
       title: '内容中控台', 
       description: '内容流控·AI编辑·采集引擎', 
