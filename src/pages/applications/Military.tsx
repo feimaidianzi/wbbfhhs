@@ -6,114 +6,61 @@ import { ArrowRight, Shield, Eye, Radio, Target, Radar, Cpu, Plane, Lock, Zap, M
 import { LangLink as Link } from "@/components/LangLink";
 import { MultiLanguageSEO } from "@/components/MultiLanguageSEO";
 import { useLanguage } from "@/contexts/LanguageContext";
+import { Helmet } from "react-helmet-async";
+import militaryHeroImg from "@/assets/seo/military-defense-drone.jpg";
+import maritimeImg from "@/assets/seo/maritime-drone.jpg";
+import surveyingImg from "@/assets/seo/surveying-drone.jpg";
+import industrialImg from "@/assets/seo/industrial-work-drone.jpg";
+import firefightingImg from "@/assets/seo/firefighting-drone.jpg";
+import powerImg from "@/assets/seo/power-transmission-inspection.jpg";
 
 const Military = () => {
   const { t } = useLanguage();
 
+  const serviceStructuredData = {
+    '@context': 'https://schema.org',
+    '@type': 'Service',
+    name: t('military.seo.title'),
+    description: t('military.seo.description'),
+    serviceType: 'Military & Defense UAV Solutions',
+    provider: {
+      '@type': 'Organization',
+      name: 'CANI Technology',
+      url: 'https://www.caniuav.com',
+    },
+    areaServed: 'Worldwide',
+  };
+
   const features = [
-    {
-      icon: Eye,
-      title: t('military.feature.recon.title'),
-      description: t('military.feature.recon.desc')
-    },
-    {
-      icon: Radio,
-      title: t('military.feature.relay.title'),
-      description: t('military.feature.relay.desc')
-    },
-    {
-      icon: Target,
-      title: t('military.feature.targeting.title'),
-      description: t('military.feature.targeting.desc')
-    },
-    {
-      icon: Shield,
-      title: t('military.feature.stealth.title'),
-      description: t('military.feature.stealth.desc')
-    },
-    {
-      icon: Radar,
-      title: t('military.feature.ew.title'),
-      description: t('military.feature.ew.desc')
-    },
-    {
-      icon: Cpu,
-      title: t('military.feature.ai.title'),
-      description: t('military.feature.ai.desc')
-    }
+    { icon: Eye, title: t('military.feature.recon.title'), description: t('military.feature.recon.desc') },
+    { icon: Radio, title: t('military.feature.relay.title'), description: t('military.feature.relay.desc') },
+    { icon: Target, title: t('military.feature.targeting.title'), description: t('military.feature.targeting.desc') },
+    { icon: Shield, title: t('military.feature.stealth.title'), description: t('military.feature.stealth.desc') },
+    { icon: Radar, title: t('military.feature.ew.title'), description: t('military.feature.ew.desc') },
+    { icon: Cpu, title: t('military.feature.ai.title'), description: t('military.feature.ai.desc') },
   ];
 
   const scenarios = [
-    {
-      title: t('military.scenario.border.title'),
-      description: t('military.scenario.border.desc'),
-      image: "https://images.unsplash.com/photo-1551698618-1dfe5d97d256?w=600&q=80",
-      capabilities: [t('military.scenario.border.c1'), t('military.scenario.border.c2'), t('military.scenario.border.c3')]
-    },
-    {
-      title: t('military.scenario.battlefield.title'),
-      description: t('military.scenario.battlefield.desc'),
-      image: "https://images.unsplash.com/photo-1506947411487-a56738267384?w=600&q=80",
-      capabilities: [t('military.scenario.battlefield.c1'), t('military.scenario.battlefield.c2'), t('military.scenario.battlefield.c3')]
-    },
-    {
-      title: t('military.scenario.training.title'),
-      description: t('military.scenario.training.desc'),
-      image: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&q=80",
-      capabilities: [t('military.scenario.training.c1'), t('military.scenario.training.c2'), t('military.scenario.training.c3')]
-    },
-    {
-      title: t('military.scenario.maritime.title'),
-      description: t('military.scenario.maritime.desc'),
-      image: "https://images.unsplash.com/photo-1559827260-dc66d52bef19?w=600&q=80",
-      capabilities: [t('military.scenario.maritime.c1'), t('military.scenario.maritime.c2'), t('military.scenario.maritime.c3')]
-    },
-    {
-      title: t('military.scenario.defense.title'),
-      description: t('military.scenario.defense.desc'),
-      image: "https://images.unsplash.com/photo-1580927752452-89d86da3fa0a?w=600&q=80",
-      capabilities: [t('military.scenario.defense.c1'), t('military.scenario.defense.c2'), t('military.scenario.defense.c3')]
-    },
-    {
-      title: t('military.scenario.emergency.title'),
-      description: t('military.scenario.emergency.desc'),
-      image: "https://images.unsplash.com/photo-1569863959165-56dae551d4fc?w=600&q=80",
-      capabilities: [t('military.scenario.emergency.c1'), t('military.scenario.emergency.c2'), t('military.scenario.emergency.c3')]
-    }
+    { title: t('military.scenario.border.title'), description: t('military.scenario.border.desc'), image: militaryHeroImg, capabilities: [t('military.scenario.border.c1'), t('military.scenario.border.c2'), t('military.scenario.border.c3')] },
+    { title: t('military.scenario.battlefield.title'), description: t('military.scenario.battlefield.desc'), image: surveyingImg, capabilities: [t('military.scenario.battlefield.c1'), t('military.scenario.battlefield.c2'), t('military.scenario.battlefield.c3')] },
+    { title: t('military.scenario.training.title'), description: t('military.scenario.training.desc'), image: industrialImg, capabilities: [t('military.scenario.training.c1'), t('military.scenario.training.c2'), t('military.scenario.training.c3')] },
+    { title: t('military.scenario.maritime.title'), description: t('military.scenario.maritime.desc'), image: maritimeImg, capabilities: [t('military.scenario.maritime.c1'), t('military.scenario.maritime.c2'), t('military.scenario.maritime.c3')] },
+    { title: t('military.scenario.defense.title'), description: t('military.scenario.defense.desc'), image: powerImg, capabilities: [t('military.scenario.defense.c1'), t('military.scenario.defense.c2'), t('military.scenario.defense.c3')] },
+    { title: t('military.scenario.emergency.title'), description: t('military.scenario.emergency.desc'), image: firefightingImg, capabilities: [t('military.scenario.emergency.c1'), t('military.scenario.emergency.c2'), t('military.scenario.emergency.c3')] },
   ];
 
   const products = [
-    {
-      name: t('military.product.recon.name'),
-      description: t('military.product.recon.desc'),
-      specs: [t('military.product.recon.s1'), t('military.product.recon.s2'), t('military.product.recon.s3')],
-      image: "https://images.unsplash.com/photo-1473968512647-3e447244af8f?w=600&q=80"
-    },
-    {
-      name: t('military.product.stealth.name'),
-      description: t('military.product.stealth.desc'),
-      specs: [t('military.product.stealth.s1'), t('military.product.stealth.s2'), t('military.product.stealth.s3')],
-      image: "https://images.unsplash.com/photo-1506947411487-a56738267384?w=600&q=80"
-    },
-    {
-      name: t('military.product.relay.name'),
-      description: t('military.product.relay.desc'),
-      specs: [t('military.product.relay.s1'), t('military.product.relay.s2'), t('military.product.relay.s3')],
-      image: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&q=80"
-    },
-    {
-      name: t('military.product.swarm.name'),
-      description: t('military.product.swarm.desc'),
-      specs: [t('military.product.swarm.s1'), t('military.product.swarm.s2'), t('military.product.swarm.s3')],
-      image: "https://images.unsplash.com/photo-1527977966376-1c8408f9f108?w=600&q=80"
-    }
+    { name: t('military.product.recon.name'), description: t('military.product.recon.desc'), specs: [t('military.product.recon.s1'), t('military.product.recon.s2'), t('military.product.recon.s3')], image: militaryHeroImg },
+    { name: t('military.product.stealth.name'), description: t('military.product.stealth.desc'), specs: [t('military.product.stealth.s1'), t('military.product.stealth.s2'), t('military.product.stealth.s3')], image: surveyingImg },
+    { name: t('military.product.relay.name'), description: t('military.product.relay.desc'), specs: [t('military.product.relay.s1'), t('military.product.relay.s2'), t('military.product.relay.s3')], image: industrialImg },
+    { name: t('military.product.swarm.name'), description: t('military.product.swarm.desc'), specs: [t('military.product.swarm.s1'), t('military.product.swarm.s2'), t('military.product.swarm.s3')], image: powerImg },
   ];
 
   const techAdvantages = [
     { icon: Lock, title: t('military.tech.security'), description: t('military.tech.security.desc') },
     { icon: Zap, title: t('military.tech.deploy'), description: t('military.tech.deploy.desc') },
     { icon: Map, title: t('military.tech.terrain'), description: t('military.tech.terrain.desc') },
-    { icon: Plane, title: t('military.tech.endurance'), description: t('military.tech.endurance.desc') }
+    { icon: Plane, title: t('military.tech.endurance'), description: t('military.tech.endurance.desc') },
   ];
 
   return (
@@ -123,6 +70,7 @@ const Military = () => {
         description={t('military.seo.description')}
         keywords={t('military.seo.keywords')}
         path="/applications/military"
+        structuredData={serviceStructuredData}
       />
       <Header />
       <main className="pt-16 md:pt-20">
@@ -130,9 +78,7 @@ const Military = () => {
         <section className="relative h-[400px] md:h-[500px] overflow-hidden">
           <div
             className="absolute inset-0 bg-cover bg-center"
-            style={{
-              backgroundImage: "url(https://images.unsplash.com/photo-1551698618-1dfe5d97d256?w=1920&q=80)",
-            }}
+            style={{ backgroundImage: `url(${militaryHeroImg})` }}
           >
             <div className="absolute inset-0 bg-gradient-to-r from-primary/90 via-primary/70 to-primary/50" />
           </div>
@@ -216,6 +162,7 @@ const Military = () => {
                       src={scenario.image}
                       alt={scenario.title}
                       className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                      loading="lazy"
                     />
                   </div>
                   <div className="p-6">
@@ -254,6 +201,7 @@ const Military = () => {
                       src={product.image}
                       alt={product.name}
                       className="w-full h-full object-cover"
+                      loading="lazy"
                     />
                   </div>
                   <div className="p-4">

@@ -6,6 +6,8 @@ import { ArrowRight, CheckCircle, Sun, Thermometer, Cpu, MapPin } from "lucide-r
 import { LangLink as Link } from "@/components/LangLink";
 import { MultiLanguageSEO } from "@/components/MultiLanguageSEO";
 import { useLanguage } from "@/contexts/LanguageContext";
+import { PageStructuredData } from "@/components/PageStructuredData";
+import solarImg from "@/assets/seo/solar-panel-inspection.jpg";
 
 const SolarPanel = () => {
   const { t } = useLanguage();
@@ -47,13 +49,14 @@ const SolarPanel = () => {
         keywords={t('power.solar.seo.keywords')}
         path="/applications/power/solar-panel"
       />
+      <PageStructuredData data={{ type: 'Service', name: t('power.solar.seo.title'), description: t('power.solar.seo.description'), serviceType: 'UAV Solar Panel Inspection' }} />
       <Header />
       <main className="pt-16 md:pt-20">
         {/* Hero Section */}
         <section className="relative h-[400px] md:h-[500px] overflow-hidden">
           <div
             className="absolute inset-0 bg-cover bg-center"
-            style={{ backgroundImage: "url(https://images.unsplash.com/photo-1509391366360-2e959784a276?w=1920&q=80)" }}
+            style={{ backgroundImage: `url(${solarImg})` }}
           >
             <div className="absolute inset-0 bg-gradient-to-r from-primary/90 via-primary/70 to-primary/50" />
           </div>

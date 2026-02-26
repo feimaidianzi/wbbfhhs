@@ -6,6 +6,8 @@ import { ArrowRight, CheckCircle, Zap, Eye, Shield, BarChart } from "lucide-reac
 import { LangLink as Link } from "@/components/LangLink";
 import { MultiLanguageSEO } from "@/components/MultiLanguageSEO";
 import { useLanguage } from "@/contexts/LanguageContext";
+import { PageStructuredData } from "@/components/PageStructuredData";
+import transmissionImg from "@/assets/seo/power-transmission-inspection.jpg";
 
 const TransmissionLine = () => {
   const { t } = useLanguage();
@@ -54,13 +56,14 @@ const TransmissionLine = () => {
         keywords={t('power.transmission.seo.keywords')}
         path="/applications/power/transmission-line"
       />
+      <PageStructuredData data={{ type: 'Service', name: t('power.transmission.seo.title'), description: t('power.transmission.seo.description'), serviceType: 'UAV Transmission Line Inspection' }} />
       <Header />
       <main className="pt-16 md:pt-20">
         {/* Hero Section */}
         <section className="relative h-[400px] md:h-[500px] overflow-hidden">
           <div
             className="absolute inset-0 bg-cover bg-center"
-            style={{ backgroundImage: "url(https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?w=1920&q=80)" }}
+            style={{ backgroundImage: `url(${transmissionImg})` }}
           >
             <div className="absolute inset-0 bg-gradient-to-r from-primary/90 via-primary/70 to-primary/50" />
           </div>
