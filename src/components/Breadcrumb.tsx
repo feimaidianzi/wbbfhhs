@@ -7,7 +7,7 @@ import { ChevronRight, Home } from "lucide-react";
 const SEGMENT_LABELS: Record<string, string> = {
   // Top-level
   products: "nav.products",
-  about: "nav.about",
+  about: "about.title",
   contact: "nav.contact",
   news: "nav.news",
   fpv: "product.fpv",
