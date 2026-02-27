@@ -106,6 +106,8 @@ const STATIC_LABELS: Record<string, string> = {
   w400: "W400",
   "cani-fmt": "CANI FMT",
   "cani-pixhawk4": "CANI Pixhawk4",
+  "mesh-link": "Mesh Link",
+  "ai-module": "AI Module",
 };
 
 interface BreadcrumbProps {
