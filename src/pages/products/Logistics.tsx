@@ -27,7 +27,12 @@ import deliveryImage from "@/assets/products/logistics-delivery.jpg";
 import dropImage from "@/assets/products/logistics-drop.jpg";
 import foldImage from "@/assets/products/logistics-fold.jpg";
 import waypointImage from "@/assets/products/logistics-waypoint.jpg";
-import applicationsImage from "@/assets/products/logistics-applications.jpg";
+import appRescueImage from "@/assets/products/logistics-app-rescue.jpg";
+import appFireImage from "@/assets/products/logistics-app-fire.jpg";
+import appPoliceImage from "@/assets/products/logistics-app-police.jpg";
+import appPowerImage from "@/assets/products/logistics-app-power.jpg";
+import appOilImage from "@/assets/products/logistics-app-oil.jpg";
+import appSurveyImage from "@/assets/products/logistics-app-survey.jpg";
 import speakerImage from "@/assets/products/logistics-speaker.jpg";
 import carbonImage from "@/assets/products/logistics-carbon.jpg";
 
@@ -81,13 +86,13 @@ const Logistics = () => {
     { label: t('logistics.sy800.spec.payload'), value: "2KG" },
   ];
 
-  const appNames = [
-    t('logistics.sy800.app1'),
-    t('logistics.sy800.app2'),
-    t('logistics.sy800.app3'),
-    t('logistics.sy800.app4'),
-    t('logistics.sy800.app5'),
-    t('logistics.sy800.app6'),
+  const appItems = [
+    { title: t('logistics.sy800.app1'), image: appRescueImage },
+    { title: t('logistics.sy800.app2'), image: appFireImage },
+    { title: t('logistics.sy800.app3'), image: appPoliceImage },
+    { title: t('logistics.sy800.app4'), image: appPowerImage },
+    { title: t('logistics.sy800.app5'), image: appOilImage },
+    { title: t('logistics.sy800.app6'), image: appSurveyImage },
   ];
 
   return (
@@ -373,20 +378,20 @@ const Logistics = () => {
             </h2>
           </div>
           <div className="grid grid-cols-2 md:grid-cols-3 gap-6">
-            {appNames.map((title, index) => (
+            {appItems.map((item, index) => (
               <div 
                 key={index}
                 className="relative group overflow-hidden rounded-xl aspect-[4/3]"
               >
                 <img 
-                  src={applicationsImage} 
-                  alt={title}
+                  src={item.image} 
+                  alt={item.title}
                   className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                   loading="lazy"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent" />
                 <div className="absolute bottom-4 left-4">
-                  <h3 className="text-lg font-semibold text-white">{title}</h3>
+                  <h3 className="text-lg font-semibold text-white">{item.title}</h3>
                 </div>
               </div>
             ))}
