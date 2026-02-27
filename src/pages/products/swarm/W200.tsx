@@ -10,114 +10,57 @@ import { PageStructuredData } from "@/components/PageStructuredData";
 import { BackButton } from "@/components/BackButton";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { motion } from "framer-motion";
-import { ArrowRight, Check, Cpu, Radio, Navigation, Layers, Monitor, Wifi, Zap, Target, Code, ChevronDown, Eye, Box } from "lucide-react";
+import { ArrowRight, ChevronDown, Check } from "lucide-react";
 import { LangLink as Link } from "@/components/LangLink";
 
-import heroImage from "@/assets/products/swarm-uwb-showcase.jpg";
-import hardwareImage from "@/assets/products/swarm-w200-hardware.jpg";
-import componentsImage from "@/assets/products/swarm-w200-components.jpg";
-import angleImage from "@/assets/products/swarm-w200-angle.jpg";
-import uwbImage from "@/assets/products/swarm-uwb-positioning.jpg";
-import communicationImage from "@/assets/products/swarm-communication.png";
+import heroImage from "@/assets/products/cani-c20-hero-bg.webp";
 
-import W200HardwareSection from "@/components/swarm/W200HardwareSection";
-import W200SystemArchitecture from "@/components/swarm/W200SystemArchitecture";
+import C20HardwareSection from "@/components/swarm/C20HardwareSection";
+import C20NetworkArchitecture from "@/components/swarm/C20NetworkArchitecture";
+import C20FeaturesSection from "@/components/swarm/C20FeaturesSection";
+import C20SpecsSection from "@/components/swarm/C20SpecsSection";
+import C20PackageSection from "@/components/swarm/C20PackageSection";
 
 const W200 = () => {
-  const { t } = useLanguage();
-
-  const features = [
-    { icon: <Navigation className="h-6 w-6" />, titleKey: "w200.feature.uwb.title", descKey: "w200.feature.uwb.desc" },
-    { icon: <Cpu className="h-6 w-6" />, titleKey: "w200.feature.jetson.title", descKey: "w200.feature.jetson.desc" },
-    { icon: <Code className="h-6 w-6" />, titleKey: "w200.feature.opensource.title", descKey: "w200.feature.opensource.desc" },
-    { icon: <Radio className="h-6 w-6" />, titleKey: "w200.feature.distributed.title", descKey: "w200.feature.distributed.desc" },
-    { icon: <Eye className="h-6 w-6" />, titleKey: "w200.feature.opticalFlow.title", descKey: "w200.feature.opticalFlow.desc" },
-    { icon: <Layers className="h-6 w-6" />, titleKey: "w200.feature.formation.title", descKey: "w200.feature.formation.desc" },
-  ];
-
-  const specifications = {
-    drone: [
-      { labelKey: "w200.spec.drone.type", value: t("w200.spec.drone.type.value") },
-      { labelKey: "w200.spec.drone.wheelbase", value: "250mm" },
-      { labelKey: "w200.spec.drone.propeller", value: t("w200.spec.drone.propeller.value") },
-      { labelKey: "w200.spec.drone.weight", value: "0.76kg" },
-      { labelKey: "w200.spec.drone.takeoffWeight", value: "1.23kg" },
-      { labelKey: "w200.spec.drone.flightTime", value: "10min" },
-      { labelKey: "w200.spec.drone.hoverAccuracy", value: t("w200.spec.drone.hoverAccuracy.value") },
-      { labelKey: "w200.spec.drone.fc", value: "Pixhawk 6C" },
-      { labelKey: "w200.spec.drone.environment", value: t("w200.spec.drone.environment.value") },
-    ],
-    computer: [
-      { labelKey: "w200.spec.computer.name", value: "Allspark2" },
-      { labelKey: "w200.spec.computer.module", value: "NVIDIA Jetson Orin NX" },
-      { labelKey: "w200.spec.computer.ai", value: "100 TOPS" },
-      { labelKey: "w200.spec.computer.memory", value: "16GB LPDDR5" },
-      { labelKey: "w200.spec.computer.gpu", value: "NVIDIA Ampere (918MHz)" },
-      { labelKey: "w200.spec.computer.cpu", value: "8-core Arm Cortex-A78AE" },
-      { labelKey: "w200.spec.computer.weight", value: "188g" },
-      { labelKey: "w200.spec.computer.dimensions", value: "102.5×62.5×31mm" },
-    ],
-    uwb: [
-      { labelKey: "w200.spec.uwb.accuracy", value: "10cm" },
-      { labelKey: "w200.spec.uwb.refreshRate", value: "200Hz" },
-      { labelKey: "w200.spec.uwb.latency", value: "<0.5ms" },
-      { labelKey: "w200.spec.uwb.maxTags", value: "200" },
-      { labelKey: "w200.spec.uwb.maxStations", value: "120" },
-      { labelKey: "w200.spec.uwb.range", value: "500m" },
-      { labelKey: "w200.spec.uwb.bandwidth", value: "3Mbps" },
-      { labelKey: "w200.spec.uwb.weight", value: "34.3g" },
-    ],
-  };
-
-  const packageList = [
-    { name: t("w200.package.drone"), spec: t("w200.package.drone.spec"), qty: "3" },
-    { name: t("w200.package.propeller"), spec: t("w200.package.propeller.spec"), qty: t("w200.package.propeller.qty") },
-    { name: t("w200.package.controller"), spec: "Amovlab-E2", qty: "3" },
-    { name: t("w200.package.commMobile"), spec: "Mini Homer", qty: "6" },
-    { name: t("w200.package.commBase"), spec: "Mini Homer", qty: "1" },
-    { name: t("w200.package.uwbStation"), spec: "Linktrack P-B", qty: "4" },
-    { name: t("w200.package.uwbTag"), spec: "Linktrack P-B", qty: "3" },
-    { name: t("w200.package.computer"), spec: "Allspark2 Orin NX", qty: "3" },
-    { name: t("w200.package.battery"), spec: "4S 5300mAh LiPo", qty: "3" },
-    { name: t("w200.package.charger"), spec: "1SDT-PD60", qty: "3" },
-  ];
-
-  const images = [heroImage, hardwareImage, componentsImage, angleImage];
+  const { language } = useLanguage();
+  const isZh = language === 'zh';
 
   return (
     <div className="min-h-screen bg-background">
       <MultiLanguageSEO
-        title={t("w200.seo.title")}
-        description={t("w200.seo.description")}
-        keywords={t("w200.seo.keywords")}
+        title={isZh ? "CANI C20 UWB集群无人机开发套件 | 高精度室内定位" : "CANI C20 UWB Swarm Drone Development Kit | High-Precision Indoor Positioning"}
+        description={isZh ? "CANI C20 UWB集群开发套件，3架230mm轴距无人机，10cm定位精度，200Hz刷新率，支持Pixhawk飞控和ROS开源架构，适用于科研和编队飞行。" : "CANI C20 UWB swarm development kit with 3x 230mm drones, 10cm positioning accuracy, 200Hz refresh rate, Pixhawk FC and open-source ROS architecture for research and formation flight."}
+        keywords={isZh ? "集群无人机,UWB定位,编队飞行,Pixhawk,ROS,科研无人机" : "swarm drone,UWB positioning,formation flight,Pixhawk,ROS,research drone"}
         path="/products/swarm/w200"
       />
-      <PageStructuredData data={{ type: 'Product', name: 'W200 UWB Swarm Kit', description: t("w200.seo.description"), category: 'Swarm Drone System', sku: 'W200-UWB' }} />
+      <PageStructuredData data={{ type: 'Product', name: 'CANI C20 UWB Swarm Kit', description: 'UWB swarm drone development kit with 3 drones, 10cm accuracy, open-source ROS architecture', category: 'Swarm Drone System', sku: 'CANI-C20-UWB' }} />
       <Header />
       <FloatingContact />
-      <BackButton to="/products/swarm" label={t('w200.back')} />
+      <BackButton to="/products/swarm" label={isZh ? '← 返回集群产品' : '← Back to Swarm'} />
 
       <main>
         {/* Hero */}
         <section className="relative min-h-[80vh] flex items-center justify-center overflow-hidden">
           <div className="absolute inset-0">
-            <img src={heroImage} alt={t("w200.hero.title")} className="w-full h-full object-cover" />
-            <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-black/80" />
+            <img src={heroImage} alt="CANI C20 Swarm" className="w-full h-full object-cover" loading="eager" />
+            <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/50 to-black/80" />
           </div>
           <div className="container-custom relative z-10 text-center py-20">
             <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }}>
-              <Badge className="bg-accent/90 text-accent-foreground mb-4">W200 UWB</Badge>
+              <Badge className="bg-accent/90 text-accent-foreground mb-4 text-sm">CANI C20 · UWB</Badge>
             </motion.div>
             <motion.h1 initial={{ opacity: 0, y: 50 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.2 }} className="text-4xl md:text-5xl lg:text-6xl font-black text-white mb-6">
-              {t('w200.hero.title')}
+              {isZh ? 'CANI C20 集群无人机开发套件' : 'CANI C20 Swarm Development Kit'}
             </motion.h1>
             <motion.p initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.4 }} className="text-xl md:text-2xl text-white/80 max-w-3xl mx-auto mb-8">
-              {t('w200.hero.subtitle')}
+              {isZh
+                ? '基于UWB高精度定位的3机编队系统 · 开源ROS架构 · Pixhawk飞控'
+                : '3-Drone Formation System with UWB High-Precision Positioning · Open-Source ROS · Pixhawk FC'}
             </motion.p>
             <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.6 }} className="flex flex-wrap justify-center gap-4">
               <Link to="/contact">
-                <Button size="lg" className="bg-accent hover:bg-accent/90 text-accent-foreground rounded-full px-8">
-                  {t('common.contactUs')}
+                <Button size="lg" className="bg-accent hover:bg-accent/90 text-accent-foreground rounded-full px-8 min-h-[44px]">
+                  {isZh ? '获取报价' : 'Get Quote'}
                   <ArrowRight className="ml-2 h-5 w-5" />
                 </Button>
               </Link>
@@ -128,177 +71,61 @@ const W200 = () => {
           </motion.div>
         </section>
 
-        {/* Highlights */}
+        {/* Key Highlights */}
         <section className="py-12 bg-accent/10">
           <div className="container-custom">
             <div className="grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
               {[
-                { value: "3", labelKey: "w200.highlight.drones" },
-                { value: "10cm", labelKey: "w200.highlight.accuracy" },
-                { value: "100 TOPS", labelKey: "w200.highlight.tops" },
-                { value: "200Hz", labelKey: "w200.highlight.refreshRate" },
+                { value: "3", label: isZh ? "架无人机" : "Drones" },
+                { value: "10cm", label: isZh ? "定位精度" : "Positioning Accuracy" },
+                { value: "200Hz", label: isZh ? "UWB刷新率" : "UWB Refresh Rate" },
+                { value: "230mm", label: isZh ? "轴距" : "Wheelbase" },
               ].map((item, index) => (
                 <motion.div key={index} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: index * 0.1 }}>
                   <div className="text-3xl md:text-4xl font-black text-accent">{item.value}</div>
-                  <div className="text-sm text-muted-foreground">{t(item.labelKey)}</div>
+                  <div className="text-sm text-muted-foreground">{item.label}</div>
                 </motion.div>
               ))}
             </div>
           </div>
         </section>
 
-        {/* Product Gallery */}
-        <section className="py-20 bg-background">
-          <div className="container-custom">
-            <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="text-center mb-12">
-              <h2 className="text-3xl md:text-4xl font-black text-foreground mb-4">{t('w200.gallery.title')}</h2>
-            </motion.div>
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-              {images.map((img, index) => (
-                <motion.div key={index} initial={{ opacity: 0, scale: 0.9 }} whileInView={{ opacity: 1, scale: 1 }} viewport={{ once: true }} transition={{ delay: index * 0.1 }}>
-                  <img src={img} alt={`W200 UWB Swarm ${index + 1}`} className="rounded-xl w-full aspect-square object-cover shadow-lg" />
-                </motion.div>
-              ))}
-            </div>
-          </div>
-        </section>
+        {/* Features with micro-interactions */}
+        <C20FeaturesSection />
 
-        {/* Features */}
-        <section className="py-20 bg-secondary">
-          <div className="container-custom">
-            <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="text-center mb-16">
-              <h2 className="text-3xl md:text-4xl font-black text-foreground mb-4">{t('w200.features.title')}</h2>
-              <p className="text-muted-foreground max-w-2xl mx-auto">{t('w200.features.desc')}</p>
-            </motion.div>
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {features.map((feature, index) => (
-                <motion.div key={index} initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: index * 0.1 }}>
-                  <Card className="h-full bg-card border-accent/10 hover:border-accent/30 transition-colors">
-                    <CardContent className="p-6">
-                      <div className="w-12 h-12 rounded-xl bg-accent/10 flex items-center justify-center text-accent mb-4">{feature.icon}</div>
-                      <h3 className="text-lg font-bold text-foreground mb-2">{t(feature.titleKey)}</h3>
-                      <p className="text-sm text-muted-foreground">{t(feature.descKey)}</p>
-                    </CardContent>
-                  </Card>
-                </motion.div>
-              ))}
-            </div>
-          </div>
-        </section>
+        {/* Hardware Labeled Diagram */}
+        <C20HardwareSection />
 
-        {/* UWB Positioning */}
-        <section className="py-20 bg-background">
-          <div className="container-custom">
-            <div className="grid lg:grid-cols-2 gap-12 items-center">
-              <motion.div initial={{ opacity: 0, x: -30 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }}>
-                <Badge className="mb-4">{t('w200.uwb.badge')}</Badge>
-                <h2 className="text-3xl md:text-4xl font-black text-foreground mb-6">{t('w200.uwb.title')}</h2>
-                <p className="text-muted-foreground mb-6">{t('w200.uwb.desc')}</p>
-                <ul className="space-y-3">
-                  {["w200.uwb.feature1", "w200.uwb.feature2", "w200.uwb.feature3", "w200.uwb.feature4"].map((key, index) => (
-                    <li key={index} className="flex items-center gap-3">
-                      <Check className="h-5 w-5 text-accent flex-shrink-0" />
-                      <span className="text-foreground">{t(key)}</span>
-                    </li>
-                  ))}
-                </ul>
-              </motion.div>
-              <motion.div initial={{ opacity: 0, x: 30 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }}>
-                <img src={uwbImage} alt="UWB Positioning" className="rounded-2xl shadow-2xl w-full" />
-              </motion.div>
-            </div>
-          </div>
-        </section>
+        {/* UWB Network Architecture */}
+        <C20NetworkArchitecture />
 
-        {/* Hardware Configuration - Interactive HTML Labels */}
-        <W200HardwareSection />
-
-        {/* System Architecture */}
-        <W200SystemArchitecture />
-
-        {/* Specifications */}
-        <section className="py-20 bg-background">
-          <div className="container-custom">
-            <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="text-center mb-12">
-              <h2 className="text-3xl md:text-4xl font-black text-foreground">{t('w200.specs.title')}</h2>
-            </motion.div>
-            <Tabs defaultValue="drone" className="max-w-4xl mx-auto">
-              <TabsList className="grid w-full grid-cols-3 mb-8">
-                <TabsTrigger value="drone">{t('w200.specs.tab.drone')}</TabsTrigger>
-                <TabsTrigger value="computer">{t('w200.specs.tab.computer')}</TabsTrigger>
-                <TabsTrigger value="uwb">{t('w200.specs.tab.uwb')}</TabsTrigger>
-              </TabsList>
-              {Object.entries(specifications).map(([key, specs]) => (
-                <TabsContent key={key} value={key}>
-                  <Card>
-                    <CardContent className="p-0">
-                      <table className="w-full">
-                        <tbody>
-                          {specs.map((spec, index) => (
-                            <tr key={index} className={`${index % 2 === 0 ? 'bg-muted/50' : 'bg-card'}`}>
-                              <td className="px-6 py-4 font-medium text-foreground border-b border-border/30 w-1/3">{t(spec.labelKey)}</td>
-                              <td className="px-6 py-4 text-muted-foreground border-b border-border/30">{spec.value}</td>
-                            </tr>
-                          ))}
-                        </tbody>
-                      </table>
-                    </CardContent>
-                  </Card>
-                </TabsContent>
-              ))}
-            </Tabs>
-          </div>
-        </section>
+        {/* Specifications (tabbed) */}
+        <C20SpecsSection />
 
         {/* Package List */}
-        <section className="py-20 bg-secondary">
-          <div className="container-custom">
-            <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="text-center mb-12">
-              <h2 className="text-3xl md:text-4xl font-black text-foreground mb-4">{t('w200.package.title')}</h2>
-              <p className="text-muted-foreground">{t('w200.package.subtitle')}</p>
-            </motion.div>
-            <Card className="max-w-4xl mx-auto">
-              <CardContent className="p-0">
-                <table className="w-full">
-                  <thead>
-                    <tr className="bg-accent/10">
-                      <th className="px-6 py-4 text-left font-bold text-foreground">{t('w200.package.header.name')}</th>
-                      <th className="px-6 py-4 text-left font-bold text-foreground">{t('w200.package.header.spec')}</th>
-                      <th className="px-6 py-4 text-center font-bold text-foreground">{t('w200.package.header.qty')}</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {packageList.map((item, index) => (
-                      <tr key={index} className={index % 2 === 0 ? 'bg-muted/50' : 'bg-card'}>
-                        <td className="px-6 py-3 text-foreground border-b border-border/30">{item.name}</td>
-                        <td className="px-6 py-3 text-muted-foreground border-b border-border/30">{item.spec}</td>
-                        <td className="px-6 py-3 text-center text-muted-foreground border-b border-border/30">{item.qty}</td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
-              </CardContent>
-            </Card>
-          </div>
-        </section>
+        <C20PackageSection />
 
         {/* Related Products */}
         <section className="py-16 bg-muted/50">
           <div className="container-custom">
-            <h3 className="text-xl font-bold text-foreground mb-6">{t('w200.related.title')}</h3>
+            <h3 className="text-xl font-bold text-foreground mb-6">{isZh ? '相关集群产品' : 'Related Swarm Products'}</h3>
             <div className="grid md:grid-cols-2 gap-4">
               <Link to="/products/swarm/w300" className="flex items-center gap-3 p-4 bg-card rounded-xl border border-border/30 hover:border-accent/30 transition-all group">
                 <ArrowRight className="w-4 h-4 text-accent shrink-0 group-hover:translate-x-1 transition-transform" />
                 <div>
-                  <span className="font-medium text-foreground group-hover:text-accent transition-colors">{t('w200.related.w300')}</span>
-                  <p className="text-xs text-muted-foreground mt-1">{t('w200.related.w300.desc')}</p>
+                  <span className="font-medium text-foreground group-hover:text-accent transition-colors">
+                    {isZh ? 'CANI C30 动捕集群套件' : 'CANI C30 MoCap Swarm Kit'}
+                  </span>
+                  <p className="text-xs text-muted-foreground mt-1">{isZh ? '基于动捕系统的高精度室内编队方案' : 'High-precision indoor formation with motion capture'}</p>
                 </div>
               </Link>
               <Link to="/products/swarm/w400" className="flex items-center gap-3 p-4 bg-card rounded-xl border border-border/30 hover:border-accent/30 transition-all group">
                 <ArrowRight className="w-4 h-4 text-accent shrink-0 group-hover:translate-x-1 transition-transform" />
                 <div>
-                  <span className="font-medium text-foreground group-hover:text-accent transition-colors">{t('w200.related.w400')}</span>
-                  <p className="text-xs text-muted-foreground mt-1">{t('w200.related.w400.desc')}</p>
+                  <span className="font-medium text-foreground group-hover:text-accent transition-colors">
+                    {isZh ? 'CANI C40 GPS集群套件' : 'CANI C40 GPS Swarm Kit'}
+                  </span>
+                  <p className="text-xs text-muted-foreground mt-1">{isZh ? '户外大规模GPS编队飞行系统' : 'Outdoor large-scale GPS formation flight'}</p>
                 </div>
               </Link>
             </div>
@@ -308,11 +135,15 @@ const W200 = () => {
         {/* CTA */}
         <section className="py-20 bg-primary text-primary-foreground">
           <div className="container-custom text-center">
-            <h2 className="text-3xl md:text-4xl font-bold mb-6">{t('w200.cta.title')}</h2>
-            <p className="text-lg opacity-90 mb-8 max-w-2xl mx-auto">{t('w200.cta.desc')}</p>
+            <h2 className="text-3xl md:text-4xl font-bold mb-6">
+              {isZh ? '开启您的集群无人机研究' : 'Start Your Swarm Drone Research'}
+            </h2>
+            <p className="text-lg opacity-90 mb-8 max-w-2xl mx-auto">
+              {isZh ? 'CANI C20套件提供开箱即用的UWB集群编队解决方案，助力科研团队快速验证算法。' : 'The CANI C20 kit provides a ready-to-fly UWB swarm formation solution to help research teams rapidly validate algorithms.'}
+            </p>
             <Link to="/contact">
-              <Button size="lg" className="bg-accent hover:bg-accent/90 text-accent-foreground rounded-full px-8">
-                {t('common.contactUs')}
+              <Button size="lg" className="bg-accent hover:bg-accent/90 text-accent-foreground rounded-full px-8 min-h-[44px]">
+                {isZh ? '联系我们' : 'Contact Us'}
                 <ArrowRight className="ml-2 h-5 w-5" />
               </Button>
             </Link>
