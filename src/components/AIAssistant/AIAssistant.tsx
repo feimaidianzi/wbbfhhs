@@ -288,7 +288,8 @@ export const AIAssistant = () => {
       timestamp: new Date(),
     };
     setMessages(prev => [...prev, userMessage]);
-    await saveMessage(convId, "user", content);
+    // Save in background - don't block UI
+    saveMessage(convId, "user", content);
 
     // 更新最后活动时间
     lastMessageTimeRef.current = Date.now();
