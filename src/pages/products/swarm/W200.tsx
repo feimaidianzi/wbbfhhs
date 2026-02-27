@@ -50,12 +50,12 @@ const W200 = () => {
               <Badge className="bg-accent/90 text-accent-foreground mb-4 text-sm">CANI C20 · UWB</Badge>
             </motion.div>
             <motion.h1 initial={{ opacity: 0, y: 50 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.2 }} className="text-4xl md:text-5xl lg:text-6xl font-black text-white mb-6">
-              {isZh ? 'CANI C20 集群无人机开发套件' : 'CANI C20 Swarm Development Kit'}
+              {isZh ? 'CANI C20 集群编队套件' : 'CANI C20 Swarm Formation Kit'}
             </motion.h1>
-            <motion.p initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.4 }} className="text-xl md:text-2xl text-white/80 max-w-3xl mx-auto mb-8">
+            <motion.p initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.4 }} className="text-lg md:text-xl text-white/80 max-w-4xl mx-auto mb-8">
               {isZh
-                ? '基于UWB高精度定位的3机编队系统 · 开源ROS架构 · Pixhawk飞控'
-                : '3-Drone Formation System with UWB High-Precision Positioning · Open-Source ROS · Pixhawk FC'}
+                ? '灵活应用于室内外无人机集群研究的编队平台方案，包含无人机、UWB定位模块、通信模块、飞行控制器、机载计算机及集群控制软件。基于ROS与PX4开源平台，结合Prometheus集群控制子模块，提供编队功能Demo与地面站人机交互。'
+                : 'A flexible indoor/outdoor swarm formation platform with drones, UWB positioning, communication modules, flight controllers, onboard computers, and swarm control software. Built on ROS + PX4 with Prometheus formation control modules, demos, and ground station HMI.'}
             </motion.p>
             <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.6 }} className="flex flex-wrap justify-center gap-4">
               <Link to="/contact">
