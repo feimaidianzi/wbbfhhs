@@ -1,6 +1,8 @@
 import { useLanguage } from "@/contexts/LanguageContext";
 import { motion } from "framer-motion";
 import { Card, CardContent } from "@/components/ui/card";
+import { OptimizedImage } from "@/components/OptimizedImage";
+import fullKitImg from "@/assets/products/w400-full-kit.webp";
 
 const W400PackageSection = () => {
   const { language } = useLanguage();
@@ -27,6 +29,9 @@ const W400PackageSection = () => {
         <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="text-center mb-12">
           <h2 className="text-3xl md:text-4xl font-black text-foreground mb-4">{isZh ? '配置清单' : 'Package Contents'}</h2>
           <p className="text-muted-foreground">{isZh ? 'CANI-W400 GPS旗舰集群套件标准配置' : 'CANI-W400 GPS Flagship Swarm Kit Standard Configuration'}</p>
+        </motion.div>
+        <motion.div initial={{ opacity: 0, scale: 0.95 }} whileInView={{ opacity: 1, scale: 1 }} viewport={{ once: true }} className="max-w-3xl mx-auto mb-10">
+          <OptimizedImage src={fullKitImg} alt={isZh ? "CANI-W400 完整套件箱" : "CANI-W400 Complete Kit Case"} aspectRatio="16/9" className="w-full rounded-2xl" objectFit="cover" />
         </motion.div>
         <div className="max-w-4xl mx-auto">
           <Card>
