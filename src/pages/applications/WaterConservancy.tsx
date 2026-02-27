@@ -7,9 +7,9 @@ import { LangLink } from "@/components/LangLink";
 import { MultiLanguageSEO } from "@/components/MultiLanguageSEO";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { motion } from "framer-motion";
-import riverPatrolImg from "@/assets/seo/river-patrol.jpg";
-import sandMiningSurveillanceImg from "@/assets/seo/sand-mining-surveillance.jpg";
-import damMonitoringImg from "@/assets/seo/dam-monitoring.jpg";
+import riverPatrolImg from "@/assets/real/river-patrol-edited.jpg";
+import sandMiningSurveillanceImg from "@/assets/real/sand-mining-edited.jpg";
+import damMonitoringImg from "@/assets/real/dam-aerial-edited.jpg";
 import {
   Accordion,
   AccordionContent,

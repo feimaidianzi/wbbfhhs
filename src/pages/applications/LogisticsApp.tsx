@@ -4,11 +4,11 @@ import { useLanguage } from "@/contexts/LanguageContext";
 
 // 导入配图
 import heroLogistics from "@/assets/logistics/hero-logistics.jpg";
-import droneHeavyLift from "@/assets/logistics/drone-heavy-lift.jpg";
-import remoteDelivery from "@/assets/logistics/remote-delivery.jpg";
-import islandDelivery from "@/assets/logistics/island-delivery.jpg";
-import emergencyDelivery from "@/assets/logistics/emergency-delivery.jpg";
-import urbanDelivery from "@/assets/logistics/urban-delivery.jpg";
+import droneHeavyLift from "@/assets/real/drone-heavy-lift-edited.jpg";
+import remoteDelivery from "@/assets/real/remote-delivery-edited.jpg";
+import islandDelivery from "@/assets/real/island-delivery-edited.jpg";
+import emergencyDelivery from "@/assets/real/emergency-delivery-edited.jpg";
+import urbanDelivery from "@/assets/real/urban-delivery-edited.jpg";
 
 const LogisticsApp = () => {
   const { t } = useLanguage();
