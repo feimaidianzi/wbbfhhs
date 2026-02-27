@@ -36,11 +36,11 @@ const SEGMENT_LABELS: Record<string, string> = {
   "fc-esc": "header.fcEsc",
   gimbal: "header.gimbal",
   camera: "header.camera",
-  "digital-fpv": "header.vtx",
+  "digital-fpv": "accessory.vtx",
   elrs: "header.elrs",
   others: "header.others",
-  "mesh-link": "nav.products",
-  "ai-module": "nav.products",
+  "mesh-link": "Mesh Link",
+  "ai-module": "AI Module",
 
   // Tethered models
   "th-100": "TH-100",
