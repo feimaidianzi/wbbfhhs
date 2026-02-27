@@ -17,11 +17,11 @@ import heroImage from "@/assets/products/swarm-uwb-showcase.jpg";
 import hardwareImage from "@/assets/products/swarm-w200-hardware.jpg";
 import componentsImage from "@/assets/products/swarm-w200-components.jpg";
 import angleImage from "@/assets/products/swarm-w200-angle.jpg";
-import detailImage from "@/assets/products/swarm-w200-detail.jpg";
 import uwbImage from "@/assets/products/swarm-uwb-positioning.jpg";
-import formationImage from "@/assets/products/swarm-formation.jpg";
-import groundStationImage from "@/assets/products/swarm-ground-station.jpg";
 import communicationImage from "@/assets/products/swarm-communication.png";
+
+import W200HardwareSection from "@/components/swarm/W200HardwareSection";
+import W200SystemArchitecture from "@/components/swarm/W200SystemArchitecture";
 
 const W200 = () => {
   const { t } = useLanguage();
@@ -210,18 +210,11 @@ const W200 = () => {
           </div>
         </section>
 
-        {/* Hardware Detail Image */}
-        <section className="py-20 bg-secondary">
-          <div className="container-custom">
-            <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="text-center mb-12">
-              <h2 className="text-3xl md:text-4xl font-black text-foreground mb-4">{t('w200.hardware.title')}</h2>
-              <p className="text-muted-foreground max-w-2xl mx-auto">{t('w200.hardware.desc')}</p>
-            </motion.div>
-            <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="flex justify-center">
-              <img src={detailImage} alt={t('w200.hardware.title')} className="rounded-2xl shadow-2xl max-w-5xl w-full" />
-            </motion.div>
-          </div>
-        </section>
+        {/* Hardware Configuration - Interactive HTML Labels */}
+        <W200HardwareSection />
+
+        {/* System Architecture */}
+        <W200SystemArchitecture />
 
         {/* Specifications */}
         <section className="py-20 bg-background">
