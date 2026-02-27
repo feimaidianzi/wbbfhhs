@@ -3,7 +3,7 @@ import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { FloatingContact } from "@/components/FloatingContact";
 import { Button } from "@/components/ui/button";
-import { ArrowRight, CheckCircle, Phone, Mail, ChevronDown } from "lucide-react";
+import { ArrowRight, ArrowLeft, CheckCircle, Phone, Mail, ChevronDown } from "lucide-react";
 import { LucideIcon } from "lucide-react";
 import { LangLink } from "@/components/LangLink";
 import { useLanguage } from "@/contexts/LanguageContext";
@@ -144,6 +144,16 @@ const ProductPageTemplate = ({
       />
 
       <main>
+        {/* Back Button */}
+        <div className="fixed top-20 left-4 z-40">
+          <LangLink to="/products">
+            <Button variant="outline" size="sm" className="bg-background/80 backdrop-blur-sm border-border shadow-lg hover:bg-background">
+              <ArrowLeft className="w-4 h-4 mr-1" />
+              {isEn ? 'Back' : '返回'}
+            </Button>
+          </LangLink>
+        </div>
+
         {/* Immersive Hero Section */}
         <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
           {/* Background Image with Parallax Effect */}
