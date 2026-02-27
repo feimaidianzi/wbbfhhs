@@ -142,9 +142,12 @@ export const LanguageProvider: React.FC<LanguageProviderProps> = ({ children }) 
       return;
     }
 
-    // Step 2: For other languages, check memory > localStorage > DB
+    // Step 2: For other languages, check memory > localStorage > DB (with English fallback merge)
+    const enBase = await loadTranslations('en');
+
     if (hasTranslations(targetLang)) {
-      setCurrentTranslations(getTranslations(targetLang));
+      const merged = { ...enBase, ...getTranslations(targetLang) };
+      setCurrentTranslations(merged);
       setIsLoading(false);
       return;
     }
@@ -153,16 +156,18 @@ export const LanguageProvider: React.FC<LanguageProviderProps> = ({ children }) 
     if (cached) {
       try {
         const parsed = JSON.parse(cached);
-        setTranslations(targetLang, parsed);
-        setCurrentTranslations(parsed);
+        const merged = { ...enBase, ...parsed };
+        setTranslations(targetLang, merged);
+        setCurrentTranslations(merged);
         setIsLoading(false);
         // Background refresh
         supabase.from('system_settings').select('value').eq('key', `translations_${targetLang}`).single()
           .then(({ data }) => {
             if (data?.value && data.value !== cached) {
               const fresh = JSON.parse(data.value);
-              setTranslations(targetLang, fresh);
-              setCurrentTranslations(fresh);
+              const mergedFresh = { ...enBase, ...fresh };
+              setTranslations(targetLang, mergedFresh);
+              setCurrentTranslations(mergedFresh);
               localStorage.setItem(`translations_${targetLang}`, data.value);
             }
           });
@@ -176,8 +181,9 @@ export const LanguageProvider: React.FC<LanguageProviderProps> = ({ children }) 
       if (error) throw error;
       if (data?.value) {
         const translations = JSON.parse(data.value);
-        setTranslations(targetLang, translations);
-        setCurrentTranslations(translations);
+        const merged = { ...enBase, ...translations };
+        setTranslations(targetLang, merged);
+        setCurrentTranslations(merged);
         localStorage.setItem(`translations_${targetLang}`, data.value);
         setIsLoading(false);
         return;
@@ -185,10 +191,9 @@ export const LanguageProvider: React.FC<LanguageProviderProps> = ({ children }) 
     } catch {
       console.error('Error loading translations for', targetLang);
     }
-    
+
     // Fallback to English
-    const en = await loadTranslations('en');
-    setCurrentTranslations(en);
+    setCurrentTranslations(enBase);
     setIsLoading(false);
   }, []);
 
