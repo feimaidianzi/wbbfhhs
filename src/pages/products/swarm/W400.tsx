@@ -30,8 +30,8 @@ const W400 = () => {
   return (
     <div className="min-h-screen bg-background">
       <MultiLanguageSEO
-        title={isZh ? 'CANI-W400 GPS旗舰集群编队套件 | 室外大范围无人机集群平台 | CANI长凌科技' : 'CANI-W400 GPS Flagship Swarm Kit | Outdoor Large-Scale Drone Swarm Platform | CANI'}
-        description={isZh ? 'CANI-W400 GPS旗舰集群套件，600mm六旋翼平台，GPS四星定位，25分钟续航，Jetson Orin NX 100 TOPS AI算力，Prometheus R1.6集群控制系统。' : 'CANI-W400 GPS flagship swarm kit with 600mm hexacopter, quad-GNSS positioning, 25-min endurance, Jetson Orin NX 100 TOPS AI, Prometheus R1.6 swarm control.'}
+        title={isZh ? 'CANI-W400 集群编队开发套件 | 室外GPS无人机集群平台 | CANI长凌科技' : 'CANI-W400 Swarm Formation Dev Kit | Outdoor GPS Drone Swarm Platform | CANI'}
+        description={isZh ? 'CANI-W400集群编队开发套件，针对室外无人机集群研究开发，600mm六旋翼，GPS四星定位，基于ROS与PX4开源平台，结合Prometheus集群控制系统。' : 'CANI-W400 outdoor swarm formation dev kit with 600mm hexacopter, quad-GNSS, ROS + PX4 open-source platforms, Prometheus swarm control system.'}
         keywords={isZh ? 'CANI-W400,GPS集群,室外集群,六旋翼,无人机集群,Jetson Orin,集群编队,Prometheus' : 'CANI-W400,GPS swarm,outdoor swarm,hexacopter,drone swarm,Jetson Orin,formation,Prometheus'}
         path="/products/swarm/w400"
       />
@@ -52,10 +52,12 @@ const W400 = () => {
               <Badge className="bg-accent/90 text-accent-foreground mb-4">CANI-W400 GPS · {isZh ? '旗舰级' : 'Flagship'}</Badge>
             </motion.div>
             <motion.h1 initial={{ opacity: 0, y: 50 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.2 }} className="text-4xl md:text-5xl lg:text-6xl font-black text-white mb-6">
-              {isZh ? 'CANI-W400 旗舰级无人机集群平台' : 'CANI-W400 Flagship Drone Swarm Platform'}
+              {isZh ? 'CANI-W400 集群编队开发套件' : 'CANI-W400 Swarm Formation Dev Kit'}
             </motion.h1>
-            <motion.p initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.4 }} className="text-xl md:text-2xl text-white/80 max-w-3xl mx-auto mb-8">
-              {isZh ? '600mm六旋翼 · 重载长续航 · GPS四星定位 · 全环境室外作业' : '600mm Hexacopter · Heavy Payload · Quad-GNSS · Full Outdoor Operations'}
+            <motion.p initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.4 }} className="text-lg md:text-xl text-white/80 max-w-4xl mx-auto mb-8">
+              {isZh
+                ? '针对室外无人机集群研究开发的编队平台方案，包含无人机、定位模块、通信模块、飞行控制器、机载计算机及配套集群控制软件系统。基于ROS与PX4两大开源平台，结合Prometheus集群控制子模块，提供编队功能Demo与地面站人机交互。'
+                : 'An outdoor swarm formation platform for research, integrating drones, positioning, communication, flight controllers, onboard computers, and swarm control software built on ROS + PX4 open-source platforms with Prometheus formation control modules.'}
             </motion.p>
 
             {/* Key metrics */}
