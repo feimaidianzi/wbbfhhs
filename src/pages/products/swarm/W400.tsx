@@ -14,6 +14,9 @@ import { LangLink as Link } from "@/components/LangLink";
 import heroBg from "@/assets/products/cani-w400-hero-bg.webp";
 
 import W400FeaturesSection from "@/components/swarm/W400FeaturesSection";
+import W400CoreMetricsSection from "@/components/swarm/W400CoreMetricsSection";
+import W400IntelligentSystemSection from "@/components/swarm/W400IntelligentSystemSection";
+import W400SwarmMissionSection from "@/components/swarm/W400SwarmMissionSection";
 import W400HardwareSection from "@/components/swarm/W400HardwareSection";
 import W400ArchitectureSection from "@/components/swarm/W400ArchitectureSection";
 import W400SpecsSection from "@/components/swarm/W400SpecsSection";
@@ -59,9 +62,10 @@ const W400 = () => {
             <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.5 }} className="flex flex-wrap justify-center gap-6 mb-8">
               {[
                 { value: "600mm", label: isZh ? "六旋翼轴距" : "Hexa Wheelbase" },
-                { value: "25min", label: isZh ? "续航时间" : "Flight Time" },
+                { value: "30min", label: isZh ? "最长续航" : "Max Endurance" },
+                { value: "4kg", label: isZh ? "最大起飞重量" : "Max Takeoff" },
+                { value: "10000mAh", label: isZh ? "高压电池" : "HV Battery" },
                 { value: "100 TOPS", label: isZh ? "AI算力" : "AI Computing" },
-                { value: "1km", label: isZh ? "Mesh通信" : "Mesh Range" },
               ].map((m, i) => (
                 <div key={i} className="text-center">
                   <div className="text-2xl md:text-3xl font-black text-accent">{m.value}</div>
@@ -84,8 +88,17 @@ const W400 = () => {
           </motion.div>
         </section>
 
+        {/* Core Metrics - Endurance & Payload */}
+        <W400CoreMetricsSection />
+
         {/* Features + Capabilities */}
         <W400FeaturesSection />
+
+        {/* Intelligent System - Self-Check & RTK */}
+        <W400IntelligentSystemSection />
+
+        {/* Swarm Mission - Task Allocation & Formation */}
+        <W400SwarmMissionSection />
 
         {/* Hardware Architecture */}
         <W400HardwareSection />
