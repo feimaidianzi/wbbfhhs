@@ -24,17 +24,17 @@ import { useLanguage } from "@/contexts/LanguageContext";
 // 导入图片
 import heroImage from "@/assets/products/logistics-hero.jpg";
 import deliveryImage from "@/assets/products/logistics-delivery-clean.jpg";
-import dropImage from "@/assets/products/logistics-drop.jpg";
-import foldImage from "@/assets/products/logistics-fold.jpg";
-import waypointImage from "@/assets/products/logistics-waypoint.jpg";
+import dropImage from "@/assets/products/logistics-drop.png";
+import foldImage from "@/assets/products/logistics-fold.png";
+import waypointImage from "@/assets/products/logistics-waypoint.png";
 import appRescueImage from "@/assets/products/logistics-app-rescue.jpg";
 import appFireImage from "@/assets/products/logistics-app-fire.jpg";
 import appPoliceImage from "@/assets/products/logistics-app-police.jpg";
 import appPowerImage from "@/assets/products/logistics-app-power.jpg";
 import appOilImage from "@/assets/products/logistics-app-oil.jpg";
 import appSurveyImage from "@/assets/products/logistics-app-survey.jpg";
-import speakerImage from "@/assets/products/logistics-speaker.jpg";
-import carbonImage from "@/assets/products/logistics-carbon.jpg";
+import speakerImage from "@/assets/products/logistics-speaker.png";
+import carbonImage from "@/assets/products/logistics-carbon.png";
 
 const Logistics = () => {
   const { t } = useLanguage();
