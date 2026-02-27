@@ -30,12 +30,12 @@ const W300 = () => {
   return (
     <div className="min-h-screen bg-background">
       <MultiLanguageSEO
-        title={isZh ? "CANI C30 动捕集群开发套件 | 亚毫米级精度编队" : "CANI C30 MoCap Swarm Kit | Sub-mm Precision Formation"}
-        description={isZh ? "CANI C30 动作捕捉集群套件，兼容OptiTrack/NOKOV/VICON，±1mm定位精度，360Hz刷新率，Jetson Orin NX机载计算，ROS开源架构。" : "CANI C30 Motion Capture swarm kit, compatible with OptiTrack/NOKOV/VICON, ±1mm accuracy, 360Hz refresh, Jetson Orin NX onboard computing, open-source ROS."}
+        title={isZh ? "CANI W300 动捕集群开发套件 | 亚毫米级精度编队" : "CANI W300 MoCap Swarm Kit | Sub-mm Precision Formation"}
+        description={isZh ? "CANI W300 动作捕捉集群套件，兼容OptiTrack/NOKOV/VICON，±1mm定位精度，360Hz刷新率，Jetson Orin NX机载计算，ROS开源架构。" : "CANI W300 Motion Capture swarm kit, compatible with OptiTrack/NOKOV/VICON, ±1mm accuracy, 360Hz refresh, Jetson Orin NX onboard computing, open-source ROS."}
         keywords={isZh ? "动捕集群,MOCAP无人机,编队飞行,OptiTrack,VICON,ROS" : "mocap swarm,motion capture drone,formation flight,OptiTrack,VICON,ROS"}
         path="/products/swarm/w300"
       />
-      <PageStructuredData data={{ type: 'Product', name: 'CANI C30 MoCap Swarm Kit', description: 'Motion capture swarm drone development kit with sub-mm precision', category: 'Swarm Drone System', sku: 'CANI-C30-MOCAP' }} />
+      <PageStructuredData data={{ type: 'Product', name: 'CANI W300 MoCap Swarm Kit', description: 'Motion capture swarm drone development kit with sub-mm precision', category: 'Swarm Drone System', sku: 'CANI-W300-MOCAP' }} />
       <Header />
       <FloatingContact />
       <BackButton to="/products/swarm" label={isZh ? '← 返回集群产品' : '← Back to Swarm'} />
@@ -44,15 +44,15 @@ const W300 = () => {
         {/* Hero */}
         <section className="relative min-h-[80vh] flex items-center justify-center overflow-hidden">
           <div className="absolute inset-0">
-            <img src={heroImage} alt="CANI C30 MoCap Swarm" className="w-full h-full object-cover" loading="eager" />
+            <img src={heroImage} alt="CANI W300 MoCap Swarm" className="w-full h-full object-cover" loading="eager" />
             <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/50 to-black/80" />
           </div>
           <div className="container-custom relative z-10 text-center py-20">
             <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }}>
-              <Badge className="bg-accent/90 text-accent-foreground mb-4 text-sm">CANI C30 · MOCAP</Badge>
+              <Badge className="bg-accent/90 text-accent-foreground mb-4 text-sm">CANI W300 · MOCAP</Badge>
             </motion.div>
             <motion.h1 initial={{ opacity: 0, y: 50 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.2 }} className="text-4xl md:text-5xl lg:text-6xl font-black text-white mb-6">
-              {isZh ? 'CANI C30 无人机集群平台' : 'CANI C30 Drone Swarm Platform'}
+              {isZh ? 'CANI W300 无人机集群平台' : 'CANI W300 Drone Swarm Platform'}
             </motion.h1>
             <motion.p initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.4 }} className="text-lg md:text-xl text-white/80 max-w-4xl mx-auto mb-8">
               {isZh
@@ -117,7 +117,7 @@ const W300 = () => {
               <Link to="/products/swarm/w400" className="flex items-center gap-3 p-4 bg-card rounded-xl border border-border/30 hover:border-accent/30 transition-all group">
                 <ArrowRight className="w-4 h-4 text-accent shrink-0 group-hover:translate-x-1 transition-transform" />
                 <div>
-                  <span className="font-medium text-foreground group-hover:text-accent transition-colors">{isZh ? 'CANI C40 GPS集群套件' : 'CANI C40 GPS Swarm Kit'}</span>
+                  <span className="font-medium text-foreground group-hover:text-accent transition-colors">{isZh ? 'CANI W400 GPS集群套件' : 'CANI W400 GPS Swarm Kit'}</span>
                   <p className="text-xs text-muted-foreground mt-1">{isZh ? '户外大规模GPS编队飞行系统' : 'Outdoor large-scale GPS formation flight'}</p>
                 </div>
               </Link>
@@ -132,7 +132,7 @@ const W300 = () => {
               {isZh ? '开启亚毫米级精度集群研究' : 'Start Sub-mm Precision Swarm Research'}
             </h2>
             <p className="text-lg opacity-90 mb-8 max-w-2xl mx-auto">
-              {isZh ? 'CANI C30 为科研团队提供最高精度的室内集群编队平台，兼容主流动捕系统，助力前沿算法验证。' : 'CANI C30 provides the highest precision indoor swarm platform for research teams, compatible with mainstream MoCap systems.'}
+              {isZh ? 'CANI W300 为科研团队提供最高精度的室内集群编队平台，兼容主流动捕系统，助力前沿算法验证。' : 'CANI W300 provides the highest precision indoor swarm platform for research teams, compatible with mainstream MoCap systems.'}
             </p>
             <Link to="/contact">
               <Button size="lg" className="bg-accent hover:bg-accent/90 text-accent-foreground rounded-full px-8 min-h-[44px]">
