@@ -10,13 +10,13 @@ import { Weight, Clock, Mountain, Sun, Radio, Leaf, Wifi, Shield, Zap, Settings,
 import { Button } from "@/components/ui/button";
 
 import heroImg from "@/assets/products/th300-hero-mountain.png";
-import payloadImg from "@/assets/products/th300-payload-30kg.png";
+import payloadImg from "@/assets/products/th300-payload-30kg-clean.png";
 import lightingImg from "@/assets/products/th300-lighting.png";
 import commRelayImg from "@/assets/products/th300-comm-relay.png";
 import envMonitorImg from "@/assets/products/th300-env-monitor.png";
 import fiberBtImg from "@/assets/products/th300-fiber-bt.png";
-import flight24hImg from "@/assets/products/th300-24h-flight.png";
-import altitude200mImg from "@/assets/products/th300-200m-altitude.png";
+import flight24hImg from "@/assets/products/th300-24h-flight-clean.png";
+import altitude200mImg from "@/assets/products/th300-200m-altitude-clean.png";
 import safetyImg from "@/assets/products/th300-safety-design.png";
 import voltageImg from "@/assets/products/th300-voltage-adjust.png";
 import droneDisplayImg from "@/assets/products/th300-drone-display.png";
