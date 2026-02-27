@@ -8,6 +8,7 @@ import { MultiLanguageSEO } from "@/components/MultiLanguageSEO";
 import { BackButton } from "@/components/BackButton";
 import { ArrowRight, Phone, Monitor, Tv, Satellite, Navigation, Check, Shield, Zap, Settings } from "lucide-react";
 import { otherAccessoriesProducts } from "@/data/otherAccessoriesProducts";
+import { translateOtherAccKey } from "@/data/otherAccessoriesFallback";
 import { useLanguage } from "@/contexts/LanguageContext";
 
 const iconMap: Record<string, React.ComponentType<{ className?: string }>> = {
@@ -58,20 +59,21 @@ const OtherAccessoriesDetail = () => {
   const { productId } = useParams<{ productId: string }>();
   const product = otherAccessoriesProducts.find(p => p.id === productId);
   const { t } = useLanguage();
+  const tf = (key: string) => translateOtherAccKey(key, t);
 
   if (!product) {
     return <Navigate to="/products/accessories/others" replace />;
   }
 
-  const productName = t(product.nameKey);
-  const productDesc = t(product.descriptionKey);
+  const productName = tf(product.nameKey);
+  const productDesc = tf(product.descriptionKey);
 
   return (
     <div className="min-h-screen">
       <MultiLanguageSEO 
         title={`${productName} - ${t('accessory.others')}`}
         description={productDesc}
-        keywords={`${productName},${product.keyFeatureKeys.map(k => t(k)).join(',')}`}
+        keywords={`${productName},${product.keyFeatureKeys.map(k => tf(k)).join(',')}`}
         path={`/products/accessories/others/${productId}`}
         type="product"
       />
@@ -99,7 +101,7 @@ const OtherAccessoriesDetail = () => {
               <div className="order-1 lg:order-2">
                 <div className="inline-flex items-center gap-2 bg-accent/20 text-accent px-4 py-2 rounded-full text-sm font-medium mb-4">
                   {product.category === "monitor" ? <Tv className="w-4 h-4" /> : <Satellite className="w-4 h-4" />}
-                  {t(product.sloganKey)}
+                  {tf(product.sloganKey)}
                 </div>
                 <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-primary-foreground mb-4">
                   {productName}
@@ -112,7 +114,7 @@ const OtherAccessoriesDetail = () => {
                 <div className="flex flex-wrap gap-3 mb-8">
                   {product.keyFeatureKeys.map((featureKey, i) => (
                     <span key={i} className="bg-white/10 backdrop-blur text-primary-foreground px-4 py-2 rounded-full text-sm">
-                      {t(featureKey)}
+                      {tf(featureKey)}
                     </span>
                   ))}
                 </div>
@@ -152,8 +154,8 @@ const OtherAccessoriesDetail = () => {
                     <div className="w-12 h-12 bg-accent/10 rounded-xl flex items-center justify-center mb-4">
                       <IconComponent className="w-6 h-6 text-accent" />
                     </div>
-                    <h3 className="text-lg font-bold text-card-foreground mb-2">{t(feature.titleKey)}</h3>
-                    <p className="text-muted-foreground text-sm">{t(feature.descriptionKey)}</p>
+                    <h3 className="text-lg font-bold text-card-foreground mb-2">{tf(feature.titleKey)}</h3>
+                    <p className="text-muted-foreground text-sm">{tf(feature.descriptionKey)}</p>
                   </div>
                 );
               })}
@@ -170,12 +172,12 @@ const OtherAccessoriesDetail = () => {
                 {product.specs.map((specGroup, groupIndex) => (
                   <div key={groupIndex} className="border-b border-border last:border-b-0">
                     <div className="bg-primary/5 px-6 py-4">
-                      <h3 className="font-bold text-foreground">{t(specGroup.categoryKey)}</h3>
+                      <h3 className="font-bold text-foreground">{tf(specGroup.categoryKey)}</h3>
                     </div>
                     <div className="divide-y divide-border">
                       {specGroup.items.map((item, itemIndex) => (
                         <div key={itemIndex} className="flex justify-between px-6 py-3">
-                          <span className="text-muted-foreground">{t(item.labelKey)}</span>
+                          <span className="text-muted-foreground">{tf(item.labelKey)}</span>
                           <span className="font-medium text-foreground">{item.value}</span>
                         </div>
                       ))}
