@@ -19,9 +19,9 @@ const Swarm = () => {
   ];
 
   const products = [
-    { name: t('swarmPage.p1.name'), description: t('swarmPage.p1.desc'), specs: [t('swarmPage.p1.spec1'), t('swarmPage.p1.spec2'), t('swarmPage.p1.spec3'), t('swarmPage.p1.spec4')], image: swarmUwbShowcase },
-    { name: t('swarmPage.p2.name'), description: t('swarmPage.p2.desc'), specs: [t('swarmPage.p2.spec1'), t('swarmPage.p2.spec2'), t('swarmPage.p2.spec3'), t('swarmPage.p2.spec4')], image: swarmMocapShowcase },
-    { name: t('swarmPage.p3.name'), description: t('swarmPage.p3.desc'), specs: [t('swarmPage.p3.spec1'), t('swarmPage.p3.spec2'), t('swarmPage.p3.spec3'), t('swarmPage.p3.spec4')], image: swarmGpsShowcase },
+    { name: t('swarmPage.p1.name'), description: t('swarmPage.p1.desc'), specs: [t('swarmPage.p1.spec1'), t('swarmPage.p1.spec2'), t('swarmPage.p1.spec3'), t('swarmPage.p1.spec4')], image: swarmUwbShowcase, link: '/products/swarm/w200' },
+    { name: t('swarmPage.p2.name'), description: t('swarmPage.p2.desc'), specs: [t('swarmPage.p2.spec1'), t('swarmPage.p2.spec2'), t('swarmPage.p2.spec3'), t('swarmPage.p2.spec4')], image: swarmMocapShowcase, link: '/products/swarm/w300' },
+    { name: t('swarmPage.p3.name'), description: t('swarmPage.p3.desc'), specs: [t('swarmPage.p3.spec1'), t('swarmPage.p3.spec2'), t('swarmPage.p3.spec3'), t('swarmPage.p3.spec4')], image: swarmGpsShowcase, link: '/products/swarm/w400' },
   ];
 
   const stats = [
