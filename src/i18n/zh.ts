@@ -5956,7 +5956,7 @@ export const zhTranslations: Record<string, string> = {
   'digitalFpv.category.receiver.desc': '高清数字图传接收模块，配合眼镜或显示器使用',
   
   // S900 Datalink
-  'digitalFpv.s900.name': 'S900 无人机数传电台',
+  'digitalFpv.s900.name': '收发一体数字电台',
   'digitalFpv.s900.slogan': '超视距专用数传',
   'digitalFpv.s900.subSlogan': '12KM通信距离 915MHz FHSS自动跳频',
   'digitalFpv.s900.description': 'S900 Radio采用业界领先的SDR技术，在极低的发射功率(20dBm)情况下，既保证了远距离通信的要求，又保证了高速双向通信传输的优秀特性。支持多档空中速率选择、波特率可调、点对点/点对多点/中继组网等多种工作模式。',
