@@ -11,10 +11,10 @@ import { Button } from "@/components/ui/button";
 
 import heroImg from "@/assets/products/th300-hero-mountain.png";
 import payloadImg from "@/assets/products/th300-payload-30kg-clean.png";
-import lightingImg from "@/assets/products/th300-lighting.png";
-import commRelayImg from "@/assets/products/th300-comm-relay.png";
-import envMonitorImg from "@/assets/products/th300-env-monitor.png";
-import fiberBtImg from "@/assets/products/th300-fiber-bt.png";
+import lightingImg from "@/assets/products/th300-lighting-clean.png";
+import commRelayImg from "@/assets/products/th300-comm-relay-clean.png";
+import envMonitorImg from "@/assets/products/th300-env-monitor-clean.png";
+import fiberBtImg from "@/assets/products/th300-fiber-bt-clean.png";
 import flight24hImg from "@/assets/products/th300-24h-flight-clean.png";
 import altitude200mImg from "@/assets/products/th300-200m-altitude-clean.png";
 import safetyImg from "@/assets/products/th300-safety-design-clean.png";
