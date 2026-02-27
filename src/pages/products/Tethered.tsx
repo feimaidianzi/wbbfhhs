@@ -2,8 +2,9 @@ import ProductPageTemplate from "@/components/ProductPageTemplate";
 import { Clock, Zap, Shield, Radio, Eye, Settings } from "lucide-react";
 import { useLanguage } from "@/contexts/LanguageContext";
 import tetheredDroneImg from "@/assets/seo/tethered-drone.jpg";
-import industrialDroneFlightImg from "@/assets/seo/industrial-drone-flight.jpg";
-import wireLayingMountainImg from "@/assets/seo/wire-laying-mountain.jpg";
+import th100Hero from "@/assets/products/th-100-hero.png";
+import th200Hero from "@/assets/products/th-200-hero.png";
+import th300Drone from "@/assets/products/th-300-drone.png";
 import emergencyRescueNightImg from "@/assets/seo/emergency-rescue-night.jpg";
 import damMonitoringImg from "@/assets/seo/dam-monitoring.jpg";
 import powerInspectionSystemImg from "@/assets/seo/power-inspection-system.jpg";
@@ -21,9 +22,9 @@ const Tethered = () => {
   ];
 
   const products = [
-    { name: t('tethered.page.p1.name'), description: t('tethered.page.p1.desc'), specs: [t('tethered.page.p1.spec1'), t('tethered.page.p1.spec2'), t('tethered.page.p1.spec3'), t('tethered.page.p1.spec4')], image: tetheredDroneImg, link: "/products/tethered/th-100" },
-    { name: t('tethered.page.p2.name'), description: t('tethered.page.p2.desc'), specs: [t('tethered.page.p2.spec1'), t('tethered.page.p2.spec2'), t('tethered.page.p2.spec3'), t('tethered.page.p2.spec4')], image: wireLayingMountainImg, link: "/products/tethered/th-200" },
-    { name: t('tethered.page.p3.name'), description: t('tethered.page.p3.desc'), specs: [t('tethered.page.p3.spec1'), t('tethered.page.p3.spec2'), t('tethered.page.p3.spec3'), t('tethered.page.p3.spec4')], image: industrialDroneFlightImg, link: "/products/tethered/th-300" },
+    { name: t('tethered.page.p1.name'), description: t('tethered.page.p1.desc'), specs: [t('tethered.page.p1.spec1'), t('tethered.page.p1.spec2'), t('tethered.page.p1.spec3'), t('tethered.page.p1.spec4')], image: th100Hero, link: "/products/tethered/th-100" },
+    { name: t('tethered.page.p2.name'), description: t('tethered.page.p2.desc'), specs: [t('tethered.page.p2.spec1'), t('tethered.page.p2.spec2'), t('tethered.page.p2.spec3'), t('tethered.page.p2.spec4')], image: th200Hero, link: "/products/tethered/th-200" },
+    { name: t('tethered.page.p3.name'), description: t('tethered.page.p3.desc'), specs: [t('tethered.page.p3.spec1'), t('tethered.page.p3.spec2'), t('tethered.page.p3.spec3'), t('tethered.page.p3.spec4')], image: th300Drone, link: "/products/tethered/th-300" },
   ];
 
   const stats = [
