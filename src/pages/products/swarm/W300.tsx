@@ -18,6 +18,10 @@ import C30ArchitectureSection from "@/components/swarm/C30ArchitectureSection";
 import C30SpecsSection from "@/components/swarm/C30SpecsSection";
 import C30PackageSection from "@/components/swarm/C30PackageSection";
 import C30HardwareSection from "@/components/swarm/C30HardwareSection";
+import C30MoCapPositioningSection from "@/components/swarm/C30MoCapPositioningSection";
+import C30SoftwareArchitectureSection from "@/components/swarm/C30SoftwareArchitectureSection";
+import C30FormationDemoSection from "@/components/swarm/C30FormationDemoSection";
+import C30WarningNotesSection from "@/components/swarm/C30WarningNotesSection";
 
 const W300 = () => {
   const { language } = useLanguage();
@@ -88,11 +92,15 @@ const W300 = () => {
           </div>
         </section>
 
+        <C30MoCapPositioningSection />
         <C30FeaturesSection />
         <C30HardwareSection />
+        <C30SoftwareArchitectureSection />
+        <C30FormationDemoSection />
         <C30ArchitectureSection />
         <C30SpecsSection />
         <C30PackageSection />
+        <C30WarningNotesSection />
 
         {/* Related Products */}
         <section className="py-16 bg-muted/50">
