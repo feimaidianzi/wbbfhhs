@@ -6,7 +6,7 @@ import { FloatingContact } from "@/components/FloatingContact";
 import { MultiLanguageSEO } from "@/components/MultiLanguageSEO";
 import { Button } from "@/components/ui/button";
 import { BackButton } from "@/components/BackButton";
-import { Check, AlertTriangle, Cpu, Zap, Package, Shield, Download, FileText, Settings } from "lucide-react";
+import { Check, AlertTriangle, Cpu, Zap, Package, Shield, Download, FileText, Settings, Code, Layers, Navigation2, Wifi, Minimize2 } from "lucide-react";
 import { getFcEscProductById } from "@/data/fcEscProducts";
 import { useState } from "react";
 import { useLanguage } from "@/contexts/LanguageContext";
@@ -379,8 +379,39 @@ const FcEscDetail = () => {
           </div>
         </section>
 
+        {/* Visual Features (extracted from images) */}
+        {product.visualFeatures && product.visualFeatures.length > 0 && (
+          <section className="py-20">
+            <div className="container mx-auto px-4">
+              <h2 className="text-2xl font-bold mb-8">{t('accessoryDetail.featureHighlights')}</h2>
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                {product.visualFeatures.map((vf, idx) => {
+                  const iconMap: Record<string, React.ReactNode> = {
+                    cpu: <Cpu className="w-6 h-6" />,
+                    code: <Code className="w-6 h-6" />,
+                    layers: <Layers className="w-6 h-6" />,
+                    navigation: <Navigation2 className="w-6 h-6" />,
+                    wifi: <Wifi className="w-6 h-6" />,
+                    minimize: <Minimize2 className="w-6 h-6" />,
+                    zap: <Zap className="w-6 h-6" />,
+                  };
+                  return (
+                    <div key={idx} className="p-6 bg-card rounded-xl border border-border hover:border-primary/30 transition-colors">
+                      <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center text-primary mb-4">
+                        {iconMap[vf.icon] || <Cpu className="w-6 h-6" />}
+                      </div>
+                      <h3 className="font-bold text-foreground mb-2">{vf.title}</h3>
+                      <p className="text-sm text-muted-foreground">{vf.desc}</p>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+          </section>
+        )}
+
         {/* Features */}
-        {product.features && product.features.length > 0 && (
+        {product.features && product.features.length > 0 && !product.visualFeatures && (
           <section className="py-20">
             <div className="container mx-auto px-4">
               <h2 className="text-2xl font-bold mb-8">{t('accessoryDetail.featureHighlights')}</h2>

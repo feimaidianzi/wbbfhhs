@@ -1,10 +1,10 @@
 // FC/ESC 产品数据
 // 图片资产导入
 import fcEsc80a from '@/assets/products/fc-esc-80a.jpg';
-import icf5Hero from '@/assets/products/icf5-hero.jpg';
-import icf5Angle2 from '@/assets/products/icf5-angle2.jpg';
-import icf5Angle3 from '@/assets/products/icf5-angle3.jpg';
-import icf5Angle4 from '@/assets/products/icf5-angle4.jpg';
+import icf5HeroClean from '@/assets/products/icf5-hero-clean.jpg';
+import icf5DetailFull from '@/assets/products/icf5-detail-full.jpg';
+import icf5Angle3Clean from '@/assets/products/icf5-angle3-clean.jpg';
+import icf5Angle4Clean from '@/assets/products/icf5-angle4-clean.jpg';
 import pixhawk4Hero from '@/assets/products/pixhawk4-hero.webp';
 import pixhawk4Accessories from '@/assets/products/pixhawk4-accessories.webp';
 import pixhawk4Cables from '@/assets/products/pixhawk4-cables.webp';
@@ -82,6 +82,7 @@ export interface FcEscProduct {
     weight: string;
   };
   features?: string[];
+  visualFeatures?: { icon: string; title: string; desc: string }[];
   notes?: string[];
   packageIncludes?: string[];
 }
@@ -501,12 +502,12 @@ export const researchFlightControllers: FcEscProduct[] = [
     model: "ICF5 (IC200)",
     category: "科研飞控",
     hot: true,
-    image: icf5Hero,
+    image: icf5HeroClean,
     images: [
-      icf5Hero,
-      icf5Angle2,
-      icf5Angle3,
-      icf5Angle4
+      icf5HeroClean,
+      icf5DetailFull,
+      icf5Angle3Clean,
+      icf5Angle4Clean
     ],
     price: "联系咨询",
     highlights: [
@@ -549,6 +550,14 @@ export const researchFlightControllers: FcEscProduct[] = [
       "多旋翼/固定翼/VTOL(即将支持)",
       "支持室内外定点、定高、自稳飞行",
       "航点任务模式、一键起飞/返航/降落"
+    ],
+    visualFeatures: [
+      { icon: "cpu", title: "GD32 高性能芯片", desc: "GD32F470旗舰芯片 + FMT开源飞控系统，240MHz主频，FPU浮点运算" },
+      { icon: "code", title: "MATLAB/Simulink MBD", desc: "支持基于模型开发，图形化编程，一键自动生成代码并部署到飞控" },
+      { icon: "layers", title: "多种仿真全覆盖", desc: "模型在环(MIL)、软件在环(SIL)、硬件在环(HIL)、开环仿真，验证代码稳定性" },
+      { icon: "navigation", title: "多机型支持", desc: "支持多旋翼、固定翼等机型，室内外定点/定高/自稳飞行，航点任务模式" },
+      { icon: "wifi", title: "丰富接口", desc: "以太网、CAN总线、5路UART、3路I2C、SPI、PPM/PWM、USB Type-C" },
+      { icon: "minimize", title: "轻薄小巧", desc: "70×36×18.5mm，仅39.3g，体积小、重量轻，在成本和功能上具备很大优势" },
     ],
     notes: [
       "适合科研院校和企业研发使用",
