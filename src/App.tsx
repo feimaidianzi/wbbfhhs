@@ -295,18 +295,16 @@ const WithBreadcrumb = ({ children }: { children: React.ReactNode }) => (
 
 // Breadcrumb overlay positioned after header
 const BreadcrumbOverlay = () => {
-  const { Breadcrumb } = React.useMemo(() => ({
-    Breadcrumb: React.lazy(() => import("@/components/Breadcrumb").then(m => ({ default: m.Breadcrumb }))),
-  }), []);
-
   return (
     <Suspense fallback={null}>
-      <div className="fixed top-16 md:top-20 left-0 right-0 z-40">
-        <Breadcrumb />
+      <div className="fixed top-16 md:top-20 left-0 right-0 z-40 pointer-events-auto">
+        <BreadcrumbLazy />
       </div>
     </Suspense>
   );
 };
+
+const BreadcrumbLazy = React.lazy(() => import("@/components/Breadcrumb").then(m => ({ default: m.Breadcrumb })));
 
 // Sub-routes rendered under /:lang/* prefix
 const LangRoutes = () => (
