@@ -3,7 +3,7 @@ import { motion } from "framer-motion";
 import { Satellite, Cpu, Code, MapPin, Monitor, Layers, Crosshair, Search } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { OptimizedImage } from "@/components/OptimizedImage";
-import droneMainImg from "@/assets/products/w400-drone-main.webp";
+
 import swarmFormationImg from "@/assets/products/w400-swarm-formation.webp";
 
 const W400FeaturesSection = () => {
@@ -53,11 +53,6 @@ const W400FeaturesSection = () => {
   return (
     <section className="py-20 bg-secondary">
       <div className="container-custom">
-        {/* Product Hero Image */}
-        <motion.div initial={{ opacity: 0, scale: 0.95 }} whileInView={{ opacity: 1, scale: 1 }} viewport={{ once: true }} className="max-w-3xl mx-auto mb-12">
-          <OptimizedImage src={droneMainImg} alt="CANI-W400 六旋翼无人机整机" aspectRatio="4/3" className="w-full rounded-2xl" objectFit="contain" />
-        </motion.div>
-
         {/* Swarm Formation Image */}
         <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="max-w-4xl mx-auto mb-16">
           <OptimizedImage src={swarmFormationImg} alt={isZh ? "CANI-W400 集群编队飞行" : "CANI-W400 Swarm Formation Flight"} aspectRatio="16/9" className="w-full rounded-2xl" objectFit="cover" />
