@@ -4,6 +4,10 @@ import fcEsc80a from '@/assets/products/fc-esc-80a.jpg';
 import pixhawk4Hero from '@/assets/products/pixhawk4-hero.webp';
 import pixhawk4Accessories from '@/assets/products/pixhawk4-accessories.webp';
 import pixhawk4Cables from '@/assets/products/pixhawk4-cables.webp';
+import pixhawk4Fmu from '@/assets/products/pixhawk4-fmu.webp';
+import pixhawk4Dual from '@/assets/products/pixhawk4-dual.webp';
+import pixhawk4Dimensions from '@/assets/products/pixhawk4-dimensions.webp';
+import pixhawk4Cables2 from '@/assets/products/pixhawk4-cables2.webp';
 import fcEsc100a from '@/assets/products/fc-esc-100a.jpg';
 import fcEsc100aAngle from '@/assets/products/fc-esc-100a-angle.jpg';
 import fcEscPcbBack from '@/assets/products/fc-esc-pcb-back.jpg';
@@ -559,8 +563,12 @@ export const researchFlightControllers: FcEscProduct[] = [
     image: pixhawk4Hero,
     images: [
       pixhawk4Hero,
+      pixhawk4Dual,
+      pixhawk4Fmu,
       pixhawk4Accessories,
-      pixhawk4Cables
+      pixhawk4Dimensions,
+      pixhawk4Cables,
+      pixhawk4Cables2
     ],
     price: "联系咨询",
     highlights: [
@@ -582,15 +590,15 @@ export const researchFlightControllers: FcEscProduct[] = [
       "提供完整线材包：JST GH连接线、PWM排针板、CAN/I2C扩展板等"
     ],
     fcSpecs: {
-      mcu: "STM32F765 (Arm Cortex-M7, 216MHz)",
+      mcu: "STM32F765 (Arm Cortex-M7, 216MHz, 2MB Flash, 512KB RAM)",
       gyro: "ICM-20689 + BMI-055 (双冗余)",
       osd: "-",
       blackbox: "板载存储",
       uart: "TELEM1/TELEM2 + 多路UART",
-      voltage: "POWER1/POWER2双路电源输入",
-      bec: "通过PM02/PM07电源模块供电",
-      size: "标准Pixhawk尺寸",
-      weight: "-",
+      voltage: "最大输入6V / 伺服0-36V / 电源模块输出4.9~5.5V",
+      bec: "PM02 12S / PM07 14S电源模块（可选）",
+      size: "44×84×12mm",
+      weight: "33.3g(塑料壳) / 49g(铝壳)",
       firmware: "PX4 / ArduPilot"
     },
     features: [
@@ -613,10 +621,15 @@ export const researchFlightControllers: FcEscProduct[] = [
       "PWM EXT OUT 8P排针板 x2",
       "CAP&ADC IN排针板 x1",
       "CAN/I2C扩展板 x1",
-      "JST GH 4P-GH 4P线 x2",
-      "JST GH 6P-GH 6P线 x3",
+      "JST GH 4P-GH 4P 26AWG线 x2",
+      "JST GH 6P-GH 6P 26AWG线 x3",
       "JST SH 6P-6P线 x1",
-      "JST GH 7P-GH 7P线 x1",
+      "JST GH 7P-GH 7P 26AWG线 x1",
+      "JST GH 8P-GH 8P 26AWG线 x1",
+      "JST GH 10P-GH 10P 26AWG线 x2",
+      "JST GH 5P-JST ZH1.5 3P线 x2",
+      "JST GH 3P-杜邦2.54 3P线 x1",
+      "USB数据线 x1",
       "GPS模块可选（M9N/M10）",
       "电源模块可选（PM02 12S/PM07 14S）"
     ]
