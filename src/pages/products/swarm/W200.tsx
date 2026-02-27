@@ -28,12 +28,12 @@ const W200 = () => {
   return (
     <div className="min-h-screen bg-background">
       <MultiLanguageSEO
-        title={isZh ? "CANI C20 UWB集群无人机开发套件 | 高精度室内定位" : "CANI C20 UWB Swarm Drone Development Kit | High-Precision Indoor Positioning"}
-        description={isZh ? "CANI C20 UWB集群开发套件，3架230mm轴距无人机，10cm定位精度，200Hz刷新率，支持Pixhawk飞控和ROS开源架构，适用于科研和编队飞行。" : "CANI C20 UWB swarm development kit with 3x 230mm drones, 10cm positioning accuracy, 200Hz refresh rate, Pixhawk FC and open-source ROS architecture for research and formation flight."}
+        title={isZh ? "CANI W200 UWB集群无人机开发套件 | 高精度室内定位" : "CANI W200 UWB Swarm Drone Development Kit | High-Precision Indoor Positioning"}
+        description={isZh ? "CANI W200 UWB集群开发套件，3架230mm轴距无人机，10cm定位精度，200Hz刷新率，支持Pixhawk飞控和ROS开源架构，适用于科研和编队飞行。" : "CANI W200 UWB swarm development kit with 3x 230mm drones, 10cm positioning accuracy, 200Hz refresh rate, Pixhawk FC and open-source ROS architecture for research and formation flight."}
         keywords={isZh ? "集群无人机,UWB定位,编队飞行,Pixhawk,ROS,科研无人机" : "swarm drone,UWB positioning,formation flight,Pixhawk,ROS,research drone"}
         path="/products/swarm/w200"
       />
-      <PageStructuredData data={{ type: 'Product', name: 'CANI C20 UWB Swarm Kit', description: 'UWB swarm drone development kit with 3 drones, 10cm accuracy, open-source ROS architecture', category: 'Swarm Drone System', sku: 'CANI-C20-UWB' }} />
+      <PageStructuredData data={{ type: 'Product', name: 'CANI W200 UWB Swarm Kit', description: 'UWB swarm drone development kit with 3 drones, 10cm accuracy, open-source ROS architecture', category: 'Swarm Drone System', sku: 'CANI-W200-UWB' }} />
       <Header />
       <FloatingContact />
       <BackButton to="/products/swarm" label={isZh ? '← 返回集群产品' : '← Back to Swarm'} />
@@ -42,15 +42,15 @@ const W200 = () => {
         {/* Hero */}
         <section className="relative min-h-[80vh] flex items-center justify-center overflow-hidden">
           <div className="absolute inset-0 bg-black">
-            <img src={heroImage} alt="CANI C20 Swarm Fleet" className="w-full h-full object-contain object-center opacity-40" loading="eager" />
+            <img src={heroImage} alt="CANI W200 Swarm Fleet" className="w-full h-full object-contain object-center opacity-40" loading="eager" />
             <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-black/80" />
           </div>
           <div className="container-custom relative z-10 text-center py-20">
             <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }}>
-              <Badge className="bg-accent/90 text-accent-foreground mb-4 text-sm">CANI C20 · UWB</Badge>
+              <Badge className="bg-accent/90 text-accent-foreground mb-4 text-sm">CANI W200 · UWB</Badge>
             </motion.div>
             <motion.h1 initial={{ opacity: 0, y: 50 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.2 }} className="text-4xl md:text-5xl lg:text-6xl font-black text-white mb-6">
-              {isZh ? 'CANI C20 集群编队套件' : 'CANI C20 Swarm Formation Kit'}
+              {isZh ? 'CANI W200 集群编队套件' : 'CANI W200 Swarm Formation Kit'}
             </motion.h1>
             <motion.p initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.4 }} className="text-lg md:text-xl text-white/80 max-w-4xl mx-auto mb-8">
               {isZh
