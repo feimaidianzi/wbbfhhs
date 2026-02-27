@@ -6,6 +6,7 @@ import { ArrowRight, Monitor, Navigation, Tv, Satellite } from "lucide-react";
 import { LangLink as Link } from "@/components/LangLink";
 import { BackButton } from "@/components/BackButton";
 import { otherAccessoriesProducts, otherAccessoriesCategories } from "@/data/otherAccessoriesProducts";
+import { translateOtherAccKey } from "@/data/otherAccessoriesFallback";
 import { MultiLanguageSEO } from "@/components/MultiLanguageSEO";
 import { useLanguage } from "@/contexts/LanguageContext";
 
@@ -17,64 +18,7 @@ const categoryIcons: Record<string, React.ComponentType<{ className?: string }>>
 const OtherAccessories = () => {
   const { t } = useLanguage();
 
-  const otherAccFallback: Record<string, string> = {
-    'otherAcc.category.monitor': '监视器/眼镜',
-    'otherAcc.category.monitor.desc': 'FPV监视器与头戴眼镜，支持5.8G接收与DVR录制',
-    'otherAcc.category.gps': 'GPS模块',
-    'otherAcc.category.gps.desc': 'M10高精度GPS与GPS+电子罗盘一体模块',
-
-    'otherAcc.monitor5ips.name': '5英寸IPS DVR监视器',
-    'otherAcc.monitor5ips.slogan': '高清显示 | 内置DVR',
-    'otherAcc.monitor5ips.subSlogan': '5英寸IPS屏，40CH接收，内置电池',
-    'otherAcc.goggles40ch.name': '40CH FPV头戴眼镜',
-    'otherAcc.goggles40ch.slogan': '沉浸体验 | 双接收分集',
-    'otherAcc.goggles40ch.subSlogan': '双屏显示，内置DVR，飞行更沉浸',
-    'otherAcc.monitor43.name': '4.3英寸DVR监视器',
-    'otherAcc.monitor43.slogan': '轻便实用 | 入门优选',
-    'otherAcc.monitor43.subSlogan': '40CH接收，便携小屏，性价比高',
-    'otherAcc.monitor7lcd.name': '7英寸LCD监视器',
-    'otherAcc.monitor7lcd.slogan': '大屏监看 | 专业图传',
-    'otherAcc.monitor7lcd.subSlogan': '7英寸高亮显示，支持DVR录制',
-    'otherAcc.gpsM10q120.name': 'M10Q GPS模块（120mm孔距）',
-    'otherAcc.gpsM10q120.slogan': '快速搜星 | 高精定位',
-    'otherAcc.gpsM10q120.subSlogan': 'Ublox M10芯片，标准120mm双孔安装',
-    'otherAcc.gpsM10q180.name': 'M10Q GPS模块（180mm孔距）',
-    'otherAcc.gpsM10q180.slogan': '稳定定位 | 安装灵活',
-    'otherAcc.gpsM10q180.subSlogan': '180mm双孔设计，适配更多机型',
-    'otherAcc.gpsM10q250.name': 'M10Q GPS模块（250mm孔距）',
-    'otherAcc.gpsM10q250.slogan': '超长孔距 | 远距布置',
-    'otherAcc.gpsM10q250.subSlogan': '250mm双孔布局，适合大型平台',
-    'otherAcc.gpsM10q120Compass.name': 'M10Q GPS+罗盘模块（120mm）',
-    'otherAcc.gpsM10q120Compass.slogan': '二合一 | 航向增强',
-    'otherAcc.gpsM10q120Compass.subSlogan': 'GPS与QMC5883罗盘一体，布线更简洁',
-    'otherAcc.gpsM10q180Compass.name': 'M10Q GPS+罗盘模块（180mm）',
-    'otherAcc.gpsM10q180Compass.slogan': '定位+定向 | 一体集成',
-    'otherAcc.gpsM10q180Compass.subSlogan': '180mm双孔，适配中大型飞行平台',
-
-    'otherAcc.feature.5inchIPS': '5英寸IPS',
-    'otherAcc.feature.40ch': '40频道接收',
-    'otherAcc.feature.builtInDVR': '内置DVR',
-    'otherAcc.feature.builtInBattery': '内置电池',
-    'otherAcc.feature.dualDiversity': '双接收分集',
-    'otherAcc.feature.immersive': '沉浸式体验',
-    'otherAcc.feature.43inch': '4.3英寸小屏',
-    'otherAcc.feature.costEffective': '高性价比',
-    'otherAcc.feature.7inchBig': '7英寸大屏',
-    'otherAcc.feature.professional': '专业级监看',
-    'otherAcc.feature.m10Chip': 'Ublox M10芯片',
-    'otherAcc.feature.120mmSpacing': '120mm孔距',
-    'otherAcc.feature.fastLock': '快速搜星',
-    'otherAcc.feature.highPrecision': '高精度定位',
-    'otherAcc.feature.180mmSpacing': '180mm孔距',
-    'otherAcc.feature.250mmSpacing': '250mm孔距',
-    'otherAcc.feature.builtInCompass': '内置电子罗盘',
-    'otherAcc.feature.twoInOne': '二合一设计',
-  };
-
-  const tf = (key: string) => {
-    const translated = t(key);
-    return translated === key ? (otherAccFallback[key] || key) : translated;
-  };
+  const tf = (key: string) => translateOtherAccKey(key, t);
 
   return (
     <div className="min-h-screen">
