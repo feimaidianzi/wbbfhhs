@@ -23,7 +23,7 @@ import { useLanguage } from "@/contexts/LanguageContext";
 
 // 导入图片
 import heroImage from "@/assets/products/logistics-hero.jpg";
-import deliveryImage from "@/assets/products/logistics-delivery.jpg";
+import deliveryImage from "@/assets/products/logistics-delivery-clean.jpg";
 import dropImage from "@/assets/products/logistics-drop.jpg";
 import foldImage from "@/assets/products/logistics-fold.jpg";
 import waypointImage from "@/assets/products/logistics-waypoint.jpg";
