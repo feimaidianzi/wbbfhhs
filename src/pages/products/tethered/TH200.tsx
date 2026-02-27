@@ -19,7 +19,7 @@ import emergencyLightImg from "@/assets/products/th200-emergency-lighting.jpg";
 import coolingImg from "@/assets/products/th200-cooling-system.jpg";
 import commRelayImg from "@/assets/products/th200-comm-relay.jpg";
 import tetherEquipImg from "@/assets/products/th200-tether-equipment-clean.jpg";
-import droneDisplayImg from "@/assets/products/th200-product-display.jpg";
+import droneDisplayImg from "@/assets/products/th200-product-display-clean.jpg";
 
 import firefightingImg from "@/assets/seo/firefighting-aerial-response.jpg";
 import emergencyImg from "@/assets/seo/emergency-rescue-night.jpg";
