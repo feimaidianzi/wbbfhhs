@@ -7,17 +7,19 @@ import s900Datalink4 from "@/assets/fpv/s900-datalink-4.jpg";
 import s900Datalink5 from "@/assets/fpv/s900-datalink-5.jpg";
 import s900Datalink6 from "@/assets/fpv/s900-datalink-6.jpg";
 import s900Datalink7 from "@/assets/fpv/s900-datalink-7.jpg";
+import meshLinkAntenna from "@/assets/products/mesh-link-antenna.webp";
 
 export interface DigitalFpvProduct {
   id: string;
   nameKey: string;
-  category: "transmitter" | "receiver" | "datalink";
+  category: "transmitter" | "receiver" | "datalink" | "meshlink";
   sloganKey: string;
   subSloganKey: string;
   descriptionKey: string;
   price: string;
   image: string;
   keyFeatureKeys: string[];
+  customLink?: string;
   specs: {
     categoryKey: string;
     items: { labelKey: string; value: string }[];
@@ -229,6 +231,26 @@ export const digitalFpvProducts: DigitalFpvProduct[] = [
       wifilink2Image,
       wifilinkRxImage,
     ]
+  },
+  {
+    id: "mesh-link",
+    nameKey: "digitalFpv.meshLink.name",
+    category: "meshlink",
+    sloganKey: "digitalFpv.meshLink.slogan",
+    subSloganKey: "digitalFpv.meshLink.subSlogan",
+    descriptionKey: "digitalFpv.meshLink.description",
+    price: "询价",
+    image: meshLinkAntenna,
+    customLink: "/products/accessories/mesh-link",
+    keyFeatureKeys: [
+      "digitalFpv.meshLink.keyFeature.1",
+      "digitalFpv.meshLink.keyFeature.2",
+      "digitalFpv.meshLink.keyFeature.3",
+      "digitalFpv.meshLink.keyFeature.4"
+    ],
+    specs: [],
+    features: [],
+    gallery: [meshLinkAntenna]
   }
 ];
 
@@ -242,5 +264,10 @@ export const digitalFpvCategories = [
     id: "transmitter",
     nameKey: "digitalFpv.category.transmitter",
     descriptionKey: "digitalFpv.category.transmitter.desc",
+  },
+  {
+    id: "meshlink",
+    nameKey: "digitalFpv.category.meshlink",
+    descriptionKey: "digitalFpv.category.meshlink.desc",
   }
 ];

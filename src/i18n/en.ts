@@ -139,6 +139,16 @@ export const enTranslations: Record<string, string> = {
   'digitalFpv.category.transmitter.desc': 'HD digital video transmission kit with TX and RX',
   'digitalFpv.category.receiver': 'Digital FPV Receiver',
   'digitalFpv.category.receiver.desc': 'HD digital video receiver module for goggles or display',
+  'digitalFpv.category.meshlink': 'Wireless Mesh Module',
+  'digitalFpv.category.meshlink.desc': 'Mesh self-organizing network module for multi-point long-range communication',
+  'digitalFpv.meshLink.name': 'CANI Wireless Mesh Link Module',
+  'digitalFpv.meshLink.slogan': 'Ultra Long-Range Mesh Network',
+  'digitalFpv.meshLink.subSlogan': '150KM range, tri-band selectable, 100Mbps peak rate',
+  'digitalFpv.meshLink.description': 'SDR SoC-based wireless mesh communication module supporting 800M/1.4G/2.4G tri-band, mesh multi-point networking for UAV and emergency scenarios',
+  'digitalFpv.meshLink.keyFeature.1': '150KM Max Range',
+  'digitalFpv.meshLink.keyFeature.2': 'Mesh Networking',
+  'digitalFpv.meshLink.keyFeature.3': 'Tri-Band Selectable',
+  'digitalFpv.meshLink.keyFeature.4': '100Mbps Rate',
   
   // S900 Datalink
   'digitalFpv.s900.name': 'S900 UAV Datalink Radio',

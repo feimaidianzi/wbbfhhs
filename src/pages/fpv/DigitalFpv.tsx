@@ -135,7 +135,7 @@ const DigitalFpv = () => {
                   {categoryProducts.map((product) => (
                     <Link
                       key={product.id}
-                      to={`/products/accessories/digital-fpv/${product.id}`}
+                      to={product.customLink || `/products/accessories/digital-fpv/${product.id}`}
                       className="group bg-card rounded-2xl overflow-hidden shadow-card hover:shadow-card-hover transition-all"
                     >
                       <div className="aspect-[4/3] overflow-hidden bg-gradient-to-br from-secondary to-secondary/50 relative">
