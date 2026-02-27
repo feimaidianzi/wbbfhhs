@@ -9,7 +9,8 @@ import { useLanguage } from "@/contexts/LanguageContext";
 import { 
   ArrowRight, Mail, Phone, CheckCircle, Radio, Wifi, Zap, Shield, 
   Signal, Network, MapPin, Building, TreePine, Camera, Home, 
-  MonitorSmartphone, Cpu, Gauge, Thermometer, Ruler, Clock
+  MonitorSmartphone, Cpu, Gauge, Flame, Eye, BatteryCharging,
+  Waves, ImageIcon, Activity
 } from "lucide-react";
 
 // Import clean images
@@ -28,6 +29,21 @@ const MeshLink = () => {
     { icon: Wifi, text: t('meshLink.highlight.diffraction') },
     { icon: Zap, text: t('meshLink.highlight.lowPower') },
     { icon: Radio, text: t('meshLink.highlight.antiInterference') },
+  ];
+
+  const advantages = [
+    { icon: Cpu, title: t('meshLink.advantage.sdr.title'), desc: t('meshLink.advantage.sdr.desc') },
+    { icon: Waves, title: t('meshLink.advantage.bandwidth.title'), desc: t('meshLink.advantage.bandwidth.desc') },
+    { icon: Gauge, title: t('meshLink.advantage.speed.title'), desc: t('meshLink.advantage.speed.desc') },
+    { icon: Activity, title: t('meshLink.advantage.hopping.title'), desc: t('meshLink.advantage.hopping.desc') },
+    { icon: ImageIcon, title: t('meshLink.advantage.maxrange.title'), desc: t('meshLink.advantage.maxrange.desc') },
+  ];
+
+  const serviceAreas = [
+    { icon: MonitorSmartphone, label: t('meshLink.serviceArea.uav') },
+    { icon: Flame, label: t('meshLink.serviceArea.fire') },
+    { icon: Eye, label: t('meshLink.serviceArea.surveillance') },
+    { icon: BatteryCharging, label: t('meshLink.serviceArea.inspection') },
   ];
 
   const frequencyBands = [
@@ -85,14 +101,18 @@ const MeshLink = () => {
     ]},
   ];
 
-  const interfacePins = [
-    { side: t('meshLink.interface.front'), pins: [
-      "Aux antenna", "Main antenna", "Ethernet-1", "Ethernet-2", "Ethernet-3",
-      "Power-IN", "Data-TTL", "Config-UART", "PA-control", "USB-A"
-    ]},
-    { side: t('meshLink.interface.back'), pins: [
-      "Power-OUT", "USB-B", "LED", "Data-RS232"
-    ]},
+  const commInterfaces = [
+    t('meshLink.commInterface.usb'),
+    t('meshLink.commInterface.dc'),
+    t('meshLink.commInterface.ap'),
+    t('meshLink.commInterface.debug'),
+    t('meshLink.commInterface.data'),
+    t('meshLink.commInterface.mainAnt'),
+    t('meshLink.commInterface.auxAnt'),
+    t('meshLink.commInterface.eth1'),
+    t('meshLink.commInterface.eth2'),
+    t('meshLink.commInterface.eth3'),
+    t('meshLink.commInterface.power'),
   ];
 
   const caseStudies = [
@@ -126,6 +146,16 @@ const MeshLink = () => {
         t('meshLink.case.village.detail3'),
       ],
       icon: Home,
+    },
+    {
+      title: t('meshLink.case.smartpark.title'),
+      desc: t('meshLink.case.smartpark.desc'),
+      details: [
+        t('meshLink.case.smartpark.detail1'),
+        t('meshLink.case.smartpark.detail2'),
+        t('meshLink.case.smartpark.detail3'),
+      ],
+      icon: Network,
     },
   ];
 
@@ -164,7 +194,6 @@ const MeshLink = () => {
                   <span>/</span>
                   <span className="text-white">{t('meshLink.breadcrumb.current')}</span>
                 </div>
-
                 <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-4 leading-tight">
                   {t('meshLink.hero.title')}
                 </h1>
@@ -174,8 +203,6 @@ const MeshLink = () => {
                 <p className="text-muted-foreground text-lg mb-8 leading-relaxed">
                   {t('meshLink.hero.desc')}
                 </p>
-
-                {/* Key highlight badges */}
                 <div className="flex flex-wrap gap-3 mb-8">
                   {highlights.map((h, i) => (
                     <span key={i} className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm px-4 py-2 rounded-full text-sm text-white border border-white/20">
@@ -184,7 +211,6 @@ const MeshLink = () => {
                     </span>
                   ))}
                 </div>
-
                 <div className="flex flex-wrap gap-4">
                   <LangLink to="/contact">
                     <Button size="lg" className="bg-accent text-accent-foreground hover:bg-accent/90 font-bold shadow-lg group">
@@ -198,21 +224,35 @@ const MeshLink = () => {
                   </Button>
                 </div>
               </div>
-
               <div className="flex justify-center">
-                <img
-                  src={meshLinkAntenna}
-                  alt={t('meshLink.hero.title')}
-                  className="max-w-sm w-full rounded-2xl shadow-2xl"
-                  loading="eager"
-                />
+                <img src={meshLinkAntenna} alt={t('meshLink.hero.title')} className="max-w-sm w-full rounded-2xl shadow-2xl" loading="eager" />
               </div>
             </div>
           </div>
         </section>
 
-        {/* Key Features */}
+        {/* 五大优势 */}
         <section className="py-20 bg-muted">
+          <div className="container-custom">
+            <h2 className="text-3xl md:text-4xl font-bold text-foreground text-center mb-16">
+              {t('meshLink.advantages.title')}
+            </h2>
+            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6 max-w-5xl mx-auto">
+              {advantages.map((a, i) => (
+                <div key={i} className="flex flex-col items-center text-center bg-card p-6 rounded-xl shadow-card hover:shadow-card-hover transition-all">
+                  <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mb-4">
+                    <a.icon className="h-8 w-8 text-primary" />
+                  </div>
+                  <h3 className="text-base font-bold text-card-foreground mb-2">{a.title}</h3>
+                  <p className="text-muted-foreground text-xs leading-relaxed">{a.desc}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* Key Features */}
+        <section className="py-20 bg-background">
           <div className="container-custom">
             <h2 className="text-3xl md:text-4xl font-bold text-foreground text-center mb-16">
               {t('meshLink.features.title')}
@@ -231,8 +271,8 @@ const MeshLink = () => {
           </div>
         </section>
 
-        {/* Frequency Variants with images */}
-        <section className="py-20 bg-background">
+        {/* Frequency Variants */}
+        <section className="py-20 bg-muted">
           <div className="container-custom">
             <h2 className="text-3xl md:text-4xl font-bold text-foreground text-center mb-4">
               {t('meshLink.freq.title')}
@@ -240,9 +280,7 @@ const MeshLink = () => {
             <p className="text-muted-foreground text-center mb-16 max-w-2xl mx-auto">
               {t('meshLink.freq.desc')}
             </p>
-
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
-              {/* Triband variant */}
               <div className="bg-card rounded-2xl shadow-card overflow-hidden border border-border/30">
                 <div className="aspect-square bg-muted/50 flex items-center justify-center p-8">
                   <img src={meshLinkTriband} alt="800M/1.4G/2.4G" className="max-h-full object-contain" />
@@ -260,8 +298,6 @@ const MeshLink = () => {
                   </ul>
                 </div>
               </div>
-
-              {/* 1.4G single band variant */}
               <div className="bg-card rounded-2xl shadow-card overflow-hidden border border-border/30">
                 <div className="aspect-square bg-muted/50 flex items-center justify-center p-8">
                   <img src={meshLink1g4} alt="1.4G" className="max-h-full object-contain" />
@@ -284,8 +320,8 @@ const MeshLink = () => {
           </div>
         </section>
 
-        {/* PCB Module - HQL010P */}
-        <section className="py-20 bg-muted">
+        {/* HQL010P Core Module - Enhanced */}
+        <section className="py-20 bg-background">
           <div className="container-custom">
             <h2 className="text-3xl md:text-4xl font-bold text-foreground text-center mb-4">
               {t('meshLink.module.title')}
@@ -293,19 +329,51 @@ const MeshLink = () => {
             <p className="text-muted-foreground text-center mb-16 max-w-2xl mx-auto">
               {t('meshLink.module.desc')}
             </p>
-
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center max-w-5xl mx-auto">
               <div className="flex justify-center">
                 <img src={meshLinkPcb} alt="HQL010P" className="max-w-md w-full rounded-xl shadow-lg" />
               </div>
               <div>
-                <h3 className="text-2xl font-bold text-foreground mb-6">HQL010P</h3>
-                <p className="text-muted-foreground mb-6">{t('meshLink.module.hql010p.desc')}</p>
-                <div className="space-y-3">
-                  {["Ethernet", "USB", "UART", "RS232", "TTL"].map((iface, i) => (
+                <h3 className="text-2xl font-bold text-foreground mb-2">HQL010P</h3>
+                <p className="text-lg text-accent font-semibold mb-6">{t('meshLink.module.hql010p.fullDesc')}</p>
+                <ul className="space-y-3">
+                  {[
+                    t('meshLink.module.hql010p.point1'),
+                    t('meshLink.module.hql010p.point2'),
+                    t('meshLink.module.hql010p.point3'),
+                    t('meshLink.module.hql010p.point4'),
+                    t('meshLink.module.hql010p.point5'),
+                  ].map((point, i) => (
+                    <li key={i} className="flex items-start gap-3 text-muted-foreground">
+                      <CheckCircle className="w-5 h-5 text-accent mt-0.5 shrink-0" />
+                      <span>{point}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Communication Interfaces - Detailed */}
+        <section className="py-20 bg-muted">
+          <div className="container-custom">
+            <h2 className="text-3xl md:text-4xl font-bold text-foreground text-center mb-4">
+              {t('meshLink.commInterface.title')}
+            </h2>
+            <p className="text-muted-foreground text-center mb-16 max-w-3xl mx-auto">
+              {t('meshLink.commInterface.desc')}
+            </p>
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center max-w-5xl mx-auto">
+              <div className="flex justify-center">
+                <img src={meshLinkInterfaces} alt={t('meshLink.commInterface.title')} className="max-w-md w-full rounded-xl shadow-lg" />
+              </div>
+              <div>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                  {commInterfaces.map((iface, i) => (
                     <div key={i} className="flex items-center gap-3 bg-card p-3 rounded-lg border border-border/30">
                       <Cpu className="w-5 h-5 text-primary shrink-0" />
-                      <span className="font-medium text-foreground">{iface}</span>
+                      <span className="font-medium text-foreground text-sm">{iface}</span>
                     </div>
                   ))}
                 </div>
@@ -314,37 +382,29 @@ const MeshLink = () => {
           </div>
         </section>
 
-        {/* Interface Diagram */}
+        {/* Product & Service Application Areas */}
         <section className="py-20 bg-background">
           <div className="container-custom">
-            <h2 className="text-3xl md:text-4xl font-bold text-foreground text-center mb-16">
-              {t('meshLink.interface.title')}
+            <h2 className="text-3xl md:text-4xl font-bold text-foreground text-center mb-4">
+              {t('meshLink.serviceAreas.title')}
             </h2>
-
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center max-w-5xl mx-auto">
-              <div className="flex justify-center">
-                <img src={meshLinkInterfaces} alt={t('meshLink.interface.title')} className="max-w-md w-full rounded-xl shadow-lg" />
-              </div>
-              <div className="space-y-8">
-                {interfacePins.map((group, gi) => (
-                  <div key={gi}>
-                    <h3 className="text-lg font-bold text-foreground mb-4">{group.side}</h3>
-                    <div className="grid grid-cols-2 gap-2">
-                      {group.pins.map((pin, pi) => (
-                        <div key={pi} className="flex items-center gap-2 bg-muted p-2 rounded-lg text-sm">
-                          <div className="w-2 h-2 bg-accent rounded-full shrink-0" />
-                          <span className="font-medium text-foreground">{pin}</span>
-                        </div>
-                      ))}
-                    </div>
+            <p className="text-sm text-muted-foreground text-center mb-16 uppercase tracking-widest">
+              PRODUCT AND SERVICE AREAS
+            </p>
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-6 max-w-4xl mx-auto">
+              {serviceAreas.map((area, i) => (
+                <div key={i} className="flex flex-col items-center gap-4 bg-card p-8 rounded-xl shadow-card hover:shadow-card-hover transition-all text-center">
+                  <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center">
+                    <area.icon className="h-8 w-8 text-primary" />
                   </div>
-                ))}
-              </div>
+                  <span className="font-medium text-foreground text-sm">{area.label}</span>
+                </div>
+              ))}
             </div>
           </div>
         </section>
 
-        {/* Applications */}
+        {/* Applications & Mesh */}
         <section className="py-20 bg-muted">
           <div className="container-custom">
             <h2 className="text-3xl md:text-4xl font-bold text-foreground text-center mb-16">
@@ -360,8 +420,6 @@ const MeshLink = () => {
                 </div>
               ))}
             </div>
-
-            {/* Mesh networking topology description */}
             <div className="mt-16 max-w-3xl mx-auto bg-card p-8 rounded-2xl shadow-card border border-border/30">
               <h3 className="text-xl font-bold text-foreground mb-4 flex items-center gap-2">
                 <Network className="w-6 h-6 text-accent" />
@@ -400,12 +458,8 @@ const MeshLink = () => {
                             {group.category}
                           </td>
                         )}
-                        <td className="px-6 py-3 font-medium text-foreground border-b border-border/30">
-                          {item.label}
-                        </td>
-                        <td className="px-6 py-3 text-muted-foreground border-b border-border/30 whitespace-pre-line">
-                          {item.value}
-                        </td>
+                        <td className="px-6 py-3 font-medium text-foreground border-b border-border/30">{item.label}</td>
+                        <td className="px-6 py-3 text-muted-foreground border-b border-border/30 whitespace-pre-line">{item.value}</td>
                       </tr>
                     ))
                   ))}
@@ -421,7 +475,7 @@ const MeshLink = () => {
             <h2 className="text-3xl md:text-4xl font-bold text-foreground text-center mb-16">
               {t('meshLink.cases.title')}
             </h2>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
               {caseStudies.map((cs, i) => (
                 <div key={i} className="bg-card rounded-2xl shadow-card overflow-hidden border border-border/30 hover:shadow-card-hover transition-all">
                   <div className="bg-primary/10 p-6 flex items-center gap-4">
