@@ -1,6 +1,8 @@
 import { useLanguage } from "@/contexts/LanguageContext";
 import { motion } from "framer-motion";
 import { Camera, Monitor, Wifi, Cpu, Navigation, Radio } from "lucide-react";
+import { OptimizedImage } from "@/components/OptimizedImage";
+import rcImg from "@/assets/products/c30-remote-controller.webp";
 
 const C30ArchitectureSection = () => {
   const { language } = useLanguage();
@@ -42,6 +44,9 @@ const C30ArchitectureSection = () => {
               <div className="flex items-center gap-3 mb-4">
                 <Monitor className="h-6 w-6 text-accent" />
                 <h3 className="font-bold text-foreground">{isZh ? '地面站控制层' : 'Ground Station Control Layer'}</h3>
+              </div>
+              <div className="flex justify-center mb-4">
+                <OptimizedImage src={rcImg} alt={isZh ? "CANI C30 遥控器" : "CANI C30 Remote Controller"} aspectRatio="4/3" className="w-40 rounded-lg" objectFit="contain" />
               </div>
               <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
                 {(isZh
