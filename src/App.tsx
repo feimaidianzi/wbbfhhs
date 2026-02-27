@@ -45,6 +45,9 @@ const WorkDrone = React.lazy(() => import("./pages/products/WorkDrone"));
 const Accessories = React.lazy(() => import("./pages/products/Accessories"));
 const Swarm = React.lazy(() => import("./pages/products/Swarm"));
 const SwarmKit = React.lazy(() => import("./pages/products/SwarmKit"));
+const SwarmW200 = React.lazy(() => import("./pages/products/swarm/W200"));
+const SwarmW300 = React.lazy(() => import("./pages/products/swarm/W300"));
+const SwarmW400 = React.lazy(() => import("./pages/products/swarm/W400"));
 const TH100 = React.lazy(() => import("./pages/products/tethered/TH100"));
 const TH200 = React.lazy(() => import("./pages/products/tethered/TH200"));
 const TH300 = React.lazy(() => import("./pages/products/tethered/TH300"));
@@ -191,6 +194,9 @@ const publicRoutes = [
   { path: "/products/multi-rotor/x1600", element: <X1600 /> },
   { path: "/products/swarm", element: <Swarm /> },
   { path: "/products/swarm-kit", element: <SwarmKit /> },
+  { path: "/products/swarm/w200", element: <SwarmW200 /> },
+  { path: "/products/swarm/w300", element: <SwarmW300 /> },
+  { path: "/products/swarm/w400", element: <SwarmW400 /> },
   { path: "/products/agriculture", element: <Agriculture /> },
   { path: "/products/training", element: <Training /> },
   { path: "/products/work-drone", element: <WorkDrone /> },
