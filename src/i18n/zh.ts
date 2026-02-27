@@ -6428,6 +6428,16 @@ export const zhTranslations: Record<string, string> = {
   'digitalFpv.category.transmitter.desc': '高清数字图传套装，包含发射端与接收端',
   'digitalFpv.category.receiver': '数字图传接收器',
   'digitalFpv.category.receiver.desc': '高清数字图传接收模块，配合眼镜或显示器使用',
+  'digitalFpv.category.meshlink': '无线自组网模块',
+  'digitalFpv.category.meshlink.desc': 'Mesh自组网通信模块，支持多点对多点远距离传输',
+  'digitalFpv.meshLink.name': 'CANI无线自组网链路模块',
+  'digitalFpv.meshLink.slogan': '超远距离Mesh组网',
+  'digitalFpv.meshLink.subSlogan': '150KM传输距离 三频段可选 100Mbps峰值速率',
+  'digitalFpv.meshLink.description': '基于SDR SoC芯片的无线自组网通信模块，支持800M/1.4G/2.4G三频段，Mesh多点对多点组网，适用于无人机、应急通信等场景',
+  'digitalFpv.meshLink.keyFeature.1': '最远150KM',
+  'digitalFpv.meshLink.keyFeature.2': 'Mesh自组网',
+  'digitalFpv.meshLink.keyFeature.3': '三频段可选',
+  'digitalFpv.meshLink.keyFeature.4': '100Mbps速率',
   
   // S900 Datalink
   'digitalFpv.s900.name': '收发一体数字电台',
