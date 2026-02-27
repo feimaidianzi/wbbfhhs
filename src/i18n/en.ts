@@ -135,8 +135,8 @@ export const enTranslations: Record<string, string> = {
   // Digital FPV Categories
   'digitalFpv.category.datalink': 'UAV Datalink',
   'digitalFpv.category.datalink.desc': 'Long-range bidirectional telemetry radio for BVLOS operations',
-  'digitalFpv.category.transmitter': 'Digital FPV Transmitter',
-  'digitalFpv.category.transmitter.desc': 'HD digital video transmitter module for aircraft',
+  'digitalFpv.category.transmitter': 'Digital FPV System',
+  'digitalFpv.category.transmitter.desc': 'HD digital video transmission kit with TX and RX',
   'digitalFpv.category.receiver': 'Digital FPV Receiver',
   'digitalFpv.category.receiver.desc': 'HD digital video receiver module for goggles or display',
   
