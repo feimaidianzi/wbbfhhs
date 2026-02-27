@@ -17,7 +17,7 @@ import {
 import meshLinkAntenna from "@/assets/products/mesh-link-antenna.webp";
 import meshLinkTriband from "@/assets/products/mesh-link-triband-clean.webp";
 import meshLink1g4 from "@/assets/products/mesh-link-1g4-clean.webp";
-import meshLinkPcb from "@/assets/products/mesh-link-pcb.webp";
+import meshLinkPcb from "@/assets/products/mesh-link-pcb-clean.webp";
 import meshLinkInterfaces from "@/assets/products/mesh-link-interfaces.webp";
 import MeshLinkInterfaceDiagram from "@/components/products/MeshLinkInterfaceDiagram";
 
