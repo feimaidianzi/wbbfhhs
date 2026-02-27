@@ -922,9 +922,9 @@ export const zhTranslations: Record<string, string> = {
   'logistics.wl30.desc': 'WL-30重型物流无人机，30公斤载重，适用于长距离物流',
 
   // Logistics SY800 Product Detail Page
-  'logistics.sy800.seo.title': '载重无人机 SY800-2 - 世翼运载无人机',
-  'logistics.sy800.seo.desc': '世翼运载无人机SY800-2，新一代升级版多功能载重无人机。碳纤维机身，可折叠设计，定制运载重量可达1-100斤，续航30分钟，10公里遥控距离。',
-  'logistics.sy800.heroTitle': '世翼运载无人机',
+  'logistics.sy800.seo.title': '载重无人机 SY800-2 - CANI运载无人机',
+  'logistics.sy800.seo.desc': 'CANI运载无人机SY800-2，新一代升级版多功能载重无人机。碳纤维机身，可折叠设计，定制运载重量可达1-100斤，续航30分钟，10公里遥控距离。',
+  'logistics.sy800.heroTitle': 'CANI运载无人机',
   'logistics.sy800.heroSubtitle': '新一代升级版多功能载重无人机',
   'logistics.sy800.heroSlogan': '性能 · 从未如此稳定',
   'logistics.sy800.getQuote': '获取报价',
