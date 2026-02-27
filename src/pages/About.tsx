@@ -2,7 +2,7 @@ import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { FloatingContact } from "@/components/FloatingContact";
 import { Button } from "@/components/ui/button";
-import { Target, Users, Award, ArrowRight, Cpu, BarChart3, Globe2, ShieldCheck, Layers, Radio, Settings } from "lucide-react";
+import { Target, Users, Award, ArrowRight, Cpu, BarChart3, Globe2, ShieldCheck, Layers, Radio, Settings, Code, Plane } from "lucide-react";
 import caniReception from "@/assets/about/cani-reception.png";
 import { MultiLanguageSEO, createLocalizedBreadcrumbData } from "@/components/MultiLanguageSEO";
 import { useLanguage } from "@/contexts/LanguageContext";
@@ -37,18 +37,43 @@ const About = () => {
     { value: "30+", label: t('about.stat.citiesCovered') },
   ];
 
-  const competencyRows = [
-    { dim: t('about.competencies.row1.dim'), spec: t('about.competencies.row1.spec'), value: t('about.competencies.row1.value') },
-    { dim: t('about.competencies.row2.dim'), spec: t('about.competencies.row2.spec'), value: t('about.competencies.row2.value') },
-    { dim: t('about.competencies.row3.dim'), spec: t('about.competencies.row3.spec'), value: t('about.competencies.row3.value') },
-    { dim: t('about.competencies.row4.dim'), spec: t('about.competencies.row4.spec'), value: t('about.competencies.row4.value') },
-    { dim: t('about.competencies.row5.dim'), spec: t('about.competencies.row5.spec'), value: t('about.competencies.row5.value') },
+  const competencyLayers = [
+    {
+      icon: Cpu,
+      title: t('about.competencies.layer1.title'),
+      tag: t('about.competencies.layer1.tag'),
+      rows: [
+        { dim: t('about.competencies.row1.dim'), spec: t('about.competencies.row1.spec'), value: t('about.competencies.row1.value') },
+        { dim: t('about.competencies.row2.dim'), spec: t('about.competencies.row2.spec'), value: t('about.competencies.row2.value') },
+        { dim: t('about.competencies.row3.dim'), spec: t('about.competencies.row3.spec'), value: t('about.competencies.row3.value') },
+      ],
+    },
+    {
+      icon: Code,
+      title: t('about.competencies.layer2.title'),
+      tag: t('about.competencies.layer2.tag'),
+      rows: [
+        { dim: t('about.competencies.row4.dim'), spec: t('about.competencies.row4.spec'), value: t('about.competencies.row4.value') },
+        { dim: t('about.competencies.row5.dim'), spec: t('about.competencies.row5.spec'), value: t('about.competencies.row5.value') },
+        { dim: t('about.competencies.row6.dim'), spec: t('about.competencies.row6.spec'), value: t('about.competencies.row6.value') },
+      ],
+    },
+    {
+      icon: Plane,
+      title: t('about.competencies.layer3.title'),
+      tag: t('about.competencies.layer3.tag'),
+      rows: [
+        { dim: t('about.competencies.row7.dim'), spec: t('about.competencies.row7.spec'), value: t('about.competencies.row7.value') },
+        { dim: t('about.competencies.row8.dim'), spec: t('about.competencies.row8.spec'), value: t('about.competencies.row8.value') },
+        { dim: t('about.competencies.row9.dim'), spec: t('about.competencies.row9.spec'), value: t('about.competencies.row9.value') },
+      ],
+    },
   ];
 
   const ecosystemItems = [
-    { icon: Layers, title: t('about.ecosystem.item1.title'), desc: t('about.ecosystem.item1.desc') },
-    { icon: Radio, title: t('about.ecosystem.item2.title'), desc: t('about.ecosystem.item2.desc') },
-    { icon: Settings, title: t('about.ecosystem.item3.title'), desc: t('about.ecosystem.item3.desc') },
+    { icon: Cpu, title: t('about.ecosystem.item1.title'), desc: t('about.ecosystem.item1.desc') },
+    { icon: Code, title: t('about.ecosystem.item2.title'), desc: t('about.ecosystem.item2.desc') },
+    { icon: Plane, title: t('about.ecosystem.item3.title'), desc: t('about.ecosystem.item3.desc') },
   ];
 
   const faqItems = [
@@ -252,31 +277,47 @@ const About = () => {
         {/* Facility Gallery */}
         <FacilityGallery t={t} />
 
-        {/* Core Competencies Table */}
+        {/* Core Competencies - Full-Stack Architecture */}
         <section className="py-16 bg-background">
           <div className="container-custom">
-            <h2 className="text-2xl md:text-3xl font-bold text-center mb-10">
+            <h2 className="text-2xl md:text-3xl font-bold text-center mb-4">
               {t('about.competencies.title')}
             </h2>
-            <div className="max-w-5xl mx-auto overflow-x-auto">
-              <Table>
-                <TableHeader>
-                  <TableRow>
-                    <TableHead className="font-bold">{t('about.competencies.col.dimension')}</TableHead>
-                    <TableHead className="font-bold">{t('about.competencies.col.spec')}</TableHead>
-                    <TableHead className="font-bold">{t('about.competencies.col.value')}</TableHead>
-                  </TableRow>
-                </TableHeader>
-                <TableBody>
-                  {competencyRows.map((row, idx) => (
-                    <TableRow key={idx}>
-                      <TableCell className="font-semibold text-accent whitespace-nowrap">{row.dim}</TableCell>
-                      <TableCell>{row.spec}</TableCell>
-                      <TableCell className="text-muted-foreground">{row.value}</TableCell>
-                    </TableRow>
-                  ))}
-                </TableBody>
-              </Table>
+            <p className="text-muted-foreground text-center mb-12 max-w-3xl mx-auto">
+              {t('about.competencies.subtitle')}
+            </p>
+            <div className="max-w-5xl mx-auto space-y-8">
+              {competencyLayers.map((layer, layerIdx) => (
+                <div key={layerIdx} className="bg-card rounded-xl border border-border overflow-hidden shadow-card">
+                  {/* Layer Header */}
+                  <div className="flex items-center gap-3 px-6 py-4 bg-primary">
+                    <layer.icon className="w-6 h-6 text-accent" />
+                    <h3 className="text-lg font-bold text-primary-foreground">{layer.title}</h3>
+                    <span className="ml-auto text-xs font-mono bg-accent/20 text-accent px-3 py-1 rounded-full">{layer.tag}</span>
+                  </div>
+                  {/* Layer Table */}
+                  <div className="overflow-x-auto">
+                    <Table>
+                      <TableHeader>
+                        <TableRow>
+                          <TableHead className="font-bold w-[140px]">{t('about.competencies.col.dimension')}</TableHead>
+                          <TableHead className="font-bold">{t('about.competencies.col.spec')}</TableHead>
+                          <TableHead className="font-bold">{t('about.competencies.col.value')}</TableHead>
+                        </TableRow>
+                      </TableHeader>
+                      <TableBody>
+                        {layer.rows.map((row, idx) => (
+                          <TableRow key={idx}>
+                            <TableCell className="font-semibold text-accent whitespace-nowrap">{row.dim}</TableCell>
+                            <TableCell>{row.spec}</TableCell>
+                            <TableCell className="text-muted-foreground">{row.value}</TableCell>
+                          </TableRow>
+                        ))}
+                      </TableBody>
+                    </Table>
+                  </div>
+                </div>
+              ))}
             </div>
           </div>
         </section>
