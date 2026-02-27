@@ -256,9 +256,11 @@ const App = () => (
               <Route path="/admin/translations" element={<TranslationManagement />} />
               <Route path="/admin/seo-management" element={<SEOManagement />} />
 
-              {/* Public routes */}
+              {/* Public routes with breadcrumb */}
               {publicRoutes.map(({ path, element }) => (
-                <Route key={path} path={path} element={element} />
+                <Route key={path} path={path} element={
+                  path === "/" ? element : <WithBreadcrumb>{element}</WithBreadcrumb>
+                } />
               ))}
 
               {/* Language-prefixed routes */}
