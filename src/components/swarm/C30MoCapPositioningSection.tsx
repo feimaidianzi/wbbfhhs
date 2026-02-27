@@ -126,7 +126,8 @@ const C30MoCapPositioningSection = () => {
               <img
                 src={mocapSystemImg}
                 alt={isZh ? "动作捕捉定位系统" : "Motion Capture Positioning System"}
-                className="w-full h-auto"
+                className="w-full h-auto object-cover"
+                style={{ aspectRatio: "16/9" }}
                 loading="lazy"
               />
             </div>
