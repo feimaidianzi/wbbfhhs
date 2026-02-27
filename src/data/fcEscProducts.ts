@@ -720,7 +720,7 @@ export const flightControllerProducts: FcEscProduct[] = [
     images: [
       fcF722_1,
       fcF722_2,
-      fcF722_3,
+      fcF722_3Clean,
       fcF722_4,
       fcF722_5,
       fcF722_6
@@ -774,7 +774,7 @@ export const escProducts: FcEscProduct[] = [
       esc55a_3,
       esc55a_4,
       esc55a_5,
-      esc55a_6
+      esc55a6Clean
     ],
     price: "¥449",
     highlights: [
