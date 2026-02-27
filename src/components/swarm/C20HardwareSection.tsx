@@ -1,6 +1,7 @@
 import { useLanguage } from "@/contexts/LanguageContext";
 import { motion } from "framer-motion";
 import { Cpu, Radio, Zap, Navigation, Battery, Fan } from "lucide-react";
+import c20FleetImg from "@/assets/products/c20-fleet-render.png";
 
 const C20HardwareSection = () => {
   const { language } = useLanguage();
@@ -27,27 +28,10 @@ const C20HardwareSection = () => {
         <div className="relative max-w-4xl mx-auto">
           {/* Central drone representation */}
           <div className="relative mx-auto w-full aspect-square max-w-lg">
-            {/* Drone body - CSS cross shape */}
+            {/* Drone product image */}
             <div className="absolute inset-0 flex items-center justify-center">
-              <div className="relative w-48 h-48 md:w-64 md:h-64">
-                {/* Arms */}
-                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-3 bg-gradient-to-r from-accent/60 via-foreground/30 to-accent/60 rotate-45 rounded-full" />
-                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-3 bg-gradient-to-r from-accent/60 via-foreground/30 to-accent/60 -rotate-45 rounded-full" />
-                {/* Center body */}
-                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-16 h-16 md:w-20 md:h-20 bg-card border-2 border-accent/40 rounded-lg shadow-[0_0_30px_hsl(var(--accent)/0.2)] flex items-center justify-center">
-                  <span className="text-xs md:text-sm font-bold text-accent">C20</span>
-                </div>
-                {/* Motor circles */}
-                {[
-                  "top-0 left-0 -translate-x-1/2 -translate-y-1/2",
-                  "top-0 right-0 translate-x-1/2 -translate-y-1/2",
-                  "bottom-0 left-0 -translate-x-1/2 translate-y-1/2",
-                  "bottom-0 right-0 translate-x-1/2 translate-y-1/2",
-                ].map((pos, i) => (
-                  <div key={i} className={`absolute ${pos} w-12 h-12 md:w-16 md:h-16 rounded-full border-2 border-accent/30 bg-accent/5 animate-spin`} style={{ animationDuration: '4s' }}>
-                    <div className="absolute inset-1 rounded-full border border-dashed border-accent/20" />
-                  </div>
-                ))}
+              <div className="relative w-56 h-56 md:w-72 md:h-72">
+                <img src={c20FleetImg} alt="CANI C20 Drone" className="w-full h-full object-contain drop-shadow-lg" />
               </div>
             </div>
 
