@@ -3,7 +3,7 @@ import { Radio, Cpu, Code, Wifi, Monitor, Layers } from "lucide-react";
 import { useLanguage } from "@/contexts/LanguageContext";
 import swarmUwbShowcase from "@/assets/products/swarm-uwb-showcase.jpg";
 import swarmUwbHardware from "@/assets/products/swarm-uwb-hardware.jpg";
-import swarmMocapShowcase from "@/assets/products/swarm-mocap-showcase.jpg";
+import swarmMocapShowcase from "@/assets/products/swarm-mocap-showcase.png";
 import swarmGpsShowcase from "@/assets/products/swarm-gps-showcase.jpg";
 
 const Swarm = () => {
