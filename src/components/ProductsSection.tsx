@@ -2,11 +2,11 @@ import { motion } from "framer-motion";
 import { ArrowRight, Sparkles, Zap, Radio, Camera, Gamepad2, Cpu } from "lucide-react";
 import { LangLink } from "@/components/LangLink";
 import { useLanguage } from "@/contexts/LanguageContext";
-import fpvDroneImg from "@/assets/seo/fpv-drone-aerial.jpg";
-import circuitBoardImg from "@/assets/seo/circuit-board-closeup.jpg";
-import gimbalCameraImg from "@/assets/seo/gimbal-camera-drone.jpg";
-import elrsReceiverImg from "@/assets/seo/elrs-receiver.jpg";
-import vtxHighPowerImg from "@/assets/vtx/vtx-high-power.jpg";
+import digitalFpvImg from "@/assets/products/digital-fpv-wifilink2.jpg";
+import vtxImg from "@/assets/products/vtx-2.5w.png";
+import fcEscImg from "@/assets/products/fc-esc-stack.jpg";
+import gimbalImg from "@/assets/products/gimbal-k40t.png";
+import elrsImg from "@/assets/products/elrs-915-diversity.jpg";
 
 const containerVariants = {
   hidden: { opacity: 0 },
@@ -38,7 +38,7 @@ export const ProductsSection = () => {
       name: t('productsSection.category.digitalFpv'),
       description: t('productsSection.category.digitalFpv.desc'),
       subtitle: t('productsSection.category.digitalFpv.subtitle'),
-      image: fpvDroneImg,
+      image: digitalFpvImg,
       link: "/products/accessories/digital-fpv",
       icon: Radio,
       isHot: true,
@@ -47,7 +47,7 @@ export const ProductsSection = () => {
       name: t('productsSection.category.vtx'),
       description: t('productsSection.category.vtx.desc'),
       subtitle: t('productsSection.category.vtx.subtitle'),
-      image: vtxHighPowerImg,
+      image: vtxImg,
       link: "/products/accessories/vtx-vrx",
       icon: Zap,
     },
@@ -55,7 +55,7 @@ export const ProductsSection = () => {
       name: t('productsSection.category.fc'),
       description: t('productsSection.category.fc.desc'),
       subtitle: t('productsSection.category.fc.subtitle'),
-      image: circuitBoardImg,
+      image: fcEscImg,
       link: "/products/accessories/fc-esc",
       icon: Cpu,
     },
@@ -63,7 +63,7 @@ export const ProductsSection = () => {
       name: t('productsSection.category.gimbal'),
       description: t('productsSection.category.gimbal.desc'),
       subtitle: t('productsSection.category.gimbal.subtitle'),
-      image: gimbalCameraImg,
+      image: gimbalImg,
       link: "/products/accessories/gimbal",
       icon: Camera,
     },
@@ -71,7 +71,7 @@ export const ProductsSection = () => {
       name: t('productsSection.category.elrs'),
       description: t('productsSection.category.elrs.desc'),
       subtitle: t('productsSection.category.elrs.subtitle'),
-      image: elrsReceiverImg,
+      image: elrsImg,
       link: "/products/accessories/elrs",
       icon: Gamepad2,
       isNew: true,
