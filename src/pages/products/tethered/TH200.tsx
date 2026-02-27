@@ -15,7 +15,7 @@ import {
 } from "lucide-react";
 
 import heroImg from "@/assets/products/th200-hero-mountain.jpg";
-import emergencyLightImg from "@/assets/products/th200-emergency-lighting.jpg";
+import emergencyLightImg from "@/assets/products/th200-emergency-lighting-clean.jpg";
 import coolingImg from "@/assets/products/th200-cooling-system.jpg";
 import commRelayImg from "@/assets/products/th200-comm-relay.jpg";
 import tetherEquipImg from "@/assets/products/th200-tether-equipment-clean.jpg";
