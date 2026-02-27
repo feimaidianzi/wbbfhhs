@@ -2,110 +2,63 @@ import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { FloatingContact } from "@/components/FloatingContact";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { MultiLanguageSEO } from "@/components/MultiLanguageSEO";
 import { PageStructuredData } from "@/components/PageStructuredData";
 import { BackButton } from "@/components/BackButton";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { motion } from "framer-motion";
-import { ArrowRight, Check, Cpu, Radio, Navigation, Layers, Monitor, Camera, Code, ChevronDown, Crosshair } from "lucide-react";
+import { ArrowRight, ChevronDown } from "lucide-react";
 import { LangLink as Link } from "@/components/LangLink";
 
-import heroImage from "@/assets/products/swarm-mocap-showcase.jpg";
-import setupImage from "@/assets/products/swarm-w300-setup.jpg";
-import groundStationImage from "@/assets/products/swarm-ground-station.jpg";
+import heroImage from "@/assets/products/cani-c30-hero-bg.webp";
 
-import W300SystemArchitecture from "@/components/swarm/W300SystemArchitecture";
+import C30FeaturesSection from "@/components/swarm/C30FeaturesSection";
+import C30ArchitectureSection from "@/components/swarm/C30ArchitectureSection";
+import C30SpecsSection from "@/components/swarm/C30SpecsSection";
+import C30PackageSection from "@/components/swarm/C30PackageSection";
+import C30HardwareSection from "@/components/swarm/C30HardwareSection";
 
 const W300 = () => {
-  const { t, language } = useLanguage();
+  const { language } = useLanguage();
   const isZh = language === 'zh';
-
-  const features = [
-    { icon: <Crosshair className="h-6 w-6" />, titleKey: "w300.feature.mocap.title", descKey: "w300.feature.mocap.desc" },
-    { icon: <Cpu className="h-6 w-6" />, titleKey: "w300.feature.jetson.title", descKey: "w300.feature.jetson.desc" },
-    { icon: <Code className="h-6 w-6" />, titleKey: "w300.feature.opensource.title", descKey: "w300.feature.opensource.desc" },
-    { icon: <Camera className="h-6 w-6" />, titleKey: "w300.feature.submm.title", descKey: "w300.feature.submm.desc" },
-    { icon: <Monitor className="h-6 w-6" />, titleKey: "w300.feature.groundStation.title", descKey: "w300.feature.groundStation.desc" },
-    { icon: <Layers className="h-6 w-6" />, titleKey: "w300.feature.formation.title", descKey: "w300.feature.formation.desc" },
-  ];
-
-  const specifications = {
-    drone: [
-      { labelKey: "w300.spec.drone.type", value: t("w300.spec.drone.type.value") },
-      { labelKey: "w300.spec.drone.wheelbase", value: "250mm" },
-      { labelKey: "w300.spec.drone.weight", value: "0.58kg" },
-      { labelKey: "w300.spec.drone.takeoffWeight", value: "1.0kg" },
-      { labelKey: "w300.spec.drone.flightTime", value: "12min" },
-      { labelKey: "w300.spec.drone.hoverAccuracy", value: t("w300.spec.drone.hoverAccuracy.value") },
-      { labelKey: "w300.spec.drone.fc", value: "Pixhawk 6C" },
-      { labelKey: "w300.spec.drone.environment", value: t("w300.spec.drone.environment.value") },
-    ],
-    mocap: [
-      { labelKey: "w300.spec.mocap.system", value: "OptiTrack / NOKOV / VICON" },
-      { labelKey: "w300.spec.mocap.accuracy", value: "±1mm" },
-      { labelKey: "w300.spec.mocap.refreshRate", value: "360Hz" },
-      { labelKey: "w300.spec.mocap.latency", value: "<0.2ms" },
-      { labelKey: "w300.spec.mocap.markers", value: t("w300.spec.mocap.markers.value") },
-      { labelKey: "w300.spec.mocap.range", value: t("w300.spec.mocap.range.value") },
-    ],
-    computer: [
-      { labelKey: "w300.spec.computer.name", value: "Allspark2" },
-      { labelKey: "w300.spec.computer.module", value: "NVIDIA Jetson Orin NX" },
-      { labelKey: "w300.spec.computer.ai", value: "100 TOPS" },
-      { labelKey: "w300.spec.computer.memory", value: "16GB LPDDR5" },
-      { labelKey: "w300.spec.computer.gpu", value: "NVIDIA Ampere (918MHz)" },
-      { labelKey: "w300.spec.computer.cpu", value: "8-core Arm Cortex-A78AE" },
-    ],
-  };
-
-  const images = [heroImage, setupImage, groundStationImage];
-
-  // Content extracted from original detail images
-  const keyFeatures = [
-    isZh ? "250轴距无人机平台，专为室内精密飞行设计" : "250mm wheelbase platform designed for indoor precision flight",
-    isZh ? "兼容OptiTrack/NOKOV/VICON动捕系统，±1mm定位精度" : "Compatible with OptiTrack/NOKOV/VICON MOCAP systems, ±1mm accuracy",
-    isZh ? "红外反光标记点定位，无漂移、无累积误差" : "Infrared reflective marker positioning with no drift or cumulative errors",
-    isZh ? "360Hz高刷新率，<0.2ms超低延迟，满足精密控制需求" : "360Hz refresh rate, <0.2ms ultra-low latency for precision control",
-    isZh ? "搭配Prometheus集群控制系统和Qt地面站，简单操作即可完成集群编队、目标追踪等任务" : "With Prometheus swarm control and Qt ground station for easy formation, target tracking and more",
-  ];
 
   return (
     <div className="min-h-screen bg-background">
       <MultiLanguageSEO
-        title={t("w300.seo.title")}
-        description={t("w300.seo.description")}
-        keywords={t("w300.seo.keywords")}
+        title={isZh ? "CANI C30 动捕集群开发套件 | 亚毫米级精度编队" : "CANI C30 MoCap Swarm Kit | Sub-mm Precision Formation"}
+        description={isZh ? "CANI C30 动作捕捉集群套件，兼容OptiTrack/NOKOV/VICON，±1mm定位精度，360Hz刷新率，Jetson Orin NX机载计算，ROS开源架构。" : "CANI C30 Motion Capture swarm kit, compatible with OptiTrack/NOKOV/VICON, ±1mm accuracy, 360Hz refresh, Jetson Orin NX onboard computing, open-source ROS."}
+        keywords={isZh ? "动捕集群,MOCAP无人机,编队飞行,OptiTrack,VICON,ROS" : "mocap swarm,motion capture drone,formation flight,OptiTrack,VICON,ROS"}
         path="/products/swarm/w300"
       />
-      <PageStructuredData data={{ type: 'Product', name: 'W300 MOCAP Swarm Kit', description: t("w300.seo.description"), category: 'Swarm Drone System', sku: 'W300-MOCAP' }} />
+      <PageStructuredData data={{ type: 'Product', name: 'CANI C30 MoCap Swarm Kit', description: 'Motion capture swarm drone development kit with sub-mm precision', category: 'Swarm Drone System', sku: 'CANI-C30-MOCAP' }} />
       <Header />
       <FloatingContact />
-      <BackButton to="/products/swarm" label={t('w300.back')} />
+      <BackButton to="/products/swarm" label={isZh ? '← 返回集群产品' : '← Back to Swarm'} />
 
       <main>
         {/* Hero */}
         <section className="relative min-h-[80vh] flex items-center justify-center overflow-hidden">
           <div className="absolute inset-0">
-            <img src={heroImage} alt={t("w300.hero.title")} className="w-full h-full object-cover" />
-            <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-black/80" />
+            <img src={heroImage} alt="CANI C30 MoCap Swarm" className="w-full h-full object-cover" loading="eager" />
+            <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/50 to-black/80" />
           </div>
           <div className="container-custom relative z-10 text-center py-20">
             <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }}>
-              <Badge className="bg-accent/90 text-accent-foreground mb-4">W300 MOCAP</Badge>
+              <Badge className="bg-accent/90 text-accent-foreground mb-4 text-sm">CANI C30 · MOCAP</Badge>
             </motion.div>
             <motion.h1 initial={{ opacity: 0, y: 50 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.2 }} className="text-4xl md:text-5xl lg:text-6xl font-black text-white mb-6">
-              {t('w300.hero.title')}
+              {isZh ? 'CANI C30 动捕集群开发平台' : 'CANI C30 MoCap Swarm Platform'}
             </motion.h1>
             <motion.p initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.4 }} className="text-xl md:text-2xl text-white/80 max-w-3xl mx-auto mb-8">
-              {t('w300.hero.subtitle')}
+              {isZh
+                ? '亚毫米级动捕定位 · 全自动编队飞行 · Jetson Orin NX边缘计算 · 开源ROS架构'
+                : 'Sub-mm MoCap Positioning · Autonomous Formation · Jetson Orin NX Edge AI · Open-Source ROS'}
             </motion.p>
             <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.6 }} className="flex flex-wrap justify-center gap-4">
               <Link to="/contact">
-                <Button size="lg" className="bg-accent hover:bg-accent/90 text-accent-foreground rounded-full px-8">
-                  {t('common.contactUs')}
+                <Button size="lg" className="bg-accent hover:bg-accent/90 text-accent-foreground rounded-full px-8 min-h-[44px]">
+                  {isZh ? '获取报价' : 'Get Quote'}
                   <ArrowRight className="ml-2 h-5 w-5" />
                 </Button>
               </Link>
@@ -116,168 +69,48 @@ const W300 = () => {
           </motion.div>
         </section>
 
-        {/* Highlights */}
+        {/* Key Stats */}
         <section className="py-12 bg-accent/10">
           <div className="container-custom">
             <div className="grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
               {[
-                { value: "±1mm", labelKey: "w300.highlight.accuracy" },
-                { value: "360Hz", labelKey: "w300.highlight.refreshRate" },
-                { value: "100 TOPS", labelKey: "w300.highlight.tops" },
-                { value: "<0.2ms", labelKey: "w300.highlight.latency" },
+                { value: "±1mm", label: isZh ? "定位精度" : "Positioning Accuracy" },
+                { value: "360Hz", label: isZh ? "捕捉刷新率" : "Capture Refresh Rate" },
+                { value: "100 TOPS", label: isZh ? "AI 算力" : "AI Performance" },
+                { value: "<0.2ms", label: isZh ? "系统延迟" : "System Latency" },
               ].map((item, index) => (
                 <motion.div key={index} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: index * 0.1 }}>
                   <div className="text-3xl md:text-4xl font-black text-accent">{item.value}</div>
-                  <div className="text-sm text-muted-foreground">{t(item.labelKey)}</div>
+                  <div className="text-sm text-muted-foreground">{item.label}</div>
                 </motion.div>
               ))}
             </div>
           </div>
         </section>
 
-        {/* Gallery */}
-        <section className="py-20 bg-background">
-          <div className="container-custom">
-            <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="text-center mb-12">
-              <h2 className="text-3xl md:text-4xl font-black text-foreground mb-4">{t('w300.gallery.title')}</h2>
-            </motion.div>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-              {images.map((img, index) => (
-                <motion.div key={index} initial={{ opacity: 0, scale: 0.9 }} whileInView={{ opacity: 1, scale: 1 }} viewport={{ once: true }} transition={{ delay: index * 0.1 }}>
-                  <img src={img} alt={`W300 MOCAP ${index + 1}`} className="rounded-xl w-full aspect-[4/3] object-cover shadow-lg" />
-                </motion.div>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        {/* Features */}
-        <section className="py-20 bg-secondary">
-          <div className="container-custom">
-            <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="text-center mb-16">
-              <h2 className="text-3xl md:text-4xl font-black text-foreground mb-4">{t('w300.features.title')}</h2>
-              <p className="text-muted-foreground max-w-2xl mx-auto">{t('w300.features.desc')}</p>
-            </motion.div>
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {features.map((feature, index) => (
-                <motion.div key={index} initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: index * 0.1 }}>
-                  <Card className="h-full bg-card border-accent/10 hover:border-accent/30 transition-colors">
-                    <CardContent className="p-6">
-                      <div className="w-12 h-12 rounded-xl bg-accent/10 flex items-center justify-center text-accent mb-4">{feature.icon}</div>
-                      <h3 className="text-lg font-bold text-foreground mb-2">{t(feature.titleKey)}</h3>
-                      <p className="text-sm text-muted-foreground">{t(feature.descKey)}</p>
-                    </CardContent>
-                  </Card>
-                </motion.div>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        {/* MOCAP Technology */}
-        <section className="py-20 bg-background">
-          <div className="container-custom">
-            <div className="grid lg:grid-cols-2 gap-12 items-center">
-              <motion.div initial={{ opacity: 0, x: -30 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }}>
-                <Badge className="mb-4">{t('w300.mocap.badge')}</Badge>
-                <h2 className="text-3xl md:text-4xl font-black text-foreground mb-6">{t('w300.mocap.title')}</h2>
-                <p className="text-muted-foreground mb-6">{t('w300.mocap.desc')}</p>
-                <ul className="space-y-3">
-                  {["w300.mocap.feature1", "w300.mocap.feature2", "w300.mocap.feature3", "w300.mocap.feature4"].map((key, index) => (
-                    <li key={index} className="flex items-center gap-3">
-                      <Check className="h-5 w-5 text-accent flex-shrink-0" />
-                      <span className="text-foreground">{t(key)}</span>
-                    </li>
-                  ))}
-                </ul>
-              </motion.div>
-              <motion.div initial={{ opacity: 0, x: 30 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }}>
-                <img src={setupImage} alt="MOCAP Setup" className="rounded-2xl shadow-2xl w-full" />
-              </motion.div>
-            </div>
-          </div>
-        </section>
-
-        {/* Software Architecture - HTML instead of image */}
-        <W300SystemArchitecture />
-
-        {/* Kit Features - Content extracted from detail images */}
-        <section className="py-20 bg-background">
-          <div className="container-custom">
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              className="max-w-4xl mx-auto bg-accent/5 rounded-2xl p-8 border border-accent/10"
-            >
-              <h3 className="text-xl font-bold text-foreground mb-6 text-center">
-                {isZh ? "套件特点" : "Kit Features"}
-              </h3>
-              <ul className="space-y-4">
-                {keyFeatures.map((feature, index) => (
-                  <li key={index} className="flex items-start gap-3">
-                    <span className="flex-shrink-0 w-6 h-6 rounded-full bg-accent/20 text-accent flex items-center justify-center text-xs font-bold mt-0.5">
-                      {index + 1}
-                    </span>
-                    <span className="text-foreground">{feature}</span>
-                  </li>
-                ))}
-              </ul>
-            </motion.div>
-          </div>
-        </section>
-
-        {/* Specifications */}
-        <section className="py-20 bg-secondary">
-          <div className="container-custom">
-            <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="text-center mb-12">
-              <h2 className="text-3xl md:text-4xl font-black text-foreground">{t('w300.specs.title')}</h2>
-            </motion.div>
-            <Tabs defaultValue="drone" className="max-w-4xl mx-auto">
-              <TabsList className="grid w-full grid-cols-3 mb-8">
-                <TabsTrigger value="drone">{t('w300.specs.tab.drone')}</TabsTrigger>
-                <TabsTrigger value="mocap">{t('w300.specs.tab.mocap')}</TabsTrigger>
-                <TabsTrigger value="computer">{t('w300.specs.tab.computer')}</TabsTrigger>
-              </TabsList>
-              {Object.entries(specifications).map(([key, specs]) => (
-                <TabsContent key={key} value={key}>
-                  <Card>
-                    <CardContent className="p-0">
-                      <table className="w-full">
-                        <tbody>
-                          {specs.map((spec, index) => (
-                            <tr key={index} className={`${index % 2 === 0 ? 'bg-muted/50' : 'bg-card'}`}>
-                              <td className="px-6 py-4 font-medium text-foreground border-b border-border/30 w-1/3">{t(spec.labelKey)}</td>
-                              <td className="px-6 py-4 text-muted-foreground border-b border-border/30">{spec.value}</td>
-                            </tr>
-                          ))}
-                        </tbody>
-                      </table>
-                    </CardContent>
-                  </Card>
-                </TabsContent>
-              ))}
-            </Tabs>
-          </div>
-        </section>
+        <C30FeaturesSection />
+        <C30HardwareSection />
+        <C30ArchitectureSection />
+        <C30SpecsSection />
+        <C30PackageSection />
 
         {/* Related Products */}
         <section className="py-16 bg-muted/50">
           <div className="container-custom">
-            <h3 className="text-xl font-bold text-foreground mb-6">{t('w300.related.title')}</h3>
+            <h3 className="text-xl font-bold text-foreground mb-6">{isZh ? '相关集群产品' : 'Related Swarm Products'}</h3>
             <div className="grid md:grid-cols-2 gap-4">
               <Link to="/products/swarm/w200" className="flex items-center gap-3 p-4 bg-card rounded-xl border border-border/30 hover:border-accent/30 transition-all group">
                 <ArrowRight className="w-4 h-4 text-accent shrink-0 group-hover:translate-x-1 transition-transform" />
                 <div>
-                  <span className="font-medium text-foreground group-hover:text-accent transition-colors">{t('w300.related.w200')}</span>
-                  <p className="text-xs text-muted-foreground mt-1">{t('w300.related.w200.desc')}</p>
+                  <span className="font-medium text-foreground group-hover:text-accent transition-colors">{isZh ? 'CANI C20 UWB集群套件' : 'CANI C20 UWB Swarm Kit'}</span>
+                  <p className="text-xs text-muted-foreground mt-1">{isZh ? 'UWB高精度室内定位编队方案' : 'UWB high-precision indoor positioning formation'}</p>
                 </div>
               </Link>
               <Link to="/products/swarm/w400" className="flex items-center gap-3 p-4 bg-card rounded-xl border border-border/30 hover:border-accent/30 transition-all group">
                 <ArrowRight className="w-4 h-4 text-accent shrink-0 group-hover:translate-x-1 transition-transform" />
                 <div>
-                  <span className="font-medium text-foreground group-hover:text-accent transition-colors">{t('w300.related.w400')}</span>
-                  <p className="text-xs text-muted-foreground mt-1">{t('w300.related.w400.desc')}</p>
+                  <span className="font-medium text-foreground group-hover:text-accent transition-colors">{isZh ? 'CANI C40 GPS集群套件' : 'CANI C40 GPS Swarm Kit'}</span>
+                  <p className="text-xs text-muted-foreground mt-1">{isZh ? '户外大规模GPS编队飞行系统' : 'Outdoor large-scale GPS formation flight'}</p>
                 </div>
               </Link>
             </div>
@@ -287,11 +120,15 @@ const W300 = () => {
         {/* CTA */}
         <section className="py-20 bg-primary text-primary-foreground">
           <div className="container-custom text-center">
-            <h2 className="text-3xl md:text-4xl font-bold mb-6">{t('w300.cta.title')}</h2>
-            <p className="text-lg opacity-90 mb-8 max-w-2xl mx-auto">{t('w300.cta.desc')}</p>
+            <h2 className="text-3xl md:text-4xl font-bold mb-6">
+              {isZh ? '开启亚毫米级精度集群研究' : 'Start Sub-mm Precision Swarm Research'}
+            </h2>
+            <p className="text-lg opacity-90 mb-8 max-w-2xl mx-auto">
+              {isZh ? 'CANI C30 为科研团队提供最高精度的室内集群编队平台，兼容主流动捕系统，助力前沿算法验证。' : 'CANI C30 provides the highest precision indoor swarm platform for research teams, compatible with mainstream MoCap systems.'}
+            </p>
             <Link to="/contact">
-              <Button size="lg" className="bg-accent hover:bg-accent/90 text-accent-foreground rounded-full px-8">
-                {t('common.contactUs')}
+              <Button size="lg" className="bg-accent hover:bg-accent/90 text-accent-foreground rounded-full px-8 min-h-[44px]">
+                {isZh ? '联系我们' : 'Contact Us'}
                 <ArrowRight className="ml-2 h-5 w-5" />
               </Button>
             </Link>

@@ -1,0 +1,120 @@
+import { useLanguage } from "@/contexts/LanguageContext";
+import { motion } from "framer-motion";
+import { Camera, Monitor, Wifi, Cpu, Navigation, Radio } from "lucide-react";
+
+const C30ArchitectureSection = () => {
+  const { language } = useLanguage();
+  const isZh = language === 'zh';
+
+  return (
+    <section className="py-20 bg-secondary">
+      <div className="container-custom">
+        <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="text-center mb-16">
+          <h2 className="text-3xl md:text-4xl font-black text-foreground mb-4">{isZh ? '集群系统架构' : 'Swarm System Architecture'}</h2>
+          <p className="text-muted-foreground max-w-2xl mx-auto">{isZh ? '从动捕定位到编队控制的完整技术链路' : 'Complete tech chain from MoCap positioning to formation control'}</p>
+        </motion.div>
+
+        <div className="max-w-5xl mx-auto space-y-6">
+          {/* Layer 1: MoCap System */}
+          <motion.div initial={{ opacity: 0, y: -20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
+            <div className="bg-card border-2 border-accent/30 rounded-xl p-6 shadow-[0_0_20px_hsl(var(--accent)/0.1)]">
+              <div className="flex items-center gap-3 mb-4">
+                <Camera className="h-6 w-6 text-accent" />
+                <h3 className="font-bold text-foreground text-lg">{isZh ? '动作捕捉定位层' : 'Motion Capture Positioning Layer'}</h3>
+              </div>
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+                {(isZh
+                  ? ["OptiTrack / NOKOV / VICON 兼容", "±1mm 三维定位精度", "360Hz 高刷新率", "红外反光标记 · 无漂移"]
+                  : ["OptiTrack / NOKOV / VICON Compatible", "±1mm 3D Positioning", "360Hz High Refresh Rate", "IR Markers · Zero Drift"]
+                ).map((item, i) => (
+                  <div key={i} className="bg-accent/5 rounded-lg p-3 text-center text-sm text-foreground border border-accent/10">{item}</div>
+                ))}
+              </div>
+            </div>
+          </motion.div>
+
+          {/* Connector */}
+          <div className="flex justify-center"><div className="w-px h-8 bg-gradient-to-b from-accent/40 to-accent/20" /><span className="text-[10px] text-accent bg-accent/10 px-2 py-0.5 rounded mx-2 self-center">{isZh ? '位姿数据流' : 'Pose Data Stream'}</span><div className="w-px h-8 bg-gradient-to-b from-accent/20 to-accent/40" /></div>
+
+          {/* Layer 2: Ground Station */}
+          <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
+            <div className="bg-card border border-accent/20 rounded-xl p-6">
+              <div className="flex items-center gap-3 mb-4">
+                <Monitor className="h-6 w-6 text-accent" />
+                <h3 className="font-bold text-foreground">{isZh ? '地面站控制层' : 'Ground Station Control Layer'}</h3>
+              </div>
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
+                {(isZh
+                  ? [{ t: "Qt 地面站", d: "可视化编队编排与任务管理" }, { t: "Prometheus 控制系统", d: "集群控制核心框架" }, { t: "ROS 通讯节点", d: "分布式消息与服务架构" }]
+                  : [{ t: "Qt Ground Station", d: "Visual formation choreography & task mgmt" }, { t: "Prometheus Control System", d: "Swarm control core framework" }, { t: "ROS Communication Nodes", d: "Distributed message & service architecture" }]
+                ).map((item, i) => (
+                  <div key={i} className="bg-muted/50 rounded-lg p-3 border border-border/30">
+                    <div className="font-medium text-sm text-foreground">{item.t}</div>
+                    <div className="text-xs text-muted-foreground mt-1">{item.d}</div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </motion.div>
+
+          {/* Connector */}
+          <div className="flex justify-center"><div className="w-px h-8 bg-gradient-to-b from-accent/40 to-accent/20" /><span className="text-[10px] text-accent bg-accent/10 px-2 py-0.5 rounded mx-2 self-center">{isZh ? 'WiFi 通讯' : 'WiFi Link'}</span><div className="w-px h-8 bg-gradient-to-b from-accent/20 to-accent/40" /></div>
+
+          {/* Layer 3: Drone Fleet */}
+          <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
+            <div className="bg-card border border-border/50 rounded-xl p-6">
+              <div className="flex items-center gap-3 mb-4">
+                <Cpu className="h-6 w-6 text-accent" />
+                <h3 className="font-bold text-foreground">{isZh ? '无人机编队层' : 'Drone Formation Layer'}</h3>
+              </div>
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                {[1, 2, 3].map((id) => (
+                  <div key={id} className="bg-accent/5 rounded-lg p-4 border border-accent/10 text-center hover:border-accent/30 hover:shadow-[0_0_15px_hsl(var(--accent)/0.1)] transition-all">
+                    <div className="w-10 h-10 rounded-full bg-accent/20 flex items-center justify-center mx-auto mb-2">
+                      <Navigation className="h-5 w-5 text-accent" />
+                    </div>
+                    <div className="font-bold text-sm text-foreground">{isZh ? `C30 无人机 #${id}` : `C30 Drone #${id}`}</div>
+                    <div className="text-xs text-muted-foreground mt-1 space-y-0.5">
+                      <div>Pixhawk 6C + Jetson Orin NX</div>
+                      <div>{isZh ? '反光标记 · WiFi通讯' : 'Reflective Markers · WiFi'}</div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </motion.div>
+        </div>
+
+        {/* Why C30 comparison */}
+        <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="mt-16 max-w-4xl mx-auto">
+          <h3 className="text-xl font-bold text-foreground mb-6 text-center">{isZh ? '为什么选择 C30？' : 'Why Choose C30?'}</h3>
+          <div className="overflow-x-auto">
+            <table className="w-full min-w-[500px]">
+              <thead>
+                <tr className="bg-accent/10">
+                  <th className="px-4 py-3 text-left text-sm font-bold text-foreground">{isZh ? '对比项' : 'Comparison'}</th>
+                  <th className="px-4 py-3 text-center text-sm font-bold text-muted-foreground">CANI C20 (UWB)</th>
+                  <th className="px-4 py-3 text-center text-sm font-bold text-accent">CANI C30 (MoCap)</th>
+                </tr>
+              </thead>
+              <tbody>
+                {(isZh
+                  ? [["定位精度", "10cm", "±1mm"], ["刷新率", "200Hz", "360Hz"], ["延迟", "<0.5ms", "<0.2ms"], ["定位方式", "UWB 基站", "动捕相机"], ["适用场景", "大空间室内", "精密实验室"], ["机载计算", "Allspark2", "Jetson Orin NX"]]
+                  : [["Accuracy", "10cm", "±1mm"], ["Refresh Rate", "200Hz", "360Hz"], ["Latency", "<0.5ms", "<0.2ms"], ["Positioning", "UWB Stations", "MoCap Cameras"], ["Scenario", "Large Indoor", "Precision Lab"], ["Onboard AI", "Allspark2", "Jetson Orin NX"]]
+                ).map(([label, c20, c30], i) => (
+                  <tr key={i} className={i % 2 === 0 ? 'bg-muted/50' : 'bg-card'}>
+                    <td className="px-4 py-3 text-sm font-medium text-foreground border-b border-border/30">{label}</td>
+                    <td className="px-4 py-3 text-sm text-center text-muted-foreground border-b border-border/30">{c20}</td>
+                    <td className="px-4 py-3 text-sm text-center text-accent font-bold border-b border-border/30">{c30}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </motion.div>
+      </div>
+    </section>
+  );
+};
+
+export default C30ArchitectureSection;
