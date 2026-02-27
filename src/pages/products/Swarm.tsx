@@ -25,10 +25,10 @@ const Swarm = () => {
   ];
 
   const stats = [
-    { value: "10cm", title: t('swarmPage.stat1.title'), description: t('swarmPage.stat1.desc') },
+    { value: "±1mm", title: t('swarmPage.stat1.title'), description: t('swarmPage.stat1.desc') },
     { value: "100 TOPS", title: t('swarmPage.stat2.title'), description: t('swarmPage.stat2.desc') },
-    { value: "200Hz", title: t('swarmPage.stat3.title'), description: t('swarmPage.stat3.desc') },
-    { value: "<0.5ms", title: t('swarmPage.stat4.title'), description: t('swarmPage.stat4.desc') },
+    { value: "25min", title: t('swarmPage.stat3.title'), description: t('swarmPage.stat3.desc') },
+    { value: "1km", title: t('swarmPage.stat4.title'), description: t('swarmPage.stat4.desc') },
   ];
 
   const applications = [
