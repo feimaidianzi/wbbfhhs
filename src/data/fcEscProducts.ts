@@ -1,6 +1,9 @@
 // FC/ESC 产品数据
 // 图片资产导入
 import fcEsc80a from '@/assets/products/fc-esc-80a.jpg';
+import pixhawk4Hero from '@/assets/products/pixhawk4-hero.webp';
+import pixhawk4Accessories from '@/assets/products/pixhawk4-accessories.webp';
+import pixhawk4Cables from '@/assets/products/pixhawk4-cables.webp';
 import fcEsc100a from '@/assets/products/fc-esc-100a.jpg';
 import fcEsc100aAngle from '@/assets/products/fc-esc-100a-angle.jpg';
 import fcEscPcbBack from '@/assets/products/fc-esc-pcb-back.jpg';
@@ -545,6 +548,77 @@ export const researchFlightControllers: FcEscProduct[] = [
       "CANI FMT飞控 x1",
       "连接线材 x1套",
       "技术文档 x1"
+    ]
+  },
+  {
+    id: "cani-pixhawk4",
+    name: "CANI Pixhawk 4 飞控",
+    model: "Pixhawk 4 (PX4)",
+    category: "科研飞控",
+    hot: true,
+    image: pixhawk4Hero,
+    images: [
+      pixhawk4Hero,
+      pixhawk4Accessories,
+      pixhawk4Cables
+    ],
+    price: "联系咨询",
+    highlights: [
+      "STM32F765处理器，32位Arm Cortex-M7 216MHz",
+      "双IMU冗余：ICM-20689 + BMI-055",
+      "IST8310罗盘 + MS5611气压计",
+      "支持PX4/ArduPilot开源固件",
+      "丰富接口：CAN/I2C/UART/SPI/PWM",
+      "铝壳/塑料壳可选"
+    ],
+    description: [
+      "Pixhawk 4是专业级开源飞控平台，采用STM32F765高性能处理器，主频216MHz",
+      "搭载Bosch和InvenSense双IMU传感器：ICM-20689陀螺仪+加速度计、BMI-055备用IMU，实现冗余设计",
+      "IST8310高精度罗盘 + MS5611气压计，提供精确的姿态和高度数据",
+      "丰富的外设接口：双CAN总线、多路UART/TELEM、I2C、SPI、DSM/SBUS RC输入",
+      "支持I/O PWM OUT(MAIN) + FMU PWM OUT(AUX)双路PWM输出",
+      "可选PM02 12S/PM07 14S电源模块，适配不同电压平台",
+      "可选M9N/M10 GPS模块，满足不同精度需求",
+      "提供完整线材包：JST GH连接线、PWM排针板、CAN/I2C扩展板等"
+    ],
+    fcSpecs: {
+      mcu: "STM32F765 (Arm Cortex-M7, 216MHz)",
+      gyro: "ICM-20689 + BMI-055 (双冗余)",
+      osd: "-",
+      blackbox: "板载存储",
+      uart: "TELEM1/TELEM2 + 多路UART",
+      voltage: "POWER1/POWER2双路电源输入",
+      bec: "通过PM02/PM07电源模块供电",
+      size: "标准Pixhawk尺寸",
+      weight: "-",
+      firmware: "PX4 / ArduPilot"
+    },
+    features: [
+      "双IMU冗余设计（ICM-20689 + BMI-055），提升飞行安全性",
+      "IST8310罗盘 + MS5611气压计，精确姿态估计",
+      "双CAN总线接口，支持DroneCAN外设扩展",
+      "I2C A/B双通道，USB/SPI/DSM/SBUS RC等完整接口",
+      "I/O PWM OUT(MAIN) 8通道 + FMU PWM OUT(AUX) 6通道",
+      "铝壳版本提供更好的电磁屏蔽和散热",
+      "支持PX4和ArduPilot两大开源固件生态",
+      "完善的线材包和可选GPS/电源模块配件体系"
+    ],
+    notes: [
+      "适合科研院校、无人机竞赛和工业应用开发",
+      "支持多旋翼、固定翼、VTOL等多种机型",
+      "铝壳版本推荐用于工业级应用，塑料壳适合教学实验"
+    ],
+    packageIncludes: [
+      "Pixhawk 4飞控 x1（铝壳/塑料壳可选）",
+      "PWM EXT OUT 8P排针板 x2",
+      "CAP&ADC IN排针板 x1",
+      "CAN/I2C扩展板 x1",
+      "JST GH 4P-GH 4P线 x2",
+      "JST GH 6P-GH 6P线 x3",
+      "JST SH 6P-6P线 x1",
+      "JST GH 7P-GH 7P线 x1",
+      "GPS模块可选（M9N/M10）",
+      "电源模块可选（PM02 12S/PM07 14S）"
     ]
   }
 ];
