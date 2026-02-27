@@ -41,8 +41,9 @@ const W200 = () => {
       <main>
         {/* Hero */}
         <section className="relative min-h-[80vh] flex items-center justify-center overflow-hidden">
-          <div className="absolute inset-0 bg-gradient-to-b from-background via-background/95 to-background">
-            <img src={heroImage} alt="CANI C20 Swarm Fleet" className="w-full h-full object-contain object-center opacity-30" loading="eager" />
+          <div className="absolute inset-0 bg-black">
+            <img src={heroImage} alt="CANI C20 Swarm Fleet" className="w-full h-full object-contain object-center opacity-40" loading="eager" />
+            <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-black/80" />
           </div>
           <div className="container-custom relative z-10 text-center py-20">
             <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }}>
