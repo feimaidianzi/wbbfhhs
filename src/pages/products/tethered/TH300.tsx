@@ -19,7 +19,7 @@ import flight24hImg from "@/assets/products/th300-24h-flight-clean.png";
 import altitude200mImg from "@/assets/products/th300-200m-altitude-clean.png";
 import safetyImg from "@/assets/products/th300-safety-design.png";
 import voltageImg from "@/assets/products/th300-voltage-adjust.png";
-import droneDisplayImg from "@/assets/products/th300-drone-display.png";
+import droneDisplayImg from "@/assets/products/th300-drone-display-clean.png";
 
 import firefightingImg from "@/assets/seo/firefighting-aerial-response.jpg";
 import emergencyImg from "@/assets/seo/emergency-rescue-night.jpg";
