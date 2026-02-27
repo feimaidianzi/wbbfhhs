@@ -80,6 +80,7 @@ const VtxVrx = React.lazy(() => import("./pages/products/accessories/VtxVrx"));
 const VtxDetail = React.lazy(() => import("./pages/products/accessories/VtxDetail"));
 const FcEsc = React.lazy(() => import("./pages/products/accessories/FcEsc"));
 const FcEscDetail = React.lazy(() => import("./pages/products/accessories/FcEscDetail"));
+const CaniFmtDetail = React.lazy(() => import("./pages/products/accessories/CaniFmtDetail"));
 const Gimbal = React.lazy(() => import("./pages/products/accessories/Gimbal"));
 const GimbalDetail = React.lazy(() => import("./pages/products/accessories/GimbalDetail"));
 const CameraPage = React.lazy(() => import("./pages/products/accessories/Camera"));
@@ -205,6 +206,7 @@ const publicRoutes = [
   { path: "/products/accessories/vtx-vrx", element: <VtxVrx /> },
   { path: "/products/accessories/vtx-vrx/:productId", element: <VtxDetail /> },
   { path: "/products/accessories/fc-esc", element: <FcEsc /> },
+  { path: "/products/accessories/fc-esc/cani-fmt", element: <CaniFmtDetail /> },
   { path: "/products/accessories/fc-esc/:productId", element: <FcEscDetail /> },
   { path: "/products/accessories/gimbal", element: <Gimbal /> },
   { path: "/products/accessories/gimbal/:productId", element: <GimbalDetail /> },
