@@ -39,8 +39,8 @@ const SEGMENT_LABELS: Record<string, string> = {
   "digital-fpv": "accessory.vtx",
   elrs: "header.elrs",
   others: "header.others",
-  "mesh-link": "Mesh Link",
-  "ai-module": "AI Module",
+  "mesh-link": "mesh-link",
+  "ai-module": "ai-module",
 
   // Tethered models
   "th-100": "TH-100",
