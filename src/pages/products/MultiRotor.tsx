@@ -12,7 +12,7 @@ import multiRotorHeroImg from "@/assets/seo/multi-rotor-hero.jpg";
 import tetheredImg from "@/assets/products/th-200-hero.png";
 import logisticsImg from "@/assets/products/logistics-hero-clean.jpg";
 import swarmImg from "@/assets/products/swarm-uwb-showcase.jpg";
-import fpvImg from "@/assets/products/swarm-p230-uwb-hero.jpg";
+import fpvImg from "@/assets/products/digital-fpv-wifilink2.jpg";
 import {
   ArrowRight, ChevronDown, Link2, Truck, Users, Gamepad2,
   Shield, Zap, Wind, Cpu, Clock, Weight, FileDown, Radar
