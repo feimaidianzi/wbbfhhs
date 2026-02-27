@@ -17,8 +17,8 @@ import envMonitorImg from "@/assets/products/th300-env-monitor.png";
 import fiberBtImg from "@/assets/products/th300-fiber-bt.png";
 import flight24hImg from "@/assets/products/th300-24h-flight-clean.png";
 import altitude200mImg from "@/assets/products/th300-200m-altitude-clean.png";
-import safetyImg from "@/assets/products/th300-safety-design.png";
-import voltageImg from "@/assets/products/th300-voltage-adjust.png";
+import safetyImg from "@/assets/products/th300-safety-design-clean.png";
+import voltageImg from "@/assets/products/th300-voltage-adjust-clean.png";
 import droneDisplayImg from "@/assets/products/th300-drone-display-clean.png";
 
 import firefightingImg from "@/assets/seo/firefighting-aerial-response.jpg";
