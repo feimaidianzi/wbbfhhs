@@ -7203,9 +7203,9 @@ export const zhTranslations: Record<string, string> = {
   'fcEscDetail.tdk.fc-f722.h1': 'F722飞控：双陀螺仪高性能自动驾驶仪',
 
   // Research FC TDK
-  'fcEscDetail.tdk.cani-fmt.title': 'CANI-FMT 先进飞行管理与固件转换工具',
-  'fcEscDetail.tdk.cani-fmt.desc': 'CANI-FMT：先进飞行管理与固件转换工具，无缝衔接硬件协议，优化多平台无人机机队PID调参，支持Matlab/Simulink自动代码生成。',
-  'fcEscDetail.tdk.cani-fmt.h1': 'CANI-FMT：先进飞行管理与固件转换工具',
+  'fcEscDetail.tdk.cani-fmt.title': 'CANI ICF5 开源飞控 | FMT自驾仪系统 | 科研级飞控',
+  'fcEscDetail.tdk.cani-fmt.desc': 'CANI ICF5开源飞控，搭载FMT下一代自驾仪系统，GD32F470旗舰芯片240MHz，支持MATLAB/Simulink基于模型开发(MBD)，HIL/SIL/MIL仿真，以太网+CAN总线，适用于无人机科研与算法验证。',
+  'fcEscDetail.tdk.cani-fmt.h1': 'CANI ICF5 开源飞控 — FMT下一代自驾仪系统',
 
   // Per-SKU matching guide
   'fcEscDetail.match.stack-mini-f7-55a': '2207/2306电机，5寸高螺距螺旋桨，4-6S LiPo',

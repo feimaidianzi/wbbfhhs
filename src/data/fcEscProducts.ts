@@ -1,6 +1,10 @@
 // FC/ESC 产品数据
 // 图片资产导入
 import fcEsc80a from '@/assets/products/fc-esc-80a.jpg';
+import icf5Hero from '@/assets/products/icf5-hero.jpg';
+import icf5Angle2 from '@/assets/products/icf5-angle2.jpg';
+import icf5Angle3 from '@/assets/products/icf5-angle3.jpg';
+import icf5Angle4 from '@/assets/products/icf5-angle4.jpg';
 import pixhawk4Hero from '@/assets/products/pixhawk4-hero.webp';
 import pixhawk4Accessories from '@/assets/products/pixhawk4-accessories.webp';
 import pixhawk4Cables from '@/assets/products/pixhawk4-cables.webp';
@@ -493,63 +497,67 @@ export const sixInOneEscProducts: FcEscProduct[] = [
 export const researchFlightControllers: FcEscProduct[] = [
   {
     id: "cani-fmt",
-    name: "CANI FMT 开源飞控",
-    model: "CANI ICF5",
+    name: "CANI ICF5 开源飞控",
+    model: "ICF5 (IC200)",
     category: "科研飞控",
     hot: true,
-    image: "/images/products/cani-fmt-fc.png",
+    image: icf5Hero,
     images: [
-      "/images/products/cani-fmt-fc.png",
-      "/images/products/cani-fmt-fc-4.jpg",
-      "/images/products/cani-fmt-fc-sim.jpg"
+      icf5Hero,
+      icf5Angle2,
+      icf5Angle3,
+      icf5Angle4
     ],
     price: "联系咨询",
     highlights: [
-      "GD32芯片，技术自主可控",
-      "支持Matlab/Simulink自动生成代码",
-      "支持dSPACE开发系统",
-      "多种仿真功能：MIL/SIL/HIL",
-      "支持多旋翼、固定翼机型",
-      "外形小巧轻薄，仅39.2g"
+      "GD32F470旗舰芯片，240MHz主频",
+      "支持MATLAB/Simulink基于模型开发(MBD)",
+      "多种仿真：HIL/SIL/MIL全覆盖",
+      "丰富接口：以太网、CAN总线、5路UART",
+      "支持多旋翼、固定翼等多种机型",
+      "外形小巧轻薄，仅39.3g"
     ],
     description: [
-      "CANI FMT飞控是开源飞控系统，采用GD32芯片，实现技术自主可控",
-      "支持Matlab/Simulink图形化建模，自动生成代码，简化开发流程",
-      "兼容dSPACE开发系统，便于快速开发验证",
+      "ICF5是专业级高性能开源自驾仪硬件，搭载FMT下一代开源自驾仪系统",
+      "采用GD32F470旗舰芯片，240MHz主频，512KB SRAM，1024KB Flash，内核自带FPU浮点运算单元",
+      "支持MATLAB/Simulink图形化建模(MBD)，一键代码自动生成并部署到飞控硬件",
       "支持模型仿真(MIL)、软件在环仿真(SIL)、硬件在环仿真(HIL)等多种仿真方式",
-      "支持室内外定点、定高、自稳飞行控制",
-      "支持航点任务模式、一键起飞、返航、降落",
-      "外形小巧轻薄，体积仅70×36×18.5mm，重量仅39.2g"
+      "可用于无人机、无人车、无人船和机器人等多种应用领域",
+      "提供以太网接口和CAN总线接口，适用于工业和高带宽数据传输场景",
+      "体积仅70×36×18.5mm，重量仅39.3g，在成本、尺寸和功能上具备很大优势"
     ],
     fcSpecs: {
-      mcu: "GD32芯片",
-      gyro: "高精度IMU",
-      osd: "支持",
-      blackbox: "板载存储",
-      uart: "多UART接口",
-      voltage: "宽电压输入",
-      bec: "多路输出",
+      mcu: "GD32F470VGT6 (240MHz, 512KB SRAM, 1024KB Flash)",
+      gyro: "BMI088 / ICM-42688-P / ICM-20948(选配)",
+      osd: "-",
+      blackbox: "W25Q16 Nor Flash (16M-bit) + TF卡槽",
+      uart: "5路UART + 1路USB(Type-C)",
+      voltage: "PM工作电压 4.5~5.5V / USB 4.75~5.25V",
+      bec: "10路PWM输出",
       size: "70×36×18.5mm",
-      weight: "39.2g",
+      weight: "39.3g",
       firmware: "FMT开源固件"
     },
     features: [
-      "GD32芯片，低成本高性价比",
-      "Matlab/Simulink自动代码生成",
-      "dSPACE开发系统支持",
-      "模型仿真/半实物仿真",
-      "多旋翼/固定翼机型支持",
-      "室内室外飞行控制",
-      "航点任务模式",
-      "一键起飞/返航/降落"
+      "GD32F470旗舰级芯片，FPU浮点运算",
+      "MATLAB/Simulink基于模型开发(MBD)",
+      "一键代码自动生成与部署",
+      "HIL/SIL/MIL多种仿真方式",
+      "以太网 + CAN总线 + 5路UART",
+      "3路I2C + 1路SPI接口",
+      "BMM150电子罗盘 + SPL06气压计",
+      "多旋翼/固定翼/VTOL(即将支持)",
+      "支持室内外定点、定高、自稳飞行",
+      "航点任务模式、一键起飞/返航/降落"
     ],
     notes: [
       "适合科研院校和企业研发使用",
       "支持二次开发和算法验证",
-      "提供技术支持服务"
+      "ICM-20948和MS5611为选配，默认不焊接",
+      "工作温度：-20~85℃"
     ],
     packageIncludes: [
-      "CANI FMT飞控 x1",
+      "CANI ICF5飞控 x1",
       "连接线材 x1套",
       "技术文档 x1"
     ]
