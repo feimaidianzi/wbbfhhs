@@ -1,6 +1,10 @@
 import { useLanguage } from "@/contexts/LanguageContext";
 import { motion } from "framer-motion";
 import { useState } from "react";
+import { OptimizedImage } from "@/components/OptimizedImage";
+import fcImg from "@/assets/products/w400-flight-controller.webp";
+import jetsonImg from "@/assets/products/w400-jetson-module.webp";
+import meshImg from "@/assets/products/w400-mesh-module.webp";
 
 interface HardwarePin {
   id: string;
@@ -96,6 +100,30 @@ const W400HardwareSection = () => {
               </div>
             </motion.div>
           ))}
+        </div>
+
+        {/* Hardware Component Gallery */}
+        <div className="mt-16 max-w-5xl mx-auto">
+          <h3 className="text-xl font-bold text-foreground mb-8 text-center">{isZh ? '核心硬件模组' : 'Core Hardware Modules'}</h3>
+          <div className="grid md:grid-cols-3 gap-6">
+            {[
+              { img: fcImg, title: "Pixhawk 6C", desc: isZh ? "飞行控制器 · STM32H743 · IMU冗余设计" : "Flight Controller · STM32H743 · Redundant IMU" },
+              { img: jetsonImg, title: "Jetson Orin NX", desc: isZh ? "100 TOPS AI算力 · 16GB LPDDR5 · 8核A78AE" : "100 TOPS AI · 16GB LPDDR5 · 8-core A78AE" },
+              { img: meshImg, title: "Mini Homer", desc: isZh ? "Mesh自组网 · 1km通信 · 3Mbps带宽" : "Mesh Network · 1km Range · 3Mbps Bandwidth" },
+            ].map((mod, i) => (
+              <motion.div key={i} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.1 }}
+                className="bg-card border border-border/30 rounded-xl overflow-hidden hover:border-accent/30 transition-all group"
+              >
+                <div className="p-4">
+                  <OptimizedImage src={mod.img} alt={mod.title} aspectRatio="4/3" className="w-full rounded-lg group-hover:scale-[1.02] transition-transform" objectFit="contain" />
+                </div>
+                <div className="px-4 pb-4 text-center">
+                  <div className="font-bold text-accent text-sm">{mod.title}</div>
+                  <div className="text-xs text-muted-foreground mt-1">{mod.desc}</div>
+                </div>
+              </motion.div>
+            ))}
+          </div>
         </div>
       </div>
     </section>
