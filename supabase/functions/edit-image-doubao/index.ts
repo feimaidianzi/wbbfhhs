@@ -9,31 +9,13 @@ Deno.serve(async (req) => {
   }
 
   try {
-    const { imageUrl, prompt, model } = await req.json();
+    const { imageUrl, prompt, size } = await req.json();
     const DOUBAO_API_KEY = Deno.env.get('DOUBAO_API_KEY');
     if (!DOUBAO_API_KEY) throw new Error('DOUBAO_API_KEY not configured');
 
-    const modelId = model || 'doubao-seededit-3-0-i2i-250628';
-    console.log(`Using model: ${modelId}, prompt: ${prompt}`);
-
-    // Seededit 3.0 uses "image" param (single image), Seedream uses "image_urls"
-    const isSeededit = modelId.includes('seededit');
-    
-    const body: Record<string, unknown> = {
-      model: modelId,
-      prompt: prompt,
-      response_format: 'url',
-      watermark: false,
-    };
-
-    if (isSeededit) {
-      body.image = imageUrl;
-      body.size = 'adaptive'; // Seededit only supports adaptive
-      body.guidance_scale = 5.5;
-    } else {
-      body.image_urls = [imageUrl];
-      body.size = '2048x1024';
-    }
+    console.log('Calling Doubao Seedream 4.0 for image editing...');
+    console.log('Image URL:', imageUrl);
+    console.log('Prompt:', prompt);
 
     const response = await fetch('https://ark.cn-beijing.volces.com/api/v3/images/generations', {
       method: 'POST',
@@ -41,12 +23,19 @@ Deno.serve(async (req) => {
         'Content-Type': 'application/json',
         'Authorization': `Bearer ${DOUBAO_API_KEY}`,
       },
-      body: JSON.stringify(body),
+      body: JSON.stringify({
+        model: 'doubao-seedream-4-0-250828',
+        prompt: prompt,
+        image_urls: [imageUrl],
+        size: size || '2048x2048',
+        response_format: 'url',
+        watermark: false,
+      }),
     });
 
     const responseText = await response.text();
-    console.log('Response status:', response.status);
-    console.log('Response:', responseText.substring(0, 500));
+    console.log('Doubao response status:', response.status);
+    console.log('Doubao response:', responseText.substring(0, 500));
 
     if (!response.ok) {
       return new Response(JSON.stringify({ 
