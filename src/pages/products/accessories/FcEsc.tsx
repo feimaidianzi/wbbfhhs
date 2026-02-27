@@ -205,11 +205,11 @@ const FcEsc = () => {
         {/* Products Section */}
         <section id="products" className="py-12">
           <div className="container mx-auto px-4">
-            <Tabs defaultValue="stack" className="w-full">
+            <Tabs defaultValue="research" className="w-full">
               <TabsList className="flex flex-wrap justify-center gap-2 mb-8 h-auto">
+                <TabsTrigger value="research">{t('fcesc.category.research')}</TabsTrigger>
                 <TabsTrigger value="stack">{t('fcesc.category.stack')}</TabsTrigger>
                 <TabsTrigger value="6in1">{t('fcesc.category.6in1')}</TabsTrigger>
-                <TabsTrigger value="research">{t('fcesc.category.research')}</TabsTrigger>
                 <TabsTrigger value="fc">{t('fcesc.category.fc')}</TabsTrigger>
                 <TabsTrigger value="4in1">{t('fcesc.category.4in1')}</TabsTrigger>
                 <TabsTrigger value="separate">{t('fcesc.category.separate')}</TabsTrigger>
