@@ -5,9 +5,9 @@ import tetheredDroneImg from "@/assets/seo/tethered-drone.jpg";
 import th100Hero from "@/assets/products/th-100-hero.png";
 import th200Hero from "@/assets/products/th-200-hero.png";
 import th300Drone from "@/assets/products/th-300-drone.png";
-import emergencyRescueNightImg from "@/assets/seo/emergency-rescue-night.jpg";
-import damMonitoringImg from "@/assets/seo/dam-monitoring.jpg";
-import powerInspectionSystemImg from "@/assets/seo/power-inspection-system.jpg";
+import caseOlympicsImg from "@/assets/seo/case-olympics-security.jpg";
+import caseBorderPatrolImg from "@/assets/seo/case-border-patrol.jpg";
+import caseForestFireImg from "@/assets/seo/case-forest-fire.jpg";
 
 const Tethered = () => {
   const { t } = useLanguage();
@@ -55,9 +55,9 @@ const Tethered = () => {
   ];
 
   const cases = [
-    { title: t('tethered.page.case1.title'), description: t('tethered.page.case1.desc'), image: emergencyRescueNightImg },
-    { title: t('tethered.page.case2.title'), description: t('tethered.page.case2.desc'), image: damMonitoringImg },
-    { title: t('tethered.page.case3.title'), description: t('tethered.page.case3.desc'), image: powerInspectionSystemImg },
+    { title: t('tethered.page.case1.title'), description: t('tethered.page.case1.desc'), image: caseOlympicsImg },
+    { title: t('tethered.page.case2.title'), description: t('tethered.page.case2.desc'), image: caseBorderPatrolImg },
+    { title: t('tethered.page.case3.title'), description: t('tethered.page.case3.desc'), image: caseForestFireImg },
   ];
 
   return (
