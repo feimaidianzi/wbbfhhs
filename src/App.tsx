@@ -90,6 +90,7 @@ const Elrs = React.lazy(() => import("./pages/products/accessories/Elrs"));
 const ElrsDetail = React.lazy(() => import("./pages/products/accessories/ElrsDetail"));
 const OtherAccessories = React.lazy(() => import("./pages/products/accessories/OtherAccessories"));
 const OtherAccessoriesDetail = React.lazy(() => import("./pages/products/accessories/OtherAccessoriesDetail"));
+const MeshLink = React.lazy(() => import("./pages/products/accessories/MeshLink"));
 const AiModule = React.lazy(() => import("./pages/products/accessories/AiModule"));
 const AiModuleDetail = React.lazy(() => import("./pages/products/accessories/AiModuleDetail"));
 const Auth = React.lazy(() => import("./pages/Auth"));
@@ -215,6 +216,7 @@ const publicRoutes = [
   { path: "/products/accessories/elrs/:productId", element: <ElrsDetail /> },
   { path: "/products/accessories/others", element: <OtherAccessories /> },
   { path: "/products/accessories/others/:productId", element: <OtherAccessoriesDetail /> },
+  { path: "/products/accessories/mesh-link", element: <MeshLink /> },
   { path: "/products/accessories/ai-module", element: <AiModule /> },
   { path: "/products/accessories/ai-module/:productId", element: <AiModuleDetail /> },
   { path: "/products/detail/:productId", element: <DatabaseProductDetail /> },
