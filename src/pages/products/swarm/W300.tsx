@@ -52,12 +52,12 @@ const W300 = () => {
               <Badge className="bg-accent/90 text-accent-foreground mb-4 text-sm">CANI C30 · MOCAP</Badge>
             </motion.div>
             <motion.h1 initial={{ opacity: 0, y: 50 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.2 }} className="text-4xl md:text-5xl lg:text-6xl font-black text-white mb-6">
-              {isZh ? 'CANI C30 动捕集群开发平台' : 'CANI C30 MoCap Swarm Platform'}
+              {isZh ? 'CANI C30 无人机集群平台' : 'CANI C30 Drone Swarm Platform'}
             </motion.h1>
-            <motion.p initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.4 }} className="text-xl md:text-2xl text-white/80 max-w-3xl mx-auto mb-8">
+            <motion.p initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.4 }} className="text-lg md:text-xl text-white/80 max-w-4xl mx-auto mb-8">
               {isZh
-                ? '亚毫米级动捕定位 · 全自动编队飞行 · Jetson Orin NX边缘计算 · 开源ROS架构'
-                : 'Sub-mm MoCap Positioning · Autonomous Formation · Jetson Orin NX Edge AI · Open-Source ROS'}
+                ? '通过通信模块与自研通信软件实现无人机间数据互通，机载计算机可获取任一无人机状态信息并控制。提供模式控制、位置控制、一字队形、三角队形、队形变换等功能Demo及丰富的集群控制接口，定制地面站简化操作，让用户专注于集群算法开发。'
+                : 'Inter-drone data sharing via proprietary communication modules. Onboard computers access and control any drone\'s status. Includes mode control, position control, line/triangle formation, formation switching demos with rich swarm APIs. Custom ground station simplifies operations for algorithm-focused R&D.'}
             </motion.p>
             <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.6 }} className="flex flex-wrap justify-center gap-4">
               <Link to="/contact">
