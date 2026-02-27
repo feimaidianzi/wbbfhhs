@@ -10,18 +10,18 @@ import { PageStructuredData } from "@/components/PageStructuredData";
 import { BackButton } from "@/components/BackButton";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { motion } from "framer-motion";
-import { ArrowRight, Check, Cpu, Radio, Navigation, Layers, Monitor, Camera, Zap, Code, ChevronDown, Crosshair } from "lucide-react";
+import { ArrowRight, Check, Cpu, Radio, Navigation, Layers, Monitor, Camera, Code, ChevronDown, Crosshair } from "lucide-react";
 import { LangLink as Link } from "@/components/LangLink";
 
 import heroImage from "@/assets/products/swarm-mocap-showcase.jpg";
-import detailImage from "@/assets/products/swarm-w300-detail.jpg";
-import softwareImage from "@/assets/products/swarm-w300-software.jpg";
 import setupImage from "@/assets/products/swarm-w300-setup.jpg";
 import groundStationImage from "@/assets/products/swarm-ground-station.jpg";
-import communicationImage from "@/assets/products/swarm-communication.png";
+
+import W300SystemArchitecture from "@/components/swarm/W300SystemArchitecture";
 
 const W300 = () => {
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
+  const isZh = language === 'zh';
 
   const features = [
     { icon: <Crosshair className="h-6 w-6" />, titleKey: "w300.feature.mocap.title", descKey: "w300.feature.mocap.desc" },
@@ -61,7 +61,16 @@ const W300 = () => {
     ],
   };
 
-  const images = [heroImage, softwareImage, setupImage];
+  const images = [heroImage, setupImage, groundStationImage];
+
+  // Content extracted from original detail images
+  const keyFeatures = [
+    isZh ? "250轴距无人机平台，专为室内精密飞行设计" : "250mm wheelbase platform designed for indoor precision flight",
+    isZh ? "兼容OptiTrack/NOKOV/VICON动捕系统，±1mm定位精度" : "Compatible with OptiTrack/NOKOV/VICON MOCAP systems, ±1mm accuracy",
+    isZh ? "红外反光标记点定位，无漂移、无累积误差" : "Infrared reflective marker positioning with no drift or cumulative errors",
+    isZh ? "360Hz高刷新率，<0.2ms超低延迟，满足精密控制需求" : "360Hz refresh rate, <0.2ms ultra-low latency for precision control",
+    isZh ? "搭配Prometheus集群控制系统和Qt地面站，简单操作即可完成集群编队、目标追踪等任务" : "With Prometheus swarm control and Qt ground station for easy formation, target tracking and more",
+  ];
 
   return (
     <div className="min-h-screen bg-background">
@@ -102,6 +111,9 @@ const W300 = () => {
               </Link>
             </motion.div>
           </div>
+          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 1, delay: 0.8 }} className="absolute bottom-8 left-1/2 -translate-x-1/2">
+            <ChevronDown className="w-6 h-6 text-white/60 animate-bounce" />
+          </motion.div>
         </section>
 
         {/* Highlights */}
@@ -180,27 +192,43 @@ const W300 = () => {
                 </ul>
               </motion.div>
               <motion.div initial={{ opacity: 0, x: 30 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }}>
-                <img src={detailImage} alt="MOCAP System" className="rounded-2xl shadow-2xl w-full" />
+                <img src={setupImage} alt="MOCAP Setup" className="rounded-2xl shadow-2xl w-full" />
               </motion.div>
             </div>
           </div>
         </section>
 
-        {/* Software Architecture */}
-        <section className="py-20 bg-secondary">
+        {/* Software Architecture - HTML instead of image */}
+        <W300SystemArchitecture />
+
+        {/* Kit Features - Content extracted from detail images */}
+        <section className="py-20 bg-background">
           <div className="container-custom">
-            <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="text-center mb-12">
-              <h2 className="text-3xl md:text-4xl font-black text-foreground mb-4">{t('w300.software.title')}</h2>
-              <p className="text-muted-foreground max-w-3xl mx-auto">{t('w300.software.desc')}</p>
-            </motion.div>
-            <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="flex justify-center">
-              <img src={communicationImage} alt={t('w300.software.title')} className="rounded-2xl shadow-2xl max-w-4xl w-full bg-white p-4" />
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              className="max-w-4xl mx-auto bg-accent/5 rounded-2xl p-8 border border-accent/10"
+            >
+              <h3 className="text-xl font-bold text-foreground mb-6 text-center">
+                {isZh ? "套件特点" : "Kit Features"}
+              </h3>
+              <ul className="space-y-4">
+                {keyFeatures.map((feature, index) => (
+                  <li key={index} className="flex items-start gap-3">
+                    <span className="flex-shrink-0 w-6 h-6 rounded-full bg-accent/20 text-accent flex items-center justify-center text-xs font-bold mt-0.5">
+                      {index + 1}
+                    </span>
+                    <span className="text-foreground">{feature}</span>
+                  </li>
+                ))}
+              </ul>
             </motion.div>
           </div>
         </section>
 
         {/* Specifications */}
-        <section className="py-20 bg-background">
+        <section className="py-20 bg-secondary">
           <div className="container-custom">
             <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="text-center mb-12">
               <h2 className="text-3xl md:text-4xl font-black text-foreground">{t('w300.specs.title')}</h2>
