@@ -10,19 +10,19 @@ import { PageStructuredData } from "@/components/PageStructuredData";
 import { BackButton } from "@/components/BackButton";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { motion } from "framer-motion";
-import { ArrowRight, Check, Cpu, Radio, Navigation, Layers, Monitor, MapPin, Zap, Code, ChevronDown, Satellite } from "lucide-react";
+import { ArrowRight, Check, Cpu, Radio, Layers, Monitor, MapPin, Code, ChevronDown, Satellite } from "lucide-react";
 import { LangLink as Link } from "@/components/LangLink";
 
 import heroImage from "@/assets/products/swarm-gps-showcase.jpg";
-import detailImage from "@/assets/products/swarm-w400-detail.jpg";
 import groundImage from "@/assets/products/swarm-w400-ground.jpg";
 import formationImage from "@/assets/products/swarm-w400-formation.jpg";
 import controlImage from "@/assets/products/swarm-w400-control.jpg";
-import systemImage from "@/assets/products/swarm-w400-system.jpg";
-import communicationImage from "@/assets/products/swarm-communication.png";
+
+import W400SystemArchitecture from "@/components/swarm/W400SystemArchitecture";
 
 const W400 = () => {
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
+  const isZh = language === 'zh';
 
   const features = [
     { icon: <Satellite className="h-6 w-6" />, titleKey: "w400.feature.gps.title", descKey: "w400.feature.gps.desc" },
@@ -62,7 +62,16 @@ const W400 = () => {
     ],
   };
 
-  const images = [heroImage, formationImage, controlImage, systemImage];
+  const images = [heroImage, formationImage, controlImage];
+
+  // Content extracted from original detail/system images
+  const keyFeatures = [
+    isZh ? "480轴距无人机平台，专为室外GPS环境集群飞行设计" : "480mm wheelbase platform designed for outdoor GPS swarm flight",
+    isZh ? "支持GPS/GLONASS/BeiDou/Galileo四星定位，可选RTK厘米级精度" : "GPS/GLONASS/BeiDou/Galileo quad-constellation, optional RTK centimeter-level accuracy",
+    isZh ? "Mini Homer Mesh自组网通信，1km通信距离，3Mbps带宽" : "Mini Homer Mesh networking, 1km range, 3Mbps bandwidth",
+    isZh ? "搭载Allspark2机载计算机 + Jetson Orin NX，100 TOPS AI算力" : "Allspark2 onboard computer + Jetson Orin NX with 100 TOPS AI computing power",
+    isZh ? "Prometheus集群控制系统 + Qt地面站，支持编队飞行、航点巡航、目标追踪等多种任务" : "Prometheus swarm control + Qt ground station supporting formation flight, waypoint cruise, target tracking and more",
+  ];
 
   return (
     <div className="min-h-screen bg-background">
@@ -103,6 +112,9 @@ const W400 = () => {
               </Link>
             </motion.div>
           </div>
+          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 1, delay: 0.8 }} className="absolute bottom-8 left-1/2 -translate-x-1/2">
+            <ChevronDown className="w-6 h-6 text-white/60 animate-bounce" />
+          </motion.div>
         </section>
 
         {/* Highlights */}
@@ -130,10 +142,10 @@ const W400 = () => {
             <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="text-center mb-12">
               <h2 className="text-3xl md:text-4xl font-black text-foreground mb-4">{t('w400.gallery.title')}</h2>
             </motion.div>
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
               {images.map((img, index) => (
                 <motion.div key={index} initial={{ opacity: 0, scale: 0.9 }} whileInView={{ opacity: 1, scale: 1 }} viewport={{ once: true }} transition={{ delay: index * 0.1 }}>
-                  <img src={img} alt={`W400 GPS Swarm ${index + 1}`} className="rounded-xl w-full aspect-square object-cover shadow-lg" />
+                  <img src={img} alt={`W400 GPS Swarm ${index + 1}`} className="rounded-xl w-full aspect-[4/3] object-cover shadow-lg" />
                 </motion.div>
               ))}
             </div>
@@ -187,20 +199,37 @@ const W400 = () => {
           </div>
         </section>
 
-        {/* Detail Image */}
-        <section className="py-20 bg-secondary">
+        {/* System Architecture - HTML instead of images */}
+        <W400SystemArchitecture />
+
+        {/* Kit Features - Content extracted from detail images */}
+        <section className="py-20 bg-background">
           <div className="container-custom">
-            <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="text-center mb-12">
-              <h2 className="text-3xl md:text-4xl font-black text-foreground mb-4">{t('w400.detail.title')}</h2>
-            </motion.div>
-            <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="flex justify-center">
-              <img src={detailImage} alt={t('w400.detail.title')} className="rounded-2xl shadow-2xl max-w-5xl w-full" />
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              className="max-w-4xl mx-auto bg-accent/5 rounded-2xl p-8 border border-accent/10"
+            >
+              <h3 className="text-xl font-bold text-foreground mb-6 text-center">
+                {isZh ? "套件特点" : "Kit Features"}
+              </h3>
+              <ul className="space-y-4">
+                {keyFeatures.map((feature, index) => (
+                  <li key={index} className="flex items-start gap-3">
+                    <span className="flex-shrink-0 w-6 h-6 rounded-full bg-accent/20 text-accent flex items-center justify-center text-xs font-bold mt-0.5">
+                      {index + 1}
+                    </span>
+                    <span className="text-foreground">{feature}</span>
+                  </li>
+                ))}
+              </ul>
             </motion.div>
           </div>
         </section>
 
         {/* Specifications */}
-        <section className="py-20 bg-background">
+        <section className="py-20 bg-secondary">
           <div className="container-custom">
             <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="text-center mb-12">
               <h2 className="text-3xl md:text-4xl font-black text-foreground">{t('w400.specs.title')}</h2>
