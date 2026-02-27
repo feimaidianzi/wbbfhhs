@@ -9,10 +9,10 @@ import { LanguageCode } from "@/i18n/languages";
 import { LangLink as Link } from "@/components/LangLink";
 import { HeroImagePreload } from "@/components/HeroImagePreload";
 import multiRotorHeroImg from "@/assets/seo/multi-rotor-hero.jpg";
-import tetheredImg from "@/assets/seo/industrial-drone-flight.jpg";
-import logisticsImg from "@/assets/seo/logistics-wl30.jpg";
-import swarmImg from "@/assets/seo/drone-light-show.jpg";
-import fpvImg from "@/assets/seo/fpv-cinewhoop-drone.jpg";
+import tetheredImg from "@/assets/products/th-200-hero.png";
+import logisticsImg from "@/assets/products/logistics-hero-clean.jpg";
+import swarmImg from "@/assets/products/swarm-uwb-showcase.jpg";
+import fpvImg from "@/assets/products/digital-fpv-wifilink2.jpg";
 import {
   ArrowRight, ChevronDown, Link2, Truck, Users, Gamepad2,
   Shield, Zap, Wind, Cpu, Clock, Weight, FileDown, Radar
