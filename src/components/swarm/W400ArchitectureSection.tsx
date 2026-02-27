@@ -50,7 +50,7 @@ const W400ArchitectureSection = () => {
                 <h3 className="font-bold text-foreground">{isZh ? '地面站控制层' : 'Ground Station Control Layer'}</h3>
               </div>
               <div className="flex justify-center mb-4">
-                <OptimizedImage src={gcsImg} alt={isZh ? "CANI-W400 地面站遥控器" : "CANI-W400 Ground Control Station"} aspectRatio="4/3" className="w-48 rounded-lg" objectFit="contain" />
+                <OptimizedImage src={gcsImg} alt={isZh ? "CANI-W400 Prometheus地面站" : "CANI-W400 Prometheus Ground Station"} aspectRatio="4/3" className="w-full max-w-md rounded-lg" objectFit="contain" />
               </div>
               <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
                 {(isZh
