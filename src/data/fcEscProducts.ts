@@ -585,10 +585,9 @@ export const researchFlightControllers: FcEscProduct[] = [
       pixhawk4Hero,
       pixhawk4Dual,
       pixhawk4Fmu,
+      pixhawk4VibrationClean,
       pixhawk4Accessories,
       pixhawk4Dimensions,
-      pixhawk4Cables,
-      pixhawk4Cables2
     ],
     price: "联系咨询",
     highlights: [
@@ -630,6 +629,14 @@ export const researchFlightControllers: FcEscProduct[] = [
       "铝壳版本提供更好的电磁屏蔽和散热",
       "支持PX4和ArduPilot两大开源固件生态",
       "完善的线材包和可选GPS/电源模块配件体系"
+    ],
+    visualFeatures: [
+      { icon: "cpu", title: "STM32F765 FMU处理器", desc: "32位 Arm Cortex-M7, 216MHz主频, 2MB Flash, 512KB RAM，高性能飞行控制运算" },
+      { icon: "layers", title: "STM32F100 IO协处理器", desc: "32位 Arm Cortex-M3, 24MHz, 8KB SRAM，独立IO控制，安全冗余设计" },
+      { icon: "navigation", title: "双IMU冗余传感器", desc: "ICM-20689 + BMI-055双冗余IMU，IST8310罗盘 + MS5611气压计，精确姿态估计" },
+      { icon: "zap", title: "全新隔振设计", desc: "机载高性能、低噪音IMU，专为提供稳定应用而设计，有效抑制振动干扰" },
+      { icon: "wifi", title: "丰富接口", desc: "双CAN总线、多路UART/TELEM、I2C A/B双通道、USB/SPI/DSM/SBUS RC完整接口" },
+      { icon: "code", title: "双固件生态", desc: "支持PX4和ArduPilot两大开源固件，完善的开发生态和社区支持" },
     ],
     notes: [
       "适合科研院校、无人机竞赛和工业应用开发",
