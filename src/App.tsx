@@ -285,13 +285,38 @@ const App = () => (
   </QueryClientProvider>
 );
 
+// Wrapper that adds breadcrumb below page header
+const WithBreadcrumb = ({ children }: { children: React.ReactNode }) => (
+  <>
+    {children}
+    <BreadcrumbOverlay />
+  </>
+);
+
+// Breadcrumb overlay positioned after header
+const BreadcrumbOverlay = () => {
+  const { Breadcrumb } = React.useMemo(() => ({
+    Breadcrumb: React.lazy(() => import("@/components/Breadcrumb").then(m => ({ default: m.Breadcrumb }))),
+  }), []);
+
+  return (
+    <Suspense fallback={null}>
+      <div className="fixed top-16 md:top-20 left-0 right-0 z-40">
+        <Breadcrumb />
+      </div>
+    </Suspense>
+  );
+};
+
 // Sub-routes rendered under /:lang/* prefix
 const LangRoutes = () => (
   <Suspense fallback={<PageLoader />}>
     <Routes>
       {publicRoutes.map(({ path, element }) => {
         const relativePath = path === '/' ? '/' : path.slice(1);
-        return <Route key={path} path={relativePath === '/' ? '/' : relativePath} element={element} />;
+        return <Route key={path} path={relativePath === '/' ? '/' : relativePath} element={
+          path === "/" ? element : <WithBreadcrumb>{element}</WithBreadcrumb>
+        } />;
       })}
       <Route path="*" element={<NotFound />} />
     </Routes>
