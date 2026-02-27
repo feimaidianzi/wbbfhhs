@@ -1,10 +1,10 @@
 import { ArrowRight, Zap } from "lucide-react";
 import { LangLink } from "@/components/LangLink";
 import { useLanguage } from "@/contexts/LanguageContext";
-import powerGridImg from "@/assets/seo/power-grid-sunset.jpg";
-import logisticsDroneImg from "@/assets/seo/logistics-drone-delivery.jpg";
-import emergencyRescueImg from "@/assets/seo/emergency-rescue.jpg";
-import forestEnvironmentImg from "@/assets/seo/forest-environment.jpg";
+import powerGridImg from "@/assets/seo/power-grid-drone-inspection.jpg";
+import logisticsDroneImg from "@/assets/seo/drone-delivery-logistics.jpg";
+import emergencyRescueImg from "@/assets/seo/firefighting-aerial-response.jpg";
+import forestEnvironmentImg from "@/assets/seo/environmental-monitoring-aerial.jpg";
 
 export const SolutionsSection = () => {
   const { t } = useLanguage();
