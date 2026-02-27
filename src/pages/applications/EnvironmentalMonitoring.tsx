@@ -7,9 +7,9 @@ import { LangLink } from "@/components/LangLink";
 import { MultiLanguageSEO } from "@/components/MultiLanguageSEO";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { motion } from "framer-motion";
-import atmosphericMonitoringImg from "@/assets/seo/atmospheric-monitoring.jpg";
-import forestHealthSurveyImg from "@/assets/seo/forest-health-survey.jpg";
-import waterPollutionDetectionImg from "@/assets/seo/water-pollution-detection.jpg";
+import atmosphericMonitoringImg from "@/assets/real/atmospheric-monitoring-edited.jpg";
+import forestHealthSurveyImg from "@/assets/real/forest-monitoring-edited.jpg";
+import waterPollutionDetectionImg from "@/assets/real/water-pollution-edited.jpg";
 import {
   Accordion,
   AccordionContent,

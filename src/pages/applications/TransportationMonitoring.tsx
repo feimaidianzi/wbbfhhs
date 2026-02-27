@@ -7,8 +7,8 @@ import { LangLink } from "@/components/LangLink";
 import { MultiLanguageSEO } from "@/components/MultiLanguageSEO";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { motion } from "framer-motion";
-import highwayTrafficImg from "@/assets/seo/highway-traffic-monitoring.jpg";
-import bridgeInspectionImg from "@/assets/seo/bridge-inspection.jpg";
+import highwayTrafficImg from "@/assets/real/highway-monitoring-edited.jpg";
+import bridgeInspectionImg from "@/assets/real/bridge-inspection-edited.jpg";
 import {
   Accordion,
   AccordionContent,

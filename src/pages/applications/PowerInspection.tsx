@@ -6,9 +6,9 @@ import { Helmet } from "react-helmet-async";
 
 import heroPowerGrid from "@/assets/power/hero-power-grid.jpg";
 import uavInspection from "@/assets/power/uav-inspection.jpg";
-import caseTransmissionInspection from "@/assets/power/case-transmission-inspection.jpg";
-import caseSubstationInspection from "@/assets/power/case-substation-inspection.jpg";
-import caseSolarInspection from "@/assets/power/case-solar-inspection.jpg";
+import caseTransmissionInspection from "@/assets/real/transmission-line-inspection-edited.jpg";
+import caseSubstationInspection from "@/assets/real/substation-equipment-edited.jpg";
+import caseSolarInspection from "@/assets/real/solar-panel-field-edited.jpg";
 import powerInspectionScene from "@/assets/seo/power-inspection-scene.jpg";
 import powerInspectionFlight from "@/assets/seo/power-inspection-flight.jpg";
 
