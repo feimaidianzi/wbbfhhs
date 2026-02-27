@@ -65,7 +65,7 @@ const Tethered = () => {
       seoPath="/products/tethered"
       heroTitle={t('tethered.page.hero.title')}
       heroSubtitle={t('tethered.page.hero.subtitle')}
-      heroImage={tetheredDroneImg}
+      heroImage={th200Hero}
       features={features}
       featuresTitle={t('tethered.page.feat.title')}
       products={products}
