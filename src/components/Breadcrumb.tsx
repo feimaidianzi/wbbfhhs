@@ -23,7 +23,7 @@ const SEGMENT_LABELS: Record<string, string> = {
   swarm: "platforms.swarm.title",
   "swarm-kit": "platforms.swarm.title",
   "multi-rotor": "platforms.categories.title",
-  accessories: "nav.products",
+  accessories: "elrs.breadcrumb.accessories",
   firefighting: "flight.rescue",
   "wire-laying": "nav.products",
   agriculture: "nav.products",
