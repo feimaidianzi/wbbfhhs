@@ -39,8 +39,7 @@ const SEGMENT_LABELS: Record<string, string> = {
   "digital-fpv": "accessory.vtx",
   elrs: "header.elrs",
   others: "header.others",
-  "mesh-link": "mesh-link",
-  "ai-module": "ai-module",
+  // mesh-link and ai-module use STATIC_LABELS below
 
   // Tethered models
   "th-100": "TH-100",
