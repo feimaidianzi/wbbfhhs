@@ -440,7 +440,7 @@ const Logistics = () => {
               </Button>
             </Link>
             <a href="mailto:sales@caniuav.com">
-              <Button size="lg" variant="outline" className="border-primary-foreground text-primary-foreground hover:bg-primary-foreground hover:text-primary">
+              <Button size="lg" variant="outline" className="bg-transparent border-primary-foreground text-primary-foreground hover:bg-primary-foreground hover:text-primary">
                 {t('template.emailConsult')}
               </Button>
             </a>
