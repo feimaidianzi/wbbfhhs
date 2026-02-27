@@ -18,6 +18,7 @@ import W400HardwareSection from "@/components/swarm/W400HardwareSection";
 import W400ArchitectureSection from "@/components/swarm/W400ArchitectureSection";
 import W400SpecsSection from "@/components/swarm/W400SpecsSection";
 import W400PackageSection from "@/components/swarm/W400PackageSection";
+import W400TrainingSection from "@/components/swarm/W400TrainingSection";
 
 const W400 = () => {
   const { t, language } = useLanguage();
@@ -97,6 +98,9 @@ const W400 = () => {
 
         {/* Package */}
         <W400PackageSection />
+
+        {/* Training */}
+        <W400TrainingSection />
 
         {/* Related Products */}
         <section className="py-16 bg-muted/50">
