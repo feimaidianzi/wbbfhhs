@@ -19,9 +19,10 @@ import meshLinkTriband from "@/assets/products/mesh-link-triband.webp";
 import meshLink1g4 from "@/assets/products/mesh-link-1g4.webp";
 import meshLinkPcb from "@/assets/products/mesh-link-pcb.webp";
 import meshLinkInterfaces from "@/assets/products/mesh-link-interfaces.webp";
+import MeshLinkInterfaceDiagram from "@/components/products/MeshLinkInterfaceDiagram";
 
 const MeshLink = () => {
-  const { t } = useLanguage();
+  const { t, baseLang } = useLanguage();
 
   const highlights = [
     { icon: Signal, text: t('meshLink.highlight.distance') },
@@ -364,20 +365,17 @@ const MeshLink = () => {
             <p className="text-muted-foreground text-center mb-16 max-w-3xl mx-auto">
               {t('meshLink.commInterface.desc')}
             </p>
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center max-w-5xl mx-auto">
-              <div className="flex justify-center">
-                <img src={meshLinkInterfaces} alt={t('meshLink.commInterface.title')} className="max-w-md w-full rounded-xl shadow-lg" />
-              </div>
-              <div>
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                  {commInterfaces.map((iface, i) => (
-                    <div key={i} className="flex items-center gap-3 bg-card p-3 rounded-lg border border-border/30">
-                      <Cpu className="w-5 h-5 text-primary shrink-0" />
-                      <span className="font-medium text-foreground text-sm">{iface}</span>
-                    </div>
-                  ))}
+            {/* Code-based interface diagram - responsive, i18n-ready */}
+            <MeshLinkInterfaceDiagram lang={baseLang} />
+            
+            {/* Interface list cards */}
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 max-w-3xl mx-auto mt-12">
+              {commInterfaces.map((iface, i) => (
+                <div key={i} className="flex items-center gap-3 bg-card p-3 rounded-lg border border-border/30">
+                  <Cpu className="w-5 h-5 text-primary shrink-0" />
+                  <span className="font-medium text-foreground text-sm">{iface}</span>
                 </div>
-              </div>
+              ))}
             </div>
           </div>
         </section>
