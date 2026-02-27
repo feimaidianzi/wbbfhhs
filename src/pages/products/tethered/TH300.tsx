@@ -10,7 +10,7 @@ import { Weight, Clock, Mountain, Sun, Radio, Leaf, Wifi, Shield, Zap, Settings,
 import { Button } from "@/components/ui/button";
 
 import heroImg from "@/assets/products/th300-hero-mountain.png";
-import payloadImg from "@/assets/products/th300-payload-30kg.png";
+import payloadImg from "@/assets/products/th300-payload-30kg-clean.png";
 import lightingImg from "@/assets/products/th300-lighting.png";
 import commRelayImg from "@/assets/products/th300-comm-relay.png";
 import envMonitorImg from "@/assets/products/th300-env-monitor.png";
