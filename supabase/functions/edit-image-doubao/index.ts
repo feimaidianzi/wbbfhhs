@@ -9,13 +9,37 @@ Deno.serve(async (req) => {
   }
 
   try {
-    const { imageUrl, prompt, size } = await req.json();
+    const { imageUrl, prompt, size, model } = await req.json();
     const DOUBAO_API_KEY = Deno.env.get('DOUBAO_API_KEY');
     if (!DOUBAO_API_KEY) throw new Error('DOUBAO_API_KEY not configured');
 
-    console.log('Calling Doubao Seedream 4.0 for image editing...');
-    console.log('Image URL:', imageUrl);
+    const selectedModel = model || 'doubao-seedream-5-0-260128';
+    const isSeedream5 = selectedModel.includes('seedream-5');
+
+    console.log(`Calling Doubao ${selectedModel} for image processing...`);
     console.log('Prompt:', prompt);
+    if (imageUrl) console.log('Image URL:', imageUrl);
+
+    const body: Record<string, unknown> = {
+      model: selectedModel,
+      prompt: prompt,
+      response_format: 'url',
+      watermark: false,
+    };
+
+    // Seedream 5.0 supports new parameters
+    if (isSeedream5) {
+      body.size = size || '2K';
+      body.sequential_image_generation = 'disabled';
+      body.stream = false;
+    } else {
+      body.size = size || '2048x2048';
+    }
+
+    // Add reference image if provided
+    if (imageUrl) {
+      body.image_urls = [imageUrl];
+    }
 
     const response = await fetch('https://ark.cn-beijing.volces.com/api/v3/images/generations', {
       method: 'POST',
@@ -23,14 +47,7 @@ Deno.serve(async (req) => {
         'Content-Type': 'application/json',
         'Authorization': `Bearer ${DOUBAO_API_KEY}`,
       },
-      body: JSON.stringify({
-        model: 'doubao-seedream-4-0-250828',
-        prompt: prompt,
-        image_urls: [imageUrl],
-        size: size || '2048x2048',
-        response_format: 'url',
-        watermark: false,
-      }),
+      body: JSON.stringify(body),
     });
 
     const responseText = await response.text();
