@@ -1215,9 +1215,9 @@ export const enTranslations: Record<string, string> = {
   'fcEscDetail.tdk.fc-f722.h1': 'F722 Flight Controller: Dual-Gyro High-Performance Autopilot',
 
   // Research FC TDK
-  'fcEscDetail.tdk.cani-fmt.title': 'CANI-FMT Advanced Flight Management & Firmware Transition Tool',
-  'fcEscDetail.tdk.cani-fmt.desc': 'CANI-FMT: Advanced Flight Management & Firmware Transition Tool. Seamlessly bridge hardware protocols and optimize PID tuning across multi-platform UAV fleets. Supports Matlab/Simulink auto code generation.',
-  'fcEscDetail.tdk.cani-fmt.h1': 'CANI-FMT: Advanced Flight Management & Firmware Transition Tool',
+  'fcEscDetail.tdk.cani-fmt.title': 'CANI ICF5 Open Source Flight Controller | FMT Autopilot System',
+  'fcEscDetail.tdk.cani-fmt.desc': 'CANI ICF5 open-source flight controller powered by FMT next-gen autopilot system. GD32F470 240MHz MCU, MATLAB/Simulink MBD support, HIL/SIL/MIL simulation, Ethernet + CAN bus. Ideal for UAV research and algorithm verification.',
+  'fcEscDetail.tdk.cani-fmt.h1': 'CANI ICF5 Open Source Flight Controller — FMT Next-Gen Autopilot',
 
   // Per-SKU matching guide recommendations
   'fcEscDetail.match.stack-mini-f7-55a': '2207/2306 motors, 5-inch high-pitch propellers, 4-6S LiPo',
