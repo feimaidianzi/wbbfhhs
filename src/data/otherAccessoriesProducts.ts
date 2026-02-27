@@ -1,4 +1,13 @@
 // 其他配件产品数据 - 多语言版本
+import monitor5ipsImg from "@/assets/products/monitor-5ips.jpg";
+import goggles40chImg from "@/assets/products/goggles-40ch.jpg";
+import monitor43Img from "@/assets/products/monitor-43.jpg";
+import monitor7lcdImg from "@/assets/products/monitor-7lcd.jpg";
+import gpsM10q120Img from "@/assets/products/gps-m10q-120.png";
+import gpsM10q180Img from "@/assets/products/gps-m10q-180.png";
+import gpsM10q250Img from "@/assets/products/gps-m10q-250.png";
+import gpsM10q120CompassImg from "@/assets/products/gps-m10q-120-compass.jpg";
+import gpsM10q180CompassImg from "@/assets/products/gps-m10q-180-compass.jpg";
 
 export interface OtherAccessoryProduct {
   id: string;
@@ -31,7 +40,7 @@ export const otherAccessoriesProducts: OtherAccessoryProduct[] = [
     subSloganKey: "otherAcc.monitor5ips.subSlogan",
     descriptionKey: "otherAcc.monitor5ips.desc",
     price: "¥699",
-    image: "https://inew.foxeer.com//upload/s/goods/2023-03-31/17-24-03-6426a6b30b1e9.images.400x400.jpg",
+    image: monitor5ipsImg,
     keyFeatureKeys: [
       "otherAcc.feature.5inchIPS",
       "otherAcc.feature.40ch",
@@ -111,7 +120,7 @@ export const otherAccessoriesProducts: OtherAccessoryProduct[] = [
     subSloganKey: "otherAcc.goggles40ch.subSlogan",
     descriptionKey: "otherAcc.goggles40ch.desc",
     price: "¥799",
-    image: "https://inew.foxeer.com//upload/s/goods/2022-12-28/17-10-23-63ac07ff2111b.images.400x400.jpg",
+    image: goggles40chImg,
     keyFeatureKeys: [
       "otherAcc.feature.dualDiversity",
       "otherAcc.feature.40ch",
@@ -197,7 +206,7 @@ export const otherAccessoriesProducts: OtherAccessoryProduct[] = [
     subSloganKey: "otherAcc.monitor43.subSlogan",
     descriptionKey: "otherAcc.monitor43.desc",
     price: "¥489",
-    image: "https://inew.foxeer.com//upload/s/goods/2022-12-21/14-47-02-63a2abe65374a.images.400x400.jpg",
+    image: monitor43Img,
     keyFeatureKeys: [
       "otherAcc.feature.43inch",
       "otherAcc.feature.40ch",
@@ -274,7 +283,7 @@ export const otherAccessoriesProducts: OtherAccessoryProduct[] = [
     subSloganKey: "otherAcc.monitor7lcd.subSlogan",
     descriptionKey: "otherAcc.monitor7lcd.desc",
     price: "¥729",
-    image: "https://inew.foxeer.com//upload/s/goods/2022-11-30/17-22-45-638720e5f2a6f.images.400x400.jpg",
+    image: monitor7lcdImg,
     keyFeatureKeys: [
       "otherAcc.feature.7inchBig",
       "otherAcc.feature.40ch",
@@ -361,7 +370,7 @@ export const otherAccessoriesProducts: OtherAccessoryProduct[] = [
     subSloganKey: "otherAcc.gpsM10q120.subSlogan",
     descriptionKey: "otherAcc.gpsM10q120.desc",
     price: "¥139",
-    image: "https://inew.foxeer.com//upload/s/goods/2025-06-27/12-02-37-685e17dd58835.images.400x400.png",
+    image: gpsM10q120Img,
     keyFeatureKeys: [
       "otherAcc.feature.m10Chip",
       "otherAcc.feature.120mmSpacing",
@@ -434,7 +443,7 @@ export const otherAccessoriesProducts: OtherAccessoryProduct[] = [
     subSloganKey: "otherAcc.gpsM10q180.subSlogan",
     descriptionKey: "otherAcc.gpsM10q180.desc",
     price: "¥139",
-    image: "https://inew.foxeer.com//upload/s/goods/2025-06-27/11-57-46-685e16ba26fe5.images.400x400.png",
+    image: gpsM10q180Img,
     keyFeatureKeys: [
       "otherAcc.feature.m10Chip",
       "otherAcc.feature.180mmSpacing",
@@ -507,7 +516,7 @@ export const otherAccessoriesProducts: OtherAccessoryProduct[] = [
     subSloganKey: "otherAcc.gpsM10q250.subSlogan",
     descriptionKey: "otherAcc.gpsM10q250.desc",
     price: "¥139",
-    image: "https://inew.foxeer.com//upload/s/goods/2025-06-27/11-54-48-685e1608bf6fa.images.400x400.png",
+    image: gpsM10q250Img,
     keyFeatureKeys: [
       "otherAcc.feature.m10Chip",
       "otherAcc.feature.250mmSpacing",
@@ -580,7 +589,7 @@ export const otherAccessoriesProducts: OtherAccessoryProduct[] = [
     subSloganKey: "otherAcc.gpsM10q120Compass.subSlogan",
     descriptionKey: "otherAcc.gpsM10q120Compass.desc",
     price: "¥139",
-    image: "https://inew.foxeer.com//upload/s/goods/2023-04-25/17-51-35-6447a2a7e3202.images.400x400.JPG",
+    image: gpsM10q120CompassImg,
     keyFeatureKeys: [
       "otherAcc.feature.m10Chip",
       "otherAcc.feature.builtInCompass",
@@ -660,7 +669,7 @@ export const otherAccessoriesProducts: OtherAccessoryProduct[] = [
     subSloganKey: "otherAcc.gpsM10q180Compass.subSlogan",
     descriptionKey: "otherAcc.gpsM10q180Compass.desc",
     price: "¥139",
-    image: "https://inew.foxeer.com//upload/s/goods/2023-03-29/10-56-25-6423a8d94eeba.images.400x400.jpg",
+    image: gpsM10q180CompassImg,
     keyFeatureKeys: [
       "otherAcc.feature.m10Chip",
       "otherAcc.feature.builtInCompass",
