@@ -33,8 +33,7 @@ export const ArticleCTA = () => {
           <LangLink to="/products">
             <Button
               size="lg"
-              variant="outline"
-              className="gap-2 font-semibold px-8 border-primary-foreground/30 text-primary-foreground hover:bg-primary-foreground/10"
+              className="gap-2 font-semibold px-8 border border-primary-foreground/30 bg-transparent text-primary-foreground hover:bg-primary-foreground/10"
             >
               <FileText className="w-4 h-4" />
               {baseLang === 'en' ? 'Browse Product Catalog' : '浏览全部产品目录'}
