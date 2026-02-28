@@ -76,13 +76,6 @@ const VrxDetail = () => {
           <div className="container mx-auto px-4">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
               <div className="bg-card rounded-2xl p-8 border border-border">
-                <img
-                  src={product.image}
-                  alt={`CANI ${product.model} dual-chip 5.8GHz analog video receiver module -97dBm sensitivity`}
-                  title={`CANI ${product.model} Industrial Analog VRX Module`}
-                  className="w-full max-w-md mx-auto object-contain"
-                  loading="eager"
-                />
               </div>
               <div>
                 <div className="flex items-center gap-3 mb-4 flex-wrap">
