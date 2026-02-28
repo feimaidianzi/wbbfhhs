@@ -945,6 +945,25 @@ const VtxDetail = () => {
           </section>
         )}
 
+        {/* Related Article for PV03 */}
+        {isPV03 && (
+          <section className="py-12 bg-secondary border-t border-border">
+            <div className="container mx-auto px-4">
+              <div className="max-w-3xl mx-auto bg-card rounded-xl p-6 flex items-center gap-4 hover:shadow-lg transition-all border border-border/30">
+                <div className="text-3xl">📰</div>
+                <div className="flex-1">
+                  <p className="text-sm text-accent font-mono mb-1">{isZh ? '深度解读' : 'Deep Dive'}</p>
+                  <Link to="/news/0e111391-6e61-4e82-b656-b382e5b1333f" className="text-foreground font-semibold hover:text-accent transition-colors">
+                    {isZh ? '极致感知：FLYM-PV03W000-A1 工业级模拟图传接收模组——全栈链路方案' : 'Ultimate Perception: FLYM-PV03W000-A1 Industrial Analog VRX — Full-Stack Link Solution'}
+                  </Link>
+                  <p className="text-muted-foreground text-sm mt-1">{isZh ? '了解该接收模组的高灵敏度RF架构与抗多径干扰算法' : 'Explore high-sensitivity RF architecture and anti-multipath interference algorithms'}</p>
+                </div>
+                <ChevronRight className="w-5 h-5 text-muted-foreground" />
+              </div>
+            </div>
+          </section>
+        )}
+
         <section className="py-20 bg-primary text-primary-foreground">
           <div className="container mx-auto px-4 text-center">
             <h2 className="text-3xl font-bold mb-4">
