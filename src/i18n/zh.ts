@@ -7707,9 +7707,9 @@ export const zhTranslations: Record<string, string> = {
   'fcEscDetail.tdk.esc-100a.h1': '100A四合一电调：大载重无人机极致动力',
 
   // FC TDK
-  'fcEscDetail.tdk.fc-f405.title': 'FlyMind F405飞控 | 可靠FPV自动驾驶仪',
-  'fcEscDetail.tdk.fc-f405.desc': '稳定可靠的STM32F405飞控，ICM42688陀螺仪，支持Betaflight/INAV固件，30.5mm标准孔距适配5-7寸FPV穿越机。',
-  'fcEscDetail.tdk.fc-f405.h1': 'F405飞控：可靠FPV自动驾驶仪',
+  'fcEscDetail.tdk.fc-f405.title': 'CANI-FC F405 飞控 | 工业级无人机控制器 | 高稳定性 F4 飞控',
+  'fcEscDetail.tdk.fc-f405.desc': '详细了解 CANI-FC F405 飞控。搭载 STM32F405 核心，具备多路 UART 扩展与卓越的抗电磁干扰性能。支持 ArduPilot 与 Betaflight 固件，专为电力巡检、特种作业及科研无人机设计。',
+  'fcEscDetail.tdk.fc-f405.h1': 'CANI-FC F405 | 工业级多功能飞控 (STM32F405 / 30.5mm 标准孔位)',
   'fcEscDetail.tdk.fc-f722.title': 'FlyMind F722飞控 | 双陀螺仪高性能飞控',
   'fcEscDetail.tdk.fc-f722.desc': '高性能STM32F722飞控，双ICM42688陀螺仪冗余设计，5个UART接口，支持HD数字图传控制，进阶FPV飞手首选。',
   'fcEscDetail.tdk.fc-f722.h1': 'F722飞控：双陀螺仪高性能自动驾驶仪',

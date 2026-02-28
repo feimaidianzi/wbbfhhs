@@ -699,8 +699,8 @@ export const researchFlightControllers: FcEscProduct[] = [
 export const flightControllerProducts: FcEscProduct[] = [
   {
     id: "fc-f405",
-    name: "FlyMind F405飞控",
-    model: "FlyMind F405",
+    name: "CANI-FC F405 工业级多功能飞控",
+    model: "CANI-FC F405 (STM32F405 / 30.5mm)",
     category: "飞控",
     image: fcF405_1,
     images: [
@@ -711,36 +711,50 @@ export const flightControllerProducts: FcEscProduct[] = [
     ],
     price: "¥229",
     highlights: [
-      "STM32F405处理器，高速运算",
-      "ICM42688陀螺仪",
-      "支持Betaflight/INAV固件",
-      "板载OSD芯片",
-      "3-6S电压输入"
+      "STM32F405RGT6 (168MHz)，工业级成熟稳定内核",
+      "MPU6000 SPI 低噪声陀螺仪 + 高精度气压计",
+      "6 路 UART 接口，轻松驱动多传感器矩阵",
+      "板载 AT7456E OSD 芯片 + 8MB 黑匣子",
+      "3-6S 宽电压，LDO 独立供电抗 EMI 干扰",
+      "30.5×30.5mm 标准孔位，含避震橡胶圈"
     ],
     description: [
-      "成熟稳定的F405平台",
-      "板载OSD芯片",
-      "多UART接口设计"
+      "CANI-FC F405 是一款专为行业应用和高性能机型设计的旗舰级飞控。采用成熟的 STM32F405 处理器（168MHz），其指令集经过十年工程验证，异常复位率极低，是工业控制领域的常青树。",
+      "集成 MPU6000 高采样率低噪声陀螺仪与高精度气压计，配合定制 LDO 线性稳压器独立供电，即使在靠近高压输电线或大功率电调电磁冲击时，姿态数据信噪比依然极高。",
+      "提供多达 6 路独立硬件 UART，可同时连接数字图传、RTK 定位模块、激光雷达及 4G/5G 通讯链路。搭配 FV10W-72 数字图传时，能轻松驱动 OSD 数据回传并保留充裕接口给避障传感器。",
+      "全冗余电源设计与防腐蚀涂层处理，确保在潮湿、高盐雾等恶劣工业环境下依然稳定运行。通过双向 DShot 协议可实时调取 Stack F405-60A 电调转速数据，实现动态陷波滤波消除机架共振。"
     ],
     fcSpecs: {
-      mcu: "STM32F405",
-      gyro: "ICM42688",
-      osd: "AT7456E",
-      blackbox: "8MB",
-      uart: "4个UART",
-      voltage: "3-6S LiPo",
+      mcu: "STM32F405RGT6 (168MHz)",
+      gyro: "MPU6000 (SPI) + 高精度气压计",
+      osd: "板载 AT7456E",
+      blackbox: "8MB SPI Flash",
+      uart: "6个UART, 1个I2C",
+      voltage: "3-6S LiPo (LDO 隔离供电)",
       bec: "5V/3A",
-      size: "30.5×30.5mm (M3)",
+      size: "30.5×30.5mm (M3，含避震橡胶圈)",
       weight: "8g",
-      firmware: "Betaflight/INAV"
+      firmware: "Betaflight / INAV / ArduPilot(社区适配)"
     },
     features: [
-      "支持多种固件",
-      "稳定可靠"
+      "STM32F405 成熟工业内核，极低异常复位率",
+      "MPU6000 + LDO 独立供电物理级 IMU 防护",
+      "6 路 UART 多传感器矩阵扩展",
+      "8MB 黑匣子飞行日志与振动频谱记录",
+      "双向 DShot 动态陷波滤波 (RPM Filter)",
+      "四层 PCB 信号/地平面严格分离抗 EMI",
+      "防腐蚀涂层，适应潮湿高盐雾环境"
+    ],
+    notes: [
+      "推荐适配 5-10 英寸工业及竞技机型",
+      "首次使用请更新至最新固件版本",
+      "高 EMI 环境建议配合屏蔽线缆使用"
     ],
     packageIncludes: [
-      "F405飞控 x1",
-      "线材 x1套"
+      "CANI-FC F405 飞控 x1",
+      "避震橡胶圈 x4",
+      "连接线材 x1套",
+      "说明书 x1"
     ]
   },
   {
