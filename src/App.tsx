@@ -78,6 +78,7 @@ const WaterConservancy = React.lazy(() => import("./pages/applications/WaterCons
 const SurveyingMapping = React.lazy(() => import("./pages/solutions/SurveyingMapping"));
 const VtxVrx = React.lazy(() => import("./pages/products/accessories/VtxVrx"));
 const VtxDetail = React.lazy(() => import("./pages/products/accessories/VtxDetail"));
+const VrxDetail = React.lazy(() => import("./pages/products/accessories/VrxDetail"));
 const FcEsc = React.lazy(() => import("./pages/products/accessories/FcEsc"));
 const FcEscDetail = React.lazy(() => import("./pages/products/accessories/FcEscDetail"));
 const CaniFmtDetail = React.lazy(() => import("./pages/products/accessories/CaniFmtDetail"));
@@ -205,6 +206,7 @@ const publicRoutes = [
   { path: "/products/accessories", element: <Accessories /> },
   { path: "/products/accessories/vtx-vrx", element: <VtxVrx /> },
   { path: "/products/accessories/vtx-vrx/:productId", element: <VtxDetail /> },
+  { path: "/products/accessories/vtx-vrx/vrx/:productId", element: <VrxDetail /> },
   { path: "/products/accessories/fc-esc", element: <FcEsc /> },
   { path: "/products/accessories/fc-esc/cani-fmt", element: <CaniFmtDetail /> },
   { path: "/products/accessories/fc-esc/:productId", element: <FcEscDetail /> },

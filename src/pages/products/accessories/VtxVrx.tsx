@@ -4,16 +4,19 @@ import { Footer } from "@/components/Footer";
 import { FloatingContact } from "@/components/FloatingContact";
 import { MultiLanguageSEO } from "@/components/MultiLanguageSEO";
 import { Button } from "@/components/ui/button";
-import { ArrowLeft, Radio, Zap, Settings, Shield, Thermometer, Cpu, ChevronRight, Download, ExternalLink } from "lucide-react";
+import { ArrowLeft, Radio, Zap, Settings, Shield, Thermometer, Cpu, ChevronRight, Download, ExternalLink, Eye } from "lucide-react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { getProducts49to61, getProducts61to72, frequencyTable49to61, frequencyTable61to72, VtxProduct } from "@/data/vtxProducts";
+import { getVrxProducts } from "@/data/vrxProducts";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { PageFAQ } from "@/components/PageFAQ";
 
 const VtxVrx = () => {
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
+  const isZh = language === 'zh';
   const products49to61 = getProducts49to61();
   const products61to72 = getProducts61to72();
+  const vrxProducts = getVrxProducts();
 
   const features = [
     { icon: Radio, titleKey: 'vtx.feature.rf', descKey: 'vtx.feature.rf.desc' },
@@ -310,6 +313,62 @@ const VtxVrx = () => {
                 </div>
               </TabsContent>
             </Tabs>
+          </div>
+        </section>
+
+        {/* VRX Receiver Products Section */}
+        <section className="py-16 bg-muted/30">
+          <div className="container mx-auto px-4">
+            <h2 className="text-3xl font-bold text-center mb-4">
+              {isZh ? '📡 接收模组 (VRX)' : '📡 Receiver Modules (VRX)'}
+            </h2>
+            <p className="text-center text-muted-foreground mb-12 max-w-2xl mx-auto">
+              {isZh
+                ? '工业级模拟图传接收核心，-97dBm旗舰灵敏度，物理零延迟，即插即用集成方案。'
+                : 'Industrial-grade analog video receiver cores with -97dBm flagship sensitivity, zero-latency reception, and plug-and-play integration.'}
+            </p>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {vrxProducts.map(vrx => (
+                <Link
+                  key={vrx.id}
+                  to={`/products/accessories/vtx-vrx/vrx/${vrx.id}`}
+                  className="bg-card rounded-xl overflow-hidden border border-border hover:border-accent/50 transition-all duration-300 group block"
+                >
+                  <div className="aspect-video bg-muted/30 p-4 flex items-center justify-center relative">
+                    <img
+                      src={vrx.image}
+                      alt={`CANI ${vrx.model} ${vrx.sensitivity} analog video receiver module VRX`}
+                      title={`CANI ${vrx.model} - ${vrx.sensitivity} VRX`}
+                      className="max-h-full max-w-full object-contain group-hover:scale-105 transition-transform duration-300"
+                      loading="lazy"
+                    />
+                    <div className="absolute top-2 left-2 flex flex-col gap-1">
+                      <span className="px-2 py-0.5 text-[10px] font-bold bg-accent/90 text-accent-foreground rounded">VRX {vrx.sensitivity}</span>
+                      <span className="px-2 py-0.5 text-[10px] font-bold bg-primary/90 text-primary-foreground rounded">{vrx.frequency}</span>
+                    </div>
+                    <div className="absolute bottom-2 right-2">
+                      <span className="px-2 py-0.5 text-[10px] font-medium bg-background/80 text-foreground rounded border border-border">{vrx.channels}CH</span>
+                    </div>
+                  </div>
+                  <div className="p-6">
+                    <h3 className="text-xl font-bold mb-1">{isZh ? vrx.nameZh : vrx.nameEn}</h3>
+                    <p className="text-sm text-muted-foreground mb-4">{vrx.model}</p>
+                    <ul className="space-y-1 mb-4">
+                      {(isZh ? vrx.highlightsZh : vrx.highlightsEn).slice(0, 4).map((h, idx) => (
+                        <li key={idx} className="text-sm flex items-start gap-2">
+                          <span className="text-accent mt-1">•</span>
+                          <span>{h}</span>
+                        </li>
+                      ))}
+                    </ul>
+                    <div className="mt-4 pt-4 border-t border-border flex items-center justify-between text-accent">
+                      <span className="text-sm font-medium">{isZh ? '查看详情' : 'View Details'}</span>
+                      <ChevronRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                    </div>
+                  </div>
+                </Link>
+              ))}
+            </div>
           </div>
         </section>
 
