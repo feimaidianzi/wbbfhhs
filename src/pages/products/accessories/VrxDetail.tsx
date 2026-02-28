@@ -255,16 +255,6 @@ const VrxDetail = () => {
                   </table>
                 </div>
 
-                {/* Pinout Diagram */}
-                <div className="bg-card rounded-xl border border-border p-4">
-                  <img
-                    src={vrxPinout}
-                    alt={`${product.model} pin assignment diagram showing 14-pin layout with ANT, SPI, VIDEO, AUDIO, RSSI connections`}
-                    title={`${product.model} Pin Assignment Diagram`}
-                    className="w-full max-w-sm mx-auto object-contain"
-                    loading="lazy"
-                  />
-                </div>
               </div>
             </div>
           </div>
