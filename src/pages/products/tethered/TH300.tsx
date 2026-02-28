@@ -411,6 +411,23 @@ const TH300 = () => {
         </div>
       </section>
 
+      {/* Related Article */}
+      <section className="py-12 bg-gray-900/50 border-t border-gray-800">
+        <div className="container mx-auto px-4">
+          <div className="max-w-3xl mx-auto bg-gray-800/60 rounded-xl p-6 flex items-center gap-4 hover:bg-gray-800/80 transition-colors">
+            <div className="text-3xl">📰</div>
+            <div className="flex-1">
+              <p className="text-sm text-cyan-400 font-mono mb-1">{isZh ? '深度解读' : 'Deep Dive'}</p>
+              <Link to="/news/d41bdc36-2dbc-432a-9fb8-0f321b7348bd" className="text-white font-semibold hover:text-cyan-300 transition-colors">
+                {isZh ? '极致重载与永续驻空：TH-300 系留无人机系统——一站式软硬件开发典范' : 'Ultimate Heavy-lift & Persistent Flight: TH-300 — One-stop Development Paradigm'}
+              </Link>
+              <p className="text-gray-400 text-sm mt-1">{isZh ? '深入了解 TH-300 的 30kg 载荷与 3.5KW 供电系统' : 'Explore TH-300 30kg payload and 3.5KW power system'}</p>
+            </div>
+            <ChevronRight className="w-5 h-5 text-gray-500" />
+          </div>
+        </div>
+      </section>
+
       {/* ===== CTA ===== */}
       <section className="py-20 bg-gradient-to-b from-gray-950 to-gray-900 border-t border-gray-800">
         <div className="container mx-auto px-4 text-center">

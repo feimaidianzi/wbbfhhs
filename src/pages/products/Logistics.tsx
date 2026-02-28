@@ -37,7 +37,8 @@ import speakerImage from "@/assets/products/logistics-speaker.png";
 import carbonImage from "@/assets/products/logistics-carbon.png";
 
 const Logistics = () => {
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
+  const isZh = language === 'zh';
 
   const highlights = [
     { title: t('logistics.sy800.h1.title'), description: t('logistics.sy800.h1.desc') },
@@ -420,6 +421,23 @@ const Logistics = () => {
                 </div>
               ))}
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Related Article */}
+      <section className="py-12 bg-secondary border-t border-border">
+        <div className="container mx-auto px-4">
+          <div className="max-w-3xl mx-auto bg-card rounded-xl p-6 flex items-center gap-4 hover:shadow-lg transition-all">
+            <div className="text-3xl">📰</div>
+            <div className="flex-1">
+              <p className="text-sm text-accent font-mono mb-1">{isZh ? '深度解读' : 'Deep Dive'}</p>
+              <Link to="/news/1739834c-cf4b-4231-bc34-09096550937a" className="text-card-foreground font-semibold hover:text-accent transition-colors">
+                {isZh ? '智慧空中物流：CANI 工业级大载重物流无人机系统——一站式全栈定制方案' : 'Smart Aerial Logistics: CANI Industrial Heavy-lift Logistics UAV System'}
+              </Link>
+              <p className="text-muted-foreground text-sm mt-1">{isZh ? '了解 CANI 物流无人机的精准投送算法与全栈定制服务' : 'Explore precision delivery algorithms and full-stack customization'}</p>
+            </div>
+            <ChevronRight className="w-5 h-5 text-muted-foreground" />
           </div>
         </div>
       </section>

@@ -450,6 +450,23 @@ const TH200 = () => {
         </div>
       </section>
 
+      {/* Related Article */}
+      <section className="py-12 bg-gray-900/50 border-t border-gray-800">
+        <div className="container mx-auto px-4">
+          <div className="max-w-3xl mx-auto bg-gray-800/60 rounded-xl p-6 flex items-center gap-4 hover:bg-gray-800/80 transition-colors">
+            <div className="text-3xl">📰</div>
+            <div className="flex-1">
+              <p className="text-sm text-cyan-400 font-mono mb-1">{isZh ? '深度解读' : 'Deep Dive'}</p>
+              <Link to="/news/8378d971-a42f-4169-a093-0d25d46f8a69" className="text-white font-semibold hover:text-cyan-300 transition-colors">
+                {isZh ? '行业级性能旗舰：TH-200 系留无人机系统——软硬一体化全栈定制方案' : 'Industry-Grade Performance Flagship: TH-200 — Full-Stack Customization'}
+              </Link>
+              <p className="text-gray-400 text-sm mt-1">{isZh ? '深入了解 TH-200 的重载动力架构与加密链路协议' : 'Explore TH-200 heavy-lift architecture and encrypted link protocols'}</p>
+            </div>
+            <ChevronRight className="w-5 h-5 text-gray-500" />
+          </div>
+        </div>
+      </section>
+
       {/* ===== CTA ===== */}
       <section className="py-20 bg-gray-950 border-t border-gray-800">
         <div className="container mx-auto px-4 text-center">
