@@ -1195,9 +1195,9 @@ export const enTranslations: Record<string, string> = {
   'fcEscDetail.tdk.6in1-100a.h1': 'CANI-100A Industrial 6-in-1 ESC | 100A×6 Peak Integrated Power Module (3-6S)',
 
   // Separate ESC TDK
-  'fcEscDetail.tdk.separate-esc-80a.title': 'FV Separate ESC 80A | High-Voltage Industrial Single ESC',
-  'fcEscDetail.tdk.separate-esc-80a.desc': 'Industrial-grade separate ESC with 80A continuous current. Individual arm-mount design for easy maintenance on heavy-lift drones. Supports 4-8S LiPo.',
-  'fcEscDetail.tdk.separate-esc-80a.h1': '80A Separate ESC: Individual Arm-Mount Industrial Power Unit',
+  'fcEscDetail.tdk.separate-esc-80a.title': 'CANI 80A Separate ESC | 8S Industrial Independent ESC | X8 Power System Core',
+  'fcEscDetail.tdk.separate-esc-80a.desc': 'CANI 80A Separate ESC with 8S high-voltage support and 80A continuous output. Designed for X8 multi-rotors, VTOL and heavy-lift UAVs with superior physical isolation cooling and high-redundancy distributed power architecture.',
+  'fcEscDetail.tdk.separate-esc-80a.h1': 'CANI 80A Separate Industrial ESC | 80A Continuous / 8S Support / CNC Thermal Isolation',
   'fcEscDetail.tdk.separate-esc-100a.title': 'FV Separate ESC 100A | High-Voltage Industrial Single ESC',
   'fcEscDetail.tdk.separate-esc-100a.desc': 'Industrial-grade separate ESC with 100A continuous output. Designed for heavy-lift UAVs with independent heatsink. Supports up to 12S LiPo for maximum thrust.',
   'fcEscDetail.tdk.separate-esc-100a.h1': '100A Separate ESC: Heavy-Lift Industrial Power Module',

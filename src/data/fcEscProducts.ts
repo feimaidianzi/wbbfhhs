@@ -1066,9 +1066,10 @@ export const escProducts: FcEscProduct[] = [
 export const separateEscProducts: FcEscProduct[] = [
   {
     id: "separate-esc-80a",
-    name: "FlyMind 80A分体电调",
-    model: "FlyMind 80A SEP",
+    name: "CANI 80A 单体工业电调",
+    model: "CANI Separate ESC 80A (4-8S / 100A 峰值 / CNC 散热隔离)",
     category: "分体电调",
+    hot: true,
     image: separateEsc80a_1,
     images: [
       separateEsc80a_1,
@@ -1079,31 +1080,47 @@ export const separateEscProducts: FcEscProduct[] = [
     ],
     price: "¥219",
     highlights: [
-      "单臂独立安装",
-      "80A持续输出",
-      "散热效果极佳",
-      "方便维护更换"
+      "单路 80A 持续 / 100A 峰值 (10s)，独立动力单元",
+      "4-8S LiPo 宽电压，高压低电流高效架构",
+      "全铝合金 CNC 高效散热装甲，独立散热效率提升 40%",
+      "分布式安装，极短电机线，EMI 大幅降低",
+      "工业级三防漆覆盖（防潮/防盐雾/防尘）",
+      "DShot300/600 + PWM + Telemetry 遥测回传"
     ],
     description: [
-      "分体式设计",
-      "单臂独立安装",
-      "便于维护"
+      "CANI 80A 单体电调是一款专为大型工业机、VTOL 及重载 X8 机型设计的独立动力控制单元。支持最高 8S 电压输入，单路持续 80A，配合 CANI-Pixhawk4 或 FC-F722 飞控可实现真正的分布式动力冗余备份。",
+      "将电调直接安装在机臂末端电机座下方，三相动力线长度缩至最短，EMI 辐射大幅降低，为 FV10W-72 数字图传营造更纯净的电磁环境。每个电调独立配备完整 CNC 铝合金散热外壳，散热效率较四合一方案提升约 40%。",
+      "选用超低内阻（Low RDS(on)）工业 MOSFET，配合 4oz 加厚铜箔 PCB，在频繁姿态补偿中保持线性精准的动力响应。工业级三防漆覆盖适配海上巡检或潮湿雨林等恶劣工况。",
+      "支持独立 Telemetry 遥测回传，飞手可精准识别每个轴位电机的健康状态。是构建 X8 共轴冗余、VTOL 混合动力及系留无人机分布式动力链路的理想选择。"
     ],
     escSpecs: {
-      current: "80A (持续)",
-      peakCurrent: "100A (峰值)",
-      voltage: "4-8S LiPo",
-      protocol: "DShot1200",
-      size: "35×17mm",
-      weight: "12g/个"
+      current: "80A (单路独立持续)",
+      peakCurrent: "100A (峰值 10s)",
+      voltage: "4-8S LiPo (14.8V - 33.6V)",
+      protocol: "DShot600/300, PWM, Telemetry",
+      mosfet: "超低内阻工业 MOSFET (Low RDS(on))",
+      pcbLayers: "4oz 加厚铜箔 PCB",
+      size: "35×17mm (紧凑条状，适配工业机臂)",
+      weight: "12g/个 (含 CNC 散热壳)"
     },
     features: [
-      "独立安装",
-      "便于更换"
+      "分布式独立安装，故障不波及其他轴位",
+      "全铝合金 CNC 散热外壳，独立热管理",
+      "极短电机线设计，EMI 大幅降低",
+      "超低内阻 MOSFET + 4oz 加厚铜箔 PCB",
+      "工业级三防漆覆盖（防潮/防盐雾/防尘）",
+      "独立 Telemetry 遥测（电流/电压/转速/温度）",
+      "适配 X8、VTOL、系留机等分布式架构"
+    ],
+    notes: [
+      "推荐适配大型多旋翼 X8 架构、VTOL 及系留无人机",
+      "8S 系统请确保电池放电倍率充足",
+      "海上作业建议定期检查三防涂层完整性"
     ],
     packageIncludes: [
-      "80A分体电调 x1",
-      "线材 x1套"
+      "CANI 80A 单体电调 x1",
+      "CNC 铝合金散热壳 x1",
+      "连接线材 x1套"
     ]
   },
   {

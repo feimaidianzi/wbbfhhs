@@ -124,6 +124,14 @@ export const PRODUCT_LINK_MAP: ProductLinkEntry[] = [
     titleEn: 'CANI-ESC 100A Flagship 4-in-1 ESC',
     category: 'fc-esc',
   },
+  // === Separate ESC 单体电调 ===
+  {
+    keywords: ['80A单体电调', '80A分体电调', 'Separate ESC 80A', '单体80A电调', 'CANI 80A 单体'],
+    url: '/products/accessories/fc-esc/separate-esc-80a',
+    titleZh: 'CANI 80A 单体工业电调',
+    titleEn: 'CANI 80A Separate Industrial ESC',
+    category: 'fc-esc',
+  },
   {
     keywords: ['CANI-ESC 80A', 'ESC-80A', 'ESC 80A', '80A四合一电调', '80A电调'],
     url: '/products/accessories/fc-esc/esc-80a',

@@ -874,6 +874,25 @@ const FcEscDetail = () => {
             </div>
           </section>
         )}
+        {productId === 'separate-esc-80a' && (
+          <section className="py-12 bg-secondary border-t border-border">
+            <div className="container mx-auto px-4">
+              <div className="max-w-3xl mx-auto bg-card rounded-xl p-6 flex items-center gap-4 hover:shadow-lg transition-all border border-border/30">
+                <div className="text-3xl">📖</div>
+                <div className="flex-1">
+                  <p className="text-sm text-accent font-mono mb-1">{language === 'zh' ? '技术白皮书' : 'Tech Whitepaper'}</p>
+                  <Link to="/news/a7b8c9d0-1e2f-3a4b-5c6d-7e8f9a0b1c2d" className="text-foreground font-semibold hover:text-accent transition-colors">
+                    {language === 'zh' ? '分布式动力优势：深度解析 CANI 80A 单体电调在大型工业无人机中的架构价值' : 'Distributed Power Architecture: Deep Analysis of CANI 80A Separate ESC Value in Large Industrial UAVs'}
+                  </Link>
+                  <p className="text-muted-foreground text-sm mt-1">
+                    {language === 'zh' ? '了解分布式动力布局的散热优势、电气隔离冗余设计与 X8/VTOL 系统的最佳实践' : 'Explore distributed power layout thermal advantages, electrical isolation redundancy, and X8/VTOL system best practices'}
+                  </p>
+                </div>
+                <ChevronRight className="w-5 h-5 text-muted-foreground" />
+              </div>
+            </div>
+          </section>
+        )}
         {/* CTA Section */}
         <section className="py-20 bg-primary text-primary-foreground">
           <div className="container mx-auto px-4 text-center">
