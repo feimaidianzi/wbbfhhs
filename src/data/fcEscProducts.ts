@@ -940,9 +940,10 @@ export const escProducts: FcEscProduct[] = [
   },
   {
     id: "esc-80a",
-    name: "FlyMind Pro 80A电调",
-    model: "FlyMind Pro 80A 4-in-1",
+    name: "CANI-ESC 80A 工业级 8S 四合一电调",
+    model: "CANI-ESC 80A (4-8S / 100A 峰值 / CNC 高效散热)",
     category: "四合一电调",
+    hot: true,
     image: esc80a_1,
     images: [
       esc80a_1,
@@ -953,33 +954,49 @@ export const escProducts: FcEscProduct[] = [
     ],
     price: "¥759",
     highlights: [
-      "持续80A，峰值100A",
-      "3-8S宽电压支持",
-      "大功率MOS阵列",
-      "8层PCB高效散热"
+      "单路 80A 持续 / 100A 峰值 (10s)，重载级电流冗余",
+      "4-8S LiPo 宽电压，高压低电流高效架构",
+      "双组 MOSFET 并联设计，均匀散热极低内阻",
+      "全包裹式 CNC 航空铝散热装甲 + 高导热硅胶",
+      "双 TVS 浪涌保护 + 增强型沉金过孔焊盘",
+      "128KHz PWM 频率，DShot1200 双向遥测"
     ],
     description: [
-      "80A大电流输出",
-      "宽电压支持",
-      "8层PCB散热"
+      "CANI-ESC 80A 是一款专为 Cinelifter 重载电影机、8-10 英寸长航时 FPV 及工业级四旋翼巡检平台打造的高功率四合一电调。单路支持 80A 持续电流、100A 峰值（10秒），在大载重机型剧烈机动或紧急悬停补偿时提供绝对的功率冗余。",
+      "原生支持 4-8S LiPo 宽电压输入。通过提升系统电压，在输出相同功率的情况下工作电流显著降低，提升电池放电效率，为 TH-300 系留无人机等超长航时平台提供更优能效比。",
+      "内部采用双组低内阻功率管并联布局，相比单管设计能更均匀地分散热量，确保 80A 持续负载下电调内阻保持极低水平。全包裹式 CNC 航空铝散热装甲配合高导热率硅胶垫，热量通过机架气流迅速带走。",
+      "板载双重 TVS 瞬态抑制二极管，有效吸收大功率电机产生的反向高压脉冲，保护 FC-F722 飞控及 FV10W-72 图传系统不受电气干扰。沉金工艺增强型过孔焊盘确保 -20°C 至 50°C 极端温度下焊点稳固可靠。"
     ],
     escSpecs: {
-      current: "80A (持续)",
-      peakCurrent: "100A (峰值)",
-      voltage: "3-8S LiPo",
-      protocol: "DShot1200/600/300",
-      mosfet: "大功率MOS阵列",
-      pcbLayers: "8层PCB",
-      size: "45×45mm",
-      weight: "28g"
+      current: "80A × 4 (持续)",
+      peakCurrent: "100A × 4 (峰值 10s)",
+      voltage: "4-8S LiPo",
+      protocol: "DShot1200/600/300 (双向), PWM, Multishot",
+      mosfet: "双组并联低内阻 MOSFET + 双 TVS 保护",
+      pcbLayers: "8层PCB (加厚铜箔)",
+      size: "30.5×30.5mm (φ4mm，配 M3 减震球)",
+      weight: "28g (含散热装甲)"
     },
     features: [
-      "8层PCB散热",
-      "大载重应用"
+      "双组 MOSFET 并联，均匀散热极低内阻",
+      "全包裹式 CNC 航空铝散热装甲",
+      "双 TVS 瞬态抑制保护，工业级电气防护",
+      "128KHz PWM 频率，极精细电机控制",
+      "沉金工艺增强型过孔焊盘 (-20°C~50°C)",
+      "堵转、过流、过温多重保护机制",
+      "高精度电流计 + 数字化 Telemetry 遥测"
+    ],
+    notes: [
+      "推荐适配 8-10 英寸重载 Cinelifter 及工业巡检机型",
+      "大电流使用时建议使用 10AWG 以上硅胶线",
+      "8S 系统请确保电池放电倍率充足"
     ],
     packageIncludes: [
-      "80A电调 x1",
-      "线材 x1套"
+      "CANI-ESC 80A 四合一电调 x1",
+      "CNC 航空铝散热装甲 x1",
+      "连接线材 x1套",
+      "M3 减震球 x4",
+      "大电解电容 x1"
     ]
   },
   {
