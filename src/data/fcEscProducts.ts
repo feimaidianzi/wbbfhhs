@@ -501,7 +501,7 @@ export const sixInOneEscProducts: FcEscProduct[] = [
 export const researchFlightControllers: FcEscProduct[] = [
   {
     id: "cani-fmt",
-    name: "CANI ICF5 开源飞控",
+    name: "CANI-FC v2.0 开源飞控",
     model: "ICF5 (IC200)",
     category: "科研飞控",
     hot: true,
