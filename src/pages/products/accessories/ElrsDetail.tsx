@@ -151,8 +151,25 @@ const ElrsDetail = () => {
         { '@type': 'PropertyValue', name: '核心特性', value: '高刷新率 / 远距离控制' },
       ],
     },
+    'elrs-lite-2-4g': {
+      '@context': 'https://schema.org/',
+      '@type': 'Product',
+      name: 'CANI ELRS Lite 2.4G 高刷新率接收机',
+      image: 'https://www.caniuav.com/images/products/elrs/elrs-lite-2-4g-main.jpg',
+      description: language === 'zh'
+        ? '支持1000Hz刷新率的超低延迟2.4G ELRS接收机。可选微型陶瓷天线设计，极致轻量，专为高速FPV竞速与近距离高精度无人机编队作业设计。'
+        : 'Ultra-low latency 2.4G ELRS receiver with 1000Hz refresh rate. Optional micro ceramic antenna, ultra-lightweight, designed for high-speed FPV racing and close-range precision swarm operations.',
+      brand: { '@type': 'Brand', name: 'CANI' },
+      sku: 'CANI-ELRS-L24G',
+      url: 'https://www.caniuav.com/zh/products/accessories/elrs/elrs-lite-2-4g',
+      offers: { '@type': 'Offer', priceCurrency: 'CNY', availability: 'https://schema.org/InStock' },
+      additionalProperty: [
+        { '@type': 'PropertyValue', name: '刷新率', value: '1000Hz (1kHz)' },
+        { '@type': 'PropertyValue', name: '天线类型', value: 'SMT 陶瓷天线 / IPEX 可选' },
+        { '@type': 'PropertyValue', name: '频段', value: '2.4GHz ISM' },
+      ],
+    },
   };
-
   const productEnhancedData = productId ? enhancedStructuredData[productId] || null : null;
 
   // Deep dive article mapping
@@ -170,6 +187,13 @@ const ElrsDetail = () => {
       titleEn: 'CANI ELRS 915 Standard: How a 0.6g Nano Receiver Achieves Long-Range Control',
       descZh: '深度解析Nano尺寸空间利用率、915MHz频段FSPL链路预算、低功耗管理及与SJ4000-WiFi的轻量化闭环方案。',
       descEn: 'Deep dive into Nano size efficiency, 915MHz FSPL link budget, low power management, and lightweight visual control loop with SJ4000-WiFi.',
+    },
+    'elrs-lite-2-4g': {
+      id: 'tech-elrs-lite-2-4g-1000hz-low-latency-guide',
+      titleZh: 'CANI ELRS Lite 2.4G：1000Hz刷新率如何重新定义超低延迟无人机控制链路',
+      titleEn: 'CANI ELRS Lite 2.4G: How 1000Hz Refresh Rate Redefines Ultra-Low Latency UAV Control',
+      descZh: '深度解析2.4GHz宽带宽物理优势、端到端延迟数学模型（T=Tsampling+Tpacket+Trf）、SMT陶瓷天线设计及2.4G与915MHz选型指南。',
+      descEn: 'In-depth analysis of 2.4GHz wideband physics, end-to-end latency model, SMT ceramic antenna design, and 2.4G vs 915MHz selection guide.',
     },
   };
   const deepDiveInfo = productId ? deepDiveArticleMap[productId] : undefined;
@@ -193,7 +217,6 @@ const ElrsDetail = () => {
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_70%_30%,rgba(255,255,255,0.08),transparent_50%)]" />
           <div className="relative container-custom">
             <div className="grid lg:grid-cols-2 gap-12 items-center">
-              {/* Product Image */}
               <div className="order-2 lg:order-1">
                 <div className="relative bg-white/5 backdrop-blur-sm rounded-3xl p-8 border border-white/10">
                   <img
@@ -203,8 +226,6 @@ const ElrsDetail = () => {
                   />
                 </div>
               </div>
-
-              {/* Product Info */}
               <div className="order-1 lg:order-2">
                 <div className="inline-flex items-center gap-2 bg-accent/20 text-accent px-4 py-2 rounded-full text-sm font-medium mb-4">
                   <Radio className="w-4 h-4" />
@@ -216,8 +237,6 @@ const ElrsDetail = () => {
                 <p className="text-lg text-primary-foreground/80 mb-6">
                   {productDesc}
                 </p>
-                
-                {/* Key Features */}
                 <div className="flex flex-wrap gap-3 mb-8">
                   {product.keyFeatureKeys.map((featureKey, i) => (
                     <span key={i} className="bg-white/10 backdrop-blur text-primary-foreground px-4 py-2 rounded-full text-sm">
@@ -225,8 +244,6 @@ const ElrsDetail = () => {
                     </span>
                   ))}
                 </div>
-
-                {/* CTA */}
                 <div className="flex gap-4 mb-8">
                   <Link to="/contact">
                     <Button className="bg-accent hover:bg-accent/90 text-accent-foreground px-6 py-3">
@@ -234,9 +251,7 @@ const ElrsDetail = () => {
                       {t('accessoryDetail.inquireNow')}
                     </Button>
                   </Link>
-                  <Button 
-                    className="bg-transparent border border-white/50 text-white hover:bg-white/10 px-6 py-3"
-                  >
+                  <Button className="bg-transparent border border-white/50 text-white hover:bg-white/10 px-6 py-3">
                     {t('accessoryDetail.downloadManual')}
                   </Button>
                 </div>
@@ -253,10 +268,7 @@ const ElrsDetail = () => {
               {product.features.map((feature, index) => {
                 const IconComponent = iconMap[feature.titleKey] || Check;
                 return (
-                  <div 
-                    key={index}
-                    className="bg-card rounded-xl p-6 border border-border hover:border-accent/50 transition-colors"
-                  >
+                  <div key={index} className="bg-card rounded-xl p-6 border border-border hover:border-accent/50 transition-colors">
                     <div className="w-12 h-12 bg-accent/10 rounded-xl flex items-center justify-center mb-4">
                       <IconComponent className="w-6 h-6 text-accent" />
                     </div>
@@ -324,7 +336,7 @@ const ElrsDetail = () => {
           </section>
         )}
 
-        {/* FAQ Section (GEO) */}
+        {/* FAQ Section */}
         <section className="py-16 bg-background">
           <div className="container-custom max-w-4xl mx-auto">
             <h2 className="text-2xl md:text-3xl font-bold text-center mb-8">
@@ -333,36 +345,26 @@ const ElrsDetail = () => {
             <Accordion type="single" collapsible className="w-full">
               {faqItems.map((faq, idx) => (
                 <AccordionItem key={idx} value={`faq-${idx}`}>
-                  <AccordionTrigger className="text-left text-base font-medium">
-                    {faq.q}
-                  </AccordionTrigger>
-                  <AccordionContent className="text-muted-foreground">
-                    {faq.a}
-                  </AccordionContent>
+                  <AccordionTrigger className="text-left text-base font-medium">{faq.q}</AccordionTrigger>
+                  <AccordionContent className="text-muted-foreground">{faq.a}</AccordionContent>
                 </AccordionItem>
               ))}
             </Accordion>
           </div>
         </section>
 
-        {/* Enhanced JSON-LD for specific products */}
+        {/* Enhanced JSON-LD */}
         {productEnhancedData && (
           <Helmet>
-            <script type="application/ld+json">
-              {JSON.stringify(productEnhancedData)}
-            </script>
+            <script type="application/ld+json">{JSON.stringify(productEnhancedData)}</script>
           </Helmet>
         )}
 
         {/* CTA Section */}
         <section className="py-20 bg-primary">
           <div className="container-custom text-center">
-            <h2 className="text-2xl md:text-3xl font-bold text-primary-foreground mb-4">
-              {t('accessoryDetail.needMoreInfo')}
-            </h2>
-            <p className="text-primary-foreground/80 mb-8 max-w-2xl mx-auto">
-              {t('accessoryDetail.contactDesc')}
-            </p>
+            <h2 className="text-2xl md:text-3xl font-bold text-primary-foreground mb-4">{t('accessoryDetail.needMoreInfo')}</h2>
+            <p className="text-primary-foreground/80 mb-8 max-w-2xl mx-auto">{t('accessoryDetail.contactDesc')}</p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link to="/contact">
                 <Button className="bg-accent hover:bg-accent/90 text-accent-foreground px-8 py-6 text-lg">

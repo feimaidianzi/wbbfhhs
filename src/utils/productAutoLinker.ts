@@ -222,6 +222,13 @@ export const PRODUCT_LINK_MAP: ProductLinkEntry[] = [
     category: 'elrs',
   },
   {
+    keywords: ['ELRS Lite 2.4G', 'ELRS 2.4G', '2.4G ELRS接收机', '1000Hz刷新率遥控', '超低延迟无人机链路', '微型陶瓷天线接收机'],
+    url: '/products/accessories/elrs/elrs-lite-2-4g',
+    titleZh: 'CANI ELRS Lite 2.4G 高刷新率接收机',
+    titleEn: 'CANI ELRS Lite 2.4G High Refresh Rate Receiver',
+    category: 'elrs',
+  },
+  {
     keywords: ['ExpressLRS', 'ELRS模块', 'ELRS接收机', 'ELRS发射机'],
     url: '/products/accessories/elrs',
     titleZh: 'CANI ExpressLRS 遥控链路',
