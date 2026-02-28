@@ -23,6 +23,7 @@ const VtxDetail = () => {
   const isFV16W = productId === "fv16w-a1";
   const isFV25W = productId === "fv25w-a1";
   const isFV37W = productId === "fv37w-a1";
+  const isFV10W72 = productId === "fv10w-72";
 
   if (!product) {
     return <Navigate to="/products/accessories/vtx-vrx" replace />;
@@ -1033,6 +1034,25 @@ const VtxDetail = () => {
                     {isZh ? '远洋级链路中枢：FV37W-A1 超远距离数字链路系统——全栈定制化方案' : 'Strategic Link Hub: FV37W-A1 Ultra-Long-Range Digital Data Link — Full-Stack Customization'}
                   </Link>
                   <p className="text-muted-foreground text-sm mt-1">{isZh ? '了解 MIMO 架构、SDR 软件定义频率与三合一数据复用技术' : 'Explore MIMO architecture, SDR frequency definition and tri-in-one multiplexing'}</p>
+                </div>
+                <ChevronRight className="w-5 h-5 text-muted-foreground" />
+              </div>
+            </div>
+          </section>
+        )}
+
+        {/* Related Article for FV10W-72 (7.2GHz) */}
+        {isFV10W72 && (
+          <section className="py-12 bg-secondary border-t border-border">
+            <div className="container mx-auto px-4">
+              <div className="max-w-3xl mx-auto bg-card rounded-xl p-6 flex items-center gap-4 hover:shadow-lg transition-all border border-border/30">
+                <div className="text-3xl">📰</div>
+                <div className="flex-1">
+                  <p className="text-sm text-accent font-mono mb-1">{isZh ? '深度解读' : 'Deep Dive'}</p>
+                  <Link to="/news/b7e2f4a1-3c8d-4e5f-9a1b-2d3e4f5a6b7c" className="text-foreground font-semibold hover:text-accent transition-colors">
+                    {isZh ? 'FV10W-72：7.2GHz特种频段10W工业级图传，重塑超视距通信边界' : 'FV10W-72: 7.2GHz Special Band 10W Industrial VTX Redefining BVLOS Communication'}
+                  </Link>
+                  <p className="text-muted-foreground text-sm mt-1">{isZh ? '了解7.2GHz频段战略价值、10W阶梯功率设计与双重散热架构' : 'Explore 7.2GHz band strategic value, 10W stepped power design and dual cooling architecture'}</p>
                 </div>
                 <ChevronRight className="w-5 h-5 text-muted-foreground" />
               </div>
