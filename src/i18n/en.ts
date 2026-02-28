@@ -1274,8 +1274,8 @@ export const enTranslations: Record<string, string> = {
   'gimbal.cta.desc': 'We offer OEM/ODM customization including sensor configuration, interface protocols, and industrial design. Compatible with MAVLink/SBUS/PWM protocols and Pixhawk flight controllers.',
   'gimbal.cta.btn': 'Request a Quote',
   // Gimbal SKU-specific TDK
-  'gimbal.tdk.k40t.title': 'K40T Quad-Sensor AI Gimbal Camera | 30x Zoom + Thermal + 1200m Laser | CANI',
-  'gimbal.tdk.k40t.desc': 'K40T quad-sensor AI gimbal integrates 30x optical zoom, 48MP wide-angle, 640×512 thermal imaging, and 1200m laser rangefinder. 290g ultra-light, ±0.005° stabilization, AI target recognition & auto-tracking for power inspection and emergency response.',
+  'gimbal.tdk.k40t.title': 'K40T Quad-Sensor AI Gimbal | 48MP Zoom + 640 Thermal + 1.2km Laser | 290g | CANI',
+  'gimbal.tdk.k40t.desc': 'CANI K40T quad-sensor AI gimbal integrates 48MP zoom, 640×512 thermal imaging, and 1200m laser rangefinder with 6TOPS AI computing. Only 290g, ±0.005° stabilization, 160x hybrid zoom. Purpose-built for power inspection, fire rescue, and security patrol.',
   'gimbal.tdk.k8t-v2.title': 'K8T-V2 Dual-Light AI Tracking Gimbal | Thermal + AI Tracking | CANI',
   'gimbal.tdk.k8t-v2.desc': 'K8T-V2 dual-light AI gimbal combines visible light and 640×512 thermal sensors with 4 TOPS AI chip for intelligent target tracking. Only 162g, 40x digital zoom, -20°C to 650°C temperature measurement, ±2°C accuracy for thermal fault detection.',
   'gimbal.tdk.k8-v2.title': 'K8-V2 Single-Light AI Tracking Gimbal | 30x Optical Zoom + 4K | CANI',
@@ -1334,6 +1334,9 @@ export const enTranslations: Record<string, string> = {
   'gimbal.k40t.app.3': 'Law Enforcement — Aerial surveillance and target tracking',
   'gimbal.k40t.app.4': 'Emergency Response — Disaster assessment and command dispatch',
   'gimbal.k40t.app.5': 'Border Patrol — Border surveillance and intrusion detection',
+  'gimbal.k40t.whitepaper.title': '📚 Tech Whitepaper: Multi-Sensor Fusion & AI Tracking',
+  'gimbal.k40t.whitepaper.desc': 'How does the K40T achieve quad-sensor fusion and AI edge computing in just 290g? Explore the multi-dimensional perception architecture and industrial application strategies.',
+  'gimbal.k40t.whitepaper.cta': 'Read the Deep Technical Analysis',
   // K8T-V2
   'gimbal.k8tv2.name': 'K8T-V2 Dual-Light AI Tracking Gimbal',
   'gimbal.k8tv2.slogan': 'Dual Vision, Full Control Day & Night',

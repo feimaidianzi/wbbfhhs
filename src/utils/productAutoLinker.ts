@@ -192,6 +192,27 @@ export const PRODUCT_LINK_MAP: ProductLinkEntry[] = [
   },
   // === Gimbal 云台 ===
   {
+    keywords: ['K40T', 'K40T云台', '四光云台', '四光AI云台', 'K40T Gimbal', 'Quad-Sensor Gimbal', '四传感器云台'],
+    url: '/products/accessories/gimbal/k40t',
+    titleZh: 'CANI K40T 四光AI云台相机',
+    titleEn: 'CANI K40T Quad-Sensor AI Gimbal Camera',
+    category: 'gimbal',
+  },
+  {
+    keywords: ['K8T-V2', 'K8TV2', '双光云台', '双光跟踪云台'],
+    url: '/products/accessories/gimbal/k8t-v2',
+    titleZh: 'CANI K8T-V2 双光AI跟踪云台',
+    titleEn: 'CANI K8T-V2 Dual-Light AI Tracking Gimbal',
+    category: 'gimbal',
+  },
+  {
+    keywords: ['K8-V2', 'K8V2', '单光云台', '单光追踪云台'],
+    url: '/products/accessories/gimbal/k8-v2',
+    titleZh: 'CANI K8-V2 单光AI追踪云台',
+    titleEn: 'CANI K8-V2 Single-Light AI Tracking Gimbal',
+    category: 'gimbal',
+  },
+  {
     keywords: ['三轴云台', '云台吊舱', 'Gimbal Pod', '稳定云台'],
     url: '/products/accessories/gimbal',
     titleZh: 'CANI 云台吊舱系列',

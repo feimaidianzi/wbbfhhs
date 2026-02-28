@@ -331,6 +331,30 @@ const GimbalDetail = () => {
           </div>
         </section>
 
+        {/* Tech Whitepaper Link Card */}
+        {productId === 'k40t' && (
+          <section className="py-12 bg-muted/30">
+            <div className="container mx-auto px-4">
+              <div className="max-w-3xl mx-auto bg-card rounded-2xl border border-primary/20 p-8 shadow-lg hover:shadow-xl transition-shadow">
+                <div className="flex items-start gap-4">
+                  <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center flex-shrink-0">
+                    <Play className="w-6 h-6 text-primary" />
+                  </div>
+                  <div className="flex-1">
+                    <h3 className="text-lg font-bold mb-2">{t('gimbal.k40t.whitepaper.title')}</h3>
+                    <p className="text-muted-foreground mb-4">{t('gimbal.k40t.whitepaper.desc')}</p>
+                    <Button variant="outline" className="group" asChild>
+                      <Link to="/news/c9d0e1f2-3a4b-5c6d-7e8f-9a0b1c2d3e4f">
+                        {t('gimbal.k40t.whitepaper.cta')} →
+                      </Link>
+                    </Button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+        )}
+
         {/* CTA Section */}
         <section className="py-16 bg-primary text-primary-foreground">
           <div className="container mx-auto px-4 text-center">
