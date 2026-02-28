@@ -817,6 +817,25 @@ const FcEscDetail = () => {
             </div>
           </section>
         )}
+        {productId === 'esc-80a' && (
+          <section className="py-12 bg-secondary border-t border-border">
+            <div className="container mx-auto px-4">
+              <div className="max-w-3xl mx-auto bg-card rounded-xl p-6 flex items-center gap-4 hover:shadow-lg transition-all border border-border/30">
+                <div className="text-3xl">📖</div>
+                <div className="flex-1">
+                  <p className="text-sm text-accent font-mono mb-1">{language === 'zh' ? '技术白皮书' : 'Tech Whitepaper'}</p>
+                  <Link to="/news/e5f6a7b8-9c0d-1e2f-3a4b-5c6d7e8f0a1b" className="text-foreground font-semibold hover:text-accent transition-colors">
+                    {language === 'zh' ? '重载动力的极境挑战：解析 CANI-ESC 80A 如何在 8S 高压工况下实现零温漂控制' : 'Ultimate Heavy-Lift Power Challenge: How CANI-ESC 80A Achieves Zero Thermal Drift Under 8S High-Voltage'}
+                  </Link>
+                  <p className="text-muted-foreground text-sm mt-1">
+                    {language === 'zh' ? '深入了解双组 MOSFET 并联技术、双层 CNC 散热装甲、双 TVS 防护与 8S 高压效率优化' : 'Explore dual MOSFET parallel topology, dual-layer CNC heat armor, dual TVS protection, and 8S high-voltage efficiency'}
+                  </p>
+                </div>
+                <ChevronRight className="w-5 h-5 text-muted-foreground" />
+              </div>
+            </div>
+          </section>
+        )}
         {productId === 'esc-55a' && (
           <section className="py-12 bg-secondary border-t border-border">
             <div className="container mx-auto px-4">
