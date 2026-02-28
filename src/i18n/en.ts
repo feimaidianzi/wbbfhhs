@@ -1220,9 +1220,9 @@ export const enTranslations: Record<string, string> = {
   'fcEscDetail.tdk.fc-f405.title': 'CANI-FC F405 Flight Controller | Industrial UAV Controller | High-Stability F4 FC',
   'fcEscDetail.tdk.fc-f405.desc': 'Explore the CANI-FC F405 flight controller. STM32F405 core with multi-UART expansion and superior EMI resistance. Supports ArduPilot & Betaflight firmware. Designed for power inspection, special operations, and research UAVs.',
   'fcEscDetail.tdk.fc-f405.h1': 'CANI-FC F405 | Industrial Multi-Function Flight Controller (STM32F405 / 30.5mm)',
-  'fcEscDetail.tdk.fc-f722.title': 'FlyMind F722 Flight Controller | Dual Gyro High-Performance FC',
-  'fcEscDetail.tdk.fc-f722.desc': 'High-performance STM32F722 flight controller with dual ICM42688 gyro redundancy. 5x UART, supports HD VTX control. For serious FPV pilots.',
-  'fcEscDetail.tdk.fc-f722.h1': 'F722 Flight Controller: Dual-Gyro High-Performance Autopilot',
+  'fcEscDetail.tdk.fc-f722.title': 'CANI-FC F722 Flight Controller | 216MHz Extreme Processor | Industrial High-Performance UAV Controller',
+  'fcEscDetail.tdk.fc-f722.desc': 'Explore the CANI-FC F722 flight controller. STM32F722 core at 216MHz with multi-UART high-speed expansion and superior computing power. Supports bidirectional DShot telemetry and 10V digital VTX power. Designed for high-agility inspection and complex industrial applications.',
+  'fcEscDetail.tdk.fc-f722.h1': 'CANI-FC F722 | Flagship High-Performance Flight Controller (STM32F722 / 216MHz Extreme Response)',
 
   // Research FC TDK
   'fcEscDetail.tdk.cani-fmt.title': 'CANI ICF5 Open Source Flight Controller | FMT Autopilot System',
