@@ -703,6 +703,25 @@ const FcEscDetail = () => {
             </div>
           </section>
         )}
+        {productId === 'stack-pro-f722-100a' && (
+          <section className="py-12 bg-secondary border-t border-border">
+            <div className="container mx-auto px-4">
+              <div className="max-w-3xl mx-auto bg-card rounded-xl p-6 flex items-center gap-4 hover:shadow-lg transition-all border border-border/30">
+                <div className="text-3xl">📖</div>
+                <div className="flex-1">
+                  <p className="text-sm text-accent font-mono mb-1">{language === 'zh' ? '技术白皮书' : 'Tech Whitepaper'}</p>
+                  <Link to="/news/d8e9f0a1-2b3c-4d5e-6f7a-8b9c0d1e2f3a" className="text-foreground font-semibold hover:text-accent transition-colors">
+                    {language === 'zh' ? '动力之巅：CANI Stack-Pro F722-100A 如何解决大载重无人机的电流焦虑？' : 'Peak Power: How Stack-Pro F722-100A Solves Current Anxiety for Heavy-Lift UAVs'}
+                  </Link>
+                  <p className="text-muted-foreground text-sm mt-1">
+                    {language === 'zh' ? '深入了解百安培动力工程、8 层 PCB 散热设计与双 ICM42688 冗余陀螺仪架构' : 'Explore 100A power engineering, 8-layer PCB thermal design, and dual ICM42688 redundant gyroscope architecture'}
+                  </p>
+                </div>
+                <ChevronRight className="w-5 h-5 text-muted-foreground" />
+              </div>
+            </div>
+          </section>
+        )}
         {/* CTA Section */}
         <section className="py-20 bg-primary text-primary-foreground">
           <div className="container mx-auto px-4 text-center">
