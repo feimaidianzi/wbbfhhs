@@ -665,6 +665,25 @@ const FcEscDetail = () => {
             </div>
           </section>
         )}
+        {productId === 'stack-f405-60a' && (
+          <section className="py-12 bg-secondary border-t border-border">
+            <div className="container mx-auto px-4">
+              <div className="max-w-3xl mx-auto bg-card rounded-xl p-6 flex items-center gap-4 hover:shadow-lg transition-all border border-border/30">
+                <div className="text-3xl">📖</div>
+                <div className="flex-1">
+                  <p className="text-sm text-accent font-mono mb-1">{language === 'zh' ? '技术白皮书' : 'Tech Whitepaper'}</p>
+                  <Link to="/news/b4637881-4579-4863-94af-f3719098a9a6" className="text-foreground font-semibold hover:text-accent transition-colors">
+                    {language === 'zh' ? '动力冗余与极致稳定：解构 CANI Stack F405-60A 在大载重无人机中的核心价值' : 'Power Redundancy & Ultimate Stability: Stack F405-60A Core Value in Heavy-Lift UAVs'}
+                  </Link>
+                  <p className="text-muted-foreground text-sm mt-1">
+                    {language === 'zh' ? '了解 60A 大电流热管理工程、双向 DShot RPM 滤波与 X8 大载重架构适配' : 'Explore 60A high-current thermal management, bidirectional DShot RPM filtering, and X8 heavy-lift architecture'}
+                  </p>
+                </div>
+                <ChevronRight className="w-5 h-5 text-muted-foreground" />
+              </div>
+            </div>
+          </section>
+        )}
         {/* CTA Section */}
         <section className="py-20 bg-primary text-primary-foreground">
           <div className="container mx-auto px-4 text-center">
