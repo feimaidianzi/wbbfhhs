@@ -174,6 +174,22 @@ export const PRODUCT_LINK_MAP: ProductLinkEntry[] = [
     titleEn: 'CANI-FC F722 Flagship High-Performance Flight Controller',
     category: 'fc-esc',
   },
+  // === Mesh-Link 自组网 ===
+  {
+    keywords: ['Mesh-Link', 'Mesh Link', '自组网模块', '无人机自组网', 'Mesh链路中继', '无中心组网', '复杂环境图传', 'Ad-hoc Networking'],
+    url: '/products/accessories/mesh-link',
+    titleZh: 'CANI Mesh-Link 宽带自组网系统',
+    titleEn: 'CANI Mesh-Link Broadband Ad-hoc Networking System',
+    category: 'digital-fpv',
+  },
+  // === WiFiLink2 数字图传 ===
+  {
+    keywords: ['WiFiLink2', 'OpenIPC图传', 'OpenIPC'],
+    url: '/products/accessories/digital-fpv/wifilink2',
+    titleZh: 'CANI WiFiLink2 数字图传系统',
+    titleEn: 'CANI WiFiLink2 Digital FPV System',
+    category: 'digital-fpv',
+  },
   // === Digital FPV 数字图传系统 ===
   {
     keywords: ['数字图传系统', 'Digital FPV System', 'FPV数字链路'],
