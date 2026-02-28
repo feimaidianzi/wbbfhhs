@@ -667,6 +667,25 @@ const CaniFmtDetail = () => {
           </div>
         </section>
 
+        {/* ═══ Related Article (Deep Dive) ═══ */}
+        <section className="py-12 bg-secondary border-t border-border">
+          <div className="container mx-auto px-4">
+            <div className="max-w-3xl mx-auto bg-card rounded-xl p-6 flex items-center gap-4 hover:shadow-lg transition-all border border-border/30">
+              <div className="text-3xl">📖</div>
+              <div className="flex-1">
+                <p className="text-sm text-accent font-mono mb-1">{isEn ? 'Deep Dive' : '深度解读'}</p>
+                <Link to="/news/c3a1b2d4-5e6f-7a8b-9c0d-1e2f3a4b5c6d" className="text-foreground font-semibold hover:text-accent transition-colors">
+                  {isEn ? 'CANI-FC v2.0: MBD Model-Based Development Research-Grade Flight Management Hub' : 'CANI-FC v2.0：基于MBD模型化开发的科研级飞行管理中枢'}
+                </Link>
+                <p className="text-muted-foreground text-sm mt-1">
+                  {isEn ? 'Explore 240MHz flagship hardware, MATLAB/Simulink MBD workflow, and FMT open-source ecosystem' : '了解240MHz旗舰硬件、MATLAB/Simulink MBD开发流与FMT开源生态'}
+                </p>
+              </div>
+              <ChevronRight className="w-5 h-5 text-muted-foreground" />
+            </div>
+          </div>
+        </section>
+
         {/* ═══ CTA ═══ */}
         <section className="py-20 bg-gradient-to-br from-emerald-900/30 to-gray-950">
           <div className="container mx-auto px-4 text-center">
