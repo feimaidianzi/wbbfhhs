@@ -983,6 +983,25 @@ const VtxDetail = () => {
           </section>
         )}
 
+        {/* Related Article for FV16W */}
+        {isFV16W && (
+          <section className="py-12 bg-secondary border-t border-border">
+            <div className="container mx-auto px-4">
+              <div className="max-w-3xl mx-auto bg-card rounded-xl p-6 flex items-center gap-4 hover:shadow-lg transition-all border border-border/30">
+                <div className="text-3xl">📰</div>
+                <div className="flex-1">
+                  <p className="text-sm text-accent font-mono mb-1">{isZh ? '深度解读' : 'Deep Dive'}</p>
+                  <Link to="/news/a1899cc4-f1d7-4f08-9669-2522c1f79a2e" className="text-foreground font-semibold hover:text-accent transition-colors">
+                    {isZh ? '数字化链路巅峰：FV16W-A1 高清无线数字图传系统——全栈定制化方案' : 'Digital Link Apex: FV16W-A1 HD Digital Wireless Video Link — Full-Stack Customization'}
+                  </Link>
+                  <p className="text-muted-foreground text-sm mt-1">{isZh ? '了解动态码率自适应、FEC纠错与AES-256加密技术' : 'Explore ABR, FEC error correction and AES-256 encryption'}</p>
+                </div>
+                <ChevronRight className="w-5 h-5 text-muted-foreground" />
+              </div>
+            </div>
+          </section>
+        )}
+
         <section className="py-20 bg-primary text-primary-foreground">
           <div className="container mx-auto px-4 text-center">
             <h2 className="text-3xl font-bold mb-4">
