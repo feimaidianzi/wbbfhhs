@@ -226,57 +226,61 @@ export const stackProducts: FcEscProduct[] = [
   },
   {
     id: "stack-f405-60a",
-    name: "FlyMind F405+60A飞塔",
-    model: "FlyMind F405+60A",
+    name: "CANI Stack F405-60A 大电流工业飞速塔",
+    model: "Stack F405-60A",
     category: "飞塔",
+    hot: true,
     image: "https://ueeshop.ly200-cdn.com/u_file/UPBD/UPBD023/2411/25/products/4b65e095d8.jpg",
     images: [
       "https://ueeshop.ly200-cdn.com/u_file/UPBD/UPBD023/2411/25/products/4b65e095d8.jpg"
     ],
     price: "¥489",
     highlights: [
-      "STM32F405处理器",
-      "60A四合一电调，峰值75A",
-      "优化PCB散热设计",
-      "30.5×30.5mm标准孔距",
-      "穿越竞速首选"
+      "STM32F405RGT6 处理器 (168MHz)",
+      "MPU6000 SPI 工业级陀螺仪",
+      "60A 持续 / 80A 峰值四合一电调",
+      "CNC 阳极氧化铝散热罩，48KHz PWM",
+      "双向 DShot 遥测，适配大载重 X8 架构"
     ],
     description: [
-      "60A持续电流，峰值75A，动力更强劲",
-      "优化散热路径，长时间飞行更稳定",
-      "适合高强度竞速和花飞玩家",
-      "BLHeli_32固件，响应速度快"
+      "CANI Stack F405-60A 是一款集高性能、高电流冗余与出色散热于一体的工业级动力控制套装。其飞控采用 STM32F405 主控与经典 MPU6000 陀螺仪，电调支持单路 60A 持续电流输出，兼容 3S-6S 动力系统。",
+      "区别于 55A 版本，60A 电调配备了面积更大的 CNC 阳极氧化铝合金散热罩，结合高热导率硅胶片，确保在 6S 高压工况下 MOSFET 结温保持安全范围。实测 40°C 环境满载 30 分钟，温升曲线始终稳定。",
+      "支持双向 DShot 遥测，飞控可实时获取电机转速数据并执行 RPM 陷波滤波，有效抑制螺旋桨共振、监测电机异常，为工业级安全预警提供数据支撑。",
+      "专为大载重 FPV、X8 共轴巡检机、系留无人机及科研教学平台设计。搭配 FV10W-72 图传时，EMI 优化布局确保全速飞行下视频流不受干扰。"
     ],
     fcSpecs: {
-      mcu: "STM32F405",
-      gyro: "ICM42688",
+      mcu: "STM32F405RGT6 (168MHz)",
+      gyro: "MPU6000 (SPI)",
       osd: "板载AT7456E",
       blackbox: "8MB SPI Flash",
-      uart: "4个UART",
+      uart: "5个UART, 1个I2C",
       voltage: "3-6S LiPo",
       bec: "5V/3A, 9V/2A",
       size: "30.5×30.5mm (M3)",
       weight: "8g",
-      firmware: "Betaflight"
+      firmware: "Betaflight / INAV"
     },
     escSpecs: {
       current: "60A (持续)",
-      peakCurrent: "75A (峰值)",
+      peakCurrent: "80A (峰值 10s)",
       voltage: "3-6S LiPo",
-      protocol: "DShot1200/600/300",
-      mosfet: "低内阻MOS阵列",
+      protocol: "DShot1200 (双向) / DShot600/300",
+      mosfet: "低内阻MOSFET阵列",
       pcbLayers: "4层PCB",
       size: "30.5×30.5mm (M3)",
       weight: "20g"
     },
     features: [
-      "优化PCB走线，降低热阻",
+      "CNC阳极氧化铝合金散热罩",
       "支持48KHz PWM频率",
-      "电流传感器内置"
+      "双向DShot遥测 (RPM Filter)",
+      "电流传感器内置",
+      "多层EMI屏蔽PCB布局"
     ],
     packageIncludes: [
       "F405飞控 x1",
       "60A四合一电调 x1",
+      "CNC散热罩 x1",
       "连接线材 x1套"
     ]
   },

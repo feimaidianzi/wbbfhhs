@@ -83,6 +83,13 @@ export const PRODUCT_LINK_MAP: ProductLinkEntry[] = [
     category: 'fc-esc',
   },
   {
+    keywords: ['Stack F405-60A', 'F405-60A', 'F405+60A飞塔', 'FlyMind F405+60A', '60A飞塔'],
+    url: '/products/accessories/fc-esc/stack-f405-60a',
+    titleZh: 'CANI Stack F405-60A 大电流工业飞速塔',
+    titleEn: 'CANI Stack F405-60A Heavy-Duty Industrial Flight Tower',
+    category: 'fc-esc',
+  },
+  {
     keywords: ['F722飞控', 'F722 100A', 'Pro F722', 'FlyMind Pro'],
     url: '/products/accessories/fc-esc/stack-pro-f722-100a',
     titleZh: 'CANI FlyMind Pro F722 100A 飞塔',
