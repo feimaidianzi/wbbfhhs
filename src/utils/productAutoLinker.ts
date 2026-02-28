@@ -124,6 +124,13 @@ export const PRODUCT_LINK_MAP: ProductLinkEntry[] = [
     titleEn: 'CANI-FC F405 Industrial Multi-Function Flight Controller',
     category: 'fc-esc',
   },
+  {
+    keywords: ['CANI-FC F722', 'FC F722', 'FC-F722', 'F722飞控', 'FlyMind F722', 'F722飞控板'],
+    url: '/products/accessories/fc-esc/fc-f722',
+    titleZh: 'CANI-FC F722 旗舰级高性能飞控',
+    titleEn: 'CANI-FC F722 Flagship High-Performance Flight Controller',
+    category: 'fc-esc',
+  },
   // === Digital FPV 数字图传系统 ===
   {
     keywords: ['数字图传系统', 'Digital FPV System', 'FPV数字链路'],

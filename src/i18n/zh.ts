@@ -7710,9 +7710,9 @@ export const zhTranslations: Record<string, string> = {
   'fcEscDetail.tdk.fc-f405.title': 'CANI-FC F405 飞控 | 工业级无人机控制器 | 高稳定性 F4 飞控',
   'fcEscDetail.tdk.fc-f405.desc': '详细了解 CANI-FC F405 飞控。搭载 STM32F405 核心，具备多路 UART 扩展与卓越的抗电磁干扰性能。支持 ArduPilot 与 Betaflight 固件，专为电力巡检、特种作业及科研无人机设计。',
   'fcEscDetail.tdk.fc-f405.h1': 'CANI-FC F405 | 工业级多功能飞控 (STM32F405 / 30.5mm 标准孔位)',
-  'fcEscDetail.tdk.fc-f722.title': 'FlyMind F722飞控 | 双陀螺仪高性能飞控',
-  'fcEscDetail.tdk.fc-f722.desc': '高性能STM32F722飞控，双ICM42688陀螺仪冗余设计，5个UART接口，支持HD数字图传控制，进阶FPV飞手首选。',
-  'fcEscDetail.tdk.fc-f722.h1': 'F722飞控：双陀螺仪高性能自动驾驶仪',
+  'fcEscDetail.tdk.fc-f722.title': 'CANI-FC F722 飞控 | 216MHz 极速处理器 | 工业级无人机高性能控制器',
+  'fcEscDetail.tdk.fc-f722.desc': '详细了解 CANI-FC F722 飞控。搭载 STM32F722 核心（216MHz），具备多路高速 UART 与卓越的计算能力。支持双向 DShot 遥测与 10V 数字图传供电，专为高机动巡检机与复杂行业应用设计。',
+  'fcEscDetail.tdk.fc-f722.h1': 'CANI-FC F722 | 旗舰级高性能飞控 (STM32F722 / 216MHz 极速响应)',
 
   // Research FC TDK
   'fcEscDetail.tdk.cani-fmt.title': 'CANI ICF5 开源飞控 | FMT自驾仪系统 | 科研级飞控',

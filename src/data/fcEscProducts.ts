@@ -759,8 +759,8 @@ export const flightControllerProducts: FcEscProduct[] = [
   },
   {
     id: "fc-f722",
-    name: "FlyMind F7飞控",
-    model: "FlyMind F722",
+    name: "CANI-FC F722 旗舰级高性能飞控",
+    model: "CANI-FC F722 (STM32F722 / 216MHz / 30.5mm)",
     category: "飞控",
     image: fcF722_1,
     images: [
@@ -773,35 +773,50 @@ export const flightControllerProducts: FcEscProduct[] = [
     ],
     price: "¥399",
     highlights: [
-      "STM32F722处理器，更高性能",
-      "双陀螺仪设计，稳定可靠",
-      "5个UART串口",
-      "支持HD VTX控制"
+      "STM32F722RGT6 (216MHz) 旗舰处理核心",
+      "双 ICM42688 冗余陀螺仪，工业级姿态精度",
+      "6 路 UART 多设备并发，零丢包",
+      "双 BEC：5V/2A (系统) + 10V/2A (图传专供)",
+      "3-6S 宽电压 + 加厚 PCB EMI 屏蔽",
+      "30.5×30.5mm 标准孔位，集成 Betaflight OSD"
     ],
     description: [
-      "高性能F7平台",
-      "双陀螺仪冗余设计",
-      "丰富的UART接口"
+      "CANI-FC F722 是一款专为极致性能和复杂行业应用打造的飞控标杆。搭载 216MHz STM32F722 处理器，相比 F4 系列主频提升 28%，配合双精度浮点运算单元（FPU）和高效缓存机制，能在维持 8K/8K 甚至更高 PID 环路频率的同时，轻松运行多重动态陷波滤波器。",
+      "双 ICM42688 低噪声陀螺仪冗余设计，配合定制 LDO 线性稳压器独立供电，在靠近高压输电线或大功率电调电磁冲击时，姿态数据信噪比依然极高。加厚 PCB 与优化元器件布局最大限度减少内部电磁耦合。",
+      "提供多达 6 路独立硬件 UART，可同时连接 RTK、测距雷达、数字图传及 Jetson/树莓派等外部协同处理器。板载 10V/2A 独立 BEC 专为 FV10W-72 数字图传供电，有效屏蔽动力系统产生的尖峰脉冲对画面的干扰。",
+      "通过双向 DShot 协议可实时调取电调转速数据，实现 RPM 陷波滤波从物理层面消除机架共振。是数字化图传方案、多载荷工业机、科研算法验证平台及 TH-300 系留系统的首选控制核心。"
     ],
     fcSpecs: {
-      mcu: "STM32F722",
-      gyro: "双ICM42688",
-      osd: "AT7456E",
-      blackbox: "16MB",
-      uart: "5个UART",
-      voltage: "3-8S LiPo",
-      bec: "5V/3A, 9V/2A",
+      mcu: "STM32F722RGT6 (216MHz)",
+      gyro: "双 ICM42688 (SPI，冗余设计)",
+      osd: "板载 AT7456E",
+      blackbox: "16MB SPI Flash",
+      uart: "6个UART, 1个I2C, 8x PWM",
+      voltage: "3-6S LiPo (LDO 隔离供电)",
+      bec: "5V/2A (系统) + 10V/2A (图传专供)",
       size: "30.5×30.5mm (M3)",
       weight: "9g",
-      firmware: "Betaflight"
+      firmware: "Betaflight / INAV"
     },
     features: [
-      "双陀螺仪设计",
-      "支持HD数字图传控制"
+      "216MHz F7 旗舰核心，极速 PID 闭环响应",
+      "双 ICM42688 冗余陀螺仪，飞行安全双保险",
+      "6 路 UART 多传感器并发零丢包",
+      "10V/2A 独立 BEC 专供高清数字图传",
+      "双向 DShot RPM Filter 动态谐波过滤",
+      "加厚 PCB + LDO 隔离抗电磁干扰",
+      "集成 Betaflight OSD + 16MB 黑匣子"
+    ],
+    notes: [
+      "推荐适配 5-13 英寸高性能工业及竞技机型",
+      "首次使用请更新至最新固件版本",
+      "搭配高功率图传建议使用 10V BEC 独立供电"
     ],
     packageIncludes: [
-      "F722飞控 x1",
-      "线材 x1套"
+      "CANI-FC F722 飞控 x1",
+      "避震橡胶圈 x4",
+      "连接线材 x1套",
+      "说明书 x1"
     ]
   }
 ];

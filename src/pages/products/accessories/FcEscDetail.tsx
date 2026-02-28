@@ -779,6 +779,25 @@ const FcEscDetail = () => {
             </div>
           </section>
         )}
+        {productId === 'fc-f722' && (
+          <section className="py-12 bg-secondary border-t border-border">
+            <div className="container mx-auto px-4">
+              <div className="max-w-3xl mx-auto bg-card rounded-xl p-6 flex items-center gap-4 hover:shadow-lg transition-all border border-border/30">
+                <div className="text-3xl">📖</div>
+                <div className="flex-1">
+                  <p className="text-sm text-accent font-mono mb-1">{language === 'zh' ? '技术白皮书' : 'Tech Whitepaper'}</p>
+                  <Link to="/news/b2c3d4e5-6f7a-8b9c-0d1e-2f3a4b5c6d7e" className="text-foreground font-semibold hover:text-accent transition-colors">
+                    {language === 'zh' ? '算力重塑飞行：深度解析 CANI-FC F722 如何在毫秒间决定工业无人机的姿态稳定性' : 'Computing Power Reshapes Flight: How CANI-FC F722 Determines UAV Attitude Stability in Milliseconds'}
+                  </Link>
+                  <p className="text-muted-foreground text-sm mt-1">
+                    {language === 'zh' ? '深入了解 216MHz F7 算力优势、极速 PID 闭环与 10V 独立 BEC 数字图传适配方案' : 'Explore 216MHz F7 computing advantages, ultra-fast PID loops, and 10V independent BEC digital VTX integration'}
+                  </p>
+                </div>
+                <ChevronRight className="w-5 h-5 text-muted-foreground" />
+              </div>
+            </div>
+          </section>
+        )}
         {/* CTA Section */}
         <section className="py-20 bg-primary text-primary-foreground">
           <div className="container mx-auto px-4 text-center">
