@@ -855,6 +855,25 @@ const FcEscDetail = () => {
             </div>
           </section>
         )}
+        {productId === 'esc-100a' && (
+          <section className="py-12 bg-secondary border-t border-border">
+            <div className="container mx-auto px-4">
+              <div className="max-w-3xl mx-auto bg-card rounded-xl p-6 flex items-center gap-4 hover:shadow-lg transition-all border border-border/30">
+                <div className="text-3xl">📖</div>
+                <div className="flex-1">
+                  <p className="text-sm text-accent font-mono mb-1">{language === 'zh' ? '技术白皮书' : 'Tech Whitepaper'}</p>
+                  <Link to="/news/f6a7b8c9-0d1e-2f3a-4b5c-6d7e8f9a0b1c" className="text-foreground font-semibold hover:text-accent transition-colors">
+                    {language === 'zh' ? '突破百安培壁垒：解析 CANI-ESC 100A 如何在大功率无人机系统中实现极限可靠性' : 'Breaking the 100A Barrier: How CANI-ESC 100A Achieves Ultimate Reliability in High-Power UAV Systems'}
+                  </Link>
+                  <p className="text-muted-foreground text-sm mt-1">
+                    {language === 'zh' ? '深入了解 10 层 4oz 沉金 PCB、360° CNC 均热装甲、工业级 TVS 阵列与全链路 Telemetry 遥测闭环' : 'Explore 10-layer 4oz ENIG PCB, 360° CNC thermal armor, industrial TVS arrays, and full-chain telemetry monitoring'}
+                  </p>
+                </div>
+                <ChevronRight className="w-5 h-5 text-muted-foreground" />
+              </div>
+            </div>
+          </section>
+        )}
         {/* CTA Section */}
         <section className="py-20 bg-primary text-primary-foreground">
           <div className="container mx-auto px-4 text-center">

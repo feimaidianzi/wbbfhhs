@@ -1001,9 +1001,10 @@ export const escProducts: FcEscProduct[] = [
   },
   {
     id: "esc-100a",
-    name: "FlyMind Pro 100A电调",
-    model: "FlyMind Pro 100A 4-in-1",
+    name: "CANI-ESC 100A 旗舰级四合一电调",
+    model: "CANI-ESC 100A (100A 持续 / 120A 峰值 / 8S 支持)",
     category: "四合一电调",
+    hot: true,
     image: esc100a_1,
     images: [
       esc100a_1,
@@ -1011,33 +1012,52 @@ export const escProducts: FcEscProduct[] = [
     ],
     price: "¥959",
     highlights: [
-      "持续100A，峰值120A",
-      "8层PCB设计",
-      "多颗并联MOS",
-      "专业大载重应用"
+      "单路 100A 持续 / 120A 峰值 (10s)，旗舰级电流冗余",
+      "3-8S LiPo 宽电压，支持高压 33.6V 动力系统",
+      "10 层 4oz 极厚沉金 PCB，百安培级热容设计",
+      "360° 全覆盖 CNC 航空铝均热装甲 + 流体动力学鳍片",
+      "工业级 TVS 阵列 + 多级电源管理策略",
+      "128KHz PWM，DShot1200 双向遥测，全链路数据监测"
     ],
     description: [
-      "100A超大电流",
-      "8层PCB设计",
-      "专业级应用"
+      "CANI-ESC 100A 是 CANI 单体四合一电调产品线中的绝对旗舰，专为特种大载重 FPV、工业级 VTOL 动力补偿以及高性能系留机设计。单路支持 100A 持续电流、120A 峰值（10秒），采用行业最高规格功率半导体，导通电阻极低，即使持续高推力作业仍远未达到物理极限。",
+      "采用 10 层 4oz 极厚沉金 PCB 架构，不仅承载百安培级电流，更在内部形成巨大热容，显著延缓极端爆发时的温升速度。360° 全覆盖 CNC 航空铝合金散热装甲通过精密 CNC 加工出流体动力学散热鳍片，配合高性能导热胶将 MOSFET 热量瞬间扩散至机架气流中。",
+      "板载工业级 TVS 阵列，面对大功率电机刹车产生的巨大反向电压能迅速吸收尖峰，保护 FV10W-72 图传系统画面稳定。内部集成的逻辑控制单元具备独立稳压滤波系统，确保 FC-F722 飞控的高频控制指令获得毫秒级执行响应。",
+      "支持全链路数据监测（转速、电压、温度、电流 Telemetry 实时回传），配合飞控 AI 算法可预测电机疲劳状态。是系留无人机、大载重 Cinelifter 及特种运输机的终极动力核心。"
     ],
     escSpecs: {
-      current: "100A (持续)",
-      peakCurrent: "120A (峰值)",
-      voltage: "4-8S LiPo",
-      protocol: "DShot1200/600/300",
-      mosfet: "多颗并联MOS",
-      pcbLayers: "8层PCB",
-      size: "50×50mm",
-      weight: "45g"
+      current: "100A × 4 (持续)",
+      peakCurrent: "120A × 4 (峰值 10s)",
+      voltage: "3-8S LiPo (支持高压 33.6V 系统)",
+      protocol: "DShot1200/600/300 (双向), PWM, Multishot",
+      mosfet: "顶级工业 MOSFET 阵列 + TVS 浪涌保护",
+      pcbLayers: "10层PCB (4oz 极厚沉金工艺)",
+      size: "30.5×30.5mm (φ4mm，自带 M3 减震套件)",
+      weight: "35g (含 CNC 散热装甲)"
     },
     features: [
-      "超大电流输出",
-      "工业级可靠性"
+      "顶级工业 MOSFET，极低导通电阻，百安培级功率闲裕",
+      "360° CNC 航空铝均热装甲 + 流体动力学散热鳍片",
+      "10 层 4oz 极厚沉金 PCB，超大热容设计",
+      "工业级 TVS 阵列，双重瞬态浪涌防护",
+      "多级独立稳压滤波，动力端零干扰飞控信号",
+      "128KHz PWM 频率，极精细电机控制",
+      "全链路 Telemetry 遥测（转速/电压/温度/电流）",
+      "过温、过流、低压、堵转、反向电动势五重保护"
+    ],
+    notes: [
+      "推荐适配 8-13 英寸大载重 Cinelifter、系留机及特种运输机型",
+      "大电流使用时建议使用 8AWG 以上硅胶线",
+      "8S 系统请确保电池放电倍率 ≥50C",
+      "长时间满载作业建议加装主动散热风扇"
     ],
     packageIncludes: [
-      "100A电调 x1",
-      "线材 x1套"
+      "CANI-ESC 100A 四合一电调 x1",
+      "360° CNC 航空铝散热装甲 x1",
+      "连接线材 x1套",
+      "M3 减震套件 x4",
+      "大电解电容 x1",
+      "说明书 x1"
     ]
   }
 ];
