@@ -7685,9 +7685,9 @@ export const zhTranslations: Record<string, string> = {
   'fcEscDetail.tdk.6in1-100a.h1': 'CANI-100A 工业级六合一电调 | 100A×6 巅峰集成动力模块 (3-6S)',
 
   // Separate ESC TDK
-  'fcEscDetail.tdk.separate-esc-80a.title': 'FV分体电调 80A | 高压工业级单体电调',
-  'fcEscDetail.tdk.separate-esc-80a.desc': '工业级80A分体电调，单臂独立安装设计，便于重载无人机维护更换，支持4-8S LiPo。',
-  'fcEscDetail.tdk.separate-esc-80a.h1': '80A分体电调：单臂独立安装工业动力单元',
+  'fcEscDetail.tdk.separate-esc-80a.title': 'CANI 80A 单体电调 | 8S 工业级独立电调 | X8 动力系统核心组件',
+  'fcEscDetail.tdk.separate-esc-80a.desc': '详细了解 CANI 80A 单体电调。支持 8S 高压输入，80A 持续大电流。专为大型多旋翼、VTOL 及重载无人机设计，提供卓越的物理隔离散热与高冗余动力方案。',
+  'fcEscDetail.tdk.separate-esc-80a.h1': 'CANI 80A 单体工业电调 | 80A 持续输出 / 8S 支持 / CNC 散热隔离',
   'fcEscDetail.tdk.separate-esc-100a.title': 'FV分体电调 100A | 高压工业级单体电调',
   'fcEscDetail.tdk.separate-esc-100a.desc': '工业级100A分体电调，配独立散热片，专为重载无人机设计，支持12S LiPo实现最大推力。',
   'fcEscDetail.tdk.separate-esc-100a.h1': '100A分体电调：重载工业动力模块',
