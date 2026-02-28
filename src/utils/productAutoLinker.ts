@@ -110,6 +110,13 @@ export const PRODUCT_LINK_MAP: ProductLinkEntry[] = [
     titleEn: 'CANI-80A Industrial 6-in-1 ESC',
     category: 'fc-esc',
   },
+  {
+    keywords: ['CANI-100A 六合一', '六合一100A', '6in1-100A', '100A六合一电调', 'CANI-100A 6-in-1'],
+    url: '/products/accessories/fc-esc/6in1-100a',
+    titleZh: 'CANI-100A 工业级六合一电调',
+    titleEn: 'CANI-100A Industrial 6-in-1 ESC',
+    category: 'fc-esc',
+  },
   // === Digital FPV 数字图传系统 ===
   {
     keywords: ['数字图传系统', 'Digital FPV System', 'FPV数字链路'],
