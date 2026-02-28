@@ -215,6 +215,13 @@ export const PRODUCT_LINK_MAP: ProductLinkEntry[] = [
     category: 'elrs',
   },
   {
+    keywords: ['ELRS 915标准版', 'ELRS 915 Standard', '超微型ELRS接收机', '915MHz Nano接收机', '轻量化无人机遥控终端', 'Nano ELRS'],
+    url: '/products/accessories/elrs/elrs-915-receiver',
+    titleZh: 'CANI ELRS 915 标准版 Nano接收机',
+    titleEn: 'CANI ELRS 915 Standard Nano Receiver',
+    category: 'elrs',
+  },
+  {
     keywords: ['ExpressLRS', 'ELRS模块', 'ELRS接收机', 'ELRS发射机'],
     url: '/products/accessories/elrs',
     titleZh: 'CANI ExpressLRS 遥控链路',

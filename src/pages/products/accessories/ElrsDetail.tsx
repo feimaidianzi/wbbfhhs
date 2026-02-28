@@ -113,35 +113,66 @@ const ElrsDetail = () => {
     })),
   };
 
-  // ELRS 915 Diversity specific enhanced JSON-LD
-  const elrs915DiversityStructuredData = productId === 'elrs-915-diversity' ? {
-    '@context': 'https://schema.org/',
-    '@type': 'Product',
-    name: 'CANI ELRS 915 Diversity 工业级双天线接收机',
-    image: 'https://www.caniuav.com/images/products/elrs/elrs-915-diversity-main.jpg',
-    description: language === 'zh'
-      ? '基于ExpressLRS协议的915MHz远距离无人机接收机。采用真多样性双电路设计，微秒级信号切换，支持超视距控制，是工业巡检控制链路的生命线。'
-      : 'A 915MHz long-range UAV receiver based on ExpressLRS protocol. True diversity dual-circuit design with microsecond signal switching for BVLOS industrial operations.',
-    brand: { '@type': 'Brand', name: 'CANI' },
-    sku: 'CANI-ELRS-915D',
-    url: 'https://www.caniuav.com/zh/products/accessories/elrs/elrs-915-diversity',
-    offers: {
-      '@type': 'Offer',
-      priceCurrency: 'CNY',
-      availability: 'https://schema.org/InStock',
+  // Enhanced JSON-LD for specific ELRS products
+  const enhancedStructuredData: Record<string, object> = {
+    'elrs-915-diversity': {
+      '@context': 'https://schema.org/',
+      '@type': 'Product',
+      name: 'CANI ELRS 915 Diversity 工业级双天线接收机',
+      image: 'https://www.caniuav.com/images/products/elrs/elrs-915-diversity-main.jpg',
+      description: language === 'zh'
+        ? '基于ExpressLRS协议的915MHz远距离无人机接收机。采用真多样性双电路设计，微秒级信号切换，支持超视距控制。'
+        : 'A 915MHz long-range UAV receiver based on ExpressLRS. True diversity dual-circuit design with microsecond signal switching for BVLOS operations.',
+      brand: { '@type': 'Brand', name: 'CANI' },
+      sku: 'CANI-ELRS-915D',
+      url: 'https://www.caniuav.com/zh/products/accessories/elrs/elrs-915-diversity',
+      offers: { '@type': 'Offer', priceCurrency: 'CNY', availability: 'https://schema.org/InStock' },
+      additionalProperty: [
+        { '@type': 'PropertyValue', name: '遥控协议', value: 'ExpressLRS (ELRS)' },
+        { '@type': 'PropertyValue', name: '硬件架构', value: 'True Diversity 双独立接收电路' },
+        { '@type': 'PropertyValue', name: '频率', value: '915MHz (868MHz可选)' },
+      ],
     },
-    additionalProperty: [
-      { '@type': 'PropertyValue', name: '遥控协议', value: 'ExpressLRS (ELRS)' },
-      { '@type': 'PropertyValue', name: '硬件架构', value: 'True Diversity 双独立接收电路' },
-      { '@type': 'PropertyValue', name: '频率', value: '915MHz (868MHz可选)' },
-    ],
-  } : null;
+    'elrs-915-receiver': {
+      '@context': 'https://schema.org/',
+      '@type': 'Product',
+      name: 'CANI ELRS 915MHz Nano 标准版接收机',
+      image: 'https://www.caniuav.com/images/products/elrs/elrs-915-receiver-main.jpg',
+      description: language === 'zh'
+        ? '仅0.6g的超微型ExpressLRS接收机。专为小型无人机与穿越机设计，采用915MHz Nano架构，支持远距离控制与低功耗管理，实现极致性能密度。'
+        : 'Ultra-micro 0.6g ExpressLRS receiver for small UAVs and FPV quads. 915MHz Nano architecture with long-range control and low power management.',
+      brand: { '@type': 'Brand', name: 'CANI' },
+      sku: 'CANI-ELRS-915N',
+      url: 'https://www.caniuav.com/zh/products/accessories/elrs/elrs-915-receiver',
+      offers: { '@type': 'Offer', priceCurrency: 'CNY', availability: 'https://schema.org/InStock' },
+      additionalProperty: [
+        { '@type': 'PropertyValue', name: '重量', value: '0.6g' },
+        { '@type': 'PropertyValue', name: '尺寸', value: '10x10mm' },
+        { '@type': 'PropertyValue', name: '核心特性', value: '高刷新率 / 远距离控制' },
+      ],
+    },
+  };
+
+  const productEnhancedData = productId ? enhancedStructuredData[productId] || null : null;
 
   // Deep dive article mapping
-  const deepDiveArticleMap: Record<string, string> = {
-    'elrs-915-diversity': 'tech-elrs-915-diversity-long-range-control',
+  const deepDiveArticleMap: Record<string, { id: string; titleZh: string; titleEn: string; descZh: string; descEn: string }> = {
+    'elrs-915-diversity': {
+      id: 'tech-elrs-915-diversity-long-range-control',
+      titleZh: 'CANI ELRS 915 Diversity：工业无人机超视距控制的"最后一道防线"',
+      titleEn: 'CANI ELRS 915 Diversity: The Last Line of Defense for BVLOS Control',
+      descZh: '深度解析ExpressLRS协议优势、双天线真多样性接收逻辑、915MHz频段物理特性及LoRa CSS调制技术。',
+      descEn: 'In-depth analysis of ExpressLRS protocol advantages, true diversity reception, 915MHz band physics, and LoRa CSS modulation.',
+    },
+    'elrs-915-receiver': {
+      id: 'tech-elrs-915-standard-nano-receiver-guide',
+      titleZh: 'CANI ELRS 915 标准版：0.6g超微型Nano接收机如何实现长距离控制',
+      titleEn: 'CANI ELRS 915 Standard: How a 0.6g Nano Receiver Achieves Long-Range Control',
+      descZh: '深度解析Nano尺寸空间利用率、915MHz频段FSPL链路预算、低功耗管理及与SJ4000-WiFi的轻量化闭环方案。',
+      descEn: 'Deep dive into Nano size efficiency, 915MHz FSPL link budget, low power management, and lightweight visual control loop with SJ4000-WiFi.',
+    },
   };
-  const deepDiveArticleId = productId ? deepDiveArticleMap[productId] : undefined;
+  const deepDiveInfo = productId ? deepDiveArticleMap[productId] : undefined;
 
   return (
     <div className="min-h-screen">
@@ -265,10 +296,10 @@ const ElrsDetail = () => {
         </section>
 
         {/* Deep Dive Article Card */}
-        {deepDiveArticleId && (
+        {deepDiveInfo && (
           <section className="py-12 bg-background">
             <div className="container-custom max-w-4xl mx-auto">
-              <Link to={`/news/${deepDiveArticleId}`}>
+              <Link to={`/news/${deepDiveInfo.id}`}>
                 <div className="bg-card border border-accent/30 rounded-2xl p-6 md:p-8 hover:border-accent/60 hover:shadow-lg transition-all group cursor-pointer">
                   <div className="flex items-start gap-4">
                     <div className="w-12 h-12 bg-accent/10 rounded-xl flex items-center justify-center flex-shrink-0">
@@ -279,14 +310,10 @@ const ElrsDetail = () => {
                         {language === 'zh' ? '📖 深度解读' : '📖 Deep Dive'}
                       </p>
                       <h3 className="text-lg font-bold text-card-foreground mb-2 group-hover:text-accent transition-colors">
-                        {language === 'zh'
-                          ? 'CANI ELRS 915 Diversity：工业无人机超视距控制的"最后一道防线"'
-                          : 'CANI ELRS 915 Diversity: The Last Line of Defense for BVLOS Control'}
+                        {language === 'zh' ? deepDiveInfo.titleZh : deepDiveInfo.titleEn}
                       </h3>
                       <p className="text-sm text-muted-foreground">
-                        {language === 'zh'
-                          ? '深度解析ExpressLRS协议优势、双天线真多样性接收逻辑、915MHz频段物理特性及LoRa CSS调制技术。'
-                          : 'In-depth analysis of ExpressLRS protocol advantages, true diversity reception, 915MHz band physics, and LoRa CSS modulation.'}
+                        {language === 'zh' ? deepDiveInfo.descZh : deepDiveInfo.descEn}
                       </p>
                     </div>
                     <ArrowRight className="w-5 h-5 text-muted-foreground group-hover:text-accent transition-colors flex-shrink-0 mt-1" />
@@ -319,10 +346,10 @@ const ElrsDetail = () => {
         </section>
 
         {/* Enhanced JSON-LD for specific products */}
-        {elrs915DiversityStructuredData && (
+        {productEnhancedData && (
           <Helmet>
             <script type="application/ld+json">
-              {JSON.stringify(elrs915DiversityStructuredData)}
+              {JSON.stringify(productEnhancedData)}
             </script>
           </Helmet>
         )}
