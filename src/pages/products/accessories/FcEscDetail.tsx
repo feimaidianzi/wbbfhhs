@@ -646,6 +646,25 @@ const FcEscDetail = () => {
             </div>
           </section>
         )}
+        {productId === 'stack-f405-55a' && (
+          <section className="py-12 bg-secondary border-t border-border">
+            <div className="container mx-auto px-4">
+              <div className="max-w-3xl mx-auto bg-card rounded-xl p-6 flex items-center gap-4 hover:shadow-lg transition-all border border-border/30">
+                <div className="text-3xl">📖</div>
+                <div className="flex-1">
+                  <p className="text-sm text-accent font-mono mb-1">{language === 'zh' ? '技术白皮书' : 'Tech Whitepaper'}</p>
+                  <Link to="/news/eec20aad-4e36-4a25-becf-14e0a6cd3129" className="text-foreground font-semibold hover:text-accent transition-colors">
+                    {language === 'zh' ? '工业级均衡之王：深度解析 CANI Stack F405-55A 飞速塔的稳定性逻辑' : 'Industrial-Grade Balance King: Deep Dive into Stack F405-55A Stability Engineering'}
+                  </Link>
+                  <p className="text-muted-foreground text-sm mt-1">
+                    {language === 'zh' ? '了解 F405 工业级选型逻辑、55A MOSFET 热管理工程与抗干扰 PCB 布局' : 'Explore F405 industrial selection logic, 55A MOSFET thermal management, and EMI-resistant PCB layout'}
+                  </p>
+                </div>
+                <ChevronRight className="w-5 h-5 text-muted-foreground" />
+              </div>
+            </div>
+          </section>
+        )}
         {/* CTA Section */}
         <section className="py-20 bg-primary text-primary-foreground">
           <div className="container mx-auto px-4 text-center">

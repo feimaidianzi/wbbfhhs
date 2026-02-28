@@ -168,27 +168,27 @@ export const stackProducts: FcEscProduct[] = [
   },
   {
     id: "stack-f405-55a",
-    name: "FlyMind F405+55A飞塔",
-    model: "FlyMind F405+55A",
+    name: "CANI Stack F405-55A 工业级飞速塔",
+    model: "Stack F405-55A",
     category: "飞塔",
+    hot: true,
     image: "https://ueeshop.ly200-cdn.com/u_file/UPBD/UPBD023/2409/19/products/5b83900071.jpg",
     images: [
       "https://ueeshop.ly200-cdn.com/u_file/UPBD/UPBD023/2409/19/products/5b83900071.jpg"
     ],
     price: "¥439",
     highlights: [
-      "STM32F405处理器，高速运算",
-      "ICM42688 陀螺仪",
-      "55A四合一电调，峰值65A",
-      "30.5×30.5mm标准孔距",
-      "性价比之选，适配3-5寸机架"
+      "STM32F405RGT6 处理器，工业级成熟稳定",
+      "ICM42688 SPI 低漂移陀螺仪",
+      "55A 持续 / 65A 峰值四合一电调",
+      "30.5×30.5mm 标准安装，3-6S LiPo",
+      "射频隔离 PCB 设计，搭配高功率图传无干扰"
     ],
     description: [
-      "采用成熟稳定的STM32F405处理器",
-      "ICM42688陀螺仪，响应灵敏",
-      "55A持续电流输出，适合大部分场景",
-      "标准30.5mm孔距，兼容性强",
-      "高性价比选择，入门进阶皆宜"
+      "CANI Stack F405-55A 是一款专为 5-7 英寸机型设计的工业级标准孔位动力总成。它采用经过数千次工程验证的 STM32F405 处理器，搭配 ICM42688 低噪声陀螺仪，并配备支持 3S-6S 供电的 55A 持续电流四合一电调。",
+      "区别于普通民用飞塔，CANI 在 PCB 布局层面实施了严格的信号隔离——模拟信号区域与数字信号区域采用地平面分割技术，有效抑制 ESC 开关噪声对飞控传感器的耦合干扰。",
+      "低内阻 MOSFET 选型与四层 PCB 散热工艺，确保在 35°C 高温环境下持续满载工作时效率衰减低于 5%。",
+      "在教育科研场景中可作为 CANI-FC v2.0 的动力执行端；在特种巡检中与 FV10W-72 高功率图传形成低干扰动力+视频闭环。"
     ],
     fcSpecs: {
       mcu: "STM32F405",
