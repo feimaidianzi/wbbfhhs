@@ -6,6 +6,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { ArrowRight, Calendar, Tag, ChevronLeft, ChevronRight, Search } from "lucide-react";
 import { TechKeywordsBadge } from "@/components/news/TechKeywordsBadge";
 import { useState, useEffect } from "react";
+import { useSearchParams } from "react-router-dom";
 import { LangLink as Link } from "@/components/LangLink";
 import { MultiLanguageSEO } from "@/components/MultiLanguageSEO";
 import { useLanguage } from "@/contexts/LanguageContext";
@@ -35,12 +36,20 @@ const DB_CATEGORY_MAP: Record<string, string> = {
   '技术分享': 'tech',
 };
 
+const CATEGORY_SEO: Record<string, { pathSuffix: string; titleKeyZh: string; titleKeyEn: string; descZh: string; descEn: string }> = {
+  company: { pathSuffix: '?category=company', titleKeyZh: '公司新闻 - CANI 长凌科技', titleKeyEn: 'Company News - CANI Technology', descZh: 'CANI长凌科技最新公司动态、产品发布与战略合作公告。', descEn: 'Latest CANI company updates, product launches, and strategic partnership announcements.' },
+  industry: { pathSuffix: '?category=industry', titleKeyZh: '行业动态 - CANI 长凌科技', titleKeyEn: 'Industry Dynamics - CANI Technology', descZh: '无人机行业趋势、政策法规与市场分析深度报道。', descEn: 'UAV industry trends, regulations, and in-depth market analysis.' },
+  tech: { pathSuffix: '?category=tech', titleKeyZh: '技术解析 - CANI 长凌科技', titleKeyEn: 'Technical Analysis - CANI Technology', descZh: 'COFDM图传、飞控电调、ELRS遥控等核心技术深度解析与工程白皮书。', descEn: 'In-depth technical analysis and engineering whitepapers on COFDM video links, flight controllers, ELRS, and more.' },
+};
+
 const News = () => {
   const { t, baseLang } = useLanguage();
+  const [searchParams] = useSearchParams();
   
   const [articles, setArticles] = useState<NewsArticle[]>([]);
   const [loading, setLoading] = useState(true);
-  const [activeCategory, setActiveCategory] = useState<string>('all');
+  const initialCategory = searchParams.get('category') || 'all';
+  const [activeCategory, setActiveCategory] = useState<string>(initialCategory);
   const [searchTerm, setSearchTerm] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 6;
@@ -94,6 +103,14 @@ const News = () => {
   const handleCategoryChange = (cat: string) => {
     setActiveCategory(cat);
     setCurrentPage(1);
+    // Update URL query param for canonical purposes
+    const url = new URL(window.location.href);
+    if (cat === 'all') {
+      url.searchParams.delete('category');
+    } else {
+      url.searchParams.set('category', cat);
+    }
+    window.history.replaceState({}, '', url.toString());
   };
 
   const formatDate = (dateString: string | null) => {
@@ -128,10 +145,18 @@ const News = () => {
   return (
     <div className="min-h-screen">
       <MultiLanguageSEO
-        title={t('news.page.title')}
-        description={t('news.page.metaDesc')}
+        title={
+          activeCategory !== 'all' && CATEGORY_SEO[activeCategory]
+            ? (baseLang === 'en' ? CATEGORY_SEO[activeCategory].titleKeyEn : CATEGORY_SEO[activeCategory].titleKeyZh)
+            : t('news.page.title')
+        }
+        description={
+          activeCategory !== 'all' && CATEGORY_SEO[activeCategory]
+            ? (baseLang === 'en' ? CATEGORY_SEO[activeCategory].descEn : CATEGORY_SEO[activeCategory].descZh)
+            : t('news.page.metaDesc')
+        }
         keywords={t('news.page.metaKeywords')}
-        path="/news"
+        path={activeCategory !== 'all' && CATEGORY_SEO[activeCategory] ? `/news${CATEGORY_SEO[activeCategory].pathSuffix}` : '/news'}
         structuredData={newsCollectionData}
       />
       <Header />

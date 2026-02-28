@@ -16,6 +16,7 @@ import { RelatedProductCard } from "@/components/news/RelatedProductCard";
 import { ArticleCTA } from "@/components/news/ArticleCTA";
 import { TechKeywordsBadge } from "@/components/news/TechKeywordsBadge";
 import { injectProductLinks, detectMentionedProducts, type ProductLinkEntry } from "@/utils/productAutoLinker";
+import { TechSummaryBlock } from "@/components/news/TechSummaryBlock";
 
 const DEFAULT_IMAGE = "/placeholder.svg";
 
@@ -197,6 +198,21 @@ const NewsDetail = () => {
   // Determine schema type based on category
   const schemaType = article.category === '技术分享' ? 'TechArticle' : 'Article';
   
+  // Build additionalProperty array from keywords for GEO
+  const additionalProperties = (article.keywords || []).map(kw => {
+    // Detect if keyword contains a numeric value
+    const numMatch = kw.match(/([\d.]+)\s*([A-Za-z%]+)?/);
+    if (numMatch) {
+      return {
+        '@type': 'PropertyValue',
+        name: kw.replace(numMatch[0], '').trim() || kw,
+        value: numMatch[1],
+        ...(numMatch[2] ? { unitText: numMatch[2] } : {}),
+      };
+    }
+    return { '@type': 'PropertyValue', name: kw, value: kw };
+  });
+
   const articleStructuredData: any = {
     '@context': 'https://schema.org',
     '@type': schemaType,
@@ -216,9 +232,20 @@ const NewsDetail = () => {
       '@type': 'WebPage',
       '@id': `https://www.caniuav.com/news/${article.id}`,
     },
-    // GEO: inject keywords as schema keywords
+    // GEO: inject keywords + additionalProperty for AI search engines
     ...(article.keywords && article.keywords.length > 0 && {
       keywords: article.keywords.join(', '),
+    }),
+    ...(additionalProperties.length > 0 && {
+      additionalProperty: additionalProperties,
+    }),
+    // Product mentions as schema "mentions"
+    ...(mentionedProducts.length > 0 && {
+      mentions: mentionedProducts.map(p => ({
+        '@type': 'Product',
+        name: baseLang === 'en' ? p.titleEn : p.titleZh,
+        url: `https://www.caniuav.com${p.url}`,
+      })),
     }),
   };
 
@@ -322,6 +349,15 @@ const NewsDetail = () => {
                   </p>
                 )}
               </header>
+
+              {/* Tech Summary Block — GEO dense entity block */}
+              {article.keywords && article.keywords.length > 0 && (
+                <TechSummaryBlock
+                  keywords={article.keywords}
+                  category={article.category}
+                  title={baseLang === 'en' && article.title_en ? article.title_en : article.title}
+                />
+              )}
 
               {/* Article Body — with auto product links injected */}
               <div 
