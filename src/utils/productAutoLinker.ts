@@ -174,6 +174,14 @@ export const PRODUCT_LINK_MAP: ProductLinkEntry[] = [
     titleEn: 'CANI-FC F722 Flagship High-Performance Flight Controller',
     category: 'fc-esc',
   },
+  // === Camera 相机载荷 ===
+  {
+    keywords: ['SJ4000-WiFi', 'SJ4000', '无人机可见光载荷', '轻量化载荷模组', '1080P无人机相机', 'WiFi实时图传相机'],
+    url: '/products/accessories/camera/sj4000-wifi',
+    titleZh: 'CANI SJ4000-WiFi 无人机载荷相机',
+    titleEn: 'CANI SJ4000-WiFi UAV Payload Camera',
+    category: 'camera',
+  },
   // === Mesh-Link 自组网 ===
   {
     keywords: ['Mesh-Link', 'Mesh Link', '自组网模块', '无人机自组网', 'Mesh链路中继', '无中心组网', '复杂环境图传', 'Ad-hoc Networking'],

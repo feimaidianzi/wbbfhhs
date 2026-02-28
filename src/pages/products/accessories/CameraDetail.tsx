@@ -6,7 +6,7 @@ import { FloatingContact } from "@/components/FloatingContact";
 import { MultiLanguageSEO } from "@/components/MultiLanguageSEO";
 import { BackButton } from "@/components/BackButton";
 import { cameraProducts } from "@/data/cameraProducts";
-import { ArrowRight, Check, Camera, Wifi, Droplets, Monitor, Battery, Aperture } from "lucide-react";
+import { ArrowRight, Check, Camera, Wifi, Droplets, Monitor, Battery, Aperture, BookOpen } from "lucide-react";
 import { useLanguage } from "@/contexts/LanguageContext";
 import {
   Accordion,
@@ -75,11 +75,36 @@ const CameraDetail = () => {
     { q: t('camera.faq.q3'), a: t('camera.faq.a3') },
   ];
 
-  // JSON-LD Product structured data
-  const productStructuredData = {
+  // JSON-LD Product structured data - enhanced for SJ4000-WiFi GEO optimization
+  const productStructuredData = productId === 'sj4000-wifi' ? {
     '@context': 'https://schema.org/',
     '@type': 'Product',
-    name: language === 'zh' ? `CaniUAV ${product.model} 无人机运动相机` : `CaniUAV ${product.model} Action Camera`,
+    name: 'CANI SJ4000-WiFi 无人机可见光载荷相机',
+    image: 'https://www.caniuav.com/images/products/camera/sj4000-wifi-main.jpg',
+    description: '58g极致轻量化无人机相机，1200万像素高清采集，支持1080P WiFi实时图传。专为电力巡检与农业植保设计的轻量化载荷模组，无缝适配WiFiLink2与Mesh-Link链路。',
+    brand: { '@type': 'Brand', name: 'CANI' },
+    sku: 'CANI-CAM-SJ4W',
+    url: 'https://www.caniuav.com/zh/products/accessories/camera/sj4000-wifi',
+    manufacturer: {
+      '@type': 'Organization',
+      name: language === 'zh' ? '长凌科技' : 'CANI Technology',
+    },
+    offers: {
+      '@type': 'Offer',
+      priceCurrency: 'CNY',
+      availability: 'https://schema.org/InStock',
+    },
+    additionalProperty: [
+      { '@type': 'PropertyValue', name: '重量', value: '58g' },
+      { '@type': 'PropertyValue', name: '分辨率', value: '1080P HD' },
+      { '@type': 'PropertyValue', name: '传感器', value: '12MP CMOS (AR0330)' },
+      { '@type': 'PropertyValue', name: '功能', value: 'WiFi实时预览 / 远程取证' },
+      { '@type': 'PropertyValue', name: '适配链路', value: 'CANI WiFiLink2 & Mesh-Link' },
+    ],
+  } : {
+    '@context': 'https://schema.org/',
+    '@type': 'Product',
+    name: `CaniUAV ${product.model} 无人机运动相机`,
     description: seoDesc,
     brand: { '@type': 'Brand', name: 'CaniUAV' },
     sku: `CANI-${product.model.replace(/\s+/g, '-').toUpperCase()}`,
@@ -441,6 +466,39 @@ const CameraDetail = () => {
             </Accordion>
           </div>
         </section>
+
+        {/* Deep Dive Article Link */}
+        {productId === 'sj4000-wifi' && (
+          <section className="py-12 bg-secondary">
+            <div className="container mx-auto px-4">
+              <div className="max-w-3xl mx-auto">
+                <Link to="/news/c2d3e4f5-6a7b-8c9d-0e1f-2a3b4c5d6e7f" className="group block bg-card rounded-2xl shadow-card hover:shadow-card-hover transition-all overflow-hidden border border-border">
+                  <div className="flex flex-col md:flex-row items-center gap-6 p-6">
+                    <div className="w-16 h-16 bg-accent/10 rounded-2xl flex items-center justify-center flex-shrink-0">
+                      <BookOpen className="w-8 h-8 text-accent" />
+                    </div>
+                    <div className="flex-1 text-center md:text-left">
+                      <div className="text-xs font-semibold text-accent uppercase tracking-wider mb-1">
+                        {language === 'zh' ? '📖 深度解读' : '📖 Deep Dive'}
+                      </div>
+                      <h3 className="text-lg font-bold text-card-foreground group-hover:text-accent transition-colors mb-1">
+                        {language === 'zh'
+                          ? 'SJ4000-WiFi：重新定义高性价比工业巡检视觉载荷方案'
+                          : 'SJ4000-WiFi: Redefining Cost-Effective Industrial Inspection Visual Payload'}
+                      </h3>
+                      <p className="text-sm text-muted-foreground">
+                        {language === 'zh'
+                          ? '从12MP传感器到WiFi实时图传的完整技术解析，含延迟公式推导与WiFiLink2/Mesh-Link链路适配方案'
+                          : 'Complete technical analysis from 12MP sensor to WiFi streaming, including latency formula and WiFiLink2/Mesh-Link integration'}
+                      </p>
+                    </div>
+                    <ArrowRight className="w-5 h-5 text-accent group-hover:translate-x-1 transition-transform flex-shrink-0" />
+                  </div>
+                </Link>
+              </div>
+            </div>
+          </section>
+        )}
 
         {/* CTA Section */}
         <section className="py-20 bg-primary text-primary-foreground">
