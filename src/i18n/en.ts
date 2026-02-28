@@ -1276,8 +1276,8 @@ export const enTranslations: Record<string, string> = {
   // Gimbal SKU-specific TDK
   'gimbal.tdk.k40t.title': 'K40T Quad-Sensor AI Gimbal | 48MP Zoom + 640 Thermal + 1.2km Laser | 290g | CANI',
   'gimbal.tdk.k40t.desc': 'CANI K40T quad-sensor AI gimbal integrates 48MP zoom, 640×512 thermal imaging, and 1200m laser rangefinder with 6TOPS AI computing. Only 290g, ±0.005° stabilization, 160x hybrid zoom. Purpose-built for power inspection, fire rescue, and security patrol.',
-  'gimbal.tdk.k8t-v2.title': 'K8T-V2 Dual-Light AI Tracking Gimbal | Thermal + AI Tracking | CANI',
-  'gimbal.tdk.k8t-v2.desc': 'K8T-V2 dual-light AI gimbal combines visible light and 640×512 thermal sensors with 4 TOPS AI chip for intelligent target tracking. Only 162g, 40x digital zoom, -20°C to 650°C temperature measurement, ±2°C accuracy for thermal fault detection.',
+  'gimbal.tdk.k8t-v2.title': 'K8T-V2 Dual-Sensor Tracking Gimbal | 133g Ultralight | Thermal + AI Tracking | CANI',
+  'gimbal.tdk.k8t-v2.desc': 'CANI K8T-V2 weighs just 133g with integrated infrared thermal imaging and visible light recognition. Next-gen AI processor enables autonomous target locking and tracking. 3-axis stabilization, TTL/TCP multi-protocol support for lightweight inspection UAVs and FPV special operations.',
   'gimbal.tdk.k8-v2.title': 'K8-V2 Single-Light AI Tracking Gimbal | 30x Optical Zoom + 4K | CANI',
   'gimbal.tdk.k8-v2.desc': 'K8-V2 AI gimbal with Sony 1/2.8" CMOS sensor, 30x optical + 8x digital zoom, 4K@30fps output. Ultra-lightweight at 115g, IP65 rated, ONVIF protocol support with intelligent target recognition and tracking.',
   'accessoryDetail.gimbal.seoDesc': 'Industrial UAV gimbal pod with triple-axis mechanical stabilization. OEM/ODM customization available.',
@@ -1363,6 +1363,9 @@ export const enTranslations: Record<string, string> = {
   'gimbal.k8tv2.app.3': 'Law Enforcement — Target tracking and evidence collection',
   'gimbal.k8tv2.app.4': 'Industrial Inspection — Pipeline leak detection',
   'gimbal.k8tv2.app.5': 'Solar Panel Inspection — Hotspot detection and analysis',
+  'gimbal.k8tv2.whitepaper.title': '📚 Tech Whitepaper: 133g Ultralight Dual-Sensor Recognition',
+  'gimbal.k8tv2.whitepaper.desc': 'How does the K8T-V2 achieve infrared thermal imaging and AI autonomous tracking in just 133g? Explore the lightweight design strategy and low-power reconnaissance link architecture.',
+  'gimbal.k8tv2.whitepaper.cta': 'Read the Deep Technical Analysis',
   // K8-V2
   'gimbal.k8v2.name': 'K8-V2 Single-Light AI Tracking Gimbal',
   'gimbal.k8v2.slogan': 'Lightweight AI Recognition & Tracking',
