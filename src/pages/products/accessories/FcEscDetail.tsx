@@ -684,6 +684,25 @@ const FcEscDetail = () => {
             </div>
           </section>
         )}
+        {productId === 'stack-mini-f7-40a' && (
+          <section className="py-12 bg-secondary border-t border-border">
+            <div className="container mx-auto px-4">
+              <div className="max-w-3xl mx-auto bg-card rounded-xl p-6 flex items-center gap-4 hover:shadow-lg transition-all border border-border/30">
+                <div className="text-3xl">📖</div>
+                <div className="flex-1">
+                  <p className="text-sm text-accent font-mono mb-1">{language === 'zh' ? '技术白皮书' : 'Tech Whitepaper'}</p>
+                  <Link to="/news/c7d8e9f0-1a2b-3c4d-5e6f-7a8b9c0d1e2f" className="text-foreground font-semibold hover:text-accent transition-colors">
+                    {language === 'zh' ? '小尺寸，大算力：解析 CANI Stack-Mini F7-40A 如何定义紧凑型无人机的控制极限' : 'Small Size, Big Computing Power: How Stack-Mini F7-40A Defines Control Limits of Compact UAVs'}
+                  </Link>
+                  <p className="text-muted-foreground text-sm mt-1">
+                    {language === 'zh' ? '深入了解 F722 低延迟 PID 控制、40A 高密度电流设计与双向 DShot RPM 滤波算法' : 'Explore F722 low-latency PID control, 40A high-density current design, and bidirectional DShot RPM filtering'}
+                  </p>
+                </div>
+                <ChevronRight className="w-5 h-5 text-muted-foreground" />
+              </div>
+            </div>
+          </section>
+        )}
         {/* CTA Section */}
         <section className="py-20 bg-primary text-primary-foreground">
           <div className="container mx-auto px-4 text-center">
