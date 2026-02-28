@@ -1021,6 +1021,25 @@ const VtxDetail = () => {
           </section>
         )}
 
+        {/* Related Article for FV37W */}
+        {isFV37W && (
+          <section className="py-12 bg-secondary border-t border-border">
+            <div className="container mx-auto px-4">
+              <div className="max-w-3xl mx-auto bg-card rounded-xl p-6 flex items-center gap-4 hover:shadow-lg transition-all border border-border/30">
+                <div className="text-3xl">📰</div>
+                <div className="flex-1">
+                  <p className="text-sm text-accent font-mono mb-1">{isZh ? '深度解读' : 'Deep Dive'}</p>
+                  <Link to="/news/66dbf5b2-cf34-4e8c-908a-2e78860a3696" className="text-foreground font-semibold hover:text-accent transition-colors">
+                    {isZh ? '远洋级链路中枢：FV37W-A1 超远距离数字链路系统——全栈定制化方案' : 'Strategic Link Hub: FV37W-A1 Ultra-Long-Range Digital Data Link — Full-Stack Customization'}
+                  </Link>
+                  <p className="text-muted-foreground text-sm mt-1">{isZh ? '了解 MIMO 架构、SDR 软件定义频率与三合一数据复用技术' : 'Explore MIMO architecture, SDR frequency definition and tri-in-one multiplexing'}</p>
+                </div>
+                <ChevronRight className="w-5 h-5 text-muted-foreground" />
+              </div>
+            </div>
+          </section>
+        )}
+
         <section className="py-20 bg-primary text-primary-foreground">
           <div className="container mx-auto px-4 text-center">
             <h2 className="text-3xl font-bold mb-4">
