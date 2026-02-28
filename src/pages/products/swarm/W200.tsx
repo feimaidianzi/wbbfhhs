@@ -132,6 +132,23 @@ const W200 = () => {
           </div>
         </section>
 
+        {/* Related Article */}
+        <section className="py-12 bg-muted/50 border-t border-border">
+          <div className="container-custom">
+            <div className="max-w-3xl mx-auto bg-card rounded-xl p-6 flex items-center gap-4 hover:shadow-lg transition-all border border-border/30">
+              <div className="text-3xl">📰</div>
+              <div className="flex-1">
+                <p className="text-sm text-accent font-mono mb-1">{isZh ? '深度解读' : 'Deep Dive'}</p>
+                <Link to="/news/4c398245-7eff-424d-b155-6323624f8a0e" className="text-foreground font-semibold hover:text-accent transition-colors">
+                  {isZh ? '协同作业先锋：W200 蜂群无人机系统——一站式集群全栈开发平台' : 'Collaborative Pioneer: W200 Swarm UAV — One-stop Full-stack Swarm Platform'}
+                </Link>
+                <p className="text-muted-foreground text-sm mt-1">{isZh ? '了解 W200 的分布式集群协议与协同控制算法' : 'Explore W200 distributed swarm protocols and collaborative algorithms'}</p>
+              </div>
+              <ChevronDown className="w-5 h-5 text-muted-foreground rotate-[-90deg]" />
+            </div>
+          </div>
+        </section>
+
         {/* CTA */}
         <section className="py-20 bg-primary text-primary-foreground">
           <div className="container-custom text-center">
