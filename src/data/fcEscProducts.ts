@@ -346,9 +346,10 @@ export const stackProducts: FcEscProduct[] = [
   },
   {
     id: "stack-pro-f722-100a",
-    name: "FlyMind Pro F722 100A/80A飞塔",
-    model: "FlyMind ECO F722 100A/80A",
+    name: "CANI Stack-Pro F722-100A 工业级旗舰飞速塔",
+    model: "Stack-Pro F722-100A",
     category: "飞塔",
+    hot: true,
     image: "https://ueeshop.ly200-cdn.com/u_file/UPBD/UPBD023/2508/04/products/1-1-1417311ad5.jpg",
     images: [
       "https://ueeshop.ly200-cdn.com/u_file/UPBD/UPBD023/2508/04/products/1-1-1417311ad5.jpg",
@@ -359,57 +360,58 @@ export const stackProducts: FcEscProduct[] = [
     ],
     price: "¥959",
     highlights: [
-      "STM32F722双陀螺仪设计",
-      "100A/80A可选大电流输出",
-      "8层PCB专业级散热",
-      "30.5×30.5mm标准孔距",
-      "5-7寸大载重机型首选",
-      "3-8S宽电压支持"
+      "STM32F722RGT6 (216MHz) 双 ICM42688 冗余陀螺仪",
+      "100A 持续 / 120A 峰值四合一电调",
+      "8 层 PCB 大电流散热设计",
+      "全 CNC 阳极氧化铝合金散热外壳",
+      "30.5×30.5mm 标准孔位，3-8S 宽电压",
+      "双向 DShot 遥测，适配 9-13 英寸重载机型"
     ],
     description: [
-      "专业级大功率飞塔套装",
-      "双ICM42688陀螺仪，冗余设计更可靠",
-      "100A/80A两种规格可选",
-      "8层PCB设计，大电流散热无忧",
-      "支持3-8S宽电压输入",
-      "适合5-7寸长续航、大载重机型"
+      "CANI Stack-Pro F722-100A 是目前行业内集成度最高、功率最强的动力控制方案之一。飞控端搭载 STM32F722 极速核心与双 ICM42688 冗余陀螺仪，电调端提供单路 100A 持续的工业级输出能力。",
+      "8 层 PCB 堆叠设计大幅增加铜层面积，显著降低大电流通道阻抗发热。配合全覆盖式 CNC 阳极氧化铝合金散热外壳与高导热硅脂，即使 40°C 环境满载作业核心温度也可控。",
+      "针对 100A 大电流产生的强磁场干扰，飞控采用多层独立供电层（LDO 隔离），确保双陀螺仪数据不受动力线波动影响。双向 DShot 遥测支持实时电机转速监测与 RPM 陷波滤波。",
+      "专为 9-13 英寸大载重 FPV、系留无人机、特种运输机及长航时巡检平台设计。搭配 FV10W-72 图传时 EMI 优化布局确保远距离视频流无干扰。"
     ],
     fcSpecs: {
-      mcu: "STM32F722",
-      gyro: "双ICM42688",
+      mcu: "STM32F722RGT6 (216MHz)",
+      gyro: "双 ICM42688 (SPI，冗余设计)",
       osd: "板载AT7456E",
       blackbox: "32MB SPI Flash",
-      uart: "6个UART",
+      uart: "8个UART",
       voltage: "3-8S LiPo",
-      bec: "5V/3A, 9V/3A",
-      size: "30.5×30.5mm (M3)",
+      bec: "5V/3A, 9V/3A (大电流 BEC)",
+      size: "30.5×30.5mm (M3，增强型焊盘)",
       weight: "10g",
       firmware: "Betaflight"
     },
     escSpecs: {
-      current: "100A/80A (持续)",
-      peakCurrent: "120A/100A (峰值)",
+      current: "100A (持续)",
+      peakCurrent: "120A (峰值 10s)",
       voltage: "3-8S LiPo",
-      protocol: "DShot1200/600/300",
-      mosfet: "多颗并联MOS阵列",
+      protocol: "DShot1200 (双向) / DShot600/300",
+      mosfet: "多颗并联低内阻MOSFET阵列",
       pcbLayers: "8层PCB",
       size: "30.5×30.5mm (M3)",
       weight: "32g"
     },
     features: [
-      "双陀螺仪冗余设计",
-      "8层PCB专业散热",
-      "大功率应用首选",
-      "支持长续航机型"
+      "双 ICM42688 陀螺仪冗余设计",
+      "8 层 PCB 大电流专业散热",
+      "全 CNC 阳极氧化铝散热外壳",
+      "双向 DShot RPM Filter 实时监测",
+      "多层 LDO 隔离抗电磁干扰",
+      "适配 9-13 英寸重载/系留平台"
     ],
     notes: [
-      "大电流使用时请确保接线可靠",
-      "建议使用高品质硅胶线",
-      "首次使用请校准陀螺仪"
+      "大电流使用时请确保接线可靠，建议使用 12AWG 以上硅胶线",
+      "首次使用请校准双陀螺仪",
+      "长时间满载作业建议加装主动散热风扇"
     ],
     packageIncludes: [
       "Pro F722飞控 x1",
-      "100A/80A电调 x1",
+      "100A四合一电调 x1",
+      "CNC散热外壳 x1",
       "连接线材 x1套",
       "说明书 x1"
     ]

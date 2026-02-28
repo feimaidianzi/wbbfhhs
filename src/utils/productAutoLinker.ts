@@ -97,10 +97,10 @@ export const PRODUCT_LINK_MAP: ProductLinkEntry[] = [
     category: 'fc-esc',
   },
   {
-    keywords: ['F722飞控', 'F722 100A', 'Pro F722', 'FlyMind Pro'],
+    keywords: ['Stack-Pro F722-100A', 'F722 100A', 'Pro F722 100A', 'FlyMind Pro F722', '100A飞塔', 'F722飞控'],
     url: '/products/accessories/fc-esc/stack-pro-f722-100a',
-    titleZh: 'CANI FlyMind Pro F722 100A 飞塔',
-    titleEn: 'CANI FlyMind Pro F722 100A Stack',
+    titleZh: 'CANI Stack-Pro F722-100A 工业级旗舰飞速塔',
+    titleEn: 'CANI Stack-Pro F722-100A Industrial Flagship Flight Tower',
     category: 'fc-esc',
   },
   // === Digital FPV 数字图传系统 ===

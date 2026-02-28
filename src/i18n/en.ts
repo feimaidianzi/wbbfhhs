@@ -1182,9 +1182,9 @@ export const enTranslations: Record<string, string> = {
   'fcEscDetail.tdk.stack-f405-60a.title': 'CANI Stack F405-60A | 60A Heavy-Duty Flight Tower | Industrial UAV Power Control',
   'fcEscDetail.tdk.stack-f405-60a.desc': 'CANI Stack F405-60A flight controller ESC stack. 60A continuous per channel with CNC thermal armor, 6S native support for heavy-lift industrial UAVs. Bidirectional DShot telemetry with RPM filtering.',
   'fcEscDetail.tdk.stack-f405-60a.h1': 'CANI Stack F405-60A | 60A 4-in-1 ESC + F405 Industrial Flight Tower',
-  'fcEscDetail.tdk.stack-pro-f722-100a.title': 'Pro F722 Stack 100A 4-in-1 ESC | 8S Heavy Lift FPV Tower',
-  'fcEscDetail.tdk.stack-pro-f722-100a.desc': 'Professional-grade F722 stack with 100A extreme power ESC. Supports up to 8S voltage for high-torque motors and heavy-lift cinematic FPV. Dual BEC output included.',
-  'fcEscDetail.tdk.stack-pro-f722-100a.h1': 'Pro F722 + 100A Stack: 8S Heavy-Lift FPV Power Tower',
+  'fcEscDetail.tdk.stack-pro-f722-100a.title': 'CANI Stack-Pro F722-100A | 100A 4-in-1 ESC Flagship Tower | Heavy-Lift Industrial UAV Power',
+  'fcEscDetail.tdk.stack-pro-f722-100a.desc': 'Explore the CANI Stack-Pro F722-100A. 100A continuous per channel, F722 high-speed MCU, full CNC thermal armor. Designed for tethered UAVs and heavy-lift industrial inspection platforms with unmatched power redundancy.',
+  'fcEscDetail.tdk.stack-pro-f722-100a.h1': 'CANI Stack-Pro F722-100A | 100A Industrial Flagship Flight Tower (F722 FC + 100A ESC)',
 
   // 6-in-1 ESC TDK
   'fcEscDetail.tdk.6in1-80a.title': 'FV 6-in-1 ESC 80A | Industrial Hexacopter Power Module',

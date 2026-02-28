@@ -7672,9 +7672,9 @@ export const zhTranslations: Record<string, string> = {
   'fcEscDetail.tdk.stack-f405-60a.title': 'CANI Stack F405-60A | 60A大电流飞速塔 | 工业级大载重无人机动力',
   'fcEscDetail.tdk.stack-f405-60a.desc': '详细了解CANI Stack F405-60A飞控电调套装。单路60A强劲输出，适配6S高压系统。采用CNC一体化散热与F405稳定内核，为大负载无人机提供卓越的动力控制与冗余保障。',
   'fcEscDetail.tdk.stack-f405-60a.h1': 'CANI Stack F405-60A | 60A 四合一电调 + F405 工业级飞速塔',
-  'fcEscDetail.tdk.stack-pro-f722-100a.title': 'Pro F722飞塔 100A四合一电调 | 8S大载重FPV飞行塔',
-  'fcEscDetail.tdk.stack-pro-f722-100a.desc': '专业级F722飞塔，搭配100A极致动力电调，支持8S高压大扭矩电机，适合大载重FPV航拍，双BEC输出。',
-  'fcEscDetail.tdk.stack-pro-f722-100a.h1': 'Pro F722 + 100A飞塔：8S大载重FPV动力塔',
+  'fcEscDetail.tdk.stack-pro-f722-100a.title': 'CANI Stack-Pro F722-100A | 100A 四合一电调飞速塔 | 大载重工业无人机动力旗舰',
+  'fcEscDetail.tdk.stack-pro-f722-100a.desc': '详细了解 CANI Stack-Pro F722-100A。单路 100A 持续电流，F722 极速主控，全 CNC 散热设计。专为系留无人机、重型工业巡检机设计，提供无可比拟的动力冗余与控制精度。',
+  'fcEscDetail.tdk.stack-pro-f722-100a.h1': 'CANI Stack-Pro F722-100A | 100A 工业级旗舰飞速塔 (F722 FC + 100A ESC)',
 
   // 6-in-1 ESC TDK
   'fcEscDetail.tdk.6in1-80a.title': 'FV六合一电调 80A | 工业级六轴动力模块',
