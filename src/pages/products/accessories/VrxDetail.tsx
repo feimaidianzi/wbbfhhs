@@ -365,6 +365,44 @@ const VrxDetail = () => {
           </div>
         </section>
 
+        {/* Related Article - Bidirectional Link */}
+        <section className="py-12 bg-secondary border-t border-border">
+          <div className="container mx-auto px-4">
+            <h2 className="text-2xl font-bold mb-6">{isZh ? '📖 深度解读' : '📖 Deep Dive'}</h2>
+            <Link
+              to="/news/1bb08cea-c85a-4373-8bd3-7e62accc7619"
+              className="block bg-card rounded-xl border border-border hover:border-accent/50 transition-all duration-300 overflow-hidden group"
+            >
+              <div className="flex flex-col md:flex-row">
+                <div className="md:w-1/3 aspect-video md:aspect-auto bg-muted/30 p-4 flex items-center justify-center">
+                  <img
+                    src={product.image}
+                    alt={`${product.model} technical deep dive article`}
+                    className="max-h-48 object-contain group-hover:scale-105 transition-transform duration-300"
+                    loading="lazy"
+                  />
+                </div>
+                <div className="p-6 md:w-2/3 flex flex-col justify-center">
+                  <span className="text-xs text-accent font-medium mb-2">{isZh ? '技术分享' : 'Tech Sharing'}</span>
+                  <h3 className="text-lg font-bold mb-2 group-hover:text-accent transition-colors">
+                    {isZh
+                      ? '深度解析：LLVRFRX-5849-Dual Chip 工业级 5.8GHz 双芯片模拟接收方案'
+                      : 'Deep Dive: LLVRFRX-5849-Dual Chip Industrial 5.8GHz Dual-Chip Analog Receiver Solution'}
+                  </h3>
+                  <p className="text-sm text-muted-foreground line-clamp-2">
+                    {isZh
+                      ? '深入解析 LongLink™ 双芯片解调技术、-97dBm 极限灵敏度实现原理、以及面向全球市场的 OEM/ODM 全栈定制服务。'
+                      : 'In-depth analysis of LongLink™ dual-chip demodulation, -97dBm sensitivity engineering, and full-stack OEM/ODM customization for global markets.'}
+                  </p>
+                  <span className="text-xs text-accent mt-3 flex items-center gap-1">
+                    {isZh ? '阅读全文 →' : 'Read Full Article →'}
+                  </span>
+                </div>
+              </div>
+            </Link>
+          </div>
+        </section>
+
         {/* CTA */}
         <section className="py-20 bg-primary text-primary-foreground">
           <div className="container mx-auto px-4 text-center">
