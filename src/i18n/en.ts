@@ -1203,9 +1203,9 @@ export const enTranslations: Record<string, string> = {
   'fcEscDetail.tdk.separate-esc-100a.h1': '100A Separate ESC: Heavy-Lift Industrial Power Module',
 
   // 4-in-1 ESC TDK
-  'fcEscDetail.tdk.esc-55a.title': 'CANI 4-in-1 ESC 55A BLHeli_32 | FPV Propulsion System',
-  'fcEscDetail.tdk.esc-55a.desc': 'High-performance 55A 4-in-1 ESC with BLHeli_32 firmware. Low-resistance MOSFETs and 4-layer PCB for efficient heat dissipation. Ideal for 5-inch FPV drones.',
-  'fcEscDetail.tdk.esc-55a.h1': '55A 4-in-1 ESC: High-Efficiency FPV Propulsion System',
+  'fcEscDetail.tdk.esc-55a.title': 'CANI-ESC 55A | Industrial 55A 4-in-1 ESC | UAV Power Control Module',
+  'fcEscDetail.tdk.esc-55a.desc': 'Explore CANI-ESC 55A 4-in-1 ESC. 55A continuous per channel with 6S high-voltage support and bidirectional DShot telemetry. CNC heat armor ensures exceptional power stability for industrial inspection and FPV platforms.',
+  'fcEscDetail.tdk.esc-55a.h1': 'CANI-ESC 55A | Industrial 55A 4-in-1 ESC (3S-6S / BLHeli_S / CNC Thermal Armor)',
   'fcEscDetail.tdk.esc-60a.title': 'CANI 4-in-1 ESC 60A | High Efficiency FPV Propulsion System',
   'fcEscDetail.tdk.esc-60a.desc': 'ECO series 60A 4-in-1 ESC with 48KHz PWM and built-in current sensor. Optimized PCB thermal design for 5-inch freestyle and racing drones.',
   'fcEscDetail.tdk.esc-60a.h1': '60A 4-in-1 ESC: High-Efficiency FPV Propulsion System',

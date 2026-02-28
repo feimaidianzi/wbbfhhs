@@ -825,8 +825,8 @@ export const flightControllerProducts: FcEscProduct[] = [
 export const escProducts: FcEscProduct[] = [
   {
     id: "esc-55a",
-    name: "FlyMind 55/65A电调",
-    model: "FlyMind 55/65A 4-in-1",
+    name: "CANI-ESC 55A 工业级四合一电调",
+    model: "CANI-ESC 55A (BLHeli_S / 30.5mm / CNC 散热)",
     category: "四合一电调",
     image: esc55a_1,
     images: [
@@ -839,33 +839,47 @@ export const escProducts: FcEscProduct[] = [
     ],
     price: "¥449",
     highlights: [
-      "持续55A，峰值65A",
-      "3-6S LiPo支持",
-      "32位处理器，BLHeli_32",
-      "低电阻MOS，高效散热"
+      "单路 55A 持续 / 70A 峰值 (10s)，30% 电流冗余",
+      "3-6S LiPo 宽电压，32 位 BLHeli_S / Bluejay 固件",
+      "8 层 PCB + 3oz 加厚铜箔均温散热设计",
+      "一体化 CNC 铝合金散热装甲，阳极氧化工艺",
+      "日本 TDK 低 ESR 电容 + TVS 瞬态抑制保护",
+      "双向 DShot 遥测，适配 FC-F722 / FC-F405 飞控"
     ],
     description: [
-      "55A持续输出",
-      "BLHeli_32固件",
-      "多层PCB设计"
+      "CANI-ESC 55A 是一款专为高强度工业作业和竞赛环境打造的高性能四合一电子调速器。单路支持 55A 持续电流、70A 峰值（10秒），即使在 7 英寸重载机型全速爬升时仍保持约 30% 的电流冗余，有效避免功率管接近极限产生的电噪声。",
+      "采用 8 层 PCB 设计与 3oz 加厚铜箔层，不仅承载更大电流，更形成高效均温板防止局部过热。一体化 CNC 阳极氧化铝合金散热片覆盖全部 MOSFET，迅速带走核心热量。",
+      "配备日本 TDK 低 ESR 贴片电容及外部 1000μF 大电容，有效吸收反向电动势（EMF），保护电子设备不受电压尖峰冲击。TVS 瞬态抑制保护管进一步确保系统安全。",
+      "支持双向 DShot 遥测，配合 Stack F405-55A 飞塔或 FC-F722 飞控，可实时读取电调温度与转速数据，实现精准的 RPM 陷波滤波，从物理层面消除机架共振。"
     ],
     escSpecs: {
-      current: "55A (持续)",
-      peakCurrent: "65A (峰值)",
-      voltage: "3-6S LiPo",
-      protocol: "DShot1200/600/300",
-      mosfet: "低内阻MOS",
-      pcbLayers: "4层PCB",
-      size: "30.5×30.5mm (M3)",
-      weight: "12g"
+      current: "55A × 4 (持续)",
+      peakCurrent: "70A (峰值 10s)",
+      voltage: "3-6S LiPo (12.6V - 25.2V)",
+      protocol: "DShot1200/600/300 (双向), PWM, Oneshot",
+      mosfet: "低内阻工业级 MOSFET + TVS 保护",
+      pcbLayers: "8层PCB (3oz 加厚铜箔)",
+      size: "30.5×30.5mm (M4，含 M3 减震圈)",
+      weight: "23.5g (含散热壳)"
     },
     features: [
-      "BLHeli_32固件",
-      "过流保护"
+      "BLHeli_S / Bluejay 32位固件，双向 DShot 遥测",
+      "8 层 PCB + 3oz 铜箔高效均温散热",
+      "一体化 CNC 阳极氧化铝合金散热装甲",
+      "TDK 低 ESR 电容 + 1000μF 外部滤波电容",
+      "TVS 瞬态抑制保护管，抗电压尖峰",
+      "过流、过温、堵转、失控四重保护机制"
+    ],
+    notes: [
+      "推荐适配 5-7 英寸工业巡检及高性能 FPV 机型",
+      "大功率使用时请确保良好散热与可靠接线",
+      "首次使用请更新至最新固件版本"
     ],
     packageIncludes: [
-      "55A电调 x1",
-      "线材 x1套"
+      "CANI-ESC 55A 四合一电调 x1",
+      "CNC 散热装甲 x1",
+      "连接线材 x1套",
+      "减震圈 x4"
     ]
   },
   {

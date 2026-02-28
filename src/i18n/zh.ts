@@ -7693,9 +7693,9 @@ export const zhTranslations: Record<string, string> = {
   'fcEscDetail.tdk.separate-esc-100a.h1': '100A分体电调：重载工业动力模块',
 
   // 4-in-1 ESC TDK
-  'fcEscDetail.tdk.esc-55a.title': 'CANI四合一电调 55A BLHeli_32 | FPV推进系统',
-  'fcEscDetail.tdk.esc-55a.desc': '高性能55A四合一电调，BLHeli_32固件，低内阻MOS管，4层PCB高效散热，5寸FPV穿越机理想之选。',
-  'fcEscDetail.tdk.esc-55a.h1': '55A四合一电调：高效FPV推进系统',
+  'fcEscDetail.tdk.esc-55a.title': 'CANI-ESC 55A | 55A 四合一电调 | 工业级无人机动力控制模块',
+  'fcEscDetail.tdk.esc-55a.desc': '详细了解 CANI-ESC 55A 四合一电调。支持单路 55A 持续电流，6S 高压动力及双向 DShot 遥测。配备一体化 CNC 散热壳，为中型巡检机及 FPV 提供卓越的动力稳定性。',
+  'fcEscDetail.tdk.esc-55a.h1': 'CANI-ESC 55A | 工业级 55A 四合一电调 (3S-6S / BLHeli_S / CNC 散热)',
   'fcEscDetail.tdk.esc-60a.title': 'CANI四合一电调 60A | 高效FPV推进系统',
   'fcEscDetail.tdk.esc-60a.desc': 'ECO系列60A四合一电调，48KHz PWM频率，内置电流传感器，优化PCB散热设计，适合5寸自由飞和竞速穿越机。',
   'fcEscDetail.tdk.esc-60a.h1': '60A四合一电调：高效FPV推进系统',

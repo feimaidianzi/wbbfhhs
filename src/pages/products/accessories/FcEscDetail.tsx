@@ -798,6 +798,25 @@ const FcEscDetail = () => {
             </div>
           </section>
         )}
+        {productId === 'esc-55a' && (
+          <section className="py-12 bg-secondary border-t border-border">
+            <div className="container mx-auto px-4">
+              <div className="max-w-3xl mx-auto bg-card rounded-xl p-6 flex items-center gap-4 hover:shadow-lg transition-all border border-border/30">
+                <div className="text-3xl">📖</div>
+                <div className="flex-1">
+                  <p className="text-sm text-accent font-mono mb-1">{language === 'zh' ? '技术白皮书' : 'Tech Whitepaper'}</p>
+                  <Link to="/news/c3d4e5f6-7a8b-9c0d-1e2f-3a4b5c6d7e8f" className="text-foreground font-semibold hover:text-accent transition-colors">
+                    {language === 'zh' ? '电流管理的艺术：解析 CANI-ESC 55A 如何在极端负载下保持动力线性度' : 'The Art of Current Management: How CANI-ESC 55A Maintains Power Linearity Under Extreme Load'}
+                  </Link>
+                  <p className="text-muted-foreground text-sm mt-1">
+                    {language === 'zh' ? '深入了解 CNC 散热装甲、8 层 PCB 均温设计、TDK 电容阵列与双向 DShot 遥测闭环' : 'Explore CNC heat armor, 8-layer PCB thermal design, TDK capacitor array, and bidirectional DShot telemetry loop'}
+                  </p>
+                </div>
+                <ChevronRight className="w-5 h-5 text-muted-foreground" />
+              </div>
+            </div>
+          </section>
+        )}
         {/* CTA Section */}
         <section className="py-20 bg-primary text-primary-foreground">
           <div className="container mx-auto px-4 text-center">
