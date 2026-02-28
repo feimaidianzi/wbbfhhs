@@ -607,7 +607,7 @@ const FcEscDetail = () => {
           </div>
         </section>
 
-        {/* Related Article for cani-pixhawk4 */}
+        {/* Related Article links */}
         {productId === 'cani-pixhawk4' && (
           <section className="py-12 bg-secondary border-t border-border">
             <div className="container mx-auto px-4">
@@ -627,7 +627,25 @@ const FcEscDetail = () => {
             </div>
           </section>
         )}
-
+        {productId === 'stack-mini-f7-55a' && (
+          <section className="py-12 bg-secondary border-t border-border">
+            <div className="container mx-auto px-4">
+              <div className="max-w-3xl mx-auto bg-card rounded-xl p-6 flex items-center gap-4 hover:shadow-lg transition-all border border-border/30">
+                <div className="text-3xl">📖</div>
+                <div className="flex-1">
+                  <p className="text-sm text-accent font-mono mb-1">{language === 'zh' ? '深度解读' : 'Deep Dive'}</p>
+                  <Link to="/news/e5f6a7b8-9c0d-1e2f-3a4b-5c6d7e8f9a0b" className="text-foreground font-semibold hover:text-accent transition-colors">
+                    {language === 'zh' ? '定义紧凑型动力极限：CANI Stack-Mini F7-55A 飞速塔的技术演变与工业应用' : 'Defining Compact Power Limits: Stack-Mini F7-55A Technical Evolution & Industrial Applications'}
+                  </Link>
+                  <p className="text-muted-foreground text-sm mt-1">
+                    {language === 'zh' ? '深入了解 F745 算力跨越、双向 DShot 动态谐波过滤与 55A 四合一电调散热工程' : 'Explore F745 computational leap, bidirectional DShot dynamic notch filtering, and 55A 4-in-1 ESC thermal engineering'}
+                  </p>
+                </div>
+                <ChevronRight className="w-5 h-5 text-muted-foreground" />
+              </div>
+            </div>
+          </section>
+        )}
         {/* CTA Section */}
         <section className="py-20 bg-primary text-primary-foreground">
           <div className="container mx-auto px-4 text-center">
