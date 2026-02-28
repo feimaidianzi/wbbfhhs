@@ -422,9 +422,10 @@ export const stackProducts: FcEscProduct[] = [
 export const sixInOneEscProducts: FcEscProduct[] = [
   {
     id: "6in1-80a",
-    name: "FlyMind六合一80A电调",
-    model: "FlyMind 6-in-1 80A",
+    name: "CANI-80A 工业级六合一电调",
+    model: "CANI-80A 6-in-1 ESC",
     category: "六合一电调",
+    hot: true,
     image: fcEsc80a,
     images: [
       fcEsc80a,
@@ -434,34 +435,42 @@ export const sixInOneEscProducts: FcEscProduct[] = [
     ],
     price: "¥729",
     highlights: [
-      "六合一设计（含2路备用）",
-      "80A持续电流，峰值100A",
-      "8层PCB大电流设计",
-      "4-8S宽电压支持"
+      "六合一集成设计，六旋翼专用 (含2路备用)",
+      "单路 80A 持续 / 100A 峰值，工业级电流冗余",
+      "8层 PCB + 全 CNC 铝合金散热上盖",
+      "原生 MAVLink 遥测，转速/电压/温度实时回传",
+      "3-6S 宽电压支持，DShot150/300/600",
+      "减轻约 25% 动力系统重量，优化推重比"
     ],
     description: [
-      "六合一设计，含2路备用通道",
-      "80A持续电流，峰值可达100A",
-      "8层PCB设计，散热优秀",
-      "专为六轴大载重机型设计"
+      "CANI-80A 是一款专为六旋翼无人机设计的高性能六合一电调。它打破了传统电调分散布局的局限，将六路高性能 ESC 整合至单一 PCB 模块，大幅简化中心板布线并降低故障点。",
+      "单路持续电流高达 80A，峰值 100A。通过共享散热装甲与供电母线，相比六个独立电调减轻约 25% 动力系统重量，直接提升推重比。是 TH-300 系留无人机理想的动力配套方案。",
+      "面对六路大电流热量叠加，采用加厚纯铝 CNC 散热上盖与内部大面积铺铜工艺，确保大电流持续爬升中 MOSFET 内阻维持极低水平，有效防止热失控。",
+      "原生支持电调数据回传，将转速、电压、温度等关键信息通过 MAVLink 协议反馈至地面站，为 CANI-FC v2.0 算法层提供实时闭环反馈。极低电源纹波确保 FV10W-72 图传画面清晰稳定。"
     ],
     escSpecs: {
-      current: "80A (持续)",
-      peakCurrent: "100A (峰值)",
-      voltage: "4-8S LiPo",
-      protocol: "DShot1200/600/300",
-      mosfet: "并联MOS阵列",
+      current: "80A × 6 (持续)",
+      peakCurrent: "100A × 6 (峰值 10s)",
+      voltage: "3-6S LiPo",
+      protocol: "DShot600/300/150, Multishot, PWM",
+      mosfet: "工业级低内阻并联MOSFET阵列",
       pcbLayers: "8层PCB",
-      size: "45×45mm",
+      size: "45×45mm (加强型安装位)",
       weight: "55g"
     },
     features: [
-      "6通道设计，含2路备用",
-      "过流过温保护"
+      "六路集成设计，含2路备用通道",
+      "全 CNC 阳极氧化铝合金散热上盖",
+      "大面积铺铜工艺，防热失控",
+      "MAVLink 协议遥测数据回传",
+      "过流、过温、欠压多重保护",
+      "适配六旋翼工业巡检、系留平台"
     ],
     packageIncludes: [
-      "六合一电调 x1",
-      "线材 x1套"
+      "CANI-80A 六合一电调 x1",
+      "CNC散热上盖 x1",
+      "线材 x1套",
+      "安装螺丝 x1套"
     ]
   },
   {

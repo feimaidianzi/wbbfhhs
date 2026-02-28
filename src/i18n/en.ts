@@ -1187,9 +1187,9 @@ export const enTranslations: Record<string, string> = {
   'fcEscDetail.tdk.stack-pro-f722-100a.h1': 'CANI Stack-Pro F722-100A | 100A Industrial Flagship Flight Tower (F722 FC + 100A ESC)',
 
   // 6-in-1 ESC TDK
-  'fcEscDetail.tdk.6in1-80a.title': 'FV 6-in-1 ESC 80A | Industrial Hexacopter Power Module',
-  'fcEscDetail.tdk.6in1-80a.desc': 'Industrial-grade 6-in-1 ESC for hexacopters, supporting 80A per channel. Integrated real-time telemetry for RPM, temperature, and current monitoring. Ideal for 8S heavy-lift mapping and delivery drones.',
-  'fcEscDetail.tdk.6in1-80a.h1': '6-in-1 80A ESC: Centralized Power Hub for Industrial Hexacopters',
+  'fcEscDetail.tdk.6in1-80a.title': 'CANI-80A 6-in-1 ESC | 80A×6 High-Current | Hexacopter Power Module',
+  'fcEscDetail.tdk.6in1-80a.desc': 'Explore the CANI-80A 6-in-1 ESC. Designed for hexacopter UAVs with 80A continuous per channel, 6S support. Full CNC thermal management simplifies wiring and delivers superior power redundancy.',
+  'fcEscDetail.tdk.6in1-80a.h1': 'CANI-80A Industrial 6-in-1 ESC | 80A×6 Integrated Power Module (3-6S)',
   'fcEscDetail.tdk.6in1-100a.title': 'FV 6-in-1 ESC 100A | Industrial Hexacopter Power Module',
   'fcEscDetail.tdk.6in1-100a.desc': 'Industrial-grade 6-in-1 ESC for hexacopters, supporting 100A per channel with 120A peak. Real-time telemetry for RPM, temperature, and current monitoring. 12S-14S heavy-lift drone optimized.',
   'fcEscDetail.tdk.6in1-100a.h1': '6-in-1 100A ESC: Maximum Power Hub for Industrial Hexacopters',

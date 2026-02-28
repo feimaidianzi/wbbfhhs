@@ -103,6 +103,13 @@ export const PRODUCT_LINK_MAP: ProductLinkEntry[] = [
     titleEn: 'CANI Stack-Pro F722-100A Industrial Flagship Flight Tower',
     category: 'fc-esc',
   },
+  {
+    keywords: ['CANI-80A 六合一', '六合一80A', '6in1-80A', '80A六合一电调', '六合一电调', 'CANI-80A 6-in-1'],
+    url: '/products/accessories/fc-esc/6in1-80a',
+    titleZh: 'CANI-80A 工业级六合一电调',
+    titleEn: 'CANI-80A Industrial 6-in-1 ESC',
+    category: 'fc-esc',
+  },
   // === Digital FPV 数字图传系统 ===
   {
     keywords: ['数字图传系统', 'Digital FPV System', 'FPV数字链路'],
