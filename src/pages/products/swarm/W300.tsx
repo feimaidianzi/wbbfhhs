@@ -125,6 +125,23 @@ const W300 = () => {
           </div>
         </section>
 
+        {/* Related Article */}
+        <section className="py-12 bg-muted/50 border-t border-border">
+          <div className="container-custom">
+            <div className="max-w-3xl mx-auto bg-card rounded-xl p-6 flex items-center gap-4 hover:shadow-lg transition-all border border-border/30">
+              <div className="text-3xl">📰</div>
+              <div className="flex-1">
+                <p className="text-sm text-accent font-mono mb-1">{isZh ? '深度解读' : 'Deep Dive'}</p>
+                <Link to="/news/ae1840e0-92c2-43aa-b36d-0b5b84c6c158" className="text-foreground font-semibold hover:text-accent transition-colors">
+                  {isZh ? '工业级集群旗舰：W300 蜂群无人机系统——软硬一体化全栈定制平台' : 'Industrial Swarm Flagship: W300 — Full-stack Software-Hardware Integration Platform'}
+                </Link>
+                <p className="text-muted-foreground text-sm mt-1">{isZh ? '了解 W300 的动态自愈Mesh组网与群智协同避障算法' : 'Explore W300 self-healing Mesh networking and swarm intelligence algorithms'}</p>
+              </div>
+              <ChevronDown className="w-5 h-5 text-muted-foreground rotate-[-90deg]" />
+            </div>
+          </div>
+        </section>
+
         {/* CTA */}
         <section className="py-20 bg-primary text-primary-foreground">
           <div className="container-custom text-center">
