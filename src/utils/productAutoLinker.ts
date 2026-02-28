@@ -62,6 +62,13 @@ export const PRODUCT_LINK_MAP: ProductLinkEntry[] = [
     category: 'fc-esc',
   },
   {
+    keywords: ['Stack-Mini F7-40A', 'F7-40A飞塔', 'FlyMind Mini F7+40A', 'Mini F7+40A', '40A迷你飞塔'],
+    url: '/products/accessories/fc-esc/stack-mini-f7-40a',
+    titleZh: 'CANI Stack-Mini F7-40A 20×20mm 迷你飞速塔',
+    titleEn: 'CANI Stack-Mini F7-40A 20×20mm Mini Stack',
+    category: 'fc-esc',
+  },
+  {
     keywords: ['CANI-Pixhawk4', 'Pixhawk4飞控', 'CANI Pixhawk', 'Pixhawk 4'],
     url: '/products/accessories/fc-esc/cani-pixhawk4',
     titleZh: 'CANI-Pixhawk4 开源飞控',

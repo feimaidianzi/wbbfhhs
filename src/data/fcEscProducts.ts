@@ -286,8 +286,8 @@ export const stackProducts: FcEscProduct[] = [
   },
   {
     id: "stack-mini-f7-40a",
-    name: "FlyMind Mini F7+40A飞塔",
-    model: "FlyMind Mini F7 40A",
+    name: "CANI Stack-Mini F7-40A 迷你飞速塔",
+    model: "Stack-Mini F7-40A (20×20mm)",
     category: "飞塔",
     image: "https://ueeshop.ly200-cdn.com/u_file/UPBD/UPBD023/2409/19/products/c50b7a84c3.jpg",
     images: [
@@ -295,46 +295,52 @@ export const stackProducts: FcEscProduct[] = [
     ],
     price: "¥579",
     highlights: [
-      "STM32F722处理器高性能",
-      "BMI270高精度陀螺仪",
-      "40A四合一电调",
-      "20×20mm紧凑孔距设计",
-      "适配2-3寸微型机架"
+      "STM32F722RGT6 处理器 (216MHz)，F7 级算力",
+      "MPU6000 SPI 低噪声陀螺仪",
+      "40A 持续 / 45A 峰值四合一电调",
+      "20×20mm 极紧凑安装位，M3 孔径",
+      "原生支持 3S-6S 高压动力系统",
+      "双向 DShot 遥测，支持 RPM Filter"
     ],
     description: [
-      "专为2-3寸微型穿越机设计",
-      "20mm超紧凑孔距",
-      "40A电流输出，满足小机需求",
-      "轻量化设计，整体仅12g"
+      "CANI Stack-Mini F7-40A 是一款高性能极小尺寸动力控制套装。飞控采用 STM32F722 处理核心（216MHz），在 20×20mm 的安装位内提供与大型机种抗衡的算力冗余。",
+      "配合 MPU6000 低噪声陀螺仪，系统能够捕捉微小姿态偏差并利用 F7 浮点运算能力瞬间完成补偿，实现亚毫秒级 PID 闭环响应。",
+      "40A 四合一电调选用低内阻工业级 MOSFET，在极小散热面积下实现极高热转换效率。原生 3S-6S 高压支持降低系统电流、延长巡检作业时间。",
+      "支持双向 DShot 遥测（RPM Filter），飞控根据实时转速进行谐波过滤。专为 3-4 英寸紧凑型工业机、室内巡检、高性能 FPV 及科研集群控制平台设计。"
     ],
     fcSpecs: {
-      mcu: "STM32F722",
-      gyro: "BMI270",
-      osd: "板载",
-      blackbox: "8MB",
+      mcu: "STM32F722RGT6 (216MHz)",
+      gyro: "MPU6000 (SPI)",
+      osd: "板载 AT7456E",
+      blackbox: "8MB SPI Flash",
       uart: "3个UART",
       voltage: "3-6S LiPo",
-      bec: "5V/2A",
-      size: "20×20mm (M2)",
+      bec: "5V/2A, 10V/2A",
+      size: "20×20mm (M3)",
       weight: "4g",
       firmware: "Betaflight"
     },
     escSpecs: {
       current: "40A (持续)",
-      peakCurrent: "50A (峰值)",
+      peakCurrent: "45A (峰值 10s)",
       voltage: "3-6S LiPo",
-      protocol: "DShot600/300",
+      protocol: "DShot600/300 (双向)",
+      mosfet: "低内阻工业级MOSFET",
       pcbLayers: "4层PCB",
-      size: "20×20mm (M2)",
+      size: "20×20mm (M3)",
       weight: "8g"
     },
     features: [
-      "超轻量化设计",
-      "适合Cinewhoop/Toothpick机型"
+      "20×20mm 极紧凑飞塔一体化设计",
+      "双向 DShot RPM Filter 精准谐波过滤",
+      "5V/2A + 10V/2A 双路 BEC 支持高清图传",
+      "适合 Cinewhoop/Toothpick/室内巡检机型",
+      "科研集群控制理想实验平台"
     ],
     packageIncludes: [
       "Mini F7飞控 x1",
-      "40A电调 x1",
+      "40A四合一电调 x1",
+      "连接插针 x1套",
       "线材 x1套"
     ]
   },
