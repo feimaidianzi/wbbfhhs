@@ -199,7 +199,7 @@ export const PRODUCT_LINK_MAP: ProductLinkEntry[] = [
     category: 'gimbal',
   },
   {
-    keywords: ['K8T-V2', 'K8TV2', '双光云台', '双光跟踪云台'],
+    keywords: ['K8T-V2', 'K8TV2', '双光云台', '双光跟踪云台', '133g云台', '双光识别追踪', 'K8T-V2 Gimbal', 'Dual-Sensor Tracking Gimbal'],
     url: '/products/accessories/gimbal/k8t-v2',
     titleZh: 'CANI K8T-V2 双光AI跟踪云台',
     titleEn: 'CANI K8T-V2 Dual-Light AI Tracking Gimbal',
