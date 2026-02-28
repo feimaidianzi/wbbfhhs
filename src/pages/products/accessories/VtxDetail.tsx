@@ -7,7 +7,7 @@ import { FloatingContact } from "@/components/FloatingContact";
 import { MultiLanguageSEO } from "@/components/MultiLanguageSEO";
 import { Button } from "@/components/ui/button";
 import { BackButton } from "@/components/BackButton";
-import { Check, AlertTriangle, Settings, Radio, Zap, Shield, Thermometer } from "lucide-react";
+import { Check, AlertTriangle, Settings, Radio, Zap, Shield, Thermometer, ChevronRight } from "lucide-react";
 import { getProductById } from "@/data/vtxProducts";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { PageFAQ } from "@/components/PageFAQ";
@@ -15,7 +15,8 @@ import { PageFAQ } from "@/components/PageFAQ";
 const VtxDetail = () => {
   const { productId } = useParams<{ productId: string }>();
   const product = productId ? getProductById(productId) : null;
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
+  const isZh = language === 'zh';
   const isPV02 = productId === "flym-pv02w500-a1";
   const isPV03 = productId === "flym-pv03w000-a1";
   const isFV10W = productId === "fv10w-a1";
@@ -923,6 +924,25 @@ const VtxDetail = () => {
             items={fv37wFaqItems}
             className="py-20"
           />
+        )}
+
+        {/* Related Article for PV02 */}
+        {isPV02 && (
+          <section className="py-12 bg-secondary border-t border-border">
+            <div className="container mx-auto px-4">
+              <div className="max-w-3xl mx-auto bg-card rounded-xl p-6 flex items-center gap-4 hover:shadow-lg transition-all border border-border/30">
+                <div className="text-3xl">📰</div>
+                <div className="flex-1">
+                  <p className="text-sm text-accent font-mono mb-1">{isZh ? '深度解读' : 'Deep Dive'}</p>
+                  <Link to="/news/c0dc136e-1706-4404-9619-e8180901e19a" className="text-foreground font-semibold hover:text-accent transition-colors">
+                    {isZh ? '零延迟之王：FLYM-PV02W500-A1 工业级模拟图传模组——一站式定制方案' : 'Zero-Latency King: FLYM-PV02W500-A1 Industrial Analog VTX — One-stop Customization'}
+                  </Link>
+                  <p className="text-muted-foreground text-sm mt-1">{isZh ? '了解该模组的射频优化与 SmartAudio 协议深度适配' : 'Explore RF optimization and SmartAudio protocol deep integration'}</p>
+                </div>
+                <ChevronRight className="w-5 h-5 text-muted-foreground" />
+              </div>
+            </div>
+          </section>
         )}
 
         <section className="py-20 bg-primary text-primary-foreground">
