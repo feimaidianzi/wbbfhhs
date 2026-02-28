@@ -1190,9 +1190,9 @@ export const enTranslations: Record<string, string> = {
   'fcEscDetail.tdk.6in1-80a.title': 'CANI-80A 6-in-1 ESC | 80A×6 High-Current | Hexacopter Power Module',
   'fcEscDetail.tdk.6in1-80a.desc': 'Explore the CANI-80A 6-in-1 ESC. Designed for hexacopter UAVs with 80A continuous per channel, 6S support. Full CNC thermal management simplifies wiring and delivers superior power redundancy.',
   'fcEscDetail.tdk.6in1-80a.h1': 'CANI-80A Industrial 6-in-1 ESC | 80A×6 Integrated Power Module (3-6S)',
-  'fcEscDetail.tdk.6in1-100a.title': 'FV 6-in-1 ESC 100A | Industrial Hexacopter Power Module',
-  'fcEscDetail.tdk.6in1-100a.desc': 'Industrial-grade 6-in-1 ESC for hexacopters, supporting 100A per channel with 120A peak. Real-time telemetry for RPM, temperature, and current monitoring. 12S-14S heavy-lift drone optimized.',
-  'fcEscDetail.tdk.6in1-100a.h1': '6-in-1 100A ESC: Maximum Power Hub for Industrial Hexacopters',
+  'fcEscDetail.tdk.6in1-100a.title': 'CANI-100A 6-in-1 ESC | 100A×6 High-Current | Heavy-Lift Hexacopter Power Core',
+  'fcEscDetail.tdk.6in1-100a.desc': 'Explore the CANI-100A 6-in-1 ESC. 100A continuous per channel for heavy-lift inspection and tethered UAVs. Full-metal CNC thermal housing with highly integrated design delivering superior power redundancy.',
+  'fcEscDetail.tdk.6in1-100a.h1': 'CANI-100A Industrial 6-in-1 ESC | 100A×6 Peak Integrated Power Module (3-6S)',
 
   // Separate ESC TDK
   'fcEscDetail.tdk.separate-esc-80a.title': 'FV Separate ESC 80A | High-Voltage Industrial Single ESC',

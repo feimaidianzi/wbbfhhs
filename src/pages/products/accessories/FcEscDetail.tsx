@@ -741,6 +741,25 @@ const FcEscDetail = () => {
             </div>
           </section>
         )}
+        {productId === '6in1-100a' && (
+          <section className="py-12 bg-secondary border-t border-border">
+            <div className="container mx-auto px-4">
+              <div className="max-w-3xl mx-auto bg-card rounded-xl p-6 flex items-center gap-4 hover:shadow-lg transition-all border border-border/30">
+                <div className="text-3xl">📖</div>
+                <div className="flex-1">
+                  <p className="text-sm text-accent font-mono mb-1">{language === 'zh' ? '技术白皮书' : 'Tech Whitepaper'}</p>
+                  <Link to="/news/f0a1b2c3-4d5e-6f7a-8b9c-0d1e2f3a4b5c" className="text-foreground font-semibold hover:text-accent transition-colors">
+                    {language === 'zh' ? '百安培时代的六路集成：CANI-100A 六合一电调如何突破工业无人机的功率密度极限？' : 'Six-Channel 100A Integration: How CANI-100A 6-in-1 ESC Breaks Through Power Density Limits'}
+                  </Link>
+                  <p className="text-muted-foreground text-sm mt-1">
+                    {language === 'zh' ? '深入了解百安培级功率密度、7 系航空铝 CNC 散热工程与双向 DShot 实时遥测闭环' : 'Explore 100A power density, 7-series aviation aluminum CNC thermal engineering, and bidirectional DShot real-time telemetry'}
+                  </p>
+                </div>
+                <ChevronRight className="w-5 h-5 text-muted-foreground" />
+              </div>
+            </div>
+          </section>
+        )}
         {/* CTA Section */}
         <section className="py-20 bg-primary text-primary-foreground">
           <div className="container mx-auto px-4 text-center">
