@@ -6,7 +6,8 @@ import { FloatingContact } from "@/components/FloatingContact";
 import { Button } from "@/components/ui/button";
 import { MultiLanguageSEO } from "@/components/MultiLanguageSEO";
 import { BackButton } from "@/components/BackButton";
-import { ArrowRight, Phone, Radio, Wifi, Zap, Signal, Shield, Settings, Check } from "lucide-react";
+import { ArrowRight, Phone, Radio, Wifi, Zap, Signal, Shield, Settings, Check, BookOpen } from "lucide-react";
+import { Helmet } from "react-helmet-async";
 import { elrsProducts } from "@/data/elrsProducts";
 import { useLanguage } from "@/contexts/LanguageContext";
 import {
@@ -111,6 +112,36 @@ const ElrsDetail = () => {
       acceptedAnswer: { '@type': 'Answer', text: faq.a },
     })),
   };
+
+  // ELRS 915 Diversity specific enhanced JSON-LD
+  const elrs915DiversityStructuredData = productId === 'elrs-915-diversity' ? {
+    '@context': 'https://schema.org/',
+    '@type': 'Product',
+    name: 'CANI ELRS 915 Diversity 工业级双天线接收机',
+    image: 'https://www.caniuav.com/images/products/elrs/elrs-915-diversity-main.jpg',
+    description: language === 'zh'
+      ? '基于ExpressLRS协议的915MHz远距离无人机接收机。采用真多样性双电路设计，微秒级信号切换，支持超视距控制，是工业巡检控制链路的生命线。'
+      : 'A 915MHz long-range UAV receiver based on ExpressLRS protocol. True diversity dual-circuit design with microsecond signal switching for BVLOS industrial operations.',
+    brand: { '@type': 'Brand', name: 'CANI' },
+    sku: 'CANI-ELRS-915D',
+    url: 'https://www.caniuav.com/zh/products/accessories/elrs/elrs-915-diversity',
+    offers: {
+      '@type': 'Offer',
+      priceCurrency: 'CNY',
+      availability: 'https://schema.org/InStock',
+    },
+    additionalProperty: [
+      { '@type': 'PropertyValue', name: '遥控协议', value: 'ExpressLRS (ELRS)' },
+      { '@type': 'PropertyValue', name: '硬件架构', value: 'True Diversity 双独立接收电路' },
+      { '@type': 'PropertyValue', name: '频率', value: '915MHz (868MHz可选)' },
+    ],
+  } : null;
+
+  // Deep dive article mapping
+  const deepDiveArticleMap: Record<string, string> = {
+    'elrs-915-diversity': 'tech-elrs-915-diversity-long-range-control',
+  };
+  const deepDiveArticleId = productId ? deepDiveArticleMap[productId] : undefined;
 
   return (
     <div className="min-h-screen">
@@ -233,6 +264,39 @@ const ElrsDetail = () => {
           </div>
         </section>
 
+        {/* Deep Dive Article Card */}
+        {deepDiveArticleId && (
+          <section className="py-12 bg-background">
+            <div className="container-custom max-w-4xl mx-auto">
+              <Link to={`/news/${deepDiveArticleId}`}>
+                <div className="bg-card border border-accent/30 rounded-2xl p-6 md:p-8 hover:border-accent/60 hover:shadow-lg transition-all group cursor-pointer">
+                  <div className="flex items-start gap-4">
+                    <div className="w-12 h-12 bg-accent/10 rounded-xl flex items-center justify-center flex-shrink-0">
+                      <BookOpen className="w-6 h-6 text-accent" />
+                    </div>
+                    <div className="flex-1">
+                      <p className="text-xs font-medium text-accent mb-1">
+                        {language === 'zh' ? '📖 深度解读' : '📖 Deep Dive'}
+                      </p>
+                      <h3 className="text-lg font-bold text-card-foreground mb-2 group-hover:text-accent transition-colors">
+                        {language === 'zh'
+                          ? 'CANI ELRS 915 Diversity：工业无人机超视距控制的"最后一道防线"'
+                          : 'CANI ELRS 915 Diversity: The Last Line of Defense for BVLOS Control'}
+                      </h3>
+                      <p className="text-sm text-muted-foreground">
+                        {language === 'zh'
+                          ? '深度解析ExpressLRS协议优势、双天线真多样性接收逻辑、915MHz频段物理特性及LoRa CSS调制技术。'
+                          : 'In-depth analysis of ExpressLRS protocol advantages, true diversity reception, 915MHz band physics, and LoRa CSS modulation.'}
+                      </p>
+                    </div>
+                    <ArrowRight className="w-5 h-5 text-muted-foreground group-hover:text-accent transition-colors flex-shrink-0 mt-1" />
+                  </div>
+                </div>
+              </Link>
+            </div>
+          </section>
+        )}
+
         {/* FAQ Section (GEO) */}
         <section className="py-16 bg-background">
           <div className="container-custom max-w-4xl mx-auto">
@@ -253,6 +317,15 @@ const ElrsDetail = () => {
             </Accordion>
           </div>
         </section>
+
+        {/* Enhanced JSON-LD for specific products */}
+        {elrs915DiversityStructuredData && (
+          <Helmet>
+            <script type="application/ld+json">
+              {JSON.stringify(elrs915DiversityStructuredData)}
+            </script>
+          </Helmet>
+        )}
 
         {/* CTA Section */}
         <section className="py-20 bg-primary">
