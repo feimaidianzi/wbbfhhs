@@ -126,6 +126,13 @@ export const PRODUCT_LINK_MAP: ProductLinkEntry[] = [
   },
   // === Separate ESC 单体电调 ===
   {
+    keywords: ['100A单体电调', '100A分体电调', 'Separate ESC 100A', '单体100A电调', 'CANI 100A 单体', '12S电调', '12S单体电调'],
+    url: '/products/accessories/fc-esc/separate-esc-100a',
+    titleZh: 'CANI 100A 单体工业电调',
+    titleEn: 'CANI 100A Separate Industrial ESC',
+    category: 'fc-esc',
+  },
+  {
     keywords: ['80A单体电调', '80A分体电调', 'Separate ESC 80A', '单体80A电调', 'CANI 80A 单体'],
     url: '/products/accessories/fc-esc/separate-esc-80a',
     titleZh: 'CANI 80A 单体工业电调',
