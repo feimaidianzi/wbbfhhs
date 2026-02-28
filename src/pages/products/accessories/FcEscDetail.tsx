@@ -6,7 +6,7 @@ import { FloatingContact } from "@/components/FloatingContact";
 import { MultiLanguageSEO } from "@/components/MultiLanguageSEO";
 import { Button } from "@/components/ui/button";
 import { BackButton } from "@/components/BackButton";
-import { Check, AlertTriangle, Cpu, Zap, Package, Shield, Download, FileText, Settings, Code, Layers, Navigation2, Wifi, Minimize2 } from "lucide-react";
+import { Check, AlertTriangle, Cpu, Zap, Package, Shield, Download, FileText, Settings, Code, Layers, Navigation2, Wifi, Minimize2, ChevronRight } from "lucide-react";
 import { getFcEscProductById } from "@/data/fcEscProducts";
 import { useState } from "react";
 import { useLanguage } from "@/contexts/LanguageContext";
@@ -606,6 +606,27 @@ const FcEscDetail = () => {
             </div>
           </div>
         </section>
+
+        {/* Related Article for cani-pixhawk4 */}
+        {productId === 'cani-pixhawk4' && (
+          <section className="py-12 bg-secondary border-t border-border">
+            <div className="container mx-auto px-4">
+              <div className="max-w-3xl mx-auto bg-card rounded-xl p-6 flex items-center gap-4 hover:shadow-lg transition-all border border-border/30">
+                <div className="text-3xl">📖</div>
+                <div className="flex-1">
+                  <p className="text-sm text-accent font-mono mb-1">{language === 'zh' ? '深度解读' : 'Deep Dive'}</p>
+                  <Link to="/news/d4b2c3e5-6f7a-8b9c-0d1e-2f3a4b5c6d7e" className="text-foreground font-semibold hover:text-accent transition-colors">
+                    {language === 'zh' ? 'CANI-Pixhawk4 工业级冗余飞控：重塑开源架构的可靠性基石' : 'CANI-Pixhawk4: Redefining Open-Source Architecture Reliability'}
+                  </Link>
+                  <p className="text-muted-foreground text-sm mt-1">
+                    {language === 'zh' ? '了解三冗余传感器架构、EMI电磁隔离技术与PX4/ArduPilot生态深度适配' : 'Explore triple-redundant sensors, EMI protection, and PX4/ArduPilot ecosystem integration'}
+                  </p>
+                </div>
+                <ChevronRight className="w-5 h-5 text-muted-foreground" />
+              </div>
+            </div>
+          </section>
+        )}
 
         {/* CTA Section */}
         <section className="py-20 bg-primary text-primary-foreground">
