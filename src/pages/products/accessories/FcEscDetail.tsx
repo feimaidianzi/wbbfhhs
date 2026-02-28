@@ -798,6 +798,25 @@ const FcEscDetail = () => {
             </div>
           </section>
         )}
+        {productId === 'esc-60a' && (
+          <section className="py-12 bg-secondary border-t border-border">
+            <div className="container mx-auto px-4">
+              <div className="max-w-3xl mx-auto bg-card rounded-xl p-6 flex items-center gap-4 hover:shadow-lg transition-all border border-border/30">
+                <div className="text-3xl">📖</div>
+                <div className="flex-1">
+                  <p className="text-sm text-accent font-mono mb-1">{language === 'zh' ? '技术白皮书' : 'Tech Whitepaper'}</p>
+                  <Link to="/news/d4e5f6a7-8b9c-0d1e-2f3a-4b5c6d7e8f9a" className="text-foreground font-semibold hover:text-accent transition-colors">
+                    {language === 'zh' ? '重载飞行的动力基石：深度解析 CANI-ESC 60A 在高负载任务中的电气鲁棒性' : 'Foundation of Heavy-Lift Flight: Deep Analysis of CANI-ESC 60A Electrical Robustness Under High-Load Missions'}
+                  </Link>
+                  <p className="text-muted-foreground text-sm mt-1">
+                    {language === 'zh' ? '了解 CNC 航空铝散热罩、低内阻 MOSFET 技术、三防涂层与全数字化 Telemetry 遥测闭环' : 'Explore CNC aviation aluminum heat armor, low RDS(on) MOSFET technology, conformal coating, and full digital telemetry loop'}
+                  </p>
+                </div>
+                <ChevronRight className="w-5 h-5 text-muted-foreground" />
+              </div>
+            </div>
+          </section>
+        )}
         {productId === 'esc-55a' && (
           <section className="py-12 bg-secondary border-t border-border">
             <div className="container mx-auto px-4">

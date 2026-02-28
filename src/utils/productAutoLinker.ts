@@ -125,6 +125,13 @@ export const PRODUCT_LINK_MAP: ProductLinkEntry[] = [
     category: 'fc-esc',
   },
   {
+    keywords: ['CANI-ESC 60A', 'ESC-60A', 'ESC 60A', '60A四合一电调', '60A电调'],
+    url: '/products/accessories/fc-esc/esc-60a',
+    titleZh: 'CANI-ESC 60A 工业级四合一电调',
+    titleEn: 'CANI-ESC 60A Industrial 60A 4-in-1 ESC',
+    category: 'fc-esc',
+  },
+  {
     keywords: ['CANI-FC F405', 'FC F405', 'FC-F405', 'F405飞控', 'FlyMind F405'],
     url: '/products/accessories/fc-esc/fc-f405',
     titleZh: 'CANI-FC F405 工业级多功能飞控',
