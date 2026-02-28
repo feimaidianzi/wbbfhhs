@@ -1002,6 +1002,25 @@ const VtxDetail = () => {
           </section>
         )}
 
+        {/* Related Article for FV25W */}
+        {isFV25W && (
+          <section className="py-12 bg-secondary border-t border-border">
+            <div className="container mx-auto px-4">
+              <div className="max-w-3xl mx-auto bg-card rounded-xl p-6 flex items-center gap-4 hover:shadow-lg transition-all border border-border/30">
+                <div className="text-3xl">📰</div>
+                <div className="flex-1">
+                  <p className="text-sm text-accent font-mono mb-1">{isZh ? '深度解读' : 'Deep Dive'}</p>
+                  <Link to="/news/3adc5ee4-31fd-43a9-868b-ad8b9ec0cb38" className="text-foreground font-semibold hover:text-accent transition-colors">
+                    {isZh ? '超视距基石：FV25W-A1 工业级远距离数字图传系统——全栈链路开发方案' : 'BVLOS Foundation: FV25W-A1 Industrial Long-Range Digital Video Link — Full-Stack Development'}
+                  </Link>
+                  <p className="text-muted-foreground text-sm mt-1">{isZh ? '了解CANI-FEC纠错、SDR频率跳变与三合一链路集成技术' : 'Explore CANI-FEC, SDR frequency hopping and tri-in-one link integration'}</p>
+                </div>
+                <ChevronRight className="w-5 h-5 text-muted-foreground" />
+              </div>
+            </div>
+          </section>
+        )}
+
         <section className="py-20 bg-primary text-primary-foreground">
           <div className="container mx-auto px-4 text-center">
             <h2 className="text-3xl font-bold mb-4">
