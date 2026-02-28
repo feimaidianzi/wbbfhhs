@@ -7688,9 +7688,9 @@ export const zhTranslations: Record<string, string> = {
   'fcEscDetail.tdk.separate-esc-80a.title': 'CANI 80A 单体电调 | 8S 工业级独立电调 | X8 动力系统核心组件',
   'fcEscDetail.tdk.separate-esc-80a.desc': '详细了解 CANI 80A 单体电调。支持 8S 高压输入，80A 持续大电流。专为大型多旋翼、VTOL 及重载无人机设计，提供卓越的物理隔离散热与高冗余动力方案。',
   'fcEscDetail.tdk.separate-esc-80a.h1': 'CANI 80A 单体工业电调 | 80A 持续输出 / 8S 支持 / CNC 散热隔离',
-  'fcEscDetail.tdk.separate-esc-100a.title': 'FV分体电调 100A | 高压工业级单体电调',
-  'fcEscDetail.tdk.separate-esc-100a.desc': '工业级100A分体电调，配独立散热片，专为重载无人机设计，支持12S LiPo实现最大推力。',
-  'fcEscDetail.tdk.separate-esc-100a.h1': '100A分体电调：重载工业动力模块',
+  'fcEscDetail.tdk.separate-esc-100a.title': 'CANI 100A 单体电调 | 12S 工业级独立电调 | 重型无人机 100A 动力模块',
+  'fcEscDetail.tdk.separate-esc-100a.desc': '详细了解 CANI 100A 单体电调。支持高达 12S (50.4V) 电压输入，单路持续 100A 输出。具备独立 CNC 散热架构与工业级高压防护，是重载多旋翼与 VTOL 平台的首选动力方案。',
+  'fcEscDetail.tdk.separate-esc-100a.h1': 'CANI 100A 单体工业电调 | 100A 持续电流 / 12S 超高压支持 / 独立 CNC 散热',
 
   // 4-in-1 ESC TDK
   'fcEscDetail.tdk.esc-55a.title': 'CANI-ESC 55A | 55A 四合一电调 | 工业级无人机动力控制模块',
