@@ -722,6 +722,25 @@ const FcEscDetail = () => {
             </div>
           </section>
         )}
+        {productId === '6in1-80a' && (
+          <section className="py-12 bg-secondary border-t border-border">
+            <div className="container mx-auto px-4">
+              <div className="max-w-3xl mx-auto bg-card rounded-xl p-6 flex items-center gap-4 hover:shadow-lg transition-all border border-border/30">
+                <div className="text-3xl">📖</div>
+                <div className="flex-1">
+                  <p className="text-sm text-accent font-mono mb-1">{language === 'zh' ? '技术白皮书' : 'Tech Whitepaper'}</p>
+                  <Link to="/news/e9f0a1b2-3c4d-5e6f-7a8b-9c0d1e2f3a4b" className="text-foreground font-semibold hover:text-accent transition-colors">
+                    {language === 'zh' ? '化繁为简的动力革命：解析 CANI-80A 六合一电调如何重塑六旋翼无人机的结构设计' : 'Simplifying Power Revolution: How CANI-80A 6-in-1 ESC Reshapes Hexacopter Structural Design'}
+                  </Link>
+                  <p className="text-muted-foreground text-sm mt-1">
+                    {language === 'zh' ? '深入了解六路集成电调的结构优势、CNC 散热工程与 MAVLink 实时遥测闭环' : 'Explore 6-channel integrated ESC structural advantages, CNC thermal engineering, and MAVLink real-time telemetry'}
+                  </p>
+                </div>
+                <ChevronRight className="w-5 h-5 text-muted-foreground" />
+              </div>
+            </div>
+          </section>
+        )}
         {/* CTA Section */}
         <section className="py-20 bg-primary text-primary-foreground">
           <div className="container mx-auto px-4 text-center">

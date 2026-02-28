@@ -7677,9 +7677,9 @@ export const zhTranslations: Record<string, string> = {
   'fcEscDetail.tdk.stack-pro-f722-100a.h1': 'CANI Stack-Pro F722-100A | 100A 工业级旗舰飞速塔 (F722 FC + 100A ESC)',
 
   // 6-in-1 ESC TDK
-  'fcEscDetail.tdk.6in1-80a.title': 'FV六合一电调 80A | 工业级六轴动力模块',
-  'fcEscDetail.tdk.6in1-80a.desc': '工业级六合一电调，每通道80A持续电流，集成RPM/温度/电流实时遥测，8S重载测绘和物流无人机理想之选。',
-  'fcEscDetail.tdk.6in1-80a.h1': '六合一80A电调：工业六轴集中式动力枢纽',
+  'fcEscDetail.tdk.6in1-80a.title': 'CANI-80A 六合一电调 | 80A×6 大电流 | 六旋翼无人机专用电调模块',
+  'fcEscDetail.tdk.6in1-80a.desc': '详细了解 CANI-80A 六合一电调。专为六轴无人机设计，单路 80A 持续电流，支持 6S 电压。全 CNC 散热，大幅简化六旋翼布线，提供卓越的动力冗余与集成度。',
+  'fcEscDetail.tdk.6in1-80a.h1': 'CANI-80A 工业级六合一电调 | 80A×6 大电流集成动力模块 (3-6S)',
   'fcEscDetail.tdk.6in1-100a.title': 'FV六合一电调 100A | 工业级六轴动力模块',
   'fcEscDetail.tdk.6in1-100a.desc': '工业级六合一电调，每通道100A持续/120A峰值，RPM/温度/电流实时遥测，12S-14S重载无人机优化。',
   'fcEscDetail.tdk.6in1-100a.h1': '六合一100A电调：工业六轴最大功率动力枢纽',
