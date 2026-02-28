@@ -4,6 +4,7 @@ import { FloatingContact } from "@/components/FloatingContact";
 import { Input } from "@/components/ui/input";
 import { Skeleton } from "@/components/ui/skeleton";
 import { ArrowRight, Calendar, Tag, ChevronLeft, ChevronRight, Search } from "lucide-react";
+import { TechKeywordsBadge } from "@/components/news/TechKeywordsBadge";
 import { useState, useEffect } from "react";
 import { LangLink as Link } from "@/components/LangLink";
 import { MultiLanguageSEO } from "@/components/MultiLanguageSEO";
@@ -22,6 +23,7 @@ interface NewsArticle {
   category: string | null;
   published_at: string | null;
   created_at: string;
+  keywords: string[] | null;
 }
 
 const CATEGORY_KEYS = ['all', 'company', 'industry', 'tech'] as const;
@@ -52,7 +54,7 @@ const News = () => {
       try {
         const { data, error } = await supabase
           .from('news_articles')
-          .select('id, title, title_en, summary, summary_en, cover_image, category, published_at, created_at')
+          .select('id, title, title_en, summary, summary_en, cover_image, category, published_at, created_at, keywords')
           .eq('is_published', true)
           .order('published_at', { ascending: false });
 
@@ -246,9 +248,15 @@ const News = () => {
                       <h3 className="text-lg font-bold text-card-foreground mb-2 line-clamp-2 group-hover:text-accent transition-colors">
                         {baseLang === 'en' && news.title_en ? news.title_en : news.title}
                       </h3>
-                      <p className="text-muted-foreground text-sm line-clamp-2 mb-4">
+                      <p className="text-muted-foreground text-sm line-clamp-2 mb-3">
                         {baseLang === 'en' && news.summary_en ? news.summary_en : news.summary}
                       </p>
+                      {/* Tech Keywords */}
+                      {news.keywords && news.keywords.length > 0 && (
+                        <div className="mb-3">
+                          <TechKeywordsBadge keywords={news.keywords} max={3} />
+                        </div>
+                      )}
                       <span className="inline-flex items-center text-accent hover:text-orange-light font-medium">
                         {t('news.readMore')}
                         <ArrowRight className="w-4 h-4 ml-1" />

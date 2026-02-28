@@ -12,6 +12,10 @@ import { MultiLanguageSEO } from "@/components/MultiLanguageSEO";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { supabase } from "@/integrations/supabase/client";
 import { sanitizeHtml } from "@/lib/sanitize";
+import { RelatedProductCard } from "@/components/news/RelatedProductCard";
+import { ArticleCTA } from "@/components/news/ArticleCTA";
+import { TechKeywordsBadge } from "@/components/news/TechKeywordsBadge";
+import { injectProductLinks, detectMentionedProducts, type ProductLinkEntry } from "@/utils/productAutoLinker";
 
 const DEFAULT_IMAGE = "/placeholder.svg";
 
@@ -28,6 +32,7 @@ interface NewsArticle {
   category: string | null;
   published_at: string | null;
   created_at: string;
+  keywords: string[] | null;
 }
 
 interface RelatedArticle {
@@ -46,6 +51,7 @@ const NewsDetail = () => {
   const [article, setArticle] = useState<NewsArticle | null>(null);
   const [loading, setLoading] = useState(true);
   const [relatedArticles, setRelatedArticles] = useState<RelatedArticle[]>([]);
+  const [mentionedProducts, setMentionedProducts] = useState<ProductLinkEntry[]>([]);
   const contentRef = useRef<HTMLDivElement>(null);
 
   const handleContentImageErrors = useCallback(() => {
@@ -83,13 +89,21 @@ const NewsDetail = () => {
       try {
         const { data, error } = await supabase
           .from('news_articles')
-          .select('*')
+          .select('id, title, title_en, summary, summary_en, content, content_en, cover_image, author_name, category, published_at, created_at, keywords')
           .eq('id', id)
           .eq('is_published', true)
           .single();
 
         if (error) throw error;
         setArticle(data);
+
+        // Detect mentioned products from content
+        if (data) {
+          const rawContent = baseLang === 'en' && data.content_en ? data.content_en : data.content;
+          const titleContent = baseLang === 'en' && data.title_en ? data.title_en : data.title;
+          const products = detectMentionedProducts(rawContent + ' ' + titleContent + ' ' + (data.summary || ''));
+          setMentionedProducts(products);
+        }
 
         if (data?.category) {
           const { data: related } = await supabase
@@ -111,7 +125,7 @@ const NewsDetail = () => {
     };
 
     fetchArticle();
-  }, [id]);
+  }, [id, baseLang]);
 
   const formatDate = (dateString: string | null) => {
     if (!dateString) return '';
@@ -202,9 +216,13 @@ const NewsDetail = () => {
       '@type': 'WebPage',
       '@id': `https://www.caniuav.com/news/${article.id}`,
     },
+    // GEO: inject keywords as schema keywords
+    ...(article.keywords && article.keywords.length > 0 && {
+      keywords: article.keywords.join(', '),
+    }),
   };
 
-  // Extract FAQ from content (matches <details><summary>Q</summary><p>A</p></details>)
+  // Extract FAQ from content
   const faqRegex = /<details>\s*<summary>(.*?)<\/summary>\s*<p>(.*?)<\/p>\s*<\/details>/gs;
   const faqs: Array<{question: string; answer: string}> = [];
   let faqMatch;
@@ -226,6 +244,10 @@ const NewsDetail = () => {
     });
   }
 
+  // Process content with auto-links
+  const { html: linkedContent } = injectProductLinks(rawContent, baseLang);
+  const hasSidebar = mentionedProducts.length > 0 || (article.keywords && article.keywords.length > 0);
+
   return (
     <div className="min-h-screen">
       <MultiLanguageSEO
@@ -245,65 +267,125 @@ const NewsDetail = () => {
               className="absolute inset-0 bg-cover bg-center"
               style={{ backgroundImage: `url(${article.cover_image})` }}
             >
-              <div className="absolute inset-0 bg-gradient-to-t from-slate-900 via-slate-900/40 to-transparent" />
+              <div className="absolute inset-0 bg-gradient-to-t from-primary via-primary/40 to-transparent" />
             </div>
           </section>
         )}
 
-        {/* Article Content */}
-        <article className="container-custom py-8 md:py-12">
+        {/* Article Content with Sidebar */}
+        <div className="container-custom py-8 md:py-12">
           {/* Back Button */}
           <Link to="/news" className="inline-flex items-center text-muted-foreground hover:text-foreground mb-6 transition-colors">
             <ArrowLeft className="w-4 h-4 mr-2" />
             {t('news.detail.backToList')}
           </Link>
 
-          {/* Article Header */}
-          <header className="mb-8">
-            {article.category && (
-              <Badge className="mb-4 bg-accent/20 text-accent border-accent/30">
-                <Tag className="w-3 h-3 mr-1" />
-                {getCategoryLabel(article.category)}
-              </Badge>
-            )}
-            <h1 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
-              {baseLang === 'en' && article.title_en ? article.title_en : article.title}
-            </h1>
-            <div className="flex flex-wrap items-center gap-4 text-muted-foreground">
-              {article.published_at && (
-                <span className="flex items-center gap-1">
-                  <Calendar className="w-4 h-4" />
-                  {formatDate(article.published_at)}
-                </span>
-              )}
-              {article.author_name && (
-                <span className="flex items-center gap-1">
-                  <User className="w-4 h-4" />
-                  {article.author_name}
-                </span>
-              )}
-            </div>
-            {(article.summary || article.summary_en) && (
-              <p className="mt-4 text-lg text-muted-foreground leading-relaxed">
-                {baseLang === 'en' && article.summary_en ? article.summary_en : article.summary}
-              </p>
-            )}
-          </header>
+          <div className={`${hasSidebar ? 'grid grid-cols-1 lg:grid-cols-[1fr_320px] gap-8' : ''}`}>
+            {/* Main Article Column */}
+            <article>
+              {/* Article Header */}
+              <header className="mb-8">
+                <div className="flex flex-wrap items-center gap-2 mb-4">
+                  {article.category && (
+                    <Badge className="bg-accent/20 text-accent border-accent/30">
+                      <Tag className="w-3 h-3 mr-1" />
+                      {getCategoryLabel(article.category)}
+                    </Badge>
+                  )}
+                </div>
+                <h1 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
+                  {baseLang === 'en' && article.title_en ? article.title_en : article.title}
+                </h1>
+                <div className="flex flex-wrap items-center gap-4 text-muted-foreground">
+                  {article.published_at && (
+                    <span className="flex items-center gap-1">
+                      <Calendar className="w-4 h-4" />
+                      {formatDate(article.published_at)}
+                    </span>
+                  )}
+                  {article.author_name && (
+                    <span className="flex items-center gap-1">
+                      <User className="w-4 h-4" />
+                      {article.author_name}
+                    </span>
+                  )}
+                </div>
+                {/* Tech Keywords */}
+                {article.keywords && article.keywords.length > 0 && (
+                  <div className="mt-4">
+                    <TechKeywordsBadge keywords={article.keywords} max={6} />
+                  </div>
+                )}
+                {(article.summary || article.summary_en) && (
+                  <p className="mt-4 text-lg text-muted-foreground leading-relaxed border-l-4 border-accent/30 pl-4 bg-secondary/30 py-3 rounded-r-lg">
+                    {baseLang === 'en' && article.summary_en ? article.summary_en : article.summary}
+                  </p>
+                )}
+              </header>
 
-          {/* Article Body */}
-          <div 
-            ref={contentRef}
-            className="prose prose-lg dark:prose-invert max-w-none
-              prose-headings:text-foreground 
-              prose-p:text-muted-foreground 
-              prose-a:text-accent hover:prose-a:text-orange-light
-              prose-strong:text-foreground
-              prose-img:rounded-xl prose-img:shadow-lg"
-            dangerouslySetInnerHTML={{ __html: sanitizeHtml(
-              baseLang === 'en' && article.content_en ? article.content_en : article.content
-            ) }}
-          />
-        </article>
+              {/* Article Body — with auto product links injected */}
+              <div 
+                ref={contentRef}
+                className="prose prose-lg dark:prose-invert max-w-none
+                  prose-headings:text-foreground 
+                  prose-p:text-muted-foreground 
+                  prose-a:text-accent hover:prose-a:text-orange-light
+                  prose-strong:text-foreground
+                  prose-img:rounded-xl prose-img:shadow-lg
+                  [&_.product-auto-link]:text-accent [&_.product-auto-link]:no-underline [&_.product-auto-link]:border-b [&_.product-auto-link]:border-accent/30 hover:[&_.product-auto-link]:border-accent"
+                dangerouslySetInnerHTML={{ __html: sanitizeHtml(linkedContent) }}
+              />
+
+              {/* Article CTA */}
+              <div className="mt-12">
+                <ArticleCTA />
+              </div>
+            </article>
+
+            {/* Sidebar */}
+            {hasSidebar && (
+              <aside className="space-y-6 lg:sticky lg:top-24 lg:self-start">
+                {/* Related Products */}
+                {mentionedProducts.length > 0 && (
+                  <RelatedProductCard products={mentionedProducts} />
+                )}
+
+                {/* Tech Keywords Cloud (for GEO) */}
+                {article.keywords && article.keywords.length > 0 && (
+                  <div className="bg-card border border-border rounded-xl p-6">
+                    <h3 className="font-bold text-foreground mb-3 text-sm uppercase tracking-wider">
+                      {baseLang === 'en' ? 'Tech Specs Referenced' : '涉及技术规格'}
+                    </h3>
+                    <div className="flex flex-wrap gap-2">
+                      {article.keywords.map((kw, idx) => (
+                        <span
+                          key={idx}
+                          className="inline-block px-3 py-1.5 text-sm font-medium bg-secondary text-foreground rounded-lg border border-border"
+                        >
+                          <strong>{kw}</strong>
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                )}
+
+                {/* Quick Action */}
+                <div className="bg-card border border-border rounded-xl p-6 text-center">
+                  <p className="text-sm text-muted-foreground mb-3">
+                    {baseLang === 'en' 
+                      ? 'Need this solution for your project?' 
+                      : '需要将该方案集成到您的项目中？'}
+                  </p>
+                  <Link to="/contact">
+                    <Button size="sm" className="w-full gap-2">
+                      {baseLang === 'en' ? 'Get Technical Support' : '获取技术支持'}
+                    </Button>
+                  </Link>
+                </div>
+              </aside>
+            )}
+          </div>
+        </div>
 
         {/* Related Articles */}
         {relatedArticles.length > 0 && (
