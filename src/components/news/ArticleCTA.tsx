@@ -23,8 +23,7 @@ export const ArticleCTA = () => {
           <LangLink to="/contact">
             <Button
               size="lg"
-              variant="secondary"
-              className="gap-2 font-semibold px-8"
+              className="gap-2 font-semibold px-8 bg-primary-foreground text-primary hover:bg-primary-foreground/90"
             >
               <MessageSquare className="w-4 h-4" />
               {baseLang === 'en' ? 'Get Custom Integration Quote' : '获取定制化集成方案'}
