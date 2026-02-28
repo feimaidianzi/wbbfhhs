@@ -208,6 +208,13 @@ export const PRODUCT_LINK_MAP: ProductLinkEntry[] = [
   },
   // === ELRS ===
   {
+    keywords: ['ELRS 915 Diversity', 'ELRS 915', '915MHz Diversity', '双天线多样性接收', '915MHz远距离控制', '低延迟无人机遥控协议'],
+    url: '/products/accessories/elrs/elrs-915-diversity',
+    titleZh: 'CANI ELRS 915 Diversity 工业级双天线接收机',
+    titleEn: 'CANI ELRS 915 Diversity Industrial Dual-Antenna Receiver',
+    category: 'elrs',
+  },
+  {
     keywords: ['ExpressLRS', 'ELRS模块', 'ELRS接收机', 'ELRS发射机'],
     url: '/products/accessories/elrs',
     titleZh: 'CANI ExpressLRS 遥控链路',
