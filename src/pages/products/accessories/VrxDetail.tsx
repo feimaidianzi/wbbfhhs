@@ -373,7 +373,7 @@ const VrxDetail = () => {
               <Button size="lg" variant="secondary" asChild>
                 <Link to="/contact">{isZh ? '联系我们' : 'Contact Us'}</Link>
               </Button>
-              <Button size="lg" variant="outline" className="border-primary-foreground/30 text-primary-foreground hover:bg-primary-foreground/10" asChild>
+              <Button size="lg" variant="outline" className="border-primary-foreground/50 text-primary-foreground bg-primary-foreground/10 hover:bg-primary-foreground/20" asChild>
                 <Link to="/products/accessories/vtx-vrx">{isZh ? '返回产品列表' : 'Back to Products'}</Link>
               </Button>
             </div>
