@@ -1212,9 +1212,9 @@ export const enTranslations: Record<string, string> = {
   'fcEscDetail.tdk.esc-80a.title': 'CANI-ESC 80A | 8S Industrial 4-in-1 ESC | Heavy-Lift UAV Power Solution',
   'fcEscDetail.tdk.esc-80a.desc': 'Explore CANI-ESC 80A 4-in-1 ESC. 80A continuous per channel with 100A peak, 8S high-voltage support. Full CNC heat armor and dual TVS protection for Cinelifter, long-endurance inspection, and tethered UAV platforms.',
   'fcEscDetail.tdk.esc-80a.h1': 'CANI-ESC 80A | Industrial 8S 4-in-1 ESC (80A Continuous / 100A Peak / CNC Thermal Armor)',
-  'fcEscDetail.tdk.esc-100a.title': 'CANI 4-in-1 ESC 100A BLHeli_32 | Extreme Power for 7-10 inch Drones',
-  'fcEscDetail.tdk.esc-100a.desc': 'Extreme 100A 4-in-1 ESC with 120A peak. 8-layer PCB and parallel MOSFET array for maximum current capacity. Ideal for 7-10 inch heavy-lift cinematography drones.',
-  'fcEscDetail.tdk.esc-100a.h1': '100A 4-in-1 ESC: Extreme Power for Heavy-Lift Drones',
+  'fcEscDetail.tdk.esc-100a.title': 'CANI-ESC 100A | Flagship 100A 4-in-1 ESC | Industrial Heavy-Lift UAV Top Power Solution',
+  'fcEscDetail.tdk.esc-100a.desc': 'Explore CANI-ESC 100A. 100A continuous per channel with 120A peak, 8S high-voltage support. Full 360° CNC thermal armor with 10-layer 4oz ENIG PCB, designed for tethered UAVs, heavy-lift FPV, and special operations platforms.',
+  'fcEscDetail.tdk.esc-100a.h1': 'CANI-ESC 100A | Flagship 100A 4-in-1 ESC (100A Continuous / 120A Peak / 8S Support)',
 
   // FC TDK
   'fcEscDetail.tdk.fc-f405.title': 'CANI-FC F405 Flight Controller | Industrial UAV Controller | High-Stability F4 FC',

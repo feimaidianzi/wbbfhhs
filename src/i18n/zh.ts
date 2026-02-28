@@ -7702,9 +7702,9 @@ export const zhTranslations: Record<string, string> = {
   'fcEscDetail.tdk.esc-80a.title': 'CANI-ESC 80A | 8S 四合一电调 | 工业重载无人机动力方案',
   'fcEscDetail.tdk.esc-80a.desc': '深度解析 CANI-ESC 80A 四合一电调。单路持续 80A 输出，支持 8S 高压。一体化 CNC 散热与双 TVS 防护，专为影视重载 FPV、长航时巡检机及系留无人机设计，提供无可比拟的动力冗余。',
   'fcEscDetail.tdk.esc-80a.h1': 'CANI-ESC 80A | 工业级 8S 四合一电调 (80A 持续 / 100A 峰值 / CNC 高效散热)',
-  'fcEscDetail.tdk.esc-100a.title': 'CANI四合一电调 100A BLHeli_32 | 7-10寸极致动力',
-  'fcEscDetail.tdk.esc-100a.desc': '极致100A四合一电调，峰值120A，8层PCB并联MOS阵列，7-10寸大载重航拍穿越机理想之选。',
-  'fcEscDetail.tdk.esc-100a.h1': '100A四合一电调：大载重无人机极致动力',
+  'fcEscDetail.tdk.esc-100a.title': 'CANI-ESC 100A | 100A 四合一电调 | 工业大载重无人机顶级动力方案',
+  'fcEscDetail.tdk.esc-100a.desc': '详细了解 CANI-ESC 100A。单路持续 100A 强劲输出，支持 8S 电压。全 CNC 散热装甲设计，具备卓越的电流冗余与耐高压保护，专为系留无人机、大载重 FPV 及特种作业机型设计。',
+  'fcEscDetail.tdk.esc-100a.h1': 'CANI-ESC 100A | 旗舰级 100A 四合一电调 (100A 持续 / 120A 峰值 / 8S 支持)',
 
   // FC TDK
   'fcEscDetail.tdk.fc-f405.title': 'CANI-FC F405 飞控 | 工业级无人机控制器 | 高稳定性 F4 飞控',

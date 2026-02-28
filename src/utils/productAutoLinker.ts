@@ -118,6 +118,13 @@ export const PRODUCT_LINK_MAP: ProductLinkEntry[] = [
     category: 'fc-esc',
   },
   {
+    keywords: ['CANI-ESC 100A', 'ESC-100A', 'ESC 100A', '100A四合一电调', '100A旗舰电调'],
+    url: '/products/accessories/fc-esc/esc-100a',
+    titleZh: 'CANI-ESC 100A 旗舰级四合一电调',
+    titleEn: 'CANI-ESC 100A Flagship 4-in-1 ESC',
+    category: 'fc-esc',
+  },
+  {
     keywords: ['CANI-ESC 80A', 'ESC-80A', 'ESC 80A', '80A四合一电调', '80A电调'],
     url: '/products/accessories/fc-esc/esc-80a',
     titleZh: 'CANI-ESC 80A 工业级 8S 四合一电调',
