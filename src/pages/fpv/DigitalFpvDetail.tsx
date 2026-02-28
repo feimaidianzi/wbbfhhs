@@ -2,7 +2,7 @@ import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { FloatingContact } from "@/components/FloatingContact";
 import { Button } from "@/components/ui/button";
-import { ArrowRight, CheckCircle, Download, Phone, Mail, Wifi, Zap, Monitor, HardDrive, Radio, Settings, Antenna, Cable, Thermometer, Target } from "lucide-react";
+import { ArrowRight, CheckCircle, Download, Phone, Mail, Wifi, Zap, Monitor, HardDrive, Radio, Settings, Antenna, Cable, Thermometer, Target, FileText, BookOpen } from "lucide-react";
 import { useParams, Navigate } from "react-router-dom";
 import { LangLink as Link } from "@/components/LangLink";
 import { BackButton } from "@/components/BackButton";
@@ -43,6 +43,7 @@ const DigitalFpvDetail = () => {
   };
 
   const isS900 = product.id === "s900-datalink";
+  const isWifiLink2 = product.id === "wifilink2";
 
   // Build JSON-LD Product schema with additionalProperty
   const productJsonLd = {
@@ -180,6 +181,32 @@ const DigitalFpvDetail = () => {
                 <div className="text-center p-6 bg-card rounded-2xl shadow-card">
                   <div className="text-4xl font-bold text-accent mb-2">21g</div>
                   <div className="text-muted-foreground text-sm">{t('digitalFpv.s900.stat.weight')}</div>
+                </div>
+              </div>
+            </div>
+          </section>
+        )}
+
+        {/* WiFiLink2 Highlight Stats */}
+        {isWifiLink2 && (
+          <section className="py-12 bg-accent/10">
+            <div className="container-custom">
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+                <div className="text-center p-6 bg-card rounded-2xl shadow-card">
+                  <div className="text-4xl font-bold text-accent mb-2">15g</div>
+                  <div className="text-muted-foreground text-sm">{language === 'zh' ? '极致轻量' : 'Ultra Lightweight'}</div>
+                </div>
+                <div className="text-center p-6 bg-card rounded-2xl shadow-card">
+                  <div className="text-4xl font-bold text-accent mb-2">90FPS</div>
+                  <div className="text-muted-foreground text-sm">{language === 'zh' ? '1080P 高帧率' : '1080P High FPS'}</div>
+                </div>
+                <div className="text-center p-6 bg-card rounded-2xl shadow-card">
+                  <div className="text-4xl font-bold text-accent mb-2">IMX415</div>
+                  <div className="text-muted-foreground text-sm">{language === 'zh' ? 'SONY 4K 传感器' : 'SONY 4K Sensor'}</div>
+                </div>
+                <div className="text-center p-6 bg-card rounded-2xl shadow-card">
+                  <div className="text-4xl font-bold text-accent mb-2">OpenIPC</div>
+                  <div className="text-muted-foreground text-sm">{language === 'zh' ? '开源架构' : 'Open Source'}</div>
                 </div>
               </div>
             </div>
@@ -383,6 +410,39 @@ const DigitalFpvDetail = () => {
             </div>
           </div>
         </section>
+
+        {/* WiFiLink2 Deep Dive Article Link */}
+        {isWifiLink2 && (
+          <section className="py-12 bg-secondary">
+            <div className="container-custom">
+              <div className="max-w-3xl mx-auto">
+                <Link to="/news/a1b2c3d4-5e6f-7a8b-9c0d-1e2f3a4b5c6d" className="group block bg-card rounded-2xl shadow-card hover:shadow-card-hover transition-all overflow-hidden border border-border">
+                  <div className="flex flex-col md:flex-row items-center gap-6 p-6">
+                    <div className="w-16 h-16 bg-accent/10 rounded-2xl flex items-center justify-center flex-shrink-0">
+                      <BookOpen className="w-8 h-8 text-accent" />
+                    </div>
+                    <div className="flex-1 text-center md:text-left">
+                      <div className="text-xs font-semibold text-accent uppercase tracking-wider mb-1">
+                        {language === 'zh' ? '📖 深度解读' : '📖 Deep Dive'}
+                      </div>
+                      <h3 className="text-lg font-bold text-card-foreground group-hover:text-accent transition-colors mb-1">
+                        {language === 'zh'
+                          ? 'WiFiLink2：OpenIPC 开源图传的工业化演进'
+                          : 'WiFiLink2: The Industrial Evolution of OpenIPC Digital FPV'}
+                      </h3>
+                      <p className="text-sm text-muted-foreground">
+                        {language === 'zh'
+                          ? '从 1080P 90FPS 到移动端直连的完整技术解析，含 H.265 编码效率公式与工业应用场景分析'
+                          : 'Complete technical analysis from 1080P 90FPS to mobile streaming, including H.265 encoding efficiency and industrial applications'}
+                      </p>
+                    </div>
+                    <ArrowRight className="w-5 h-5 text-accent group-hover:translate-x-1 transition-transform flex-shrink-0" />
+                  </div>
+                </Link>
+              </div>
+            </div>
+          </section>
+        )}
 
         {/* CTA Section */}
         <section className="py-16 bg-primary">
