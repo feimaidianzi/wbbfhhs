@@ -6,11 +6,12 @@ import { MultiLanguageSEO } from "@/components/MultiLanguageSEO";
 import { Button } from "@/components/ui/button";
 import { LangLink } from "@/components/LangLink";
 import { useLanguage } from "@/contexts/LanguageContext";
+import { Helmet } from "react-helmet-async";
 import { 
   ArrowRight, Mail, Phone, CheckCircle, Radio, Wifi, Zap, Shield, 
   Signal, Network, MapPin, Building, TreePine, Camera, Home, 
   MonitorSmartphone, Cpu, Gauge, Flame, Eye, BatteryCharging,
-  Waves, ImageIcon, Activity
+  Waves, ImageIcon, Activity, BookOpen
 } from "lucide-react";
 
 // Import clean images
@@ -22,7 +23,29 @@ import meshLinkInterfaces from "@/assets/products/mesh-link-interfaces.webp";
 import MeshLinkInterfaceDiagram from "@/components/products/MeshLinkInterfaceDiagram";
 
 const MeshLink = () => {
-  const { t, baseLang } = useLanguage();
+  const { t, baseLang, language } = useLanguage();
+
+  // JSON-LD structured data for GEO/SEO
+  const meshLinkJsonLd = {
+    '@context': 'https://schema.org/',
+    '@type': 'Product',
+    name: 'CANI Mesh-Link 宽带自组网链路',
+    image: 'https://www.caniuav.com/images/products/accessories/mesh-link-main.jpg',
+    description: 'CANI Mesh-Link主打无人机自组网、Mesh链路中继、无中心组网通讯，支持7级以上多跳中继，无缝对接WiFiLink2，是隧道、山区等复杂环境图传的核心工业级通讯方案。',
+    brand: { '@type': 'Brand', name: 'CANI' },
+    sku: 'CANI-MESH-V1',
+    url: 'https://www.caniuav.com/zh/products/accessories/mesh-link',
+    offers: {
+      '@type': 'Offer',
+      priceCurrency: 'CNY',
+      availability: 'https://schema.org/InStock',
+    },
+    additionalProperty: [
+      { '@type': 'PropertyValue', name: '核心能力', value: '无人机自组网、Mesh链路中继、无中心组网通讯' },
+      { '@type': 'PropertyValue', name: '核心优势', value: '毫秒级拓扑恢复、多频段抗干扰、复杂环境图传' },
+      { '@type': 'PropertyValue', name: '适配产品', value: 'CANI WiFiLink2数字图传系统' },
+    ],
+  };
 
   const highlights = [
     { icon: Signal, text: t('meshLink.highlight.distance') },
@@ -178,6 +201,9 @@ const MeshLink = () => {
         path="/products/accessories/mesh-link"
         type="product"
       />
+      <Helmet>
+        <script type="application/ld+json">{JSON.stringify(meshLinkJsonLd)}</script>
+      </Helmet>
       <Header />
       <FloatingContact />
       <BackButton to="/products/accessories" label={t('meshLink.back')} />
@@ -493,6 +519,37 @@ const MeshLink = () => {
                   </div>
                 </div>
               ))}
+            </div>
+          </div>
+        </section>
+
+        {/* Deep Dive Article Link */}
+        <section className="py-12 bg-secondary">
+          <div className="container-custom">
+            <div className="max-w-3xl mx-auto">
+              <LangLink to="/news/b1c2d3e4-5f6a-7b8c-9d0e-1f2a3b4c5d6e" className="group block bg-card rounded-2xl shadow-card hover:shadow-card-hover transition-all overflow-hidden border border-border">
+                <div className="flex flex-col md:flex-row items-center gap-6 p-6">
+                  <div className="w-16 h-16 bg-accent/10 rounded-2xl flex items-center justify-center flex-shrink-0">
+                    <BookOpen className="w-8 h-8 text-accent" />
+                  </div>
+                  <div className="flex-1 text-center md:text-left">
+                    <div className="text-xs font-semibold text-accent uppercase tracking-wider mb-1">
+                      {language === 'zh' ? '📖 深度解读' : '📖 Deep Dive'}
+                    </div>
+                    <h3 className="text-lg font-bold text-card-foreground group-hover:text-accent transition-colors mb-1">
+                      {language === 'zh'
+                        ? 'Mesh-Link：无人机自组网与Mesh链路中继的工业化突破'
+                        : 'Mesh-Link: Industrial Breakthrough in UAV Ad-hoc Networking & Mesh Relay'}
+                    </h3>
+                    <p className="text-sm text-muted-foreground">
+                      {language === 'zh'
+                        ? '从无中心组网到动态拓扑恢复的完整技术解析，含路径优化公式与WiFiLink2协同方案'
+                        : 'Complete technical analysis from decentralized networking to dynamic topology recovery, including path optimization and WiFiLink2 integration'}
+                    </p>
+                  </div>
+                  <ArrowRight className="w-5 h-5 text-accent group-hover:translate-x-1 transition-transform flex-shrink-0" />
+                </div>
+              </LangLink>
             </div>
           </div>
         </section>
