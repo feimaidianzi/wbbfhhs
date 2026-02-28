@@ -884,8 +884,8 @@ export const escProducts: FcEscProduct[] = [
   },
   {
     id: "esc-60a",
-    name: "FlyMind ECO 60A V2电调",
-    model: "FlyMind ECO 60A V2",
+    name: "CANI-ESC 60A 工业级四合一电调",
+    model: "CANI-ESC 60A (3S-6S / 80A 峰值 / 全 CNC 散热)",
     category: "四合一电调",
     image: esc60a_1,
     images: [
@@ -893,35 +893,49 @@ export const escProducts: FcEscProduct[] = [
       esc60a_2,
       "https://ueeshop.ly200-cdn.com/u_file/UPBD/UPBD023/2411/09/products/fcecd99917.jpg"
     ],
-    price: "¥335",
+    price: "¥389",
     highlights: [
-      "持续60A，峰值75A",
-      "优化PCB散热设计",
-      "支持48KHz PWM频率",
-      "电流传感器内置"
+      "单路 60A 持续 / 80A 峰值 (10s)，大载重电流冗余",
+      "3-6S LiPo 宽电压，32 位高性能主控",
+      "全覆盖 CNC 航空铝散热罩 + 导热硅胶",
+      "多级滤波：高性能陶瓷电容 + 大电解电容",
+      "工业级三防涂层（防潮/防尘/防盐雾）",
+      "DShot300/600 + PWM + Multishot 多协议支持"
     ],
     description: [
-      "60A大电流输出",
-      "优化散热设计",
-      "内置电流传感器"
+      "CANI-ESC 60A 是一款专为大功重比、长航时巡检机及 7-10 英寸重载 FPV 打造的高性能四合一电调。单路支持 60A 持续电流、80A 峰值（10秒），在大载重机型剧烈机动或紧急悬停补偿时提供绝对的功率冗余。",
+      "采用超低内阻（Low RDS(on)）MOSFET 选型，显著降低电能转换热损耗，提升电池续航效率。全覆盖 CNC 航空铝散热罩配合内部导热硅胶，将功率管热量迅速导出，即使 6S 高压满载 30 分钟温升曲线依然稳定。",
+      "板载多颗高性能陶瓷电容配合高频低阻大电解电容，形成多级滤波阵列，有效抑制大电流切换产生的 EMI，确保 FV10W-72 数字图传的图传链路不受杂波侵扰。PCB 表面覆盖工业级三防涂层，适配海上巡检或潮湿雨林环境。",
+      "支持全数字化 Telemetry 遥测，通过单线即可将电流、电压、转速和温度实时回传至地面站。配合 CANI-FC F722 飞控的 216MHz 极速算力，可并行处理多路遥测数据流而不影响 PID 环路响应。"
     ],
     escSpecs: {
-      current: "60A (持续)",
-      peakCurrent: "75A (峰值)",
-      voltage: "3-6S LiPo",
-      protocol: "DShot1200/600/300",
-      mosfet: "低内阻MOS阵列",
-      pcbLayers: "4层PCB",
+      current: "60A × 4 (持续)",
+      peakCurrent: "80A (峰值 10s)",
+      voltage: "3-6S LiPo (12V - 25.2V)",
+      protocol: "DShot600/300, Multishot, PWM",
+      mosfet: "超低内阻 MOSFET (Low RDS(on)) + TVS 保护",
+      pcbLayers: "4层PCB (加厚铜箔)",
       size: "30.5×30.5mm (M3)",
-      weight: "14g"
+      weight: "25g (含线材与散热外壳)"
     },
     features: [
-      "48KHz PWM支持",
-      "电流传感器"
+      "超低内阻 MOSFET，降低热损耗提升续航",
+      "全覆盖 CNC 航空铝散热罩 + 导热硅胶",
+      "多级滤波阵列：陶瓷电容 + 大电解电容",
+      "工业级三防涂层（防潮/防尘/防盐雾）",
+      "全数字化 Telemetry（电流/电压/转速/温度）",
+      "过流、过温、堵转、失控四重保护机制"
+    ],
+    notes: [
+      "推荐适配 7-10 英寸重载巡检及长航时 FPV 机型",
+      "大功率使用时请确保良好散热与可靠接线",
+      "海上作业建议定期检查三防涂层完整性"
     ],
     packageIncludes: [
-      "60A电调 x1",
-      "线材 x1套"
+      "CANI-ESC 60A 四合一电调 x1",
+      "CNC 航空铝散热罩 x1",
+      "连接线材 x1套",
+      "大电解电容 x1"
     ]
   },
   {
