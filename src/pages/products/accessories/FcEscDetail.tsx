@@ -741,6 +741,25 @@ const FcEscDetail = () => {
             </div>
           </section>
         )}
+        {productId === 'fc-f405' && (
+          <section className="py-12 bg-secondary border-t border-border">
+            <div className="container mx-auto px-4">
+              <div className="max-w-3xl mx-auto bg-card rounded-xl p-6 flex items-center gap-4 hover:shadow-lg transition-all border border-border/30">
+                <div className="text-3xl">📖</div>
+                <div className="flex-1">
+                  <p className="text-sm text-accent font-mono mb-1">{language === 'zh' ? '技术白皮书' : 'Tech Whitepaper'}</p>
+                  <Link to="/news/a1b2c3d4-5e6f-7a8b-9c0d-1e2f3a4b5c6d" className="text-foreground font-semibold hover:text-accent transition-colors">
+                    {language === 'zh' ? '稳定性的工程哲学：深度解析 CANI-FC F405 在复杂工业环境下的避障与抗扰能力' : 'Engineering Philosophy of Stability: CANI-FC F405 Anti-Interference Capability Analysis'}
+                  </Link>
+                  <p className="text-muted-foreground text-sm mt-1">
+                    {language === 'zh' ? '了解 F405 工业级抗干扰布局、MPU6000 物理级 IMU 防护与多 UART 传感器矩阵扩展' : 'Explore F405 industrial EMI-resistant layout, MPU6000 physical IMU protection, and multi-UART sensor matrix expansion'}
+                  </p>
+                </div>
+                <ChevronRight className="w-5 h-5 text-muted-foreground" />
+              </div>
+            </div>
+          </section>
+        )}
         {productId === '6in1-100a' && (
           <section className="py-12 bg-secondary border-t border-border">
             <div className="container mx-auto px-4">

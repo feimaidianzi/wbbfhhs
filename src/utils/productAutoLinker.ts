@@ -117,6 +117,13 @@ export const PRODUCT_LINK_MAP: ProductLinkEntry[] = [
     titleEn: 'CANI-100A Industrial 6-in-1 ESC',
     category: 'fc-esc',
   },
+  {
+    keywords: ['CANI-FC F405', 'FC F405', 'FC-F405', 'F405飞控', 'FlyMind F405'],
+    url: '/products/accessories/fc-esc/fc-f405',
+    titleZh: 'CANI-FC F405 工业级多功能飞控',
+    titleEn: 'CANI-FC F405 Industrial Multi-Function Flight Controller',
+    category: 'fc-esc',
+  },
   // === Digital FPV 数字图传系统 ===
   {
     keywords: ['数字图传系统', 'Digital FPV System', 'FPV数字链路'],

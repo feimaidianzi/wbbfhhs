@@ -1217,9 +1217,9 @@ export const enTranslations: Record<string, string> = {
   'fcEscDetail.tdk.esc-100a.h1': '100A 4-in-1 ESC: Extreme Power for Heavy-Lift Drones',
 
   // FC TDK
-  'fcEscDetail.tdk.fc-f405.title': 'FlyMind F405 Flight Controller | Reliable FPV Autopilot',
-  'fcEscDetail.tdk.fc-f405.desc': 'Reliable STM32F405 flight controller with ICM42688 gyro. Supports Betaflight/INAV firmware. Standard 30.5mm mounting for 5-7 inch FPV drones.',
-  'fcEscDetail.tdk.fc-f405.h1': 'F405 Flight Controller: Reliable FPV Autopilot',
+  'fcEscDetail.tdk.fc-f405.title': 'CANI-FC F405 Flight Controller | Industrial UAV Controller | High-Stability F4 FC',
+  'fcEscDetail.tdk.fc-f405.desc': 'Explore the CANI-FC F405 flight controller. STM32F405 core with multi-UART expansion and superior EMI resistance. Supports ArduPilot & Betaflight firmware. Designed for power inspection, special operations, and research UAVs.',
+  'fcEscDetail.tdk.fc-f405.h1': 'CANI-FC F405 | Industrial Multi-Function Flight Controller (STM32F405 / 30.5mm)',
   'fcEscDetail.tdk.fc-f722.title': 'FlyMind F722 Flight Controller | Dual Gyro High-Performance FC',
   'fcEscDetail.tdk.fc-f722.desc': 'High-performance STM32F722 flight controller with dual ICM42688 gyro redundancy. 5x UART, supports HD VTX control. For serious FPV pilots.',
   'fcEscDetail.tdk.fc-f722.h1': 'F722 Flight Controller: Dual-Gyro High-Performance Autopilot',
