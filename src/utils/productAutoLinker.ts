@@ -129,6 +129,64 @@ export const PRODUCT_LINK_MAP: ProductLinkEntry[] = [
     titleEn: 'CANI Tethered UAV Systems',
     category: 'platform',
   },
+  // === Application Scenarios 应用场景 ===
+  {
+    keywords: ['电力巡检', '输电线路巡检', 'Power Line Inspection', 'Power Inspection'],
+    url: '/applications/power-inspection',
+    titleZh: 'CANI 电力巡检无人机方案',
+    titleEn: 'CANI Power Inspection UAV Solutions',
+    category: 'platform',
+  },
+  {
+    keywords: ['应急救援', '搜救无人机', 'Emergency Rescue', 'Search and Rescue'],
+    url: '/applications/emergency-rescue',
+    titleZh: 'CANI 应急救援无人机系统',
+    titleEn: 'CANI Emergency Rescue UAV System',
+    category: 'platform',
+  },
+  {
+    keywords: ['环境监测', '水质监测', 'Environmental Monitoring'],
+    url: '/applications/environmental-monitoring',
+    titleZh: 'CANI 环境监测无人机方案',
+    titleEn: 'CANI Environmental Monitoring UAV Solutions',
+    category: 'platform',
+  },
+  {
+    keywords: ['测绘测量', '航测', 'Surveying and Mapping', 'Aerial Survey'],
+    url: '/applications/surveying-mapping',
+    titleZh: 'CANI 测绘测量无人机方案',
+    titleEn: 'CANI Surveying & Mapping UAV Solutions',
+    category: 'platform',
+  },
+  {
+    keywords: ['交通监控', '智慧交通', 'Traffic Monitoring', 'Smart Transportation'],
+    url: '/applications/traffic-monitoring',
+    titleZh: 'CANI 交通监控无人机方案',
+    titleEn: 'CANI Traffic Monitoring UAV Solutions',
+    category: 'platform',
+  },
+  // === Technical Terms 技术术语 → 产品页 ===
+  {
+    keywords: ['COFDM', 'COFDM调制'],
+    url: '/products/accessories/vtx-vrx',
+    titleZh: 'CANI COFDM 数字图传系列',
+    titleEn: 'CANI COFDM Digital Video Link Series',
+    category: 'vtx',
+  },
+  {
+    keywords: ['Betaflight', 'Betaflight固件'],
+    url: '/products/accessories/fc-esc',
+    titleZh: 'CANI 飞控电调系列',
+    titleEn: 'CANI Flight Controller & ESC Series',
+    category: 'fc-esc',
+  },
+  {
+    keywords: ['MAVLink', 'MAVLink协议'],
+    url: '/products/accessories/gimbal',
+    titleZh: 'CANI 云台吊舱系列',
+    titleEn: 'CANI Gimbal & Pod Series',
+    category: 'gimbal',
+  },
 ];
 
 /**

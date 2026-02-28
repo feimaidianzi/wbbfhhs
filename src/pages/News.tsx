@@ -5,12 +5,14 @@ import { Input } from "@/components/ui/input";
 import { Skeleton } from "@/components/ui/skeleton";
 import { ArrowRight, Calendar, Tag, ChevronLeft, ChevronRight, Search } from "lucide-react";
 import { TechKeywordsBadge } from "@/components/news/TechKeywordsBadge";
+import { NewsCategorySEOBlock } from "@/components/news/NewsCategorySEOBlock";
 import { useState, useEffect } from "react";
 import { useSearchParams } from "react-router-dom";
 import { LangLink as Link } from "@/components/LangLink";
 import { MultiLanguageSEO } from "@/components/MultiLanguageSEO";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { supabase } from "@/integrations/supabase/client";
+import { getUrlForLanguage } from "@/utils/seoConfig";
 import newsMediaImg from "@/assets/seo/news-media.jpg";
 import newsPlaceholderImg from "@/assets/seo/news-placeholder.jpg";
 
@@ -125,6 +127,21 @@ const News = () => {
     return key ? getCategoryLabel(key) : dbCategory;
   };
 
+  // Breadcrumb JSON-LD
+  const activeCatLabel = activeCategory !== 'all' && CATEGORY_SEO[activeCategory]
+    ? (baseLang === 'en' ? CATEGORY_SEO[activeCategory].titleKeyEn.split(' - ')[0] : CATEGORY_SEO[activeCategory].titleKeyZh.split(' - ')[0])
+    : null;
+
+  const breadcrumbData = {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: baseLang === 'en' ? 'Home' : '首页', item: getUrlForLanguage(baseLang === 'en' ? 'en' : 'zh', '/') },
+      { '@type': 'ListItem', position: 2, name: t('news.page.title'), item: getUrlForLanguage(baseLang === 'en' ? 'en' : 'zh', '/news') },
+      ...(activeCatLabel ? [{ '@type': 'ListItem', position: 3, name: activeCatLabel, item: getUrlForLanguage(baseLang === 'en' ? 'en' : 'zh', `/news${CATEGORY_SEO[activeCategory].pathSuffix}`) }] : []),
+    ],
+  };
+
   const newsCollectionData = {
     '@context': 'https://schema.org',
     '@type': 'CollectionPage',
@@ -157,7 +174,7 @@ const News = () => {
         }
         keywords={t('news.page.metaKeywords')}
         path={activeCategory !== 'all' && CATEGORY_SEO[activeCategory] ? `/news${CATEGORY_SEO[activeCategory].pathSuffix}` : '/news'}
-        structuredData={newsCollectionData}
+        structuredData={[breadcrumbData, newsCollectionData]}
       />
       <Header />
       <main className="pt-16 md:pt-20">
@@ -332,6 +349,11 @@ const News = () => {
             )}
           </div>
         </section>
+
+        {/* Category SEO Content Block */}
+        {activeCategory !== 'all' && (
+          <NewsCategorySEOBlock category={activeCategory} />
+        )}
       </main>
       <Footer />
       <FloatingContact />

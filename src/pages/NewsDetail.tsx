@@ -10,6 +10,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { ArrowLeft, Calendar, User, Tag } from "lucide-react";
 import { MultiLanguageSEO } from "@/components/MultiLanguageSEO";
 import { useLanguage } from "@/contexts/LanguageContext";
+import { getUrlForLanguage } from "@/utils/seoConfig";
 import { supabase } from "@/integrations/supabase/client";
 import { sanitizeHtml } from "@/lib/sanitize";
 import { RelatedProductCard } from "@/components/news/RelatedProductCard";
@@ -258,7 +259,18 @@ const NewsDetail = () => {
     faqs.push({ question: faqMatch[1].replace(/<[^>]*>/g, ''), answer: faqMatch[2].replace(/<[^>]*>/g, '') });
   }
 
-  const allStructuredData: any[] = [articleStructuredData];
+  // Breadcrumb JSON-LD for detail page
+  const detailBreadcrumb = {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: baseLang === 'en' ? 'Home' : '首页', item: getUrlForLanguage(baseLang === 'en' ? 'en' : 'zh', '/') },
+      { '@type': 'ListItem', position: 2, name: baseLang === 'en' ? 'News' : '新闻中心', item: getUrlForLanguage(baseLang === 'en' ? 'en' : 'zh', '/news') },
+      { '@type': 'ListItem', position: 3, name: baseLang === 'en' && article.title_en ? article.title_en : article.title },
+    ],
+  };
+
+  const allStructuredData: any[] = [articleStructuredData, detailBreadcrumb];
   if (faqs.length > 0) {
     allStructuredData.push({
       '@context': 'https://schema.org',
