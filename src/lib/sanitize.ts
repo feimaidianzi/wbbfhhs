@@ -16,6 +16,7 @@ export const sanitizeHtml = (html: string): string => {
       'blockquote', 'pre', 'code',
       'table', 'thead', 'tbody', 'tr', 'th', 'td',
       'div', 'span', 'hr',
+      'figure', 'figcaption', 'details', 'summary',
     ],
     ALLOWED_ATTR: [
       'href', 'src', 'alt', 'title', 'class', 'style',
