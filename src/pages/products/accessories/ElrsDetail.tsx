@@ -169,6 +169,24 @@ const ElrsDetail = () => {
         { '@type': 'PropertyValue', name: '频段', value: '2.4GHz ISM' },
       ],
     },
+    'elrs-2-4g-lna': {
+      '@context': 'https://schema.org/',
+      '@type': 'Product',
+      name: 'CANI ELRS 2.4G LNA 工业级高灵敏度接收机',
+      image: 'https://www.caniuav.com/images/products/elrs/elrs-2-4g-lna-main.jpg',
+      description: language === 'zh'
+        ? '集成了LNA低噪声放大器与100mW PA功率放大器的2.4G ELRS接收机。支持1000Hz高刷新率，解决2.4G远航回传丢包痛点，是中长距离巡检与FPV穿越的终极选择。'
+        : 'Industrial 2.4G ELRS receiver with integrated LNA and 100mW PA. Supports 1000Hz refresh rate, solving 2.4G long-range telemetry dropout issues for mid-range inspections and FPV cruising.',
+      brand: { '@type': 'Brand', name: 'CANI' },
+      sku: 'CANI-ELRS-24GLNA',
+      url: 'https://www.caniuav.com/zh/products/accessories/elrs/elrs-2-4g-lna',
+      offers: { '@type': 'Offer', priceCurrency: 'CNY', availability: 'https://schema.org/InStock' },
+      additionalProperty: [
+        { '@type': 'PropertyValue', name: '回传功率', value: '100mW' },
+        { '@type': 'PropertyValue', name: '核心技术', value: 'LNA + PA 双向放大' },
+        { '@type': 'PropertyValue', name: '最大刷新率', value: '1000Hz' },
+      ],
+    },
   };
   const productEnhancedData = productId ? enhancedStructuredData[productId] || null : null;
 
@@ -194,6 +212,13 @@ const ElrsDetail = () => {
       titleEn: 'CANI ELRS Lite 2.4G: How 1000Hz Refresh Rate Redefines Ultra-Low Latency UAV Control',
       descZh: '深度解析2.4GHz宽带宽物理优势、端到端延迟数学模型（T=Tsampling+Tpacket+Trf）、SMT陶瓷天线设计及2.4G与915MHz选型指南。',
       descEn: 'In-depth analysis of 2.4GHz wideband physics, end-to-end latency model, SMT ceramic antenna design, and 2.4G vs 915MHz selection guide.',
+    },
+    'elrs-2-4g-lna': {
+      id: 'tech-elrs-2-4g-lna-long-range-sensitivity-guide',
+      titleZh: 'CANI ELRS 2.4G LNA：工业级高灵敏度接收机如何突破2.4G远航距离瓶颈',
+      titleEn: 'CANI ELRS 2.4G LNA: How Industrial-Grade High-Sensitivity Receiver Breaks Through 2.4G Long-Range Barriers',
+      descZh: '深度解析LNA增益补偿逻辑（SNR公式）、100mW PA双向功率平衡、T型全向天线优化及Mesh-Link备份链路适配方案。',
+      descEn: 'In-depth analysis of LNA gain compensation (SNR formula), 100mW PA bidirectional power balance, T-type omnidirectional antenna, and Mesh-Link backup link integration.',
     },
   };
   const deepDiveInfo = productId ? deepDiveArticleMap[productId] : undefined;
