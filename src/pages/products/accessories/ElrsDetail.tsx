@@ -187,6 +187,24 @@ const ElrsDetail = () => {
         { '@type': 'PropertyValue', name: '最大刷新率', value: '1000Hz' },
       ],
     },
+    'elrs-915-moxon-antenna': {
+      '@context': 'https://schema.org/',
+      '@type': 'Product',
+      name: 'CANI ELRS 915 Moxon 定向高增益天线',
+      image: 'https://www.caniuav.com/images/products/elrs/elrs-915-moxon-main.jpg',
+      description: language === 'zh'
+        ? '专为915MHz远航设计的Moxon矩形定向天线。具备5.5dBi高增益与180°波束宽度，可提升ELRS控制距离50%以上，是超视距(BVLOS)飞行的核心增益配件。'
+        : 'Moxon rectangular directional antenna designed for 915MHz long-range control. 5.5dBi gain with 180° beamwidth, extending ELRS control range by 50%+, essential for BVLOS operations.',
+      brand: { '@type': 'Brand', name: 'CANI' },
+      sku: 'CANI-ELRS-915-MOX',
+      url: 'https://www.caniuav.com/zh/products/accessories/elrs/elrs-915-moxon-antenna',
+      offers: { '@type': 'Offer', priceCurrency: 'CNY', availability: 'https://schema.org/InStock' },
+      additionalProperty: [
+        { '@type': 'PropertyValue', name: '增益', value: '5.5dBi' },
+        { '@type': 'PropertyValue', name: '波束宽度', value: '180度 (定向)' },
+        { '@type': 'PropertyValue', name: '接口', value: 'SMA / RP-SMA 可选' },
+      ],
+    },
   };
   const productEnhancedData = productId ? enhancedStructuredData[productId] || null : null;
 
@@ -219,6 +237,13 @@ const ElrsDetail = () => {
       titleEn: 'CANI ELRS 2.4G LNA: How Industrial-Grade High-Sensitivity Receiver Breaks Through 2.4G Long-Range Barriers',
       descZh: '深度解析LNA增益补偿逻辑（SNR公式）、100mW PA双向功率平衡、T型全向天线优化及Mesh-Link备份链路适配方案。',
       descEn: 'In-depth analysis of LNA gain compensation (SNR formula), 100mW PA bidirectional power balance, T-type omnidirectional antenna, and Mesh-Link backup link integration.',
+    },
+    'elrs-915-moxon-antenna': {
+      id: 'tech-elrs-915-moxon-antenna-range-optimization-guide',
+      titleZh: 'CANI ELRS 915 Moxon遥控天线：5.5dBi定向增益如何突破超视距控制距离瓶颈',
+      titleEn: 'CANI ELRS 915 Moxon Antenna: How 5.5dBi Directional Gain Breaks Through BVLOS Range Barriers',
+      descZh: '深度解析Moxon矩形架构波束赋形原理、距离提升公式（d=d₀·10^(Gdiff/20)）、极化匹配优化及ELRS 915远航链路构建方案。',
+      descEn: 'In-depth analysis of Moxon beamforming, range enhancement formula, polarization matching optimization, and ELRS 915 long-range link ecosystem.',
     },
   };
   const deepDiveInfo = productId ? deepDiveArticleMap[productId] : undefined;

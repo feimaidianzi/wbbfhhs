@@ -236,6 +236,13 @@ export const PRODUCT_LINK_MAP: ProductLinkEntry[] = [
     category: 'elrs',
   },
   {
+    keywords: ['ELRS 915 Moxon', '915MHz定向天线', 'Moxon远航天线', 'ELRS高增益天线', '无人机遥控增益系统'],
+    url: '/products/accessories/elrs/elrs-915-moxon-antenna',
+    titleZh: 'CANI ELRS 915 Moxon 定向高增益天线',
+    titleEn: 'CANI ELRS 915 Moxon Directional High-Gain Antenna',
+    category: 'elrs',
+  },
+  {
     keywords: ['ExpressLRS', 'ELRS模块', 'ELRS接收机', 'ELRS发射机'],
     url: '/products/accessories/elrs',
     titleZh: 'CANI ExpressLRS 遥控链路',
