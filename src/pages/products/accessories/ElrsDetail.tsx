@@ -205,6 +205,24 @@ const ElrsDetail = () => {
         { '@type': 'PropertyValue', name: '接口', value: 'SMA / RP-SMA 可选' },
       ],
     },
+    'elrs-2-4g-antenna': {
+      '@context': 'https://schema.org/',
+      '@type': 'Product',
+      name: 'CANI ELRS 2.4G 高增益 T型全向天线',
+      image: 'https://www.caniuav.com/images/products/elrs/elrs-2-4g-antenna-main.jpg',
+      description: language === 'zh'
+        ? '针对2.4GHz ISM频段优化的T型全向无人机天线。具备VSWR < 1.5的超低驻波比，提供稳定的垂直极化信号，是保障1000Hz高刷新率控制链路不丢包的核心基石。'
+        : 'T-type omnidirectional antenna optimized for 2.4GHz ISM band. VSWR < 1.5 ensures over 96% RF power transmission, providing stable vertical polarization for 1000Hz high-refresh control links.',
+      brand: { '@type': 'Brand', name: 'CANI' },
+      sku: 'CANI-ELRS-24G-T',
+      url: 'https://www.caniuav.com/zh/products/accessories/elrs/elrs-2-4g-antenna',
+      offers: { '@type': 'Offer', priceCurrency: 'CNY', availability: 'https://schema.org/InStock' },
+      additionalProperty: [
+        { '@type': 'PropertyValue', name: '驻波比', value: '< 1.5' },
+        { '@type': 'PropertyValue', name: '极化方式', value: '垂直极化' },
+        { '@type': 'PropertyValue', name: '兼容性', value: 'ELRS Lite 2.4G / LNA 版专用' },
+      ],
+    },
   };
   const productEnhancedData = productId ? enhancedStructuredData[productId] || null : null;
 
@@ -244,6 +262,13 @@ const ElrsDetail = () => {
       titleEn: 'CANI ELRS 915 Moxon Antenna: How 5.5dBi Directional Gain Breaks Through BVLOS Range Barriers',
       descZh: '深度解析Moxon矩形架构波束赋形原理、距离提升公式（d=d₀·10^(Gdiff/20)）、极化匹配优化及ELRS 915远航链路构建方案。',
       descEn: 'In-depth analysis of Moxon beamforming, range enhancement formula, polarization matching optimization, and ELRS 915 long-range link ecosystem.',
+    },
+    'elrs-2-4g-antenna': {
+      id: 'tech-elrs-2-4g-antenna-vswr-stability-guide',
+      titleZh: 'CANI ELRS 2.4G遥控天线：驻波比优化如何为1000Hz高刷控制链路筑牢物理基石',
+      titleEn: 'CANI ELRS 2.4G Antenna: How VSWR Optimization Builds the Physical Foundation for 1000Hz Control',
+      descZh: '深度解析驻波比（VSWR < 1.5）优化逻辑、反射系数公式（Γ=(VSWR-1)/(VSWR+1)）、T型偶极子极化匹配及中心频点调校技术。',
+      descEn: 'In-depth analysis of VSWR optimization, reflection coefficient formula, T-type dipole polarization matching, and center frequency calibration for 1000Hz stability.',
     },
   };
   const deepDiveInfo = productId ? deepDiveArticleMap[productId] : undefined;
