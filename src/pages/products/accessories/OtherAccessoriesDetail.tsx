@@ -6,10 +6,11 @@ import { FloatingContact } from "@/components/FloatingContact";
 import { Button } from "@/components/ui/button";
 import { MultiLanguageSEO } from "@/components/MultiLanguageSEO";
 import { BackButton } from "@/components/BackButton";
-import { ArrowRight, Phone, Monitor, Tv, Satellite, Navigation, Check, Shield, Zap, Settings } from "lucide-react";
+import { ArrowRight, Phone, Monitor, Tv, Satellite, Navigation, Check, Shield, Zap, Settings, BookOpen } from "lucide-react";
 import { otherAccessoriesProducts } from "@/data/otherAccessoriesProducts";
 import { translateOtherAccKey } from "@/data/otherAccessoriesFallback";
 import { useLanguage } from "@/contexts/LanguageContext";
+import { Helmet } from "react-helmet-async";
 
 const iconMap: Record<string, React.ComponentType<{ className?: string }>> = {
   "otherAcc.feature.ipsHD.title": Monitor,
@@ -58,7 +59,7 @@ const iconMap: Record<string, React.ComponentType<{ className?: string }>> = {
 const OtherAccessoriesDetail = () => {
   const { productId } = useParams<{ productId: string }>();
   const product = otherAccessoriesProducts.find(p => p.id === productId);
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
   const tf = (key: string) => translateOtherAccKey(key, t);
 
   if (!product) {
@@ -68,6 +69,41 @@ const OtherAccessoriesDetail = () => {
   const productName = tf(product.nameKey);
   const productDesc = tf(product.descriptionKey);
 
+  // Enhanced JSON-LD structured data
+  const enhancedStructuredData: Record<string, object> = {
+    'monitor-5-ips-dvr': {
+      '@context': 'https://schema.org/',
+      '@type': 'Product',
+      name: 'CANI 5寸 IPS 高清双接收 DVR 监视器',
+      image: 'https://www.caniuav.com/images/products/others/monitor-5-ips-dvr-main.jpg',
+      description: language === 'zh'
+        ? '专为户外巡检设计的5寸IPS高清监视器。具备600cd/m²高亮度、双天线多样性接收与DVR录像功能，完美适配WiFiLink2图传，是无人机地面视觉闭环的核心终端。'
+        : '5-inch IPS HD monitor for outdoor inspection. 600cd/m² brightness, dual-antenna diversity reception with DVR recording, perfectly paired with WiFiLink2 for ground visual loop.',
+      brand: { '@type': 'Brand', name: 'CANI' },
+      sku: 'CANI-MON-5-IPS',
+      url: 'https://www.caniuav.com/zh/products/accessories/others/monitor-5-ips-dvr',
+      offers: { '@type': 'Offer', priceCurrency: 'CNY', availability: 'https://schema.org/InStock' },
+      additionalProperty: [
+        { '@type': 'PropertyValue', name: '屏幕亮度', value: '600cd/m²' },
+        { '@type': 'PropertyValue', name: '接收模式', value: '双天线多样性 (Diversity)' },
+        { '@type': 'PropertyValue', name: '录像存储', value: 'DVR (最高支持 32G TF卡)' },
+      ],
+    },
+  };
+  const productEnhancedData = productId ? enhancedStructuredData[productId] || null : null;
+
+  // Deep dive article mapping
+  const deepDiveArticleMap: Record<string, { id: string; titleZh: string; titleEn: string; descZh: string; descEn: string }> = {
+    'monitor-5-ips-dvr': {
+      id: 'tech-fpv-monitor-5-ips-dvr-display-guide',
+      titleZh: 'CANI 5寸 IPS DVR 监视器：双天线多样性接收与600cd/m²高亮如何构建户外巡检视觉闭环',
+      titleEn: 'CANI 5-Inch IPS DVR Monitor: How Dual-Antenna Diversity and 600cd/m² Build Outdoor Inspection Visual Loop',
+      descZh: '深度解析IPS全视角技术、双天线多样性接收公式（Prec=max(A,B)）、600cd/m²恒流高亮驱动及DVR黑匣子录像功能。',
+      descEn: 'In-depth analysis of IPS wide-angle technology, dual-antenna diversity formula, 600cd/m² constant-current backlight, and DVR black-box recording.',
+    },
+  };
+  const deepDiveInfo = productId ? deepDiveArticleMap[productId] : undefined;
+
   return (
     <div className="min-h-screen">
       <MultiLanguageSEO 
@@ -76,7 +112,13 @@ const OtherAccessoriesDetail = () => {
         keywords={`${productName},${product.keyFeatureKeys.map(k => tf(k)).join(',')}`}
         path={`/products/accessories/others/${productId}`}
         type="product"
+        structuredData={productEnhancedData ? [productEnhancedData] : undefined}
       />
+      {productEnhancedData && (
+        <Helmet>
+          <script type="application/ld+json">{JSON.stringify(productEnhancedData)}</script>
+        </Helmet>
+      )}
       <Header />
       <main className="pt-16 md:pt-20">
         <BackButton to="/products/accessories/others" />
@@ -189,7 +231,33 @@ const OtherAccessoriesDetail = () => {
           </div>
         </section>
 
-        {/* CTA Section */}
+        {/* Deep Dive Article Card */}
+        {deepDiveInfo && (
+          <section className="py-12 bg-background">
+            <div className="container-custom max-w-4xl">
+              <Link to={`/news/${deepDiveInfo.id}`}>
+                <div className="group bg-card rounded-2xl p-8 border border-accent/30 hover:border-accent hover:shadow-xl transition-all duration-300 cursor-pointer">
+                  <div className="flex items-start gap-4">
+                    <div className="w-14 h-14 bg-accent/10 rounded-xl flex items-center justify-center flex-shrink-0 group-hover:bg-accent/20 transition-colors">
+                      <BookOpen className="w-7 h-7 text-accent" />
+                    </div>
+                    <div className="flex-1">
+                      <p className="text-sm font-medium text-accent mb-1">📖 {language === 'zh' ? '深度解读' : 'Deep Dive'}</p>
+                      <h3 className="text-lg font-bold text-card-foreground mb-2 group-hover:text-accent transition-colors">
+                        {language === 'zh' ? deepDiveInfo.titleZh : deepDiveInfo.titleEn}
+                      </h3>
+                      <p className="text-muted-foreground text-sm">
+                        {language === 'zh' ? deepDiveInfo.descZh : deepDiveInfo.descEn}
+                      </p>
+                    </div>
+                    <ArrowRight className="w-5 h-5 text-muted-foreground group-hover:text-accent transition-colors flex-shrink-0 mt-1" />
+                  </div>
+                </div>
+              </Link>
+            </div>
+          </section>
+        )}
+
         <section className="py-20 bg-primary">
           <div className="container-custom text-center">
             <h2 className="text-2xl md:text-3xl font-bold text-primary-foreground mb-4">

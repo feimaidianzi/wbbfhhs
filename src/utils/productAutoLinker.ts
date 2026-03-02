@@ -15,7 +15,7 @@ export interface ProductLinkEntry {
   titleZh: string;
   titleEn: string;
   /** Product category for grouping */
-  category: 'vtx' | 'fc-esc' | 'digital-fpv' | 'gimbal' | 'elrs' | 'camera' | 'ai-module' | 'platform';
+  category: 'vtx' | 'fc-esc' | 'digital-fpv' | 'gimbal' | 'elrs' | 'camera' | 'ai-module' | 'platform' | 'monitor';
 }
 
 /**
@@ -262,6 +262,14 @@ export const PRODUCT_LINK_MAP: ProductLinkEntry[] = [
     titleZh: 'CANI ExpressLRS 遥控链路',
     titleEn: 'CANI ExpressLRS Control Link',
     category: 'elrs',
+  },
+  // === Monitor 监视器 ===
+  {
+    keywords: ['5寸IPS DVR监视器', 'FPV 5寸监视器', 'IPS DVR录像显示屏', '双天线无人机监视器', '户外高亮FPV接收端'],
+    url: '/products/accessories/others/monitor-5-ips-dvr',
+    titleZh: 'CANI 5寸 IPS DVR 监视器',
+    titleEn: 'CANI 5-Inch IPS DVR Monitor',
+    category: 'monitor',
   },
   // === Gimbal 云台 ===
   {
