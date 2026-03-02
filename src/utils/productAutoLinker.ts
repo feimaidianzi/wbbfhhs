@@ -263,12 +263,19 @@ export const PRODUCT_LINK_MAP: ProductLinkEntry[] = [
     titleEn: 'CANI ExpressLRS Control Link',
     category: 'elrs',
   },
-  // === Monitor 监视器 ===
+  // === Monitor 监视器 & FPV眼镜 ===
   {
     keywords: ['5寸IPS DVR监视器', 'FPV 5寸监视器', 'IPS DVR录像显示屏', '双天线无人机监视器', '户外高亮FPV接收端'],
     url: '/products/accessories/others/monitor-5-ips-dvr',
     titleZh: 'CANI 5寸 IPS DVR 监视器',
     titleEn: 'CANI 5-Inch IPS DVR Monitor',
+    category: 'monitor',
+  },
+  {
+    keywords: ['FPV飞行眼镜', '40频道视频接收镜', '无人机高清头显', '沉浸式FPV接收端', 'FPV Goggles'],
+    url: '/products/accessories/others/fpv-goggles-40ch',
+    titleZh: 'CANI FPV 飞行眼镜（40通道版）',
+    titleEn: 'CANI FPV Goggles (40CH)',
     category: 'monitor',
   },
   // === Gimbal 云台 ===

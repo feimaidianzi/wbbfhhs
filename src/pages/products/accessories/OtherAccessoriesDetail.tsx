@@ -89,6 +89,24 @@ const OtherAccessoriesDetail = () => {
         { '@type': 'PropertyValue', name: '录像存储', value: 'DVR (最高支持 32G TF卡)' },
       ],
     },
+    'fpv-goggles-40ch': {
+      '@context': 'https://schema.org/',
+      '@type': 'Product',
+      name: language === 'zh' ? 'CANI 40频道高清沉浸式FPV飞行眼镜' : 'CANI 40CH HD Immersive FPV Goggles',
+      image: 'https://www.caniuav.com/images/products/others/fpv-goggles-40ch-main.jpg',
+      description: language === 'zh'
+        ? '专为第一人称飞行设计的FPV眼镜。具备零光干涉光路、-90dBm高灵敏度接收与内置电池轻量化设计，是配套WiFiLink2图传的理想移动视觉终端。'
+        : 'FPV goggles designed for first-person flight. Features zero-light-interference optics, -90dBm high-sensitivity reception, and built-in battery lightweight design.',
+      brand: { '@type': 'Brand', name: 'CANI' },
+      sku: 'CANI-FPV-GOG-40',
+      url: 'https://www.caniuav.com/zh/products/accessories/others/fpv-goggles-40ch',
+      offers: { '@type': 'Offer', priceCurrency: 'CNY', availability: 'https://schema.org/InStock' },
+      additionalProperty: [
+        { '@type': 'PropertyValue', name: '接收灵敏度', value: '-90dBm' },
+        { '@type': 'PropertyValue', name: '屏幕比例', value: '16:9' },
+        { '@type': 'PropertyValue', name: '电池容量', value: '2000mAh (内置)' },
+      ],
+    },
   };
   const productEnhancedData = productId ? enhancedStructuredData[productId] || null : null;
 
@@ -100,6 +118,13 @@ const OtherAccessoriesDetail = () => {
       titleEn: 'CANI 5-Inch IPS DVR Monitor: How Dual-Antenna Diversity and 600cd/m² Build Outdoor Inspection Visual Loop',
       descZh: '深度解析IPS全视角技术、双天线多样性接收公式（Prec=max(A,B)）、600cd/m²恒流高亮驱动及DVR黑匣子录像功能。',
       descEn: 'In-depth analysis of IPS wide-angle technology, dual-antenna diversity formula, 600cd/m² constant-current backlight, and DVR black-box recording.',
+    },
+    'fpv-goggles-40ch': {
+      id: 'tech-fpv-goggles-40ch-immersive-flight-guide',
+      titleZh: 'CANI FPV飞行眼镜（40通道版）：零光干涉光路与-90dBm高灵敏度如何重塑沉浸式飞行体验',
+      titleEn: 'CANI FPV Goggles (40CH): How Zero-Light-Interference Optics and -90dBm Sensitivity Redefine Immersive Flight',
+      descZh: '深度解析零光干涉密闭光路设计、-90dBm灵敏度门限、人体工学配重设计及双模视觉方案（眼镜vs监视器）选型指南。',
+      descEn: 'In-depth analysis of zero-light-interference optics, -90dBm sensitivity threshold, ergonomic design, and dual-mode visual solution selection guide.',
     },
   };
   const deepDiveInfo = productId ? deepDiveArticleMap[productId] : undefined;
