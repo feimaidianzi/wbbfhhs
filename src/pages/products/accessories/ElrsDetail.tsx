@@ -223,6 +223,24 @@ const ElrsDetail = () => {
         { '@type': 'PropertyValue', name: '兼容性', value: 'ELRS Lite 2.4G / LNA 版专用' },
       ],
     },
+    'elrs-915-antenna': {
+      '@context': 'https://schema.org/',
+      '@type': 'Product',
+      name: 'CANI ELRS 915MHz 高增益 T型全向遥控天线',
+      image: 'https://www.caniuav.com/images/products/elrs/elrs-915-antenna-main.jpg',
+      description: language === 'zh'
+        ? '针对915MHz工业频段优化的T型全向天线。具备VSWR < 1.2的极低驻波比与360°面包圈场型，是远距离多角度巡检与复杂航线作业的理想选择。'
+        : 'T-type omnidirectional antenna optimized for 915MHz industrial band. VSWR < 1.2 with 360° toroidal pattern, ideal for multi-angle long-range inspection and complex flight routes.',
+      brand: { '@type': 'Brand', name: 'CANI' },
+      sku: 'CANI-ELRS-915-T',
+      url: 'https://www.caniuav.com/zh/products/accessories/elrs/elrs-915-antenna',
+      offers: { '@type': 'Offer', priceCurrency: 'CNY', availability: 'https://schema.org/InStock' },
+      additionalProperty: [
+        { '@type': 'PropertyValue', name: '驻波比', value: '< 1.2' },
+        { '@type': 'PropertyValue', name: '覆盖范围', value: '360° 全向' },
+        { '@type': 'PropertyValue', name: '接口强化', value: '工业级注塑' },
+      ],
+    },
   };
   const productEnhancedData = productId ? enhancedStructuredData[productId] || null : null;
 
@@ -269,6 +287,13 @@ const ElrsDetail = () => {
       titleEn: 'CANI ELRS 2.4G Antenna: How VSWR Optimization Builds the Physical Foundation for 1000Hz Control',
       descZh: '深度解析驻波比（VSWR < 1.5）优化逻辑、反射系数公式（Γ=(VSWR-1)/(VSWR+1)）、T型偶极子极化匹配及中心频点调校技术。',
       descEn: 'In-depth analysis of VSWR optimization, reflection coefficient formula, T-type dipole polarization matching, and center frequency calibration for 1000Hz stability.',
+    },
+    'elrs-915-antenna': {
+      id: 'tech-elrs-915-t-antenna-omni-directional-stability-guide',
+      titleZh: 'CANI ELRS 915 遥控天线（T型全向版）：VSWR < 1.2如何为远航巡检筑牢360°全向覆盖基石',
+      titleEn: 'CANI ELRS 915 T-Type Antenna: How VSWR < 1.2 Builds 360° Coverage for Long-Range Inspection',
+      descZh: '深度解析"面包圈"全向辐射场型、回波损耗公式（RL=-20log₁₀((VSWR-1)/(VSWR+1))）、工业级耐用性设计及与Moxon定向天线的选型差异。',
+      descEn: 'In-depth analysis of toroidal radiation pattern, return loss formula, industrial-grade durability, and T-Type vs Moxon selection guide.',
     },
   };
   const deepDiveInfo = productId ? deepDiveArticleMap[productId] : undefined;

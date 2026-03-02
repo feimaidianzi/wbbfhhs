@@ -250,6 +250,13 @@ export const PRODUCT_LINK_MAP: ProductLinkEntry[] = [
     category: 'elrs',
   },
   {
+    keywords: ['ELRS 915天线', '915MHz无人机天线', '全向远航天线', '915MHz高增益遥控天线', 'ELRS 915 T型天线'],
+    url: '/products/accessories/elrs/elrs-915-antenna',
+    titleZh: 'CANI ELRS 915 T型全向遥控天线',
+    titleEn: 'CANI ELRS 915 T-Type Omnidirectional Antenna',
+    category: 'elrs',
+  },
+  {
     keywords: ['ExpressLRS', 'ELRS模块', 'ELRS接收机', 'ELRS发射机'],
     url: '/products/accessories/elrs',
     titleZh: 'CANI ExpressLRS 遥控链路',
