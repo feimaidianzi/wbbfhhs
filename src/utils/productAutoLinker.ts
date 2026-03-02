@@ -243,6 +243,13 @@ export const PRODUCT_LINK_MAP: ProductLinkEntry[] = [
     category: 'elrs',
   },
   {
+    keywords: ['ELRS 2.4G天线', '2.4G无人机天线', 'ELRS T型天线', '高刷新率控制天线', '2.4GHz全向增益天线'],
+    url: '/products/accessories/elrs/elrs-2-4g-antenna',
+    titleZh: 'CANI ELRS 2.4G 高增益T型全向天线',
+    titleEn: 'CANI ELRS 2.4G High-Gain T-Type Omnidirectional Antenna',
+    category: 'elrs',
+  },
+  {
     keywords: ['ExpressLRS', 'ELRS模块', 'ELRS接收机', 'ELRS发射机'],
     url: '/products/accessories/elrs',
     titleZh: 'CANI ExpressLRS 遥控链路',
