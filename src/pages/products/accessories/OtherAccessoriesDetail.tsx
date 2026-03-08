@@ -107,6 +107,24 @@ const OtherAccessoriesDetail = () => {
         { '@type': 'PropertyValue', name: '电池容量', value: '2000mAh (内置)' },
       ],
     },
+    'monitor-4-3-dvr': {
+      '@context': 'https://schema.org/',
+      '@type': 'Product',
+      name: language === 'zh' ? 'CANI 4.3寸便携式高清 DVR 监视器' : 'CANI 4.3-Inch Portable HD DVR Monitor',
+      image: 'https://www.caniuav.com/images/products/others/monitor-4-3-dvr-main.jpg',
+      description: language === 'zh'
+        ? '极致轻便的4.3寸FPV监视器。具备500cd/m²亮度、DVR循环录像与NTSC/PAL自适应功能，是遥控器副屏与外场调机的理想选择。'
+        : 'Ultra-portable 4.3-inch FPV monitor with 500cd/m² brightness, DVR loop recording, and NTSC/PAL auto-detection. Ideal as controller sub-screen and field tuning tool.',
+      brand: { '@type': 'Brand', name: 'CANI' },
+      sku: 'CANI-MON-43-DVR',
+      url: 'https://www.caniuav.com/zh/products/accessories/others/monitor-4-3-dvr',
+      offers: { '@type': 'Offer', priceCurrency: 'CNY', availability: 'https://schema.org/InStock' },
+      additionalProperty: [
+        { '@type': 'PropertyValue', name: '屏幕尺寸', value: '4.3 英寸' },
+        { '@type': 'PropertyValue', name: '续航时间', value: '约 3 小时' },
+        { '@type': 'PropertyValue', name: '录像存储', value: 'DVR (支持循环覆盖)' },
+      ],
+    },
   };
   const productEnhancedData = productId ? enhancedStructuredData[productId] || null : null;
 
