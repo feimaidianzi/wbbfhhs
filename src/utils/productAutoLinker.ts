@@ -278,6 +278,13 @@ export const PRODUCT_LINK_MAP: ProductLinkEntry[] = [
     titleEn: 'CANI FPV Goggles (40CH)',
     category: 'monitor',
   },
+  {
+    keywords: ['4.3寸DVR监视器', '4.3寸FPV显示屏', '带录像功能监视器', '遥控器支架显示屏', '便携式无人机接收机'],
+    url: '/products/accessories/others/monitor-4-3-dvr',
+    titleZh: 'CANI 4.3寸 DVR 监视器',
+    titleEn: 'CANI 4.3-Inch DVR Monitor',
+    category: 'monitor',
+  },
   // === Gimbal 云台 ===
   {
     keywords: ['K40T', 'K40T云台', '四光云台', '四光AI云台', 'K40T Gimbal', 'Quad-Sensor Gimbal', '四传感器云台'],

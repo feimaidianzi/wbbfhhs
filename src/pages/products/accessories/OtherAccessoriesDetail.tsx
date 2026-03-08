@@ -144,6 +144,13 @@ const OtherAccessoriesDetail = () => {
       descZh: '深度解析零光干涉密闭光路设计、-90dBm灵敏度门限、人体工学配重设计及双模视觉方案（眼镜vs监视器）选型指南。',
       descEn: 'In-depth analysis of zero-light-interference optics, -90dBm sensitivity threshold, ergonomic design, and dual-mode visual solution selection guide.',
     },
+    'monitor-4-3-dvr': {
+      id: 'tech-portable-monitor-4-3-dvr-field-guide',
+      titleZh: 'CANI 4.3寸 DVR 监视器：NTSC/PAL自适应与功耗管理模型如何打造极致轻便的野外调机利器',
+      titleEn: 'CANI 4.3-Inch DVR Monitor: How NTSC/PAL Auto-Detection and Power Management Model Create the Ultimate Portable Field Tool',
+      descZh: '深度解析NTSC/PAL自适应逻辑、功耗管理公式（Twork=Cbattery/Iload）、DVR黑匣子循环录制及多层级视觉终端选型指南。',
+      descEn: 'In-depth analysis of NTSC/PAL auto-detection, power management formula, DVR black-box loop recording, and multi-tier visual terminal selection guide.',
+    },
   };
   const deepDiveInfo = productId ? deepDiveArticleMap[productId] : undefined;
 
