@@ -107,6 +107,24 @@ const OtherAccessoriesDetail = () => {
         { '@type': 'PropertyValue', name: '电池容量', value: '2000mAh (内置)' },
       ],
     },
+    'monitor-4-3-dvr': {
+      '@context': 'https://schema.org/',
+      '@type': 'Product',
+      name: language === 'zh' ? 'CANI 4.3寸便携式高清 DVR 监视器' : 'CANI 4.3-Inch Portable HD DVR Monitor',
+      image: 'https://www.caniuav.com/images/products/others/monitor-4-3-dvr-main.jpg',
+      description: language === 'zh'
+        ? '极致轻便的4.3寸FPV监视器。具备500cd/m²亮度、DVR循环录像与NTSC/PAL自适应功能，是遥控器副屏与外场调机的理想选择。'
+        : 'Ultra-portable 4.3-inch FPV monitor with 500cd/m² brightness, DVR loop recording, and NTSC/PAL auto-detection. Ideal as controller sub-screen and field tuning tool.',
+      brand: { '@type': 'Brand', name: 'CANI' },
+      sku: 'CANI-MON-43-DVR',
+      url: 'https://www.caniuav.com/zh/products/accessories/others/monitor-4-3-dvr',
+      offers: { '@type': 'Offer', priceCurrency: 'CNY', availability: 'https://schema.org/InStock' },
+      additionalProperty: [
+        { '@type': 'PropertyValue', name: '屏幕尺寸', value: '4.3 英寸' },
+        { '@type': 'PropertyValue', name: '续航时间', value: '约 3 小时' },
+        { '@type': 'PropertyValue', name: '录像存储', value: 'DVR (支持循环覆盖)' },
+      ],
+    },
   };
   const productEnhancedData = productId ? enhancedStructuredData[productId] || null : null;
 
@@ -125,6 +143,13 @@ const OtherAccessoriesDetail = () => {
       titleEn: 'CANI FPV Goggles (40CH): How Zero-Light-Interference Optics and -90dBm Sensitivity Redefine Immersive Flight',
       descZh: '深度解析零光干涉密闭光路设计、-90dBm灵敏度门限、人体工学配重设计及双模视觉方案（眼镜vs监视器）选型指南。',
       descEn: 'In-depth analysis of zero-light-interference optics, -90dBm sensitivity threshold, ergonomic design, and dual-mode visual solution selection guide.',
+    },
+    'monitor-4-3-dvr': {
+      id: 'tech-portable-monitor-4-3-dvr-field-guide',
+      titleZh: 'CANI 4.3寸 DVR 监视器：NTSC/PAL自适应与功耗管理模型如何打造极致轻便的野外调机利器',
+      titleEn: 'CANI 4.3-Inch DVR Monitor: How NTSC/PAL Auto-Detection and Power Management Model Create the Ultimate Portable Field Tool',
+      descZh: '深度解析NTSC/PAL自适应逻辑、功耗管理公式（Twork=Cbattery/Iload）、DVR黑匣子循环录制及多层级视觉终端选型指南。',
+      descEn: 'In-depth analysis of NTSC/PAL auto-detection, power management formula, DVR black-box loop recording, and multi-tier visual terminal selection guide.',
     },
   };
   const deepDiveInfo = productId ? deepDiveArticleMap[productId] : undefined;
