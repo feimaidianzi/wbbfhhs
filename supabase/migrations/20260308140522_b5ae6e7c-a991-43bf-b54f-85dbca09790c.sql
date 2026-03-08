@@ -1,0 +1,3 @@
+UPDATE news_articles SET cover_image = 'https://tuxslfemwkdmnkldlmmy.supabase.co/storage/v1/object/public/news-images/covers/fpv-goggles-40ch-cover.jpg' WHERE id = 'f1a2b3c4-5d6e-7f8a-9b0c-1d2e3f4a5b6c';
+UPDATE news_articles SET cover_image = 'https://tuxslfemwkdmnkldlmmy.supabase.co/storage/v1/object/public/news-images/covers/monitor-5ips-dvr-cover.jpg' WHERE id = 'e0f1a2b3-4c5d-6e7f-8a9b-0c1d2e3f4a5b';
+UPDATE news_articles SET cover_image = 'https://tuxslfemwkdmnkldlmmy.supabase.co/storage/v1/object/public/news-images/covers/elrs-915-t-antenna-cover.jpg' WHERE id = 'd9e0f1a2-3b4c-5d6e-7f8a-9b0c1d2e3f4a';
