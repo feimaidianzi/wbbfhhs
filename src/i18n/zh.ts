@@ -6582,7 +6582,7 @@ export const zhTranslations: Record<string, string> = {
   'digitalFpv.h.4000a150.name': 'HD-4000-A150 机载组网电台',
   'digitalFpv.h.4000a150.slogan': '150公里C波段机载数据链',
   'digitalFpv.h.4000a150.subSlogan': '150KM传输 | 4GHz C波段 | 2×20W功率 | 1500g',
-  'digitalFpv.h.4000a150.description': 'HD-4000-A150系列采用C波段(4000-4300MHz)，MIMO射频技术、智能选频及跳频技术，实现空对地150公里范围内的高清视频传输。',
+  'digitalFpv.h.4000a150.description': 'HD-4000-A150系列采用多载波调制技术、MIMO射频技术、智能选频及跳频技术，其接收灵敏度高，抗干扰性强，实现空对地150公里范围内的单向高清视频传输以及遥控遥测双向数据传输。提供RS232\\RJ45等丰富的数据接口，支持点对点、点对多点、多点对多点组网需求，满足任务设备的各种应用需求。宽带数据链产品在UAVS、直升机、固定翼飞机、飞艇、战术导弹上得到了广泛的应用。',
   'digitalFpv.h.4000a150.keyFeature.range': '150KM传输',
   'digitalFpv.h.4000a150.keyFeature.band': '4GHz C波段',
 

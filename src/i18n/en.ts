@@ -229,7 +229,7 @@ export const enTranslations: Record<string, string> = {
   'digitalFpv.h.4000a150.name': 'HD-4000-A150 Airborne Radio',
   'digitalFpv.h.4000a150.slogan': '150km C-Band Airborne Datalink',
   'digitalFpv.h.4000a150.subSlogan': '150KM Range | 4GHz C-Band | 2×20W | 1500g',
-  'digitalFpv.h.4000a150.description': 'HD-4000-A150 series uses C-band (4000-4300MHz) MIMO RF for 150km HD video transmission.',
+  'digitalFpv.h.4000a150.description': 'The HD-4000-A150 series adopts multi-carrier modulation, MIMO RF technology, intelligent frequency selection and hopping technology, featuring high receiver sensitivity and strong anti-interference capability. It enables one-way HD video transmission and bidirectional telemetry data transmission within a 150km air-to-ground range. It provides rich data interfaces such as RS232/RJ45, supports point-to-point, point-to-multipoint, and multipoint-to-multipoint networking, meeting various application requirements. Wideband datalink products are widely used in UAVs, helicopters, fixed-wing aircraft, airships, and tactical missiles.',
   'digitalFpv.h.4000a150.keyFeature.range': '150KM Range',
   'digitalFpv.h.4000a150.keyFeature.band': '4GHz C-Band',
 
