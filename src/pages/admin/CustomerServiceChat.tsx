@@ -72,6 +72,7 @@ export default function CustomerServiceChat() {
   const [searchQuery, setSearchQuery] = useState("");
   const [statusFilter, setStatusFilter] = useState<'all' | 'pending' | 'resolved' | 'transferred'>('all');
   const [mobileView, setMobileView] = useState<'list' | 'chat' | 'profile'>('list');
+  const [authReady, setAuthReady] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
 
@@ -90,7 +91,9 @@ export default function CustomerServiceChat() {
       if (!roles || (roles.role !== 'admin' && roles.role !== 'moderator')) {
         toast({ variant: "destructive", title: "权限不足", description: "您没有访问客服系统的权限" });
         navigate('/admin');
+        return;
       }
+      setAuthReady(true);
     };
     checkAuth();
   }, [navigate, toast]);
