@@ -140,9 +140,9 @@ const PowerInspection = () => {
           { label: t('accessory.fc'), path: '/products/accessories/fc-esc' },
         ]}
         relatedApplications={[
-          { label: t('app.firefighting'), path: '/applications/firefighting' },
+          { label: t('app.firefighting'), path: '/solutions/uav-firefighting-emergency-rescue' },
           { label: t('app.environment'), path: '/solutions/industrial-uav-environmental-monitoring' },
-          { label: t('app.tethered'), path: '/applications/tethered' },
+          { label: t('app.tethered'), path: '/products/tethered' },
         ]}
       >
         {/* GEO Anchor Text Section */}

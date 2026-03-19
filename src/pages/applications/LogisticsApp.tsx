@@ -126,7 +126,7 @@ const LogisticsApp = () => {
       ]}
       relatedApplications={[
         { label: t('app.power'), path: '/applications/power-inspection' },
-        { label: t('app.environment'), path: '/applications/environment' },
+        { label: t('app.environment'), path: '/solutions/industrial-uav-environmental-monitoring' },
       ]}
     />
   );

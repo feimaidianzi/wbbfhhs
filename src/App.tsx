@@ -259,6 +259,27 @@ const App = () => (
               <Route path="/admin/translations" element={<TranslationManagement />} />
               <Route path="/admin/seo-management" element={<SEOManagement />} />
 
+              {/* Legacy/broken path redirects — fixes soft 404s from Google */}
+              <Route path="/applications/firefighting" element={<Navigate to="/solutions/uav-firefighting-emergency-rescue" replace />} />
+              <Route path="/applications/tethered" element={<Navigate to="/products/tethered" replace />} />
+              <Route path="/applications/police" element={<Navigate to="/applications" replace />} />
+              <Route path="/applications/emergency" element={<Navigate to="/solutions/uav-firefighting-emergency-rescue" replace />} />
+              <Route path="/applications/emergency-rescue" element={<Navigate to="/solutions/uav-firefighting-emergency-rescue" replace />} />
+              <Route path="/applications/environment" element={<Navigate to="/solutions/industrial-uav-environmental-monitoring" replace />} />
+              <Route path="/applications/surveying" element={<Navigate to="/solutions/industrial-uav-surveying-mapping" replace />} />
+              <Route path="/applications/smart-city" element={<Navigate to="/applications" replace />} />
+              <Route path="/applications/water" element={<Navigate to="/solutions/industrial-uav-water-conservancy" replace />} />
+              <Route path="/applications/traffic" element={<Navigate to="/solutions/industrial-uav-transportation-monitoring" replace />} />
+              <Route path="/applications/power" element={<Navigate to="/applications/power-inspection" replace />} />
+              <Route path="/applications/five-g" element={<Navigate to="/applications" replace />} />
+              <Route path="/applications/5g" element={<Navigate to="/applications" replace />} />
+              <Route path="/products/airport" element={<Navigate to="/products" replace />} />
+              <Route path="/products/airport/*" element={<Navigate to="/products" replace />} />
+              <Route path="/products/accessories/fpv" element={<Navigate to="/products/accessories/digital-fpv" replace />} />
+              <Route path="/products/accessories/other" element={<Navigate to="/products/accessories/others" replace />} />
+              <Route path="/solutions" element={<Navigate to="/applications/solutions" replace />} />
+              <Route path="/low-altitude" element={<Navigate to="/applications" replace />} />
+
               {/* Public routes with breadcrumb */}
               {publicRoutes.map(({ path, element }) => (
                 <Route key={path} path={path} element={
