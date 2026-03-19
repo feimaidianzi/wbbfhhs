@@ -116,6 +116,7 @@ const AdminDashboard = () => {
   });
   const [dailyTrends, setDailyTrends] = useState<DailyTrend[]>([]);
   const [typeCounts, setTypeCounts] = useState<TypeCount[]>([]);
+  const [dailyVisits, setDailyVisits] = useState<DailyVisit[]>([]);
   const [timeRange, setTimeRange] = useState<TimeRange>('7d');
 
   useEffect(() => {
