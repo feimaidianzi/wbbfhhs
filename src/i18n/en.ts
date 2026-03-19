@@ -1652,6 +1652,59 @@ export const enTranslations: Record<string, string> = {
   'about.cert.iso': 'ISO 9001 Quality Management Certification',
   'about.cert.member': 'UAV Industry Association Member',
 
+  // ===== About Page Upgrade - Brand Vision =====
+  'about.vision.badge': 'Industry Leader',
+  'about.vision.heroTitle.line1': 'Beyond Flight',
+  'about.vision.heroTitle.line2': 'Engineering the Future of Industrial UAV Connectivity',
+  'about.vision.heroDesc': 'At CANI, we understand the uncompromising demands industrial UAVs face in extreme environments. We are not a simple component distributor — we are innovators deeply rooted in RF technology and intelligent control solutions. From 10W high-power VTX to F722 flight systems, every product we build is designed to break through the limits of distance and environmental interference.',
+
+  // ===== About Page Upgrade - Core Tech Advantages =====
+  'about.techAdvantage.title': 'Why the Industry Trusts CANI Technology',
+  'about.techAdvantage.subtitle': 'Establishing authority through concrete technical breakthroughs that directly solve core industrial flight pain points',
+  'about.techAdvantage.avs.num': '01',
+  'about.techAdvantage.avs.title': 'Active Noise Suppression',
+  'about.techAdvantage.avs.tag': 'Active Noise Suppression',
+  'about.techAdvantage.avs.desc': 'Our VTX modules feature a built-in Active Voltage Suppression (AVS) system that perfectly filters Back EMF spikes in 6S+ high-voltage builds, ensuring crystal-clear video transmission even during aggressive motor braking maneuvers.',
+  'about.techAdvantage.thermal.num': '02',
+  'about.techAdvantage.thermal.title': 'Extreme Power Consistency',
+  'about.techAdvantage.thermal.tag': 'Extreme Power Consistency',
+  'about.techAdvantage.thermal.desc': 'Unlike generic modules that throttle due to heat, CANI\'s 10W-class VTX series utilizes custom CNC heatsink architecture to maintain peak output power for extended long-range industrial missions.',
+  'about.techAdvantage.oem.num': '03',
+  'about.techAdvantage.oem.title': 'End-to-End OEM Capability',
+  'about.techAdvantage.oem.tag': 'End-to-End OEM Capability',
+  'about.techAdvantage.oem.desc': 'As an Original Manufacturer, we own the full pipeline from PCB layout to AI-driven obstacle avoidance firmware, ensuring every unit shipped worldwide meets industrial-grade reliability standards.',
+
+  // ===== About Page Upgrade - Application Scenarios =====
+  'about.scenarios.title': 'Mission-Critical Reliability Across Industries',
+  'about.scenarios.subtitle': 'From high EMI environments to extreme conditions, CANI solutions have passed the most demanding tests',
+  'about.scenarios.power': 'Power Line Inspection',
+  'about.scenarios.power.desc': 'Stable ultra-long-range datalinks in high electromagnetic interference environments',
+  'about.scenarios.mapping': 'LiDAR Mapping & SAR',
+  'about.scenarios.mapping.desc': 'Fully autonomous flight in complex terrain with LiDAR and AI obstacle avoidance',
+  'about.scenarios.agriculture': 'Agri-Logistics',
+  'about.scenarios.agriculture.desc': 'High-performance, high-durability power control cores',
+  'about.scenarios.border': 'Smart Border Patrol',
+  'about.scenarios.border.desc': 'All-weather, ultra-long-range situational awareness and real-time streaming',
+
+  // ===== About Page Upgrade - Founder Message =====
+  'about.founder.title': 'Founder\'s Message',
+  'about.founder.quote': '"We founded CANI with a simple vision: to build the tough components that others won\'t or can\'t. Every 0.1g of weight we shave, every decibel of noise we eliminate, is our tribute to precision flight."',
+  'about.founder.name': 'Alex',
+  'about.founder.role': 'Founder, CANI UAV',
+
+  // ===== About Page Upgrade - OEM Partnership =====
+  'about.oem.title': 'Global OEM/ODM Partner',
+  'about.oem.subtitle': 'Engineering Your Competitive Edge',
+  'about.oem.rf.title': 'Custom RF Design',
+  'about.oem.rf.desc': 'Tailored frequency bands and power levels (up to 10W+) to meet local regulations and mission requirements.',
+  'about.oem.cad.title': '3D Mechanical Integration',
+  'about.oem.cad.desc': 'Providing full STEP/CAD files for seamless integration into your industrial airframes.',
+  'about.oem.qa.title': 'Rigorous QA Testing',
+  'about.oem.qa.desc': 'Every unit undergoes high-temperature stress tests (85°C), vibration testing, and VSWR checks before shipment.',
+  'about.oem.logistics.title': 'B2B Logistic Priority',
+  'about.oem.logistics.desc': 'Dedicated account managers for wholesale clients and fast-track shipping for bulk orders.',
+  'about.oem.cta': 'Inquire for Wholesale & OEM',
+
   // Contact Page - Service & FAQ (SEO/GEO Optimized)
   'contact.service.title': 'Comprehensive Service Support',
   'contact.service.intro': 'As a High-Tech Enterprise, CANI Technology provides industrial clients with full-process tech support from payload selection and protocol integration to flight calibration, ensuring efficient OEM/ODM project delivery.',
