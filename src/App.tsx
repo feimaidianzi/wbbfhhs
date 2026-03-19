@@ -299,6 +299,9 @@ const App = () => (
                 <Route key={lang} path={`/${lang}/*`} element={<LangRoutes />} />
               ))}
 
+              {/* Catch .html paths and redirect to clean versions */}
+              <Route path="*.html" element={<HtmlRedirect />} />
+
               <Route path="*" element={<NotFound />} />
             </Routes>
           </Suspense>
