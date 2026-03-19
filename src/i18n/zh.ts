@@ -7973,6 +7973,59 @@ export const zhTranslations: Record<string, string> = {
   'about.cert.iso': 'ISO 9001 质量管理体系认证',
   'about.cert.member': '无人机行业协会会员单位',
 
+  // ===== About Page Upgrade - Brand Vision =====
+  'about.vision.badge': '行业领先者',
+  'about.vision.heroTitle.line1': '超越飞行',
+  'about.vision.heroTitle.line2': '工程化定义工业无人机的未来',
+  'about.vision.heroDesc': '在CANI，我们深知工业无人机在极端环境下对稳定性的近乎苛刻的要求。我们不是简单的零部件经销商，而是深耕于射频（RF）技术与智能控制方案的创新者。从10W大功率图传到F722飞行系统，我们的每一款产品都旨在打破距离与环境干扰的限制。',
+
+  // ===== About Page Upgrade - Core Tech Advantages =====
+  'about.techAdvantage.title': '行业为何信任 CANI 技术',
+  'about.techAdvantage.subtitle': '用具体的技术突破建立权威感，直接解决工业飞行中的核心痛点',
+  'about.techAdvantage.avs.num': '01',
+  'about.techAdvantage.avs.title': '主动噪声抑制',
+  'about.techAdvantage.avs.tag': 'Active Noise Suppression',
+  'about.techAdvantage.avs.desc': '我们的VTX模块内置主动电压抑制系统（AVS），能够在6S+高压动力环境下完美过滤电机产生的反向电动势（Back EMF），确保图像传输在高速机动时依然稳定清晰。',
+  'about.techAdvantage.thermal.num': '02',
+  'about.techAdvantage.thermal.title': '极限功率管理',
+  'about.techAdvantage.thermal.tag': 'Extreme Power Consistency',
+  'about.techAdvantage.thermal.desc': '凭借自研的CNC散热架构设计，CANI的10W级别图传能实现长时间满功率输出，彻底解决行业普遍存在的"热缩减（Thermal Throttling）"问题。',
+  'about.techAdvantage.oem.num': '03',
+  'about.techAdvantage.oem.title': '端到端OEM实力',
+  'about.techAdvantage.oem.tag': 'End-to-End OEM Capability',
+  'about.techAdvantage.oem.desc': '作为原厂（Original Manufacturer），我们掌握从PCB设计、固件开发到精密组装的全流程，确保每一套发往全球的组件都具备工业级的可靠性。',
+
+  // ===== About Page Upgrade - Application Scenarios =====
+  'about.scenarios.title': '跨行业关键任务可靠性',
+  'about.scenarios.subtitle': '从强电磁干扰到极端环境，CANI技术方案经受住了最严苛的考验',
+  'about.scenarios.power': '电力巡检',
+  'about.scenarios.power.desc': '在强电磁干扰环境下提供稳定的超远距离巡检链路',
+  'about.scenarios.mapping': '测绘与搜救',
+  'about.scenarios.mapping.desc': '配合LiDAR与AI避障技术，实现复杂环境下的全自主飞行',
+  'about.scenarios.agriculture': '农业与物流',
+  'about.scenarios.agriculture.desc': '提供高性能、高耐用性的动力控制核心',
+  'about.scenarios.border': '智能边防巡逻',
+  'about.scenarios.border.desc': '全天候超远距离态势感知与实时回传',
+
+  // ===== About Page Upgrade - Founder Message =====
+  'about.founder.title': '创始人寄语',
+  'about.founder.quote': '"我们成立CANI的初衷很简单：做那些别人不敢做、做不好的\'硬骨头\'组件。每一个0.1克的减重，每一分贝噪声的消除，都是我们对极限飞行的致敬。"',
+  'about.founder.name': 'Alex',
+  'about.founder.role': 'CANI 无人机 创始人',
+
+  // ===== About Page Upgrade - OEM Partnership =====
+  'about.oem.title': '全球 OEM/ODM 合作伙伴',
+  'about.oem.subtitle': '打造您的竞争优势',
+  'about.oem.rf.title': '定制化射频架构',
+  'about.oem.rf.desc': '根据您的特定频率需求和功率等级（最高10W+），定制符合当地法规和任务要求的射频方案。',
+  'about.oem.cad.title': '3D机械集成支持',
+  'about.oem.cad.desc': '提供完整的STEP/CAD文件，实现与您的工业机体无缝集成。',
+  'about.oem.qa.title': '工业级可靠性测试',
+  'about.oem.qa.desc': '每一批产品都经过高温老化（85°C）、振动测试及高压浪涌测试，确保在极端工业任务中绝对稳定。',
+  'about.oem.logistics.title': 'B2B优先物流',
+  'about.oem.logistics.desc': '为批量客户提供专属客户经理和快速通道发货服务。',
+  'about.oem.cta': '咨询批量采购与OEM定制',
+
   // Contact Page - Service & FAQ (SEO/GEO Optimized)
   'contact.service.title': '全方位服务支持',
   'contact.service.intro': '作为高新技术企业，长凌科技为工业客户提供从载荷选型、协议集成到飞行标定的全流程技术支持，确保OEM/ODM项目高效交付。',

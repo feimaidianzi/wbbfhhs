@@ -2,8 +2,9 @@ import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { FloatingContact } from "@/components/FloatingContact";
 import { Button } from "@/components/ui/button";
-import { Target, Users, Award, ArrowRight, Cpu, BarChart3, Globe2, ShieldCheck, Layers, Radio, Settings, Code, Plane } from "lucide-react";
+import { Target, Users, Award, ArrowRight, Cpu, BarChart3, Globe2, ShieldCheck, Layers, Radio, Settings, Code, Plane, Zap, Thermometer, Factory, CheckCircle2, MapPin, Shield, Truck } from "lucide-react";
 import caniReception from "@/assets/about/cani-reception.png";
+import founderImg from "@/assets/founder-alex.png";
 import { MultiLanguageSEO, createLocalizedBreadcrumbData } from "@/components/MultiLanguageSEO";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { LangLink } from "@/components/LangLink";
@@ -12,6 +13,7 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@
 import { Helmet } from "react-helmet-async";
 import { FacilityGallery } from "@/components/FacilityGallery";
 import corporateImg from "@/assets/seo/corporate-office.jpg";
+import { motion } from "framer-motion";
 
 const About = () => {
   const { t, language } = useLanguage();
@@ -22,12 +24,6 @@ const About = () => {
     { year: "2019", title: t('about.milestone.2019.title'), description: t('about.milestone.2019.desc') },
     { year: "2023", title: t('about.milestone.2023.title'), description: t('about.milestone.2023.desc') },
     { year: "2025", title: t('about.milestone.2025.title'), description: t('about.milestone.2025.desc') },
-  ];
-
-  const values = [
-    { icon: Target, title: t('about.value.mission'), description: t('about.value.mission.desc') },
-    { icon: Users, title: t('about.value.vision'), description: t('about.value.vision.desc') },
-    { icon: Award, title: t('about.value.values'), description: t('about.value.values.desc') },
   ];
 
   const stats = [
@@ -70,10 +66,42 @@ const About = () => {
     },
   ];
 
-  const ecosystemItems = [
-    { icon: Cpu, title: t('about.ecosystem.item1.title'), desc: t('about.ecosystem.item1.desc') },
-    { icon: Code, title: t('about.ecosystem.item2.title'), desc: t('about.ecosystem.item2.desc') },
-    { icon: Plane, title: t('about.ecosystem.item3.title'), desc: t('about.ecosystem.item3.desc') },
+  const techAdvantages = [
+    {
+      num: t('about.techAdvantage.avs.num'),
+      title: t('about.techAdvantage.avs.title'),
+      tag: t('about.techAdvantage.avs.tag'),
+      desc: t('about.techAdvantage.avs.desc'),
+      icon: Zap,
+    },
+    {
+      num: t('about.techAdvantage.thermal.num'),
+      title: t('about.techAdvantage.thermal.title'),
+      tag: t('about.techAdvantage.thermal.tag'),
+      desc: t('about.techAdvantage.thermal.desc'),
+      icon: Thermometer,
+    },
+    {
+      num: t('about.techAdvantage.oem.num'),
+      title: t('about.techAdvantage.oem.title'),
+      tag: t('about.techAdvantage.oem.tag'),
+      desc: t('about.techAdvantage.oem.desc'),
+      icon: Factory,
+    },
+  ];
+
+  const scenarios = [
+    { label: t('about.scenarios.power'), desc: t('about.scenarios.power.desc'), icon: Zap },
+    { label: t('about.scenarios.mapping'), desc: t('about.scenarios.mapping.desc'), icon: MapPin },
+    { label: t('about.scenarios.agriculture'), desc: t('about.scenarios.agriculture.desc'), icon: Truck },
+    { label: t('about.scenarios.border'), desc: t('about.scenarios.border.desc'), icon: Shield },
+  ];
+
+  const oemFeatures = [
+    { title: t('about.oem.rf.title'), desc: t('about.oem.rf.desc') },
+    { title: t('about.oem.cad.title'), desc: t('about.oem.cad.desc') },
+    { title: t('about.oem.qa.title'), desc: t('about.oem.qa.desc') },
+    { title: t('about.oem.logistics.title'), desc: t('about.oem.logistics.desc') },
   ];
 
   const faqItems = [
@@ -107,62 +135,19 @@ const About = () => {
         "addressCountry": "CN"
       },
       "contactPoint": [
-        {
-          "@type": "ContactPoint",
-          "telephone": "+86-17585423252",
-          "contactType": "sales and technical support",
-          "email": "market@caniuav.com",
-          "availableLanguage": ["Chinese", "English"]
-        },
-        {
-          "@type": "ContactPoint",
-          "contactType": "Sales & OEM/ODM",
-          "email": "sales@caniuav.com"
-        },
-        {
-          "@type": "ContactPoint",
-          "contactType": "Technical Support",
-          "email": "support@caniuav.com"
-        }
+        { "@type": "ContactPoint", "telephone": "+86-17585423252", "contactType": "sales and technical support", "email": "market@caniuav.com", "availableLanguage": ["Chinese", "English"] },
+        { "@type": "ContactPoint", "contactType": "Sales & OEM/ODM", "email": "sales@caniuav.com" },
+        { "@type": "ContactPoint", "contactType": "Technical Support", "email": "support@caniuav.com" }
       ],
-      "sameAs": [
-        "https://linkedin.com/company/caniuav",
-        "https://instagram.com/868163685410",
-        "https://t.me/caniuav",
-        "https://m.me/caniuav"
-      ],
-      "knowsAbout": [
-        "Industrial UAV Payload Customization",
-        "37W High-Power Video Transmission Systems",
-        "EO/IR Dual-Sensor Gimbal Pods",
-        "Flight Controller & ESC Systems",
-        "BVLOS Operations",
-        "MAVLink Protocol Integration"
-      ],
-      "brand": {
-        "@type": "Brand",
-        "name": "CANI"
-      },
+      "sameAs": ["https://linkedin.com/company/caniuav", "https://instagram.com/868163685410", "https://t.me/caniuav", "https://m.me/caniuav"],
+      "knowsAbout": ["Industrial UAV Payload Customization", "37W High-Power Video Transmission Systems", "EO/IR Dual-Sensor Gimbal Pods", "Flight Controller & ESC Systems", "BVLOS Operations", "MAVLink Protocol Integration"],
+      "brand": { "@type": "Brand", "name": "CANI" },
       "hasOfferCatalog": {
         "@type": "OfferCatalog",
         "name": "Industrial UAV Payload Customization Services",
         "itemListElement": [
-          {
-            "@type": "Service",
-            "name": "Industrial UAV Payload OEM/ODM Customization",
-            "description": "Full-cycle payload customization from concept to mass production, including EO/IR gimbals, 37W VTX integration, COFDM digital links, and multi-sensor fusion systems.",
-            "provider": { "@type": "Organization", "name": "CANI Technology" },
-            "areaServed": "Worldwide",
-            "serviceType": "OEM/ODM Manufacturing"
-          },
-          {
-            "@type": "Service",
-            "name": "Custom UAV Platform Development",
-            "description": "Tethered UAV systems (30-day persistent flight), heavy-lift platforms (150kg payload), and secure communication integration with AES-256 encryption.",
-            "provider": { "@type": "Organization", "name": "CANI Technology" },
-            "areaServed": "Worldwide",
-            "serviceType": "R&D Engineering"
-          }
+          { "@type": "Service", "name": "Industrial UAV Payload OEM/ODM Customization", "description": "Full-cycle payload customization from concept to mass production.", "provider": { "@type": "Organization", "name": "CANI Technology" }, "areaServed": "Worldwide", "serviceType": "OEM/ODM Manufacturing" },
+          { "@type": "Service", "name": "Custom UAV Platform Development", "description": "Tethered UAV systems, heavy-lift platforms, and secure communication integration.", "provider": { "@type": "Organization", "name": "CANI Technology" }, "areaServed": "Worldwide", "serviceType": "R&D Engineering" }
         ]
       }
     }
@@ -182,44 +167,153 @@ const About = () => {
       </Helmet>
       <Header />
       <main className="pt-16 md:pt-20">
-        {/* Hero Section */}
-        <section className="relative h-[400px] md:h-[500px] overflow-hidden">
+
+        {/* ========== 1. HERO - Brand Vision ========== */}
+        <section className="relative min-h-[500px] md:min-h-[600px] overflow-hidden flex items-center">
           <div
             className="absolute inset-0 bg-cover bg-center"
-            style={{
-              backgroundImage: `url(${corporateImg})`,
-            }}
+            style={{ backgroundImage: `url(${corporateImg})` }}
           >
-            <div className="absolute inset-0 bg-gradient-to-r from-primary/90 via-primary/70 to-primary/50" />
+            <div className="absolute inset-0 bg-gradient-to-r from-primary/95 via-primary/80 to-primary/60" />
           </div>
-          <div className="relative container-custom h-full flex items-center">
-            <div className="max-w-2xl">
-              <h1 className="text-3xl md:text-5xl font-bold text-primary-foreground mb-4">
-                {t('about.title')}
+          {/* Decorative grid overlay */}
+          <div className="absolute inset-0 opacity-5" style={{ backgroundImage: 'linear-gradient(rgba(255,255,255,.1) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.1) 1px, transparent 1px)', backgroundSize: '40px 40px' }} />
+          <div className="relative container-custom py-20">
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8 }}
+              className="max-w-3xl"
+            >
+              <span className="inline-block px-4 py-1.5 rounded-full bg-accent/20 text-accent text-sm font-semibold mb-6 backdrop-blur-sm border border-accent/30">
+                {t('about.vision.badge')}
+              </span>
+              <h1 className="text-4xl md:text-5xl lg:text-6xl font-black text-primary-foreground mb-4 leading-tight">
+                {t('about.vision.heroTitle.line1')}<br />
+                <span className="text-accent">{t('about.vision.heroTitle.line2')}</span>
               </h1>
-              <p className="text-lg md:text-xl text-primary-foreground/90 mb-6">
-                {t('about.subtitle')}
+              <p className="text-lg md:text-xl text-primary-foreground/85 leading-relaxed max-w-2xl">
+                {t('about.vision.heroDesc')}
               </p>
-            </div>
+            </motion.div>
           </div>
         </section>
 
-        {/* BLUF - GEO Answer Nugget */}
-        <section className="py-12 bg-accent/5 border-b border-accent/10">
+        {/* ========== Stats Bar ========== */}
+        <section className="py-12 bg-primary border-t border-accent/20">
           <div className="container-custom">
-            <div className="max-w-4xl mx-auto">
-              <p className="text-lg text-foreground leading-relaxed font-medium">
-                {t('about.bluf')}
-              </p>
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
+              {stats.map((stat, index) => (
+                <motion.div
+                  key={index}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.5, delay: index * 0.1 }}
+                  className="text-center"
+                >
+                  <div className="text-4xl md:text-5xl font-black text-accent mb-2">{stat.value}</div>
+                  <div className="text-primary-foreground/80 text-sm">{stat.label}</div>
+                </motion.div>
+              ))}
             </div>
           </div>
         </section>
 
-        {/* Company Profile */}
-        <section className="py-16 bg-background">
+        {/* ========== 2. Core Tech Advantages ========== */}
+        <section className="py-20 md:py-28 bg-background relative overflow-hidden">
+          <div className="absolute top-0 right-0 w-96 h-96 bg-accent/5 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2" />
+          <div className="container-custom relative">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              className="text-center mb-16"
+            >
+              <h2 className="text-3xl md:text-4xl lg:text-5xl font-black text-foreground mb-4">
+                {t('about.techAdvantage.title')}
+              </h2>
+              <p className="text-muted-foreground text-lg max-w-3xl mx-auto">
+                {t('about.techAdvantage.subtitle')}
+              </p>
+            </motion.div>
+
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+              {techAdvantages.map((item, index) => (
+                <motion.div
+                  key={index}
+                  initial={{ opacity: 0, y: 30 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.6, delay: index * 0.15 }}
+                  className="group relative p-8 rounded-2xl bg-card border border-border hover:border-accent/30 transition-all duration-500 hover:-translate-y-1 hover:shadow-lg"
+                >
+                  <div className="text-accent/20 text-6xl font-black absolute top-4 right-6 group-hover:text-accent/30 transition-colors">
+                    {item.num}
+                  </div>
+                  <div className="w-14 h-14 rounded-xl bg-accent/10 flex items-center justify-center mb-6 group-hover:bg-accent/20 group-hover:scale-110 transition-all duration-300">
+                    <item.icon className="w-7 h-7 text-accent" />
+                  </div>
+                  <h3 className="text-xl font-bold text-foreground mb-2 group-hover:text-accent transition-colors">
+                    {item.title}
+                  </h3>
+                  <span className="inline-block text-xs font-mono text-accent/70 bg-accent/5 px-2 py-0.5 rounded mb-4">
+                    {item.tag}
+                  </span>
+                  <p className="text-sm text-muted-foreground leading-relaxed">
+                    {item.desc}
+                  </p>
+                </motion.div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* ========== 3. Application Scenarios ========== */}
+        <section className="py-20 md:py-28 bg-primary relative overflow-hidden">
+          <div className="absolute inset-0 opacity-5" style={{ backgroundImage: 'radial-gradient(circle at 1px 1px, rgba(255,255,255,0.3) 1px, transparent 0)', backgroundSize: '24px 24px' }} />
+          <div className="container-custom relative">
+            <motion.div
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              viewport={{ once: true }}
+              className="text-center mb-14"
+            >
+              <h2 className="text-3xl md:text-4xl font-bold text-primary-foreground mb-4">
+                {t('about.scenarios.title')}
+              </h2>
+              <p className="text-primary-foreground/70 max-w-2xl mx-auto">
+                {t('about.scenarios.subtitle')}
+              </p>
+            </motion.div>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+              {scenarios.map((s, i) => (
+                <motion.div
+                  key={i}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: i * 0.1 }}
+                  className="group p-6 rounded-2xl border border-primary-foreground/10 hover:border-accent/40 bg-primary-foreground/5 backdrop-blur-sm transition-all duration-300 hover:-translate-y-1"
+                >
+                  <s.icon className="w-8 h-8 text-accent mb-4" />
+                  <h3 className="text-lg font-bold text-primary-foreground mb-2">{s.label}</h3>
+                  <p className="text-sm text-primary-foreground/60">{s.desc}</p>
+                </motion.div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* ========== Company Profile + Image ========== */}
+        <section className="py-20 bg-background">
           <div className="container-custom">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-              <div>
+              <motion.div
+                initial={{ opacity: 0, x: -30 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+              >
                 <h2 className="text-2xl md:text-3xl font-bold mb-6">
                   {t('about.profile.title')}
                 </h2>
@@ -227,7 +321,6 @@ const About = () => {
                 <p className="text-muted-foreground mb-4 leading-relaxed">{t('about.profile.p2')}</p>
                 <p className="text-muted-foreground leading-relaxed mb-6">{t('about.profile.p3')}</p>
                 
-                {/* GEO Answer Nugget - Certifications & Authority */}
                 <div className="bg-accent/5 border border-accent/10 rounded-lg p-4 mb-6">
                   <h3 className="text-sm font-semibold text-foreground mb-2">{t('about.certifications.summary.title')}</h3>
                   <p className="text-sm text-muted-foreground leading-relaxed">
@@ -247,38 +340,29 @@ const About = () => {
                     ISO 9001
                   </span>
                 </div>
-              </div>
-              <div className="aspect-video rounded-xl overflow-hidden shadow-card">
+              </motion.div>
+              <motion.div
+                initial={{ opacity: 0, x: 30 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                className="aspect-video rounded-xl overflow-hidden shadow-card"
+              >
                 <img
                   src={caniReception}
                   alt="CANI Technology company reception - 长凌科技公司前台"
                   className="w-full h-full object-cover"
                   loading="lazy"
                 />
-              </div>
+              </motion.div>
             </div>
           </div>
         </section>
 
-        {/* Stats */}
-        <section className="py-16 bg-primary">
-          <div className="container-custom">
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
-              {stats.map((stat, index) => (
-                <div key={index} className="text-center">
-                  <div className="text-4xl md:text-5xl font-bold text-accent mb-2">{stat.value}</div>
-                  <div className="text-primary-foreground/80">{stat.label}</div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        {/* Facility Gallery */}
+        {/* ========== Facility Gallery ========== */}
         <FacilityGallery t={t} />
 
-        {/* Core Competencies - Full-Stack Architecture */}
-        <section className="py-16 bg-background">
+        {/* ========== Core Competencies - Full-Stack Architecture ========== */}
+        <section className="py-20 bg-background">
           <div className="container-custom">
             <h2 className="text-2xl md:text-3xl font-bold text-center mb-4">
               {t('about.competencies.title')}
@@ -288,14 +372,19 @@ const About = () => {
             </p>
             <div className="max-w-5xl mx-auto space-y-8">
               {competencyLayers.map((layer, layerIdx) => (
-                <div key={layerIdx} className="bg-card rounded-xl border border-border overflow-hidden shadow-card">
-                  {/* Layer Header */}
+                <motion.div
+                  key={layerIdx}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: layerIdx * 0.1 }}
+                  className="bg-card rounded-xl border border-border overflow-hidden shadow-card"
+                >
                   <div className="flex items-center gap-3 px-6 py-4 bg-primary">
                     <layer.icon className="w-6 h-6 text-accent" />
                     <h3 className="text-lg font-bold text-primary-foreground">{layer.title}</h3>
                     <span className="ml-auto text-xs font-mono bg-accent/20 text-accent px-3 py-1 rounded-full">{layer.tag}</span>
                   </div>
-                  {/* Layer Table */}
                   <div className="overflow-x-auto">
                     <Table>
                       <TableHeader>
@@ -316,14 +405,14 @@ const About = () => {
                       </TableBody>
                     </Table>
                   </div>
-                </div>
+                </motion.div>
               ))}
             </div>
           </div>
         </section>
 
-        {/* Business Ecosystem */}
-        <section className="py-16 bg-secondary">
+        {/* ========== One-Stop Ecosystem ========== */}
+        <section className="py-20 bg-secondary">
           <div className="container-custom">
             <h2 className="text-2xl md:text-3xl font-bold text-center mb-4">
               {t('about.ecosystem.title')}
@@ -332,37 +421,114 @@ const About = () => {
               {t('about.ecosystem.desc')}
             </p>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-              {ecosystemItems.map((item, index) => (
-                <div key={index} className="bg-card rounded-xl p-8 shadow-card text-center border border-border">
+              {[
+                { icon: Cpu, title: t('about.ecosystem.item1.title'), desc: t('about.ecosystem.item1.desc') },
+                { icon: Code, title: t('about.ecosystem.item2.title'), desc: t('about.ecosystem.item2.desc') },
+                { icon: Plane, title: t('about.ecosystem.item3.title'), desc: t('about.ecosystem.item3.desc') },
+              ].map((item, index) => (
+                <motion.div
+                  key={index}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: index * 0.1 }}
+                  className="bg-card rounded-xl p-8 shadow-card text-center border border-border"
+                >
                   <item.icon className="w-12 h-12 text-accent mx-auto mb-4" />
                   <h3 className="text-xl font-bold text-card-foreground mb-3">{item.title}</h3>
                   <p className="text-muted-foreground">{item.desc}</p>
-                </div>
+                </motion.div>
               ))}
             </div>
           </div>
         </section>
 
-        {/* Mission & Vision */}
-        <section className="py-16 bg-background">
+        {/* ========== 4. Founder Message ========== */}
+        <section className="py-20 md:py-28 bg-background relative overflow-hidden">
+          <div className="absolute bottom-0 left-0 w-80 h-80 bg-accent/5 rounded-full blur-3xl translate-y-1/2 -translate-x-1/2" />
+          <div className="container-custom relative">
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              className="max-w-4xl mx-auto"
+            >
+              <h2 className="text-2xl md:text-3xl font-bold text-center mb-12">
+                {t('about.founder.title')}
+              </h2>
+              <div className="flex flex-col md:flex-row items-center gap-10">
+                <div className="w-48 h-48 md:w-56 md:h-56 rounded-2xl overflow-hidden shadow-lg border-2 border-accent/20 flex-shrink-0">
+                  <img
+                    src={founderImg}
+                    alt={`${t('about.founder.name')} - ${t('about.founder.role')}`}
+                    className="w-full h-full object-cover"
+                    loading="lazy"
+                  />
+                </div>
+                <div className="flex-1 text-center md:text-left">
+                  <blockquote className="text-lg md:text-xl text-foreground/90 italic leading-relaxed mb-6 relative">
+                    <span className="absolute -top-4 -left-2 text-6xl text-accent/20 font-serif">"</span>
+                    <p className="pl-6">{t('about.founder.quote')}</p>
+                  </blockquote>
+                  <div>
+                    <p className="text-lg font-bold text-foreground">— {t('about.founder.name')}</p>
+                    <p className="text-sm text-accent font-medium">{t('about.founder.role')}</p>
+                  </div>
+                </div>
+              </div>
+            </motion.div>
+          </div>
+        </section>
+
+        {/* ========== OEM/ODM Partnership ========== */}
+        <section className="py-20 md:py-28 bg-accent/5 relative">
           <div className="container-custom">
-            <h2 className="text-2xl md:text-3xl font-bold text-center mb-12">
-              {t('about.culture.title')}
-            </h2>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-              {values.map((item, index) => (
-                <div key={index} className="bg-card rounded-xl p-8 shadow-card text-center">
-                  <item.icon className="w-12 h-12 text-accent mx-auto mb-4" />
-                  <h3 className="text-xl font-bold text-card-foreground mb-3">{item.title}</h3>
-                  <p className="text-muted-foreground">{item.description}</p>
-                </div>
+            <motion.div
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              viewport={{ once: true }}
+              className="text-center mb-14"
+            >
+              <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-2">
+                {t('about.oem.title')}
+              </h2>
+              <p className="text-lg text-accent font-medium">{t('about.oem.subtitle')}</p>
+            </motion.div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+              {oemFeatures.map((f, i) => (
+                <motion.div
+                  key={i}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: i * 0.1 }}
+                  className="flex gap-4"
+                >
+                  <div className="w-10 h-10 rounded-full bg-accent flex items-center justify-center text-accent-foreground shrink-0">
+                    <CheckCircle2 className="w-5 h-5" />
+                  </div>
+                  <div>
+                    <h4 className="font-bold text-lg text-foreground mb-1">{f.title}</h4>
+                    <p className="text-sm text-muted-foreground leading-relaxed">{f.desc}</p>
+                  </div>
+                </motion.div>
               ))}
+            </div>
+
+            <div className="text-center mt-14">
+              <LangLink to="/contact">
+                <Button className="bg-accent hover:bg-accent/90 text-accent-foreground px-10 py-6 text-lg font-semibold rounded-full">
+                  {t('about.oem.cta')}
+                  <ArrowRight className="w-5 h-5 ml-2" />
+                </Button>
+              </LangLink>
             </div>
           </div>
         </section>
 
-        {/* Timeline */}
-        <section className="py-16 bg-secondary">
+        {/* ========== Timeline ========== */}
+        <section className="py-20 bg-secondary">
           <div className="container-custom">
             <h2 className="text-2xl md:text-3xl font-bold text-center mb-12">
               {t('about.milestones.title')}
@@ -371,33 +537,31 @@ const About = () => {
               <div className="absolute left-1/2 transform -translate-x-1/2 h-full w-0.5 bg-border" />
               <div className="space-y-12">
                 {milestones.map((milestone, index) => (
-                  <div
+                  <motion.div
                     key={index}
-                    className={`relative flex items-center ${
-                      index % 2 === 0 ? "justify-start" : "justify-end"
-                    }`}
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: index * 0.1 }}
+                    className={`relative flex items-center ${index % 2 === 0 ? "justify-start" : "justify-end"}`}
                   >
-                    <div
-                      className={`w-5/12 ${index % 2 === 0 ? "text-right pr-8" : "text-left pl-8"}`}
-                    >
+                    <div className={`w-5/12 ${index % 2 === 0 ? "text-right pr-8" : "text-left pl-8"}`}>
                       <div className="bg-card rounded-xl p-6 shadow-card inline-block">
                         <div className="text-2xl font-bold text-accent mb-2">{milestone.year}</div>
-                        <h3 className="text-lg font-semibold text-card-foreground mb-1">
-                          {milestone.title}
-                        </h3>
+                        <h3 className="text-lg font-semibold text-card-foreground mb-1">{milestone.title}</h3>
                         <p className="text-sm text-muted-foreground">{milestone.description}</p>
                       </div>
                     </div>
                     <div className="absolute left-1/2 transform -translate-x-1/2 w-4 h-4 bg-accent rounded-full border-4 border-background" />
-                  </div>
+                  </motion.div>
                 ))}
               </div>
             </div>
           </div>
         </section>
 
-        {/* Core Team */}
-        <section className="py-16 bg-background">
+        {/* ========== Core Team ========== */}
+        <section className="py-20 bg-background">
           <div className="container-custom">
             <h2 className="text-2xl md:text-3xl font-bold text-center mb-12">
               {t('about.coreTeam.title')}
@@ -408,18 +572,25 @@ const About = () => {
                 { nameKey: 'about.team.prod.name', roleKey: 'about.team.prod.role', descKey: 'about.team.prod.desc', icon: BarChart3 },
                 { nameKey: 'about.team.market.name', roleKey: 'about.team.market.role', descKey: 'about.team.market.desc', icon: Globe2 },
               ].map((member, index) => (
-                <div key={index} className="bg-card rounded-xl p-8 shadow-card text-center">
+                <motion.div
+                  key={index}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: index * 0.1 }}
+                  className="bg-card rounded-xl p-8 shadow-card text-center"
+                >
                   <member.icon className="w-12 h-12 text-accent mx-auto mb-4" />
                   <h3 className="text-xl font-bold text-card-foreground">{t(member.nameKey)}</h3>
                   <p className="text-accent text-sm mb-3">{t(member.roleKey)}</p>
                   <p className="text-muted-foreground text-sm">{t(member.descKey)}</p>
-                </div>
+                </motion.div>
               ))}
             </div>
           </div>
         </section>
 
-        {/* Certifications */}
+        {/* ========== Certifications ========== */}
         <section className="py-16 bg-secondary">
           <div className="container-custom">
             <h2 className="text-2xl md:text-3xl font-bold text-center mb-12">
@@ -441,14 +612,11 @@ const About = () => {
           </div>
         </section>
 
-        {/* FAQ for AI/Voice Search */}
-        <PageFAQ
-          titleKey="about.faq.title"
-          items={faqItems}
-        />
+        {/* ========== FAQ ========== */}
+        <PageFAQ titleKey="about.faq.title" items={faqItems} />
 
-        {/* CTA */}
-        <section className="py-16 bg-primary">
+        {/* ========== CTA ========== */}
+        <section className="py-20 bg-primary">
           <div className="container-custom text-center">
             <h2 className="text-2xl md:text-3xl font-bold text-primary-foreground mb-4">
               {t('about.cta.title')}
