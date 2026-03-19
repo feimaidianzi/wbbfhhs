@@ -386,4 +386,11 @@ const NestedLangRedirect = () => {
 // Sub-routes rendered under /:lang/* prefix
 const LangRoutes = () => <NestedLangRedirect />;
 
+// Redirect any .html path to its clean version
+const HtmlRedirect = () => {
+  const location = useLocation();
+  const cleanPath = location.pathname.replace(/\.html$/, '') || '/';
+  return <Navigate to={cleanPath + location.search + location.hash} replace />;
+};
+
 export default App;
