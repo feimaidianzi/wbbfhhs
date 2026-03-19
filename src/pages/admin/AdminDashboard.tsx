@@ -108,8 +108,9 @@ const AdminDashboard = () => {
     publishedProducts: 0,
     publishedNews: 0,
   });
-  const [dailyInquiries, setDailyInquiries] = useState<DailyInquiry[]>([]);
-  const [statusCounts, setStatusCounts] = useState<StatusCount[]>([]);
+  const [dailyTrends, setDailyTrends] = useState<DailyTrend[]>([]);
+  const [typeCounts, setTypeCounts] = useState<TypeCount[]>([]);
+  const [timeRange, setTimeRange] = useState<TimeRange>('7d');
 
   useEffect(() => {
     const checkAdminAccess = async () => {
