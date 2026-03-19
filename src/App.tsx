@@ -353,10 +353,14 @@ const NestedLangRedirect = () => {
     return <Navigate to={correctPath + location.search + location.hash} replace />;
   }
   
-  // No nesting, render normal routes
+  // No nesting, render normal routes (including legacy redirects)
   return (
     <Suspense fallback={<PageLoader />}>
       <Routes>
+        {/* Legacy redirects inside lang-prefixed routes */}
+        {legacyRedirects.map(({ from, to }) => (
+          <Route key={from} path={from.slice(1)} element={<Navigate to={lang === 'en' ? to : `/${lang}${to}`} replace />} />
+        ))}
         {publicRoutes.map(({ path, element }) => {
           const relativePath = path === '/' ? '/' : path.slice(1);
           return <Route key={path} path={relativePath === '/' ? '/' : relativePath} element={
