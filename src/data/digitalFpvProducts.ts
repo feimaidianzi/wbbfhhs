@@ -281,5 +281,20 @@ export const digitalFpvCategories = [
     id: "meshlink",
     nameKey: "digitalFpv.category.meshlink",
     descriptionKey: "digitalFpv.category.meshlink.desc",
-  }
+  },
+  {
+    id: "hAirborne",
+    nameKey: "digitalFpv.category.hAirborne",
+    descriptionKey: "digitalFpv.category.hAirborne.desc",
+  },
+  {
+    id: "hBaseStation",
+    nameKey: "digitalFpv.category.hBaseStation",
+    descriptionKey: "digitalFpv.category.hBaseStation.desc",
+  },
+  {
+    id: "hAntenna",
+    nameKey: "digitalFpv.category.hAntenna",
+    descriptionKey: "digitalFpv.category.hAntenna.desc",
+  },
 ];
