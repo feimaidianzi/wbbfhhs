@@ -192,60 +192,85 @@ const AdminDashboard = () => {
     }
   };
 
-  const fetchChartData = async () => {
+  const fetchChartData = async (range: TimeRange = timeRange) => {
     try {
-      // Fetch inquiries for the last 7 days
-      const sevenDaysAgo = new Date();
-      sevenDaysAgo.setDate(sevenDaysAgo.getDate() - 7);
+      const startDate = getStartDate(range);
+      const startISO = startDate.toISOString();
+      const dayCount = getDayCount(range);
+      const fmt = getDateFormat(range);
 
+      // Fetch form inquiries
       const { data: inquiries } = await supabase
         .from('inquiries')
-        .select('created_at, status')
-        .gte('created_at', sevenDaysAgo.toISOString());
+        .select('created_at')
+        .gte('created_at', startISO);
 
-      // Process daily counts
-      const dailyCounts: Record<string, number> = {};
-      const statusMap: Record<string, number> = {};
+      // Fetch human service conversations (transferred to human)
+      const { data: humanConvs } = await supabase
+        .from('ai_conversations')
+        .select('created_at, is_transferred_to_human')
+        .gte('created_at', startISO)
+        .eq('is_transferred_to_human', true);
 
-      for (let i = 6; i >= 0; i--) {
-        const date = new Date();
-        date.setDate(date.getDate() - i);
-        const dateStr = date.toLocaleDateString('zh-CN', { month: 'short', day: 'numeric' });
-        dailyCounts[dateStr] = 0;
+      // Build daily buckets
+      const dailyCounts: Record<string, { formCount: number; humanCount: number }> = {};
+      
+      if (range === 'today') {
+        for (let h = 0; h < 24; h++) {
+          const label = `${h.toString().padStart(2, '0')}:00`;
+          dailyCounts[label] = { formCount: 0, humanCount: 0 };
+        }
+        inquiries?.forEach(i => {
+          const h = new Date(i.created_at).getHours();
+          const label = `${h.toString().padStart(2, '0')}:00`;
+          if (dailyCounts[label]) dailyCounts[label].formCount++;
+        });
+        humanConvs?.forEach(c => {
+          const h = new Date(c.created_at).getHours();
+          const label = `${h.toString().padStart(2, '0')}:00`;
+          if (dailyCounts[label]) dailyCounts[label].humanCount++;
+        });
+      } else {
+        for (let i = dayCount - 1; i >= 0; i--) {
+          const d = new Date();
+          d.setDate(d.getDate() - i);
+          const label = d.toLocaleDateString('zh-CN', fmt);
+          dailyCounts[label] = { formCount: 0, humanCount: 0 };
+        }
+        inquiries?.forEach(i => {
+          const label = new Date(i.created_at).toLocaleDateString('zh-CN', fmt);
+          if (dailyCounts[label]) dailyCounts[label].formCount++;
+        });
+        humanConvs?.forEach(c => {
+          const label = new Date(c.created_at).toLocaleDateString('zh-CN', fmt);
+          if (dailyCounts[label]) dailyCounts[label].humanCount++;
+        });
       }
 
-      inquiries?.forEach(inquiry => {
-        const date = new Date(inquiry.created_at);
-        const dateStr = date.toLocaleDateString('zh-CN', { month: 'short', day: 'numeric' });
-        if (dailyCounts[dateStr] !== undefined) {
-          dailyCounts[dateStr]++;
-        }
-        
-        const status = inquiry.status || 'pending';
-        statusMap[status] = (statusMap[status] || 0) + 1;
-      });
-
-      setDailyInquiries(
-        Object.entries(dailyCounts).map(([date, count]) => ({ date, count }))
-      );
-
-      const statusLabels: Record<string, string> = {
-        pending: '待处理',
-        processing: '处理中',
-        replied: '已回复',
-        closed: '已关闭',
-      };
-
-      setStatusCounts(
-        Object.entries(statusMap).map(([status, count]) => ({
-          status: statusLabels[status] || status,
-          count,
+      setDailyTrends(
+        Object.entries(dailyCounts).map(([date, { formCount, humanCount }]) => ({
+          date,
+          formCount,
+          humanCount,
+          total: formCount + humanCount,
         }))
       );
+
+      const formTotal = inquiries?.length || 0;
+      const humanTotal = humanConvs?.length || 0;
+      setTypeCounts([
+        { type: '表单咨询', count: formTotal },
+        { type: '人工客服', count: humanTotal },
+      ]);
     } catch (error) {
       console.error('Failed to fetch chart data:', error);
     }
   };
+
+  // Refetch when time range changes
+  useEffect(() => {
+    if (user) fetchChartData(timeRange);
+  }, [timeRange]);
 
   const handleLogout = async () => {
     await supabase.auth.signOut();
