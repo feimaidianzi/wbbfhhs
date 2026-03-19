@@ -74,7 +74,7 @@ const PowerInspection = () => {
   const products = [
     { model: "X850", payload: "5kg", range: "8km", description: t('powerInspection.product1.desc'), link: "/products/multi-rotor/x850" },
     { model: "X1200", payload: "10kg", range: "10km", description: t('powerInspection.product2.desc'), link: "/products/multi-rotor/x1200" },
-    { model: "UHS-600", payload: "-", range: "-", description: t('powerInspection.product3.desc'), link: "/products/airport/uhs-600" },
+    { model: "UHS-600", payload: "-", range: "-", description: t('powerInspection.product3.desc'), link: "/products" },
   ];
 
   const serviceJsonLd = {
@@ -140,9 +140,9 @@ const PowerInspection = () => {
           { label: t('accessory.fc'), path: '/products/accessories/fc-esc' },
         ]}
         relatedApplications={[
-          { label: t('app.firefighting'), path: '/applications/firefighting' },
+          { label: t('app.firefighting'), path: '/solutions/uav-firefighting-emergency-rescue' },
           { label: t('app.environment'), path: '/solutions/industrial-uav-environmental-monitoring' },
-          { label: t('app.tethered'), path: '/applications/tethered' },
+          { label: t('app.tethered'), path: '/products/tethered' },
         ]}
       >
         {/* GEO Anchor Text Section */}

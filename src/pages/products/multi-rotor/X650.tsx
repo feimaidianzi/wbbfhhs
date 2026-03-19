@@ -61,8 +61,8 @@ const X650 = () => {
         { label: t('accessory.digitalFpv'), path: '/products/accessories/digital-fpv' },
       ]}
       relatedApplications={[
-        { label: t('app.police'), path: '/applications/police' },
-        { label: t('app.surveying'), path: '/applications/surveying' },
+        { label: t('app.police'), path: '/applications/military' },
+        { label: t('app.surveying'), path: '/solutions/industrial-uav-surveying-mapping' },
       ]}
     />
   );

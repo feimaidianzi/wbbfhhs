@@ -87,8 +87,8 @@ const AccessoriesCustom = () => {
 
   const applicationItems = [
     { icon: Zap, key: 'power', link: '/applications/power-inspection' },
-    { icon: Shield, key: 'security', link: '/applications/police' },
-    { icon: AlertTriangle, key: 'emergency', link: '/applications/emergency' },
+    { icon: Shield, key: 'security', link: '/applications/military' },
+    { icon: AlertTriangle, key: 'emergency', link: '/solutions/uav-firefighting-emergency-rescue' },
     { icon: Leaf, key: 'agriculture', link: '/products/agriculture' },
   ];
 

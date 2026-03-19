@@ -67,7 +67,7 @@ const Applications = () => {
       name: t('applications.tethered.name'),
       description: t('applications.tethered.desc'),
       image: tetheredImg,
-      href: "/applications/tethered",
+      href: "/products/tethered",
       icon: Link2,
       stats: [t('applications.tethered.stat1'), t('applications.tethered.stat2')],
     },

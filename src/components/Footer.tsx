@@ -59,8 +59,8 @@ export const Footer = () => {
     { name: t('app.power'), path: "/applications/power-inspection" },
     { name: t('app.logistics'), path: "/applications/logistics" },
     { name: t('app.environment'), path: "/solutions/industrial-uav-environmental-monitoring" },
-    { name: t('app.firefighting'), path: "/applications/firefighting" },
-    { name: t('app.tethered'), path: "/applications/tethered" },
+    { name: t('app.firefighting'), path: "/solutions/uav-firefighting-emergency-rescue" },
+    { name: t('app.tethered'), path: "/products/tethered" },
   ];
 
   const softwareLinks = [
@@ -294,10 +294,10 @@ export const Footer = () => {
             <LangLink to="/products/multi-rotor" className="hover:text-background/60 transition-colors">{t('product.multiRotor')}</LangLink>
             <LangLink to="/applications" className="hover:text-background/60 transition-colors">{t('footer.applications')}</LangLink>
             <LangLink to="/applications/power-inspection" className="hover:text-background/60 transition-colors">{t('app.power')}</LangLink>
-            <LangLink to="/applications/firefighting" className="hover:text-background/60 transition-colors">{t('app.firefighting')}</LangLink>
+            <LangLink to="/solutions/uav-firefighting-emergency-rescue" className="hover:text-background/60 transition-colors">{t('app.firefighting')}</LangLink>
             <LangLink to="/solutions/industrial-uav-environmental-monitoring" className="hover:text-background/60 transition-colors">{t('app.environment')}</LangLink>
             <LangLink to="/applications/logistics" className="hover:text-background/60 transition-colors">{t('app.logistics')}</LangLink>
-            <LangLink to="/applications/tethered" className="hover:text-background/60 transition-colors">{t('app.tethered')}</LangLink>
+            <LangLink to="/products/tethered" className="hover:text-background/60 transition-colors">{t('app.tethered')}</LangLink>
             <LangLink to="/software" className="hover:text-background/60 transition-colors">{t('footer.software')}</LangLink>
             <LangLink to="/custom-research" className="hover:text-background/60 transition-colors">{t('footer.custom')}</LangLink>
             <LangLink to="/projects" className="hover:text-background/60 transition-colors">{t('footer.projects')}</LangLink>
