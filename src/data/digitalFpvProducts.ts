@@ -8,11 +8,23 @@ import s900Datalink5 from "@/assets/fpv/s900-datalink-5.jpg";
 import s900Datalink6 from "@/assets/fpv/s900-datalink-6.jpg";
 import s900Datalink7 from "@/assets/fpv/s900-datalink-7.jpg";
 import meshLinkAntenna from "@/assets/products/mesh-link-antenna.webp";
+import hSeriesA30 from "@/assets/fpv/h-series-a30.jpg";
+import hSeriesA50 from "@/assets/fpv/h-series-a50.jpg";
+import hSeriesA100 from "@/assets/fpv/h-series-a100.jpg";
+import hSeriesA150 from "@/assets/fpv/h-series-a150.jpg";
+import hSeries4000A150 from "@/assets/fpv/h-series-4000a150.jpg";
+import hSeriesB50 from "@/assets/fpv/h-series-b50.jpg";
+import hSeriesHB150 from "@/assets/fpv/h-series-hb150.jpg";
+import hSeries4000B150 from "@/assets/fpv/h-series-4000b150.jpg";
+import hSeriesBladeAntenna from "@/assets/fpv/h-series-blade-antenna.jpg";
+import hSeriesFlangeAntenna from "@/assets/fpv/h-series-flange-antenna.jpg";
+import hSeriesDirectionalAntenna from "@/assets/fpv/h-series-directional-antenna.jpg";
+import hSeriesOmniAntenna from "@/assets/fpv/h-series-omni-antenna.jpg";
 
 export interface DigitalFpvProduct {
   id: string;
   nameKey: string;
-  category: "transmitter" | "receiver" | "datalink" | "meshlink";
+  category: "transmitter" | "receiver" | "datalink" | "meshlink" | "hAirborne" | "hBaseStation" | "hAntenna";
   sloganKey: string;
   subSloganKey: string;
   descriptionKey: string;
