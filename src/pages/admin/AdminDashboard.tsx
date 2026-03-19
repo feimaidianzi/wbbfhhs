@@ -39,15 +39,63 @@ interface Stats {
   publishedNews: number;
 }
 
-interface DailyInquiry {
+interface DailyTrend {
   date: string;
+  formCount: number;
+  humanCount: number;
+  total: number;
+}
+
+interface TypeCount {
+  type: string;
   count: number;
 }
 
-interface StatusCount {
-  status: string;
-  count: number;
-}
+type TimeRange = 'today' | '3d' | '7d' | '15d' | '30d' | '3mo' | '6mo' | '1yr';
+
+const TIME_RANGE_OPTIONS: { value: TimeRange; label: string }[] = [
+  { value: 'today', label: '今天' },
+  { value: '3d', label: '3天' },
+  { value: '7d', label: '7天' },
+  { value: '15d', label: '15天' },
+  { value: '30d', label: '30天' },
+  { value: '3mo', label: '3个月' },
+  { value: '6mo', label: '半年' },
+  { value: '1yr', label: '一年' },
+];
+
+const getStartDate = (range: TimeRange): Date => {
+  const now = new Date();
+  switch (range) {
+    case 'today': now.setHours(0, 0, 0, 0); return now;
+    case '3d': now.setDate(now.getDate() - 3); return now;
+    case '7d': now.setDate(now.getDate() - 7); return now;
+    case '15d': now.setDate(now.getDate() - 15); return now;
+    case '30d': now.setDate(now.getDate() - 30); return now;
+    case '3mo': now.setMonth(now.getMonth() - 3); return now;
+    case '6mo': now.setMonth(now.getMonth() - 6); return now;
+    case '1yr': now.setFullYear(now.getFullYear() - 1); return now;
+  }
+};
+
+const getDateFormat = (range: TimeRange): Intl.DateTimeFormatOptions => {
+  if (range === 'today') return { hour: '2-digit' };
+  if (['3d', '7d', '15d'].includes(range)) return { month: 'short', day: 'numeric' };
+  return { month: 'short', day: 'numeric' };
+};
+
+const getDayCount = (range: TimeRange): number => {
+  switch (range) {
+    case 'today': return 1;
+    case '3d': return 3;
+    case '7d': return 7;
+    case '15d': return 15;
+    case '30d': return 30;
+    case '3mo': return 90;
+    case '6mo': return 180;
+    case '1yr': return 365;
+  }
+};
 
 const AdminDashboard = () => {
   const navigate = useNavigate();
