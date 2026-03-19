@@ -59,8 +59,8 @@ export const Footer = () => {
     { name: t('app.power'), path: "/applications/power-inspection" },
     { name: t('app.logistics'), path: "/applications/logistics" },
     { name: t('app.environment'), path: "/solutions/industrial-uav-environmental-monitoring" },
-    { name: t('app.firefighting'), path: "/applications/firefighting" },
-    { name: t('app.tethered'), path: "/applications/tethered" },
+    { name: t('app.firefighting'), path: "/solutions/uav-firefighting-emergency-rescue" },
+    { name: t('app.tethered'), path: "/products/tethered" },
   ];
 
   const softwareLinks = [
