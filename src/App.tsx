@@ -299,6 +299,9 @@ const App = () => (
                 <Route key={lang} path={`/${lang}/*`} element={<LangRoutes />} />
               ))}
 
+              {/* Catch .html paths and redirect to clean versions */}
+              <Route path="*.html" element={<HtmlRedirect />} />
+
               <Route path="*" element={<NotFound />} />
             </Routes>
           </Suspense>
@@ -382,5 +385,12 @@ const NestedLangRedirect = () => {
 
 // Sub-routes rendered under /:lang/* prefix
 const LangRoutes = () => <NestedLangRedirect />;
+
+// Redirect any .html path to its clean version
+const HtmlRedirect = () => {
+  const location = useLocation();
+  const cleanPath = location.pathname.replace(/\.html$/, '') || '/';
+  return <Navigate to={cleanPath + location.search + location.hash} replace />;
+};
 
 export default App;
