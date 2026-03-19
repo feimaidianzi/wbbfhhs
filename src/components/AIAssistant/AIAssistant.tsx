@@ -47,7 +47,7 @@ export const AIAssistant = () => {
   const [isHumanMode, setIsHumanMode] = useState(false);
   const [visitorId] = useState(getOrCreateVisitorId);
   const lastMessageTimeRef = useRef<number>(Date.now());
-  const timeoutCheckRef = useRef<NodeJS.Timeout | null>(null);
+  const timeoutCheckRef = useRef<ReturnType<typeof setInterval> | null>(null);
 
   // 加载或创建会话 - 基于持久化的visitorId
   const ensureConversation = useCallback(async () => {
