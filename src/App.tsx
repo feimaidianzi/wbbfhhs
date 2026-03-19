@@ -311,17 +311,24 @@ const BreadcrumbLazy = React.lazy(() => import("@/components/Breadcrumb").then(m
 
 // Redirect component that catches nested language prefixes and redirects to clean URL
 const NestedLangRedirect = () => {
-  const { lang } = useParams<{ lang: string }>();
   const location = useLocation();
-  // The wildcard part after /:lang/
-  const restPath = location.pathname.replace(`/${lang}`, '');
+  const pathname = location.pathname;
+  
+  // Extract the first segment as the language code
+  const firstSegment = pathname.split('/')[1];
+  const lang = firstSegment; // This is guaranteed to be a valid lang code since we only render this under /:lang/* routes
+  
+  // Get everything after the first lang prefix
+  const restPath = pathname.slice(lang.length + 1); // +1 for the leading /
+  
   // Strip all remaining language prefixes from the rest
   const cleanPath = stripAllLangPrefixes(restPath);
+  
   // Build correct URL: /{lang}{cleanPath}
   const correctPath = lang === 'en' ? cleanPath : `/${lang}${cleanPath}`;
   
   // If path changed, we had nested prefixes - redirect
-  if (correctPath !== location.pathname) {
+  if (correctPath !== pathname) {
     return <Navigate to={correctPath + location.search + location.hash} replace />;
   }
   
