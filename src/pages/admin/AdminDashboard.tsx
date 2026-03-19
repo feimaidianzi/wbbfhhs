@@ -29,7 +29,7 @@ import {
   Zap
 } from 'lucide-react';
 import { User } from '@supabase/supabase-js';
-import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, BarChart, Bar } from 'recharts';
+import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, BarChart, Bar, Cell } from 'recharts';
 import LiveVisitors from '@/components/admin/LiveVisitors';
 
 interface Stats {
