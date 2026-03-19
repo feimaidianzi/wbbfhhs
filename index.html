@@ -456,7 +456,7 @@
       var siteName=isEn?'CANI Technology':'CANI 长凌科技';
       var fullTitle=seo[0]+(seo[0].indexOf(siteName)<0?' | '+siteName:'');
       document.title=fullTitle;
-      var fullUrl=B+(lang==='zh'?pagePath:'/'+lang+pagePath);
+      var fullUrl=B+(lang==='en'?pagePath:'/'+lang+pagePath);
       // Helper to set meta content
       function setM(sel,val){var e=document.querySelector(sel);if(e)e.setAttribute('content',val);}
       setM('meta[name="description"]',seo[1]);
