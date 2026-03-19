@@ -62,22 +62,8 @@ Disallow: /admin/
 Disallow: /auth
 Disallow: /api/
 
-# Sitemap Index
+# Sitemap
 Sitemap: https://www.caniuav.com/sitemap.xml
-Sitemap: https://www.caniuav.com/sitemap-zh.xml
-Sitemap: https://www.caniuav.com/sitemap-en.xml
-Sitemap: https://www.caniuav.com/sitemap-ja.xml
-Sitemap: https://www.caniuav.com/sitemap-ko.xml
-Sitemap: https://www.caniuav.com/sitemap-vi.xml
-Sitemap: https://www.caniuav.com/sitemap-th.xml
-Sitemap: https://www.caniuav.com/sitemap-ms.xml
-Sitemap: https://www.caniuav.com/sitemap-id.xml
-Sitemap: https://www.caniuav.com/sitemap-fr.xml
-Sitemap: https://www.caniuav.com/sitemap-de.xml
-Sitemap: https://www.caniuav.com/sitemap-es.xml
-Sitemap: https://www.caniuav.com/sitemap-ru.xml
-Sitemap: https://www.caniuav.com/sitemap-ar.xml
-Sitemap: https://www.caniuav.com/sitemap-tr.xml
 
 # Host
 Host: https://www.caniuav.com
