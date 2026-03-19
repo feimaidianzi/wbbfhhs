@@ -45,12 +45,17 @@ const detectLanguageFromPath = (): LanguageCode | null => {
 
 export const getPathWithoutLang = (): string => {
   const pathname = window.location.pathname;
-  const firstSegment = pathname.split('/')[1];
-  if (firstSegment && VALID_LANG_CODES.has(firstSegment) && firstSegment !== 'en') {
-    const rest = pathname.slice(firstSegment.length + 1);
-    return rest || '/';
+  const segments = pathname.split('/').filter(Boolean);
+  
+  // Strip ALL leading language code segments to prevent nesting
+  let firstNonLangIndex = 0;
+  while (firstNonLangIndex < segments.length && VALID_LANG_CODES.has(segments[firstNonLangIndex])) {
+    firstNonLangIndex++;
   }
-  return pathname;
+  
+  if (firstNonLangIndex === 0) return pathname;
+  const cleanSegments = segments.slice(firstNonLangIndex);
+  return '/' + cleanSegments.join('/') || '/';
 };
 
 const countryToLanguage: Record<string, LanguageCode> = {
