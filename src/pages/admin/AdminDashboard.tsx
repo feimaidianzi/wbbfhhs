@@ -51,6 +51,12 @@ interface TypeCount {
   count: number;
 }
 
+interface DailyVisit {
+  date: string;
+  visits: number;
+  pageViews: number;
+}
+
 type TimeRange = 'today' | '3d' | '7d' | '15d' | '30d' | '3mo' | '6mo' | '1yr';
 
 const TIME_RANGE_OPTIONS: { value: TimeRange; label: string }[] = [
