@@ -163,7 +163,7 @@ export default function CustomerServiceChat() {
     setLoading(false);
   }, [toast]);
 
-  useEffect(() => { loadConversations(); }, [loadConversations]);
+  useEffect(() => { if (authReady) loadConversations(); }, [authReady, loadConversations]);
 
   // Realtime: new messages
   useEffect(() => {
