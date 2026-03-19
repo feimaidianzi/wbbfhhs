@@ -479,8 +479,8 @@
       var hreflangs=document.querySelectorAll('link[hreflang]');
       for(var j=0;j<hreflangs.length;j++){
         var hl=hreflangs[j].getAttribute('hreflang');
-        if(hl==='x-default'){hreflangs[j].href=B+'/en'+pagePath;}
-        else if(hl==='zh-CN'){hreflangs[j].href=B+pagePath;}
+        if(hl==='x-default'||hl==='en'){hreflangs[j].href=B+pagePath;}
+        else if(hl==='zh-CN'){hreflangs[j].href=B+'/zh'+pagePath;}
         else{hreflangs[j].href=B+'/'+hl+pagePath;}
       }
     })();
