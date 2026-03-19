@@ -6495,6 +6495,182 @@ export const zhTranslations: Record<string, string> = {
   'digitalFpv.meshLink.keyFeature.3': '三频段可选',
   'digitalFpv.meshLink.keyFeature.4': '100Mbps速率',
   
+  // H-Series Categories
+  'digitalFpv.category.hAirborne': 'H系列机载组网电台',
+  'digitalFpv.category.hAirborne.desc': '宽带OFDM数据链，支持30-150公里空对地高清视频传输及遥控遥测',
+  'digitalFpv.category.hBaseStation': 'H系列基站组网电台',
+  'digitalFpv.category.hBaseStation.desc': 'IP65防护一体化基站，集天线、终端、转接板于一体，快速部署',
+  'digitalFpv.category.hAntenna': 'H系列数据链天线',
+  'digitalFpv.category.hAntenna.desc': '刀型/法兰盘/定向/全向多种形态，IP67防护，适配各类载体',
+
+  // H-Series shared keys
+  'digitalFpv.h.keyFeature.mimo': 'MIMO射频',
+  'digitalFpv.h.keyFeature.fhss': '智能选频/跳频',
+  'digitalFpv.h.keyFeature.mesh': '32节点组网',
+
+  // H-Series Spec labels
+  'digitalFpv.h.spec.category.rf': '射频参数',
+  'digitalFpv.h.spec.category.network': '网络与安全',
+  'digitalFpv.h.spec.category.interface': '接口参数',
+  'digitalFpv.h.spec.category.physical': '物理参数',
+  'digitalFpv.h.spec.system': '技术体制',
+  'digitalFpv.h.spec.freqBand': '工作频段',
+  'digitalFpv.h.spec.txPower': '发射功率',
+  'digitalFpv.h.spec.rfBandwidth': '射频带宽',
+  'digitalFpv.h.spec.modulation': '调制方式',
+  'digitalFpv.h.spec.sensitivity': '接收灵敏度',
+  'digitalFpv.h.spec.networking': '组网方式',
+  'digitalFpv.h.spec.encryption': '加密方式',
+  'digitalFpv.h.spec.latency': '链路延时',
+  'digitalFpv.h.spec.dataInterface': '数据接口',
+  'digitalFpv.h.spec.rfConnector': '射频物理接口',
+  'digitalFpv.h.spec.dataConnector': '数据物理接口',
+  'digitalFpv.h.spec.power': '供电',
+  'digitalFpv.h.spec.consumption': '功耗',
+  'digitalFpv.h.spec.workTemp': '工作温度',
+  'digitalFpv.h.spec.storageTemp': '存储温度',
+  'digitalFpv.h.spec.size': '尺寸',
+  'digitalFpv.h.spec.weight': '重量',
+
+  // H-Series shared features
+  'digitalFpv.h.feature.mimo.title': 'MIMO射频技术',
+  'digitalFpv.h.feature.mimo.desc': '采用多载波调制技术与MIMO射频技术，接收灵敏度高，传输能力强',
+  'digitalFpv.h.feature.fhss.title': '智能选频/跳频',
+  'digitalFpv.h.feature.fhss.desc': '支持跳频或智能选频工作模式，抗干扰性强',
+  'digitalFpv.h.feature.capacity.title': '20Mbps传输容量',
+  'digitalFpv.h.feature.capacity.desc': '高达20Mbps传输容量，满足高清视频实时传输需求',
+  'digitalFpv.h.feature.topology.title': '拓扑显示',
+  'digitalFpv.h.feature.topology.desc': '具备网络节点拓扑显示功能，实时监控网络状态',
+  'digitalFpv.h.feature.mesh.title': '自组网',
+  'digitalFpv.h.feature.mesh.desc': '支持16/32节点自组网，满足点对点、点对多点、多点对多点需求',
+  'digitalFpv.h.feature.wideTemp.title': '宽温工作',
+  'digitalFpv.h.feature.wideTemp.desc': '工作温度-40℃~+70℃，适应各种极端环境',
+  'digitalFpv.h.feature.ip65.title': 'IP65防护',
+  'digitalFpv.h.feature.ip65.desc': 'IP65防护等级设计，适合野外恶劣环境工作',
+  'digitalFpv.h.feature.integrated.title': '一体化设计',
+  'digitalFpv.h.feature.integrated.desc': '集天线、基站终端、转接板于一体，一根数据线实现电源和数据交互',
+
+  // HD-1400-A30
+  'digitalFpv.h.a30.name': 'HD-1400-A30 机载组网电台',
+  'digitalFpv.h.a30.slogan': '30公里机载宽带数据链',
+  'digitalFpv.h.a30.subSlogan': '30KM传输 | OFDM调制 | 2×2W功率 | 620g轻量',
+  'digitalFpv.h.a30.description': 'HD-1400-A30系列采用多载波调制技术、MIMO射频技术、智能选频及跳频技术，实现空对地30公里范围内的单向高清视频传输以及遥控遥测双向数据传输。',
+  'digitalFpv.h.a30.keyFeature.range': '30KM传输',
+
+  // HD-1400-A50
+  'digitalFpv.h.a50.name': 'HD-1400-A50 机载组网电台',
+  'digitalFpv.h.a50.slogan': '50公里机载宽带数据链',
+  'digitalFpv.h.a50.subSlogan': '50KM传输 | OFDM调制 | 2×5W功率 | 1360g',
+  'digitalFpv.h.a50.description': 'HD-1400-A50系列采用多载波调制技术、MIMO射频技术、智能选频及跳频技术，实现空对地50公里范围内的单向高清视频传输以及遥控遥测双向数据传输。',
+  'digitalFpv.h.a50.keyFeature.range': '50KM传输',
+
+  // HD-1400-A100
+  'digitalFpv.h.a100.name': 'HD-1400-A100 机载组网电台',
+  'digitalFpv.h.a100.slogan': '100公里机载宽带数据链',
+  'digitalFpv.h.a100.subSlogan': '100KM传输 | OFDM调制 | 2×10W功率 | 670g轻量',
+  'digitalFpv.h.a100.description': 'HD-1400-A100系列采用多载波调制技术、MIMO射频技术、智能选频及跳频技术，实现空对地100公里范围内的单向高清视频传输以及遥控遥测双向数据传输。',
+  'digitalFpv.h.a100.keyFeature.range': '100KM传输',
+
+  // HD-1400-A150
+  'digitalFpv.h.a150.name': 'HD-1400-A150 机载组网电台',
+  'digitalFpv.h.a150.slogan': '150公里机载宽带数据链',
+  'digitalFpv.h.a150.subSlogan': '150KM传输 | OFDM调制 | 2×10W功率 | 1450g',
+  'digitalFpv.h.a150.description': 'HD-1400-A150系列采用多载波调制技术、MIMO射频技术、智能选频及跳频技术，实现空对地150公里范围内的单向高清视频传输以及遥控遥测双向数据传输。',
+  'digitalFpv.h.a150.keyFeature.range': '150KM传输',
+
+  // HD-4000-A150
+  'digitalFpv.h.4000a150.name': 'HD-4000-A150 机载组网电台',
+  'digitalFpv.h.4000a150.slogan': '150公里C波段机载数据链',
+  'digitalFpv.h.4000a150.subSlogan': '150KM传输 | 4GHz C波段 | 2×20W功率 | 1500g',
+  'digitalFpv.h.4000a150.description': 'HD-4000-A150系列采用C波段(4000-4300MHz)，MIMO射频技术、智能选频及跳频技术，实现空对地150公里范围内的高清视频传输。',
+  'digitalFpv.h.4000a150.keyFeature.range': '150KM传输',
+  'digitalFpv.h.4000a150.keyFeature.band': '4GHz C波段',
+
+  // HD-1400-B50
+  'digitalFpv.h.b50.name': 'HD-1400-B50 基站组网电台',
+  'digitalFpv.h.b50.slogan': '50公里一体化基站电台',
+  'digitalFpv.h.b50.subSlogan': '50KM传输 | IP65防护 | 一体化设计 | 快速部署',
+  'digitalFpv.h.b50.description': 'HD-1400-B50系列基站电台集天线、终端、转接板于一体，IP65防护等级，一根数据线实现电源与数据交互，方便快速展开使用。',
+  'digitalFpv.h.b50.keyFeature.range': '50KM传输',
+  'digitalFpv.h.b50.keyFeature.ip65': 'IP65防护',
+
+  // HD-HB150
+  'digitalFpv.h.hb150.name': 'HD-HB150 基站组网电台',
+  'digitalFpv.h.hb150.slogan': '100/150公里高功率基站',
+  'digitalFpv.h.hb150.subSlogan': '100~150KM传输 | IP65防护 | 2×10W功率 | 1800g',
+  'digitalFpv.h.hb150.description': 'HD-HB150系列基站电台支持100/150公里范围传输，IP65防护，一体化集成设计，适合野外快速部署。',
+  'digitalFpv.h.hb150.keyFeature.range': '150KM传输',
+
+  // HD-4000-B150
+  'digitalFpv.h.4000b150.name': 'HD-4000-B150 基站组网电台',
+  'digitalFpv.h.4000b150.slogan': '150公里C波段基站电台',
+  'digitalFpv.h.4000b150.subSlogan': '150KM传输 | 4GHz C波段 | IP65防护 | 2480g',
+  'digitalFpv.h.4000b150.description': 'HD-4000-B150系列采用C波段(4000-4300MHz)基站电台，IP65防护，一体化设计，适合远距离地面站部署。',
+  'digitalFpv.h.4000b150.keyFeature.range': '150KM传输',
+
+  // H-Series Antennas
+  'digitalFpv.h.ant.spec.freq': '工作频率',
+  'digitalFpv.h.ant.spec.vswr': '驻波比',
+  'digitalFpv.h.ant.spec.gain': '增益',
+  'digitalFpv.h.ant.spec.polarization': '极化方式',
+  'digitalFpv.h.ant.spec.hAngle': '水平辐射角',
+  'digitalFpv.h.ant.spec.vAngle': '垂直辐射角',
+  'digitalFpv.h.ant.spec.maxPower': '承受功率',
+  'digitalFpv.h.ant.spec.impedance': '阻抗',
+  'digitalFpv.h.ant.spec.connector': '连接座',
+  'digitalFpv.h.ant.spec.material': '材料',
+  'digitalFpv.h.ant.spec.color': '颜色',
+
+  // Blade Antenna
+  'digitalFpv.h.blade.name': 'HD-BLA 刀型机载天线',
+  'digitalFpv.h.blade.slogan': '低剖面流线型设计',
+  'digitalFpv.h.blade.subSlogan': '刀型低剖面 | IP67防护 | 模具一体成型 | 230g',
+  'digitalFpv.h.blade.description': 'HD-BLA刀型天线采用低剖面流线型外观设计，模具一体成型，IP67防护等级，广泛应用于UAV、直升机、固定翼等高速移动载体。',
+  'digitalFpv.h.blade.keyFeature.1': '模具一体成型',
+  'digitalFpv.h.blade.keyFeature.2': 'IP67防护',
+  'digitalFpv.h.blade.keyFeature.3': 'DO160标准',
+  'digitalFpv.h.blade.keyFeature.4': '20000m低气压',
+  'digitalFpv.h.blade.feature.1.title': '一体成型设计',
+  'digitalFpv.h.blade.feature.1.desc': '模具一体成型，低剖面流线型外观，适配高速飞行载体',
+  'digitalFpv.h.blade.feature.2.title': 'IP67防护等级',
+  'digitalFpv.h.blade.feature.2.desc': '满足DO160标准设计，适应20000米低气压环境',
+  'digitalFpv.h.blade.feature.3.title': '宽温多接口',
+  'digitalFpv.h.blade.feature.3.desc': '工作温度-55~150℃，支持TNC/N/SMA多接口选择',
+
+  // Flange Antenna
+  'digitalFpv.h.flange.name': 'HD-FLA 法兰盘机载天线',
+  'digitalFpv.h.flange.slogan': '法兰盘固定安装',
+  'digitalFpv.h.flange.subSlogan': '法兰盘安装 | IP67防护 | 模具一体成型 | 100g超轻',
+  'digitalFpv.h.flange.description': 'HD-FLA法兰盘机载天线采用法兰盘固定安装设计，模具一体成型，IP67防护等级，广泛应用于UAV、直升机等载体。',
+
+  // Directional Antenna
+  'digitalFpv.h.directional.name': 'HD-BSD 定向基站天线',
+  'digitalFpv.h.directional.slogan': '高增益定向覆盖',
+  'digitalFpv.h.directional.subSlogan': '12dBi高增益 | 120°波束 | IP67防护 | 三防设计',
+  'digitalFpv.h.directional.description': 'HD-BSD定向基站天线采用固定或便携安装方式，12dBi高增益，水平辐射角120°，广泛应用于机载、车载、船载地面站。',
+  'digitalFpv.h.directional.keyFeature.1': '12dBi高增益',
+  'digitalFpv.h.directional.keyFeature.2': '120°波束',
+  'digitalFpv.h.directional.keyFeature.3': 'IP67防护',
+  'digitalFpv.h.directional.keyFeature.4': '三防设计',
+  'digitalFpv.h.directional.feature.1.title': '高增益定向',
+  'digitalFpv.h.directional.feature.1.desc': '12dBi高增益，120°水平辐射角，精准定向覆盖',
+  'digitalFpv.h.directional.feature.2.title': '三防IP67设计',
+  'digitalFpv.h.directional.feature.2.desc': '三防设计，IP67防护，适合海上、沙漠等恶劣环境',
+  'digitalFpv.h.directional.feature.3.title': '多场景部署',
+  'digitalFpv.h.directional.feature.3.desc': '支持固定安装和便携安装方式，适配机载/车载/船载地面站',
+
+  // Omni Antenna
+  'digitalFpv.h.omni.name': 'HD-BSO 全向基站天线',
+  'digitalFpv.h.omni.slogan': '全向高增益覆盖',
+  'digitalFpv.h.omni.subSlogan': '10dBi增益 | 360°全向 | IP67防护 | 2350g',
+  'digitalFpv.h.omni.description': 'HD-BSO全向基站天线采用固定或便携安装方式，10dBi增益360°全向覆盖，广泛应用于各类地面站。',
+  'digitalFpv.h.omni.keyFeature.1': '10dBi增益',
+  'digitalFpv.h.omni.keyFeature.2': '360°全向',
+  'digitalFpv.h.omni.feature.1.title': '全向高增益',
+  'digitalFpv.h.omni.feature.1.desc': '10dBi增益，360°水平全向覆盖，无死角通信',
+  'digitalFpv.h.omni.feature.2.title': '环境适应性强',
+  'digitalFpv.h.omni.feature.2.desc': 'IP67防护，适合海上、沙漠等恶劣环境长期工作',
+
   // S900 Datalink
   'digitalFpv.s900.name': '收发一体数字电台',
   'digitalFpv.s900.slogan': '超视距专用数传',
