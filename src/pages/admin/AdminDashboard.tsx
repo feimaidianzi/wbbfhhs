@@ -546,8 +546,66 @@ const AdminDashboard = () => {
           ))}
         </div>
 
-        {/* Charts and Live Visitors */}
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
+        {/* Charts Row 1 */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
+          {/* Visitor Traffic Chart */}
+          <Card className="bg-slate-800 border-slate-700">
+            <CardHeader className="pb-2">
+              <CardTitle className="text-white flex items-center gap-2 text-base">
+                <Eye className="w-5 h-5 text-emerald-500" />
+                网站访问量
+              </CardTitle>
+              <CardDescription className="text-slate-400 text-xs">
+                真实访客数 &amp; 页面浏览量（已过滤爬虫）
+              </CardDescription>
+            </CardHeader>
+            <CardContent>
+              <div className="h-[220px]">
+                <ResponsiveContainer width="100%" height="100%">
+                  <AreaChart data={dailyVisits}>
+                    <defs>
+                      <linearGradient id="colorVisits" x1="0" y1="0" x2="0" y2="1">
+                        <stop offset="5%" stopColor="#10b981" stopOpacity={0.3}/>
+                        <stop offset="95%" stopColor="#10b981" stopOpacity={0}/>
+                      </linearGradient>
+                      <linearGradient id="colorPV" x1="0" y1="0" x2="0" y2="1">
+                        <stop offset="5%" stopColor="#6366f1" stopOpacity={0.3}/>
+                        <stop offset="95%" stopColor="#6366f1" stopOpacity={0}/>
+                      </linearGradient>
+                    </defs>
+                    <CartesianGrid strokeDasharray="3 3" stroke="#334155" />
+                    <XAxis dataKey="date" stroke="#64748b" fontSize={11} interval="preserveStartEnd" />
+                    <YAxis stroke="#64748b" fontSize={12} allowDecimals={false} />
+                    <Tooltip 
+                      contentStyle={{ 
+                        backgroundColor: '#1e293b', 
+                        border: '1px solid #334155',
+                        borderRadius: '8px',
+                        color: '#fff'
+                      }} 
+                    />
+                    <Area 
+                      type="monotone" 
+                      dataKey="visits" 
+                      stroke="#10b981" 
+                      fillOpacity={1} 
+                      fill="url(#colorVisits)" 
+                      name="访客数"
+                    />
+                    <Area 
+                      type="monotone" 
+                      dataKey="pageViews" 
+                      stroke="#6366f1" 
+                      fillOpacity={1} 
+                      fill="url(#colorPV)" 
+                      name="页面浏览"
+                    />
+                  </AreaChart>
+                </ResponsiveContainer>
+              </div>
+            </CardContent>
+          </Card>
+
           <Card className="bg-slate-800 border-slate-700">
             <CardHeader className="pb-2">
               <CardTitle className="text-white flex items-center gap-2 text-base">
