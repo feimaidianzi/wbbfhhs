@@ -230,6 +230,28 @@ const publicRoutes = [
 // Language codes for path prefix
 const langCodes = ['en', 'zh', 'vi', 'th', 'ms', 'id', 'ja', 'ko', 'fr', 'de', 'es', 'ru', 'ar', 'tr'];
 
+// Legacy route redirects — fixes soft 404s from old/broken URLs Google indexed
+const legacyRedirects = [
+  { from: '/applications/firefighting', to: '/solutions/uav-firefighting-emergency-rescue' },
+  { from: '/applications/tethered', to: '/products/tethered' },
+  { from: '/applications/police', to: '/applications' },
+  { from: '/applications/emergency', to: '/solutions/uav-firefighting-emergency-rescue' },
+  { from: '/applications/emergency-rescue', to: '/solutions/uav-firefighting-emergency-rescue' },
+  { from: '/applications/environment', to: '/solutions/industrial-uav-environmental-monitoring' },
+  { from: '/applications/surveying', to: '/solutions/industrial-uav-surveying-mapping' },
+  { from: '/applications/smart-city', to: '/applications' },
+  { from: '/applications/water', to: '/solutions/industrial-uav-water-conservancy' },
+  { from: '/applications/traffic', to: '/solutions/industrial-uav-transportation-monitoring' },
+  { from: '/applications/power', to: '/applications/power-inspection' },
+  { from: '/applications/five-g', to: '/applications' },
+  { from: '/applications/5g', to: '/applications' },
+  { from: '/products/airport', to: '/products' },
+  { from: '/products/accessories/fpv', to: '/products/accessories/digital-fpv' },
+  { from: '/products/accessories/other', to: '/products/accessories/others' },
+  { from: '/solutions', to: '/applications/solutions' },
+  { from: '/low-altitude', to: '/applications' },
+];
+
 const App = () => (
   <QueryClientProvider client={queryClient}>
     <LanguageProvider>
