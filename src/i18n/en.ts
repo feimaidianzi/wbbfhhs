@@ -223,7 +223,7 @@ export const enTranslations: Record<string, string> = {
   'digitalFpv.h.a150.name': 'HD-1400-A150 Airborne Radio',
   'digitalFpv.h.a150.slogan': '150km Airborne Wideband Datalink',
   'digitalFpv.h.a150.subSlogan': '150KM Range | OFDM | 2×10W | 1450g',
-  'digitalFpv.h.a150.description': 'HD-1400-A150 series for 150km air-to-ground HD video and bidirectional telemetry.',
+  'digitalFpv.h.a150.description': 'The HD-1400-A150 series adopts multi-carrier modulation, MIMO RF technology, intelligent frequency selection and hopping technology, featuring high receiver sensitivity and strong anti-interference capability. It enables one-way HD video transmission and bidirectional telemetry data transmission within a 150km air-to-ground range. It provides rich data interfaces such as RS232/RJ45, supports point-to-point, point-to-multipoint, and multipoint-to-multipoint networking, meeting various application requirements. Wideband datalink products are widely used in UAVs, helicopters, fixed-wing aircraft, airships, and tactical missiles.',
   'digitalFpv.h.a150.keyFeature.range': '150KM Range',
 
   'digitalFpv.h.4000a150.name': 'HD-4000-A150 Airborne Radio',
