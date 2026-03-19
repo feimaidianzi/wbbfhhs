@@ -269,6 +269,58 @@ const AdminDashboard = () => {
         { type: '表单咨询', count: formTotal },
         { type: '人工客服', count: humanTotal },
       ]);
+
+      // Fetch visitor sessions (filter out bots)
+      const BOT_PATTERNS = ['bot', 'crawler', 'spider', 'meta-externalagent', 'facebookexternalhit', 'googlebot', 'bingbot', 'yandex', 'baidu'];
+      const { data: sessions } = await supabase
+        .from('visitor_sessions')
+        .select('created_at, total_page_views, user_agent')
+        .gte('created_at', startISO);
+
+      // Filter out bots client-side
+      const realSessions = (sessions || []).filter(s => {
+        const ua = (s.user_agent || '').toLowerCase();
+        return !BOT_PATTERNS.some(p => ua.includes(p));
+      });
+
+      const visitBuckets: Record<string, { visits: number; pageViews: number }> = {};
+      
+      if (range === 'today') {
+        for (let h = 0; h < 24; h++) {
+          const label = `${h.toString().padStart(2, '0')}:00`;
+          visitBuckets[label] = { visits: 0, pageViews: 0 };
+        }
+        realSessions.forEach(s => {
+          const h = new Date(s.created_at).getHours();
+          const label = `${h.toString().padStart(2, '0')}:00`;
+          if (visitBuckets[label]) {
+            visitBuckets[label].visits++;
+            visitBuckets[label].pageViews += s.total_page_views || 0;
+          }
+        });
+      } else {
+        for (let i = dayCount - 1; i >= 0; i--) {
+          const d = new Date();
+          d.setDate(d.getDate() - i);
+          const label = d.toLocaleDateString('zh-CN', fmt);
+          visitBuckets[label] = { visits: 0, pageViews: 0 };
+        }
+        realSessions.forEach(s => {
+          const label = new Date(s.created_at).toLocaleDateString('zh-CN', fmt);
+          if (visitBuckets[label]) {
+            visitBuckets[label].visits++;
+            visitBuckets[label].pageViews += s.total_page_views || 0;
+          }
+        });
+      }
+
+      setDailyVisits(
+        Object.entries(visitBuckets).map(([date, { visits, pageViews }]) => ({
+          date,
+          visits,
+          pageViews,
+        }))
+      );
     } catch (error) {
       console.error('Failed to fetch chart data:', error);
     }
