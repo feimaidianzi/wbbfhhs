@@ -99,7 +99,7 @@ export const Header = () => {
     { name: t('header.environment'), href: "/solutions/industrial-uav-environmental-monitoring", description: t('header.environment.desc') },
     { name: t('header.firefighting'), href: "/solutions/uav-firefighting-emergency-rescue", description: t('header.firefighting.desc') },
     { name: t('header.transport'), href: "/solutions/industrial-uav-transportation-monitoring", description: t('header.transport.desc') },
-    { name: t('header.tetheredApp'), href: "/applications/tethered", description: t('header.tetheredApp.desc') },
+    { name: t('header.tetheredApp'), href: "/products/tethered", description: t('header.tetheredApp.desc') },
     { name: t('header.solutions'), href: "/applications/solutions", description: t('header.solutions.desc') },
   ];
 

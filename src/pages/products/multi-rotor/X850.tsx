@@ -63,7 +63,7 @@ const X850 = () => {
       relatedApplications={[
         { label: t('app.powerInspection'), path: '/applications/power-inspection' },
         { label: t('app.environment'), path: '/solutions/industrial-uav-environmental-monitoring' },
-        { label: t('app.police'), path: '/applications/police' },
+        { label: t('app.police'), path: '/applications/military' },
       ]}
     />
   );
