@@ -2,10 +2,11 @@ import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate, useParams, useLocation } from "react-router-dom";
 import { LanguageProvider } from "@/contexts/LanguageContext";
 import { ScrollToTop } from "@/components/ScrollToTop";
 import React, { Suspense } from "react";
+import { stripAllLangPrefixes } from "@/utils/langPathUtils";
 
 // Only eagerly load the homepage for fastest FCP
 import Index from "./pages/Index";
@@ -308,19 +309,39 @@ const BreadcrumbOverlay = () => {
 
 const BreadcrumbLazy = React.lazy(() => import("@/components/Breadcrumb").then(m => ({ default: m.Breadcrumb })));
 
+// Redirect component that catches nested language prefixes and redirects to clean URL
+const NestedLangRedirect = () => {
+  const { lang } = useParams<{ lang: string }>();
+  const location = useLocation();
+  // The wildcard part after /:lang/
+  const restPath = location.pathname.replace(`/${lang}`, '');
+  // Strip all remaining language prefixes from the rest
+  const cleanPath = stripAllLangPrefixes(restPath);
+  // Build correct URL: /{lang}{cleanPath}
+  const correctPath = lang === 'en' ? cleanPath : `/${lang}${cleanPath}`;
+  
+  // If path changed, we had nested prefixes - redirect
+  if (correctPath !== location.pathname) {
+    return <Navigate to={correctPath + location.search + location.hash} replace />;
+  }
+  
+  // No nesting, render normal routes
+  return (
+    <Suspense fallback={<PageLoader />}>
+      <Routes>
+        {publicRoutes.map(({ path, element }) => {
+          const relativePath = path === '/' ? '/' : path.slice(1);
+          return <Route key={path} path={relativePath === '/' ? '/' : relativePath} element={
+            path === "/" ? element : <WithBreadcrumb>{element}</WithBreadcrumb>
+          } />;
+        })}
+        <Route path="*" element={<NotFound />} />
+      </Routes>
+    </Suspense>
+  );
+};
+
 // Sub-routes rendered under /:lang/* prefix
-const LangRoutes = () => (
-  <Suspense fallback={<PageLoader />}>
-    <Routes>
-      {publicRoutes.map(({ path, element }) => {
-        const relativePath = path === '/' ? '/' : path.slice(1);
-        return <Route key={path} path={relativePath === '/' ? '/' : relativePath} element={
-          path === "/" ? element : <WithBreadcrumb>{element}</WithBreadcrumb>
-        } />;
-      })}
-      <Route path="*" element={<NotFound />} />
-    </Routes>
-  </Suspense>
-);
+const LangRoutes = () => <NestedLangRedirect />;
 
 export default App;
