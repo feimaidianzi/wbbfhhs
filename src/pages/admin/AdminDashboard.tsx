@@ -29,7 +29,7 @@ import {
   Zap
 } from 'lucide-react';
 import { User } from '@supabase/supabase-js';
-import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, BarChart, Bar } from 'recharts';
+import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, BarChart, Bar, Cell } from 'recharts';
 import LiveVisitors from '@/components/admin/LiveVisitors';
 
 interface Stats {
@@ -39,15 +39,63 @@ interface Stats {
   publishedNews: number;
 }
 
-interface DailyInquiry {
+interface DailyTrend {
   date: string;
+  formCount: number;
+  humanCount: number;
+  total: number;
+}
+
+interface TypeCount {
+  type: string;
   count: number;
 }
 
-interface StatusCount {
-  status: string;
-  count: number;
-}
+type TimeRange = 'today' | '3d' | '7d' | '15d' | '30d' | '3mo' | '6mo' | '1yr';
+
+const TIME_RANGE_OPTIONS: { value: TimeRange; label: string }[] = [
+  { value: 'today', label: '今天' },
+  { value: '3d', label: '3天' },
+  { value: '7d', label: '7天' },
+  { value: '15d', label: '15天' },
+  { value: '30d', label: '30天' },
+  { value: '3mo', label: '3个月' },
+  { value: '6mo', label: '半年' },
+  { value: '1yr', label: '一年' },
+];
+
+const getStartDate = (range: TimeRange): Date => {
+  const now = new Date();
+  switch (range) {
+    case 'today': now.setHours(0, 0, 0, 0); return now;
+    case '3d': now.setDate(now.getDate() - 3); return now;
+    case '7d': now.setDate(now.getDate() - 7); return now;
+    case '15d': now.setDate(now.getDate() - 15); return now;
+    case '30d': now.setDate(now.getDate() - 30); return now;
+    case '3mo': now.setMonth(now.getMonth() - 3); return now;
+    case '6mo': now.setMonth(now.getMonth() - 6); return now;
+    case '1yr': now.setFullYear(now.getFullYear() - 1); return now;
+  }
+};
+
+const getDateFormat = (range: TimeRange): Intl.DateTimeFormatOptions => {
+  if (range === 'today') return { hour: '2-digit' };
+  if (['3d', '7d', '15d'].includes(range)) return { month: 'short', day: 'numeric' };
+  return { month: 'short', day: 'numeric' };
+};
+
+const getDayCount = (range: TimeRange): number => {
+  switch (range) {
+    case 'today': return 1;
+    case '3d': return 3;
+    case '7d': return 7;
+    case '15d': return 15;
+    case '30d': return 30;
+    case '3mo': return 90;
+    case '6mo': return 180;
+    case '1yr': return 365;
+  }
+};
 
 const AdminDashboard = () => {
   const navigate = useNavigate();
@@ -60,8 +108,9 @@ const AdminDashboard = () => {
     publishedProducts: 0,
     publishedNews: 0,
   });
-  const [dailyInquiries, setDailyInquiries] = useState<DailyInquiry[]>([]);
-  const [statusCounts, setStatusCounts] = useState<StatusCount[]>([]);
+  const [dailyTrends, setDailyTrends] = useState<DailyTrend[]>([]);
+  const [typeCounts, setTypeCounts] = useState<TypeCount[]>([]);
+  const [timeRange, setTimeRange] = useState<TimeRange>('7d');
 
   useEffect(() => {
     const checkAdminAccess = async () => {
@@ -143,60 +192,85 @@ const AdminDashboard = () => {
     }
   };
 
-  const fetchChartData = async () => {
+  const fetchChartData = async (range: TimeRange = timeRange) => {
     try {
-      // Fetch inquiries for the last 7 days
-      const sevenDaysAgo = new Date();
-      sevenDaysAgo.setDate(sevenDaysAgo.getDate() - 7);
+      const startDate = getStartDate(range);
+      const startISO = startDate.toISOString();
+      const dayCount = getDayCount(range);
+      const fmt = getDateFormat(range);
 
+      // Fetch form inquiries
       const { data: inquiries } = await supabase
         .from('inquiries')
-        .select('created_at, status')
-        .gte('created_at', sevenDaysAgo.toISOString());
+        .select('created_at')
+        .gte('created_at', startISO);
 
-      // Process daily counts
-      const dailyCounts: Record<string, number> = {};
-      const statusMap: Record<string, number> = {};
+      // Fetch human service conversations (transferred to human)
+      const { data: humanConvs } = await supabase
+        .from('ai_conversations')
+        .select('created_at, is_transferred_to_human')
+        .gte('created_at', startISO)
+        .eq('is_transferred_to_human', true);
 
-      for (let i = 6; i >= 0; i--) {
-        const date = new Date();
-        date.setDate(date.getDate() - i);
-        const dateStr = date.toLocaleDateString('zh-CN', { month: 'short', day: 'numeric' });
-        dailyCounts[dateStr] = 0;
+      // Build daily buckets
+      const dailyCounts: Record<string, { formCount: number; humanCount: number }> = {};
+      
+      if (range === 'today') {
+        for (let h = 0; h < 24; h++) {
+          const label = `${h.toString().padStart(2, '0')}:00`;
+          dailyCounts[label] = { formCount: 0, humanCount: 0 };
+        }
+        inquiries?.forEach(i => {
+          const h = new Date(i.created_at).getHours();
+          const label = `${h.toString().padStart(2, '0')}:00`;
+          if (dailyCounts[label]) dailyCounts[label].formCount++;
+        });
+        humanConvs?.forEach(c => {
+          const h = new Date(c.created_at).getHours();
+          const label = `${h.toString().padStart(2, '0')}:00`;
+          if (dailyCounts[label]) dailyCounts[label].humanCount++;
+        });
+      } else {
+        for (let i = dayCount - 1; i >= 0; i--) {
+          const d = new Date();
+          d.setDate(d.getDate() - i);
+          const label = d.toLocaleDateString('zh-CN', fmt);
+          dailyCounts[label] = { formCount: 0, humanCount: 0 };
+        }
+        inquiries?.forEach(i => {
+          const label = new Date(i.created_at).toLocaleDateString('zh-CN', fmt);
+          if (dailyCounts[label]) dailyCounts[label].formCount++;
+        });
+        humanConvs?.forEach(c => {
+          const label = new Date(c.created_at).toLocaleDateString('zh-CN', fmt);
+          if (dailyCounts[label]) dailyCounts[label].humanCount++;
+        });
       }
 
-      inquiries?.forEach(inquiry => {
-        const date = new Date(inquiry.created_at);
-        const dateStr = date.toLocaleDateString('zh-CN', { month: 'short', day: 'numeric' });
-        if (dailyCounts[dateStr] !== undefined) {
-          dailyCounts[dateStr]++;
-        }
-        
-        const status = inquiry.status || 'pending';
-        statusMap[status] = (statusMap[status] || 0) + 1;
-      });
-
-      setDailyInquiries(
-        Object.entries(dailyCounts).map(([date, count]) => ({ date, count }))
-      );
-
-      const statusLabels: Record<string, string> = {
-        pending: '待处理',
-        processing: '处理中',
-        replied: '已回复',
-        closed: '已关闭',
-      };
-
-      setStatusCounts(
-        Object.entries(statusMap).map(([status, count]) => ({
-          status: statusLabels[status] || status,
-          count,
+      setDailyTrends(
+        Object.entries(dailyCounts).map(([date, { formCount, humanCount }]) => ({
+          date,
+          formCount,
+          humanCount,
+          total: formCount + humanCount,
         }))
       );
+
+      const formTotal = inquiries?.length || 0;
+      const humanTotal = humanConvs?.length || 0;
+      setTypeCounts([
+        { type: '表单咨询', count: formTotal },
+        { type: '人工客服', count: humanTotal },
+      ]);
     } catch (error) {
       console.error('Failed to fetch chart data:', error);
     }
   };
+
+  // Refetch when time range changes
+  useEffect(() => {
+    if (user) fetchChartData(timeRange);
+  }, [timeRange]);
 
   const handleLogout = async () => {
     await supabase.auth.signOut();
@@ -397,27 +471,50 @@ const AdminDashboard = () => {
           </Card>
         </div>
 
+        {/* Time Range Selector */}
+        <div className="flex items-center gap-2 mb-4 flex-wrap">
+          <span className="text-slate-400 text-sm">时间范围：</span>
+          {TIME_RANGE_OPTIONS.map(opt => (
+            <Button
+              key={opt.value}
+              size="sm"
+              variant={timeRange === opt.value ? 'default' : 'outline'}
+              className={`h-7 text-xs ${timeRange === opt.value ? '' : 'border-slate-600 text-slate-400 hover:text-white'}`}
+              onClick={() => setTimeRange(opt.value)}
+            >
+              {opt.label}
+            </Button>
+          ))}
+        </div>
+
         {/* Charts and Live Visitors */}
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
           <Card className="bg-slate-800 border-slate-700">
-            <CardHeader>
-              <CardTitle className="text-white flex items-center gap-2">
+            <CardHeader className="pb-2">
+              <CardTitle className="text-white flex items-center gap-2 text-base">
                 <TrendingUp className="w-5 h-5 text-blue-500" />
-                近7天咨询趋势
+                咨询趋势
               </CardTitle>
+              <CardDescription className="text-slate-400 text-xs">
+                表单咨询 + 人工客服咨询
+              </CardDescription>
             </CardHeader>
             <CardContent>
               <div className="h-[200px]">
                 <ResponsiveContainer width="100%" height="100%">
-                  <AreaChart data={dailyInquiries}>
+                  <AreaChart data={dailyTrends}>
                     <defs>
-                      <linearGradient id="colorCount" x1="0" y1="0" x2="0" y2="1">
+                      <linearGradient id="colorForm" x1="0" y1="0" x2="0" y2="1">
                         <stop offset="5%" stopColor="#3b82f6" stopOpacity={0.3}/>
                         <stop offset="95%" stopColor="#3b82f6" stopOpacity={0}/>
                       </linearGradient>
+                      <linearGradient id="colorHuman" x1="0" y1="0" x2="0" y2="1">
+                        <stop offset="5%" stopColor="#f59e0b" stopOpacity={0.3}/>
+                        <stop offset="95%" stopColor="#f59e0b" stopOpacity={0}/>
+                      </linearGradient>
                     </defs>
                     <CartesianGrid strokeDasharray="3 3" stroke="#334155" />
-                    <XAxis dataKey="date" stroke="#64748b" fontSize={12} />
+                    <XAxis dataKey="date" stroke="#64748b" fontSize={11} interval="preserveStartEnd" />
                     <YAxis stroke="#64748b" fontSize={12} allowDecimals={false} />
                     <Tooltip 
                       contentStyle={{ 
@@ -429,11 +526,21 @@ const AdminDashboard = () => {
                     />
                     <Area 
                       type="monotone" 
-                      dataKey="count" 
+                      dataKey="formCount" 
                       stroke="#3b82f6" 
                       fillOpacity={1} 
-                      fill="url(#colorCount)" 
-                      name="咨询数"
+                      fill="url(#colorForm)" 
+                      name="表单咨询"
+                      stackId="1"
+                    />
+                    <Area 
+                      type="monotone" 
+                      dataKey="humanCount" 
+                      stroke="#f59e0b" 
+                      fillOpacity={1} 
+                      fill="url(#colorHuman)" 
+                      name="人工客服"
+                      stackId="1"
                     />
                   </AreaChart>
                 </ResponsiveContainer>
@@ -442,18 +549,21 @@ const AdminDashboard = () => {
           </Card>
 
           <Card className="bg-slate-800 border-slate-700">
-            <CardHeader>
-              <CardTitle className="text-white flex items-center gap-2">
+            <CardHeader className="pb-2">
+              <CardTitle className="text-white flex items-center gap-2 text-base">
                 <BarChart3 className="w-5 h-5 text-purple-500" />
-                咨询状态分布
+                咨询类型分布
               </CardTitle>
+              <CardDescription className="text-slate-400 text-xs">
+                按咨询渠道统计
+              </CardDescription>
             </CardHeader>
             <CardContent>
               <div className="h-[200px]">
                 <ResponsiveContainer width="100%" height="100%">
-                  <BarChart data={statusCounts}>
+                  <BarChart data={typeCounts}>
                     <CartesianGrid strokeDasharray="3 3" stroke="#334155" />
-                    <XAxis dataKey="status" stroke="#64748b" fontSize={12} />
+                    <XAxis dataKey="type" stroke="#64748b" fontSize={12} />
                     <YAxis stroke="#64748b" fontSize={12} allowDecimals={false} />
                     <Tooltip 
                       contentStyle={{ 
@@ -465,10 +575,13 @@ const AdminDashboard = () => {
                     />
                     <Bar 
                       dataKey="count" 
-                      fill="#8b5cf6" 
                       radius={[4, 4, 0, 0]}
                       name="数量"
-                    />
+                    >
+                      {typeCounts.map((entry, index) => (
+                        <Cell key={`cell-${index}`} fill={index === 0 ? '#3b82f6' : '#f59e0b'} />
+                      ))}
+                    </Bar>
                   </BarChart>
                 </ResponsiveContainer>
               </div>
