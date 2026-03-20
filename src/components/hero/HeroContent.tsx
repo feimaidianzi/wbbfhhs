@@ -224,9 +224,8 @@ export const HeroContent = () => {
         </p>
 
         {/* CTA Buttons */}
-        <motion.div
-          variants={itemVariants}
-          className="flex flex-col sm:flex-row gap-4 mb-20"
+        <div
+          className="hero-animate-buttons flex flex-col sm:flex-row gap-4 mb-20"
         >
           <LangLink to="/products">
             <Button 
