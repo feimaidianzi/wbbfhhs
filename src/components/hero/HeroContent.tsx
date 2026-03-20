@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { LangLink } from "@/components/LangLink";
-import { ArrowRight, Play, ChevronDown } from "lucide-react";
+import { ArrowRight, Play, ChevronDown, Cpu, Radio, Wifi, Shield, Zap, Target } from "lucide-react";
 import { useLanguage } from "@/contexts/LanguageContext";
 
 // 动画变体
@@ -55,6 +55,20 @@ const statsVariants = {
   }),
 };
 
+const floatIconVariants = {
+  hidden: { opacity: 0, scale: 0 },
+  visible: (i: number) => ({
+    opacity: 1,
+    scale: 1,
+    transition: {
+      delay: 1.5 + i * 0.2,
+      duration: 0.6,
+      type: "spring",
+      stiffness: 200,
+    },
+  }),
+};
+
 export const HeroContent = () => {
   const { t } = useLanguage();
 
@@ -64,6 +78,15 @@ export const HeroContent = () => {
     { value: '500+', labelKey: 'hero.stat.partners' },
   ];
 
+  const floatingIcons = [
+    { Icon: Cpu, x: 'right-[8%]', y: 'top-[18%]', delay: 0, color: 'text-cyan-400' },
+    { Icon: Radio, x: 'right-[22%]', y: 'top-[32%]', delay: 1, color: 'text-blue-400' },
+    { Icon: Wifi, x: 'right-[6%]', y: 'top-[48%]', delay: 2, color: 'text-purple-400' },
+    { Icon: Shield, x: 'right-[18%]', y: 'top-[62%]', delay: 3, color: 'text-emerald-400' },
+    { Icon: Zap, x: 'right-[30%]', y: 'top-[22%]', delay: 4, color: 'text-amber-400' },
+    { Icon: Target, x: 'right-[12%]', y: 'top-[76%]', delay: 5, color: 'text-rose-400' },
+  ];
+
   return (
     <motion.div 
       className="relative z-10 flex flex-col items-center justify-center min-h-screen px-4 pt-20"
@@ -71,7 +94,110 @@ export const HeroContent = () => {
       initial="hidden"
       animate="visible"
     >
-      {/* 主内容区 - 左对齐布局 */}
+      {/* === 装饰层：扫描线 === */}
+      <div className="absolute inset-0 pointer-events-none overflow-hidden z-0">
+        {/* 水平扫描线 */}
+        <motion.div
+          className="absolute left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-cyan-400/40 to-transparent"
+          initial={{ top: '10%' }}
+          animate={{ top: ['10%', '90%', '10%'] }}
+          transition={{ duration: 8, repeat: Infinity, ease: 'linear' }}
+        />
+        {/* 第二条扫描线 */}
+        <motion.div
+          className="absolute left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-blue-500/30 to-transparent"
+          initial={{ top: '60%' }}
+          animate={{ top: ['60%', '20%', '60%'] }}
+          transition={{ duration: 12, repeat: Infinity, ease: 'linear' }}
+        />
+      </div>
+
+      {/* === 装饰层：角落标记 === */}
+      <div className="absolute inset-0 pointer-events-none z-0">
+        {/* 左上角标记 */}
+        <div className="absolute top-24 left-8 hidden lg:block">
+          <div className="w-16 h-16 border-l-2 border-t-2 border-cyan-400/30" />
+          <span className="text-[10px] text-cyan-400/40 font-mono mt-1 block">SYS.01</span>
+        </div>
+        {/* 右下角标记 */}
+        <div className="absolute bottom-32 right-8 hidden lg:block">
+          <div className="w-16 h-16 border-r-2 border-b-2 border-cyan-400/30" />
+          <span className="text-[10px] text-cyan-400/40 font-mono mt-1 block text-right">RF.OK</span>
+        </div>
+        {/* 左下角 */}
+        <div className="absolute bottom-32 left-8 hidden lg:block">
+          <span className="text-[10px] text-cyan-400/30 font-mono">
+            FREQ: 5.8GHz<br/>PWR: 10W<br/>LAT: ≤30ms
+          </span>
+        </div>
+      </div>
+
+      {/* === 装饰层：浮动技术图标 === */}
+      <div className="absolute inset-0 pointer-events-none z-[1] hidden lg:block">
+        {floatingIcons.map(({ Icon, x, y, delay, color }, index) => (
+          <motion.div
+            key={index}
+            custom={delay}
+            variants={floatIconVariants}
+            initial="hidden"
+            animate="visible"
+            className={`absolute ${x} ${y}`}
+          >
+            <motion.div
+              animate={{
+                y: [0, -8, 0],
+                rotate: [0, 5, -5, 0],
+              }}
+              transition={{
+                duration: 4 + index * 0.5,
+                repeat: Infinity,
+                ease: "easeInOut",
+                delay: index * 0.3,
+              }}
+              className="relative"
+            >
+              {/* 光晕 */}
+              <div className={`absolute inset-0 blur-xl ${color} opacity-20 scale-150`} />
+              {/* 六边形边框 */}
+              <div className="w-14 h-14 flex items-center justify-center rounded-xl border border-white/10 bg-white/[0.03] backdrop-blur-sm">
+                <Icon className={`w-6 h-6 ${color}`} />
+              </div>
+              {/* 连线点 */}
+              <div className={`absolute -bottom-1 -right-1 w-2 h-2 rounded-full bg-current ${color} opacity-60`} />
+            </motion.div>
+          </motion.div>
+        ))}
+
+        {/* 图标之间的连线 */}
+        <svg className="absolute inset-0 w-full h-full" style={{ zIndex: -1 }}>
+          <motion.line
+            x1="88%" y1="20%" x2="76%" y2="34%"
+            stroke="rgba(6,182,212,0.12)" strokeWidth="1"
+            strokeDasharray="4 4"
+            initial={{ pathLength: 0 }}
+            animate={{ pathLength: 1 }}
+            transition={{ duration: 2, delay: 2 }}
+          />
+          <motion.line
+            x1="76%" y1="34%" x2="92%" y2="50%"
+            stroke="rgba(59,130,246,0.12)" strokeWidth="1"
+            strokeDasharray="4 4"
+            initial={{ pathLength: 0 }}
+            animate={{ pathLength: 1 }}
+            transition={{ duration: 2, delay: 2.5 }}
+          />
+          <motion.line
+            x1="92%" y1="50%" x2="80%" y2="64%"
+            stroke="rgba(139,92,246,0.1)" strokeWidth="1"
+            strokeDasharray="4 4"
+            initial={{ pathLength: 0 }}
+            animate={{ pathLength: 1 }}
+            transition={{ duration: 2, delay: 3 }}
+          />
+        </svg>
+      </div>
+
+      {/* === 主内容区 === */}
       <div className="w-full max-w-6xl mx-auto">
         {/* Tagline */}
         <motion.div variants={itemVariants} className="mb-8">
@@ -112,6 +238,8 @@ export const HeroContent = () => {
               size="lg" 
               className="group relative overflow-hidden bg-gradient-to-r from-cyan-500 to-blue-600 text-white hover:from-cyan-400 hover:to-blue-500 px-8 py-6 text-lg font-semibold rounded-xl shadow-lg shadow-cyan-500/25 transition-all duration-300 hover:shadow-cyan-500/40 hover:scale-105 min-h-[44px] min-w-[44px]"
             >
+              {/* 按钮光效 */}
+              <span className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent translate-x-[-200%] group-hover:translate-x-[200%] transition-transform duration-700" />
               <span className="relative z-10 flex items-center gap-2">
                 {t('hero.cta.explore')}
                 <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
@@ -131,8 +259,8 @@ export const HeroContent = () => {
           </LangLink>
         </motion.div>
 
-        {/* Stats - 水平排列 */}
-        <div className="flex flex-wrap gap-8 md:gap-12">
+        {/* Stats - 卡片式 */}
+        <div className="flex flex-wrap gap-6 md:gap-8">
           {stats.map((stat, index) => (
             <motion.div 
               key={index} 
@@ -142,13 +270,16 @@ export const HeroContent = () => {
               animate="visible"
               className="relative group"
             >
-              <div className="text-4xl md:text-5xl font-black text-white mb-1 group-hover:text-cyan-400 transition-colors duration-300">
-                {stat.value}
+              <div className="px-6 py-4 rounded-xl border border-white/10 bg-white/[0.03] backdrop-blur-sm hover:border-cyan-400/30 hover:bg-cyan-500/[0.05] transition-all duration-300">
+                <div className="text-4xl md:text-5xl font-black text-white mb-1 group-hover:text-cyan-400 transition-colors duration-300">
+                  {stat.value}
+                </div>
+                <div className="text-sm text-white/50 uppercase tracking-wider">
+                  {t(stat.labelKey)}
+                </div>
               </div>
-              <div className="text-sm text-white/50 uppercase tracking-wider">
-                {t(stat.labelKey)}
-              </div>
-              <div className="absolute -bottom-2 left-0 w-8 h-0.5 bg-gradient-to-r from-cyan-400 to-transparent" />
+              {/* 底部装饰线 */}
+              <div className="absolute -bottom-px left-4 right-4 h-[1px] bg-gradient-to-r from-transparent via-cyan-400/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
             </motion.div>
           ))}
         </div>
