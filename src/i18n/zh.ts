@@ -8573,8 +8573,6 @@ export const zhTranslations: Record<string, string> = {
   'meshLink.cta.title': '需要无线链路模块选型支持？',
   'meshLink.cta.desc': '联系我们的专业技术团队，获取无线自组网链路模块选型建议、OEM/ODM定制方案和技术支持',
 
-\
-  // ===== Auto-migrated hardcoded strings =====
 
   // ===== Auto-migrated hardcoded strings =====
   'swarm.c20featuressection.k1': 'UWB 高精度定位',
