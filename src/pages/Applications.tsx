@@ -310,6 +310,7 @@ const Applications = () => {
           { questionKey: 'applications.hub.faq.q2', answerKey: 'applications.hub.faq.a2' },
           { questionKey: 'applications.hub.faq.q3', answerKey: 'applications.hub.faq.a3' },
         ]}
+        includeSchema={false}
       />
       </main>
 
