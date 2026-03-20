@@ -204,7 +204,7 @@ const Index = () => {
         </ScrollReveal>
 
         <ScrollReveal direction="up" delay={0.1}>
-          <AEOFAQSection />
+          <AEOFAQSection includeSchema={false} />
         </ScrollReveal>
 
         <ScrollReveal direction="up" delay={0}>
