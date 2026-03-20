@@ -76,9 +76,7 @@ const OtherAccessoriesDetail = () => {
       '@type': 'Product',
       name: 'CANI 5寸 IPS 高清双接收 DVR 监视器',
       image: 'https://www.caniuav.com/images/products/others/monitor-5-ips-dvr-main.jpg',
-      description: language === 'zh'
-        ? '专为户外巡检设计的5寸IPS高清监视器。具备600cd/m²高亮度、双天线多样性接收与DVR录像功能，完美适配WiFiLink2图传，是无人机地面视觉闭环的核心终端。'
-        : '5-inch IPS HD monitor for outdoor inspection. 600cd/m² brightness, dual-antenna diversity reception with DVR recording, perfectly paired with WiFiLink2 for ground visual loop.',
+      description: t('acc.otheraccessoriesdetail.k589'),
       brand: { '@type': 'Brand', name: 'CANI' },
       sku: 'CANI-MON-5-IPS',
       url: 'https://www.caniuav.com/zh/products/accessories/others/monitor-5-ips-dvr',
@@ -92,11 +90,9 @@ const OtherAccessoriesDetail = () => {
     'fpv-goggles-40ch': {
       '@context': 'https://schema.org/',
       '@type': 'Product',
-      name: language === 'zh' ? 'CANI 40频道高清沉浸式FPV飞行眼镜' : 'CANI 40CH HD Immersive FPV Goggles',
+      name: t('acc.otheraccessoriesdetail.k590'),
       image: 'https://www.caniuav.com/images/products/others/fpv-goggles-40ch-main.jpg',
-      description: language === 'zh'
-        ? '专为第一人称飞行设计的FPV眼镜。具备零光干涉光路、-90dBm高灵敏度接收与内置电池轻量化设计，是配套WiFiLink2图传的理想移动视觉终端。'
-        : 'FPV goggles designed for first-person flight. Features zero-light-interference optics, -90dBm high-sensitivity reception, and built-in battery lightweight design.',
+      description: t('acc.otheraccessoriesdetail.k591'),
       brand: { '@type': 'Brand', name: 'CANI' },
       sku: 'CANI-FPV-GOG-40',
       url: 'https://www.caniuav.com/zh/products/accessories/others/fpv-goggles-40ch',
@@ -110,11 +106,9 @@ const OtherAccessoriesDetail = () => {
     'monitor-4-3-dvr': {
       '@context': 'https://schema.org/',
       '@type': 'Product',
-      name: language === 'zh' ? 'CANI 4.3寸便携式高清 DVR 监视器' : 'CANI 4.3-Inch Portable HD DVR Monitor',
+      name: t('acc.otheraccessoriesdetail.k592'),
       image: 'https://www.caniuav.com/images/products/others/monitor-4-3-dvr-main.jpg',
-      description: language === 'zh'
-        ? '极致轻便的4.3寸FPV监视器。具备500cd/m²亮度、DVR循环录像与NTSC/PAL自适应功能，是遥控器副屏与外场调机的理想选择。'
-        : 'Ultra-portable 4.3-inch FPV monitor with 500cd/m² brightness, DVR loop recording, and NTSC/PAL auto-detection. Ideal as controller sub-screen and field tuning tool.',
+      description: t('acc.otheraccessoriesdetail.k593'),
       brand: { '@type': 'Brand', name: 'CANI' },
       sku: 'CANI-MON-43-DVR',
       url: 'https://www.caniuav.com/zh/products/accessories/others/monitor-4-3-dvr',
@@ -292,7 +286,7 @@ const OtherAccessoriesDetail = () => {
                       <BookOpen className="w-7 h-7 text-accent" />
                     </div>
                     <div className="flex-1">
-                      <p className="text-sm font-medium text-accent mb-1">📖 {language === 'zh' ? '深度解读' : 'Deep Dive'}</p>
+                      <p className="text-sm font-medium text-accent mb-1">📖 {t('prod.logistics.k451')}</p>
                       <h3 className="text-lg font-bold text-card-foreground mb-2 group-hover:text-accent transition-colors">
                         {language === 'zh' ? deepDiveInfo.titleZh : deepDiveInfo.titleEn}
                       </h3>

@@ -15,8 +15,7 @@ import { PageFAQ } from "@/components/PageFAQ";
 const VtxDetail = () => {
   const { productId } = useParams<{ productId: string }>();
   const product = productId ? getProductById(productId) : null;
-  const { t, language } = useLanguage();
-  const isZh = language === 'zh';
+  const { t } = useLanguage();
   const isPV02 = productId === "flym-pv02w500-a1";
   const isPV03 = productId === "flym-pv03w000-a1";
   const isFV10W = productId === "fv10w-a1";
@@ -934,11 +933,11 @@ const VtxDetail = () => {
               <div className="max-w-3xl mx-auto bg-card rounded-xl p-6 flex items-center gap-4 hover:shadow-lg transition-all border border-border/30">
                 <div className="text-3xl">📰</div>
                 <div className="flex-1">
-                  <p className="text-sm text-accent font-mono mb-1">{isZh ? '深度解读' : 'Deep Dive'}</p>
+                  <p className="text-sm text-accent font-mono mb-1">{t('prod.logistics.k451')}</p>
                   <Link to="/news/c0dc136e-1706-4404-9619-e8180901e19a" className="text-foreground font-semibold hover:text-accent transition-colors">
-                    {isZh ? '零延迟之王：FLYM-PV02W500-A1 工业级模拟图传模组——一站式定制方案' : 'Zero-Latency King: FLYM-PV02W500-A1 Industrial Analog VTX — One-stop Customization'}
+                    {t('acc.vtxdetail.k637')}
                   </Link>
-                  <p className="text-muted-foreground text-sm mt-1">{isZh ? '了解该模组的射频优化与 SmartAudio 协议深度适配' : 'Explore RF optimization and SmartAudio protocol deep integration'}</p>
+                  <p className="text-muted-foreground text-sm mt-1">{t('acc.vtxdetail.k638')}</p>
                 </div>
                 <ChevronRight className="w-5 h-5 text-muted-foreground" />
               </div>
@@ -953,11 +952,11 @@ const VtxDetail = () => {
               <div className="max-w-3xl mx-auto bg-card rounded-xl p-6 flex items-center gap-4 hover:shadow-lg transition-all border border-border/30">
                 <div className="text-3xl">📰</div>
                 <div className="flex-1">
-                  <p className="text-sm text-accent font-mono mb-1">{isZh ? '深度解读' : 'Deep Dive'}</p>
+                  <p className="text-sm text-accent font-mono mb-1">{t('prod.logistics.k451')}</p>
                   <Link to="/news/0e111391-6e61-4e82-b656-b382e5b1333f" className="text-foreground font-semibold hover:text-accent transition-colors">
-                    {isZh ? '极致感知：FLYM-PV03W000-A1 工业级模拟图传接收模组——全栈链路方案' : 'Ultimate Perception: FLYM-PV03W000-A1 Industrial Analog VRX — Full-Stack Link Solution'}
+                    {t('acc.vtxdetail.k639')}
                   </Link>
-                  <p className="text-muted-foreground text-sm mt-1">{isZh ? '了解该接收模组的高灵敏度RF架构与抗多径干扰算法' : 'Explore high-sensitivity RF architecture and anti-multipath interference algorithms'}</p>
+                  <p className="text-muted-foreground text-sm mt-1">{t('acc.vtxdetail.k640')}</p>
                 </div>
                 <ChevronRight className="w-5 h-5 text-muted-foreground" />
               </div>
@@ -972,11 +971,11 @@ const VtxDetail = () => {
               <div className="max-w-3xl mx-auto bg-card rounded-xl p-6 flex items-center gap-4 hover:shadow-lg transition-all border border-border/30">
                 <div className="text-3xl">📰</div>
                 <div className="flex-1">
-                  <p className="text-sm text-accent font-mono mb-1">{isZh ? '深度解读' : 'Deep Dive'}</p>
+                  <p className="text-sm text-accent font-mono mb-1">{t('prod.logistics.k451')}</p>
                   <Link to="/news/3dda67fc-5d89-48fc-bbd7-a7056a732d99" className="text-foreground font-semibold hover:text-accent transition-colors">
-                    {isZh ? '远域视界：FV10W-A1 工业级无线高清图传系统——全栈链路定制平台' : 'Beyond Horizon: FV10W-A1 Industrial HD Wireless Video Link — Full-Stack Platform'}
+                    {t('acc.vtxdetail.k641')}
                   </Link>
-                  <p className="text-muted-foreground text-sm mt-1">{isZh ? '了解 H.265 编解码、AES-256 加密与动态链路自适应技术' : 'Explore H.265 codec, AES-256 encryption and dynamic link adaptation'}</p>
+                  <p className="text-muted-foreground text-sm mt-1">{t('acc.vtxdetail.k642')}</p>
                 </div>
                 <ChevronRight className="w-5 h-5 text-muted-foreground" />
               </div>
@@ -991,11 +990,11 @@ const VtxDetail = () => {
               <div className="max-w-3xl mx-auto bg-card rounded-xl p-6 flex items-center gap-4 hover:shadow-lg transition-all border border-border/30">
                 <div className="text-3xl">📰</div>
                 <div className="flex-1">
-                  <p className="text-sm text-accent font-mono mb-1">{isZh ? '深度解读' : 'Deep Dive'}</p>
+                  <p className="text-sm text-accent font-mono mb-1">{t('prod.logistics.k451')}</p>
                   <Link to="/news/a1899cc4-f1d7-4f08-9669-2522c1f79a2e" className="text-foreground font-semibold hover:text-accent transition-colors">
-                    {isZh ? '数字化链路巅峰：FV16W-A1 高清无线数字图传系统——全栈定制化方案' : 'Digital Link Apex: FV16W-A1 HD Digital Wireless Video Link — Full-Stack Customization'}
+                    {t('acc.vtxdetail.k643')}
                   </Link>
-                  <p className="text-muted-foreground text-sm mt-1">{isZh ? '了解动态码率自适应、FEC纠错与AES-256加密技术' : 'Explore ABR, FEC error correction and AES-256 encryption'}</p>
+                  <p className="text-muted-foreground text-sm mt-1">{t('acc.vtxdetail.k644')}</p>
                 </div>
                 <ChevronRight className="w-5 h-5 text-muted-foreground" />
               </div>
@@ -1010,11 +1009,11 @@ const VtxDetail = () => {
               <div className="max-w-3xl mx-auto bg-card rounded-xl p-6 flex items-center gap-4 hover:shadow-lg transition-all border border-border/30">
                 <div className="text-3xl">📰</div>
                 <div className="flex-1">
-                  <p className="text-sm text-accent font-mono mb-1">{isZh ? '深度解读' : 'Deep Dive'}</p>
+                  <p className="text-sm text-accent font-mono mb-1">{t('prod.logistics.k451')}</p>
                   <Link to="/news/3adc5ee4-31fd-43a9-868b-ad8b9ec0cb38" className="text-foreground font-semibold hover:text-accent transition-colors">
-                    {isZh ? '超视距基石：FV25W-A1 工业级远距离数字图传系统——全栈链路开发方案' : 'BVLOS Foundation: FV25W-A1 Industrial Long-Range Digital Video Link — Full-Stack Development'}
+                    {t('acc.vtxdetail.k645')}
                   </Link>
-                  <p className="text-muted-foreground text-sm mt-1">{isZh ? '了解CANI-FEC纠错、SDR频率跳变与三合一链路集成技术' : 'Explore CANI-FEC, SDR frequency hopping and tri-in-one link integration'}</p>
+                  <p className="text-muted-foreground text-sm mt-1">{t('acc.vtxdetail.k646')}</p>
                 </div>
                 <ChevronRight className="w-5 h-5 text-muted-foreground" />
               </div>
@@ -1029,11 +1028,11 @@ const VtxDetail = () => {
               <div className="max-w-3xl mx-auto bg-card rounded-xl p-6 flex items-center gap-4 hover:shadow-lg transition-all border border-border/30">
                 <div className="text-3xl">📰</div>
                 <div className="flex-1">
-                  <p className="text-sm text-accent font-mono mb-1">{isZh ? '深度解读' : 'Deep Dive'}</p>
+                  <p className="text-sm text-accent font-mono mb-1">{t('prod.logistics.k451')}</p>
                   <Link to="/news/66dbf5b2-cf34-4e8c-908a-2e78860a3696" className="text-foreground font-semibold hover:text-accent transition-colors">
-                    {isZh ? '远洋级链路中枢：FV37W-A1 超远距离数字链路系统——全栈定制化方案' : 'Strategic Link Hub: FV37W-A1 Ultra-Long-Range Digital Data Link — Full-Stack Customization'}
+                    {t('acc.vtxdetail.k647')}
                   </Link>
-                  <p className="text-muted-foreground text-sm mt-1">{isZh ? '了解 MIMO 架构、SDR 软件定义频率与三合一数据复用技术' : 'Explore MIMO architecture, SDR frequency definition and tri-in-one multiplexing'}</p>
+                  <p className="text-muted-foreground text-sm mt-1">{t('acc.vtxdetail.k648')}</p>
                 </div>
                 <ChevronRight className="w-5 h-5 text-muted-foreground" />
               </div>
@@ -1048,11 +1047,11 @@ const VtxDetail = () => {
               <div className="max-w-3xl mx-auto bg-card rounded-xl p-6 flex items-center gap-4 hover:shadow-lg transition-all border border-border/30">
                 <div className="text-3xl">📰</div>
                 <div className="flex-1">
-                  <p className="text-sm text-accent font-mono mb-1">{isZh ? '深度解读' : 'Deep Dive'}</p>
+                  <p className="text-sm text-accent font-mono mb-1">{t('prod.logistics.k451')}</p>
                   <Link to="/news/b7e2f4a1-3c8d-4e5f-9a1b-2d3e4f5a6b7c" className="text-foreground font-semibold hover:text-accent transition-colors">
-                    {isZh ? 'FV10W-72：7.2GHz特种频段10W工业级图传，重塑超视距通信边界' : 'FV10W-72: 7.2GHz Special Band 10W Industrial VTX Redefining BVLOS Communication'}
+                    {t('acc.vtxdetail.k649')}
                   </Link>
-                  <p className="text-muted-foreground text-sm mt-1">{isZh ? '了解7.2GHz频段战略价值、10W阶梯功率设计与双重散热架构' : 'Explore 7.2GHz band strategic value, 10W stepped power design and dual cooling architecture'}</p>
+                  <p className="text-muted-foreground text-sm mt-1">{t('acc.vtxdetail.k650')}</p>
                 </div>
                 <ChevronRight className="w-5 h-5 text-muted-foreground" />
               </div>

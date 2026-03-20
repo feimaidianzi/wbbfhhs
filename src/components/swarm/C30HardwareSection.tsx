@@ -6,24 +6,23 @@ import fcImg from "@/assets/products/c30-flight-controller.webp";
 import jetsonImg from "@/assets/products/c30-jetson-module.webp";
 
 const C30HardwareSection = () => {
-  const { language } = useLanguage();
-  const isZh = language === 'zh';
+  const { t } = useLanguage();
 
   const components = [
-    { icon: <Camera className="h-5 w-5" />, label: isZh ? "动捕反光标记" : "MoCap Reflective Markers", desc: isZh ? "红外反光标记点" : "IR reflective markers", position: "top-[12%] left-[5%]" },
-    { icon: <Cpu className="h-5 w-5" />, label: isZh ? "Pixhawk 6C 飞控" : "Pixhawk 6C FC", desc: isZh ? "开源飞控系统" : "Open-source FC", position: "top-[10%] right-[5%]" },
-    { icon: <Monitor className="h-5 w-5" />, label: isZh ? "Jetson Orin NX" : "Jetson Orin NX", desc: "100 TOPS · 16GB", position: "top-[42%] left-[3%]" },
-    { icon: <Wifi className="h-5 w-5" />, label: isZh ? "WiFi 通讯模块" : "WiFi Comm Module", desc: isZh ? "集群自组网" : "Swarm mesh network", position: "top-[42%] right-[3%]" },
-    { icon: <Battery className="h-5 w-5" />, label: isZh ? "4S LiPo 电池" : "4S LiPo Battery", desc: "4S 5300mAh", position: "bottom-[22%] left-[8%]" },
-    { icon: <Fan className="h-5 w-5" />, label: isZh ? "高效螺旋桨" : "Efficient Propellers", desc: isZh ? "低噪高效桨叶" : "Low-noise blades", position: "bottom-[22%] right-[8%]" },
+    { icon: <Camera className="h-5 w-5" />, label: t('swarm.c30hardwaresection.k148'), desc: t('swarm.c30hardwaresection.k149'), position: "top-[12%] left-[5%]" },
+    { icon: <Cpu className="h-5 w-5" />, label: t('swarm.c30hardwaresection.k150'), desc: t('swarm.c30hardwaresection.k151'), position: "top-[10%] right-[5%]" },
+    { icon: <Monitor className="h-5 w-5" />, label: t('swarm.c30hardwaresection.k152'), desc: "100 TOPS · 16GB", position: "top-[42%] left-[3%]" },
+    { icon: <Wifi className="h-5 w-5" />, label: t('swarm.c20hardwaresection.k19'), desc: t('swarm.c30hardwaresection.k153'), position: "top-[42%] right-[3%]" },
+    { icon: <Battery className="h-5 w-5" />, label: t('swarm.c20hardwaresection.k23'), desc: "4S 5300mAh", position: "bottom-[22%] left-[8%]" },
+    { icon: <Fan className="h-5 w-5" />, label: t('swarm.c30hardwaresection.k154'), desc: t('swarm.c30hardwaresection.k155'), position: "bottom-[22%] right-[8%]" },
   ];
 
   return (
     <section className="py-20 bg-background">
       <div className="container-custom">
         <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="text-center mb-12">
-          <h2 className="text-3xl md:text-4xl font-black text-foreground mb-4">{isZh ? '硬件配置总览' : 'Hardware Overview'}</h2>
-          <p className="text-muted-foreground">{isZh ? 'CANI C30 无人机核心硬件组件' : 'CANI C30 drone core hardware components'}</p>
+          <h2 className="text-3xl md:text-4xl font-black text-foreground mb-4">{t('swarm.c30hardwaresection.k156')}</h2>
+          <p className="text-muted-foreground">{t('swarm.c30hardwaresection.k157')}</p>
         </motion.div>
 
         <div className="relative max-w-4xl mx-auto">
@@ -79,11 +78,11 @@ const C30HardwareSection = () => {
 
         {/* Hardware Module Gallery */}
         <div className="mt-16 max-w-4xl mx-auto">
-          <h3 className="text-xl font-bold text-foreground mb-8 text-center">{isZh ? '核心硬件模组' : 'Core Hardware Modules'}</h3>
+          <h3 className="text-xl font-bold text-foreground mb-8 text-center">{t('swarm.c30hardwaresection.k158')}</h3>
           <div className="grid md:grid-cols-2 gap-6">
             {[
-              { img: fcImg, title: "Pixhawk 6C", desc: isZh ? "飞行控制器 · STM32H743 · 开源飞控系统" : "Flight Controller · STM32H743 · Open-Source FC" },
-              { img: jetsonImg, title: "Jetson Orin NX", desc: isZh ? "100 TOPS AI算力 · 16GB LPDDR5 · 边缘推理" : "100 TOPS AI · 16GB LPDDR5 · Edge Inference" },
+              { img: fcImg, title: "Pixhawk 6C", desc: t('swarm.c30hardwaresection.k159') },
+              { img: jetsonImg, title: "Jetson Orin NX", desc: t('swarm.c30hardwaresection.k160') },
             ].map((mod, i) => (
               <motion.div key={i} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.1 }}
                 className="bg-card border border-border/30 rounded-xl overflow-hidden hover:border-accent/30 transition-all group"

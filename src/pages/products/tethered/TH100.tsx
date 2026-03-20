@@ -26,8 +26,7 @@ import th100Wash3 from "@/assets/products/th-100-wash-3.png";
 import th100Before from "@/assets/products/th-100-before.png";
 
 const TH100 = () => {
-  const { t, language } = useLanguage();
-  const isZh = language === 'zh';
+  const { t } = useLanguage();
 
   const highlights = [{
     icon: LayoutGrid,
@@ -387,11 +386,11 @@ const TH100 = () => {
           <div className="max-w-3xl mx-auto bg-gray-800/60 rounded-xl p-6 flex items-center gap-4 hover:bg-gray-800/80 transition-colors">
             <div className="text-3xl">📰</div>
             <div className="flex-1">
-              <p className="text-sm text-cyan-400 font-mono mb-1">{isZh ? '深度解读' : 'Deep Dive'}</p>
+              <p className="text-sm text-cyan-400 font-mono mb-1">{t('prod.logistics.k451')}</p>
               <Link to="/news/aa31f4e9-2fac-4666-89b6-fc553c4ef022" className="text-white font-semibold hover:text-cyan-300 transition-colors">
-                {isZh ? '持续空域守护者：TH-100 系留无人机系统如何定义工业级全栈定制？' : 'Persistent Airspace Guardian: How TH-100 Defines Industrial Full-stack Customization'}
+                {t('tethered.th100.k883')}
               </Link>
-              <p className="text-gray-400 text-sm mt-1">{isZh ? '了解 TH-100 的软硬件全栈开发能力与 OEM/ODM 定制服务' : 'Learn about TH-100 full-stack R&D and OEM/ODM services'}</p>
+              <p className="text-gray-400 text-sm mt-1">{t('tethered.th100.k884')}</p>
             </div>
             <ChevronRight className="w-5 h-5 text-gray-500" />
           </div>

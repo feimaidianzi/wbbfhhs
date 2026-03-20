@@ -14,7 +14,7 @@ import { Helmet } from "react-helmet-async";
 
 const DigitalFpvDetail = () => {
   const { productId } = useParams<{ productId: string }>();
-  const { language, t } = useLanguage();
+  const { t } = useLanguage();
   const product = digitalFpvProducts.find(p => p.id === productId);
   const [selectedImage, setSelectedImage] = useState(0);
 
@@ -56,7 +56,7 @@ const DigitalFpvDetail = () => {
     sku: `CANI-${product.id.toUpperCase()}`,
     manufacturer: {
       '@type': 'Organization',
-      name: language === 'zh' ? '长凌科技' : 'CANI Technology',
+      name: t('acc.cameradetail.k454'),
     },
     additionalProperty: product.specs.flatMap(specGroup =>
       specGroup.items.map(item => ({
@@ -194,19 +194,19 @@ const DigitalFpvDetail = () => {
               <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
                 <div className="text-center p-6 bg-card rounded-2xl shadow-card">
                   <div className="text-4xl font-bold text-accent mb-2">15g</div>
-                  <div className="text-muted-foreground text-sm">{language === 'zh' ? '极致轻量' : 'Ultra Lightweight'}</div>
+                  <div className="text-muted-foreground text-sm">{t('fpv.digitalfpvdetail.k885')}</div>
                 </div>
                 <div className="text-center p-6 bg-card rounded-2xl shadow-card">
                   <div className="text-4xl font-bold text-accent mb-2">90FPS</div>
-                  <div className="text-muted-foreground text-sm">{language === 'zh' ? '1080P 高帧率' : '1080P High FPS'}</div>
+                  <div className="text-muted-foreground text-sm">{t('fpv.digitalfpvdetail.k886')}</div>
                 </div>
                 <div className="text-center p-6 bg-card rounded-2xl shadow-card">
                   <div className="text-4xl font-bold text-accent mb-2">IMX415</div>
-                  <div className="text-muted-foreground text-sm">{language === 'zh' ? 'SONY 4K 传感器' : 'SONY 4K Sensor'}</div>
+                  <div className="text-muted-foreground text-sm">{t('fpv.digitalfpvdetail.k887')}</div>
                 </div>
                 <div className="text-center p-6 bg-card rounded-2xl shadow-card">
                   <div className="text-4xl font-bold text-accent mb-2">OpenIPC</div>
-                  <div className="text-muted-foreground text-sm">{language === 'zh' ? '开源架构' : 'Open Source'}</div>
+                  <div className="text-muted-foreground text-sm">{t('fpv.digitalfpvdetail.k888')}</div>
                 </div>
               </div>
             </div>
@@ -423,17 +423,13 @@ const DigitalFpvDetail = () => {
                     </div>
                     <div className="flex-1 text-center md:text-left">
                       <div className="text-xs font-semibold text-accent uppercase tracking-wider mb-1">
-                        {language === 'zh' ? '📖 深度解读' : '📖 Deep Dive'}
+                        {t('acc.cameradetail.k457')}
                       </div>
                       <h3 className="text-lg font-bold text-card-foreground group-hover:text-accent transition-colors mb-1">
-                        {language === 'zh'
-                          ? 'WiFiLink2：OpenIPC 开源图传的工业化演进'
-                          : 'WiFiLink2: The Industrial Evolution of OpenIPC Digital FPV'}
+                        {t('fpv.digitalfpvdetail.k889')}
                       </h3>
                       <p className="text-sm text-muted-foreground">
-                        {language === 'zh'
-                          ? '从 1080P 90FPS 到移动端直连的完整技术解析，含 H.265 编码效率公式与工业应用场景分析'
-                          : 'Complete technical analysis from 1080P 90FPS to mobile streaming, including H.265 encoding efficiency and industrial applications'}
+                        {t('fpv.digitalfpvdetail.k890')}
                       </p>
                     </div>
                     <ArrowRight className="w-5 h-5 text-accent group-hover:translate-x-1 transition-transform flex-shrink-0" />

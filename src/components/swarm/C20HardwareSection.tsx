@@ -4,24 +4,23 @@ import { Cpu, Radio, Zap, Navigation, Battery, Fan } from "lucide-react";
 import c20FleetImg from "@/assets/products/c20-fleet-render.png";
 
 const C20HardwareSection = () => {
-  const { language } = useLanguage();
-  const isZh = language === 'zh';
+  const { t } = useLanguage();
 
   const components = [
-    { icon: <Cpu className="h-5 w-5" />, label: isZh ? "Pixhawk 飞控" : "Pixhawk FC", desc: isZh ? "开源飞控系统" : "Open-source flight controller", position: "top-[15%] left-[8%]" },
-    { icon: <Navigation className="h-5 w-5" />, label: isZh ? "UWB 定位标签" : "UWB Tag", desc: isZh ? "Linktrack P-B 模块" : "Linktrack P-B module", position: "top-[10%] right-[8%]" },
-    { icon: <Radio className="h-5 w-5" />, label: isZh ? "WiFi 通讯模块" : "WiFi Comm Module", desc: isZh ? "自组网数据链路" : "Self-organizing data link", position: "top-[45%] left-[5%]" },
-    { icon: <Zap className="h-5 w-5" />, label: isZh ? "电调 (ESC)" : "ESC", desc: isZh ? "四合一30A电调" : "4-in-1 30A ESC", position: "top-[45%] right-[5%]" },
-    { icon: <Battery className="h-5 w-5" />, label: isZh ? "4S LiPo 电池" : "4S LiPo Battery", desc: "4S 3000mAh", position: "bottom-[20%] left-[10%]" },
-    { icon: <Fan className="h-5 w-5" />, label: isZh ? "5寸螺旋桨" : "5\" Propellers", desc: isZh ? "高效低噪桨叶" : "High-efficiency low-noise blades", position: "bottom-[20%] right-[10%]" },
+    { icon: <Cpu className="h-5 w-5" />, label: t('swarm.c20hardwaresection.k15'), desc: t('swarm.c20hardwaresection.k16'), position: "top-[15%] left-[8%]" },
+    { icon: <Navigation className="h-5 w-5" />, label: t('swarm.c20hardwaresection.k17'), desc: t('swarm.c20hardwaresection.k18'), position: "top-[10%] right-[8%]" },
+    { icon: <Radio className="h-5 w-5" />, label: t('swarm.c20hardwaresection.k19'), desc: t('swarm.c20hardwaresection.k20'), position: "top-[45%] left-[5%]" },
+    { icon: <Zap className="h-5 w-5" />, label: t('swarm.c20hardwaresection.k21'), desc: t('swarm.c20hardwaresection.k22'), position: "top-[45%] right-[5%]" },
+    { icon: <Battery className="h-5 w-5" />, label: t('swarm.c20hardwaresection.k23'), desc: "4S 3000mAh", position: "bottom-[20%] left-[10%]" },
+    { icon: <Fan className="h-5 w-5" />, label: t('swarm.c20hardwaresection.k24') Propellers", desc: t('swarm.c20hardwaresection.k25'), position: "bottom-[20%] right-[10%]" },
   ];
 
   return (
     <section className="py-20 bg-background">
       <div className="container-custom">
         <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="text-center mb-12">
-          <h2 className="text-3xl md:text-4xl font-black text-foreground mb-4">{isZh ? '硬件配置' : 'Hardware Configuration'}</h2>
-          <p className="text-muted-foreground">{isZh ? 'CANI C20 集群无人机核心组件一览' : 'CANI C20 swarm drone core component overview'}</p>
+          <h2 className="text-3xl md:text-4xl font-black text-foreground mb-4">{t('swarm.c20hardwaresection.k26')}</h2>
+          <p className="text-muted-foreground">{t('swarm.c20hardwaresection.k27')}</p>
         </motion.div>
 
         {/* Drone labeled diagram using CSS */}

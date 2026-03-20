@@ -3,34 +3,33 @@ import { motion } from "framer-motion";
 import { AlertTriangle, Camera, Maximize, Users } from "lucide-react";
 
 const C30WarningNotesSection = () => {
-  const { language } = useLanguage();
-  const isZh = language === 'zh';
+  const { t } = useLanguage();
 
   const notes = [
     {
       icon: Maximize,
-      title: isZh ? "空间要求" : "Space Requirements",
+      title: t('swarm.c30warningnotessection.k228'),
       items: [
-        isZh ? "三机编队：场地面积需大于 30㎡" : "3-drone formation: venue area must exceed 30㎡",
-        isZh ? "五机编队：场地面积需大于 50㎡" : "5-drone formation: venue area must exceed 50㎡",
-        isZh ? "空间形状尽量接近正方形" : "Space shape should be as close to square as possible",
+        t('swarm.c30warningnotessection.k229'),
+        t('swarm.c30warningnotessection.k230'),
+        t('swarm.c30warningnotessection.k231'),
       ],
     },
     {
       icon: Camera,
-      title: isZh ? "动捕相机数量" : "MoCap Camera Count",
+      title: t('swarm.c30warningnotessection.k232'),
       items: [
-        isZh ? "30㎡ 空间一般需要 12 个以上动捕相机" : "30㎡ space typically requires 12+ MoCap cameras",
-        isZh ? "50㎡ 空间一般需要 20 个以上动捕相机" : "50㎡ space typically requires 20+ MoCap cameras",
-        isZh ? "空间越大，相机数量越多" : "Larger space requires more cameras",
+        t('swarm.c30warningnotessection.k233'),
+        t('swarm.c30warningnotessection.k234'),
+        t('swarm.c30warningnotessection.k235'),
       ],
     },
     {
       icon: Users,
-      title: isZh ? "特殊说明" : "Special Notes",
+      title: t('swarm.c30warningnotessection.k236'),
       items: [
-        isZh ? "特殊场地情况需特殊考虑，详情可咨询客服" : "Special venue conditions require individual assessment, please consult our team",
-        isZh ? "购买此产品需考虑以上空间与设备要求" : "Consider the above space and equipment requirements before purchase",
+        t('swarm.c30warningnotessection.k237'),
+        t('swarm.c30warningnotessection.k238'),
       ],
     },
   ];
@@ -48,7 +47,7 @@ const C30WarningNotesSection = () => {
           <div className="bg-destructive/10 px-6 py-4 flex items-center gap-3 border-b border-destructive/20">
             <AlertTriangle className="w-6 h-6 text-destructive shrink-0" />
             <h3 className="text-lg font-bold text-destructive">
-              {isZh ? '注意事项' : 'Important Notes'}
+              {t('swarm.c30warningnotessection.k239')}
             </h3>
           </div>
 

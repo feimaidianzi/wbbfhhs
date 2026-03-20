@@ -4,58 +4,57 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 const C20SpecsSection = () => {
-  const { language } = useLanguage();
-  const isZh = language === 'zh';
+  const { t } = useLanguage();
 
   const specs = {
     drone: {
-      label: isZh ? "机体参数" : "Drone Specs",
+      label: t('swarm.c20specssection.k61'),
       items: [
-        { label: isZh ? "机型" : "Type", value: isZh ? "四旋翼" : "Quadrotor" },
-        { label: isZh ? "轴距" : "Wheelbase", value: "230mm" },
-        { label: isZh ? "螺旋桨" : "Propeller", value: isZh ? '5寸三叶桨' : '5" Tri-blade' },
-        { label: isZh ? "空机重量" : "Empty Weight", value: "0.68kg" },
-        { label: isZh ? "最大起飞重量" : "Max Takeoff Weight", value: "1.1kg" },
-        { label: isZh ? "续航时间" : "Flight Time", value: isZh ? "约10min" : "~10min" },
-        { label: isZh ? "悬停精度" : "Hover Accuracy", value: "±10cm" },
-        { label: isZh ? "飞控" : "Flight Controller", value: "Pixhawk" },
-        { label: isZh ? "使用环境" : "Environment", value: isZh ? "室内/遮蔽环境" : "Indoor/Sheltered" },
+        { label: t('swarm.c20specssection.k62'), value: t('swarm.c20specssection.k63') },
+        { label: t('swarm.c20specssection.k64'), value: "230mm" },
+        { label: t('swarm.c20specssection.k65'), value: t('swarm.c20packagesection.k41') Tri-blade' },
+        { label: t('swarm.c20specssection.k66'), value: "0.68kg" },
+        { label: t('swarm.c20specssection.k67'), value: "1.1kg" },
+        { label: t('swarm.c20specssection.k68'), value: t('swarm.c20specssection.k69') },
+        { label: t('swarm.c20specssection.k70'), value: "±10cm" },
+        { label: t('swarm.c20packagesection.k43'), value: "Pixhawk" },
+        { label: t('swarm.c20specssection.k71'), value: t('swarm.c20specssection.k72') },
       ],
     },
     power: {
-      label: isZh ? "动力系统" : "Power System",
+      label: t('swarm.c20specssection.k73'),
       items: [
-        { label: isZh ? "电机" : "Motors", value: isZh ? "2306 无刷电机" : "2306 Brushless Motor" },
-        { label: isZh ? "电调" : "ESC", value: isZh ? "四合一 30A" : "4-in-1 30A" },
-        { label: isZh ? "电池" : "Battery", value: "4S 3000mAh LiPo" },
-        { label: isZh ? "电池电压" : "Battery Voltage", value: "14.8V" },
-        { label: isZh ? "充电器" : "Charger", value: isZh ? "平衡充电器" : "Balance Charger" },
-        { label: isZh ? "最大推力" : "Max Thrust", value: isZh ? "单轴 >800g" : "Per arm >800g" },
+        { label: t('swarm.c20specssection.k74'), value: t('swarm.c20specssection.k75') },
+        { label: t('swarm.c20specssection.k76'), value: t('swarm.c20specssection.k77') },
+        { label: t('swarm.c20specssection.k78'), value: "4S 3000mAh LiPo" },
+        { label: t('swarm.c20specssection.k79'), value: "14.8V" },
+        { label: t('swarm.c20specssection.k80'), value: t('swarm.c20packagesection.k46') },
+        { label: t('swarm.c20specssection.k81'), value: t('swarm.c20specssection.k82') },
       ],
     },
     uwb: {
-      label: isZh ? "UWB 定位" : "UWB Positioning",
+      label: t('swarm.c20specssection.k83'),
       items: [
-        { label: isZh ? "定位精度" : "Accuracy", value: "10cm", highlight: true },
-        { label: isZh ? "刷新率" : "Refresh Rate", value: "200Hz", highlight: true },
-        { label: isZh ? "通讯延迟" : "Latency", value: "<0.5ms" },
-        { label: isZh ? "最大标签数" : "Max Tags", value: "200" },
-        { label: isZh ? "基站数量" : "Base Stations", value: "4 (max 120)" },
-        { label: isZh ? "定位距离" : "Range", value: "500m" },
-        { label: isZh ? "通讯带宽" : "Bandwidth", value: "3Mbps" },
-        { label: isZh ? "标签重量" : "Tag Weight", value: "34.3g" },
-        { label: isZh ? "定位模块" : "Module", value: "Linktrack P-B" },
+        { label: t('swarm.c20specssection.k84'), value: "10cm", highlight: true },
+        { label: t('swarm.c20specssection.k85'), value: "200Hz", highlight: true },
+        { label: t('swarm.c20specssection.k86'), value: "<0.5ms" },
+        { label: t('swarm.c20specssection.k87'), value: "200" },
+        { label: t('swarm.c20specssection.k88'), value: "4 (max 120)" },
+        { label: t('swarm.c20specssection.k89'), value: "500m" },
+        { label: t('swarm.c20specssection.k90'), value: "3Mbps" },
+        { label: t('swarm.c20specssection.k91'), value: "34.3g" },
+        { label: t('swarm.c20specssection.k92'), value: "Linktrack P-B" },
       ],
     },
     comm: {
-      label: isZh ? "通讯系统" : "Communication",
+      label: t('swarm.c20specssection.k93'),
       items: [
-        { label: isZh ? "组网方式" : "Network Type", value: isZh ? "WiFi 自组网" : "WiFi Mesh" },
-        { label: isZh ? "通讯协议" : "Protocol", value: "MAVLink / ROS" },
-        { label: isZh ? "地面站" : "Ground Station", value: isZh ? "QGroundControl" : "QGroundControl" },
-        { label: isZh ? "遥控器" : "Remote Controller", value: isZh ? "支持遥控接入" : "RC Supported" },
-        { label: isZh ? "数据链路" : "Data Link", value: isZh ? "WiFi 双向通讯" : "WiFi Bi-directional" },
-        { label: isZh ? "集群上限" : "Swarm Max", value: isZh ? "理论 200 架" : "Theoretical 200" },
+        { label: t('swarm.c20specssection.k94'), value: t('swarm.c20specssection.k95') },
+        { label: t('swarm.c20specssection.k96'), value: "MAVLink / ROS" },
+        { label: t('swarm.c20specssection.k97'), value: t('swarm.c20specssection.k98') },
+        { label: t('swarm.c20packagesection.k48'), value: t('swarm.c20specssection.k99') },
+        { label: t('swarm.c20specssection.k100'), value: t('swarm.c20specssection.k101') },
+        { label: t('swarm.c20specssection.k102'), value: t('swarm.c20specssection.k103') },
       ],
     },
   };
@@ -64,7 +63,7 @@ const C20SpecsSection = () => {
     <section className="py-20 bg-background">
       <div className="container-custom">
         <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="text-center mb-12">
-          <h2 className="text-3xl md:text-4xl font-black text-foreground">{isZh ? '规格参数' : 'Technical Specifications'}</h2>
+          <h2 className="text-3xl md:text-4xl font-black text-foreground">{t('swarm.c20specssection.k104')}</h2>
         </motion.div>
         <Tabs defaultValue="drone" className="max-w-4xl mx-auto">
           <TabsList className="grid w-full grid-cols-4 mb-8">

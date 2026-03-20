@@ -16,16 +16,15 @@ const DroneIcon = ({ x, y, size = 28 }: { x: number; y: number; size?: number })
 );
 
 const C30FormationDemoSection = () => {
-  const { language } = useLanguage();
-  const isZh = language === 'zh';
+  const { t } = useLanguage();
   const [activeTab, setActiveTab] = useState("mode");
 
   const tabs = [
     {
       id: "mode",
       icon: Unlock,
-      label: isZh ? "模式控制" : "Mode Control",
-      desc: isZh ? "一键解锁、降落、返航等批量模式指令，同时控制所有无人机的飞行状态" : "One-click arming, landing, RTH - batch mode commands controlling all drones simultaneously",
+      label: t('swarm.c30formationdemosection.k129'),
+      desc: t('swarm.c30formationdemosection.k130'),
       diagram: (
         <svg viewBox="0 0 300 200" className="w-full max-w-sm mx-auto">
           {/* Unlock/land icons */}
@@ -40,15 +39,15 @@ const C30FormationDemoSection = () => {
           <DroneIcon x={80} y={100} size={40} />
           <DroneIcon x={150} y={100} size={40} />
           <DroneIcon x={220} y={100} size={40} />
-          <text x="150" y="170" textAnchor="middle" className="fill-muted-foreground text-[11px]">{isZh ? '全机同步指令执行' : 'Synchronized Command Execution'}</text>
+          <text x="150" y="170" textAnchor="middle" className="fill-muted-foreground text-[11px]">{t('swarm.c30formationdemosection.k131')}</text>
         </svg>
       ),
     },
     {
       id: "position",
       icon: Move,
-      label: isZh ? "位置控制" : "Position Control",
-      desc: isZh ? "精确控制每架无人机的三维坐标位置，支持独立位移与整体平移" : "Precise 3D position control for each drone, supporting independent movement and collective translation",
+      label: t('swarm.c30formationdemosection.k132'),
+      desc: t('swarm.c30formationdemosection.k133'),
       diagram: (
         <svg viewBox="0 0 300 200" className="w-full max-w-sm mx-auto">
           {/* Arrows up showing position commands */}
@@ -63,15 +62,15 @@ const C30FormationDemoSection = () => {
           <DroneIcon x={80} y={110} size={40} />
           <DroneIcon x={150} y={90} size={40} />
           <DroneIcon x={220} y={110} size={40} />
-          <text x="150" y="170" textAnchor="middle" className="fill-muted-foreground text-[11px]">{isZh ? '独立三维位置控制' : 'Independent 3D Position Control'}</text>
+          <text x="150" y="170" textAnchor="middle" className="fill-muted-foreground text-[11px]">{t('swarm.c30formationdemosection.k134')}</text>
         </svg>
       ),
     },
     {
       id: "line",
       icon: ArrowUpDown,
-      label: isZh ? "一字队形" : "Line Formation",
-      desc: isZh ? "所有无人机排列成一条直线，可设定间距、高度、朝向等参数" : "All drones align in a straight line with configurable spacing, altitude, and heading parameters",
+      label: t('swarm.c30formationdemosection.k135'),
+      desc: t('swarm.c30formationdemosection.k136'),
       diagram: (
         <svg viewBox="0 0 300 200" className="w-full max-w-sm mx-auto">
           <DroneIcon x={60} y={100} size={36} />
@@ -80,15 +79,15 @@ const C30FormationDemoSection = () => {
           {/* Line connecting */}
           <line x1="80" y1="100" x2="130" y2="100" className="stroke-accent/40" strokeWidth="1" strokeDasharray="4,3" />
           <line x1="170" y1="100" x2="220" y2="100" className="stroke-accent/40" strokeWidth="1" strokeDasharray="4,3" />
-          <text x="150" y="170" textAnchor="middle" className="fill-muted-foreground text-[11px]">{isZh ? '一字队形编排' : 'Line Formation Arrangement'}</text>
+          <text x="150" y="170" textAnchor="middle" className="fill-muted-foreground text-[11px]">{t('swarm.c30formationdemosection.k137')}</text>
         </svg>
       ),
     },
     {
       id: "triangle",
       icon: TriangleRight,
-      label: isZh ? "三角队形" : "Triangle Formation",
-      desc: isZh ? "无人机排列成三角形阵型，支持等边、等腰等不同三角形类型" : "Drones arranged in triangular formation, supporting equilateral and isosceles configurations",
+      label: t('swarm.c30formationdemosection.k138'),
+      desc: t('swarm.c30formationdemosection.k139'),
       diagram: (
         <svg viewBox="0 0 300 200" className="w-full max-w-sm mx-auto">
           <DroneIcon x={150} y={50} size={36} />
@@ -98,15 +97,15 @@ const C30FormationDemoSection = () => {
           <line x1="150" y1="70" x2="100" y2="125" className="stroke-accent/40" strokeWidth="1" strokeDasharray="4,3" />
           <line x1="150" y1="70" x2="200" y2="125" className="stroke-accent/40" strokeWidth="1" strokeDasharray="4,3" />
           <line x1="110" y1="140" x2="190" y2="140" className="stroke-accent/40" strokeWidth="1" strokeDasharray="4,3" />
-          <text x="150" y="190" textAnchor="middle" className="fill-muted-foreground text-[11px]">{isZh ? '三角队形编排' : 'Triangle Formation Arrangement'}</text>
+          <text x="150" y="190" textAnchor="middle" className="fill-muted-foreground text-[11px]">{t('swarm.c30formationdemosection.k140')}</text>
         </svg>
       ),
     },
     {
       id: "transform",
       icon: Move,
-      label: isZh ? "队形变换" : "Formation Change",
-      desc: isZh ? "在不同队形之间动态切换，支持一字→三角、三角→一字等队形实时变换" : "Dynamic switching between formations: line↔triangle real-time formation transformation",
+      label: t('swarm.c30formationdemosection.k141'),
+      desc: t('swarm.c30formationdemosection.k142'),
       diagram: (
         <svg viewBox="0 0 300 200" className="w-full max-w-sm mx-auto">
           {/* Before: line */}
@@ -119,8 +118,8 @@ const C30FormationDemoSection = () => {
           <DroneIcon x={190} y={140} size={28} />
           <DroneIcon x={230} y={170} size={28} />
           <DroneIcon x={260} y={140} size={28} />
-          <text x="80" y="40" className="fill-muted-foreground text-[9px]">{isZh ? '一字队形' : 'Line'}</text>
-          <text x="220" y="130" className="fill-muted-foreground text-[9px]">{isZh ? '三角队形' : 'Triangle'}</text>
+          <text x="80" y="40" className="fill-muted-foreground text-[9px]">{t('swarm.c30formationdemosection.k143')}</text>
+          <text x="220" y="130" className="fill-muted-foreground text-[9px]">{t('swarm.c30formationdemosection.k144')}</text>
         </svg>
       ),
     },
@@ -132,12 +131,10 @@ const C30FormationDemoSection = () => {
         <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="text-center mb-12">
           <span className="text-accent font-mono text-sm tracking-widest uppercase mb-2 block">Formation Demos</span>
           <h2 className="text-3xl md:text-4xl font-black text-foreground mb-4">
-            {isZh ? '可实现功能演示' : 'Available Formation Functions'}
+            {t('swarm.c30formationdemosection.k145')}
           </h2>
           <p className="text-muted-foreground max-w-2xl mx-auto">
-            {isZh
-              ? '本开发平台提供丰富的demo例程，包括模式控制、位置控制和多种队形变换'
-              : 'The development platform provides rich demo routines including mode control, position control, and various formation transformations'}
+            {t('swarm.c30formationdemosection.k146')}
           </p>
         </motion.div>
 
@@ -145,7 +142,7 @@ const C30FormationDemoSection = () => {
           {/* Left: Fleet render image */}
           <motion.div initial={{ opacity: 0, x: -20 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }}>
             <div className="rounded-2xl overflow-hidden border border-border/20 bg-card p-4">
-              <img src={fleetImg} alt={isZh ? "C30三机编队" : "C30 3-drone fleet"} className="w-full h-auto" loading="lazy" />
+              <img src={fleetImg} alt={t('swarm.c30formationdemosection.k147')} className="w-full h-auto" loading="lazy" />
             </div>
           </motion.div>
 

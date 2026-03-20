@@ -5,16 +5,15 @@ import { OptimizedImage } from "@/components/OptimizedImage";
 import enduranceImg from "@/assets/products/w400-endurance.png";
 
 const W400CoreMetricsSection = () => {
-  const { language } = useLanguage();
-  const isZh = language === 'zh';
+  const { t } = useLanguage();
 
   const metrics = [
-    { icon: <Timer className="h-6 w-6" />, value: "30min", label: isZh ? "最长续航时间" : "Max Flight Time", desc: isZh ? "大容量电池支持长时间任务执行" : "Large capacity battery for extended missions" },
-    { icon: <Weight className="h-6 w-6" />, value: "4kg", label: isZh ? "最大起飞重量" : "Max Takeoff Weight", desc: isZh ? "可搭载多种传感器进行二次开发" : "Supports various sensor payloads for development" },
-    { icon: <Battery className="h-6 w-6" />, value: "10000mAh", label: isZh ? "高电压电池" : "High-Voltage Battery", desc: isZh ? "22.2V / 222Wh 高能量密度锂聚合物" : "22.2V / 222Wh high energy density LiPo" },
-    { icon: <Zap className="h-6 w-6" />, value: "22.2V", label: isZh ? "电池电压" : "Battery Voltage", desc: isZh ? "6S高压平台，动力储备充裕" : "6S high-voltage platform with ample power reserve" },
-    { icon: <Ruler className="h-6 w-6" />, value: "600mm", label: isZh ? "对角线轴距" : "Diagonal Wheelbase", desc: isZh ? "六旋翼构型，稳定性与载重兼顾" : "Hexacopter config balancing stability & payload" },
-    { icon: <Wind className="h-6 w-6" />, value: isZh ? "5级" : "Level 5", label: isZh ? "抗风等级" : "Wind Resistance", desc: isZh ? "室外复杂环境稳定作业" : "Stable operations in complex outdoor conditions" },
+    { icon: <Timer className="h-6 w-6" />, value: "30min", label: t('swarm.w400coremetricssection.k288'), desc: t('swarm.w400coremetricssection.k289') },
+    { icon: <Weight className="h-6 w-6" />, value: "4kg", label: t('swarm.c20specssection.k67'), desc: t('swarm.w400coremetricssection.k290') },
+    { icon: <Battery className="h-6 w-6" />, value: "10000mAh", label: t('swarm.w400coremetricssection.k291'), desc: t('swarm.w400coremetricssection.k292') },
+    { icon: <Zap className="h-6 w-6" />, value: "22.2V", label: t('swarm.c20specssection.k79'), desc: t('swarm.w400coremetricssection.k293') },
+    { icon: <Ruler className="h-6 w-6" />, value: "600mm", label: t('swarm.w400coremetricssection.k294'), desc: t('swarm.w400coremetricssection.k295') },
+    { icon: <Wind className="h-6 w-6" />, value: t('swarm.w400coremetricssection.k296'), label: t('swarm.w400coremetricssection.k297'), desc: t('swarm.w400coremetricssection.k298') },
   ];
 
   return (
@@ -25,17 +24,17 @@ const W400CoreMetricsSection = () => {
       <div className="container-custom relative z-10">
         <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="text-center mb-12">
           <h2 className="text-3xl md:text-4xl font-black mb-4">
-            {isZh ? '长续航 · 大载重' : 'Long Endurance · Heavy Payload'}
+            {t('swarm.w400coremetricssection.k299')}
           </h2>
           <p className="text-white/60 max-w-2xl mx-auto">
-            {isZh ? '续航时间30min，最大起飞重量4kg，可搭载其他传感器进行二次开发' : '30min flight time, 4kg max takeoff weight, supports additional sensors for secondary development'}
+            {t('swarm.w400coremetricssection.k300')}
           </p>
         </motion.div>
 
         <div className="grid lg:grid-cols-2 gap-12 items-center">
           {/* Product image */}
           <motion.div initial={{ opacity: 0, x: -30 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }}>
-            <OptimizedImage src={enduranceImg} alt={isZh ? "CANI-W400 长续航大载重" : "CANI-W400 Long Endurance Heavy Payload"} aspectRatio="4/3" className="w-full rounded-2xl" objectFit="contain" />
+            <OptimizedImage src={enduranceImg} alt={t('swarm.w400coremetricssection.k301')} aspectRatio="4/3" className="w-full rounded-2xl" objectFit="contain" />
           </motion.div>
 
           {/* Metrics grid */}
@@ -67,14 +66,14 @@ const W400CoreMetricsSection = () => {
           <div className="bg-white/5 border border-accent/20 rounded-2xl p-6 md:p-8">
             <h3 className="text-center text-sm font-bold text-accent mb-6 uppercase tracking-wider flex items-center justify-center gap-2">
               <Zap className="h-4 w-4" />
-              {isZh ? '电池能量仪表' : 'Battery Energy Dashboard'}
+              {t('swarm.w400coremetricssection.k302')}
             </h3>
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
               {[
-                { val: "22.2V", lab: isZh ? "额定电压" : "Voltage" },
-                { val: "10000mAh", lab: isZh ? "电池容量" : "Capacity" },
-                { val: "222Wh", lab: isZh ? "能量密度" : "Energy" },
-                { val: "XT60", lab: isZh ? "接口类型" : "Connector" },
+                { val: "22.2V", lab: t('swarm.w400coremetricssection.k303') },
+                { val: "10000mAh", lab: t('swarm.w400coremetricssection.k304') },
+                { val: "222Wh", lab: t('swarm.w400coremetricssection.k305') },
+                { val: "XT60", lab: t('swarm.w400coremetricssection.k306') },
               ].map((b, i) => (
                 <div key={i} className="bg-white/5 rounded-xl p-4 border border-white/5">
                   <div className="text-xl md:text-2xl font-black text-accent">{b.val}</div>

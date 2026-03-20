@@ -3,32 +3,30 @@ import { motion } from "framer-motion";
 import { Wifi, Monitor, Navigation, Radio, Cpu, Layers } from "lucide-react";
 
 const W200SystemArchitecture = () => {
-  const { t, language } = useLanguage();
-
-  const isZh = language === 'zh';
+  const { t } = useLanguage();
 
   const archBlocks = [
     {
       icon: <Navigation className="h-5 w-5" />,
-      title: isZh ? "UWB定位系统" : "UWB Positioning",
+      title: t('swarm.w200systemarchitecture.k240'),
       items: [
-        isZh ? "4个UWB基站 (Linktrack P-B)" : "4× UWB Base Stations (Linktrack P-B)",
-        isZh ? "3个UWB标签" : "3× UWB Tags",
-        isZh ? "10cm定位精度，200Hz刷新率" : "10cm accuracy, 200Hz refresh rate",
+        t('swarm.w200systemarchitecture.k241'),
+        t('swarm.w200systemarchitecture.k242'),
+        t('swarm.w200systemarchitecture.k243'),
       ],
     },
     {
       icon: <Radio className="h-5 w-5" />,
-      title: isZh ? "通信网络" : "Communication Network",
+      title: t('swarm.w200systemarchitecture.k244'),
       items: [
-        isZh ? "Mini Homer移动端 ×6" : "Mini Homer Mobile ×6",
-        isZh ? "Mini Homer基站端 ×1" : "Mini Homer Base ×1",
-        isZh ? "TCP/IP通信协议" : "TCP/IP Protocol",
+        t('swarm.w200systemarchitecture.k245'),
+        t('swarm.w200systemarchitecture.k246'),
+        t('swarm.w200systemarchitecture.k247'),
       ],
     },
     {
       icon: <Cpu className="h-5 w-5" />,
-      title: isZh ? "机载计算" : "Onboard Computing",
+      title: t('swarm.c30specssection.k218'),
       items: [
         "Allspark2 Orin NX",
         "100 TOPS AI",
@@ -37,21 +35,21 @@ const W200SystemArchitecture = () => {
     },
     {
       icon: <Monitor className="h-5 w-5" />,
-      title: isZh ? "地面站控制" : "Ground Station Control",
+      title: t('swarm.w200systemarchitecture.k248'),
       items: [
-        isZh ? "Prometheus集群控制系统" : "Prometheus Swarm Control",
-        isZh ? "Qt人机交互界面" : "Qt HMI Interface",
-        isZh ? "实时监控与编队指令" : "Real-time monitoring & commands",
+        t('swarm.w200systemarchitecture.k249'),
+        t('swarm.w200systemarchitecture.k250'),
+        t('swarm.w200systemarchitecture.k251'),
       ],
     },
   ];
 
   const keyFeatures = [
-    isZh ? "250轴距无人机平台，具备室内外飞行能力" : "250mm wheelbase drone platform with indoor/outdoor flight capability",
-    isZh ? "UWB定位，可在无GPS的特殊环境下飞行" : "UWB positioning enables flight in GPS-denied environments",
-    isZh ? "基站搭建简易，部署灵活方便" : "Easy base station setup with flexible deployment",
-    isZh ? "性能优异，续航时间长" : "Excellent performance with extended flight time",
-    isZh ? "搭配地面站软件，简单操作即可完成集群编队、目标追踪、同时起降等，适配室内外多种应用环境，是集群无人机研究和教学的首选平台。" : "Combined with ground station software for easy swarm formation, target tracking, and simultaneous takeoff/landing. Ideal for research and education in indoor/outdoor environments.",
+    t('swarm.w200systemarchitecture.k252'),
+    t('swarm.w200systemarchitecture.k253'),
+    t('swarm.w200systemarchitecture.k254'),
+    t('swarm.w200systemarchitecture.k255'),
+    t('swarm.w200systemarchitecture.k256'),
   ];
 
   return (
@@ -64,12 +62,10 @@ const W200SystemArchitecture = () => {
           className="text-center mb-12"
         >
           <h2 className="text-3xl md:text-4xl font-black text-foreground mb-4">
-            {isZh ? "系统架构" : "System Architecture"}
+            {t('swarm.w200systemarchitecture.k257')}
           </h2>
           <p className="text-muted-foreground max-w-2xl mx-auto">
-            {isZh
-              ? "集群通信软件系统采用分布式架构，利用socket网络编程技术和TCP/IP通信机制实现多机协同控制"
-              : "Distributed software architecture using socket networking and TCP/IP communication for multi-drone cooperative control"}
+            {t('swarm.w200systemarchitecture.k258')}
           </p>
         </motion.div>
 
@@ -108,7 +104,7 @@ const W200SystemArchitecture = () => {
           className="max-w-4xl mx-auto bg-accent/5 rounded-2xl p-8 border border-accent/10"
         >
           <h3 className="text-xl font-bold text-foreground mb-6 text-center">
-            {isZh ? "套件特点" : "Kit Features"}
+            {t('swarm.w200systemarchitecture.k259')}
           </h3>
           <ul className="space-y-4">
             {keyFeatures.map((feature, index) => (

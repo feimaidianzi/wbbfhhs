@@ -534,17 +534,13 @@ const MeshLink = () => {
                   </div>
                   <div className="flex-1 text-center md:text-left">
                     <div className="text-xs font-semibold text-accent uppercase tracking-wider mb-1">
-                      {language === 'zh' ? '📖 深度解读' : '📖 Deep Dive'}
+                      {t('acc.cameradetail.k457')}
                     </div>
                     <h3 className="text-lg font-bold text-card-foreground group-hover:text-accent transition-colors mb-1">
-                      {language === 'zh'
-                        ? 'Mesh-Link：无人机自组网与Mesh链路中继的工业化突破'
-                        : 'Mesh-Link: Industrial Breakthrough in UAV Ad-hoc Networking & Mesh Relay'}
+                      {t('acc.meshlink.k654')}
                     </h3>
                     <p className="text-sm text-muted-foreground">
-                      {language === 'zh'
-                        ? '从无中心组网到动态拓扑恢复的完整技术解析，含路径优化公式与WiFiLink2协同方案'
-                        : 'Complete technical analysis from decentralized networking to dynamic topology recovery, including path optimization and WiFiLink2 integration'}
+                      {t('acc.meshlink.k655')}
                     </p>
                   </div>
                   <ArrowRight className="w-5 h-5 text-accent group-hover:translate-x-1 transition-transform flex-shrink-0" />

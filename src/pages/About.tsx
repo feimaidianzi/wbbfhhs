@@ -793,7 +793,7 @@ const About = () => {
               <p className="text-muted-foreground leading-relaxed">
                 {t('about.seo.manufacturer.p3')}
               </p>
-              <meta itemProp="inLanguage" content={language === 'zh' ? 'zh-CN' : 'en'} />
+              <meta itemProp="inLanguage" content={t('acc.elrs.k656')} />
             </article>
           </div>
         </section>

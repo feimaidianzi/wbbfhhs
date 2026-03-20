@@ -614,12 +614,12 @@ const FcEscDetail = () => {
               <div className="max-w-3xl mx-auto bg-card rounded-xl p-6 flex items-center gap-4 hover:shadow-lg transition-all border border-border/30">
                 <div className="text-3xl">📖</div>
                 <div className="flex-1">
-                  <p className="text-sm text-accent font-mono mb-1">{language === 'zh' ? '深度解读' : 'Deep Dive'}</p>
+                  <p className="text-sm text-accent font-mono mb-1">{t('prod.logistics.k451')}</p>
                   <Link to="/news/d4b2c3e5-6f7a-8b9c-0d1e-2f3a4b5c6d7e" className="text-foreground font-semibold hover:text-accent transition-colors">
-                    {language === 'zh' ? 'CANI-Pixhawk4 工业级冗余飞控：重塑开源架构的可靠性基石' : 'CANI-Pixhawk4: Redefining Open-Source Architecture Reliability'}
+                    {t('acc.fcescdetail.k556')}
                   </Link>
                   <p className="text-muted-foreground text-sm mt-1">
-                    {language === 'zh' ? '了解三冗余传感器架构、EMI电磁隔离技术与PX4/ArduPilot生态深度适配' : 'Explore triple-redundant sensors, EMI protection, and PX4/ArduPilot ecosystem integration'}
+                    {t('acc.fcescdetail.k557')}
                   </p>
                 </div>
                 <ChevronRight className="w-5 h-5 text-muted-foreground" />
@@ -633,12 +633,12 @@ const FcEscDetail = () => {
               <div className="max-w-3xl mx-auto bg-card rounded-xl p-6 flex items-center gap-4 hover:shadow-lg transition-all border border-border/30">
                 <div className="text-3xl">📖</div>
                 <div className="flex-1">
-                  <p className="text-sm text-accent font-mono mb-1">{language === 'zh' ? '深度解读' : 'Deep Dive'}</p>
+                  <p className="text-sm text-accent font-mono mb-1">{t('prod.logistics.k451')}</p>
                   <Link to="/news/e5f6a7b8-9c0d-1e2f-3a4b-5c6d7e8f9a0b" className="text-foreground font-semibold hover:text-accent transition-colors">
-                    {language === 'zh' ? '定义紧凑型动力极限：CANI Stack-Mini F7-55A 飞速塔的技术演变与工业应用' : 'Defining Compact Power Limits: Stack-Mini F7-55A Technical Evolution & Industrial Applications'}
+                    {t('acc.fcescdetail.k558')}
                   </Link>
                   <p className="text-muted-foreground text-sm mt-1">
-                    {language === 'zh' ? '深入了解 F745 算力跨越、双向 DShot 动态谐波过滤与 55A 四合一电调散热工程' : 'Explore F745 computational leap, bidirectional DShot dynamic notch filtering, and 55A 4-in-1 ESC thermal engineering'}
+                    {t('acc.fcescdetail.k559')}
                   </p>
                 </div>
                 <ChevronRight className="w-5 h-5 text-muted-foreground" />
@@ -652,12 +652,12 @@ const FcEscDetail = () => {
               <div className="max-w-3xl mx-auto bg-card rounded-xl p-6 flex items-center gap-4 hover:shadow-lg transition-all border border-border/30">
                 <div className="text-3xl">📖</div>
                 <div className="flex-1">
-                  <p className="text-sm text-accent font-mono mb-1">{language === 'zh' ? '技术白皮书' : 'Tech Whitepaper'}</p>
+                  <p className="text-sm text-accent font-mono mb-1">{t('acc.fcescdetail.k560')}</p>
                   <Link to="/news/eec20aad-4e36-4a25-becf-14e0a6cd3129" className="text-foreground font-semibold hover:text-accent transition-colors">
-                    {language === 'zh' ? '工业级均衡之王：深度解析 CANI Stack F405-55A 飞速塔的稳定性逻辑' : 'Industrial-Grade Balance King: Deep Dive into Stack F405-55A Stability Engineering'}
+                    {t('acc.fcescdetail.k561')}
                   </Link>
                   <p className="text-muted-foreground text-sm mt-1">
-                    {language === 'zh' ? '了解 F405 工业级选型逻辑、55A MOSFET 热管理工程与抗干扰 PCB 布局' : 'Explore F405 industrial selection logic, 55A MOSFET thermal management, and EMI-resistant PCB layout'}
+                    {t('acc.fcescdetail.k562')}
                   </p>
                 </div>
                 <ChevronRight className="w-5 h-5 text-muted-foreground" />
@@ -671,12 +671,12 @@ const FcEscDetail = () => {
               <div className="max-w-3xl mx-auto bg-card rounded-xl p-6 flex items-center gap-4 hover:shadow-lg transition-all border border-border/30">
                 <div className="text-3xl">📖</div>
                 <div className="flex-1">
-                  <p className="text-sm text-accent font-mono mb-1">{language === 'zh' ? '技术白皮书' : 'Tech Whitepaper'}</p>
+                  <p className="text-sm text-accent font-mono mb-1">{t('acc.fcescdetail.k560')}</p>
                   <Link to="/news/b4637881-4579-4863-94af-f3719098a9a6" className="text-foreground font-semibold hover:text-accent transition-colors">
-                    {language === 'zh' ? '动力冗余与极致稳定：解构 CANI Stack F405-60A 在大载重无人机中的核心价值' : 'Power Redundancy & Ultimate Stability: Stack F405-60A Core Value in Heavy-Lift UAVs'}
+                    {t('acc.fcescdetail.k563')}
                   </Link>
                   <p className="text-muted-foreground text-sm mt-1">
-                    {language === 'zh' ? '了解 60A 大电流热管理工程、双向 DShot RPM 滤波与 X8 大载重架构适配' : 'Explore 60A high-current thermal management, bidirectional DShot RPM filtering, and X8 heavy-lift architecture'}
+                    {t('acc.fcescdetail.k564')}
                   </p>
                 </div>
                 <ChevronRight className="w-5 h-5 text-muted-foreground" />
@@ -690,12 +690,12 @@ const FcEscDetail = () => {
               <div className="max-w-3xl mx-auto bg-card rounded-xl p-6 flex items-center gap-4 hover:shadow-lg transition-all border border-border/30">
                 <div className="text-3xl">📖</div>
                 <div className="flex-1">
-                  <p className="text-sm text-accent font-mono mb-1">{language === 'zh' ? '技术白皮书' : 'Tech Whitepaper'}</p>
+                  <p className="text-sm text-accent font-mono mb-1">{t('acc.fcescdetail.k560')}</p>
                   <Link to="/news/c7d8e9f0-1a2b-3c4d-5e6f-7a8b9c0d1e2f" className="text-foreground font-semibold hover:text-accent transition-colors">
-                    {language === 'zh' ? '小尺寸，大算力：解析 CANI Stack-Mini F7-40A 如何定义紧凑型无人机的控制极限' : 'Small Size, Big Computing Power: How Stack-Mini F7-40A Defines Control Limits of Compact UAVs'}
+                    {t('acc.fcescdetail.k565')}
                   </Link>
                   <p className="text-muted-foreground text-sm mt-1">
-                    {language === 'zh' ? '深入了解 F722 低延迟 PID 控制、40A 高密度电流设计与双向 DShot RPM 滤波算法' : 'Explore F722 low-latency PID control, 40A high-density current design, and bidirectional DShot RPM filtering'}
+                    {t('acc.fcescdetail.k566')}
                   </p>
                 </div>
                 <ChevronRight className="w-5 h-5 text-muted-foreground" />
@@ -709,12 +709,12 @@ const FcEscDetail = () => {
               <div className="max-w-3xl mx-auto bg-card rounded-xl p-6 flex items-center gap-4 hover:shadow-lg transition-all border border-border/30">
                 <div className="text-3xl">📖</div>
                 <div className="flex-1">
-                  <p className="text-sm text-accent font-mono mb-1">{language === 'zh' ? '技术白皮书' : 'Tech Whitepaper'}</p>
+                  <p className="text-sm text-accent font-mono mb-1">{t('acc.fcescdetail.k560')}</p>
                   <Link to="/news/d8e9f0a1-2b3c-4d5e-6f7a-8b9c0d1e2f3a" className="text-foreground font-semibold hover:text-accent transition-colors">
-                    {language === 'zh' ? '动力之巅：CANI Stack-Pro F722-100A 如何解决大载重无人机的电流焦虑？' : 'Peak Power: How Stack-Pro F722-100A Solves Current Anxiety for Heavy-Lift UAVs'}
+                    {t('acc.fcescdetail.k567')}
                   </Link>
                   <p className="text-muted-foreground text-sm mt-1">
-                    {language === 'zh' ? '深入了解百安培动力工程、8 层 PCB 散热设计与双 ICM42688 冗余陀螺仪架构' : 'Explore 100A power engineering, 8-layer PCB thermal design, and dual ICM42688 redundant gyroscope architecture'}
+                    {t('acc.fcescdetail.k568')}
                   </p>
                 </div>
                 <ChevronRight className="w-5 h-5 text-muted-foreground" />
@@ -728,12 +728,12 @@ const FcEscDetail = () => {
               <div className="max-w-3xl mx-auto bg-card rounded-xl p-6 flex items-center gap-4 hover:shadow-lg transition-all border border-border/30">
                 <div className="text-3xl">📖</div>
                 <div className="flex-1">
-                  <p className="text-sm text-accent font-mono mb-1">{language === 'zh' ? '技术白皮书' : 'Tech Whitepaper'}</p>
+                  <p className="text-sm text-accent font-mono mb-1">{t('acc.fcescdetail.k560')}</p>
                   <Link to="/news/e9f0a1b2-3c4d-5e6f-7a8b-9c0d1e2f3a4b" className="text-foreground font-semibold hover:text-accent transition-colors">
-                    {language === 'zh' ? '化繁为简的动力革命：解析 CANI-80A 六合一电调如何重塑六旋翼无人机的结构设计' : 'Simplifying Power Revolution: How CANI-80A 6-in-1 ESC Reshapes Hexacopter Structural Design'}
+                    {t('acc.fcescdetail.k569')}
                   </Link>
                   <p className="text-muted-foreground text-sm mt-1">
-                    {language === 'zh' ? '深入了解六路集成电调的结构优势、CNC 散热工程与 MAVLink 实时遥测闭环' : 'Explore 6-channel integrated ESC structural advantages, CNC thermal engineering, and MAVLink real-time telemetry'}
+                    {t('acc.fcescdetail.k570')}
                   </p>
                 </div>
                 <ChevronRight className="w-5 h-5 text-muted-foreground" />
@@ -747,12 +747,12 @@ const FcEscDetail = () => {
               <div className="max-w-3xl mx-auto bg-card rounded-xl p-6 flex items-center gap-4 hover:shadow-lg transition-all border border-border/30">
                 <div className="text-3xl">📖</div>
                 <div className="flex-1">
-                  <p className="text-sm text-accent font-mono mb-1">{language === 'zh' ? '技术白皮书' : 'Tech Whitepaper'}</p>
+                  <p className="text-sm text-accent font-mono mb-1">{t('acc.fcescdetail.k560')}</p>
                   <Link to="/news/a1b2c3d4-5e6f-7a8b-9c0d-1e2f3a4b5c6d" className="text-foreground font-semibold hover:text-accent transition-colors">
-                    {language === 'zh' ? '稳定性的工程哲学：深度解析 CANI-FC F405 在复杂工业环境下的避障与抗扰能力' : 'Engineering Philosophy of Stability: CANI-FC F405 Anti-Interference Capability Analysis'}
+                    {t('acc.fcescdetail.k571')}
                   </Link>
                   <p className="text-muted-foreground text-sm mt-1">
-                    {language === 'zh' ? '了解 F405 工业级抗干扰布局、MPU6000 物理级 IMU 防护与多 UART 传感器矩阵扩展' : 'Explore F405 industrial EMI-resistant layout, MPU6000 physical IMU protection, and multi-UART sensor matrix expansion'}
+                    {t('acc.fcescdetail.k572')}
                   </p>
                 </div>
                 <ChevronRight className="w-5 h-5 text-muted-foreground" />
@@ -766,12 +766,12 @@ const FcEscDetail = () => {
               <div className="max-w-3xl mx-auto bg-card rounded-xl p-6 flex items-center gap-4 hover:shadow-lg transition-all border border-border/30">
                 <div className="text-3xl">📖</div>
                 <div className="flex-1">
-                  <p className="text-sm text-accent font-mono mb-1">{language === 'zh' ? '技术白皮书' : 'Tech Whitepaper'}</p>
+                  <p className="text-sm text-accent font-mono mb-1">{t('acc.fcescdetail.k560')}</p>
                   <Link to="/news/f0a1b2c3-4d5e-6f7a-8b9c-0d1e2f3a4b5c" className="text-foreground font-semibold hover:text-accent transition-colors">
-                    {language === 'zh' ? '百安培时代的六路集成：CANI-100A 六合一电调如何突破工业无人机的功率密度极限？' : 'Six-Channel 100A Integration: How CANI-100A 6-in-1 ESC Breaks Through Power Density Limits'}
+                    {t('acc.fcescdetail.k573')}
                   </Link>
                   <p className="text-muted-foreground text-sm mt-1">
-                    {language === 'zh' ? '深入了解百安培级功率密度、7 系航空铝 CNC 散热工程与双向 DShot 实时遥测闭环' : 'Explore 100A power density, 7-series aviation aluminum CNC thermal engineering, and bidirectional DShot real-time telemetry'}
+                    {t('acc.fcescdetail.k574')}
                   </p>
                 </div>
                 <ChevronRight className="w-5 h-5 text-muted-foreground" />
@@ -785,12 +785,12 @@ const FcEscDetail = () => {
               <div className="max-w-3xl mx-auto bg-card rounded-xl p-6 flex items-center gap-4 hover:shadow-lg transition-all border border-border/30">
                 <div className="text-3xl">📖</div>
                 <div className="flex-1">
-                  <p className="text-sm text-accent font-mono mb-1">{language === 'zh' ? '技术白皮书' : 'Tech Whitepaper'}</p>
+                  <p className="text-sm text-accent font-mono mb-1">{t('acc.fcescdetail.k560')}</p>
                   <Link to="/news/b2c3d4e5-6f7a-8b9c-0d1e-2f3a4b5c6d7e" className="text-foreground font-semibold hover:text-accent transition-colors">
-                    {language === 'zh' ? '算力重塑飞行：深度解析 CANI-FC F722 如何在毫秒间决定工业无人机的姿态稳定性' : 'Computing Power Reshapes Flight: How CANI-FC F722 Determines UAV Attitude Stability in Milliseconds'}
+                    {t('acc.fcescdetail.k575')}
                   </Link>
                   <p className="text-muted-foreground text-sm mt-1">
-                    {language === 'zh' ? '深入了解 216MHz F7 算力优势、极速 PID 闭环与 10V 独立 BEC 数字图传适配方案' : 'Explore 216MHz F7 computing advantages, ultra-fast PID loops, and 10V independent BEC digital VTX integration'}
+                    {t('acc.fcescdetail.k576')}
                   </p>
                 </div>
                 <ChevronRight className="w-5 h-5 text-muted-foreground" />
@@ -804,12 +804,12 @@ const FcEscDetail = () => {
               <div className="max-w-3xl mx-auto bg-card rounded-xl p-6 flex items-center gap-4 hover:shadow-lg transition-all border border-border/30">
                 <div className="text-3xl">📖</div>
                 <div className="flex-1">
-                  <p className="text-sm text-accent font-mono mb-1">{language === 'zh' ? '技术白皮书' : 'Tech Whitepaper'}</p>
+                  <p className="text-sm text-accent font-mono mb-1">{t('acc.fcescdetail.k560')}</p>
                   <Link to="/news/d4e5f6a7-8b9c-0d1e-2f3a-4b5c6d7e8f9a" className="text-foreground font-semibold hover:text-accent transition-colors">
-                    {language === 'zh' ? '重载飞行的动力基石：深度解析 CANI-ESC 60A 在高负载任务中的电气鲁棒性' : 'Foundation of Heavy-Lift Flight: Deep Analysis of CANI-ESC 60A Electrical Robustness Under High-Load Missions'}
+                    {t('acc.fcescdetail.k577')}
                   </Link>
                   <p className="text-muted-foreground text-sm mt-1">
-                    {language === 'zh' ? '了解 CNC 航空铝散热罩、低内阻 MOSFET 技术、三防涂层与全数字化 Telemetry 遥测闭环' : 'Explore CNC aviation aluminum heat armor, low RDS(on) MOSFET technology, conformal coating, and full digital telemetry loop'}
+                    {t('acc.fcescdetail.k578')}
                   </p>
                 </div>
                 <ChevronRight className="w-5 h-5 text-muted-foreground" />
@@ -823,12 +823,12 @@ const FcEscDetail = () => {
               <div className="max-w-3xl mx-auto bg-card rounded-xl p-6 flex items-center gap-4 hover:shadow-lg transition-all border border-border/30">
                 <div className="text-3xl">📖</div>
                 <div className="flex-1">
-                  <p className="text-sm text-accent font-mono mb-1">{language === 'zh' ? '技术白皮书' : 'Tech Whitepaper'}</p>
+                  <p className="text-sm text-accent font-mono mb-1">{t('acc.fcescdetail.k560')}</p>
                   <Link to="/news/e5f6a7b8-9c0d-1e2f-3a4b-5c6d7e8f0a1b" className="text-foreground font-semibold hover:text-accent transition-colors">
-                    {language === 'zh' ? '重载动力的极境挑战：解析 CANI-ESC 80A 如何在 8S 高压工况下实现零温漂控制' : 'Ultimate Heavy-Lift Power Challenge: How CANI-ESC 80A Achieves Zero Thermal Drift Under 8S High-Voltage'}
+                    {t('acc.fcescdetail.k579')}
                   </Link>
                   <p className="text-muted-foreground text-sm mt-1">
-                    {language === 'zh' ? '深入了解双组 MOSFET 并联技术、双层 CNC 散热装甲、双 TVS 防护与 8S 高压效率优化' : 'Explore dual MOSFET parallel topology, dual-layer CNC heat armor, dual TVS protection, and 8S high-voltage efficiency'}
+                    {t('acc.fcescdetail.k580')}
                   </p>
                 </div>
                 <ChevronRight className="w-5 h-5 text-muted-foreground" />
@@ -842,12 +842,12 @@ const FcEscDetail = () => {
               <div className="max-w-3xl mx-auto bg-card rounded-xl p-6 flex items-center gap-4 hover:shadow-lg transition-all border border-border/30">
                 <div className="text-3xl">📖</div>
                 <div className="flex-1">
-                  <p className="text-sm text-accent font-mono mb-1">{language === 'zh' ? '技术白皮书' : 'Tech Whitepaper'}</p>
+                  <p className="text-sm text-accent font-mono mb-1">{t('acc.fcescdetail.k560')}</p>
                   <Link to="/news/c3d4e5f6-7a8b-9c0d-1e2f-3a4b5c6d7e8f" className="text-foreground font-semibold hover:text-accent transition-colors">
-                    {language === 'zh' ? '电流管理的艺术：解析 CANI-ESC 55A 如何在极端负载下保持动力线性度' : 'The Art of Current Management: How CANI-ESC 55A Maintains Power Linearity Under Extreme Load'}
+                    {t('acc.fcescdetail.k581')}
                   </Link>
                   <p className="text-muted-foreground text-sm mt-1">
-                    {language === 'zh' ? '深入了解 CNC 散热装甲、8 层 PCB 均温设计、TDK 电容阵列与双向 DShot 遥测闭环' : 'Explore CNC heat armor, 8-layer PCB thermal design, TDK capacitor array, and bidirectional DShot telemetry loop'}
+                    {t('acc.fcescdetail.k582')}
                   </p>
                 </div>
                 <ChevronRight className="w-5 h-5 text-muted-foreground" />
@@ -861,12 +861,12 @@ const FcEscDetail = () => {
               <div className="max-w-3xl mx-auto bg-card rounded-xl p-6 flex items-center gap-4 hover:shadow-lg transition-all border border-border/30">
                 <div className="text-3xl">📖</div>
                 <div className="flex-1">
-                  <p className="text-sm text-accent font-mono mb-1">{language === 'zh' ? '技术白皮书' : 'Tech Whitepaper'}</p>
+                  <p className="text-sm text-accent font-mono mb-1">{t('acc.fcescdetail.k560')}</p>
                   <Link to="/news/f6a7b8c9-0d1e-2f3a-4b5c-6d7e8f9a0b1c" className="text-foreground font-semibold hover:text-accent transition-colors">
-                    {language === 'zh' ? '突破百安培壁垒：解析 CANI-ESC 100A 如何在大功率无人机系统中实现极限可靠性' : 'Breaking the 100A Barrier: How CANI-ESC 100A Achieves Ultimate Reliability in High-Power UAV Systems'}
+                    {t('acc.fcescdetail.k583')}
                   </Link>
                   <p className="text-muted-foreground text-sm mt-1">
-                    {language === 'zh' ? '深入了解 10 层 4oz 沉金 PCB、360° CNC 均热装甲、工业级 TVS 阵列与全链路 Telemetry 遥测闭环' : 'Explore 10-layer 4oz ENIG PCB, 360° CNC thermal armor, industrial TVS arrays, and full-chain telemetry monitoring'}
+                    {t('acc.fcescdetail.k584')}
                   </p>
                 </div>
                 <ChevronRight className="w-5 h-5 text-muted-foreground" />
@@ -880,12 +880,12 @@ const FcEscDetail = () => {
               <div className="max-w-3xl mx-auto bg-card rounded-xl p-6 flex items-center gap-4 hover:shadow-lg transition-all border border-border/30">
                 <div className="text-3xl">📖</div>
                 <div className="flex-1">
-                  <p className="text-sm text-accent font-mono mb-1">{language === 'zh' ? '技术白皮书' : 'Tech Whitepaper'}</p>
+                  <p className="text-sm text-accent font-mono mb-1">{t('acc.fcescdetail.k560')}</p>
                   <Link to="/news/b8c9d0e1-2f3a-4b5c-6d7e-8f9a0b1c2d3e" className="text-foreground font-semibold hover:text-accent transition-colors">
-                    {language === 'zh' ? '高压电力的物理隔离：解析 CANI 100A 单体电调在 12S 系统中的动力表现' : 'Physical Isolation of High-Voltage Power: CANI 100A Separate ESC Performance in 12S Systems'}
+                    {t('acc.fcescdetail.k585')}
                   </Link>
                   <p className="text-muted-foreground text-sm mt-1">
-                    {language === 'zh' ? '了解 12S 超高压架构效率优势、7系航空铝 CNC 独立散热与光耦隔离 EMI 防护方案' : 'Explore 12S ultra-high voltage efficiency, 7-series aviation aluminum CNC independent cooling, and optocoupler EMI isolation'}
+                    {t('acc.fcescdetail.k586')}
                   </p>
                 </div>
                 <ChevronRight className="w-5 h-5 text-muted-foreground" />
@@ -899,12 +899,12 @@ const FcEscDetail = () => {
               <div className="max-w-3xl mx-auto bg-card rounded-xl p-6 flex items-center gap-4 hover:shadow-lg transition-all border border-border/30">
                 <div className="text-3xl">📖</div>
                 <div className="flex-1">
-                  <p className="text-sm text-accent font-mono mb-1">{language === 'zh' ? '技术白皮书' : 'Tech Whitepaper'}</p>
+                  <p className="text-sm text-accent font-mono mb-1">{t('acc.fcescdetail.k560')}</p>
                   <Link to="/news/a7b8c9d0-1e2f-3a4b-5c6d-7e8f9a0b1c2d" className="text-foreground font-semibold hover:text-accent transition-colors">
-                    {language === 'zh' ? '分布式动力优势：深度解析 CANI 80A 单体电调在大型工业无人机中的架构价值' : 'Distributed Power Architecture: Deep Analysis of CANI 80A Separate ESC Value in Large Industrial UAVs'}
+                    {t('acc.fcescdetail.k587')}
                   </Link>
                   <p className="text-muted-foreground text-sm mt-1">
-                    {language === 'zh' ? '了解分布式动力布局的散热优势、电气隔离冗余设计与 X8/VTOL 系统的最佳实践' : 'Explore distributed power layout thermal advantages, electrical isolation redundancy, and X8/VTOL system best practices'}
+                    {t('acc.fcescdetail.k588')}
                   </p>
                 </div>
                 <ChevronRight className="w-5 h-5 text-muted-foreground" />

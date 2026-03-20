@@ -30,40 +30,39 @@ const AnimatedCounter = ({ end, suffix = "", prefix = "", duration = 2000 }: { e
 };
 
 const C30MoCapPositioningSection = () => {
-  const { language } = useLanguage();
-  const isZh = language === 'zh';
+  const { t } = useLanguage();
 
   const metrics = [
     {
       icon: Crosshair,
       value: <AnimatedCounter end={1} prefix="±" suffix="mm" />,
-      label: isZh ? "定位精度" : "Positioning Accuracy",
-      sublabel: isZh ? "亚毫米级" : "Sub-millimeter",
-      desc: isZh ? "动捕系统提供亚毫米级三维空间定位，满足高精度编队控制需求" : "MoCap provides sub-mm 3D spatial positioning for high-precision formation control",
+      label: t('swarm.c30mocappositioningsection.k161'),
+      sublabel: t('swarm.c30mocappositioningsection.k162'),
+      desc: t('swarm.c30mocappositioningsection.k163'),
       color: "from-cyan-500 to-blue-600",
     },
     {
       icon: Gauge,
       value: <AnimatedCounter end={260} suffix="Hz" />,
-      label: isZh ? "数据刷新率" : "Data Refresh Rate",
-      sublabel: isZh ? "高速捕捉" : "High-speed Capture",
-      desc: isZh ? "260Hz位姿数据输出，确保快速机动时的实时状态反馈" : "260Hz pose data output for real-time feedback during rapid maneuvers",
+      label: t('swarm.c30mocappositioningsection.k164'),
+      sublabel: t('swarm.c30mocappositioningsection.k165'),
+      desc: t('swarm.c30mocappositioningsection.k166'),
       color: "from-emerald-500 to-teal-600",
     },
     {
       icon: Zap,
       value: <><AnimatedCounter prefix="<" end={4} suffix="ms" /></>,
-      label: isZh ? "系统延迟" : "System Latency",
-      sublabel: isZh ? "超低延迟" : "Ultra-low Latency",
-      desc: isZh ? "端到端延迟低于4毫秒，保证集群控制指令的即时执行" : "End-to-end latency below 4ms for instant swarm command execution",
+      label: t('swarm.c30mocappositioningsection.k167'),
+      sublabel: t('swarm.c30mocappositioningsection.k168'),
+      desc: t('swarm.c30mocappositioningsection.k169'),
       color: "from-amber-500 to-orange-600",
     },
     {
       icon: MonitorSmartphone,
-      value: isZh ? "一键操控" : "1-Click",
-      label: isZh ? "软件操控" : "Software Control",
-      sublabel: isZh ? "简单易用" : "Easy to Use",
-      desc: isZh ? "提供一键创建刚体、一键标定、三维展示、轨迹显示等功能" : "One-click rigid body creation, calibration, 3D display, and trajectory visualization",
+      value: t('swarm.c30mocappositioningsection.k170'),
+      label: t('swarm.c30mocappositioningsection.k171'),
+      sublabel: t('swarm.c30mocappositioningsection.k172'),
+      desc: t('swarm.c30mocappositioningsection.k173'),
       color: "from-violet-500 to-purple-600",
     },
   ];
@@ -77,12 +76,10 @@ const C30MoCapPositioningSection = () => {
         <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="text-center mb-16">
           <span className="text-accent font-mono text-sm tracking-widest uppercase mb-2 block">MoCap Positioning System</span>
           <h2 className="text-3xl md:text-4xl font-black text-foreground mb-4">
-            {isZh ? '动作捕捉定位系统' : 'Motion Capture Positioning System'}
+            {t('swarm.c30mocappositioningsection.k174')}
           </h2>
           <p className="text-muted-foreground max-w-2xl mx-auto">
-            {isZh
-              ? '兼容OptiTrack / NOKOV / VICON主流动捕系统，为室内编队提供业界领先的定位精度与刷新率'
-              : 'Compatible with OptiTrack / NOKOV / VICON mainstream MoCap systems, delivering industry-leading indoor positioning accuracy and refresh rate'}
+            {t('swarm.c30mocappositioningsection.k175')}
           </p>
         </motion.div>
 
@@ -125,7 +122,7 @@ const C30MoCapPositioningSection = () => {
             <div className="rounded-2xl overflow-hidden border border-border/20 bg-card">
               <img
                 src={mocapSystemImg}
-                alt={isZh ? "动作捕捉定位系统" : "Motion Capture Positioning System"}
+                alt={t('swarm.c30mocappositioningsection.k174')}
                 className="w-full h-auto object-cover"
                 style={{ aspectRatio: "16/9" }}
                 loading="lazy"
@@ -133,7 +130,7 @@ const C30MoCapPositioningSection = () => {
             </div>
             {/* Floating specs */}
             <div className="absolute -bottom-4 -left-4 bg-card/95 backdrop-blur border border-accent/30 rounded-xl p-3 shadow-lg">
-              <div className="text-xs text-muted-foreground">{isZh ? '支持系统' : 'Supported'}</div>
+              <div className="text-xs text-muted-foreground">{t('swarm.c30mocappositioningsection.k176')}</div>
               <div className="text-sm font-bold text-foreground">OptiTrack · NOKOV · VICON</div>
             </div>
           </motion.div>

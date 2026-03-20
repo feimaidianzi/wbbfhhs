@@ -16,7 +16,7 @@ interface HardwarePin {
 }
 
 const W400HardwareSection = () => {
-  const { language } = useLanguage();
+  const { t, language } = useLanguage();
   const isZh = language === 'zh';
   const [activePin, setActivePin] = useState<string | null>(null);
 
@@ -35,8 +35,8 @@ const W400HardwareSection = () => {
     <section className="py-20 bg-background">
       <div className="container-custom">
         <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="text-center mb-12">
-          <h2 className="text-3xl md:text-4xl font-black text-foreground mb-4">{isZh ? '硬件架构总览' : 'Hardware Architecture Overview'}</h2>
-          <p className="text-muted-foreground">{isZh ? '悬停在模块上查看详细功能描述' : 'Hover over modules for detailed descriptions'}</p>
+          <h2 className="text-3xl md:text-4xl font-black text-foreground mb-4">{t('swarm.w400hardwaresection.k331')}</h2>
+          <p className="text-muted-foreground">{t('swarm.w400hardwaresection.k332')}</p>
         </motion.div>
 
         {/* Interactive hardware diagram - Desktop */}
@@ -104,12 +104,12 @@ const W400HardwareSection = () => {
 
         {/* Hardware Component Gallery */}
         <div className="mt-16 max-w-5xl mx-auto">
-          <h3 className="text-xl font-bold text-foreground mb-8 text-center">{isZh ? '核心硬件模组' : 'Core Hardware Modules'}</h3>
+          <h3 className="text-xl font-bold text-foreground mb-8 text-center">{t('swarm.c30hardwaresection.k158')}</h3>
           <div className="grid md:grid-cols-3 gap-6">
             {[
-              { img: fcImg, title: "Pixhawk 6C", desc: isZh ? "飞行控制器 · STM32H743 · IMU冗余设计" : "Flight Controller · STM32H743 · Redundant IMU" },
-              { img: jetsonImg, title: "Jetson Orin NX", desc: isZh ? "100 TOPS AI算力 · 16GB LPDDR5 · 8核A78AE" : "100 TOPS AI · 16GB LPDDR5 · 8-core A78AE" },
-              { img: meshImg, title: "Mini Homer", desc: isZh ? "Mesh自组网 · 1km通信 · 3Mbps带宽" : "Mesh Network · 1km Range · 3Mbps Bandwidth" },
+              { img: fcImg, title: "Pixhawk 6C", desc: t('swarm.w400hardwaresection.k333') },
+              { img: jetsonImg, title: "Jetson Orin NX", desc: t('swarm.w400hardwaresection.k334') },
+              { img: meshImg, title: "Mini Homer", desc: t('swarm.w400hardwaresection.k335') },
             ].map((mod, i) => (
               <motion.div key={i} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.1 }}
                 className="bg-card border border-border/30 rounded-xl overflow-hidden hover:border-accent/30 transition-all group"
