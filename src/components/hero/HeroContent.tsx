@@ -4,43 +4,8 @@ import { LangLink } from "@/components/LangLink";
 import { ArrowRight, Play, ChevronDown, Cpu, Radio, Wifi, Shield, Zap, Target } from "lucide-react";
 import { useLanguage } from "@/contexts/LanguageContext";
 
-// 动画变体
-const containerVariants = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: {
-      staggerChildren: 0.15,
-      delayChildren: 0.3,
-    },
-  },
-};
+// 装饰元素动画变体 (decorative only - main content uses pure CSS)
 
-const itemVariants = {
-  hidden: { opacity: 0, y: 40, filter: "blur(10px)" },
-  visible: {
-    opacity: 1,
-    y: 0,
-    filter: "blur(0px)",
-    transition: {
-      duration: 0.8,
-      ease: [0.25, 0.46, 0.45, 0.94],
-    },
-  },
-};
-
-const titleVariants = {
-  hidden: { opacity: 0, y: 60, scale: 0.95 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    scale: 1,
-    transition: {
-      duration: 1,
-      ease: [0.25, 0.46, 0.45, 0.94],
-    },
-  },
-};
 
 const statsVariants = {
   hidden: { opacity: 0, scale: 0.8 },
@@ -88,11 +53,8 @@ export const HeroContent = () => {
   ];
 
   return (
-    <motion.div 
+    <div 
       className="relative z-10 flex flex-col items-center justify-center min-h-screen px-4 pt-20"
-      variants={containerVariants}
-      initial="hidden"
-      animate="visible"
     >
       {/* === 装饰层：扫描线 === */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden z-0">
@@ -200,17 +162,16 @@ export const HeroContent = () => {
       {/* === 主内容区 === */}
       <div className="w-full max-w-6xl mx-auto">
         {/* Tagline */}
-        <motion.div variants={itemVariants} className="mb-8">
+        <div className="mb-8 hero-animate-tagline">
           <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-cyan-400/40 bg-cyan-500/10 text-cyan-400 text-sm font-medium tracking-wider">
             <span className="w-2 h-2 rounded-full bg-cyan-400 animate-pulse" />
             {t('hero.tagline')}
           </span>
-        </motion.div>
+        </div>
 
         {/* Main Title */}
-        <motion.h1 
-          variants={titleVariants}
-          className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-black mb-8 leading-[1.1] tracking-tight"
+        <h1 
+          className="hero-animate-title text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-black mb-8 leading-[1.1] tracking-tight"
         >
           <span className="block text-white mb-2">
             {t('hero.title.line1')}
@@ -218,20 +179,18 @@ export const HeroContent = () => {
           <span className="block bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-500 bg-clip-text text-transparent">
             {t('hero.title.line2')}
           </span>
-        </motion.h1>
+        </h1>
 
         {/* Subtitle */}
-        <motion.p
-          variants={itemVariants}
-          className="text-lg md:text-xl text-white/70 max-w-2xl mb-12 leading-relaxed"
+        <p
+          className="hero-animate-subtitle text-lg md:text-xl text-white/70 max-w-2xl mb-12 leading-relaxed"
         >
           {t('hero.subtitle')}
-        </motion.p>
+        </p>
 
         {/* CTA Buttons */}
-        <motion.div
-          variants={itemVariants}
-          className="flex flex-col sm:flex-row gap-4 mb-20"
+        <div
+          className="hero-animate-buttons flex flex-col sm:flex-row gap-4 mb-20"
         >
           <LangLink to="/products">
             <Button 
@@ -257,10 +216,10 @@ export const HeroContent = () => {
               {t('hero.cta.about')}
             </Button>
           </LangLink>
-        </motion.div>
+        </div>
 
         {/* Stats - 卡片式 */}
-        <div className="flex flex-wrap gap-6 md:gap-8">
+        <div className="flex flex-wrap gap-6 md:gap-8 hero-animate-stats">
           {stats.map((stat, index) => (
             <motion.div 
               key={index} 
@@ -305,6 +264,6 @@ export const HeroContent = () => {
           </div>
         </div>
       </motion.div>
-    </motion.div>
+    </div>
   );
 };
