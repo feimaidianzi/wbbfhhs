@@ -16,6 +16,7 @@ import { Footer } from "@/components/Footer";
 import { FloatingContact } from "@/components/FloatingContact";
 import { MultiLanguageSEO } from "@/components/MultiLanguageSEO";
 import { useLanguage } from "@/contexts/LanguageContext";
+import { ScrollReveal, ParallaxSection } from "@/components/ScrollAnimations";
 
 const Index = () => {
   const { t, language } = useLanguage();
@@ -110,36 +111,82 @@ const Index = () => {
         <HeroSection />
         
         {/* SEO Intro Text */}
-        <section className="py-12 bg-background">
-          <div className="container-custom">
-            <p className="text-lg text-muted-foreground leading-relaxed max-w-4xl mx-auto text-center">
-              {t('home.seoIntro')}
-            </p>
-          </div>
-        </section>
+        <ScrollReveal direction="up" delay={0.1}>
+          <section className="py-12 bg-background">
+            <div className="container-custom">
+              <p className="text-lg text-muted-foreground leading-relaxed max-w-4xl mx-auto text-center">
+                {t('home.seoIntro')}
+              </p>
+            </div>
+          </section>
+        </ScrollReveal>
 
-        <ProductsSection />
-        <CompanyIntroSection />
+        <ScrollReveal direction="up" delay={0}>
+          <ParallaxSection speed={0.2}>
+            <ProductsSection />
+          </ParallaxSection>
+        </ScrollReveal>
+
+        <ScrollReveal direction="left" delay={0.1}>
+          <CompanyIntroSection />
+        </ScrollReveal>
         
         {/* Brand Summary */}
-        <section className="py-12 bg-secondary">
-          <div className="container-custom">
-            <p className="text-base text-muted-foreground leading-relaxed max-w-4xl mx-auto">
-              {t('home.brandSummary')}
-            </p>
-          </div>
-        </section>
+        <ScrollReveal direction="up" delay={0}>
+          <section className="py-12 bg-secondary">
+            <div className="container-custom">
+              <p className="text-base text-muted-foreground leading-relaxed max-w-4xl mx-auto">
+                {t('home.brandSummary')}
+              </p>
+            </div>
+          </section>
+        </ScrollReveal>
 
-        <WhyChooseUsSection />
-        <SolutionsSection />
-        <ApplicationsSection />
-        <NewsSection />
-        <PartnersSection />
-        <CertificationsSection />
-        <AEOFAQSection />
-        <FAQSection category="general" limit={6} />
-        <FAQSection category="products" limit={4} showTitle={false} />
-        <CTASection />
+        <ScrollReveal direction="right" delay={0.1}>
+          <ParallaxSection speed={0.15}>
+            <WhyChooseUsSection />
+          </ParallaxSection>
+        </ScrollReveal>
+
+        <ScrollReveal direction="up" delay={0}>
+          <SolutionsSection />
+        </ScrollReveal>
+
+        <ScrollReveal direction="left" delay={0.1}>
+          <ParallaxSection speed={0.2}>
+            <ApplicationsSection />
+          </ParallaxSection>
+        </ScrollReveal>
+
+        <ScrollReveal direction="up" delay={0}>
+          <NewsSection />
+        </ScrollReveal>
+
+        <ScrollReveal direction="right" delay={0.1}>
+          <PartnersSection />
+        </ScrollReveal>
+
+        <ScrollReveal direction="up" delay={0}>
+          <ParallaxSection speed={0.15}>
+            <CertificationsSection />
+          </ParallaxSection>
+        </ScrollReveal>
+
+        <ScrollReveal direction="up" delay={0.1}>
+          <AEOFAQSection />
+        </ScrollReveal>
+
+        <ScrollReveal direction="up" delay={0}>
+          <FAQSection category="general" limit={6} />
+        </ScrollReveal>
+
+        <ScrollReveal direction="up" delay={0}>
+          <FAQSection category="products" limit={4} showTitle={false} />
+        </ScrollReveal>
+
+        <ScrollReveal direction="up" delay={0.1}>
+          <CTASection />
+        </ScrollReveal>
         
       </main>
       <Footer />
