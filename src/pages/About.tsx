@@ -2,7 +2,7 @@ import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { FloatingContact } from "@/components/FloatingContact";
 import { Button } from "@/components/ui/button";
-import { Target, Users, Award, ArrowRight, Cpu, BarChart3, Globe2, ShieldCheck, Layers, Radio, Settings, Code, Plane, Zap, Thermometer, Factory, CheckCircle2, MapPin, Shield, Truck } from "lucide-react";
+import { Target, Users, Award, ArrowRight, Cpu, BarChart3, Globe2, ShieldCheck, Layers, Radio, Settings, Code, Plane, Zap, Thermometer, Factory, CheckCircle2, MapPin, Shield, Truck, Wifi, Video, Terminal } from "lucide-react";
 import caniReception from "@/assets/about/cani-reception.png";
 import founderImg from "@/assets/founder-alex.png";
 import { MultiLanguageSEO, createLocalizedBreadcrumbData } from "@/components/MultiLanguageSEO";
