@@ -739,6 +739,27 @@ const About = () => {
         {/* ========== FAQ ========== */}
         <PageFAQ titleKey="about.faq.title" items={faqItems} />
 
+        {/* ========== SEO Long-Form Content ========== */}
+        <section className="py-16 bg-secondary">
+          <div className="container-custom">
+            <article itemScope itemType="https://schema.org/WebPage" className="max-w-4xl mx-auto prose prose-sm dark:prose-invert">
+              <h2 className="text-2xl font-bold text-foreground mb-6" itemProp="name">
+                {t('about.seo.manufacturer.title')}
+              </h2>
+              <p className="text-muted-foreground leading-relaxed mb-4" itemProp="description">
+                {t('about.seo.manufacturer.p1')}
+              </p>
+              <p className="text-muted-foreground leading-relaxed mb-4">
+                {t('about.seo.manufacturer.p2')}
+              </p>
+              <p className="text-muted-foreground leading-relaxed">
+                {t('about.seo.manufacturer.p3')}
+              </p>
+              <meta itemProp="inLanguage" content={language === 'zh' ? 'zh-CN' : 'en'} />
+            </article>
+          </div>
+        </section>
+
         {/* ========== CTA ========== */}
         <section className="py-20 bg-primary">
           <div className="container-custom text-center">
