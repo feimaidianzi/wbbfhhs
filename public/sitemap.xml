@@ -8,8 +8,8 @@
     <lastmod>2026-03-19</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
-    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://www.caniuav.com/" />
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.caniuav.com/en/" />
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://www.caniuav.com/zh/zh/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.caniuav.com/" />
     <xhtml:link rel="alternate" hreflang="ja" href="https://www.caniuav.com/ja/" />
     <xhtml:link rel="alternate" hreflang="ko" href="https://www.caniuav.com/ko/" />
     <xhtml:link rel="alternate" hreflang="vi" href="https://www.caniuav.com/vi/" />
@@ -22,7 +22,7 @@
     <xhtml:link rel="alternate" hreflang="ru" href="https://www.caniuav.com/ru/" />
     <xhtml:link rel="alternate" hreflang="ar" href="https://www.caniuav.com/ar/" />
     <xhtml:link rel="alternate" hreflang="tr" href="https://www.caniuav.com/tr/" />
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.caniuav.com/en/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.caniuav.com/" />
   </url>
 
   <!-- ===== 关于我们 / About ===== -->
@@ -31,8 +31,8 @@
     <lastmod>2026-03-19</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
-    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://www.caniuav.com/about" />
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.caniuav.com/en/about" />
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://www.caniuav.com/zh/about" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.caniuav.com/about" />
     <xhtml:link rel="alternate" hreflang="ja" href="https://www.caniuav.com/ja/about" />
     <xhtml:link rel="alternate" hreflang="ko" href="https://www.caniuav.com/ko/about" />
     <xhtml:link rel="alternate" hreflang="vi" href="https://www.caniuav.com/vi/about" />
@@ -45,7 +45,7 @@
     <xhtml:link rel="alternate" hreflang="ru" href="https://www.caniuav.com/ru/about" />
     <xhtml:link rel="alternate" hreflang="ar" href="https://www.caniuav.com/ar/about" />
     <xhtml:link rel="alternate" hreflang="tr" href="https://www.caniuav.com/tr/about" />
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.caniuav.com/en/about" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.caniuav.com/about" />
   </url>
 
   <!-- ===== 联系我们 / Contact ===== -->
@@ -54,8 +54,8 @@
     <lastmod>2026-03-19</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
-    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://www.caniuav.com/contact" />
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.caniuav.com/en/contact" />
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://www.caniuav.com/zh/contact" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.caniuav.com/contact" />
     <xhtml:link rel="alternate" hreflang="ja" href="https://www.caniuav.com/ja/contact" />
     <xhtml:link rel="alternate" hreflang="ko" href="https://www.caniuav.com/ko/contact" />
     <xhtml:link rel="alternate" hreflang="vi" href="https://www.caniuav.com/vi/contact" />
@@ -65,7 +65,7 @@
     <xhtml:link rel="alternate" hreflang="ru" href="https://www.caniuav.com/ru/contact" />
     <xhtml:link rel="alternate" hreflang="ar" href="https://www.caniuav.com/ar/contact" />
     <xhtml:link rel="alternate" hreflang="tr" href="https://www.caniuav.com/tr/contact" />
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.caniuav.com/en/contact" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.caniuav.com/contact" />
   </url>
 
   <!-- ===== 新闻中心 / News ===== -->
@@ -74,11 +74,11 @@
     <lastmod>2026-03-19</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.8</priority>
-    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://www.caniuav.com/news" />
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.caniuav.com/en/news" />
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://www.caniuav.com/zh/news" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.caniuav.com/news" />
     <xhtml:link rel="alternate" hreflang="ja" href="https://www.caniuav.com/ja/news" />
     <xhtml:link rel="alternate" hreflang="ko" href="https://www.caniuav.com/ko/news" />
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.caniuav.com/en/news" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.caniuav.com/news" />
   </url>
 
   <!-- ===== 产品中心 / Products ===== -->
@@ -87,8 +87,8 @@
     <lastmod>2026-03-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
-    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://www.caniuav.com/products" />
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.caniuav.com/en/products" />
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://www.caniuav.com/zh/products" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.caniuav.com/products" />
     <xhtml:link rel="alternate" hreflang="ja" href="https://www.caniuav.com/ja/products" />
     <xhtml:link rel="alternate" hreflang="ko" href="https://www.caniuav.com/ko/products" />
     <xhtml:link rel="alternate" hreflang="vi" href="https://www.caniuav.com/vi/products" />
@@ -98,7 +98,7 @@
     <xhtml:link rel="alternate" hreflang="ru" href="https://www.caniuav.com/ru/products" />
     <xhtml:link rel="alternate" hreflang="ar" href="https://www.caniuav.com/ar/products" />
     <xhtml:link rel="alternate" hreflang="tr" href="https://www.caniuav.com/tr/products" />
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.caniuav.com/en/products" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.caniuav.com/products" />
   </url>
 
   <!-- 产品子分类 -->
@@ -150,8 +150,8 @@
     <lastmod>2026-03-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
-    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://www.caniuav.com/applications" />
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.caniuav.com/en/applications" />
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://www.caniuav.com/zh/applications" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.caniuav.com/applications" />
     <xhtml:link rel="alternate" hreflang="ja" href="https://www.caniuav.com/ja/applications" />
     <xhtml:link rel="alternate" hreflang="ko" href="https://www.caniuav.com/ko/applications" />
     <xhtml:link rel="alternate" hreflang="vi" href="https://www.caniuav.com/vi/applications" />
@@ -161,7 +161,7 @@
     <xhtml:link rel="alternate" hreflang="ru" href="https://www.caniuav.com/ru/applications" />
     <xhtml:link rel="alternate" hreflang="ar" href="https://www.caniuav.com/ar/applications" />
     <xhtml:link rel="alternate" hreflang="tr" href="https://www.caniuav.com/tr/applications" />
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.caniuav.com/en/applications" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.caniuav.com/applications" />
   </url>
 
   <url><loc>https://www.caniuav.com/applications/power</loc><lastmod>2026-03-19</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
@@ -195,9 +195,9 @@
     <lastmod>2026-03-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
-    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://www.caniuav.com/software" />
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.caniuav.com/en/software" />
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.caniuav.com/en/software" />
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://www.caniuav.com/zh/software" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.caniuav.com/software" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.caniuav.com/software" />
   </url>
 
   <url><loc>https://www.caniuav.com/software/exam-system</loc><lastmod>2026-03-19</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
@@ -215,9 +215,9 @@
     <lastmod>2026-03-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
-    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://www.caniuav.com/custom-research" />
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.caniuav.com/en/custom-research" />
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.caniuav.com/en/custom-research" />
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://www.caniuav.com/zh/custom-research" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.caniuav.com/custom-research" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.caniuav.com/custom-research" />
   </url>
 
   <url><loc>https://www.caniuav.com/custom-research/drone</loc><lastmod>2026-03-19</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
@@ -233,9 +233,9 @@
     <lastmod>2026-03-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
-    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://www.caniuav.com/projects" />
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.caniuav.com/en/projects" />
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.caniuav.com/en/projects" />
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://www.caniuav.com/zh/projects" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.caniuav.com/projects" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.caniuav.com/projects" />
   </url>
 
   <url><loc>https://www.caniuav.com/projects/training</loc><lastmod>2026-03-19</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
