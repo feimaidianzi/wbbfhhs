@@ -36,7 +36,7 @@ export const ScrollReveal = ({
   className,
 }: ScrollRevealProps) => {
   const ref = useRef<HTMLDivElement>(null);
-  const isInView = useInView(ref, { once, margin });
+  const isInView = useInView(ref, { once, margin: margin as any });
   const d = directionMap[direction];
 
   return (
