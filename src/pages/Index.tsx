@@ -212,7 +212,7 @@ const Index = () => {
         </ScrollReveal>
 
         <ScrollReveal direction="up" delay={0}>
-          <FAQSection category="products" limit={4} showTitle={false} />
+          <FAQSection category="products" limit={4} showTitle={false} includeSchema={false} />
         </ScrollReveal>
 
         <ScrollReveal direction="up" delay={0.1}>
