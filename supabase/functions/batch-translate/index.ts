@@ -53,7 +53,8 @@ function getNextApiKey(keys: string[]): string {
 async function translateWithDeepSeek(
   content: Record<string, string>,
   targetLang: string,
-  apiKeys: string[]
+  apiKeys: string[],
+  onBatchSaved?: (partialResults: Record<string, string>) => Promise<void>
 ): Promise<Record<string, string>> {
   const targetLangName = languageNames[targetLang] || targetLang;
   
