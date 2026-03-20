@@ -427,6 +427,7 @@ const About = () => {
               ))}
             </div>
           </div>
+        </section>
 
         {/* ========== Company Profile + Image ========== */}
         <section className="py-20 bg-background">
