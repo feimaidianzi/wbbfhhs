@@ -205,9 +205,8 @@ export const HeroContent = () => {
         </div>
 
         {/* Main Title */}
-        <motion.h1 
-          variants={titleVariants}
-          className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-black mb-8 leading-[1.1] tracking-tight"
+        <h1 
+          className="hero-animate-title text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-black mb-8 leading-[1.1] tracking-tight"
         >
           <span className="block text-white mb-2">
             {t('hero.title.line1')}
@@ -215,7 +214,7 @@ export const HeroContent = () => {
           <span className="block bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-500 bg-clip-text text-transparent">
             {t('hero.title.line2')}
           </span>
-        </motion.h1>
+        </h1>
 
         {/* Subtitle */}
         <motion.p
