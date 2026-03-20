@@ -430,6 +430,10 @@ const AdminDashboard = () => {
   ];
 
   return (
+    <>
+      <Helmet>
+        <meta name="robots" content="noindex, nofollow" />
+      </Helmet>
     <div className="min-h-screen bg-slate-900">
       {/* Header */}
       <header className="bg-slate-800 border-b border-slate-700 sticky top-0 z-50">
