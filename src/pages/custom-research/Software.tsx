@@ -65,9 +65,22 @@ const SoftwareCustom = () => {
     { clientKey: 'customSoftware.cases.survey.client', titleKey: 'customSoftware.cases.survey.title', descKey: 'customSoftware.cases.survey.desc' },
   ];
 
+  const caseScreenshots = [
+    { image: caseCommandCenter, labelKey: 'customSoftware.cases.screen.commandCenter' },
+    { image: caseDispatch, labelKey: 'customSoftware.cases.screen.dispatch' },
+    { image: caseRoutePlanning, labelKey: 'customSoftware.cases.screen.routePlanning' },
+    { image: caseWaypoint, labelKey: 'customSoftware.cases.screen.waypoint' },
+    { image: caseLivestream, labelKey: 'customSoftware.cases.screen.livestream' },
+    { image: caseDataMgmt, labelKey: 'customSoftware.cases.screen.dataMgmt' },
+    { image: caseTaskCenter, labelKey: 'customSoftware.cases.screen.taskCenter' },
+    { image: caseAlertMgmt, labelKey: 'customSoftware.cases.screen.alertMgmt' },
+    { image: caseDeviceMgmt, labelKey: 'customSoftware.cases.screen.deviceMgmt' },
+    { image: caseAirportMgmt, labelKey: 'customSoftware.cases.screen.airportMgmt' },
+  ];
+
+  const [lightboxImg, setLightboxImg] = useState<string | null>(null);
+
   const faqItems = [
-    { questionKey: 'customSoftware.faq.q1', answerKey: 'customSoftware.faq.a1' },
-    { questionKey: 'customSoftware.faq.q2', answerKey: 'customSoftware.faq.a2' },
   ];
 
   return (
