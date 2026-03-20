@@ -1687,10 +1687,16 @@ export const enTranslations: Record<string, string> = {
   'about.scenarios.border.desc': 'All-weather, ultra-long-range situational awareness and real-time streaming',
 
   // ===== About Page Upgrade - Founder Message =====
-  'about.founder.title': 'Founder\'s Message',
-  'about.founder.quote': '"We founded CANI with a simple vision: to build the tough components that others won\'t or can\'t. Every 0.1g of weight we shave, every decibel of noise we eliminate, is our tribute to precision flight."',
+  'about.founder.title': 'From Precision Vision to the Soul of Flight',
+  'about.founder.p1': 'A decade ago, I was immersed in the world of machine vision. That\'s where I learned: on a demanding industrial floor, a deviation of one-thousandth of a millimeter means failure.',
+  'about.founder.p2': 'Then I looked to the sky. I discovered that while drones fly high, their "heartbeat" and "breath" — the RF modules, video links, and lines of code buried deep within — determine whether they can complete their mission in a storm.',
+  'about.founder.p3': 'CANI was not born to build another drone. It was born to give this industry stronger bones and sharper nerves.',
+  'about.founder.p4': 'We injected the ||near-obsessive precision|| from our industrial vision work into RF and video link R&D. We know that for an integrator operating thousands of kilometers away, a single signal dropout is a disaster. So we relentlessly refine the underlying RF link, optimize every millisecond of video latency, and write every line of synchronization protocol.',
+  'about.founder.p5': 'We make components. But we know that behind every chip, every module, lies an industry\'s thirst for efficiency and a promise of safety.',
+  'about.founder.p6': 'We are not just your supplier. We are the engineers ||hidden behind the hardware||, standing with you to ||fight interference, fight distance, fight the unknown||.',
+  'about.founder.signature': 'Let the core drive flight.',
   'about.founder.name': 'Alex',
-  'about.founder.role': 'Founder, CANI UAV',
+  'about.founder.role': 'Founder, CANI',
 
   // ===== About Page Upgrade - OEM Partnership =====
   'about.oem.title': 'Global OEM/ODM Partner',
