@@ -17,16 +17,18 @@ export const HeroSection = () => {
 
   return (
     <section ref={sectionRef} className="relative min-h-screen bg-slate-900 overflow-hidden">
-      {/* 3D Scene Background - deferred */}
-      {shouldLoad3D ? (
-        <Suspense fallback={
+      {/* Ken Burns background layer */}
+      <div className="absolute inset-0 hero-ken-burns">
+        {shouldLoad3D ? (
+          <Suspense fallback={
+            <div className="absolute inset-0 bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900" />
+          }>
+            <HeroScene3D />
+          </Suspense>
+        ) : (
           <div className="absolute inset-0 bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900" />
-        }>
-          <HeroScene3D />
-        </Suspense>
-      ) : (
-        <div className="absolute inset-0 bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900" />
-      )}
+        )}
+      </div>
       
       {/* Content Overlay */}
       <HeroContent />
