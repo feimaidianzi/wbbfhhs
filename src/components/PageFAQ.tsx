@@ -15,12 +15,14 @@ interface PageFAQProps {
   titleKey?: string;
   items: FAQItem[];
   className?: string;
+  /** Set to false to suppress inline JSON-LD when the parent page already emits FAQPage schema */
+  includeSchema?: boolean;
 }
 
-export const PageFAQ = ({ titleKey, items, className = "" }: PageFAQProps) => {
+export const PageFAQ = ({ titleKey, items, className = "", includeSchema = true }: PageFAQProps) => {
   const { t } = useLanguage();
 
-  const faqStructuredData = {
+  const faqStructuredData = includeSchema ? {
     '@context': 'https://schema.org',
     '@type': 'FAQPage',
     mainEntity: items.map(item => ({
@@ -31,7 +33,7 @@ export const PageFAQ = ({ titleKey, items, className = "" }: PageFAQProps) => {
         text: t(item.answerKey),
       },
     })),
-  };
+  } : null;
 
   return (
     <section className={`py-16 bg-secondary ${className}`}>
@@ -63,10 +65,12 @@ export const PageFAQ = ({ titleKey, items, className = "" }: PageFAQProps) => {
           </Accordion>
         </div>
 
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(faqStructuredData) }}
-        />
+        {faqStructuredData && (
+          <script
+            type="application/ld+json"
+            dangerouslySetInnerHTML={{ __html: JSON.stringify(faqStructuredData) }}
+          />
+        )}
       </div>
     </section>
   );
