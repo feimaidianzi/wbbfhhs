@@ -173,14 +173,10 @@ const ICChip = ({
         <meshBasicMaterial color={color} transparent opacity={0.06} />
       </mesh>
       {/* Chip border */}
-      <line ref={borderRef as any} geometry={borderGeo}>
-        <lineBasicMaterial color={color} transparent opacity={0.3} />
-      </line>
+      <primitive ref={borderRef} object={new THREE.Line(borderGeo, new THREE.LineBasicMaterial({ color, transparent: true, opacity: 0.3 }))} />
       {/* Pins */}
       {pinLines.map((geo, i) => (
-        <line key={i} geometry={geo}>
-          <lineBasicMaterial color={color} transparent opacity={0.2} />
-        </line>
+        <primitive key={i} object={new THREE.Line(geo, new THREE.LineBasicMaterial({ color, transparent: true, opacity: 0.2 }))} />
       ))}
     </group>
   );
