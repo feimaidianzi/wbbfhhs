@@ -189,7 +189,7 @@ const TranslationManagement = () => {
       }
 
       // 限制单次发送量
-      const maxKeysPerBatch = 500;
+      const maxKeysPerBatch = 100;
       let contentToSend = filteredContent;
       if (filteredCount > maxKeysPerBatch) {
         const entries = Object.entries(filteredContent).slice(0, maxKeysPerBatch);
