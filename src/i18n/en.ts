@@ -3322,7 +3322,7 @@ export const enTranslations: Record<string, string> = {
   'customAccessories.back': 'Back to Custom R&D',
   'customAccessories.title': 'Industrial UAV Core Accessories & Custom R&D Center',
   'customAccessories.bluf': 'CANI Technology delivers industrial-grade UAV digital video links and core accessories with 30ms ultra-low latency, 50km range, and 1080P HD quality. All components support PSDK/MAVLink protocols and meet IP67 protection standards, serving power inspection, security surveillance, and emergency rescue verticals.',
-  'customAccessories.subtitle': 'With a 200+ member R&D team spanning embedded systems, hardware, software, structures, technical support, and assembly departments, we provide full-range accessories customization services including FC, ESC, and video transmission.',
+  'customAccessories.subtitle': 'With a 200+ member R&D team spanning embedded systems, hardware, software, structures, technical support, and assembly departments, we provide full-range accessories customization services including FC, ESC, video transmission, and gimbal.',
   'customAccessories.btn.consult': 'Request Custom Quote',
   'customAccessories.btn.call': 'Call Us',
   'customAccessories.engineers': 'R&D Engineers',
