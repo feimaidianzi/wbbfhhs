@@ -1653,7 +1653,6 @@ export const enTranslations: Record<string, string> = {
   'about.cert.member': 'UAV Industry Association Member',
 
   // ===== About Page Upgrade - Brand Vision =====
-  'about.vision.badge': 'Industry Leader',
   'about.vision.badge': 'Original Manufacturer · OEM/ODM',
   'about.vision.heroTitle.line1': 'Engineering the Core of UAV Intelligence',
   'about.vision.heroTitle.line2': 'RF · Video Link · Software Ecosystem',
