@@ -86,7 +86,6 @@ const DataStream = ({
   speed: number;
   delay: number;
 }) => {
-  const lineRef = useRef<THREE.Line>(null);
   const dotRef = useRef<THREE.Mesh>(null);
 
   const curve = useMemo(() => {
@@ -104,9 +103,10 @@ const DataStream = ({
 
   const lineGeometry = useMemo(() => {
     const points = curve.getPoints(50);
-    const geometry = new THREE.BufferGeometry().setFromPoints(points);
-    return geometry;
+    return new THREE.BufferGeometry().setFromPoints(points);
   }, [curve]);
+
+  const lineMaterial = useMemo(() => new THREE.LineBasicMaterial({ color, transparent: true, opacity: 0.08 }), [color]);
 
   useFrame((state) => {
     if (dotRef.current) {
@@ -119,9 +119,7 @@ const DataStream = ({
 
   return (
     <>
-      <line ref={lineRef} geometry={lineGeometry}>
-        <lineBasicMaterial color={color} transparent opacity={0.08} />
-      </line>
+      <primitive object={new THREE.Line(lineGeometry, lineMaterial)} />
       <mesh ref={dotRef}>
         <sphereGeometry args={[0.06, 16, 16]} />
         <meshBasicMaterial color={color} transparent opacity={0.9} />
