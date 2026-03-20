@@ -11,7 +11,11 @@ interface FAQItem {
   answer: string;
 }
 
-export const AEOFAQSection = () => {
+interface AEOFAQSectionProps {
+  includeSchema?: boolean;
+}
+
+export const AEOFAQSection = ({ includeSchema = true }: AEOFAQSectionProps) => {
   const { t } = useLanguage();
 
   const faqs: FAQItem[] = [
