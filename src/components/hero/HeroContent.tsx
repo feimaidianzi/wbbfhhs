@@ -217,12 +217,11 @@ export const HeroContent = () => {
         </h1>
 
         {/* Subtitle */}
-        <motion.p
-          variants={itemVariants}
-          className="text-lg md:text-xl text-white/70 max-w-2xl mb-12 leading-relaxed"
+        <p
+          className="hero-animate-subtitle text-lg md:text-xl text-white/70 max-w-2xl mb-12 leading-relaxed"
         >
           {t('hero.subtitle')}
-        </motion.p>
+        </p>
 
         {/* CTA Buttons */}
         <motion.div
