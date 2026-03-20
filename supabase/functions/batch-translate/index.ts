@@ -461,8 +461,25 @@ Deno.serve(async (req) => {
           );
         }
         
-        let newTranslations: Record<string, string>;
+        let newTranslations: Record<string, string> = {};
         let usedProvider = 'deepseek';
+        
+        // Helper to save intermediate results to DB
+        const saveIntermediate = async (translations: Record<string, string>) => {
+          const merged = { ...existingTranslations, ...translations };
+          const { error: upsertError } = await supabase
+            .from('system_settings')
+            .upsert({
+              key: `translations_${lang}`,
+              value: JSON.stringify(merged),
+              updated_at: new Date().toISOString()
+            }, { onConflict: 'key' });
+          if (upsertError) {
+            console.error(`[WARN] Intermediate save failed for ${lang}:`, upsertError);
+          } else {
+            console.log(`[Intermediate] Saved ${Object.keys(merged).length} translations for ${lang}`);
+          }
+        };
         
         if (deepseekApiKeys.length > 0) {
           try {
@@ -478,6 +495,7 @@ Deno.serve(async (req) => {
           usedProvider = 'doubao';
         }
         
+        // Always save after translation completes
         const mergedTranslations = { ...existingTranslations, ...newTranslations };
         
         const { error: upsertError } = await supabase
