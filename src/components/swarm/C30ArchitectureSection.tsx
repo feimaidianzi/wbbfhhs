@@ -25,10 +25,7 @@ const C30ArchitectureSection = () => {
                 <h3 className="font-bold text-foreground text-lg">{t('swarm.c30architecturesection.k107')}</h3>
               </div>
               <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
-                {(isZh
-                  ? ["OptiTrack / NOKOV / VICON 兼容", "±1mm 三维定位精度", "360Hz 高刷新率", "红外反光标记 · 无漂移"]
-                  : ["OptiTrack / NOKOV / VICON Compatible", "±1mm 3D Positioning", "360Hz High Refresh Rate", "IR Markers · Zero Drift"]
-                ).map((item, i) => (
+                {[t('swarm.c30arch.k896'), t('swarm.c30arch.k897'), t('swarm.c30arch.k898'), t('swarm.c30arch.k899')].map((item, i) => (
                   <div key={i} className="bg-accent/5 rounded-lg p-3 text-center text-sm text-foreground border border-accent/10">{item}</div>
                 ))}
               </div>
@@ -49,10 +46,7 @@ const C30ArchitectureSection = () => {
                 <OptimizedImage src={rcImg} alt={t('swarm.c30architecturesection.k110')} aspectRatio="4/3" className="w-40 rounded-lg" objectFit="contain" />
               </div>
               <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
-                {(isZh
-                  ? [{ t: "Qt 地面站", d: "可视化编队编排与任务管理" }, { t: "Prometheus 控制系统", d: "集群控制核心框架" }, { t: "ROS 通讯节点", d: "分布式消息与服务架构" }]
-                  : [{ t: "Qt Ground Station", d: "Visual formation choreography & task mgmt" }, { t: "Prometheus Control System", d: "Swarm control core framework" }, { t: "ROS Communication Nodes", d: "Distributed message & service architecture" }]
-                ).map((item, i) => (
+                {[{ t: t('swarm.c30arch.k900'), d: t('swarm.c30arch.k901') }, { t: t('swarm.c30arch.k902'), d: t('swarm.c30arch.k903') }, { t: t('swarm.c30arch.k904'), d: t('swarm.c30arch.k905') }].map((item, i) => (
                   <div key={i} className="bg-muted/50 rounded-lg p-3 border border-border/30">
                     <div className="font-medium text-sm text-foreground">{item.t}</div>
                     <div className="text-xs text-muted-foreground mt-1">{item.d}</div>
@@ -103,10 +97,7 @@ const C30ArchitectureSection = () => {
                 </tr>
               </thead>
               <tbody>
-                {(isZh
-                  ? [["定位精度", "10cm", "±1mm"], ["刷新率", "200Hz", "360Hz"], ["延迟", "<0.5ms", "<0.2ms"], ["定位方式", "UWB 基站", "动捕相机"], ["适用场景", "大空间室内", "精密实验室"], ["机载计算", "Allspark2", "Jetson Orin NX"]]
-                  : [["Accuracy", "10cm", "±1mm"], ["Refresh Rate", "200Hz", "360Hz"], ["Latency", "<0.5ms", "<0.2ms"], ["Positioning", "UWB Stations", "MoCap Cameras"], ["Scenario", "Large Indoor", "Precision Lab"], ["Onboard AI", "Allspark2", "Jetson Orin NX"]]
-                ).map(([label, c20, c30], i) => (
+                {[[t('swarm.c30arch.k906'), "10cm", "±1mm"], [t('swarm.c30arch.k907'), "200Hz", "360Hz"], [t('swarm.c30arch.k908'), "<0.5ms", "<0.2ms"], [t('swarm.c30arch.k909'), t('swarm.c30arch.k912'), t('swarm.c30arch.k913')], [t('swarm.c30arch.k910'), t('swarm.c30arch.k914'), t('swarm.c30arch.k915')], [t('swarm.c30arch.k911'), "Allspark2", "Jetson Orin NX"]].map(([label, c20, c30], i) => (
                   <tr key={i} className={i % 2 === 0 ? 'bg-muted/50' : 'bg-card'}>
                     <td className="px-4 py-3 text-sm font-medium text-foreground border-b border-border/30">{label}</td>
                     <td className="px-4 py-3 text-sm text-center text-muted-foreground border-b border-border/30">{c20}</td>

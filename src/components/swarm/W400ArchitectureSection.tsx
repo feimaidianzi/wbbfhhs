@@ -5,8 +5,7 @@ import { OptimizedImage } from "@/components/OptimizedImage";
 import gcsImg from "@/assets/products/w400-ground-station.webp";
 
 const W400ArchitectureSection = () => {
-  const { t, language } = useLanguage();
-  const isZh = language === 'zh';
+  const { t } = useLanguage();
 
   return (
     <section className="py-20 bg-secondary">
@@ -25,10 +24,7 @@ const W400ArchitectureSection = () => {
                 <h3 className="font-bold text-foreground text-lg">{t('swarm.w400architecturesection.k282')}</h3>
               </div>
               <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
-                {(isZh
-                  ? ["GPS / GLONASS / 北斗 / Galileo", "RTK差分定位（可选）", "悬停精度 ±0.3m 水平", "室外全天候工作"]
-                  : ["GPS / GLONASS / BeiDou / Galileo", "RTK Differential (Optional)", "Hover ±0.3m Horizontal", "All-Weather Outdoor"]
-                ).map((item, i) => (
+                {[t('swarm.w400arch.k916'), t('swarm.w400arch.k917'), t('swarm.w400arch.k918'), t('swarm.w400arch.k919')].map((item, i) => (
                   <div key={i} className="bg-accent/5 rounded-lg p-3 text-center text-sm text-foreground border border-accent/10">{item}</div>
                 ))}
               </div>
@@ -53,10 +49,7 @@ const W400ArchitectureSection = () => {
                 <OptimizedImage src={gcsImg} alt={t('swarm.w400architecturesection.k283')} aspectRatio="4/3" className="w-full max-w-md rounded-lg" objectFit="contain" />
               </div>
               <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
-                {(isZh
-                  ? [{ t: "Prometheus R1.6 集群控制", d: "编队算法 + 任务调度核心" }, { t: "Qt 地面站", d: "可视化编排、多机状态监控" }, { t: "ROS 通讯框架", d: "MAVLink + ROS Topic 分布式通讯" }]
-                  : [{ t: "Prometheus R1.6 Swarm Ctrl", d: "Formation algorithms + task scheduling" }, { t: "Qt Ground Station", d: "Visual choreography + status monitoring" }, { t: "ROS Comm Framework", d: "MAVLink + ROS Topic distributed comms" }]
-                ).map((item, i) => (
+                {[{ t: t('swarm.w400arch.k920'), d: t('swarm.w400arch.k921') }, { t: t('swarm.w400arch.k922'), d: t('swarm.w400arch.k923') }, { t: t('swarm.w400arch.k924'), d: t('swarm.w400arch.k925') }].map((item, i) => (
                   <div key={i} className="bg-muted/50 rounded-lg p-3 border border-border/30">
                     <div className="font-medium text-sm text-foreground">{item.t}</div>
                     <div className="text-xs text-muted-foreground mt-1">{item.d}</div>
@@ -112,10 +105,7 @@ const W400ArchitectureSection = () => {
                 </tr>
               </thead>
               <tbody>
-                {(isZh
-                  ? [["定位方式", "UWB 基站", "动捕相机", "GPS 四星定位"], ["使用环境", "室内/半室外", "室内动捕间", "室外全场景"], ["轴距/机型", "250mm 四旋翼", "250mm 四旋翼", "600mm 六旋翼"], ["续航时间", "8min", "12min", "25min"], ["负载能力", "轻载", "轻载", "重载"], ["通信距离", "200m", "WiFi", "1km Mesh"]]
-                  : [["Positioning", "UWB Stations", "MoCap Cameras", "GPS Quad-GNSS"], ["Environment", "Indoor/Semi-outdoor", "Indoor MoCap Lab", "Full Outdoor"], ["Frame/Type", "250mm Quad", "250mm Quad", "600mm Hexa"], ["Endurance", "8min", "12min", "25min"], ["Payload", "Light", "Light", "Heavy"], ["Comm Range", "200m", "WiFi", "1km Mesh"]]
-                ).map(([label, c20, c30, w400], i) => (
+                {[[t('swarm.w400arch.k926'), t('swarm.w400arch.k932'), t('swarm.w400arch.k933'), t('swarm.w400arch.k934')], [t('swarm.w400arch.k927'), t('swarm.w400arch.k935'), t('swarm.w400arch.k936'), t('swarm.w400arch.k937')], [t('swarm.w400arch.k928'), "250mm Quad", "250mm Quad", "600mm Hexa"], [t('swarm.w400arch.k929'), "8min", "12min", "25min"], [t('swarm.w400arch.k930'), t('swarm.w400arch.k938'), t('swarm.w400arch.k939'), t('swarm.w400arch.k940')], [t('swarm.w400arch.k931'), "200m", "WiFi", "1km Mesh"]].map(([label, c20, c30, w400], i) => (
                   <tr key={i} className={i % 2 === 0 ? 'bg-muted/50' : 'bg-card'}>
                     <td className="px-4 py-3 text-sm font-medium text-foreground border-b border-border/30">{label}</td>
                     <td className="px-4 py-3 text-sm text-center text-muted-foreground border-b border-border/30">{c20}</td>
