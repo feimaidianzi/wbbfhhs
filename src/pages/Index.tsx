@@ -23,7 +23,27 @@ const Index = () => {
 
   const isZh = language === 'zh';
 
-  // Organization + WebSite + BreadcrumbList consolidated @graph
+  // Consolidated FAQ data for single FAQPage schema
+  const allFaqItems = [
+    // AEO FAQ items
+    { q: t('aeo.faq.q1'), a: t('aeo.faq.a1') },
+    { q: t('aeo.faq.q2'), a: t('aeo.faq.a2') },
+    { q: t('aeo.faq.q3'), a: t('aeo.faq.a3.aeo') || t('aeo.faq.a3') },
+    { q: t('aeo.faq.q4'), a: t('aeo.faq.a4') },
+    { q: t('aeo.faq.q5'), a: t('aeo.faq.a5') },
+    // General FAQ items
+    { q: t('faq.general.q1'), a: t('faq.general.a1') },
+    { q: t('faq.general.q2'), a: t('faq.general.a2') },
+    { q: t('faq.general.q3'), a: t('faq.general.a3') },
+    { q: t('faq.general.q4'), a: t('faq.general.a4') },
+    // Products FAQ items
+    { q: t('faq.products.q1'), a: t('faq.products.a1') },
+    { q: t('faq.products.q2'), a: t('faq.products.a2') },
+    { q: t('faq.products.q3'), a: t('faq.products.a3') },
+    { q: t('faq.products.q4'), a: t('faq.products.a4') },
+  ];
+
+  // Organization + WebSite + BreadcrumbList + single FAQPage consolidated @graph
   const homeStructuredData = {
     '@context': 'https://schema.org',
     '@graph': [
@@ -93,6 +113,17 @@ const Index = () => {
             item: 'https://www.caniuav.com/products/accessories/vtx',
           },
         ],
+      },
+      {
+        '@type': 'FAQPage',
+        mainEntity: allFaqItems.map(item => ({
+          '@type': 'Question',
+          name: item.q,
+          acceptedAnswer: {
+            '@type': 'Answer',
+            text: item.a,
+          },
+        })),
       },
     ],
   };
@@ -173,15 +204,15 @@ const Index = () => {
         </ScrollReveal>
 
         <ScrollReveal direction="up" delay={0.1}>
-          <AEOFAQSection />
+          <AEOFAQSection includeSchema={false} />
         </ScrollReveal>
 
         <ScrollReveal direction="up" delay={0}>
-          <FAQSection category="general" limit={6} />
+          <FAQSection category="general" limit={6} includeSchema={false} />
         </ScrollReveal>
 
         <ScrollReveal direction="up" delay={0}>
-          <FAQSection category="products" limit={4} showTitle={false} />
+          <FAQSection category="products" limit={4} showTitle={false} includeSchema={false} />
         </ScrollReveal>
 
         <ScrollReveal direction="up" delay={0.1}>

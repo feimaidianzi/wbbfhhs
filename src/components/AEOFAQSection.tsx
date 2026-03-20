@@ -11,7 +11,11 @@ interface FAQItem {
   answer: string;
 }
 
-export const AEOFAQSection = () => {
+interface AEOFAQSectionProps {
+  includeSchema?: boolean;
+}
+
+export const AEOFAQSection = ({ includeSchema = true }: AEOFAQSectionProps) => {
   const { t } = useLanguage();
 
   const faqs: FAQItem[] = [
@@ -66,10 +70,12 @@ export const AEOFAQSection = () => {
           </Accordion>
         </div>
 
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(faqStructuredData) }}
-        />
+        {includeSchema && (
+          <script
+            type="application/ld+json"
+            dangerouslySetInnerHTML={{ __html: JSON.stringify(faqStructuredData) }}
+          />
+        )}
       </div>
     </section>
   );

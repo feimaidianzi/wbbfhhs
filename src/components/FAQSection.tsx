@@ -15,9 +15,10 @@ interface FAQSectionProps {
   category?: 'general' | 'products' | 'technical' | 'purchase';
   showTitle?: boolean;
   limit?: number;
+  includeSchema?: boolean;
 }
 
-export const FAQSection = ({ category = 'general', showTitle = true, limit }: FAQSectionProps) => {
+export const FAQSection = ({ category = 'general', showTitle = true, limit, includeSchema = true }: FAQSectionProps) => {
   const { t } = useLanguage();
 
   const getFAQs = (): FAQItem[] => {
@@ -101,11 +102,12 @@ export const FAQSection = ({ category = 'general', showTitle = true, limit }: FA
           </Accordion>
         </div>
 
-        {/* 结构化数据 */}
-        <script 
-          type="application/ld+json" 
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(faqStructuredData) }} 
-        />
+        {includeSchema && (
+          <script 
+            type="application/ld+json" 
+            dangerouslySetInnerHTML={{ __html: JSON.stringify(faqStructuredData) }} 
+          />
+        )}
       </div>
     </section>
   );
