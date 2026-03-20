@@ -1654,9 +1654,10 @@ export const enTranslations: Record<string, string> = {
 
   // ===== About Page Upgrade - Brand Vision =====
   'about.vision.badge': 'Industry Leader',
-  'about.vision.heroTitle.line1': 'Beyond Flight',
-  'about.vision.heroTitle.line2': 'Engineering the Future of Industrial UAV Connectivity',
-  'about.vision.heroDesc': 'At CANI, we understand the uncompromising demands industrial UAVs face in extreme environments. We are not a simple component distributor — we are innovators deeply rooted in RF technology and intelligent control solutions. From 10W high-power VTX to F722 flight systems, every product we build is designed to break through the limits of distance and environmental interference.',
+  'about.vision.badge': 'Original Manufacturer · OEM/ODM',
+  'about.vision.heroTitle.line1': 'Engineering the Core of UAV Intelligence',
+  'about.vision.heroTitle.line2': 'RF · Video Link · Software Ecosystem',
+  'about.vision.heroDesc': 'We don\'t just configure — we define UAV performance from the core layer. With 200+ R&D engineers spanning RF modules, digital/analog video links, embedded firmware, and swarm ground stations, CANI is the original manufacturer of industrial UAV core components.',
 
   // ===== About Page Upgrade - Core Tech Advantages =====
   'about.techAdvantage.title': 'Why the Industry Trusts CANI Technology',
