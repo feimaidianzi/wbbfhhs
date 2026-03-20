@@ -91,7 +91,7 @@ const TH200 = () => {
     { label: t('swarm.c20specssection.k64'), value: "1200mm" },
     { label: t('tethered.th200.k739'), value: "1000×1000×600mm" },
     { label: t('tethered.th200.k740'), value: "620×620×600mm" },
-    { label: t('tethered.th200.k741'), value: t('tethered.th200.k742')' },
+    { label: t('tethered.th200.k741'), value: t('tethered.th200.k742') },
     { label: t('tethered.th200.k743'), value: t('tethered.th200.k744') },
     { label: t('tethered.th200.k745'), value: "10kg", highlight: true },
     { label: t('swarm.c20specssection.k67'), value: "29kg" },
