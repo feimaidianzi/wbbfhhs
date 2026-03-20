@@ -197,12 +197,12 @@ export const HeroContent = () => {
       {/* === 主内容区 === */}
       <div className="w-full max-w-6xl mx-auto">
         {/* Tagline */}
-        <motion.div variants={itemVariants} className="mb-8">
+        <div className="mb-8 hero-animate-tagline">
           <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-cyan-400/40 bg-cyan-500/10 text-cyan-400 text-sm font-medium tracking-wider">
             <span className="w-2 h-2 rounded-full bg-cyan-400 animate-pulse" />
             {t('hero.tagline')}
           </span>
-        </motion.div>
+        </div>
 
         {/* Main Title */}
         <motion.h1 
