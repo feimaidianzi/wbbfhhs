@@ -53,7 +53,8 @@ function getNextApiKey(keys: string[]): string {
 async function translateWithDeepSeek(
   content: Record<string, string>,
   targetLang: string,
-  apiKeys: string[]
+  apiKeys: string[],
+  onBatchSaved?: (partialResults: Record<string, string>) => Promise<void>
 ): Promise<Record<string, string>> {
   const targetLangName = languageNames[targetLang] || targetLang;
   
@@ -155,6 +156,15 @@ CRITICAL RULES:
     }
     
     console.log(`[DeepSeek] Batch complete: ${Object.keys(translatedContent).length}/${entries.length} keys translated`);
+    
+    // Save intermediate results after each parallel round
+    if (onBatchSaved) {
+      try {
+        await onBatchSaved(translatedContent);
+      } catch (e) {
+        console.error('[DeepSeek] Intermediate save error:', e);
+      }
+    }
   }
 
   return translatedContent;
@@ -461,12 +471,29 @@ Deno.serve(async (req) => {
           );
         }
         
-        let newTranslations: Record<string, string>;
+        let newTranslations: Record<string, string> = {};
         let usedProvider = 'deepseek';
+        
+        // Helper to save intermediate results to DB
+        const saveIntermediate = async (translations: Record<string, string>) => {
+          const merged = { ...existingTranslations, ...translations };
+          const { error: upsertError } = await supabase
+            .from('system_settings')
+            .upsert({
+              key: `translations_${lang}`,
+              value: JSON.stringify(merged),
+              updated_at: new Date().toISOString()
+            }, { onConflict: 'key' });
+          if (upsertError) {
+            console.error(`[WARN] Intermediate save failed for ${lang}:`, upsertError);
+          } else {
+            console.log(`[Intermediate] Saved ${Object.keys(merged).length} translations for ${lang}`);
+          }
+        };
         
         if (deepseekApiKeys.length > 0) {
           try {
-            newTranslations = await translateWithDeepSeek(contentToTranslate, lang, deepseekApiKeys);
+            newTranslations = await translateWithDeepSeek(contentToTranslate, lang, deepseekApiKeys, saveIntermediate);
           } catch (deepseekError) {
             console.error(`DeepSeek failed for ${lang}, falling back to Doubao:`, deepseekError);
             if (!DOUBAO_API_KEY) throw deepseekError;
@@ -478,6 +505,7 @@ Deno.serve(async (req) => {
           usedProvider = 'doubao';
         }
         
+        // Always save after translation completes
         const mergedTranslations = { ...existingTranslations, ...newTranslations };
         
         const { error: upsertError } = await supabase
