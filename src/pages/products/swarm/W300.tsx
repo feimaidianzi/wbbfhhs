@@ -54,7 +54,7 @@ const W300 = () => {
               {t('swarmpage.w300.k677')}
             </motion.h1>
             <motion.p initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.4 }} className="text-lg md:text-xl text-white/80 max-w-4xl mx-auto mb-8">
-              {t('swarmpage.w300.k678')s status. Includes mode control, position control, line/triangle formation, formation switching demos with rich swarm APIs. Custom ground station simplifies operations for algorithm-focused R&D.'}
+              {t('swarmpage.w300.k678')}
             </motion.p>
             <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.6 }} className="flex flex-wrap justify-center gap-4">
               <Link to="/contact">
