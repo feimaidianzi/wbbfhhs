@@ -2,7 +2,7 @@ import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { FloatingContact } from "@/components/FloatingContact";
 import { Button } from "@/components/ui/button";
-import { Target, Users, Award, ArrowRight, Cpu, BarChart3, Globe2, ShieldCheck, Layers, Radio, Settings, Code, Plane, Zap, Thermometer, Factory, CheckCircle2, MapPin, Shield, Truck } from "lucide-react";
+import { Target, Users, Award, ArrowRight, Cpu, BarChart3, Globe2, ShieldCheck, Layers, Radio, Settings, Code, Plane, Zap, Thermometer, Factory, CheckCircle2, MapPin, Shield, Truck, Wifi, Video, Terminal } from "lucide-react";
 import caniReception from "@/assets/about/cani-reception.png";
 import founderImg from "@/assets/founder-alex.png";
 import { MultiLanguageSEO, createLocalizedBreadcrumbData } from "@/components/MultiLanguageSEO";
@@ -299,6 +299,130 @@ const About = () => {
                   <s.icon className="w-8 h-8 text-accent mb-4" />
                   <h3 className="text-lg font-bold text-primary-foreground mb-2">{s.label}</h3>
                   <p className="text-sm text-primary-foreground/60">{s.desc}</p>
+                </motion.div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* ========== THREE TECH PILLARS - RF / Video / Software ========== */}
+        <section className="py-20 md:py-28 bg-[#0a0f1a] relative overflow-hidden">
+          {/* PCB-style grid background */}
+          <div className="absolute inset-0 opacity-[0.04]" style={{ backgroundImage: 'linear-gradient(rgba(34,211,238,.6) 1px, transparent 1px), linear-gradient(90deg, rgba(34,211,238,.6) 1px, transparent 1px)', backgroundSize: '60px 60px' }} />
+          <div className="absolute inset-0 opacity-[0.02]" style={{ backgroundImage: 'linear-gradient(rgba(34,211,238,.4) 1px, transparent 1px), linear-gradient(90deg, rgba(34,211,238,.4) 1px, transparent 1px)', backgroundSize: '12px 12px' }} />
+
+          <div className="container-custom relative">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              className="text-center mb-16"
+            >
+              <h2 className="text-3xl md:text-4xl lg:text-5xl font-black text-white mb-4">
+                {t('about.pillars.title')}
+              </h2>
+              <p className="text-gray-400 text-lg max-w-3xl mx-auto">
+                {t('about.pillars.subtitle')}
+              </p>
+            </motion.div>
+
+            <div className="space-y-16">
+              {[
+                {
+                  icon: Wifi,
+                  titleKey: 'about.pillar.rf.title',
+                  subtitleKey: 'about.pillar.rf.subtitle',
+                  descKey: 'about.pillar.rf.desc',
+                  customTitleKey: 'about.pillar.rf.custom.title',
+                  customDescKey: 'about.pillar.rf.custom.desc',
+                  specs: [
+                    { labelKey: 'about.pillar.rf.spec1.label', valueKey: 'about.pillar.rf.spec1.value' },
+                    { labelKey: 'about.pillar.rf.spec2.label', valueKey: 'about.pillar.rf.spec2.value' },
+                    { labelKey: 'about.pillar.rf.spec3.label', valueKey: 'about.pillar.rf.spec3.value' },
+                    { labelKey: 'about.pillar.rf.spec4.label', valueKey: 'about.pillar.rf.spec4.value' },
+                  ],
+                  accent: 'cyan',
+                },
+                {
+                  icon: Video,
+                  titleKey: 'about.pillar.video.title',
+                  subtitleKey: 'about.pillar.video.subtitle',
+                  descKey: 'about.pillar.video.desc',
+                  customTitleKey: 'about.pillar.video.custom.title',
+                  customDescKey: 'about.pillar.video.custom.desc',
+                  specs: [
+                    { labelKey: 'about.pillar.video.spec1.label', valueKey: 'about.pillar.video.spec1.value' },
+                    { labelKey: 'about.pillar.video.spec2.label', valueKey: 'about.pillar.video.spec2.value' },
+                    { labelKey: 'about.pillar.video.spec3.label', valueKey: 'about.pillar.video.spec3.value' },
+                    { labelKey: 'about.pillar.video.spec4.label', valueKey: 'about.pillar.video.spec4.value' },
+                  ],
+                  accent: 'blue',
+                },
+                {
+                  icon: Terminal,
+                  titleKey: 'about.pillar.software.title',
+                  subtitleKey: 'about.pillar.software.subtitle',
+                  descKey: 'about.pillar.software.desc',
+                  customTitleKey: 'about.pillar.software.custom.title',
+                  customDescKey: 'about.pillar.software.custom.desc',
+                  specs: [
+                    { labelKey: 'about.pillar.software.spec1.label', valueKey: 'about.pillar.software.spec1.value' },
+                    { labelKey: 'about.pillar.software.spec2.label', valueKey: 'about.pillar.software.spec2.value' },
+                    { labelKey: 'about.pillar.software.spec3.label', valueKey: 'about.pillar.software.spec3.value' },
+                    { labelKey: 'about.pillar.software.spec4.label', valueKey: 'about.pillar.software.spec4.value' },
+                  ],
+                  accent: 'emerald',
+                },
+              ].map((pillar, idx) => (
+                <motion.div
+                  key={idx}
+                  initial={{ opacity: 0, y: 30 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.6, delay: idx * 0.1 }}
+                  className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start"
+                >
+                  {/* Main content - 2 columns */}
+                  <div className="lg:col-span-2 bg-white/[0.03] border border-white/10 rounded-2xl p-8 backdrop-blur-sm">
+                    <div className="flex items-center gap-4 mb-6">
+                      <div className="w-12 h-12 rounded-xl bg-accent/10 flex items-center justify-center">
+                        <pillar.icon className="w-6 h-6 text-accent" />
+                      </div>
+                      <div>
+                        <h3 className="text-2xl font-bold text-white">{t(pillar.titleKey)}</h3>
+                        <span className="text-sm text-accent font-mono">{t(pillar.subtitleKey)}</span>
+                      </div>
+                    </div>
+                    <p className="text-gray-300 leading-relaxed mb-8">{t(pillar.descKey)}</p>
+
+                    {/* Specs grid */}
+                    <div className="grid grid-cols-2 gap-4">
+                      {pillar.specs.map((spec, si) => (
+                        <div key={si} className="bg-white/[0.03] border border-white/5 rounded-lg p-4">
+                          <div className="text-xs text-gray-500 font-mono uppercase mb-1">{t(spec.labelKey)}</div>
+                          <div className="text-sm text-accent font-semibold">{t(spec.valueKey)}</div>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+
+                  {/* Customization sidebar - 1 column */}
+                  <div className="bg-accent/5 border border-accent/20 rounded-2xl p-6 relative overflow-hidden">
+                    <div className="absolute top-0 right-0 w-24 h-24 bg-accent/5 rounded-full blur-2xl -translate-y-1/2 translate-x-1/2" />
+                    <div className="relative">
+                      <div className="flex items-center gap-2 mb-4">
+                        <Settings className="w-5 h-5 text-accent" />
+                        <h4 className="text-lg font-bold text-white">{t(pillar.customTitleKey)}</h4>
+                      </div>
+                      <p className="text-gray-400 text-sm leading-relaxed mb-6">{t(pillar.customDescKey)}</p>
+                      <LangLink to="/contact">
+                        <Button variant="outline" className="w-full border-accent/30 text-accent hover:bg-accent/10 hover:text-accent">
+                          {t('common.learnMore')}
+                          <ArrowRight className="w-4 h-4 ml-2" />
+                        </Button>
+                      </LangLink>
+                    </div>
+                  </div>
                 </motion.div>
               ))}
             </div>
@@ -614,6 +738,27 @@ const About = () => {
 
         {/* ========== FAQ ========== */}
         <PageFAQ titleKey="about.faq.title" items={faqItems} />
+
+        {/* ========== SEO Long-Form Content ========== */}
+        <section className="py-16 bg-secondary">
+          <div className="container-custom">
+            <article itemScope itemType="https://schema.org/WebPage" className="max-w-4xl mx-auto prose prose-sm dark:prose-invert">
+              <h2 className="text-2xl font-bold text-foreground mb-6" itemProp="name">
+                {t('about.seo.manufacturer.title')}
+              </h2>
+              <p className="text-muted-foreground leading-relaxed mb-4" itemProp="description">
+                {t('about.seo.manufacturer.p1')}
+              </p>
+              <p className="text-muted-foreground leading-relaxed mb-4">
+                {t('about.seo.manufacturer.p2')}
+              </p>
+              <p className="text-muted-foreground leading-relaxed">
+                {t('about.seo.manufacturer.p3')}
+              </p>
+              <meta itemProp="inLanguage" content={language === 'zh' ? 'zh-CN' : 'en'} />
+            </article>
+          </div>
+        </section>
 
         {/* ========== CTA ========== */}
         <section className="py-20 bg-primary">
