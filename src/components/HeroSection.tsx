@@ -22,17 +22,19 @@ export const HeroSection = () => {
       <div className="absolute right-0 top-0 bottom-0 w-[55%] hidden lg:block pointer-events-none">
         <div className="relative w-full h-full flex items-center justify-center">
           {/* Blue ambient glow behind image */}
-          <div className="absolute w-[70%] h-[60%] bg-blue-500/[0.06] blur-[100px] rounded-full" />
-          <img
-            src={heroPcbBoard}
-            alt="CANI industrial drone PCBA circuit board with golden IPEX connectors"
-            className="relative w-[85%] max-w-[800px] object-contain hero-animate-image opacity-90"
-            style={{
-              filter: 'brightness(1.05) contrast(1.05)',
-              maskImage: 'linear-gradient(to left, black 60%, transparent 98%)',
-              WebkitMaskImage: 'linear-gradient(to left, black 60%, transparent 98%)',
-            }}
-          />
+          <div className="absolute w-[70%] h-[60%] bg-blue-500/[0.06] blur-[100px] rounded-full hero-glow-pulse" />
+          <div className="hero-image-breathe">
+            <img
+              src={heroPcbBoard}
+              alt="CANI industrial drone PCBA circuit board with golden IPEX connectors"
+              className="relative w-[85%] max-w-[800px] object-contain hero-animate-image opacity-90"
+              style={{
+                filter: 'brightness(1.05) contrast(1.05)',
+                maskImage: 'linear-gradient(to left, black 60%, transparent 98%)',
+                WebkitMaskImage: 'linear-gradient(to left, black 60%, transparent 98%)',
+              }}
+            />
+          </div>
           {/* Bottom fade */}
           <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-[#0a0f1a] to-transparent" />
         </div>
