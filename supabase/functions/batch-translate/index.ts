@@ -156,6 +156,15 @@ CRITICAL RULES:
     }
     
     console.log(`[DeepSeek] Batch complete: ${Object.keys(translatedContent).length}/${entries.length} keys translated`);
+    
+    // Save intermediate results after each parallel round
+    if (onBatchSaved) {
+      try {
+        await onBatchSaved(translatedContent);
+      } catch (e) {
+        console.error('[DeepSeek] Intermediate save error:', e);
+      }
+    }
   }
 
   return translatedContent;
