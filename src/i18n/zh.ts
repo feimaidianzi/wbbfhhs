@@ -3795,7 +3795,7 @@ export const zhTranslations: Record<string, string> = {
   'customAccessories.back': '返回科研定制',
   'customAccessories.title': '工业级无人机核心配件与定制化研发中心',
   'customAccessories.bluf': '长凌科技提供具备30ms极低延迟、50km远距离和1080P高清画质的工业级无人机数字图传及核心配件，所有组件均支持PSDK/MAVLink协议并符合IP67防护标准，广泛服务于电力巡检、安防监控和应急救援等垂直行业。',
-  'customAccessories.subtitle': '拥有200多人的研发团队，涵盖嵌入式部门、硬件部门、软件部门、结构部门、技术支持部门和装配部门，提供飞控、电调、图传等全系列配件定制服务。',
+  'customAccessories.subtitle': '拥有200多人的研发团队，涵盖嵌入式部门、硬件部门、软件部门、结构部门、技术支持部门和装配部门，提供飞控、电调、图传、吊舱等全系列配件定制服务。',
   'customAccessories.btn.consult': '咨询定制',
   'customAccessories.btn.call': '电话咨询',
   'customAccessories.engineers': '研发工程师',
