@@ -493,7 +493,7 @@ Deno.serve(async (req) => {
         
         if (deepseekApiKeys.length > 0) {
           try {
-            newTranslations = await translateWithDeepSeek(contentToTranslate, lang, deepseekApiKeys);
+            newTranslations = await translateWithDeepSeek(contentToTranslate, lang, deepseekApiKeys, saveIntermediate);
           } catch (deepseekError) {
             console.error(`DeepSeek failed for ${lang}, falling back to Doubao:`, deepseekError);
             if (!DOUBAO_API_KEY) throw deepseekError;
