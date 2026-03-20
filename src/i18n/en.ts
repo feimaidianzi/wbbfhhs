@@ -5079,4 +5079,12 @@ export const enTranslations: Record<string, string> = {
   'swarm.w400hw.k946': 'Brushless outrunner with 10×4.5 CF props',
   'swarm.w400hw.k947': '22.2V high-voltage LiPo, XT60 connector',
   'swarm.w400hw.k948': 'Serial debug & data output, Type-C debug port',
+  'tethered.th300.gs.l1': 'LED Display',
+  'tethered.th300.gs.l2': 'Winch Control Knob',
+  'tethered.th300.gs.l3': 'Cable Power Button',
+  'tethered.th300.gs.l4': 'System Switch',
+  'tethered.th300.gs.l5': 'Cable Window',
+  'tethered.th300.gs.l6': 'Cable Outlet',
+  'tethered.th300.gs.l7': 'Warning Light',
+  'tethered.th300.gs.l8': 'Fiber Output',
 };

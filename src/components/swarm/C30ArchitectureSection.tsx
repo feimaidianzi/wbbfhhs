@@ -6,7 +6,6 @@ import rcImg from "@/assets/products/c30-remote-controller.webp";
 
 const C30ArchitectureSection = () => {
   const { t, language } = useLanguage();
-  const isZh = language === 'zh';
 
   return (
     <section className="py-20 bg-secondary">

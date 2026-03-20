@@ -9525,6 +9525,14 @@ export const zhTranslations: Record<string, string> = {
   'swarm.w400hw.k946': '无刷外转子电机，10×4.5碳纤桨',
   'swarm.w400hw.k947': '22.2V高压锂聚合物电池，XT60接口',
   'swarm.w400hw.k948': '串口调试与数据输出，Type-C调试接口',
+  'tethered.th300.gs.l1': 'LED显示屏',
+  'tethered.th300.gs.l2': '绞盘控制旋钮',
+  'tethered.th300.gs.l3': '电缆电源按钮',
+  'tethered.th300.gs.l4': '系统开关',
+  'tethered.th300.gs.l5': '电缆观察窗',
+  'tethered.th300.gs.l6': '电缆出线口',
+  'tethered.th300.gs.l7': '报警灯',
+  'tethered.th300.gs.l8': '光纤输出口',
 };
 
 export default zhTranslations;

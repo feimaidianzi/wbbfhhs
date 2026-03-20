@@ -27,8 +27,7 @@ import rescueImg from "@/assets/seo/emergency-rescue.jpg";
 import powerImg from "@/assets/seo/power-transmission-inspection.jpg";
 
 const TH300 = () => {
-  const { t, language } = useLanguage();
-  const isZh = language === 'zh';
+  const { t } = useLanguage();
 
   // Hero highlights
   const heroStats = [
@@ -100,9 +99,7 @@ const TH300 = () => {
       title: t('tethered.th300.k824'),
       desc: t('tethered.th300.k825'),
       image: safetyImg,
-      labels: isZh
-        ? ["LED显示屏", "绞盘控制旋钮", "电缆电源按钮", "系统开关", "电缆观察窗", "电缆出线口", "报警灯", "光纤输出口"]
-        : ["LED Display", "Winch Control Knob", "Cable Power Button", "System Switch", "Cable Window", "Cable Outlet", "Warning Light", "Fiber Output"],
+      labels: [t('tethered.th300.gs.l1'), t('tethered.th300.gs.l2'), t('tethered.th300.gs.l3'), t('tethered.th300.gs.l4'), t('tethered.th300.gs.l5'), t('tethered.th300.gs.l6'), t('tethered.th300.gs.l7'), t('tethered.th300.gs.l8')],
     },
     {
       icon: Gauge,
