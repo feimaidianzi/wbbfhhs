@@ -234,7 +234,8 @@ const PulseRing = ({
     if (meshRef.current) {
       const scale = 1 + Math.sin(state.clock.elapsedTime * 1.5) * 0.3;
       meshRef.current.scale.set(scale, scale, scale);
-      meshRef.current.material.opacity = 0.4 - Math.sin(state.clock.elapsedTime * 1.5) * 0.2;
+      const mat = meshRef.current.material as THREE.MeshBasicMaterial;
+      mat.opacity = 0.4 - Math.sin(state.clock.elapsedTime * 1.5) * 0.2;
       meshRef.current.rotation.x = state.clock.elapsedTime * 0.3;
       meshRef.current.rotation.z = state.clock.elapsedTime * 0.15;
       meshRef.current.position.x = initialPos.current[0] + mousePosition.x * 0.25;
