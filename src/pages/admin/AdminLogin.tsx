@@ -8,6 +8,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { useToast } from '@/hooks/use-toast';
 import { Mail, Lock, Loader2, Shield } from 'lucide-react';
 import { z } from 'zod';
+import { Helmet } from 'react-helmet-async';
 
 const emailSchema = z.string().email();
 const passwordSchema = z.string().min(6);
@@ -124,6 +125,10 @@ const AdminLogin = () => {
   };
 
   return (
+    <>
+      <Helmet>
+        <meta name="robots" content="noindex, nofollow" />
+      </Helmet>
     <div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 flex items-center justify-center p-4">
       <div className="w-full max-w-md">
         <Card className="border-slate-700 bg-slate-800/50 backdrop-blur-xl shadow-2xl">
@@ -192,6 +197,7 @@ const AdminLogin = () => {
         </p>
       </div>
     </div>
+    </>
   );
 };
 
