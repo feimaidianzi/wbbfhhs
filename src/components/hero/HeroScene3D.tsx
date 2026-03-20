@@ -219,9 +219,7 @@ const PCBGrid = ({ mousePosition }: { mousePosition: { x: number; y: number } })
   return (
     <group ref={groupRef}>
       {gridLines.map((geo, i) => (
-        <line key={i} geometry={geo}>
-          <lineBasicMaterial color="#06b6d4" transparent opacity={0.03} />
-        </line>
+        <primitive key={i} object={new THREE.Line(geo, new THREE.LineBasicMaterial({ color: '#06b6d4', transparent: true, opacity: 0.03 }))} />
       ))}
     </group>
   );
