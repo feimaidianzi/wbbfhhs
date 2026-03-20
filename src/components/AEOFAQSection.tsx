@@ -70,10 +70,12 @@ export const AEOFAQSection = ({ includeSchema = true }: AEOFAQSectionProps) => {
           </Accordion>
         </div>
 
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(faqStructuredData) }}
-        />
+        {includeSchema && (
+          <script
+            type="application/ld+json"
+            dangerouslySetInnerHTML={{ __html: JSON.stringify(faqStructuredData) }}
+          />
+        )}
       </div>
     </section>
   );

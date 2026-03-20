@@ -102,11 +102,12 @@ export const FAQSection = ({ category = 'general', showTitle = true, limit, incl
           </Accordion>
         </div>
 
-        {/* 结构化数据 */}
-        <script 
-          type="application/ld+json" 
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(faqStructuredData) }} 
-        />
+        {includeSchema && (
+          <script 
+            type="application/ld+json" 
+            dangerouslySetInnerHTML={{ __html: JSON.stringify(faqStructuredData) }} 
+          />
+        )}
       </div>
     </section>
   );
