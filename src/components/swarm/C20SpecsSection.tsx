@@ -12,7 +12,7 @@ const C20SpecsSection = () => {
       items: [
         { label: t('swarm.c20specssection.k62'), value: t('swarm.c20specssection.k63') },
         { label: t('swarm.c20specssection.k64'), value: "230mm" },
-        { label: t('swarm.c20specssection.k65'), value: t('swarm.c20packagesection.k41') Tri-blade' },
+        { label: t('swarm.c20specssection.k65'), value: t('swarm.c20packagesection.k41') },
         { label: t('swarm.c20specssection.k66'), value: "0.68kg" },
         { label: t('swarm.c20specssection.k67'), value: "1.1kg" },
         { label: t('swarm.c20specssection.k68'), value: t('swarm.c20specssection.k69') },

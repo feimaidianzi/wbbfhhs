@@ -7,7 +7,7 @@ const C20PackageSection = () => {
 
   const packageList = [
     { name: t('swarm.c20packagesection.k39'), spec: "230mm", qty: "3" },
-    { name: t('swarm.c20packagesection.k40'), spec: t('swarm.c20packagesection.k41') Tri-blade', qty: t('swarm.c20packagesection.k42') },
+    { name: t('swarm.c20packagesection.k40'), spec: t('swarm.c20packagesection.k41'), qty: t('swarm.c20packagesection.k42') },
     { name: t('swarm.c20packagesection.k43'), spec: "Pixhawk", qty: "3" },
     { name: t('swarm.c20hardwaresection.k19'), spec: t('swarm.c20packagesection.k44'), qty: "1+3" },
     { name: t('swarm.c20packagesection.k45'), spec: "Linktrack P-B", qty: "4" },

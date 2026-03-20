@@ -12,7 +12,7 @@ const C20HardwareSection = () => {
     { icon: <Radio className="h-5 w-5" />, label: t('swarm.c20hardwaresection.k19'), desc: t('swarm.c20hardwaresection.k20'), position: "top-[45%] left-[5%]" },
     { icon: <Zap className="h-5 w-5" />, label: t('swarm.c20hardwaresection.k21'), desc: t('swarm.c20hardwaresection.k22'), position: "top-[45%] right-[5%]" },
     { icon: <Battery className="h-5 w-5" />, label: t('swarm.c20hardwaresection.k23'), desc: "4S 3000mAh", position: "bottom-[20%] left-[10%]" },
-    { icon: <Fan className="h-5 w-5" />, label: t('swarm.c20hardwaresection.k24') Propellers", desc: t('swarm.c20hardwaresection.k25'), position: "bottom-[20%] right-[10%]" },
+    { icon: <Fan className="h-5 w-5" />, label: t('swarm.c20hardwaresection.k24'), desc: t('swarm.c20hardwaresection.k25'), position: "bottom-[20%] right-[10%]" },
   ];
 
   return (
