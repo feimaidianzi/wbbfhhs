@@ -254,7 +254,7 @@ export const HeroContent = () => {
         </div>
 
         {/* Stats - 卡片式 */}
-        <div className="flex flex-wrap gap-6 md:gap-8">
+        <div className="flex flex-wrap gap-6 md:gap-8 hero-animate-stats">
           {stats.map((stat, index) => (
             <motion.div 
               key={index} 
