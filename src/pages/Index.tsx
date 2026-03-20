@@ -19,9 +19,7 @@ import { useLanguage } from "@/contexts/LanguageContext";
 import { ScrollReveal, ParallaxSection } from "@/components/ScrollAnimations";
 
 const Index = () => {
-  const { t, language } = useLanguage();
-
-  const isZh = language === 'zh';
+  const { t } = useLanguage();
 
   // Consolidated FAQ data for single FAQPage schema
   const allFaqItems = [
@@ -49,7 +47,7 @@ const Index = () => {
     '@graph': [
       {
         '@type': 'Organization',
-        name: isZh ? '长凌科技' : 'CANI Technology',
+        name: t('acc.cameradetail.k454'),
         alternateName: 'CANI',
         url: 'https://www.caniuav.com',
         logo: 'https://www.caniuav.com/logo.png',
@@ -82,7 +80,7 @@ const Index = () => {
       },
       {
         '@type': 'WebSite',
-        name: isZh ? '长凌科技' : 'CANI Technology',
+        name: t('acc.cameradetail.k454'),
         alternateName: 'CANI',
         url: 'https://www.caniuav.com',
         potentialAction: {
@@ -103,13 +101,13 @@ const Index = () => {
           {
             '@type': 'ListItem',
             position: 2,
-            name: isZh ? '工业无人机配件' : 'Industrial UAV Components',
+            name: t('page.index.k891'),
             item: 'https://www.caniuav.com/products',
           },
           {
             '@type': 'ListItem',
             position: 3,
-            name: isZh ? '数字图传' : 'Digital Video Link',
+            name: t('page.index.k892'),
             item: 'https://www.caniuav.com/products/accessories/vtx',
           },
         ],

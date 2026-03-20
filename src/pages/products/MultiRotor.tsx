@@ -133,7 +133,7 @@ const MultiRotor = () => {
     name: 'Industrial UAV Platform Solutions',
     provider: {
       '@type': 'Organization',
-      name: language === 'zh' ? '长凌科技' : 'CANI Technology',
+      name: t('acc.cameradetail.k454'),
     },
     description: t('platforms.page.description'),
     serviceType: 'UAV Platform Systems',

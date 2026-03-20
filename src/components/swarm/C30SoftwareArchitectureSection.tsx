@@ -9,8 +9,7 @@ import { motion } from "framer-motion";
  * - UAV control & MAVROS layers
  */
 const C30SoftwareArchitectureSection = () => {
-  const { language } = useLanguage();
-  const isZh = language === 'zh';
+  const { t } = useLanguage();
 
   return (
     <section className="py-20 bg-muted/30 relative overflow-hidden">
@@ -18,12 +17,10 @@ const C30SoftwareArchitectureSection = () => {
         <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="text-center mb-12">
           <span className="text-accent font-mono text-sm tracking-widest uppercase mb-2 block">Software Architecture</span>
           <h2 className="text-3xl md:text-4xl font-black text-foreground mb-4">
-            {isZh ? '集群软件框架图' : 'Swarm Software Architecture'}
+            {t('swarm.c30softwarearchitecturesection.k189')}
           </h2>
           <p className="text-muted-foreground max-w-2xl mx-auto">
-            {isZh
-              ? '基于ROS的分布式集群通信架构，地面站通过UDP组播协调多机通信节点，每架无人机独立运行Swarm与MAVROS控制栈'
-              : 'ROS-based distributed swarm communication architecture with UDP multicast ground station coordinating multi-UAV communication nodes'}
+            {t('swarm.c30softwarearchitecturesection.k190')}
           </p>
         </motion.div>
 
@@ -65,14 +62,14 @@ const C30SoftwareArchitectureSection = () => {
               {/* ===== GROUND STATION (Top) ===== */}
               <g transform="translate(350, 30)">
                 <rect x="0" y="0" width="200" height="50" rx="10" fill="hsl(185, 80%, 50%)" opacity="0.15" stroke="hsl(185, 80%, 50%)" strokeWidth="1.5" />
-                <text x="100" y="22" textAnchor="middle" className="fill-foreground text-[13px] font-bold">{isZh ? '地面站 & 通信节点' : 'Ground Station'}</text>
-                <text x="100" y="40" textAnchor="middle" fill="hsl(185, 80%, 50%)" className="text-[10px]">{isZh ? '集群控制中心' : 'Swarm Control Center'}</text>
+                <text x="100" y="22" textAnchor="middle" className="fill-foreground text-[13px] font-bold">{t('swarm.c30softwarearchitecturesection.k191')}</text>
+                <text x="100" y="40" textAnchor="middle" fill="hsl(185, 80%, 50%)" className="text-[10px]">{t('swarm.c30softwarearchitecturesection.k192')}</text>
               </g>
 
               {/* UDP Multicast Node */}
               <g transform="translate(400, 110)">
                 <ellipse cx="50" cy="20" rx="70" ry="20" fill="hsl(185, 80%, 50%)" opacity="0.1" stroke="hsl(185, 80%, 50%)" strokeWidth="1" />
-                <text x="50" y="24" textAnchor="middle" fill="hsl(185, 80%, 50%)" className="text-[11px] font-semibold">{isZh ? 'UDP 组播地址' : 'UDP Multicast'}</text>
+                <text x="50" y="24" textAnchor="middle" fill="hsl(185, 80%, 50%)" className="text-[11px] font-semibold">{t('swarm.c30softwarearchitecturesection.k193')}</text>
               </g>
 
               {/* Lines from GS to UDP */}
@@ -80,9 +77,9 @@ const C30SoftwareArchitectureSection = () => {
 
               {/* ===== COMMUNICATION NODES (Row 2) ===== */}
               {[
-                { x: 100, label: isZh ? "通信节点 2" : "Comm Node 2" },
-                { x: 370, label: isZh ? "通信节点 1" : "Comm Node 1" },
-                { x: 640, label: isZh ? "通信节点 3" : "Comm Node 3" },
+                { x: 100, label: t('swarm.c30softwarearchitecturesection.k194') },
+                { x: 370, label: t('swarm.c30softwarearchitecturesection.k195') },
+                { x: 640, label: t('swarm.c30softwarearchitecturesection.k196') },
               ].map((n, i) => (
                 <g key={i} transform={`translate(${n.x}, 180)`}>
                   <rect width="160" height="44" rx="8" fill="hsl(185, 80%, 50%)" opacity="0.12" stroke="hsl(185, 80%, 50%)" strokeWidth="1" />
@@ -101,15 +98,15 @@ const C30SoftwareArchitectureSection = () => {
 
               {/* Comm node annotations */}
               <g transform="translate(270, 240)">
-                <text y="0" className="fill-muted-foreground text-[9px]">swarm → {isZh ? '通信节点' : 'comm node'}:</text>
-                <text y="13" className="fill-muted-foreground text-[9px]">1. {isZh ? '反馈地面站打印信息' : 'GS status feedback'}</text>
-                <text y="26" className="fill-muted-foreground text-[9px]">2. {isZh ? 'GPS/RTK定位坐标原点偏移量' : 'GPS/RTK origin offset'}</text>
+                <text y="0" className="fill-muted-foreground text-[9px]">swarm → {t('swarm.c30softwarearchitecturesection.k197')}:</text>
+                <text y="13" className="fill-muted-foreground text-[9px]">1. {t('swarm.c30softwarearchitecturesection.k198')}</text>
+                <text y="26" className="fill-muted-foreground text-[9px]">2. {t('swarm.c30softwarearchitecturesection.k199')}</text>
               </g>
               <g transform="translate(560, 240)">
-                <text y="0" className="fill-muted-foreground text-[9px]">{isZh ? '通信节点' : 'comm node'} → swarm:</text>
-                <text y="13" className="fill-muted-foreground text-[9px]">1. {isZh ? '全部无人机信息' : 'All UAV info'}</text>
-                <text y="26" className="fill-muted-foreground text-[9px]">2. {isZh ? '通信状态' : 'Comm status'}</text>
-                <text y="39" className="fill-muted-foreground text-[9px]">3. {isZh ? '集群控制指令' : 'Swarm commands'}</text>
+                <text y="0" className="fill-muted-foreground text-[9px]">{t('swarm.c30softwarearchitecturesection.k197')} → swarm:</text>
+                <text y="13" className="fill-muted-foreground text-[9px]">1. {t('swarm.c30softwarearchitecturesection.k200')}</text>
+                <text y="26" className="fill-muted-foreground text-[9px]">2. {t('swarm.c30softwarearchitecturesection.k201')}</text>
+                <text y="39" className="fill-muted-foreground text-[9px]">3. {t('swarm.c30softwarearchitecturesection.k202')}</text>
               </g>
 
               {/* ===== SWARM NODES (Row 3) ===== */}
@@ -131,7 +128,7 @@ const C30SoftwareArchitectureSection = () => {
 
               {/* Swarm description */}
               <text x="450" y="400" textAnchor="middle" className="fill-muted-foreground text-[10px] italic">
-                {isZh ? '响应集群控制指令 · 集群系统监测 · 下发控制指令到 uav_control' : 'Respond to swarm commands · System monitoring · Relay to uav_control'}
+                {t('swarm.c30softwarearchitecturesection.k203')}
               </text>
 
               {/* ===== UAV_CONTROL (Row 4) ===== */}
@@ -182,18 +179,18 @@ const C30SoftwareArchitectureSection = () => {
           <div className="grid md:grid-cols-3 gap-4 mt-8">
             {[
               {
-                title: isZh ? "Formation Control" : "Formation Control",
-                desc: isZh ? "集群编队核心控制节点，接收Prometheus控制指令，输出位姿目标到MAVROS" : "Core formation control node receiving Prometheus commands, outputting pose targets to MAVROS",
+                title: t('swarm.c30softwarearchitecturesection.k204'),
+                desc: t('swarm.c30softwarearchitecturesection.k205'),
                 topics: ["formation_control", "formation_state", "formation_move"],
               },
               {
-                title: isZh ? "MAVROS Bridge" : "MAVROS Bridge",
-                desc: isZh ? "ROS与PX4飞控之间的通信桥梁，处理解锁、模式切换、位置目标等服务调用" : "Communication bridge between ROS and PX4 autopilot for arming, mode switching, and position targets",
+                title: t('swarm.c30softwarearchitecturesection.k206'),
+                desc: t('swarm.c30softwarearchitecturesection.k207'),
                 topics: ["/uav*/mavros", "cmd/arming", "set_mode"],
               },
               {
-                title: isZh ? "Prometheus R1.6" : "Prometheus R1.6",
-                desc: isZh ? "上层任务规划与决策系统，发布控制指令与队形变换命令到编队控制节点" : "Upper-layer mission planning and decision system publishing control and formation change commands",
+                title: t('swarm.c30softwarearchitecturesection.k208'),
+                desc: t('swarm.c30softwarearchitecturesection.k209'),
                 topics: ["control_command", "formation/change", "ControlCommand"],
               },
             ].map((item, i) => (

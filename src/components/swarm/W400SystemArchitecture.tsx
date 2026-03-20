@@ -3,32 +3,31 @@ import { motion } from "framer-motion";
 import { Satellite, Cpu, Monitor, Radio, Navigation, Layers } from "lucide-react";
 
 const W400SystemArchitecture = () => {
-  const { language } = useLanguage();
-  const isZh = language === 'zh';
+  const { t } = useLanguage();
 
   const systemFlow = [
     {
       icon: <Satellite className="h-5 w-5" />,
-      title: isZh ? "GPS多频定位" : "Multi-GNSS Positioning",
+      title: t('swarm.w400systemarchitecture.k422'),
       items: [
         "GPS / GLONASS / BeiDou / Galileo",
-        isZh ? "RTK差分定位（可选）" : "RTK Differential (Optional)",
-        isZh ? "悬停精度 ±0.3m 水平 / ±0.5m 垂直" : "Hover accuracy ±0.3m H / ±0.5m V",
+        t('swarm.w400systemarchitecture.k423'),
+        t('swarm.w400systemarchitecture.k424'),
       ],
     },
     {
       icon: <Radio className="h-5 w-5" />,
-      title: isZh ? "通信网络" : "Communication Network",
+      title: t('swarm.w200systemarchitecture.k244'),
       items: [
         "Mini Homer",
-        isZh ? "TCP/IP 分布式通信" : "TCP/IP Distributed Comms",
-        isZh ? "1km 通信距离，3Mbps" : "1km range, 3Mbps bandwidth",
-        isZh ? "Mesh自组网拓扑" : "Mesh self-organizing topology",
+        t('swarm.w400systemarchitecture.k425'),
+        t('swarm.w400systemarchitecture.k426'),
+        t('swarm.w400systemarchitecture.k427'),
       ],
     },
     {
       icon: <Cpu className="h-5 w-5" />,
-      title: isZh ? "机载算力" : "Onboard Computing",
+      title: t('swarm.w400systemarchitecture.k428'),
       items: [
         "Allspark2 + Jetson Orin NX",
         "100 TOPS AI",
@@ -38,20 +37,20 @@ const W400SystemArchitecture = () => {
     },
     {
       icon: <Monitor className="h-5 w-5" />,
-      title: isZh ? "地面站控制" : "Ground Station Control",
+      title: t('swarm.w200systemarchitecture.k248'),
       items: [
-        isZh ? "Prometheus集群控制系统" : "Prometheus Swarm Control",
-        isZh ? "Qt地面站操作界面" : "Qt Ground Station UI",
-        isZh ? "多机任务规划与编队管理" : "Multi-UAV Mission & Formation",
+        t('swarm.w200systemarchitecture.k249'),
+        t('swarm.w400systemarchitecture.k429'),
+        t('swarm.w400systemarchitecture.k430'),
       ],
     },
   ];
 
   // Extracted from swarm-w400-detail.jpg / swarm-w400-system.jpg
   const taskFlow = [
-    { label: isZh ? "任务a" : "Task A", desc: isZh ? "编队飞行" : "Formation Flight" },
-    { label: isZh ? "任务b" : "Task B", desc: isZh ? "航点巡航" : "Waypoint Cruise" },
-    { label: isZh ? "任务c" : "Task C", desc: isZh ? "目标追踪" : "Target Tracking" },
+    { label: t('swarm.w400systemarchitecture.k431'), desc: t('swarm.w400swarmmissionsection.k408') },
+    { label: t('swarm.w400systemarchitecture.k432'), desc: t('swarm.w400swarmmissionsection.k410') },
+    { label: t('swarm.w400systemarchitecture.k433'), desc: t('swarm.w400swarmmissionsection.k412') },
   ];
 
   return (
@@ -64,12 +63,10 @@ const W400SystemArchitecture = () => {
           className="text-center mb-12"
         >
           <h2 className="text-3xl md:text-4xl font-black text-foreground mb-4">
-            {isZh ? "系统架构" : "System Architecture"}
+            {t('swarm.w200systemarchitecture.k257')}
           </h2>
           <p className="text-muted-foreground max-w-2xl mx-auto">
-            {isZh
-              ? "基于GPS多频定位的室外集群系统，通过Mesh自组网实现多机协同，地面站统一指挥调度"
-              : "Outdoor swarm system based on multi-GNSS positioning with Mesh networking for multi-UAV coordination and unified ground station control"}
+            {t('swarm.w400systemarchitecture.k434')}
           </p>
         </motion.div>
 
@@ -82,7 +79,7 @@ const W400SystemArchitecture = () => {
         >
           <div className="bg-card rounded-2xl border border-border/30 p-8">
             <h3 className="text-center text-sm font-bold text-muted-foreground mb-6 uppercase tracking-wider">
-              {isZh ? "多机任务调度流程" : "Multi-UAV Task Scheduling Flow"}
+              {t('swarm.w400systemarchitecture.k435')}
             </h3>
             <div className="flex flex-col md:flex-row items-center justify-center gap-4 md:gap-6 mb-6">
               {taskFlow.map((task, index) => (
@@ -101,7 +98,7 @@ const W400SystemArchitecture = () => {
             </div>
             <div className="flex items-center justify-center gap-2 text-xs text-muted-foreground">
               <div className="w-8 h-px bg-accent"></div>
-              <span>{isZh ? "地面站发送指令" : "Ground Station Commands"}</span>
+              <span>{t('swarm.w400systemarchitecture.k436')}</span>
               <div className="w-8 h-px bg-accent"></div>
             </div>
           </div>

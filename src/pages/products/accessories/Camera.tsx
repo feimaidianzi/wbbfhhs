@@ -19,7 +19,7 @@ const categoryIcons: Record<string, React.ReactNode> = {
 };
 
 const CameraPage = () => {
-  const { t, language } = useLanguage();
+  const { t } = useLanguage();
 
   const faqItems = [
     { q: t('camera.faq.q1'), a: t('camera.faq.a1') },
@@ -30,7 +30,7 @@ const CameraPage = () => {
   const faqStructuredData = {
     '@context': 'https://schema.org',
     '@type': 'FAQPage',
-    inLanguage: language === 'zh' ? 'zh-CN' : 'en',
+    inLanguage: t('acc.elrs.k656'),
     mainEntity: faqItems.map(faq => ({
       '@type': 'Question',
       name: faq.q,

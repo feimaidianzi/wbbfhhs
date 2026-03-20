@@ -87,7 +87,7 @@ const ElrsDetail = () => {
     sku: `CANI-ELRS-${product.id.toUpperCase()}`,
     manufacturer: {
       '@type': 'Organization',
-      name: language === 'zh' ? '长凌科技' : 'CANI Technology',
+      name: t('acc.cameradetail.k454'),
     },
     additionalProperty: product.specs.flatMap(specGroup =>
       specGroup.items.map(item => ({
@@ -120,9 +120,7 @@ const ElrsDetail = () => {
       '@type': 'Product',
       name: 'CANI ELRS 915 Diversity 工业级双天线接收机',
       image: 'https://www.caniuav.com/images/products/elrs/elrs-915-diversity-main.jpg',
-      description: language === 'zh'
-        ? '基于ExpressLRS协议的915MHz远距离无人机接收机。采用真多样性双电路设计，微秒级信号切换，支持超视距控制。'
-        : 'A 915MHz long-range UAV receiver based on ExpressLRS. True diversity dual-circuit design with microsecond signal switching for BVLOS operations.',
+      description: t('acc.elrsdetail.k549'),
       brand: { '@type': 'Brand', name: 'CANI' },
       sku: 'CANI-ELRS-915D',
       url: 'https://www.caniuav.com/zh/products/accessories/elrs/elrs-915-diversity',
@@ -138,9 +136,7 @@ const ElrsDetail = () => {
       '@type': 'Product',
       name: 'CANI ELRS 915MHz Nano 标准版接收机',
       image: 'https://www.caniuav.com/images/products/elrs/elrs-915-receiver-main.jpg',
-      description: language === 'zh'
-        ? '仅0.6g的超微型ExpressLRS接收机。专为小型无人机与穿越机设计，采用915MHz Nano架构，支持远距离控制与低功耗管理，实现极致性能密度。'
-        : 'Ultra-micro 0.6g ExpressLRS receiver for small UAVs and FPV quads. 915MHz Nano architecture with long-range control and low power management.',
+      description: t('acc.elrsdetail.k550'),
       brand: { '@type': 'Brand', name: 'CANI' },
       sku: 'CANI-ELRS-915N',
       url: 'https://www.caniuav.com/zh/products/accessories/elrs/elrs-915-receiver',
@@ -156,9 +152,7 @@ const ElrsDetail = () => {
       '@type': 'Product',
       name: 'CANI ELRS Lite 2.4G 高刷新率接收机',
       image: 'https://www.caniuav.com/images/products/elrs/elrs-lite-2-4g-main.jpg',
-      description: language === 'zh'
-        ? '支持1000Hz刷新率的超低延迟2.4G ELRS接收机。可选微型陶瓷天线设计，极致轻量，专为高速FPV竞速与近距离高精度无人机编队作业设计。'
-        : 'Ultra-low latency 2.4G ELRS receiver with 1000Hz refresh rate. Optional micro ceramic antenna, ultra-lightweight, designed for high-speed FPV racing and close-range precision swarm operations.',
+      description: t('acc.elrsdetail.k551'),
       brand: { '@type': 'Brand', name: 'CANI' },
       sku: 'CANI-ELRS-L24G',
       url: 'https://www.caniuav.com/zh/products/accessories/elrs/elrs-lite-2-4g',
@@ -174,9 +168,7 @@ const ElrsDetail = () => {
       '@type': 'Product',
       name: 'CANI ELRS 2.4G LNA 工业级高灵敏度接收机',
       image: 'https://www.caniuav.com/images/products/elrs/elrs-2-4g-lna-main.jpg',
-      description: language === 'zh'
-        ? '集成了LNA低噪声放大器与100mW PA功率放大器的2.4G ELRS接收机。支持1000Hz高刷新率，解决2.4G远航回传丢包痛点，是中长距离巡检与FPV穿越的终极选择。'
-        : 'Industrial 2.4G ELRS receiver with integrated LNA and 100mW PA. Supports 1000Hz refresh rate, solving 2.4G long-range telemetry dropout issues for mid-range inspections and FPV cruising.',
+      description: t('acc.elrsdetail.k552'),
       brand: { '@type': 'Brand', name: 'CANI' },
       sku: 'CANI-ELRS-24GLNA',
       url: 'https://www.caniuav.com/zh/products/accessories/elrs/elrs-2-4g-lna',
@@ -192,9 +184,7 @@ const ElrsDetail = () => {
       '@type': 'Product',
       name: 'CANI ELRS 915 Moxon 定向高增益天线',
       image: 'https://www.caniuav.com/images/products/elrs/elrs-915-moxon-main.jpg',
-      description: language === 'zh'
-        ? '专为915MHz远航设计的Moxon矩形定向天线。具备5.5dBi高增益与180°波束宽度，可提升ELRS控制距离50%以上，是超视距(BVLOS)飞行的核心增益配件。'
-        : 'Moxon rectangular directional antenna designed for 915MHz long-range control. 5.5dBi gain with 180° beamwidth, extending ELRS control range by 50%+, essential for BVLOS operations.',
+      description: t('acc.elrsdetail.k553'),
       brand: { '@type': 'Brand', name: 'CANI' },
       sku: 'CANI-ELRS-915-MOX',
       url: 'https://www.caniuav.com/zh/products/accessories/elrs/elrs-915-moxon-antenna',
@@ -210,9 +200,7 @@ const ElrsDetail = () => {
       '@type': 'Product',
       name: 'CANI ELRS 2.4G 高增益 T型全向天线',
       image: 'https://www.caniuav.com/images/products/elrs/elrs-2-4g-antenna-main.jpg',
-      description: language === 'zh'
-        ? '针对2.4GHz ISM频段优化的T型全向无人机天线。具备VSWR < 1.5的超低驻波比，提供稳定的垂直极化信号，是保障1000Hz高刷新率控制链路不丢包的核心基石。'
-        : 'T-type omnidirectional antenna optimized for 2.4GHz ISM band. VSWR < 1.5 ensures over 96% RF power transmission, providing stable vertical polarization for 1000Hz high-refresh control links.',
+      description: t('acc.elrsdetail.k554'),
       brand: { '@type': 'Brand', name: 'CANI' },
       sku: 'CANI-ELRS-24G-T',
       url: 'https://www.caniuav.com/zh/products/accessories/elrs/elrs-2-4g-antenna',
@@ -228,9 +216,7 @@ const ElrsDetail = () => {
       '@type': 'Product',
       name: 'CANI ELRS 915MHz 高增益 T型全向遥控天线',
       image: 'https://www.caniuav.com/images/products/elrs/elrs-915-antenna-main.jpg',
-      description: language === 'zh'
-        ? '针对915MHz工业频段优化的T型全向天线。具备VSWR < 1.2的极低驻波比与360°面包圈场型，是远距离多角度巡检与复杂航线作业的理想选择。'
-        : 'T-type omnidirectional antenna optimized for 915MHz industrial band. VSWR < 1.2 with 360° toroidal pattern, ideal for multi-angle long-range inspection and complex flight routes.',
+      description: t('acc.elrsdetail.k555'),
       brand: { '@type': 'Brand', name: 'CANI' },
       sku: 'CANI-ELRS-915-T',
       url: 'https://www.caniuav.com/zh/products/accessories/elrs/elrs-915-antenna',
@@ -419,7 +405,7 @@ const ElrsDetail = () => {
                     </div>
                     <div className="flex-1">
                       <p className="text-xs font-medium text-accent mb-1">
-                        {language === 'zh' ? '📖 深度解读' : '📖 Deep Dive'}
+                        {t('acc.cameradetail.k457')}
                       </p>
                       <h3 className="text-lg font-bold text-card-foreground mb-2 group-hover:text-accent transition-colors">
                         {language === 'zh' ? deepDiveInfo.titleZh : deepDiveInfo.titleEn}
@@ -440,7 +426,7 @@ const ElrsDetail = () => {
         <section className="py-16 bg-background">
           <div className="container-custom max-w-4xl mx-auto">
             <h2 className="text-2xl md:text-3xl font-bold text-center mb-8">
-              {language === 'zh' ? '常见问题' : 'Frequently Asked Questions'}
+              {t('acc.cameradetail.k456')}
             </h2>
             <Accordion type="single" collapsible className="w-full">
               {faqItems.map((faq, idx) => (

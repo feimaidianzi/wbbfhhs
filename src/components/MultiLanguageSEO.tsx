@@ -32,7 +32,7 @@ export const MultiLanguageSEO = ({
 }: MultiLanguageSEOProps) => {
   const { language, t } = useLanguage();
   
-  const siteName = language === 'zh' ? 'CANI 长凌科技' : 'CANI Technology';
+  const siteName = t('comp.multilanguageseo.k894');
   // Avoid double brand name: if title already contains siteName or 'CANI', don't append
   const titleContainsBrand = title.includes(siteName) || title.includes('CANI');
   const fullTitle = titleContainsBrand ? title : `${title} | ${siteName}`;
@@ -60,7 +60,7 @@ export const MultiLanguageSEO = ({
       <title>{fullTitle}</title>
       <meta name="description" content={description} />
       {keywords && <meta name="keywords" content={keywords} />}
-      <meta name="author" content={language === 'zh' ? '长凌科技' : 'CANI Technology'} />
+      <meta name="author" content={t('acc.cameradetail.k454')} />
       <meta name="robots" content={noIndex ? 'noindex, nofollow' : 'index, follow'} />
       <link rel="canonical" href={canonicalUrl} />
 
@@ -151,7 +151,7 @@ export const createLocalizedProductSchema = (
   category: product.category,
   manufacturer: {
     '@type': 'Organization',
-    name: language === 'zh' ? '长凌科技' : 'CANI Technology',
+    name: t('acc.cameradetail.k454'),
   },
   inLanguage: getHtmlLang(language),
 });

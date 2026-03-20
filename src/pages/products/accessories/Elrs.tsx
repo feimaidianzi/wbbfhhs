@@ -16,7 +16,7 @@ import {
 } from "@/components/ui/accordion";
 
 const Elrs = () => {
-  const { t, language } = useLanguage();
+  const { t } = useLanguage();
 
   const faqItems = [
     { q: t('elrs.faq.q1'), a: t('elrs.faq.a1') },
@@ -27,7 +27,7 @@ const Elrs = () => {
   const faqStructuredData = {
     '@context': 'https://schema.org',
     '@type': 'FAQPage',
-    inLanguage: language === 'zh' ? 'zh-CN' : 'en',
+    inLanguage: t('acc.elrs.k656'),
     mainEntity: faqItems.map(faq => ({
       '@type': 'Question',
       name: faq.q,
@@ -153,7 +153,7 @@ const Elrs = () => {
         <section className="py-16 bg-muted/30">
           <div className="container-custom max-w-4xl mx-auto">
             <h2 className="text-2xl md:text-3xl font-bold text-center mb-8">
-              {language === 'zh' ? '常见问题' : 'Frequently Asked Questions'}
+              {t('acc.cameradetail.k456')}
             </h2>
             <Accordion type="single" collapsible className="w-full">
               {faqItems.map((faq, idx) => (

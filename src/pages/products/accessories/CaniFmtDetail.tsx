@@ -26,22 +26,22 @@ import heroBg from "@/assets/products/cani-fc-hero-bg.webp";
 const InterfacePinoutDiagram = ({ isEn }: { isEn: boolean }) => {
   const leftInterfaces = [
     {
-      name: isEn ? "USB (Type-C)" : "USB接口 (Type-C)",
+      name: t('acc.canifmtdetail.k460'),
       color: "from-blue-500 to-cyan-400",
       pins: ["D+", "D-", "VCC", "GND"],
     },
     {
-      name: isEn ? "Debug Serial" : "调试串口",
+      name: t('acc.canifmtdetail.k461'),
       color: "from-emerald-500 to-green-400",
       pins: ["TX", "RX", "GND"],
     },
     {
-      name: isEn ? "Data Serial (UART1-5)" : "数传串口 (UART1-5)",
+      name: t('acc.canifmtdetail.k462'),
       color: "from-amber-500 to-yellow-400",
       pins: ["TX", "RX", "VCC", "GND"],
     },
     {
-      name: isEn ? "I2C (×3)" : "I2C接口 (×3)",
+      name: t('acc.canifmtdetail.k463'),
       color: "from-violet-500 to-purple-400",
       pins: ["SCL", "SDA", "VCC", "GND"],
     },
@@ -49,22 +49,22 @@ const InterfacePinoutDiagram = ({ isEn }: { isEn: boolean }) => {
 
   const rightInterfaces = [
     {
-      name: isEn ? "CAN Bus" : "CAN总线",
+      name: t('acc.canifmtdetail.k464'),
       color: "from-red-500 to-rose-400",
       pins: ["CANH", "CANL", "GND"],
     },
     {
-      name: isEn ? "Ethernet" : "以太网接口",
+      name: t('acc.canifmtdetail.k465'),
       color: "from-teal-500 to-cyan-400",
       pins: ["TX+", "TX-", "RX+", "RX-"],
     },
     {
-      name: isEn ? "PWM Output (×10)" : "PWM输出 (×10)",
+      name: t('acc.canifmtdetail.k466'),
       color: "from-orange-500 to-amber-400",
       pins: ["CH1-10", "GND"],
     },
     {
-      name: isEn ? "SPI / PPM" : "SPI / PPM接口",
+      name: t('acc.canifmtdetail.k467'),
       color: "from-pink-500 to-fuchsia-400",
       pins: ["MOSI", "MISO", "SCK", "CS"],
     },
@@ -159,10 +159,10 @@ const InterfacePinoutDiagram = ({ isEn }: { isEn: boolean }) => {
         {/* Bottom sensors */}
         <div className="flex flex-wrap justify-center gap-4 mt-6 pt-4 border-t border-emerald-500/10">
           {[
-            { label: "BMI088", desc: isEn ? "6-Axis IMU" : "6轴IMU" },
-            { label: "BMM150", desc: isEn ? "Compass" : "电子罗盘" },
-            { label: "SPL06", desc: isEn ? "Barometer" : "气压计" },
-            { label: "ICM-42688", desc: isEn ? "IMU (Opt.)" : "IMU (选配)" },
+            { label: "BMI088", desc: t('acc.canifmtdetail.k468') },
+            { label: "BMM150", desc: t('acc.canifmtdetail.k469') },
+            { label: "SPL06", desc: t('acc.canifmtdetail.k470') },
+            { label: "ICM-42688", desc: t('acc.canifmtdetail.k471') },
           ].map((sensor, idx) => (
             <div key={idx} className="flex items-center gap-2 px-3 py-1.5 bg-emerald-900/30 rounded-full border border-emerald-500/15">
               <CircuitBoard className="w-3 h-3 text-emerald-400/60" />
@@ -186,12 +186,8 @@ const CaniFmtDetail = () => {
   const domain = getDomainForLanguage(langCode);
   const images = product.images || [product.image];
 
-  const seoTitle = isEn
-    ? "CANI-FC v2.0 High-Performance Flight Controller | FMT Open-Source Autopilot"
-    : "CANI-FC v2.0 高性能飞控 | FMT开源自驾仪系统";
-  const seoDesc = isEn
-    ? "CANI-FC v2.0 open-source flight controller with GD32F470 240MHz MCU, MATLAB/Simulink MBD, HIL/SIL/MIL simulation, Ethernet + CAN bus. Built for UAV research and industrial applications."
-    : "CANI-FC v2.0开源飞控，GD32F470旗舰芯片240MHz主频，支持MATLAB/Simulink基于模型开发(MBD)，HIL/SIL/MIL仿真，以太网+CAN总线，适用于科研与工业无人机。";
+  const seoTitle = t('acc.canifmtdetail.k472');
+  const seoDesc = t('acc.canifmtdetail.k473');
 
   const productJsonLd = {
     '@context': 'https://schema.org/',
@@ -233,16 +229,16 @@ const CaniFmtDetail = () => {
 
   const faqs = [
     {
-      q: isEn ? "What firmware does CANI-FC v2.0 support?" : "CANI-FC v2.0支持哪些固件？",
-      a: isEn ? "CANI-FC v2.0 runs the FMT open-source autopilot firmware, supporting MATLAB/Simulink Model-Based Design (MBD) with one-click code generation and deployment." : "CANI-FC v2.0搭载FMT开源自驾仪固件，支持MATLAB/Simulink基于模型开发(MBD)，可一键代码自动生成并部署到飞控。",
+      q: t('acc.canifmtdetail.k474'),
+      a: t('acc.canifmtdetail.k475'),
     },
     {
-      q: isEn ? "What simulation modes are supported?" : "支持哪些仿真方式？",
-      a: isEn ? "Full simulation coverage: Model-in-the-Loop (MIL), Software-in-the-Loop (SIL), Hardware-in-the-Loop (HIL), and open-loop simulation for algorithm verification." : "支持全覆盖仿真：模型在环(MIL)、软件在环(SIL)、硬件在环(HIL)和开环仿真，用于算法验证和测试。",
+      q: t('acc.canifmtdetail.k476'),
+      a: t('acc.canifmtdetail.k477'),
     },
     {
-      q: isEn ? "What vehicle types are compatible?" : "兼容哪些机型？",
-      a: isEn ? "Supports multi-rotor, fixed-wing, and VTOL (upcoming). Suitable for indoor/outdoor position hold, altitude hold, stabilize flight, and waypoint missions." : "支持多旋翼、固定翼、VTOL(即将支持)。适用于室内外定点、定高、自稳飞行和航点任务模式。",
+      q: t('acc.canifmtdetail.k478'),
+      a: t('acc.canifmtdetail.k479'),
     },
   ];
 
@@ -259,43 +255,43 @@ const CaniFmtDetail = () => {
   const hardwareFeatures = [
     {
       icon: Cpu,
-      title: isEn ? "GD32F470 High-Performance MCU" : "GD32F470 高性能处理器",
-      desc: isEn ? "240MHz ARM Cortex-M4 with FPU, 512KB SRAM, 1024KB Flash. Built for real-time flight control with floating-point computation." : "240MHz ARM Cortex-M4 内核，FPU浮点运算单元，512KB SRAM，1024KB Flash，专为实时飞控计算打造。",
+      title: t('acc.canifmtdetail.k480'),
+      desc: t('acc.canifmtdetail.k481'),
       accent: "text-cyan-400",
       glow: "group-hover:shadow-[0_0_30px_rgba(34,211,238,0.2)]",
     },
     {
       icon: Code,
-      title: isEn ? "MATLAB/Simulink MBD" : "MATLAB/Simulink 基于模型开发",
-      desc: isEn ? "Graphical programming with one-click auto code generation. Deploy algorithms directly from Simulink to the flight controller." : "图形化编程，一键代码自动生成与部署，从Simulink直接部署算法到飞控硬件。",
+      title: t('acc.canifmtdetail.k482'),
+      desc: t('acc.canifmtdetail.k483'),
       accent: "text-emerald-400",
       glow: "group-hover:shadow-[0_0_30px_rgba(52,211,153,0.2)]",
     },
     {
       icon: Layers,
-      title: isEn ? "Full Simulation Coverage" : "多种仿真全覆盖",
-      desc: isEn ? "MIL, SIL, HIL, and open-loop simulation. Verify flight algorithms before deployment with confidence." : "模型在环(MIL)、软件在环(SIL)、硬件在环(HIL)、开环仿真，部署前充分验证飞行算法。",
+      title: t('acc.canifmtdetail.k484'),
+      desc: t('acc.canifmtdetail.k485'),
       accent: "text-violet-400",
       glow: "group-hover:shadow-[0_0_30px_rgba(167,139,250,0.2)]",
     },
     {
       icon: Navigation2,
-      title: isEn ? "Multi-Vehicle Support" : "多机型支持",
-      desc: isEn ? "Multi-rotor, fixed-wing, VTOL (upcoming). Indoor/outdoor position hold, altitude hold, stabilize, waypoint missions." : "支持多旋翼、固定翼、VTOL(即将支持)。室内外定点/定高/自稳飞行，航点任务模式。",
+      title: t('acc.canifmtdetail.k486'),
+      desc: t('acc.canifmtdetail.k487'),
       accent: "text-amber-400",
       glow: "group-hover:shadow-[0_0_30px_rgba(251,191,36,0.2)]",
     },
     {
       icon: Network,
-      title: isEn ? "Rich Connectivity" : "丰富通信接口",
-      desc: isEn ? "Ethernet, CAN bus, 5×UART, 3×I2C, SPI, 10×PWM, USB Type-C. Industrial-grade data throughput." : "以太网、CAN总线、5路UART、3路I2C、SPI、10路PWM、USB Type-C，工业级数据吞吐。",
+      title: t('acc.canifmtdetail.k488'),
+      desc: t('acc.canifmtdetail.k489'),
       accent: "text-blue-400",
       glow: "group-hover:shadow-[0_0_30px_rgba(96,165,250,0.2)]",
     },
     {
       icon: Minimize2,
-      title: isEn ? "Ultra-Compact Design" : "轻薄小巧设计",
-      desc: isEn ? "Only 70×36×18.5mm, 39.3g. Exceptional size-to-performance ratio, optimized for space-constrained applications." : "仅70×36×18.5mm，39.3g。极致尺寸性能比，适用于空间受限的应用场景。",
+      title: t('acc.canifmtdetail.k490'),
+      desc: t('acc.canifmtdetail.k491'),
       accent: "text-rose-400",
       glow: "group-hover:shadow-[0_0_30px_rgba(251,113,133,0.2)]",
     },
@@ -303,37 +299,37 @@ const CaniFmtDetail = () => {
 
   // Technical specs table data
   const fcSpecs = [
-    { label: isEn ? "Processor (MCU)" : "处理器 (MCU)", value: "GD32F470VGT6", highlight: true },
-    { label: isEn ? "Clock Speed" : "主频", value: "240 MHz", highlight: true },
-    { label: isEn ? "Architecture" : "内核架构", value: "ARM Cortex-M4 + FPU" },
+    { label: t('acc.canifmtdetail.k492'), value: "GD32F470VGT6", highlight: true },
+    { label: t('acc.canifmtdetail.k493'), value: "240 MHz", highlight: true },
+    { label: t('acc.canifmtdetail.k494'), value: "ARM Cortex-M4 + FPU" },
     { label: "SRAM", value: "512 KB" },
     { label: "Flash", value: "1024 KB" },
-    { label: isEn ? "Primary IMU" : "主IMU", value: "BMI088 (6-Axis)" },
-    { label: isEn ? "Secondary IMU (Opt.)" : "备用IMU (选配)", value: "ICM-42688-P / ICM-20948" },
-    { label: isEn ? "Compass" : "电子罗盘", value: "BMM150" },
-    { label: isEn ? "Barometer" : "气压计", value: "SPL06 / MS5611 (Opt.)" },
-    { label: isEn ? "Storage" : "存储", value: "W25Q16 NOR Flash (16Mbit) + TF Card" },
-    { label: "UART", value: isEn ? "5× UART + 1× USB (Type-C)" : "5路UART + 1路USB (Type-C)" },
-    { label: isEn ? "PWM Output" : "PWM输出", value: isEn ? "10 Channels" : "10路" },
-    { label: "I2C", value: isEn ? "3× I2C" : "3路I2C" },
-    { label: "SPI", value: isEn ? "1× SPI" : "1路SPI" },
-    { label: isEn ? "CAN Bus" : "CAN总线", value: isEn ? "1× CAN" : "1路CAN", highlight: true },
-    { label: isEn ? "Ethernet" : "以太网", value: isEn ? "1× Ethernet" : "1路以太网", highlight: true },
-    { label: isEn ? "Power Input" : "供电电压", value: "4.5~5.5V (PM) / 4.75~5.25V (USB)" },
-    { label: isEn ? "Dimensions" : "尺寸", value: "70 × 36 × 18.5 mm" },
-    { label: isEn ? "Weight" : "重量", value: "39.3 g" },
-    { label: isEn ? "Operating Temp" : "工作温度", value: "-20°C ~ +85°C" },
-    { label: isEn ? "Firmware" : "固件", value: isEn ? "FMT Open-Source Autopilot" : "FMT开源自驾仪固件", highlight: true },
+    { label: t('acc.canifmtdetail.k495'), value: "BMI088 (6-Axis)" },
+    { label: t('acc.canifmtdetail.k496'), value: "ICM-42688-P / ICM-20948" },
+    { label: t('acc.canifmtdetail.k469'), value: "BMM150" },
+    { label: t('acc.canifmtdetail.k470'), value: "SPL06 / MS5611 (Opt.)" },
+    { label: t('swarm.w400specssection.k396'), value: "W25Q16 NOR Flash (16Mbit) + TF Card" },
+    { label: "UART", value: t('acc.canifmtdetail.k497') },
+    { label: t('acc.canifmtdetail.k498'), value: t('acc.canifmtdetail.k499') },
+    { label: "I2C", value: t('acc.canifmtdetail.k500') },
+    { label: "SPI", value: t('acc.canifmtdetail.k501') },
+    { label: t('acc.canifmtdetail.k464'), value: t('acc.canifmtdetail.k502'), highlight: true },
+    { label: t('acc.canifmtdetail.k503'), value: t('acc.canifmtdetail.k504'), highlight: true },
+    { label: t('acc.canifmtdetail.k505'), value: "4.5~5.5V (PM) / 4.75~5.25V (USB)" },
+    { label: t('swarm.c30specssection.k224'), value: "70 × 36 × 18.5 mm" },
+    { label: t('swarm.c30specssection.k223'), value: "39.3 g" },
+    { label: t('acc.canifmtdetail.k506'), value: "-20°C ~ +85°C" },
+    { label: t('acc.canifmtdetail.k507'), value: t('acc.canifmtdetail.k508'), highlight: true },
   ];
 
   const functionalSpecs = [
-    { label: isEn ? "Development Method" : "开发方式", value: "MATLAB/Simulink MBD" },
-    { label: isEn ? "Code Generation" : "代码生成", value: isEn ? "One-Click Auto Generation & Deployment" : "一键代码自动生成与部署" },
-    { label: isEn ? "Simulation" : "仿真支持", value: "MIL / SIL / HIL / Open-Loop" },
-    { label: isEn ? "Flight Modes" : "飞行模式", value: isEn ? "Position Hold / Altitude Hold / Stabilize / Mission" : "定点 / 定高 / 自稳 / 航点任务" },
-    { label: isEn ? "Auto Functions" : "自动功能", value: isEn ? "One-Key Takeoff / Return / Landing" : "一键起飞 / 返航 / 降落" },
-    { label: isEn ? "Vehicle Types" : "支持机型", value: isEn ? "Multi-Rotor / Fixed-Wing / VTOL (Coming)" : "多旋翼 / 固定翼 / VTOL (即将支持)" },
-    { label: isEn ? "Application" : "应用领域", value: isEn ? "UAV / UGV / USV / Robotics" : "无人机 / 无人车 / 无人船 / 机器人" },
+    { label: t('acc.canifmtdetail.k509'), value: "MATLAB/Simulink MBD" },
+    { label: t('acc.canifmtdetail.k510'), value: t('acc.canifmtdetail.k511') },
+    { label: t('acc.canifmtdetail.k512'), value: "MIL / SIL / HIL / Open-Loop" },
+    { label: t('acc.canifmtdetail.k513'), value: t('acc.canifmtdetail.k514') },
+    { label: t('acc.canifmtdetail.k515'), value: t('acc.canifmtdetail.k516') },
+    { label: t('acc.canifmtdetail.k517'), value: t('acc.canifmtdetail.k518') },
+    { label: t('acc.canifmtdetail.k519'), value: t('acc.canifmtdetail.k520') },
   ];
 
   return (
@@ -380,7 +376,7 @@ const CaniFmtDetail = () => {
                 <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/20 mb-6">
                   <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
                   <span className="text-xs font-mono text-emerald-400 tracking-wide uppercase">
-                    {isEn ? "Open-Source Autopilot" : "开源自驾仪系统"}
+                    {t('acc.canifmtdetail.k521')}
                   </span>
                 </div>
 
@@ -389,20 +385,18 @@ const CaniFmtDetail = () => {
                   <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-cyan-400">v2.0</span>
                 </h1>
                 <p className="text-xl md:text-2xl text-gray-300 mb-2 font-light">
-                  {isEn ? "High-Performance Flight Controller" : "高性能飞控系统"}
+                  {t('acc.canifmtdetail.k522')}
                 </p>
                 <p className="text-gray-400 mb-8 max-w-lg leading-relaxed">
-                  {isEn
-                    ? "Powered by GD32F470 240MHz MCU and FMT open-source autopilot. Full MATLAB/Simulink MBD support with HIL/SIL/MIL simulation coverage. Industrial Ethernet and CAN bus for next-gen UAV research."
-                    : "搭载GD32F470旗舰处理器240MHz主频，FMT开源自驾仪系统。全面支持MATLAB/Simulink基于模型开发(MBD)，HIL/SIL/MIL仿真全覆盖。以太网+CAN总线，新一代科研级飞控。"}
+                  {t('acc.canifmtdetail.k523')}
                 </p>
 
                 {/* Key stats */}
                 <div className="grid grid-cols-3 gap-4 mb-8">
                   {[
-                    { value: "240", unit: "MHz", label: isEn ? "Clock Speed" : "主频" },
-                    { value: "39.3", unit: "g", label: isEn ? "Weight" : "重量" },
-                    { value: "5+", unit: "UART", label: isEn ? "Serial Ports" : "串口" },
+                    { value: "240", unit: "MHz", label: t('acc.canifmtdetail.k493') },
+                    { value: "39.3", unit: "g", label: t('swarm.c30specssection.k223') },
+                    { value: "5+", unit: "UART", label: t('acc.canifmtdetail.k524') },
                   ].map((stat, idx) => (
                     <div key={idx} className="text-center p-3 rounded-lg bg-white/5 border border-white/10">
                       <div className="text-2xl font-bold text-emerald-400">
@@ -415,10 +409,10 @@ const CaniFmtDetail = () => {
 
                 <div className="flex gap-4">
                   <Button size="lg" className="bg-emerald-500 hover:bg-emerald-600 text-white min-h-[44px] min-w-[44px]" asChild>
-                    <Link to="/contact">{isEn ? "Get Quote" : "获取报价"}</Link>
+                    <Link to="/contact">{t('acc.canifmtdetail.k525')}</Link>
                   </Button>
                   <Button size="lg" variant="outline" className="border-gray-700 text-gray-300 hover:bg-white/5 min-h-[44px] min-w-[44px]" asChild>
-                    <a href="#specs">{isEn ? "View Specs" : "查看参数"}</a>
+                    <a href="#specs">{t('acc.canifmtdetail.k526')}</a>
                   </Button>
                 </div>
               </div>
@@ -457,15 +451,13 @@ const CaniFmtDetail = () => {
             <div className="text-center mb-12">
               <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/20 mb-4">
                 <Cpu className="w-3 h-3 text-emerald-400" />
-                <span className="text-xs font-mono text-emerald-400 uppercase">{isEn ? "Core Hardware" : "核心硬件"}</span>
+                <span className="text-xs font-mono text-emerald-400 uppercase">{t('acc.canifmtdetail.k527')}</span>
               </div>
               <h2 className="text-3xl md:text-4xl font-bold text-white">
-                {isEn ? "Next-Gen Flight Control Architecture" : "新一代飞控架构"}
+                {t('acc.canifmtdetail.k528')}
               </h2>
               <p className="text-gray-400 mt-3 max-w-2xl mx-auto">
-                {isEn
-                  ? "Built on the GD32F470 high-performance MCU with FMT open-source autopilot firmware, delivering unmatched flexibility for UAV research and development."
-                  : "基于GD32F470高性能处理器与FMT开源自驾仪固件，为无人机科研与开发提供无与伦比的灵活性。"}
+                {t('acc.canifmtdetail.k529')}
               </p>
             </div>
 
@@ -492,15 +484,13 @@ const CaniFmtDetail = () => {
             <div className="text-center mb-12">
               <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/20 mb-4">
                 <Cable className="w-3 h-3 text-emerald-400" />
-                <span className="text-xs font-mono text-emerald-400 uppercase">{isEn ? "Interface Definition" : "接口定义"}</span>
+                <span className="text-xs font-mono text-emerald-400 uppercase">{t('acc.canifmtdetail.k530')}</span>
               </div>
               <h2 className="text-3xl md:text-4xl font-bold text-white">
-                {isEn ? "Interface Pinout Map" : "接口引脚定义"}
+                {t('acc.canifmtdetail.k531')}
               </h2>
               <p className="text-gray-400 mt-3 max-w-2xl mx-auto">
-                {isEn
-                  ? "Comprehensive connectivity with Ethernet, CAN bus, multi-UART, I2C, SPI, and USB Type-C interfaces."
-                  : "全面的连接能力：以太网、CAN总线、多路UART、I2C、SPI和USB Type-C接口。"}
+                {t('acc.canifmtdetail.k532')}
               </p>
             </div>
             <InterfacePinoutDiagram isEn={isEn} />
@@ -513,10 +503,10 @@ const CaniFmtDetail = () => {
             <div className="text-center mb-12">
               <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/20 mb-4">
                 <Settings className="w-3 h-3 text-emerald-400" />
-                <span className="text-xs font-mono text-emerald-400 uppercase">{isEn ? "Technical Specs" : "技术参数"}</span>
+                <span className="text-xs font-mono text-emerald-400 uppercase">{t('acc.canifmtdetail.k533')}</span>
               </div>
               <h2 className="text-3xl md:text-4xl font-bold text-white">
-                {isEn ? "Performance Parameters" : "性能参数"}
+                {t('acc.canifmtdetail.k534')}
               </h2>
             </div>
 
@@ -525,7 +515,7 @@ const CaniFmtDetail = () => {
               <div className="bg-gray-900/80 rounded-xl border border-gray-800 overflow-hidden">
                 <div className="px-6 py-4 bg-emerald-500/5 border-b border-gray-800 flex items-center gap-2">
                   <Cpu className="w-5 h-5 text-emerald-400" />
-                  <h3 className="font-bold text-white">{isEn ? "Hardware Specifications" : "硬件参数"}</h3>
+                  <h3 className="font-bold text-white">{t('acc.canifmtdetail.k535')}</h3>
                 </div>
                 <div className="overflow-x-auto">
                   <table className="w-full min-w-[400px]">
@@ -547,7 +537,7 @@ const CaniFmtDetail = () => {
               <div className="bg-gray-900/80 rounded-xl border border-gray-800 overflow-hidden">
                 <div className="px-6 py-4 bg-emerald-500/5 border-b border-gray-800 flex items-center gap-2">
                   <Layers className="w-5 h-5 text-emerald-400" />
-                  <h3 className="font-bold text-white">{isEn ? "Functional Specifications" : "功能描述"}</h3>
+                  <h3 className="font-bold text-white">{t('acc.canifmtdetail.k536')}</h3>
                 </div>
                 <div className="overflow-x-auto">
                   <table className="w-full min-w-[400px]">
@@ -564,7 +554,7 @@ const CaniFmtDetail = () => {
 
                 {/* Product images in spec area */}
                 <div className="p-6 border-t border-gray-800">
-                  <h4 className="text-sm font-semibold text-gray-400 mb-3">{isEn ? "Product Views" : "产品展示"}</h4>
+                  <h4 className="text-sm font-semibold text-gray-400 mb-3">{t('acc.canifmtdetail.k537')}</h4>
                   <div className="grid grid-cols-2 gap-3">
                     {images.slice(0, 4).map((img, idx) => (
                       <div key={idx} className="aspect-square rounded-lg overflow-hidden bg-gray-800/50 border border-gray-700/50">
@@ -586,7 +576,7 @@ const CaniFmtDetail = () => {
               <div className="bg-gray-900/80 rounded-xl border border-gray-800 p-6">
                 <h3 className="font-bold text-white mb-4 flex items-center gap-2">
                   <Package className="w-5 h-5 text-emerald-400" />
-                  {isEn ? "Package Contents" : "包装清单"}
+                  {t('acc.canifmtdetail.k538')}
                 </h3>
                 <ul className="space-y-2">
                   {(product.packageIncludes || []).map((item, idx) => (
@@ -602,7 +592,7 @@ const CaniFmtDetail = () => {
               <div className="bg-gray-900/80 rounded-xl border border-gray-800 p-6">
                 <h3 className="font-bold text-white mb-4 flex items-center gap-2">
                   <AlertTriangle className="w-5 h-5 text-amber-400" />
-                  {isEn ? "Important Notes" : "注意事项"}
+                  {t('swarm.c30warningnotessection.k239')}
                 </h3>
                 <ul className="space-y-2">
                   {(product.notes || []).map((note, idx) => (
@@ -618,13 +608,13 @@ const CaniFmtDetail = () => {
               <div className="bg-gray-900/80 rounded-xl border border-gray-800 p-6">
                 <h3 className="font-bold text-white mb-4 flex items-center gap-2">
                   <Download className="w-5 h-5 text-emerald-400" />
-                  {isEn ? "Resources" : "资料下载"}
+                  {t('acc.canifmtdetail.k539')}
                 </h3>
                 <div className="space-y-2">
                   {[
-                    isEn ? "Datasheet (PDF)" : "产品规格书 (PDF)",
-                    isEn ? "User Manual" : "用户手册",
-                    isEn ? "FMT Firmware" : "FMT固件下载",
+                    t('acc.canifmtdetail.k540'),
+                    t('acc.canifmtdetail.k541'),
+                    t('acc.canifmtdetail.k542'),
                   ].map((label, idx) => (
                     <Link key={idx} to="/contact" className="flex items-center gap-2 p-2.5 rounded-lg bg-gray-800/50 border border-gray-700/50 text-sm text-emerald-400 hover:border-emerald-500/30 hover:bg-emerald-500/5 transition-all group">
                       <FileText className="w-4 h-4" />
@@ -643,7 +633,7 @@ const CaniFmtDetail = () => {
           <div className="container mx-auto px-4">
             <div className="text-center mb-12">
               <h2 className="text-2xl md:text-3xl font-bold text-white mb-3">
-                {isEn ? "Frequently Asked Questions" : "常见问题"}
+                {t('acc.cameradetail.k456')}
               </h2>
             </div>
             <div className="max-w-3xl mx-auto">
@@ -673,12 +663,12 @@ const CaniFmtDetail = () => {
             <div className="max-w-3xl mx-auto bg-card rounded-xl p-6 flex items-center gap-4 hover:shadow-lg transition-all border border-border/30">
               <div className="text-3xl">📖</div>
               <div className="flex-1">
-                <p className="text-sm text-accent font-mono mb-1">{isEn ? 'Deep Dive' : '深度解读'}</p>
+                <p className="text-sm text-accent font-mono mb-1">{t('prod.logistics.k451')}</p>
                 <Link to="/news/c3a1b2d4-5e6f-7a8b-9c0d-1e2f3a4b5c6d" className="text-foreground font-semibold hover:text-accent transition-colors">
-                  {isEn ? 'CANI-FC v2.0: MBD Model-Based Development Research-Grade Flight Management Hub' : 'CANI-FC v2.0：基于MBD模型化开发的科研级飞行管理中枢'}
+                  {t('acc.canifmtdetail.k543')}
                 </Link>
                 <p className="text-muted-foreground text-sm mt-1">
-                  {isEn ? 'Explore 240MHz flagship hardware, MATLAB/Simulink MBD workflow, and FMT open-source ecosystem' : '了解240MHz旗舰硬件、MATLAB/Simulink MBD开发流与FMT开源生态'}
+                  {t('acc.canifmtdetail.k544')}
                 </p>
               </div>
               <ChevronRight className="w-5 h-5 text-muted-foreground" />
@@ -690,19 +680,17 @@ const CaniFmtDetail = () => {
         <section className="py-20 bg-gradient-to-br from-emerald-900/30 to-gray-950">
           <div className="container mx-auto px-4 text-center">
             <h2 className="text-3xl font-bold text-white mb-4">
-              {isEn ? "Ready to Integrate CANI-FC v2.0?" : "准备集成 CANI-FC v2.0？"}
+              {t('acc.canifmtdetail.k545')}
             </h2>
             <p className="text-gray-400 mb-8 max-w-2xl mx-auto">
-              {isEn
-                ? "Contact our engineering team for technical consultation, OEM/ODM customization, and volume pricing."
-                : "联系我们的工程团队，获取技术咨询、OEM/ODM定制方案和批量报价。"}
+              {t('acc.canifmtdetail.k546')}
             </p>
             <div className="flex justify-center gap-4">
               <Button size="lg" className="bg-emerald-500 hover:bg-emerald-600 text-white min-h-[44px] min-w-[44px]" asChild>
-                <Link to="/contact">{isEn ? "Contact Us" : "联系我们"}</Link>
+                <Link to="/contact">{t('acc.canifmtdetail.k547')}</Link>
               </Button>
               <Button size="lg" variant="outline" className="border-gray-700 text-gray-300 hover:bg-white/5 min-h-[44px] min-w-[44px]" asChild>
-                <Link to="/products/accessories/fc-esc">{isEn ? "View All FC/ESC" : "查看全部飞控/电调"}</Link>
+                <Link to="/products/accessories/fc-esc">{t('acc.canifmtdetail.k548')}</Link>
               </Button>
             </div>
           </div>

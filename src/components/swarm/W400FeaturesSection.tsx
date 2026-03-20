@@ -7,47 +7,46 @@ import { OptimizedImage } from "@/components/OptimizedImage";
 import swarmFormationImg from "@/assets/products/w400-swarm-formation.webp";
 
 const W400FeaturesSection = () => {
-  const { language } = useLanguage();
-  const isZh = language === 'zh';
+  const { t } = useLanguage();
 
   const features = [
     {
       icon: <Satellite className="h-6 w-6" />,
-      title: isZh ? "GPS多星定位" : "Multi-GNSS Positioning",
-      desc: isZh ? "GPS/GLONASS/北斗/Galileo四星融合，可选RTK厘米级差分" : "GPS/GLONASS/BeiDou/Galileo quad-constellation with optional RTK",
+      title: t('swarm.w400featuressection.k307'),
+      desc: t('swarm.w400featuressection.k308'),
     },
     {
       icon: <Cpu className="h-6 w-6" />,
-      title: isZh ? "旗舰AI算力" : "Flagship AI Computing",
-      desc: isZh ? "Allspark2 + Jetson Orin NX，100 TOPS边缘推理" : "Allspark2 + Jetson Orin NX with 100 TOPS edge inference",
+      title: t('swarm.w400featuressection.k309'),
+      desc: t('swarm.w400featuressection.k310'),
     },
     {
       icon: <Code className="h-6 w-6" />,
-      title: isZh ? "ROS+PX4双系统" : "ROS + PX4 Dual Stack",
-      desc: isZh ? "开源软件架构，Prometheus R1.6集群控制框架" : "Open-source stack with Prometheus R1.6 swarm framework",
+      title: t('swarm.w400featuressection.k311'),
+      desc: t('swarm.w400featuressection.k312'),
     },
     {
       icon: <MapPin className="h-6 w-6" />,
-      title: isZh ? "室外大范围作业" : "Outdoor Large-Scale Ops",
-      desc: isZh ? "600mm六旋翼平台，重载长续航，抗风性能优异" : "600mm hexacopter platform with heavy payload and long endurance",
+      title: t('swarm.w400featuressection.k313'),
+      desc: t('swarm.w400featuressection.k314'),
     },
     {
       icon: <Monitor className="h-6 w-6" />,
-      title: isZh ? "Qt专业地面站" : "Qt Professional GCS",
-      desc: isZh ? "可视化编队编排、多机任务规划与实时状态监控" : "Visual formation choreography, multi-UAV mission planning & monitoring",
+      title: t('swarm.w400featuressection.k315'),
+      desc: t('swarm.w400featuressection.k316'),
     },
     {
       icon: <Layers className="h-6 w-6" />,
-      title: isZh ? "全自组网通讯" : "Self-Organizing Mesh",
-      desc: isZh ? "Mini Homer Mesh自组网，1km通信距离，3Mbps带宽" : "Mini Homer Mesh networking, 1km range, 3Mbps bandwidth",
+      title: t('swarm.w400featuressection.k317'),
+      desc: t('swarm.w400featuressection.k318'),
     },
   ];
 
   const capabilities = [
-    { icon: <Layers className="h-5 w-5" />, title: isZh ? "集群编队飞行" : "Swarm Formation Flight", desc: isZh ? "三角、纵队、方形、圆形等多种编队" : "Triangle, line, square, circle formations" },
-    { icon: <MapPin className="h-5 w-5" />, title: isZh ? "智能自主巡航" : "Autonomous Waypoint Cruise", desc: isZh ? "多机航点规划与自主巡航" : "Multi-UAV waypoint planning & cruise" },
-    { icon: <Crosshair className="h-5 w-5" />, title: isZh ? "目标识别与追踪" : "Target Detection & Tracking", desc: isZh ? "AI驱动的实时目标检测与跟踪" : "AI-powered real-time detection & tracking" },
-    { icon: <Search className="h-5 w-5" />, title: isZh ? "集群搜索" : "Cooperative Search", desc: isZh ? "多机协同区域搜索与覆盖" : "Multi-UAV cooperative area search & coverage" },
+    { icon: <Layers className="h-5 w-5" />, title: t('swarm.w400featuressection.k319'), desc: t('swarm.w400featuressection.k320') },
+    { icon: <MapPin className="h-5 w-5" />, title: t('swarm.w400featuressection.k321'), desc: t('swarm.w400featuressection.k322') },
+    { icon: <Crosshair className="h-5 w-5" />, title: t('swarm.w400featuressection.k323'), desc: t('swarm.w400featuressection.k324') },
+    { icon: <Search className="h-5 w-5" />, title: t('swarm.w400featuressection.k325'), desc: t('swarm.w400featuressection.k326') },
   ];
 
   return (
@@ -55,13 +54,13 @@ const W400FeaturesSection = () => {
       <div className="container-custom">
         {/* Swarm Formation Image */}
         <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="max-w-4xl mx-auto mb-16">
-          <OptimizedImage src={swarmFormationImg} alt={isZh ? "CANI-W400 集群编队飞行" : "CANI-W400 Swarm Formation Flight"} aspectRatio="16/9" className="w-full rounded-2xl" objectFit="cover" />
-          <p className="text-center text-xs text-muted-foreground mt-3">{isZh ? 'CANI-W400 三机集群编队飞行实拍' : 'CANI-W400 Three-Drone Swarm Formation in Action'}</p>
+          <OptimizedImage src={swarmFormationImg} alt={t('swarm.w400featuressection.k327')} aspectRatio="16/9" className="w-full rounded-2xl" objectFit="cover" />
+          <p className="text-center text-xs text-muted-foreground mt-3">{t('swarm.w400featuressection.k328')}</p>
         </motion.div>
 
         <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="text-center mb-16">
-          <h2 className="text-3xl md:text-4xl font-black text-foreground mb-4">{isZh ? '核心优势' : 'Core Advantages'}</h2>
-          <p className="text-muted-foreground max-w-2xl mx-auto">{isZh ? '600mm六旋翼旗舰平台，四星定位 + AI边缘计算，专为室外大范围集群任务设计' : '600mm hexacopter flagship with quad-GNSS + AI edge computing for outdoor large-scale swarm missions'}</p>
+          <h2 className="text-3xl md:text-4xl font-black text-foreground mb-4">{t('swarm.c20featuressection.k13')}</h2>
+          <p className="text-muted-foreground max-w-2xl mx-auto">{t('swarm.w400featuressection.k329')}</p>
         </motion.div>
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-16">
           {features.map((f, i) => (
@@ -79,7 +78,7 @@ const W400FeaturesSection = () => {
 
         {/* Capabilities Grid */}
         <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="max-w-4xl mx-auto">
-          <h3 className="text-xl font-bold text-foreground mb-6 text-center">{isZh ? '可实现功能' : 'Achievable Capabilities'}</h3>
+          <h3 className="text-xl font-bold text-foreground mb-6 text-center">{t('swarm.w400featuressection.k330')}</h3>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
             {capabilities.map((c, i) => (
               <div key={i} className="bg-accent/5 border border-accent/10 rounded-xl p-4 text-center hover:border-accent/30 transition-colors">

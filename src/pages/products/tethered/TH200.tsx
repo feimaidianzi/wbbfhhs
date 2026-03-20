@@ -27,133 +27,126 @@ import powerImg from "@/assets/seo/power-transmission-inspection.jpg";
 import maritimeImg from "@/assets/seo/maritime-drone.jpg";
 
 const TH200 = () => {
-  const { language } = useLanguage();
-  const isZh = language === 'zh';
+  const { t } = useLanguage();
 
   // Hero highlight stats
   const heroStats = [
-    { icon: Radio, value: isZh ? "通信中继" : "Comm Relay", label: isZh ? "200米高空5公里覆盖" : "200m alt, 5km coverage" },
-    { icon: Weight, value: "10kg", label: isZh ? "最大载荷" : "Max Payload" },
-    { icon: Clock, value: "24h", label: isZh ? "系留滞空" : "Tethered Flight" },
-    { icon: Navigation, value: isZh ? "高精度定位" : "Precision", label: "RTK cm-level" },
-    { icon: Settings, value: isZh ? "挂载丰富" : "Payloads", label: isZh ? "满足不同场景" : "Multi-scenario" },
-    { icon: Cpu, value: isZh ? "性能稳定" : "Stable", label: isZh ? "工业级可靠性" : "Industrial-grade" },
+    { icon: Radio, value: t('tethered.th200.k706'), label: t('tethered.th200.k707') },
+    { icon: Weight, value: "10kg", label: t('tethered.th200.k708') },
+    { icon: Clock, value: "24h", label: t('tethered.th200.k709') },
+    { icon: Navigation, value: t('tethered.th200.k710'), label: "RTK cm-level" },
+    { icon: Settings, value: t('tethered.th200.k711'), label: t('tethered.th200.k712') },
+    { icon: Cpu, value: t('tethered.th200.k713'), label: t('tethered.th200.k714') },
   ];
 
   // Core feature sections with images
   const coreFeatures = [
     {
-      title: isZh ? "应急照明" : "Emergency Lighting",
-      desc: isZh
-        ? "无人机搭载4组亮度20000流明矩阵灯，有效照明面积约10000平方米。适用于夜间救援、事故现场、施工照明等场景。"
-        : "Equipped with 4 groups of 20,000 lumen matrix lights, providing effective illumination over 10,000 sqm. Ideal for night rescue, accident sites, and construction lighting.",
+      title: t('tethered.th200.k715'),
+      desc: t('tethered.th200.k716'),
       image: emergencyLightImg,
       accent: "text-amber-400",
       stats: [
-        { value: "20,000", unit: isZh ? "流明" : "Lumens", label: isZh ? "矩阵灯亮度" : "Matrix Light Brightness" },
-        { value: "10,000", unit: "m²", label: isZh ? "有效照明面积" : "Effective Coverage" },
+        { value: "20,000", unit: t('tethered.th200.k717'), label: t('tethered.th200.k718') },
+        { value: "10,000", unit: "m²", label: t('tethered.th200.k719') },
       ],
     },
     {
-      title: isZh ? "通信中继" : "Communication Relay",
-      desc: isZh
-        ? "无人机搭载中继模块，系留供电长时间滞空，200米高度可辐射5公里范围。为灾区、偏远地区提供临时通信保障。"
-        : "Onboard relay module with tethered power for extended flight. At 200m altitude, covers 5km radius. Provides temporary communications for disaster areas and remote regions.",
+      title: t('tethered.th200.k720'),
+      desc: t('tethered.th200.k721'),
       image: commRelayImg,
       accent: "text-cyan-400",
       stats: [
-        { value: "200", unit: "m", label: isZh ? "飞行高度" : "Flight Altitude" },
-        { value: "5", unit: "km", label: isZh ? "辐射范围" : "Coverage Radius" },
+        { value: "200", unit: "m", label: t('tethered.th200.k722') },
+        { value: "5", unit: "km", label: t('tethered.th200.k723') },
       ],
     },
     {
-      title: isZh ? "高效冷却" : "High-Efficiency Cooling",
-      desc: isZh
-        ? "动力采用离心式风冷系统，内置高效散热阵列，大面积散热片配合旋翼流场，进一步提升了冷却效率，出色的散热性能为系留长时间滞空作业提供了有力的保障。"
-        : "Centrifugal air-cooling system with built-in high-efficiency heat dissipation array. Large-area heat sinks combined with rotor airflow enhance cooling efficiency, ensuring reliable long-duration tethered operations.",
+      title: t('tethered.th200.k724'),
+      desc: t('tethered.th200.k725'),
       image: coolingImg,
       accent: "text-green-400",
       stats: [
-        { value: isZh ? "离心式" : "Centrifugal", unit: "", label: isZh ? "风冷系统" : "Air Cooling" },
-        { value: "24h", unit: "", label: isZh ? "持续散热保障" : "Continuous Cooling" },
+        { value: t('tethered.th200.k726'), unit: "", label: t('tethered.th200.k727') },
+        { value: "24h", unit: "", label: t('tethered.th200.k728') },
       ],
     },
   ];
 
   // Payload modules grid
   const payloads = [
-    { icon: Camera, name: isZh ? "30倍光学变焦模组" : "30x Optical Zoom Module" },
-    { icon: Eye, name: isZh ? "可见光红外测距模组" : "Visible/IR Range Module" },
-    { icon: Target, name: isZh ? "四光云台跟踪测距模组" : "4-Light Gimbal Tracking Module" },
-    { icon: Volume2, name: isZh ? "喊话照明模块" : "PA & Lighting Module" },
-    { icon: Sun, name: isZh ? "云台探照灯" : "Gimbal Searchlight" },
-    { icon: Zap, name: isZh ? "矩阵照明灯" : "Matrix Light Array" },
+    { icon: Camera, name: t('tethered.th200.k729') },
+    { icon: Eye, name: t('tethered.th200.k730') },
+    { icon: Target, name: t('tethered.th200.k731') },
+    { icon: Volume2, name: t('tethered.th200.k732') },
+    { icon: Sun, name: t('tethered.th200.k733') },
+    { icon: Zap, name: t('tethered.th200.k734') },
   ];
 
   // Flight platform specs (from OCR of reference image)
   const flightSpecs = [
-    { label: isZh ? "机翼类型" : "Wing Type", value: isZh ? "四旋翼" : "Quadrotor" },
-    { label: isZh ? "机身材料" : "Airframe Material", value: isZh ? "碳纤维材料，重量轻，强度高，具备防腐蚀性" : "Carbon fiber, lightweight, high-strength, corrosion-resistant" },
-    { label: isZh ? "动力系统" : "Power System", value: isZh ? "一体化FOC动力系统" : "Integrated FOC Power System" },
-    { label: isZh ? "轴距" : "Wheelbase", value: "1200mm" },
-    { label: isZh ? "展开尺寸" : "Unfolded Size", value: "1000×1000×600mm" },
-    { label: isZh ? "折叠尺寸" : "Folded Size", value: "620×620×600mm" },
-    { label: isZh ? "桨叶规格" : "Propeller", value: isZh ? "30寸" : '30"' },
-    { label: isZh ? "机身重量" : "Airframe Weight", value: isZh ? "11kg（不含电池）" : "11kg (w/o battery)" },
-    { label: isZh ? "最大载荷量" : "Max Payload", value: "10kg", highlight: true },
-    { label: isZh ? "最大起飞重量" : "Max Takeoff Weight", value: "29kg" },
+    { label: t('tethered.th200.k735'), value: t('swarm.c20specssection.k63') },
+    { label: t('tethered.th200.k736'), value: t('tethered.th200.k737') },
+    { label: t('swarm.c20specssection.k73'), value: t('tethered.th200.k738') },
+    { label: t('swarm.c20specssection.k64'), value: "1200mm" },
+    { label: t('tethered.th200.k739'), value: "1000×1000×600mm" },
+    { label: t('tethered.th200.k740'), value: "620×620×600mm" },
+    { label: t('tethered.th200.k741'), value: t('tethered.th200.k742')' },
+    { label: t('tethered.th200.k743'), value: t('tethered.th200.k744') },
+    { label: t('tethered.th200.k745'), value: "10kg", highlight: true },
+    { label: t('swarm.c20specssection.k67'), value: "29kg" },
   ];
 
   const performanceSpecs = [
-    { label: isZh ? "最大飞行速度" : "Max Speed", value: isZh ? "上升5m/s 下降3m/s 水平15m/s" : "Climb 5m/s, Descent 3m/s, Horizontal 15m/s" },
-    { label: isZh ? "最大可承受风速" : "Max Wind", value: isZh ? "15m/s（7级）" : "15m/s (Level 7)", highlight: true },
-    { label: isZh ? "最大续航时间" : "Max Endurance", value: isZh ? "60min空载 / 20min-10kg负载 / 系留模式24小时" : "60min empty / 20min-10kg load / Tethered 24h", highlight: true },
-    { label: isZh ? "最大飞行高度" : "Max Flight Altitude", value: isZh ? "1000米" : "1000m" },
-    { label: isZh ? "最大飞行海拔" : "Max Elevation", value: isZh ? "5000米" : "5000m" },
-    { label: isZh ? "最大飞行距离" : "Max Range", value: isZh ? "15km（无干扰、无遮挡）" : "15km (clear, unobstructed)" },
-    { label: isZh ? "飞行模式" : "Flight Modes", value: isZh ? "手动、自动、定高、定点、运动、姿态" : "Manual, Auto, AltHold, PosHold, Sport, Attitude" },
+    { label: t('swarm.w400specssection.k384'), value: t('tethered.th200.k746') },
+    { label: t('tethered.th200.k747'), value: t('tethered.th200.k748'), highlight: true },
+    { label: t('tethered.th200.k749'), value: t('tethered.th200.k750'), highlight: true },
+    { label: t('tethered.th200.k751'), value: t('tethered.th200.k752') },
+    { label: t('tethered.th200.k753'), value: t('tethered.th200.k754') },
+    { label: t('tethered.th200.k755'), value: t('tethered.th200.k756') },
+    { label: t('acc.canifmtdetail.k513'), value: t('tethered.th200.k757') },
   ];
 
   const navSpecs = [
-    { label: isZh ? "导航卫星系统" : "GNSS", value: "GPS L1 L2 / GLONASS L1 L2 / BDS B1 B2" },
-    { label: isZh ? "定位精度(垂直)" : "Vertical Accuracy", value: "±2.5m(GNSS) / ±0.8m(DGPS) / ±1.5cm+1ppm(RTK)" },
-    { label: isZh ? "定位精度(水平)" : "Horizontal Accuracy", value: "±1.5m(GNSS) / ±0.4m(DGPS) / ±1.0cm+1ppm(RTK)" },
-    { label: isZh ? "防水等级" : "Waterproof", value: isZh ? "机身防中雨" : "Moderate rain resistant" },
-    { label: isZh ? "工作环境温度" : "Operating Temp", value: "-20°C ~ 55°C" },
+    { label: t('tethered.th200.k758'), value: "GPS L1 L2 / GLONASS L1 L2 / BDS B1 B2" },
+    { label: t('tethered.th200.k759'), value: "±2.5m(GNSS) / ±0.8m(DGPS) / ±1.5cm+1ppm(RTK)" },
+    { label: t('tethered.th200.k760'), value: "±1.5m(GNSS) / ±0.4m(DGPS) / ±1.0cm+1ppm(RTK)" },
+    { label: t('tethered.th200.k761'), value: t('tethered.th200.k762') },
+    { label: t('tethered.th200.k763'), value: "-20°C ~ 55°C" },
   ];
 
   // Tether equipment specs (from OCR)
   const tetherAirSpecs = [
-    { label: isZh ? "输入电压" : "Input Voltage", value: "580~810Vdc", sub: isZh ? "宽范围输入" : "Wide range input" },
-    { label: isZh ? "输出电压" : "Output Voltage", value: "50Vdc±1% / 58Vdc±1%", sub: isZh ? "恒定稳压输出" : "Constant regulated output" },
-    { label: isZh ? "输出功率" : "Output Power", value: isZh ? "额定≥6000W 峰值≥7000W" : "Rated ≥6000W, Peak ≥7000W", highlight: true },
+    { label: t('tethered.th200.k764'), value: "580~810Vdc", sub: t('tethered.th200.k765') },
+    { label: t('tethered.th200.k766'), value: "50Vdc±1% / 58Vdc±1%", sub: t('tethered.th200.k767') },
+    { label: t('tethered.th200.k768'), value: t('tethered.th200.k769'), highlight: true },
   ];
 
   const tetherCableSpecs = [
-    { label: isZh ? "线缆材质" : "Cable Material", value: isZh ? "镀银轻质耐高温航空线材，轻质耐高温护套" : "Silver-plated lightweight high-temp aviation wire" },
-    { label: isZh ? "线缆长度" : "Cable Length", value: isZh ? "110m / 220m 两种标准配置" : "110m / 220m standard configs" },
+    { label: t('tethered.th200.k770'), value: t('tethered.th200.k771') },
+    { label: t('tethered.th200.k772'), value: t('tethered.th200.k773') },
   ];
 
   const tetherGroundSpecs = [
-    { label: isZh ? "输入电压" : "Input Voltage", value: isZh ? "190~240Vac, 单相220Vac, 频率50/60Hz" : "190-240Vac, Single-phase 220Vac, 50/60Hz" },
-    { label: isZh ? "输出电压" : "Output Voltage", value: isZh ? "600~800Vdc可调，出厂默认800Vdc" : "600-800Vdc adjustable, default 800Vdc" },
-    { label: isZh ? "输出功率" : "Output Power", value: isZh ? "额定≥7000W，峰值≥8000W" : "Rated ≥7000W, Peak ≥8000W", highlight: true },
+    { label: t('tethered.th200.k764'), value: t('tethered.th200.k774') },
+    { label: t('tethered.th200.k766'), value: t('tethered.th200.k775') },
+    { label: t('tethered.th200.k768'), value: t('tethered.th200.k776'), highlight: true },
   ];
 
   // Application scenarios
   const applications = [
-    { title: isZh ? "应急照明" : "Emergency Lighting", desc: isZh ? "夜间救援·事故现场·施工照明" : "Night rescue · Accident sites · Construction", image: emergencyImg },
-    { title: isZh ? "电力巡检" : "Power Inspection", desc: isZh ? "输电线路·变电站·光伏巡查" : "Transmission lines · Substations · Solar", image: powerImg },
-    { title: isZh ? "消防救援" : "Firefighting", desc: isZh ? "森林消防·城市消防·火情侦查" : "Forest fire · Urban fire · Fire reconnaissance", image: firefightingImg },
-    { title: isZh ? "海岛监控" : "Maritime Monitoring", desc: isZh ? "海岸巡逻·海域监控·海上搜救" : "Coast patrol · Maritime surveillance · Sea rescue", image: maritimeImg },
+    { title: t('tethered.th200.k715'), desc: t('tethered.th200.k777'), image: emergencyImg },
+    { title: t('tethered.th200.k778'), desc: t('tethered.th200.k779'), image: powerImg },
+    { title: t('tethered.th200.k780'), desc: t('tethered.th200.k781'), image: firefightingImg },
+    { title: t('tethered.th200.k782'), desc: t('tethered.th200.k783'), image: maritimeImg },
   ];
 
   return (
     <div className="min-h-screen bg-gray-950">
       <MultiLanguageSEO
-        title={isZh ? "CANI TH-200 系留照明无人机 - 通信中继·10kg载荷·24小时滞空" : "CANI TH-200 Tethered Lighting Drone - Comm Relay · 10kg Payload · 24h Flight"}
-        description={isZh ? "CANI TH-200系留照明无人机，碳纤维四旋翼平台，1200mm轴距，10kg最大载荷，7级抗风，FOC动力系统。搭载20000流明矩阵灯，支持通信中继、应急照明等多种任务。配备7000W系留供电系统。" : "CANI TH-200 tethered lighting drone: carbon fiber quadrotor, 1200mm wheelbase, 10kg payload, Level 7 wind resistance, FOC power. 20,000 lumen matrix lights, comm relay, emergency lighting. 7000W tethered power system."}
-        keywords={isZh ? "系留照明无人机,TH-200,通信中继无人机,应急照明,10kg载荷,碳纤维无人机" : "tethered lighting drone,TH-200,comm relay drone,emergency lighting,10kg payload"}
+        title={t('tethered.th200.k784')}
+        description={t('tethered.th200.k785')}
+        keywords={t('tethered.th200.k786')}
         path="/products/tethered/th-200"
       />
       <PageStructuredData data={{ type: 'Product', name: 'CANI TH-200', description: 'Tethered Lighting Drone System', category: 'Tethered Drone', sku: 'TH-200' }} />
@@ -167,19 +160,17 @@ const TH200 = () => {
           <div className="absolute inset-0 bg-gradient-to-b from-gray-950/50 via-transparent to-gray-950" />
         </div>
 
-        <BackButton to="/products/tethered" label={isZh ? "← 返回系留无人机" : "← Back to Tethered"} />
+        <BackButton to="/products/tethered" label={t('tethered.th200.k787')} />
 
         <div className="relative z-10 container mx-auto px-4 text-center pt-20">
           <p className="text-cyan-400 font-mono tracking-[0.3em] uppercase text-sm mb-4 animate-fade-in">
             CANI TH-200 TETHERED SYSTEM
           </p>
           <h1 className="text-4xl md:text-6xl lg:text-7xl font-black text-white mb-6 animate-fade-in tracking-tight">
-            {isZh ? "系留照明无人机" : "Tethered Lighting Drone"}
+            {t('tethered.th200.k788')}
           </h1>
           <p className="text-lg md:text-xl text-gray-200 max-w-2xl mx-auto mb-12 animate-fade-in" style={{ animationDelay: "0.1s" }}>
-            {isZh
-              ? "工业级四旋翼平台，通信中继·10kg载荷·24小时滞空·高精度定位"
-              : "Industrial quadrotor platform: Comm Relay · 10kg Payload · 24h Flight · Precision Positioning"}
+            {t('tethered.th200.k789')}
           </p>
 
           {/* Hero stat badges */}
@@ -198,12 +189,12 @@ const TH200 = () => {
             <Link to="/contact">
               <Button className="bg-cyan-500 hover:bg-cyan-400 text-gray-950 font-bold px-8 py-3 min-h-[44px] text-base">
                 <Phone className="w-4 h-4 mr-2" />
-                {isZh ? "获取报价" : "Get Quote"}
+                {t('acc.canifmtdetail.k525')}
               </Button>
             </Link>
             <a href="#specs">
               <Button variant="outline" className="border-gray-500 text-gray-300 hover:bg-gray-800 px-8 py-3 min-h-[44px] text-base">
-                {isZh ? "查看参数" : "View Specs"}
+                {t('acc.canifmtdetail.k526')}
               </Button>
             </a>
           </div>
@@ -216,14 +207,14 @@ const TH200 = () => {
           <div className="text-center mb-12">
             <p className="text-gray-500 font-mono text-xs tracking-widest uppercase mb-2">Product Display</p>
             <h2 className="text-3xl md:text-4xl font-bold text-white">
-              {isZh ? "产品展示" : "Product Display"}
+              {t('tethered.th200.k790')}
             </h2>
           </div>
           <div className="max-w-3xl mx-auto bg-white rounded-2xl p-4">
             <img src={droneDisplayImg} alt="CANI TH-200 Multi-angle View" className="w-full h-auto" />
           </div>
           <p className="text-gray-500 text-center text-sm mt-4">
-            {isZh ? "碳纤维四旋翼工业级系留无人机，折叠式机身设计，便携快速部署" : "Carbon fiber quadrotor industrial tethered drone with foldable body for rapid deployment"}
+            {t('tethered.th200.k791')}
           </p>
         </div>
       </section>
@@ -233,10 +224,10 @@ const TH200 = () => {
         <div className="container mx-auto px-4">
           <div className="text-center mb-16">
             <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
-              {isZh ? "核心能力" : "Core Capabilities"}
+              {t('tethered.th200.k792')}
             </h2>
             <p className="text-gray-400 max-w-xl mx-auto">
-              {isZh ? "模块化任务载荷，覆盖应急照明、通信中继、环境监测等多种场景" : "Modular payloads covering emergency lighting, comm relay, environmental monitoring"}
+              {t('tethered.th200.k793')}
             </p>
           </div>
 
@@ -275,9 +266,9 @@ const TH200 = () => {
         <div className="container mx-auto px-4">
           <div className="text-center mb-12">
             <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
-              {isZh ? "更多挂载" : "More Payloads"}
+              {t('tethered.th200.k794')}
             </h2>
-            <p className="text-gray-400">{isZh ? "满足不同场景使用" : "For different scenario requirements"}</p>
+            <p className="text-gray-400">{t('tethered.th200.k795')}</p>
           </div>
 
           <div className="grid grid-cols-2 md:grid-cols-3 gap-4 max-w-3xl mx-auto">
@@ -298,17 +289,17 @@ const TH200 = () => {
         <div className="container mx-auto px-4">
           <div className="text-center mb-16">
             <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
-              {isZh ? "系留设备" : "Tether Equipment"}
+              {t('tethered.th200.k796')}
             </h2>
             <p className="text-gray-400 max-w-xl mx-auto">
-              {isZh ? "天空端电源模块 + 系留线缆 + 地面系留箱，三位一体供电系统" : "Airborne power module + tether cable + ground station: integrated power system"}
+              {t('tethered.th200.k797')}
             </p>
           </div>
 
           <div className="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto items-start">
             {/* Image */}
             <div className="rounded-2xl overflow-hidden border border-gray-800">
-              <img src={tetherEquipImg} alt={isZh ? "系留设备" : "Tether Equipment"} className="w-full h-auto" />
+              <img src={tetherEquipImg} alt={t('tethered.th200.k796')} className="w-full h-auto" />
             </div>
 
             {/* Specs breakdown */}
@@ -317,7 +308,7 @@ const TH200 = () => {
               <div>
                 <h4 className="text-cyan-400 font-bold text-sm uppercase tracking-wider mb-3 flex items-center gap-2">
                   <Plane className="w-4 h-4" />
-                  {isZh ? "天空端电源模块" : "Airborne Power Module"}
+                  {t('tethered.th200.k798')}
                 </h4>
                 {tetherAirSpecs.map((s, i) => (
                   <div key={i} className="flex justify-between py-2.5 border-b border-gray-800 px-2">
@@ -334,7 +325,7 @@ const TH200 = () => {
               <div>
                 <h4 className="text-amber-400 font-bold text-sm uppercase tracking-wider mb-3 flex items-center gap-2">
                   <Wifi className="w-4 h-4" />
-                  {isZh ? "系留线缆" : "Tether Cable"}
+                  {t('tethered.th200.k799')}
                 </h4>
                 {tetherCableSpecs.map((s, i) => (
                   <div key={i} className="flex justify-between py-2.5 border-b border-gray-800 px-2">
@@ -348,7 +339,7 @@ const TH200 = () => {
               <div>
                 <h4 className="text-green-400 font-bold text-sm uppercase tracking-wider mb-3 flex items-center gap-2">
                   <Zap className="w-4 h-4" />
-                  {isZh ? "地面系留箱" : "Ground Station"}
+                  {t('tethered.th200.k800')}
                 </h4>
                 {tetherGroundSpecs.map((s, i) => (
                   <div key={i} className="flex justify-between py-2.5 border-b border-gray-800 px-2">
@@ -368,7 +359,7 @@ const TH200 = () => {
           <div className="text-center mb-12">
             <p className="text-gray-500 font-mono text-xs tracking-widest uppercase mb-2">Technical Parameter</p>
             <h2 className="text-3xl md:text-4xl font-bold text-white">
-              {isZh ? "产品参数" : "Technical Specifications"}
+              {t('tethered.th200.k801')}
             </h2>
           </div>
 
@@ -376,13 +367,13 @@ const TH200 = () => {
             <Tabs defaultValue="flight" className="w-full">
               <TabsList className="w-full grid grid-cols-3 bg-gray-900 border border-gray-800 mb-8">
                 <TabsTrigger value="flight" className="data-[state=active]:bg-cyan-500/10 data-[state=active]:text-cyan-400">
-                  {isZh ? "飞行平台" : "Flight Platform"}
+                  {t('swarm.w400specssection.k380')}
                 </TabsTrigger>
                 <TabsTrigger value="performance" className="data-[state=active]:bg-cyan-500/10 data-[state=active]:text-cyan-400">
-                  {isZh ? "飞行性能" : "Performance"}
+                  {t('tethered.th200.k802')}
                 </TabsTrigger>
                 <TabsTrigger value="navigation" className="data-[state=active]:bg-cyan-500/10 data-[state=active]:text-cyan-400">
-                  {isZh ? "导航与防护" : "Nav & Protection"}
+                  {t('tethered.th200.k803')}
                 </TabsTrigger>
               </TabsList>
 
@@ -428,10 +419,10 @@ const TH200 = () => {
         <div className="container mx-auto px-4">
           <div className="text-center mb-12">
             <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
-              {isZh ? "应用场景" : "Application Scenarios"}
+              {t('acc.vrxdetail.k616')}
             </h2>
             <p className="text-gray-400 max-w-xl mx-auto">
-              {isZh ? "覆盖应急照明、电力巡检、消防救援、海岛监控等关键场景" : "Covering emergency lighting, power inspection, firefighting, maritime monitoring"}
+              {t('tethered.th200.k804')}
             </p>
           </div>
 
@@ -456,11 +447,11 @@ const TH200 = () => {
           <div className="max-w-3xl mx-auto bg-gray-800/60 rounded-xl p-6 flex items-center gap-4 hover:bg-gray-800/80 transition-colors">
             <div className="text-3xl">📰</div>
             <div className="flex-1">
-              <p className="text-sm text-cyan-400 font-mono mb-1">{isZh ? '深度解读' : 'Deep Dive'}</p>
+              <p className="text-sm text-cyan-400 font-mono mb-1">{t('prod.logistics.k451')}</p>
               <Link to="/news/8378d971-a42f-4169-a093-0d25d46f8a69" className="text-white font-semibold hover:text-cyan-300 transition-colors">
-                {isZh ? '行业级性能旗舰：TH-200 系留无人机系统——软硬一体化全栈定制方案' : 'Industry-Grade Performance Flagship: TH-200 — Full-Stack Customization'}
+                {t('tethered.th200.k805')}
               </Link>
-              <p className="text-gray-400 text-sm mt-1">{isZh ? '深入了解 TH-200 的重载动力架构与加密链路协议' : 'Explore TH-200 heavy-lift architecture and encrypted link protocols'}</p>
+              <p className="text-gray-400 text-sm mt-1">{t('tethered.th200.k806')}</p>
             </div>
             <ChevronRight className="w-5 h-5 text-gray-500" />
           </div>
@@ -471,16 +462,16 @@ const TH200 = () => {
       <section className="py-20 bg-gray-950 border-t border-gray-800">
         <div className="container mx-auto px-4 text-center">
           <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
-            {isZh ? "了解更多 CANI TH-200 解决方案" : "Learn More About CANI TH-200"}
+            {t('tethered.th200.k807')}
           </h2>
           <p className="text-gray-400 mb-8 max-w-xl mx-auto">
-            {isZh ? "联系我们的专业团队，获取定制化配置方案和详细报价" : "Contact our team for customized configuration and detailed pricing"}
+            {t('tethered.th200.k808')}
           </p>
           <div className="flex justify-center gap-4 flex-wrap">
             <Link to="/contact">
               <Button className="bg-cyan-500 hover:bg-cyan-400 text-gray-950 font-bold px-8 py-3 min-h-[44px]">
                 <Phone className="w-4 h-4 mr-2" />
-                {isZh ? "联系我们" : "Contact Us"}
+                {t('acc.canifmtdetail.k547')}
               </Button>
             </Link>
             <a href="mailto:info@caniuav.com">

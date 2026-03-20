@@ -24,21 +24,20 @@ import C30FormationDemoSection from "@/components/swarm/C30FormationDemoSection"
 import C30WarningNotesSection from "@/components/swarm/C30WarningNotesSection";
 
 const W300 = () => {
-  const { language } = useLanguage();
-  const isZh = language === 'zh';
+  const { t } = useLanguage();
 
   return (
     <div className="min-h-screen bg-background">
       <MultiLanguageSEO
-        title={isZh ? "CANI W300 动捕集群开发套件 | 亚毫米级精度编队" : "CANI W300 MoCap Swarm Kit | Sub-mm Precision Formation"}
-        description={isZh ? "CANI W300 动作捕捉集群套件，兼容OptiTrack/NOKOV/VICON，±1mm定位精度，360Hz刷新率，Jetson Orin NX机载计算，ROS开源架构。" : "CANI W300 Motion Capture swarm kit, compatible with OptiTrack/NOKOV/VICON, ±1mm accuracy, 360Hz refresh, Jetson Orin NX onboard computing, open-source ROS."}
-        keywords={isZh ? "动捕集群,MOCAP无人机,编队飞行,OptiTrack,VICON,ROS" : "mocap swarm,motion capture drone,formation flight,OptiTrack,VICON,ROS"}
+        title={t('swarmpage.w300.k674')}
+        description={t('swarmpage.w300.k675')}
+        keywords={t('swarmpage.w300.k676')}
         path="/products/swarm/w300"
       />
       <PageStructuredData data={{ type: 'Product', name: 'CANI W300 MoCap Swarm Kit', description: 'Motion capture swarm drone development kit with sub-mm precision', category: 'Swarm Drone System', sku: 'CANI-W300-MOCAP' }} />
       <Header />
       <FloatingContact />
-      <BackButton to="/products/swarm" label={isZh ? '← 返回集群产品' : '← Back to Swarm'} />
+      <BackButton to="/products/swarm" label={t('swarmpage.w200.k660')} />
 
       <main>
         {/* Hero */}
@@ -52,17 +51,15 @@ const W300 = () => {
               <Badge className="bg-accent/90 text-accent-foreground mb-4 text-sm">CANI W300 · MOCAP</Badge>
             </motion.div>
             <motion.h1 initial={{ opacity: 0, y: 50 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.2 }} className="text-4xl md:text-5xl lg:text-6xl font-black text-white mb-6">
-              {isZh ? 'CANI W300 无人机集群平台' : 'CANI W300 Drone Swarm Platform'}
+              {t('swarmpage.w300.k677')}
             </motion.h1>
             <motion.p initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.4 }} className="text-lg md:text-xl text-white/80 max-w-4xl mx-auto mb-8">
-              {isZh
-                ? '通过通信模块与自研通信软件实现无人机间数据互通，机载计算机可获取任一无人机状态信息并控制。提供模式控制、位置控制、一字队形、三角队形、队形变换等功能Demo及丰富的集群控制接口，定制地面站简化操作，让用户专注于集群算法开发。'
-                : 'Inter-drone data sharing via proprietary communication modules. Onboard computers access and control any drone\'s status. Includes mode control, position control, line/triangle formation, formation switching demos with rich swarm APIs. Custom ground station simplifies operations for algorithm-focused R&D.'}
+              {t('swarmpage.w300.k678')}
             </motion.p>
             <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.6 }} className="flex flex-wrap justify-center gap-4">
               <Link to="/contact">
                 <Button size="lg" className="bg-accent hover:bg-accent/90 text-accent-foreground rounded-full px-8 min-h-[44px]">
-                  {isZh ? '获取报价' : 'Get Quote'}
+                  {t('acc.canifmtdetail.k525')}
                   <ArrowRight className="ml-2 h-5 w-5" />
                 </Button>
               </Link>
@@ -78,10 +75,10 @@ const W300 = () => {
           <div className="container-custom">
             <div className="grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
               {[
-                { value: "±1mm", label: isZh ? "定位精度" : "Positioning Accuracy" },
-                { value: "360Hz", label: isZh ? "捕捉刷新率" : "Capture Refresh Rate" },
-                { value: "100 TOPS", label: isZh ? "AI 算力" : "AI Performance" },
-                { value: "<0.2ms", label: isZh ? "系统延迟" : "System Latency" },
+                { value: "±1mm", label: t('swarm.c30mocappositioningsection.k161') },
+                { value: "360Hz", label: t('swarmpage.w300.k679') },
+                { value: "100 TOPS", label: t('swarm.c30specssection.k221') },
+                { value: "<0.2ms", label: t('swarm.c30mocappositioningsection.k167') },
               ].map((item, index) => (
                 <motion.div key={index} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: index * 0.1 }}>
                   <div className="text-3xl md:text-4xl font-black text-accent">{item.value}</div>
@@ -105,20 +102,20 @@ const W300 = () => {
         {/* Related Products */}
         <section className="py-16 bg-muted/50">
           <div className="container-custom">
-            <h3 className="text-xl font-bold text-foreground mb-6">{isZh ? '相关集群产品' : 'Related Swarm Products'}</h3>
+            <h3 className="text-xl font-bold text-foreground mb-6">{t('swarmpage.w200.k665')}</h3>
             <div className="grid md:grid-cols-2 gap-4">
               <Link to="/products/swarm/w200" className="flex items-center gap-3 p-4 bg-card rounded-xl border border-border/30 hover:border-accent/30 transition-all group">
                 <ArrowRight className="w-4 h-4 text-accent shrink-0 group-hover:translate-x-1 transition-transform" />
                 <div>
-                  <span className="font-medium text-foreground group-hover:text-accent transition-colors">{isZh ? 'CANI C20 UWB集群套件' : 'CANI C20 UWB Swarm Kit'}</span>
-                  <p className="text-xs text-muted-foreground mt-1">{isZh ? 'UWB高精度室内定位编队方案' : 'UWB high-precision indoor positioning formation'}</p>
+                  <span className="font-medium text-foreground group-hover:text-accent transition-colors">{t('swarmpage.w300.k680')}</span>
+                  <p className="text-xs text-muted-foreground mt-1">{t('swarmpage.w300.k681')}</p>
                 </div>
               </Link>
               <Link to="/products/swarm/w400" className="flex items-center gap-3 p-4 bg-card rounded-xl border border-border/30 hover:border-accent/30 transition-all group">
                 <ArrowRight className="w-4 h-4 text-accent shrink-0 group-hover:translate-x-1 transition-transform" />
                 <div>
-                  <span className="font-medium text-foreground group-hover:text-accent transition-colors">{isZh ? 'CANI W400 GPS集群套件' : 'CANI W400 GPS Swarm Kit'}</span>
-                  <p className="text-xs text-muted-foreground mt-1">{isZh ? '户外大规模GPS编队飞行系统' : 'Outdoor large-scale GPS formation flight'}</p>
+                  <span className="font-medium text-foreground group-hover:text-accent transition-colors">{t('swarmpage.w300.k682')}</span>
+                  <p className="text-xs text-muted-foreground mt-1">{t('swarmpage.w200.k669')}</p>
                 </div>
               </Link>
             </div>
@@ -131,11 +128,11 @@ const W300 = () => {
             <div className="max-w-3xl mx-auto bg-card rounded-xl p-6 flex items-center gap-4 hover:shadow-lg transition-all border border-border/30">
               <div className="text-3xl">📰</div>
               <div className="flex-1">
-                <p className="text-sm text-accent font-mono mb-1">{isZh ? '深度解读' : 'Deep Dive'}</p>
+                <p className="text-sm text-accent font-mono mb-1">{t('prod.logistics.k451')}</p>
                 <Link to="/news/ae1840e0-92c2-43aa-b36d-0b5b84c6c158" className="text-foreground font-semibold hover:text-accent transition-colors">
-                  {isZh ? '工业级集群旗舰：W300 蜂群无人机系统——软硬一体化全栈定制平台' : 'Industrial Swarm Flagship: W300 — Full-stack Software-Hardware Integration Platform'}
+                  {t('swarmpage.w300.k683')}
                 </Link>
-                <p className="text-muted-foreground text-sm mt-1">{isZh ? '了解 W300 的动态自愈Mesh组网与群智协同避障算法' : 'Explore W300 self-healing Mesh networking and swarm intelligence algorithms'}</p>
+                <p className="text-muted-foreground text-sm mt-1">{t('swarmpage.w300.k684')}</p>
               </div>
               <ChevronDown className="w-5 h-5 text-muted-foreground rotate-[-90deg]" />
             </div>
@@ -146,14 +143,14 @@ const W300 = () => {
         <section className="py-20 bg-primary text-primary-foreground">
           <div className="container-custom text-center">
             <h2 className="text-3xl md:text-4xl font-bold mb-6">
-              {isZh ? '开启亚毫米级精度集群研究' : 'Start Sub-mm Precision Swarm Research'}
+              {t('swarmpage.w300.k685')}
             </h2>
             <p className="text-lg opacity-90 mb-8 max-w-2xl mx-auto">
-              {isZh ? 'CANI W300 为科研团队提供最高精度的室内集群编队平台，兼容主流动捕系统，助力前沿算法验证。' : 'CANI W300 provides the highest precision indoor swarm platform for research teams, compatible with mainstream MoCap systems.'}
+              {t('swarmpage.w300.k686')}
             </p>
             <Link to="/contact">
               <Button size="lg" className="bg-accent hover:bg-accent/90 text-accent-foreground rounded-full px-8 min-h-[44px]">
-                {isZh ? '联系我们' : 'Contact Us'}
+                {t('acc.canifmtdetail.k547')}
                 <ArrowRight className="ml-2 h-5 w-5" />
               </Button>
             </Link>

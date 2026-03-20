@@ -320,12 +320,10 @@ const VtxVrx = () => {
         <section className="py-16 bg-muted/30">
           <div className="container mx-auto px-4">
             <h2 className="text-3xl font-bold text-center mb-4">
-              {isZh ? '📡 接收模组 (VRX)' : '📡 Receiver Modules (VRX)'}
+              {t('acc.vtxvrx.k651')}
             </h2>
             <p className="text-center text-muted-foreground mb-12 max-w-2xl mx-auto">
-              {isZh
-                ? '工业级模拟图传接收核心，-97dBm旗舰灵敏度，物理零延迟，即插即用集成方案。'
-                : 'Industrial-grade analog video receiver cores with -97dBm flagship sensitivity, zero-latency reception, and plug-and-play integration.'}
+              {t('acc.vtxvrx.k652')}
             </p>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {vrxProducts.map(vrx => (
@@ -362,7 +360,7 @@ const VtxVrx = () => {
                       ))}
                     </ul>
                     <div className="mt-4 pt-4 border-t border-border flex items-center justify-between text-accent">
-                      <span className="text-sm font-medium">{isZh ? '查看详情' : 'View Details'}</span>
+                      <span className="text-sm font-medium">{t('acc.vtxvrx.k653')}</span>
                       <ChevronRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                     </div>
                   </div>

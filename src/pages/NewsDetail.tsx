@@ -226,7 +226,7 @@ const NewsDetail = () => {
     author: { '@type': 'Organization', name: 'CANI' },
     publisher: {
       '@type': 'Organization',
-      name: language === 'zh' ? '长凌科技' : 'CANI Technology',
+      name: t('acc.cameradetail.k454'),
       logo: { '@type': 'ImageObject', url: 'https://www.caniuav.com/logo.png' },
     },
     mainEntityOfPage: {

@@ -3,59 +3,58 @@ import { motion } from "framer-motion";
 import { Crosshair, Cpu, Monitor, Radio, Wifi, Code } from "lucide-react";
 
 const W300SystemArchitecture = () => {
-  const { language } = useLanguage();
-  const isZh = language === 'zh';
+  const { t } = useLanguage();
 
   const rosNodes = [
     {
       name: "formation_setmode",
       type: "Service",
-      topic: isZh ? "编队模式设置" : "Formation Mode Set",
+      topic: t('swarm.w300systemarchitecture.k260'),
       color: "bg-blue-500/10 border-blue-500/30 text-blue-600",
     },
     {
       name: "/usr/*/mavros",
       type: "Node",
-      topic: isZh ? "MAVLink通信核心" : "MAVLink Core",
+      topic: t('swarm.w300systemarchitecture.k261'),
       color: "bg-green-500/10 border-green-500/30 text-green-600",
     },
     {
       name: "formation_state",
       type: "Topic",
-      topic: isZh ? "编队状态发布" : "Formation State Publisher",
+      topic: t('swarm.w300systemarchitecture.k262'),
       color: "bg-orange-500/10 border-orange-500/30 text-orange-600",
     },
   ];
 
   const serviceTopics = [
-    { label: "/mavros/CommandBool", desc: isZh ? "解锁/上锁命令" : "Arm/Disarm Command" },
-    { label: "/mavros/set_mode", desc: isZh ? "飞行模式切换" : "Flight Mode Switch" },
-    { label: "/mavros/local_position/pose", desc: isZh ? "本地位置坐标" : "Local Position Pose" },
-    { label: "/mavros/State", desc: isZh ? "飞行器状态" : "Vehicle State" },
+    { label: "/mavros/CommandBool", desc: t('swarm.w300systemarchitecture.k263') },
+    { label: "/mavros/set_mode", desc: t('swarm.w300systemarchitecture.k264') },
+    { label: "/mavros/local_position/pose", desc: t('swarm.w300systemarchitecture.k265') },
+    { label: "/mavros/State", desc: t('swarm.w300systemarchitecture.k266') },
   ];
 
   const archBlocks = [
     {
       icon: <Crosshair className="h-5 w-5" />,
-      title: isZh ? "动捕定位系统" : "MOCAP Positioning",
+      title: t('swarm.w300systemarchitecture.k267'),
       items: [
-        isZh ? "OptiTrack/NOKOV/VICON兼容" : "OptiTrack/NOKOV/VICON compatible",
-        isZh ? "±1mm定位精度" : "±1mm positioning accuracy",
-        isZh ? "360Hz刷新率，<0.2ms延迟" : "360Hz refresh rate, <0.2ms latency",
+        t('swarm.w300systemarchitecture.k268'),
+        t('swarm.w300systemarchitecture.k269'),
+        t('swarm.w300systemarchitecture.k270'),
       ],
     },
     {
       icon: <Radio className="h-5 w-5" />,
-      title: isZh ? "通信网络" : "Communication Network",
+      title: t('swarm.w200systemarchitecture.k244'),
       items: [
-        isZh ? "Mini Homer移动端" : "Mini Homer Mobile",
-        isZh ? "TCP/IP分布式通信" : "TCP/IP Distributed Comms",
-        isZh ? "Socket网络编程" : "Socket Networking",
+        t('swarm.w300systemarchitecture.k271'),
+        t('swarm.w300systemarchitecture.k272'),
+        t('swarm.w300systemarchitecture.k273'),
       ],
     },
     {
       icon: <Cpu className="h-5 w-5" />,
-      title: isZh ? "机载计算" : "Onboard Computing",
+      title: t('swarm.c30specssection.k218'),
       items: [
         "Allspark2 Orin NX",
         "100 TOPS AI",
@@ -64,11 +63,11 @@ const W300SystemArchitecture = () => {
     },
     {
       icon: <Monitor className="h-5 w-5" />,
-      title: isZh ? "Prometheus集群控制" : "Prometheus Swarm Control",
+      title: t('swarm.w300systemarchitecture.k274'),
       items: [
-        isZh ? "ROS/PX4开源平台" : "ROS/PX4 Open-Source",
-        isZh ? "Qt地面站界面" : "Qt Ground Station UI",
-        isZh ? "多机编队任务规划" : "Multi-UAV Formation Planning",
+        t('swarm.w300systemarchitecture.k275'),
+        t('swarm.w300systemarchitecture.k276'),
+        t('swarm.w300systemarchitecture.k277'),
       ],
     },
   ];
@@ -83,12 +82,10 @@ const W300SystemArchitecture = () => {
           className="text-center mb-12"
         >
           <h2 className="text-3xl md:text-4xl font-black text-foreground mb-4">
-            {isZh ? "集群软件框架" : "Swarm Software Architecture"}
+            {t('swarm.w300systemarchitecture.k278')}
           </h2>
           <p className="text-muted-foreground max-w-2xl mx-auto">
-            {isZh
-              ? "基于ROS的分布式集群控制架构，通过MAVROS实现与飞控的通信，支持编队模式切换和状态监控"
-              : "ROS-based distributed swarm control architecture with MAVROS communication, supporting formation mode switching and state monitoring"}
+            {t('swarm.w300systemarchitecture.k279')}
           </p>
         </motion.div>
 
@@ -101,7 +98,7 @@ const W300SystemArchitecture = () => {
         >
           <div className="bg-card rounded-2xl border border-border/30 p-8">
             <h3 className="text-center text-sm font-bold text-muted-foreground mb-8 uppercase tracking-wider">
-              {isZh ? "ROS 节点通信拓扑" : "ROS Node Communication Topology"}
+              {t('swarm.w300systemarchitecture.k280')}
             </h3>
 
             {/* ROS Nodes */}

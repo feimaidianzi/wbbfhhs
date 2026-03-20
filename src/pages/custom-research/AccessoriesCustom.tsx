@@ -12,7 +12,7 @@ import { Helmet } from "react-helmet-async";
 import customAccessoriesHardwareImg from "@/assets/seo/custom-accessories-hardware.jpg";
 
 const AccessoriesCustom = () => {
-  const { t, language } = useLanguage();
+  const { t } = useLanguage();
 
   // JSON-LD structured data for GEO
   const jsonLd = {
@@ -20,9 +20,7 @@ const AccessoriesCustom = () => {
     "@type": "Product",
     "name": "Industrial UAV Accessories & Subsystems",
     "brand": { "@type": "Brand", "name": "CANI" },
-    "description": language === 'zh'
-      ? "专业工业级无人机配件，包含1080P数字图传、IP67吊舱及37W高功率视频发射器。"
-      : "Professional industrial UAV accessories including 1080P digital video links, IP67 gimbals, and 37W high-power video transmitters.",
+    "description": t('cr.accessoriescustom.k893'),
     "category": "Industrial UAV Accessories",
     "offers": {
       "@type": "AggregateOffer",

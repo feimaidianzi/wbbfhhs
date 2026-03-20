@@ -149,7 +149,7 @@ const ProductPageTemplate = ({
           <LangLink to="/products">
             <Button variant="outline" size="sm" className="bg-background/80 backdrop-blur-sm border-border shadow-lg hover:bg-background">
               <ArrowLeft className="w-4 h-4 mr-1" />
-              {isEn ? 'Back' : '返回'}
+              {t('comp.productpagetemplate.k895')}
             </Button>
           </LangLink>
         </div>

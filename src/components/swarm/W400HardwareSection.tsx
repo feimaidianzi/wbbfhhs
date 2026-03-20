@@ -10,33 +10,31 @@ interface HardwarePin {
   id: string;
   label: string;
   desc: string;
-  descEn: string;
-  x: string; // percentage
+    x: string; // percentage
   y: string;
 }
 
 const W400HardwareSection = () => {
-  const { language } = useLanguage();
-  const isZh = language === 'zh';
+  const { t } = useLanguage();
   const [activePin, setActivePin] = useState<string | null>(null);
 
   const pins: HardwarePin[] = [
-    { id: "fc", label: "Pixhawk 6C", desc: "飞行控制器，STM32H743处理器，IMU冗余设计", descEn: "Flight controller, STM32H743 processor, redundant IMU design", x: "50%", y: "30%" },
-    { id: "gps", label: "GNSS Module", desc: "GPS/GLONASS/北斗/Galileo四星定位，RTK可选", descEn: "GPS/GLONASS/BeiDou/Galileo quad-constellation, optional RTK", x: "50%", y: "10%" },
-    { id: "jetson", label: "Jetson Orin NX", desc: "100 TOPS AI算力，16GB LPDDR5，8核A78AE", descEn: "100 TOPS AI, 16GB LPDDR5, 8-core A78AE", x: "30%", y: "45%" },
-    { id: "homer", label: "Mini Homer", desc: "Mesh自组网通讯，1km距离，3Mbps带宽", descEn: "Mesh networking, 1km range, 3Mbps bandwidth", x: "70%", y: "45%" },
-    { id: "esc", label: "ESC × 6", desc: "30A BLHeli_S电调，DShot协议", descEn: "30A BLHeli_S ESC with DShot protocol", x: "20%", y: "65%" },
-    { id: "motor", label: "920KV Motor × 6", desc: "无刷外转子电机，10×4.5碳纤桨", descEn: "Brushless outrunner with 10×4.5 CF props", x: "80%", y: "65%" },
-    { id: "battery", label: "6S 5200mAh", desc: "22.2V高压锂聚合物电池，XT60接口", descEn: "22.2V high-voltage LiPo, XT60 connector", x: "50%", y: "80%" },
-    { id: "uart", label: "UART / USB", desc: "串口调试与数据输出，Type-C调试接口", descEn: "Serial debug & data output, Type-C debug port", x: "15%", y: "30%" },
+    { id: "fc", label: "Pixhawk 6C", desc: t('swarm.w400hw.k941'), x: "50%", y: "30%" },
+    { id: "gps", label: "GNSS Module", desc: t('swarm.w400hw.k942'), x: "50%", y: "10%" },
+    { id: "jetson", label: "Jetson Orin NX", desc: t('swarm.w400hw.k943'), x: "30%", y: "45%" },
+    { id: "homer", label: "Mini Homer", desc: t('swarm.w400hw.k944'), x: "70%", y: "45%" },
+    { id: "esc", label: "ESC × 6", desc: t('swarm.w400hw.k945'), x: "20%", y: "65%" },
+    { id: "motor", label: "920KV Motor × 6", desc: t('swarm.w400hw.k946'), x: "80%", y: "65%" },
+    { id: "battery", label: "6S 5200mAh", desc: t('swarm.w400hw.k947'), x: "50%", y: "80%" },
+    { id: "uart", label: "UART / USB", desc: t('swarm.w400hw.k948'), x: "15%", y: "30%" },
   ];
 
   return (
     <section className="py-20 bg-background">
       <div className="container-custom">
         <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="text-center mb-12">
-          <h2 className="text-3xl md:text-4xl font-black text-foreground mb-4">{isZh ? '硬件架构总览' : 'Hardware Architecture Overview'}</h2>
-          <p className="text-muted-foreground">{isZh ? '悬停在模块上查看详细功能描述' : 'Hover over modules for detailed descriptions'}</p>
+          <h2 className="text-3xl md:text-4xl font-black text-foreground mb-4">{t('swarm.w400hardwaresection.k331')}</h2>
+          <p className="text-muted-foreground">{t('swarm.w400hardwaresection.k332')}</p>
         </motion.div>
 
         {/* Interactive hardware diagram - Desktop */}
@@ -78,7 +76,7 @@ const W400HardwareSection = () => {
                   {activePin === pin.id && (
                     <div className="absolute top-full left-1/2 -translate-x-1/2 mt-2 w-56 bg-card border border-accent/30 rounded-lg p-3 shadow-xl z-20">
                       <div className="font-bold text-sm text-accent mb-1">{pin.label}</div>
-                      <div className="text-xs text-muted-foreground">{isZh ? pin.desc : pin.descEn}</div>
+                      <div className="text-xs text-muted-foreground">{pin.desc}</div>
                     </div>
                   )}
                 </div>
@@ -96,7 +94,7 @@ const W400HardwareSection = () => {
               <div className="w-2 h-2 rounded-full bg-accent mt-2 flex-shrink-0" />
               <div>
                 <div className="font-bold text-sm text-foreground font-mono">{pin.label}</div>
-                <div className="text-xs text-muted-foreground mt-1">{isZh ? pin.desc : pin.descEn}</div>
+                <div className="text-xs text-muted-foreground mt-1">{pin.desc}</div>
               </div>
             </motion.div>
           ))}
@@ -104,12 +102,12 @@ const W400HardwareSection = () => {
 
         {/* Hardware Component Gallery */}
         <div className="mt-16 max-w-5xl mx-auto">
-          <h3 className="text-xl font-bold text-foreground mb-8 text-center">{isZh ? '核心硬件模组' : 'Core Hardware Modules'}</h3>
+          <h3 className="text-xl font-bold text-foreground mb-8 text-center">{t('swarm.c30hardwaresection.k158')}</h3>
           <div className="grid md:grid-cols-3 gap-6">
             {[
-              { img: fcImg, title: "Pixhawk 6C", desc: isZh ? "飞行控制器 · STM32H743 · IMU冗余设计" : "Flight Controller · STM32H743 · Redundant IMU" },
-              { img: jetsonImg, title: "Jetson Orin NX", desc: isZh ? "100 TOPS AI算力 · 16GB LPDDR5 · 8核A78AE" : "100 TOPS AI · 16GB LPDDR5 · 8-core A78AE" },
-              { img: meshImg, title: "Mini Homer", desc: isZh ? "Mesh自组网 · 1km通信 · 3Mbps带宽" : "Mesh Network · 1km Range · 3Mbps Bandwidth" },
+              { img: fcImg, title: "Pixhawk 6C", desc: t('swarm.w400hardwaresection.k333') },
+              { img: jetsonImg, title: "Jetson Orin NX", desc: t('swarm.w400hardwaresection.k334') },
+              { img: meshImg, title: "Mini Homer", desc: t('swarm.w400hardwaresection.k335') },
             ].map((mod, i) => (
               <motion.div key={i} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.1 }}
                 className="bg-card border border-border/30 rounded-xl overflow-hidden hover:border-accent/30 transition-all group"

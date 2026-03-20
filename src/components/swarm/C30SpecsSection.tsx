@@ -4,55 +4,54 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 const C30SpecsSection = () => {
-  const { language } = useLanguage();
-  const isZh = language === 'zh';
+  const { t } = useLanguage();
 
   const specs = {
     drone: {
-      label: isZh ? "机体参数" : "Drone Specs",
+      label: t('swarm.c20specssection.k61'),
       items: [
-        { label: isZh ? "机型" : "Type", value: isZh ? "四旋翼" : "Quadrotor" },
-        { label: isZh ? "轴距" : "Wheelbase", value: "250mm" },
-        { label: isZh ? "空机重量" : "Empty Weight", value: "0.58kg" },
-        { label: isZh ? "最大起飞重量" : "Max Takeoff Weight", value: "1.0kg" },
-        { label: isZh ? "续航时间" : "Flight Time", value: "12min" },
-        { label: isZh ? "悬停精度" : "Hover Accuracy", value: "±1mm (MoCap)" },
-        { label: isZh ? "飞控" : "Flight Controller", value: "Pixhawk 6C" },
-        { label: isZh ? "使用环境" : "Environment", value: isZh ? "室内动捕环境" : "Indoor MoCap Environment" },
+        { label: t('swarm.c20specssection.k62'), value: t('swarm.c20specssection.k63') },
+        { label: t('swarm.c20specssection.k64'), value: "250mm" },
+        { label: t('swarm.c20specssection.k66'), value: "0.58kg" },
+        { label: t('swarm.c20specssection.k67'), value: "1.0kg" },
+        { label: t('swarm.c20specssection.k68'), value: "12min" },
+        { label: t('swarm.c20specssection.k70'), value: "±1mm (MoCap)" },
+        { label: t('swarm.c20packagesection.k43'), value: "Pixhawk 6C" },
+        { label: t('swarm.c20specssection.k71'), value: t('swarm.c30specssection.k210') },
       ],
     },
     mocap: {
-      label: isZh ? "动捕系统" : "MoCap System",
+      label: t('swarm.c30specssection.k211'),
       items: [
-        { label: isZh ? "兼容系统" : "Compatible Systems", value: "OptiTrack / NOKOV / VICON" },
-        { label: isZh ? "定位精度" : "Accuracy", value: "±1mm", highlight: true },
-        { label: isZh ? "刷新率" : "Refresh Rate", value: "360Hz", highlight: true },
-        { label: isZh ? "系统延迟" : "Latency", value: "<0.2ms" },
-        { label: isZh ? "标记方式" : "Markers", value: isZh ? "红外反光标记点" : "IR Reflective Markers" },
-        { label: isZh ? "覆盖范围" : "Coverage", value: isZh ? "取决于动捕系统配置" : "Depends on MoCap setup" },
+        { label: t('swarm.c30specssection.k212'), value: "OptiTrack / NOKOV / VICON" },
+        { label: t('swarm.c20specssection.k84'), value: "±1mm", highlight: true },
+        { label: t('swarm.c20specssection.k85'), value: "360Hz", highlight: true },
+        { label: t('swarm.c30specssection.k213'), value: "<0.2ms" },
+        { label: t('swarm.c30specssection.k214'), value: t('swarm.c30specssection.k215') },
+        { label: t('swarm.c30specssection.k216'), value: t('swarm.c30specssection.k217') },
       ],
     },
     computer: {
-      label: isZh ? "机载计算" : "Onboard Computing",
+      label: t('swarm.c30specssection.k218'),
       items: [
-        { label: isZh ? "计算平台" : "Platform", value: "Allspark2" },
-        { label: isZh ? "计算模块" : "Module", value: "NVIDIA Jetson Orin NX" },
-        { label: isZh ? "AI 算力" : "AI Performance", value: "100 TOPS", highlight: true },
-        { label: isZh ? "内存" : "Memory", value: "16GB LPDDR5" },
+        { label: t('swarm.c30specssection.k219'), value: "Allspark2" },
+        { label: t('swarm.c30specssection.k220'), value: "NVIDIA Jetson Orin NX" },
+        { label: t('swarm.c30specssection.k221'), value: "100 TOPS", highlight: true },
+        { label: t('swarm.c30specssection.k222'), value: "16GB LPDDR5" },
         { label: "GPU", value: "NVIDIA Ampere (918MHz)" },
         { label: "CPU", value: "8-core Arm Cortex-A78AE" },
-        { label: isZh ? "重量" : "Weight", value: "188g" },
-        { label: isZh ? "尺寸" : "Dimensions", value: "102.5×62.5×31mm" },
+        { label: t('swarm.c30specssection.k223'), value: "188g" },
+        { label: t('swarm.c30specssection.k224'), value: "102.5×62.5×31mm" },
       ],
     },
     comm: {
-      label: isZh ? "通讯系统" : "Communication",
+      label: t('swarm.c20specssection.k93'),
       items: [
-        { label: isZh ? "组网方式" : "Network", value: isZh ? "WiFi 自组网" : "WiFi Mesh" },
-        { label: isZh ? "通讯协议" : "Protocol", value: "MAVLink / ROS Topic" },
-        { label: isZh ? "地面站" : "Ground Station", value: isZh ? "Qt 地面站 + QGroundControl" : "Qt GCS + QGroundControl" },
-        { label: isZh ? "集群控制" : "Swarm Control", value: "Prometheus Framework" },
-        { label: isZh ? "数据链路" : "Data Link", value: isZh ? "WiFi 双向通讯" : "WiFi Bi-directional" },
+        { label: t('swarm.c30specssection.k225'), value: t('swarm.c20specssection.k95') },
+        { label: t('swarm.c20specssection.k96'), value: "MAVLink / ROS Topic" },
+        { label: t('swarm.c20specssection.k97'), value: t('swarm.c30specssection.k226') },
+        { label: t('swarm.c30specssection.k227'), value: "Prometheus Framework" },
+        { label: t('swarm.c20specssection.k100'), value: t('swarm.c20specssection.k101') },
       ],
     },
   };
@@ -61,7 +60,7 @@ const C30SpecsSection = () => {
     <section className="py-20 bg-background">
       <div className="container-custom">
         <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="text-center mb-12">
-          <h2 className="text-3xl md:text-4xl font-black text-foreground">{isZh ? '规格参数' : 'Technical Specifications'}</h2>
+          <h2 className="text-3xl md:text-4xl font-black text-foreground">{t('swarm.c20specssection.k104')}</h2>
         </motion.div>
         <Tabs defaultValue="drone" className="max-w-4xl mx-auto">
           <TabsList className="grid w-full grid-cols-4 mb-8">

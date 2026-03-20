@@ -38,7 +38,7 @@ const featureIcons: Record<string, React.ReactNode> = {
 const CameraDetail = () => {
   const { productId } = useParams<{ productId: string }>();
   const product = cameraProducts.find((p) => p.id === productId);
-  const { t, language } = useLanguage();
+  const { t } = useLanguage();
 
   if (!product) {
     return (
@@ -87,7 +87,7 @@ const CameraDetail = () => {
     url: 'https://www.caniuav.com/zh/products/accessories/camera/sj4000-wifi',
     manufacturer: {
       '@type': 'Organization',
-      name: language === 'zh' ? '长凌科技' : 'CANI Technology',
+      name: t('acc.cameradetail.k454'),
     },
     offers: {
       '@type': 'Offer',
@@ -110,7 +110,7 @@ const CameraDetail = () => {
     sku: `CANI-${product.model.replace(/\s+/g, '-').toUpperCase()}`,
     manufacturer: {
       '@type': 'Organization',
-      name: language === 'zh' ? '长凌科技' : 'CANI Technology',
+      name: t('acc.cameradetail.k454'),
     },
     additionalProperty: [
       { '@type': 'PropertyValue', name: 'Video Resolution', value: '1080P Full HD (1920×1080) @30fps' },
@@ -208,7 +208,7 @@ const CameraDetail = () => {
             <div className="container mx-auto px-4 max-w-4xl">
               <div className="bg-card rounded-xl border border-border p-6 md:p-8">
                 <h2 className="text-xl font-bold mb-3 text-primary">
-                  {language === 'zh' ? '为什么选择SJ4000 WiFi用于工业无人机？' : 'Why Choose SJ4000 WiFi for Industrial Drones?'}
+                  {t('acc.cameradetail.k455')}
                 </h2>
                 <p className="text-muted-foreground leading-relaxed">{quickAnswerText}</p>
               </div>
@@ -450,7 +450,7 @@ const CameraDetail = () => {
         <section className="py-16">
           <div className="container mx-auto px-4 max-w-4xl">
             <h2 className="text-3xl font-bold text-center mb-8">
-              {language === 'zh' ? '常见问题' : 'Frequently Asked Questions'}
+              {t('acc.cameradetail.k456')}
             </h2>
             <Accordion type="single" collapsible className="w-full">
               {faqItems.map((faq, idx) => (
@@ -479,17 +479,13 @@ const CameraDetail = () => {
                     </div>
                     <div className="flex-1 text-center md:text-left">
                       <div className="text-xs font-semibold text-accent uppercase tracking-wider mb-1">
-                        {language === 'zh' ? '📖 深度解读' : '📖 Deep Dive'}
+                        {t('acc.cameradetail.k457')}
                       </div>
                       <h3 className="text-lg font-bold text-card-foreground group-hover:text-accent transition-colors mb-1">
-                        {language === 'zh'
-                          ? 'SJ4000-WiFi：重新定义高性价比工业巡检视觉载荷方案'
-                          : 'SJ4000-WiFi: Redefining Cost-Effective Industrial Inspection Visual Payload'}
+                        {t('acc.cameradetail.k458')}
                       </h3>
                       <p className="text-sm text-muted-foreground">
-                        {language === 'zh'
-                          ? '从12MP传感器到WiFi实时图传的完整技术解析，含延迟公式推导与WiFiLink2/Mesh-Link链路适配方案'
-                          : 'Complete technical analysis from 12MP sensor to WiFi streaming, including latency formula and WiFiLink2/Mesh-Link integration'}
+                        {t('acc.cameradetail.k459')}
                       </p>
                     </div>
                     <ArrowRight className="w-5 h-5 text-accent group-hover:translate-x-1 transition-transform flex-shrink-0" />
