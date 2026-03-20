@@ -8070,10 +8070,16 @@ export const zhTranslations: Record<string, string> = {
   'about.scenarios.border.desc': '全天候超远距离态势感知与实时回传',
 
   // ===== About Page Upgrade - Founder Message =====
-  'about.founder.title': '创始人寄语',
-  'about.founder.quote': '"我们成立CANI的初衷很简单：做那些别人不敢做、做不好的\'硬骨头\'组件。每一个0.1克的减重，每一分贝噪声的消除，都是我们对极限飞行的致敬。"',
+  'about.founder.title': '从精准视觉到飞行之魂',
+  'about.founder.p1': '十年前，我沉浸在机器视觉的世界里，因此我明白了一个道理：在严苛的工业现场，千分之一毫米的偏差就意味着失败。',
+  'about.founder.p2': '后来，我向天空看去。我发现无人机虽然飞得高，但它的"心跳"和"呼吸"——那些深埋在机身内部的射频模块、图传链路和一行行代码——决定了它能否在风暴中完成使命。',
+  'about.founder.p3': 'CANI的诞生，不是为了制造另一架无人机，而是为了给这个行业提供更坚韧的骨骼和更敏锐的神经。',
+  'about.founder.p4': '我们把做工业视觉时的那份||近乎偏执的精准||，注入了RF与图传的研发中。我们深知，对于一个在数千公里外作业的集成商，信号的一次中断，就是一场灾难。所以，我们死磕RF的底层链路，优化每一毫秒的图传延迟，编写每一行同步协议的代码。',
+  'about.founder.p5': '我们做的是零部件，但我们深知，每一颗芯片、每一个模块的背后，都承载着一个行业对高效的渴望，对安全的承诺。',
+  'about.founder.p6': '我们不仅仅是您的供应商。我们是那群||躲在硬件背后||，与您一起||对抗干扰、对抗距离、对抗未知||的工程师。',
+  'about.founder.signature': '让核心驱动飞行。',
   'about.founder.name': 'Alex',
-  'about.founder.role': 'CANI 无人机 创始人',
+  'about.founder.role': 'CANI 创始人',
 
   // ===== About Page Upgrade - OEM Partnership =====
   'about.oem.title': '全球 OEM/ODM 合作伙伴',

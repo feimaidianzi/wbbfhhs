@@ -568,35 +568,73 @@ const About = () => {
         </section>
 
         {/* ========== 4. Founder Message ========== */}
-        <section className="py-20 md:py-28 bg-background relative overflow-hidden">
-          <div className="absolute bottom-0 left-0 w-80 h-80 bg-accent/5 rounded-full blur-3xl translate-y-1/2 -translate-x-1/2" />
+        <section className="py-20 md:py-28 bg-[#0a0f1a] relative overflow-hidden">
+          {/* Subtle circuit-trace decoration */}
+          <div className="absolute inset-0 opacity-[0.03]" style={{ backgroundImage: 'linear-gradient(rgba(34,211,238,.5) 1px, transparent 1px), linear-gradient(90deg, rgba(34,211,238,.5) 1px, transparent 1px)', backgroundSize: '80px 80px' }} />
+          <div className="absolute top-1/2 right-0 w-96 h-96 bg-accent/5 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2" />
+
           <div className="container-custom relative">
             <motion.div
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              className="max-w-4xl mx-auto"
+              className="max-w-5xl mx-auto"
             >
-              <h2 className="text-2xl md:text-3xl font-bold text-center mb-12">
-                {t('about.founder.title')}
-              </h2>
-              <div className="flex flex-col md:flex-row items-center gap-10">
-                <div className="w-48 h-48 md:w-56 md:h-56 rounded-2xl overflow-hidden shadow-lg border-2 border-accent/20 flex-shrink-0">
-                  <img
-                    src={founderImg}
-                    alt={`${t('about.founder.name')} - ${t('about.founder.role')}`}
-                    className="w-full h-full object-cover"
-                    loading="lazy"
-                  />
+              <div className="grid grid-cols-1 lg:grid-cols-5 gap-12 items-start">
+                {/* Left - Text content (3 cols) */}
+                <div className="lg:col-span-3 order-2 lg:order-1">
+                  <span className="inline-block px-3 py-1 rounded-full bg-accent/10 text-accent text-xs font-mono mb-4 border border-accent/20">
+                    FOUNDER'S MESSAGE
+                  </span>
+                  <h2 className="text-2xl md:text-3xl font-bold text-white mb-8">
+                    {t('about.founder.title')}
+                  </h2>
+
+                  <div className="space-y-4 text-gray-300 leading-relaxed">
+                    <p>{t('about.founder.p1')}</p>
+                    <p>{t('about.founder.p2')}</p>
+                    <p className="text-accent/90 font-medium">{t('about.founder.p3')}</p>
+                    {/* Render p4 with highlighted phrases using || delimiters */}
+                    <p>
+                      {t('about.founder.p4').split('||').map((seg, i) =>
+                        i % 2 === 1 ? <strong key={i} className="text-accent font-semibold">{seg}</strong> : <span key={i}>{seg}</span>
+                      )}
+                    </p>
+                    <p>{t('about.founder.p5')}</p>
+                    <p>
+                      {t('about.founder.p6').split('||').map((seg, i) =>
+                        i % 2 === 1 ? <strong key={i} className="text-accent font-semibold">{seg}</strong> : <span key={i}>{seg}</span>
+                      )}
+                    </p>
+                  </div>
+
+                  {/* Signature */}
+                  <div className="mt-8 pt-6 border-t border-white/10">
+                    <p className="text-lg font-bold text-accent italic mb-4">{t('about.founder.signature')}</p>
+                    <div className="flex items-center gap-3">
+                      <Radio className="w-5 h-5 text-accent/50" />
+                      <div>
+                        <p className="text-white font-bold">— {t('about.founder.name')}</p>
+                        <p className="text-sm text-gray-500 font-mono">{t('about.founder.role')}</p>
+                      </div>
+                    </div>
+                  </div>
                 </div>
-                <div className="flex-1 text-center md:text-left">
-                  <blockquote className="text-lg md:text-xl text-foreground/90 italic leading-relaxed mb-6 relative">
-                    <span className="absolute -top-4 -left-2 text-6xl text-accent/20 font-serif">"</span>
-                    <p className="pl-6">{t('about.founder.quote')}</p>
-                  </blockquote>
-                  <div>
-                    <p className="text-lg font-bold text-foreground">— {t('about.founder.name')}</p>
-                    <p className="text-sm text-accent font-medium">{t('about.founder.role')}</p>
+
+                {/* Right - Founder photo (2 cols) */}
+                <div className="lg:col-span-2 order-1 lg:order-2">
+                  <div className="relative">
+                    <div className="absolute -inset-4 bg-accent/5 rounded-2xl blur-xl" />
+                    <div className="relative rounded-2xl overflow-hidden shadow-2xl border border-white/10">
+                      <img
+                        src={founderImg}
+                        alt={`${t('about.founder.name')} - ${t('about.founder.role')}`}
+                        className="w-full aspect-[3/4] object-cover"
+                        loading="lazy"
+                      />
+                      {/* Overlay gradient */}
+                      <div className="absolute inset-0 bg-gradient-to-t from-[#0a0f1a]/60 via-transparent to-transparent" />
+                    </div>
                   </div>
                 </div>
               </div>
