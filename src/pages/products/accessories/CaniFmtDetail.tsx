@@ -24,6 +24,7 @@ import heroBg from "@/assets/products/cani-fc-hero-bg.webp";
 
 // ─── Interface Pinout Diagram (CSS-based) ───
 const InterfacePinoutDiagram = ({ isEn }: { isEn: boolean }) => {
+  const { t } = useLanguage();
   const leftInterfaces = [
     {
       name: t('acc.canifmtdetail.k460'),
