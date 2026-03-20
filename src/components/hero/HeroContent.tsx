@@ -251,7 +251,7 @@ export const HeroContent = () => {
               {t('hero.cta.about')}
             </Button>
           </LangLink>
-        </motion.div>
+        </div>
 
         {/* Stats - 卡片式 */}
         <div className="flex flex-wrap gap-6 md:gap-8">
