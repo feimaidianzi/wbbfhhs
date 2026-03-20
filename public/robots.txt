@@ -58,11 +58,14 @@ Allow: /
 
 User-agent: *
 Allow: /
+Disallow: /admin
 Disallow: /admin/
-Disallow: /auth
 Disallow: /api/
+Disallow: /auth
+Disallow: /auth/
+Disallow: /config/
 
-# Block nested/stacked language prefix paths (e.g., /zh/fr/ko/en/path)
+# Block nested/stacked language prefix paths
 Disallow: /en/en/
 Disallow: /en/zh/
 Disallow: /en/fr/
