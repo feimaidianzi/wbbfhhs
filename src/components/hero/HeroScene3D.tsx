@@ -1,12 +1,10 @@
-import { useRef, useMemo, useState, useEffect } from 'react';
+import { useRef, useMemo, useEffect, useState } from 'react';
 import { Canvas, useFrame, useThree } from '@react-three/fiber';
-import { Float, MeshDistortMaterial, Sphere, OrbitControls } from '@react-three/drei';
 import * as THREE from 'three';
 
 // Mouse position hook
 const useMousePosition = () => {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
-  
   useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
       setMousePosition({
@@ -17,104 +15,61 @@ const useMousePosition = () => {
     window.addEventListener('mousemove', handleMouseMove);
     return () => window.removeEventListener('mousemove', handleMouseMove);
   }, []);
-  
   return mousePosition;
 };
 
-const MouseFollower = ({ mousePosition }: { mousePosition: { x: number, y: number } }) => {
+// Camera follows mouse subtly
+const MouseFollower = ({ mousePosition }: { mousePosition: { x: number; y: number } }) => {
   const { camera } = useThree();
-  
   useFrame(() => {
-    camera.position.x = THREE.MathUtils.lerp(camera.position.x, mousePosition.x * 2, 0.02);
-    camera.position.y = THREE.MathUtils.lerp(camera.position.y, mousePosition.y * 1.5, 0.02);
+    camera.position.x = THREE.MathUtils.lerp(camera.position.x, mousePosition.x * 1.5, 0.02);
+    camera.position.y = THREE.MathUtils.lerp(camera.position.y, mousePosition.y * 1, 0.02);
     camera.lookAt(0, 0, 0);
   });
-  
   return null;
 };
 
-// === 新增：六边形网格 ===
-const HexGrid = ({ mousePosition }: { mousePosition: { x: number, y: number } }) => {
-  const groupRef = useRef<THREE.Group>(null);
-  const hexPositions = useMemo(() => {
-    const positions: [number, number, number][] = [];
-    const rows = 6;
-    const cols = 8;
-    const spacing = 2.2;
-    for (let r = 0; r < rows; r++) {
-      for (let c = 0; c < cols; c++) {
-        const x = (c - cols / 2) * spacing + (r % 2) * (spacing / 2);
-        const y = (r - rows / 2) * (spacing * 0.866);
-        positions.push([x, y, -15]);
-      }
-    }
-    return positions;
-  }, []);
-
-  useFrame((state) => {
-    if (groupRef.current) {
-      groupRef.current.rotation.z = Math.sin(state.clock.elapsedTime * 0.1) * 0.05;
-      groupRef.current.position.x = mousePosition.x * 0.3;
-      groupRef.current.position.y = mousePosition.y * 0.2;
-    }
-  });
-
-  return (
-    <group ref={groupRef}>
-      {hexPositions.map((pos, i) => (
-        <mesh key={i} position={pos}>
-          <circleGeometry args={[0.8, 6]} />
-          <meshBasicMaterial 
-            color="#3b82f6" 
-            wireframe 
-            transparent 
-            opacity={0.04 + Math.sin(i * 0.5) * 0.02} 
-          />
-        </mesh>
-      ))}
-    </group>
-  );
-};
-
-// === 新增：数据流线 ===
-const DataStream = ({ 
-  start, end, color, speed, delay 
-}: { 
-  start: [number, number, number]; 
-  end: [number, number, number]; 
-  color: string; 
+// === PCB Trace: a line with a glowing dot traveling along it ===
+const PCBTrace = ({
+  points,
+  color,
+  speed,
+  delay,
+  traceOpacity = 0.15,
+}: {
+  points: [number, number, number][];
+  color: string;
   speed: number;
   delay: number;
+  traceOpacity?: number;
 }) => {
   const dotRef = useRef<THREE.Mesh>(null);
+  const glowRef = useRef<THREE.Mesh>(null);
 
   const curve = useMemo(() => {
-    const mid: [number, number, number] = [
-      (start[0] + end[0]) / 2 + (Math.random() - 0.5) * 3,
-      (start[1] + end[1]) / 2 + (Math.random() - 0.5) * 3,
-      (start[2] + end[2]) / 2 + 2,
-    ];
-    return new THREE.QuadraticBezierCurve3(
-      new THREE.Vector3(...start),
-      new THREE.Vector3(...mid),
-      new THREE.Vector3(...end)
-    );
-  }, [start, end]);
+    const vectors = points.map(p => new THREE.Vector3(...p));
+    return new THREE.CatmullRomCurve3(vectors, false, 'catmullrom', 0);
+  }, [points]);
 
   const lineGeometry = useMemo(() => {
-    const points = curve.getPoints(50);
-    return new THREE.BufferGeometry().setFromPoints(points);
+    const pts = curve.getPoints(120);
+    return new THREE.BufferGeometry().setFromPoints(pts);
   }, [curve]);
 
-  const lineMaterial = useMemo(() => new THREE.LineBasicMaterial({ color, transparent: true, opacity: 0.08 }), [color]);
+  const lineMaterial = useMemo(
+    () => new THREE.LineBasicMaterial({ color, transparent: true, opacity: traceOpacity }),
+    [color, traceOpacity]
+  );
 
   useFrame((state) => {
-    if (dotRef.current) {
-      const t = ((state.clock.elapsedTime * speed + delay) % 3) / 3;
-      const point = curve.getPoint(t);
-      dotRef.current.position.copy(point);
-      dotRef.current.scale.setScalar(0.8 + Math.sin(t * Math.PI) * 0.4);
-    }
+    if (!dotRef.current || !glowRef.current) return;
+    const t = ((state.clock.elapsedTime * speed + delay) % 4) / 4;
+    const point = curve.getPoint(t);
+    dotRef.current.position.copy(point);
+    glowRef.current.position.copy(point);
+    const pulse = 0.8 + Math.sin(t * Math.PI * 2) * 0.4;
+    dotRef.current.scale.setScalar(pulse);
+    glowRef.current.scale.setScalar(pulse * 3);
   });
 
   return (
@@ -122,253 +77,322 @@ const DataStream = ({
       <primitive object={new THREE.Line(lineGeometry, lineMaterial)} />
       <mesh ref={dotRef}>
         <sphereGeometry args={[0.06, 16, 16]} />
-        <meshBasicMaterial color={color} transparent opacity={0.9} />
+        <meshBasicMaterial color={color} transparent opacity={1} />
+      </mesh>
+      <mesh ref={glowRef}>
+        <sphereGeometry args={[0.08, 16, 16]} />
+        <meshBasicMaterial color={color} transparent opacity={0.2} />
       </mesh>
     </>
   );
 };
 
-// === 改进：多色系球体 ===
-const AnimatedSphere = ({ 
-  position, scale, color, speed, opacity = 0.6, mousePosition, emissive
-}: { 
-  position: [number, number, number]; scale: number; color: string; speed: number; 
-  opacity?: number; mousePosition: { x: number, y: number }; emissive?: string;
+// === IC Chip: a rectangular pad with pin lines ===
+const ICChip = ({
+  position,
+  size = [1.2, 0.8],
+  color,
+  mousePosition,
+  pulseSpeed = 1.5,
+}: {
+  position: [number, number, number];
+  size?: [number, number];
+  color: string;
+  mousePosition: { x: number; y: number };
+  pulseSpeed?: number;
 }) => {
-  const meshRef = useRef<THREE.Mesh>(null);
-  const initialPosition = useRef(position);
-  
+  const groupRef = useRef<THREE.Group>(null);
+  const borderRef = useRef<THREE.LineSegments>(null);
+
+  const pinLines = useMemo(() => {
+    const lines: THREE.BufferGeometry[] = [];
+    const [w, h] = size;
+    const pinCount = 4;
+    const pinLen = 0.3;
+    // Top and bottom pins
+    for (let i = 0; i < pinCount; i++) {
+      const x = -w / 2 + (w / (pinCount + 1)) * (i + 1);
+      // Top
+      const topGeo = new THREE.BufferGeometry().setFromPoints([
+        new THREE.Vector3(x, h / 2, 0),
+        new THREE.Vector3(x, h / 2 + pinLen, 0),
+      ]);
+      lines.push(topGeo);
+      // Bottom
+      const botGeo = new THREE.BufferGeometry().setFromPoints([
+        new THREE.Vector3(x, -h / 2, 0),
+        new THREE.Vector3(x, -h / 2 - pinLen, 0),
+      ]);
+      lines.push(botGeo);
+    }
+    // Left and right pins
+    const sidePinCount = 3;
+    for (let i = 0; i < sidePinCount; i++) {
+      const y = -h / 2 + (h / (sidePinCount + 1)) * (i + 1);
+      const leftGeo = new THREE.BufferGeometry().setFromPoints([
+        new THREE.Vector3(-w / 2, y, 0),
+        new THREE.Vector3(-w / 2 - pinLen, y, 0),
+      ]);
+      lines.push(leftGeo);
+      const rightGeo = new THREE.BufferGeometry().setFromPoints([
+        new THREE.Vector3(w / 2, y, 0),
+        new THREE.Vector3(w / 2 + pinLen, y, 0),
+      ]);
+      lines.push(rightGeo);
+    }
+    return lines;
+  }, [size]);
+
+  const borderGeo = useMemo(() => {
+    const [w, h] = size;
+    return new THREE.BufferGeometry().setFromPoints([
+      new THREE.Vector3(-w / 2, -h / 2, 0),
+      new THREE.Vector3(w / 2, -h / 2, 0),
+      new THREE.Vector3(w / 2, h / 2, 0),
+      new THREE.Vector3(-w / 2, h / 2, 0),
+      new THREE.Vector3(-w / 2, -h / 2, 0),
+    ]);
+  }, [size]);
+
   useFrame((state) => {
-    if (meshRef.current) {
-      meshRef.current.rotation.x = Math.sin(state.clock.elapsedTime * speed) * 0.2;
-      meshRef.current.rotation.y = state.clock.elapsedTime * speed * 0.4;
-      meshRef.current.position.x = initialPosition.current[0] + mousePosition.x * 0.5;
-      meshRef.current.position.y = initialPosition.current[1] + mousePosition.y * 0.3;
+    if (groupRef.current) {
+      groupRef.current.position.x = position[0] + mousePosition.x * 0.15;
+      groupRef.current.position.y = position[1] + mousePosition.y * 0.1;
+    }
+    if (borderRef.current) {
+      const mat = borderRef.current.material as THREE.LineBasicMaterial;
+      mat.opacity = 0.25 + Math.sin(state.clock.elapsedTime * pulseSpeed) * 0.15;
     }
   });
 
   return (
-    <Float speed={2} rotationIntensity={0.5} floatIntensity={1.2}>
-      <Sphere ref={meshRef} args={[1, 64, 64]} position={position} scale={scale}>
-        <MeshDistortMaterial
-          color={color}
-          emissive={emissive || color}
-          emissiveIntensity={0.15}
-          attach="material"
-          distort={0.3}
-          speed={1.2}
-          roughness={0.05}
-          metalness={0.95}
-          transparent
-          opacity={opacity}
-        />
-      </Sphere>
-    </Float>
+    <group ref={groupRef} position={position}>
+      {/* Chip body fill */}
+      <mesh>
+        <planeGeometry args={size} />
+        <meshBasicMaterial color={color} transparent opacity={0.06} />
+      </mesh>
+      {/* Chip border */}
+      <line ref={borderRef as any} geometry={borderGeo}>
+        <lineBasicMaterial color={color} transparent opacity={0.3} />
+      </line>
+      {/* Pins */}
+      {pinLines.map((geo, i) => (
+        <line key={i} geometry={geo}>
+          <lineBasicMaterial color={color} transparent opacity={0.2} />
+        </line>
+      ))}
+    </group>
   );
 };
 
-// === 改进：多色粒子场 ===
-const ParticleField = ({ mousePosition }: { mousePosition: { x: number, y: number } }) => {
-  const count = 600;
-  const mesh = useRef<THREE.Points>(null);
+// === PCB Grid background ===
+const PCBGrid = ({ mousePosition }: { mousePosition: { x: number; y: number } }) => {
+  const groupRef = useRef<THREE.Group>(null);
+
+  const gridLines = useMemo(() => {
+    const geometries: THREE.BufferGeometry[] = [];
+    const range = 20;
+    const step = 1.5;
+    for (let x = -range; x <= range; x += step) {
+      geometries.push(
+        new THREE.BufferGeometry().setFromPoints([
+          new THREE.Vector3(x, -range, -12),
+          new THREE.Vector3(x, range, -12),
+        ])
+      );
+    }
+    for (let y = -range; y <= range; y += step) {
+      geometries.push(
+        new THREE.BufferGeometry().setFromPoints([
+          new THREE.Vector3(-range, y, -12),
+          new THREE.Vector3(range, y, -12),
+        ])
+      );
+    }
+    return geometries;
+  }, []);
+
+  useFrame(() => {
+    if (groupRef.current) {
+      groupRef.current.position.x = mousePosition.x * 0.2;
+      groupRef.current.position.y = mousePosition.y * 0.15;
+    }
+  });
+
+  return (
+    <group ref={groupRef}>
+      {gridLines.map((geo, i) => (
+        <line key={i} geometry={geo}>
+          <lineBasicMaterial color="#06b6d4" transparent opacity={0.03} />
+        </line>
+      ))}
+    </group>
+  );
+};
+
+// === Solder pad / via hole ===
+const Via = ({
+  position,
+  color,
+  pulseSpeed = 2,
+}: {
+  position: [number, number, number];
+  color: string;
+  pulseSpeed?: number;
+}) => {
+  const meshRef = useRef<THREE.Mesh>(null);
+  const ringRef = useRef<THREE.Mesh>(null);
+
+  useFrame((state) => {
+    if (ringRef.current) {
+      const s = 1 + Math.sin(state.clock.elapsedTime * pulseSpeed) * 0.3;
+      ringRef.current.scale.set(s, s, s);
+      (ringRef.current.material as THREE.MeshBasicMaterial).opacity =
+        0.3 - Math.sin(state.clock.elapsedTime * pulseSpeed) * 0.15;
+    }
+  });
+
+  return (
+    <group position={position}>
+      <mesh ref={meshRef}>
+        <circleGeometry args={[0.08, 24]} />
+        <meshBasicMaterial color={color} transparent opacity={0.6} />
+      </mesh>
+      <mesh ref={ringRef}>
+        <ringGeometry args={[0.12, 0.18, 24]} />
+        <meshBasicMaterial color={color} transparent opacity={0.3} />
+      </mesh>
+    </group>
+  );
+};
+
+// === Floating dust particles ===
+const DustParticles = ({ mousePosition }: { mousePosition: { x: number; y: number } }) => {
+  const count = 300;
+  const meshRef = useRef<THREE.Points>(null);
 
   const particles = useMemo(() => {
     const positions = new Float32Array(count * 3);
     const colors = new Float32Array(count * 3);
-
     for (let i = 0; i < count; i++) {
       const i3 = i * 3;
-      positions[i3] = (Math.random() - 0.5) * 50;
-      positions[i3 + 1] = (Math.random() - 0.5) * 40;
-      positions[i3 + 2] = (Math.random() - 0.5) * 40;
-
-      const colorType = Math.random();
-      if (colorType < 0.3) {
-        // Cyan
-        colors[i3] = 0.02; colors[i3 + 1] = 0.71; colors[i3 + 2] = 0.83;
-      } else if (colorType < 0.5) {
-        // Purple
-        colors[i3] = 0.55; colors[i3 + 1] = 0.36; colors[i3 + 2] = 0.97;
-      } else if (colorType < 0.65) {
-        // Amber
-        colors[i3] = 0.96; colors[i3 + 1] = 0.62; colors[i3 + 2] = 0.04;
-      } else if (colorType < 0.75) {
-        // Emerald
-        colors[i3] = 0.2; colors[i3 + 1] = 0.83; colors[i3 + 2] = 0.6;
+      positions[i3] = (Math.random() - 0.5) * 40;
+      positions[i3 + 1] = (Math.random() - 0.5) * 30;
+      positions[i3 + 2] = (Math.random() - 0.5) * 20 - 5;
+      const r = Math.random();
+      if (r < 0.5) {
+        colors[i3] = 0.02; colors[i3 + 1] = 0.71; colors[i3 + 2] = 0.83; // cyan
+      } else if (r < 0.75) {
+        colors[i3] = 0.13; colors[i3 + 1] = 0.82; colors[i3 + 2] = 0.45; // green
       } else {
-        // Blue
-        colors[i3] = 0.23; colors[i3 + 1] = 0.51; colors[i3 + 2] = 0.96;
+        colors[i3] = 0.96; colors[i3 + 1] = 0.62; colors[i3 + 2] = 0.04; // amber
       }
     }
     return { positions, colors };
   }, []);
 
   useFrame((state) => {
-    if (mesh.current) {
-      mesh.current.rotation.y = state.clock.elapsedTime * 0.015 + mousePosition.x * 0.08;
-      mesh.current.rotation.x = Math.sin(state.clock.elapsedTime * 0.04) * 0.03 + mousePosition.y * 0.04;
+    if (meshRef.current) {
+      meshRef.current.rotation.y = state.clock.elapsedTime * 0.01 + mousePosition.x * 0.05;
+      meshRef.current.rotation.x = mousePosition.y * 0.03;
     }
   });
 
   return (
-    <points ref={mesh}>
+    <points ref={meshRef}>
       <bufferGeometry>
         <bufferAttribute attach="attributes-position" count={count} array={particles.positions} itemSize={3} />
         <bufferAttribute attach="attributes-color" count={count} array={particles.colors} itemSize={3} />
       </bufferGeometry>
-      <pointsMaterial size={0.06} vertexColors transparent opacity={0.85} sizeAttenuation />
+      <pointsMaterial size={0.04} vertexColors transparent opacity={0.6} sizeAttenuation />
     </points>
   );
 };
 
-// === 新增：环形脉冲 ===
-const PulseRing = ({ 
-  position, color, mousePosition 
-}: { 
-  position: [number, number, number]; color: string; mousePosition: { x: number; y: number } 
-}) => {
-  const meshRef = useRef<THREE.Mesh>(null);
-  const initialPos = useRef(position);
+// ===================== Scene =====================
+const SceneContent = ({ mousePosition }: { mousePosition: { x: number; y: number } }) => {
+  // Define PCB trace routes (orthogonal / angled like real PCB traces)
+  const traces: { points: [number, number, number][]; color: string; speed: number; delay: number }[] = useMemo(
+    () => [
+      // Main bus – horizontal
+      { points: [[-12, 0, -2], [-6, 0, -2], [-4, 2, -2], [0, 2, -2], [2, 0, -2], [8, 0, -2], [12, 0, -2]], color: '#06b6d4', speed: 0.5, delay: 0 },
+      // Branch up-right
+      { points: [[-8, -4, -3], [-6, -2, -3], [-3, -2, -3], [0, 1, -3], [3, 1, -3], [6, 3, -3], [10, 3, -3]], color: '#22d3ee', speed: 0.45, delay: 1 },
+      // Branch down
+      { points: [[0, 6, -4], [0, 3, -4], [2, 1, -4], [4, -1, -4], [4, -4, -4], [6, -6, -4]], color: '#10b981', speed: 0.4, delay: 0.5 },
+      // Diagonal
+      { points: [[-10, 5, -3], [-7, 3, -3], [-4, 3, -3], [-2, 1, -3], [1, -1, -3], [4, -3, -3], [8, -5, -3]], color: '#f59e0b', speed: 0.35, delay: 2 },
+      // Short branch
+      { points: [[-5, -5, -2], [-3, -3, -2], [-1, -3, -2], [2, -5, -2], [5, -5, -2]], color: '#8b5cf6', speed: 0.55, delay: 1.5 },
+      // Top artery
+      { points: [[-9, 4, -5], [-5, 4, -5], [-3, 5, -5], [0, 5, -5], [3, 4, -5], [7, 4, -5], [11, 5, -5]], color: '#06b6d4', speed: 0.42, delay: 3 },
+      // Bottom artery
+      { points: [[-11, -3, -4], [-7, -3, -4], [-5, -5, -4], [-2, -5, -4], [1, -3, -4], [5, -2, -4], [9, -3, -4]], color: '#22d3ee', speed: 0.38, delay: 2.5 },
+      // Cross trace
+      { points: [[-6, 6, -3], [-4, 4, -3], [-2, 2, -3], [0, 0, -3], [2, -2, -3], [4, -4, -3], [6, -6, -3]], color: '#10b981', speed: 0.48, delay: 0.8 },
+    ],
+    []
+  );
 
-  useFrame((state) => {
-    if (meshRef.current) {
-      const scale = 1 + Math.sin(state.clock.elapsedTime * 1.5) * 0.3;
-      meshRef.current.scale.set(scale, scale, scale);
-      const mat = meshRef.current.material as THREE.MeshBasicMaterial;
-      mat.opacity = 0.4 - Math.sin(state.clock.elapsedTime * 1.5) * 0.2;
-      meshRef.current.rotation.x = state.clock.elapsedTime * 0.3;
-      meshRef.current.rotation.z = state.clock.elapsedTime * 0.15;
-      meshRef.current.position.x = initialPos.current[0] + mousePosition.x * 0.25;
-      meshRef.current.position.y = initialPos.current[1] + mousePosition.y * 0.15;
-    }
-  });
+  const vias: { position: [number, number, number]; color: string }[] = useMemo(
+    () => [
+      { position: [0, 2, -2], color: '#06b6d4' },
+      { position: [2, 0, -2], color: '#06b6d4' },
+      { position: [-3, -2, -3], color: '#22d3ee' },
+      { position: [4, -1, -4], color: '#10b981' },
+      { position: [-2, 1, -3], color: '#f59e0b' },
+      { position: [5, -5, -2], color: '#8b5cf6' },
+      { position: [-5, 4, -5], color: '#06b6d4' },
+      { position: [3, 4, -5], color: '#06b6d4' },
+      { position: [0, 0, -3], color: '#10b981' },
+      { position: [-7, -3, -4], color: '#22d3ee' },
+      { position: [5, -2, -4], color: '#22d3ee' },
+      { position: [-4, 2, -2], color: '#06b6d4' },
+    ],
+    []
+  );
 
   return (
-    <mesh ref={meshRef} position={position}>
-      <torusGeometry args={[1.5, 0.015, 16, 100]} />
-      <meshBasicMaterial color={color} transparent opacity={0.4} />
-    </mesh>
+    <>
+      <MouseFollower mousePosition={mousePosition} />
+      <ambientLight intensity={0.3} />
+      <pointLight position={[0, 0, 10]} intensity={0.5} color="#06b6d4" />
+      <pointLight position={[-8, 5, 5]} intensity={0.3} color="#10b981" />
+      <pointLight position={[8, -5, 5]} intensity={0.3} color="#f59e0b" />
+
+      {/* PCB Grid */}
+      <PCBGrid mousePosition={mousePosition} />
+
+      {/* Traces with flowing light */}
+      {traces.map((t, i) => (
+        <PCBTrace key={i} points={t.points} color={t.color} speed={t.speed} delay={t.delay} />
+      ))}
+
+      {/* Via holes at junctions */}
+      {vias.map((v, i) => (
+        <Via key={i} position={v.position} color={v.color} />
+      ))}
+
+      {/* IC Chips */}
+      <ICChip position={[-6, 0, -2]} size={[1.6, 1]} color="#06b6d4" mousePosition={mousePosition} />
+      <ICChip position={[6, 0, -2]} size={[1.4, 0.9]} color="#22d3ee" mousePosition={mousePosition} pulseSpeed={1.2} />
+      <ICChip position={[0, -4, -3]} size={[1.8, 1.1]} color="#10b981" mousePosition={mousePosition} pulseSpeed={1.8} />
+      <ICChip position={[-3, 5, -5]} size={[1.2, 0.7]} color="#f59e0b" mousePosition={mousePosition} pulseSpeed={1.3} />
+      <ICChip position={[7, 4, -5]} size={[1, 0.6]} color="#8b5cf6" mousePosition={mousePosition} pulseSpeed={2} />
+
+      {/* Dust particles */}
+      <DustParticles mousePosition={mousePosition} />
+    </>
   );
 };
-
-const FloatingRing = ({ position, scale, rotationSpeed, mousePosition }: {
-  position: [number, number, number]; scale: number; rotationSpeed: number;
-  mousePosition: { x: number, y: number };
-}) => {
-  const meshRef = useRef<THREE.Mesh>(null);
-  const initialPosition = useRef(position);
-  
-  useFrame((state) => {
-    if (meshRef.current) {
-      meshRef.current.rotation.x = state.clock.elapsedTime * rotationSpeed;
-      meshRef.current.rotation.z = state.clock.elapsedTime * rotationSpeed * 0.5;
-      meshRef.current.position.x = initialPosition.current[0] + mousePosition.x * 0.3;
-      meshRef.current.position.y = initialPosition.current[1] + mousePosition.y * 0.2;
-    }
-  });
-
-  return (
-    <mesh ref={meshRef} position={position} scale={scale}>
-      <torusGeometry args={[1, 0.02, 16, 100]} />
-      <meshBasicMaterial color="#3b82f6" transparent opacity={0.5} />
-    </mesh>
-  );
-};
-
-const GlowingOrb = ({ position, color, mousePosition }: {
-  position: [number, number, number]; color: string; mousePosition: { x: number, y: number };
-}) => {
-  const meshRef = useRef<THREE.Mesh>(null);
-  const initialPosition = useRef(position);
-  
-  useFrame((state) => {
-    if (meshRef.current) {
-      const scale = 1 + Math.sin(state.clock.elapsedTime * 2) * 0.15;
-      meshRef.current.scale.set(scale, scale, scale);
-      meshRef.current.position.x = initialPosition.current[0] + mousePosition.x * 0.4;
-      meshRef.current.position.y = initialPosition.current[1] + mousePosition.y * 0.3;
-    }
-  });
-
-  return (
-    <mesh ref={meshRef} position={position}>
-      <sphereGeometry args={[0.18, 32, 32]} />
-      <meshBasicMaterial color={color} transparent opacity={0.8} />
-    </mesh>
-  );
-};
-
-const GridFloor = () => (
-  <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, -6, 0]}>
-    <planeGeometry args={[80, 80, 80, 80]} />
-    <meshBasicMaterial color="#3b82f6" wireframe transparent opacity={0.05} />
-  </mesh>
-);
-
-const SceneContent = ({ mousePosition }: { mousePosition: { x: number, y: number } }) => (
-  <>
-    <MouseFollower mousePosition={mousePosition} />
-    
-    {/* 更丰富的灯光 */}
-    <ambientLight intensity={0.8} />
-    <directionalLight position={[10, 10, 5]} intensity={0.8} color="#ffffff" />
-    <pointLight position={[10, 10, 10]} intensity={0.6} color="#3b82f6" />
-    <pointLight position={[-10, -5, -10]} intensity={0.4} color="#8b5cf6" />
-    <pointLight position={[0, 5, 5]} intensity={0.3} color="#06b6d4" />
-    <pointLight position={[-8, 3, 8]} intensity={0.3} color="#f59e0b" />
-    
-    {/* 多色球体 */}
-    <AnimatedSphere position={[-6, 2, -6]} scale={1.8} color="#3b82f6" emissive="#1d4ed8" speed={0.15} opacity={0.65} mousePosition={mousePosition} />
-    <AnimatedSphere position={[6, -1, -8]} scale={1.2} color="#06b6d4" emissive="#0891b2" speed={0.18} opacity={0.6} mousePosition={mousePosition} />
-    <AnimatedSphere position={[2, 4, -10]} scale={1} color="#8b5cf6" emissive="#7c3aed" speed={0.2} opacity={0.55} mousePosition={mousePosition} />
-    <AnimatedSphere position={[-4, -3, -5]} scale={0.6} color="#f59e0b" emissive="#d97706" speed={0.25} opacity={0.5} mousePosition={mousePosition} />
-    <AnimatedSphere position={[8, 3, -12]} scale={1.4} color="#10b981" emissive="#059669" speed={0.12} opacity={0.5} mousePosition={mousePosition} />
-    
-    {/* 环形 */}
-    <FloatingRing position={[-5, 2.5, -5]} scale={2.5} rotationSpeed={0.2} mousePosition={mousePosition} />
-    <FloatingRing position={[5, -2, -7]} scale={1.8} rotationSpeed={-0.15} mousePosition={mousePosition} />
-    <FloatingRing position={[0, 1, -3]} scale={3} rotationSpeed={0.1} mousePosition={mousePosition} />
-    
-    {/* 脉冲环 - 新增 */}
-    <PulseRing position={[-3, 1, -8]} color="#8b5cf6" mousePosition={mousePosition} />
-    <PulseRing position={[4, 2, -10]} color="#06b6d4" mousePosition={mousePosition} />
-    
-    {/* 发光点 - 多色 */}
-    <GlowingOrb position={[-3, 3, -4]} color="#06b6d4" mousePosition={mousePosition} />
-    <GlowingOrb position={[4, -1, -6]} color="#8b5cf6" mousePosition={mousePosition} />
-    <GlowingOrb position={[1, 2, -5]} color="#f59e0b" mousePosition={mousePosition} />
-    <GlowingOrb position={[-6, -2, -7]} color="#10b981" mousePosition={mousePosition} />
-    <GlowingOrb position={[7, 4, -9]} color="#ef4444" mousePosition={mousePosition} />
-    
-    {/* 六边形网格背景 */}
-    <HexGrid mousePosition={mousePosition} />
-    
-    {/* 数据流线 */}
-    <DataStream start={[-8, 4, -5]} end={[6, -2, -8]} color="#06b6d4" speed={0.4} delay={0} />
-    <DataStream start={[7, 3, -6]} end={[-5, -3, -7]} color="#8b5cf6" speed={0.35} delay={1} />
-    <DataStream start={[-3, -4, -4]} end={[4, 5, -9]} color="#f59e0b" speed={0.3} delay={2} />
-    <DataStream start={[0, 5, -3]} end={[-7, -1, -10]} color="#10b981" speed={0.38} delay={0.5} />
-    
-    <ParticleField mousePosition={mousePosition} />
-    <GridFloor />
-    
-    <OrbitControls 
-      enableZoom={false} 
-      enablePan={false}
-      autoRotate
-      autoRotateSpeed={0.2}
-      maxPolarAngle={Math.PI / 2}
-      minPolarAngle={Math.PI / 3}
-    />
-  </>
-);
 
 export const HeroScene3D = () => {
   const mousePosition = useMousePosition();
-  
+
   return (
     <div className="absolute inset-0 z-0">
-      <div className="absolute inset-0 bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900" />
+      <div className="absolute inset-0 bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950" />
       <Canvas
         camera={{ position: [0, 0, 14], fov: 45 }}
         gl={{ antialias: true, alpha: true }}
