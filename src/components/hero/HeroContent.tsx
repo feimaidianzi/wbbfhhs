@@ -4,30 +4,7 @@ import { LangLink } from "@/components/LangLink";
 import { ArrowRight, Play, ChevronDown, Cpu, Radio, Wifi, Shield, Zap, Target } from "lucide-react";
 import { useLanguage } from "@/contexts/LanguageContext";
 
-// 动画变体
-const containerVariants = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: {
-      staggerChildren: 0.15,
-      delayChildren: 0.3,
-    },
-  },
-};
-
-const itemVariants = {
-  hidden: { opacity: 0, y: 40, filter: "blur(10px)" },
-  visible: {
-    opacity: 1,
-    y: 0,
-    filter: "blur(0px)",
-    transition: {
-      duration: 0.8,
-      ease: [0.25, 0.46, 0.45, 0.94],
-    },
-  },
-};
+// 装饰元素动画变体 (decorative only - main content uses pure CSS)
 
 const titleVariants = {
   hidden: { opacity: 0, y: 60, scale: 0.95 },
