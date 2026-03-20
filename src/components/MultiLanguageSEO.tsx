@@ -151,7 +151,7 @@ export const createLocalizedProductSchema = (
   category: product.category,
   manufacturer: {
     '@type': 'Organization',
-    name: t('acc.cameradetail.k454'),
+    name: 'CANI Technology',
   },
   inLanguage: getHtmlLang(language),
 });
