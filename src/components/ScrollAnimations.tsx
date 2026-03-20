@@ -94,7 +94,7 @@ export const StaggerReveal = ({
   className,
 }: StaggerRevealProps) => {
   const ref = useRef<HTMLDivElement>(null);
-  const isInView = useInView(ref, { once, margin });
+  const isInView = useInView(ref, { once, margin: margin as any });
 
   return (
     <motion.div
