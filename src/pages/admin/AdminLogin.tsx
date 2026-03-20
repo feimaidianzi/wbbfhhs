@@ -8,6 +8,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { useToast } from '@/hooks/use-toast';
 import { Mail, Lock, Loader2, Shield } from 'lucide-react';
 import { z } from 'zod';
+import { Helmet } from 'react-helmet-async';
 
 const emailSchema = z.string().email();
 const passwordSchema = z.string().min(6);
