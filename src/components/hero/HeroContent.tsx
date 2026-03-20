@@ -88,11 +88,8 @@ export const HeroContent = () => {
   ];
 
   return (
-    <motion.div 
+    <div 
       className="relative z-10 flex flex-col items-center justify-center min-h-screen px-4 pt-20"
-      variants={containerVariants}
-      initial="hidden"
-      animate="visible"
     >
       {/* === 装饰层：扫描线 === */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden z-0">
