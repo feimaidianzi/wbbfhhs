@@ -2,8 +2,19 @@ import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { FloatingContact } from "@/components/FloatingContact";
 import { Button } from "@/components/ui/button";
-import { ArrowRight, CheckCircle, Phone, Mail, Monitor, Code, Map, Database, Cloud, Cpu, Settings, FileText, Layers } from "lucide-react";
+import { ArrowRight, CheckCircle, Phone, Mail, Monitor, Code, Map, Database, Cloud, Cpu, Settings, FileText, Layers, ZoomIn, X } from "lucide-react";
 import { LangLink as Link } from "@/components/LangLink";
+import { useState } from "react";
+import caseCommandCenter from "@/assets/cases/software-command-center.jpg";
+import caseDispatch from "@/assets/cases/software-dispatch.jpg";
+import caseRoutePlanning from "@/assets/cases/software-route-planning.jpg";
+import caseWaypoint from "@/assets/cases/software-waypoint.jpg";
+import caseLivestream from "@/assets/cases/software-livestream.jpg";
+import caseDataMgmt from "@/assets/cases/software-data-mgmt.jpg";
+import caseTaskCenter from "@/assets/cases/software-task-center.jpg";
+import caseAlertMgmt from "@/assets/cases/software-alert-mgmt.jpg";
+import caseDeviceMgmt from "@/assets/cases/software-device-mgmt.jpg";
+import caseAirportMgmt from "@/assets/cases/software-airport-mgmt.jpg";
 import { BackButton } from "@/components/BackButton";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { MultiLanguageSEO } from "@/components/MultiLanguageSEO";
@@ -54,9 +65,22 @@ const SoftwareCustom = () => {
     { clientKey: 'customSoftware.cases.survey.client', titleKey: 'customSoftware.cases.survey.title', descKey: 'customSoftware.cases.survey.desc' },
   ];
 
+  const caseScreenshots = [
+    { image: caseCommandCenter, labelKey: 'customSoftware.cases.screen.commandCenter' },
+    { image: caseDispatch, labelKey: 'customSoftware.cases.screen.dispatch' },
+    { image: caseRoutePlanning, labelKey: 'customSoftware.cases.screen.routePlanning' },
+    { image: caseWaypoint, labelKey: 'customSoftware.cases.screen.waypoint' },
+    { image: caseLivestream, labelKey: 'customSoftware.cases.screen.livestream' },
+    { image: caseDataMgmt, labelKey: 'customSoftware.cases.screen.dataMgmt' },
+    { image: caseTaskCenter, labelKey: 'customSoftware.cases.screen.taskCenter' },
+    { image: caseAlertMgmt, labelKey: 'customSoftware.cases.screen.alertMgmt' },
+    { image: caseDeviceMgmt, labelKey: 'customSoftware.cases.screen.deviceMgmt' },
+    { image: caseAirportMgmt, labelKey: 'customSoftware.cases.screen.airportMgmt' },
+  ];
+
+  const [lightboxImg, setLightboxImg] = useState<string | null>(null);
+
   const faqItems = [
-    { questionKey: 'customSoftware.faq.q1', answerKey: 'customSoftware.faq.a1' },
-    { questionKey: 'customSoftware.faq.q2', answerKey: 'customSoftware.faq.a2' },
   ];
 
   return (
@@ -275,22 +299,57 @@ const SoftwareCustom = () => {
           </div>
         </section>
 
-        {/* Cases */}
-        <section className="py-20 bg-background">
+        {/* Cases - Screenshot Gallery */}
+        <section className="py-20 bg-secondary/50">
           <div className="container mx-auto px-4">
             <h2 className="text-2xl md:text-4xl font-bold text-center mb-4">{t('customSoftware.cases.title')}</h2>
             <p className="text-muted-foreground text-center mb-14 max-w-2xl mx-auto">{t('customSoftware.cases.subtitle')}</p>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-              {cases.map((item, index) => (
-                <div key={index} className="bg-card p-8 rounded-2xl shadow-card">
-                  <div className="text-sm text-accent font-medium mb-2">{t(item.clientKey)}</div>
-                  <h3 className="text-xl font-bold mb-3">{t(item.titleKey)}</h3>
-                  <p className="text-muted-foreground">{t(item.descKey)}</p>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-4">
+              {caseScreenshots.map((item, index) => (
+                <div
+                  key={index}
+                  className="group relative bg-card rounded-xl overflow-hidden shadow-card cursor-pointer border border-border hover:border-accent/50 transition-all duration-300"
+                  onClick={() => setLightboxImg(item.image)}
+                >
+                  <div className="aspect-video overflow-hidden">
+                    <img
+                      src={item.image}
+                      alt={t(item.labelKey)}
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                      loading="lazy"
+                    />
+                  </div>
+                  <div className="absolute inset-0 bg-primary/0 group-hover:bg-primary/40 transition-colors duration-300 flex items-center justify-center">
+                    <ZoomIn className="w-8 h-8 text-primary-foreground opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                  </div>
+                  <div className="p-3">
+                    <p className="text-sm font-medium text-foreground text-center truncate">{t(item.labelKey)}</p>
+                  </div>
                 </div>
               ))}
             </div>
           </div>
         </section>
+
+        {/* Lightbox */}
+        {lightboxImg && (
+          <div
+            className="fixed inset-0 z-50 bg-black/90 flex items-center justify-center p-4 cursor-pointer"
+            onClick={() => setLightboxImg(null)}
+          >
+            <button
+              className="absolute top-6 right-6 text-white/80 hover:text-white"
+              onClick={() => setLightboxImg(null)}
+            >
+              <X className="w-8 h-8" />
+            </button>
+            <img
+              src={lightboxImg}
+              alt="Case screenshot"
+              className="max-w-full max-h-[90vh] object-contain rounded-lg"
+            />
+          </div>
+        )}
 
         {/* FAQ */}
         <PageFAQ titleKey="customSoftware.faq.title" items={faqItems} />

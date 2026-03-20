@@ -3531,8 +3531,8 @@ export const zhTranslations: Record<string, string> = {
   'customSoftware.dev.ui.desc': '根据客户品牌视觉体系，深度定制专属操作界面，增强产品市场辨识度。',
 
   // Cases
-  'customSoftware.cases.title': '案例展示',
-  'customSoftware.cases.subtitle': '成功为多家企业和科研机构提供软件定制服务',
+  'customSoftware.cases.title': '软件定制案例展示',
+  'customSoftware.cases.subtitle': '以下为我们交付的无人机综合管理平台操作界面实拍，涵盖指挥调度、航线规划、直播监控、告警管理等核心模块',
   'customSoftware.cases.power.client': '某电力公司',
   'customSoftware.cases.power.title': '电力巡检软件',
   'customSoftware.cases.power.desc': '定制开发电力巡检地面站，集成缺陷识别AI和巡检报告生成功能。',
@@ -3542,6 +3542,16 @@ export const zhTranslations: Record<string, string> = {
   'customSoftware.cases.survey.client': '某测绘院',
   'customSoftware.cases.survey.title': '测绘数据处理',
   'customSoftware.cases.survey.desc': '开发航测数据自动处理软件，实现从原始数据到成果的一键生成。',
+  'customSoftware.cases.screen.commandCenter': '指挥中心总览',
+  'customSoftware.cases.screen.dispatch': '智慧调度地图',
+  'customSoftware.cases.screen.routePlanning': '航线规划',
+  'customSoftware.cases.screen.waypoint': '航点编辑与管理',
+  'customSoftware.cases.screen.livestream': '多机直播网格',
+  'customSoftware.cases.screen.dataMgmt': '数据资源管理',
+  'customSoftware.cases.screen.taskCenter': '任务中心',
+  'customSoftware.cases.screen.alertMgmt': '告警统计管理',
+  'customSoftware.cases.screen.deviceMgmt': '设备管理',
+  'customSoftware.cases.screen.airportMgmt': '机场管理',
 
   // FAQ
   'customSoftware.faq.title': '常见问题',
