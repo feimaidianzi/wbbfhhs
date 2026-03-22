@@ -384,6 +384,13 @@ const TranslationManagement = () => {
   };
 
   const startAutoTranslateSingle = async (lang: LanguageCode) => {
+    // Check if already complete
+    const status = statuses.find(s => s.lang === lang);
+    if (status && status.keyCount >= totalSourceKeys) {
+      toast.success(`${SUPPORTED_LANGUAGES.find(l => l.code === lang)?.name} 已全部翻译完成，无需重复翻译！`);
+      return;
+    }
+
     setIsTranslating(true);
     setIsAutoMode(true);
     stopAutoRef.current = false;
