@@ -345,13 +345,31 @@ const TranslationManagement = () => {
     stopAutoRef.current = false;
     setProgress(0);
 
-    toast.info('开始自动翻译所有语言...');
+    // Filter out already completed languages
+    const pendingLanguages = languagesToTranslate.filter(lang => {
+      const status = statuses.find(s => s.lang === lang);
+      return !status || status.keyCount < totalSourceKeys;
+    });
 
-    for (let i = 0; i < languagesToTranslate.length; i++) {
+    if (pendingLanguages.length === 0) {
+      toast.success('所有语言均已翻译完成，无需重复翻译！');
+      setIsTranslating(false);
+      setIsAutoMode(false);
+      return;
+    }
+
+    const skippedCount = languagesToTranslate.length - pendingLanguages.length;
+    if (skippedCount > 0) {
+      toast.info(`跳过 ${skippedCount} 个已完成语言，开始翻译剩余 ${pendingLanguages.length} 个语言...`);
+    } else {
+      toast.info('开始自动翻译所有语言...');
+    }
+
+    for (let i = 0; i < pendingLanguages.length; i++) {
       if (stopAutoRef.current) { toast.info('翻译已停止'); break; }
-      const lang = languagesToTranslate[i];
+      const lang = pendingLanguages[i];
       const langName = SUPPORTED_LANGUAGES.find(l => l.code === lang)?.name;
-      toast.info(`正在翻译 ${langName} (${i + 1}/${languagesToTranslate.length})...`);
+      toast.info(`正在翻译 ${langName} (${i + 1}/${pendingLanguages.length})...`);
       const success = await autoTranslateSingleLanguage(lang);
       if (!success && !stopAutoRef.current) {
         toast.warning(`${langName} 未完成，继续处理下一个语言`);
