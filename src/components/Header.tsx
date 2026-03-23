@@ -17,7 +17,7 @@ export const Header = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [user, setUser] = useState<SupabaseUser | null>(null);
   const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
   const navigate = useNavigate();
   const { toast } = useToast();
   const navScrollRef = useRef<HTMLElement>(null);
@@ -38,10 +38,14 @@ export const Header = () => {
   }, []);
 
   useEffect(() => {
-    checkNavScroll();
+    // Delay check to allow nav items to re-render with new language text
+    const timer = setTimeout(checkNavScroll, 100);
     window.addEventListener('resize', checkNavScroll);
-    return () => window.removeEventListener('resize', checkNavScroll);
-  }, [checkNavScroll]);
+    return () => {
+      clearTimeout(timer);
+      window.removeEventListener('resize', checkNavScroll);
+    };
+  }, [checkNavScroll, language]);
 
 
   useEffect(() => {
