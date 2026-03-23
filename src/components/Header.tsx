@@ -189,7 +189,7 @@ export const Header = () => {
             <nav
               ref={navScrollRef}
               onScroll={checkNavScroll}
-              className="flex items-center gap-0.5 overflow-x-auto scrollbar-hide scroll-smooth"
+              className="flex items-center gap-0.5 overflow-x-auto scrollbar-hide scroll-smooth max-w-full"
               style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
             >
               {navItems.map((item) => (
