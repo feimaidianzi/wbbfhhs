@@ -173,7 +173,7 @@ export const Header = () => {
           <Logo />
 
           {/* Desktop Navigation */}
-          <div className="hidden nav:flex items-center justify-center flex-1 min-w-0 mx-1 relative">
+          <div className="hidden nav:flex items-center justify-center flex-1 min-w-0 mx-1 relative overflow-hidden">
             {showLeftArrow && (
               <button
                 onClick={() => scrollNav('left')}
