@@ -38,10 +38,14 @@ export const Header = () => {
   }, []);
 
   useEffect(() => {
-    checkNavScroll();
+    // Delay check to allow nav items to re-render with new language text
+    const timer = setTimeout(checkNavScroll, 100);
     window.addEventListener('resize', checkNavScroll);
-    return () => window.removeEventListener('resize', checkNavScroll);
-  }, [checkNavScroll]);
+    return () => {
+      clearTimeout(timer);
+      window.removeEventListener('resize', checkNavScroll);
+    };
+  }, [checkNavScroll, language]);
 
 
   useEffect(() => {
