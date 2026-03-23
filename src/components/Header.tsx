@@ -38,8 +38,14 @@ export const Header = () => {
   }, []);
 
   useEffect(() => {
-    // Delay check to allow nav items to re-render with new language text
-    const timer = setTimeout(checkNavScroll, 100);
+    // Use rAF + timeout to ensure DOM has fully rendered with new text
+    const runCheck = () => {
+      requestAnimationFrame(() => {
+        checkNavScroll();
+      });
+    };
+    runCheck();
+    const timer = setTimeout(runCheck, 200);
     window.addEventListener('resize', checkNavScroll);
     return () => {
       clearTimeout(timer);
@@ -173,7 +179,7 @@ export const Header = () => {
           <Logo />
 
           {/* Desktop Navigation */}
-          <div className="hidden nav:flex items-center justify-center flex-1 min-w-0 mx-1 relative">
+          <div className="hidden nav:flex items-center justify-center flex-1 min-w-0 mx-1 relative overflow-hidden">
             {showLeftArrow && (
               <button
                 onClick={() => scrollNav('left')}
@@ -189,7 +195,7 @@ export const Header = () => {
             <nav
               ref={navScrollRef}
               onScroll={checkNavScroll}
-              className="flex items-center gap-0.5 overflow-x-auto scrollbar-hide scroll-smooth"
+              className="flex items-center gap-0.5 overflow-x-auto scrollbar-hide scroll-smooth max-w-full"
               style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
             >
               {navItems.map((item) => (
