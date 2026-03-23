@@ -1,4 +1,5 @@
 import { LanguageCode, SUPPORTED_LANGUAGES, getLanguageByCode } from '@/i18n/languages';
+import { stripAllLangPrefixes } from '@/utils/langPathUtils';
 
 // Base domain configuration
 export const BASE_DOMAIN = 'caniuav.com';
@@ -14,10 +15,12 @@ export const getDomainForLanguage = (lang: LanguageCode): string => {
   return `https://www.${BASE_DOMAIN}`;
 };
 
-// Get full URL for a language + path
+// Get full URL for a language + path (always strips any existing lang prefixes first)
 export const getUrlForLanguage = (lang: LanguageCode, path: string): string => {
   const prefix = getLangPrefix(lang);
-  const cleanPath = path === '/' ? '' : path;
+  // Always strip existing language prefixes to prevent nested prefixes in canonical/hreflang URLs
+  const stripped = stripAllLangPrefixes(path);
+  const cleanPath = stripped === '/' ? '' : stripped;
   return `https://www.${BASE_DOMAIN}${prefix}${cleanPath}`;
 };
 

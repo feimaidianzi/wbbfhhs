@@ -53,26 +53,38 @@ export const normalizeSiteUrl = (): void => {
     shouldRedirect = true;
   }
 
-  // 7. Clean nested/repeated language prefixes (e.g., /en/en/news → /en/news, /zh/fr/ar/news → /zh/news)
+  // 7. CRITICAL FIX: Clean ALL nested/repeated language prefixes
+  // Handles: /vi/ar/fr/ko/en/applications/environment → /applications/environment (for en)
+  //          /vi/ar/fr/ko/zh/applications/environment → /zh/applications/environment (for zh)
   const segments = pathname.split('/').filter(Boolean);
-  if (segments.length >= 2 && LANG_CODES.has(segments[0])) {
-    const lang = segments[0];
-    // Find first non-lang segment
-    let firstContentIdx = 1;
-    while (firstContentIdx < segments.length && LANG_CODES.has(segments[firstContentIdx])) {
-      firstContentIdx++;
+  
+  // Count how many leading segments are language codes
+  let langCount = 0;
+  while (langCount < segments.length && LANG_CODES.has(segments[langCount])) {
+    langCount++;
+  }
+  
+  if (langCount > 0) {
+    // Take the LAST language code as the intended target language
+    const targetLang = segments[langCount - 1];
+    const contentSegments = segments.slice(langCount);
+    
+    let cleanedPath: string;
+    if (targetLang === 'en') {
+      // English maps to root (no prefix)
+      cleanedPath = contentSegments.length > 0 ? '/' + contentSegments.join('/') : '/';
+    } else {
+      // Other languages get single prefix
+      cleanedPath = '/' + targetLang + (contentSegments.length > 0 ? '/' + contentSegments.join('/') : '');
     }
-    if (firstContentIdx > 1) {
-      // Had nested lang codes — keep first lang + content
-      const contentSegments = segments.slice(firstContentIdx);
-      pathname = lang === 'en'
-        ? '/' + contentSegments.join('/') || '/'
-        : '/' + lang + '/' + contentSegments.join('/');
+    
+    if (cleanedPath !== pathname) {
+      pathname = cleanedPath;
       shouldRedirect = true;
     }
   }
 
-  // Execute redirect if needed
+  // Execute redirect if needed (use 301-equivalent replace)
   if (shouldRedirect) {
     url.pathname = pathname;
     window.location.replace(url.toString());
