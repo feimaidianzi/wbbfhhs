@@ -17,7 +17,7 @@ export const Header = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [user, setUser] = useState<SupabaseUser | null>(null);
   const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
-  const { t, language } = useLanguage();
+  const { t, language, isLoading } = useLanguage();
   const navigate = useNavigate();
   const { toast } = useToast();
   const navScrollRef = useRef<HTMLElement>(null);
@@ -38,20 +38,38 @@ export const Header = () => {
   }, []);
 
   useEffect(() => {
-    // Use rAF + timeout to ensure DOM has fully rendered with new text
+    const el = navScrollRef.current;
+    if (!el) return;
+
     const runCheck = () => {
-      requestAnimationFrame(() => {
-        checkNavScroll();
-      });
+      requestAnimationFrame(() => checkNavScroll());
     };
+
     runCheck();
-    const timer = setTimeout(runCheck, 200);
-    window.addEventListener('resize', checkNavScroll);
+    const timeoutIds = [100, 300, 700].map((delay) => window.setTimeout(runCheck, delay));
+
+    const resizeObserver = new ResizeObserver(() => runCheck());
+    resizeObserver.observe(el);
+    if (el.parentElement) resizeObserver.observe(el.parentElement);
+
+    const mutationObserver = new MutationObserver(() => runCheck());
+    mutationObserver.observe(el, {
+      childList: true,
+      subtree: true,
+      characterData: true,
+    });
+
+    window.addEventListener('resize', runCheck);
+    window.addEventListener('load', runCheck);
+
     return () => {
-      clearTimeout(timer);
-      window.removeEventListener('resize', checkNavScroll);
+      timeoutIds.forEach((id) => window.clearTimeout(id));
+      resizeObserver.disconnect();
+      mutationObserver.disconnect();
+      window.removeEventListener('resize', runCheck);
+      window.removeEventListener('load', runCheck);
     };
-  }, [checkNavScroll, language]);
+  }, [checkNavScroll, language, isLoading, user]);
 
 
   useEffect(() => {
