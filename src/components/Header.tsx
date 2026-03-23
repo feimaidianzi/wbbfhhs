@@ -38,8 +38,14 @@ export const Header = () => {
   }, []);
 
   useEffect(() => {
-    // Delay check to allow nav items to re-render with new language text
-    const timer = setTimeout(checkNavScroll, 100);
+    // Use rAF + timeout to ensure DOM has fully rendered with new text
+    const runCheck = () => {
+      requestAnimationFrame(() => {
+        checkNavScroll();
+      });
+    };
+    runCheck();
+    const timer = setTimeout(runCheck, 200);
     window.addEventListener('resize', checkNavScroll);
     return () => {
       clearTimeout(timer);
