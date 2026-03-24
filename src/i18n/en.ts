@@ -73,8 +73,8 @@ export const enTranslations: Record<string, string> = {
   'accessory.fc.desc': 'Flight controller & ESC systems',
   'accessory.gimbal': 'Gimbal/Pod',
   'accessory.gimbal.desc': 'Professional stabilization system',
-  'accessory.digitalFpv': 'Digital FPV',
-  'accessory.digitalFpv.desc': 'HD digital video transmission',
+  'accessory.digitalFpv': 'Digital FPV & Radio',
+  'accessory.digitalFpv.desc': 'HD digital video transmission & long-range radio',
   
   // Digital FPV Hub Page
   'digitalFpv.title': 'Industrial Digital FPV Systems',
