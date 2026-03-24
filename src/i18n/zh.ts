@@ -9195,6 +9195,24 @@ export const zhTranslations: Record<string, string> = {
   'tethered.th300.gs.l6': '电缆出线口',
   'tethered.th300.gs.l7': '报警灯',
   'tethered.th300.gs.l8': '光纤输出口',
+  // WiFiLink2 SEO & Sections
+  'digitalFpv.wifilink2.seo.title': 'WiFiLink2 | 1080P高清数字视频链路 | OpenIPC开源低延迟 | CaniUAV',
+  'digitalFpv.wifilink2.seo.description': 'WiFiLink2 是一款基于 OpenIPC 开源平台的高性能 1080P 数字视频传输系统。采用 H.265 高效编码与 5GHz WiFi 宽带技术，为工业巡检与轻量化无人机提供高性价比高清视觉方案。',
+  'digitalFpv.wifilink2.arch.title': '开放架构：二次开发的最佳起点',
+  'digitalFpv.wifilink2.arch.desc': 'WiFiLink2 基于 OpenIPC 开源生态构建，提供完整的 Linux 底层访问与 API 接口。系统集成商可自定义 OSD 叠加、遥测数据注入、视频流路由等功能，无需破解或逆向工程。',
+  'digitalFpv.wifilink2.arch.open': 'OpenIPC 开源固件',
+  'digitalFpv.wifilink2.arch.openDesc': '基于 Linux 的开放固件生态，全球开发者社区持续迭代，功能扩展无上限',
+  'digitalFpv.wifilink2.arch.api': 'API 与 OSD 自定义',
+  'digitalFpv.wifilink2.arch.apiDesc': '支持自定义 OSD 叠加层、MAVLink 遥测数据注入、UDP/TCP 视频流路由配置',
+  'digitalFpv.wifilink2.arch.ruby': 'Ruby FPV 双系统',
+  'digitalFpv.wifilink2.arch.rubyDesc': '一键切换 OpenIPC 与 Ruby FPV 固件，适应不同任务需求与开发偏好',
+  'digitalFpv.wifilink2.arch.mobile': '移动端即时预览',
+  'digitalFpv.wifilink2.arch.mobileDesc': '通过 WiFi 直连智能手机或平板，无需额外地面站硬件，5 分钟内完成部署',
+  'digitalFpv.wifilink2.crossLink.title': '最佳性价比数字高清方案',
+  'digitalFpv.wifilink2.crossLink.desc': 'WiFiLink2 是模拟图传到专业数字链路之间的理想过渡方案。以远低于 S900 数据链的成本，提供清晰的 1080P 高清画面，适合预算敏感但对画质有要求的系统集成商。',
+  'digitalFpv.wifilink2.crossLink.monitors': '查看配套地面站监视器',
+  'digitalFpv.wifilink2.crossLink.analog': '需要极端穿透力？查看模拟图传系列',
+  'digitalFpv.wifilink2.crossLink.s900': '需要三合一数据链？查看 S900',
 };
 
 export default zhTranslations;
