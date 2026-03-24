@@ -2,7 +2,7 @@ import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { FloatingContact } from "@/components/FloatingContact";
 import { Button } from "@/components/ui/button";
-import { ArrowRight, Wifi, Monitor, Zap, Radio, ShieldCheck } from "lucide-react";
+import { ArrowRight, Wifi, Monitor, Zap, Radio, ShieldCheck, Eye, Mountain } from "lucide-react";
 import { LangLink as Link } from "@/components/LangLink";
 import { BackButton } from "@/components/BackButton";
 import { digitalFpvProducts, digitalFpvCategories } from "@/data/digitalFpvProducts";
@@ -173,6 +173,55 @@ const DigitalFpv = () => {
             </section>
           );
         })}
+
+        {/* Integration Value Proposition */}
+        <section className="py-16 bg-secondary">
+          <div className="container-custom">
+            <div className="max-w-4xl mx-auto text-center">
+              <h2 className="text-2xl md:text-3xl font-bold mb-4">{t('digitalFpv.integration.title')}</h2>
+              <div className="w-20 h-1 bg-accent mx-auto rounded-full mb-6" />
+              <p className="text-muted-foreground leading-relaxed text-base md:text-lg">
+                {t('digitalFpv.integration.desc')}
+              </p>
+            </div>
+          </div>
+        </section>
+
+        {/* Digital vs Analog Guide */}
+        <section className="py-16 bg-background">
+          <div className="container-custom">
+            <div className="text-center mb-12">
+              <h2 className="text-2xl md:text-3xl font-bold mb-4">{t('digitalFpv.guide.title')}</h2>
+              <p className="text-muted-foreground">{t('digitalFpv.guide.subtitle')}</p>
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+              {/* Digital Card */}
+              <div className="bg-card rounded-2xl p-8 border border-border shadow-card">
+                <div className="w-12 h-12 rounded-xl bg-accent/10 flex items-center justify-center mb-4">
+                  <Eye className="w-6 h-6 text-accent" />
+                </div>
+                <h3 className="text-xl font-bold mb-3">{t('digitalFpv.guide.digital.title')}</h3>
+                <p className="text-muted-foreground mb-6 leading-relaxed">{t('digitalFpv.guide.digital.desc')}</p>
+                <Button variant="outline" className="w-full" disabled>
+                  {t('digitalFpv.guide.digital.btn')} ↑
+                </Button>
+              </div>
+              {/* Analog Card */}
+              <div className="bg-card rounded-2xl p-8 border border-accent/30 shadow-card">
+                <div className="w-12 h-12 rounded-xl bg-accent/10 flex items-center justify-center mb-4">
+                  <Mountain className="w-6 h-6 text-accent" />
+                </div>
+                <h3 className="text-xl font-bold mb-3">{t('digitalFpv.guide.analog.title')}</h3>
+                <p className="text-muted-foreground mb-6 leading-relaxed">{t('digitalFpv.guide.analog.desc')}</p>
+                <Link to="/products/accessories/vtx-vrx">
+                  <Button className="w-full bg-accent hover:bg-accent/90 text-accent-foreground">
+                    {t('digitalFpv.guide.analog.btn')} →
+                  </Button>
+                </Link>
+              </div>
+            </div>
+          </div>
+        </section>
 
         {/* B2B Comparison Table */}
         <section className="py-16 bg-secondary">
