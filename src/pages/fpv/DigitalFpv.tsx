@@ -2,7 +2,7 @@ import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { FloatingContact } from "@/components/FloatingContact";
 import { Button } from "@/components/ui/button";
-import { ArrowRight, Wifi, Monitor, Zap, Radio, ShieldCheck } from "lucide-react";
+import { ArrowRight, Wifi, Monitor, Zap, Radio, ShieldCheck, Eye, Mountain } from "lucide-react";
 import { LangLink as Link } from "@/components/LangLink";
 import { BackButton } from "@/components/BackButton";
 import { digitalFpvProducts, digitalFpvCategories } from "@/data/digitalFpvProducts";
