@@ -6787,11 +6787,29 @@ export const zhTranslations: Record<string, string> = {
   'digitalFpv.h.b50.crossLink.a100': '查看 HD-1400-A100 机载电台',
 
   // HD-HB150
-  'digitalFpv.h.hb150.name': 'HD-HB150 基站组网电台',
-  'digitalFpv.h.hb150.slogan': '100/150公里高功率基站',
-  'digitalFpv.h.hb150.subSlogan': '100~150KM传输 | IP65防护 | 2×10W功率 | 1800g',
-  'digitalFpv.h.hb150.description': 'HD-HB150系列基站电台支持100/150公里范围传输，IP65防护，一体化集成设计，适合野外快速部署。',
-  'digitalFpv.h.hb150.keyFeature.range': '150KM传输',
+  'digitalFpv.h.hb150.name': 'HD-HB150 战略级高带宽基站',
+  'digitalFpv.h.hb150.slogan': '150公里高带宽战略地面站',
+  'digitalFpv.h.hb150.subSlogan': '100~150KM超视距 | IP65防护 | 2×10W高线性功放 | -108dBm | 1800g',
+  'digitalFpv.h.hb150.description': 'HD-HB150是专为150公里高带宽任务打造的旗舰级战略基站。集成高增益MIMO天线阵列、2×10W高线性功放和-108dBm超灵敏度接收机，在视距物理极限处实现高保真1080P/4K视频和多流遥测传输。IP65战术级外壳配合先进EMI屏蔽，支持海事巡逻、边境监控和HALE平台地面作业的快速野外部署。A100/A150机载电台的终极地面端配套设备。',
+  'digitalFpv.h.hb150.keyFeature.range': '150KM超视距',
+  // HD-HB150 SEO
+  'digitalFpv.h.hb150.seo.title': 'HD-HB150 | 150公里高带宽战略基站 | 极限BVLOS | CANI UAV',
+  'digitalFpv.h.hb150.seo.description': 'HD-HB150是旗舰级150公里高带宽基站，集成MIMO天线、-108dBm灵敏度和IP65外壳。为海事和边境BVLOS任务提供战略级地面基础设施。',
+  // HD-HB150 战略优势
+  'digitalFpv.h.hb150.strategic.title': 'HB系列：150公里任务的高带宽地面基础设施',
+  'digitalFpv.h.hb150.strategic.desc': '在150公里处，普通基站只能传回马赛克画面。HB150通过先进H.265编码、新一代LDPC纠错和多流并发能力，维持高码率1080P/4K清晰画质——单条链路同时承载高清视频、遥测和载荷传感器数据。',
+  'digitalFpv.h.hb150.strategic.bandwidth': '极限距离高码率传输',
+  'digitalFpv.h.hb150.strategic.bandwidthDesc': '先进H.265/HEVC编码配合优化编解码器，在150公里处维持高保真视频——低压缩伪影和任务关键级清晰度，标准链路在此距离只能传回马赛克',
+  'digitalFpv.h.hb150.strategic.correction': '新一代纠错算法',
+  'digitalFpv.h.hb150.strategic.correctionDesc': '专有LDPC算法配合多径衰落抵抗和鲁棒OFDM调制——即使信噪比降至-3dB以下也实现零数据丢包',
+  'digitalFpv.h.hb150.strategic.multiStream': '多流并发传输',
+  'digitalFpv.h.hb150.strategic.multiStreamDesc': '单条射频通道同时承载高清视频、高速MAVLink遥测和副传感器数据——无需独立数传链路，简化机载射频架构',
+  // HD-HB150 交叉链接
+  'digitalFpv.h.hb150.crossLink.title': '150公里战略级空地解决方案',
+  'digitalFpv.h.hb150.crossLink.desc': 'HD-HB150是A100和A150机载电台的推荐高性能地面站。达到150公里需要最低3500米飞行高度和HB150高增益自动追踪天线系统。频段（800MHz-2.5GHz）可为国防项目定制。',
+  'digitalFpv.h.hb150.crossLink.a100': '查看 HD-1400-A100 机载电台',
+  'digitalFpv.h.hb150.crossLink.a150': '查看 HD-1400-A150 机载电台',
+  'digitalFpv.h.hb150.crossLink.swarm': '查看W系列集群平台',
 
   // HD-4000-B150
   'digitalFpv.h.4000b150.name': 'HD-4000-B150 基站组网电台',
