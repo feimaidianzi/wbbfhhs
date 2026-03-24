@@ -331,6 +331,28 @@ const GimbalDetail = () => {
           </div>
         </section>
 
+        {/* K40T Cross-Link VTX Section */}
+        {productId === 'k40t' && (
+          <section className="py-12 bg-background">
+            <div className="container mx-auto px-4">
+              <div className="max-w-3xl mx-auto bg-card border border-border rounded-2xl p-8 flex flex-col md:flex-row items-start gap-6">
+                <div className="p-4 bg-primary/10 rounded-xl text-primary flex-shrink-0">
+                  <Zap className="w-8 h-8" />
+                </div>
+                <div>
+                  <h3 className="text-lg font-bold mb-2">{t('gimbal.k40t.crossVtx.title')}</h3>
+                  <p className="text-muted-foreground mb-4">{t('gimbal.k40t.crossVtx.desc')}</p>
+                  <Button variant="outline" className="group" asChild>
+                    <Link to="/products/accessories/vtx-vrx">
+                      {t('gimbal.k40t.crossVtx.btn')} →
+                    </Link>
+                  </Button>
+                </div>
+              </div>
+            </div>
+          </section>
+        )}
+
         {/* Tech Whitepaper Link Card */}
         {(productId === 'k40t' || productId === 'k8t-v2') && (
           <section className="py-12 bg-muted/30">
