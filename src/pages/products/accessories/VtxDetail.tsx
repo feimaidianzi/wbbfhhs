@@ -179,27 +179,27 @@ const VtxDetail = () => {
   const fv25wJsonLd = isFV25W ? {
     "@context": "https://schema.org/",
     "@type": "Product",
-    "name": "FV25W-A1 25W Extreme Power FPV VTX",
-    "description": "The world's most powerful 25W (25000mW) 5.8GHz video transmitter for extreme long-range and obstacle-penetration FPV drones. Dual industrial fan cooling, CNC housing, SmartAudio compatible.",
+    "name": "FV25W-A1 25W (25000mW) Strategic-Grade NLOS Analog Video Link",
+    "description": "The world's most powerful 25W (25000mW) analog VTX. Built for extreme NLOS challenges — bunker penetration, cross-island relay, and high-EMI industrial environments. Zero-latency strategic video lifeline.",
     "brand": { "@type": "Brand", "name": "CANI Technology" },
-    "sku": "FV25W-A1-25W",
+    "sku": "FV25W-A1-25W-STRATEGIC",
     "mpn": "FV25W-A1",
+    "keywords": "25W VTX, 25000mW VTX, Strategic NLOS VTX, Anti-Jamming Analog Transmitter, Cross-Island Video Relay, Bunker Penetration Link",
     "additionalProperty": [
       { "@type": "PropertyValue", "name": "RF Output Power", "value": "25000mW (25W)" },
-      { "@type": "PropertyValue", "name": "Power Steps", "value": "Customizable (incl. 16W / 25W)" },
-      { "@type": "PropertyValue", "name": "Transmission Range", "value": "15-20km LOS" },
+      { "@type": "PropertyValue", "name": "NLOS Capability", "value": "Bunker-level / Deep mountain / Cross-island maritime" },
+      { "@type": "PropertyValue", "name": "Current Consumption", "value": "5-7A @ 12V" },
       { "@type": "PropertyValue", "name": "Frequency Band", "value": "4.9-6.1GHz" },
       { "@type": "PropertyValue", "name": "Channels", "value": "80CH / 96CH (Ultra-Wide)" },
-      { "@type": "PropertyValue", "name": "Input Voltage", "value": "DC 22-36V (6-8S LiPo)" },
-      { "@type": "PropertyValue", "name": "Cooling System", "value": "Dual High-RPM Fan + CNC Fin Array" },
-      { "@type": "PropertyValue", "name": "End-to-End Latency", "value": "≤30ms" },
-      { "@type": "PropertyValue", "name": "Protocol", "value": "SmartAudio / IRC Tramp" },
-      { "@type": "PropertyValue", "name": "Mounting Size", "value": "30.5×30.5mm" }
+      { "@type": "PropertyValue", "name": "Input Voltage", "value": "DC 12-36V" },
+      { "@type": "PropertyValue", "name": "Cooling System", "value": "Dual Industrial Fan + CNC Extended Fin Array" },
+      { "@type": "PropertyValue", "name": "Latency", "value": "Zero-Latency (Analog)" },
+      { "@type": "PropertyValue", "name": "Application", "value": "Strategic Relay / Mining Robotics / Nuclear Inspection / Maritime Patrol" },
+      { "@type": "PropertyValue", "name": "Antenna Requirement", "value": "50W+ rated, 50-ohm impedance matched" }
     ],
     "offers": {
       "@type": "Offer",
       "url": "https://www.caniuav.com/products/accessories/vtx-vrx/fv25w-a1",
-      "priceCurrency": "USD",
       "availability": "https://schema.org/InStock"
     }
   } : null;
@@ -298,7 +298,7 @@ const VtxDetail = () => {
                     isPV03 ? "FLYM-PV03W000-A1 3W 3000mW flagship ultra-high power analog VTX with CNC cooling chassis for extreme NLOS tactical and industrial UAV missions" :
                     isFV10W ? "FV10W-A1 10W 10000mW extreme power NLOS analog video link with dual industrial cooling CNC chassis for tactical reconnaissance and underground missions" :
                     isFV16W ? "FV16W-A1 16W 16000mW ultra-power tactical NLOS analog video link with quad fan CNC aerospace-grade cooling for mining robotics search and rescue industrial inspection" :
-                    isFV25W ? "FV25W-A1 25W 25000mW absolute power FPV VTX with dual industrial fan CNC housing, 15-20km extreme range video transmitter" :
+                    isFV25W ? "FV25W-A1 25W 25000mW strategic-grade NLOS analog video link with dual industrial fan CNC cooling for bunker penetration cross-island relay mining robotics nuclear inspection" :
                     isFV37W ? "FV37W-A1 37W 37000mW god-tier power FPV VTX with triple fan CNC cooling, 20km+ extreme range video transmitter" :
                     t(product.nameKey)
                   }
@@ -307,7 +307,7 @@ const VtxDetail = () => {
                     isPV03 ? "FLYM-PV03W000-A1 3W Flagship Ultra-High Power NLOS Analog VTX" :
                     isFV10W ? "FV10W-A1 10W (10,000mW) Extreme Power NLOS Analog Video Link" :
                     isFV16W ? "FV16W-A1 16W (16,000mW) Ultimate Tactical NLOS Analog Video Powerhouse" :
-                    isFV25W ? "FV25W-A1 25000mW (25W) Absolute Power FPV Video Transmitter" :
+                    isFV25W ? "FV25W-A1 25,000mW (25W) Strategic-Grade NLOS Analog Video Powerhouse" :
                     isFV37W ? "FV37W-A1 37000mW (37W) God-Tier Power FPV Video Transmitter" :
                     t(product.nameKey)
                   }
@@ -334,10 +334,10 @@ const VtxDetail = () => {
                   {isFV16W && <span className="px-3 py-1 text-sm bg-destructive/20 text-destructive rounded-full font-bold">TACTICAL NLOS</span>}
                   {isFV16W && <span className="px-3 py-1 text-sm bg-primary/10 text-primary rounded-full font-medium">3.5-4.5A</span>}
                   {isFV16W && <span className="px-3 py-1 text-sm bg-accent text-accent-foreground rounded-full font-medium">Zero-Latency</span>}
-                  {isFV25W && <span className="px-3 py-1 text-sm bg-destructive/10 text-destructive rounded-full font-bold">25000mW</span>}
-                  {isFV25W && <span className="px-3 py-1 text-sm bg-destructive/20 text-destructive rounded-full font-bold">15-20km LOS</span>}
-                  {isFV25W && <span className="px-3 py-1 text-sm bg-primary/10 text-primary rounded-full font-medium">80/96CH</span>}
-                  {isFV25W && <span className="px-3 py-1 text-sm bg-accent text-accent-foreground rounded-full font-medium">≤30ms</span>}
+                  {isFV25W && <span className="px-3 py-1 text-sm bg-destructive/10 text-destructive rounded-full font-bold">25,000mW</span>}
+                  {isFV25W && <span className="px-3 py-1 text-sm bg-destructive/20 text-destructive rounded-full font-bold">STRATEGIC NLOS</span>}
+                  {isFV25W && <span className="px-3 py-1 text-sm bg-primary/10 text-primary rounded-full font-medium">5-7A @ 12V</span>}
+                  {isFV25W && <span className="px-3 py-1 text-sm bg-accent text-accent-foreground rounded-full font-medium">Zero-Latency</span>}
                   {isFV37W && <span className="px-3 py-1 text-sm bg-destructive/10 text-destructive rounded-full font-bold">37000mW</span>}
                   {isFV37W && <span className="px-3 py-1 text-sm bg-destructive/20 text-destructive rounded-full font-bold">20km+ LOS</span>}
                   {isFV37W && <span className="px-3 py-1 text-sm bg-primary/10 text-primary rounded-full font-medium">80/96CH</span>}
@@ -966,21 +966,21 @@ const VtxDetail = () => {
               <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                 <div className="p-6 bg-card rounded-xl border border-border">
                   <div className="w-12 h-12 rounded-lg bg-destructive/10 flex items-center justify-center mb-4">
-                    <Zap className="w-6 h-6 text-destructive" />
+                    <Shield className="w-6 h-6 text-destructive" />
                   </div>
                   <h3 className="font-semibold mb-2">{t('vtxDetail.fv25w.application.bandoTitle')}</h3>
                   <p className="text-sm text-muted-foreground">{t('vtxDetail.fv25w.application.bando')}</p>
                 </div>
                 <div className="p-6 bg-card rounded-xl border border-border">
-                  <div className="w-12 h-12 rounded-lg bg-destructive/10 flex items-center justify-center mb-4">
-                    <Shield className="w-6 h-6 text-destructive" />
+                  <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center mb-4">
+                    <Zap className="w-6 h-6 text-primary" />
                   </div>
                   <h3 className="font-semibold mb-2">{t('vtxDetail.fv25w.application.cinemaTitle')}</h3>
                   <p className="text-sm text-muted-foreground">{t('vtxDetail.fv25w.application.cinema')}</p>
                 </div>
                 <div className="p-6 bg-card rounded-xl border border-border">
-                  <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center mb-4">
-                    <Thermometer className="w-6 h-6 text-primary" />
+                  <div className="w-12 h-12 rounded-lg bg-destructive/10 flex items-center justify-center mb-4">
+                    <Thermometer className="w-6 h-6 text-destructive" />
                   </div>
                   <h3 className="font-semibold mb-2">{t('vtxDetail.fv25w.application.terrainTitle')}</h3>
                   <p className="text-sm text-muted-foreground">{t('vtxDetail.fv25w.application.terrain')}</p>
@@ -1023,7 +1023,56 @@ const VtxDetail = () => {
           />
         )}
 
-        {/* FV37W Application Scenarios */}
+        {/* FV25W Technical Guide */}
+        {isFV25W && (
+          <section className="py-16 bg-background">
+            <div className="container mx-auto px-4">
+              <h2 className="text-2xl font-bold mb-8 text-center">{t('vtxDetail.fv25w.techGuide.title')}</h2>
+              <div className="max-w-3xl mx-auto space-y-6">
+                {[1, 2, 3, 4].map(i => (
+                  <div key={i} className="p-6 bg-card rounded-xl border border-border">
+                    <h3 className="font-semibold mb-2 text-primary">{t(`vtxDetail.fv25w.techGuide.tip${i}.title`)}</h3>
+                    <p className="text-sm text-muted-foreground leading-relaxed">{t(`vtxDetail.fv25w.techGuide.tip${i}.desc`)}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </section>
+        )}
+
+        {/* FV25W Case Study */}
+        {isFV25W && (
+          <section className="py-20 bg-muted/30">
+            <div className="container mx-auto px-4">
+              <h2 className="text-2xl font-bold mb-4 text-center">{t('vtxDetail.fv25w.caseStudy.title')}</h2>
+              <p className="text-muted-foreground text-center max-w-3xl mx-auto mb-10">{t('vtxDetail.fv25w.caseStudy.intro')}</p>
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mx-auto">
+                {[1, 2, 3].map(i => (
+                  <div key={i} className="p-6 bg-card rounded-xl border border-border">
+                    <div className="w-12 h-12 rounded-lg bg-destructive/10 flex items-center justify-center mb-4">
+                      {i === 1 && <Settings className="w-6 h-6 text-destructive" />}
+                      {i === 2 && <Zap className="w-6 h-6 text-destructive" />}
+                      {i === 3 && <Shield className="w-6 h-6 text-destructive" />}
+                    </div>
+                    <h3 className="font-semibold mb-2">{t(`vtxDetail.fv25w.caseStudy.s${i}.title`)}</h3>
+                    <p className="text-sm text-muted-foreground leading-relaxed">{t(`vtxDetail.fv25w.caseStudy.s${i}.desc`)}</p>
+                  </div>
+                ))}
+              </div>
+              <p className="text-sm text-muted-foreground text-center mt-8 max-w-2xl mx-auto italic">{t('vtxDetail.fv25w.caseStudy.note')}</p>
+            </div>
+          </section>
+        )}
+
+        {/* FV25W Disclaimer */}
+        {isFV25W && (
+          <section className="py-8">
+            <div className="container mx-auto px-4">
+              <p className="text-xs text-muted-foreground text-center max-w-3xl mx-auto">{t('vtxDetail.fv25w.disclaimer')}</p>
+            </div>
+          </section>
+        )}
+
         {isFV37W && (
           <section className="py-20 bg-muted/30">
             <div className="container mx-auto px-4">

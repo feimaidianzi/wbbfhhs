@@ -258,6 +258,79 @@ const VtxVrx = () => {
           </div>
         </section>
 
+        {/* Power Tier Comparison Table */}
+        <section className="py-16 bg-background">
+          <div className="container mx-auto px-4">
+            <h2 className="text-3xl font-bold text-center mb-4">{t('vtx.comparison.title')}</h2>
+            <p className="text-center text-muted-foreground mb-10 max-w-3xl mx-auto">{t('vtx.comparison.desc')}</p>
+            <div className="overflow-x-auto max-w-5xl mx-auto">
+              <table className="w-full text-sm border-collapse">
+                <thead>
+                  <tr className="bg-muted/50">
+                    <th className="px-4 py-3 text-left font-semibold border-b border-border">{t('vtx.comparison.model')}</th>
+                    <th className="px-4 py-3 text-center font-semibold border-b border-border">{t('vtx.comparison.power')}</th>
+                    <th className="px-4 py-3 text-left font-semibold border-b border-border">{t('vtx.comparison.application')}</th>
+                    <th className="px-4 py-3 text-center font-semibold border-b border-border">{t('vtx.comparison.penetration')}</th>
+                    <th className="px-4 py-3 text-center font-semibold border-b border-border">{t('vtx.comparison.cooling')}</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr className="hover:bg-muted/20 transition-colors">
+                    <td className="px-4 py-3 border-b border-border font-medium"><Link to="/products/accessories/vtx-vrx/flym-pv02w500-a1" className="text-primary hover:underline">PV02W500-A1</Link></td>
+                    <td className="px-4 py-3 border-b border-border text-center">2.5W (2500mW)</td>
+                    <td className="px-4 py-3 border-b border-border">{t('vtx.comparison.tier1')}</td>
+                    <td className="px-4 py-3 border-b border-border text-center">★★★☆☆</td>
+                    <td className="px-4 py-3 border-b border-border text-center">{t('vtx.comparison.passive')}</td>
+                  </tr>
+                  <tr className="hover:bg-muted/20 transition-colors bg-muted/10">
+                    <td className="px-4 py-3 border-b border-border font-medium"><Link to="/products/accessories/vtx-vrx/flym-pv03w000-a1" className="text-primary hover:underline">PV03W000-A1</Link></td>
+                    <td className="px-4 py-3 border-b border-border text-center">3W (3000mW)</td>
+                    <td className="px-4 py-3 border-b border-border">{t('vtx.comparison.tier2')}</td>
+                    <td className="px-4 py-3 border-b border-border text-center">★★★✦☆</td>
+                    <td className="px-4 py-3 border-b border-border text-center">{t('vtx.comparison.enhanced')}</td>
+                  </tr>
+                  <tr className="hover:bg-muted/20 transition-colors">
+                    <td className="px-4 py-3 border-b border-border font-medium"><Link to="/products/accessories/vtx-vrx/fv10w-a1" className="text-primary hover:underline">FV10W-A1</Link></td>
+                    <td className="px-4 py-3 border-b border-border text-center font-semibold">10W (10,000mW)</td>
+                    <td className="px-4 py-3 border-b border-border">{t('vtx.comparison.tier3')}</td>
+                    <td className="px-4 py-3 border-b border-border text-center">★★★★☆</td>
+                    <td className="px-4 py-3 border-b border-border text-center">{t('vtx.comparison.active')}</td>
+                  </tr>
+                  <tr className="hover:bg-muted/20 transition-colors bg-muted/10">
+                    <td className="px-4 py-3 border-b border-border font-medium"><Link to="/products/accessories/vtx-vrx/fv16w-a1" className="text-primary hover:underline">FV16W-A1</Link></td>
+                    <td className="px-4 py-3 border-b border-border text-center font-bold text-destructive">16W (16,000mW)</td>
+                    <td className="px-4 py-3 border-b border-border">{t('vtx.comparison.tier4')}</td>
+                    <td className="px-4 py-3 border-b border-border text-center">★★★★✦</td>
+                    <td className="px-4 py-3 border-b border-border text-center">{t('vtx.comparison.quadFan')}</td>
+                  </tr>
+                  <tr className="hover:bg-muted/20 transition-colors bg-destructive/5">
+                    <td className="px-4 py-3 border-b border-border font-bold"><Link to="/products/accessories/vtx-vrx/fv25w-a1" className="text-destructive hover:underline">FV25W-A1</Link></td>
+                    <td className="px-4 py-3 border-b border-border text-center font-bold text-destructive">25W (25,000mW)</td>
+                    <td className="px-4 py-3 border-b border-border font-semibold">{t('vtx.comparison.tier5')}</td>
+                    <td className="px-4 py-3 border-b border-border text-center">★★★★★</td>
+                    <td className="px-4 py-3 border-b border-border text-center">{t('vtx.comparison.industrial')}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            {/* Scenario-based navigation */}
+            <div className="mt-10 max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-4">
+              <Link to="/products/accessories/vtx-vrx/fv16w-a1" className="p-4 bg-card rounded-xl border border-border hover:border-destructive/50 transition-colors text-center">
+                <p className="text-sm text-muted-foreground mb-1">{t('vtx.comparison.q1')}</p>
+                <p className="text-sm font-semibold text-destructive">{t('vtx.comparison.q1Link')}</p>
+              </Link>
+              <Link to="/products/accessories/vtx-vrx/fv10w-a1" className="p-4 bg-card rounded-xl border border-border hover:border-primary/50 transition-colors text-center">
+                <p className="text-sm text-muted-foreground mb-1">{t('vtx.comparison.q2')}</p>
+                <p className="text-sm font-semibold text-primary">{t('vtx.comparison.q2Link')}</p>
+              </Link>
+              <Link to="/products/accessories/vtx-vrx/flym-pv02w500-a1" className="p-4 bg-card rounded-xl border border-border hover:border-primary/50 transition-colors text-center">
+                <p className="text-sm text-muted-foreground mb-1">{t('vtx.comparison.q3')}</p>
+                <p className="text-sm font-semibold text-primary">{t('vtx.comparison.q3Link')}</p>
+              </Link>
+            </div>
+          </div>
+        </section>
+
         {/* Analog Products Section */}
         <section id="products" className="py-16">
           <div className="container mx-auto px-4">
