@@ -291,7 +291,7 @@ const VtxDetail = () => {
                   src={product.image} 
                   alt={
                     isPV02 ? "FLYM-PV02W500-A1 2.5W VTX with active cooling fan, 8km range UAV video transmitter industrial grade" :
-                    isPV03 ? "FLYM-PV03W000-A1 3W 3000mW FPV VTX with active cooling, 10km long-range UAV video transmitter" :
+                    isPV03 ? "FLYM-PV03W000-A1 3W 3000mW flagship ultra-high power analog VTX with CNC cooling chassis for extreme NLOS tactical and industrial UAV missions" :
                     isFV10W ? "FV10W-A1 10W 10000mW extreme power FPV VTX with dual active cooling, 80CH 5.8GHz video transmitter" :
                     isFV16W ? "FV16W-A1 25W 25000mW world's strongest FPV VTX with quad fan CNC cooling, 16W/25W dual-power video transmitter" :
                     isFV25W ? "FV25W-A1 25W 25000mW absolute power FPV VTX with dual industrial fan CNC housing, 15-20km extreme range video transmitter" :
