@@ -440,6 +440,50 @@ const DigitalFpvDetail = () => {
           </div>
         </section>
 
+        {/* WiFiLink2 Open Architecture Section */}
+        {isWifiLink2 && (
+          <section className="py-16 bg-background">
+            <div className="container-custom">
+              <div className="text-center mb-12">
+                <h2 className="text-2xl md:text-3xl font-bold mb-4">{t('digitalFpv.wifilink2.arch.title')}</h2>
+                <p className="text-muted-foreground max-w-2xl mx-auto">{t('digitalFpv.wifilink2.arch.desc')}</p>
+                <div className="w-20 h-1 bg-accent mx-auto rounded-full mt-4" />
+              </div>
+              
+              <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <div className="bg-card rounded-xl p-6 shadow-card text-center">
+                  <div className="w-16 h-16 bg-accent/10 rounded-2xl flex items-center justify-center mx-auto mb-4">
+                    <Code className="w-8 h-8 text-accent" />
+                  </div>
+                  <h4 className="font-bold mb-2">{t('digitalFpv.wifilink2.arch.open')}</h4>
+                  <p className="text-muted-foreground text-sm">{t('digitalFpv.wifilink2.arch.openDesc')}</p>
+                </div>
+                <div className="bg-card rounded-xl p-6 shadow-card text-center">
+                  <div className="w-16 h-16 bg-accent/10 rounded-2xl flex items-center justify-center mx-auto mb-4">
+                    <Settings className="w-8 h-8 text-accent" />
+                  </div>
+                  <h4 className="font-bold mb-2">{t('digitalFpv.wifilink2.arch.api')}</h4>
+                  <p className="text-muted-foreground text-sm">{t('digitalFpv.wifilink2.arch.apiDesc')}</p>
+                </div>
+                <div className="bg-card rounded-xl p-6 shadow-card text-center">
+                  <div className="w-16 h-16 bg-accent/10 rounded-2xl flex items-center justify-center mx-auto mb-4">
+                    <ToggleLeft className="w-8 h-8 text-accent" />
+                  </div>
+                  <h4 className="font-bold mb-2">{t('digitalFpv.wifilink2.arch.ruby')}</h4>
+                  <p className="text-muted-foreground text-sm">{t('digitalFpv.wifilink2.arch.rubyDesc')}</p>
+                </div>
+                <div className="bg-card rounded-xl p-6 shadow-card text-center">
+                  <div className="w-16 h-16 bg-accent/10 rounded-2xl flex items-center justify-center mx-auto mb-4">
+                    <Smartphone className="w-8 h-8 text-accent" />
+                  </div>
+                  <h4 className="font-bold mb-2">{t('digitalFpv.wifilink2.arch.mobile')}</h4>
+                  <p className="text-muted-foreground text-sm">{t('digitalFpv.wifilink2.arch.mobileDesc')}</p>
+                </div>
+              </div>
+            </div>
+          </section>
+        )}
+
         {/* WiFiLink2 Deep Dive Article Link */}
         {isWifiLink2 && (
           <section className="py-12 bg-secondary">
@@ -464,6 +508,41 @@ const DigitalFpvDetail = () => {
                     <ArrowRight className="w-5 h-5 text-accent group-hover:translate-x-1 transition-transform flex-shrink-0" />
                   </div>
                 </Link>
+              </div>
+            </div>
+          </section>
+        )}
+
+        {/* WiFiLink2 Cross-Link: Best Value Positioning */}
+        {isWifiLink2 && (
+          <section className="py-16 bg-accent/5">
+            <div className="container-custom">
+              <div className="max-w-4xl mx-auto text-center">
+                <h2 className="text-2xl md:text-3xl font-bold mb-4">{t('digitalFpv.wifilink2.crossLink.title')}</h2>
+                <div className="w-20 h-1 bg-accent mx-auto rounded-full mb-6" />
+                <p className="text-muted-foreground leading-relaxed mb-8">
+                  {t('digitalFpv.wifilink2.crossLink.desc')}
+                </p>
+                <div className="flex flex-col sm:flex-row gap-4 justify-center flex-wrap">
+                  <Link to="/products/accessories/other-accessories">
+                    <Button variant="outline" className="gap-2 px-6 py-5">
+                      <Monitor className="w-5 h-5" />
+                      {t('digitalFpv.wifilink2.crossLink.monitors')}
+                    </Button>
+                  </Link>
+                  <Link to="/products/accessories/vtx-vrx">
+                    <Button variant="outline" className="gap-2 px-6 py-5">
+                      <Radio className="w-5 h-5" />
+                      {t('digitalFpv.wifilink2.crossLink.analog')}
+                    </Button>
+                  </Link>
+                  <Link to="/products/accessories/digital-fpv/s900-datalink">
+                    <Button variant="outline" className="gap-2 px-6 py-5">
+                      <Antenna className="w-5 h-5" />
+                      {t('digitalFpv.wifilink2.crossLink.s900')}
+                    </Button>
+                  </Link>
+                </div>
               </div>
             </div>
           </section>
