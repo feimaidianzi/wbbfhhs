@@ -482,6 +482,15 @@ const VtxVrx = () => {
           ]}
         />
 
+        {/* Isolation Disclaimer */}
+        <section className="py-6 bg-muted/20">
+          <div className="container mx-auto px-4">
+            <p className="text-xs text-muted-foreground text-center max-w-3xl mx-auto italic">
+              {t('vtx.disclaimer')}
+            </p>
+          </div>
+        </section>
+
         {/* CTA Section */}
         <section className="py-16 bg-primary text-primary-foreground">
           <div className="container mx-auto px-4 text-center">
