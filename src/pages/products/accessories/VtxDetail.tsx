@@ -298,7 +298,7 @@ const VtxDetail = () => {
                     isPV03 ? "FLYM-PV03W000-A1 3W 3000mW flagship ultra-high power analog VTX with CNC cooling chassis for extreme NLOS tactical and industrial UAV missions" :
                     isFV10W ? "FV10W-A1 10W 10000mW extreme power NLOS analog video link with dual industrial cooling CNC chassis for tactical reconnaissance and underground missions" :
                     isFV16W ? "FV16W-A1 16W 16000mW ultra-power tactical NLOS analog video link with quad fan CNC aerospace-grade cooling for mining robotics search and rescue industrial inspection" :
-                    isFV25W ? "FV25W-A1 25W 25000mW absolute power FPV VTX with dual industrial fan CNC housing, 15-20km extreme range video transmitter" :
+                    isFV25W ? "FV25W-A1 25W 25000mW strategic-grade NLOS analog video link with dual industrial fan CNC cooling for bunker penetration cross-island relay mining robotics nuclear inspection" :
                     isFV37W ? "FV37W-A1 37W 37000mW god-tier power FPV VTX with triple fan CNC cooling, 20km+ extreme range video transmitter" :
                     t(product.nameKey)
                   }
