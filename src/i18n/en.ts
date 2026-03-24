@@ -387,9 +387,16 @@ export const enTranslations: Record<string, string> = {
 
   // S900 Stats
   'digitalFpv.s900.stat.range': 'Max Range',
-  'digitalFpv.s900.stat.airRate': 'Air Rate',
+  'digitalFpv.s900.stat.airRate': 'Max Air Rate',
   'digitalFpv.s900.stat.power': 'TX Power',
-  'digitalFpv.s900.stat.weight': 'Weight',
+  'digitalFpv.s900.stat.weight': 'Unit Weight',
+  // S900 SEO & Cross-link
+  'digitalFpv.s900.seo.title': 'S900 Datalink | Integrated HD Video & Telemetry System | 12km+ Range | CANI UAV',
+  'digitalFpv.s900.seo.description': 'The S900 is a professional integrated digital datalink providing bidirectional MAVLink telemetry, RC control, and data transmission. 12KM range, FHSS anti-interference, point-to-multipoint networking for industrial UAV platforms.',
+  'digitalFpv.s900.crossLink.title': 'Standard Communication Module for CANI Platforms',
+  'digitalFpv.s900.crossLink.desc': 'The S900 Datalink is the standard communication backbone for CANI UAV industrial platforms. It powers the reliable telemetry and control links of our logistics and swarm systems.',
+  'digitalFpv.s900.crossLink.logistics': 'View Logistics Platforms',
+  'digitalFpv.s900.crossLink.swarm': 'View Swarm Systems',
   
   // S900 Interface Section
   'digitalFpv.s900.interface.title': 'Interface & Pin Definition',
