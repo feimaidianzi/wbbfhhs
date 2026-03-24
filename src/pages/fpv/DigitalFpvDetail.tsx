@@ -2,7 +2,7 @@ import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { FloatingContact } from "@/components/FloatingContact";
 import { Button } from "@/components/ui/button";
-import { ArrowRight, CheckCircle, Download, Phone, Mail, Wifi, Zap, Monitor, HardDrive, Radio, Settings, Antenna, Cable, Thermometer, Target, FileText, BookOpen } from "lucide-react";
+import { ArrowRight, CheckCircle, Download, Phone, Mail, Wifi, Zap, Monitor, HardDrive, Radio, Settings, Antenna, Cable, Thermometer, Target, FileText, BookOpen, Truck, Users } from "lucide-react";
 import { useParams, Navigate } from "react-router-dom";
 import { LangLink as Link } from "@/components/LangLink";
 import { BackButton } from "@/components/BackButton";
