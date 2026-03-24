@@ -177,8 +177,8 @@ export const zhTranslations: Record<string, string> = {
   'gimbal.cta.desc': '我们提供OEM/ODM定制服务，可根据您的需求定制传感器配置、接口协议、外观设计。支持MAVLink/SBUS/PWM等多种协议，适配Pixhawk等主流飞控系统，提供通用快拆接口。',
   'gimbal.cta.btn': '立即询价',
   // Gimbal SKU-specific TDK
-  'gimbal.tdk.k40t.title': 'K40T四传感器AI云台相机 | 48MP变焦+640热成像+1200m激光测距 | 290g | CANI长凌',
-  'gimbal.tdk.k40t.desc': 'CANI K40T四光AI云台集成4800万像素变焦、640×512红外热成像与1200m激光测距，内置6TOPS AI算力支持自动目标识别。仅290g，±0.005°三轴稳定精度，160倍混合变焦，专为电力巡检、消防搜救与安防巡逻打造。',
+  'gimbal.tdk.k40t.title': 'K40T | 40倍光学变焦三轴云台相机 | 远程侦察载荷 | CANI长凌科技',
+  'gimbal.tdk.k40t.desc': 'K40T旗舰级40倍光学变焦云台相机，集成640×512热成像与1200m激光测距。AI自动跟踪，±0.005°三轴增稳，仅290g。专为电力巡检、边境侦察、森林防火等远距离任务打造。',
   'gimbal.tdk.k8t-v2.title': 'K8T-V2双光识别追踪云台 | 133g超轻量 | 红外热成像 | AI自动追踪 | CANI长凌',
   'gimbal.tdk.k8t-v2.desc': 'CANI K8T-V2仅重133g，集成红外热成像与可见光识别，内置新一代AI处理器支持自主目标锁定与追踪。三轴机械增稳、TTL/TCP多协议适配，专为轻型巡检无人机与FPV特种作业提供全天候昼夜侦察能力。',
   'gimbal.tdk.k8-v2.title': 'K8-V2单光追踪识别云台 | 30倍光学变焦+4K | CANI长凌',
