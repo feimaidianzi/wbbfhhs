@@ -58,15 +58,21 @@ const CameraDetail = () => {
   }
 
   // SKU-specific TDK
-  const seoTitle = t(`camera.tdk.${productId}.title`) !== `camera.tdk.${productId}.title`
-    ? t(`camera.tdk.${productId}.title`)
-    : t(product.nameKey);
-  const seoDesc = t(`camera.tdk.${productId}.desc`) !== `camera.tdk.${productId}.desc`
-    ? t(`camera.tdk.${productId}.desc`)
-    : `${t(product.sloganKey)}. ${product.highlightKeys.map(k => t(k)).join(', ')}`;
+  const seoTitleKey = `camera.${productId?.replace(/-/g, '')}.seo.title`;
+  const seoDescKey = `camera.${productId?.replace(/-/g, '')}.seo.description`;
+  const seoTitle = t(seoTitleKey) !== seoTitleKey
+    ? t(seoTitleKey)
+    : t(`camera.tdk.${productId}.title`) !== `camera.tdk.${productId}.title`
+      ? t(`camera.tdk.${productId}.title`)
+      : t(product.nameKey);
+  const seoDesc = t(seoDescKey) !== seoDescKey
+    ? t(seoDescKey)
+    : t(`camera.tdk.${productId}.desc`) !== `camera.tdk.${productId}.desc`
+      ? t(`camera.tdk.${productId}.desc`)
+      : `${t(product.sloganKey)}. ${product.highlightKeys.map(k => t(k)).join(', ')}`;
   const seoKeywords = t(`camera.tdk.${productId}.keywords`) !== `camera.tdk.${productId}.keywords`
     ? t(`camera.tdk.${productId}.keywords`)
-    : `${product.model},${t('accessoryDetail.cameraKeywords')}`;
+    : `UAV action camera,1080P flight recorder,SJ4000 WiFi for drones,wide-angle aerial camera,budget UAV payload,FPV camera,flight recording module,WDR,${product.model},CANI UAV`;
 
   // FAQ data
   const faqItems = [
