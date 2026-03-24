@@ -6703,11 +6703,29 @@ export const zhTranslations: Record<string, string> = {
   'digitalFpv.h.a50.strategic.securityDesc': 'AES-128 加密 + FHSS 跳频抗干扰，确保视频与遥测数据在敏感任务中的端到端安全',
 
   // HD-1400-A100
-  'digitalFpv.h.a100.name': 'HD-1400-A100 机载组网电台',
-  'digitalFpv.h.a100.slogan': '100公里机载宽带数据链',
-  'digitalFpv.h.a100.subSlogan': '100KM传输 | OFDM调制 | 2×10W功率 | 670g轻量',
-  'digitalFpv.h.a100.description': 'HD-1400-A100系列采用多载波调制技术、MIMO射频技术、智能选频及跳频技术，其接收灵敏度高，抗干扰性强，实现空对地100公里范围内的单向高清视频传输以及遥控遥测双向数据传输。提供RS232\\RJ45等丰富的数据接口，支持点对点、点对多点、多点对多点组网需求，满足任务设备的各种应用需求。宽带数据链产品在UAVS、直升机、固定翼飞机、飞艇、战术导弹上得到了广泛的应用。',
-  'digitalFpv.h.a100.keyFeature.range': '100KM传输',
+  'digitalFpv.h.a100.name': 'HD-1400-A100 战略级微波数据链',
+  'digitalFpv.h.a100.slogan': '1.4GHz 100km 极限超视距战略数字链路',
+  'digitalFpv.h.a100.subSlogan': '100KM BVLOS | COFDM+MIMO | 2×10W | -98dBm 灵敏度 | 670g',
+  'digitalFpv.h.a100.description': 'HD-1400-A100 是 CANI 数字链路家族的极限旗舰，将 1.4GHz 频段数字传输推向 100 公里的战略级边界。采用先进 COFDM 调制与专有远程射频前端，集成 2×10W 高线性功放与 -98dBm 超高灵敏度接收端，实现跨越地球弧度的稳定 1080P 高清视频与双向 MAVLink 遥测数据链路。精密 CNC 航空铝外壳配合战术级 EMI 屏蔽，专为高空长航时（HALE）固定翼、跨海巡逻 VTOL 及战略级察打一体无人机设计。当任务需要跨越天际线时，A100 是唯一保证数据完整性的选择。',
+  'digitalFpv.h.a100.keyFeature.range': '100KM BVLOS',
+  // HD-1400-A100 SEO
+  'digitalFpv.h.a100.seo.title': 'HD-1400-A100 | 1.4GHz 100km 战略级数字链路 | 极限 BVLOS | CANI UAV',
+  'digitalFpv.h.a100.seo.description': 'HD-1400-A100 是战略级 1.4GHz 数字微波链路，在 100km 半径内提供 1080P 视频与双向遥测。COFDM+MIMO 技术配合 -98dBm 灵敏度，专为跨海侦察与长航时固定翼设计。',
+  // HD-1400-A100 Cross-Link
+  'digitalFpv.h.a100.crossLink.title': '100km 战略级整机推荐方案',
+  'digitalFpv.h.a100.crossLink.desc': 'HD-1400-A100 是跨越天际线的终极通信方案。100km 覆盖半径必须配合高增益定向追踪天线系统，为高空长航时平台提供不间断战略级数据保障。',
+  'digitalFpv.h.a100.crossLink.swarm': '查看 W 系列集群平台',
+  'digitalFpv.h.a100.crossLink.logistics': '查看物流无人机平台',
+  'digitalFpv.h.a100.crossLink.tethered': '查看系留无人机平台',
+  // HD-1400-A100 Strategic advantage
+  'digitalFpv.h.a100.strategic.title': '100km：跨越地球弧度的工程挑战',
+  'digitalFpv.h.a100.strategic.desc': '100km 处信号路径损耗超过 140dB，还需面对地球曲率导致的视距遮挡。A100 通过 2×10W 高线性功放、-98dBm 极高灵敏度接收端与自适应调制编码，构建了跨越物理极限的链路预算。这不是功率的堆叠，而是射频工程的巅峰。',
+  'digitalFpv.h.a100.strategic.sensitivity': '极致接收灵敏度',
+  'digitalFpv.h.a100.strategic.sensitivityDesc': '-98dBm 超低噪声接收端，配合高线性 LNA 与 LDPC 纠错编码，在 100km 处依然能"听见"极其微弱的信号',
+  'digitalFpv.h.a100.strategic.adaptive': '自适应调制编码',
+  'digitalFpv.h.a100.strategic.adaptiveDesc': 'BPSK/QPSK/16QAM 自动切换，距离越远自动降低码率以保证链路不中断——宁可画面降质，绝不丢链',
+  'digitalFpv.h.a100.strategic.curvature': '地球曲率级设计',
+  'digitalFpv.h.a100.strategic.curvatureDesc': '100km 需要飞行器高度 ≥800m 以克服地球弧度遮挡，A100 专为高空长航时飞行剖面优化',
 
   // HD-1400-A150
   'digitalFpv.h.a150.name': 'HD-1400-A150 机载组网电台',
