@@ -107,21 +107,25 @@ const VtxDetail = () => {
   const fv10wJsonLd = isFV10W ? {
     "@context": "https://schema.org/",
     "@type": "Product",
-    "name": "FV10W-A1 10W Extreme Power FPV VTX",
-    "description": "The most powerful 10W (10000mW) 5.8GHz video transmitter for extreme long-range and high-penetration FPV drones. 5-step adjustable power (1W/3W/5W/7W/10W), 80-channel spectrum, dual active cooling.",
-    "brand": { "@type": "Brand", "name": "CANI Technology" },
-    "sku": "FV10W-A1-10W",
+    "name": "FV10W-A1 10W (10,000mW) Ultra-High Power Analog Video Link",
+    "description": "Flagship 10W (10,000mW) analog video transmitter for extreme NLOS and tactical long-range missions. Carrier-grade signal penetration through multi-layer concrete, dense forest, and underground facilities. Industrial dual cooling with CNC aluminum chassis.",
+    "brand": { "@type": "Brand", "name": "CANI UAV" },
+    "sku": "FV10W-A1",
     "mpn": "FV10W-A1",
+    "keywords": "10W analog VTX, 10000mW video transmitter, NLOS tactical video link, extreme distance analog system, heavy-duty signal penetration, carrier-grade analog video link, industrial UAV video transmitter",
     "additionalProperty": [
-      { "@type": "PropertyValue", "name": "RF Output Power", "value": "10000mW (10W)" },
-      { "@type": "PropertyValue", "name": "Power Steps", "value": "1W / 3W / 5W / 7W / 10W" },
+      { "@type": "PropertyValue", "name": "RF Output Power", "value": "10,000mW (10W)" },
+      { "@type": "PropertyValue", "name": "Power Steps", "value": "1W / 3W / 5W / 7W / 10W (5-Step)" },
       { "@type": "PropertyValue", "name": "Frequency Band", "value": "4.9-6.1GHz" },
       { "@type": "PropertyValue", "name": "Channels", "value": "80CH" },
       { "@type": "PropertyValue", "name": "Input Voltage", "value": "DC 12-28V (3-6S LiPo)" },
-      { "@type": "PropertyValue", "name": "Cooling System", "value": "Active Fan + CNC Aluminum Heatsink" },
-      { "@type": "PropertyValue", "name": "Protocol", "value": "SmartAudio / IRC Tramp" },
+      { "@type": "PropertyValue", "name": "Current Consumption", "value": ">2.5A @ 12V" },
+      { "@type": "PropertyValue", "name": "End-to-End Latency", "value": "<1ms (Zero-Latency Analog)" },
+      { "@type": "PropertyValue", "name": "Cooling System", "value": "Dual Industrial: Active Fan + CNC Aluminum Chassis" },
+      { "@type": "PropertyValue", "name": "Protocol", "value": "SmartAudio / IRC Tramp / Pit Mode" },
       { "@type": "PropertyValue", "name": "Mounting Size", "value": "30.5×30.5mm" },
-      { "@type": "PropertyValue", "name": "Weight", "value": "47g" }
+      { "@type": "PropertyValue", "name": "Weight", "value": "47g" },
+      { "@type": "PropertyValue", "name": "NLOS Capability", "value": "Multi-layer concrete, dense forest, underground-to-surface" }
     ],
     "offers": {
       "@type": "Offer",
@@ -292,7 +296,7 @@ const VtxDetail = () => {
                   alt={
                     isPV02 ? "FLYM-PV02W500-A1 2.5W VTX with active cooling fan, 8km range UAV video transmitter industrial grade" :
                     isPV03 ? "FLYM-PV03W000-A1 3W 3000mW flagship ultra-high power analog VTX with CNC cooling chassis for extreme NLOS tactical and industrial UAV missions" :
-                    isFV10W ? "FV10W-A1 10W 10000mW extreme power FPV VTX with dual active cooling, 80CH 5.8GHz video transmitter" :
+                    isFV10W ? "FV10W-A1 10W 10000mW extreme power NLOS analog video link with dual industrial cooling CNC chassis for tactical reconnaissance and underground missions" :
                     isFV16W ? "FV16W-A1 25W 25000mW world's strongest FPV VTX with quad fan CNC cooling, 16W/25W dual-power video transmitter" :
                     isFV25W ? "FV25W-A1 25W 25000mW absolute power FPV VTX with dual industrial fan CNC housing, 15-20km extreme range video transmitter" :
                     isFV37W ? "FV37W-A1 37W 37000mW god-tier power FPV VTX with triple fan CNC cooling, 20km+ extreme range video transmitter" :
@@ -301,7 +305,7 @@ const VtxDetail = () => {
                   title={
                     isPV02 ? "FLYM-PV02W500-A1 2.5W High-Power UAV VTX" :
                     isPV03 ? "FLYM-PV03W000-A1 3W Flagship Ultra-High Power NLOS Analog VTX" :
-                    isFV10W ? "FV10W-A1 10W Extreme Power 80CH FPV Video Transmitter" :
+                    isFV10W ? "FV10W-A1 10W (10,000mW) Extreme Power NLOS Analog Video Link" :
                     isFV16W ? "FV16W-A1 25W / 16W Adjustable Extreme Custom FPV VTX" :
                     isFV25W ? "FV25W-A1 25000mW (25W) Absolute Power FPV Video Transmitter" :
                     isFV37W ? "FV37W-A1 37000mW (37W) God-Tier Power FPV Video Transmitter" :
@@ -322,9 +326,10 @@ const VtxDetail = () => {
                   {isPV03 && <span className="px-3 py-1 text-sm bg-primary/10 text-primary rounded-full font-medium">10km LOS</span>}
                   {isPV03 && <span className="px-3 py-1 text-sm bg-accent text-accent-foreground rounded-full font-medium">3000mW</span>}
                   {isPV03 && <span className="px-3 py-1 text-sm bg-destructive/10 text-destructive rounded-full font-bold">NLOS FLAGSHIP</span>}
-                  {isFV10W && <span className="px-3 py-1 text-sm bg-destructive/10 text-destructive rounded-full font-bold">10000mW</span>}
+                  {isFV10W && <span className="px-3 py-1 text-sm bg-destructive/10 text-destructive rounded-full font-bold">10,000mW</span>}
                   {isFV10W && <span className="px-3 py-1 text-sm bg-primary/10 text-primary rounded-full font-medium">80CH</span>}
                   {isFV10W && <span className="px-3 py-1 text-sm bg-accent text-accent-foreground rounded-full font-medium">5-Step Power</span>}
+                  {isFV10W && <span className="px-3 py-1 text-sm bg-destructive/20 text-destructive rounded-full font-bold">NLOS FLAGSHIP</span>}
                   {isFV16W && <span className="px-3 py-1 text-sm bg-destructive/10 text-destructive rounded-full font-bold">25000mW</span>}
                   {isFV16W && <span className="px-3 py-1 text-sm bg-destructive/20 text-destructive rounded-full font-bold">16W/25W</span>}
                   {isFV16W && <span className="px-3 py-1 text-sm bg-primary/10 text-primary rounded-full font-medium">15km+ LOS</span>}
@@ -804,7 +809,42 @@ const VtxDetail = () => {
           />
         )}
 
-        {/* FV16W Application Scenarios */}
+        {/* FV10W Technical Guide */}
+        {isFV10W && (
+          <section className="py-16 bg-background">
+            <div className="container mx-auto px-4">
+              <h2 className="text-2xl font-bold mb-8 text-center">{t('vtxDetail.fv10w.techGuide.title')}</h2>
+              <div className="max-w-3xl mx-auto space-y-6">
+                {[
+                  { titleKey: 'vtxDetail.fv10w.techGuide.antenna.title', descKey: 'vtxDetail.fv10w.techGuide.antenna.desc', icon: Radio },
+                  { titleKey: 'vtxDetail.fv10w.techGuide.filter.title', descKey: 'vtxDetail.fv10w.techGuide.filter.desc', icon: Shield },
+                  { titleKey: 'vtxDetail.fv10w.techGuide.power.title', descKey: 'vtxDetail.fv10w.techGuide.power.desc', icon: Zap },
+                  { titleKey: 'vtxDetail.fv10w.techGuide.mast.title', descKey: 'vtxDetail.fv10w.techGuide.mast.desc', icon: Thermometer },
+                ].map((item, idx) => (
+                  <div key={idx} className="p-6 bg-card rounded-xl border border-border">
+                    <div className="flex items-center gap-3 mb-3">
+                      <div className="w-10 h-10 rounded-lg bg-destructive/10 flex items-center justify-center">
+                        <item.icon className="w-5 h-5 text-destructive" />
+                      </div>
+                      <h3 className="font-semibold">{t(item.titleKey)}</h3>
+                    </div>
+                    <p className="text-sm text-muted-foreground leading-relaxed">{t(item.descKey)}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </section>
+        )}
+
+        {/* FV10W Disclaimer */}
+        {isFV10W && (
+          <div className="container mx-auto px-4 pb-8">
+            <p className="text-xs text-muted-foreground italic text-center max-w-3xl mx-auto">
+              {t('vtxDetail.fv10w.disclaimer')}
+            </p>
+          </div>
+        )}
+
         {isFV16W && (
           <section className="py-20 bg-muted/30">
             <div className="container mx-auto px-4">
