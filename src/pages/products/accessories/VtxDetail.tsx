@@ -909,7 +909,56 @@ const VtxDetail = () => {
           />
         )}
 
-        {/* FV25W Application Scenarios */}
+        {/* FV16W Technical Guide */}
+        {isFV16W && (
+          <section className="py-16 bg-background">
+            <div className="container mx-auto px-4">
+              <h2 className="text-2xl font-bold mb-8 text-center">{t('vtxDetail.fv16w.techGuide.title')}</h2>
+              <div className="max-w-3xl mx-auto space-y-6">
+                {[1, 2, 3, 4].map(i => (
+                  <div key={i} className="p-6 bg-card rounded-xl border border-border">
+                    <h3 className="font-semibold mb-2 text-primary">{t(`vtxDetail.fv16w.techGuide.tip${i}.title`)}</h3>
+                    <p className="text-sm text-muted-foreground leading-relaxed">{t(`vtxDetail.fv16w.techGuide.tip${i}.desc`)}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </section>
+        )}
+
+        {/* FV16W Case Study */}
+        {isFV16W && (
+          <section className="py-20 bg-muted/30">
+            <div className="container mx-auto px-4">
+              <h2 className="text-2xl font-bold mb-4 text-center">{t('vtxDetail.fv16w.caseStudy.title')}</h2>
+              <p className="text-muted-foreground text-center max-w-3xl mx-auto mb-10">{t('vtxDetail.fv16w.caseStudy.intro')}</p>
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mx-auto">
+                {[1, 2, 3].map(i => (
+                  <div key={i} className="p-6 bg-card rounded-xl border border-border">
+                    <div className="w-12 h-12 rounded-lg bg-destructive/10 flex items-center justify-center mb-4">
+                      {i === 1 && <Settings className="w-6 h-6 text-destructive" />}
+                      {i === 2 && <Shield className="w-6 h-6 text-destructive" />}
+                      {i === 3 && <Thermometer className="w-6 h-6 text-destructive" />}
+                    </div>
+                    <h3 className="font-semibold mb-2">{t(`vtxDetail.fv16w.caseStudy.s${i}.title`)}</h3>
+                    <p className="text-sm text-muted-foreground leading-relaxed">{t(`vtxDetail.fv16w.caseStudy.s${i}.desc`)}</p>
+                  </div>
+                ))}
+              </div>
+              <p className="text-sm text-muted-foreground text-center mt-8 max-w-2xl mx-auto italic">{t('vtxDetail.fv16w.caseStudy.note')}</p>
+            </div>
+          </section>
+        )}
+
+        {/* FV16W Disclaimer */}
+        {isFV16W && (
+          <section className="py-8">
+            <div className="container mx-auto px-4">
+              <p className="text-xs text-muted-foreground text-center max-w-3xl mx-auto">{t('vtxDetail.fv16w.disclaimer')}</p>
+            </div>
+          </section>
+        )}
+
         {isFV25W && (
           <section className="py-20 bg-muted/30">
             <div className="container mx-auto px-4">
