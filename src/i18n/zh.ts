@@ -6812,11 +6812,29 @@ export const zhTranslations: Record<string, string> = {
   'digitalFpv.h.hb150.crossLink.swarm': '查看W系列集群平台',
 
   // HD-4000-B150
-  'digitalFpv.h.4000b150.name': 'HD-4000-B150 基站组网电台',
-  'digitalFpv.h.4000b150.slogan': '150公里C波段基站电台',
-  'digitalFpv.h.4000b150.subSlogan': '150KM传输 | 4GHz C波段 | IP65防护 | 2480g',
-  'digitalFpv.h.4000b150.description': 'HD-4000-B150系列采用C波段(4000-4300MHz)基站电台，IP65防护，一体化设计，适合远距离地面站部署。',
-  'digitalFpv.h.4000b150.keyFeature.range': '150KM传输',
+  'digitalFpv.h.4000b150.name': 'HD-4000-B150 战略级C波段基站',
+  'digitalFpv.h.4000b150.slogan': '150公里4GHz C波段战术地面站',
+  'digitalFpv.h.4000b150.subSlogan': '150KM超视距 | 4.4-4.9GHz C波段 | IP65防护 | -108dBm | 2480g',
+  'digitalFpv.h.4000b150.description': 'HD-4000-B150是终极C波段（4.4GHz-4.9GHz）战术基站，专为150公里战略级超视距任务打造。运行于纯净无干扰的C波段频谱，以AES-256加密提供高安全性1080P高清视频和关键遥测传输。B系列一体化架构将高增益MIMO天线、终端和电源集成于单个IP65级CNC外壳中。配备-108dBm接收灵敏度和先进COFDM调制，在跨海和电磁对抗环境中维持链路完整性。HALE固定翼、海事巡逻和战术边境任务的终极地面端骨干。',
+  'digitalFpv.h.4000b150.keyFeature.range': '150KM超视距',
+  // HD-4000-B150 SEO
+  'digitalFpv.h.4000b150.seo.title': 'HD-4000-B150 | 150公里4GHz C波段战术基站 | 战略BVLOS | CANI UAV',
+  'digitalFpv.h.4000b150.seo.description': 'HD-4000-B150是顶级4.4GHz C波段基站，在150公里范围提供1080P视频和遥测。纯净频谱、AES-256加密、IP65外壳，专为战术海事和边境任务设计。',
+  // HD-4000-B150 战略优势
+  'digitalFpv.h.4000b150.strategic.title': 'C波段（4GHz）：战术频段优势',
+  'digitalFpv.h.4000b150.strategic.desc': '1.4GHz擅长绕射和穿透，而4.4-4.9GHz C波段提供了根本不同的优势：频谱隔离。在拥挤的城市和电磁对抗环境中，C波段运行于纯净频谱空间——成为对抗干扰和数据安全至上任务的首选频段。',
+  'digitalFpv.h.4000b150.strategic.spectrum': '纯净频谱隔离',
+  'digitalFpv.h.4000b150.strategic.spectrumDesc': '4.4-4.9GHz远离拥挤的2.4G/5.8G WiFi和1.4G工业频段——原始频谱具备最低同频干扰，在电磁对抗环境中拥有卓越的抗干扰特性',
+  'digitalFpv.h.4000b150.strategic.directivity': '高增益精密波束',
+  'digitalFpv.h.4000b150.strategic.directivityDesc': '更高频率使更小天线口径获得更大方向增益——更窄的波束减少多径干扰、提升信号安全性（低截获概率），在150公里处最大化链路预算',
+  'digitalFpv.h.4000b150.strategic.throughput': '海量数据吞吐',
+  'digitalFpv.h.4000b150.strategic.throughputDesc': 'C波段更宽信道带宽支持100公里+距离下高达20Mbps吞吐——单条加密通道同时承载1080P/4K视频、MAVLink遥测和载荷传感器数据',
+  // HD-4000-B150 交叉链接
+  'digitalFpv.h.4000b150.crossLink.title': 'C波段战略平台解决方案',
+  'digitalFpv.h.4000b150.crossLink.desc': 'HD-4000-B150与HD-4000-A150机载电台配对，构建完整的C波段空地系统。150公里最佳性能需要4000米+飞行高度和双轴追踪天线。可根据国家法规定制子频段。',
+  'digitalFpv.h.4000b150.crossLink.a150': '查看 HD-4000-A150 机载电台',
+  'digitalFpv.h.4000b150.crossLink.swarm': '查看W系列集群平台',
+  'digitalFpv.h.4000b150.crossLink.hb150': '对比 HD-HB150（1.4GHz）',
 
   // H-Series Antennas
   'digitalFpv.h.ant.spec.freq': '工作频率',
