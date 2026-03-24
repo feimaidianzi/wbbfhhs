@@ -1546,8 +1546,8 @@ export const enTranslations: Record<string, string> = {
   // Gimbal SKU-specific TDK
   'gimbal.tdk.k40t.title': 'K40T | 40x Optical Zoom 3-Axis Gimbal Camera | Long-Range Reconnaissance | CANI UAV',
   'gimbal.tdk.k40t.desc': 'The K40T is a flagship 40x optical zoom gimbal camera for industrial UAVs. Featuring ultra-precise 3-axis stabilization and advanced AI object tracking for long-range inspection and tactical surveillance. 640×512 thermal + 1200m laser rangefinder in just 290g.',
-  'gimbal.tdk.k8t-v2.title': 'K8T-V2 Dual-Sensor Tracking Gimbal | 133g Ultralight | Thermal + AI Tracking | CANI',
-  'gimbal.tdk.k8t-v2.desc': 'CANI K8T-V2 weighs just 133g with integrated infrared thermal imaging and visible light recognition. Next-gen AI processor enables autonomous target locking and tracking. 3-axis stabilization, TTL/TCP multi-protocol support for lightweight inspection UAVs and FPV special operations.',
+  'gimbal.tdk.k8t-v2.title': 'K8T-V2 | 8x Optical Zoom 3-Axis Gimbal | Lightweight & High-Speed | CANI UAV',
+  'gimbal.tdk.k8t-v2.desc': 'The K8T-V2 is an upgraded 8x optical zoom gimbal camera designed for compact UAVs. Optimized with a V2 stabilization algorithm and high-speed auto-focus for agile reconnaissance and industrial inspection. 162g ultralight with dual-sensor thermal + visible fusion.',
   'gimbal.tdk.k8-v2.title': 'K8-V2 Single-Light AI Tracking Gimbal | 30x Optical Zoom + 4K | CANI',
   'gimbal.tdk.k8-v2.desc': 'K8-V2 AI gimbal with Sony 1/2.8" CMOS sensor, 30x optical + 8x digital zoom, 4K@30fps output. Ultra-lightweight at 115g, IP65 rated, ONVIF protocol support with intelligent target recognition and tracking.',
   'accessoryDetail.gimbal.seoDesc': 'Industrial UAV gimbal payload with triple-axis brushless stabilization. Multi-protocol integration and OEM/ODM customization available.',
