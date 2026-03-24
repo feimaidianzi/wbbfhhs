@@ -923,7 +923,7 @@ export const zhTranslations: Record<string, string> = {
   'category.fcEsc': '飞控/电调',
   'category.gimbal': '吊舱/云台',
   'category.camera': '运动相机',
-  'category.digitalFpv': '数字图传',
+  'category.digitalFpv': '数字图传&数字电台',
   'category.elrs': 'ELRS接收机/天线',
   'category.tethered': '系留无人机',
   'category.logistics': '物流无人机',
