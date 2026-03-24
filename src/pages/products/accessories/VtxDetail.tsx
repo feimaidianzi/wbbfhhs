@@ -809,7 +809,42 @@ const VtxDetail = () => {
           />
         )}
 
-        {/* FV16W Application Scenarios */}
+        {/* FV10W Technical Guide */}
+        {isFV10W && (
+          <section className="py-16 bg-background">
+            <div className="container mx-auto px-4">
+              <h2 className="text-2xl font-bold mb-8 text-center">{t('vtxDetail.fv10w.techGuide.title')}</h2>
+              <div className="max-w-3xl mx-auto space-y-6">
+                {[
+                  { titleKey: 'vtxDetail.fv10w.techGuide.antenna.title', descKey: 'vtxDetail.fv10w.techGuide.antenna.desc', icon: Radio },
+                  { titleKey: 'vtxDetail.fv10w.techGuide.filter.title', descKey: 'vtxDetail.fv10w.techGuide.filter.desc', icon: Shield },
+                  { titleKey: 'vtxDetail.fv10w.techGuide.power.title', descKey: 'vtxDetail.fv10w.techGuide.power.desc', icon: Zap },
+                  { titleKey: 'vtxDetail.fv10w.techGuide.mast.title', descKey: 'vtxDetail.fv10w.techGuide.mast.desc', icon: Thermometer },
+                ].map((item, idx) => (
+                  <div key={idx} className="p-6 bg-card rounded-xl border border-border">
+                    <div className="flex items-center gap-3 mb-3">
+                      <div className="w-10 h-10 rounded-lg bg-destructive/10 flex items-center justify-center">
+                        <item.icon className="w-5 h-5 text-destructive" />
+                      </div>
+                      <h3 className="font-semibold">{t(item.titleKey)}</h3>
+                    </div>
+                    <p className="text-sm text-muted-foreground leading-relaxed">{t(item.descKey)}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </section>
+        )}
+
+        {/* FV10W Disclaimer */}
+        {isFV10W && (
+          <div className="container mx-auto px-4 pb-8">
+            <p className="text-xs text-muted-foreground italic text-center max-w-3xl mx-auto">
+              {t('vtxDetail.fv10w.disclaimer')}
+            </p>
+          </div>
+        )}
+
         {isFV16W && (
           <section className="py-20 bg-muted/30">
             <div className="container mx-auto px-4">
