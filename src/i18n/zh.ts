@@ -1071,12 +1071,12 @@ export const zhTranslations: Record<string, string> = {
   'tethered.th100.building': '高层建筑外墙',
   'tethered.th100.solar': '光伏板清洁',
 
-  'tethered.th200.title': 'TH-200系留照明无人机',
-  'tethered.th200.desc': 'TH-200系留照明无人机，200米升空高度，10kg载荷，24小时不间断滞空',
-  'tethered.th200.hero': '专业系留平台解决方案',
-  'tethered.th200.altitude': '升空高度',
-  'tethered.th200.payload': '最大载荷',
-  'tethered.th200.flightTime': '滞空时间',
+  'tethered.th200.title': 'TH-200 重型系留无人机动力站',
+  'tethered.th200.desc': 'TH-200重型系留动力系统，7000W+大功率地面站，10kg大载重，24小时持续飞行',
+  'tethered.th200.hero': '重型系留动力站解决方案',
+  'tethered.th200.altitude': '系留飞行高度',
+  'tethered.th200.payload': '大载重能力',
+  'tethered.th200.flightTime': '持续飞行时间',
   'tethered.th200.lightPower': '照明功率',
 
   'tethered.th300.title': 'TH-300消防系留无人机',
