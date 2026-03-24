@@ -179,27 +179,27 @@ const VtxDetail = () => {
   const fv25wJsonLd = isFV25W ? {
     "@context": "https://schema.org/",
     "@type": "Product",
-    "name": "FV25W-A1 25W Extreme Power FPV VTX",
-    "description": "The world's most powerful 25W (25000mW) 5.8GHz video transmitter for extreme long-range and obstacle-penetration FPV drones. Dual industrial fan cooling, CNC housing, SmartAudio compatible.",
+    "name": "FV25W-A1 25W (25000mW) Strategic-Grade NLOS Analog Video Link",
+    "description": "The world's most powerful 25W (25000mW) analog VTX. Built for extreme NLOS challenges — bunker penetration, cross-island relay, and high-EMI industrial environments. Zero-latency strategic video lifeline.",
     "brand": { "@type": "Brand", "name": "CANI Technology" },
-    "sku": "FV25W-A1-25W",
+    "sku": "FV25W-A1-25W-STRATEGIC",
     "mpn": "FV25W-A1",
+    "keywords": "25W VTX, 25000mW VTX, Strategic NLOS VTX, Anti-Jamming Analog Transmitter, Cross-Island Video Relay, Bunker Penetration Link",
     "additionalProperty": [
       { "@type": "PropertyValue", "name": "RF Output Power", "value": "25000mW (25W)" },
-      { "@type": "PropertyValue", "name": "Power Steps", "value": "Customizable (incl. 16W / 25W)" },
-      { "@type": "PropertyValue", "name": "Transmission Range", "value": "15-20km LOS" },
+      { "@type": "PropertyValue", "name": "NLOS Capability", "value": "Bunker-level / Deep mountain / Cross-island maritime" },
+      { "@type": "PropertyValue", "name": "Current Consumption", "value": "5-7A @ 12V" },
       { "@type": "PropertyValue", "name": "Frequency Band", "value": "4.9-6.1GHz" },
       { "@type": "PropertyValue", "name": "Channels", "value": "80CH / 96CH (Ultra-Wide)" },
-      { "@type": "PropertyValue", "name": "Input Voltage", "value": "DC 22-36V (6-8S LiPo)" },
-      { "@type": "PropertyValue", "name": "Cooling System", "value": "Dual High-RPM Fan + CNC Fin Array" },
-      { "@type": "PropertyValue", "name": "End-to-End Latency", "value": "≤30ms" },
-      { "@type": "PropertyValue", "name": "Protocol", "value": "SmartAudio / IRC Tramp" },
-      { "@type": "PropertyValue", "name": "Mounting Size", "value": "30.5×30.5mm" }
+      { "@type": "PropertyValue", "name": "Input Voltage", "value": "DC 12-36V" },
+      { "@type": "PropertyValue", "name": "Cooling System", "value": "Dual Industrial Fan + CNC Extended Fin Array" },
+      { "@type": "PropertyValue", "name": "Latency", "value": "Zero-Latency (Analog)" },
+      { "@type": "PropertyValue", "name": "Application", "value": "Strategic Relay / Mining Robotics / Nuclear Inspection / Maritime Patrol" },
+      { "@type": "PropertyValue", "name": "Antenna Requirement", "value": "50W+ rated, 50-ohm impedance matched" }
     ],
     "offers": {
       "@type": "Offer",
       "url": "https://www.caniuav.com/products/accessories/vtx-vrx/fv25w-a1",
-      "priceCurrency": "USD",
       "availability": "https://schema.org/InStock"
     }
   } : null;
