@@ -8065,17 +8065,17 @@ export const zhTranslations: Record<string, string> = {
   'meshLink.case.smartpark.detail3': 'A/B/C/D/E/F六个点视频实时图传流畅',
 
   // 五大优势
-  'meshLink.advantages.title': '自组网模块五大优势',
-  'meshLink.advantage.sdr.title': 'SDR SoC芯片',
-  'meshLink.advantage.sdr.desc': '使用可控的SDR SoC芯片，软件定义无线电架构，灵活可编程',
-  'meshLink.advantage.bandwidth.title': '230MHz~6GHz宽频带',
-  'meshLink.advantage.bandwidth.desc': '支持230MHz~6GHz超宽频带覆盖，适配多种频段需求',
-  'meshLink.advantage.speed.title': '100Mbps峰值速率',
-  'meshLink.advantage.speed.desc': '最高100Mbps峰值速率，满足高清视频和大数据传输需求',
-  'meshLink.advantage.hopping.title': '快跳频抗干扰',
-  'meshLink.advantage.hopping.desc': '支持快跳频技术，抗干扰能力强，通信安全可靠',
-  'meshLink.advantage.maxrange.title': '最远150公里',
-  'meshLink.advantage.maxrange.desc': '最远150公里传输距离，满足超远距离通信场景',
+  'meshLink.advantages.title': '自组网模块五大核心能力',
+  'meshLink.advantage.sdr.title': 'SDR 软件定义无线电',
+  'meshLink.advantage.sdr.desc': '基于可编程 SDR SoC 芯片，软件定义无线电架构，支持波形与协议的灵活定制',
+  'meshLink.advantage.bandwidth.title': '230MHz~6GHz 超宽频带',
+  'meshLink.advantage.bandwidth.desc': '覆盖 230MHz~6GHz 超宽频带，适配军用、民用多种频段授权需求',
+  'meshLink.advantage.speed.title': '100Mbps 峰值速率',
+  'meshLink.advantage.speed.desc': '最高 100Mbps 峰值速率，满足多路高清视频与大数据实时回传需求',
+  'meshLink.advantage.hopping.title': 'FHSS 跳频抗干扰',
+  'meshLink.advantage.hopping.desc': '支持快跳频（FHSS）技术，在电磁复杂环境下保持通信链路安全可靠',
+  'meshLink.advantage.maxrange.title': '最远 150 公里',
+  'meshLink.advantage.maxrange.desc': '定向天线配置下最远 150 公里传输距离，满足跨海岛与边境超远程通信场景',
 
   // 产品和服务应用领域
   'meshLink.serviceAreas.title': '产品和服务应用领域',
