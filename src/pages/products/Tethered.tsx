@@ -10,7 +10,7 @@ import caseBorderPatrolImg from "@/assets/seo/case-border-patrol.jpg";
 import caseForestFireImg from "@/assets/seo/case-forest-fire.jpg";
 
 const Tethered = () => {
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
 
   const features = [
     { icon: Clock, title: t('tethered.page.f1.title'), description: t('tethered.page.f1.desc') },
@@ -30,7 +30,7 @@ const Tethered = () => {
   const stats = [
     { value: "24h", title: t('tethered.page.stat1.title'), description: t('tethered.page.stat1.desc') },
     { value: "300m", title: t('tethered.page.stat2.title'), description: t('tethered.page.stat2.desc') },
-    { value: "8级", title: t('tethered.page.stat3.title'), description: t('tethered.page.stat3.desc') },
+    { value: language === 'zh' ? '8级' : 'Lv.8', title: t('tethered.page.stat3.title'), description: t('tethered.page.stat3.desc') },
     { value: "5min", title: t('tethered.page.stat4.title'), description: t('tethered.page.stat4.desc') },
   ];
 
@@ -60,9 +60,14 @@ const Tethered = () => {
     { title: t('tethered.page.case3.title'), description: t('tethered.page.case3.desc'), image: caseForestFireImg },
   ];
 
+  const seoKeywords = t('tethered.page.seo.keywords').split(',').map(k => k.trim());
+
   return (
     <ProductPageTemplate
       seoPath="/products/tethered"
+      seoTitle={t('tethered.page.seo.title')}
+      seoDescription={t('tethered.page.seo.desc')}
+      seoKeywords={seoKeywords}
       heroTitle={t('tethered.page.hero.title')}
       heroSubtitle={t('tethered.page.hero.subtitle')}
       heroImage={th200Hero}
