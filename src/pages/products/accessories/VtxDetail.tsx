@@ -625,6 +625,36 @@ const VtxDetail = () => {
           />
         )}
 
+        {/* PV02 Technical Guide */}
+        {isPV02 && (
+          <section className="py-16 bg-background">
+            <div className="container mx-auto px-4">
+              <h2 className="text-2xl font-bold mb-8 text-center">{t('vtxDetail.pv02.techGuide.title')}</h2>
+              <div className="max-w-3xl mx-auto space-y-6">
+                {[
+                  { titleKey: 'vtxDetail.pv02.techGuide.antenna.title', descKey: 'vtxDetail.pv02.techGuide.antenna.desc', icon: Radio },
+                  { titleKey: 'vtxDetail.pv02.techGuide.power.title', descKey: 'vtxDetail.pv02.techGuide.power.desc', icon: Zap },
+                  { titleKey: 'vtxDetail.pv02.techGuide.thermal.title', descKey: 'vtxDetail.pv02.techGuide.thermal.desc', icon: Thermometer },
+                  { titleKey: 'vtxDetail.pv02.techGuide.rf.title', descKey: 'vtxDetail.pv02.techGuide.rf.desc', icon: Shield },
+                ].map((tip, idx) => (
+                  <div key={idx} className="p-6 bg-card rounded-xl border border-border">
+                    <div className="flex items-start gap-4">
+                      <div className="flex-shrink-0 w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center">
+                        <tip.icon className="w-5 h-5 text-primary" />
+                      </div>
+                      <div>
+                        <h3 className="font-semibold mb-2">{t(tip.titleKey)}</h3>
+                        <p className="text-sm text-muted-foreground leading-relaxed">{t(tip.descKey)}</p>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+                <p className="text-sm text-center text-primary font-medium pt-4">{t('vtxDetail.pv02.techGuide.cta')}</p>
+              </div>
+            </div>
+          </section>
+        )}
+
         {/* PV03 Application Scenarios */}
         {isPV03 && (
           <section className="py-20 bg-muted/30">
