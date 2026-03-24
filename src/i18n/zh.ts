@@ -6728,11 +6728,29 @@ export const zhTranslations: Record<string, string> = {
   'digitalFpv.h.a100.strategic.curvatureDesc': '100km 需要飞行器高度 ≥800m 以克服地球弧度遮挡，A100 专为高空长航时飞行剖面优化',
 
   // HD-1400-A150
-  'digitalFpv.h.a150.name': 'HD-1400-A150 机载组网电台',
-  'digitalFpv.h.a150.slogan': '150公里机载宽带数据链',
-  'digitalFpv.h.a150.subSlogan': '150KM传输 | OFDM调制 | 2×10W功率 | 1450g',
-  'digitalFpv.h.a150.description': 'HD-1400-A150系列采用多载波调制技术、MIMO射频技术、智能选频及跳频技术，其接收灵敏度高，抗干扰性强，实现空对地150公里范围内的单向高清视频传输以及遥控遥测双向数据传输。提供RS232\\RJ45等丰富的数据接口，支持点对点、点对多点、多点对多点组网需求，满足任务设备的各种应用需求。宽带数据链产品在UAVS、直升机、固定翼飞机、飞艇、战术导弹上得到了广泛的应用。',
-  'digitalFpv.h.a150.keyFeature.range': '150KM传输',
+  'digitalFpv.h.a150.name': 'HD-1400-A150 战略级微波数据链',
+  'digitalFpv.h.a150.slogan': '1.4GHz 150公里极限超视距战略骨干网',
+  'digitalFpv.h.a150.subSlogan': '150KM超视距 | COFDM+MIMO | 2×10W高线性功放 | -108dBm灵敏度 | 1450g',
+  'digitalFpv.h.a150.description': 'HD-1400-A150是CANI数字链路家族的巅峰之作，专为150公里（93英里）战略级超视距（BVLOS）任务而生。采用1.4GHz黄金频段专有COFDM波形，搭载业界领先的-108dBm接收灵敏度、军规级LDPC前向纠错编码及自适应调制（BPSK/QPSK/16QAM）。航空级CNC铝合金外壳配合卓越的EMI屏蔽与热管理设计，专为高空长航时（HALE）固定翼、海事巡逻VTOL、跨海监控及战略侦察平台打造——在失联不可接受的任务中，A150是唯一选择。',
+  'digitalFpv.h.a150.keyFeature.range': '150KM超视距',
+  // HD-1400-A150 SEO
+  'digitalFpv.h.a150.seo.title': 'HD-1400-A150 | 150公里战略级1.4GHz数字链路 | 极限BVLOS | CANI UAV',
+  'digitalFpv.h.a150.seo.description': 'HD-1400-A150是顶级1.4GHz战略链路，在150公里半径内提供1080P高清视频和双向遥测。-108dBm灵敏度配合COFDM+MIMO，专为极端海事和边境任务设计。',
+  // HD-1400-A150 战略优势
+  'digitalFpv.h.a150.strategic.title': '150公里：突破人类视距通信的物理极限',
+  'digitalFpv.h.a150.strategic.desc': '在150公里处，信号路径损耗超过145dB——加上地球曲率要求飞行高度3000米以上。A150通过-108dBm超低噪声接收机、军规级LDPC前向纠错编码和自适应调制技术实现了这一物理极限距离：画质可降级，链路永不断。这不是产品——这是无线通信的工程前沿。',
+  'digitalFpv.h.a150.strategic.sensitivity': '超低噪声底限（-108dBm）',
+  'digitalFpv.h.a150.strategic.sensitivityDesc': '业界领先的-108dBm接收灵敏度，配合高线性LNA和先进LDPC纠错编码——在150公里处从深埋于热噪声中的信号中提取可用数据',
+  'digitalFpv.h.a150.strategic.maritime': '海事与边境场景专项优化',
+  'digitalFpv.h.a150.strategic.maritimeDesc': '耐盐雾航空级外壳、水面多径干扰抑制、深衰落抵抗——在超过150公里的海上搜救任务中验证卓越性能',
+  'digitalFpv.h.a150.strategic.redundancy': '双通道数据冗余',
+  'digitalFpv.h.a150.strategic.redundancyDesc': 'AES-256加密、H.265/HEVC智能压缩、自适应BPSK/QPSK/16QAM调制与双通道分集——为战略情报作业提供任务关键级可靠性',
+  // HD-1400-A150 平台交叉链接
+  'digitalFpv.h.a150.crossLink.title': '150公里战略平台推荐方案',
+  'digitalFpv.h.a150.crossLink.desc': '达到150公里需要最低3000米飞行高度和双轴高增益追踪天线系统。HD-1400-A150是HALE固定翼、海事巡逻VTOL和跨境战略侦察平台的终极通信骨干。频段（800MHz-2.5GHz）可为国防和政府项目定制。',
+  'digitalFpv.h.a150.crossLink.swarm': '查看W系列集群平台',
+  'digitalFpv.h.a150.crossLink.logistics': '查看物流平台',
+  'digitalFpv.h.a150.crossLink.tethered': '查看系留平台',
 
   // HD-4000-A150
   'digitalFpv.h.4000a150.name': 'HD-4000-A150 机载组网电台',
