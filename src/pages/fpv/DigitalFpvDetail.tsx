@@ -71,9 +71,9 @@ const DigitalFpvDetail = () => {
   return (
     <div className="min-h-screen">
       <MultiLanguageSEO 
-        title={isS900 ? t('digitalFpv.s900.seo.title') : isWifiLink2 ? t('digitalFpv.wifilink2.seo.title') : `${t(product.nameKey)} - ${t('digitalFpv.title')}`}
-        description={isS900 ? t('digitalFpv.s900.seo.description') : isWifiLink2 ? t('digitalFpv.wifilink2.seo.description') : t(product.descriptionKey)}
-        keywords={`${t('digitalFpv.title')},${t(product.nameKey)},${isS900 ? 'MAVLink,datalink,telemetry,point-to-multipoint,' : isWifiLink2 ? 'OpenIPC,H.265,1080P,WiFi FPV,open-source,Ruby FPV,low-latency HD,' : 'FPV,'}${t('digitalFpv.seo.keywords')}`}
+        title={isS900 ? t('digitalFpv.s900.seo.title') : isWifiLink2 ? t('digitalFpv.wifilink2.seo.title') : isHDA30 ? t('digitalFpv.h.a30.seo.title') : `${t(product.nameKey)} - ${t('digitalFpv.title')}`}
+        description={isS900 ? t('digitalFpv.s900.seo.description') : isWifiLink2 ? t('digitalFpv.wifilink2.seo.description') : isHDA30 ? t('digitalFpv.h.a30.seo.description') : t(product.descriptionKey)}
+        keywords={`${t('digitalFpv.title')},${t(product.nameKey)},${isS900 ? 'MAVLink,datalink,telemetry,point-to-multipoint,' : isWifiLink2 ? 'OpenIPC,H.265,1080P,WiFi FPV,open-source,Ruby FPV,low-latency HD,' : isHDA30 ? '1.4GHz,BVLOS,OFDM,MIMO,30km datalink,anti-interference,sub-2GHz,tactical video,' : 'FPV,'}${t('digitalFpv.seo.keywords')}`}
         path={`/products/accessories/digital-fpv/${productId}`}
       />
       <Helmet>
