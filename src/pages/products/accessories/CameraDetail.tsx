@@ -21,18 +21,18 @@ import sj4000HdQuality from "@/assets/camera/sj4000-hd-quality.png";
 import sj4000AppShare from "@/assets/camera/sj4000-app-share.png";
 
 const featureIcons: Record<string, React.ReactNode> = {
-  "1200万像素COMS大广角成像": <Aperture className="w-8 h-8" />,
-  "12MP CMOS Ultra-Wide Imaging": <Aperture className="w-8 h-8" />,
-  "1080P高清画质": <Monitor className="w-8 h-8" />,
-  "1080P Full HD Video": <Monitor className="w-8 h-8" />,
-  "WiFi无线传输": <Wifi className="w-8 h-8" />,
-  "WiFi Wireless Streaming": <Wifi className="w-8 h-8" />,
-  "30米防水设计": <Droplets className="w-8 h-8" />,
-  "30m Waterproof Design": <Droplets className="w-8 h-8" />,
-  "多种安装配件": <Camera className="w-8 h-8" />,
-  "Versatile Mounting Accessories": <Camera className="w-8 h-8" />,
-  "移动侦测功能": <Battery className="w-8 h-8" />,
-  "Motion Detection Recording": <Battery className="w-8 h-8" />,
+  "1080P全高清飞行成像": <Monitor className="w-8 h-8" />,
+  "1080P Full HD Flight Imaging": <Monitor className="w-8 h-8" />,
+  "170°广角航拍覆盖": <Aperture className="w-8 h-8" />,
+  "170° Wide-Angle Aerial Coverage": <Aperture className="w-8 h-8" />,
+  "WiFi实时预览与校准": <Wifi className="w-8 h-8" />,
+  "WiFi Real-Time Preview & Calibration": <Wifi className="w-8 h-8" />,
+  "坚固全天候防护": <Droplets className="w-8 h-8" />,
+  "Rugged All-Weather Protection": <Droplets className="w-8 h-8" />,
+  "灵活无人机挂载系统": <Camera className="w-8 h-8" />,
+  "Versatile UAV Mounting System": <Camera className="w-8 h-8" />,
+  "循环录像（飞行黑匣子）": <Battery className="w-8 h-8" />,
+  "Loop Recording (Flight Black Box)": <Battery className="w-8 h-8" />,
 };
 
 const CameraDetail = () => {
@@ -58,15 +58,22 @@ const CameraDetail = () => {
   }
 
   // SKU-specific TDK
-  const seoTitle = t(`camera.tdk.${productId}.title`) !== `camera.tdk.${productId}.title`
-    ? t(`camera.tdk.${productId}.title`)
-    : t(product.nameKey);
-  const seoDesc = t(`camera.tdk.${productId}.desc`) !== `camera.tdk.${productId}.desc`
-    ? t(`camera.tdk.${productId}.desc`)
-    : `${t(product.sloganKey)}. ${product.highlightKeys.map(k => t(k)).join(', ')}`;
+  const seoProductKey = productId === 'sj4000-wifi' ? 'sj4000' : productId?.replace(/-/g, '');
+  const seoTitleKey = `camera.${seoProductKey}.seo.title`;
+  const seoDescKey = `camera.${seoProductKey}.seo.description`;
+  const seoTitle = t(seoTitleKey) !== seoTitleKey
+    ? t(seoTitleKey)
+    : t(`camera.tdk.${productId}.title`) !== `camera.tdk.${productId}.title`
+      ? t(`camera.tdk.${productId}.title`)
+      : t(product.nameKey);
+  const seoDesc = t(seoDescKey) !== seoDescKey
+    ? t(seoDescKey)
+    : t(`camera.tdk.${productId}.desc`) !== `camera.tdk.${productId}.desc`
+      ? t(`camera.tdk.${productId}.desc`)
+      : `${t(product.sloganKey)}. ${product.highlightKeys.map(k => t(k)).join(', ')}`;
   const seoKeywords = t(`camera.tdk.${productId}.keywords`) !== `camera.tdk.${productId}.keywords`
     ? t(`camera.tdk.${productId}.keywords`)
-    : `${product.model},${t('accessoryDetail.cameraKeywords')}`;
+    : `UAV action camera,1080P flight recorder,SJ4000 WiFi for drones,wide-angle aerial camera,budget UAV payload,FPV camera,flight recording module,WDR,${product.model},CANI UAV`;
 
   // FAQ data
   const faqItems = [
