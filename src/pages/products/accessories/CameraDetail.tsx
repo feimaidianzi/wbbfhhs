@@ -58,8 +58,9 @@ const CameraDetail = () => {
   }
 
   // SKU-specific TDK
-  const seoTitleKey = `camera.${productId?.replace(/-/g, '')}.seo.title`;
-  const seoDescKey = `camera.${productId?.replace(/-/g, '')}.seo.description`;
+  const seoProductKey = productId === 'sj4000-wifi' ? 'sj4000' : productId?.replace(/-/g, '');
+  const seoTitleKey = `camera.${seoProductKey}.seo.title`;
+  const seoDescKey = `camera.${seoProductKey}.seo.description`;
   const seoTitle = t(seoTitleKey) !== seoTitleKey
     ? t(seoTitleKey)
     : t(`camera.tdk.${productId}.title`) !== `camera.tdk.${productId}.title`
