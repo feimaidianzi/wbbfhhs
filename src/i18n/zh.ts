@@ -6678,11 +6678,29 @@ export const zhTranslations: Record<string, string> = {
   'digitalFpv.h.a30.freqAdvantage.bvlosDesc': '30km 作战半径覆盖长航时 VTOL 和固定翼的典型任务包线',
 
   // HD-1400-A50
-  'digitalFpv.h.a50.name': 'HD-1400-A50 机载组网电台',
-  'digitalFpv.h.a50.slogan': '50公里机载宽带数据链',
-  'digitalFpv.h.a50.subSlogan': '50KM传输 | OFDM调制 | 2×5W功率 | 1360g',
-  'digitalFpv.h.a50.description': 'HD-1400-A50系列采用多载波调制技术、MIMO射频技术、智能选频及跳频技术，实现空对地50公里范围内的单向高清视频传输以及遥控遥测双向数据传输。',
-  'digitalFpv.h.a50.keyFeature.range': '50KM传输',
+  'digitalFpv.h.a50.name': 'HD-1400-A50 战略级远程数据链',
+  'digitalFpv.h.a50.slogan': '1.4GHz 50km 超远程战略数字链路',
+  'digitalFpv.h.a50.subSlogan': '50KM BVLOS | OFDM+MIMO | 2×5W 高线性功放 | AES128 | 1360g',
+  'digitalFpv.h.a50.description': 'HD-1400-A50 是 CANI 数字链路系列的旗舰产品，专为 50km 级战略超视距（BVLOS）任务而生。工作在 1.4GHz 纯净频段，采用高线性功放（2×5W）与 -98dBm 高灵敏度接收端，实现极致链路预算。配合 MIMO 分集技术与 H.265 高效编码，即使在海面、边境等多径衰落严重的环境中，依然保持稳定的 1080P 高清视频回传与双向遥测。航空级 CNC 铝合金外壳，优异的 EMI 屏蔽性能，是长航时 VTOL、固定翼海巡及边境侦察平台的终极通信骨干。',
+  'digitalFpv.h.a50.keyFeature.range': '50KM BVLOS',
+  // HD-1400-A50 SEO
+  'digitalFpv.h.a50.seo.title': 'HD-1400-A50 | 1.4GHz 50km 超远程数字链路 | 战略级 BVLOS | CANI UAV',
+  'digitalFpv.h.a50.seo.description': 'HD-1400-A50 是旗舰级 1.4GHz 数字链路，在 50km 范围内提供 1080P 高清视频与双向遥测。高线性功放与 -98dBm 灵敏度接收端，专为海事巡逻、边境侦察和长航时 VTOL 设计。',
+  // HD-1400-A50 Cross-Link
+  'digitalFpv.h.a50.crossLink.title': '50km 战略级平台推荐方案',
+  'digitalFpv.h.a50.crossLink.desc': 'HD-1400-A50 是 CANI 长航时战略平台的旗舰通信方案。50km 覆盖半径配合定向追踪天线，为跨海巡逻与边境侦察提供不间断高清视频保障。',
+  'digitalFpv.h.a50.crossLink.swarm': '查看 W 系列集群平台',
+  'digitalFpv.h.a50.crossLink.logistics': '查看物流无人机平台',
+  'digitalFpv.h.a50.crossLink.tethered': '查看系留无人机平台',
+  // HD-1400-A50 Strategic advantage
+  'digitalFpv.h.a50.strategic.title': '为什么 50km 需要 A50 级别的链路？',
+  'digitalFpv.h.a50.strategic.desc': '50km 的信号路径损耗极大，普通图传在 20km 后即失去画面。A50 通过高线性功放、-98dBm 接收灵敏度与 OFDM 抗衰落技术，构建了足以支撑 50km 的链路预算——这是工程能力而非简单的功率堆叠。',
+  'digitalFpv.h.a50.strategic.linkBudget': '极致链路预算',
+  'digitalFpv.h.a50.strategic.linkBudgetDesc': '2×5W 高线性功放 + -98dBm 灵敏度接收端，每多 1dB 灵敏度意味着多 12% 的有效距离',
+  'digitalFpv.h.a50.strategic.maritime': '海事与边境级可靠性',
+  'digitalFpv.h.a50.strategic.maritimeDesc': 'CNC 航空铝外壳、EMI 全屏蔽、-40℃~+70℃ 宽温工作，适应海面盐雾与极端高低温',
+  'digitalFpv.h.a50.strategic.security': '战术级数据安全',
+  'digitalFpv.h.a50.strategic.securityDesc': 'AES-128 加密 + FHSS 跳频抗干扰，确保视频与遥测数据在敏感任务中的端到端安全',
 
   // HD-1400-A100
   'digitalFpv.h.a100.name': 'HD-1400-A100 机载组网电台',
