@@ -144,23 +144,23 @@ const VtxDetail = () => {
   const fv16wJsonLd = isFV16W ? {
     "@context": "https://schema.org/",
     "@type": "Product",
-    "name": "FV16W-A1 25W Extreme High Power VTX",
-    "description": "World's most powerful FPV video transmitter with 16W and 25W dual power steps. Fully customizable for professional and industrial UAV missions. Quad fan + CNC full-shield cooling for continuous 25W output.",
+    "name": "FV16W-A1 16W (16000mW) Ultra-Power Tactical NLOS Analog VTX",
+    "description": "The FV16W-A1 is a flagship 16W (16000mW) analog video transmitter designed for extreme NLOS missions. Features superior signal penetration through multiple concrete walls and dense forests with advanced industrial cooling.",
     "brand": { "@type": "Brand", "name": "CANI Technology" },
-    "sku": "FV16W-A1-25W",
+    "sku": "FV16W-A1-16W",
     "mpn": "FV16W-A1",
-    "keywords": "25W VTX, 16W VTX, Extreme FPV VTX, High Power Video Transmitter, Custom UAV VTX",
+    "keywords": "16W VTX, 16000mW VTX, Tactical NLOS VTX, Heavy-Duty RF Penetration, Anti-Interference Analog Transmitter, Carrier-Grade Analog Video Link",
     "additionalProperty": [
-      { "@type": "PropertyValue", "name": "RF Output Power", "value": "25000mW (25W) / 16000mW (16W)" },
-      { "@type": "PropertyValue", "name": "Power Steps", "value": "16W / 25W (Dual-Step)" },
-      { "@type": "PropertyValue", "name": "Transmission Range", "value": "15km+ LOS" },
+      { "@type": "PropertyValue", "name": "RF Output Power", "value": "16000mW (16W)" },
+      { "@type": "PropertyValue", "name": "NLOS Capability", "value": "Multi-layer concrete / Dense forest / Underground" },
+      { "@type": "PropertyValue", "name": "Current Consumption", "value": "3.5-4.5A @ 12V" },
       { "@type": "PropertyValue", "name": "Frequency Band", "value": "4.9-6.1GHz" },
       { "@type": "PropertyValue", "name": "Channels", "value": "80CH" },
-      { "@type": "PropertyValue", "name": "Input Voltage", "value": "DC 22-36V (6-8S LiPo)" },
-      { "@type": "PropertyValue", "name": "Cooling System", "value": "Quad Fan + CNC Full-Shield Aluminum Enclosure" },
-      { "@type": "PropertyValue", "name": "Customization", "value": "Full R&D / OEM Support" },
-      { "@type": "PropertyValue", "name": "Mounting Size", "value": "30.5×30.5mm" },
-      { "@type": "PropertyValue", "name": "Weight", "value": "47g" }
+      { "@type": "PropertyValue", "name": "Input Voltage", "value": "DC 12-28V" },
+      { "@type": "PropertyValue", "name": "Cooling System", "value": "Quad Fan + CNC Aerospace-Grade Aluminum Chassis" },
+      { "@type": "PropertyValue", "name": "Latency", "value": "Zero-Latency (Analog)" },
+      { "@type": "PropertyValue", "name": "Application", "value": "Tactical Reconnaissance / Mining Robotics / Search and Rescue / Industrial Inspection" },
+      { "@type": "PropertyValue", "name": "Mounting Size", "value": "30.5×30.5mm" }
     ],
     "offers": {
       "@type": "Offer",
@@ -297,7 +297,7 @@ const VtxDetail = () => {
                     isPV02 ? "FLYM-PV02W500-A1 2.5W VTX with active cooling fan, 8km range UAV video transmitter industrial grade" :
                     isPV03 ? "FLYM-PV03W000-A1 3W 3000mW flagship ultra-high power analog VTX with CNC cooling chassis for extreme NLOS tactical and industrial UAV missions" :
                     isFV10W ? "FV10W-A1 10W 10000mW extreme power NLOS analog video link with dual industrial cooling CNC chassis for tactical reconnaissance and underground missions" :
-                    isFV16W ? "FV16W-A1 25W 25000mW world's strongest FPV VTX with quad fan CNC cooling, 16W/25W dual-power video transmitter" :
+                    isFV16W ? "FV16W-A1 16W 16000mW ultra-power tactical NLOS analog video link with quad fan CNC aerospace-grade cooling for mining robotics search and rescue industrial inspection" :
                     isFV25W ? "FV25W-A1 25W 25000mW absolute power FPV VTX with dual industrial fan CNC housing, 15-20km extreme range video transmitter" :
                     isFV37W ? "FV37W-A1 37W 37000mW god-tier power FPV VTX with triple fan CNC cooling, 20km+ extreme range video transmitter" :
                     t(product.nameKey)
@@ -306,7 +306,7 @@ const VtxDetail = () => {
                     isPV02 ? "FLYM-PV02W500-A1 2.5W High-Power UAV VTX" :
                     isPV03 ? "FLYM-PV03W000-A1 3W Flagship Ultra-High Power NLOS Analog VTX" :
                     isFV10W ? "FV10W-A1 10W (10,000mW) Extreme Power NLOS Analog Video Link" :
-                    isFV16W ? "FV16W-A1 25W / 16W Adjustable Extreme Custom FPV VTX" :
+                    isFV16W ? "FV16W-A1 16W (16,000mW) Ultimate Tactical NLOS Analog Video Powerhouse" :
                     isFV25W ? "FV25W-A1 25000mW (25W) Absolute Power FPV Video Transmitter" :
                     isFV37W ? "FV37W-A1 37000mW (37W) God-Tier Power FPV Video Transmitter" :
                     t(product.nameKey)
@@ -330,10 +330,10 @@ const VtxDetail = () => {
                   {isFV10W && <span className="px-3 py-1 text-sm bg-primary/10 text-primary rounded-full font-medium">80CH</span>}
                   {isFV10W && <span className="px-3 py-1 text-sm bg-accent text-accent-foreground rounded-full font-medium">5-Step Power</span>}
                   {isFV10W && <span className="px-3 py-1 text-sm bg-destructive/20 text-destructive rounded-full font-bold">NLOS FLAGSHIP</span>}
-                  {isFV16W && <span className="px-3 py-1 text-sm bg-destructive/10 text-destructive rounded-full font-bold">25000mW</span>}
-                  {isFV16W && <span className="px-3 py-1 text-sm bg-destructive/20 text-destructive rounded-full font-bold">16W/25W</span>}
-                  {isFV16W && <span className="px-3 py-1 text-sm bg-primary/10 text-primary rounded-full font-medium">15km+ LOS</span>}
-                  {isFV16W && <span className="px-3 py-1 text-sm bg-accent text-accent-foreground rounded-full font-medium">Custom OEM</span>}
+                  {isFV16W && <span className="px-3 py-1 text-sm bg-destructive/10 text-destructive rounded-full font-bold">16,000mW</span>}
+                  {isFV16W && <span className="px-3 py-1 text-sm bg-destructive/20 text-destructive rounded-full font-bold">TACTICAL NLOS</span>}
+                  {isFV16W && <span className="px-3 py-1 text-sm bg-primary/10 text-primary rounded-full font-medium">3.5-4.5A</span>}
+                  {isFV16W && <span className="px-3 py-1 text-sm bg-accent text-accent-foreground rounded-full font-medium">Zero-Latency</span>}
                   {isFV25W && <span className="px-3 py-1 text-sm bg-destructive/10 text-destructive rounded-full font-bold">25000mW</span>}
                   {isFV25W && <span className="px-3 py-1 text-sm bg-destructive/20 text-destructive rounded-full font-bold">15-20km LOS</span>}
                   {isFV25W && <span className="px-3 py-1 text-sm bg-primary/10 text-primary rounded-full font-medium">80/96CH</span>}
@@ -909,7 +909,56 @@ const VtxDetail = () => {
           />
         )}
 
-        {/* FV25W Application Scenarios */}
+        {/* FV16W Technical Guide */}
+        {isFV16W && (
+          <section className="py-16 bg-background">
+            <div className="container mx-auto px-4">
+              <h2 className="text-2xl font-bold mb-8 text-center">{t('vtxDetail.fv16w.techGuide.title')}</h2>
+              <div className="max-w-3xl mx-auto space-y-6">
+                {[1, 2, 3, 4].map(i => (
+                  <div key={i} className="p-6 bg-card rounded-xl border border-border">
+                    <h3 className="font-semibold mb-2 text-primary">{t(`vtxDetail.fv16w.techGuide.tip${i}.title`)}</h3>
+                    <p className="text-sm text-muted-foreground leading-relaxed">{t(`vtxDetail.fv16w.techGuide.tip${i}.desc`)}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </section>
+        )}
+
+        {/* FV16W Case Study */}
+        {isFV16W && (
+          <section className="py-20 bg-muted/30">
+            <div className="container mx-auto px-4">
+              <h2 className="text-2xl font-bold mb-4 text-center">{t('vtxDetail.fv16w.caseStudy.title')}</h2>
+              <p className="text-muted-foreground text-center max-w-3xl mx-auto mb-10">{t('vtxDetail.fv16w.caseStudy.intro')}</p>
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mx-auto">
+                {[1, 2, 3].map(i => (
+                  <div key={i} className="p-6 bg-card rounded-xl border border-border">
+                    <div className="w-12 h-12 rounded-lg bg-destructive/10 flex items-center justify-center mb-4">
+                      {i === 1 && <Settings className="w-6 h-6 text-destructive" />}
+                      {i === 2 && <Shield className="w-6 h-6 text-destructive" />}
+                      {i === 3 && <Thermometer className="w-6 h-6 text-destructive" />}
+                    </div>
+                    <h3 className="font-semibold mb-2">{t(`vtxDetail.fv16w.caseStudy.s${i}.title`)}</h3>
+                    <p className="text-sm text-muted-foreground leading-relaxed">{t(`vtxDetail.fv16w.caseStudy.s${i}.desc`)}</p>
+                  </div>
+                ))}
+              </div>
+              <p className="text-sm text-muted-foreground text-center mt-8 max-w-2xl mx-auto italic">{t('vtxDetail.fv16w.caseStudy.note')}</p>
+            </div>
+          </section>
+        )}
+
+        {/* FV16W Disclaimer */}
+        {isFV16W && (
+          <section className="py-8">
+            <div className="container mx-auto px-4">
+              <p className="text-xs text-muted-foreground text-center max-w-3xl mx-auto">{t('vtxDetail.fv16w.disclaimer')}</p>
+            </div>
+          </section>
+        )}
+
         {isFV25W && (
           <section className="py-20 bg-muted/30">
             <div className="container mx-auto px-4">
