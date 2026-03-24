@@ -1544,8 +1544,8 @@ export const enTranslations: Record<string, string> = {
   'gimbal.cta.desc': 'We offer OEM/ODM customization including sensor configuration, interface protocols, and industrial design. Compatible with MAVLink/SBUS/PWM protocols and Pixhawk flight controllers. Universal quick-release mount available.',
   'gimbal.cta.btn': 'Request a Quote',
   // Gimbal SKU-specific TDK
-  'gimbal.tdk.k40t.title': 'K40T Quad-Sensor AI Gimbal | 48MP Zoom + 640 Thermal + 1.2km Laser | 290g | CANI',
-  'gimbal.tdk.k40t.desc': 'CANI K40T quad-sensor AI gimbal integrates 48MP zoom, 640×512 thermal imaging, and 1200m laser rangefinder with 6TOPS AI computing. Only 290g, ±0.005° stabilization, 160x hybrid zoom. Purpose-built for power inspection, fire rescue, and security patrol.',
+  'gimbal.tdk.k40t.title': 'K40T | 40x Optical Zoom 3-Axis Gimbal Camera | Long-Range Reconnaissance | CANI UAV',
+  'gimbal.tdk.k40t.desc': 'The K40T is a flagship 40x optical zoom gimbal camera for industrial UAVs. Featuring ultra-precise 3-axis stabilization and advanced AI object tracking for long-range inspection and tactical surveillance. 640×512 thermal + 1200m laser rangefinder in just 290g.',
   'gimbal.tdk.k8t-v2.title': 'K8T-V2 Dual-Sensor Tracking Gimbal | 133g Ultralight | Thermal + AI Tracking | CANI',
   'gimbal.tdk.k8t-v2.desc': 'CANI K8T-V2 weighs just 133g with integrated infrared thermal imaging and visible light recognition. Next-gen AI processor enables autonomous target locking and tracking. 3-axis stabilization, TTL/TCP multi-protocol support for lightweight inspection UAVs and FPV special operations.',
   'gimbal.tdk.k8-v2.title': 'K8-V2 Single-Light AI Tracking Gimbal | 30x Optical Zoom + 4K | CANI',
