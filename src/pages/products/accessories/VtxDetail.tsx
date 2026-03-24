@@ -244,9 +244,43 @@ const VtxDetail = () => {
     { questionKey: "vtxDetail.fv37w.faq.q3", answerKey: "vtxDetail.fv37w.faq.a3" },
   ];
 
+  // FV10W-72 JSON-LD
+  const fv10w72JsonLd = isFV10W72 ? {
+    "@context": "https://schema.org/",
+    "@type": "Product",
+    "name": "FV10W-72 10W 720MHz UHF Extreme NLOS Analog VTX",
+    "description": t('vtxDetail.fv10w72.seo.desc'),
+    "brand": { "@type": "Brand", "name": "CANI UAV" },
+    "sku": "FV10W-72",
+    "mpn": "FV10W-7.2",
+    "category": "Sub-1GHz High-Power Video Transmission",
+    "additionalProperty": [
+      { "@type": "PropertyValue", "name": "RF Output Power", "value": "10,000mW (10W)" },
+      { "@type": "PropertyValue", "name": "Frequency Band", "value": "6.1-7.2GHz (720MHz UHF)" },
+      { "@type": "PropertyValue", "name": "Channels", "value": "64CH" },
+      { "@type": "PropertyValue", "name": "NLOS Capability", "value": "Extreme Diffraction - Sub-1GHz" },
+      { "@type": "PropertyValue", "name": "Wavelength", "value": "~41cm (Superior Diffraction)" },
+      { "@type": "PropertyValue", "name": "Power Steps", "value": "1W / 3W / 5W / 7W / 10W" },
+      { "@type": "PropertyValue", "name": "Cooling System", "value": "Active Fan + CNC Aluminum Heatsink" },
+      { "@type": "PropertyValue", "name": "End-to-End Latency", "value": "<1ms (Zero-Latency Analog)" },
+      { "@type": "PropertyValue", "name": "Frequency Customization", "value": "600MHz - 900MHz Available" },
+    ],
+    "offers": {
+      "@type": "Offer",
+      "url": "https://www.caniuav.com/products/accessories/vtx-vrx/fv10w-72",
+      "availability": "https://schema.org/InStock"
+    }
+  } : null;
+
+  const fv10w72FaqItems = [
+    { questionKey: "vtxDetail.fv10w72.faq.q1", answerKey: "vtxDetail.fv10w72.faq.a1" },
+    { questionKey: "vtxDetail.fv10w72.faq.q2", answerKey: "vtxDetail.fv10w72.faq.a2" },
+    { questionKey: "vtxDetail.fv10w72.faq.q3", answerKey: "vtxDetail.fv10w72.faq.a3" },
+  ];
+
   // SEO: 各产品使用专属 TDK
-  const seoTitle = isPV02 ? t('vtxDetail.pv02.seo.title') : isPV03 ? t('vtxDetail.pv03.seo.title') : isFV10W ? t('vtxDetail.fv10w.seo.title') : isFV16W ? t('vtxDetail.fv16w.seo.title') : isFV25W ? t('vtxDetail.fv25w.seo.title') : isFV37W ? t('vtxDetail.fv37w.seo.title') : `${t(product.nameKey)} ${product.model}`;
-  const seoDesc = isPV02 ? t('vtxDetail.pv02.seo.desc') : isPV03 ? t('vtxDetail.pv03.seo.desc') : isFV10W ? t('vtxDetail.fv10w.seo.desc') : isFV16W ? t('vtxDetail.fv16w.seo.desc') : isFV25W ? t('vtxDetail.fv25w.seo.desc') : isFV37W ? t('vtxDetail.fv37w.seo.desc') : `${t(product.nameKey)}，${product.frequency}${t('vtxDetail.seo.band')}，${product.channels}${t('vtxDetail.seo.channels')}，${product.power}${t('vtxDetail.seo.power')}，${t('vtxDetail.seo.vtxDesc')}`;
+  const seoTitle = isPV02 ? t('vtxDetail.pv02.seo.title') : isPV03 ? t('vtxDetail.pv03.seo.title') : isFV10W ? t('vtxDetail.fv10w.seo.title') : isFV16W ? t('vtxDetail.fv16w.seo.title') : isFV25W ? t('vtxDetail.fv25w.seo.title') : isFV37W ? t('vtxDetail.fv37w.seo.title') : isFV10W72 ? t('vtxDetail.fv10w72.seo.title') : `${t(product.nameKey)} ${product.model}`;
+  const seoDesc = isPV02 ? t('vtxDetail.pv02.seo.desc') : isPV03 ? t('vtxDetail.pv03.seo.desc') : isFV10W ? t('vtxDetail.fv10w.seo.desc') : isFV16W ? t('vtxDetail.fv16w.seo.desc') : isFV25W ? t('vtxDetail.fv25w.seo.desc') : isFV37W ? t('vtxDetail.fv37w.seo.desc') : isFV10W72 ? t('vtxDetail.fv10w72.seo.desc') : `${t(product.nameKey)}，${product.frequency}${t('vtxDetail.seo.band')}，${product.channels}${t('vtxDetail.seo.channels')}，${product.power}${t('vtxDetail.seo.power')}，${t('vtxDetail.seo.vtxDesc')}`;
 
   return (
     <>
@@ -281,6 +315,11 @@ const VtxDetail = () => {
           <script type="application/ld+json">{JSON.stringify(fv37wJsonLd)}</script>
         </Helmet>
       )}
+      {isFV10W72 && fv10w72JsonLd && (
+        <Helmet>
+          <script type="application/ld+json">{JSON.stringify(fv10w72JsonLd)}</script>
+        </Helmet>
+      )}
       <Header />
       <main className="min-h-screen bg-background">
         <BackButton to="/products/accessories/vtx-vrx" />
@@ -300,6 +339,7 @@ const VtxDetail = () => {
                     isFV16W ? "FV16W-A1 16W 16000mW ultra-power tactical NLOS analog video link with quad fan CNC aerospace-grade cooling for mining robotics search and rescue industrial inspection" :
                     isFV25W ? "FV25W-A1 25W 25000mW strategic-grade NLOS analog video link with dual industrial fan CNC cooling for bunker penetration cross-island relay mining robotics nuclear inspection" :
                     isFV37W ? "FV37W-A1 37W 37000mW god-tier power FPV VTX with triple fan CNC cooling, 20km+ extreme range video transmitter" :
+                    isFV10W72 ? "FV10W-72 10W 10000mW 720MHz UHF extreme NLOS diffraction analog VTX for search and rescue forestry monitoring underground tunnel operations" :
                     t(product.nameKey)
                   }
                   title={
@@ -309,6 +349,7 @@ const VtxDetail = () => {
                     isFV16W ? "FV16W-A1 16W (16,000mW) Ultimate Tactical NLOS Analog Video Powerhouse" :
                     isFV25W ? "FV25W-A1 25,000mW (25W) Strategic-Grade NLOS Analog Video Powerhouse" :
                     isFV37W ? "FV37W-A1 37000mW (37W) God-Tier Power FPV Video Transmitter" :
+                    isFV10W72 ? "FV10W-72 10,000mW (10W) 720MHz UHF Extreme NLOS Diffraction Video Link" :
                     t(product.nameKey)
                   }
                   className="w-full max-w-md mx-auto object-contain"
@@ -342,9 +383,13 @@ const VtxDetail = () => {
                   {isFV37W && <span className="px-3 py-1 text-sm bg-destructive/20 text-destructive rounded-full font-bold">20km+ LOS</span>}
                   {isFV37W && <span className="px-3 py-1 text-sm bg-primary/10 text-primary rounded-full font-medium">80/96CH</span>}
                   {isFV37W && <span className="px-3 py-1 text-sm bg-accent text-accent-foreground rounded-full font-medium">Triple Fan</span>}
+                  {isFV10W72 && <span className="px-3 py-1 text-sm bg-destructive/10 text-destructive rounded-full font-bold">10,000mW UHF</span>}
+                  {isFV10W72 && <span className="px-3 py-1 text-sm bg-destructive/20 text-destructive rounded-full font-bold">720MHz NLOS</span>}
+                  {isFV10W72 && <span className="px-3 py-1 text-sm bg-primary/10 text-primary rounded-full font-medium">Sub-1GHz</span>}
+                  {isFV10W72 && <span className="px-3 py-1 text-sm bg-accent text-accent-foreground rounded-full font-medium">Diffraction Link</span>}
                 </div>
                 <h1 className="text-3xl md:text-4xl font-bold mb-2">
-                  {isPV02 ? t('vtxDetail.pv02.h1') : isPV03 ? t('vtxDetail.pv03.h1') : isFV10W ? t('vtxDetail.fv10w.h1') : isFV16W ? t('vtxDetail.fv16w.h1') : isFV25W ? t('vtxDetail.fv25w.h1') : isFV37W ? t('vtxDetail.fv37w.h1') : t(product.nameKey)}
+                  {isPV02 ? t('vtxDetail.pv02.h1') : isPV03 ? t('vtxDetail.pv03.h1') : isFV10W ? t('vtxDetail.fv10w.h1') : isFV16W ? t('vtxDetail.fv16w.h1') : isFV25W ? t('vtxDetail.fv25w.h1') : isFV37W ? t('vtxDetail.fv37w.h1') : isFV10W72 ? t('vtxDetail.fv10w72.h1') : t(product.nameKey)}
                 </h1>
                 <p className="text-xl text-muted-foreground mb-4">{product.model}</p>
                 {isPV02 && (
@@ -375,6 +420,11 @@ const VtxDetail = () => {
                 {isFV37W && (
                   <p className="text-sm text-muted-foreground mb-6 leading-relaxed border-l-2 border-primary pl-4">
                     {t('vtxDetail.fv37w.overview')}
+                  </p>
+                )}
+                {isFV10W72 && (
+                  <p className="text-sm text-muted-foreground mb-6 leading-relaxed border-l-2 border-primary pl-4">
+                    {t('vtxDetail.fv10w72.overview')}
                   </p>
                 )}
                 
@@ -1250,6 +1300,66 @@ const VtxDetail = () => {
             </div>
           </section>
         )}
+
+        {/* FV10W-72 Technical Whitepaper Section */}
+        {isFV10W72 && (
+          <section className="py-20 bg-background">
+            <div className="container mx-auto px-4 max-w-4xl">
+              <h2 className="text-2xl font-bold mb-4">{t('vtxDetail.fv10w72.wp.title')}</h2>
+              <p className="text-muted-foreground mb-10">{t('vtxDetail.fv10w72.wp.intro')}</p>
+
+              <div className="space-y-8">
+                {[
+                  { key: 's1', num: '1' },
+                  { key: 's2', num: '2' },
+                  { key: 's3', num: '3' },
+                  { key: 's4', num: '4' },
+                ].map(({ key, num }) => (
+                  <div key={key} className="bg-card rounded-xl border border-border p-6">
+                    <div className="flex items-center gap-3 mb-3">
+                      <span className="w-8 h-8 rounded-full bg-accent/20 text-accent font-bold text-sm flex items-center justify-center">{num}</span>
+                      <h3 className="font-bold text-lg">{t(`vtxDetail.fv10w72.wp.${key}.title`)}</h3>
+                    </div>
+                    <p className="text-sm text-muted-foreground pl-11">{t(`vtxDetail.fv10w72.wp.${key}.text`)}</p>
+                  </div>
+                ))}
+              </div>
+
+              {/* Antenna Warning */}
+              <div className="mt-8 bg-destructive/5 border border-destructive/20 rounded-xl p-6">
+                <div className="flex items-start gap-3">
+                  <AlertTriangle className="w-6 h-6 text-destructive mt-0.5 flex-shrink-0" />
+                  <div>
+                    <p className="font-bold text-destructive mb-1">⚠️ UHF Antenna Requirement</p>
+                    <p className="text-sm text-muted-foreground">{t('vtxDetail.fv10w72.antennaWarning')}</p>
+                  </div>
+                </div>
+              </div>
+
+              {/* Frequency Customization */}
+              <div className="mt-4 bg-accent/5 border border-accent/20 rounded-xl p-6">
+                <p className="text-sm text-muted-foreground italic">{t('vtxDetail.fv10w72.freqCustom')}</p>
+              </div>
+            </div>
+          </section>
+        )}
+
+        {/* FV10W-72 Brand Isolation Note */}
+        {isFV10W72 && (
+          <section className="py-6 bg-muted/20">
+            <div className="container mx-auto px-4">
+              <div className="flex items-start gap-3 max-w-3xl mx-auto">
+                <AlertTriangle className="w-5 h-5 text-muted-foreground mt-0.5 flex-shrink-0" />
+                <p className="text-xs text-muted-foreground italic">
+                  {t('vtxDetail.fv10w72.isolationNote')}
+                </p>
+              </div>
+            </div>
+          </section>
+        )}
+
+        {/* FV10W-72 FAQ */}
+        {isFV10W72 && <PageFAQ items={fv10w72FaqItems.map(item => ({ questionKey: t(item.questionKey), answerKey: t(item.answerKey) }))} />}
 
         {/* Related Article for FV10W-72 (7.2GHz) */}
         {isFV10W72 && (
