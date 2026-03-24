@@ -1301,6 +1301,66 @@ const VtxDetail = () => {
           </section>
         )}
 
+        {/* FV10W-72 Technical Whitepaper Section */}
+        {isFV10W72 && (
+          <section className="py-20 bg-background">
+            <div className="container mx-auto px-4 max-w-4xl">
+              <h2 className="text-2xl font-bold mb-4">{t('vtxDetail.fv10w72.wp.title')}</h2>
+              <p className="text-muted-foreground mb-10">{t('vtxDetail.fv10w72.wp.intro')}</p>
+
+              <div className="space-y-8">
+                {[
+                  { key: 's1', num: '1' },
+                  { key: 's2', num: '2' },
+                  { key: 's3', num: '3' },
+                  { key: 's4', num: '4' },
+                ].map(({ key, num }) => (
+                  <div key={key} className="bg-card rounded-xl border border-border p-6">
+                    <div className="flex items-center gap-3 mb-3">
+                      <span className="w-8 h-8 rounded-full bg-accent/20 text-accent font-bold text-sm flex items-center justify-center">{num}</span>
+                      <h3 className="font-bold text-lg">{t(`vtxDetail.fv10w72.wp.${key}.title`)}</h3>
+                    </div>
+                    <p className="text-sm text-muted-foreground pl-11">{t(`vtxDetail.fv10w72.wp.${key}.text`)}</p>
+                  </div>
+                ))}
+              </div>
+
+              {/* Antenna Warning */}
+              <div className="mt-8 bg-destructive/5 border border-destructive/20 rounded-xl p-6">
+                <div className="flex items-start gap-3">
+                  <AlertTriangle className="w-6 h-6 text-destructive mt-0.5 flex-shrink-0" />
+                  <div>
+                    <p className="font-bold text-destructive mb-1">⚠️ UHF Antenna Requirement</p>
+                    <p className="text-sm text-muted-foreground">{t('vtxDetail.fv10w72.antennaWarning')}</p>
+                  </div>
+                </div>
+              </div>
+
+              {/* Frequency Customization */}
+              <div className="mt-4 bg-accent/5 border border-accent/20 rounded-xl p-6">
+                <p className="text-sm text-muted-foreground italic">{t('vtxDetail.fv10w72.freqCustom')}</p>
+              </div>
+            </div>
+          </section>
+        )}
+
+        {/* FV10W-72 Brand Isolation Note */}
+        {isFV10W72 && (
+          <section className="py-6 bg-muted/20">
+            <div className="container mx-auto px-4">
+              <div className="flex items-start gap-3 max-w-3xl mx-auto">
+                <AlertTriangle className="w-5 h-5 text-muted-foreground mt-0.5 flex-shrink-0" />
+                <p className="text-xs text-muted-foreground italic">
+                  {t('vtxDetail.fv10w72.isolationNote')}
+                </p>
+              </div>
+            </div>
+          </section>
+        )}
+
+        {/* FV10W-72 FAQ */}
+        {isFV10W72 && <PageFAQ items={fv10w72FaqItems.map(item => ({ questionKey: t(item.questionKey), answerKey: t(item.answerKey) }))} />}
+
         {/* Related Article for FV10W-72 (7.2GHz) */}
         {isFV10W72 && (
           <section className="py-12 bg-secondary border-t border-border">
