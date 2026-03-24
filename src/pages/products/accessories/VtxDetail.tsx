@@ -702,6 +702,43 @@ const VtxDetail = () => {
           />
         )}
 
+        {/* PV03 Technical Guide */}
+        {isPV03 && (
+          <section className="py-16 bg-background">
+            <div className="container mx-auto px-4">
+              <h2 className="text-2xl font-bold mb-4 text-center">{t('vtxDetail.pv03.techGuide.title')}</h2>
+              <p className="text-center text-primary font-semibold mb-8">{t('vtxDetail.pv03.comparison')}</p>
+              <div className="max-w-3xl mx-auto space-y-6">
+                {[
+                  { titleKey: 'vtxDetail.pv03.techGuide.power.title', descKey: 'vtxDetail.pv03.techGuide.power.desc', icon: Zap },
+                  { titleKey: 'vtxDetail.pv03.techGuide.thermal.title', descKey: 'vtxDetail.pv03.techGuide.thermal.desc', icon: Thermometer },
+                  { titleKey: 'vtxDetail.pv03.techGuide.rf.title', descKey: 'vtxDetail.pv03.techGuide.rf.desc', icon: Shield },
+                  { titleKey: 'vtxDetail.pv03.techGuide.antenna.title', descKey: 'vtxDetail.pv03.techGuide.antenna.desc', icon: Radio },
+                ].map((item, idx) => (
+                  <div key={idx} className="p-6 bg-card rounded-xl border border-border">
+                    <div className="flex items-center gap-3 mb-3">
+                      <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center">
+                        <item.icon className="w-5 h-5 text-primary" />
+                      </div>
+                      <h3 className="font-semibold">{t(item.titleKey)}</h3>
+                    </div>
+                    <p className="text-sm text-muted-foreground leading-relaxed">{t(item.descKey)}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </section>
+        )}
+
+        {/* PV03 Disclaimer */}
+        {isPV03 && (
+          <div className="container mx-auto px-4 pb-8">
+            <p className="text-xs text-muted-foreground italic text-center max-w-3xl mx-auto">
+              {t('vtxDetail.pv03.disclaimer')}
+            </p>
+          </div>
+        )}
+
         {/* FV10W Application Scenarios */}
         {isFV10W && (
           <section className="py-20 bg-muted/30">
