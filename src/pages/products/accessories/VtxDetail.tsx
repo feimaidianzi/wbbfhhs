@@ -326,9 +326,10 @@ const VtxDetail = () => {
                   {isPV03 && <span className="px-3 py-1 text-sm bg-primary/10 text-primary rounded-full font-medium">10km LOS</span>}
                   {isPV03 && <span className="px-3 py-1 text-sm bg-accent text-accent-foreground rounded-full font-medium">3000mW</span>}
                   {isPV03 && <span className="px-3 py-1 text-sm bg-destructive/10 text-destructive rounded-full font-bold">NLOS FLAGSHIP</span>}
-                  {isFV10W && <span className="px-3 py-1 text-sm bg-destructive/10 text-destructive rounded-full font-bold">10000mW</span>}
+                  {isFV10W && <span className="px-3 py-1 text-sm bg-destructive/10 text-destructive rounded-full font-bold">10,000mW</span>}
                   {isFV10W && <span className="px-3 py-1 text-sm bg-primary/10 text-primary rounded-full font-medium">80CH</span>}
                   {isFV10W && <span className="px-3 py-1 text-sm bg-accent text-accent-foreground rounded-full font-medium">5-Step Power</span>}
+                  {isFV10W && <span className="px-3 py-1 text-sm bg-destructive/20 text-destructive rounded-full font-bold">NLOS FLAGSHIP</span>}
                   {isFV16W && <span className="px-3 py-1 text-sm bg-destructive/10 text-destructive rounded-full font-bold">25000mW</span>}
                   {isFV16W && <span className="px-3 py-1 text-sm bg-destructive/20 text-destructive rounded-full font-bold">16W/25W</span>}
                   {isFV16W && <span className="px-3 py-1 text-sm bg-primary/10 text-primary rounded-full font-medium">15km+ LOS</span>}
