@@ -48,6 +48,7 @@ const DigitalFpvDetail = () => {
   const isHDA50 = product.id === "hd-1400-a50";
   const isHDSeries = product.id.startsWith("hd-");
   const isHDA100 = product.id === "hd-1400-a100";
+  const isHDA150 = product.id === "hd-1400-a150";
 
   // Build JSON-LD Product schema with additionalProperty
   const productJsonLd = {
