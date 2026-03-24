@@ -6653,11 +6653,29 @@ export const zhTranslations: Record<string, string> = {
   'digitalFpv.h.feature.integrated.desc': '集天线、基站终端、转接板于一体，一根数据线实现电源和数据交互',
 
   // HD-1400-A30
-  'digitalFpv.h.a30.name': 'HD-1400-A30 机载组网电台',
-  'digitalFpv.h.a30.slogan': '30公里机载宽带数据链',
-  'digitalFpv.h.a30.subSlogan': '30KM传输 | OFDM调制 | 2×2W功率 | 620g轻量',
-  'digitalFpv.h.a30.description': 'HD-1400-A30系列采用多载波调制技术、MIMO RF技术、选频及跳频技术，其接收精度高，抗干扰性强，实现空对地30公里范围内的单向高清视频传输以及远程测控传输数据。提供RS232、RJ45等丰富的数据接口，支持点对点、点对多点、多点对多点组网需求，满足任务设备的各种应用需求。快捷数据链产品在无人机、支柱固定翼飞机、飞艇、战术导引、弹上得到了广泛的应用。',
-  'digitalFpv.h.a30.keyFeature.range': '30KM传输',
+  'digitalFpv.h.a30.name': 'HD-1400-A30 机载宽带数据链',
+  'digitalFpv.h.a30.slogan': '1.4GHz 战术级 30km 超视距数字链路',
+  'digitalFpv.h.a30.subSlogan': '30KM BVLOS | OFDM+MIMO | 2×2W | AES128加密 | 620g',
+  'digitalFpv.h.a30.description': 'HD-1400-A30 是一款工作在 1.4GHz 黄金频段的高性能数字通信系统，专为超视距（BVLOS）任务设计。采用多载波 OFDM 调制与 MIMO 双天线射频技术，有效规避 2.4GHz/5.8GHz 频段的 WiFi 干扰，在复杂城市和工业电磁环境下保持稳定的 1080P 高清视频回传与双向遥测数据链路。支持 RS232/RJ45 等丰富接口，兼容点对点、点对多点及 Mesh 自组网拓扑，配合 H.265 高效编码，是长航时 VTOL、固定翼侦察机及系留平台的理想主链路方案。',
+  'digitalFpv.h.a30.keyFeature.range': '30KM BVLOS',
+  // HD-1400-A30 SEO
+  'digitalFpv.h.a30.seo.title': 'HD-1400-A30 | 1.4GHz 30km 数字视频数据链 | 工业级 BVLOS | CANI UAV',
+  'digitalFpv.h.a30.seo.description': 'HD-1400-A30 是专业 1.4GHz 数字链路，在 30km 范围内提供稳定的 1080P 视频与遥测数据传输。OFDM+MIMO 技术有效规避 WiFi 频段干扰，适用于工业超视距任务。',
+  // HD-1400-A30 Cross-Link
+  'digitalFpv.h.a30.crossLink.title': '推荐搭配的 CANI 机载平台',
+  'digitalFpv.h.a30.crossLink.desc': 'HD-1400-A30 是 CANI 中大型无人机平台的推荐主链路方案。1.4GHz 纯净频段配合 30km BVLOS 能力，确保长航时任务的不间断通信。',
+  'digitalFpv.h.a30.crossLink.swarm': '查看 W 系列集群平台',
+  'digitalFpv.h.a30.crossLink.logistics': '查看物流无人机平台',
+  'digitalFpv.h.a30.crossLink.tethered': '查看系留无人机平台',
+  // HD-1400-A30 Frequency advantage
+  'digitalFpv.h.a30.freqAdvantage.title': '为什么选择 1.4GHz 频段？',
+  'digitalFpv.h.a30.freqAdvantage.desc': '1.4GHz 处于 WiFi（2.4G/5.8G）拥堵频段以下，底噪更低、干扰更少。在城市及工业密集区域，1.4GHz 提供显著优于 2.4GHz 的链路稳定性，同时具备优于 800MHz 的带宽容量——是长程工业数据链的"黄金频段"。',
+  'digitalFpv.h.a30.freqAdvantage.pure': '远离 WiFi 干扰',
+  'digitalFpv.h.a30.freqAdvantage.pureDesc': '工作在 1427-1447MHz，有效规避 2.4GHz/5.8GHz 频段数十亿设备的射频污染',
+  'digitalFpv.h.a30.freqAdvantage.balance': '穿透与带宽的最佳平衡',
+  'digitalFpv.h.a30.freqAdvantage.balanceDesc': '比 800MHz 带宽更大（20MHz），比 2.4GHz 绕射更强——长程数据链的黄金选择',
+  'digitalFpv.h.a30.freqAdvantage.bvlos': 'BVLOS 超视距优化',
+  'digitalFpv.h.a30.freqAdvantage.bvlosDesc': '30km 作战半径覆盖长航时 VTOL 和固定翼的典型任务包线',
 
   // HD-1400-A50
   'digitalFpv.h.a50.name': 'HD-1400-A50 机载组网电台',
