@@ -339,6 +339,7 @@ const VtxDetail = () => {
                     isFV16W ? "FV16W-A1 16W 16000mW ultra-power tactical NLOS analog video link with quad fan CNC aerospace-grade cooling for mining robotics search and rescue industrial inspection" :
                     isFV25W ? "FV25W-A1 25W 25000mW strategic-grade NLOS analog video link with dual industrial fan CNC cooling for bunker penetration cross-island relay mining robotics nuclear inspection" :
                     isFV37W ? "FV37W-A1 37W 37000mW god-tier power FPV VTX with triple fan CNC cooling, 20km+ extreme range video transmitter" :
+                    isFV10W72 ? "FV10W-72 10W 10000mW 720MHz UHF extreme NLOS diffraction analog VTX for search and rescue forestry monitoring underground tunnel operations" :
                     t(product.nameKey)
                   }
                   title={
@@ -348,6 +349,7 @@ const VtxDetail = () => {
                     isFV16W ? "FV16W-A1 16W (16,000mW) Ultimate Tactical NLOS Analog Video Powerhouse" :
                     isFV25W ? "FV25W-A1 25,000mW (25W) Strategic-Grade NLOS Analog Video Powerhouse" :
                     isFV37W ? "FV37W-A1 37000mW (37W) God-Tier Power FPV Video Transmitter" :
+                    isFV10W72 ? "FV10W-72 10,000mW (10W) 720MHz UHF Extreme NLOS Diffraction Video Link" :
                     t(product.nameKey)
                   }
                   className="w-full max-w-md mx-auto object-contain"
