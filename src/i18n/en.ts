@@ -1259,15 +1259,16 @@ export const enTranslations: Record<string, string> = {
   'products.seo.cat.gimbal': 'Stabilized Gimbal Pod Series — Anti-shake design for clear, stable footage. HD shooting compatible, IP67 waterproof/dustproof for complex outdoor environments. Widely used in security and inspection scenarios.',
 
   // VTX/VRX Page SEO
-  'vtx.seo.title': 'Industrial UAV VTX & VRX Systems | 50km Long-Range Digital HD Links | CANI',
-  'vtx.seo.description': 'High-performance drone video transmitters & receivers. Featuring 50km COFDM digital HD links, 1080P/60fps low-latency video, and AES-256 hardware encryption. Specialized in high-power analog VTX and secure telemetry for BVLOS missions.',
-  'vtx.hero.title': 'Industrial UAV Video Transmission Systems',
-  'vtx.hero.desc': 'CANI delivers mission-critical video transmission hardware for industrial UAVs. Our portfolio spans high-power analog VTX modules (2.5W–37W) and secure digital HD links with COFDM modulation and AES-256 encryption, engineered for BVLOS power inspection, public safety, and precision surveying missions.',
-  'vtx.techOverview': 'CANI (Changling Technology) is a leading supplier of industrial-grade UAV video transmission systems, backed by 15+ years of RF engineering expertise and 200+ patented technologies. Our VTX/VRX product line is built on Rogers 4350B high-frequency PCB substrates, delivering superior signal integrity across extreme temperature ranges (-20°C to 60°C). From compact 2.5W FPV racing modules to our flagship 37W ultra-long-range transmitter, every product undergoes rigorous EMI testing and thermal validation. We serve global system integrators in high-voltage grid inspection, emergency response, and autonomous logistics with end-to-end support from component selection to complex payload integration.',
+  'vtx.seo.title': '10W High Power Analog VTX & VRX | Long-Range Video Link | CANI UAV',
+  'vtx.seo.description': 'CANI UAV offers 10W ultra-high power analog VTX and VRX systems for extreme long-range and NLOS video transmission. Zero-latency analog links for tactical and specialized UAV missions.',
+  'vtx.seo.keywords': '10W analog VTX,long-range analog video link,NLOS video transmitter,zero-latency analog FPV,tactical video transmission,heavy-duty analog VTX VRX,high power video transmitter,non-line-of-sight drone video',
+  'vtx.hero.title': 'High-Power Analog Video Transmission Systems (VTX/VRX)',
+  'vtx.hero.desc': 'Our 10W Ultra High Power Analog VTX is designed specifically for missions where digital systems reach their limits. In complex Non-Line-of-Sight (NLOS) environments or extreme long-range operations, the high-power analog link provides a robust, zero-latency video feed that ensures mission success.',
+  'vtx.techOverview': 'CANI UAV 10W Analog Series: High-Performance Links for Extreme Environments. Optimized for tactical reconnaissance, forest patrol, and specialized aerial tasks, this high-power transmission system features an integrated cooling architecture and wide-voltage support. While our multirotor platforms utilize advanced digital mesh networks for coordination, the 10W Analog Series remains the definitive independent solution for operators requiring maximum signal penetration and instantaneous visual feedback. Built on Rogers 4350B high-frequency PCB substrates with 15+ years of RF engineering expertise, every module undergoes rigorous EMI testing and thermal validation across -20°C to 60°C operating ranges.',
 
   // VTX Architecture Section
-  'vtx.archTitle': 'Digital vs. Analog: Choose Your Mission Architecture',
-  'vtx.archDesc': 'Two distinct technology paths engineered for different operational requirements. Select the architecture that matches your mission profile.',
+  'vtx.archTitle': 'Zero-Latency Analog vs. Encrypted Digital: Choose Your Link',
+  'vtx.archDesc': 'Two distinct technology paths for different operational environments. Select the architecture that matches your mission-critical requirements.',
   'vtx.arch.digitalBadge': 'DIGITAL HD',
   'vtx.arch.digitalTitle': 'COFDM Digital HD Video Links',
   'vtx.arch.digitalDesc': 'Utilizing COFDM modulation with AES-256 hardware encryption, our digital HD links deliver lossless 1080P/60fps video over 50km+ ranges. Designed for BVLOS missions requiring secure, interference-resistant communication in complex urban and mountainous terrain.',
@@ -1275,35 +1276,35 @@ export const enTranslations: Record<string, string> = {
   'vtx.arch.digital.f2': 'AES-256 hardware encryption for government & defense compliance',
   'vtx.arch.digital.f3': '1080P/60fps real-time HD video with <200ms end-to-end latency',
   'vtx.arch.digitalCta': 'Explore 50km Digital HD Video Links',
-  'vtx.arch.analogBadge': 'ANALOG HIGH-POWER',
-  'vtx.arch.analogTitle': 'High-Power Analog VTX Modules',
-  'vtx.arch.analogDesc': 'Featuring custom 37W power amplifiers across the full 4.9–7.2GHz band, our analog VTX modules deliver extreme signal penetration through dense forests, underground tunnels, and confined industrial spaces where digital signals may struggle.',
-  'vtx.arch.analog.f1': 'Up to 37W output power with custom PA design for extreme penetration',
-  'vtx.arch.analog.f2': 'Full 4.9–7.2GHz dual-band coverage with 80+ channels',
-  'vtx.arch.analog.f3': 'Ultra-low latency (<1ms) ideal for real-time FPV piloting & inspection',
-  'vtx.arch.analogCta': 'Browse High-Power Analog VTX Products',
+  'vtx.arch.analogBadge': 'NLOS HIGH-POWER',
+  'vtx.arch.analogTitle': 'Ultra High-Power NLOS Analog VTX Modules',
+  'vtx.arch.analogDesc': 'Featuring custom 37W power amplifiers across the full 4.9–7.2GHz band, our analog VTX modules deliver superior signal penetration through dense forests, underground tunnels, and confined industrial spaces — providing real-time analog feedback where digital signals cannot reach.',
+  'vtx.arch.analog.f1': 'Up to 37W output: maximum Non-Line-of-Sight (NLOS) penetration power',
+  'vtx.arch.analog.f2': 'Full 4.9–7.2GHz dual-band coverage with 80+ configurable channels',
+  'vtx.arch.analog.f3': 'Zero-latency (<1ms) instantaneous video link for real-time operator feedback',
+  'vtx.arch.analogCta': 'Browse NLOS High-Power Analog VTX Products',
 
   // VTX Analog Products Section
-  'vtx.analogProducts.title': 'High-Power Analog VTX Product Line',
-  'vtx.analogProducts.desc': 'Industry-leading analog video transmitters from 2.5W to 37W, built on Rogers 4350B RF substrates. Click any product for full technical specifications.',
+  'vtx.analogProducts.title': 'High-Power Analog VTX Product Line — Stand-Alone NLOS Video Links',
+  'vtx.analogProducts.desc': 'Industry-leading analog video transmitters from 2.5W to 37W with zero-latency and superior signal penetration. Universal flight controller compatibility — a stand-alone video link accessory for any platform.',
 
   // VTX FAQ (AEO optimized)
-  'vtx.faq.title': 'Technical FAQ — UAV Video Transmission Selection Guide',
-  'vtx.faq.q1': 'How to choose the right digital link for 50km BVLOS missions?',
-  'vtx.faq.a1': 'For long-range BVLOS missions, we recommend CANI Digital HD links using COFDM technology and dual high-gain antennas. This ensures stable 1080P video transmission across terrain obstacles, offering superior reliability compared to standard analog FPV systems. The AES-256 hardware encryption also meets government and defense-grade security requirements.',
-  'vtx.faq.q2': 'How does the 37W high-power VTX achieve such extreme range?',
-  'vtx.faq.a2': 'The 37W VTX uses a custom-designed power amplifier with full 4.9–7.2GHz dual-band support, providing extreme signal penetration through dense forests, underground tunnels, and confined industrial structures. Paired with CNC aluminum alloy thermal management, it maintains stable operation during extended 8-hour missions.',
-  'vtx.faq.q3': 'What is the advantage of CANI digital links over analog VTX for transmission distance?',
-  'vtx.faq.a3': 'CANI digital HD links provide clear 1080P resolution with AES-256 encryption and maintain stable transmission up to 50km. Unlike analog VTX (low latency but susceptible to noise interference), digital systems use COFDM technology to eliminate multipath interference in complex urban or mountainous terrain.',
+  'vtx.faq.title': 'Technical FAQ — High-Power Analog VTX Selection Guide',
+  'vtx.faq.q1': 'Why choose analog VTX over digital for certain missions?',
+  'vtx.faq.a1': 'In Non-Line-of-Sight (NLOS) environments such as dense forests, tunnels, and urban canyons, analog VTX provides superior signal penetration and zero-latency (<1ms) real-time video feedback. Digital systems excel at long-range encrypted transmission, but analog remains unmatched for instantaneous visual feedback in signal-obstructed environments.',
+  'vtx.faq.q2': 'How does the 37W high-power VTX achieve such extreme NLOS range?',
+  'vtx.faq.a2': 'The 37W VTX uses a custom-designed power amplifier with full 4.9–7.2GHz dual-band support, providing extreme signal penetration through dense obstacles. The high wattage output combined with CNC aluminum alloy thermal management ensures stable long-duration operation in tactical and industrial reconnaissance scenarios.',
+  'vtx.faq.q3': 'Is the analog VTX an independent accessory or part of a drone system?',
+  'vtx.faq.a3': 'Our analog VTX/VRX modules are completely independent, stand-alone video link accessories. They are universally compatible with any flight controller (Betaflight, Ardupilot, PX4) and can be mounted on any airframe. They are not integrated into our autonomous swarm or logistics platforms, which use dedicated digital mesh networks.',
   'vtx.faq.q4': 'Does this product support OEM/ODM customization?',
   'vtx.faq.a4': 'Yes. We support full OEM/ODM customization including transmission range, power levels, frequency configuration (step 1MHz), enclosure design, and interface protocols. Typical customization cycle is 15–30 business days.',
-  'vtx.faq.q5': 'Are CANI VTX modules compatible with open-source flight controllers?',
-  'vtx.faq.a5': 'Yes. Our VTX modules support SmartAudio protocol and are fully compatible with Betaflight, Ardupilot, and PX4 ecosystems. They feature standard mounting sizes (30.5×30.5mm) and JST/SMA interfaces for seamless integration into existing drone airframes.',
+  'vtx.faq.q5': 'What environments are best suited for high-power analog VTX?',
+  'vtx.faq.a5': 'High-power analog VTX excels in: forest canopy patrol (superior foliage penetration), underground tunnel inspection (NLOS signal reflection), urban canyon reconnaissance (multipath-rich environments), and any tactical scenario requiring instantaneous zero-latency visual feedback without digital processing delay.',
 
-  'vtx.techDetail': 'This VTX/VRX system features industrial-grade core parameters: full-band 4.9-7.2GHz transmission, 0.1–37W adjustable output power, 1080P/720P resolution switching, operating temperature -20°C to 60°C. The 2mm CNC aluminum alloy heat dissipation shell improves cooling efficiency by 40%, ensuring 8 hours of continuous operation without overheating.',
+  'vtx.techDetail': 'This high-power analog VTX/VRX system is purpose-built for NLOS and extreme-range missions: full-band 4.9-7.2GHz transmission, 0.1–37W adjustable output power, zero-latency (<1ms) real-time analog feedback, operating temperature -20°C to 60°C. The 2mm CNC aluminum alloy heat dissipation shell improves cooling efficiency by 40%, ensuring 8 hours of continuous tactical operation.',
   'vtx.techDetail.title': 'Technical Parameter Interpretation',
-  'vtx.caseStudy.title': 'Application Case Study',
-  'vtx.caseStudy.content': 'A provincial power company deployed CANI\'s VTX system for 5,000km transmission line inspection. At 200m altitude, the system delivered clear 1080P HD footage with latency below 30ms, enabling real-time detection of line damage and foreign object hazards. Inspection efficiency improved by 300% while eliminating high-altitude manual inspection safety risks.',
+  'vtx.caseStudy.title': 'Application Case Study: Tactical Forest Patrol',
+  'vtx.caseStudy.content': 'A provincial forestry bureau deployed CANI\\\'s 10W high-power analog VTX for dense forest canopy patrol operations. At 150m altitude through heavy foliage, the system delivered clear real-time video with zero-latency feedback, enabling instant detection of illegal logging and wildfire hotspots. The analog link\\\'s superior signal penetration through vegetation outperformed digital alternatives in this NLOS environment, improving patrol coverage by 400%.',
 
   // VTX Related / Cross-linking
   'vtx.relatedTitle': 'Compatible CANI Accessories',
@@ -1319,11 +1320,14 @@ export const enTranslations: Record<string, string> = {
   'vtx.related.digital.cta': 'Explore 50km Digital HD Video Links',
 
   // VTX PDF Lead Magnet
-  'vtx.pdfTitle': 'Download UAV Link Comparison Chart (Digital vs Analog)',
-  'vtx.pdfDesc': 'Get our 2026 comprehensive comparison guide covering range, latency, encryption, and integration specifications for all CANI video transmission products.',
+  'vtx.pdfTitle': 'Download Analog vs Digital VTX Comparison Chart',
+  'vtx.pdfDesc': 'Get our 2026 comprehensive guide: when to choose zero-latency analog NLOS links vs encrypted digital HD — covering penetration, latency, range, and integration specifications.',
   'vtx.pdfCta': 'Request Selection Guide (PDF)',
 
-  'vtx.notes.intro': 'As professional drone video transmission accessories, please strictly follow the installation requirements during video transmission system setup to ensure proper device operation.',
+  // VTX Isolation Disclaimer
+  'vtx.disclaimer': 'Note: This analog VTX/VRX system is an independent stand-alone accessory and is not integrated into our autonomous swarm, logistics, or tethered platforms, which utilize dedicated digital mesh networks and wired data links.',
+
+  'vtx.notes.intro': 'As professional high-power analog video transmission accessories, please strictly follow the installation requirements during system setup to ensure proper device operation and maximum NLOS performance.',
 
   // FC/ESC Category Page
   'fcesc.seo.title': 'High-Performance UAV Flight Controllers & ESCs | H7 FC & FOC ESC Stacks | CANI Technology',
