@@ -69,23 +69,25 @@ const VtxDetail = () => {
   const pv03JsonLd = isPV03 ? {
     "@context": "https://schema.org/",
     "@type": "Product",
-    "name": "FLYM-PV03W000-A1 3W FPV VTX",
-    "description": "Extreme 3W (3000mW) high-power video transmitter for long-range FPV drones. Features active fan cooling and 10km LOS range. Supports SmartAudio & IRC Tramp.",
-    "brand": { "@type": "Brand", "name": "CANI Technology" },
-    "sku": "PV03W000-A1-3W-FPV",
+    "name": "FLYM-PV03W000-A1 3W (3000mW) Ultra-High Power Analog VTX",
+    "description": "Flagship 3W (3000mW) analog video transmitter engineered for extreme NLOS missions and tactical long-range video transmission. Zero-latency analog link with advanced CNC thermal management for sustained high-power output.",
+    "brand": { "@type": "Brand", "name": "CANI UAV" },
+    "sku": "PV03W000-A1",
     "mpn": "FLYM-PV03W000-A1",
     "image": "https://www.caniuav.com/assets/vtx/vtx-low-power.png",
-    "keywords": "FPV VTX, Long Range FPV, 3W VTX, 3000mW Video Transmitter, 5.8GHz VTX",
+    "keywords": "3W analog VTX, 3000mW video transmitter, NLOS video transmission, tactical long-range analog system, military-grade signal penetration, zero-latency analog link, industrial UAV VTX",
     "additionalProperty": [
       { "@type": "PropertyValue", "name": "RF Output Power", "value": "3000mW (3W)" },
       { "@type": "PropertyValue", "name": "Transmission Range", "value": "10km LOS" },
       { "@type": "PropertyValue", "name": "Input Voltage", "value": "DC 7-36V (2-8S LiPo)" },
-      { "@type": "PropertyValue", "name": "End-to-End Latency", "value": "≤30ms" },
-      { "@type": "PropertyValue", "name": "Cooling System", "value": "Active Fan + CNC Heatsink" },
-      { "@type": "PropertyValue", "name": "Protocol", "value": "SmartAudio / IRC Tramp" },
+      { "@type": "PropertyValue", "name": "End-to-End Latency", "value": "<1ms (Zero-Latency Analog)" },
+      { "@type": "PropertyValue", "name": "Cooling System", "value": "Active Fan + Heavy-Duty CNC Aluminum Chassis" },
+      { "@type": "PropertyValue", "name": "Protocol", "value": "SmartAudio / IRC Tramp / Pit Mode" },
       { "@type": "PropertyValue", "name": "Frequency Band", "value": "4.9-6.1GHz" },
       { "@type": "PropertyValue", "name": "Channels", "value": "80" },
-      { "@type": "PropertyValue", "name": "Weight", "value": "23g" }
+      { "@type": "PropertyValue", "name": "Weight", "value": "23g" },
+      { "@type": "PropertyValue", "name": "Mounting", "value": "30.5x30.5mm Standard" },
+      { "@type": "PropertyValue", "name": "NLOS Capability", "value": "Superior obstacle penetration — urban, forest, underground" }
     ],
     "offers": {
       "@type": "Offer",
@@ -289,7 +291,7 @@ const VtxDetail = () => {
                   src={product.image} 
                   alt={
                     isPV02 ? "FLYM-PV02W500-A1 2.5W VTX with active cooling fan, 8km range UAV video transmitter industrial grade" :
-                    isPV03 ? "FLYM-PV03W000-A1 3W 3000mW FPV VTX with active cooling, 10km long-range UAV video transmitter" :
+                    isPV03 ? "FLYM-PV03W000-A1 3W 3000mW flagship ultra-high power analog VTX with CNC cooling chassis for extreme NLOS tactical and industrial UAV missions" :
                     isFV10W ? "FV10W-A1 10W 10000mW extreme power FPV VTX with dual active cooling, 80CH 5.8GHz video transmitter" :
                     isFV16W ? "FV16W-A1 25W 25000mW world's strongest FPV VTX with quad fan CNC cooling, 16W/25W dual-power video transmitter" :
                     isFV25W ? "FV25W-A1 25W 25000mW absolute power FPV VTX with dual industrial fan CNC housing, 15-20km extreme range video transmitter" :
@@ -298,7 +300,7 @@ const VtxDetail = () => {
                   }
                   title={
                     isPV02 ? "FLYM-PV02W500-A1 2.5W High-Power UAV VTX" :
-                    isPV03 ? "FLYM-PV03W000-A1 3W Ultra High-Power FPV VTX" :
+                    isPV03 ? "FLYM-PV03W000-A1 3W Flagship Ultra-High Power NLOS Analog VTX" :
                     isFV10W ? "FV10W-A1 10W Extreme Power 80CH FPV Video Transmitter" :
                     isFV16W ? "FV16W-A1 25W / 16W Adjustable Extreme Custom FPV VTX" :
                     isFV25W ? "FV25W-A1 25000mW (25W) Absolute Power FPV Video Transmitter" :
@@ -319,6 +321,7 @@ const VtxDetail = () => {
                   {isPV02 && <span className="px-3 py-1 text-sm bg-primary/10 text-primary rounded-full font-medium">8km LOS</span>}
                   {isPV03 && <span className="px-3 py-1 text-sm bg-primary/10 text-primary rounded-full font-medium">10km LOS</span>}
                   {isPV03 && <span className="px-3 py-1 text-sm bg-accent text-accent-foreground rounded-full font-medium">3000mW</span>}
+                  {isPV03 && <span className="px-3 py-1 text-sm bg-destructive/10 text-destructive rounded-full font-bold">NLOS FLAGSHIP</span>}
                   {isFV10W && <span className="px-3 py-1 text-sm bg-destructive/10 text-destructive rounded-full font-bold">10000mW</span>}
                   {isFV10W && <span className="px-3 py-1 text-sm bg-primary/10 text-primary rounded-full font-medium">80CH</span>}
                   {isFV10W && <span className="px-3 py-1 text-sm bg-accent text-accent-foreground rounded-full font-medium">5-Step Power</span>}
@@ -697,6 +700,43 @@ const VtxDetail = () => {
             items={pv03FaqItems}
             className="py-20"
           />
+        )}
+
+        {/* PV03 Technical Guide */}
+        {isPV03 && (
+          <section className="py-16 bg-background">
+            <div className="container mx-auto px-4">
+              <h2 className="text-2xl font-bold mb-4 text-center">{t('vtxDetail.pv03.techGuide.title')}</h2>
+              <p className="text-center text-primary font-semibold mb-8">{t('vtxDetail.pv03.comparison')}</p>
+              <div className="max-w-3xl mx-auto space-y-6">
+                {[
+                  { titleKey: 'vtxDetail.pv03.techGuide.power.title', descKey: 'vtxDetail.pv03.techGuide.power.desc', icon: Zap },
+                  { titleKey: 'vtxDetail.pv03.techGuide.thermal.title', descKey: 'vtxDetail.pv03.techGuide.thermal.desc', icon: Thermometer },
+                  { titleKey: 'vtxDetail.pv03.techGuide.rf.title', descKey: 'vtxDetail.pv03.techGuide.rf.desc', icon: Shield },
+                  { titleKey: 'vtxDetail.pv03.techGuide.antenna.title', descKey: 'vtxDetail.pv03.techGuide.antenna.desc', icon: Radio },
+                ].map((item, idx) => (
+                  <div key={idx} className="p-6 bg-card rounded-xl border border-border">
+                    <div className="flex items-center gap-3 mb-3">
+                      <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center">
+                        <item.icon className="w-5 h-5 text-primary" />
+                      </div>
+                      <h3 className="font-semibold">{t(item.titleKey)}</h3>
+                    </div>
+                    <p className="text-sm text-muted-foreground leading-relaxed">{t(item.descKey)}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </section>
+        )}
+
+        {/* PV03 Disclaimer */}
+        {isPV03 && (
+          <div className="container mx-auto px-4 pb-8">
+            <p className="text-xs text-muted-foreground italic text-center max-w-3xl mx-auto">
+              {t('vtxDetail.pv03.disclaimer')}
+            </p>
+          </div>
         )}
 
         {/* FV10W Application Scenarios */}
