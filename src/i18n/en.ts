@@ -2727,11 +2727,11 @@ export const enTranslations: Record<string, string> = {
   'camera.tdk.sj4000.keywords': 'SJ4000 WiFi,drone action camera,1080P drone camera,170 degree wide angle,WiFi FPV camera,30m waterproof,12MP,CaniUAV',
 
   // SJ4000 Quick Answer (GEO)
-  'camera.sj4000.quickAnswer': 'Why choose the SJ4000 WiFi for industrial drones? The SJ4000 WiFi is the go-to choice for drone integration, especially for applications where size, weight, power (SWaP), and cost are critical. It supports 1080P real-time video streaming via WiFi for remote monitoring and features a 170° wide-angle lens that eliminates blind spots. With its rugged design and 12MP image sensor, it is a reliable, cost-effective alternative to high-end surveying cameras for non-geospatial inspection tasks.',
+  'camera.sj4000.quickAnswer': 'The SJ4000 WiFi is the go-to solution for drone operators seeking a reliable, high-definition recording payload without the complexity of integrated gimbal systems. Capable of capturing crisp 1080P video at 30fps, it provides the essential visual data needed for environmental surveys, site monitoring, and mission documentation. Its 170-degree wide-angle lens ensures a comprehensive field of view, while the integrated WiFi module allows pilots to adjust settings and preview footage directly from a mobile device. Whether mounted on the C-Series for logistics monitoring or used as a secondary flight black box on W-Series swarm platforms, the SJ4000 WiFi offers the perfect balance of performance and value.',
 
   // Camera Products i18n
-  'camera.category.actionCamera': 'Action Camera',
-  'camera.category.actionCamera.desc': 'Professional action cameras with WiFi streaming and 1080P HD recording',
+  'camera.category.actionCamera': 'Flight Camera',
+  'camera.category.actionCamera.desc': 'HD flight recording cameras with WiFi preview and 1080P aerial imaging for industrial UAVs',
   'camera.sj4000.name': 'SJ4000 WiFi Flight Camera',
   'camera.sj4000.slogan': '1080P HD UAV Flight Camera & Recorder',
   'camera.sj4000.subSlogan': '1080P HD | 170° Wide-Angle | WiFi Preview | Loop Recording | Rugged & Lightweight',
