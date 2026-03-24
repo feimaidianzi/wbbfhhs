@@ -7,7 +7,7 @@ import { FloatingContact } from "@/components/FloatingContact";
 import { MultiLanguageSEO } from "@/components/MultiLanguageSEO";
 import { Button } from "@/components/ui/button";
 import { BackButton } from "@/components/BackButton";
-import { Check, Radio, Zap, Shield, Cpu, Eye, Settings, ChevronRight } from "lucide-react";
+import { Check, Radio, Zap, Shield, Cpu, Eye, Settings, ChevronRight, Target, Antenna, Layers, AlertTriangle } from "lucide-react";
 import { getVrxProductById } from "@/data/vrxProducts";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { PageFAQ } from "@/components/PageFAQ";
@@ -27,15 +27,20 @@ const VrxDetail = () => {
     "@context": "https://schema.org/",
     "@type": "Product",
     "name": `CANI LongLink ${product.model}`,
-    "description": isZh ? product.descZh : product.descEn,
+    "description": t('acc.vrxdetail.metaDesc'),
     "brand": { "@type": "Brand", "name": "CANI UAV" },
     "manufacturer": { "@type": "Organization", "name": "CANI长凌科技", "url": "https://www.caniuav.com" },
     "sku": product.model,
+    "category": "Industrial Diversity Video Receiver",
     "additionalProperty": [
       { "@type": "PropertyValue", "name": "Frequency Range", "value": product.frequency },
       { "@type": "PropertyValue", "name": "Sensitivity", "value": product.sensitivity },
-      { "@type": "PropertyValue", "name": "Demodulation", "value": "FM/PLL" },
-      { "@type": "PropertyValue", "name": "Channels", "value": `${product.channels}CH (6 Bands)` },
+      { "@type": "PropertyValue", "name": "Architecture", "value": "Dual-Chip Diversity" },
+      { "@type": "PropertyValue", "name": "Channels", "value": `${product.channels}CH (6 Bands + Raceband)` },
+      { "@type": "PropertyValue", "name": "Demodulation", "value": "FM/PLL Dual-Path" },
+      { "@type": "PropertyValue", "name": "Diversity Mode", "value": "Best-Signal Selection Algorithm" },
+      { "@type": "PropertyValue", "name": "Power Consumption", "value": "≤200mA" },
+      { "@type": "PropertyValue", "name": "Compatibility", "value": "Universal - All High-Power VTX (2.5W-25W)" },
     ],
     "offers": {
       "@type": "Offer",
@@ -56,9 +61,8 @@ const VrxDetail = () => {
   return (
     <>
       <MultiLanguageSEO
-        title={t('acc.vrxdetail.k596')
-        }
-        description={isZh ? product.descZh : product.descEn}
+        title={t('acc.vrxdetail.k596')}
+        description={t('acc.vrxdetail.metaDesc')}
         path={`/products/accessories/vtx-vrx/vrx/${product.id}`}
         type="product"
       />
@@ -76,15 +80,15 @@ const VrxDetail = () => {
               <div className="bg-card rounded-2xl p-8 border border-border">
                 <img
                   src={product.image}
-                  alt={`CANI ${product.model} dual-chip 5.8GHz analog video receiver module -97dBm sensitivity`}
-                  title={`CANI ${product.model} Industrial Analog VRX Module`}
+                  alt={`CANI ${product.model} dual-chip 5.8GHz diversity analog video receiver -96dBm high sensitivity ground station component`}
+                  title={`CANI ${product.model} Industrial Dual-Chip Diversity VRX Module`}
                   className="w-full max-w-md mx-auto object-contain"
                   loading="eager"
                 />
               </div>
               <div>
                 <div className="flex items-center gap-3 mb-4 flex-wrap">
-                  <span className="px-3 py-1 text-sm bg-accent/20 text-accent-foreground rounded-full font-bold">VRX</span>
+                  <span className="px-3 py-1 text-sm bg-accent/20 text-accent-foreground rounded-full font-bold">DIVERSITY VRX</span>
                   <span className="px-3 py-1 text-sm bg-primary/10 text-primary rounded-full font-medium">{product.sensitivity}</span>
                   <span className="px-3 py-1 text-sm bg-secondary text-secondary-foreground rounded-full">{product.channels}CH</span>
                   <span className="px-3 py-1 text-sm bg-muted text-muted-foreground rounded-full">{product.frequency}</span>
@@ -115,6 +119,26 @@ const VrxDetail = () => {
                   <Button size="lg" variant="outline" asChild>
                     <a href="#specs">{t('acc.canifmtdetail.k526')}</a>
                   </Button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Professional Introduction */}
+        <section className="py-16 bg-muted/20">
+          <div className="container mx-auto px-4 max-w-4xl">
+            <h2 className="text-2xl font-bold mb-6">{t('acc.vrxdetail.introTitle')}</h2>
+            <p className="text-muted-foreground leading-relaxed mb-8">
+              {t('acc.vrxdetail.introText')}
+            </p>
+            {/* Antenna Setup Recommendation */}
+            <div className="bg-card rounded-xl border border-accent/30 p-6">
+              <div className="flex items-start gap-3">
+                <Antenna className="w-6 h-6 text-accent mt-1 flex-shrink-0" />
+                <div>
+                  <h3 className="font-semibold mb-2">{t('acc.vrxdetail.antennaSetup')}</h3>
+                  <p className="text-sm text-muted-foreground">{t('acc.vrxdetail.antennaSetupText')}</p>
                 </div>
               </div>
             </div>
@@ -191,7 +215,6 @@ const VrxDetail = () => {
           <div className="container mx-auto px-4">
             <h2 className="text-2xl font-bold mb-8">{t('acc.vrxdetail.k609')}</h2>
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-              {/* Core Module Pins */}
               <div>
                 <h3 className="font-semibold mb-4 text-lg">{t('acc.vrxdetail.k610')}</h3>
                 <div className="bg-card rounded-xl border border-border overflow-hidden">
@@ -220,7 +243,6 @@ const VrxDetail = () => {
                 </div>
               </div>
 
-              {/* Machine Module Pins */}
               <div>
                 <h3 className="font-semibold mb-4 text-lg">{t('acc.vrxdetail.k612')}</h3>
                 <div className="bg-card rounded-xl border border-border overflow-hidden mb-6">
@@ -246,7 +268,6 @@ const VrxDetail = () => {
                     </tbody>
                   </table>
                 </div>
-
               </div>
             </div>
           </div>
@@ -289,7 +310,7 @@ const VrxDetail = () => {
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               <div className="p-6 bg-card rounded-xl border border-border">
                 <div className="w-12 h-12 rounded-lg bg-accent/10 flex items-center justify-center mb-4">
-                  <Eye className="w-6 h-6 text-accent" />
+                  <Target className="w-6 h-6 text-accent" />
                 </div>
                 <h3 className="font-semibold mb-2">{t('acc.vrxdetail.k617')}</h3>
                 <p className="text-sm text-muted-foreground">
@@ -314,6 +335,77 @@ const VrxDetail = () => {
                   {t('acc.vrxdetail.k622')}
                 </p>
               </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Best Paired With */}
+        <section className="py-16 bg-accent/5 border-y border-accent/20">
+          <div className="container mx-auto px-4">
+            <h2 className="text-2xl font-bold mb-6">{t('acc.vrxdetail.bestPairedTitle')}</h2>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+              <Link to="/products/accessories/vtx-vrx/fv10w-a1" className="block p-5 bg-card rounded-xl border border-border hover:border-accent/50 transition-colors">
+                <span className="text-xs font-bold text-accent">10W / 10,000mW</span>
+                <p className="text-sm text-muted-foreground mt-2">{t('acc.vrxdetail.bestPaired10w')}</p>
+              </Link>
+              <Link to="/products/accessories/vtx-vrx/fv16w-a1" className="block p-5 bg-card rounded-xl border border-border hover:border-accent/50 transition-colors">
+                <span className="text-xs font-bold text-accent">16W / 16,000mW</span>
+                <p className="text-sm text-muted-foreground mt-2">{t('acc.vrxdetail.bestPaired16w')}</p>
+              </Link>
+              <Link to="/products/accessories/vtx-vrx/fv25w-a1" className="block p-5 bg-card rounded-xl border border-border hover:border-accent/50 transition-colors">
+                <span className="text-xs font-bold text-destructive">25W / 25,000mW</span>
+                <p className="text-sm text-muted-foreground mt-2">{t('acc.vrxdetail.bestPaired25w')}</p>
+              </Link>
+            </div>
+            <p className="text-sm text-muted-foreground italic border-l-2 border-accent pl-4">
+              {t('acc.vrxdetail.bestPairedNote')}
+            </p>
+          </div>
+        </section>
+
+        {/* 50km+ Solution Brief */}
+        <section className="py-20 bg-background">
+          <div className="container mx-auto px-4 max-w-4xl">
+            <h2 className="text-2xl font-bold mb-4">{t('acc.vrxdetail.solutionTitle')}</h2>
+            <p className="text-muted-foreground mb-10">{t('acc.vrxdetail.solutionIntro')}</p>
+
+            <div className="space-y-8">
+              {/* Phase 1 */}
+              <div className="bg-card rounded-xl border border-border p-6">
+                <div className="flex items-center gap-3 mb-3">
+                  <span className="w-8 h-8 rounded-full bg-accent/20 text-accent font-bold text-sm flex items-center justify-center">1</span>
+                  <h3 className="font-bold text-lg">{t('acc.vrxdetail.phase1Title')}</h3>
+                </div>
+                <p className="text-sm text-muted-foreground pl-11">{t('acc.vrxdetail.phase1Text')}</p>
+              </div>
+
+              {/* Phase 2 */}
+              <div className="bg-card rounded-xl border border-accent/30 p-6">
+                <div className="flex items-center gap-3 mb-3">
+                  <span className="w-8 h-8 rounded-full bg-accent/20 text-accent font-bold text-sm flex items-center justify-center">2</span>
+                  <h3 className="font-bold text-lg">{t('acc.vrxdetail.phase2Title')}</h3>
+                </div>
+                <p className="text-sm text-muted-foreground pl-11">{t('acc.vrxdetail.phase2Text')}</p>
+              </div>
+
+              {/* Phase 3 */}
+              <div className="bg-card rounded-xl border border-border p-6">
+                <div className="flex items-center gap-3 mb-3">
+                  <span className="w-8 h-8 rounded-full bg-accent/20 text-accent font-bold text-sm flex items-center justify-center">3</span>
+                  <h3 className="font-bold text-lg">{t('acc.vrxdetail.phase3Title')}</h3>
+                </div>
+                <p className="text-sm text-muted-foreground pl-11">{t('acc.vrxdetail.phase3Text')}</p>
+              </div>
+            </div>
+
+            <p className="text-sm text-muted-foreground italic mt-8 border-l-2 border-primary pl-4">
+              {t('acc.vrxdetail.solutionNote')}
+            </p>
+
+            <div className="mt-8 text-center">
+              <Button size="lg" asChild>
+                <Link to="/contact">{t('acc.vrxdetail.bundleCta')}</Link>
+              </Button>
             </div>
           </div>
         </section>
@@ -345,7 +437,19 @@ const VrxDetail = () => {
           </div>
         </section>
 
-        {/* Related Article - Bidirectional Link */}
+        {/* Brand Isolation Note */}
+        <section className="py-6 bg-muted/20">
+          <div className="container mx-auto px-4">
+            <div className="flex items-start gap-3 max-w-3xl mx-auto">
+              <AlertTriangle className="w-5 h-5 text-muted-foreground mt-0.5 flex-shrink-0" />
+              <p className="text-xs text-muted-foreground italic">
+                {t('acc.vrxdetail.isolationNote')}
+              </p>
+            </div>
+          </div>
+        </section>
+
+        {/* Related Article */}
         <section className="py-12 bg-secondary border-t border-border">
           <div className="container mx-auto px-4">
             <h2 className="text-2xl font-bold mb-6">{t('acc.cameradetail.k457')}</h2>
@@ -357,7 +461,7 @@ const VrxDetail = () => {
                 <div className="md:w-1/3 aspect-video md:aspect-auto bg-muted/30 p-4 flex items-center justify-center">
                   <img
                     src={product.image}
-                    alt={`${product.model} technical deep dive article`}
+                    alt={`${product.model} dual-chip diversity receiver technical deep dive`}
                     className="max-h-48 object-contain group-hover:scale-105 transition-transform duration-300"
                     loading="lazy"
                   />
@@ -378,6 +482,9 @@ const VrxDetail = () => {
             </Link>
           </div>
         </section>
+
+        {/* FAQ */}
+        <PageFAQ items={faqItems} />
 
         {/* CTA */}
         <section className="py-20 bg-primary text-primary-foreground">
