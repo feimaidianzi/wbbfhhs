@@ -138,11 +138,11 @@ const DigitalFpv = () => {
                       to={product.customLink || `/products/accessories/digital-fpv/${product.id}`}
                       className="group bg-card rounded-2xl overflow-hidden shadow-card hover:shadow-card-hover transition-all"
                     >
-                      <div className="aspect-[4/3] overflow-hidden bg-gradient-to-br from-secondary to-secondary/50 relative">
+                      <div className="aspect-[4/3] overflow-hidden bg-gradient-to-br from-secondary to-secondary/50 relative flex items-center justify-center">
                         <img
                           src={product.image}
                           alt={t(product.nameKey)}
-                          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                          className="w-full h-full object-contain p-4 group-hover:scale-105 transition-transform duration-500"
                         />
                       </div>
                       <div className="p-6">
