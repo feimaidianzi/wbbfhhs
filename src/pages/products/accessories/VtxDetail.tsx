@@ -32,21 +32,24 @@ const VtxDetail = () => {
   const pv02JsonLd = isPV02 ? {
     "@context": "https://schema.org/",
     "@type": "Product",
-    "name": "FLYM-PV02W500-A1 2.5W High-Power VTX",
-    "description": "High-power UAV video transmitter with 2.5W (2500mW) output and 8km LOS range. Active cooling fan + CNC aluminum heatsink. Wide voltage DC 7-36V.",
-    "brand": { "@type": "Brand", "name": "CANI Technology" },
+    "name": "FLYM-PV02W500-A1 2.5W High-Power Analog VTX",
+    "description": "High-performance 2.5W (2500mW) analog video transmitter optimized for long-range FPV and medium-range NLOS missions. Zero-latency analog link with active cooling and wide voltage DC 7-36V.",
+    "brand": { "@type": "Brand", "name": "CANI UAV" },
     "sku": "PV02W500-A1",
     "mpn": "FLYM-PV02W500-A1",
     "image": "https://www.caniuav.com/assets/vtx/vtx-2.5w.png",
+    "keywords": "2.5W analog VTX, 2500mW video transmitter, long-range FPV, NLOS video link, zero-latency analog transmission",
     "additionalProperty": [
       { "@type": "PropertyValue", "name": "RF Output Power", "value": "2500mW (2.5W)" },
       { "@type": "PropertyValue", "name": "Transmission Range", "value": "8km LOS" },
       { "@type": "PropertyValue", "name": "Input Voltage", "value": "DC 7-36V (2-8S LiPo)" },
-      { "@type": "PropertyValue", "name": "End-to-End Latency", "value": "≤30ms" },
-      { "@type": "PropertyValue", "name": "Cooling System", "value": "Active Fan + CNC Heatsink" },
+      { "@type": "PropertyValue", "name": "End-to-End Latency", "value": "<1ms (Zero-Latency Analog)" },
+      { "@type": "PropertyValue", "name": "Cooling System", "value": "Active Fan + CNC Aluminum Heatsink" },
       { "@type": "PropertyValue", "name": "Frequency Band", "value": "4.9-6.1GHz" },
       { "@type": "PropertyValue", "name": "Channels", "value": "80" },
-      { "@type": "PropertyValue", "name": "Weight", "value": "23g" }
+      { "@type": "PropertyValue", "name": "Weight", "value": "23g" },
+      { "@type": "PropertyValue", "name": "Mounting", "value": "30.5x30.5mm Standard" },
+      { "@type": "PropertyValue", "name": "Protocol", "value": "SmartAudio / Pit Mode" }
     ],
     "offers": {
       "@type": "Offer",
