@@ -6761,12 +6761,30 @@ export const zhTranslations: Record<string, string> = {
   'digitalFpv.h.4000a150.keyFeature.band': '4GHz C波段',
 
   // HD-1400-B50
-  'digitalFpv.h.b50.name': 'HD-1400-B50 基站组网电台',
-  'digitalFpv.h.b50.slogan': '50公里一体化基站电台',
-  'digitalFpv.h.b50.subSlogan': '50KM传输 | IP65防护 | 一体化设计 | 快速部署',
-  'digitalFpv.h.b50.description': 'HD-1400-B50系列基站电台集天线、终端、转接板于一体，IP65防护等级，一根数据线实现电源与数据交互，方便快速展开使用。',
+  'digitalFpv.h.b50.name': 'HD-1400-B50 一体化基站电台',
+  'digitalFpv.h.b50.slogan': '50公里一体化地面站 高吞吐量链路',
+  'digitalFpv.h.b50.subSlogan': '50KM传输 | IP65防护 | MIMO天线一体化 | 单线缆极速部署',
+  'digitalFpv.h.b50.description': 'HD-1400-B50是新一代一体化基站电台，将天线、终端和转接板集成于单个IP65防护等级的外壳中。采用增强型MIMO架构和优化的射频前端，提供卓越的多径抗干扰能力，在50公里范围内实现高吞吐量1080P/4K视频和双向MAVLink遥测传输。独创的单线缆部署设计（电源+数据共缆传输）可在60秒内完成战术级快速架设——工业和战术无人机地面端通信的终极骨干。',
   'digitalFpv.h.b50.keyFeature.range': '50KM传输',
   'digitalFpv.h.b50.keyFeature.ip65': 'IP65防护',
+  // HD-1400-B50 SEO
+  'digitalFpv.h.b50.seo.title': 'HD-1400-B50 | 50公里一体化基站电台 | IP65极速部署 | CANI UAV',
+  'digitalFpv.h.b50.seo.description': 'HD-1400-B50是1.4GHz一体化基站电台，集成MIMO天线、IP65外壳和单线缆部署。为工业无人机地面操作提供50公里高吞吐量视频和遥测。',
+  // HD-1400-B50 战略优势
+  'digitalFpv.h.b50.strategic.title': 'B系列地面站：为极速部署而生',
+  'digitalFpv.h.b50.strategic.desc': 'B系列重新定义了地面端通信——将天线、处理器和电源集成为单个全天候防护单元。A系列机载电台在空中突破距离极限，B50则确保地面关键基础设施在数秒内完成部署——而非数小时。',
+  'digitalFpv.h.b50.strategic.integrated': '一体化架构',
+  'digitalFpv.h.b50.strategic.integratedDesc': '天线、终端和转接板统一于单个CNC外壳中——消除线缆损耗、降低射频干扰，为外勤团队简化后勤保障',
+  'digitalFpv.h.b50.strategic.deploy': '60秒战术级架设',
+  'digitalFpv.h.b50.strategic.deployDesc': '单线缆连接同时供电和传数——架设在三脚架或车载平台上，接一根线缆即可执行任务。IP65防护等级适用于雨天、粉尘和盐雾环境',
+  'digitalFpv.h.b50.strategic.pair': '与A系列机载电台完美配对',
+  'digitalFpv.h.b50.strategic.pairDesc': '专为HD-1400-A30/A50机载电台设计的地面端配套设备——形成射频特性和协议完全匹配的完整空地通信系统',
+  // HD-1400-B50 交叉链接
+  'digitalFpv.h.b50.crossLink.title': '完整空地链路解决方案',
+  'digitalFpv.h.b50.crossLink.desc': '将HD-1400-B50基站与A系列机载电台配对，构建完整的匹配通信系统。B50地面站是所有1.4GHz A系列机载单元的推荐配套设备。',
+  'digitalFpv.h.b50.crossLink.a30': '查看 HD-1400-A30 机载电台',
+  'digitalFpv.h.b50.crossLink.a50': '查看 HD-1400-A50 机载电台',
+  'digitalFpv.h.b50.crossLink.a100': '查看 HD-1400-A100 机载电台',
 
   // HD-HB150
   'digitalFpv.h.hb150.name': 'HD-HB150 基站组网电台',
