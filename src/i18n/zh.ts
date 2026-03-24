@@ -9213,6 +9213,11 @@ export const zhTranslations: Record<string, string> = {
   'digitalFpv.wifilink2.crossLink.monitors': '查看配套地面站监视器',
   'digitalFpv.wifilink2.crossLink.analog': '需要极端穿透力？查看模拟图传系列',
   'digitalFpv.wifilink2.crossLink.s900': '需要三合一数据链？查看 S900',
+  // Mesh Link Cross-Link
+  'meshLink.crossLink.title': '推荐搭配 CANI 无人机平台',
+  'meshLink.crossLink.desc': 'Mesh-Link 是 CANI 集群无人机与物流平台的标准通信骨干，在 GPS 拒止与非视距环境下实现弹性多节点协同。',
+  'meshLink.crossLink.swarm': '查看 W 系列集群平台',
+  'meshLink.crossLink.logistics': '查看物流无人机平台',
 };
 
 export default zhTranslations;

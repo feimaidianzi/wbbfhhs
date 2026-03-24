@@ -552,7 +552,33 @@ const MeshLink = () => {
           </div>
         </section>
 
-        {/* CTA */}
+        {/* Cross-Link: Platform Integration */}
+        <section className="py-16 bg-accent/5">
+          <div className="container-custom">
+            <div className="max-w-4xl mx-auto text-center">
+              <h2 className="text-2xl md:text-3xl font-bold mb-4">{t('meshLink.crossLink.title')}</h2>
+              <div className="w-20 h-1 bg-accent mx-auto rounded-full mb-6" />
+              <p className="text-muted-foreground leading-relaxed mb-8">
+                {t('meshLink.crossLink.desc')}
+              </p>
+              <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                <LangLink to="/products/swarm">
+                  <Button variant="outline" className="gap-2 px-6 py-5">
+                    <Network className="w-5 h-5" />
+                    {t('meshLink.crossLink.swarm')}
+                  </Button>
+                </LangLink>
+                <LangLink to="/products/logistics">
+                  <Button variant="outline" className="gap-2 px-6 py-5">
+                    <MapPin className="w-5 h-5" />
+                    {t('meshLink.crossLink.logistics')}
+                  </Button>
+                </LangLink>
+              </div>
+            </div>
+          </div>
+        </section>
+
         <section className="py-20 bg-primary text-primary-foreground">
           <div className="container-custom text-center">
             <h2 className="text-3xl md:text-4xl font-bold mb-6">{t('meshLink.cta.title')}</h2>
