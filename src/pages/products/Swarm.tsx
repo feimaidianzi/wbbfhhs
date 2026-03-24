@@ -60,6 +60,9 @@ const Swarm = () => {
   return (
     <ProductPageTemplate
       seoPath="/products/swarm"
+      seoTitle={t('swarmPage.seo.title')}
+      seoDescription={t('swarmPage.seo.desc')}
+      seoKeywords={t('swarmPage.seo.keywords').split(',')}
       heroTitle={t('swarmPage.hero.title')}
       heroSubtitle={t('swarmPage.hero.subtitle')}
       heroImage={swarmUwbShowcase}
