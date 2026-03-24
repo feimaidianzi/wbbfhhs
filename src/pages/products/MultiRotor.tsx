@@ -130,13 +130,23 @@ const MultiRotor = () => {
   const serviceSchema = {
     '@context': 'https://schema.org',
     '@type': 'Service',
-    name: 'Industrial UAV Platform Solutions',
+    name: 'Industrial Multirotor UAV Platforms & Swarm Drone Kits',
     provider: {
       '@type': 'Organization',
       name: t('acc.cameradetail.k454'),
     },
     description: t('platforms.page.description'),
-    serviceType: 'UAV Platform Systems',
+    serviceType: 'OEM/ODM Industrial Multirotor UAV Platform Manufacturing',
+    areaServed: 'Worldwide',
+    hasOfferCatalog: {
+      '@type': 'OfferCatalog',
+      name: 'Industrial Multirotor Platforms',
+      itemListElement: [
+        { '@type': 'Offer', itemOffered: { '@type': 'Product', name: 'C10 Swarm Drone Kit' } },
+        { '@type': 'Offer', itemOffered: { '@type': 'Product', name: 'C20 Tactical Multirotor' } },
+        { '@type': 'Offer', itemOffered: { '@type': 'Product', name: 'C30 Heavy Lift UAV Platform' } },
+      ],
+    },
   };
 
   return (
