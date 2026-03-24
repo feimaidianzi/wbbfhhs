@@ -334,10 +334,10 @@ const VtxDetail = () => {
                   {isFV16W && <span className="px-3 py-1 text-sm bg-destructive/20 text-destructive rounded-full font-bold">TACTICAL NLOS</span>}
                   {isFV16W && <span className="px-3 py-1 text-sm bg-primary/10 text-primary rounded-full font-medium">3.5-4.5A</span>}
                   {isFV16W && <span className="px-3 py-1 text-sm bg-accent text-accent-foreground rounded-full font-medium">Zero-Latency</span>}
-                  {isFV25W && <span className="px-3 py-1 text-sm bg-destructive/10 text-destructive rounded-full font-bold">25000mW</span>}
-                  {isFV25W && <span className="px-3 py-1 text-sm bg-destructive/20 text-destructive rounded-full font-bold">15-20km LOS</span>}
-                  {isFV25W && <span className="px-3 py-1 text-sm bg-primary/10 text-primary rounded-full font-medium">80/96CH</span>}
-                  {isFV25W && <span className="px-3 py-1 text-sm bg-accent text-accent-foreground rounded-full font-medium">≤30ms</span>}
+                  {isFV25W && <span className="px-3 py-1 text-sm bg-destructive/10 text-destructive rounded-full font-bold">25,000mW</span>}
+                  {isFV25W && <span className="px-3 py-1 text-sm bg-destructive/20 text-destructive rounded-full font-bold">STRATEGIC NLOS</span>}
+                  {isFV25W && <span className="px-3 py-1 text-sm bg-primary/10 text-primary rounded-full font-medium">5-7A @ 12V</span>}
+                  {isFV25W && <span className="px-3 py-1 text-sm bg-accent text-accent-foreground rounded-full font-medium">Zero-Latency</span>}
                   {isFV37W && <span className="px-3 py-1 text-sm bg-destructive/10 text-destructive rounded-full font-bold">37000mW</span>}
                   {isFV37W && <span className="px-3 py-1 text-sm bg-destructive/20 text-destructive rounded-full font-bold">20km+ LOS</span>}
                   {isFV37W && <span className="px-3 py-1 text-sm bg-primary/10 text-primary rounded-full font-medium">80/96CH</span>}
