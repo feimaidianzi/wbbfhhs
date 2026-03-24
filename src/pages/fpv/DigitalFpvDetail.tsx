@@ -2,7 +2,7 @@ import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { FloatingContact } from "@/components/FloatingContact";
 import { Button } from "@/components/ui/button";
-import { ArrowRight, CheckCircle, Download, Phone, Mail, Wifi, Zap, Monitor, HardDrive, Radio, Settings, Antenna, Cable, Thermometer, Target, FileText, BookOpen } from "lucide-react";
+import { ArrowRight, CheckCircle, Download, Phone, Mail, Wifi, Zap, Monitor, HardDrive, Radio, Settings, Antenna, Cable, Thermometer, Target, FileText, BookOpen, Truck, Users } from "lucide-react";
 import { useParams, Navigate } from "react-router-dom";
 import { LangLink as Link } from "@/components/LangLink";
 import { BackButton } from "@/components/BackButton";
@@ -70,9 +70,9 @@ const DigitalFpvDetail = () => {
   return (
     <div className="min-h-screen">
       <MultiLanguageSEO 
-        title={`${t(product.nameKey)} - ${t('digitalFpv.title')}`}
-        description={t(product.descriptionKey)}
-        keywords={`${t('digitalFpv.title')},${t(product.nameKey)},FPV,${t('digitalFpv.seo.keywords')}`}
+        title={isS900 ? t('digitalFpv.s900.seo.title') : `${t(product.nameKey)} - ${t('digitalFpv.title')}`}
+        description={isS900 ? t('digitalFpv.s900.seo.description') : t(product.descriptionKey)}
+        keywords={`${t('digitalFpv.title')},${t(product.nameKey)},${isS900 ? 'MAVLink,datalink,telemetry,point-to-multipoint,' : 'FPV,'}${t('digitalFpv.seo.keywords')}`}
         path={`/products/accessories/digital-fpv/${productId}`}
       />
       <Helmet>
@@ -374,6 +374,35 @@ const DigitalFpvDetail = () => {
                     />
                   </div>
                 ))}
+              </div>
+            </div>
+          </section>
+        )}
+
+        {/* S900 Cross-Link: Platform Integration */}
+        {isS900 && (
+          <section className="py-16 bg-accent/5">
+            <div className="container-custom">
+              <div className="max-w-4xl mx-auto text-center">
+                <h2 className="text-2xl md:text-3xl font-bold mb-4">{t('digitalFpv.s900.crossLink.title')}</h2>
+                <div className="w-20 h-1 bg-accent mx-auto rounded-full mb-6" />
+                <p className="text-muted-foreground leading-relaxed mb-8">
+                  {t('digitalFpv.s900.crossLink.desc')}
+                </p>
+                <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                  <Link to="/products/logistics">
+                    <Button variant="outline" className="gap-2 px-6 py-5">
+                      <Truck className="w-5 h-5" />
+                      {t('digitalFpv.s900.crossLink.logistics')}
+                    </Button>
+                  </Link>
+                  <Link to="/products/swarm">
+                    <Button variant="outline" className="gap-2 px-6 py-5">
+                      <Users className="w-5 h-5" />
+                      {t('digitalFpv.s900.crossLink.swarm')}
+                    </Button>
+                  </Link>
+                </div>
               </div>
             </div>
           </section>
