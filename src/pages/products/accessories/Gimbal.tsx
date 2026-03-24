@@ -4,7 +4,7 @@ import { FloatingContact } from "@/components/FloatingContact";
 import { MultiLanguageSEO } from "@/components/MultiLanguageSEO";
 import { BackButton } from "@/components/BackButton";
 import { LangLink } from "@/components/LangLink";
-import { ArrowRight, Video, Thermometer, Layers } from "lucide-react";
+import { ArrowRight, Video, Thermometer, Layers, Zap } from "lucide-react";
 import { gimbalProducts, gimbalCategories } from "@/data/gimbalProducts";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { PageFAQ } from "@/components/PageFAQ";
@@ -19,6 +19,31 @@ const categoryIcons: Record<string, React.ReactNode> = {
 const Gimbal = () => {
   const { t } = useLanguage();
 
+  const gimbalGuideData = [
+    { model: 'K40T', weight: '290g', sensorsKey: 'gimbal.guide.k40t.sensors', appKey: 'gimbal.guide.k40t.app', precision: '±0.005°' },
+    { model: 'K8T-V2', weight: '133g', sensorsKey: 'gimbal.guide.k8tv2.sensors', appKey: 'gimbal.guide.k8tv2.app', precision: '±0.005°' },
+    { model: 'K8-V2', weight: '115g', sensorsKey: 'gimbal.guide.k8v2.sensors', appKey: 'gimbal.guide.k8v2.app', precision: '±0.01°' },
+  ];
+
+  const structuredData = {
+    '@context': 'https://schema.org',
+    '@type': 'ItemList',
+    name: t('gimbal.seo.title'),
+    description: t('gimbal.seo.description'),
+    numberOfItems: gimbalProducts.length,
+    itemListElement: gimbalProducts.map((product, index) => ({
+      '@type': 'ListItem',
+      position: index + 1,
+      item: {
+        '@type': 'Product',
+        name: t(product.nameKey),
+        image: product.image,
+        brand: { '@type': 'Brand', name: 'CANI' },
+        category: 'Industrial UAV Gimbal Payload',
+      },
+    })),
+  };
+
   return (
     <>
       <MultiLanguageSEO
@@ -26,6 +51,7 @@ const Gimbal = () => {
         description={t('gimbal.seo.description')}
         keywords={t('gimbal.seo.keywords')}
         path="/products/accessories/gimbal"
+        structuredData={structuredData}
       />
       <Header />
       <main className="min-h-screen bg-background">
@@ -67,8 +93,40 @@ const Gimbal = () => {
                 <p className="text-muted-foreground leading-relaxed">{t('gimbal.techDetail')}</p>
               </div>
               <div className="rounded-xl overflow-hidden shadow-card">
-                <img src={gimbalDualLight} alt="UAV dual-light gimbal pod - CANI industrial drone camera system" className="w-full h-auto object-cover" loading="lazy" />
+                <img src={gimbalDualLight} alt="UAV 3-axis brushless gimbal payload - CANI industrial camera stabilization system" className="w-full h-auto object-cover" loading="lazy" />
               </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Selection Guide Table */}
+        <section className="py-16 bg-muted/30">
+          <div className="container mx-auto px-4 max-w-5xl">
+            <h2 className="text-2xl font-bold mb-2">{t('gimbal.guide.title')}</h2>
+            <p className="text-muted-foreground mb-8">{t('gimbal.guide.desc')}</p>
+            <div className="overflow-x-auto">
+              <table className="w-full text-sm border-collapse bg-card rounded-xl overflow-hidden shadow-sm">
+                <thead>
+                  <tr className="bg-primary/10 text-left">
+                    <th className="px-4 py-3 font-semibold">{t('gimbal.guide.col.model')}</th>
+                    <th className="px-4 py-3 font-semibold">{t('gimbal.guide.col.weight')}</th>
+                    <th className="px-4 py-3 font-semibold">{t('gimbal.guide.col.sensors')}</th>
+                    <th className="px-4 py-3 font-semibold">{t('gimbal.guide.col.application')}</th>
+                    <th className="px-4 py-3 font-semibold">{t('gimbal.guide.col.precision')}</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {gimbalGuideData.map((row, idx) => (
+                    <tr key={row.model} className={idx % 2 === 0 ? 'bg-background' : 'bg-muted/20'}>
+                      <td className="px-4 py-3 font-medium text-primary">{row.model}</td>
+                      <td className="px-4 py-3">{row.weight}</td>
+                      <td className="px-4 py-3">{t(row.sensorsKey)}</td>
+                      <td className="px-4 py-3">{t(row.appKey)}</td>
+                      <td className="px-4 py-3 font-mono text-xs">{row.precision}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
             </div>
           </div>
         </section>
@@ -136,6 +194,31 @@ const Gimbal = () => {
             </section>
           );
         })}
+
+        {/* Cross-Category VTX Link */}
+        <section className="py-16 bg-background">
+          <div className="container mx-auto px-4 max-w-4xl">
+            <div className="bg-card border border-border rounded-2xl p-8 md:p-10 flex flex-col md:flex-row items-start gap-6">
+              <div className="p-4 bg-primary/10 rounded-xl text-primary flex-shrink-0">
+                <Zap className="w-8 h-8" />
+              </div>
+              <div>
+                <h2 className="text-xl font-bold mb-3">{t('gimbal.crossLink.title')}</h2>
+                <p className="text-muted-foreground mb-4">{t('gimbal.crossLink.desc')}</p>
+                <LangLink
+                  to="/products/accessories/vtx-vrx"
+                  className="inline-flex items-center gap-2 text-primary font-medium hover:gap-3 transition-all"
+                >
+                  {t('gimbal.crossLink.btn')}
+                  <ArrowRight className="w-4 h-4" />
+                </LangLink>
+                <p className="text-xs text-muted-foreground mt-4 border-t border-border pt-3">
+                  {t('gimbal.isolation.note')}
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
 
         {/* FAQ Section */}
         <PageFAQ
