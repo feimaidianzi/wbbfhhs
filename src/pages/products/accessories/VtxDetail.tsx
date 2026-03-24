@@ -389,7 +389,7 @@ const VtxDetail = () => {
                   {isFV10W72 && <span className="px-3 py-1 text-sm bg-accent text-accent-foreground rounded-full font-medium">Diffraction Link</span>}
                 </div>
                 <h1 className="text-3xl md:text-4xl font-bold mb-2">
-                  {isPV02 ? t('vtxDetail.pv02.h1') : isPV03 ? t('vtxDetail.pv03.h1') : isFV10W ? t('vtxDetail.fv10w.h1') : isFV16W ? t('vtxDetail.fv16w.h1') : isFV25W ? t('vtxDetail.fv25w.h1') : isFV37W ? t('vtxDetail.fv37w.h1') : t(product.nameKey)}
+                  {isPV02 ? t('vtxDetail.pv02.h1') : isPV03 ? t('vtxDetail.pv03.h1') : isFV10W ? t('vtxDetail.fv10w.h1') : isFV16W ? t('vtxDetail.fv16w.h1') : isFV25W ? t('vtxDetail.fv25w.h1') : isFV37W ? t('vtxDetail.fv37w.h1') : isFV10W72 ? t('vtxDetail.fv10w72.h1') : t(product.nameKey)}
                 </h1>
                 <p className="text-xl text-muted-foreground mb-4">{product.model}</p>
                 {isPV02 && (
