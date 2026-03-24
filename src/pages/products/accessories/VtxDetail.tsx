@@ -422,6 +422,11 @@ const VtxDetail = () => {
                     {t('vtxDetail.fv37w.overview')}
                   </p>
                 )}
+                {isFV10W72 && (
+                  <p className="text-sm text-muted-foreground mb-6 leading-relaxed border-l-2 border-primary pl-4">
+                    {t('vtxDetail.fv10w72.overview')}
+                  </p>
+                )}
                 
                 {/* Highlights */}
                 <div className="space-y-2 mb-8">
