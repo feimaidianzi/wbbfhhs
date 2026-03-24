@@ -29,21 +29,23 @@ const MeshLink = () => {
   const meshLinkJsonLd = {
     '@context': 'https://schema.org/',
     '@type': 'Product',
-    name: 'CANI Mesh-Link 宽带自组网链路',
+    name: baseLang === 'en' ? 'CANI Mesh-Link Tactical MANET Self-Healing Radio' : 'CANI Mesh-Link 战术级自愈合自组网电台',
     image: 'https://www.caniuav.com/images/products/accessories/mesh-link-main.jpg',
-    description: 'CANI Mesh-Link主打无人机自组网、Mesh链路中继、无中心组网通讯，支持7级以上多跳中继，无缝对接WiFiLink2，是隧道、山区等复杂环境图传的核心工业级通讯方案。',
+    description: baseLang === 'en'
+      ? 'CANI Mesh-Link is an industrial-grade self-healing MANET mesh module supporting 800M/1.4G/2.4G tri-band, 7+ hop relay and 15ms topology recovery for UAV swarms, mine rescue, and complex NLOS environments.'
+      : 'CANI Mesh-Link 是工业级自愈合 MANET 自组网链路模块，支持三频段、7级多跳中继与 15ms 动态拓扑恢复，为无人机集群与复杂非视距环境提供不间断通信骨干。',
     brand: { '@type': 'Brand', name: 'CANI' },
     sku: 'CANI-MESH-V1',
-    url: 'https://www.caniuav.com/zh/products/accessories/mesh-link',
+    url: `https://www.caniuav.com/${baseLang === 'en' ? 'en' : 'zh'}/products/accessories/mesh-link`,
     offers: {
       '@type': 'Offer',
       priceCurrency: 'CNY',
       availability: 'https://schema.org/InStock',
     },
     additionalProperty: [
-      { '@type': 'PropertyValue', name: '核心能力', value: '无人机自组网、Mesh链路中继、无中心组网通讯' },
-      { '@type': 'PropertyValue', name: '核心优势', value: '毫秒级拓扑恢复、多频段抗干扰、复杂环境图传' },
-      { '@type': 'PropertyValue', name: '适配产品', value: 'CANI WiFiLink2数字图传系统' },
+      { '@type': 'PropertyValue', name: 'Core Capability', value: 'MANET Self-Healing Mesh, Multi-Hop Relay, Decentralized Networking' },
+      { '@type': 'PropertyValue', name: 'Key Advantage', value: '15ms Topology Recovery, FHSS Anti-Jamming, 7+ Hop Relay' },
+      { '@type': 'PropertyValue', name: 'Recommended Platform', value: 'CANI W-Series Swarm UAV, C-Series Logistics' },
     ],
   };
 
