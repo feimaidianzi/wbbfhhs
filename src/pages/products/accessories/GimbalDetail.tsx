@@ -314,11 +314,12 @@ const GimbalDetail = () => {
               {/* FAQ Tab */}
               <TabsContent value="faq">
                 <Accordion type="single" collapsible className="space-y-2">
-                  {/* SKU-specific FAQs */}
-                  {productId === 'k8t-v2' && [1, 2, 3, 4].map(i => {
-                    const q = t(`gimbal.k8tv2.faq.q${i}`);
-                    const a = t(`gimbal.k8tv2.faq.a${i}`);
-                    if (q === `gimbal.k8tv2.faq.q${i}`) return null;
+                  {/* SKU-specific FAQs (K8T-V2 & K8-V2) */}
+                  {(productId === 'k8t-v2' || productId === 'k8-v2') && [1, 2, 3, 4].map(i => {
+                    const faqPrefix = productId === 'k8t-v2' ? 'gimbal.k8tv2.faq' : 'gimbal.k8v2.faq';
+                    const q = t(`${faqPrefix}.q${i}`);
+                    const a = t(`${faqPrefix}.a${i}`);
+                    if (q === `${faqPrefix}.q${i}`) return null;
                     return (
                       <AccordionItem key={`sku-${i}`} value={`sku-faq-${i}`} className="bg-card rounded-xl border border-primary/20 px-6">
                         <AccordionTrigger className="text-left">{q}</AccordionTrigger>
