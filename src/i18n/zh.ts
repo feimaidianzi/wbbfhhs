@@ -179,8 +179,8 @@ export const zhTranslations: Record<string, string> = {
   // Gimbal SKU-specific TDK
   'gimbal.tdk.k40t.title': 'K40T | 40倍光学变焦三轴云台相机 | 远程侦察载荷 | CANI长凌科技',
   'gimbal.tdk.k40t.desc': 'K40T旗舰级40倍光学变焦云台相机，集成640×512热成像与1200m激光测距。AI自动跟踪，±0.005°三轴增稳，仅290g。专为电力巡检、边境侦察、森林防火等远距离任务打造。',
-  'gimbal.tdk.k8t-v2.title': 'K8T-V2双光识别追踪云台 | 133g超轻量 | 红外热成像 | AI自动追踪 | CANI长凌',
-  'gimbal.tdk.k8t-v2.desc': 'CANI K8T-V2仅重133g，集成红外热成像与可见光识别，内置新一代AI处理器支持自主目标锁定与追踪。三轴机械增稳、TTL/TCP多协议适配，专为轻型巡检无人机与FPV特种作业提供全天候昼夜侦察能力。',
+  'gimbal.tdk.k8t-v2.title': 'K8T-V2 | 8倍光学变焦紧凑型三轴云台 | 轻量化高速自动对焦 | CANI长凌',
+  'gimbal.tdk.k8t-v2.desc': 'K8T-V2第二代升级版紧凑型云台相机，162g超轻量双光载荷。V2增稳算法补偿高速机动抖动，高速自动对焦实现敏捷侦察与近距精检。红外热成像+可见光融合，全天候24/7战术部署。',
   'gimbal.tdk.k8-v2.title': 'K8-V2单光追踪识别云台 | 30倍光学变焦+4K | CANI长凌',
   'gimbal.tdk.k8-v2.desc': 'K8-V2单光AI云台采用Sony 1/2.8" CMOS传感器，30倍光学变焦+8倍数码变焦，4K@30fps视频输出。仅115g超轻量化设计，IP65防护，支持ONVIF协议与智能目标识别追踪。',
   'accessoryDetail.gimbal.seoDesc': '工业级无人机云台吊舱，三轴机械稳定，支持OEM/ODM定制',
