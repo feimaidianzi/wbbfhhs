@@ -838,6 +838,77 @@ const DigitalFpvDetail = () => {
           </section>
         )}
 
+        {/* HD-1400-B50 Strategic Advantage Section */}
+        {isHDB50 && (
+          <section className="py-16 bg-background">
+            <div className="container-custom">
+              <div className="text-center mb-12">
+                <h2 className="text-2xl md:text-3xl font-bold mb-4">{t('digitalFpv.h.b50.strategic.title')}</h2>
+                <p className="text-muted-foreground max-w-3xl mx-auto">{t('digitalFpv.h.b50.strategic.desc')}</p>
+                <div className="w-20 h-1 bg-accent mx-auto rounded-full mt-4" />
+              </div>
+              <div className="grid md:grid-cols-3 gap-6 max-w-4xl mx-auto">
+                <div className="bg-card rounded-xl p-6 shadow-card text-center">
+                  <div className="w-16 h-16 bg-accent/10 rounded-2xl flex items-center justify-center mx-auto mb-4">
+                    <HardDrive className="w-8 h-8 text-accent" />
+                  </div>
+                  <h4 className="font-bold mb-2">{t('digitalFpv.h.b50.strategic.integrated')}</h4>
+                  <p className="text-muted-foreground text-sm">{t('digitalFpv.h.b50.strategic.integratedDesc')}</p>
+                </div>
+                <div className="bg-card rounded-xl p-6 shadow-card text-center">
+                  <div className="w-16 h-16 bg-accent/10 rounded-2xl flex items-center justify-center mx-auto mb-4">
+                    <Zap className="w-8 h-8 text-accent" />
+                  </div>
+                  <h4 className="font-bold mb-2">{t('digitalFpv.h.b50.strategic.deploy')}</h4>
+                  <p className="text-muted-foreground text-sm">{t('digitalFpv.h.b50.strategic.deployDesc')}</p>
+                </div>
+                <div className="bg-card rounded-xl p-6 shadow-card text-center">
+                  <div className="w-16 h-16 bg-accent/10 rounded-2xl flex items-center justify-center mx-auto mb-4">
+                    <Antenna className="w-8 h-8 text-accent" />
+                  </div>
+                  <h4 className="font-bold mb-2">{t('digitalFpv.h.b50.strategic.pair')}</h4>
+                  <p className="text-muted-foreground text-sm">{t('digitalFpv.h.b50.strategic.pairDesc')}</p>
+                </div>
+              </div>
+            </div>
+          </section>
+        )}
+
+        {/* HD-1400-B50 Cross-Link: Air-to-Ground Solutions */}
+        {isHDB50 && (
+          <section className="py-16 bg-accent/5">
+            <div className="container-custom">
+              <div className="max-w-4xl mx-auto text-center">
+                <h2 className="text-2xl md:text-3xl font-bold mb-4">{t('digitalFpv.h.b50.crossLink.title')}</h2>
+                <div className="w-20 h-1 bg-accent mx-auto rounded-full mb-6" />
+                <p className="text-muted-foreground leading-relaxed mb-8">
+                  {t('digitalFpv.h.b50.crossLink.desc')}
+                </p>
+                <div className="flex flex-col sm:flex-row gap-4 justify-center flex-wrap">
+                  <Link to="/products/accessories/digital-fpv/hd-1400-a30">
+                    <Button variant="outline" className="gap-2 px-6 py-5">
+                      <Radio className="w-5 h-5" />
+                      {t('digitalFpv.h.b50.crossLink.a30')}
+                    </Button>
+                  </Link>
+                  <Link to="/products/accessories/digital-fpv/hd-1400-a50">
+                    <Button variant="outline" className="gap-2 px-6 py-5">
+                      <Radio className="w-5 h-5" />
+                      {t('digitalFpv.h.b50.crossLink.a50')}
+                    </Button>
+                  </Link>
+                  <Link to="/products/accessories/digital-fpv/hd-1400-a100">
+                    <Button variant="outline" className="gap-2 px-6 py-5">
+                      <Radio className="w-5 h-5" />
+                      {t('digitalFpv.h.b50.crossLink.a100')}
+                    </Button>
+                  </Link>
+                </div>
+              </div>
+            </div>
+          </section>
+        )}
+
         {/* CTA Section */}
         <section className="py-16 bg-primary">
           <div className="container-custom">
