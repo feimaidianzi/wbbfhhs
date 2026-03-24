@@ -70,9 +70,9 @@ const DigitalFpvDetail = () => {
   return (
     <div className="min-h-screen">
       <MultiLanguageSEO 
-        title={`${t(product.nameKey)} - ${t('digitalFpv.title')}`}
-        description={t(product.descriptionKey)}
-        keywords={`${t('digitalFpv.title')},${t(product.nameKey)},FPV,${t('digitalFpv.seo.keywords')}`}
+        title={isS900 ? t('digitalFpv.s900.seo.title') : `${t(product.nameKey)} - ${t('digitalFpv.title')}`}
+        description={isS900 ? t('digitalFpv.s900.seo.description') : t(product.descriptionKey)}
+        keywords={`${t('digitalFpv.title')},${t(product.nameKey)},${isS900 ? 'MAVLink,datalink,telemetry,point-to-multipoint,' : 'FPV,'}${t('digitalFpv.seo.keywords')}`}
         path={`/products/accessories/digital-fpv/${productId}`}
       />
       <Helmet>
