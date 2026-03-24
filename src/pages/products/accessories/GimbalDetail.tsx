@@ -344,8 +344,8 @@ const GimbalDetail = () => {
           </div>
         </section>
 
-        {/* Cross-Link VTX Section (K40T & K8T-V2) */}
-        {(productId === 'k40t' || productId === 'k8t-v2') && (
+        {/* Cross-Link VTX Section (K40T, K8T-V2, K8-V2) */}
+        {(productId === 'k40t' || productId === 'k8t-v2' || productId === 'k8-v2') && (
           <section className="py-12 bg-background">
             <div className="container mx-auto px-4">
               <div className="max-w-3xl mx-auto bg-card border border-border rounded-2xl p-8 flex flex-col md:flex-row items-start gap-6">
@@ -353,11 +353,11 @@ const GimbalDetail = () => {
                   <Zap className="w-8 h-8" />
                 </div>
                 <div>
-                  <h3 className="text-lg font-bold mb-2">{t(`gimbal.${productId === 'k8t-v2' ? 'k8tv2' : 'k40t'}.crossVtx.title`)}</h3>
-                  <p className="text-muted-foreground mb-4">{t(`gimbal.${productId === 'k8t-v2' ? 'k8tv2' : 'k40t'}.crossVtx.desc`)}</p>
+                  <h3 className="text-lg font-bold mb-2">{t(`gimbal.${productId === 'k8t-v2' ? 'k8tv2' : productId === 'k8-v2' ? 'k8v2' : 'k40t'}.crossVtx.title`)}</h3>
+                  <p className="text-muted-foreground mb-4">{t(`gimbal.${productId === 'k8t-v2' ? 'k8tv2' : productId === 'k8-v2' ? 'k8v2' : 'k40t'}.crossVtx.desc`)}</p>
                   <Button variant="outline" className="group" asChild>
-                    <Link to="/products/accessories/vtx-vrx">
-                      {t(`gimbal.${productId === 'k8t-v2' ? 'k8tv2' : 'k40t'}.crossVtx.btn`)} →
+                    <Link to={productId === 'k8-v2' ? '/products/accessories/vtx-vrx/flym-pv02w500-a1' : '/products/accessories/vtx-vrx'}>
+                      {t(`gimbal.${productId === 'k8t-v2' ? 'k8tv2' : productId === 'k8-v2' ? 'k8v2' : 'k40t'}.crossVtx.btn`)} →
                     </Link>
                   </Button>
                 </div>
