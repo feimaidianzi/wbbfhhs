@@ -315,6 +315,11 @@ const VtxDetail = () => {
           <script type="application/ld+json">{JSON.stringify(fv37wJsonLd)}</script>
         </Helmet>
       )}
+      {isFV10W72 && fv10w72JsonLd && (
+        <Helmet>
+          <script type="application/ld+json">{JSON.stringify(fv10w72JsonLd)}</script>
+        </Helmet>
+      )}
       <Header />
       <main className="min-h-screen bg-background">
         <BackButton to="/products/accessories/vtx-vrx" />
