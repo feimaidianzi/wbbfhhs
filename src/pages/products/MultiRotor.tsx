@@ -10,7 +10,7 @@ import { LangLink as Link } from "@/components/LangLink";
 import { HeroImagePreload } from "@/components/HeroImagePreload";
 import multiRotorHeroImg from "@/assets/seo/multi-rotor-hero.jpg";
 import tetheredImg from "@/assets/products/th-200-hero.png";
-import logisticsImg from "@/assets/products/logistics-hero-clean.jpg";
+import logisticsImg from "@/assets/seo/logistics-hero.png";
 import swarmImg from "@/assets/products/swarm-uwb-showcase.jpg";
 import fpvImg from "@/assets/products/digital-fpv-wifilink2.jpg";
 import {
