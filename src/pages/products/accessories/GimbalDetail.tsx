@@ -6,7 +6,7 @@ import { FloatingContact } from "@/components/FloatingContact";
 import { MultiLanguageSEO } from "@/components/MultiLanguageSEO";
 import { Button } from "@/components/ui/button";
 import { BackButton } from "@/components/BackButton";
-import { Check, AlertTriangle, Package, Download, Play, HelpCircle, ChevronDown } from "lucide-react";
+import { Check, AlertTriangle, Package, Download, Play, HelpCircle, ChevronDown, Zap } from "lucide-react";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { getGimbalProductById } from "@/data/gimbalProducts";
 import { useState } from "react";
