@@ -244,9 +244,43 @@ const VtxDetail = () => {
     { questionKey: "vtxDetail.fv37w.faq.q3", answerKey: "vtxDetail.fv37w.faq.a3" },
   ];
 
+  // FV10W-72 JSON-LD
+  const fv10w72JsonLd = isFV10W72 ? {
+    "@context": "https://schema.org/",
+    "@type": "Product",
+    "name": "FV10W-72 10W 720MHz UHF Extreme NLOS Analog VTX",
+    "description": t('vtxDetail.fv10w72.seo.desc'),
+    "brand": { "@type": "Brand", "name": "CANI UAV" },
+    "sku": "FV10W-72",
+    "mpn": "FV10W-7.2",
+    "category": "Sub-1GHz High-Power Video Transmission",
+    "additionalProperty": [
+      { "@type": "PropertyValue", "name": "RF Output Power", "value": "10,000mW (10W)" },
+      { "@type": "PropertyValue", "name": "Frequency Band", "value": "6.1-7.2GHz (720MHz UHF)" },
+      { "@type": "PropertyValue", "name": "Channels", "value": "64CH" },
+      { "@type": "PropertyValue", "name": "NLOS Capability", "value": "Extreme Diffraction - Sub-1GHz" },
+      { "@type": "PropertyValue", "name": "Wavelength", "value": "~41cm (Superior Diffraction)" },
+      { "@type": "PropertyValue", "name": "Power Steps", "value": "1W / 3W / 5W / 7W / 10W" },
+      { "@type": "PropertyValue", "name": "Cooling System", "value": "Active Fan + CNC Aluminum Heatsink" },
+      { "@type": "PropertyValue", "name": "End-to-End Latency", "value": "<1ms (Zero-Latency Analog)" },
+      { "@type": "PropertyValue", "name": "Frequency Customization", "value": "600MHz - 900MHz Available" },
+    ],
+    "offers": {
+      "@type": "Offer",
+      "url": "https://www.caniuav.com/products/accessories/vtx-vrx/fv10w-72",
+      "availability": "https://schema.org/InStock"
+    }
+  } : null;
+
+  const fv10w72FaqItems = [
+    { questionKey: "vtxDetail.fv10w72.faq.q1", answerKey: "vtxDetail.fv10w72.faq.a1" },
+    { questionKey: "vtxDetail.fv10w72.faq.q2", answerKey: "vtxDetail.fv10w72.faq.a2" },
+    { questionKey: "vtxDetail.fv10w72.faq.q3", answerKey: "vtxDetail.fv10w72.faq.a3" },
+  ];
+
   // SEO: 各产品使用专属 TDK
-  const seoTitle = isPV02 ? t('vtxDetail.pv02.seo.title') : isPV03 ? t('vtxDetail.pv03.seo.title') : isFV10W ? t('vtxDetail.fv10w.seo.title') : isFV16W ? t('vtxDetail.fv16w.seo.title') : isFV25W ? t('vtxDetail.fv25w.seo.title') : isFV37W ? t('vtxDetail.fv37w.seo.title') : `${t(product.nameKey)} ${product.model}`;
-  const seoDesc = isPV02 ? t('vtxDetail.pv02.seo.desc') : isPV03 ? t('vtxDetail.pv03.seo.desc') : isFV10W ? t('vtxDetail.fv10w.seo.desc') : isFV16W ? t('vtxDetail.fv16w.seo.desc') : isFV25W ? t('vtxDetail.fv25w.seo.desc') : isFV37W ? t('vtxDetail.fv37w.seo.desc') : `${t(product.nameKey)}，${product.frequency}${t('vtxDetail.seo.band')}，${product.channels}${t('vtxDetail.seo.channels')}，${product.power}${t('vtxDetail.seo.power')}，${t('vtxDetail.seo.vtxDesc')}`;
+  const seoTitle = isPV02 ? t('vtxDetail.pv02.seo.title') : isPV03 ? t('vtxDetail.pv03.seo.title') : isFV10W ? t('vtxDetail.fv10w.seo.title') : isFV16W ? t('vtxDetail.fv16w.seo.title') : isFV25W ? t('vtxDetail.fv25w.seo.title') : isFV37W ? t('vtxDetail.fv37w.seo.title') : isFV10W72 ? t('vtxDetail.fv10w72.seo.title') : `${t(product.nameKey)} ${product.model}`;
+  const seoDesc = isPV02 ? t('vtxDetail.pv02.seo.desc') : isPV03 ? t('vtxDetail.pv03.seo.desc') : isFV10W ? t('vtxDetail.fv10w.seo.desc') : isFV16W ? t('vtxDetail.fv16w.seo.desc') : isFV25W ? t('vtxDetail.fv25w.seo.desc') : isFV37W ? t('vtxDetail.fv37w.seo.desc') : isFV10W72 ? t('vtxDetail.fv10w72.seo.desc') : `${t(product.nameKey)}，${product.frequency}${t('vtxDetail.seo.band')}，${product.channels}${t('vtxDetail.seo.channels')}，${product.power}${t('vtxDetail.seo.power')}，${t('vtxDetail.seo.vtxDesc')}`;
 
   return (
     <>
