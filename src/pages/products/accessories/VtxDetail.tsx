@@ -307,7 +307,7 @@ const VtxDetail = () => {
                     isPV03 ? "FLYM-PV03W000-A1 3W Flagship Ultra-High Power NLOS Analog VTX" :
                     isFV10W ? "FV10W-A1 10W (10,000mW) Extreme Power NLOS Analog Video Link" :
                     isFV16W ? "FV16W-A1 16W (16,000mW) Ultimate Tactical NLOS Analog Video Powerhouse" :
-                    isFV25W ? "FV25W-A1 25000mW (25W) Absolute Power FPV Video Transmitter" :
+                    isFV25W ? "FV25W-A1 25,000mW (25W) Strategic-Grade NLOS Analog Video Powerhouse" :
                     isFV37W ? "FV37W-A1 37000mW (37W) God-Tier Power FPV Video Transmitter" :
                     t(product.nameKey)
                   }
