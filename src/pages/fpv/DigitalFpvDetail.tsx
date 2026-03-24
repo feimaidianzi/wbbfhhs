@@ -51,6 +51,7 @@ const DigitalFpvDetail = () => {
   const isHDA150 = product.id === "hd-1400-a150";
   const isHDB50 = product.id === "hd-1400-b50";
   const isHDHB150 = product.id === "hd-hb150";
+  const isHD4000B150 = product.id === "hd-4000-b150";
 
   // Build JSON-LD Product schema with additionalProperty
   const productJsonLd = {
@@ -77,9 +78,9 @@ const DigitalFpvDetail = () => {
   return (
     <div className="min-h-screen">
       <MultiLanguageSEO 
-        title={isS900 ? t('digitalFpv.s900.seo.title') : isWifiLink2 ? t('digitalFpv.wifilink2.seo.title') : isHDA30 ? t('digitalFpv.h.a30.seo.title') : isHDA50 ? t('digitalFpv.h.a50.seo.title') : isHDA100 ? t('digitalFpv.h.a100.seo.title') : isHDA150 ? t('digitalFpv.h.a150.seo.title') : isHDB50 ? t('digitalFpv.h.b50.seo.title') : isHDHB150 ? t('digitalFpv.h.hb150.seo.title') : `${t(product.nameKey)} - ${t('digitalFpv.title')}`}
-        description={isS900 ? t('digitalFpv.s900.seo.description') : isWifiLink2 ? t('digitalFpv.wifilink2.seo.description') : isHDA30 ? t('digitalFpv.h.a30.seo.description') : isHDA50 ? t('digitalFpv.h.a50.seo.description') : isHDA100 ? t('digitalFpv.h.a100.seo.description') : isHDA150 ? t('digitalFpv.h.a150.seo.description') : isHDB50 ? t('digitalFpv.h.b50.seo.description') : isHDHB150 ? t('digitalFpv.h.hb150.seo.description') : t(product.descriptionKey)}
-        keywords={`${t('digitalFpv.title')},${t(product.nameKey)},${isS900 ? 'MAVLink,datalink,telemetry,point-to-multipoint,' : isWifiLink2 ? 'OpenIPC,H.265,1080P,WiFi FPV,open-source,Ruby FPV,low-latency HD,' : isHDA30 ? '1.4GHz,BVLOS,OFDM,MIMO,30km datalink,anti-interference,sub-2GHz,tactical video,' : isHDA50 ? '1.4GHz,50km,BVLOS,ultra-long range,strategic datalink,maritime,border surveillance,high-linear PA,' : isHDA100 ? '1.4GHz,100km,BVLOS,strategic microwave,COFDM,earth curvature,maritime surveillance,HALE,tactical datalink,' : isHDA150 ? '1.4GHz,150km,BVLOS,strategic microwave backbone,COFDM,HALE,maritime border surveillance,ultra-long range,-108dBm,tactical datalink,' : isHDB50 ? '1.4GHz,50km,base station,IP65,integrated antenna,MIMO,rapid deployment,ground station,all-in-one,' : isHDHB150 ? '1.4GHz,150km,high-bandwidth base station,IP65,MIMO,-108dBm,multi-stream,H.265,LDPC,strategic ground station,' : isHDSeries ? '1.4GHz,OFDM,MIMO,BVLOS,industrial datalink,' : 'FPV,'}${t('digitalFpv.seo.keywords')}`}
+        title={isS900 ? t('digitalFpv.s900.seo.title') : isWifiLink2 ? t('digitalFpv.wifilink2.seo.title') : isHDA30 ? t('digitalFpv.h.a30.seo.title') : isHDA50 ? t('digitalFpv.h.a50.seo.title') : isHDA100 ? t('digitalFpv.h.a100.seo.title') : isHDA150 ? t('digitalFpv.h.a150.seo.title') : isHDB50 ? t('digitalFpv.h.b50.seo.title') : isHDHB150 ? t('digitalFpv.h.hb150.seo.title') : isHD4000B150 ? t('digitalFpv.h.4000b150.seo.title') : `${t(product.nameKey)} - ${t('digitalFpv.title')}`}
+        description={isS900 ? t('digitalFpv.s900.seo.description') : isWifiLink2 ? t('digitalFpv.wifilink2.seo.description') : isHDA30 ? t('digitalFpv.h.a30.seo.description') : isHDA50 ? t('digitalFpv.h.a50.seo.description') : isHDA100 ? t('digitalFpv.h.a100.seo.description') : isHDA150 ? t('digitalFpv.h.a150.seo.description') : isHDB50 ? t('digitalFpv.h.b50.seo.description') : isHDHB150 ? t('digitalFpv.h.hb150.seo.description') : isHD4000B150 ? t('digitalFpv.h.4000b150.seo.description') : t(product.descriptionKey)}
+        keywords={`${t('digitalFpv.title')},${t(product.nameKey)},${isS900 ? 'MAVLink,datalink,telemetry,point-to-multipoint,' : isWifiLink2 ? 'OpenIPC,H.265,1080P,WiFi FPV,open-source,Ruby FPV,low-latency HD,' : isHDA30 ? '1.4GHz,BVLOS,OFDM,MIMO,30km datalink,anti-interference,sub-2GHz,tactical video,' : isHDA50 ? '1.4GHz,50km,BVLOS,ultra-long range,strategic datalink,maritime,border surveillance,high-linear PA,' : isHDA100 ? '1.4GHz,100km,BVLOS,strategic microwave,COFDM,earth curvature,maritime surveillance,HALE,tactical datalink,' : isHDA150 ? '1.4GHz,150km,BVLOS,strategic microwave backbone,COFDM,HALE,maritime border surveillance,ultra-long range,-108dBm,tactical datalink,' : isHDB50 ? '1.4GHz,50km,base station,IP65,integrated antenna,MIMO,rapid deployment,ground station,all-in-one,' : isHDHB150 ? '1.4GHz,150km,high-bandwidth base station,IP65,MIMO,-108dBm,multi-stream,H.265,LDPC,strategic ground station,' : isHD4000B150 ? '4GHz,C-Band,150km,tactical base station,IP65,anti-jamming,AES-256,high-throughput,COFDM,-108dBm,' : isHDSeries ? '1.4GHz,OFDM,MIMO,BVLOS,industrial datalink,' : 'FPV,'}${t('digitalFpv.seo.keywords')}`}
         path={`/products/accessories/digital-fpv/${productId}`}
       />
       <Helmet>
@@ -973,6 +974,77 @@ const DigitalFpvDetail = () => {
                     <Button variant="outline" className="gap-2 px-6 py-5">
                       <Users className="w-5 h-5" />
                       {t('digitalFpv.h.hb150.crossLink.swarm')}
+                    </Button>
+                  </Link>
+                </div>
+              </div>
+            </div>
+          </section>
+        )}
+
+        {/* HD-4000-B150 Strategic Advantage Section */}
+        {isHD4000B150 && (
+          <section className="py-16 bg-background">
+            <div className="container-custom">
+              <div className="text-center mb-12">
+                <h2 className="text-2xl md:text-3xl font-bold mb-4">{t('digitalFpv.h.4000b150.strategic.title')}</h2>
+                <p className="text-muted-foreground max-w-3xl mx-auto">{t('digitalFpv.h.4000b150.strategic.desc')}</p>
+                <div className="w-20 h-1 bg-accent mx-auto rounded-full mt-4" />
+              </div>
+              <div className="grid md:grid-cols-3 gap-6 max-w-4xl mx-auto">
+                <div className="bg-card rounded-xl p-6 shadow-card text-center">
+                  <div className="w-16 h-16 bg-accent/10 rounded-2xl flex items-center justify-center mx-auto mb-4">
+                    <Radio className="w-8 h-8 text-accent" />
+                  </div>
+                  <h4 className="font-bold mb-2">{t('digitalFpv.h.4000b150.strategic.spectrum')}</h4>
+                  <p className="text-muted-foreground text-sm">{t('digitalFpv.h.4000b150.strategic.spectrumDesc')}</p>
+                </div>
+                <div className="bg-card rounded-xl p-6 shadow-card text-center">
+                  <div className="w-16 h-16 bg-accent/10 rounded-2xl flex items-center justify-center mx-auto mb-4">
+                    <Target className="w-8 h-8 text-accent" />
+                  </div>
+                  <h4 className="font-bold mb-2">{t('digitalFpv.h.4000b150.strategic.directivity')}</h4>
+                  <p className="text-muted-foreground text-sm">{t('digitalFpv.h.4000b150.strategic.directivityDesc')}</p>
+                </div>
+                <div className="bg-card rounded-xl p-6 shadow-card text-center">
+                  <div className="w-16 h-16 bg-accent/10 rounded-2xl flex items-center justify-center mx-auto mb-4">
+                    <Zap className="w-8 h-8 text-accent" />
+                  </div>
+                  <h4 className="font-bold mb-2">{t('digitalFpv.h.4000b150.strategic.throughput')}</h4>
+                  <p className="text-muted-foreground text-sm">{t('digitalFpv.h.4000b150.strategic.throughputDesc')}</p>
+                </div>
+              </div>
+            </div>
+          </section>
+        )}
+
+        {/* HD-4000-B150 Cross-Link */}
+        {isHD4000B150 && (
+          <section className="py-16 bg-accent/5">
+            <div className="container-custom">
+              <div className="max-w-4xl mx-auto text-center">
+                <h2 className="text-2xl md:text-3xl font-bold mb-4">{t('digitalFpv.h.4000b150.crossLink.title')}</h2>
+                <div className="w-20 h-1 bg-accent mx-auto rounded-full mb-6" />
+                <p className="text-muted-foreground leading-relaxed mb-8">
+                  {t('digitalFpv.h.4000b150.crossLink.desc')}
+                </p>
+                <div className="flex flex-col sm:flex-row gap-4 justify-center flex-wrap">
+                  <Link to="/products/accessories/digital-fpv/hd-4000-a150">
+                    <Button variant="outline" className="gap-2 px-6 py-5">
+                      <Radio className="w-5 h-5" />
+                      {t('digitalFpv.h.4000b150.crossLink.a150')}
+                    </Button>
+                  </Link>
+                  <Link to="/products/swarm">
+                    <Button variant="outline" className="gap-2 px-6 py-5">
+                      <Users className="w-5 h-5" />
+                      {t('digitalFpv.h.4000b150.crossLink.swarm')}
+                    </Button>
+                  </Link>
+                  <Link to="/products/accessories/digital-fpv/hd-hb150">
+                    <Button variant="outline" className="gap-2 px-6 py-5">
+                      <Antenna className="w-5 h-5" />
+                      {t('digitalFpv.h.4000b150.crossLink.hb150')}
                     </Button>
                   </Link>
                 </div>
