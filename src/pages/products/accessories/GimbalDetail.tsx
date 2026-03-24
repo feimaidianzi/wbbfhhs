@@ -314,6 +314,19 @@ const GimbalDetail = () => {
               {/* FAQ Tab */}
               <TabsContent value="faq">
                 <Accordion type="single" collapsible className="space-y-2">
+                  {/* SKU-specific FAQs */}
+                  {productId === 'k8t-v2' && [1, 2, 3, 4].map(i => {
+                    const q = t(`gimbal.k8tv2.faq.q${i}`);
+                    const a = t(`gimbal.k8tv2.faq.a${i}`);
+                    if (q === `gimbal.k8tv2.faq.q${i}`) return null;
+                    return (
+                      <AccordionItem key={`sku-${i}`} value={`sku-faq-${i}`} className="bg-card rounded-xl border border-primary/20 px-6">
+                        <AccordionTrigger className="text-left">{q}</AccordionTrigger>
+                        <AccordionContent className="text-muted-foreground">{a}</AccordionContent>
+                      </AccordionItem>
+                    );
+                  })}
+                  {/* General gimbal FAQs */}
                   {[1, 2, 3, 4, 5, 6].map(i => {
                     const q = t(`gimbal.faq.q${i}`);
                     const a = t(`gimbal.faq.a${i}`);
