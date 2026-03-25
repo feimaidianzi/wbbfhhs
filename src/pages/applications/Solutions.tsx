@@ -2,7 +2,7 @@ import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { FloatingContact } from "@/components/FloatingContact";
 import { Button } from "@/components/ui/button";
-import { ArrowRight, Settings, Users, Lightbulb, Wrench } from "lucide-react";
+import { ArrowRight, Settings, Users, Lightbulb, Wrench, AlertTriangle, CheckCircle } from "lucide-react";
 import { LangLink as Link } from "@/components/LangLink";
 import { MultiLanguageSEO } from "@/components/MultiLanguageSEO";
 import { useLanguage } from "@/contexts/LanguageContext";
@@ -66,24 +66,46 @@ const Solutions = () => {
   const industries = [
     {
       title: t('solutions.industry.power'),
-      description: t('solutions.industry.power.desc'),
-      image: powerInspectionImg
+      pain: t('solutions.industry.power.pain'),
+      solution: t('solutions.industry.power.solution'),
+      image: powerInspectionImg,
+      link: '/applications/power-inspection',
     },
     {
       title: t('solutions.industry.security'),
-      description: t('solutions.industry.security.desc'),
-      image: militaryDefenseImg
+      pain: t('solutions.industry.security.pain'),
+      solution: t('solutions.industry.security.solution'),
+      image: militaryDefenseImg,
+      link: '/applications/military',
     },
     {
       title: t('solutions.industry.environment'),
-      description: t('solutions.industry.environment.desc'),
-      image: envMonitoringImg
+      pain: t('solutions.industry.environment.pain'),
+      solution: t('solutions.industry.environment.solution'),
+      image: envMonitoringImg,
+      link: '/solutions/industrial-uav-environmental-monitoring',
     },
     {
       title: t('solutions.industry.logistics'),
-      description: t('solutions.industry.logistics.desc'),
-      image: logisticsCargoImg
-    }
+      pain: t('solutions.industry.logistics.pain'),
+      solution: t('solutions.industry.logistics.solution'),
+      image: logisticsCargoImg,
+      link: '/applications/logistics',
+    },
+    {
+      title: t('solutions.industry.transport'),
+      pain: t('solutions.industry.transport.pain'),
+      solution: t('solutions.industry.transport.solution'),
+      image: powerInspectionImg,
+      link: '/solutions/industrial-uav-transportation-monitoring',
+    },
+    {
+      title: t('solutions.industry.emergency'),
+      pain: t('solutions.industry.emergency.pain'),
+      solution: t('solutions.industry.emergency.solution'),
+      image: militaryDefenseImg,
+      link: '/solutions/firefighting-emergency',
+    },
   ];
 
   return (
@@ -125,8 +147,58 @@ const Solutions = () => {
           </div>
         </section>
 
-        {/* Solutions Section */}
+        {/* Intro Section */}
+        <section className="py-12 bg-muted/50">
+          <div className="container-custom">
+            <p className="text-base md:text-lg text-muted-foreground leading-relaxed max-w-4xl mx-auto text-center">
+              {t('solutions.intro')}
+            </p>
+          </div>
+        </section>
+
+        {/* Industry Pain Points & Solutions */}
         <section className="py-16 bg-background">
+          <div className="container-custom">
+            <h2 className="text-2xl md:text-3xl font-bold text-foreground text-center mb-12">
+              {t('solutions.industryCoverage')}
+            </h2>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {industries.map((industry, index) => (
+                <Link key={index} to={industry.link} className="group">
+                  <div className="bg-card rounded-xl overflow-hidden shadow-card hover:shadow-lg transition-shadow h-full flex flex-col">
+                    <div className="aspect-video overflow-hidden">
+                      <img
+                        src={industry.image}
+                        alt={`CANI UAV ${industry.title} - Industrial Drone Solution`}
+                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                      />
+                    </div>
+                    <div className="p-5 flex-1 flex flex-col">
+                      <h3 className="text-lg font-bold text-card-foreground mb-3">{industry.title}</h3>
+                      <div className="space-y-2 flex-1">
+                        <div className="flex items-start gap-2">
+                          <AlertTriangle className="w-4 h-4 text-destructive mt-0.5 flex-shrink-0" />
+                          <p className="text-sm text-muted-foreground">{industry.pain}</p>
+                        </div>
+                        <div className="flex items-start gap-2">
+                          <CheckCircle className="w-4 h-4 text-primary mt-0.5 flex-shrink-0" />
+                          <p className="text-sm text-foreground font-medium">{industry.solution}</p>
+                        </div>
+                      </div>
+                      <div className="mt-4 flex items-center text-sm text-primary font-medium group-hover:gap-2 transition-all">
+                        {t('common.viewDetails')}
+                        <ArrowRight className="w-4 h-4 ml-1" />
+                      </div>
+                    </div>
+                  </div>
+                </Link>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* Service System */}
+        <section className="py-16 bg-muted">
           <div className="container-custom">
             <h2 className="text-2xl md:text-3xl font-bold text-foreground text-center mb-12">
               {t('solutions.serviceSystem')}
@@ -151,32 +223,6 @@ const Solutions = () => {
                       </li>
                     ))}
                   </ul>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        {/* Industries Section */}
-        <section className="py-16 bg-muted">
-          <div className="container-custom">
-            <h2 className="text-2xl md:text-3xl font-bold text-foreground text-center mb-12">
-              {t('solutions.industryCoverage')}
-            </h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-              {industries.map((industry, index) => (
-                <div key={index} className="bg-card rounded-xl overflow-hidden shadow-card">
-                  <div className="aspect-video overflow-hidden">
-                    <img
-                      src={industry.image}
-                      alt={industry.title}
-                      className="w-full h-full object-cover"
-                    />
-                  </div>
-                  <div className="p-4">
-                    <h3 className="text-lg font-bold text-card-foreground mb-2">{industry.title}</h3>
-                    <p className="text-muted-foreground text-sm">{industry.description}</p>
-                  </div>
                 </div>
               ))}
             </div>
