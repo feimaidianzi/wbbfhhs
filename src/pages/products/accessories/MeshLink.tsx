@@ -29,11 +29,9 @@ const MeshLink = () => {
   const meshLinkJsonLd = {
     '@context': 'https://schema.org/',
     '@type': 'Product',
-    name: baseLang === 'en' ? 'CANI Mesh-Link Tactical MANET Self-Healing Radio' : 'CANI Mesh-Link 战术级自愈合自组网电台',
+    name: t('meshLink.jsonld.name'),
     image: 'https://www.caniuav.com/images/products/accessories/mesh-link-main.jpg',
-    description: baseLang === 'en'
-      ? 'CANI Mesh-Link is an industrial-grade self-healing MANET mesh module supporting 800M/1.4G/2.4G tri-band, 7+ hop relay and 15ms topology recovery for UAV swarms, mine rescue, and complex NLOS environments.'
-      : 'CANI Mesh-Link 是工业级自愈合 MANET 自组网链路模块，支持三频段、7级多跳中继与 15ms 动态拓扑恢复，为无人机集群与复杂非视距环境提供不间断通信骨干。',
+    description: t('meshLink.jsonld.desc'),
     brand: { '@type': 'Brand', name: 'CANI' },
     sku: 'CANI-MESH-V1',
     url: `https://www.caniuav.com/${baseLang === 'en' ? 'en' : 'zh'}/products/accessories/mesh-link`,

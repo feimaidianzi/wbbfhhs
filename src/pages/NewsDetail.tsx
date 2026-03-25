@@ -264,8 +264,8 @@ const NewsDetail = () => {
     '@context': 'https://schema.org',
     '@type': 'BreadcrumbList',
     itemListElement: [
-      { '@type': 'ListItem', position: 1, name: baseLang === 'en' ? 'Home' : '首页', item: getUrlForLanguage(baseLang === 'en' ? 'en' : 'zh', '/') },
-      { '@type': 'ListItem', position: 2, name: baseLang === 'en' ? 'News' : '新闻中心', item: getUrlForLanguage(baseLang === 'en' ? 'en' : 'zh', '/news') },
+      { '@type': 'ListItem', position: 1, name: t('breadcrumb.home'), item: getUrlForLanguage(baseLang === 'en' ? 'en' : 'zh', '/') },
+      { '@type': 'ListItem', position: 2, name: t('breadcrumb.news'), item: getUrlForLanguage(baseLang === 'en' ? 'en' : 'zh', '/news') },
       { '@type': 'ListItem', position: 3, name: baseLang === 'en' && article.title_en ? article.title_en : article.title },
     ],
   };
@@ -402,7 +402,7 @@ const NewsDetail = () => {
                 {article.keywords && article.keywords.length > 0 && (
                   <div className="bg-card border border-border rounded-xl p-6">
                     <h3 className="font-bold text-foreground mb-3 text-sm uppercase tracking-wider">
-                      {baseLang === 'en' ? 'Tech Specs Referenced' : '涉及技术规格'}
+                      {t('news.detail.techSpecs')}
                     </h3>
                     <div className="flex flex-wrap gap-2">
                       {article.keywords.map((kw, idx) => (
@@ -420,13 +420,11 @@ const NewsDetail = () => {
                 {/* Quick Action */}
                 <div className="bg-card border border-border rounded-xl p-6 text-center">
                   <p className="text-sm text-muted-foreground mb-3">
-                    {baseLang === 'en' 
-                      ? 'Need this solution for your project?' 
-                      : '需要将该方案集成到您的项目中？'}
+                    {t('news.detail.needSolution')}
                   </p>
                   <Link to="/contact">
                     <Button size="sm" className="w-full gap-2">
-                      {baseLang === 'en' ? 'Get Technical Support' : '获取技术支持'}
+                      {t('news.detail.getTechSupport')}
                     </Button>
                   </Link>
                 </div>

@@ -38,11 +38,8 @@ const DB_CATEGORY_MAP: Record<string, string> = {
   '技术分享': 'tech',
 };
 
-const CATEGORY_SEO: Record<string, { pathSuffix: string; titleKeyZh: string; titleKeyEn: string; descZh: string; descEn: string }> = {
-  company: { pathSuffix: '?category=company', titleKeyZh: '公司新闻 - CANI 长凌科技', titleKeyEn: 'Company News - CANI Technology', descZh: 'CANI长凌科技最新公司动态、产品发布与战略合作公告。', descEn: 'Latest CANI company updates, product launches, and strategic partnership announcements.' },
-  industry: { pathSuffix: '?category=industry', titleKeyZh: '行业动态 - CANI 长凌科技', titleKeyEn: 'Industry Dynamics - CANI Technology', descZh: '无人机行业趋势、政策法规与市场分析深度报道。', descEn: 'UAV industry trends, regulations, and in-depth market analysis.' },
-  tech: { pathSuffix: '?category=tech', titleKeyZh: '技术解析 - CANI 长凌科技', titleKeyEn: 'Technical Analysis - CANI Technology', descZh: 'COFDM图传、飞控电调、ELRS遥控等核心技术深度解析与工程白皮书。', descEn: 'In-depth technical analysis and engineering whitepapers on COFDM video links, flight controllers, ELRS, and more.' },
-};
+// Category SEO keys are now managed via i18n
+const CATEGORY_SEO_KEYS = ['company', 'industry', 'tech'] as const;
 
 const News = () => {
   const { t, baseLang } = useLanguage();
@@ -128,17 +125,16 @@ const News = () => {
   };
 
   // Breadcrumb JSON-LD
-  const activeCatLabel = activeCategory !== 'all' && CATEGORY_SEO[activeCategory]
-    ? (baseLang === 'en' ? CATEGORY_SEO[activeCategory].titleKeyEn.split(' - ')[0] : CATEGORY_SEO[activeCategory].titleKeyZh.split(' - ')[0])
-    : null;
+  const isSpecificCategory = activeCategory !== 'all' && CATEGORY_SEO_KEYS.includes(activeCategory as any);
+  const activeCatLabel = isSpecificCategory ? t(`news.seo.${activeCategory}.title`).split(' - ')[0] : null;
 
   const breadcrumbData = {
     '@context': 'https://schema.org',
     '@type': 'BreadcrumbList',
     itemListElement: [
-      { '@type': 'ListItem', position: 1, name: baseLang === 'en' ? 'Home' : '首页', item: getUrlForLanguage(baseLang === 'en' ? 'en' : 'zh', '/') },
+      { '@type': 'ListItem', position: 1, name: t('breadcrumb.home'), item: getUrlForLanguage(baseLang === 'en' ? 'en' : 'zh', '/') },
       { '@type': 'ListItem', position: 2, name: t('news.page.title'), item: getUrlForLanguage(baseLang === 'en' ? 'en' : 'zh', '/news') },
-      ...(activeCatLabel ? [{ '@type': 'ListItem', position: 3, name: activeCatLabel, item: getUrlForLanguage(baseLang === 'en' ? 'en' : 'zh', `/news${CATEGORY_SEO[activeCategory].pathSuffix}`) }] : []),
+      ...(activeCatLabel ? [{ '@type': 'ListItem', position: 3, name: activeCatLabel, item: getUrlForLanguage(baseLang === 'en' ? 'en' : 'zh', `/news?category=${activeCategory}`) }] : []),
     ],
   };
 
@@ -163,17 +159,17 @@ const News = () => {
     <div className="min-h-screen">
       <MultiLanguageSEO
         title={
-          activeCategory !== 'all' && CATEGORY_SEO[activeCategory]
-            ? (baseLang === 'en' ? CATEGORY_SEO[activeCategory].titleKeyEn : CATEGORY_SEO[activeCategory].titleKeyZh)
+          isSpecificCategory
+            ? t(`news.seo.${activeCategory}.title`)
             : t('news.page.title')
         }
         description={
-          activeCategory !== 'all' && CATEGORY_SEO[activeCategory]
-            ? (baseLang === 'en' ? CATEGORY_SEO[activeCategory].descEn : CATEGORY_SEO[activeCategory].descZh)
+          isSpecificCategory
+            ? t(`news.seo.${activeCategory}.desc`)
             : t('news.page.metaDesc')
         }
         keywords={t('news.page.metaKeywords')}
-        path={activeCategory !== 'all' && CATEGORY_SEO[activeCategory] ? `/news${CATEGORY_SEO[activeCategory].pathSuffix}` : '/news'}
+        path={isSpecificCategory ? `/news?category=${activeCategory}` : '/news'}
         structuredData={[breadcrumbData, newsCollectionData]}
       />
       <Header />

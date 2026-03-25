@@ -1334,6 +1334,67 @@ export const enTranslations: Record<string, string> = {
   'news.detail.backToList': 'Back to News',
   'news.detail.relatedArticles': 'Related Articles',
   'news.detail.imageAlt': 'Article Image',
+  'news.detail.techSpecs': 'Tech Specs Referenced',
+  'news.detail.needSolution': 'Need this solution for your project?',
+  'news.detail.getTechSupport': 'Get Technical Support',
+
+  // ===== News Article CTA =====
+  'news.cta.title': 'Ready to Integrate This Solution?',
+  'news.cta.desc': 'Our engineering team provides OEM/ODM customization, technical consultation, and sample support for industrial UAV applications.',
+  'news.cta.quote': 'Get Custom Integration Quote',
+  'news.cta.catalog': 'Browse Product Catalog',
+
+  // ===== News Related Products =====
+  'news.relatedProducts.title': 'Related Products',
+  'news.relatedProducts.desc': 'Products mentioned in this article',
+  'news.relatedProducts.cat.vtx': 'Video Transmitter',
+  'news.relatedProducts.cat.fc-esc': 'FC & ESC',
+  'news.relatedProducts.cat.digital-fpv': 'Digital FPV',
+  'news.relatedProducts.cat.gimbal': 'Gimbal & Pod',
+  'news.relatedProducts.cat.elrs': 'Control Link',
+  'news.relatedProducts.cat.camera': 'Camera',
+  'news.relatedProducts.cat.ai-module': 'AI Module',
+  'news.relatedProducts.cat.platform': 'UAV Platform',
+
+  // ===== News Tech Summary =====
+  'news.techSummary.title': 'Technical Highlights',
+  'news.techSummary.summaryTech': 'This technical analysis covers {keywords} — providing actionable engineering data for system integrators and OEM/ODM partners.',
+  'news.techSummary.summaryArticle': 'This article covers {keywords} — providing actionable engineering data for system integrators and OEM/ODM partners.',
+  'news.techSummary.moreSpecs': ' and {count} more specifications',
+
+  // ===== News Category SEO =====
+  'news.categorySeo.relatedResources': 'Related Resources',
+  'news.categorySeo.company.heading': 'CANI Technology Company Updates',
+  'news.categorySeo.company.p1': 'As a professional OEM/ODM manufacturer of industrial UAV core components, CANI Technology continuously releases product iterations, strategic partnerships, and trade show updates. Our company news covers the full product line from digital video transmission systems to flight controller ESC modules.',
+  'news.categorySeo.company.p2': 'Follow CANI updates for the latest product launches, technology partnership announcements, and global market expansion plans. Every release undergoes strict technical review to ensure actionable engineering data.',
+  'news.categorySeo.company.link1': 'View All Products',
+  'news.categorySeo.company.link2': 'Contact for Custom Solutions',
+  'news.categorySeo.company.link3': 'About CANI',
+  'news.categorySeo.industry.heading': 'UAV Industry Dynamics & Market Trends',
+  'news.categorySeo.industry.p1': 'CANI\\\'s industry dynamics column tracks global UAV supply chain trends, covering COFDM digital video link evolution, low-altitude economy regulations, and the latest industrial drone applications in power inspection, emergency rescue, and surveying.',
+  'news.categorySeo.industry.p2': 'Our industry analysis team provides deep market insights from a supply chain perspective for system integrators, research institutions, and government procurement. Each report includes specific technical parameter comparisons and application scenario data.',
+  'news.categorySeo.industry.link1': 'Power Inspection UAV Solutions',
+  'news.categorySeo.industry.link2': 'Emergency Rescue UAV Systems',
+  'news.categorySeo.industry.link3': 'Digital Video Link Products',
+  'news.categorySeo.tech.heading': 'In-Depth UAV Core Technology Analysis',
+  'news.categorySeo.tech.p1': 'CANI\\\'s technical analysis column publishes engineering-grade whitepapers and deep-dive reviews covering 7.2GHz high-power COFDM digital video links, STM32H7 flight controller architecture, 48kHz PWM ESC algorithms, and ExpressLRS low-latency control links.',
+  'news.categorySeo.tech.p2': 'Each technical article is authored or reviewed by CANI\\\'s R&D team, featuring complete specification tables, system block diagrams, and performance test data. Key metrics like 10W TX power, 72V high-voltage input, and -110dBm receiver sensitivity are presented in structured formats for system design reference.',
+  'news.categorySeo.tech.link1': 'High-Power VTX FV10W-72',
+  'news.categorySeo.tech.link2': 'COFDM Video Link S900',
+  'news.categorySeo.tech.link3': 'FC ESC Stack Series',
+  'news.categorySeo.tech.link4': 'ExpressLRS Control Link',
+
+  // ===== News Category SEO Titles =====
+  'news.seo.company.title': 'Company News - CANI Technology',
+  'news.seo.company.desc': 'Latest CANI company updates, product launches, and strategic partnership announcements.',
+  'news.seo.industry.title': 'Industry Dynamics - CANI Technology',
+  'news.seo.industry.desc': 'UAV industry trends, regulations, and in-depth market analysis.',
+  'news.seo.tech.title': 'Technical Analysis - CANI Technology',
+  'news.seo.tech.desc': 'In-depth technical analysis and engineering whitepapers on COFDM video links, flight controllers, ELRS, and more.',
+
+  // ===== Breadcrumb Common =====
+  'breadcrumb.home': 'Home',
+  'breadcrumb.news': 'News',
 
   // ===== SEO Enhancement Keys =====
   // Footer SEO
@@ -5691,6 +5752,8 @@ export const enTranslations: Record<string, string> = {
   'meshLink.seo.title': 'CANI Mesh-Link | Self-Healing MANET Tactical Mesh Radio | Swarm Communication | CANI UAV',
   'meshLink.seo.description': 'CANI Mesh-Link is an industrial-grade self-healing MANET mesh module. Supporting 800M/1.4G/2.4G tri-band, 7+ hop relay and 15ms topology recovery for UAV swarms, mine rescue, and complex NLOS environments.',
   'meshLink.seo.keywords': 'UAV Mesh Network,MANET,self-healing mesh,multi-hop relay,NLOS,swarm communication,COFDM,FHSS,tactical datalink,ad-hoc network',
+  'meshLink.jsonld.name': 'CANI Mesh-Link Tactical MANET Self-Healing Radio',
+  'meshLink.jsonld.desc': 'CANI Mesh-Link is an industrial-grade self-healing MANET mesh module supporting 800M/1.4G/2.4G tri-band, 7+ hop relay and 15ms topology recovery for UAV swarms, mine rescue, and complex NLOS environments.',
   'meshLink.back': 'Back to Accessories',
   'meshLink.breadcrumb.home': 'Home',
   'meshLink.breadcrumb.accessories': 'Accessories',
