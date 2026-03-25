@@ -5355,12 +5355,12 @@ export const zhTranslations: Record<string, string> = {
 
   // ===== Logistics Application Page - Additional Keys =====
   'logisticsApp.hero.subtitle': '行业应用',
-  'logisticsApp.hero.description': '物流无人机是专门用于运输和递送物品的无人机系统，通常用于在短途配送或难以到达的地区进行货物运输。随着技术的不断发展，物流无人机在提高配送效率、降低成本、减少人工干预等方面展现出巨大潜力。',
+  'logisticsApp.hero.description': '架起空中桥梁：在现代供应链中，速度和可达性是终极竞争优势。CANI无人机物流方案突破传统地面运输限制，为偏远岛屿、山区和拥堵城市提供直达高速通道。配备TF2A自主飞行引擎和150km战略数字链路。',
   'logisticsApp.hero.stat1': '最大载重',
   'logisticsApp.hero.stat2': '最大航程',
   'logisticsApp.hero.stat3.value': '全地形',
   'logisticsApp.hero.stat3.label': '覆盖能力',
-  'logisticsApp.intro.description': '物流无人机正在改变传统物流行业，为偏远地区、应急配送等场景提供全新解决方案',
+  'logisticsApp.intro.description': '无人机物流正在革新传统供应链，为偏远地区、应急物资投送和最后一公里配送提供自主货运解决方案',
   'logisticsApp.feature.efficient': '高效配送',
   'logisticsApp.feature.efficient.desc': '无人机物流绕过传统地面交通，直线飞行大大缩短配送时间',
   'logisticsApp.feature.costSaving': '降低成本',
