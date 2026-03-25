@@ -12,7 +12,7 @@ interface TechSummaryBlockProps {
  * Placed at top of article for GEO/AEO — gives AI crawlers a dense, entity-rich summary.
  */
 export const TechSummaryBlock = ({ keywords, category, title }: TechSummaryBlockProps) => {
-  const { baseLang } = useLanguage();
+  const { t, baseLang } = useLanguage();
 
   if (!keywords || keywords.length === 0) return null;
 
@@ -21,6 +21,16 @@ export const TechSummaryBlock = ({ keywords, category, title }: TechSummaryBlock
   // Group keywords into clusters for structured display
   const specKeywords = keywords.filter(k => /\d/.test(k)); // e.g. "7.2GHz", "10W", "72V"
   const conceptKeywords = keywords.filter(k => !/\d/.test(k)); // e.g. "COFDM", "EMI Shielding"
+
+  // Build micro-summary
+  const keywordList = baseLang === 'en'
+    ? keywords.slice(0, 5).join(', ')
+    : keywords.slice(0, 5).join('、');
+  const moreText = keywords.length > 5
+    ? t('news.techSummary.moreSpecs').replace('{count}', String(keywords.length - 5))
+    : '';
+  const templateKey = isTech ? 'news.techSummary.summaryTech' : 'news.techSummary.summaryArticle';
+  const summary = t(templateKey).replace('{keywords}', keywordList + moreText);
 
   return (
     <div
@@ -31,7 +41,7 @@ export const TechSummaryBlock = ({ keywords, category, title }: TechSummaryBlock
       <div className="flex items-center gap-2 mb-3">
         <Cpu className="w-4 h-4 text-accent" />
         <h2 className="text-sm font-bold uppercase tracking-wider text-accent">
-          {baseLang === 'en' ? 'Technical Highlights' : '核心技术亮点'}
+          {t('news.techSummary.title')}
         </h2>
       </div>
 
@@ -67,9 +77,7 @@ export const TechSummaryBlock = ({ keywords, category, title }: TechSummaryBlock
 
       {/* GEO-oriented micro-summary */}
       <p className="text-xs text-muted-foreground mt-2 leading-relaxed" itemProp="abstract">
-        {baseLang === 'en'
-          ? `This ${isTech ? 'technical analysis' : 'article'} covers ${keywords.slice(0, 5).join(', ')}${keywords.length > 5 ? ` and ${keywords.length - 5} more specifications` : ''} — providing actionable engineering data for system integrators and OEM/ODM partners.`
-          : `本${isTech ? '技术解析' : '文章'}涵盖 ${keywords.slice(0, 5).join('、')}${keywords.length > 5 ? ` 等 ${keywords.length} 项核心参数` : ''}，为系统集成商与OEM/ODM合作伙伴提供可执行的工程数据参考。`}
+        {summary}
       </p>
 
       {/* Hidden semantic meta for crawlers */}

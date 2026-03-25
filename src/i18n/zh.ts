@@ -4651,8 +4651,6 @@ export const zhTranslations: Record<string, string> = {
   'news.seo.tech.title': '技术解析 - CANI 长凌科技',
   'news.seo.tech.desc': 'COFDM图传、飞控电调、ELRS遥控等核心技术深度解析与工程白皮书。',
 
-  // ===== 面包屑通用 =====
-  'breadcrumb.home': '首页',
   'breadcrumb.news': '新闻中心',
 
   // Products Page
