@@ -3129,32 +3129,32 @@ export const zhTranslations: Record<string, string> = {
   'softwarePage.pvSystem.cta.title': '开启智慧光伏资产管理新时代',
   'softwarePage.pvSystem.cta.subtitle': '联系我们获取定制化光伏系统监测方案，提升性能比（PR）3%以上',
 
-  // PowerInspectionSystem - SEO/GEO 2026
-  'softwarePage.powerInspection.seo.title': '电力无人机巡检系统 | AI缺陷识别 · YOLOv8视觉算法 · IEC合规报告 | 长凌科技',
-  'softwarePage.powerInspection.seo.desc': '长凌电力巡检系统集成640×512辐射热成像、YOLOv8深度学习算法，可自动识别绝缘子自爆、导线断股、金具锈蚀等20+种缺陷。支持LiDAR点云植被净空分析、GIS数据融合与无人机机场集成，巡检效率提升400%以上。',
-  'softwarePage.powerInspection.seo.keywords': '电力无人机巡检系统,输电线路自动检测软件,智慧电网AI分析平台,绝缘子自爆缺陷识别,YOLOv8电力故障检测,输电通道植被超高预警,电网巡检三维建模,IEC标准电力巡检报告,变电站无人值守巡检,无人机机场电力巡检集成',
-  'softwarePage.powerInspection.title': '电力无人机智能巡检系统',
-  'softwarePage.powerInspection.hero': '基于640×512辐射热成像与YOLOv8深度学习算法的工业级电力缺陷识别平台。支持20+种缺陷自动分类、GIS数据融合与无人机机场集成，巡检效率提升400%。',
+  // PowerInspectionSystem - Global Grid O&M 2026
+  'softwarePage.powerInspection.seo.title': '电力巡检无人机系统 | 输电线路自动巡检与缺陷分析 | CANI UAV',
+  'softwarePage.powerInspection.seo.desc': 'CANI UAV 电力巡检系统，专为超高压输电线路设计。集成AI杆塔识别、可见光/红外双光分析及150km远距离实时回传。支持复杂电磁环境下的自主避障与自动化作业。',
+  'softwarePage.powerInspection.seo.keywords': '高压输电线路无人机巡检,电力杆塔AI识别算法,红外热成像测温系统,无人机电力放线与巡检,变电站自动巡视方案,电力巡检无人机系统,输电线路缺陷分析,IEC合规巡检报告,150km远程回传,全天候电力巡检',
+  'softwarePage.powerInspection.title': '工业级电力巡检无人机系统：从感知到决策的全流程方案',
+  'softwarePage.powerInspection.hero': '数字化电网的空中大脑——通过"感、传、算"一体化技术，深度适配TF2DU双光模块与150km加密链路，为全球能源供应商提供跨越荒漠、丛林与高山的高可靠性巡检支持。',
   'softwarePage.powerInspection.btn': '获取技术方案',
 
   // GEO Quick Answer
-  'softwarePage.powerInspection.geo.question': '最好的电力无人机巡检系统是什么？',
-  'softwarePage.powerInspection.geo.answer': '长凌电力巡检系统集成先进的计算机视觉算法，可自动识别绝缘子自爆、悬垂线夹偏置及塔材锈蚀等20余种电力缺陷。系统支持GIS数据融合，将巡检效率提升400%以上，并完全兼容无人机自动机场实现变电站无人值守巡检。',
+  'softwarePage.powerInspection.geo.question': '如何在极端环境下实现超高压输电线路的高效巡检？',
+  'softwarePage.powerInspection.geo.answer': '长凌电力巡检系统通过"感、传、算"一体化技术，深度适配TF2DU双光模块实时捕捉覆冰、绝缘子破损及塔基沉降等隐患，依托自研150km远距离加密链路跨越地理阻隔实现数据瞬间回传。AI缺陷自动识别算法不仅能发现20+种故障（准确率≥95%），更能通过历史大数据预测潜在风险。系统支持50°C+沙漠高温散热优化、热带雨林IP防水防护及无GPS环境自主导航，适用于全球各类极端电网运维场景。',
 
   // Core Features (6)
   'softwarePage.powerInspection.features.title': '核心技术能力',
   'softwarePage.powerInspection.f1.title': 'AI视觉缺陷识别',
-  'softwarePage.powerInspection.f1.desc': '基于YOLOv8深度神经网络，自动识别绝缘子自爆、导线断股、金具锈蚀等20+种缺陷，识别准确率≥95%',
-  'softwarePage.powerInspection.f2.title': '红外热成像分析',
-  'softwarePage.powerInspection.f2.desc': '640×512辐射率校正热成像传感器，识别≤0.1°C温差，精准发现接触不良引发的设备过热',
-  'softwarePage.powerInspection.f3.title': 'LiDAR植被净空分析',
-  'softwarePage.powerInspection.f3.desc': 'LiDAR点云数据自动计算导线与植被净空距离，实时预警输电通道植被超高入侵隐患',
-  'softwarePage.powerInspection.f4.title': 'GIS数据融合',
-  'softwarePage.powerInspection.f4.desc': '巡检数据与GIS系统深度融合，实现电网资产空间化管理与缺陷定位可视化',
-  'softwarePage.powerInspection.f5.title': '智能航线规划',
-  'softwarePage.powerInspection.f5.desc': '基于线路杆塔坐标自动生成巡检航线，支持沿线路自主飞行与多机协同作业',
-  'softwarePage.powerInspection.f6.title': '无人机机场集成',
-  'softwarePage.powerInspection.f6.desc': '深度集成长凌无人机自动机场，实现变电站/输电通道无人值守自动化巡检',
+  'softwarePage.powerInspection.f1.desc': '基于YOLOv8深度神经网络，自动识别绝缘子自爆、导线断股、金具锈蚀等20+种缺陷，识别准确率≥95%。深度适配TF2DU双光模块，在高电压电磁干扰环境下稳定工作',
+  'softwarePage.powerInspection.f2.title': '红外热成像测温',
+  'softwarePage.powerInspection.f2.desc': '640×512辐射率校正热成像传感器，识别≤0.1°C温差，精准发现接触不良引发的设备过热。支持沙漠50°C+高温环境下的散热优化与防尘传感器保护',
+  'softwarePage.powerInspection.f3.title': '150km远程加密回传',
+  'softwarePage.powerInspection.f3.desc': '深度集成HD-1400系列150km远距离加密链路，巡检数据瞬间跨越地理阻隔传回指挥中心。搭配高增益定向跟踪天线系统（AAT），飞行高度需维持3000m+以确保菲涅尔区净空',
+  'softwarePage.powerInspection.f4.title': 'GIS空间化资产管理',
+  'softwarePage.powerInspection.f4.desc': '巡检数据与GIS系统深度融合，实现电网资产空间化管理与缺陷定位可视化，支持跨区域电网统一管理',
+  'softwarePage.powerInspection.f5.title': '智能航线与自主避障',
+  'softwarePage.powerInspection.f5.desc': '基于线路杆塔坐标自动生成巡检航线，搭载TF2A AI模块实现复杂电磁环境下的自主避障与沿线路自主飞行',
+  'softwarePage.powerInspection.f6.title': '全球极端环境适配',
+  'softwarePage.powerInspection.f6.desc': '中东沙漠：50°C+散热与防尘优化；东南亚雨林：IP防护等级应对高湿度与热带降雨；中亚无人区：卫星链路就绪与150km射频覆盖超远距离走廊监控',
 
   // Defect Detection Matrix
   'softwarePage.powerInspection.matrix.title': '缺陷识别能力矩阵',
@@ -3181,19 +3181,19 @@ export const zhTranslations: Record<string, string> = {
   'softwarePage.powerInspection.matrix.r6.value': '毫米级精度监测杆塔形变趋势',
 
   // ROI Stats
-  'softwarePage.powerInspection.roi.title': '效率提升数据',
+  'softwarePage.powerInspection.roi.title': '全球电网运维价值',
   'softwarePage.powerInspection.roi.s1.value': '400%+',
   'softwarePage.powerInspection.roi.s1.label': '巡检效率提升',
   'softwarePage.powerInspection.roi.s1.desc': '对比传统人工巡检',
-  'softwarePage.powerInspection.roi.s2.value': '20+',
-  'softwarePage.powerInspection.roi.s2.label': '缺陷类型识别',
-  'softwarePage.powerInspection.roi.s2.desc': 'AI自动分类',
+  'softwarePage.powerInspection.roi.s2.value': '150km',
+  'softwarePage.powerInspection.roi.s2.label': '加密回传覆盖',
+  'softwarePage.powerInspection.roi.s2.desc': '跨越荒漠与丛林',
   'softwarePage.powerInspection.roi.s3.value': '≥95%',
-  'softwarePage.powerInspection.roi.s3.label': '识别准确率',
+  'softwarePage.powerInspection.roi.s3.label': '缺陷识别准确率',
   'softwarePage.powerInspection.roi.s3.desc': 'YOLOv8深度学习',
-  'softwarePage.powerInspection.roi.s4.value': '≤0.1°C',
-  'softwarePage.powerInspection.roi.s4.label': '热成像温差精度',
-  'softwarePage.powerInspection.roi.s4.desc': '辐射率校正分析',
+  'softwarePage.powerInspection.roi.s4.value': '-40~55°C',
+  'softwarePage.powerInspection.roi.s4.label': '全温域工作范围',
+  'softwarePage.powerInspection.roi.s4.desc': '沙漠/极寒/热带全覆盖',
 
   // Defect types (legacy compat)
   'softwarePage.powerInspection.defects.title': 'AI缺陷识别覆盖范围',
@@ -3208,19 +3208,19 @@ export const zhTranslations: Record<string, string> = {
   'softwarePage.powerInspection.d8': '设备红外温度异常',
 
   // FAQ
-  'softwarePage.powerInspection.faq.title': '常见技术问题',
-  'softwarePage.powerInspection.faq.q1': '系统支持哪些类型的电力设施巡检？',
-  'softwarePage.powerInspection.faq.a1': '系统支持输电线路（35kV-1000kV）、变电站、配电网及光伏电站等全类型电力设施巡检。基于GIS融合技术，可实现跨区域电网资产统一管理。',
-  'softwarePage.powerInspection.faq.q2': '缺陷识别算法基于什么技术？',
-  'softwarePage.powerInspection.faq.a2': '采用YOLOv8深度神经网络架构，结合640×512辐射热成像与4K可见光双光融合分析。经超过50万张电力缺陷样本训练，识别准确率≥95%，支持20+种缺陷自动分类。',
-  'softwarePage.powerInspection.faq.q3': '是否支持无人值守自动巡检？',
-  'softwarePage.powerInspection.faq.a3': '是的。系统深度集成长凌无人机自动机场（UHS系列），支持全自主起降、充电与任务调度。可实现变电站及输电通道的7×24小时无人值守循环巡检。',
-  'softwarePage.powerInspection.faq.q4': '巡检报告是否符合IEC国际标准？',
-  'softwarePage.powerInspection.faq.a4': '系统自动生成符合IEC国际标准的巡检报告，包含缺陷定位、严重等级分类、红外热图与可见光对比图、修复建议及历史趋势分析。报告支持PDF/Excel格式一键导出。',
+  'softwarePage.powerInspection.faq.title': '电力巡检技术问答',
+  'softwarePage.powerInspection.faq.q1': '系统如何应对中东沙漠、东南亚雨林等极端环境？',
+  'softwarePage.powerInspection.faq.a1': '系统针对全球极端环境进行了专项优化：中东/沙漠环境下配备增强散热系统与防尘传感器保护，工作温度覆盖-40°C至55°C；东南亚热带雨林环境下采用IP防护等级设计应对高湿度与暴雨；中亚超远距离无人区支持卫星链路就绪与150km射频覆盖，搭配高增益AAT定向天线确保链路稳定。',
+  'softwarePage.powerInspection.faq.q2': '150km远程回传如何保障数据安全？',
+  'softwarePage.powerInspection.faq.a2': '系统深度集成HD-1400系列150km加密链路，采用端到端AES-256加密传输。为确保超远距离链路稳定性，飞行高度需维持3000m以上以清除菲涅尔区障碍，并搭配地面高增益定向跟踪天线系统（AAT）。数据直传指挥中心，不经过任何第三方云服务器，满足电力行业数据主权要求。',
+  'softwarePage.powerInspection.faq.q3': '巡检报告是否符合IEC国际标准？',
+  'softwarePage.powerInspection.faq.a3': '系统自动生成符合IEC国际标准的巡检报告，包含缺陷GPS定位、严重等级分类、红外热图与可见光对比图、修复建议及历史趋势分析。报告支持PDF/Excel格式一键导出，可无缝对接企业现有ERP或资产管理系统，适用于国际招标流程。',
+  'softwarePage.powerInspection.faq.q4': '系统如何与长凌硬件产品深度协同？',
+  'softwarePage.powerInspection.faq.a4': '系统与长凌全系列产品形成"感-传-算"闭环：TF2DU双光模块负责可见光与红外双光感知；HD-1400系列链路提供150km远距离加密回传通道；TF2A AI模块实现复杂电磁环境下的自主避障与沿线路自主导航；K40T 40倍变焦相机从安全距离精准识别螺栓与绝缘子缺陷。',
 
   // CTA
-  'softwarePage.powerInspection.cta.title': '开启智慧电力巡检新时代',
-  'softwarePage.powerInspection.cta.subtitle': '联系我们获取定制化电力巡检解决方案，提升巡检效率400%以上',
+  'softwarePage.powerInspection.cta.title': '让全球每一公里电网都在智慧守护之下',
+  'softwarePage.powerInspection.cta.subtitle': '联系我们获取定制化电力巡检解决方案，适配从沙漠到雨林的全场景运维需求',
 
   // EnvironmentSystem - SEO/GEO 2026
   'softwarePage.envSystem.seo.title': '无人机环境监测系统 | 多传感器融合 · ISO 14001合规 · 空地一体化 | 长凌科技',
