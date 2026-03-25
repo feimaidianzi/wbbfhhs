@@ -9507,6 +9507,31 @@ export const zhTranslations: Record<string, string> = {
   'agriculture.spec5.value': '5级风',
   'agriculture.spec6.label': '防护等级',
   'agriculture.spec6.value': 'IP67',
+
+  // Applications Section SEO (with internal links)
+  'applications.section.desc.prefix': '长凌无人机产品广泛应用于水利、交通、环保、',
+  'applications.section.keyword.power': '电力巡检',
+  'applications.section.desc.sep1': '、',
+  'applications.section.keyword.fire': '消防应急',
+  'applications.section.desc.suffix': '等多个行业领域。',
+
+  // Company Intro SEO Description (with internal links)
+  'companyIntro.seoDesc.prefix': '长凌科技专注工业无人机核心配件研发与制造，重点覆盖',
+  'companyIntro.seoDesc.sep1': '、',
+  'companyIntro.seoDesc.sep2': '以及',
+  'companyIntro.seoDesc.suffix': '等核心模块，为全球行业客户提供稳定可靠的 OEM/ODM 方案。',
+
+  // Footer SEO Keywords
+  'footer.seo.keyword.digitalFPV': '数字图传',
+  'footer.seo.keyword.fcEsc': '飞控与电调',
+  'footer.seo.keyword.gimbal': '云台吊舱',
+  'footer.seo.keyword.droneAccessories': '无人机配件',
+  'footer.seo.keyword.industrialOEM': '工业无人机 OEM',
+  'footer.seo.companyTitle': '工业无人机核心配件制造商',
+  'footer.projects': '项目案例',
+  'footer.trust.experience': '10年行业经验',
+  'footer.trust.highTech': '国家高新技术企业',
+  'footer.trust.iso': 'ISO质量体系',
 };
 
 export default zhTranslations;
