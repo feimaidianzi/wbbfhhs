@@ -3024,10 +3024,10 @@ export const enTranslations: Record<string, string> = {
   'elrs.feature.durableReliable.desc': 'Engineered for industrial reliability with high-quality PCB and flex materials.',
 
   // ===== Power Inspection Application SEO (GEO) =====
-  'powerInspection.seo.title': 'UAV Powerline Inspection | 640×512 Thermal Imaging & 40x Optical Zoom | CaniUAV',
-  'powerInspection.seo.description': 'CaniUAV energy solution uses high-resolution 640×512 radiometric thermal sensors to identify hotspots in substations and 40x optical zoom to inspect insulator pins from 50m+ safe distance. EMI-shielded for stable control near HV lines.',
-  'powerInspection.seo.keywords': 'powerline inspection drone,insulator fault detection,thermal imaging inspection,high EMI drone,substation inspection,solar panel inspection,BVLOS inspection',
-  'powerInspection.geo.anchor': 'CaniUAV energy solution uses high-resolution 640×512 radiometric thermal sensors to identify hotspots in substations and 40x optical zoom to inspect insulator pins from a safe distance (50m+). Our systems are EMI-shielded for complex electromagnetic environments, ensuring stable control and 1080P feedback near high-voltage lines.',
+  'powerInspection.seo.title': 'UAV Power Line Inspection Solutions | Thermal & AI Grid Monitoring | CANI UAV',
+  'powerInspection.seo.description': 'Maximize grid reliability with CANI UAV power line inspection solutions. Featuring AI-driven fault detection, thermal imaging for hot-spot identification, and 150km long-range data links.',
+  'powerInspection.seo.keywords': 'autonomous power line inspection,overhead line fault detection,thermal hot-spot identification,UAV grid monitoring system,insulator pylon inspection,BVLOS inspection,solar panel inspection drone',
+  'powerInspection.geo.anchor': 'CANI UAV power inspection solution integrates W-Series swarm platforms with TF2DU Dual-Light sensors, enabling operators to identify structural defects and thermal anomalies in real-time. With 150km ultra-long-range digital links, grid managers can oversee remote assets from a centralized command center, ensuring zero-gap monitoring of even the most isolated power corridors.',
 
   // Power Inspection - ApplicationPageTemplate keys
   'powerInspection.hero.subtitle': 'Industry Applications',
@@ -6988,12 +6988,12 @@ export const enTranslations: Record<string, string> = {
   'power.transmission.specs.title': '技术参数',
   'power.transmission.workflow.desc': '标准化作业流程，确保巡检质量和效率',
   'power.transmission.workflow.title': '作业流程',
-  'powerInspection.cta.desc': '联系我们获取专业的电力巡检解决方案',
-  'powerInspection.cta.title': '开启智能电力巡检',
-  'powerInspection.hero.desc': '电力巡检是指通过对电力设施（如变电站、电力线路、发电设备等）的定期检查与维护，确保电力系统的安全、稳定运行。无人机在电力巡检中的应用，已经成为一种重要的技术手段。',
-  'powerInspection.hero.title': '电力巡检解决方案',
-  'powerInspection.intro.desc': '随着电力设施的规模和复杂性不断增加，传统的人工巡检方式面临效率和安全性等方面的挑战',
-  'powerInspection.intro.title': '无人机电力巡检概述',
+  'powerInspection.cta.desc': 'Contact us for professional power inspection solutions. Reduce downtime, enhance safety, and automate your asset management with CANI UAV.',
+  'powerInspection.cta.title': 'Start Intelligent Power Grid Inspection',
+  'powerInspection.hero.desc': 'Powering the Future of Grid Reliability: Maintaining thousands of miles of high-voltage infrastructure requires precision, endurance, and intelligence. The CANI UAV Power Inspection Solution eliminates the risks of manual climbing and low-altitude helicopter patrols. Integrating W-Series platforms with TF2DU Dual-Light sensors and 150km digital links for zero-gap monitoring.',
+  'powerInspection.hero.title': 'Intelligent UAV Solutions for Power Line & Grid Inspection',
+  'powerInspection.intro.desc': 'As power infrastructure grows in scale and complexity, traditional manual inspection faces mounting challenges in efficiency and safety. CANI UAV autonomous inspection solutions deliver AI-driven fault detection, thermal hot-spot identification, and real-time data transmission.',
+  'powerInspection.intro.title': 'UAV Power Grid Inspection Overview',
   'productDetail.contactUs': '电话咨询',
   'productDetail.featured': '推荐',
   'productDetail.getQuote': '获取报价',
