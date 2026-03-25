@@ -4593,6 +4593,67 @@ export const zhTranslations: Record<string, string> = {
   'news.detail.backToList': '返回新闻列表',
   'news.detail.relatedArticles': '相关文章',
   'news.detail.imageAlt': '文章配图',
+  'news.detail.techSpecs': '涉及技术规格',
+  'news.detail.needSolution': '需要将该方案集成到您的项目中？',
+  'news.detail.getTechSupport': '获取技术支持',
+
+  // ===== 新闻文章 CTA =====
+  'news.cta.title': '准备将该方案集成到您的项目中？',
+  'news.cta.desc': '我们的工程团队提供 OEM/ODM 定制开发、技术咨询和样品支持，服务于全球工业无人机客户。',
+  'news.cta.quote': '获取定制化集成方案',
+  'news.cta.catalog': '浏览全部产品目录',
+
+  // ===== 新闻关联产品 =====
+  'news.relatedProducts.title': '关联产品推荐',
+  'news.relatedProducts.desc': '本文提及的产品与解决方案',
+  'news.relatedProducts.cat.vtx': '图传发射',
+  'news.relatedProducts.cat.fc-esc': '飞控电调',
+  'news.relatedProducts.cat.digital-fpv': '数字FPV',
+  'news.relatedProducts.cat.gimbal': '云台吊舱',
+  'news.relatedProducts.cat.elrs': '遥控链路',
+  'news.relatedProducts.cat.camera': '航拍相机',
+  'news.relatedProducts.cat.ai-module': 'AI模块',
+  'news.relatedProducts.cat.platform': '整机平台',
+
+  // ===== 新闻技术摘要 =====
+  'news.techSummary.title': '核心技术亮点',
+  'news.techSummary.summaryTech': '本技术解析涵盖 {keywords}，为系统集成商与OEM/ODM合作伙伴提供可执行的工程数据参考。',
+  'news.techSummary.summaryArticle': '本文章涵盖 {keywords}，为系统集成商与OEM/ODM合作伙伴提供可执行的工程数据参考。',
+  'news.techSummary.moreSpecs': ' 等 {count} 项核心参数',
+
+  // ===== 新闻分类 SEO =====
+  'news.categorySeo.relatedResources': '相关资源',
+  'news.categorySeo.company.heading': 'CANI 长凌科技公司动态',
+  'news.categorySeo.company.p1': 'CANI长凌科技作为工业无人机核心配件的专业OEM/ODM制造商，持续发布产品迭代、战略合作与行业展会信息。我们的公司新闻覆盖从数字图传系统到飞控电调模块的全产品线动态，为系统集成商和行业客户提供第一手信息。',
+  'news.categorySeo.company.p2': '关注CANI公司动态，获取最新产品发布会、技术合作伙伴公告、以及全球市场拓展计划。我们的新闻发布遵循严格的技术审核流程，确保每条信息都包含可执行的工程数据参考。',
+  'news.categorySeo.company.link1': '查看全部产品线',
+  'news.categorySeo.company.link2': '联系我们获取定制方案',
+  'news.categorySeo.company.link3': '了解CANI品牌故事',
+  'news.categorySeo.industry.heading': '无人机行业动态与市场趋势',
+  'news.categorySeo.industry.p1': 'CANI行业动态栏目跟踪全球无人机产业链上下游趋势，涵盖COFDM数字图传技术演进、低空经济政策法规、以及工业级无人机在电力巡检、应急救援、测绘测量等领域的最新应用案例。',
+  'news.categorySeo.industry.p2': '我们的行业分析团队从供应链视角出发，为系统集成商、科研机构和政府采购方提供深度市场洞察。每篇报道均包含具体的技术参数对比和应用场景数据，帮助决策者评估方案可行性。',
+  'news.categorySeo.industry.link1': '电力巡检无人机方案',
+  'news.categorySeo.industry.link2': '应急救援无人机系统',
+  'news.categorySeo.industry.link3': '数字图传产品系列',
+  'news.categorySeo.tech.heading': '无人机核心技术深度解析',
+  'news.categorySeo.tech.p1': 'CANI技术解析栏目发布工程级技术白皮书与深度测评，涵盖7.2GHz高功率COFDM数字图传、STM32H7飞控架构、48kHz PWM电调调速算法、ExpressLRS低延迟遥控链路等核心技术领域。',
+  'news.categorySeo.tech.p2': '每篇技术文章均由CANI研发团队撰写或审核，包含完整的技术参数表、系统框图和性能测试数据。文章面向具备嵌入式系统或航空电子背景的工程师，提供可直接用于方案设计的工程数据参考。关键技术指标如10W发射功率、72V高压输入、-110dBm接收灵敏度等均在文中以结构化方式呈现。',
+  'news.categorySeo.tech.link1': '高功率数字图传 FV10W-72',
+  'news.categorySeo.tech.link2': 'COFDM视频链路 S900',
+  'news.categorySeo.tech.link3': '飞控电调飞塔系列',
+  'news.categorySeo.tech.link4': 'ExpressLRS遥控链路',
+
+  // ===== 新闻分类 SEO 标题 =====
+  'news.seo.company.title': '公司新闻 - CANI 长凌科技',
+  'news.seo.company.desc': 'CANI长凌科技最新公司动态、产品发布与战略合作公告。',
+  'news.seo.industry.title': '行业动态 - CANI 长凌科技',
+  'news.seo.industry.desc': '无人机行业趋势、政策法规与市场分析深度报道。',
+  'news.seo.tech.title': '技术解析 - CANI 长凌科技',
+  'news.seo.tech.desc': 'COFDM图传、飞控电调、ELRS遥控等核心技术深度解析与工程白皮书。',
+
+  // ===== 面包屑通用 =====
+  'breadcrumb.home': '首页',
+  'breadcrumb.news': '新闻中心',
 
   // Products Page
   'products.page.title': '工业无人机核心系统与配件目录 | 数字高清链路 & AI模块 | CANI长凌科技',
