@@ -5752,6 +5752,8 @@ export const enTranslations: Record<string, string> = {
   'meshLink.seo.title': 'CANI Mesh-Link | Self-Healing MANET Tactical Mesh Radio | Swarm Communication | CANI UAV',
   'meshLink.seo.description': 'CANI Mesh-Link is an industrial-grade self-healing MANET mesh module. Supporting 800M/1.4G/2.4G tri-band, 7+ hop relay and 15ms topology recovery for UAV swarms, mine rescue, and complex NLOS environments.',
   'meshLink.seo.keywords': 'UAV Mesh Network,MANET,self-healing mesh,multi-hop relay,NLOS,swarm communication,COFDM,FHSS,tactical datalink,ad-hoc network',
+  'meshLink.jsonld.name': 'CANI Mesh-Link Tactical MANET Self-Healing Radio',
+  'meshLink.jsonld.desc': 'CANI Mesh-Link is an industrial-grade self-healing MANET mesh module supporting 800M/1.4G/2.4G tri-band, 7+ hop relay and 15ms topology recovery for UAV swarms, mine rescue, and complex NLOS environments.',
   'meshLink.back': 'Back to Accessories',
   'meshLink.breadcrumb.home': 'Home',
   'meshLink.breadcrumb.accessories': 'Accessories',

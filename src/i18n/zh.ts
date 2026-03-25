@@ -8153,6 +8153,8 @@ export const zhTranslations: Record<string, string> = {
   'meshLink.seo.title': 'CANI Mesh-Link 战术级自组网链路 | 自愈合MANET无人机集群通信 | CaniUAV',
   'meshLink.seo.description': 'CANI Mesh-Link 是工业级自愈合无线自组网（MANET）链路模块。支持 800M/1.4G/2.4G 三频段、7级以上多跳中继、15ms 动态拓扑恢复，为无人机集群、矿井搜救及复杂非视距环境提供不间断通信骨干。',
   'meshLink.seo.keywords': 'UAV Mesh Network,MANET,自组网,自愈合链路,多跳中继,NLOS,集群通信,COFDM,FHSS抗干扰,无人机自组网电台',
+  'meshLink.jsonld.name': 'CANI Mesh-Link 战术级自愈合自组网电台',
+  'meshLink.jsonld.desc': 'CANI Mesh-Link 是工业级自愈合 MANET 自组网链路模块，支持三频段、7级多跳中继与 15ms 动态拓扑恢复，为无人机集群与复杂非视距环境提供不间断通信骨干。',
   'meshLink.back': '返回配件及设备',
   'meshLink.breadcrumb.home': '首页',
   'meshLink.breadcrumb.accessories': '配件及设备',
