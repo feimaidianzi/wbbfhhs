@@ -4364,12 +4364,12 @@ export const zhTranslations: Record<string, string> = {
   'accessoryDetail.specsOverview': '详细的技术参数，满足您的专业需求',
 
   // Power Inspection Page
-  'powerInspection.hero.title': '电力巡检解决方案',
-  'powerInspection.hero.desc': '电力巡检是指通过对电力设施（如变电站、电力线路、发电设备等）的定期检查与维护，确保电力系统的安全、稳定运行。无人机在电力巡检中的应用，已经成为一种重要的技术手段。',
+  'powerInspection.hero.title': '智能无人机电力巡检与电网检测解决方案',
+  'powerInspection.hero.desc': '驱动电网可靠性的未来：维护数千公里的高压基础设施需要精度、续航和智能。CANI无人机电力巡检方案消除了人工攀爬和低空直升机巡逻的风险。集成W系列集群平台与TF2DU双光传感器，配合150km数字链路，实现无盲区实时监控。',
   'powerInspection.hero.learnMore': '了解更多',
   'powerInspection.hero.contact': '联系我们',
-  'powerInspection.intro.title': '无人机电力巡检概述',
-  'powerInspection.intro.desc': '随着电力设施的规模和复杂性不断增加，传统的人工巡检方式面临效率和安全性等方面的挑战',
+  'powerInspection.intro.title': '无人机电网巡检概述',
+  'powerInspection.intro.desc': '随着电力基础设施规模和复杂性持续增长，传统人工巡检面临效率和安全性的严峻挑战。CANI无人机自主巡检方案提供AI驱动的故障检测、热成像热点识别和实时数据传输。',
   'powerInspection.challenges.title': '传统巡检面临的挑战',
   'powerInspection.challenges.labor': '劳动量大',
   'powerInspection.challenges.laborDesc': '人工成本高、巡线周期长，难以满足日益增长的巡检需求',
@@ -7119,9 +7119,9 @@ export const zhTranslations: Record<string, string> = {
   'camera.sj4000.seo.description': 'SJ4000 WiFi是轻量化高清无人机飞行记录相机。支持1080P视频、广角镜头和WiFi预览，适用于工业监控记录。',
 
   // ===== Power Inspection Application SEO =====
-  'powerInspection.seo.title': '电力巡检无人机 | 640×512红外热成像 & 40倍光学变焦 | CaniUAV',
-  'powerInspection.seo.description': 'CaniUAV电力巡检方案采用640×512辐射式热传感器识别变电站热点，40倍光学变焦从50米以上安全距离检查绝缘子引脚。高EMI屏蔽设计确保高压线路附近的稳定控制和1080P反馈。',
-  'powerInspection.seo.keywords': '电力巡检无人机,绝缘子故障检测,热成像巡检,高EMI无人机,变电站巡检,光伏巡检,BVLOS巡检',
+  'powerInspection.seo.title': '无人机电力巡检解决方案 | 热成像与AI电网监控 | CANI UAV',
+  'powerInspection.seo.description': '通过CANI无人机电力巡检方案最大化电网可靠性。集成AI故障检测、热成像热点识别和150km远距离数据链路，实现自主巡检。',
+  'powerInspection.seo.keywords': '自主电力巡检,架空线路故障检测,热成像热点识别,无人机电网监控系统,绝缘子杆塔巡检,BVLOS巡检,光伏巡检无人机',
   'powerInspection.geo.anchor': 'CaniUAV的能源解决方案采用高分辨率640×512辐射式热传感器来识别变电站中的热点，并利用40倍光学变焦从安全距离（50米以上）检查绝缘子引脚。我们的系统针对高电磁干扰环境进行了屏蔽，确保在高压线路附近实现稳定的控制和1080P反馈。',
 
   // ===== WireLaying Page =====
