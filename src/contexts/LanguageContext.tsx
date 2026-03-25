@@ -103,46 +103,49 @@ export const LanguageProvider: React.FC<LanguageProviderProps> = ({ children }) 
   const loadLanguageTranslations = useCallback(async (targetLang: LanguageCode) => {
     // Step 1: Load base translations (zh or en) via dynamic import
     if (targetLang === 'zh' || targetLang === 'en') {
-      const base = await loadTranslations(targetLang);
-      
-      if (targetLang === 'en') {
-        // Merge with DB translations for English
-        try {
-          const cached = localStorage.getItem('translations_en');
-          if (cached) {
-            const parsed = JSON.parse(cached);
-            const merged = { ...base, ...parsed };
-            setCurrentTranslations(merged);
-            setIsLoading(false);
-            // Background refresh
-            supabase.from('system_settings').select('value').eq('key', 'translations_en').maybeSingle()
-              .then(({ data }) => {
-                if (data?.value && data.value !== cached) {
-                  const fresh = JSON.parse(data.value);
-                  const m = { ...base, ...fresh };
-                  setTranslations(targetLang, m);
-                  setCurrentTranslations(m);
-                  localStorage.setItem('translations_en', data.value);
-                }
-              });
-            return;
-          }
-          const { data } = await supabase.from('system_settings').select('value').eq('key', 'translations_en').maybeSingle();
-          if (data?.value) {
-            const dbT = JSON.parse(data.value);
-            const merged = { ...base, ...dbT };
-            setTranslations(targetLang, merged);
-            setCurrentTranslations(merged);
-            localStorage.setItem('translations_en', data.value);
-          } else {
-            setCurrentTranslations(base);
-          }
-        } catch {
+      const enBase = await loadTranslations('en');
+      const langBase = await loadTranslations(targetLang);
+      const base = targetLang === 'zh' ? { ...enBase, ...langBase } : langBase;
+      const storageKey = `translations_${targetLang}`;
+
+      try {
+        const cached = localStorage.getItem(storageKey);
+        if (cached) {
+          const parsed = JSON.parse(cached);
+          const merged = { ...base, ...parsed };
+          setTranslations(targetLang, merged);
+          setCurrentTranslations(merged);
+          setIsLoading(false);
+
+          supabase.from('system_settings').select('value').eq('key', storageKey).maybeSingle()
+            .then(({ data }) => {
+              if (data?.value && data.value !== cached) {
+                const fresh = JSON.parse(data.value);
+                const refreshed = { ...base, ...fresh };
+                setTranslations(targetLang, refreshed);
+                setCurrentTranslations(refreshed);
+                localStorage.setItem(storageKey, data.value);
+              }
+            });
+          return;
+        }
+
+        const { data } = await supabase.from('system_settings').select('value').eq('key', storageKey).maybeSingle();
+        if (data?.value) {
+          const dbT = JSON.parse(data.value);
+          const merged = { ...base, ...dbT };
+          setTranslations(targetLang, merged);
+          setCurrentTranslations(merged);
+          localStorage.setItem(storageKey, data.value);
+        } else {
+          setTranslations(targetLang, base);
           setCurrentTranslations(base);
         }
-      } else {
+      } catch {
+        setTranslations(targetLang, base);
         setCurrentTranslations(base);
       }
+
       setIsLoading(false);
       return;
     }
