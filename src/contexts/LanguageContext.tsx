@@ -205,28 +205,14 @@ export const LanguageProvider: React.FC<LanguageProviderProps> = ({ children }) 
     setIsLoading(false);
   }, []);
 
+  // IP-based auto-redirect DISABLED to prevent SEO crawler conflicts
+  // Google/Bing bots crawl from US IPs and get force-redirected to /en,
+  // which wastes crawl budget and causes indexing issues for other languages.
+  // Users can still manually switch languages via the LanguageSwitcher.
   const detectLanguageFromIP = useCallback(async () => {
-    if (localStorage.getItem('language_manual') === 'true') return;
-    try {
-      const { data, error } = await supabase.functions.invoke('get-visitor-ip');
-      if (error) throw error;
-      const country = data?.country || data?.countryCode;
-      if (country && countryToLanguage[country]) {
-        const detectedLang = countryToLanguage[country];
-        if (detectedLang !== language) {
-          const currentPath = getPathWithoutLang();
-          const prefix = detectedLang === 'en' ? '' : `/${detectedLang}`;
-          const newPath = `${prefix}${currentPath === '/' ? '' : currentPath}` || '/';
-          window.history.replaceState(null, '', newPath);
-          setLanguageState(detectedLang);
-          localStorage.setItem('language', detectedLang);
-          await loadLanguageTranslations(detectedLang);
-        }
-      }
-    } catch (error) {
-      console.error('Error detecting language from IP:', error);
-    }
-  }, [language, loadLanguageTranslations]);
+    // Intentionally disabled — see comment above
+    return;
+  }, []);
 
   const setLanguage = useCallback((lang: LanguageCode) => {
     const currentPath = getPathWithoutLang();
