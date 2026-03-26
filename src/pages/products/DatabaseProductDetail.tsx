@@ -34,7 +34,7 @@ interface Product {
 
 const DatabaseProductDetail = () => {
   const { productId } = useParams<{ productId: string }>();
-  const navigate = useNavigate();
+  const navigate = useLangNavigate();
   const { language, baseLang, t } = useLanguage();
   const isEn = baseLang === 'en';
   const langCode = language as LanguageCode;
