@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
+import { useLangNavigate } from '@/hooks/useLangNavigate';
 import { LangLink as Link } from "@/components/LangLink";
 import { supabase } from '@/integrations/supabase/client';
 import { Header } from '@/components/Header';
@@ -34,7 +35,7 @@ interface Product {
 
 const DatabaseProductDetail = () => {
   const { productId } = useParams<{ productId: string }>();
-  const navigate = useNavigate();
+  const navigate = useLangNavigate();
   const { language, baseLang, t } = useLanguage();
   const isEn = baseLang === 'en';
   const langCode = language as LanguageCode;

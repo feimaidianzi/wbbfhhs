@@ -98,6 +98,9 @@ Disallow: /ru/ru/
 Disallow: /ar/ar/
 Disallow: /tr/tr/
 
+# Block all paths deeper than 4 segments (catches any recursive path abuse)
+Disallow: /*/*/*/*/*/*/
+
 # Sitemap
 Sitemap: https://www.caniuav.com/sitemap.xml
 

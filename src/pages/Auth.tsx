@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useLangNavigate } from '@/hooks/useLangNavigate';
 import { supabase } from '@/integrations/supabase/client';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { Button } from '@/components/ui/button';
@@ -17,7 +17,7 @@ const passwordSchema = z.string().min(6);
 
 const Auth = () => {
   const { t } = useLanguage();
-  const navigate = useNavigate();
+  const navigate = useLangNavigate();
   const { toast } = useToast();
   
   const [email, setEmail] = useState('');

@@ -2,7 +2,7 @@ import { useState, useRef, useEffect, useCallback } from "react";
 import { Menu, X, Mail, ChevronDown, ChevronLeft, ChevronRight, User, LogOut } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { LangLink as Link } from "@/components/LangLink";
-import { useNavigate } from "react-router-dom";
+import { useLangNavigate } from "@/hooks/useLangNavigate";
 import { Logo } from "@/components/Logo";
 import { LanguageSwitcher } from "@/components/LanguageSwitcher";
 import { useLanguage } from "@/contexts/LanguageContext";
@@ -18,7 +18,7 @@ export const Header = () => {
   const [user, setUser] = useState<SupabaseUser | null>(null);
   const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const { t, language, isLoading } = useLanguage();
-  const navigate = useNavigate();
+  const navigate = useLangNavigate();
   const { toast } = useToast();
   const navScrollRef = useRef<HTMLElement>(null);
   const [showLeftArrow, setShowLeftArrow] = useState(false);
