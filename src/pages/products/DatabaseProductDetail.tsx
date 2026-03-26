@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { LangLink as Link } from "@/components/LangLink";
 import { supabase } from '@/integrations/supabase/client';
 import { Header } from '@/components/Header';
