@@ -1,10 +1,9 @@
 import { motion } from "framer-motion";
 
 export const WaveTransition = () => {
-  // 每层波浪使用 viewBox 宽度=1440，SVG 宽度=300%，动画平移 -100vw 实现无缝循环
   return (
     <div className="absolute bottom-0 left-0 right-0 h-48 overflow-hidden pointer-events-none z-[1]">
-      {/* 第一层波浪 - 最远层 */}
+      {/* 第一层波浪 - 深色科技层 */}
       <motion.svg
         className="absolute bottom-10 left-0 h-24"
         style={{ width: "300vw" }}
@@ -15,12 +14,12 @@ export const WaveTransition = () => {
       >
         <path
           d="M0,60 C120,80 240,40 360,60 C480,80 600,40 720,60 C840,80 960,40 1080,60 C1200,80 1320,40 1440,60 L1440,100 L0,100 Z"
-          fill="hsl(var(--muted))"
-          fillOpacity="0.35"
+          fill="hsl(220, 13%, 15%)"
+          fillOpacity="0.6"
         />
       </motion.svg>
 
-      {/* 第二层波浪 - 中间层 */}
+      {/* 第二层波浪 - 中间科技层 */}
       <motion.svg
         className="absolute bottom-5 left-0 h-20"
         style={{ width: "300vw" }}
@@ -31,8 +30,8 @@ export const WaveTransition = () => {
       >
         <path
           d="M0,45 C160,65 320,25 480,45 C640,65 800,25 960,45 C1120,65 1280,25 1440,45 L1440,80 L0,80 Z"
-          fill="hsl(var(--muted))"
-          fillOpacity="0.55"
+          fill="hsl(220, 13%, 12%)"
+          fillOpacity="0.8"
         />
       </motion.svg>
 
