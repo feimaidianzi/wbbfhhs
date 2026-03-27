@@ -1,54 +1,58 @@
 import { motion } from "framer-motion";
 
 export const WaveTransition = () => {
+  // 每层波浪使用 viewBox 宽度=1440，SVG 宽度=300%，动画平移 -100vw 实现无缝循环
   return (
-    <div className="absolute bottom-0 left-0 right-0 h-40 overflow-hidden pointer-events-none z-[1]">
-      {/* 第一层波浪 - 深色层 (周期=1440, 完美循环) */}
+    <div className="absolute bottom-0 left-0 right-0 h-48 overflow-hidden pointer-events-none z-[1]">
+      {/* 第一层波浪 - 最远层 */}
       <motion.svg
-        className="absolute bottom-8 left-0 w-[200%] h-20"
-        viewBox="0 0 2880 100"
+        className="absolute bottom-10 left-0 h-24"
+        style={{ width: "300vw" }}
+        viewBox="0 0 1440 100"
         preserveAspectRatio="none"
-        animate={{ x: [0, -1440] }}
-        transition={{ duration: 30, repeat: Infinity, ease: "linear" }}
+        animate={{ x: ["0vw", "-100vw"] }}
+        transition={{ duration: 25, repeat: Infinity, ease: "linear" }}
       >
         <path
-          d="M0,50 C360,80 720,20 1080,50 C1440,80 1440,80 1440,50 C1800,80 2160,20 2520,50 C2880,80 2880,80 2880,50 L2880,100 L0,100 Z"
+          d="M0,60 C120,80 240,40 360,60 C480,80 600,40 720,60 C840,80 960,40 1080,60 C1200,80 1320,40 1440,60 L1440,100 L0,100 Z"
           fill="hsl(var(--muted))"
-          fillOpacity="0.4"
+          fillOpacity="0.35"
         />
       </motion.svg>
 
-      {/* 第二层波浪 - 中间层 (周期=1440, 完美循环) */}
+      {/* 第二层波浪 - 中间层 */}
       <motion.svg
-        className="absolute bottom-4 left-0 w-[200%] h-16"
-        viewBox="0 0 2880 80"
+        className="absolute bottom-5 left-0 h-20"
+        style={{ width: "300vw" }}
+        viewBox="0 0 1440 80"
         preserveAspectRatio="none"
-        animate={{ x: [-1440, 0] }}
-        transition={{ duration: 22, repeat: Infinity, ease: "linear" }}
+        animate={{ x: ["-100vw", "0vw"] }}
+        transition={{ duration: 18, repeat: Infinity, ease: "linear" }}
       >
         <path
-          d="M0,40 C240,60 480,20 720,40 C960,60 1200,20 1440,40 C1680,60 1920,20 2160,40 C2400,60 2640,20 2880,40 L2880,80 L0,80 Z"
+          d="M0,45 C160,65 320,25 480,45 C640,65 800,25 960,45 C1120,65 1280,25 1440,45 L1440,80 L0,80 Z"
           fill="hsl(var(--muted))"
-          fillOpacity="0.6"
+          fillOpacity="0.55"
         />
       </motion.svg>
 
-      {/* 第三层波浪 - 与背景融合 (周期=1440, 完美循环) */}
+      {/* 第三层波浪 - 与背景色融合 */}
       <motion.svg
-        className="absolute bottom-0 left-0 w-[200%] h-12"
-        viewBox="0 0 2880 60"
+        className="absolute bottom-0 left-0 h-16"
+        style={{ width: "300vw" }}
+        viewBox="0 0 1440 60"
         preserveAspectRatio="none"
-        animate={{ x: [0, -1440] }}
-        transition={{ duration: 16, repeat: Infinity, ease: "linear" }}
+        animate={{ x: ["0vw", "-100vw"] }}
+        transition={{ duration: 14, repeat: Infinity, ease: "linear" }}
       >
         <path
-          d="M0,30 C180,50 360,10 540,30 C720,50 900,10 1080,30 C1260,50 1440,10 1440,30 C1620,50 1800,10 1980,30 C2160,50 2340,10 2520,30 C2700,50 2880,10 2880,30 L2880,60 L0,60 Z"
+          d="M0,35 C90,50 180,20 270,35 C360,50 450,20 540,35 C630,50 720,20 810,35 C900,50 990,20 1080,35 C1170,50 1260,20 1350,35 C1440,50 1440,35 1440,35 L1440,60 L0,60 Z"
           className="fill-background"
         />
       </motion.svg>
 
-      {/* 底部实色确保完全无缝 */}
-      <div className="absolute bottom-0 left-0 right-0 h-4 bg-background" />
+      {/* 底部实色带确保完全无缝过渡 */}
+      <div className="absolute bottom-0 left-0 right-0 h-6 bg-background" />
     </div>
   );
 };
