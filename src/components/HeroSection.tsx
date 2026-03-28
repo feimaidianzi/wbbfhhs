@@ -278,6 +278,20 @@ export const HeroSection = () => {
           0%, 100% { transform: scaleY(1); opacity: 0.2; }
           50% { transform: scaleY(1.6); opacity: 0.4; }
         }
+        .hero-node-pulse {
+          animation: heroNodePulse 2s ease-in-out infinite;
+        }
+        @keyframes heroNodePulse {
+          0%, 100% { opacity: 0.3; r: 2; }
+          50% { opacity: 0.8; r: 3.5; }
+        }
+        .hero-current-glow {
+          filter: drop-shadow(0 0 4px rgba(56,189,248,0.6));
+        }
+        @keyframes heroSparkFlash {
+          0%, 100% { opacity: 0.1; transform: scale(0.8); }
+          50% { opacity: 1; transform: scale(1.2); }
+        }
       `}</style>
     </section>
   );
