@@ -165,6 +165,20 @@ export const HeroSection = () => {
           0%, 100% { transform: scale(1); opacity: 0.04; }
           50% { transform: scale(1.08); opacity: 0.08; }
         }
+        @keyframes heroLabelFadeIn {
+          0% { opacity: 0; transform: translateX(-8px); }
+          100% { opacity: 1; transform: translateX(0); }
+        }
+        .hero-circuit-dash {
+          animation: heroDashFlow 3s linear infinite;
+        }
+        .hero-circuit-dash-slow {
+          animation: heroDashFlow 5s linear infinite;
+        }
+        @keyframes heroDashFlow {
+          0% { stroke-dashoffset: 0; }
+          100% { stroke-dashoffset: -40; }
+        }
       `}</style>
     </section>
   );
