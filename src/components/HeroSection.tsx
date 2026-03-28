@@ -306,15 +306,43 @@ export const HeroSection = () => {
           animation: heroNodePulse 2s ease-in-out infinite;
         }
         @keyframes heroNodePulse {
-          0%, 100% { opacity: 0.3; r: 2; }
-          50% { opacity: 0.8; r: 3.5; }
-        }
-        .hero-current-glow {
-          filter: drop-shadow(0 0 4px rgba(56,189,248,0.6));
+          0%, 100% { opacity: 0.3; }
+          50% { opacity: 0.8; }
         }
         @keyframes heroSparkFlash {
-          0%, 100% { opacity: 0.1; transform: scale(0.8); }
-          50% { opacity: 1; transform: scale(1.2); }
+          0%, 100% { opacity: 0.1; }
+          50% { opacity: 1; }
+        }
+        /* Flowing current lines - top to bottom */
+        .hero-flow-line-1 { animation: heroFlowDown1 2.5s linear infinite; }
+        .hero-flow-line-2 { animation: heroFlowDown2 3s linear infinite; animation-delay: 0.5s; }
+        .hero-flow-line-3 { animation: heroFlowDown3 2.8s linear infinite; animation-delay: 1s; }
+        .hero-flow-line-4 { animation: heroFlowDown4 3.5s linear infinite; animation-delay: 0.3s; }
+        .hero-flow-line-5 { animation: heroFlowDown5 2.2s linear infinite; animation-delay: 0.8s; }
+        .hero-flow-line-6 { animation: heroFlowDown6 2s linear infinite; animation-delay: 1.2s; }
+        @keyframes heroFlowDown1 {
+          0% { stroke-dashoffset: 460; }
+          100% { stroke-dashoffset: 0; }
+        }
+        @keyframes heroFlowDown2 {
+          0% { stroke-dashoffset: 520; }
+          100% { stroke-dashoffset: 0; }
+        }
+        @keyframes heroFlowDown3 {
+          0% { stroke-dashoffset: 430; }
+          100% { stroke-dashoffset: 0; }
+        }
+        @keyframes heroFlowDown4 {
+          0% { stroke-dashoffset: 395; }
+          100% { stroke-dashoffset: 0; }
+        }
+        @keyframes heroFlowDown5 {
+          0% { stroke-dashoffset: 400; }
+          100% { stroke-dashoffset: 0; }
+        }
+        @keyframes heroFlowDown6 {
+          0% { stroke-dashoffset: 355; }
+          100% { stroke-dashoffset: 0; }
         }
       `}</style>
     </section>
