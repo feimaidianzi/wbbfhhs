@@ -74,7 +74,7 @@ export const HeroSection = () => {
             className="absolute w-[45%] h-[45%] rounded-full border border-cyan-400/[0.06]"
             style={{ animation: 'heroRingPulse 6s ease-in-out infinite' }}
           />
-          <div className="hero-image-breathe">
+          <div className="hero-image-breathe relative">
             <img
               src={heroPcbBoard}
               alt="CANI industrial drone PCBA circuit board with golden IPEX connectors"
@@ -83,6 +83,66 @@ export const HeroSection = () => {
                 filter: 'brightness(1.1) contrast(1.08)',
               }}
             />
+
+            {/* === On-chip current flow & glow effects === */}
+            {/* Chip glow hotspots - simulating active IC heat/power */}
+            <div className="absolute top-[22%] left-[38%] w-8 h-6 rounded-sm bg-cyan-400/[0.08] blur-[6px] hero-chip-pulse" />
+            <div className="absolute top-[35%] left-[32%] w-10 h-8 rounded-sm bg-blue-400/[0.06] blur-[8px] hero-chip-pulse" style={{ animationDelay: '1s' }} />
+            <div className="absolute top-[55%] left-[42%] w-12 h-10 rounded bg-cyan-400/[0.07] blur-[10px] hero-chip-pulse" style={{ animationDelay: '0.5s' }} />
+            {/* LED display glow */}
+            <div className="absolute top-[18%] right-[22%] w-6 h-5 rounded-sm bg-emerald-400/[0.12] blur-[5px] hero-chip-pulse" style={{ animationDelay: '1.5s' }} />
+            {/* Golden IPEX area warm glow */}
+            <div className="absolute bottom-[18%] left-[30%] w-16 h-12 rounded bg-amber-400/[0.05] blur-[12px] hero-chip-pulse" style={{ animationDelay: '2s' }} />
+
+            {/* Current flow lines on PCB traces */}
+            <svg className="absolute inset-0 w-full h-full" style={{ opacity: 0.6 }}>
+              {/* Main power trace - top connector down */}
+              <path d="M 120,30 L 120,80 L 160,80 L 160,140" fill="none" stroke="rgba(56,189,248,0.15)" strokeWidth="1.5" strokeLinecap="round" />
+              <circle r="2.5" fill="rgba(56,189,248,0.7)" filter="url(#chipGlow)">
+                <animateMotion dur="2s" repeatCount="indefinite" path="M 120,30 L 120,80 L 160,80 L 160,140" />
+              </circle>
+
+              {/* Secondary trace - horizontal through chips */}
+              <path d="M 80,120 L 140,120 L 180,100 L 250,100" fill="none" stroke="rgba(34,211,238,0.12)" strokeWidth="1" strokeLinecap="round" />
+              <circle r="2" fill="rgba(34,211,238,0.6)" filter="url(#chipGlow)">
+                <animateMotion dur="2.5s" repeatCount="indefinite" path="M 80,120 L 140,120 L 180,100 L 250,100" />
+              </circle>
+
+              {/* Diagonal trace - chip to SMA connector */}
+              <path d="M 160,160 L 200,130 L 260,130 L 280,60" fill="none" stroke="rgba(56,189,248,0.1)" strokeWidth="0.8" strokeLinecap="round" />
+              <circle r="1.8" fill="rgba(56,189,248,0.5)" filter="url(#chipGlow)">
+                <animateMotion dur="3s" repeatCount="indefinite" path="M 160,160 L 200,130 L 260,130 L 280,60" />
+              </circle>
+
+              {/* Bottom trace - IPEX area */}
+              <path d="M 100,220 L 150,220 L 180,200 L 220,200 L 240,220" fill="none" stroke="rgba(251,191,36,0.1)" strokeWidth="0.8" strokeLinecap="round" />
+              <circle r="1.5" fill="rgba(251,191,36,0.5)" filter="url(#chipGlowWarm)">
+                <animateMotion dur="2.8s" repeatCount="indefinite" path="M 100,220 L 150,220 L 180,200 L 220,200 L 240,220" />
+              </circle>
+
+              {/* Glow filter definitions */}
+              <defs>
+                <filter id="chipGlow" x="-50%" y="-50%" width="200%" height="200%">
+                  <feGaussianBlur stdDeviation="3" result="blur" />
+                  <feMerge>
+                    <feMergeNode in="blur" />
+                    <feMergeNode in="SourceGraphic" />
+                  </feMerge>
+                </filter>
+                <filter id="chipGlowWarm" x="-50%" y="-50%" width="200%" height="200%">
+                  <feGaussianBlur stdDeviation="2.5" result="blur" />
+                  <feMerge>
+                    <feMergeNode in="blur" />
+                    <feMergeNode in="SourceGraphic" />
+                  </feMerge>
+                </filter>
+              </defs>
+            </svg>
+
+            {/* Electric arc micro-flashes */}
+            <div className="absolute top-[30%] left-[40%] w-1 h-1 rounded-full bg-white/40 hero-arc-flash" />
+            <div className="absolute top-[50%] left-[48%] w-0.5 h-0.5 rounded-full bg-cyan-300/50 hero-arc-flash" style={{ animationDelay: '1.2s' }} />
+            <div className="absolute top-[24%] right-[28%] w-0.5 h-0.5 rounded-full bg-white/30 hero-arc-flash" style={{ animationDelay: '2.4s' }} />
           </div>
 
           {/* === Circuit trace lines connecting to image === */}
@@ -278,6 +338,22 @@ export const HeroSection = () => {
         @keyframes heroSpectrumBar {
           0%, 100% { transform: scaleY(1); opacity: 0.2; }
           50% { transform: scaleY(1.6); opacity: 0.4; }
+        }
+        .hero-chip-pulse {
+          animation: heroChipPulse 3s ease-in-out infinite;
+        }
+        @keyframes heroChipPulse {
+          0%, 100% { opacity: 0.04; transform: scale(1); }
+          50% { opacity: 0.12; transform: scale(1.1); }
+        }
+        .hero-arc-flash {
+          animation: heroArcFlash 4s ease-in-out infinite;
+        }
+        @keyframes heroArcFlash {
+          0%, 90%, 100% { opacity: 0; transform: scale(0.5); }
+          92% { opacity: 0.8; transform: scale(1.5); }
+          95% { opacity: 0; transform: scale(0.8); }
+          97% { opacity: 0.6; transform: scale(1.2); }
         }
       `}</style>
     </section>
