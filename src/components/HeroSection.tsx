@@ -133,7 +133,6 @@ export const HeroSection = () => {
                   <ellipse cx="300" cy="250" rx="260" ry="220" fill="url(#edgeMask)" />
                 </mask>
               </defs>
-              <g mask="url(#boardMask)">
               <defs>
                 <linearGradient id="flowGrad1" gradientUnits="userSpaceOnUse" x1="0" y1="0" x2="0" y2="500">
                   <stop offset="0%" stopColor="rgba(56,189,248,0)" />
@@ -166,61 +165,86 @@ export const HeroSection = () => {
                 </filter>
               </defs>
 
-              {/* Flow line 1 - far left */}
-              <path d="M150,0 L150,65 L145,110 L145,195 L150,230 L150,320 L145,360 L145,440 L150,500" 
-                fill="none" stroke="rgba(56,189,248,0.1)" strokeWidth="1.5" />
-              <path d="M150,0 L150,65 L145,110 L145,195 L150,230 L150,320 L145,360 L145,440 L150,500" 
-                fill="none" stroke="url(#flowGrad1)" strokeWidth="4" strokeLinecap="round" filter="url(#currentGlowStrong)"
-                strokeDasharray="80 420" className="hero-flow-line-1" />
+              <g mask="url(#boardMask)">
+                {/* Flow line 1 - far left, curves inward toward bottom */}
+                <path d="M120,30 L125,80 L135,150 L150,220 L170,290 L195,360 L225,430 L260,500" 
+                  fill="none" stroke="rgba(56,189,248,0.08)" strokeWidth="1" />
+                <path d="M120,30 L125,80 L135,150 L150,220 L170,290 L195,360 L225,430 L260,500" 
+                  fill="none" stroke="url(#flowGrad1)" strokeWidth="3.5" strokeLinecap="round" filter="url(#currentGlowStrong)"
+                  strokeDasharray="80 420" className="hero-flow-line-1" />
 
-              {/* Flow line 2 - left */}
-              <path d="M190,0 L193,75 L187,145 L193,215 L187,285 L193,355 L187,425 L190,500" 
-                fill="none" stroke="rgba(34,211,238,0.08)" strokeWidth="1" />
-              <path d="M190,0 L193,75 L187,145 L193,215 L187,285 L193,355 L187,425 L190,500" 
-                fill="none" stroke="url(#flowGrad2)" strokeWidth="3.5" strokeLinecap="round" filter="url(#currentGlow)"
-                strokeDasharray="70 400" className="hero-flow-line-2" />
+                {/* Flow line 2 - left area */}
+                <path d="M170,0 L172,70 L168,140 L172,210 L175,280 L180,350 L185,420 L190,500" 
+                  fill="none" stroke="rgba(34,211,238,0.08)" strokeWidth="1" />
+                <path d="M170,0 L172,70 L168,140 L172,210 L175,280 L180,350 L185,420 L190,500" 
+                  fill="none" stroke="url(#flowGrad2)" strokeWidth="3" strokeLinecap="round" filter="url(#currentGlow)"
+                  strokeDasharray="70 400" className="hero-flow-line-2" />
 
-              {/* Flow line 3 - left-center */}
-              <path d="M230,0 L230,60 L225,100 L225,180 L230,210 L230,300 L225,340 L225,420 L230,500" 
-                fill="none" stroke="rgba(56,189,248,0.1)" strokeWidth="1.5" />
-              <path d="M230,0 L230,60 L225,100 L225,180 L230,210 L230,300 L225,340 L225,420 L230,500" 
-                fill="none" stroke="url(#flowGrad1)" strokeWidth="4.5" strokeLinecap="round" filter="url(#currentGlowStrong)"
-                strokeDasharray="85 430" className="hero-flow-line-3" />
+                {/* Flow line 3 - left-center */}
+                <path d="M230,0 L228,65 L232,130 L228,200 L232,270 L230,340 L228,410 L230,500" 
+                  fill="none" stroke="rgba(56,189,248,0.1)" strokeWidth="1.5" />
+                <path d="M230,0 L228,65 L232,130 L228,200 L232,270 L230,340 L228,410 L230,500" 
+                  fill="none" stroke="url(#flowGrad1)" strokeWidth="4" strokeLinecap="round" filter="url(#currentGlowStrong)"
+                  strokeDasharray="85 430" className="hero-flow-line-3" />
 
-              {/* Flow line 4 - center (brightest) */}
-              <path d="M300,0 L300,70 L295,110 L295,190 L300,220 L300,310 L305,350 L305,430 L300,500" 
-                fill="none" stroke="rgba(34,211,238,0.1)" strokeWidth="1.5" />
-              <path d="M300,0 L300,70 L295,110 L295,190 L300,220 L300,310 L305,350 L305,430 L300,500" 
-                fill="none" stroke="url(#flowGrad2)" strokeWidth="5" strokeLinecap="round" filter="url(#currentGlowStrong)"
-                strokeDasharray="90 430" className="hero-flow-line-4" />
+                {/* Flow line 4 - center (brightest) */}
+                <path d="M300,0 L298,70 L302,140 L298,210 L302,280 L300,350 L298,420 L300,500" 
+                  fill="none" stroke="rgba(34,211,238,0.1)" strokeWidth="1.5" />
+                <path d="M300,0 L298,70 L302,140 L298,210 L302,280 L300,350 L298,420 L300,500" 
+                  fill="none" stroke="url(#flowGrad2)" strokeWidth="5" strokeLinecap="round" filter="url(#currentGlowStrong)"
+                  strokeDasharray="90 430" className="hero-flow-line-4" />
 
-              {/* Flow line 5 - right of center */}
-              <path d="M330,0 L330,55 L335,90 L335,175 L330,205 L330,295 L335,330 L335,415 L330,500" 
-                fill="none" stroke="rgba(56,189,248,0.1)" strokeWidth="1.5" />
-              <path d="M330,0 L330,55 L335,90 L335,175 L330,205 L330,295 L335,330 L335,415 L330,500" 
-                fill="none" stroke="url(#flowGrad1)" strokeWidth="3.5" strokeLinecap="round" filter="url(#currentGlow)"
-                strokeDasharray="70 400" className="hero-flow-line-5" />
+                {/* Flow line 5 - right-center */}
+                <path d="M370,0 L372,65 L368,130 L372,200 L368,270 L370,340 L372,410 L370,500" 
+                  fill="none" stroke="rgba(56,189,248,0.1)" strokeWidth="1.5" />
+                <path d="M370,0 L372,65 L368,130 L372,200 L368,270 L370,340 L372,410 L370,500" 
+                  fill="none" stroke="url(#flowGrad1)" strokeWidth="4" strokeLinecap="round" filter="url(#currentGlowStrong)"
+                  strokeDasharray="80 420" className="hero-flow-line-5" />
 
-              {/* Flow line 6 - gold accent left */}
-              <path d="M210,0 L213,70 L207,140 L213,210 L207,280 L213,350 L207,420 L210,500" 
-                fill="none" stroke="rgba(250,204,21,0.08)" strokeWidth="1" />
-              <path d="M210,0 L213,70 L207,140 L213,210 L207,280 L213,350 L207,420 L210,500" 
-                fill="none" stroke="url(#flowGrad3)" strokeWidth="3" strokeLinecap="round" filter="url(#currentGlow)"
-                strokeDasharray="60 380" className="hero-flow-line-6" />
+                {/* Flow line 6 - right area */}
+                <path d="M430,0 L428,70 L432,140 L428,210 L425,280 L420,350 L415,420 L410,500" 
+                  fill="none" stroke="rgba(34,211,238,0.08)" strokeWidth="1" />
+                <path d="M430,0 L428,70 L432,140 L428,210 L425,280 L420,350 L415,420 L410,500" 
+                  fill="none" stroke="url(#flowGrad2)" strokeWidth="3" strokeLinecap="round" filter="url(#currentGlow)"
+                  strokeDasharray="70 400" className="hero-flow-line-6" />
 
-              {/* Glowing junction nodes */}
-              {[[150,110],[145,230],[190,145],[190,285],[230,100],[225,210],[300,110],[295,220],[300,310],[330,90],[335,205],[210,140]].map(([cx,cy], i) => (
-                <circle key={`node-${i}`} cx={cx} cy={cy} r="3" fill="rgba(56,189,248,0.7)" className="hero-node-pulse" style={{ animationDelay: `${i * 0.3}s` }} />
-              ))}
+                {/* Flow line 7 - far right, curves inward toward bottom */}
+                <path d="M480,30 L475,80 L465,150 L450,220 L430,290 L405,360 L375,430 L340,500" 
+                  fill="none" stroke="rgba(56,189,248,0.08)" strokeWidth="1" />
+                <path d="M480,30 L475,80 L465,150 L450,220 L430,290 L405,360 L375,430 L340,500" 
+                  fill="none" stroke="url(#flowGrad1)" strokeWidth="3.5" strokeLinecap="round" filter="url(#currentGlowStrong)"
+                  strokeDasharray="80 420" className="hero-flow-line-7" />
 
-              {/* Spark/photoelectric points */}
-              {[[145,195],[225,180],[300,190],[335,175],[193,215],[213,210],[300,310]].map(([cx,cy], i) => (
-                <g key={`spark-${i}`} style={{ animation: `heroSparkFlash ${1.5 + i * 0.4}s ease-in-out infinite`, animationDelay: `${i * 0.5}s` }}>
-                  <circle cx={cx} cy={cy} r="2" fill="rgba(255,255,255,1)" />
-                  <circle cx={cx} cy={cy} r="6" fill="rgba(56,189,248,0.5)" />
-                  <circle cx={cx} cy={cy} r="12" fill="rgba(56,189,248,0.1)" />
-                </g>
-              ))}
+                {/* Flow line 8 - gold accent center-left */}
+                <path d="M260,0 L262,70 L258,140 L262,210 L258,280 L260,350 L262,420 L260,500" 
+                  fill="none" stroke="rgba(250,204,21,0.06)" strokeWidth="1" />
+                <path d="M260,0 L262,70 L258,140 L262,210 L258,280 L260,350 L262,420 L260,500" 
+                  fill="none" stroke="url(#flowGrad3)" strokeWidth="3" strokeLinecap="round" filter="url(#currentGlow)"
+                  strokeDasharray="60 380" className="hero-flow-line-8" />
+
+                {/* Flow line 9 - gold accent center-right */}
+                <path d="M340,0 L338,75 L342,145 L338,215 L342,285 L340,355 L338,425 L340,500" 
+                  fill="none" stroke="rgba(250,204,21,0.06)" strokeWidth="1" />
+                <path d="M340,0 L338,75 L342,145 L338,215 L342,285 L340,355 L338,425 L340,500" 
+                  fill="none" stroke="url(#flowGrad3)" strokeWidth="2.5" strokeLinecap="round" filter="url(#currentGlow)"
+                  strokeDasharray="55 380" className="hero-flow-line-9" />
+
+                {/* Glowing junction nodes - spread across board */}
+                {[[170,140],[230,130],[260,140],[300,140],[340,145],[370,130],[430,140],
+                  [172,280],[228,270],[300,280],[372,270],[428,280],
+                  [180,350],[300,350],[420,350],[150,220],[450,220]].map(([cx,cy], i) => (
+                  <circle key={`node-${i}`} cx={cx} cy={cy} r="2.5" fill="rgba(56,189,248,0.7)" className="hero-node-pulse" style={{ animationDelay: `${i * 0.25}s` }} />
+                ))}
+
+                {/* Spark/photoelectric points - spread */}
+                {[[172,210],[232,200],[300,210],[368,200],[428,210],[258,280],[342,285],[150,220],[450,220]].map(([cx,cy], i) => (
+                  <g key={`spark-${i}`} style={{ animation: `heroSparkFlash ${1.5 + i * 0.3}s ease-in-out infinite`, animationDelay: `${i * 0.4}s` }}>
+                    <circle cx={cx} cy={cy} r="2" fill="rgba(255,255,255,1)" />
+                    <circle cx={cx} cy={cy} r="6" fill="rgba(56,189,248,0.5)" />
+                    <circle cx={cx} cy={cy} r="12" fill="rgba(56,189,248,0.1)" />
+                  </g>
+                ))}
+              </g>
             </svg>
           </div>
 
