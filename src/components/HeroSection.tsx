@@ -150,55 +150,48 @@ export const HeroSection = () => {
                 </filter>
               </defs>
 
-              {/* Flow line 1 - left vertical */}
-              <path d="M180,40 L180,100 L160,130 L160,200 L180,230 L180,310 L160,340 L160,420 L180,450" 
+              {/* Flow line 1 - center-left vertical, full top to bottom */}
+              <path d="M230,0 L230,60 L220,90 L220,160 L230,190 L230,270 L220,300 L220,380 L230,410 L230,500" 
                 fill="none" stroke="rgba(56,189,248,0.08)" strokeWidth="1" />
-              <path d="M180,40 L180,100 L160,130 L160,200 L180,230 L180,310 L160,340 L160,420 L180,450" 
+              <path d="M230,0 L230,60 L220,90 L220,160 L230,190 L230,270 L220,300 L220,380 L230,410 L230,500" 
                 fill="none" stroke="url(#flowGrad1)" strokeWidth="2.5" strokeLinecap="round" filter="url(#currentGlow)"
-                strokeDasharray="60 400" className="hero-flow-line-1" />
+                strokeDasharray="60 440" className="hero-flow-line-1" />
 
-              {/* Flow line 2 - center vertical */}
-              <path d="M300,30 L300,90 L280,120 L280,190 L300,220 L300,280 L320,310 L320,380 L300,410 L300,470" 
+              {/* Flow line 2 - center vertical, full top to bottom */}
+              <path d="M300,0 L300,70 L290,100 L290,180 L300,210 L300,290 L310,320 L310,400 L300,430 L300,500" 
                 fill="none" stroke="rgba(34,211,238,0.06)" strokeWidth="1" />
-              <path d="M300,30 L300,90 L280,120 L280,190 L300,220 L300,280 L320,310 L320,380 L300,410 L300,470" 
+              <path d="M300,0 L300,70 L290,100 L290,180 L300,210 L300,290 L310,320 L310,400 L300,430 L300,500" 
                 fill="none" stroke="url(#flowGrad2)" strokeWidth="3" strokeLinecap="round" filter="url(#currentGlowStrong)"
                 strokeDasharray="70 450" className="hero-flow-line-2" />
 
-              {/* Flow line 3 - right vertical */}
-              <path d="M420,50 L420,110 L440,140 L440,210 L420,240 L420,320 L440,350 L440,430" 
+              {/* Flow line 3 - center-right vertical, full top to bottom */}
+              <path d="M370,0 L370,55 L380,85 L380,170 L370,200 L370,280 L380,310 L380,400 L370,430 L370,500" 
                 fill="none" stroke="rgba(56,189,248,0.06)" strokeWidth="1" />
-              <path d="M420,50 L420,110 L440,140 L440,210 L420,240 L420,320 L440,350 L440,430" 
+              <path d="M370,0 L370,55 L380,85 L380,170 L370,200 L370,280 L380,310 L380,400 L370,430 L370,500" 
                 fill="none" stroke="url(#flowGrad1)" strokeWidth="2" strokeLinecap="round" filter="url(#currentGlow)"
-                strokeDasharray="50 380" className="hero-flow-line-3" />
+                strokeDasharray="50 400" className="hero-flow-line-3" />
 
-              {/* Flow line 4 - diagonal top-left to bottom-right */}
-              <path d="M120,60 L150,100 L170,150 L220,200 L260,260 L300,330 L350,390 L400,440" 
+              {/* Flow line 4 - slight diagonal center, top to bottom */}
+              <path d="M270,0 L275,70 L265,140 L275,210 L265,280 L275,350 L265,420 L270,500" 
                 fill="none" stroke="rgba(250,204,21,0.05)" strokeWidth="0.8" />
-              <path d="M120,60 L150,100 L170,150 L220,200 L260,260 L300,330 L350,390 L400,440" 
+              <path d="M270,0 L275,70 L265,140 L275,210 L265,280 L275,350 L265,420 L270,500" 
                 fill="none" stroke="url(#flowGrad3)" strokeWidth="2" strokeLinecap="round" filter="url(#currentGlow)"
-                strokeDasharray="45 350" className="hero-flow-line-4" />
+                strokeDasharray="45 380" className="hero-flow-line-4" />
 
-              {/* Flow line 5 - zigzag vertical */}
-              <path d="M240,20 L260,80 L240,140 L260,200 L240,260 L260,320 L240,380 L260,440" 
+              {/* Flow line 5 - between center and center-right */}
+              <path d="M340,0 L335,80 L345,150 L335,220 L345,290 L335,360 L345,430 L340,500" 
                 fill="none" stroke="rgba(34,211,238,0.05)" strokeWidth="0.8" />
-              <path d="M240,20 L260,80 L240,140 L260,200 L240,260 L260,320 L240,380 L260,440" 
+              <path d="M340,0 L335,80 L345,150 L335,220 L345,290 L335,360 L345,430 L340,500" 
                 fill="none" stroke="url(#flowGrad2)" strokeWidth="1.8" strokeLinecap="round" filter="url(#currentGlow)"
-                strokeDasharray="40 360" className="hero-flow-line-5" />
+                strokeDasharray="40 380" className="hero-flow-line-5" />
 
-              {/* Flow line 6 - far right thin */}
-              <path d="M480,70 L480,150 L460,180 L460,270 L480,300 L480,400" 
-                fill="none" stroke="rgba(56,189,248,0.04)" strokeWidth="0.6" />
-              <path d="M480,70 L480,150 L460,180 L460,270 L480,300 L480,400" 
-                fill="none" stroke="url(#flowGrad1)" strokeWidth="1.5" strokeLinecap="round" filter="url(#currentGlow)"
-                strokeDasharray="35 320" className="hero-flow-line-6" />
-
-              {/* Glowing junction nodes */}
-              {[[180,130],[160,200],[180,310],[300,120],[280,190],[300,280],[320,380],[420,140],[440,210],[420,320],[240,140],[260,200]].map(([cx,cy], i) => (
+              {/* Glowing junction nodes - centered */}
+              {[[230,90],[220,190],[300,100],[290,210],[300,290],[370,85],[380,200],[370,310],[270,140],[340,150]].map(([cx,cy], i) => (
                 <circle key={`node-${i}`} cx={cx} cy={cy} r="2" fill="rgba(56,189,248,0.5)" className="hero-node-pulse" style={{ animationDelay: `${i * 0.3}s` }} />
               ))}
 
-              {/* Spark/photoelectric points */}
-              {[[160,130],[300,220],[420,240],[280,120],[440,350],[240,260]].map(([cx,cy], i) => (
+              {/* Spark/photoelectric points - centered */}
+              {[[220,160],[300,180],[380,170],[270,210],[340,220],[300,290]].map(([cx,cy], i) => (
                 <g key={`spark-${i}`} style={{ animation: `heroSparkFlash ${1.5 + i * 0.4}s ease-in-out infinite`, animationDelay: `${i * 0.5}s` }}>
                   <circle cx={cx} cy={cy} r="1.5" fill="rgba(255,255,255,0.9)" />
                   <circle cx={cx} cy={cy} r="5" fill="rgba(56,189,248,0.3)" />
@@ -319,9 +312,8 @@ export const HeroSection = () => {
         .hero-flow-line-3 { animation: heroFlowDown3 2.8s linear infinite; animation-delay: 1s; }
         .hero-flow-line-4 { animation: heroFlowDown4 3.5s linear infinite; animation-delay: 0.3s; }
         .hero-flow-line-5 { animation: heroFlowDown5 2.2s linear infinite; animation-delay: 0.8s; }
-        .hero-flow-line-6 { animation: heroFlowDown6 2s linear infinite; animation-delay: 1.2s; }
         @keyframes heroFlowDown1 {
-          0% { stroke-dashoffset: 460; }
+          0% { stroke-dashoffset: 500; }
           100% { stroke-dashoffset: 0; }
         }
         @keyframes heroFlowDown2 {
@@ -329,19 +321,15 @@ export const HeroSection = () => {
           100% { stroke-dashoffset: 0; }
         }
         @keyframes heroFlowDown3 {
-          0% { stroke-dashoffset: 430; }
+          0% { stroke-dashoffset: 450; }
           100% { stroke-dashoffset: 0; }
         }
         @keyframes heroFlowDown4 {
-          0% { stroke-dashoffset: 395; }
+          0% { stroke-dashoffset: 425; }
           100% { stroke-dashoffset: 0; }
         }
         @keyframes heroFlowDown5 {
-          0% { stroke-dashoffset: 400; }
-          100% { stroke-dashoffset: 0; }
-        }
-        @keyframes heroFlowDown6 {
-          0% { stroke-dashoffset: 355; }
+          0% { stroke-dashoffset: 420; }
           100% { stroke-dashoffset: 0; }
         }
       `}</style>
