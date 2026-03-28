@@ -267,6 +267,18 @@ export const HeroSection = () => {
           0% { stroke-dashoffset: 0; }
           100% { stroke-dashoffset: -40; }
         }
+        .hero-wave-anim {
+          stroke-dasharray: 200;
+          stroke-dashoffset: 200;
+          animation: heroWaveDraw 3s ease-out forwards, heroDashFlow 4s linear 3s infinite;
+        }
+        @keyframes heroWaveDraw {
+          to { stroke-dashoffset: 0; }
+        }
+        @keyframes heroSpectrumBar {
+          0%, 100% { transform: scaleY(1); opacity: 0.2; }
+          50% { transform: scaleY(1.6); opacity: 0.4; }
+        }
       `}</style>
     </section>
   );
