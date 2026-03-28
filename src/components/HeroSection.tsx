@@ -364,6 +364,57 @@ export const HeroSection = () => {
           0%, 100% { transform: scaleY(1); opacity: 0.2; }
           50% { transform: scaleY(1.6); opacity: 0.4; }
         }
+        /* Electric current flow animations */
+        .hero-current-flow {
+          animation: heroCurrentDash 2s linear infinite;
+        }
+        .hero-current-flow-reverse {
+          animation: heroCurrentDash 2.5s linear infinite reverse;
+        }
+        @keyframes heroCurrentDash {
+          0% { stroke-dashoffset: 0; }
+          100% { stroke-dashoffset: -38; }
+        }
+        /* IC chip glow pulse */
+        .hero-ic-pulse {
+          animation: heroICPulse 3s ease-in-out infinite;
+        }
+        .hero-ic-pulse-slow {
+          animation: heroICPulse 4.5s ease-in-out infinite;
+        }
+        @keyframes heroICPulse {
+          0%, 100% { opacity: 0.15; transform: scale(1); }
+          50% { opacity: 0.4; transform: scale(1.1); }
+        }
+        .hero-ic-border-pulse {
+          animation: heroICBorder 3s ease-in-out infinite;
+        }
+        @keyframes heroICBorder {
+          0%, 100% { stroke-opacity: 0.15; }
+          50% { stroke-opacity: 0.4; }
+        }
+        .hero-ic-pin-pulse {
+          animation: heroICPin 2s ease-in-out infinite;
+        }
+        @keyframes heroICPin {
+          0%, 100% { opacity: 0.3; r: 0.8; }
+          50% { opacity: 0.8; r: 1.5; }
+        }
+        .hero-ic-activity {
+          animation: heroICActivity 0.8s ease-in-out infinite alternate;
+        }
+        @keyframes heroICActivity {
+          0% { opacity: 0.1; }
+          100% { opacity: 0.8; }
+        }
+        .hero-junction-spark {
+          animation: heroJunctionSpark 3s ease-in-out infinite;
+        }
+        @keyframes heroJunctionSpark {
+          0%, 80%, 100% { r: 2; opacity: 0.1; }
+          85% { r: 5; opacity: 0.6; }
+          90% { r: 3; opacity: 0.3; }
+        }
       `}</style>
     </section>
   );
