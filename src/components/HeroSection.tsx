@@ -312,9 +312,8 @@ export const HeroSection = () => {
         .hero-flow-line-3 { animation: heroFlowDown3 2.8s linear infinite; animation-delay: 1s; }
         .hero-flow-line-4 { animation: heroFlowDown4 3.5s linear infinite; animation-delay: 0.3s; }
         .hero-flow-line-5 { animation: heroFlowDown5 2.2s linear infinite; animation-delay: 0.8s; }
-        .hero-flow-line-6 { animation: heroFlowDown6 2s linear infinite; animation-delay: 1.2s; }
         @keyframes heroFlowDown1 {
-          0% { stroke-dashoffset: 460; }
+          0% { stroke-dashoffset: 500; }
           100% { stroke-dashoffset: 0; }
         }
         @keyframes heroFlowDown2 {
@@ -322,19 +321,15 @@ export const HeroSection = () => {
           100% { stroke-dashoffset: 0; }
         }
         @keyframes heroFlowDown3 {
-          0% { stroke-dashoffset: 430; }
+          0% { stroke-dashoffset: 450; }
           100% { stroke-dashoffset: 0; }
         }
         @keyframes heroFlowDown4 {
-          0% { stroke-dashoffset: 395; }
+          0% { stroke-dashoffset: 425; }
           100% { stroke-dashoffset: 0; }
         }
         @keyframes heroFlowDown5 {
-          0% { stroke-dashoffset: 400; }
-          100% { stroke-dashoffset: 0; }
-        }
-        @keyframes heroFlowDown6 {
-          0% { stroke-dashoffset: 355; }
+          0% { stroke-dashoffset: 420; }
           100% { stroke-dashoffset: 0; }
         }
       `}</style>
