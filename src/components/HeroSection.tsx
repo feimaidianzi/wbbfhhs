@@ -119,66 +119,90 @@ export const HeroSection = () => {
               }}
             />
             
-            {/* === On-board current flow light effects === */}
+            {/* === On-board flowing current lines (top to bottom) === */}
             <svg className="absolute inset-0 w-full h-full" viewBox="0 0 600 500" preserveAspectRatio="xMidYMid meet" style={{ left: '15%', width: '70%' }}>
-              {/* Main current flow path 1 - horizontal through center */}
-              <path d="M80,200 L150,200 L170,180 L250,180 L270,200 L350,200 L380,220 L450,220 L480,200 L530,200" 
-                fill="none" stroke="rgba(56,189,248,0.15)" strokeWidth="1.5" strokeLinecap="round" />
-              <circle r="4" fill="rgba(56,189,248,0.9)" className="hero-current-glow">
-                <animateMotion dur="2.5s" repeatCount="indefinite" path="M80,200 L150,200 L170,180 L250,180 L270,200 L350,200 L380,220 L450,220 L480,200 L530,200" />
-              </circle>
-              <circle r="8" fill="rgba(56,189,248,0.2)" className="hero-current-glow">
-                <animateMotion dur="2.5s" repeatCount="indefinite" path="M80,200 L150,200 L170,180 L250,180 L270,200 L350,200 L380,220 L450,220 L480,200 L530,200" />
-              </circle>
+              <defs>
+                <linearGradient id="flowGrad1" gradientUnits="userSpaceOnUse" x1="0" y1="0" x2="0" y2="500">
+                  <stop offset="0%" stopColor="rgba(56,189,248,0)" />
+                  <stop offset="40%" stopColor="rgba(56,189,248,0.8)" />
+                  <stop offset="55%" stopColor="rgba(255,255,255,0.9)" />
+                  <stop offset="100%" stopColor="rgba(56,189,248,0)" />
+                </linearGradient>
+                <linearGradient id="flowGrad2" gradientUnits="userSpaceOnUse" x1="0" y1="0" x2="0" y2="500">
+                  <stop offset="0%" stopColor="rgba(34,211,238,0)" />
+                  <stop offset="40%" stopColor="rgba(34,211,238,0.7)" />
+                  <stop offset="55%" stopColor="rgba(255,255,255,0.85)" />
+                  <stop offset="100%" stopColor="rgba(34,211,238,0)" />
+                </linearGradient>
+                <linearGradient id="flowGrad3" gradientUnits="userSpaceOnUse" x1="0" y1="0" x2="0" y2="500">
+                  <stop offset="0%" stopColor="rgba(250,204,21,0)" />
+                  <stop offset="40%" stopColor="rgba(250,204,21,0.6)" />
+                  <stop offset="55%" stopColor="rgba(255,255,255,0.8)" />
+                  <stop offset="100%" stopColor="rgba(250,204,21,0)" />
+                </linearGradient>
+                <filter id="currentGlow">
+                  <feGaussianBlur stdDeviation="3" result="blur" />
+                  <feMerge><feMergeNode in="blur" /><feMergeNode in="SourceGraphic" /></feMerge>
+                </filter>
+                <filter id="currentGlowStrong">
+                  <feGaussianBlur stdDeviation="5" result="blur" />
+                  <feMerge><feMergeNode in="blur" /><feMergeNode in="SourceGraphic" /></feMerge>
+                </filter>
+              </defs>
 
-              {/* Current flow path 2 - diagonal */}
-              <path d="M120,120 L180,120 L200,150 L280,150 L300,130 L380,130 L400,160 L460,160" 
-                fill="none" stroke="rgba(34,211,238,0.12)" strokeWidth="1.2" strokeLinecap="round" />
-              <circle r="3" fill="rgba(34,211,238,0.85)">
-                <animateMotion dur="3s" repeatCount="indefinite" path="M120,120 L180,120 L200,150 L280,150 L300,130 L380,130 L400,160 L460,160" />
-              </circle>
-              <circle r="6" fill="rgba(34,211,238,0.15)">
-                <animateMotion dur="3s" repeatCount="indefinite" path="M120,120 L180,120 L200,150 L280,150 L300,130 L380,130 L400,160 L460,160" />
-              </circle>
+              {/* Flow line 1 - left vertical */}
+              <path d="M180,40 L180,100 L160,130 L160,200 L180,230 L180,310 L160,340 L160,420 L180,450" 
+                fill="none" stroke="rgba(56,189,248,0.08)" strokeWidth="1" />
+              <path d="M180,40 L180,100 L160,130 L160,200 L180,230 L180,310 L160,340 L160,420 L180,450" 
+                fill="none" stroke="url(#flowGrad1)" strokeWidth="2.5" strokeLinecap="round" filter="url(#currentGlow)"
+                strokeDasharray="60 400" className="hero-flow-line-1" />
 
-              {/* Current flow path 3 - lower section */}
-              <path d="M100,300 L200,300 L220,280 L320,280 L340,300 L430,300 L460,320 L520,320" 
-                fill="none" stroke="rgba(56,189,248,0.1)" strokeWidth="1" strokeLinecap="round" />
-              <circle r="3.5" fill="rgba(56,189,248,0.8)">
-                <animateMotion dur="2s" repeatCount="indefinite" path="M100,300 L200,300 L220,280 L320,280 L340,300 L430,300 L460,320 L520,320" />
-              </circle>
-              <circle r="7" fill="rgba(56,189,248,0.15)">
-                <animateMotion dur="2s" repeatCount="indefinite" path="M100,300 L200,300 L220,280 L320,280 L340,300 L430,300 L460,320 L520,320" />
-              </circle>
+              {/* Flow line 2 - center vertical */}
+              <path d="M300,30 L300,90 L280,120 L280,190 L300,220 L300,280 L320,310 L320,380 L300,410 L300,470" 
+                fill="none" stroke="rgba(34,211,238,0.06)" strokeWidth="1" />
+              <path d="M300,30 L300,90 L280,120 L280,190 L300,220 L300,280 L320,310 L320,380 L300,410 L300,470" 
+                fill="none" stroke="url(#flowGrad2)" strokeWidth="3" strokeLinecap="round" filter="url(#currentGlowStrong)"
+                strokeDasharray="70 450" className="hero-flow-line-2" />
 
-              {/* Current flow path 4 - vertical power line */}
-              <path d="M300,80 L300,140 L280,160 L280,240 L300,260 L300,340 L280,360 L280,420" 
-                fill="none" stroke="rgba(250,204,21,0.1)" strokeWidth="1" strokeLinecap="round" />
-              <circle r="3" fill="rgba(250,204,21,0.7)">
-                <animateMotion dur="3.5s" repeatCount="indefinite" path="M300,80 L300,140 L280,160 L280,240 L300,260 L300,340 L280,360 L280,420" />
-              </circle>
-              <circle r="6" fill="rgba(250,204,21,0.12)">
-                <animateMotion dur="3.5s" repeatCount="indefinite" path="M300,80 L300,140 L280,160 L280,240 L300,260 L300,340 L280,360 L280,420" />
-              </circle>
+              {/* Flow line 3 - right vertical */}
+              <path d="M420,50 L420,110 L440,140 L440,210 L420,240 L420,320 L440,350 L440,430" 
+                fill="none" stroke="rgba(56,189,248,0.06)" strokeWidth="1" />
+              <path d="M420,50 L420,110 L440,140 L440,210 L420,240 L420,320 L440,350 L440,430" 
+                fill="none" stroke="url(#flowGrad1)" strokeWidth="2" strokeLinecap="round" filter="url(#currentGlow)"
+                strokeDasharray="50 380" className="hero-flow-line-3" />
 
-              {/* Current flow path 5 - secondary horizontal */}
-              <path d="M60,250 L140,250 L160,230 L240,230 L260,250 L340,250" 
-                fill="none" stroke="rgba(34,211,238,0.08)" strokeWidth="0.8" strokeLinecap="round" />
-              <circle r="2.5" fill="rgba(34,211,238,0.75)">
-                <animateMotion dur="1.8s" repeatCount="indefinite" path="M60,250 L140,250 L160,230 L240,230 L260,250 L340,250" />
-              </circle>
+              {/* Flow line 4 - diagonal top-left to bottom-right */}
+              <path d="M120,60 L150,100 L170,150 L220,200 L260,260 L300,330 L350,390 L400,440" 
+                fill="none" stroke="rgba(250,204,21,0.05)" strokeWidth="0.8" />
+              <path d="M120,60 L150,100 L170,150 L220,200 L260,260 L300,330 L350,390 L400,440" 
+                fill="none" stroke="url(#flowGrad3)" strokeWidth="2" strokeLinecap="round" filter="url(#currentGlow)"
+                strokeDasharray="45 350" className="hero-flow-line-4" />
 
-              {/* Glowing junction nodes on the board */}
-              {[[150,200],[270,200],[380,220],[200,150],[300,130],[220,280],[340,300],[300,160],[300,260],[280,240]].map(([cx,cy], i) => (
+              {/* Flow line 5 - zigzag vertical */}
+              <path d="M240,20 L260,80 L240,140 L260,200 L240,260 L260,320 L240,380 L260,440" 
+                fill="none" stroke="rgba(34,211,238,0.05)" strokeWidth="0.8" />
+              <path d="M240,20 L260,80 L240,140 L260,200 L240,260 L260,320 L240,380 L260,440" 
+                fill="none" stroke="url(#flowGrad2)" strokeWidth="1.8" strokeLinecap="round" filter="url(#currentGlow)"
+                strokeDasharray="40 360" className="hero-flow-line-5" />
+
+              {/* Flow line 6 - far right thin */}
+              <path d="M480,70 L480,150 L460,180 L460,270 L480,300 L480,400" 
+                fill="none" stroke="rgba(56,189,248,0.04)" strokeWidth="0.6" />
+              <path d="M480,70 L480,150 L460,180 L460,270 L480,300 L480,400" 
+                fill="none" stroke="url(#flowGrad1)" strokeWidth="1.5" strokeLinecap="round" filter="url(#currentGlow)"
+                strokeDasharray="35 320" className="hero-flow-line-6" />
+
+              {/* Glowing junction nodes */}
+              {[[180,130],[160,200],[180,310],[300,120],[280,190],[300,280],[320,380],[420,140],[440,210],[420,320],[240,140],[260,200]].map(([cx,cy], i) => (
                 <circle key={`node-${i}`} cx={cx} cy={cy} r="2" fill="rgba(56,189,248,0.5)" className="hero-node-pulse" style={{ animationDelay: `${i * 0.3}s` }} />
               ))}
 
               {/* Spark/photoelectric points */}
-              {[[180,185],[350,205],[430,225],[300,140],[280,300],[460,165]].map(([cx,cy], i) => (
+              {[[160,130],[300,220],[420,240],[280,120],[440,350],[240,260]].map(([cx,cy], i) => (
                 <g key={`spark-${i}`} style={{ animation: `heroSparkFlash ${1.5 + i * 0.4}s ease-in-out infinite`, animationDelay: `${i * 0.5}s` }}>
                   <circle cx={cx} cy={cy} r="1.5" fill="rgba(255,255,255,0.9)" />
-                  <circle cx={cx} cy={cy} r="4" fill="rgba(56,189,248,0.3)" />
-                  <circle cx={cx} cy={cy} r="8" fill="rgba(56,189,248,0.08)" />
+                  <circle cx={cx} cy={cy} r="5" fill="rgba(56,189,248,0.3)" />
+                  <circle cx={cx} cy={cy} r="10" fill="rgba(56,189,248,0.06)" />
                 </g>
               ))}
             </svg>
@@ -282,15 +306,43 @@ export const HeroSection = () => {
           animation: heroNodePulse 2s ease-in-out infinite;
         }
         @keyframes heroNodePulse {
-          0%, 100% { opacity: 0.3; r: 2; }
-          50% { opacity: 0.8; r: 3.5; }
-        }
-        .hero-current-glow {
-          filter: drop-shadow(0 0 4px rgba(56,189,248,0.6));
+          0%, 100% { opacity: 0.3; }
+          50% { opacity: 0.8; }
         }
         @keyframes heroSparkFlash {
-          0%, 100% { opacity: 0.1; transform: scale(0.8); }
-          50% { opacity: 1; transform: scale(1.2); }
+          0%, 100% { opacity: 0.1; }
+          50% { opacity: 1; }
+        }
+        /* Flowing current lines - top to bottom */
+        .hero-flow-line-1 { animation: heroFlowDown1 2.5s linear infinite; }
+        .hero-flow-line-2 { animation: heroFlowDown2 3s linear infinite; animation-delay: 0.5s; }
+        .hero-flow-line-3 { animation: heroFlowDown3 2.8s linear infinite; animation-delay: 1s; }
+        .hero-flow-line-4 { animation: heroFlowDown4 3.5s linear infinite; animation-delay: 0.3s; }
+        .hero-flow-line-5 { animation: heroFlowDown5 2.2s linear infinite; animation-delay: 0.8s; }
+        .hero-flow-line-6 { animation: heroFlowDown6 2s linear infinite; animation-delay: 1.2s; }
+        @keyframes heroFlowDown1 {
+          0% { stroke-dashoffset: 460; }
+          100% { stroke-dashoffset: 0; }
+        }
+        @keyframes heroFlowDown2 {
+          0% { stroke-dashoffset: 520; }
+          100% { stroke-dashoffset: 0; }
+        }
+        @keyframes heroFlowDown3 {
+          0% { stroke-dashoffset: 430; }
+          100% { stroke-dashoffset: 0; }
+        }
+        @keyframes heroFlowDown4 {
+          0% { stroke-dashoffset: 395; }
+          100% { stroke-dashoffset: 0; }
+        }
+        @keyframes heroFlowDown5 {
+          0% { stroke-dashoffset: 400; }
+          100% { stroke-dashoffset: 0; }
+        }
+        @keyframes heroFlowDown6 {
+          0% { stroke-dashoffset: 355; }
+          100% { stroke-dashoffset: 0; }
         }
       `}</style>
     </section>
