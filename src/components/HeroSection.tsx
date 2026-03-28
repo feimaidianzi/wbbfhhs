@@ -123,20 +123,108 @@ export const HeroSection = () => {
             <span className="text-[8px] font-mono text-emerald-400/40 tracking-wider">CH·SEL</span>
           </div>
 
-          {/* === Data flow circuit traces === */}
-          {/* Animated dash trace - horizontal */}
-          <svg className="absolute top-[52%] left-[10%] w-[80%] h-8 overflow-visible" style={{ opacity: 0.15 }}>
-            <line x1="0" y1="16" x2="100%" y2="16" stroke="rgba(56,189,248,0.5)" strokeWidth="0.5" strokeDasharray="8 12" className="hero-circuit-dash" />
+          {/* === Data flow light streams === */}
+          {/* Main data flow - curved path with glowing dot */}
+          <svg className="absolute top-[15%] left-[5%] w-[90%] h-[70%] overflow-visible" style={{ opacity: 0.25 }}>
+            {/* Curved circuit path 1 */}
+            <path d="M 50,50 Q 200,20 350,80 T 650,60" fill="none" stroke="rgba(56,189,248,0.3)" strokeWidth="0.5" strokeDasharray="4 8" className="hero-circuit-dash" />
+            {/* Curved circuit path 2 */}
+            <path d="M 30,200 Q 150,160 300,220 T 600,180" fill="none" stroke="rgba(34,211,238,0.2)" strokeWidth="0.5" strokeDasharray="6 10" className="hero-circuit-dash-slow" />
+            {/* Flowing light dot on path 1 */}
+            <circle r="2" fill="rgba(56,189,248,0.8)" className="hero-flow-dot-1">
+              <animateMotion dur="4s" repeatCount="indefinite" path="M 50,50 Q 200,20 350,80 T 650,60" />
+            </circle>
+            {/* Flowing light dot on path 2 */}
+            <circle r="1.5" fill="rgba(34,211,238,0.7)" className="hero-flow-dot-2">
+              <animateMotion dur="5s" repeatCount="indefinite" path="M 30,200 Q 150,160 300,220 T 600,180" />
+            </circle>
+            {/* Vertical data stream */}
+            <line x1="500" y1="30" x2="500" y2="280" stroke="rgba(56,189,248,0.15)" strokeWidth="0.5" strokeDasharray="3 12" className="hero-circuit-dash" />
+            <circle r="1.5" fill="rgba(56,189,248,0.6)">
+              <animateMotion dur="3s" repeatCount="indefinite" path="M 500,30 L 500,280" />
+            </circle>
           </svg>
 
-          {/* Animated dash trace - diagonal */}
-          <svg className="absolute top-[62%] left-[15%] w-[70%] h-20 overflow-visible" style={{ opacity: 0.1 }}>
-            <line x1="0" y1="0" x2="100%" y2="100%" stroke="rgba(34,211,238,0.4)" strokeWidth="0.5" strokeDasharray="6 16" className="hero-circuit-dash-slow" />
+          {/* === HUD targeting frame === */}
+          {/* Outer HUD frame with rotating corners */}
+          <div className="absolute top-[22%] left-[18%] w-[64%] h-[56%]" style={{ animation: 'heroLabelFadeIn 1s ease-out 1.2s both', opacity: 0 }}>
+            {/* Corner brackets - TL */}
+            <div className="absolute top-0 left-0 w-8 h-8 border-l-[1.5px] border-t-[1.5px] border-cyan-400/20" />
+            <div className="absolute top-1 left-1 w-3 h-3 border-l border-t border-cyan-400/10" />
+            {/* Corner brackets - TR */}
+            <div className="absolute top-0 right-0 w-8 h-8 border-r-[1.5px] border-t-[1.5px] border-cyan-400/20" />
+            <div className="absolute top-1 right-1 w-3 h-3 border-r border-t border-cyan-400/10" />
+            {/* Corner brackets - BL */}
+            <div className="absolute bottom-0 left-0 w-8 h-8 border-l-[1.5px] border-b-[1.5px] border-cyan-400/20" />
+            <div className="absolute bottom-1 left-1 w-3 h-3 border-l border-b border-cyan-400/10" />
+            {/* Corner brackets - BR */}
+            <div className="absolute bottom-0 right-0 w-8 h-8 border-r-[1.5px] border-b-[1.5px] border-cyan-400/20" />
+            <div className="absolute bottom-1 right-1 w-3 h-3 border-r border-b border-cyan-400/10" />
+
+            {/* Center crosshair */}
+            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
+              <div className="w-6 h-[0.5px] bg-cyan-400/15" />
+              <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[0.5px] h-6 bg-cyan-400/15" />
+              <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-2 h-2 rounded-full border border-cyan-400/15" />
+            </div>
+
+            {/* HUD side ticks */}
+            <div className="absolute top-1/2 left-0 -translate-y-1/2 flex items-center gap-1">
+              <div className="w-3 h-[0.5px] bg-cyan-400/20" />
+              <div className="w-1.5 h-[0.5px] bg-cyan-400/10" />
+            </div>
+            <div className="absolute top-1/2 right-0 -translate-y-1/2 flex items-center gap-1">
+              <div className="w-1.5 h-[0.5px] bg-cyan-400/10" />
+              <div className="w-3 h-[0.5px] bg-cyan-400/20" />
+            </div>
+
+            {/* HUD coordinate text */}
+            <span className="absolute bottom-[-16px] left-0 text-[7px] font-mono text-cyan-400/25 tracking-widest">X:042.7 Y:118.3</span>
+            <span className="absolute top-[-16px] right-0 text-[7px] font-mono text-cyan-400/25 tracking-widest">LOCK</span>
+          </div>
+
+          {/* === Floating waveform / signal graphics === */}
+          {/* Sine wave - signal monitor */}
+          <svg className="absolute bottom-[22%] left-[8%] w-32 h-10" style={{ animation: 'heroLabelFadeIn 0.8s ease-out 2.8s both', opacity: 0 }}>
+            <path d="M0,20 Q8,5 16,20 T32,20 T48,20 T64,20 T80,20 T96,20 T112,20 T128,20" fill="none" stroke="rgba(56,189,248,0.3)" strokeWidth="0.8" className="hero-wave-anim" />
+            <text x="0" y="38" fill="rgba(56,189,248,0.25)" fontSize="6" fontFamily="monospace">SIGNAL·OK</text>
           </svg>
 
-          {/* Corner bracket marks */}
-          <div className="absolute top-[20%] left-[22%] w-6 h-6 border-l border-t border-cyan-400/10" style={{ animation: 'heroLabelFadeIn 0.8s ease-out 3s both', opacity: 0 }} />
-          <div className="absolute bottom-[28%] right-[14%] w-6 h-6 border-r border-b border-cyan-400/10" style={{ animation: 'heroLabelFadeIn 0.8s ease-out 3.2s both', opacity: 0 }} />
+          {/* Square wave - digital signal */}
+          <svg className="absolute top-[12%] left-[35%] w-24 h-8" style={{ animation: 'heroLabelFadeIn 0.8s ease-out 3.2s both', opacity: 0 }}>
+            <path d="M0,6 L6,6 L6,2 L12,2 L12,6 L18,6 L18,2 L24,2 L24,6 L30,6 L30,2 L36,2 L36,6 L42,6 L42,2 L48,2 L48,6 L54,6 L54,2 L60,2 L60,6" fill="none" stroke="rgba(34,211,238,0.3)" strokeWidth="0.6" className="hero-wave-anim" />
+          </svg>
+
+          {/* Mini circuit schematic */}
+          <svg className="absolute bottom-[38%] right-[6%] w-20 h-16" style={{ animation: 'heroLabelFadeIn 0.8s ease-out 3.5s both', opacity: 0 }}>
+            {/* Resistor symbol */}
+            <path d="M0,8 L4,8 L5,4 L7,12 L9,4 L11,12 L13,4 L15,12 L16,8 L20,8" fill="none" stroke="rgba(56,189,248,0.3)" strokeWidth="0.6" />
+            {/* Capacitor symbol */}
+            <line x1="6" y1="14" x2="6" y2="22" stroke="rgba(34,211,238,0.25)" strokeWidth="0.6" />
+            <line x1="3" y1="22" x2="9" y2="22" stroke="rgba(34,211,238,0.3)" strokeWidth="0.8" />
+            <line x1="3" y1="24" x2="9" y2="24" stroke="rgba(34,211,238,0.3)" strokeWidth="0.8" />
+            <line x1="6" y1="24" x2="6" y2="32" stroke="rgba(34,211,238,0.25)" strokeWidth="0.6" />
+            {/* GND symbol */}
+            <line x1="3" y1="32" x2="9" y2="32" stroke="rgba(34,211,238,0.2)" strokeWidth="0.5" />
+            <line x1="4.5" y1="34" x2="7.5" y2="34" stroke="rgba(34,211,238,0.15)" strokeWidth="0.5" />
+            <line x1="5.5" y1="36" x2="6.5" y2="36" stroke="rgba(34,211,238,0.1)" strokeWidth="0.5" />
+          </svg>
+
+          {/* Floating frequency spectrum bars */}
+          <div className="absolute top-[68%] left-[12%] flex items-end gap-[2px]" style={{ animation: 'heroLabelFadeIn 0.8s ease-out 3.8s both', opacity: 0 }}>
+            {[8, 14, 6, 18, 10, 16, 4, 12, 20, 8, 15, 6, 11, 17, 7].map((h, i) => (
+              <div
+                key={i}
+                className="w-[2px] bg-cyan-400/20 rounded-sm"
+                style={{
+                  height: `${h}px`,
+                  animation: `heroSpectrumBar ${1.5 + (i % 3) * 0.3}s ease-in-out infinite`,
+                  animationDelay: `${i * 0.1}s`,
+                }}
+              />
+            ))}
+            <span className="ml-1 text-[6px] font-mono text-cyan-400/20 self-end">5.8G</span>
+          </div>
 
           {/* Bottom fade */}
           <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-[#0a0f1a] to-transparent" />
@@ -178,6 +266,18 @@ export const HeroSection = () => {
         @keyframes heroDashFlow {
           0% { stroke-dashoffset: 0; }
           100% { stroke-dashoffset: -40; }
+        }
+        .hero-wave-anim {
+          stroke-dasharray: 200;
+          stroke-dashoffset: 200;
+          animation: heroWaveDraw 3s ease-out forwards, heroDashFlow 4s linear 3s infinite;
+        }
+        @keyframes heroWaveDraw {
+          to { stroke-dashoffset: 0; }
+        }
+        @keyframes heroSpectrumBar {
+          0%, 100% { transform: scaleY(1); opacity: 0.2; }
+          50% { transform: scaleY(1.6); opacity: 0.4; }
         }
       `}</style>
     </section>
