@@ -123,26 +123,111 @@ export const HeroSection = () => {
             <span className="text-[8px] font-mono text-emerald-400/40 tracking-wider">CH·SEL</span>
           </div>
 
-          {/* === Data flow light streams === */}
-          {/* Main data flow - curved path with glowing dot */}
-          <svg className="absolute top-[15%] left-[5%] w-[90%] h-[70%] overflow-visible" style={{ opacity: 0.25 }}>
-            {/* Curved circuit path 1 */}
-            <path d="M 50,50 Q 200,20 350,80 T 650,60" fill="none" stroke="rgba(56,189,248,0.3)" strokeWidth="0.5" strokeDasharray="4 8" className="hero-circuit-dash" />
-            {/* Curved circuit path 2 */}
-            <path d="M 30,200 Q 150,160 300,220 T 600,180" fill="none" stroke="rgba(34,211,238,0.2)" strokeWidth="0.5" strokeDasharray="6 10" className="hero-circuit-dash-slow" />
-            {/* Flowing light dot on path 1 */}
-            <circle r="2" fill="rgba(56,189,248,0.8)" className="hero-flow-dot-1">
-              <animateMotion dur="4s" repeatCount="indefinite" path="M 50,50 Q 200,20 350,80 T 650,60" />
+          {/* === Electric current flow on PCB traces === */}
+          <svg className="absolute top-[15%] left-[5%] w-[90%] h-[70%] overflow-visible" style={{ opacity: 0.35 }}>
+            <defs>
+              {/* Electric current glow filter */}
+              <filter id="currentGlow" x="-50%" y="-50%" width="200%" height="200%">
+                <feGaussianBlur stdDeviation="3" result="blur" />
+                <feMerge>
+                  <feMergeNode in="blur" />
+                  <feMergeNode in="SourceGraphic" />
+                </feMerge>
+              </filter>
+              {/* IC chip glow filter */}
+              <filter id="icGlow" x="-100%" y="-100%" width="300%" height="300%">
+                <feGaussianBlur stdDeviation="6" result="blur" />
+                <feMerge>
+                  <feMergeNode in="blur" />
+                  <feMergeNode in="blur" />
+                  <feMergeNode in="SourceGraphic" />
+                </feMerge>
+              </filter>
+              {/* Radial gradient for IC glow */}
+              <radialGradient id="icRadialGlow1" cx="50%" cy="50%" r="50%">
+                <stop offset="0%" stopColor="rgba(56,189,248,0.6)" />
+                <stop offset="50%" stopColor="rgba(56,189,248,0.15)" />
+                <stop offset="100%" stopColor="rgba(56,189,248,0)" />
+              </radialGradient>
+              <radialGradient id="icRadialGlow2" cx="50%" cy="50%" r="50%">
+                <stop offset="0%" stopColor="rgba(34,211,238,0.5)" />
+                <stop offset="50%" stopColor="rgba(34,211,238,0.12)" />
+                <stop offset="100%" stopColor="rgba(34,211,238,0)" />
+              </radialGradient>
+              <radialGradient id="icRadialGlow3" cx="50%" cy="50%" r="50%">
+                <stop offset="0%" stopColor="rgba(74,222,128,0.4)" />
+                <stop offset="50%" stopColor="rgba(74,222,128,0.1)" />
+                <stop offset="100%" stopColor="rgba(74,222,128,0)" />
+              </radialGradient>
+            </defs>
+
+            {/* === PCB Trace current flows === */}
+            {/* Main horizontal trace - top */}
+            <path d="M 40,50 L 180,50 Q 200,50 200,70 L 200,100 Q 200,120 220,120 L 400,120 Q 420,120 420,100 L 420,80 Q 420,60 440,60 L 620,60" fill="none" stroke="rgba(56,189,248,0.15)" strokeWidth="1" />
+            <path d="M 40,50 L 180,50 Q 200,50 200,70 L 200,100 Q 200,120 220,120 L 400,120 Q 420,120 420,100 L 420,80 Q 420,60 440,60 L 620,60" fill="none" stroke="rgba(56,189,248,0.6)" strokeWidth="1.5" strokeDasharray="8 30" className="hero-current-flow" filter="url(#currentGlow)" />
+            {/* Current dot on main trace */}
+            <circle r="2.5" fill="rgba(56,189,248,0.9)" filter="url(#currentGlow)">
+              <animateMotion dur="3s" repeatCount="indefinite" path="M 40,50 L 180,50 Q 200,50 200,70 L 200,100 Q 200,120 220,120 L 400,120 Q 420,120 420,100 L 420,80 Q 420,60 440,60 L 620,60" />
             </circle>
-            {/* Flowing light dot on path 2 */}
-            <circle r="1.5" fill="rgba(34,211,238,0.7)" className="hero-flow-dot-2">
-              <animateMotion dur="5s" repeatCount="indefinite" path="M 30,200 Q 150,160 300,220 T 600,180" />
+
+            {/* Secondary trace - bottom diagonal */}
+            <path d="M 80,220 L 160,220 Q 180,220 180,200 L 180,170 Q 180,150 200,150 L 350,150 Q 370,150 370,170 L 370,200 Q 370,220 390,220 L 550,220" fill="none" stroke="rgba(34,211,238,0.12)" strokeWidth="1" />
+            <path d="M 80,220 L 160,220 Q 180,220 180,200 L 180,170 Q 180,150 200,150 L 350,150 Q 370,150 370,170 L 370,200 Q 370,220 390,220 L 550,220" fill="none" stroke="rgba(34,211,238,0.5)" strokeWidth="1.5" strokeDasharray="6 25" className="hero-current-flow-reverse" filter="url(#currentGlow)" />
+            <circle r="2" fill="rgba(34,211,238,0.85)" filter="url(#currentGlow)">
+              <animateMotion dur="4s" repeatCount="indefinite" path="M 80,220 L 160,220 Q 180,220 180,200 L 180,170 Q 180,150 200,150 L 350,150 Q 370,150 370,170 L 370,200 Q 370,220 390,220 L 550,220" />
             </circle>
-            {/* Vertical data stream */}
-            <line x1="500" y1="30" x2="500" y2="280" stroke="rgba(56,189,248,0.15)" strokeWidth="0.5" strokeDasharray="3 12" className="hero-circuit-dash" />
-            <circle r="1.5" fill="rgba(56,189,248,0.6)">
-              <animateMotion dur="3s" repeatCount="indefinite" path="M 500,30 L 500,280" />
+
+            {/* Third trace - vertical power rail */}
+            <path d="M 300,20 L 300,80 Q 300,100 320,100 L 380,100 Q 400,100 400,120 L 400,260" fill="none" stroke="rgba(56,189,248,0.1)" strokeWidth="0.8" />
+            <path d="M 300,20 L 300,80 Q 300,100 320,100 L 380,100 Q 400,100 400,120 L 400,260" fill="none" stroke="rgba(56,189,248,0.5)" strokeWidth="1.2" strokeDasharray="5 20" className="hero-current-flow" filter="url(#currentGlow)" />
+            <circle r="2" fill="rgba(56,189,248,0.8)" filter="url(#currentGlow)">
+              <animateMotion dur="2.5s" repeatCount="indefinite" path="M 300,20 L 300,80 Q 300,100 320,100 L 380,100 Q 400,100 400,120 L 400,260" />
             </circle>
+
+            {/* Fourth trace - short branch */}
+            <path d="M 150,140 L 250,140 L 250,180 L 320,180" fill="none" stroke="rgba(74,222,128,0.1)" strokeWidth="0.8" />
+            <path d="M 150,140 L 250,140 L 250,180 L 320,180" fill="none" stroke="rgba(74,222,128,0.45)" strokeWidth="1" strokeDasharray="4 18" className="hero-current-flow-reverse" filter="url(#currentGlow)" />
+            <circle r="1.5" fill="rgba(74,222,128,0.8)" filter="url(#currentGlow)">
+              <animateMotion dur="2s" repeatCount="indefinite" path="M 150,140 L 250,140 L 250,180 L 320,180" />
+            </circle>
+
+            {/* === IC Chip glow effects === */}
+            {/* Main MCU chip glow - center-left area */}
+            <ellipse cx="240" cy="130" rx="35" ry="25" fill="url(#icRadialGlow1)" className="hero-ic-pulse" />
+            <rect x="218" y="112" width="44" height="36" rx="2" fill="none" stroke="rgba(56,189,248,0.2)" strokeWidth="0.5" className="hero-ic-border-pulse" />
+            {/* IC pin glow dots - top */}
+            {[224, 232, 240, 248, 256].map((x, i) => (
+              <circle key={`ic1-top-${i}`} cx={x} cy="112" r="1" fill="rgba(56,189,248,0.5)" className="hero-ic-pin-pulse" style={{ animationDelay: `${i * 0.15}s` }} />
+            ))}
+            {/* IC pin glow dots - bottom */}
+            {[224, 232, 240, 248, 256].map((x, i) => (
+              <circle key={`ic1-bot-${i}`} cx={x} cy="148" r="1" fill="rgba(56,189,248,0.5)" className="hero-ic-pin-pulse" style={{ animationDelay: `${(i + 5) * 0.15}s` }} />
+            ))}
+
+            {/* Secondary IC chip - RF module area */}
+            <ellipse cx="480" cy="90" rx="28" ry="20" fill="url(#icRadialGlow2)" className="hero-ic-pulse-slow" />
+            <rect x="462" y="76" width="36" height="28" rx="2" fill="none" stroke="rgba(34,211,238,0.18)" strokeWidth="0.5" className="hero-ic-border-pulse" />
+            {/* IC pin glow dots */}
+            {[468, 474, 480, 486, 492].map((x, i) => (
+              <circle key={`ic2-top-${i}`} cx={x} cy="76" r="0.8" fill="rgba(34,211,238,0.45)" className="hero-ic-pin-pulse" style={{ animationDelay: `${i * 0.2}s` }} />
+            ))}
+
+            {/* Third IC chip - power management area */}
+            <ellipse cx="350" cy="210" rx="22" ry="16" fill="url(#icRadialGlow3)" className="hero-ic-pulse" />
+            <rect x="335" y="198" width="30" height="24" rx="1.5" fill="none" stroke="rgba(74,222,128,0.15)" strokeWidth="0.5" className="hero-ic-border-pulse" />
+
+            {/* IC internal activity - flickering micro-dots inside main chip */}
+            {[
+              { cx: 230, cy: 122, d: '0s' }, { cx: 238, cy: 126, d: '0.3s' }, { cx: 246, cy: 120, d: '0.6s' },
+              { cx: 234, cy: 134, d: '0.9s' }, { cx: 250, cy: 130, d: '1.2s' }, { cx: 242, cy: 138, d: '0.4s' },
+            ].map((dot, i) => (
+              <circle key={`ic-inner-${i}`} cx={dot.cx} cy={dot.cy} r="0.8" fill="rgba(56,189,248,0.7)" className="hero-ic-activity" style={{ animationDelay: dot.d }} />
+            ))}
+
+            {/* Connection sparks at trace junctions */}
+            <circle cx="200" cy="100" r="3" fill="none" stroke="rgba(56,189,248,0.3)" strokeWidth="0.5" className="hero-junction-spark" />
+            <circle cx="370" cy="170" r="3" fill="none" stroke="rgba(34,211,238,0.3)" strokeWidth="0.5" className="hero-junction-spark" style={{ animationDelay: '1s' }} />
+            <circle cx="400" cy="120" r="3" fill="none" stroke="rgba(56,189,248,0.25)" strokeWidth="0.5" className="hero-junction-spark" style={{ animationDelay: '2s' }} />
           </svg>
 
           {/* === HUD targeting frame === */}
@@ -278,6 +363,57 @@ export const HeroSection = () => {
         @keyframes heroSpectrumBar {
           0%, 100% { transform: scaleY(1); opacity: 0.2; }
           50% { transform: scaleY(1.6); opacity: 0.4; }
+        }
+        /* Electric current flow animations */
+        .hero-current-flow {
+          animation: heroCurrentDash 2s linear infinite;
+        }
+        .hero-current-flow-reverse {
+          animation: heroCurrentDash 2.5s linear infinite reverse;
+        }
+        @keyframes heroCurrentDash {
+          0% { stroke-dashoffset: 0; }
+          100% { stroke-dashoffset: -38; }
+        }
+        /* IC chip glow pulse */
+        .hero-ic-pulse {
+          animation: heroICPulse 3s ease-in-out infinite;
+        }
+        .hero-ic-pulse-slow {
+          animation: heroICPulse 4.5s ease-in-out infinite;
+        }
+        @keyframes heroICPulse {
+          0%, 100% { opacity: 0.15; transform: scale(1); }
+          50% { opacity: 0.4; transform: scale(1.1); }
+        }
+        .hero-ic-border-pulse {
+          animation: heroICBorder 3s ease-in-out infinite;
+        }
+        @keyframes heroICBorder {
+          0%, 100% { stroke-opacity: 0.15; }
+          50% { stroke-opacity: 0.4; }
+        }
+        .hero-ic-pin-pulse {
+          animation: heroICPin 2s ease-in-out infinite;
+        }
+        @keyframes heroICPin {
+          0%, 100% { opacity: 0.3; r: 0.8; }
+          50% { opacity: 0.8; r: 1.5; }
+        }
+        .hero-ic-activity {
+          animation: heroICActivity 0.8s ease-in-out infinite alternate;
+        }
+        @keyframes heroICActivity {
+          0% { opacity: 0.1; }
+          100% { opacity: 0.8; }
+        }
+        .hero-junction-spark {
+          animation: heroJunctionSpark 3s ease-in-out infinite;
+        }
+        @keyframes heroJunctionSpark {
+          0%, 80%, 100% { r: 2; opacity: 0.1; }
+          85% { r: 5; opacity: 0.6; }
+          90% { r: 3; opacity: 0.3; }
         }
       `}</style>
     </section>
