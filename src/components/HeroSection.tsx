@@ -64,7 +64,7 @@ export const HeroSection = () => {
         ))}
       </div>
 
-      {/* Right-side hero product image */}
+      {/* Right-side hero product image with circuit tech overlay */}
       <div className="absolute right-0 top-0 bottom-0 w-[55%] hidden lg:block pointer-events-none">
         <div className="relative w-full h-full flex items-center justify-center">
           {/* Blue ambient glow behind image */}
@@ -84,15 +84,60 @@ export const HeroSection = () => {
               }}
             />
           </div>
-          {/* Tech data overlay dots */}
-          <div className="absolute top-[25%] right-[18%] flex items-center gap-2 opacity-30">
+
+          {/* === Circuit trace lines connecting to image === */}
+          {/* Top-right: SMA connector label */}
+          <div className="absolute top-[18%] right-[12%] flex items-center gap-2 hero-tech-label" style={{ animation: 'heroLabelFadeIn 0.8s ease-out 1.5s both' }}>
             <div className="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-pulse" />
-            <div className="w-12 h-[1px] bg-gradient-to-r from-cyan-400/60 to-transparent" />
+            <div className="w-20 h-[1px] bg-gradient-to-r from-cyan-400/60 to-transparent" />
+            <span className="text-[9px] font-mono text-cyan-400/60 tracking-wider uppercase">SMA·50Ω</span>
           </div>
-          <div className="absolute bottom-[30%] right-[25%] flex items-center gap-2 opacity-20">
-            <div className="w-16 h-[1px] bg-gradient-to-l from-blue-400/50 to-transparent" />
-            <div className="w-1 h-1 rounded-full bg-blue-400 animate-pulse" style={{ animationDelay: '1s' }} />
+
+          {/* Top-left: MCU label */}
+          <div className="absolute top-[28%] left-[12%] flex items-center gap-2" style={{ animation: 'heroLabelFadeIn 0.8s ease-out 1.8s both', opacity: 0 }}>
+            <span className="text-[9px] font-mono text-blue-400/50 tracking-wider">STM32H7</span>
+            <div className="w-16 h-[1px] bg-gradient-to-r from-transparent to-blue-400/50" />
+            <div className="w-1.5 h-1.5 rounded-full bg-blue-400/70 animate-pulse" style={{ animationDelay: '0.5s' }} />
           </div>
+
+          {/* Mid-right: RF module annotation */}
+          <div className="absolute top-[45%] right-[8%] flex flex-col items-end gap-1" style={{ animation: 'heroLabelFadeIn 0.8s ease-out 2.1s both', opacity: 0 }}>
+            <div className="flex items-center gap-2">
+              <div className="w-1 h-1 rounded-full bg-cyan-400/80 animate-pulse" style={{ animationDelay: '1.2s' }} />
+              <div className="w-24 h-[1px] bg-gradient-to-r from-cyan-400/40 to-cyan-400/20" />
+            </div>
+            <span className="text-[8px] font-mono text-cyan-400/40 tracking-widest">RF·5.8GHz·37W</span>
+          </div>
+
+          {/* Bottom-left: IPEX label */}
+          <div className="absolute bottom-[35%] left-[18%] flex items-center gap-2" style={{ animation: 'heroLabelFadeIn 0.8s ease-out 2.4s both', opacity: 0 }}>
+            <span className="text-[8px] font-mono text-blue-300/40 tracking-wider">IPEX·IV</span>
+            <div className="w-14 h-[1px] bg-gradient-to-r from-transparent to-blue-300/40" />
+            <div className="w-1 h-1 rounded-full bg-blue-300/60 animate-pulse" style={{ animationDelay: '1.5s' }} />
+          </div>
+
+          {/* Mid-left: LED digit display annotation */}
+          <div className="absolute top-[32%] right-[22%] flex items-center gap-2" style={{ animation: 'heroLabelFadeIn 0.8s ease-out 2.7s both', opacity: 0 }}>
+            <div className="w-1 h-1 rounded-full bg-emerald-400/60 animate-pulse" style={{ animationDelay: '0.8s' }} />
+            <div className="w-10 h-[1px] bg-gradient-to-r from-emerald-400/40 to-transparent" />
+            <span className="text-[8px] font-mono text-emerald-400/40 tracking-wider">CH·SEL</span>
+          </div>
+
+          {/* === Data flow circuit traces === */}
+          {/* Animated dash trace - horizontal */}
+          <svg className="absolute top-[52%] left-[10%] w-[80%] h-8 overflow-visible" style={{ opacity: 0.15 }}>
+            <line x1="0" y1="16" x2="100%" y2="16" stroke="rgba(56,189,248,0.5)" strokeWidth="0.5" strokeDasharray="8 12" className="hero-circuit-dash" />
+          </svg>
+
+          {/* Animated dash trace - diagonal */}
+          <svg className="absolute top-[62%] left-[15%] w-[70%] h-20 overflow-visible" style={{ opacity: 0.1 }}>
+            <line x1="0" y1="0" x2="100%" y2="100%" stroke="rgba(34,211,238,0.4)" strokeWidth="0.5" strokeDasharray="6 16" className="hero-circuit-dash-slow" />
+          </svg>
+
+          {/* Corner bracket marks */}
+          <div className="absolute top-[20%] left-[22%] w-6 h-6 border-l border-t border-cyan-400/10" style={{ animation: 'heroLabelFadeIn 0.8s ease-out 3s both', opacity: 0 }} />
+          <div className="absolute bottom-[28%] right-[14%] w-6 h-6 border-r border-b border-cyan-400/10" style={{ animation: 'heroLabelFadeIn 0.8s ease-out 3.2s both', opacity: 0 }} />
+
           {/* Bottom fade */}
           <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-[#0a0f1a] to-transparent" />
         </div>
@@ -119,6 +164,20 @@ export const HeroSection = () => {
         @keyframes heroRingPulse {
           0%, 100% { transform: scale(1); opacity: 0.04; }
           50% { transform: scale(1.08); opacity: 0.08; }
+        }
+        @keyframes heroLabelFadeIn {
+          0% { opacity: 0; transform: translateX(-8px); }
+          100% { opacity: 1; transform: translateX(0); }
+        }
+        .hero-circuit-dash {
+          animation: heroDashFlow 3s linear infinite;
+        }
+        .hero-circuit-dash-slow {
+          animation: heroDashFlow 5s linear infinite;
+        }
+        @keyframes heroDashFlow {
+          0% { stroke-dashoffset: 0; }
+          100% { stroke-dashoffset: -40; }
         }
       `}</style>
     </section>
