@@ -380,7 +380,16 @@ export const HeroSection = () => {
           0%, 100% { opacity: 0.1; }
           50% { opacity: 1; }
         }
-        /* Flowing current lines - top to bottom */
+        /* Background full-screen flow lines */
+        .hero-flow-line-bg-1 { animation: heroFlowDownBg 3s linear infinite; }
+        .hero-flow-line-bg-2 { animation: heroFlowDownBg 3.5s linear infinite; animation-delay: 0.6s; }
+        .hero-flow-line-bg-3 { animation: heroFlowDownBg 2.8s linear infinite; animation-delay: 1.2s; }
+        .hero-flow-line-bg-4 { animation: heroFlowDownBg 4s linear infinite; animation-delay: 0.3s; }
+        .hero-flow-line-bg-5 { animation: heroFlowDownBg 3.2s linear infinite; animation-delay: 0.9s; }
+        @keyframes heroFlowDownBg {
+          0% { stroke-dashoffset: 900; }
+          100% { stroke-dashoffset: 0; }
+        }
         .hero-flow-line-1 { animation: heroFlowDown1 2.5s linear infinite; }
         .hero-flow-line-2 { animation: heroFlowDown2 3s linear infinite; animation-delay: 0.5s; }
         .hero-flow-line-3 { animation: heroFlowDown3 2.8s linear infinite; animation-delay: 1s; }
