@@ -119,8 +119,21 @@ export const HeroSection = () => {
               }}
             />
             
-            {/* === On-board flowing current lines (top to bottom) === */}
+            {/* === On-board flowing current lines - spread across board, avoid edges === */}
             <svg className="absolute inset-0 w-full h-full" viewBox="0 0 600 500" preserveAspectRatio="xMidYMid meet" style={{ left: '15%', width: '70%' }}>
+              {/* Mask to fade out edges (transparent border effect) */}
+              <defs>
+                <radialGradient id="edgeMask" cx="50%" cy="50%" r="50%">
+                  <stop offset="0%" stopColor="white" stopOpacity="1" />
+                  <stop offset="60%" stopColor="white" stopOpacity="1" />
+                  <stop offset="85%" stopColor="white" stopOpacity="0.4" />
+                  <stop offset="100%" stopColor="white" stopOpacity="0" />
+                </radialGradient>
+                <mask id="boardMask">
+                  <ellipse cx="300" cy="250" rx="260" ry="220" fill="url(#edgeMask)" />
+                </mask>
+              </defs>
+              <g mask="url(#boardMask)">
               <defs>
                 <linearGradient id="flowGrad1" gradientUnits="userSpaceOnUse" x1="0" y1="0" x2="0" y2="500">
                   <stop offset="0%" stopColor="rgba(56,189,248,0)" />
