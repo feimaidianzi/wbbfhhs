@@ -343,6 +343,10 @@ export const HeroSection = () => {
           0% { stroke-dashoffset: 420; }
           100% { stroke-dashoffset: 0; }
         }
+        @keyframes heroFlowDown6 {
+          0% { stroke-dashoffset: 440; }
+          100% { stroke-dashoffset: 0; }
+        }
       `}</style>
     </section>
   );
