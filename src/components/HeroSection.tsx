@@ -64,6 +64,77 @@ export const HeroSection = () => {
         ))}
       </div>
 
+      {/* === Full-screen flowing current lines (left side included) === */}
+      <div className="absolute inset-0 pointer-events-none overflow-hidden">
+        <svg className="absolute inset-0 w-full h-full" viewBox="0 0 1400 900" preserveAspectRatio="xMidYMid slice">
+          <defs>
+            <linearGradient id="bgFlowGrad1" gradientUnits="userSpaceOnUse" x1="0" y1="0" x2="0" y2="900">
+              <stop offset="0%" stopColor="rgba(56,189,248,0)" />
+              <stop offset="35%" stopColor="rgba(56,189,248,0.9)" />
+              <stop offset="50%" stopColor="rgba(255,255,255,1)" />
+              <stop offset="65%" stopColor="rgba(56,189,248,0.9)" />
+              <stop offset="100%" stopColor="rgba(56,189,248,0)" />
+            </linearGradient>
+            <linearGradient id="bgFlowGrad2" gradientUnits="userSpaceOnUse" x1="0" y1="0" x2="0" y2="900">
+              <stop offset="0%" stopColor="rgba(34,211,238,0)" />
+              <stop offset="35%" stopColor="rgba(34,211,238,0.85)" />
+              <stop offset="50%" stopColor="rgba(255,255,255,1)" />
+              <stop offset="65%" stopColor="rgba(34,211,238,0.85)" />
+              <stop offset="100%" stopColor="rgba(34,211,238,0)" />
+            </linearGradient>
+            <linearGradient id="bgFlowGrad3" gradientUnits="userSpaceOnUse" x1="0" y1="0" x2="0" y2="900">
+              <stop offset="0%" stopColor="rgba(250,204,21,0)" />
+              <stop offset="35%" stopColor="rgba(250,204,21,0.7)" />
+              <stop offset="50%" stopColor="rgba(255,255,255,0.9)" />
+              <stop offset="65%" stopColor="rgba(250,204,21,0.7)" />
+              <stop offset="100%" stopColor="rgba(250,204,21,0)" />
+            </linearGradient>
+            <filter id="bgGlow">
+              <feGaussianBlur stdDeviation="5" result="blur" />
+              <feMerge><feMergeNode in="blur" /><feMergeNode in="blur" /><feMergeNode in="SourceGraphic" /></feMerge>
+            </filter>
+          </defs>
+
+          {/* Left area flow lines */}
+          <path d="M200,0 L200,80 L190,120 L190,250 L200,290 L200,450 L190,490 L190,650 L200,690 L200,900" 
+            fill="none" stroke="rgba(56,189,248,0.1)" strokeWidth="1.5" />
+          <path d="M200,0 L200,80 L190,120 L190,250 L200,290 L200,450 L190,490 L190,650 L200,690 L200,900" 
+            fill="none" stroke="url(#bgFlowGrad1)" strokeWidth="4" strokeLinecap="round" filter="url(#bgGlow)"
+            strokeDasharray="80 820" className="hero-flow-line-bg-1" />
+
+          <path d="M350,0 L350,100 L340,150 L340,300 L350,350 L350,500 L340,550 L340,700 L350,750 L350,900" 
+            fill="none" stroke="rgba(34,211,238,0.08)" strokeWidth="1" />
+          <path d="M350,0 L350,100 L340,150 L340,300 L350,350 L350,500 L340,550 L340,700 L350,750 L350,900" 
+            fill="none" stroke="url(#bgFlowGrad2)" strokeWidth="3.5" strokeLinecap="round" filter="url(#bgGlow)"
+            strokeDasharray="70 830" className="hero-flow-line-bg-2" />
+
+          <path d="M500,0 L500,90 L490,140 L490,280 L500,320 L500,470 L490,520 L490,660 L500,710 L500,900" 
+            fill="none" stroke="rgba(56,189,248,0.06)" strokeWidth="1" />
+          <path d="M500,0 L500,90 L490,140 L490,280 L500,320 L500,470 L490,520 L490,660 L500,710 L500,900" 
+            fill="none" stroke="url(#bgFlowGrad1)" strokeWidth="3" strokeLinecap="round" filter="url(#bgGlow)"
+            strokeDasharray="60 840" className="hero-flow-line-bg-3" />
+
+          {/* Center-left diagonal */}
+          <path d="M280,0 L290,120 L275,240 L290,360 L275,480 L290,600 L275,720 L285,900" 
+            fill="none" stroke="rgba(250,204,21,0.06)" strokeWidth="1" />
+          <path d="M280,0 L290,120 L275,240 L290,360 L275,480 L290,600 L275,720 L285,900" 
+            fill="none" stroke="url(#bgFlowGrad3)" strokeWidth="2.5" strokeLinecap="round" filter="url(#bgGlow)"
+            strokeDasharray="55 845" className="hero-flow-line-bg-4" />
+
+          {/* Right area flow lines */}
+          <path d="M900,0 L900,100 L910,160 L910,320 L900,380 L900,550 L910,610 L910,780 L900,840 L900,900" 
+            fill="none" stroke="rgba(34,211,238,0.06)" strokeWidth="1" />
+          <path d="M900,0 L900,100 L910,160 L910,320 L900,380 L900,550 L910,610 L910,780 L900,840 L900,900" 
+            fill="none" stroke="url(#bgFlowGrad2)" strokeWidth="2.5" strokeLinecap="round" filter="url(#bgGlow)"
+            strokeDasharray="65 835" className="hero-flow-line-bg-5" />
+
+          {/* Junction sparks on left */}
+          {[[200,120],[190,290],[350,150],[340,350],[500,140],[490,320],[280,240],[290,360]].map(([cx,cy], i) => (
+            <circle key={`bg-node-${i}`} cx={cx} cy={cy} r="3" fill="rgba(56,189,248,0.6)" className="hero-node-pulse" style={{ animationDelay: `${i * 0.4}s` }} />
+          ))}
+        </svg>
+      </div>
+
       {/* === Large background circuit board pattern === */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden opacity-[0.06]">
         <svg className="absolute w-full h-full" viewBox="0 0 1200 800" preserveAspectRatio="xMidYMid slice">
