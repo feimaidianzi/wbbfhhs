@@ -322,6 +322,7 @@ export const HeroSection = () => {
         .hero-flow-line-3 { animation: heroFlowDown3 2.8s linear infinite; animation-delay: 1s; }
         .hero-flow-line-4 { animation: heroFlowDown4 3.5s linear infinite; animation-delay: 0.3s; }
         .hero-flow-line-5 { animation: heroFlowDown5 2.2s linear infinite; animation-delay: 0.8s; }
+        .hero-flow-line-6 { animation: heroFlowDown6 3.2s linear infinite; animation-delay: 0.6s; }
         @keyframes heroFlowDown1 {
           0% { stroke-dashoffset: 500; }
           100% { stroke-dashoffset: 0; }
