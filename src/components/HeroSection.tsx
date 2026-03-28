@@ -339,6 +339,22 @@ export const HeroSection = () => {
           0%, 100% { transform: scaleY(1); opacity: 0.2; }
           50% { transform: scaleY(1.6); opacity: 0.4; }
         }
+        .hero-chip-pulse {
+          animation: heroChipPulse 3s ease-in-out infinite;
+        }
+        @keyframes heroChipPulse {
+          0%, 100% { opacity: 0.04; transform: scale(1); }
+          50% { opacity: 0.12; transform: scale(1.1); }
+        }
+        .hero-arc-flash {
+          animation: heroArcFlash 4s ease-in-out infinite;
+        }
+        @keyframes heroArcFlash {
+          0%, 90%, 100% { opacity: 0; transform: scale(0.5); }
+          92% { opacity: 0.8; transform: scale(1.5); }
+          95% { opacity: 0; transform: scale(0.8); }
+          97% { opacity: 0.6; transform: scale(1.2); }
+        }
       `}</style>
     </section>
   );
