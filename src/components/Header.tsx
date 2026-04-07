@@ -197,23 +197,26 @@ export const Header = () => {
           <Logo />
 
           {/* Desktop Navigation */}
-          <div className="hidden nav:flex items-center justify-center flex-1 min-w-0 mx-1 relative overflow-hidden">
-            {showLeftArrow && (
+          <div className="hidden nav:flex items-center justify-center flex-1 min-w-0 mx-1 relative">
+            {/* Left fade + arrow */}
+            <div
+              className={`absolute left-0 z-10 h-full flex items-center pointer-events-none transition-opacity duration-300 ${showLeftArrow ? 'opacity-100' : 'opacity-0'}`}
+            >
+              <div className={`absolute left-0 top-0 bottom-0 w-10 ${isScrolled ? 'bg-gradient-to-r from-background/95 to-transparent' : 'bg-gradient-to-r from-foreground/80 to-transparent'}`} />
               <button
                 onClick={() => scrollNav('left')}
-                className={`absolute left-0 z-10 p-2 rounded-full shadow-lg border-2 transition-all hover:scale-115 active:scale-95 ${
-                  isScrolled 
-                    ? 'bg-accent text-accent-foreground border-accent shadow-accent/30 hover:bg-accent/90' 
-                    : 'bg-background text-foreground border-border shadow-black/20 hover:bg-secondary'
+                className={`relative pointer-events-auto p-1 rounded-md transition-all hover:scale-110 ${
+                  isScrolled ? 'text-muted-foreground hover:text-foreground' : 'text-white/60 hover:text-white'
                 }`}
               >
-                <ChevronLeft className="w-5 h-5 stroke-[3]" />
+                <ChevronLeft className="w-4 h-4" />
               </button>
-            )}
+            </div>
+
             <nav
               ref={navScrollRef}
               onScroll={checkNavScroll}
-              className="flex items-center gap-0.5 overflow-x-auto scrollbar-hide scroll-smooth max-w-full"
+              className="flex items-center gap-0.5 overflow-x-auto scrollbar-hide scroll-smooth max-w-full px-1"
               style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
             >
               {navItems.map((item) => (
@@ -241,18 +244,21 @@ export const Header = () => {
                 </div>
               ))}
             </nav>
-            {showRightArrow && (
+
+            {/* Right fade + arrow */}
+            <div
+              className={`absolute right-0 z-10 h-full flex items-center justify-end pointer-events-none transition-opacity duration-300 ${showRightArrow ? 'opacity-100' : 'opacity-0'}`}
+            >
+              <div className={`absolute right-0 top-0 bottom-0 w-10 ${isScrolled ? 'bg-gradient-to-l from-background/95 to-transparent' : 'bg-gradient-to-l from-foreground/80 to-transparent'}`} />
               <button
                 onClick={() => scrollNav('right')}
-                className={`absolute right-0 z-10 p-2 rounded-full shadow-lg border-2 transition-all hover:scale-115 active:scale-95 ${
-                  isScrolled 
-                    ? 'bg-accent text-accent-foreground border-accent shadow-accent/30 hover:bg-accent/90' 
-                    : 'bg-background text-foreground border-border shadow-black/20 hover:bg-secondary'
+                className={`relative pointer-events-auto p-1 rounded-md transition-all hover:scale-110 ${
+                  isScrolled ? 'text-muted-foreground hover:text-foreground' : 'text-white/60 hover:text-white'
                 }`}
               >
-                <ChevronRight className="w-5 h-5 stroke-[3]" />
+                <ChevronRight className="w-4 h-4" />
               </button>
-            )}
+            </div>
           </div>
 
           {/* Full-width Dropdown Menu */}
