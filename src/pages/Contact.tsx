@@ -67,7 +67,7 @@ const Contact = () => {
     { icon: Mail, title: t('contact.info.salesEmail') || 'Sales', value: "sales@caniuav.com", href: "mailto:sales@caniuav.com" },
     { icon: Mail, title: t('contact.info.techEmail'), value: "support@caniuav.com", href: "mailto:support@caniuav.com" },
     { icon: Mail, title: t('contact.info.feedbackEmail') || 'Feedback', value: "feedback@caniuav.com", href: "mailto:feedback@caniuav.com" },
-    { icon: MessageCircle, title: t('contact.info.wechat'), value: "+8617558423252", href: "weixin://dl/chat?+8617558423252" },
+    { icon: MessageCircle, title: t('contact.info.wechat'), value: "+8618008451238", href: "weixin://dl/chat?+8618008451238" },
     { icon: Clock, title: t('contact.info.workingHours'), value: t('contact.info.workingHours.value'), href: null },
   ];
 
