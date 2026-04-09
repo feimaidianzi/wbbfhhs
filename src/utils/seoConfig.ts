@@ -104,7 +104,7 @@ export const createLocalizedOrganizationData = (lang: LanguageCode, t: (key: str
   },
   contactPoint: {
     '@type': 'ContactPoint',
-    telephone: '+86-17585423252',
+    telephone: '+86-18008451238',
     contactType: 'customer service',
     availableLanguage: getLanguageDisplayName(lang),
   },
