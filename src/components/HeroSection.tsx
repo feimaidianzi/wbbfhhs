@@ -120,7 +120,7 @@ export const HeroSection = () => {
             />
             
             {/* === On-board flowing current lines - spread across board, avoid edges === */}
-            <svg className="absolute inset-0 w-full h-full" viewBox="0 0 600 500" preserveAspectRatio="xMidYMid meet" style={{ left: '15%', width: '70%' }}>
+            <svg className="absolute inset-0 w-full h-full" viewBox="0 0 600 500" preserveAspectRatio="xMidYMid meet" style={{ left: '2%', width: '70%' }}>
               {/* Mask to fade out edges (transparent border effect) */}
               <defs>
                 <radialGradient id="edgeMask" cx="50%" cy="50%" r="50%">
