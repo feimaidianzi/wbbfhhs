@@ -1,5 +1,6 @@
-const CACHE_NAME = 'cani-v1';
-const STATIC_CACHE = 'cani-static-v1';
+const CACHE_NAME = 'cani-v2';
+const STATIC_CACHE = 'cani-static-v2';
+const ALLOWED_HOSTS = new Set(['www.caniuav.com', 'caniuav.com']);
 
 // Assets to precache on install
 const PRECACHE_URLS = [
@@ -35,18 +36,23 @@ self.addEventListener('fetch', (event) => {
   const { request } = event;
   const url = new URL(request.url);
 
+  if (!ALLOWED_HOSTS.has(self.location.hostname)) {
+    return;
+  }
+
   // Skip non-GET requests
   if (request.method !== 'GET') return;
 
   // Skip Supabase/API calls - always network
   if (url.hostname.includes('supabase') || url.pathname.startsWith('/rest/')) return;
 
-  // Static assets: cache-first (images, fonts, CSS, JS chunks)
+  // Static assets: cache-first for stable assets only.
+  // Do NOT cache JS chunks here — hashed bundles can go stale after deploys
+  // and cause blank pages when old HTML points to removed chunk files.
   if (
     request.destination === 'image' ||
     request.destination === 'font' ||
-    request.destination === 'style' ||
-    (request.destination === 'script' && url.pathname.includes('/assets/'))
+    request.destination === 'style'
   ) {
     event.respondWith(
       caches.match(request).then((cached) => {
