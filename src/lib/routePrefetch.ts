@@ -103,7 +103,7 @@ const dynamicMap: Array<{ prefix: string; factory: Factory }> = [
   { prefix: "/products/accessories/fc-esc/", factory: once(() => import("@/pages/products/accessories/FcEscDetail")) },
   { prefix: "/products/accessories/gimbal/", factory: once(() => import("@/pages/products/accessories/GimbalDetail")) },
   { prefix: "/products/accessories/camera/", factory: once(() => import("@/pages/products/accessories/CameraDetail")) },
-  { prefix: "/products/accessories/digital-fpv/", factory: once(() => import("@/pages/products/accessories/DigitalFpvDetail").catch(() => import("@/pages/fpv/DigitalFpvDetail"))) },
+  { prefix: "/products/accessories/digital-fpv/", factory: once(() => import("@/pages/fpv/DigitalFpvDetail")) },
   { prefix: "/products/accessories/elrs/", factory: once(() => import("@/pages/products/accessories/ElrsDetail")) },
   { prefix: "/products/accessories/others/", factory: once(() => import("@/pages/products/accessories/OtherAccessoriesDetail")) },
   { prefix: "/products/accessories/ai-module/", factory: once(() => import("@/pages/products/accessories/AiModuleDetail")) },
