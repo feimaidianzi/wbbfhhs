@@ -16,6 +16,10 @@ interface OptimizedImageProps {
   objectFit?: 'cover' | 'contain' | 'fill' | 'none';
   /** Called on error */
   onError?: () => void;
+  /** Optional responsive srcSet (e.g. "img-400.webp 400w, img-800.webp 800w") */
+  srcSet?: string;
+  /** Optional sizes hint (e.g. "(max-width: 768px) 100vw, 50vw") */
+  sizes?: string;
 }
 
 const DEFAULT_FALLBACK = "/placeholder.svg";
@@ -38,6 +42,8 @@ export const OptimizedImage = ({
   fallback = DEFAULT_FALLBACK,
   objectFit = 'cover',
   onError,
+  srcSet,
+  sizes,
 }: OptimizedImageProps) => {
   const [imgSrc, setImgSrc] = useState(src);
   const [hasError, setHasError] = useState(false);
@@ -63,6 +69,8 @@ export const OptimizedImage = ({
       alt={alt}
       width={width}
       height={height}
+      srcSet={!hasError ? srcSet : undefined}
+      sizes={!hasError ? sizes : undefined}
       loading={priority ? 'eager' : 'lazy'}
       decoding={priority ? 'sync' : 'async'}
       fetchPriority={priority ? 'high' : undefined}
