@@ -199,36 +199,9 @@ export const HeroSection = () => {
           0%, 100% { transform: scaleY(1); opacity: 0.2; }
           50% { transform: scaleY(1.6); opacity: 0.4; }
         }
-        .hero-node-pulse {
-          animation: heroNodePulse 2s ease-in-out infinite;
-        }
-        @keyframes heroNodePulse {
-          0%, 100% { opacity: 0.3; }
-          50% { opacity: 0.8; }
-        }
-        @keyframes heroSparkFlash {
-          0%, 100% { opacity: 0.1; }
-          50% { opacity: 1; }
-        }
-        /* Flowing current lines - top to bottom, spread across board */
-        .hero-flow-line-1 { animation: heroFlowDown1 3.5s linear infinite; }
-        .hero-flow-line-2 { animation: heroFlowDown2 2.8s linear infinite; animation-delay: 0.3s; }
-        .hero-flow-line-3 { animation: heroFlowDown3 2.5s linear infinite; animation-delay: 0.7s; }
-        .hero-flow-line-4 { animation: heroFlowDown4 3s linear infinite; animation-delay: 0.5s; }
-        .hero-flow-line-5 { animation: heroFlowDown5 2.6s linear infinite; animation-delay: 0.9s; }
-        .hero-flow-line-6 { animation: heroFlowDown6 2.8s linear infinite; animation-delay: 0.2s; }
-        .hero-flow-line-7 { animation: heroFlowDown7 3.5s linear infinite; animation-delay: 1.1s; }
-        .hero-flow-line-8 { animation: heroFlowDown8 3.2s linear infinite; animation-delay: 0.6s; }
-        .hero-flow-line-9 { animation: heroFlowDown9 2.9s linear infinite; animation-delay: 0.8s; }
-        @keyframes heroFlowDown1 { 0% { stroke-dashoffset: 550; } 100% { stroke-dashoffset: 0; } }
-        @keyframes heroFlowDown2 { 0% { stroke-dashoffset: 500; } 100% { stroke-dashoffset: 0; } }
-        @keyframes heroFlowDown3 { 0% { stroke-dashoffset: 520; } 100% { stroke-dashoffset: 0; } }
-        @keyframes heroFlowDown4 { 0% { stroke-dashoffset: 530; } 100% { stroke-dashoffset: 0; } }
-        @keyframes heroFlowDown5 { 0% { stroke-dashoffset: 520; } 100% { stroke-dashoffset: 0; } }
-        @keyframes heroFlowDown6 { 0% { stroke-dashoffset: 500; } 100% { stroke-dashoffset: 0; } }
-        @keyframes heroFlowDown7 { 0% { stroke-dashoffset: 550; } 100% { stroke-dashoffset: 0; } }
-        @keyframes heroFlowDown8 { 0% { stroke-dashoffset: 480; } 100% { stroke-dashoffset: 0; } }
-        @keyframes heroFlowDown9 { 0% { stroke-dashoffset: 490; } 100% { stroke-dashoffset: 0; } }
+        /* Removed: hero-node-pulse, hero-spark-flash, hero-flow-line-* keyframes
+           — the SVG elements that consumed them have been deleted to fix the
+           "non-composited animations" warning from PageSpeed. */
       `}</style>
     </section>
   );
