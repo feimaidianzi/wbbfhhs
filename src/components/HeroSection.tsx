@@ -65,38 +65,40 @@ export const HeroSection = () => {
         ))}
       </div>
 
-      {/* === Large background circuit board pattern === */}
-      <div className="absolute inset-0 pointer-events-none overflow-hidden opacity-[0.06]">
-        <svg className="absolute w-full h-full" viewBox="0 0 1200 800" preserveAspectRatio="xMidYMid slice">
-          {/* Main horizontal traces */}
-          <path d="M0,120 H300 L320,140 H500 L520,120 H800 L830,150 H1200" fill="none" stroke="rgba(56,189,248,0.6)" strokeWidth="1.2" className="hero-circuit-dash" />
-          <path d="M0,280 H200 L220,260 H450 L470,280 H700 L720,300 H1200" fill="none" stroke="rgba(34,211,238,0.5)" strokeWidth="1" className="hero-circuit-dash-slow" />
-          <path d="M0,500 H150 L170,480 H400 L420,500 H650 L680,520 H1200" fill="none" stroke="rgba(56,189,248,0.4)" strokeWidth="0.8" className="hero-circuit-dash" />
-          <path d="M0,650 H250 L270,630 H550 L570,650 H900 L920,670 H1200" fill="none" stroke="rgba(34,211,238,0.4)" strokeWidth="0.8" className="hero-circuit-dash-slow" />
-          {/* Vertical traces */}
-          <path d="M300,0 V200 L280,220 V400 L300,420 V600 L280,620 V800" fill="none" stroke="rgba(56,189,248,0.3)" strokeWidth="0.8" className="hero-circuit-dash" />
-          <path d="M700,0 V150 L720,170 V350 L700,370 V550 L720,570 V800" fill="none" stroke="rgba(34,211,238,0.3)" strokeWidth="0.8" className="hero-circuit-dash-slow" />
-          <path d="M1000,0 V180 L980,200 V420 L1000,440 V800" fill="none" stroke="rgba(56,189,248,0.25)" strokeWidth="0.6" className="hero-circuit-dash" />
-          {/* Junction pads */}
-          {[[300,120],[500,140],[800,120],[200,280],[450,260],[700,280],[300,200],[700,350],[150,500],[400,480],[650,500],[1000,440]].map(([cx,cy], i) => (
-            <g key={`pad-${i}`}>
-              <circle cx={cx} cy={cy} r="4" fill="none" stroke="rgba(56,189,248,0.4)" strokeWidth="0.8" />
-              <circle cx={cx} cy={cy} r="1.5" fill="rgba(56,189,248,0.5)" />
-            </g>
-          ))}
-          {/* IC chip outlines */}
-          <rect x="180" y="350" width="60" height="40" rx="3" fill="none" stroke="rgba(56,189,248,0.3)" strokeWidth="0.8" />
-          <rect x="850" y="200" width="50" height="35" rx="3" fill="none" stroke="rgba(34,211,238,0.3)" strokeWidth="0.8" />
-          <rect x="550" y="550" width="70" height="45" rx="3" fill="none" stroke="rgba(56,189,248,0.25)" strokeWidth="0.6" />
-          {/* IC pins */}
-          {[0,1,2,3,4].map(i => (
-            <g key={`pin-${i}`}>
-              <line x1={185 + i*10} y1="350" x2={185 + i*10} y2="342" stroke="rgba(56,189,248,0.3)" strokeWidth="0.6" />
-              <line x1={185 + i*10} y1="390" x2={185 + i*10} y2="398" stroke="rgba(56,189,248,0.3)" strokeWidth="0.6" />
-            </g>
-          ))}
-        </svg>
-      </div>
+      {/* === Large background circuit board pattern (deferred — non-LCP decoration) === */}
+      <DeferredMount delay={1200}>
+        <div className="absolute inset-0 pointer-events-none overflow-hidden opacity-[0.06]">
+          <svg className="absolute w-full h-full" viewBox="0 0 1200 800" preserveAspectRatio="xMidYMid slice">
+            {/* Main horizontal traces */}
+            <path d="M0,120 H300 L320,140 H500 L520,120 H800 L830,150 H1200" fill="none" stroke="rgba(56,189,248,0.6)" strokeWidth="1.2" className="hero-circuit-dash" />
+            <path d="M0,280 H200 L220,260 H450 L470,280 H700 L720,300 H1200" fill="none" stroke="rgba(34,211,238,0.5)" strokeWidth="1" className="hero-circuit-dash-slow" />
+            <path d="M0,500 H150 L170,480 H400 L420,500 H650 L680,520 H1200" fill="none" stroke="rgba(56,189,248,0.4)" strokeWidth="0.8" className="hero-circuit-dash" />
+            <path d="M0,650 H250 L270,630 H550 L570,650 H900 L920,670 H1200" fill="none" stroke="rgba(34,211,238,0.4)" strokeWidth="0.8" className="hero-circuit-dash-slow" />
+            {/* Vertical traces */}
+            <path d="M300,0 V200 L280,220 V400 L300,420 V600 L280,620 V800" fill="none" stroke="rgba(56,189,248,0.3)" strokeWidth="0.8" className="hero-circuit-dash" />
+            <path d="M700,0 V150 L720,170 V350 L700,370 V550 L720,570 V800" fill="none" stroke="rgba(34,211,238,0.3)" strokeWidth="0.8" className="hero-circuit-dash-slow" />
+            <path d="M1000,0 V180 L980,200 V420 L1000,440 V800" fill="none" stroke="rgba(56,189,248,0.25)" strokeWidth="0.6" className="hero-circuit-dash" />
+            {/* Junction pads */}
+            {[[300,120],[500,140],[800,120],[200,280],[450,260],[700,280],[300,200],[700,350],[150,500],[400,480],[650,500],[1000,440]].map(([cx,cy], i) => (
+              <g key={`pad-${i}`}>
+                <circle cx={cx} cy={cy} r="4" fill="none" stroke="rgba(56,189,248,0.4)" strokeWidth="0.8" />
+                <circle cx={cx} cy={cy} r="1.5" fill="rgba(56,189,248,0.5)" />
+              </g>
+            ))}
+            {/* IC chip outlines */}
+            <rect x="180" y="350" width="60" height="40" rx="3" fill="none" stroke="rgba(56,189,248,0.3)" strokeWidth="0.8" />
+            <rect x="850" y="200" width="50" height="35" rx="3" fill="none" stroke="rgba(34,211,238,0.3)" strokeWidth="0.8" />
+            <rect x="550" y="550" width="70" height="45" rx="3" fill="none" stroke="rgba(56,189,248,0.25)" strokeWidth="0.6" />
+            {/* IC pins */}
+            {[0,1,2,3,4].map(i => (
+              <g key={`pin-${i}`}>
+                <line x1={185 + i*10} y1="350" x2={185 + i*10} y2="342" stroke="rgba(56,189,248,0.3)" strokeWidth="0.6" />
+                <line x1={185 + i*10} y1="390" x2={185 + i*10} y2="398" stroke="rgba(56,189,248,0.3)" strokeWidth="0.6" />
+              </g>
+            ))}
+          </svg>
+        </div>
+      </DeferredMount>
 
       {/* Right-side hero product image with circuit tech overlay */}
       <div className="absolute right-0 top-0 bottom-0 w-[55%] hidden lg:block pointer-events-none">
