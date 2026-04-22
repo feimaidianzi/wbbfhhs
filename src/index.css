@@ -712,10 +712,20 @@
   }
 }
 
+/* The hero <section> often uses Tailwind utilities like `py-24` which share
+ * the same specificity as a global rule and would win by source order — that
+ * caused hero content to render UNDER the fixed <Header />.
+ * Fix: force the first hero section to reserve at LEAST the header height,
+ * while still respecting larger declared paddings via max(). */
 main > section:first-child {
-  padding-top: var(--header-h);
-  /* Keep declared min-height visually equivalent by absorbing the padding */
+  padding-top: max(var(--header-h), 6rem) !important;
   box-sizing: border-box;
+}
+/* Pages that previously compensated with `pt-16` / `pt-20` on <main> would
+ * now double-offset; neutralize them so spacing stays consistent. */
+main[class*="pt-16"],
+main[class*="pt-20"] {
+  padding-top: 0 !important;
 }
 
 /* Anchor scrolling (e.g. #features) should not slide under the fixed header */
