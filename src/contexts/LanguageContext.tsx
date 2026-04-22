@@ -10,10 +10,20 @@ import {
 import { loadTranslations, loadHomeTranslations, setTranslations, hasTranslations, getTranslations } from '@/i18n';
 import { safeStorageGet, safeStorageSet } from '@/lib/utils';
 
-// Kick off ENGLISH HOME translation load IMMEDIATELY at module evaluation, in
-// parallel with the main bundle. This is only ~6KB gzip (vs ~180KB for the
-// full en chunk) so it lands well before LCP, even on slow networks.
-const enHomeLoadPromise: Promise<Record<string, string>> = loadHomeTranslations('en');
+// Kick off HOME translation load IMMEDIATELY at module evaluation, in parallel
+// with the main bundle. The small *-home chunks (~6KB gzip vs ~180KB full)
+// land well before LCP. We detect the URL language synchronously to avoid
+// loading EN home for users who actually need a non-EN language.
+const detectInitialLang = (): LanguageCode => {
+  if (typeof window === 'undefined') return 'en';
+  const seg = window.location.pathname.split('/')[1];
+  if (seg === 'zh') return 'zh';
+  // All other languages currently fall back to the EN home chunk + their full
+  // chunk loaded on demand. EN home is universally useful as the bootstrap.
+  return 'en';
+};
+const initialBootstrapLang = detectInitialLang();
+const enHomeLoadPromise: Promise<Record<string, string>> = loadHomeTranslations(initialBootstrapLang);
 
 interface LanguageContextType {
   language: LanguageCode;
