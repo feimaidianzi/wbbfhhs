@@ -1,4 +1,3 @@
-import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { LangLink } from "@/components/LangLink";
 import { ArrowRight, Play, ChevronDown } from "lucide-react";
@@ -6,19 +5,6 @@ import { useLanguage } from "@/contexts/LanguageContext";
 
 // Mobile hero image — smaller real product photo for fast load
 const HERO_PCB_SRC = "/hero-fc-board-sm.webp";
-
-const statsVariants = {
-  hidden: { opacity: 0, y: 20 },
-  visible: (i: number) => ({
-    opacity: 1,
-    y: 0,
-    transition: {
-      delay: 1.2 + i * 0.15,
-      duration: 0.6,
-      ease: "easeOut",
-    },
-  }),
-};
 
 export const HeroContent = () => {
   const { t } = useLanguage();
@@ -100,12 +86,10 @@ export const HeroContent = () => {
         {/* Stats — clean horizontal row */}
         <div className="flex gap-8 md:gap-12 hero-animate-stats">
           {stats.map((stat, index) => (
-            <motion.div
+            <div
               key={index}
-              custom={index}
-              variants={statsVariants}
-              initial="hidden"
-              animate="visible"
+              className="hero-stat-item"
+              style={{ animationDelay: `${1.2 + index * 0.15}s` }}
             >
               <div className="text-3xl md:text-4xl font-bold text-white mb-1">
                 {stat.value}
@@ -113,28 +97,20 @@ export const HeroContent = () => {
               <div className="text-xs text-white/40 uppercase tracking-wider">
                 {t(stat.labelKey)}
               </div>
-            </motion.div>
+            </div>
           ))}
         </div>
       </div>
 
-      {/* Scroll Indicator */}
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 2, duration: 0.8 }}
-        className="absolute bottom-10 left-1/2 -translate-x-1/2"
-      >
+      {/* Scroll Indicator — pure CSS animation */}
+      <div className="hero-scroll-indicator absolute bottom-10 left-1/2 -translate-x-1/2">
         <div className="flex flex-col items-center gap-2 text-white/30">
           <span className="text-[10px] tracking-[0.3em] uppercase">{t('hero.scroll')}</span>
-          <motion.div
-            animate={{ y: [0, 6, 0] }}
-            transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
-          >
+          <div className="hero-scroll-chevron">
             <ChevronDown className="w-4 h-4" />
-          </motion.div>
+          </div>
         </div>
-      </motion.div>
+      </div>
     </div>
   );
 };
