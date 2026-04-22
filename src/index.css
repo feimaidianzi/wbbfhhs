@@ -685,3 +685,21 @@
     transition: none !important;
   }
 }
+
+/* ===========================================================================
+ * Global page-hero offset
+ * The site uses a fixed <Header /> (h-16 mobile, h-20 desktop). Hero sections
+ * with `min-h-[Xvh] flex items-center` were vertically centering content
+ * against the full viewport, which placed text under the header — making
+ * banners look cramped at the top. This rule reserves header height on the
+ * first <section> inside any <main>, so vertical centering works visually.
+ * Existing inner padding (py-20 etc.) stacks on top of this.
+ * =========================================================================== */
+main > section:first-child {
+  padding-top: 4rem; /* 64px = mobile header height */
+}
+@media (min-width: 768px) {
+  main > section:first-child {
+    padding-top: 5rem; /* 80px = desktop header height */
+  }
+}
