@@ -1,6 +1,5 @@
 import { HeroContent } from "./hero/HeroContent";
 import { WaveTransition } from "./hero/WaveTransition";
-import { DeferredMount } from "./DeferredMount";
 
 // LCP image: real CANI flight controller product photo, served from /public for HTML preload
 const HERO_PCB_SRC = "/hero-fc-board.webp";
