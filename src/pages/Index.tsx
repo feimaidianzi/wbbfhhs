@@ -1,22 +1,25 @@
+import React, { lazy, Suspense } from "react";
 import { Header } from "@/components/Header";
-
-import { FAQSection } from "@/components/FAQSection";
-import { AEOFAQSection } from "@/components/AEOFAQSection";
 import { HeroSection } from "@/components/HeroSection";
 import { ProductsSection } from "@/components/ProductsSection";
 import { CompanyIntroSection } from "@/components/CompanyIntroSection";
-import { ApplicationsSection } from "@/components/ApplicationsSection";
-import { WhyChooseUsSection } from "@/components/WhyChooseUsSection";
-import { SolutionsSection } from "@/components/SolutionsSection";
-import { CTASection } from "@/components/CTASection";
-import { CertificationsSection } from "@/components/CertificationsSection";
-import { NewsSection } from "@/components/NewsSection";
-import { PartnersSection } from "@/components/PartnersSection";
 import { Footer } from "@/components/Footer";
 import { FloatingContact } from "@/components/FloatingContact";
 import { MultiLanguageSEO } from "@/components/MultiLanguageSEO";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { ScrollReveal, ParallaxSection } from "@/components/ScrollAnimations";
+import { DeferredMount } from "@/components/DeferredMount";
+
+// Lazy-load below-fold sections — not needed for LCP
+const FAQSection = lazy(() => import("@/components/FAQSection").then(m => ({ default: m.FAQSection })));
+const AEOFAQSection = lazy(() => import("@/components/AEOFAQSection").then(m => ({ default: m.AEOFAQSection })));
+const ApplicationsSection = lazy(() => import("@/components/ApplicationsSection").then(m => ({ default: m.ApplicationsSection })));
+const WhyChooseUsSection = lazy(() => import("@/components/WhyChooseUsSection").then(m => ({ default: m.WhyChooseUsSection })));
+const SolutionsSection = lazy(() => import("@/components/SolutionsSection").then(m => ({ default: m.SolutionsSection })));
+const CTASection = lazy(() => import("@/components/CTASection").then(m => ({ default: m.CTASection })));
+const CertificationsSection = lazy(() => import("@/components/CertificationsSection").then(m => ({ default: m.CertificationsSection })));
+const NewsSection = lazy(() => import("@/components/NewsSection").then(m => ({ default: m.NewsSection })));
+const PartnersSection = lazy(() => import("@/components/PartnersSection").then(m => ({ default: m.PartnersSection })));
 
 const Index = () => {
   const { t } = useLanguage();

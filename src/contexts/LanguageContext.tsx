@@ -105,7 +105,7 @@ export const LanguageProvider: React.FC<LanguageProviderProps> = ({ children }) 
   });
 
   // Never block first render — we always have English available
-  const [isLoading, setIsLoading] = useState(false);
+  const isLoading = false;
   const initDone = useRef(false);
 
   const langConfig = getLanguageByCode(language);
