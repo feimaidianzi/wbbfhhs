@@ -101,8 +101,9 @@ Disallow: /tr/tr/
 # Block all paths deeper than 4 segments (catches any recursive path abuse)
 Disallow: /*/*/*/*/*/*/
 
-# Sitemap
+# Sitemaps — static (legacy hardcoded routes) + dynamic (full DB-driven feed)
 Sitemap: https://www.caniuav.com/sitemap.xml
+Sitemap: https://tuxslfemwkdmnkldlmmy.supabase.co/functions/v1/dynamic-sitemap
 
 # Host
 Host: https://www.caniuav.com
