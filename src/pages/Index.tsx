@@ -1,22 +1,25 @@
+import React, { lazy, Suspense } from "react";
 import { Header } from "@/components/Header";
-
-import { FAQSection } from "@/components/FAQSection";
-import { AEOFAQSection } from "@/components/AEOFAQSection";
 import { HeroSection } from "@/components/HeroSection";
 import { ProductsSection } from "@/components/ProductsSection";
 import { CompanyIntroSection } from "@/components/CompanyIntroSection";
-import { ApplicationsSection } from "@/components/ApplicationsSection";
-import { WhyChooseUsSection } from "@/components/WhyChooseUsSection";
-import { SolutionsSection } from "@/components/SolutionsSection";
-import { CTASection } from "@/components/CTASection";
-import { CertificationsSection } from "@/components/CertificationsSection";
-import { NewsSection } from "@/components/NewsSection";
-import { PartnersSection } from "@/components/PartnersSection";
 import { Footer } from "@/components/Footer";
 import { FloatingContact } from "@/components/FloatingContact";
 import { MultiLanguageSEO } from "@/components/MultiLanguageSEO";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { ScrollReveal, ParallaxSection } from "@/components/ScrollAnimations";
+import { DeferredMount } from "@/components/DeferredMount";
+
+// Lazy-load below-fold sections — not needed for LCP
+const FAQSection = lazy(() => import("@/components/FAQSection").then(m => ({ default: m.FAQSection })));
+const AEOFAQSection = lazy(() => import("@/components/AEOFAQSection").then(m => ({ default: m.AEOFAQSection })));
+const ApplicationsSection = lazy(() => import("@/components/ApplicationsSection").then(m => ({ default: m.ApplicationsSection })));
+const WhyChooseUsSection = lazy(() => import("@/components/WhyChooseUsSection").then(m => ({ default: m.WhyChooseUsSection })));
+const SolutionsSection = lazy(() => import("@/components/SolutionsSection").then(m => ({ default: m.SolutionsSection })));
+const CTASection = lazy(() => import("@/components/CTASection").then(m => ({ default: m.CTASection })));
+const CertificationsSection = lazy(() => import("@/components/CertificationsSection").then(m => ({ default: m.CertificationsSection })));
+const NewsSection = lazy(() => import("@/components/NewsSection").then(m => ({ default: m.NewsSection })));
+const PartnersSection = lazy(() => import("@/components/PartnersSection").then(m => ({ default: m.PartnersSection })));
 
 const Index = () => {
   const { t } = useLanguage();
@@ -171,51 +174,58 @@ const Index = () => {
           </section>
         </ScrollReveal>
 
-        <ScrollReveal direction="right" delay={0.1}>
-          <ParallaxSection speed={0.15}>
-            <WhyChooseUsSection />
-          </ParallaxSection>
-        </ScrollReveal>
+        <Suspense fallback={null}>
+          <ScrollReveal direction="right" delay={0.1}>
+            <ParallaxSection speed={0.15}>
+              <WhyChooseUsSection />
+            </ParallaxSection>
+          </ScrollReveal>
 
-        <ScrollReveal direction="up" delay={0}>
-          <SolutionsSection />
-        </ScrollReveal>
+          <ScrollReveal direction="up" delay={0}>
+            <SolutionsSection />
+          </ScrollReveal>
 
-        <ScrollReveal direction="left" delay={0.1}>
-          <ParallaxSection speed={0.2}>
-            <ApplicationsSection />
-          </ParallaxSection>
-        </ScrollReveal>
+          <ScrollReveal direction="left" delay={0.1}>
+            <ParallaxSection speed={0.2}>
+              <ApplicationsSection />
+            </ParallaxSection>
+          </ScrollReveal>
+        </Suspense>
 
-        <ScrollReveal direction="up" delay={0}>
-          <NewsSection />
-        </ScrollReveal>
+        {/* Below-fold sections — mount after browser is idle to protect LCP */}
+        <DeferredMount delay={1500}>
+          <Suspense fallback={null}>
+            <ScrollReveal direction="up" delay={0}>
+              <NewsSection />
+            </ScrollReveal>
 
-        <ScrollReveal direction="right" delay={0.1}>
-          <PartnersSection />
-        </ScrollReveal>
+            <ScrollReveal direction="right" delay={0.1}>
+              <PartnersSection />
+            </ScrollReveal>
 
-        <ScrollReveal direction="up" delay={0}>
-          <ParallaxSection speed={0.15}>
-            <CertificationsSection />
-          </ParallaxSection>
-        </ScrollReveal>
+            <ScrollReveal direction="up" delay={0}>
+              <ParallaxSection speed={0.15}>
+                <CertificationsSection />
+              </ParallaxSection>
+            </ScrollReveal>
 
-        <ScrollReveal direction="up" delay={0.1}>
-          <AEOFAQSection includeSchema={false} />
-        </ScrollReveal>
+            <ScrollReveal direction="up" delay={0.1}>
+              <AEOFAQSection includeSchema={false} />
+            </ScrollReveal>
 
-        <ScrollReveal direction="up" delay={0}>
-          <FAQSection category="general" limit={6} includeSchema={false} />
-        </ScrollReveal>
+            <ScrollReveal direction="up" delay={0}>
+              <FAQSection category="general" limit={6} includeSchema={false} />
+            </ScrollReveal>
 
-        <ScrollReveal direction="up" delay={0}>
-          <FAQSection category="products" limit={4} showTitle={false} includeSchema={false} />
-        </ScrollReveal>
+            <ScrollReveal direction="up" delay={0}>
+              <FAQSection category="products" limit={4} showTitle={false} includeSchema={false} />
+            </ScrollReveal>
 
-        <ScrollReveal direction="up" delay={0.1}>
-          <CTASection />
-        </ScrollReveal>
+            <ScrollReveal direction="up" delay={0.1}>
+              <CTASection />
+            </ScrollReveal>
+          </Suspense>
+        </DeferredMount>
         
       </main>
       <Footer />

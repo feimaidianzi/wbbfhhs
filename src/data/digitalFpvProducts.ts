@@ -1,4 +1,4 @@
-import wifilink2Image from "@/assets/fpv/wifilink2-new.jpg";
+import wifilink2Image from "@/assets/fpv/wifilink2-new.webp";
 import wifilinkRxImage from "@/assets/fpv/wifilink-rx-new.jpg";
 import s900Datalink1 from "@/assets/fpv/s900-datalink-1.jpg";
 import s900Datalink2 from "@/assets/fpv/s900-datalink-2.jpg";

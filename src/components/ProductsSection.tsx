@@ -3,9 +3,9 @@ import { ArrowRight, Sparkles, Zap, Radio, Camera, Gamepad2, Cpu } from "lucide-
 import { LangLink } from "@/components/LangLink";
 import { useLanguage } from "@/contexts/LanguageContext";
 import digitalFpvImg from "@/assets/products/digital-fpv-wifilink2.jpg";
-import vtxImg from "@/assets/products/vtx-2.5w.png";
-import fcEscImg from "@/assets/products/fc-esc-stack.jpg";
-import gimbalImg from "@/assets/products/gimbal-k40t.png";
+import vtxImg from "@/assets/products/vtx-2.5w.webp";
+import fcEscImg from "@/assets/products/fc-esc-stack.webp";
+import gimbalImg from "@/assets/products/gimbal-k40t.webp";
 import elrsImg from "@/assets/products/elrs-915-diversity.jpg";
 
 const containerVariants = {
