@@ -41,7 +41,7 @@ export default defineConfig(({ mode }) => ({
     },
     // Force a single React instance — prevents blank screen / hook errors
     // caused by multiple React copies bundled by manualChunks.
-    dedupe: ["react", "react-dom", "react-router-dom", "react-helmet-async"],
+    dedupe: ["react", "react-dom", "react-router-dom"],
   },
   build: {
     minify: "esbuild",

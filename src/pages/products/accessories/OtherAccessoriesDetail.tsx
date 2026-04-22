@@ -10,7 +10,7 @@ import { ArrowRight, Phone, Monitor, Tv, Satellite, Navigation, Check, Shield, Z
 import { otherAccessoriesProducts } from "@/data/otherAccessoriesProducts";
 import { translateOtherAccKey } from "@/data/otherAccessoriesFallback";
 import { useLanguage } from "@/contexts/LanguageContext";
-import { Helmet } from "react-helmet-async";
+import { Helmet } from "@/lib/helmet-shim";
 
 const iconMap: Record<string, React.ComponentType<{ className?: string }>> = {
   "otherAcc.feature.ipsHD.title": Monitor,

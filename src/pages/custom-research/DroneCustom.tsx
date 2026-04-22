@@ -7,7 +7,7 @@ import { LangLink as Link } from "@/components/LangLink";
 import { BackButton } from "@/components/BackButton";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { MultiLanguageSEO } from "@/components/MultiLanguageSEO";
-import { Helmet } from "react-helmet-async";
+import { Helmet } from "@/lib/helmet-shim";
 import droneCustomImg from "@/assets/seo/custom-research-lab.jpg";
 import { PageFAQ } from "@/components/PageFAQ";
 

@@ -7,7 +7,7 @@ import { LangLink as Link } from "@/components/LangLink";
 import { MultiLanguageSEO } from "@/components/MultiLanguageSEO";
 import { PageStructuredData } from "@/components/PageStructuredData";
 import { useLanguage } from "@/contexts/LanguageContext";
-import { Helmet } from "react-helmet-async";
+import { Helmet } from "@/lib/helmet-shim";
 import { PageFAQ } from "@/components/PageFAQ";
 import powerInspectionSystemImg from "@/assets/seo/power-inspection-system.jpg";
 import powerTransmissionImg from "@/assets/seo/power-transmission-inspection.jpg";

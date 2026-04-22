@@ -8,7 +8,7 @@ import { BackButton } from "@/components/BackButton";
 import { digitalFpvProducts, digitalFpvCategories } from "@/data/digitalFpvProducts";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { MultiLanguageSEO } from "@/components/MultiLanguageSEO";
-import { Helmet } from "react-helmet-async";
+import { Helmet } from "@/lib/helmet-shim";
 import {
   Accordion,
   AccordionContent,

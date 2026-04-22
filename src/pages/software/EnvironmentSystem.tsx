@@ -7,7 +7,7 @@ import { LangLink as Link } from "@/components/LangLink";
 import { MultiLanguageSEO } from "@/components/MultiLanguageSEO";
 import { PageStructuredData } from "@/components/PageStructuredData";
 import { useLanguage } from "@/contexts/LanguageContext";
-import { Helmet } from "react-helmet-async";
+import { Helmet } from "@/lib/helmet-shim";
 import { PageFAQ } from "@/components/PageFAQ";
 import envHeroImg from "@/assets/seo/environment-forest-monitoring.jpg";
 import envAppImg from "@/assets/seo/env-vegetation-monitoring.jpg";

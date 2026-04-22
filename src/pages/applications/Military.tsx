@@ -6,7 +6,7 @@ import { ArrowRight, Shield, Eye, Radio, Target, Radar, Cpu, Plane, Lock, Zap, M
 import { LangLink as Link } from "@/components/LangLink";
 import { MultiLanguageSEO } from "@/components/MultiLanguageSEO";
 import { useLanguage } from "@/contexts/LanguageContext";
-import { Helmet } from "react-helmet-async";
+import { Helmet } from "@/lib/helmet-shim";
 import { HeroImagePreload } from "@/components/HeroImagePreload";
 import militaryHeroImg from "@/assets/seo/military-defense-drone.jpg";
 import maritimeImg from "@/assets/seo/maritime-drone.jpg";

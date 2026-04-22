@@ -8,7 +8,7 @@ import { MultiLanguageSEO } from "@/components/MultiLanguageSEO";
 import { PageStructuredData } from "@/components/PageStructuredData";
 import { PageFAQ } from "@/components/PageFAQ";
 import { useLanguage } from "@/contexts/LanguageContext";
-import { Helmet } from "react-helmet-async";
+import { Helmet } from "@/lib/helmet-shim";
 import swarmHeroImg from "@/assets/seo/swarm-drone-formation.jpg";
 import swarmCapImg from "@/assets/seo/drone-light-show-night.jpg";
 import {

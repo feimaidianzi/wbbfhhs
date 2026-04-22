@@ -8,7 +8,7 @@ import { MultiLanguageSEO } from "@/components/MultiLanguageSEO";
 import { PageStructuredData } from "@/components/PageStructuredData";
 import { PageFAQ } from "@/components/PageFAQ";
 import { useLanguage } from "@/contexts/LanguageContext";
-import { Helmet } from "react-helmet-async";
+import { Helmet } from "@/lib/helmet-shim";
 import { HeroImagePreload } from "@/components/HeroImagePreload";
 import gsHeroImg from "@/assets/seo/ground-station-software.jpg";
 import gsCapImg from "@/assets/seo/drone-management-dashboard.jpg";

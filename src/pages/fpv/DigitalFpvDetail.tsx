@@ -10,7 +10,7 @@ import { digitalFpvProducts } from "@/data/digitalFpvProducts";
 import { MultiLanguageSEO } from "@/components/MultiLanguageSEO";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { useState } from "react";
-import { Helmet } from "react-helmet-async";
+import { Helmet } from "@/lib/helmet-shim";
 
 const DigitalFpvDetail = () => {
   const { productId } = useParams<{ productId: string }>();
