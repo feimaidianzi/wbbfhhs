@@ -28,9 +28,12 @@ import {
 
 // ---------------- Types ----------------
 
-type AnimState = Record<string, number | string> | undefined;
+type AnimState = Record<string, any> | undefined;
 
-export type Variants = Record<string, AnimState>;
+// Loose type to accept framer-motion-style variants (objects or functions
+// returning objects with nested `transition`, etc.). The shim only consumes
+// transform/opacity fields; everything else is ignored at runtime.
+export type Variants = Record<string, any>;
 
 interface MotionProps {
   children?: ReactNode;
