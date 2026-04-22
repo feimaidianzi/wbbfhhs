@@ -83,30 +83,36 @@ const getInitialLanguage = (): LanguageCode => {
 export const LanguageProvider: React.FC<LanguageProviderProps> = ({ children }) => {
   const [language, setLanguageState] = useState<LanguageCode>(getInitialLanguage);
 
-  // SYNCHRONOUS first paint: English is bundled, so we always have something to render.
-  // For zh, try localStorage cache; otherwise fall back to English on first paint
-  // and upgrade to zh in background.
+  // SYNCHRONOUS first paint: try localStorage, otherwise empty (keys shown briefly).
+  // The bundled English chunk is in flight (kicked off at module load) and merges in ASAP.
   const [currentTranslations, setCurrentTranslations] = useState<Record<string, string>>(() => {
     const lang = getInitialLanguage();
-    const enBase = getEnglishTranslations();
 
-    if (lang === 'en') return enBase;
+    // Check in-memory cache first
+    const inMem = getTranslations(lang);
+    if (Object.keys(inMem).length > 0) return inMem;
 
-    // Check in-memory cache (HMR / repeat mount)
-    const cached = getTranslations(lang);
-    if (Object.keys(cached).length > 0) return { ...enBase, ...cached };
-
-    // Try localStorage for non-en languages
+    // Try localStorage for the active language
     try {
       const stored = localStorage.getItem(`translations_${lang}`);
       if (stored) {
         const parsed = JSON.parse(stored);
-        return { ...enBase, ...parsed };
+        // Also merge cached en if available
+        const enStored = localStorage.getItem('translations_en');
+        if (enStored && lang !== 'en') {
+          try { return { ...JSON.parse(enStored), ...parsed }; } catch { /* ignore */ }
+        }
+        return parsed;
+      }
+      // Even for non-en/zh, try the bundled English cache
+      if (lang !== 'en') {
+        const enStored = localStorage.getItem('translations_en');
+        if (enStored) return JSON.parse(enStored);
       }
     } catch { /* ignore */ }
 
-    // Fallback: render with English immediately, real translations load async
-    return enBase;
+    // First-ever visit: render with empty map; English chunk will populate within ~200ms
+    return {};
   });
 
   // Never block first render — we always have English available
