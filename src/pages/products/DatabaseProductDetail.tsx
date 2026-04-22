@@ -178,6 +178,8 @@ const DatabaseProductDetail = () => {
         title={`${productName} - ${t('company.name')}`}
         description={productDescription || productName}
         path={`/products/detail/${product.id}`}
+        image={productImage}
+        type="product"
       />
       {/* Product JSON-LD Structured Data */}
       <Helmet>
