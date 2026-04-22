@@ -712,16 +712,17 @@
   }
 }
 
-/* Use scroll-margin + min padding. !important is required because Tailwind
- * utilities like `py-24` / `pt-16` on the hero <section> share the same
- * selector specificity (single class) and would otherwise win by source order,
- * causing the hero content to render UNDER the fixed <Header />. */
+/* The hero <section> often uses Tailwind utilities like `py-24` which share
+ * the same specificity as a global rule and would win by source order — that
+ * caused hero content to render UNDER the fixed <Header />.
+ * Fix: force the first hero section to reserve at LEAST the header height,
+ * while still respecting larger declared paddings via max(). */
 main > section:first-child {
-  padding-top: max(var(--header-h), 1rem) !important;
+  padding-top: max(var(--header-h), 6rem) !important;
   box-sizing: border-box;
 }
-/* If the page already added `pt-*` on <main> as compensation, neutralize the
- * doubled offset so we don't get a huge empty band. */
+/* Pages that previously compensated with `pt-16` / `pt-20` on <main> would
+ * now double-offset; neutralize them so spacing stays consistent. */
 main[class*="pt-16"],
 main[class*="pt-20"] {
   padding-top: 0 !important;
