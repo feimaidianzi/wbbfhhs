@@ -11,6 +11,7 @@ import { ArrowLeft, Calendar, User, Tag } from "lucide-react";
 import { MultiLanguageSEO } from "@/components/MultiLanguageSEO";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { getUrlForLanguage } from "@/utils/seoConfig";
+import { buildOgImageUrl } from "@/utils/ogImage";
 import { supabase } from "@/integrations/supabase/client";
 import { sanitizeHtml } from "@/lib/sanitize";
 import { RelatedProductCard } from "@/components/news/RelatedProductCard";
@@ -293,7 +294,12 @@ const NewsDetail = () => {
         title={baseLang === 'en' && article.title_en ? article.title_en : article.title}
         description={baseLang === 'en' && article.summary_en ? article.summary_en : (article.summary || article.title)}
         path={`/news/${article.id}`}
-        image={article.cover_image || undefined}
+        image={article.cover_image || buildOgImageUrl({
+          title: baseLang === 'en' && article.title_en ? article.title_en : article.title,
+          subtitle: (baseLang === 'en' && article.summary_en ? article.summary_en : article.summary)?.slice(0, 140) || '',
+          category: article.category || 'News',
+          brand: 'CANI Technology',
+        })}
         type="article"
         structuredData={allStructuredData}
       />
