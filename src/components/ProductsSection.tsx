@@ -1,4 +1,3 @@
-import { MotionConfig, m } from "@/components/MotionLite";
 import ArrowRight from "lucide-react/dist/esm/icons/arrow-right";
 import Sparkles from "lucide-react/dist/esm/icons/sparkles";
 import Zap from "lucide-react/dist/esm/icons/zap";
@@ -8,36 +7,18 @@ import Gamepad2 from "lucide-react/dist/esm/icons/gamepad-2";
 import Cpu from "lucide-react/dist/esm/icons/cpu";
 import { LangLink } from "@/components/LangLink";
 import { useLanguage } from "@/contexts/LanguageContext";
+import { useInViewLite } from "@/hooks/useInViewLite";
 import digitalFpvImg from "@/assets/products/digital-fpv-wifilink2.jpg";
 import vtxImg from "@/assets/products/vtx-2.5w.webp";
 import fcEscImg from "@/assets/products/fc-esc-stack.webp";
 import gimbalImg from "@/assets/products/gimbal-k40t.webp";
 import elrsImg from "@/assets/products/elrs-915-diversity.jpg";
 
-const containerVariants = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: {
-      staggerChildren: 0.15,
-    },
-  },
-};
-
-const itemVariants = {
-  hidden: { opacity: 0, y: 60 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: {
-      duration: 0.8,
-      ease: [0.25, 0.46, 0.45, 0.94],
-    },
-  },
-};
-
 export const ProductsSection = () => {
   const { t } = useLanguage();
+  const header = useInViewLite<HTMLDivElement>({ rootMargin: "-100px" });
+  const grid = useInViewLite<HTMLDivElement>({ rootMargin: "-50px" });
+  const cta = useInViewLite<HTMLDivElement>();
 
   const categories = [
     {
@@ -85,20 +66,16 @@ export const ProductsSection = () => {
   ];
 
   return (
-    <MotionConfig>
     <section id="products" className="py-24 md:py-32 bg-secondary relative overflow-hidden">
       {/* Background Elements */}
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_30%,rgba(34,211,238,0.05),transparent_50%)]" />
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_80%_70%,rgba(14,165,233,0.05),transparent_50%)]" />
-      
+
       <div className="container-custom relative">
         {/* Section Header */}
-        <m.div
-          initial={{ opacity: 0, y: 40 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-100px" }}
-          transition={{ duration: 0.8 }}
-          className="text-center mb-16 md:mb-20"
+        <div
+          ref={header.ref}
+          className={`reveal-init reveal-fade text-center mb-16 md:mb-20 ${header.inView ? 'reveal-in' : ''}`}
         >
           <span className="inline-block px-4 py-1.5 rounded-full bg-accent/10 text-accent text-sm font-medium mb-6">
             {t('productsSection.badge')}
@@ -112,18 +89,15 @@ export const ProductsSection = () => {
           <p className="text-muted-foreground text-base max-w-3xl mx-auto">
             {t('productsSection.seoSubtitle')}
           </p>
-        </m.div>
+        </div>
 
         {/* Products Grid - Asymmetric Layout */}
-        <m.div
-          variants={containerVariants}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: "-50px" }}
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8"
+        <div
+          ref={grid.ref}
+          className={`reveal-init reveal-fade grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 ${grid.inView ? 'reveal-in' : ''}`}
         >
           {/* Featured Large Card */}
-          <m.div variants={itemVariants} className="md:col-span-2 lg:col-span-2 lg:row-span-2">
+          <div className="reveal-child md:col-span-2 lg:col-span-2 lg:row-span-2">
             <LangLink to={categories[0].link} className="group block h-full">
               <div className="relative h-full min-h-[400px] lg:min-h-[600px] rounded-3xl overflow-hidden bg-gradient-to-br from-accent/20 to-cyan-500/10 border border-accent/20">
                 {/* Background Image */}
@@ -138,7 +112,7 @@ export const ProductsSection = () => {
                       decoding="async"
                     />
                 </div>
-                
+
                 {/* Hot Badge */}
                 {categories[0].isHot && (
                   <div className="absolute top-6 left-6 flex items-center gap-2 px-4 py-2 bg-accent text-accent-foreground rounded-full text-sm font-bold">
@@ -146,7 +120,7 @@ export const ProductsSection = () => {
                     {t('productsSection.hot')}
                   </div>
                 )}
-                
+
                 {/* Content */}
                 <div className="absolute bottom-0 left-0 right-0 p-8 md:p-10">
                   <div className="rounded-3xl bg-black/70 border border-white/20 p-6 md:p-8">
@@ -169,11 +143,11 @@ export const ProductsSection = () => {
                 </div>
               </div>
             </LangLink>
-          </m.div>
+          </div>
 
           {/* Small Cards */}
           {categories.slice(1).map((product, index) => (
-            <m.div key={index} variants={itemVariants}>
+            <div key={index} className="reveal-child">
               <LangLink to={product.link} className="group block h-full">
                 <div className="relative h-full min-h-[280px] rounded-2xl overflow-hidden bg-card border border-accent/10 hover:border-accent/40 transition-all duration-500">
                   {/* Background Image */}
@@ -188,7 +162,7 @@ export const ProductsSection = () => {
                       decoding="async"
                     />
                   </div>
-                  
+
                   {/* New Badge */}
                   {product.isNew && (
                     <div className="absolute top-4 left-4 flex items-center gap-1.5 px-3 py-1 bg-accent text-accent-foreground rounded-full text-xs font-bold">
@@ -196,7 +170,7 @@ export const ProductsSection = () => {
                       {t('productsSection.new')}
                     </div>
                   )}
-                  
+
                   {/* Content */}
                   <div className="absolute bottom-0 left-0 right-0 p-6">
                     <div className="rounded-2xl bg-black/70 border border-white/20 p-4">
@@ -219,17 +193,14 @@ export const ProductsSection = () => {
                   </div>
                 </div>
               </LangLink>
-            </m.div>
+            </div>
           ))}
-        </m.div>
+        </div>
 
         {/* View All Button */}
-        <m.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.8, delay: 0.5 }}
-          className="text-center mt-12"
+        <div
+          ref={cta.ref}
+          className={`reveal-init reveal-fade text-center mt-12 ${cta.inView ? 'reveal-in' : ''}`}
         >
           <LangLink to="/products">
             <button className="group inline-flex items-center gap-3 px-8 py-4 rounded-full border border-accent/30 hover:border-accent hover:bg-accent/5 text-foreground font-semibold transition-all duration-300 min-h-[44px] min-w-[44px]">
@@ -237,9 +208,8 @@ export const ProductsSection = () => {
               <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
             </button>
           </LangLink>
-        </m.div>
+        </div>
       </div>
     </section>
-    </MotionConfig>
   );
 };
