@@ -1,6 +1,7 @@
 import { useEffect, useRef, useCallback } from 'react';
 import { useLocation } from 'react-router-dom';
 import { supabase } from '@/integrations/supabase/client';
+import { safeStorageGet, safeStorageSet } from '@/lib/utils';
 
 interface VisitorSession {
   sessionId: string;
@@ -61,25 +62,25 @@ const getOrCreateSessionId = (): string => {
   const sessionExpiry = 'visitor_session_expiry';
   const THIRTY_MINUTES = 30 * 60 * 1000;
 
-  const existingId = localStorage.getItem(storageKey);
-  const expiry = localStorage.getItem(sessionExpiry);
+  const existingId = safeStorageGet(storageKey);
+  const expiry = safeStorageGet(sessionExpiry);
 
   if (existingId && expiry && Date.now() < parseInt(expiry)) {
-    localStorage.setItem(sessionExpiry, String(Date.now() + THIRTY_MINUTES));
+    safeStorageSet(sessionExpiry, String(Date.now() + THIRTY_MINUTES));
     return existingId;
   }
 
-  const legacyId = localStorage.getItem(legacyKey);
+  const legacyId = safeStorageGet(legacyKey);
   if (legacyId) {
-    localStorage.setItem(storageKey, legacyId);
-    localStorage.setItem(sessionExpiry, String(Date.now() + THIRTY_MINUTES));
+    safeStorageSet(storageKey, legacyId);
+    safeStorageSet(sessionExpiry, String(Date.now() + THIRTY_MINUTES));
     return legacyId;
   }
 
   const newId = generateSessionId();
-  localStorage.setItem(storageKey, newId);
-  localStorage.setItem(sessionExpiry, String(Date.now() + THIRTY_MINUTES));
-  localStorage.setItem(legacyKey, newId);
+  safeStorageSet(storageKey, newId);
+  safeStorageSet(sessionExpiry, String(Date.now() + THIRTY_MINUTES));
+  safeStorageSet(legacyKey, newId);
   return newId;
 };
 

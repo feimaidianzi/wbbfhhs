@@ -4,6 +4,7 @@ import { ChatWindow } from "./ChatWindow";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
 import { useLanguage } from "@/contexts/LanguageContext";
+import { safeStorageGet, safeStorageSet } from "@/lib/utils";
 
 interface Message {
   id: string;
@@ -19,19 +20,19 @@ const getOrCreateVisitorId = (): string => {
   const legacyKey = 'cani_visitor_id';
   
   // 检查是否有VisitorTracker创建的session
-  let visitorId = localStorage.getItem(visitorSessionKey);
+  let visitorId = safeStorageGet(visitorSessionKey);
   
   if (visitorId) {
     return visitorId;
   }
   
   // 如果VisitorTracker还没初始化，创建一个兼容格式的ID
-  visitorId = localStorage.getItem(legacyKey);
+  visitorId = safeStorageGet(legacyKey);
   if (!visitorId) {
     visitorId = `vs_${Date.now()}_${Math.random().toString(36).substring(2, 15)}`;
-    localStorage.setItem(legacyKey, visitorId);
+    safeStorageSet(legacyKey, visitorId);
     // 同时设置到visitor_session_id，让VisitorTracker也能识别
-    localStorage.setItem(visitorSessionKey, visitorId);
+    safeStorageSet(visitorSessionKey, visitorId);
   }
   return visitorId;
 };
