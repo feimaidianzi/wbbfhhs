@@ -2,8 +2,8 @@ import { HeroContent } from "./hero/HeroContent";
 import { WaveTransition } from "./hero/WaveTransition";
 import { DeferredMount } from "./DeferredMount";
 
-// LCP image: served from /public so HTML <link rel="preload"> works (no JS bundle dependency)
-const HERO_PCB_SRC = "/hero-pcb-board.webp";
+// LCP image: real CANI flight controller product photo, served from /public for HTML preload
+const HERO_PCB_SRC = "/hero-fc-board.webp";
 
 export const HeroSection = () => {
   return (
@@ -117,16 +117,16 @@ export const HeroSection = () => {
           <div className="hero-image-breathe relative">
             <img
               src={HERO_PCB_SRC}
-              alt="CANI industrial drone PCBA circuit board with golden IPEX connectors"
-              className="relative w-[70%] max-w-[600px] object-contain hero-animate-image drop-shadow-2xl"
+              alt="CANI industrial drone flight controller PCBA — golden circuit traces with high-performance MCU"
+              className="relative w-[95%] max-w-[760px] object-contain hero-animate-image drop-shadow-2xl"
               loading="eager"
               decoding="async"
               fetchPriority="high"
-              width={600}
-              height={500}
+              width={760}
+              height={405}
               style={{
-                filter: 'brightness(1.1) contrast(1.08)',
-                aspectRatio: '6 / 5',
+                filter: 'brightness(1.05) contrast(1.05)',
+                aspectRatio: '1920 / 1024',
               }}
             />
 
