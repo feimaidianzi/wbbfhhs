@@ -249,8 +249,8 @@ const SEOManagement = () => {
     setSubmissionState(prev => ({ ...prev, isPinging: true, error: null }));
     
     try {
-      const { data, error } = await supabase.functions.invoke('submit-sitemap', {
-        body: { action: 'ping', sendNotify: sendEmailNotify }
+      const { error } = await supabase.functions.invoke('submit-sitemap', {
+        body: { action: 'ping' }
       });
 
       if (error) throw error;
@@ -262,6 +262,26 @@ const SEOManagement = () => {
       const errorMessage = err instanceof Error ? err.message : 'Ping失败';
       setSubmissionState(prev => ({ ...prev, isPinging: false, error: errorMessage }));
       toast.error(`Ping失败: ${errorMessage}`);
+    }
+  };
+
+  // Push all URLs to Baidu (普通收录 API)
+  const [isBaiduPushing, setIsBaiduPushing] = useState(false);
+  const handleBaiduPush = async () => {
+    setIsBaiduPushing(true);
+    try {
+      const { data, error } = await supabase.functions.invoke('baidu-push', { body: {} });
+      if (error) throw error;
+      if (data?.ok) {
+        toast.success(`百度推送成功：提交 ${data.pushed} 条，成功 ${data.success ?? 0} 条，今日剩余配额 ${data.remain ?? '—'}`);
+      } else {
+        throw new Error(data?.error || '推送失败');
+      }
+      loadSubmissionHistory();
+    } catch (err) {
+      toast.error(`百度推送失败：${err instanceof Error ? err.message : String(err)}`);
+    } finally {
+      setIsBaiduPushing(false);
     }
   };
 
@@ -372,6 +392,20 @@ const SEOManagement = () => {
                   <RefreshCw className="h-4 w-4 mr-2" />
                 )}
                 Ping更新通知
+              </Button>
+
+              <Button
+                onClick={handleBaiduPush}
+                disabled={isBaiduPushing}
+                variant="secondary"
+                className="bg-accent text-accent-foreground hover:bg-accent/90"
+              >
+                {isBaiduPushing ? (
+                  <Loader2 className="h-4 w-4 mr-2 animate-spin" />
+                ) : (
+                  <Send className="h-4 w-4 mr-2" />
+                )}
+                推送到百度（普通收录）
               </Button>
             </div>
 
