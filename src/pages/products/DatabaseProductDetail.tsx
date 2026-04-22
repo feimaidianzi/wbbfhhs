@@ -16,6 +16,7 @@ import { Check, Loader2, Phone, ArrowRight, ImageOff } from 'lucide-react';
 import { Helmet } from "@/lib/helmet-shim";
 import { LanguageCode } from '@/i18n/languages';
 import { getDomainForLanguage, getHtmlLang } from '@/utils/seoConfig';
+import { buildOgImageUrl } from '@/utils/ogImage';
 
 interface Product {
   id: string;
