@@ -61,13 +61,13 @@ export const HeroContent = () => {
         <div className="lg:hidden mb-10 hero-animate-image">
           <img
             src={HERO_PCB_SRC}
-            alt="CANI industrial drone PCBA"
-            width={448}
-            height={336}
+            alt="CANI industrial drone flight controller PCBA"
+            width={720}
+            height={384}
             fetchPriority="high"
             decoding="async"
-            className="w-full max-w-md mx-auto rounded-lg opacity-80"
-            style={{ filter: 'brightness(1.05)', aspectRatio: '4 / 3' }}
+            className="w-full max-w-md mx-auto rounded-lg"
+            style={{ aspectRatio: '1920 / 1024' }}
           />
         </div>
 
