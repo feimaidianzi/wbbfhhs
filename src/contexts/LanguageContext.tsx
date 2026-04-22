@@ -7,13 +7,13 @@ import {
   getLanguageByCode,
   toBaseLanguage,
 } from '@/i18n/languages';
-import { loadTranslations, setTranslations, hasTranslations, getTranslations } from '@/i18n';
+import { loadTranslations, loadHomeTranslations, setTranslations, hasTranslations, getTranslations } from '@/i18n';
 import { safeStorageGet, safeStorageSet } from '@/lib/utils';
 
-// Kick off English translation load IMMEDIATELY at module evaluation,
-// in parallel with the main bundle initialization. By the time React renders,
-// the chunk download is already in flight (no chained network round-trip).
-const enLoadPromise: Promise<Record<string, string>> = loadTranslations('en');
+// Kick off ENGLISH HOME translation load IMMEDIATELY at module evaluation, in
+// parallel with the main bundle. This is only ~6KB gzip (vs ~180KB for the
+// full en chunk) so it lands well before LCP, even on slow networks.
+const enHomeLoadPromise: Promise<Record<string, string>> = loadHomeTranslations('en');
 
 interface LanguageContextType {
   language: LanguageCode;
@@ -123,88 +123,95 @@ export const LanguageProvider: React.FC<LanguageProviderProps> = ({ children }) 
   const langConfig = getLanguageByCode(language);
   const isRTL = langConfig?.rtl || false;
 
-  // Background translation upgrade — runs AFTER first paint to avoid blocking LCP
+  // Two-phase load:
+  //   1) await the SMALL home chunk (~6KB gzip) and paint immediately.
+  //   2) in the background (idle), upgrade to the FULL chunk (~180KB gzip)
+  //      so that off-home keys (admin pages, product details, etc.) resolve.
   const upgradeTranslations = useCallback(async (targetLang: LanguageCode) => {
-    // Always make sure English chunk is loaded first (it's already in flight from module init)
-    const enBase = await enLoadPromise;
-    setTranslations('en', enBase);
-    // Cache en in localStorage so next visit gets instant first paint
-    try {
-      const enKey = 'translations_en';
-      const stored = safeStorageGet(enKey);
-      if (!stored) {
-        safeStorageSet(enKey, JSON.stringify(enBase));
-      }
-    } catch { /* ignore */ }
+    // Phase 1: home-only English (already in flight from module init)
+    const enHomeBase = await enHomeLoadPromise;
+    setTranslations('en-home' as LanguageCode, enHomeBase);
 
-    // If we're rendering English, just merge en in case current state was empty
+    // Apply home base immediately so the landing page renders with text
     if (targetLang === 'en') {
-      setCurrentTranslations((prev) => Object.keys(prev).length === 0 ? enBase : { ...enBase, ...prev });
+      setCurrentTranslations((prev) => Object.keys(prev).length === 0 ? enHomeBase : { ...enHomeBase, ...prev });
     } else {
-      // For other languages, ensure English fallback is merged under existing translations
-      setCurrentTranslations((prev) => ({ ...enBase, ...prev }));
+      setCurrentTranslations((prev) => ({ ...enHomeBase, ...prev }));
     }
 
-    // For zh, dynamically load the chunk
+    // For zh, also load zh-home chunk for instant Chinese first paint
     if (targetLang === 'zh') {
-      const zhBase = await loadTranslations('zh');
-      const merged = { ...enBase, ...zhBase };
-      setTranslations('zh', merged);
-      setCurrentTranslations(merged);
-
-      // After bundled translations are in, check Supabase for newer overrides (idle)
-      const checkSupabase = () => {
-        supabase.from('system_settings').select('value').eq('key', 'translations_zh').maybeSingle()
-          .then(({ data }) => {
-            if (data?.value) {
-              try {
-                const fresh = JSON.parse(data.value);
-                const refreshed = { ...merged, ...fresh };
-                setTranslations('zh', refreshed);
-                setCurrentTranslations(refreshed);
-                safeStorageSet('translations_zh', data.value);
-              } catch { /* ignore */ }
-            }
-          });
-      };
-      if ('requestIdleCallback' in window) {
-        (window as any).requestIdleCallback(checkSupabase, { timeout: 5000 });
-      } else {
-        setTimeout(checkSupabase, 2000);
-      }
-      return;
+      const zhHomeBase = await loadHomeTranslations('zh');
+      const homeMerged = { ...enHomeBase, ...zhHomeBase };
+      setCurrentTranslations((prev) => ({ ...homeMerged, ...prev }));
     }
 
-    // For en, only check Supabase for overrides (idle, non-blocking)
-    if (targetLang === 'en') {
-      const checkSupabase = () => {
-        supabase.from('system_settings').select('value').eq('key', 'translations_en').maybeSingle()
-          .then(({ data }) => {
-            if (data?.value) {
-              try {
-                const fresh = JSON.parse(data.value);
-                const refreshed = { ...enBase, ...fresh };
-                setTranslations('en', refreshed);
-                setCurrentTranslations(refreshed);
-                safeStorageSet('translations_en', data.value);
-              } catch { /* ignore */ }
-            }
-          });
-      };
-      if ('requestIdleCallback' in window) {
-        (window as any).requestIdleCallback(checkSupabase, { timeout: 5000 });
-      } else {
-        setTimeout(checkSupabase, 2000);
-      }
-      return;
-    }
+    // Phase 2: schedule full chunk upgrade on idle (non-blocking)
+    const upgradeToFull = async () => {
+      const enBase = await loadTranslations('en');
+      setTranslations('en', enBase);
+      try {
+        const enKey = 'translations_en';
+        if (!safeStorageGet(enKey)) safeStorageSet(enKey, JSON.stringify(enBase));
+      } catch { /* ignore */ }
 
-    // Other languages — fetch DB translations (idle)
-    const fetchOther = async () => {
+      if (targetLang === 'en') {
+        setCurrentTranslations((prev) => ({ ...enBase, ...prev }));
+        // Idle Supabase override check
+        const checkSupabase = () => {
+          supabase.from('system_settings').select('value').eq('key', 'translations_en').maybeSingle()
+            .then(({ data }) => {
+              if (data?.value) {
+                try {
+                  const fresh = JSON.parse(data.value);
+                  const refreshed = { ...enBase, ...fresh };
+                  setTranslations('en', refreshed);
+                  setCurrentTranslations(refreshed);
+                  safeStorageSet('translations_en', data.value);
+                } catch { /* ignore */ }
+              }
+            });
+        };
+        if ('requestIdleCallback' in window) {
+          (window as any).requestIdleCallback(checkSupabase, { timeout: 5000 });
+        } else {
+          setTimeout(checkSupabase, 2000);
+        }
+        return;
+      }
+
+      if (targetLang === 'zh') {
+        const zhBase = await loadTranslations('zh');
+        const merged = { ...enBase, ...zhBase };
+        setTranslations('zh', merged);
+        setCurrentTranslations((prev) => ({ ...merged, ...prev }));
+
+        const checkSupabase = () => {
+          supabase.from('system_settings').select('value').eq('key', 'translations_zh').maybeSingle()
+            .then(({ data }) => {
+              if (data?.value) {
+                try {
+                  const fresh = JSON.parse(data.value);
+                  const refreshed = { ...merged, ...fresh };
+                  setTranslations('zh', refreshed);
+                  setCurrentTranslations(refreshed);
+                  safeStorageSet('translations_zh', data.value);
+                } catch { /* ignore */ }
+              }
+            });
+        };
+        if ('requestIdleCallback' in window) {
+          (window as any).requestIdleCallback(checkSupabase, { timeout: 5000 });
+        } else {
+          setTimeout(checkSupabase, 2000);
+        }
+        return;
+      }
+
+      // Other languages — fetch DB translations
       try {
         const cached = safeStorageGet(`translations_${targetLang}`);
         if (cached) {
-          // Already shown in initial state; check DB for fresh
           const { data } = await supabase.from('system_settings').select('value').eq('key', `translations_${targetLang}`).maybeSingle();
           if (data?.value && data.value !== cached) {
             const fresh = JSON.parse(data.value);
@@ -226,10 +233,11 @@ export const LanguageProvider: React.FC<LanguageProviderProps> = ({ children }) 
       } catch { /* ignore */ }
     };
 
+    // Defer the heavy full chunk to idle time so it never competes with LCP
     if ('requestIdleCallback' in window) {
-      (window as any).requestIdleCallback(fetchOther, { timeout: 5000 });
+      (window as any).requestIdleCallback(() => { upgradeToFull(); }, { timeout: 3000 });
     } else {
-      setTimeout(fetchOther, 1500);
+      setTimeout(upgradeToFull, 1200);
     }
   }, []);
 
