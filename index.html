@@ -51,11 +51,9 @@
     <link rel="preload" as="image" href="/hero-fc-board.webp" fetchpriority="high" type="image/webp" media="(min-width: 1024px)" />
     <link rel="preload" as="image" href="/hero-fc-board-sm.webp" fetchpriority="high" type="image/webp" media="(max-width: 1023px)" />
     <link rel="preload" as="image" href="/logo-cani-small.webp" fetchpriority="high" type="image/webp" />
-    <!-- Font preconnect + preload for Noto Sans SC (eliminates render-blocking @import) -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;600&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'" />
-    <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;600&display=swap" /></noscript>
+    <!-- Use system font stack to eliminate render-blocking Google Fonts request (~60KB)
+         Chinese/Japanese readers get native system fonts (PingFang, Hiragino, Yu Gothic, Microsoft YaHei),
+         Latin readers get the platform's UI font. Faster FCP/LCP, zero font CLS. -->
     <!-- DNS prefetch for backend endpoints -->
     <link rel="dns-prefetch" href="https://tuxslfemwkdmnkldlmmy.supabase.co" />
     <link rel="preconnect" href="https://tuxslfemwkdmnkldlmmy.supabase.co" crossorigin />
