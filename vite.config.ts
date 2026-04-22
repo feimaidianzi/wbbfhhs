@@ -50,15 +50,19 @@ export default defineConfig(({ mode }) => ({
       output: {
         // Manual chunking to keep the initial JS small and let browsers
         // cache vendor code separately from app code.
+        // IMPORTANT: keep ALL react-related modules in the SAME chunk to avoid
+        // multiple React instances which causes blank screens / hook errors.
         manualChunks(id) {
           if (!id.includes("node_modules")) return undefined;
 
-          // Keep React + router as their own (small, almost-always-needed) chunk
+          // React core + anything that imports React internals must share a chunk
           if (
             id.includes("/react/") ||
             id.includes("/react-dom/") ||
             id.includes("/react-router") ||
-            id.includes("/scheduler/")
+            id.includes("/react-helmet") ||
+            id.includes("/scheduler/") ||
+            id.includes("/use-sync-external-store/")
           ) {
             return "vendor-react";
           }
@@ -69,7 +73,7 @@ export default defineConfig(({ mode }) => ({
           }
 
           // Charts/visualization
-          if (id.includes("recharts") || id.includes("d3-")) {
+          if (id.includes("recharts") || id.includes("/d3-")) {
             return "vendor-charts";
           }
 
