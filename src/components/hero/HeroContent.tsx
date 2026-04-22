@@ -62,12 +62,12 @@ export const HeroContent = () => {
           <img
             src={HERO_PCB_SRC}
             alt="CANI industrial drone flight controller PCBA"
-            width={720}
-            height={384}
+            width={640}
+            height={341}
             fetchPriority="high"
             decoding="async"
             className="w-full max-w-md mx-auto rounded-lg"
-            style={{ aspectRatio: '1920 / 1024' }}
+            style={{ aspectRatio: '640 / 341' }}
           />
         </div>
 

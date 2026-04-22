@@ -306,8 +306,9 @@ const App = () => (
               <Route path="*" element={<NotFound />} />
             </Routes>
           </Suspense>
-          {/* Lazy load non-critical global components — deferred to browser idle to protect LCP */}
-          <DeferredMount delay={2000}>
+          {/* Lazy load non-critical global components — deferred to browser idle to protect LCP.
+              Bumped to 4s so visitor-tracking + Supabase calls fall outside the LCP critical path. */}
+          <DeferredMount delay={4000}>
             <Suspense fallback={null}>
               <VisitorTracker />
               <ImageAltScanner />
