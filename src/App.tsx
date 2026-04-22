@@ -306,12 +306,16 @@ const App = () => (
               <Route path="*" element={<NotFound />} />
             </Routes>
           </Suspense>
-          {/* Lazy load non-critical global components — deferred to browser idle to protect LCP.
-              Bumped to 4s so visitor-tracking + Supabase calls fall outside the LCP critical path. */}
-          <DeferredMount delay={4000}>
+          {/* Visitor tracker — needed early-ish for analytics, but well after LCP */}
+          <DeferredMount delay={5000}>
             <Suspense fallback={null}>
               <VisitorTracker />
               <ImageAltScanner />
+            </Suspense>
+          </DeferredMount>
+          {/* AI assistant — heaviest global widget. Mount on first user interaction or after 8s idle. */}
+          <DeferredMount delay={8000} onInteraction>
+            <Suspense fallback={null}>
               <AIAssistantErrorBoundary>
                 <AIAssistant />
               </AIAssistantErrorBoundary>

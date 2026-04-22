@@ -169,8 +169,8 @@ const Index = () => {
           </div>
         </section>
 
-        {/* Mid-page sections — defer until idle to keep main thread free during LCP */}
-        <DeferredMount delay={800}>
+        {/* Mid-page sections — mount only when scrolling near them (IntersectionObserver) */}
+        <DeferredMount whenVisible rootMargin="800px" minHeight={600}>
           <Suspense fallback={null}>
             <ScrollReveal direction="right" delay={0.1}>
               <WhyChooseUsSection />
@@ -186,8 +186,8 @@ const Index = () => {
           </Suspense>
         </DeferredMount>
 
-        {/* Below-fold sections — mount after browser is idle to protect LCP */}
-        <DeferredMount delay={1500}>
+        {/* Below-fold sections — mount only when nearing viewport */}
+        <DeferredMount whenVisible rootMargin="600px" minHeight={800}>
           <Suspense fallback={null}>
             <ScrollReveal direction="up" delay={0}>
               <NewsSection />
@@ -221,7 +221,8 @@ const Index = () => {
         
       </main>
       <Footer />
-      <DeferredMount delay={2000}>
+      {/* Floating contact — mount on first interaction or after 5s idle */}
+      <DeferredMount delay={5000} onInteraction>
         <Suspense fallback={null}>
           <FloatingContact />
         </Suspense>
