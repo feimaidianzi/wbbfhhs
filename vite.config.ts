@@ -15,7 +15,7 @@ export default defineConfig(({ mode }) => ({
     mode === "development" && componentTagger(),
     ViteImageOptimizer({
       // Skip already-optimized assets and OG images (re-encoding inflates them)
-      exclude: [/og-image\.png$/, /\.min\.(png|jpg|jpeg|webp|avif|svg)$/],
+      exclude: ["**/og-image.png", "**/*.min.*"],
       png: { quality: 80 },
       jpeg: { quality: 75 },
       jpg: { quality: 75 },
