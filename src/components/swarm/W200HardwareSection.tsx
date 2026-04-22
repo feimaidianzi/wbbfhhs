@@ -1,5 +1,5 @@
 import { useLanguage } from "@/contexts/LanguageContext";
-import { motion } from "framer-motion";
+import { motion } from "@/lib/motion-shim";
 import componentsImage from "@/assets/products/swarm-w200-components.jpg";
 
 const W200HardwareSection = () => {

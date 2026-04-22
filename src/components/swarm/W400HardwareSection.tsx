@@ -1,5 +1,5 @@
 import { useLanguage } from "@/contexts/LanguageContext";
-import { motion } from "framer-motion";
+import { motion } from "@/lib/motion-shim";
 import { useState } from "react";
 import { OptimizedImage } from "@/components/OptimizedImage";
 import fcImg from "@/assets/products/w400-flight-controller.webp";

@@ -1,5 +1,5 @@
 import { useLanguage } from "@/contexts/LanguageContext";
-import { motion } from "framer-motion";
+import { motion } from "@/lib/motion-shim";
 import { Crosshair, Cpu, Monitor, Radio, Wifi, Code } from "lucide-react";
 
 const W300SystemArchitecture = () => {

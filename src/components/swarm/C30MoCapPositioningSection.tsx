@@ -1,5 +1,5 @@
 import { useLanguage } from "@/contexts/LanguageContext";
-import { motion, useInView } from "framer-motion";
+import { motion, useInView } from "@/lib/motion-shim";
 import { useRef, useState, useEffect } from "react";
 import { Crosshair, Gauge, Zap, MonitorSmartphone } from "lucide-react";
 import mocapSystemImg from "@/assets/products/c30-mocap-system.png";

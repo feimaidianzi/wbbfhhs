@@ -6,7 +6,7 @@ import { ArrowRight, Radio, Zap, Globe, AlertTriangle, Clock, Search, FileDown }
 import { LangLink } from "@/components/LangLink";
 import { MultiLanguageSEO } from "@/components/MultiLanguageSEO";
 import { useLanguage } from "@/contexts/LanguageContext";
-import { motion } from "framer-motion";
+import { motion } from "@/lib/motion-shim";
 import riverPatrolImg from "@/assets/real/river-patrol-edited.jpg";
 import sandMiningSurveillanceImg from "@/assets/real/sand-mining-edited.jpg";
 import damMonitoringImg from "@/assets/real/dam-aerial-edited.jpg";

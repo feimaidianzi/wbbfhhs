@@ -1,5 +1,5 @@
 import { useLanguage } from "@/contexts/LanguageContext";
-import { motion } from "framer-motion";
+import { motion } from "@/lib/motion-shim";
 import { ShieldCheck, CheckCircle, AlertTriangle, Activity, Cpu, Search } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { OptimizedImage } from "@/components/OptimizedImage";

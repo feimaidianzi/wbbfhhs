@@ -1,4 +1,4 @@
-import { LazyMotion, domAnimation, m } from "framer-motion";
+import { LazyMotion, domAnimation, m } from "@/lib/motion-shim";
 import type { ReactNode } from "react";
 
 /**

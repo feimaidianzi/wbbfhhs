@@ -1,5 +1,5 @@
 import { useLanguage } from "@/contexts/LanguageContext";
-import { motion } from "framer-motion";
+import { motion } from "@/lib/motion-shim";
 import { Camera, Monitor, Wifi, Cpu, Navigation, Radio } from "lucide-react";
 import { OptimizedImage } from "@/components/OptimizedImage";
 import rcImg from "@/assets/products/c30-remote-controller.webp";

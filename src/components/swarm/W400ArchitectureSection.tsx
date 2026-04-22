@@ -1,5 +1,5 @@
 import { useLanguage } from "@/contexts/LanguageContext";
-import { motion } from "framer-motion";
+import { motion } from "@/lib/motion-shim";
 import { Satellite, Monitor, Wifi, Cpu, Navigation, Radio } from "lucide-react";
 import { OptimizedImage } from "@/components/OptimizedImage";
 import gcsImg from "@/assets/products/w400-ground-station.webp";

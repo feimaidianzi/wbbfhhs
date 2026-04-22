@@ -1,5 +1,5 @@
 import { useLanguage } from "@/contexts/LanguageContext";
-import { motion } from "framer-motion";
+import { motion } from "@/lib/motion-shim";
 import { Card, CardContent } from "@/components/ui/card";
 import { Navigation, Cpu, Code, Radio, Eye, Layers, Zap, Package } from "lucide-react";
 

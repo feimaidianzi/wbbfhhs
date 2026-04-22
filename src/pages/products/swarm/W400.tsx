@@ -7,7 +7,7 @@ import { MultiLanguageSEO } from "@/components/MultiLanguageSEO";
 import { PageStructuredData } from "@/components/PageStructuredData";
 import { BackButton } from "@/components/BackButton";
 import { useLanguage } from "@/contexts/LanguageContext";
-import { motion } from "framer-motion";
+import { motion } from "@/lib/motion-shim";
 import { ArrowRight, ChevronDown } from "lucide-react";
 import { LangLink as Link } from "@/components/LangLink";
 
