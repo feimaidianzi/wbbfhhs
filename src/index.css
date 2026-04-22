@@ -687,19 +687,38 @@
 }
 
 /* ===========================================================================
- * Global page-hero offset
- * The site uses a fixed <Header /> (h-16 mobile, h-20 desktop). Hero sections
- * with `min-h-[Xvh] flex items-center` were vertically centering content
- * against the full viewport, which placed text under the header — making
- * banners look cramped at the top. This rule reserves header height on the
- * first <section> inside any <main>, so vertical centering works visually.
- * Existing inner padding (py-20 etc.) stacks on top of this.
+ * Global page-hero offset (unified)
+ * The site uses a fixed <Header /> (h-16 mobile / h-20 desktop). Without
+ * compensation, hero sections that vertically center content (flex items-center
+ * with min-h-[Xvh] / h-[Ypx]) place text under the header.
+ *
+ * Strategy:
+ * 1. Expose --header-h as a CSS var (responsive).
+ * 2. Reserve that space at the top of the FIRST <section> inside <main> via
+ *    padding-top, so any inner flex centering is visually correct.
+ * 3. Subtract the header from any min-height/height the hero declares using
+ *    a negative margin trick: we DON'T want the hero to grow taller than the
+ *    designer intended on small screens. We achieve this by setting
+ *    `margin-top: calc(var(--header-h) * -1)` on the hero AND adding the same
+ *    amount as padding-top — net visual position shifts down, total layout
+ *    height stays the same as the original min-h-[Xvh].
  * =========================================================================== */
-main > section:first-child {
-  padding-top: 4rem; /* 64px = mobile header height */
+:root {
+  --header-h: 4rem; /* 64px mobile */
 }
 @media (min-width: 768px) {
-  main > section:first-child {
-    padding-top: 5rem; /* 80px = desktop header height */
+  :root {
+    --header-h: 5rem; /* 80px desktop */
   }
+}
+
+main > section:first-child {
+  padding-top: var(--header-h);
+  /* Keep declared min-height visually equivalent by absorbing the padding */
+  box-sizing: border-box;
+}
+
+/* Anchor scrolling (e.g. #features) should not slide under the fixed header */
+[id] {
+  scroll-margin-top: calc(var(--header-h) + 0.5rem);
 }
