@@ -79,6 +79,7 @@ export const ProductsSection = () => {
   ];
 
   return (
+    <MotionConfig>
     <section id="products" className="py-24 md:py-32 bg-secondary relative overflow-hidden">
       {/* Background Elements */}
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_30%,rgba(34,211,238,0.05),transparent_50%)]" />
@@ -233,5 +234,6 @@ export const ProductsSection = () => {
         </m.div>
       </div>
     </section>
+    </MotionConfig>
   );
 };
