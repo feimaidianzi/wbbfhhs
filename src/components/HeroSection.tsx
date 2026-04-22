@@ -1,7 +1,9 @@
-import heroPcbBoard from "@/assets/hero-pcb-board.png";
 import { HeroContent } from "./hero/HeroContent";
 import { WaveTransition } from "./hero/WaveTransition";
 import { DeferredMount } from "./DeferredMount";
+
+// LCP image: served from /public so HTML <link rel="preload"> works (no JS bundle dependency)
+const HERO_PCB_SRC = "/hero-pcb-board.webp";
 
 export const HeroSection = () => {
   return (
@@ -114,7 +116,7 @@ export const HeroSection = () => {
           {/* Product image with on-board current flow effects */}
           <div className="hero-image-breathe relative">
             <img
-              src={heroPcbBoard}
+              src={HERO_PCB_SRC}
               alt="CANI industrial drone PCBA circuit board with golden IPEX connectors"
               className="relative w-[70%] max-w-[600px] object-contain hero-animate-image drop-shadow-2xl"
               loading="eager"
@@ -124,6 +126,7 @@ export const HeroSection = () => {
               height={500}
               style={{
                 filter: 'brightness(1.1) contrast(1.08)',
+                aspectRatio: '6 / 5',
               }}
             />
 
