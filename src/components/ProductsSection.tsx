@@ -1,4 +1,4 @@
-import { motion } from "framer-motion";
+import { MotionConfig, m } from "@/components/MotionLite";
 import { ArrowRight, Sparkles, Zap, Radio, Camera, Gamepad2, Cpu } from "lucide-react";
 import { LangLink } from "@/components/LangLink";
 import { useLanguage } from "@/contexts/LanguageContext";
