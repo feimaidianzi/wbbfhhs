@@ -174,51 +174,58 @@ const Index = () => {
           </section>
         </ScrollReveal>
 
-        <ScrollReveal direction="right" delay={0.1}>
-          <ParallaxSection speed={0.15}>
-            <WhyChooseUsSection />
-          </ParallaxSection>
-        </ScrollReveal>
+        <Suspense fallback={null}>
+          <ScrollReveal direction="right" delay={0.1}>
+            <ParallaxSection speed={0.15}>
+              <WhyChooseUsSection />
+            </ParallaxSection>
+          </ScrollReveal>
 
-        <ScrollReveal direction="up" delay={0}>
-          <SolutionsSection />
-        </ScrollReveal>
+          <ScrollReveal direction="up" delay={0}>
+            <SolutionsSection />
+          </ScrollReveal>
 
-        <ScrollReveal direction="left" delay={0.1}>
-          <ParallaxSection speed={0.2}>
-            <ApplicationsSection />
-          </ParallaxSection>
-        </ScrollReveal>
+          <ScrollReveal direction="left" delay={0.1}>
+            <ParallaxSection speed={0.2}>
+              <ApplicationsSection />
+            </ParallaxSection>
+          </ScrollReveal>
+        </Suspense>
 
-        <ScrollReveal direction="up" delay={0}>
-          <NewsSection />
-        </ScrollReveal>
+        {/* Below-fold sections — mount after browser is idle to protect LCP */}
+        <DeferredMount delay={1500}>
+          <Suspense fallback={null}>
+            <ScrollReveal direction="up" delay={0}>
+              <NewsSection />
+            </ScrollReveal>
 
-        <ScrollReveal direction="right" delay={0.1}>
-          <PartnersSection />
-        </ScrollReveal>
+            <ScrollReveal direction="right" delay={0.1}>
+              <PartnersSection />
+            </ScrollReveal>
 
-        <ScrollReveal direction="up" delay={0}>
-          <ParallaxSection speed={0.15}>
-            <CertificationsSection />
-          </ParallaxSection>
-        </ScrollReveal>
+            <ScrollReveal direction="up" delay={0}>
+              <ParallaxSection speed={0.15}>
+                <CertificationsSection />
+              </ParallaxSection>
+            </ScrollReveal>
 
-        <ScrollReveal direction="up" delay={0.1}>
-          <AEOFAQSection includeSchema={false} />
-        </ScrollReveal>
+            <ScrollReveal direction="up" delay={0.1}>
+              <AEOFAQSection includeSchema={false} />
+            </ScrollReveal>
 
-        <ScrollReveal direction="up" delay={0}>
-          <FAQSection category="general" limit={6} includeSchema={false} />
-        </ScrollReveal>
+            <ScrollReveal direction="up" delay={0}>
+              <FAQSection category="general" limit={6} includeSchema={false} />
+            </ScrollReveal>
 
-        <ScrollReveal direction="up" delay={0}>
-          <FAQSection category="products" limit={4} showTitle={false} includeSchema={false} />
-        </ScrollReveal>
+            <ScrollReveal direction="up" delay={0}>
+              <FAQSection category="products" limit={4} showTitle={false} includeSchema={false} />
+            </ScrollReveal>
 
-        <ScrollReveal direction="up" delay={0.1}>
-          <CTASection />
-        </ScrollReveal>
+            <ScrollReveal direction="up" delay={0.1}>
+              <CTASection />
+            </ScrollReveal>
+          </Suspense>
+        </DeferredMount>
         
       </main>
       <Footer />
