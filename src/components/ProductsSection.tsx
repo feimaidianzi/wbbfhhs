@@ -1,4 +1,4 @@
-import { motion } from "framer-motion";
+import { MotionConfig, m } from "@/components/MotionLite";
 import { ArrowRight, Sparkles, Zap, Radio, Camera, Gamepad2, Cpu } from "lucide-react";
 import { LangLink } from "@/components/LangLink";
 import { useLanguage } from "@/contexts/LanguageContext";
@@ -79,6 +79,7 @@ export const ProductsSection = () => {
   ];
 
   return (
+    <MotionConfig>
     <section id="products" className="py-24 md:py-32 bg-secondary relative overflow-hidden">
       {/* Background Elements */}
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_30%,rgba(34,211,238,0.05),transparent_50%)]" />
@@ -86,7 +87,7 @@ export const ProductsSection = () => {
       
       <div className="container-custom relative">
         {/* Section Header */}
-        <motion.div
+        <m.div
           initial={{ opacity: 0, y: 40 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-100px" }}
@@ -105,10 +106,10 @@ export const ProductsSection = () => {
           <p className="text-muted-foreground text-base max-w-3xl mx-auto">
             {t('productsSection.seoSubtitle')}
           </p>
-        </motion.div>
+        </m.div>
 
         {/* Products Grid - Asymmetric Layout */}
-        <motion.div
+        <m.div
           variants={containerVariants}
           initial="hidden"
           whileInView="visible"
@@ -116,7 +117,7 @@ export const ProductsSection = () => {
           className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8"
         >
           {/* Featured Large Card */}
-          <motion.div variants={itemVariants} className="md:col-span-2 lg:col-span-2 lg:row-span-2">
+          <m.div variants={itemVariants} className="md:col-span-2 lg:col-span-2 lg:row-span-2">
             <LangLink to={categories[0].link} className="group block h-full">
               <div className="relative h-full min-h-[400px] lg:min-h-[600px] rounded-3xl overflow-hidden bg-gradient-to-br from-accent/20 to-cyan-500/10 border border-accent/20">
                 {/* Background Image */}
@@ -162,11 +163,11 @@ export const ProductsSection = () => {
                 </div>
               </div>
             </LangLink>
-          </motion.div>
+          </m.div>
 
           {/* Small Cards */}
           {categories.slice(1).map((product, index) => (
-            <motion.div key={index} variants={itemVariants}>
+            <m.div key={index} variants={itemVariants}>
               <LangLink to={product.link} className="group block h-full">
                 <div className="relative h-full min-h-[280px] rounded-2xl overflow-hidden bg-card border border-accent/10 hover:border-accent/40 transition-all duration-500">
                   {/* Background Image */}
@@ -212,12 +213,12 @@ export const ProductsSection = () => {
                   </div>
                 </div>
               </LangLink>
-            </motion.div>
+            </m.div>
           ))}
-        </motion.div>
+        </m.div>
 
         {/* View All Button */}
-        <motion.div
+        <m.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
@@ -230,8 +231,9 @@ export const ProductsSection = () => {
               <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
             </button>
           </LangLink>
-        </motion.div>
+        </m.div>
       </div>
     </section>
+    </MotionConfig>
   );
 };
