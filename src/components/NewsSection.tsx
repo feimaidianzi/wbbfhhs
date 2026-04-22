@@ -1,13 +1,14 @@
 import { ArrowRight, ArrowUpRight } from "lucide-react";
 import { LangLink } from "@/components/LangLink";
 import { useLanguage } from "@/contexts/LanguageContext";
-import { motion } from "framer-motion";
+import { useInViewLite } from "@/hooks/useInViewLite";
 import fpvDroneImg from "@/assets/seo/fpv-drone-aerial.jpg";
 import gimbalCameraImg from "@/assets/seo/gimbal-camera-drone.jpg";
 import powerGridImg from "@/assets/seo/power-grid-sunset.jpg";
 
 export const NewsSection = () => {
   const { t } = useLanguage();
+  const grid = useInViewLite<HTMLDivElement>();
 
   const news = [
     {
@@ -38,46 +39,32 @@ export const NewsSection = () => {
       <div className="container-custom">
         {/* Section Header */}
         <div className="flex flex-col md:flex-row items-start md:items-end justify-between mb-12 gap-6">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5 }}
-          >
+          <div>
             <p className="text-accent font-medium mb-2">
               {t('news.section.badge')}
             </p>
             <h2 className="text-3xl md:text-4xl font-bold text-foreground">
               {t('news.section.title')}
             </h2>
-          </motion.div>
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5, delay: 0.1 }}
-          >
-            <LangLink 
+          </div>
+          <div>
+            <LangLink
               to="/news"
               className="inline-flex items-center gap-2 text-foreground hover:text-accent font-medium group"
             >
               {t('news.section.viewAll')}
               <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
             </LangLink>
-          </motion.div>
+          </div>
         </div>
 
         {/* News Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div
+          ref={grid.ref}
+          className={`reveal-init reveal-fade grid grid-cols-1 md:grid-cols-3 gap-6 ${grid.inView ? 'reveal-in' : ''}`}
+        >
           {news.map((item, index) => (
-            <motion.article
-              key={index}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: index * 0.1 }}
-              className="group cursor-pointer"
-            >
+            <article key={index} className="reveal-child group cursor-pointer">
               <LangLink to="/news" className="block">
                 <div className="aspect-[16/10] overflow-hidden rounded-xl mb-4 bg-muted">
                   <img
@@ -109,7 +96,7 @@ export const NewsSection = () => {
                   </span>
                 </div>
               </LangLink>
-            </motion.article>
+            </article>
           ))}
         </div>
       </div>

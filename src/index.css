@@ -640,3 +640,48 @@
 .hero-glow-pulse {
   animation: heroGlowPulse 8s ease-in-out infinite;
 }
+
+/* ========== Lightweight scroll-reveal (replaces framer-motion on the homepage) ========== */
+/* Default hidden state for elements waiting on IntersectionObserver. */
+.reveal-init {
+  opacity: 0;
+  transform: translateY(24px);
+  will-change: opacity, transform;
+}
+.reveal-init.reveal-from-left  { transform: translateX(-24px); }
+.reveal-init.reveal-from-right { transform: translateX(24px); }
+.reveal-init.reveal-fade       { transform: none; }
+
+.reveal-in {
+  opacity: 1 !important;
+  transform: none !important;
+  transition:
+    opacity 0.55s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.55s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* Stagger children inside a revealed container. */
+.reveal-in > .reveal-child         { animation: revealChild 0.55s cubic-bezier(0.22, 1, 0.36, 1) both; }
+.reveal-in > .reveal-child:nth-child(1) { animation-delay: 0.05s; }
+.reveal-in > .reveal-child:nth-child(2) { animation-delay: 0.12s; }
+.reveal-in > .reveal-child:nth-child(3) { animation-delay: 0.19s; }
+.reveal-in > .reveal-child:nth-child(4) { animation-delay: 0.26s; }
+.reveal-in > .reveal-child:nth-child(5) { animation-delay: 0.33s; }
+.reveal-in > .reveal-child:nth-child(6) { animation-delay: 0.40s; }
+.reveal-in > .reveal-child:nth-child(7) { animation-delay: 0.47s; }
+.reveal-in > .reveal-child:nth-child(8) { animation-delay: 0.54s; }
+
+@keyframes revealChild {
+  from { opacity: 0; transform: translateY(20px) scale(0.97); }
+  to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal-init,
+  .reveal-in > .reveal-child {
+    opacity: 1 !important;
+    transform: none !important;
+    animation: none !important;
+    transition: none !important;
+  }
+}
