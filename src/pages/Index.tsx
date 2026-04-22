@@ -145,55 +145,46 @@ const Index = () => {
       <main>
         <HeroSection />
         
-        {/* SEO Intro Text */}
-        <ScrollReveal direction="up" delay={0.1}>
-          <section className="py-12 bg-background">
-            <div className="container-custom">
-              <p className="text-lg text-muted-foreground leading-relaxed max-w-4xl mx-auto text-center">
-                {t('home.seoIntro')}
-              </p>
-            </div>
-          </section>
-        </ScrollReveal>
+        {/* SEO Intro Text — direct render, no framer-motion to protect LCP */}
+        <section className="py-12 bg-background">
+          <div className="container-custom">
+            <p className="text-lg text-muted-foreground leading-relaxed max-w-4xl mx-auto text-center">
+              {t('home.seoIntro')}
+            </p>
+          </div>
+        </section>
 
-        <ScrollReveal direction="up" delay={0}>
-          <ParallaxSection speed={0.2}>
-            <ProductsSection />
-          </ParallaxSection>
-        </ScrollReveal>
+        {/* Products — direct render (above-fold on most viewports) */}
+        <ProductsSection />
 
-        <ScrollReveal direction="left" delay={0.1}>
-          <CompanyIntroSection />
-        </ScrollReveal>
+        {/* Company intro — direct render */}
+        <CompanyIntroSection />
         
-        {/* Brand Summary */}
-        <ScrollReveal direction="up" delay={0}>
-          <section className="py-12 bg-secondary">
-            <div className="container-custom">
-              <p className="text-base text-muted-foreground leading-relaxed max-w-4xl mx-auto">
-                {t('home.brandSummary')}
-              </p>
-            </div>
-          </section>
-        </ScrollReveal>
+        {/* Brand Summary — direct render */}
+        <section className="py-12 bg-secondary">
+          <div className="container-custom">
+            <p className="text-base text-muted-foreground leading-relaxed max-w-4xl mx-auto">
+              {t('home.brandSummary')}
+            </p>
+          </div>
+        </section>
 
-        <Suspense fallback={null}>
-          <ScrollReveal direction="right" delay={0.1}>
-            <ParallaxSection speed={0.15}>
+        {/* Mid-page sections — defer until idle to keep main thread free during LCP */}
+        <DeferredMount delay={800}>
+          <Suspense fallback={null}>
+            <ScrollReveal direction="right" delay={0.1}>
               <WhyChooseUsSection />
-            </ParallaxSection>
-          </ScrollReveal>
+            </ScrollReveal>
 
-          <ScrollReveal direction="up" delay={0}>
-            <SolutionsSection />
-          </ScrollReveal>
+            <ScrollReveal direction="up" delay={0}>
+              <SolutionsSection />
+            </ScrollReveal>
 
-          <ScrollReveal direction="left" delay={0.1}>
-            <ParallaxSection speed={0.2}>
+            <ScrollReveal direction="left" delay={0.1}>
               <ApplicationsSection />
-            </ParallaxSection>
-          </ScrollReveal>
-        </Suspense>
+            </ScrollReveal>
+          </Suspense>
+        </DeferredMount>
 
         {/* Below-fold sections — mount after browser is idle to protect LCP */}
         <DeferredMount delay={1500}>
@@ -207,9 +198,7 @@ const Index = () => {
             </ScrollReveal>
 
             <ScrollReveal direction="up" delay={0}>
-              <ParallaxSection speed={0.15}>
-                <CertificationsSection />
-              </ParallaxSection>
+              <CertificationsSection />
             </ScrollReveal>
 
             <ScrollReveal direction="up" delay={0.1}>
@@ -232,7 +221,11 @@ const Index = () => {
         
       </main>
       <Footer />
-      <FloatingContact />
+      <DeferredMount delay={2000}>
+        <Suspense fallback={null}>
+          <FloatingContact />
+        </Suspense>
+      </DeferredMount>
     </div>
   );
 };
