@@ -712,10 +712,19 @@
   }
 }
 
+/* Use scroll-margin + min padding. !important is required because Tailwind
+ * utilities like `py-24` / `pt-16` on the hero <section> share the same
+ * selector specificity (single class) and would otherwise win by source order,
+ * causing the hero content to render UNDER the fixed <Header />. */
 main > section:first-child {
-  padding-top: var(--header-h);
-  /* Keep declared min-height visually equivalent by absorbing the padding */
+  padding-top: max(var(--header-h), 1rem) !important;
   box-sizing: border-box;
+}
+/* If the page already added `pt-*` on <main> as compensation, neutralize the
+ * doubled offset so we don't get a huge empty band. */
+main[class*="pt-16"],
+main[class*="pt-20"] {
+  padding-top: 0 !important;
 }
 
 /* Anchor scrolling (e.g. #features) should not slide under the fixed header */
