@@ -3,7 +3,9 @@ import { Button } from "@/components/ui/button";
 import { LangLink } from "@/components/LangLink";
 import { ArrowRight, Play, ChevronDown } from "lucide-react";
 import { useLanguage } from "@/contexts/LanguageContext";
-import heroPcbBoard from "@/assets/hero-pcb-board.png";
+
+// Use public asset to enable HTML preload (no JS bundle dependency for LCP)
+const HERO_PCB_SRC = "/hero-pcb-board.webp";
 
 const statsVariants = {
   hidden: { opacity: 0, y: 20 },
@@ -29,9 +31,11 @@ export const HeroContent = () => {
 
   return (
     <div className="relative z-10 flex flex-col justify-center min-h-screen px-6 sm:px-10 lg:px-16 xl:px-24 pt-20">
-      <div className="w-full max-w-2xl">
+      {/* Reserve vertical space to prevent CLS while async translations load */}
+      <div className="w-full max-w-2xl" style={{ minHeight: '520px' }}>
         {/* Tagline */}
         <div className="mb-6 hero-animate-tagline">
+          <span className="inline-block min-h-[24px]" />{/* spacer to prevent first-paint shift */}
           <span className="inline-flex items-center gap-2 px-3 py-1.5 text-xs font-medium tracking-[0.2em] uppercase text-blue-400/90 border border-blue-400/20 rounded-full bg-blue-400/[0.06]">
             <span className="w-1.5 h-1.5 rounded-full bg-blue-400 animate-pulse" />
             {t('hero.tagline')}
@@ -56,10 +60,14 @@ export const HeroContent = () => {
         {/* Mobile product image */}
         <div className="lg:hidden mb-10 hero-animate-image">
           <img
-            src={heroPcbBoard}
+            src={HERO_PCB_SRC}
             alt="CANI industrial drone PCBA"
+            width={448}
+            height={336}
+            fetchPriority="high"
+            decoding="async"
             className="w-full max-w-md mx-auto rounded-lg opacity-80"
-            style={{ filter: 'brightness(1.05)' }}
+            style={{ filter: 'brightness(1.05)', aspectRatio: '4 / 3' }}
           />
         </div>
 

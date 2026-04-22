@@ -1,5 +1,7 @@
 import { LangLink } from "@/components/LangLink";
-import logoImage from "@/assets/logo-cani.png";
+
+// Use small public asset (11KB WebP) instead of bundled large PNG (96KB)
+const LOGO_SRC = "/logo-cani-small.webp";
 
 interface LogoProps {
   className?: string;
@@ -8,9 +10,13 @@ interface LogoProps {
 
 export const Logo = ({ className = "", showLink = true }: LogoProps) => {
   const logoContent = (
-    <img 
-      src={logoImage} 
-      alt="CANI长凌科技 - 工业无人机核心配件制造商" 
+    <img
+      src={LOGO_SRC}
+      alt="CANI长凌科技 - 工业无人机核心配件制造商"
+      width={163}
+      height={56}
+      fetchPriority="high"
+      decoding="async"
       className={`h-8 md:h-10 w-auto ${className}`}
     />
   );
@@ -23,9 +29,12 @@ export const Logo = ({ className = "", showLink = true }: LogoProps) => {
 };
 
 export const LogoDark = ({ className = "" }: { className?: string }) => (
-  <img 
-    src={logoImage} 
-    alt="CANI长凌科技 - 工业无人机核心配件制造商" 
+  <img
+    src={LOGO_SRC}
+    alt="CANI长凌科技 - 工业无人机核心配件制造商"
+    width={163}
+    height={56}
+    decoding="async"
     className={`h-8 md:h-10 w-auto ${className}`}
   />
 );
