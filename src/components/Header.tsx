@@ -7,8 +7,9 @@ import { Logo } from "@/components/Logo";
 import { LanguageSwitcher } from "@/components/LanguageSwitcher";
 import { useLanguage } from "@/contexts/LanguageContext";
 
-import { supabase } from "@/integrations/supabase/client";
-import { User as SupabaseUser } from "@supabase/supabase-js";
+// Supabase client + types are dynamically imported to keep them off the homepage's
+// critical JS path (~90KB gzip). They load during browser idle after first paint.
+import type { User as SupabaseUser } from "@supabase/supabase-js";
 import { useToast } from "@/hooks/use-toast";
 
 export const Header = () => {
@@ -81,18 +82,41 @@ export const Header = () => {
   }, []);
 
   useEffect(() => {
-    const { data: { subscription } } = supabase.auth.onAuthStateChange((event, session) => {
-      setUser(session?.user ?? null);
-    });
+    let unsubscribe: (() => void) | undefined;
+    let cancelled = false;
 
-    supabase.auth.getSession().then(({ data: { session } }) => {
-      setUser(session?.user ?? null);
-    });
+    const loadAuth = async () => {
+      const { supabase } = await import("@/integrations/supabase/client");
+      if (cancelled) return;
 
-    return () => subscription.unsubscribe();
+      const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
+        setUser(session?.user ?? null);
+      });
+      unsubscribe = () => subscription.unsubscribe();
+
+      const { data: { session } } = await supabase.auth.getSession();
+      if (!cancelled) setUser(session?.user ?? null);
+    };
+
+    // Defer to browser idle so Supabase JS doesn't compete with LCP
+    const idleId =
+      'requestIdleCallback' in window
+        ? (window as any).requestIdleCallback(loadAuth, { timeout: 3000 })
+        : (setTimeout(loadAuth, 1500) as unknown as number);
+
+    return () => {
+      cancelled = true;
+      unsubscribe?.();
+      if ('cancelIdleCallback' in window && typeof idleId === 'number') {
+        (window as any).cancelIdleCallback(idleId);
+      } else {
+        clearTimeout(idleId as unknown as ReturnType<typeof setTimeout>);
+      }
+    };
   }, []);
 
   const handleLogout = async () => {
+    const { supabase } = await import("@/integrations/supabase/client");
     await supabase.auth.signOut();
     toast({
       title: t('auth.success'),
