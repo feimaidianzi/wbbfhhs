@@ -1,9 +1,11 @@
 import { Globe, Plane, Shield, Factory, Zap, Radar, Mountain, Waves } from "lucide-react";
 import { useLanguage } from "@/contexts/LanguageContext";
-import { motion } from "framer-motion";
+import { useInViewLite } from "@/hooks/useInViewLite";
 
 export const PartnersSection = () => {
   const { t } = useLanguage();
+  const grid = useInViewLite<HTMLDivElement>();
+  const stats = useInViewLite<HTMLDivElement>();
 
   const partners = [
     { name: t('partnersSection.partner.skywatch'), icon: Radar },
@@ -28,7 +30,7 @@ export const PartnersSection = () => {
     { name: t('partnersSection.partner.skyeton'), icon: Radar },
   ];
 
-  const stats = [
+  const statsList = [
     { value: t('partnersSection.stat1.value'), label: t('partnersSection.stat1.label') },
     { value: t('partnersSection.stat2.value'), label: t('partnersSection.stat2.label') },
     { value: t('partnersSection.stat3.value'), label: t('partnersSection.stat3.label') },
@@ -39,13 +41,7 @@ export const PartnersSection = () => {
     <section className="py-20 md:py-28 bg-secondary/50 overflow-hidden">
       <div className="container-custom">
         {/* Header */}
-        <motion.div 
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5 }}
-          className="text-center mb-16"
-        >
+        <div className="text-center mb-16">
           <p className="text-accent font-medium mb-2">
             {t('partnersSection.badge')}
           </p>
@@ -55,22 +51,19 @@ export const PartnersSection = () => {
           <p className="text-muted-foreground max-w-2xl mx-auto">
             {t('partnersSection.subtitle')}
           </p>
-        </motion.div>
+        </div>
 
         {/* Partner Logos Grid */}
-        <motion.div 
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5, delay: 0.1 }}
-          className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 mb-16"
+        <div
+          ref={grid.ref}
+          className={`reveal-init reveal-fade grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 mb-16 ${grid.inView ? 'reveal-in' : ''}`}
         >
           {partners.slice(0, 10).map((partner, index) => {
             const IconComponent = partner.icon;
             return (
               <div
                 key={index}
-                className="group flex items-center gap-3 p-4 bg-background rounded-xl border border-border/50 hover:border-accent/30 hover:shadow-sm transition-all duration-300"
+                className="reveal-child group flex items-center gap-3 p-4 bg-background rounded-xl border border-border/50 hover:border-accent/30 hover:shadow-sm transition-all duration-300"
               >
                 <div className="w-10 h-10 rounded-lg bg-accent/10 flex items-center justify-center shrink-0">
                   <IconComponent className="w-5 h-5 text-accent" />
@@ -81,7 +74,7 @@ export const PartnersSection = () => {
               </div>
             );
           })}
-        </motion.div>
+        </div>
 
         {/* Scrolling Partners */}
         <div className="relative mb-16">
@@ -106,20 +99,17 @@ export const PartnersSection = () => {
         </div>
 
         {/* Stats */}
-        <motion.div 
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5, delay: 0.2 }}
-          className="grid grid-cols-2 md:grid-cols-4 gap-6"
+        <div
+          ref={stats.ref}
+          className={`reveal-init reveal-fade grid grid-cols-2 md:grid-cols-4 gap-6 ${stats.inView ? 'reveal-in' : ''}`}
         >
-          {stats.map((stat, index) => (
-            <div key={index} className="text-center p-6 bg-background rounded-2xl border border-border/50">
+          {statsList.map((stat, index) => (
+            <div key={index} className="reveal-child text-center p-6 bg-background rounded-2xl border border-border/50">
               <div className="text-3xl md:text-4xl font-bold text-accent mb-2">{stat.value}</div>
               <div className="text-muted-foreground text-sm">{stat.label}</div>
             </div>
           ))}
-        </motion.div>
+        </div>
       </div>
     </section>
   );
