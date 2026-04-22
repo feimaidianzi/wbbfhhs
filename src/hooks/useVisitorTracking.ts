@@ -171,14 +171,15 @@ export const useVisitorTracking = () => {
     const { utmSource, utmMedium, utmCampaign } = getUtmParams();
     const deviceInfo = getDeviceInfo();
 
+    // Use maybeSingle to avoid 406 errors on 0 rows; use upsert to avoid 409 duplicate races
     const { data: existingSession } = await supabase
       .from('visitor_sessions')
       .select('id')
       .eq('session_id', sessionId)
-      .single();
+      .maybeSingle();
 
     if (!existingSession) {
-      await supabase.from('visitor_sessions').insert({
+      await supabase.from('visitor_sessions').upsert({
         session_id: sessionId,
         traffic_source: source,
         referrer_url: referrerUrl,
@@ -192,7 +193,7 @@ export const useVisitorTracking = () => {
         os: deviceInfo.os,
         screen_resolution: deviceInfo.screenResolution,
         pages_visited: [location.pathname],
-      });
+      }, { onConflict: 'session_id', ignoreDuplicates: true });
     }
 
     localStorage.setItem('current_visitor_session', sessionId);
@@ -272,7 +273,7 @@ export const useVisitorTracking = () => {
         .from('visitor_sessions')
         .select('pages_visited')
         .eq('session_id', sessionId)
-        .single();
+        .maybeSingle();
 
       if (data) {
         const pages = data.pages_visited || [];
@@ -326,7 +327,7 @@ export const useVisitorTracking = () => {
         .from('visitor_sessions')
         .select('search_keywords')
         .eq('session_id', sessionId)
-        .single();
+        .maybeSingle();
 
       if (data) {
         const keywords = data.search_keywords || [];
