@@ -125,6 +125,7 @@ const ImageAltScanner = React.lazy(() => import("./components/ImageAltScanner").
 
 // ErrorBoundary is a class component - import eagerly (tiny file)
 import { AIAssistantErrorBoundary } from "./components/AIAssistant/ErrorBoundary";
+import { DeferredMount } from "./components/DeferredMount";
 
 const queryClient = new QueryClient();
 
@@ -305,14 +306,16 @@ const App = () => (
               <Route path="*" element={<NotFound />} />
             </Routes>
           </Suspense>
-          {/* Lazy load non-critical global components */}
-          <Suspense fallback={null}>
-            <VisitorTracker />
-            <ImageAltScanner />
-            <AIAssistantErrorBoundary>
-              <AIAssistant />
-            </AIAssistantErrorBoundary>
-          </Suspense>
+          {/* Lazy load non-critical global components — deferred to browser idle to protect LCP */}
+          <DeferredMount delay={2000}>
+            <Suspense fallback={null}>
+              <VisitorTracker />
+              <ImageAltScanner />
+              <AIAssistantErrorBoundary>
+                <AIAssistant />
+              </AIAssistantErrorBoundary>
+            </Suspense>
+          </DeferredMount>
         </BrowserRouter>
       </TooltipProvider>
     </LanguageProvider>
