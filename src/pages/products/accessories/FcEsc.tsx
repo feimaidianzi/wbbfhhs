@@ -8,7 +8,7 @@ import { ArrowLeft, Cpu, Zap, Shield, Settings, Thermometer, Gauge, ChevronRight
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { PageFAQ } from "@/components/PageFAQ";
-import { Helmet } from "react-helmet-async";
+import { Helmet } from "@/lib/helmet-shim";
 import {
   Accordion,
   AccordionContent,

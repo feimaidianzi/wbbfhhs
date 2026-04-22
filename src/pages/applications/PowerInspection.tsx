@@ -2,7 +2,7 @@ import ApplicationPageTemplate from "@/components/ApplicationPageTemplate";
 import { Zap, Shield, Target, TrendingUp, AlertTriangle, Eye, Database, FileText, Map, Cpu } from "lucide-react";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { PageFAQ } from "@/components/PageFAQ";
-import { Helmet } from "react-helmet-async";
+import { Helmet } from "@/lib/helmet-shim";
 
 import heroPowerGrid from "@/assets/power/hero-power-grid.jpg";
 import uavInspection from "@/assets/power/uav-inspection.jpg";

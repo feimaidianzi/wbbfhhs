@@ -8,7 +8,7 @@ import { BackButton } from "@/components/BackButton";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { MultiLanguageSEO } from "@/components/MultiLanguageSEO";
 import { PageFAQ } from "@/components/PageFAQ";
-import { Helmet } from "react-helmet-async";
+import { Helmet } from "@/lib/helmet-shim";
 import customAccessoriesHardwareImg from "@/assets/seo/custom-accessories-hardware.jpg";
 
 const AccessoriesCustom = () => {

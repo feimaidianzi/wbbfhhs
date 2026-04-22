@@ -1,4 +1,4 @@
-import { Helmet } from 'react-helmet-async';
+import { Helmet } from "@/lib/helmet-shim";
 import { useLanguage } from '@/contexts/LanguageContext';
 import { LanguageCode } from '@/i18n/languages';
 import { getDomainForLanguage, getHtmlLang } from '@/utils/seoConfig';

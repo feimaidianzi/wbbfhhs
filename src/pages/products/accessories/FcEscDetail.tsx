@@ -10,7 +10,7 @@ import { Check, AlertTriangle, Cpu, Zap, Package, Shield, Download, FileText, Se
 import { getFcEscProductById } from "@/data/fcEscProducts";
 import { useState } from "react";
 import { useLanguage } from "@/contexts/LanguageContext";
-import { Helmet } from "react-helmet-async";
+import { Helmet } from "@/lib/helmet-shim";
 import { LanguageCode } from "@/i18n/languages";
 import { getDomainForLanguage, getHtmlLang } from "@/utils/seoConfig";
 import {

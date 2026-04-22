@@ -1,4 +1,4 @@
-import { Helmet } from 'react-helmet-async';
+import { Helmet } from "@/lib/helmet-shim";
 
 interface HeroImagePreloadProps {
   /** The imported image URL (from ES6 import) */

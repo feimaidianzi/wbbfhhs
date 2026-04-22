@@ -7,7 +7,7 @@ import { Button } from "@/components/ui/button";
 import { MultiLanguageSEO } from "@/components/MultiLanguageSEO";
 import { BackButton } from "@/components/BackButton";
 import { ArrowRight, Phone, Radio, Wifi, Zap, Signal, Shield, Settings, Check, BookOpen } from "lucide-react";
-import { Helmet } from "react-helmet-async";
+import { Helmet } from "@/lib/helmet-shim";
 import { elrsProducts } from "@/data/elrsProducts";
 import { useLanguage } from "@/contexts/LanguageContext";
 import {

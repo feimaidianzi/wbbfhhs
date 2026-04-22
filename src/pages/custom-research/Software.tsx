@@ -21,7 +21,7 @@ import { MultiLanguageSEO } from "@/components/MultiLanguageSEO";
 import { PageStructuredData } from "@/components/PageStructuredData";
 import softwareCustomHeroImg from "@/assets/seo/custom-software-dev.jpg";
 import { PageFAQ } from "@/components/PageFAQ";
-import { Helmet } from "react-helmet-async";
+import { Helmet } from "@/lib/helmet-shim";
 import {
   Table, TableBody, TableCell, TableHead, TableHeader, TableRow,
 } from "@/components/ui/table";

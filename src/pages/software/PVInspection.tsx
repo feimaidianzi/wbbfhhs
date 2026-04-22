@@ -7,7 +7,7 @@ import { LangLink as Link } from "@/components/LangLink";
 import { MultiLanguageSEO } from "@/components/MultiLanguageSEO";
 import { PageFAQ } from "@/components/PageFAQ";
 import { useLanguage } from "@/contexts/LanguageContext";
-import { Helmet } from "react-helmet-async";
+import { Helmet } from "@/lib/helmet-shim";
 import pvInspectionHeroImg from "@/assets/seo/solar-panel-inspection.jpg";
 import pvThermalImg from "@/assets/seo/pv-thermal-defect.jpg";
 

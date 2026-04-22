@@ -6,7 +6,7 @@ import { MultiLanguageSEO } from "@/components/MultiLanguageSEO";
 import { Button } from "@/components/ui/button";
 import { LangLink } from "@/components/LangLink";
 import { useLanguage } from "@/contexts/LanguageContext";
-import { Helmet } from "react-helmet-async";
+import { Helmet } from "@/lib/helmet-shim";
 import { 
   ArrowRight, Mail, Phone, CheckCircle, Radio, Wifi, Zap, Shield, 
   Signal, Network, MapPin, Building, TreePine, Camera, Home, 

@@ -8,7 +8,7 @@ import { LangLink, LangLink as Link } from "@/components/LangLink";
 import { MultiLanguageSEO, createLocalizedProductSchema } from "@/components/MultiLanguageSEO";
 import { BackButton } from "@/components/BackButton";
 import { useLanguage } from "@/contexts/LanguageContext";
-import { Helmet } from "react-helmet-async";
+import { Helmet } from "@/lib/helmet-shim";
 import { LanguageCode } from "@/i18n/languages";
 import { getDomainForLanguage, getHtmlLang, createLocalizedBreadcrumb } from "@/utils/seoConfig";
 

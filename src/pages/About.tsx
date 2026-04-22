@@ -10,7 +10,7 @@ import { useLanguage } from "@/contexts/LanguageContext";
 import { LangLink } from "@/components/LangLink";
 import { PageFAQ } from "@/components/PageFAQ";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
-import { Helmet } from "react-helmet-async";
+import { Helmet } from "@/lib/helmet-shim";
 import { FacilityGallery } from "@/components/FacilityGallery";
 import corporateImg from "@/assets/seo/corporate-office.jpg";
 import { motion } from "@/lib/motion-shim";

@@ -6,7 +6,7 @@ import { ArrowRight, Monitor, Map, Cloud, Shield, Settings, Database, BookOpen, 
 import { LangLink as Link } from "@/components/LangLink";
 import { MultiLanguageSEO } from "@/components/MultiLanguageSEO";
 import { useLanguage } from "@/contexts/LanguageContext";
-import { Helmet } from "react-helmet-async";
+import { Helmet } from "@/lib/helmet-shim";
 import softwareHeroImg from "@/assets/seo/software-dashboard.jpg";
 
 const Software = () => {
