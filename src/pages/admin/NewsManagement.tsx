@@ -267,13 +267,17 @@ const NewsManagement = () => {
 
         if (error) throw error;
         toast({ title: '文章已更新' });
+        if (formData.is_published) pushArticleToBaidu(editingArticle.id);
       } else {
-        const { error } = await supabase
+        const { data: inserted, error } = await supabase
           .from('news_articles')
-          .insert(articleData);
+          .insert(articleData)
+          .select('id')
+          .single();
 
         if (error) throw error;
         toast({ title: '文章已创建' });
+        if (formData.is_published && inserted?.id) pushArticleToBaidu(inserted.id);
       }
 
       setIsDialogOpen(false);
@@ -321,6 +325,7 @@ const NewsManagement = () => {
       toast({
         title: reviewData.status === 'approved' ? '文章已通过审核并发布' : '文章已被拒绝',
       });
+      if (reviewData.status === 'approved') pushArticleToBaidu(reviewingArticle.id);
 
       setIsReviewDialogOpen(false);
       fetchArticles();
@@ -428,6 +433,7 @@ const NewsManagement = () => {
 
       if (error) throw error;
       toast({ title: newPublishState ? '文章已发布' : '文章已取消发布' });
+      if (newPublishState) pushArticleToBaidu(article.id);
       fetchArticles();
     } catch (error: any) {
       console.error('Error toggling publish:', error);
