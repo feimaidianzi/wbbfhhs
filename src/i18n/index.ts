@@ -1,20 +1,11 @@
-// English is bundled statically — it's the default and needed for instant first paint
-// (eliminates a chained network request that was blocking LCP by ~2.5s).
-import { enTranslations } from './en';
+// Dynamic translation loading - no static imports of large translation files.
+// English chunk is preloaded via <link rel="modulepreload"> in index.html
+// so it loads in parallel with the main bundle (no chained network request).
 import { LanguageCode } from './languages';
 
-// Cache for loaded translations
-const translationCache: Record<string, Record<string, string>> = {
-  en: enTranslations,
-};
-
-// Loading promises to prevent duplicate fetches
+const translationCache: Record<string, Record<string, string>> = {};
 const loadingPromises: Record<string, Promise<Record<string, string>>> = {};
 
-/**
- * Load translations for a specific language.
- * English returns synchronously (bundled). Other languages lazy-load.
- */
 export const loadTranslations = async (lang: LanguageCode): Promise<Record<string, string>> => {
   if (translationCache[lang]) {
     return translationCache[lang];
@@ -30,7 +21,13 @@ export const loadTranslations = async (lang: LanguageCode): Promise<Record<strin
       translationCache['zh'] = zhTranslations;
       return zhTranslations;
     }
-    // For other languages, fall back to bundled English
+    if (lang === 'en') {
+      const { enTranslations } = await import('./en');
+      translationCache['en'] = enTranslations;
+      return enTranslations;
+    }
+    const { enTranslations } = await import('./en');
+    translationCache['en'] = enTranslations;
     return enTranslations;
   })();
 
@@ -41,13 +38,13 @@ export const loadTranslations = async (lang: LanguageCode): Promise<Record<strin
 };
 
 /**
- * Synchronous English translations — always available (bundled).
+ * Returns English translations if loaded, else empty object.
+ * Components should fall back to the key (which is human-readable enough).
  */
-export const getEnglishTranslations = (): Record<string, string> => enTranslations;
+export const getEnglishTranslations = (): Record<string, string> => {
+  return translationCache['en'] || {};
+};
 
-/**
- * Get translations synchronously (from cache only).
- */
 export const getTranslations = (lang: LanguageCode): Record<string, string> => {
   return translationCache[lang] || {};
 };
