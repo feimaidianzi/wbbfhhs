@@ -124,7 +124,25 @@ export const LanguageProvider: React.FC<LanguageProviderProps> = ({ children }) 
 
   // Background translation upgrade — runs AFTER first paint to avoid blocking LCP
   const upgradeTranslations = useCallback(async (targetLang: LanguageCode) => {
-    const enBase = getEnglishTranslations();
+    // Always make sure English chunk is loaded first (it's already in flight from module init)
+    const enBase = await enLoadPromise;
+    setTranslations('en', enBase);
+    // Cache en in localStorage so next visit gets instant first paint
+    try {
+      const enKey = 'translations_en';
+      const stored = localStorage.getItem(enKey);
+      if (!stored) {
+        localStorage.setItem(enKey, JSON.stringify(enBase));
+      }
+    } catch { /* ignore */ }
+
+    // If we're rendering English, just merge en in case current state was empty
+    if (targetLang === 'en') {
+      setCurrentTranslations((prev) => Object.keys(prev).length === 0 ? enBase : { ...enBase, ...prev });
+    } else {
+      // For other languages, ensure English fallback is merged under existing translations
+      setCurrentTranslations((prev) => ({ ...enBase, ...prev }));
+    }
 
     // For zh, dynamically load the chunk
     if (targetLang === 'zh') {
