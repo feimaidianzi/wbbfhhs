@@ -252,13 +252,9 @@ export const LanguageProvider: React.FC<LanguageProviderProps> = ({ children }) 
     document.documentElement.lang = language;
     document.documentElement.dir = isRTL ? 'rtl' : 'ltr';
 
-    // Defer all translation upgrades until AFTER first paint
-    const startUpgrade = () => upgradeTranslations(language);
-    if ('requestIdleCallback' in window) {
-      (window as any).requestIdleCallback(startUpgrade, { timeout: 2000 });
-    } else {
-      setTimeout(startUpgrade, 100);
-    }
+    // Start upgrade ASAP. The en chunk is already in flight (from module load),
+    // so this resolves quickly and doesn't block LCP.
+    upgradeTranslations(language);
 
     const pathLang = detectLanguageFromPath();
     if (pathLang && pathLang !== language) {
