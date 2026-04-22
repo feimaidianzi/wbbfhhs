@@ -7,13 +7,13 @@ import {
   getLanguageByCode,
   toBaseLanguage,
 } from '@/i18n/languages';
-import { loadTranslations, setTranslations, hasTranslations, getTranslations } from '@/i18n';
+import { loadTranslations, loadHomeTranslations, setTranslations, hasTranslations, getTranslations } from '@/i18n';
 import { safeStorageGet, safeStorageSet } from '@/lib/utils';
 
-// Kick off English translation load IMMEDIATELY at module evaluation,
-// in parallel with the main bundle initialization. By the time React renders,
-// the chunk download is already in flight (no chained network round-trip).
-const enLoadPromise: Promise<Record<string, string>> = loadTranslations('en');
+// Kick off ENGLISH HOME translation load IMMEDIATELY at module evaluation, in
+// parallel with the main bundle. This is only ~6KB gzip (vs ~180KB for the
+// full en chunk) so it lands well before LCP, even on slow networks.
+const enHomeLoadPromise: Promise<Record<string, string>> = loadHomeTranslations('en');
 
 interface LanguageContextType {
   language: LanguageCode;
