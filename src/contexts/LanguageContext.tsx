@@ -77,141 +77,130 @@ const getInitialLanguage = (): LanguageCode => {
 
 export const LanguageProvider: React.FC<LanguageProviderProps> = ({ children }) => {
   const [language, setLanguageState] = useState<LanguageCode>(getInitialLanguage);
-  
-  // Try to load from localStorage cache synchronously for initial render
+
+  // SYNCHRONOUS first paint: English is bundled, so we always have something to render.
+  // For zh, try localStorage cache; otherwise fall back to English on first paint
+  // and upgrade to zh in background.
   const [currentTranslations, setCurrentTranslations] = useState<Record<string, string>>(() => {
     const lang = getInitialLanguage();
-    // For zh/en, check if already in i18n cache (from a previous load)
+    const enBase = getEnglishTranslations();
+
+    if (lang === 'en') return enBase;
+
+    // Check in-memory cache (HMR / repeat mount)
     const cached = getTranslations(lang);
-    if (Object.keys(cached).length > 0) return cached;
-    // Try localStorage
-    const stored = localStorage.getItem(`translations_${lang}`);
-    if (stored) {
-      try { return JSON.parse(stored); } catch { /* ignore */ }
-    }
-    return {};
+    if (Object.keys(cached).length > 0) return { ...enBase, ...cached };
+
+    // Try localStorage for non-en languages
+    try {
+      const stored = localStorage.getItem(`translations_${lang}`);
+      if (stored) {
+        const parsed = JSON.parse(stored);
+        return { ...enBase, ...parsed };
+      }
+    } catch { /* ignore */ }
+
+    // Fallback: render with English immediately, real translations load async
+    return enBase;
   });
 
-  const [isLoading, setIsLoading] = useState(() => Object.keys(currentTranslations).length === 0);
-  const [autoDetected, setAutoDetected] = useState(false);
+  // Never block first render — we always have English available
+  const [isLoading, setIsLoading] = useState(false);
   const initDone = useRef(false);
 
   const langConfig = getLanguageByCode(language);
   const isRTL = langConfig?.rtl || false;
 
-  // Core translation loading logic
-  const loadLanguageTranslations = useCallback(async (targetLang: LanguageCode) => {
-    // Step 1: Load base translations (zh or en) via dynamic import
-    if (targetLang === 'zh' || targetLang === 'en') {
-      const enBase = await loadTranslations('en');
-      const langBase = await loadTranslations(targetLang);
-      const base = targetLang === 'zh' ? { ...enBase, ...langBase } : langBase;
-      const storageKey = `translations_${targetLang}`;
+  // Background translation upgrade — runs AFTER first paint to avoid blocking LCP
+  const upgradeTranslations = useCallback(async (targetLang: LanguageCode) => {
+    const enBase = getEnglishTranslations();
 
-      try {
-        const cached = localStorage.getItem(storageKey);
-        if (cached) {
-          const parsed = JSON.parse(cached);
-          const merged = { ...base, ...parsed };
-          setTranslations(targetLang, merged);
-          setCurrentTranslations(merged);
-          setIsLoading(false);
-
-          supabase.from('system_settings').select('value').eq('key', storageKey).maybeSingle()
-            .then(({ data }) => {
-              if (data?.value && data.value !== cached) {
-                const fresh = JSON.parse(data.value);
-                const refreshed = { ...base, ...fresh };
-                setTranslations(targetLang, refreshed);
-                setCurrentTranslations(refreshed);
-                localStorage.setItem(storageKey, data.value);
-              }
-            });
-          return;
-        }
-
-        const { data } = await supabase.from('system_settings').select('value').eq('key', storageKey).maybeSingle();
-        if (data?.value) {
-          const dbT = JSON.parse(data.value);
-          const merged = { ...base, ...dbT };
-          setTranslations(targetLang, merged);
-          setCurrentTranslations(merged);
-          localStorage.setItem(storageKey, data.value);
-        } else {
-          setTranslations(targetLang, base);
-          setCurrentTranslations(base);
-        }
-      } catch {
-        setTranslations(targetLang, base);
-        setCurrentTranslations(base);
-      }
-
-      setIsLoading(false);
-      return;
-    }
-
-    // Step 2: For other languages, check memory > localStorage > DB (with English fallback merge)
-    const enBase = await loadTranslations('en');
-
-    if (hasTranslations(targetLang)) {
-      const merged = { ...enBase, ...getTranslations(targetLang) };
+    // For zh, dynamically load the chunk
+    if (targetLang === 'zh') {
+      const zhBase = await loadTranslations('zh');
+      const merged = { ...enBase, ...zhBase };
+      setTranslations('zh', merged);
       setCurrentTranslations(merged);
-      setIsLoading(false);
-      return;
-    }
 
-    const cached = localStorage.getItem(`translations_${targetLang}`);
-    if (cached) {
-      try {
-        const parsed = JSON.parse(cached);
-        const merged = { ...enBase, ...parsed };
-        setTranslations(targetLang, merged);
-        setCurrentTranslations(merged);
-        setIsLoading(false);
-        // Background refresh
-        supabase.from('system_settings').select('value').eq('key', `translations_${targetLang}`).single()
+      // After bundled translations are in, check Supabase for newer overrides (idle)
+      const checkSupabase = () => {
+        supabase.from('system_settings').select('value').eq('key', 'translations_zh').maybeSingle()
           .then(({ data }) => {
-            if (data?.value && data.value !== cached) {
-              const fresh = JSON.parse(data.value);
-              const mergedFresh = { ...enBase, ...fresh };
-              setTranslations(targetLang, mergedFresh);
-              setCurrentTranslations(mergedFresh);
-              localStorage.setItem(`translations_${targetLang}`, data.value);
+            if (data?.value) {
+              try {
+                const fresh = JSON.parse(data.value);
+                const refreshed = { ...merged, ...fresh };
+                setTranslations('zh', refreshed);
+                setCurrentTranslations(refreshed);
+                localStorage.setItem('translations_zh', data.value);
+              } catch { /* ignore */ }
             }
           });
-        return;
-      } catch { /* ignore */ }
-    }
-
-    setIsLoading(true);
-    try {
-      const { data, error } = await supabase.from('system_settings').select('value').eq('key', `translations_${targetLang}`).single();
-      if (error) throw error;
-      if (data?.value) {
-        const translations = JSON.parse(data.value);
-        const merged = { ...enBase, ...translations };
-        setTranslations(targetLang, merged);
-        setCurrentTranslations(merged);
-        localStorage.setItem(`translations_${targetLang}`, data.value);
-        setIsLoading(false);
-        return;
+      };
+      if ('requestIdleCallback' in window) {
+        (window as any).requestIdleCallback(checkSupabase, { timeout: 5000 });
+      } else {
+        setTimeout(checkSupabase, 2000);
       }
-    } catch {
-      console.error('Error loading translations for', targetLang);
+      return;
     }
 
-    // Fallback to English
-    setCurrentTranslations(enBase);
-    setIsLoading(false);
-  }, []);
+    // For en, only check Supabase for overrides (idle, non-blocking)
+    if (targetLang === 'en') {
+      const checkSupabase = () => {
+        supabase.from('system_settings').select('value').eq('key', 'translations_en').maybeSingle()
+          .then(({ data }) => {
+            if (data?.value) {
+              try {
+                const fresh = JSON.parse(data.value);
+                const refreshed = { ...enBase, ...fresh };
+                setTranslations('en', refreshed);
+                setCurrentTranslations(refreshed);
+                localStorage.setItem('translations_en', data.value);
+              } catch { /* ignore */ }
+            }
+          });
+      };
+      if ('requestIdleCallback' in window) {
+        (window as any).requestIdleCallback(checkSupabase, { timeout: 5000 });
+      } else {
+        setTimeout(checkSupabase, 2000);
+      }
+      return;
+    }
 
-  // IP-based auto-redirect DISABLED to prevent SEO crawler conflicts
-  // Google/Bing bots crawl from US IPs and get force-redirected to /en,
-  // which wastes crawl budget and causes indexing issues for other languages.
-  // Users can still manually switch languages via the LanguageSwitcher.
-  const detectLanguageFromIP = useCallback(async () => {
-    // Intentionally disabled — see comment above
-    return;
+    // Other languages — fetch DB translations (idle)
+    const fetchOther = async () => {
+      try {
+        const cached = localStorage.getItem(`translations_${targetLang}`);
+        if (cached) {
+          // Already shown in initial state; check DB for fresh
+          const { data } = await supabase.from('system_settings').select('value').eq('key', `translations_${targetLang}`).maybeSingle();
+          if (data?.value && data.value !== cached) {
+            const fresh = JSON.parse(data.value);
+            const merged = { ...enBase, ...fresh };
+            setTranslations(targetLang, merged);
+            setCurrentTranslations(merged);
+            localStorage.setItem(`translations_${targetLang}`, data.value);
+          }
+          return;
+        }
+        const { data } = await supabase.from('system_settings').select('value').eq('key', `translations_${targetLang}`).maybeSingle();
+        if (data?.value) {
+          const fresh = JSON.parse(data.value);
+          const merged = { ...enBase, ...fresh };
+          setTranslations(targetLang, merged);
+          setCurrentTranslations(merged);
+          localStorage.setItem(`translations_${targetLang}`, data.value);
+        }
+      } catch { /* ignore */ }
+    };
+
+    if ('requestIdleCallback' in window) {
+      (window as any).requestIdleCallback(fetchOther, { timeout: 5000 });
+    } else {
+      setTimeout(fetchOther, 1500);
+    }
   }, []);
 
   const setLanguage = useCallback((lang: LanguageCode) => {
@@ -224,10 +213,8 @@ export const LanguageProvider: React.FC<LanguageProviderProps> = ({ children }) 
   }, []);
 
   const t = useCallback((key: string): string => {
-    if (isLoading) return '\u00A0';
-    // Try current translations, then fall back to key
     return currentTranslations[key] || key;
-  }, [currentTranslations, isLoading]);
+  }, [currentTranslations]);
 
   useEffect(() => {
     if (initDone.current) return;
@@ -235,22 +222,19 @@ export const LanguageProvider: React.FC<LanguageProviderProps> = ({ children }) 
 
     document.documentElement.lang = language;
     document.documentElement.dir = isRTL ? 'rtl' : 'ltr';
-    
-    loadLanguageTranslations(language);
+
+    // Defer all translation upgrades until AFTER first paint
+    const startUpgrade = () => upgradeTranslations(language);
+    if ('requestIdleCallback' in window) {
+      (window as any).requestIdleCallback(startUpgrade, { timeout: 2000 });
+    } else {
+      setTimeout(startUpgrade, 100);
+    }
 
     const pathLang = detectLanguageFromPath();
     if (pathLang && pathLang !== language) {
       setLanguageState(pathLang);
       localStorage.setItem('language', pathLang);
-      return;
-    }
-
-    if (!pathLang) {
-      const hasManualLanguage = localStorage.getItem('language_manual') === 'true';
-      if (!hasManualLanguage) {
-        setAutoDetected(true);
-        detectLanguageFromIP();
-      }
     }
   }, []); // Run once on mount
 
