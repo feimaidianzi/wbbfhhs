@@ -58,6 +58,19 @@
     <link rel="dns-prefetch" href="https://tuxslfemwkdmnkldlmmy.supabase.co" />
     <link rel="preconnect" href="https://tuxslfemwkdmnkldlmmy.supabase.co" crossorigin />
 
+    <!-- Critical CSS: paint dark background instantly to avoid white flash on slow networks -->
+    <style>
+      html,body{margin:0;padding:0;background:#0a0f1a;color:#e6edf7;min-height:100%;
+        font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Hiragino Sans GB","Microsoft YaHei",Roboto,Helvetica,Arial,sans-serif;
+        -webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;overflow-x:hidden;}
+      #root{min-height:100vh;background:#0a0f1a;}
+      img{max-width:100%;height:auto;}
+      /* Honor reduced-motion: disable heavy decorative animations on low-end / mobile */
+      @media (prefers-reduced-motion: reduce){
+        *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;scroll-behavior:auto!important;}
+      }
+    </style>
+
     <!-- Instant SEO tag updater: runs synchronously before React, updates meta tags based on URL path -->
     <script>
     (function(){
