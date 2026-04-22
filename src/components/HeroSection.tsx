@@ -1,6 +1,7 @@
 import heroPcbBoard from "@/assets/hero-pcb-board.png";
 import { HeroContent } from "./hero/HeroContent";
 import { WaveTransition } from "./hero/WaveTransition";
+import { DeferredMount } from "./DeferredMount";
 
 export const HeroSection = () => {
   return (
@@ -64,38 +65,40 @@ export const HeroSection = () => {
         ))}
       </div>
 
-      {/* === Large background circuit board pattern === */}
-      <div className="absolute inset-0 pointer-events-none overflow-hidden opacity-[0.06]">
-        <svg className="absolute w-full h-full" viewBox="0 0 1200 800" preserveAspectRatio="xMidYMid slice">
-          {/* Main horizontal traces */}
-          <path d="M0,120 H300 L320,140 H500 L520,120 H800 L830,150 H1200" fill="none" stroke="rgba(56,189,248,0.6)" strokeWidth="1.2" className="hero-circuit-dash" />
-          <path d="M0,280 H200 L220,260 H450 L470,280 H700 L720,300 H1200" fill="none" stroke="rgba(34,211,238,0.5)" strokeWidth="1" className="hero-circuit-dash-slow" />
-          <path d="M0,500 H150 L170,480 H400 L420,500 H650 L680,520 H1200" fill="none" stroke="rgba(56,189,248,0.4)" strokeWidth="0.8" className="hero-circuit-dash" />
-          <path d="M0,650 H250 L270,630 H550 L570,650 H900 L920,670 H1200" fill="none" stroke="rgba(34,211,238,0.4)" strokeWidth="0.8" className="hero-circuit-dash-slow" />
-          {/* Vertical traces */}
-          <path d="M300,0 V200 L280,220 V400 L300,420 V600 L280,620 V800" fill="none" stroke="rgba(56,189,248,0.3)" strokeWidth="0.8" className="hero-circuit-dash" />
-          <path d="M700,0 V150 L720,170 V350 L700,370 V550 L720,570 V800" fill="none" stroke="rgba(34,211,238,0.3)" strokeWidth="0.8" className="hero-circuit-dash-slow" />
-          <path d="M1000,0 V180 L980,200 V420 L1000,440 V800" fill="none" stroke="rgba(56,189,248,0.25)" strokeWidth="0.6" className="hero-circuit-dash" />
-          {/* Junction pads */}
-          {[[300,120],[500,140],[800,120],[200,280],[450,260],[700,280],[300,200],[700,350],[150,500],[400,480],[650,500],[1000,440]].map(([cx,cy], i) => (
-            <g key={`pad-${i}`}>
-              <circle cx={cx} cy={cy} r="4" fill="none" stroke="rgba(56,189,248,0.4)" strokeWidth="0.8" />
-              <circle cx={cx} cy={cy} r="1.5" fill="rgba(56,189,248,0.5)" />
-            </g>
-          ))}
-          {/* IC chip outlines */}
-          <rect x="180" y="350" width="60" height="40" rx="3" fill="none" stroke="rgba(56,189,248,0.3)" strokeWidth="0.8" />
-          <rect x="850" y="200" width="50" height="35" rx="3" fill="none" stroke="rgba(34,211,238,0.3)" strokeWidth="0.8" />
-          <rect x="550" y="550" width="70" height="45" rx="3" fill="none" stroke="rgba(56,189,248,0.25)" strokeWidth="0.6" />
-          {/* IC pins */}
-          {[0,1,2,3,4].map(i => (
-            <g key={`pin-${i}`}>
-              <line x1={185 + i*10} y1="350" x2={185 + i*10} y2="342" stroke="rgba(56,189,248,0.3)" strokeWidth="0.6" />
-              <line x1={185 + i*10} y1="390" x2={185 + i*10} y2="398" stroke="rgba(56,189,248,0.3)" strokeWidth="0.6" />
-            </g>
-          ))}
-        </svg>
-      </div>
+      {/* === Large background circuit board pattern (deferred — non-LCP decoration) === */}
+      <DeferredMount delay={1200}>
+        <div className="absolute inset-0 pointer-events-none overflow-hidden opacity-[0.06]">
+          <svg className="absolute w-full h-full" viewBox="0 0 1200 800" preserveAspectRatio="xMidYMid slice">
+            {/* Main horizontal traces */}
+            <path d="M0,120 H300 L320,140 H500 L520,120 H800 L830,150 H1200" fill="none" stroke="rgba(56,189,248,0.6)" strokeWidth="1.2" className="hero-circuit-dash" />
+            <path d="M0,280 H200 L220,260 H450 L470,280 H700 L720,300 H1200" fill="none" stroke="rgba(34,211,238,0.5)" strokeWidth="1" className="hero-circuit-dash-slow" />
+            <path d="M0,500 H150 L170,480 H400 L420,500 H650 L680,520 H1200" fill="none" stroke="rgba(56,189,248,0.4)" strokeWidth="0.8" className="hero-circuit-dash" />
+            <path d="M0,650 H250 L270,630 H550 L570,650 H900 L920,670 H1200" fill="none" stroke="rgba(34,211,238,0.4)" strokeWidth="0.8" className="hero-circuit-dash-slow" />
+            {/* Vertical traces */}
+            <path d="M300,0 V200 L280,220 V400 L300,420 V600 L280,620 V800" fill="none" stroke="rgba(56,189,248,0.3)" strokeWidth="0.8" className="hero-circuit-dash" />
+            <path d="M700,0 V150 L720,170 V350 L700,370 V550 L720,570 V800" fill="none" stroke="rgba(34,211,238,0.3)" strokeWidth="0.8" className="hero-circuit-dash-slow" />
+            <path d="M1000,0 V180 L980,200 V420 L1000,440 V800" fill="none" stroke="rgba(56,189,248,0.25)" strokeWidth="0.6" className="hero-circuit-dash" />
+            {/* Junction pads */}
+            {[[300,120],[500,140],[800,120],[200,280],[450,260],[700,280],[300,200],[700,350],[150,500],[400,480],[650,500],[1000,440]].map(([cx,cy], i) => (
+              <g key={`pad-${i}`}>
+                <circle cx={cx} cy={cy} r="4" fill="none" stroke="rgba(56,189,248,0.4)" strokeWidth="0.8" />
+                <circle cx={cx} cy={cy} r="1.5" fill="rgba(56,189,248,0.5)" />
+              </g>
+            ))}
+            {/* IC chip outlines */}
+            <rect x="180" y="350" width="60" height="40" rx="3" fill="none" stroke="rgba(56,189,248,0.3)" strokeWidth="0.8" />
+            <rect x="850" y="200" width="50" height="35" rx="3" fill="none" stroke="rgba(34,211,238,0.3)" strokeWidth="0.8" />
+            <rect x="550" y="550" width="70" height="45" rx="3" fill="none" stroke="rgba(56,189,248,0.25)" strokeWidth="0.6" />
+            {/* IC pins */}
+            {[0,1,2,3,4].map(i => (
+              <g key={`pin-${i}`}>
+                <line x1={185 + i*10} y1="350" x2={185 + i*10} y2="342" stroke="rgba(56,189,248,0.3)" strokeWidth="0.6" />
+                <line x1={185 + i*10} y1="390" x2={185 + i*10} y2="398" stroke="rgba(56,189,248,0.3)" strokeWidth="0.6" />
+              </g>
+            ))}
+          </svg>
+        </div>
+      </DeferredMount>
 
       {/* Right-side hero product image with circuit tech overlay */}
       <div className="absolute right-0 top-0 bottom-0 w-[55%] hidden lg:block pointer-events-none">
@@ -114,97 +117,104 @@ export const HeroSection = () => {
               src={heroPcbBoard}
               alt="CANI industrial drone PCBA circuit board with golden IPEX connectors"
               className="relative w-[70%] max-w-[600px] object-contain hero-animate-image drop-shadow-2xl"
+              loading="eager"
+              decoding="async"
+              fetchPriority="high"
+              width={600}
+              height={500}
               style={{
                 filter: 'brightness(1.1) contrast(1.08)',
               }}
             />
-            
-            {/* === On-board flowing current lines - spread across board, avoid edges === */}
-            <svg className="absolute inset-0 w-full h-full" viewBox="0 0 600 500" preserveAspectRatio="xMidYMid meet" style={{ left: '2%', width: '70%' }}>
-              {/* Mask to fade out edges (transparent border effect) */}
-              <defs>
-                <radialGradient id="edgeMask" cx="50%" cy="50%" r="50%">
-                  <stop offset="0%" stopColor="white" stopOpacity="1" />
-                  <stop offset="60%" stopColor="white" stopOpacity="1" />
-                  <stop offset="85%" stopColor="white" stopOpacity="0.4" />
-                  <stop offset="100%" stopColor="white" stopOpacity="0" />
-                </radialGradient>
-                <mask id="boardMask">
-                  <ellipse cx="300" cy="250" rx="260" ry="220" fill="url(#edgeMask)" />
-                </mask>
-              </defs>
-              <defs>
-                <linearGradient id="flowGrad1" gradientUnits="userSpaceOnUse" x1="0" y1="0" x2="0" y2="500">
-                  <stop offset="0%" stopColor="rgba(56,189,248,0)" />
-                  <stop offset="35%" stopColor="rgba(56,189,248,1)" />
-                  <stop offset="50%" stopColor="rgba(255,255,255,1)" />
-                  <stop offset="65%" stopColor="rgba(56,189,248,1)" />
-                  <stop offset="100%" stopColor="rgba(56,189,248,0)" />
-                </linearGradient>
-                <linearGradient id="flowGrad2" gradientUnits="userSpaceOnUse" x1="0" y1="0" x2="0" y2="500">
-                  <stop offset="0%" stopColor="rgba(34,211,238,0)" />
-                  <stop offset="35%" stopColor="rgba(34,211,238,1)" />
-                  <stop offset="50%" stopColor="rgba(255,255,255,1)" />
-                  <stop offset="65%" stopColor="rgba(34,211,238,1)" />
-                  <stop offset="100%" stopColor="rgba(34,211,238,0)" />
-                </linearGradient>
-                <linearGradient id="flowGrad3" gradientUnits="userSpaceOnUse" x1="0" y1="0" x2="0" y2="500">
-                  <stop offset="0%" stopColor="rgba(250,204,21,0)" />
-                  <stop offset="35%" stopColor="rgba(250,204,21,0.9)" />
-                  <stop offset="50%" stopColor="rgba(255,255,255,1)" />
-                  <stop offset="65%" stopColor="rgba(250,204,21,0.9)" />
-                  <stop offset="100%" stopColor="rgba(250,204,21,0)" />
-                </linearGradient>
-                <filter id="currentGlow">
-                  <feGaussianBlur stdDeviation="3" result="blur" />
-                  <feMerge><feMergeNode in="blur" /><feMergeNode in="SourceGraphic" /></feMerge>
-                </filter>
-                <filter id="currentGlowStrong">
-                  <feGaussianBlur stdDeviation="4" result="blur" />
-                  <feMerge><feMergeNode in="blur" /><feMergeNode in="SourceGraphic" /></feMerge>
-                </filter>
-              </defs>
 
-              <g mask="url(#boardMask)">
-                {/* Flow line 1 - far left, curves inward toward bottom */}
-                <path d="M120,30 L125,80 L135,150 L150,220 L170,290 L195,360 L225,430 L260,500" 
-                  fill="none" stroke="url(#flowGrad1)" strokeWidth="3.5" strokeLinecap="round" filter="url(#currentGlowStrong)"
-                  strokeDasharray="80 420" className="hero-flow-line-1" />
+            {/* === On-board flowing current lines (deferred — GPU-heavy filters, post-LCP) === */}
+            <DeferredMount delay={1500}>
+              <svg className="absolute inset-0 w-full h-full" viewBox="0 0 600 500" preserveAspectRatio="xMidYMid meet" style={{ left: '2%', width: '70%' }}>
+                {/* Mask to fade out edges (transparent border effect) */}
+                <defs>
+                  <radialGradient id="edgeMask" cx="50%" cy="50%" r="50%">
+                    <stop offset="0%" stopColor="white" stopOpacity="1" />
+                    <stop offset="60%" stopColor="white" stopOpacity="1" />
+                    <stop offset="85%" stopColor="white" stopOpacity="0.4" />
+                    <stop offset="100%" stopColor="white" stopOpacity="0" />
+                  </radialGradient>
+                  <mask id="boardMask">
+                    <ellipse cx="300" cy="250" rx="260" ry="220" fill="url(#edgeMask)" />
+                  </mask>
+                </defs>
+                <defs>
+                  <linearGradient id="flowGrad1" gradientUnits="userSpaceOnUse" x1="0" y1="0" x2="0" y2="500">
+                    <stop offset="0%" stopColor="rgba(56,189,248,0)" />
+                    <stop offset="35%" stopColor="rgba(56,189,248,1)" />
+                    <stop offset="50%" stopColor="rgba(255,255,255,1)" />
+                    <stop offset="65%" stopColor="rgba(56,189,248,1)" />
+                    <stop offset="100%" stopColor="rgba(56,189,248,0)" />
+                  </linearGradient>
+                  <linearGradient id="flowGrad2" gradientUnits="userSpaceOnUse" x1="0" y1="0" x2="0" y2="500">
+                    <stop offset="0%" stopColor="rgba(34,211,238,0)" />
+                    <stop offset="35%" stopColor="rgba(34,211,238,1)" />
+                    <stop offset="50%" stopColor="rgba(255,255,255,1)" />
+                    <stop offset="65%" stopColor="rgba(34,211,238,1)" />
+                    <stop offset="100%" stopColor="rgba(34,211,238,0)" />
+                  </linearGradient>
+                  <linearGradient id="flowGrad3" gradientUnits="userSpaceOnUse" x1="0" y1="0" x2="0" y2="500">
+                    <stop offset="0%" stopColor="rgba(250,204,21,0)" />
+                    <stop offset="35%" stopColor="rgba(250,204,21,0.9)" />
+                    <stop offset="50%" stopColor="rgba(255,255,255,1)" />
+                    <stop offset="65%" stopColor="rgba(250,204,21,0.9)" />
+                    <stop offset="100%" stopColor="rgba(250,204,21,0)" />
+                  </linearGradient>
+                  <filter id="currentGlow">
+                    <feGaussianBlur stdDeviation="3" result="blur" />
+                    <feMerge><feMergeNode in="blur" /><feMergeNode in="SourceGraphic" /></feMerge>
+                  </filter>
+                  <filter id="currentGlowStrong">
+                    <feGaussianBlur stdDeviation="4" result="blur" />
+                    <feMerge><feMergeNode in="blur" /><feMergeNode in="SourceGraphic" /></feMerge>
+                  </filter>
+                </defs>
 
-                {/* Flow line 3 - left-center */}
-                <path d="M230,0 L228,65 L232,130 L228,200 L232,270 L230,340 L228,410 L230,500" 
-                  fill="none" stroke="url(#flowGrad1)" strokeWidth="4" strokeLinecap="round" filter="url(#currentGlowStrong)"
-                  strokeDasharray="85 430" className="hero-flow-line-3" />
+                <g mask="url(#boardMask)">
+                  {/* Flow line 1 - far left, curves inward toward bottom */}
+                  <path d="M120,30 L125,80 L135,150 L150,220 L170,290 L195,360 L225,430 L260,500" 
+                    fill="none" stroke="url(#flowGrad1)" strokeWidth="3.5" strokeLinecap="round" filter="url(#currentGlowStrong)"
+                    strokeDasharray="80 420" className="hero-flow-line-1" />
 
-                {/* Flow line 4 - center (brightest) */}
-                <path d="M300,0 L298,70 L302,140 L298,210 L302,280 L300,350 L298,420 L300,500" 
-                  fill="none" stroke="url(#flowGrad2)" strokeWidth="5" strokeLinecap="round" filter="url(#currentGlowStrong)"
-                  strokeDasharray="90 430" className="hero-flow-line-4" />
+                  {/* Flow line 3 - left-center */}
+                  <path d="M230,0 L228,65 L232,130 L228,200 L232,270 L230,340 L228,410 L230,500" 
+                    fill="none" stroke="url(#flowGrad1)" strokeWidth="4" strokeLinecap="round" filter="url(#currentGlowStrong)"
+                    strokeDasharray="85 430" className="hero-flow-line-3" />
 
-                {/* Flow line 5 - right-center */}
-                <path d="M370,0 L372,65 L368,130 L372,200 L368,270 L370,340 L372,410 L370,500" 
-                  fill="none" stroke="url(#flowGrad1)" strokeWidth="4" strokeLinecap="round" filter="url(#currentGlowStrong)"
-                  strokeDasharray="80 420" className="hero-flow-line-5" />
+                  {/* Flow line 4 - center (brightest) */}
+                  <path d="M300,0 L298,70 L302,140 L298,210 L302,280 L300,350 L298,420 L300,500" 
+                    fill="none" stroke="url(#flowGrad2)" strokeWidth="5" strokeLinecap="round" filter="url(#currentGlowStrong)"
+                    strokeDasharray="90 430" className="hero-flow-line-4" />
 
-                {/* Flow line 7 - far right, curves inward toward bottom */}
-                <path d="M480,30 L475,80 L465,150 L450,220 L430,290 L405,360 L375,430 L340,500" 
-                  fill="none" stroke="url(#flowGrad1)" strokeWidth="3.5" strokeLinecap="round" filter="url(#currentGlowStrong)"
-                  strokeDasharray="80 420" className="hero-flow-line-7" />
+                  {/* Flow line 5 - right-center */}
+                  <path d="M370,0 L372,65 L368,130 L372,200 L368,270 L370,340 L372,410 L370,500" 
+                    fill="none" stroke="url(#flowGrad1)" strokeWidth="4" strokeLinecap="round" filter="url(#currentGlowStrong)"
+                    strokeDasharray="80 420" className="hero-flow-line-5" />
 
-                {/* Glowing junction nodes - reduced */}
-                {[[170,140],[300,140],[430,140],[300,280],[180,350],[300,350],[420,350]].map(([cx,cy], i) => (
-                  <circle key={`node-${i}`} cx={cx} cy={cy} r="2.5" fill="rgba(56,189,248,0.7)" className="hero-node-pulse" style={{ animationDelay: `${i * 0.3}s` }} />
-                ))}
+                  {/* Flow line 7 - far right, curves inward toward bottom */}
+                  <path d="M480,30 L475,80 L465,150 L450,220 L430,290 L405,360 L375,430 L340,500" 
+                    fill="none" stroke="url(#flowGrad1)" strokeWidth="3.5" strokeLinecap="round" filter="url(#currentGlowStrong)"
+                    strokeDasharray="80 420" className="hero-flow-line-7" />
 
-                {/* Spark/photoelectric points - reduced to 4 */}
-                {[[172,210],[300,210],[428,210],[300,350]].map(([cx,cy], i) => (
-                  <g key={`spark-${i}`} style={{ animation: `heroSparkFlash ${1.8 + i * 0.4}s ease-in-out infinite`, animationDelay: `${i * 0.5}s` }}>
-                    <circle cx={cx} cy={cy} r="2" fill="rgba(255,255,255,1)" />
-                    <circle cx={cx} cy={cy} r="6" fill="rgba(56,189,248,0.5)" />
-                  </g>
-                ))}
-              </g>
-            </svg>
+                  {/* Glowing junction nodes - reduced */}
+                  {[[170,140],[300,140],[430,140],[300,280],[180,350],[300,350],[420,350]].map(([cx,cy], i) => (
+                    <circle key={`node-${i}`} cx={cx} cy={cy} r="2.5" fill="rgba(56,189,248,0.7)" className="hero-node-pulse" style={{ animationDelay: `${i * 0.3}s` }} />
+                  ))}
+
+                  {/* Spark/photoelectric points - reduced to 4 */}
+                  {[[172,210],[300,210],[428,210],[300,350]].map(([cx,cy], i) => (
+                    <g key={`spark-${i}`} style={{ animation: `heroSparkFlash ${1.8 + i * 0.4}s ease-in-out infinite`, animationDelay: `${i * 0.5}s` }}>
+                      <circle cx={cx} cy={cy} r="2" fill="rgba(255,255,255,1)" />
+                      <circle cx={cx} cy={cy} r="6" fill="rgba(56,189,248,0.5)" />
+                    </g>
+                  ))}
+                </g>
+              </svg>
+            </DeferredMount>
           </div>
 
           {/* === Circuit trace lines connecting to image === */}
