@@ -81,7 +81,7 @@ const SwarmCustom = () => {
                 </div>
               </div>
               <div className="relative">
-                <img src={swarmImg} alt={t('customSwarm.title')} className="rounded-2xl shadow-2xl w-full" />
+                <img loading="lazy" decoding="async" src={swarmImg} alt={t('customSwarm.title')} className="rounded-2xl shadow-2xl w-full" />
               </div>
             </div>
           </div>

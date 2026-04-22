@@ -211,7 +211,7 @@ const TH200 = () => {
             </h2>
           </div>
           <div className="max-w-3xl mx-auto bg-white rounded-2xl p-4">
-            <img src={droneDisplayImg} alt="CANI TH-200 Multi-angle View" className="w-full h-auto" />
+            <img loading="lazy" decoding="async" src={droneDisplayImg} alt="CANI TH-200 Multi-angle View" className="w-full h-auto" />
           </div>
           <p className="text-gray-500 text-center text-sm mt-4">
             {t('tethered.th200.k791')}
@@ -236,7 +236,7 @@ const TH200 = () => {
               <div key={i} className={`grid md:grid-cols-2 gap-8 items-center ${i % 2 === 1 ? 'md:[direction:rtl]' : ''}`}>
                 {/* Image */}
                 <div className={`rounded-2xl overflow-hidden border border-gray-800 ${i % 2 === 1 ? 'md:[direction:ltr]' : ''}`}>
-                  <img src={feat.image} alt={feat.title} className="w-full h-auto aspect-[4/3] object-cover" />
+                  <img loading="lazy" decoding="async" src={feat.image} alt={feat.title} className="w-full h-auto aspect-[4/3] object-cover" />
                 </div>
 
                 {/* Content */}
@@ -299,7 +299,7 @@ const TH200 = () => {
           <div className="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto items-start">
             {/* Image */}
             <div className="rounded-2xl overflow-hidden border border-gray-800">
-              <img src={tetherEquipImg} alt={t('tethered.th200.k796')} className="w-full h-auto" />
+              <img loading="lazy" decoding="async" src={tetherEquipImg} alt={t('tethered.th200.k796')} className="w-full h-auto" />
             </div>
 
             {/* Specs breakdown */}
@@ -429,7 +429,7 @@ const TH200 = () => {
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-5xl mx-auto">
             {applications.map((app, i) => (
               <div key={i} className="group relative rounded-xl overflow-hidden aspect-[3/4] cursor-pointer">
-                <img src={app.image} alt={app.title} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" />
+                <img loading="lazy" decoding="async" src={app.image} alt={app.title} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" />
                 <div className="absolute inset-0 bg-gradient-to-t from-gray-950/90 via-gray-950/30 to-transparent" />
                 <div className="absolute bottom-0 left-0 right-0 p-4">
                   <h4 className="text-white font-bold text-lg mb-1">{app.title}</h4>

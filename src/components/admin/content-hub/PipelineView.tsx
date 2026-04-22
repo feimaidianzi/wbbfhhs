@@ -215,7 +215,7 @@ export const PipelineView = ({
                       {/* Cover image thumbnail */}
                       {article.cover_image && (
                         <div className="w-full h-20 rounded-md overflow-hidden mb-2">
-                          <img src={article.cover_image} alt="" className="w-full h-full object-cover" />
+                          <img loading="lazy" decoding="async" src={article.cover_image} alt="" className="w-full h-full object-cover" />
                         </div>
                       )}
 

@@ -121,7 +121,7 @@ const FPV = () => {
               {categories.map((category, index) => (
                 <Link key={index} to={category.link} className="group bg-card rounded-2xl overflow-hidden shadow-card hover:shadow-card-hover transition-all duration-300 hover:-translate-y-1">
                   <div className="aspect-[16/10] overflow-hidden relative">
-                    <img src={category.image} alt={category.name} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" />
+                    <img loading="lazy" decoding="async" src={category.image} alt={category.name} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" />
                     <div className="absolute bottom-4 left-4 flex items-center gap-2">
                       <div className="w-10 h-10 bg-accent rounded-lg flex items-center justify-center">
                         <category.icon className="w-5 h-5 text-accent-foreground" />
@@ -156,7 +156,7 @@ const FPV = () => {
               {hotProducts.map((product, index) => (
                 <div key={index} className="group bg-card rounded-2xl overflow-hidden shadow-card hover:shadow-card-hover transition-all">
                   <div className="aspect-[4/3] overflow-hidden relative">
-                    <img src={product.image} alt={product.name} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+                    <img loading="lazy" decoding="async" src={product.image} alt={product.name} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
                     <div className="absolute top-4 left-4 px-3 py-1 bg-accent text-accent-foreground text-xs font-medium rounded-full">{product.category}</div>
                   </div>
                   <div className="p-6">
@@ -208,7 +208,7 @@ const FPV = () => {
               {articles.map((article, index) => (
                 <div key={index} className="group bg-card rounded-2xl overflow-hidden shadow-card hover:shadow-card-hover transition-all cursor-pointer">
                   <div className="aspect-[16/10] overflow-hidden">
-                    <img src={article.image} alt={article.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+                    <img loading="lazy" decoding="async" src={article.image} alt={article.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
                   </div>
                   <div className="p-6">
                     <span className="text-xs text-muted-foreground">{article.date}</span>
