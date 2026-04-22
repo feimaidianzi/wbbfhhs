@@ -82,6 +82,9 @@ const SEOManagement = () => {
   
   // Email notification option
   const [sendEmailNotify, setSendEmailNotify] = useState(false);
+
+  // Baidu push state
+  const [isBaiduPushing, setIsBaiduPushing] = useState(false);
   
   // Submission state
   const [submissionState, setSubmissionState] = useState<SubmissionState>({
@@ -266,7 +269,6 @@ const SEOManagement = () => {
   };
 
   // Push all URLs to Baidu (普通收录 API)
-  const [isBaiduPushing, setIsBaiduPushing] = useState(false);
   const handleBaiduPush = async () => {
     setIsBaiduPushing(true);
     try {
