@@ -4,8 +4,8 @@ import { LangLink } from "@/components/LangLink";
 import { ArrowRight, Play, ChevronDown } from "lucide-react";
 import { useLanguage } from "@/contexts/LanguageContext";
 
-// Use public asset to enable HTML preload (no JS bundle dependency for LCP)
-const HERO_PCB_SRC = "/hero-pcb-board.webp";
+// Mobile hero image — smaller real product photo for fast load
+const HERO_PCB_SRC = "/hero-fc-board-sm.webp";
 
 const statsVariants = {
   hidden: { opacity: 0, y: 20 },
