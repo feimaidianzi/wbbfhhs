@@ -13,8 +13,8 @@ export const Logo = ({ className = "", showLink = true }: LogoProps) => {
     <img
       src={LOGO_SRC}
       alt="CANI长凌科技 - 工业无人机核心配件制造商"
-      width={163}
-      height={56}
+      width={200}
+      height={69}
       fetchPriority="high"
       decoding="async"
       className={`h-8 md:h-10 w-auto ${className}`}
@@ -32,8 +32,8 @@ export const LogoDark = ({ className = "" }: { className?: string }) => (
   <img
     src={LOGO_SRC}
     alt="CANI长凌科技 - 工业无人机核心配件制造商"
-    width={163}
-    height={56}
+    width={200}
+    height={69}
     decoding="async"
     className={`h-8 md:h-10 w-auto ${className}`}
   />
