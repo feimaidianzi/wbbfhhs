@@ -78,7 +78,17 @@ export default {
         sm: "calc(var(--radius) - 4px)",
       },
       fontFamily: {
-        sans: ["'Noto Sans SC'", "system-ui", "sans-serif"],
+        sans: [
+          "-apple-system",
+          "BlinkMacSystemFont",
+          "'PingFang SC'",
+          "'Hiragino Sans GB'",
+          "'Microsoft YaHei'",
+          "'Helvetica Neue'",
+          "Helvetica",
+          "Arial",
+          "sans-serif",
+        ],
       },
       keyframes: {
         "accordion-down": {
