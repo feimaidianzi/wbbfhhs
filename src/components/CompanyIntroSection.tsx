@@ -1,7 +1,14 @@
 import { MotionConfig, m } from "@/components/MotionLite";
 import { LangLink } from "@/components/LangLink";
 import { Button } from "@/components/ui/button";
-import { CheckCircle2, Headphones, Truck, Settings, ArrowRight, Award, Users, Clock } from "lucide-react";
+import CheckCircle2 from "lucide-react/dist/esm/icons/check-circle-2";
+import Headphones from "lucide-react/dist/esm/icons/headphones";
+import Truck from "lucide-react/dist/esm/icons/truck";
+import Settings from "lucide-react/dist/esm/icons/settings";
+import ArrowRight from "lucide-react/dist/esm/icons/arrow-right";
+import Award from "lucide-react/dist/esm/icons/award";
+import Users from "lucide-react/dist/esm/icons/users";
+import Clock from "lucide-react/dist/esm/icons/clock";
 import { useLanguage } from "@/contexts/LanguageContext";
 
 export const CompanyIntroSection = () => {

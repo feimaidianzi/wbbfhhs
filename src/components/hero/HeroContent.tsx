@@ -1,6 +1,8 @@
 import { Button } from "@/components/ui/button";
 import { LangLink } from "@/components/LangLink";
-import { ArrowRight, Play, ChevronDown } from "lucide-react";
+import ArrowRight from "lucide-react/dist/esm/icons/arrow-right";
+import Play from "lucide-react/dist/esm/icons/play";
+import ChevronDown from "lucide-react/dist/esm/icons/chevron-down";
 import { useLanguage } from "@/contexts/LanguageContext";
 
 // Mobile hero image — smaller real product photo for fast load

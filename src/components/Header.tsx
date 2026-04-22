@@ -1,5 +1,12 @@
 import { useState, useRef, useEffect, useCallback } from "react";
-import { Menu, X, Mail, ChevronDown, ChevronLeft, ChevronRight, User, LogOut } from "lucide-react";
+import Menu from "lucide-react/dist/esm/icons/menu";
+import X from "lucide-react/dist/esm/icons/x";
+import Mail from "lucide-react/dist/esm/icons/mail";
+import ChevronDown from "lucide-react/dist/esm/icons/chevron-down";
+import ChevronLeft from "lucide-react/dist/esm/icons/chevron-left";
+import ChevronRight from "lucide-react/dist/esm/icons/chevron-right";
+import User from "lucide-react/dist/esm/icons/user";
+import LogOut from "lucide-react/dist/esm/icons/log-out";
 import { Button } from "@/components/ui/button";
 import { LangLink as Link } from "@/components/LangLink";
 import { useLangNavigate } from "@/hooks/useLangNavigate";

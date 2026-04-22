@@ -1,5 +1,11 @@
 import { MotionConfig, m } from "@/components/MotionLite";
-import { ArrowRight, Sparkles, Zap, Radio, Camera, Gamepad2, Cpu } from "lucide-react";
+import ArrowRight from "lucide-react/dist/esm/icons/arrow-right";
+import Sparkles from "lucide-react/dist/esm/icons/sparkles";
+import Zap from "lucide-react/dist/esm/icons/zap";
+import Radio from "lucide-react/dist/esm/icons/radio";
+import Camera from "lucide-react/dist/esm/icons/camera";
+import Gamepad2 from "lucide-react/dist/esm/icons/gamepad-2";
+import Cpu from "lucide-react/dist/esm/icons/cpu";
 import { LangLink } from "@/components/LangLink";
 import { useLanguage } from "@/contexts/LanguageContext";
 import digitalFpvImg from "@/assets/products/digital-fpv-wifilink2.jpg";
