@@ -124,7 +124,10 @@
 
   body {
     @apply bg-background text-foreground font-sans antialiased;
-    font-family: 'Noto Sans SC', system-ui, sans-serif;
+    /* System font stack: PingFang SC (macOS/iOS), Hiragino Sans GB, Microsoft YaHei (Win),
+       Noto Sans CJK (Linux). Zero network cost, native rendering on all platforms. */
+    font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Hiragino Sans GB",
+      "Microsoft YaHei", "Helvetica Neue", Helvetica, Arial, sans-serif;
     overflow-x: hidden;
   }
 
