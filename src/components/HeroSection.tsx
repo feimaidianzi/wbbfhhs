@@ -110,6 +110,45 @@ export const HeroSection = () => {
           0%, 100% { transform: scaleY(1); opacity: 0.2; }
           50% { transform: scaleY(1.6); opacity: 0.4; }
         }
+        /* Stats fade-in (replaces framer-motion variants) */
+        .hero-stat-item {
+          opacity: 0;
+          transform: translateY(20px);
+          animation: heroStatFadeIn 0.6s ease-out forwards;
+        }
+        @keyframes heroStatFadeIn {
+          to { opacity: 1; transform: translateY(0); }
+        }
+        /* Scroll indicator (replaces framer-motion) */
+        .hero-scroll-indicator {
+          opacity: 0;
+          animation: heroScrollFadeIn 0.8s ease-out 2s forwards;
+        }
+        @keyframes heroScrollFadeIn { to { opacity: 1; } }
+        .hero-scroll-chevron {
+          animation: heroChevronBounce 1.5s ease-in-out infinite;
+        }
+        @keyframes heroChevronBounce {
+          0%, 100% { transform: translateY(0); }
+          50% { transform: translateY(6px); }
+        }
+        /* Wave layers (replaces framer-motion SVG animation) */
+        .wave-layer { width: 300vw; will-change: transform; }
+        .wave-layer-1 { animation: waveSlideLeft 25s linear infinite; }
+        .wave-layer-2 { animation: waveSlideRight 18s linear infinite; }
+        .wave-layer-3 { animation: waveSlideLeft 14s linear infinite; }
+        @keyframes waveSlideLeft {
+          from { transform: translateX(0); }
+          to   { transform: translateX(-100vw); }
+        }
+        @keyframes waveSlideRight {
+          from { transform: translateX(-100vw); }
+          to   { transform: translateX(0); }
+        }
+        @media (prefers-reduced-motion: reduce) {
+          .hero-stat-item, .hero-scroll-indicator, .hero-scroll-chevron,
+          .wave-layer-1, .wave-layer-2, .wave-layer-3 { animation: none !important; opacity: 1 !important; }
+        }
         /* Removed: hero-node-pulse, hero-spark-flash, hero-flow-line-* keyframes
            — the SVG elements that consumed them have been deleted to fix the
            "non-composited animations" warning from PageSpeed. */
