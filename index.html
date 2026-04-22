@@ -555,9 +555,16 @@
     <script type="module" src="/src/main.tsx"></script>
     <script>
       if ('serviceWorker' in navigator) {
-        window.addEventListener('load', function() {
+        var registerSW = function() {
           navigator.serviceWorker.register('/sw.js').catch(function() {});
-        });
+        };
+        if ('requestIdleCallback' in window) {
+          window.addEventListener('load', function() {
+            requestIdleCallback(registerSW, { timeout: 4000 });
+          });
+        } else {
+          window.addEventListener('load', function() { setTimeout(registerSW, 3000); });
+        }
       }
     </script>
   </body>
