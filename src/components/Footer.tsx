@@ -1,9 +1,11 @@
-import { Mail, MapPin, ArrowUpRight } from "lucide-react";
+import Mail from "lucide-react/dist/esm/icons/mail";
+import MapPin from "lucide-react/dist/esm/icons/map-pin";
+import ArrowUpRight from "lucide-react/dist/esm/icons/arrow-up-right";
+import Send from "lucide-react/dist/esm/icons/send";
 import { Logo } from "@/components/Logo";
 import { LangLink } from "@/components/LangLink";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Send } from "lucide-react";
 import { useLanguage } from "@/contexts/LanguageContext";
 
 // Social media icons
