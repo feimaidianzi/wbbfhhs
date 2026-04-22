@@ -4,11 +4,14 @@ import { HeroSection } from "@/components/HeroSection";
 import { ProductsSection } from "@/components/ProductsSection";
 import { CompanyIntroSection } from "@/components/CompanyIntroSection";
 import { Footer } from "@/components/Footer";
-import { FloatingContact } from "@/components/FloatingContact";
 import { MultiLanguageSEO } from "@/components/MultiLanguageSEO";
 import { useLanguage } from "@/contexts/LanguageContext";
-import { ScrollReveal, ParallaxSection } from "@/components/ScrollAnimations";
 import { DeferredMount } from "@/components/DeferredMount";
+
+// Defer heavy framer-motion wrappers and floating contact (not LCP-critical)
+const FloatingContact = lazy(() => import("@/components/FloatingContact").then(m => ({ default: m.FloatingContact })));
+const ScrollReveal = lazy(() => import("@/components/ScrollAnimations").then(m => ({ default: m.ScrollReveal })));
+const ParallaxSection = lazy(() => import("@/components/ScrollAnimations").then(m => ({ default: m.ParallaxSection })));
 
 // Lazy-load below-fold sections — not needed for LCP
 const FAQSection = lazy(() => import("@/components/FAQSection").then(m => ({ default: m.FAQSection })));
