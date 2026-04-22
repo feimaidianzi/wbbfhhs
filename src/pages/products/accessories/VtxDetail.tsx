@@ -11,6 +11,15 @@ import { Check, AlertTriangle, Settings, Radio, Zap, Shield, Thermometer, Chevro
 import { getProductById } from "@/data/vtxProducts";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { PageFAQ } from "@/components/PageFAQ";
+import {
+  pv02JsonLd, pv02FaqItems,
+  pv03JsonLd, pv03FaqItems,
+  fv10wJsonLd, fv10wFaqItems,
+  fv16wJsonLd, fv16wFaqItems,
+  fv25wJsonLd, fv25wFaqItems,
+  fv37wJsonLd, fv37wFaqItems,
+  buildFv10w72JsonLd, fv10w72FaqItems,
+} from "@/data/vtxJsonLd";
 
 const VtxDetail = () => {
   const { productId } = useParams<{ productId: string }>();
