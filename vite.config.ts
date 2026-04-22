@@ -50,28 +50,15 @@ export default defineConfig(({ mode }) => ({
     chunkSizeWarningLimit: 1500,
     rollupOptions: {
       output: {
-        // Split heavy third-party libs out of the main app bundle so the LCP
-        // critical path downloads less code. React stays bundled together to
-        // guarantee a single instance (avoids the "blank screen" regression).
-        manualChunks(id) {
-          if (!id.includes("node_modules")) return undefined;
-          // Keep React + ReactDOM + Router + Helmet in ONE chunk to avoid
-          // duplicate instances / hook errors.
-          if (
-            id.includes("/react/") ||
-            id.includes("/react-dom/") ||
-            id.includes("/react-router") ||
-            id.includes("/react-helmet-async/") ||
-            id.includes("/scheduler/")
-          ) {
-            return "vendor-react";
-          }
-          if (id.includes("/framer-motion/")) return "vendor-motion";
-          if (id.includes("/@radix-ui/")) return "vendor-radix";
-          if (id.includes("/@supabase/") || id.includes("/@tanstack/")) return "vendor-data";
-          if (id.includes("/lucide-react/")) return "vendor-icons";
-          return "vendor-misc";
-        },
+        // IMPORTANT: Do NOT split React / Radix / Framer Motion into separate
+        // chunks. Rollup hoists shared deps into the chunk that imports them
+        // first, which created a circular reference where `vendor-misc` ran
+        // before `vendor-react` exported `createContext` — the production
+        // bundle then crashed with "Cannot read properties of undefined
+        // (reading 'createContext')" and showed a blank screen.
+        //
+        // Let Rollup handle code-splitting automatically via dynamic imports
+        // (we already lazy-load every route in App.tsx).
       },
     },
   },
