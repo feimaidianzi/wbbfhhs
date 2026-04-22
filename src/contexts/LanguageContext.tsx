@@ -7,7 +7,12 @@ import {
   getLanguageByCode,
   toBaseLanguage,
 } from '@/i18n/languages';
-import { loadTranslations, setTranslations, hasTranslations, getTranslations, getEnglishTranslations } from '@/i18n';
+import { loadTranslations, setTranslations, hasTranslations, getTranslations } from '@/i18n';
+
+// Kick off English translation load IMMEDIATELY at module evaluation,
+// in parallel with the main bundle initialization. By the time React renders,
+// the chunk download is already in flight (no chained network round-trip).
+const enLoadPromise: Promise<Record<string, string>> = loadTranslations('en');
 
 interface LanguageContextType {
   language: LanguageCode;
