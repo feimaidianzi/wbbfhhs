@@ -197,7 +197,7 @@ export const useVisitorTracking = () => {
       }, { onConflict: 'session_id', ignoreDuplicates: true });
     }
 
-    localStorage.setItem('current_visitor_session', sessionId);
+    safeStorageSet('current_visitor_session', sessionId);
     
     try {
       const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
@@ -218,7 +218,7 @@ export const useVisitorTracking = () => {
 
   // 记录事件 - with input sanitization
   const trackEvent = useCallback(async (eventData: EventData) => {
-    const sessionId = sessionIdRef.current || localStorage.getItem('visitor_session_id');
+    const sessionId = sessionIdRef.current || safeStorageGet('visitor_session_id');
     if (!sessionId || sessionId.length > 100) return;
 
     const sanitize = (val: string | undefined, maxLen: number): string | undefined => {
@@ -268,7 +268,7 @@ export const useVisitorTracking = () => {
       pagePath: location.pathname,
     });
 
-    const sessionId = sessionIdRef.current || localStorage.getItem('visitor_session_id');
+    const sessionId = sessionIdRef.current || safeStorageGet('visitor_session_id');
     if (sessionId) {
       const { data } = await supabase
         .from('visitor_sessions')
@@ -322,7 +322,7 @@ export const useVisitorTracking = () => {
       eventData: { keyword },
     });
 
-    const sessionId = sessionIdRef.current || localStorage.getItem('visitor_session_id');
+    const sessionId = sessionIdRef.current || safeStorageGet('visitor_session_id');
     if (sessionId) {
       const { data } = await supabase
         .from('visitor_sessions')
@@ -442,7 +442,7 @@ export const useVisitorTracking = () => {
 
 // 获取当前访客会话ID的工具函数
 export const getVisitorSessionId = (): string | null => {
-  return localStorage.getItem('visitor_session_id');
+  return safeStorageGet('visitor_session_id');
 };
 
 export type { VisitorSession, EventData };
