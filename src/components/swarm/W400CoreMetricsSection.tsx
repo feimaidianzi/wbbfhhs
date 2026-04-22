@@ -1,5 +1,5 @@
 import { useLanguage } from "@/contexts/LanguageContext";
-import { motion } from "framer-motion";
+import { motion } from "@/lib/motion-shim";
 import { Battery, Weight, Timer, Zap, Ruler, Wind } from "lucide-react";
 import { OptimizedImage } from "@/components/OptimizedImage";
 import enduranceImg from "@/assets/products/w400-endurance.png";

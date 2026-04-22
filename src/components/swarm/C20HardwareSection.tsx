@@ -1,5 +1,5 @@
 import { useLanguage } from "@/contexts/LanguageContext";
-import { motion } from "framer-motion";
+import { motion } from "@/lib/motion-shim";
 import { Cpu, Radio, Zap, Navigation, Battery, Fan } from "lucide-react";
 import c20FleetImg from "@/assets/products/c20-fleet-render.png";
 

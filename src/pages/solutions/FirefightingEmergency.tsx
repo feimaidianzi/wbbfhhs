@@ -7,7 +7,7 @@ import { PageFAQ } from "@/components/PageFAQ";
 import { Button } from "@/components/ui/button";
 import { LangLink as Link } from "@/components/LangLink";
 import { useLanguage } from "@/contexts/LanguageContext";
-import { motion } from "framer-motion";
+import { motion } from "@/lib/motion-shim";
 import { ArrowRight, Shield, Flame, Radio, Eye, Zap, Target, Download, FileText } from "lucide-react";
 import heroImg from "@/assets/emergency/hero-firefighting.jpg";
 import wildfireImg from "@/assets/emergency/wildfire-thermal.jpg";

@@ -1,5 +1,5 @@
 import { useLanguage } from "@/contexts/LanguageContext";
-import { motion } from "framer-motion";
+import { motion } from "@/lib/motion-shim";
 import { Wifi, Monitor, Navigation, Radio, Cpu, Layers } from "lucide-react";
 
 const W200SystemArchitecture = () => {

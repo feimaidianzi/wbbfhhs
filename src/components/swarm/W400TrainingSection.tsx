@@ -1,5 +1,5 @@
 import { useLanguage } from "@/contexts/LanguageContext";
-import { motion } from "framer-motion";
+import { motion } from "@/lib/motion-shim";
 import { BookOpen, Wrench, Code, Monitor, Layers } from "lucide-react";
 import { OptimizedImage } from "@/components/OptimizedImage";
 import trainingImg from "@/assets/products/w400-training.webp";

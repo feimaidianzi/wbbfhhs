@@ -1,5 +1,5 @@
 import { useLanguage } from "@/contexts/LanguageContext";
-import { motion } from "framer-motion";
+import { motion } from "@/lib/motion-shim";
 import { Radio, Wifi, Monitor, Navigation, Cpu, ArrowRight, ArrowDown } from "lucide-react";
 
 const C20NetworkArchitecture = () => {

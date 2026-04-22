@@ -13,7 +13,7 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@
 import { Helmet } from "react-helmet-async";
 import { FacilityGallery } from "@/components/FacilityGallery";
 import corporateImg from "@/assets/seo/corporate-office.jpg";
-import { motion } from "framer-motion";
+import { motion } from "@/lib/motion-shim";
 
 const About = () => {
   const { t, language } = useLanguage();

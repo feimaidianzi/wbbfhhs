@@ -1,5 +1,5 @@
 import { useLanguage } from "@/contexts/LanguageContext";
-import { motion } from "framer-motion";
+import { motion } from "@/lib/motion-shim";
 import { Cpu, Wifi, Camera, Navigation, Battery, Fan, Monitor } from "lucide-react";
 import { OptimizedImage } from "@/components/OptimizedImage";
 import fcImg from "@/assets/products/c30-flight-controller.webp";

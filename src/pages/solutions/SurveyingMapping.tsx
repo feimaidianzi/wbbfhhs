@@ -7,7 +7,7 @@ import { PageFAQ } from "@/components/PageFAQ";
 import { Button } from "@/components/ui/button";
 import { LangLink } from "@/components/LangLink";
 import { useLanguage } from "@/contexts/LanguageContext";
-import { motion } from "framer-motion";
+import { motion } from "@/lib/motion-shim";
 import { ArrowRight, Mountain, BarChart3, Building2, Crosshair, Radio, Layers, FileDown, AlertTriangle, Target, Satellite } from "lucide-react";
 import surveyHeroImg from "@/assets/seo/surveying-construction.jpg";
 import surveyDsmImg from "@/assets/seo/surveying-dsm-model.jpg";
