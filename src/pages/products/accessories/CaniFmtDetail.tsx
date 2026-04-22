@@ -421,7 +421,7 @@ const CaniFmtDetail = () => {
               {/* Product images */}
               <div className="space-y-4">
                 <div className="bg-gray-900/50 backdrop-blur-sm rounded-2xl p-8 border border-gray-800 aspect-square flex items-center justify-center">
-                  <img
+                  <img loading="lazy" decoding="async"
                     src={images[selectedImage]}
                     alt="CANI-FC v2.0 high-performance flight controller"
                     title="CANI-FC v2.0 | ICF5 Open Source Flight Controller"
@@ -436,7 +436,7 @@ const CaniFmtDetail = () => {
                         onClick={() => setSelectedImage(idx)}
                         className={`flex-shrink-0 w-20 h-20 rounded-lg border-2 overflow-hidden transition-all ${selectedImage === idx ? 'border-emerald-400 shadow-[0_0_10px_rgba(16,185,129,0.3)]' : 'border-gray-800 hover:border-gray-600'}`}
                       >
-                        <img src={img} alt={`CANI-FC v2.0 view ${idx + 1}`} className="w-full h-full object-cover" />
+                        <img loading="lazy" decoding="async" src={img} alt={`CANI-FC v2.0 view ${idx + 1}`} className="w-full h-full object-cover" />
                       </button>
                     ))}
                   </div>
@@ -559,7 +559,7 @@ const CaniFmtDetail = () => {
                   <div className="grid grid-cols-2 gap-3">
                     {images.slice(0, 4).map((img, idx) => (
                       <div key={idx} className="aspect-square rounded-lg overflow-hidden bg-gray-800/50 border border-gray-700/50">
-                        <img src={img} alt={`CANI-FC v2.0 angle ${idx + 1}`} className="w-full h-full object-contain p-2" />
+                        <img loading="lazy" decoding="async" src={img} alt={`CANI-FC v2.0 angle ${idx + 1}`} className="w-full h-full object-contain p-2" />
                       </div>
                     ))}
                   </div>

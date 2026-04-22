@@ -182,7 +182,7 @@ const FcEscDetail = () => {
               {/* Product Images */}
               <div className="space-y-4">
                 <div className="bg-card rounded-2xl p-8 border border-border aspect-square flex items-center justify-center">
-                  <img 
+                  <img loading="lazy" decoding="async" 
                     src={images[selectedImage]} 
                     alt={`${product.name} - CANI ${isStack ? 'drone-power-system-stack-fc-esc' : is6in1 ? 'industrial-hexacopter-6in1-esc' : isEsc ? 'high-voltage-drone-esc' : 'industrial-flight-controller'}`}
                     title={`${h1Text} | ${product.model}`}
@@ -197,7 +197,7 @@ const FcEscDetail = () => {
                         onClick={() => setSelectedImage(idx)} 
                         className={`flex-shrink-0 w-20 h-20 rounded-lg border-2 overflow-hidden transition-all ${selectedImage === idx ? 'border-primary' : 'border-border hover:border-primary/50'}`}
                       >
-                        <img src={img} alt={`${product.name} view ${idx + 1}`} className="w-full h-full object-cover" />
+                        <img loading="lazy" decoding="async" src={img} alt={`${product.name} view ${idx + 1}`} className="w-full h-full object-cover" />
                       </button>
                     ))}
                   </div>

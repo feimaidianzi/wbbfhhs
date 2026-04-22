@@ -30,7 +30,7 @@ const C20HardwareSection = () => {
             {/* Drone product image */}
             <div className="absolute inset-0 flex items-center justify-center">
               <div className="relative w-56 h-56 md:w-72 md:h-72">
-                <img src={c20FleetImg} alt="CANI C20 Drone" className="w-full h-full object-contain drop-shadow-lg" />
+                <img loading="lazy" decoding="async" src={c20FleetImg} alt="CANI C20 Drone" className="w-full h-full object-contain drop-shadow-lg" />
               </div>
             </div>
 

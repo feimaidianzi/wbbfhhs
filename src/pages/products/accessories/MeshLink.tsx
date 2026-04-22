@@ -310,7 +310,7 @@ const MeshLink = () => {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
               <div className="bg-card rounded-2xl shadow-card overflow-hidden border border-border/30">
                 <div className="aspect-square bg-muted/50 flex items-center justify-center p-8">
-                  <img src={meshLinkTriband} alt="800M/1.4G/2.4G" className="max-h-full object-contain" />
+                  <img loading="lazy" decoding="async" src={meshLinkTriband} alt="800M/1.4G/2.4G" className="max-h-full object-contain" />
                 </div>
                 <div className="p-6">
                   <h3 className="text-xl font-bold text-foreground mb-3">{t('meshLink.freq.triband.title')}</h3>
@@ -327,7 +327,7 @@ const MeshLink = () => {
               </div>
               <div className="bg-card rounded-2xl shadow-card overflow-hidden border border-border/30">
                 <div className="aspect-square bg-muted/50 flex items-center justify-center p-8">
-                  <img src={meshLink1g4} alt="1.4G" className="max-h-full object-contain" />
+                  <img loading="lazy" decoding="async" src={meshLink1g4} alt="1.4G" className="max-h-full object-contain" />
                 </div>
                 <div className="p-6">
                   <h3 className="text-xl font-bold text-foreground mb-3">{t('meshLink.freq.singleband.title')}</h3>
@@ -358,7 +358,7 @@ const MeshLink = () => {
             </p>
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center max-w-5xl mx-auto">
               <div className="flex justify-center">
-                <img src={meshLinkPcb} alt="HQL010P" className="max-w-md w-full rounded-xl shadow-lg" />
+                <img loading="lazy" decoding="async" src={meshLinkPcb} alt="HQL010P" className="max-w-md w-full rounded-xl shadow-lg" />
               </div>
               <div>
                 <h3 className="text-2xl font-bold text-foreground mb-2">HQL010P</h3>

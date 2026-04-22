@@ -299,7 +299,7 @@ const SwarmKit = () => {
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true }}
               >
-                <img src={uwbImage} alt="UWB Positioning" className="rounded-2xl shadow-2xl w-full" />
+                <img loading="lazy" decoding="async" src={uwbImage} alt="UWB Positioning" className="rounded-2xl shadow-2xl w-full" />
               </motion.div>
             </div>
           </div>
@@ -315,7 +315,7 @@ const SwarmKit = () => {
                 viewport={{ once: true }}
                 className="order-2 lg:order-1"
               >
-                <img alt="Formation Modes" className="rounded-2xl shadow-2xl w-full" src="/lovable-uploads/0691809d-4d01-442d-aeb4-0d42e61e945a.png" />
+                <img loading="lazy" decoding="async" alt="Formation Modes" className="rounded-2xl shadow-2xl w-full" src="/lovable-uploads/0691809d-4d01-442d-aeb4-0d42e61e945a.png" />
               </motion.div>
               <motion.div
                 initial={{ opacity: 0, x: 30 }}
@@ -365,7 +365,7 @@ const SwarmKit = () => {
               viewport={{ once: true }}
               className="flex justify-center"
             >
-              <img
+              <img loading="lazy" decoding="async"
                 src={communicationImage}
                 alt={t('swarm.comm.imageAlt')}
                 className="rounded-2xl shadow-2xl max-w-4xl w-full bg-white p-4"
@@ -409,7 +409,7 @@ const SwarmKit = () => {
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true }}
               >
-                <img src={groundStationImage} alt="Ground Station" className="rounded-2xl shadow-2xl w-full" />
+                <img loading="lazy" decoding="async" src={groundStationImage} alt="Ground Station" className="rounded-2xl shadow-2xl w-full" />
               </motion.div>
             </div>
           </div>

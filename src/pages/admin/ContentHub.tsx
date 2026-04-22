@@ -340,7 +340,7 @@ const ArticleListView = ({ articles, onEdit, onRefresh, categoryFilter, onCatego
             onClick={() => onEdit(article)}>
             <div className="flex items-center gap-3 flex-1 min-w-0">
               {article.cover_image && (
-                <img src={article.cover_image} alt="" className="w-10 h-10 rounded object-cover flex-shrink-0" />
+                <img loading="lazy" decoding="async" src={article.cover_image} alt="" className="w-10 h-10 rounded object-cover flex-shrink-0" />
               )}
               <div className="min-w-0">
                 <h3 className="text-sm text-white truncate">{article.title}</h3>

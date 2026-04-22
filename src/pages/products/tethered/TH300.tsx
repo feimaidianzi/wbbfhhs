@@ -229,7 +229,7 @@ const TH300 = () => {
             {coreFeatures.map((feat, i) => (
               <div key={i} className="group relative rounded-2xl overflow-hidden border border-gray-800 hover:border-cyan-500/50 transition-all duration-500">
                 <div className="aspect-[3/4] overflow-hidden">
-                  <img src={feat.image} alt={feat.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
+                  <img loading="lazy" decoding="async" src={feat.image} alt={feat.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
                   <div className="absolute inset-0 bg-gradient-to-t from-gray-950 via-gray-950/60 to-transparent" />
                 </div>
                 <div className="absolute bottom-0 left-0 right-0 p-6">
@@ -256,7 +256,7 @@ const TH300 = () => {
             {t('tethered.th300.k872')}
           </p>
           <div className="max-w-3xl mx-auto">
-            <img src={droneDisplayImg} alt="CANI T300 Drone Views" className="w-full h-auto" />
+            <img loading="lazy" decoding="async" src={droneDisplayImg} alt="CANI T300 Drone Views" className="w-full h-auto" />
           </div>
         </div>
       </section>
@@ -275,7 +275,7 @@ const TH300 = () => {
             {payloadModules.map((mod, i) => (
               <div key={i} className="group relative rounded-2xl overflow-hidden border border-gray-800 hover:border-cyan-500/30 transition-all duration-500">
                 <div className="aspect-[4/3] overflow-hidden">
-                  <img src={mod.image} alt={mod.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
+                  <img loading="lazy" decoding="async" src={mod.image} alt={mod.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
                   <div className="absolute inset-0 bg-gradient-to-t from-gray-950 via-gray-950/50 to-transparent" />
                 </div>
                 <div className="absolute bottom-0 left-0 right-0 p-6">
@@ -305,7 +305,7 @@ const TH300 = () => {
             {groundStationFeatures.map((feat, i) => (
               <div key={i} className="rounded-2xl overflow-hidden border border-gray-800 bg-gray-900/50">
                 <div className="aspect-[4/3] overflow-hidden">
-                  <img src={feat.image} alt={feat.title} className="w-full h-full object-cover" />
+                  <img loading="lazy" decoding="async" src={feat.image} alt={feat.title} className="w-full h-full object-cover" />
                 </div>
                 <div className="p-6">
                   <div className="flex items-center gap-2 mb-3">
@@ -376,7 +376,7 @@ const TH300 = () => {
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-5xl mx-auto">
             {applications.map((app, i) => (
               <div key={i} className="group relative rounded-xl overflow-hidden aspect-square cursor-pointer">
-                <img src={app.image} alt={app.title} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" />
+                <img loading="lazy" decoding="async" src={app.image} alt={app.title} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" />
                 <div className="absolute inset-0 bg-gradient-to-t from-gray-950/90 via-gray-950/20 to-transparent" />
                 <div className="absolute bottom-0 left-0 right-0 p-4">
                   <h4 className="text-white font-bold text-lg">{app.title}</h4>

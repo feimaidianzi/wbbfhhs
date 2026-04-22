@@ -162,19 +162,19 @@ const TH100 = () => {
           
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6 max-w-6xl mx-auto animate-fade-in" style={{ animationDelay: "0.2s" }}>
             <div className="bg-gray-800/50 rounded-xl p-4 border border-gray-700 hover:border-blue-500 transition-colors">
-              <img src={th100Drone} alt={t('th100.component.drone')} className="w-full h-48 object-contain mb-4" />
+              <img loading="lazy" decoding="async" src={th100Drone} alt={t('th100.component.drone')} className="w-full h-48 object-contain mb-4" />
               <h4 className="text-white font-semibold text-center">{t('th100.component.drone')}</h4>
             </div>
             <div className="bg-gray-800/50 rounded-xl p-4 border border-gray-700 hover:border-blue-500 transition-colors">
-              <img src={th100Controller} alt={t('th100.component.controller')} className="w-full h-48 object-contain mb-4" />
+              <img loading="lazy" decoding="async" src={th100Controller} alt={t('th100.component.controller')} className="w-full h-48 object-contain mb-4" />
               <h4 className="text-white font-semibold text-center">{t('th100.component.controller')}</h4>
             </div>
             <div className="bg-gray-800/50 rounded-xl p-4 border border-gray-700 hover:border-blue-500 transition-colors">
-              <img src={th100PowerUnit} alt={t('th100.component.powerUnit')} className="w-full h-48 object-contain mb-4" />
+              <img loading="lazy" decoding="async" src={th100PowerUnit} alt={t('th100.component.powerUnit')} className="w-full h-48 object-contain mb-4" />
               <h4 className="text-white font-semibold text-center">{t('th100.component.powerUnit')}</h4>
             </div>
             <div className="bg-gray-800/50 rounded-xl p-4 border border-gray-700 hover:border-blue-500 transition-colors">
-              <img src={th100WashSystem} alt={t('th100.component.washSystem')} className="w-full h-48 object-contain mb-4" />
+              <img loading="lazy" decoding="async" src={th100WashSystem} alt={t('th100.component.washSystem')} className="w-full h-48 object-contain mb-4" />
               <h4 className="text-white font-semibold text-center">{t('th100.component.washSystem')}</h4>
             </div>
           </div>
@@ -235,7 +235,7 @@ const TH100 = () => {
           </p>
           
           <div className="max-w-4xl mx-auto animate-fade-in" style={{ animationDelay: "0.2s" }}>
-            <img src={th100CleaningModes} alt={t('th100.section.modes.title')} className="w-full h-auto hover:scale-105 transition-transform duration-500" />
+            <img loading="lazy" decoding="async" src={th100CleaningModes} alt={t('th100.section.modes.title')} className="w-full h-auto hover:scale-105 transition-transform duration-500" />
           </div>
         </div>
       </section>
@@ -252,7 +252,7 @@ const TH100 = () => {
           
           <div className="max-w-5xl mx-auto animate-fade-in relative" style={{ animationDelay: "0.2s" }}>
             <div className="relative">
-              <img src={th100Telescopic} alt={t('th100.section.telescopic.title')} className="w-full h-auto" />
+              <img loading="lazy" decoding="async" src={th100Telescopic} alt={t('th100.section.telescopic.title')} className="w-full h-auto" />
               <div className="absolute top-[15%] right-[5%] text-right">
                 <p className="text-amber-500 font-semibold text-lg md:text-xl">
                   {t('th100.telescopic.maxLength')}
@@ -285,7 +285,7 @@ const TH100 = () => {
           </h2>
           
           <div className="max-w-5xl mx-auto mt-12 animate-fade-in" style={{ animationDelay: "0.1s" }}>
-            <img src={th100Psdk} alt={t('th100.section.psdk.title')} className="w-full h-auto hover:scale-105 transition-transform duration-500" />
+            <img loading="lazy" decoding="async" src={th100Psdk} alt={t('th100.section.psdk.title')} className="w-full h-auto hover:scale-105 transition-transform duration-500" />
             <div className="flex items-center justify-center gap-2 mt-8">
               <Monitor className="w-6 h-6 text-blue-400" />
               <p className="text-xl text-white">
@@ -306,17 +306,17 @@ const TH100 = () => {
           <div className="max-w-6xl mx-auto animate-fade-in" style={{ animationDelay: "0.1s" }}>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
               <div className="text-center">
-                <img src={th100Wash1} alt={t('th100.wash.first')} className="w-full h-48 object-cover rounded-xl mb-4" />
+                <img loading="lazy" decoding="async" src={th100Wash1} alt={t('th100.wash.first')} className="w-full h-48 object-cover rounded-xl mb-4" />
                 <p className="text-gray-400">{t('th100.wash.first')}</p>
                 <p className="text-white font-semibold">{t('th100.wash.first.agent')}</p>
               </div>
               <div className="text-center">
-                <img src={th100Wash2} alt={t('th100.wash.second')} className="w-full h-48 object-cover rounded-xl mb-4" />
+                <img loading="lazy" decoding="async" src={th100Wash2} alt={t('th100.wash.second')} className="w-full h-48 object-cover rounded-xl mb-4" />
                 <p className="text-gray-400">{t('th100.wash.second')}</p>
                 <p className="text-white font-semibold">{t('th100.wash.second.agent')}</p>
               </div>
               <div className="text-center">
-                <img src={th100Wash3} alt={t('th100.wash.third')} className="w-full h-48 object-cover rounded-xl mb-4" />
+                <img loading="lazy" decoding="async" src={th100Wash3} alt={t('th100.wash.third')} className="w-full h-48 object-cover rounded-xl mb-4" />
                 <p className="text-gray-400">{t('th100.wash.third')}</p>
                 <p className="text-white font-semibold">{t('th100.wash.third.agent')}</p>
               </div>
@@ -324,11 +324,11 @@ const TH100 = () => {
             
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
               <div className="text-center">
-                <img src={th100Before} alt={t('th100.comparison.before')} className="w-full h-64 object-cover rounded-xl mb-4" />
+                <img loading="lazy" decoding="async" src={th100Before} alt={t('th100.comparison.before')} className="w-full h-64 object-cover rounded-xl mb-4" />
                 <p className="text-amber-500 font-semibold text-lg">{t('th100.comparison.before')}</p>
               </div>
               <div className="text-center">
-                <img src={th100Before} alt={t('th100.comparison.after')} className="w-full h-64 object-cover rounded-xl mb-4" />
+                <img loading="lazy" decoding="async" src={th100Before} alt={t('th100.comparison.after')} className="w-full h-64 object-cover rounded-xl mb-4" />
                 <p className="text-green-500 font-semibold text-lg">{t('th100.comparison.after')}</p>
               </div>
             </div>
@@ -347,32 +347,32 @@ const TH100 = () => {
           </p>
           
           <div className="max-w-4xl mx-auto mb-16 animate-fade-in" style={{ animationDelay: "0.2s" }}>
-            <img src={th100CleaningSystem} alt={t('th100.section.system.title')} className="w-full h-auto" />
+            <img loading="lazy" decoding="async" src={th100CleaningSystem} alt={t('th100.section.system.title')} className="w-full h-auto" />
           </div>
 
           {/* Application Scenarios */}
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6 max-w-6xl mx-auto">
             <div className="group text-center animate-fade-in" style={{ animationDelay: "0.3s" }}>
               <div className="overflow-hidden rounded-xl mb-4">
-                <img src={th100Tower} alt={t('th100.app.tower')} className="w-full h-48 object-cover group-hover:scale-110 transition-transform duration-500" />
+                <img loading="lazy" decoding="async" src={th100Tower} alt={t('th100.app.tower')} className="w-full h-48 object-cover group-hover:scale-110 transition-transform duration-500" />
               </div>
               <p className="text-white font-semibold">{t('th100.app.tower')}</p>
             </div>
             <div className="group text-center animate-fade-in" style={{ animationDelay: "0.4s" }}>
               <div className="overflow-hidden rounded-xl mb-4">
-                <img src={th100Insulator} alt={t('th100.app.insulator')} className="w-full h-48 object-cover group-hover:scale-110 transition-transform duration-500" />
+                <img loading="lazy" decoding="async" src={th100Insulator} alt={t('th100.app.insulator')} className="w-full h-48 object-cover group-hover:scale-110 transition-transform duration-500" />
               </div>
               <p className="text-white font-semibold">{t('th100.app.insulator')}</p>
             </div>
             <div className="group text-center animate-fade-in" style={{ animationDelay: "0.5s" }}>
               <div className="overflow-hidden rounded-xl mb-4">
-                <img src={th100Building} alt={t('th100.app.building')} className="w-full h-48 object-cover group-hover:scale-110 transition-transform duration-500" />
+                <img loading="lazy" decoding="async" src={th100Building} alt={t('th100.app.building')} className="w-full h-48 object-cover group-hover:scale-110 transition-transform duration-500" />
               </div>
               <p className="text-white font-semibold">{t('th100.app.building')}</p>
             </div>
             <div className="group text-center animate-fade-in" style={{ animationDelay: "0.6s" }}>
               <div className="overflow-hidden rounded-xl mb-4">
-                <img src={th100Solar} alt={t('th100.app.solar')} className="w-full h-48 object-cover group-hover:scale-110 transition-transform duration-500" />
+                <img loading="lazy" decoding="async" src={th100Solar} alt={t('th100.app.solar')} className="w-full h-48 object-cover group-hover:scale-110 transition-transform duration-500" />
               </div>
               <p className="text-white font-semibold">{t('th100.app.solar')}</p>
             </div>

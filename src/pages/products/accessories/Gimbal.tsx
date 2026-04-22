@@ -159,7 +159,7 @@ const Gimbal = () => {
                       className="group bg-card rounded-xl border border-border overflow-hidden hover:border-primary/50 hover:shadow-lg transition-all duration-300"
                     >
                       <div className="aspect-[4/3] bg-muted/50 overflow-hidden">
-                        <img
+                        <img loading="lazy" decoding="async"
                           src={product.image}
                           alt={t(product.nameKey)}
                           className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"

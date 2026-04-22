@@ -142,7 +142,7 @@ const DigitalFpvDetail = () => {
               
               <div className="relative">
                 <div className="bg-white/10 backdrop-blur rounded-3xl p-8">
-                  <img
+                  <img loading="lazy" decoding="async"
                     src={product.gallery[selectedImage] || product.image}
                     alt={`${t(product.nameKey)} - CaniUAV industrial digital video transmission system`}
                     className="w-full h-auto rounded-2xl"
@@ -159,7 +159,7 @@ const DigitalFpvDetail = () => {
                           selectedImage === idx ? 'border-accent' : 'border-transparent opacity-60 hover:opacity-100'
                         }`}
                       >
-                        <img src={img} alt={`${t(product.nameKey)} view ${idx + 1}`} className="w-full h-full object-cover" />
+                        <img loading="lazy" decoding="async" src={img} alt={`${t(product.nameKey)} view ${idx + 1}`} className="w-full h-full object-cover" />
                       </button>
                     ))}
                   </div>
@@ -280,10 +280,10 @@ const DigitalFpvDetail = () => {
                 </div>
                 
                 <div className="grid grid-cols-2 gap-4">
-                  <img src={product.gallery[0]} alt="S900 UAV Datalink Radio front view" className="rounded-xl shadow-lg" />
-                  <img src={product.gallery[3]} alt="S900 UAV Datalink Radio side view" className="rounded-xl shadow-lg" />
-                  <img src={product.gallery[6]} alt="S900 UAV Datalink Radio interface detail" className="rounded-xl shadow-lg" />
-                  <img src={product.gallery[1]} alt="S900 UAV Datalink Radio top view" className="rounded-xl shadow-lg" />
+                  <img loading="lazy" decoding="async" src={product.gallery[0]} alt="S900 UAV Datalink Radio front view" className="rounded-xl shadow-lg" />
+                  <img loading="lazy" decoding="async" src={product.gallery[3]} alt="S900 UAV Datalink Radio side view" className="rounded-xl shadow-lg" />
+                  <img loading="lazy" decoding="async" src={product.gallery[6]} alt="S900 UAV Datalink Radio interface detail" className="rounded-xl shadow-lg" />
+                  <img loading="lazy" decoding="async" src={product.gallery[1]} alt="S900 UAV Datalink Radio top view" className="rounded-xl shadow-lg" />
                 </div>
               </div>
             </div>
@@ -375,7 +375,7 @@ const DigitalFpvDetail = () => {
                     className="aspect-square rounded-xl overflow-hidden shadow-card hover:shadow-card-hover transition-all cursor-pointer"
                     onClick={() => setSelectedImage(idx)}
                   >
-                    <img 
+                    <img loading="lazy" decoding="async" 
                       src={img} 
                       alt={`${t(product.nameKey)} - industrial UAV datalink view ${idx + 1}`} 
                       className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"

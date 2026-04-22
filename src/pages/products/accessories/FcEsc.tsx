@@ -95,7 +95,7 @@ const FcEsc = () => {
     <Link to={`/products/accessories/fc-esc/${product.id}`} className="block">
       <div className="bg-card rounded-xl overflow-hidden border border-border hover:border-primary/50 transition-all duration-300 group">
         <div className="aspect-square bg-muted/30 p-6 flex items-center justify-center relative">
-          <img 
+          <img loading="lazy" decoding="async" 
             src={product.image} 
             alt={`${product.name} - CANI industrial UAV ${product.category}`}
             title={`${product.name} ${product.model}`}

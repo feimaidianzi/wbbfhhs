@@ -314,7 +314,7 @@ const CaseDetail = () => {
                     className="bg-card rounded-xl overflow-hidden shadow-card hover:shadow-card-hover transition-all group"
                   >
                     <div className="aspect-video overflow-hidden">
-                      <img 
+                      <img loading="lazy" decoding="async" 
                         src={relatedCase.image} 
                         alt={t(relatedCase.titleKey)} 
                         className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"

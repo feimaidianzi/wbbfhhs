@@ -86,7 +86,7 @@ const GimbalDetail = () => {
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
                 {/* Product Image */}
                 <div className="flex items-center justify-center">
-                  <img src={images[selectedImage]} alt={t(product.nameKey)} className="max-h-[400px] max-w-full object-contain drop-shadow-2xl" />
+                  <img loading="lazy" decoding="async" src={images[selectedImage]} alt={t(product.nameKey)} className="max-h-[400px] max-w-full object-contain drop-shadow-2xl" />
                 </div>
                 
                 {/* Slogan & Key Features */}
@@ -121,11 +121,11 @@ const GimbalDetail = () => {
               {/* Product Images */}
               <div className="space-y-4">
                 <div className="bg-card rounded-2xl p-8 border border-border aspect-square flex items-center justify-center">
-                  <img src={images[selectedImage]} alt={t(product.nameKey)} className="max-h-full max-w-full object-contain" />
+                  <img loading="lazy" decoding="async" src={images[selectedImage]} alt={t(product.nameKey)} className="max-h-full max-w-full object-contain" />
                 </div>
                 {images.length > 1 && <div className="flex gap-2 overflow-x-auto pb-2">
                     {images.map((img, idx) => <button key={idx} onClick={() => setSelectedImage(idx)} className={`flex-shrink-0 w-20 h-20 rounded-lg border-2 overflow-hidden transition-all ${selectedImage === idx ? 'border-primary' : 'border-border hover:border-primary/50'}`}>
-                        <img src={img} alt={`${t(product.nameKey)} ${idx + 1}`} className="w-full h-full object-cover" />
+                        <img loading="lazy" decoding="async" src={img} alt={`${t(product.nameKey)} ${idx + 1}`} className="w-full h-full object-cover" />
                       </button>)}
                   </div>}
               </div>
