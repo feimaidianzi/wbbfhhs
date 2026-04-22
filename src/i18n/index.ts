@@ -1,23 +1,25 @@
-// Dynamic translation loading - no static imports of large translation files
+// English is bundled statically — it's the default and needed for instant first paint
+// (eliminates a chained network request that was blocking LCP by ~2.5s).
+import { enTranslations } from './en';
 import { LanguageCode } from './languages';
 
 // Cache for loaded translations
-const translationCache: Record<string, Record<string, string>> = {};
+const translationCache: Record<string, Record<string, string>> = {
+  en: enTranslations,
+};
 
 // Loading promises to prevent duplicate fetches
 const loadingPromises: Record<string, Promise<Record<string, string>>> = {};
 
 /**
- * Dynamically load translations for a specific language.
- * Uses dynamic import() so Vite code-splits zh.ts and en.ts into separate chunks.
+ * Load translations for a specific language.
+ * English returns synchronously (bundled). Other languages lazy-load.
  */
 export const loadTranslations = async (lang: LanguageCode): Promise<Record<string, string>> => {
-  // Return from cache if available
   if (translationCache[lang]) {
     return translationCache[lang];
   }
 
-  // Prevent duplicate concurrent loads
   if (loadingPromises[lang]) {
     return loadingPromises[lang];
   }
@@ -28,14 +30,7 @@ export const loadTranslations = async (lang: LanguageCode): Promise<Record<strin
       translationCache['zh'] = zhTranslations;
       return zhTranslations;
     }
-    if (lang === 'en') {
-      const { enTranslations } = await import('./en');
-      translationCache['en'] = enTranslations;
-      return enTranslations;
-    }
-    // For other languages, fall back to English
-    const { enTranslations } = await import('./en');
-    translationCache['en'] = enTranslations;
+    // For other languages, fall back to bundled English
     return enTranslations;
   })();
 
@@ -46,30 +41,25 @@ export const loadTranslations = async (lang: LanguageCode): Promise<Record<strin
 };
 
 /**
+ * Synchronous English translations — always available (bundled).
+ */
+export const getEnglishTranslations = (): Record<string, string> => enTranslations;
+
+/**
  * Get translations synchronously (from cache only).
- * Returns empty object if not yet loaded.
  */
 export const getTranslations = (lang: LanguageCode): Record<string, string> => {
   return translationCache[lang] || {};
 };
 
-/**
- * Set translations for a language (used for dynamic AI translations)
- */
 export const setTranslations = (lang: LanguageCode, trans: Record<string, string>) => {
   translationCache[lang] = trans;
 };
 
-/**
- * Check if translations exist for a language
- */
 export const hasTranslations = (lang: LanguageCode): boolean => {
   return !!translationCache[lang];
 };
 
-/**
- * Get all translation keys (loads zh synchronously for admin use)
- */
 export const getTranslationKeys = async (): Promise<string[]> => {
   const zh = await loadTranslations('zh');
   return Object.keys(zh);
