@@ -8,6 +8,7 @@ import {
   toBaseLanguage,
 } from '@/i18n/languages';
 import { loadTranslations, setTranslations, hasTranslations, getTranslations } from '@/i18n';
+import { safeStorageGet, safeStorageSet } from '@/lib/utils';
 
 // Kick off English translation load IMMEDIATELY at module evaluation,
 // in parallel with the main bundle initialization. By the time React renders,
@@ -75,7 +76,7 @@ const countryToLanguage: Record<string, LanguageCode> = {
 const getInitialLanguage = (): LanguageCode => {
   const pathLang = detectLanguageFromPath();
   if (pathLang) return pathLang;
-  const saved = localStorage.getItem('language');
+  const saved = safeStorageGet('language');
   if (saved && SUPPORTED_LANGUAGES.some(l => l.code === saved)) return saved as LanguageCode;
   return DEFAULT_LANGUAGE;
 };
@@ -93,12 +94,12 @@ export const LanguageProvider: React.FC<LanguageProviderProps> = ({ children }) 
     if (Object.keys(inMem).length > 0) return inMem;
 
     // Try localStorage for the active language
-    try {
-      const stored = localStorage.getItem(`translations_${lang}`);
+      try {
+        const stored = safeStorageGet(`translations_${lang}`);
       if (stored) {
         const parsed = JSON.parse(stored);
         // Also merge cached en if available
-        const enStored = localStorage.getItem('translations_en');
+          const enStored = safeStorageGet('translations_en');
         if (enStored && lang !== 'en') {
           try { return { ...JSON.parse(enStored), ...parsed }; } catch { /* ignore */ }
         }
@@ -106,7 +107,7 @@ export const LanguageProvider: React.FC<LanguageProviderProps> = ({ children }) 
       }
       // Even for non-en/zh, try the bundled English cache
       if (lang !== 'en') {
-        const enStored = localStorage.getItem('translations_en');
+          const enStored = safeStorageGet('translations_en');
         if (enStored) return JSON.parse(enStored);
       }
     } catch { /* ignore */ }
@@ -130,9 +131,9 @@ export const LanguageProvider: React.FC<LanguageProviderProps> = ({ children }) 
     // Cache en in localStorage so next visit gets instant first paint
     try {
       const enKey = 'translations_en';
-      const stored = localStorage.getItem(enKey);
+      const stored = safeStorageGet(enKey);
       if (!stored) {
-        localStorage.setItem(enKey, JSON.stringify(enBase));
+        safeStorageSet(enKey, JSON.stringify(enBase));
       }
     } catch { /* ignore */ }
 
@@ -161,7 +162,7 @@ export const LanguageProvider: React.FC<LanguageProviderProps> = ({ children }) 
                 const refreshed = { ...merged, ...fresh };
                 setTranslations('zh', refreshed);
                 setCurrentTranslations(refreshed);
-                localStorage.setItem('translations_zh', data.value);
+                safeStorageSet('translations_zh', data.value);
               } catch { /* ignore */ }
             }
           });
@@ -185,7 +186,7 @@ export const LanguageProvider: React.FC<LanguageProviderProps> = ({ children }) 
                 const refreshed = { ...enBase, ...fresh };
                 setTranslations('en', refreshed);
                 setCurrentTranslations(refreshed);
-                localStorage.setItem('translations_en', data.value);
+                safeStorageSet('translations_en', data.value);
               } catch { /* ignore */ }
             }
           });
@@ -201,7 +202,7 @@ export const LanguageProvider: React.FC<LanguageProviderProps> = ({ children }) 
     // Other languages — fetch DB translations (idle)
     const fetchOther = async () => {
       try {
-        const cached = localStorage.getItem(`translations_${targetLang}`);
+        const cached = safeStorageGet(`translations_${targetLang}`);
         if (cached) {
           // Already shown in initial state; check DB for fresh
           const { data } = await supabase.from('system_settings').select('value').eq('key', `translations_${targetLang}`).maybeSingle();
@@ -210,7 +211,7 @@ export const LanguageProvider: React.FC<LanguageProviderProps> = ({ children }) 
             const merged = { ...enBase, ...fresh };
             setTranslations(targetLang, merged);
             setCurrentTranslations(merged);
-            localStorage.setItem(`translations_${targetLang}`, data.value);
+            safeStorageSet(`translations_${targetLang}`, data.value);
           }
           return;
         }
@@ -220,7 +221,7 @@ export const LanguageProvider: React.FC<LanguageProviderProps> = ({ children }) 
           const merged = { ...enBase, ...fresh };
           setTranslations(targetLang, merged);
           setCurrentTranslations(merged);
-          localStorage.setItem(`translations_${targetLang}`, data.value);
+          safeStorageSet(`translations_${targetLang}`, data.value);
         }
       } catch { /* ignore */ }
     };
@@ -236,8 +237,8 @@ export const LanguageProvider: React.FC<LanguageProviderProps> = ({ children }) 
     const currentPath = getPathWithoutLang();
     const prefix = lang === 'en' ? '' : `/${lang}`;
     const newPath = `${prefix}${currentPath === '/' ? '' : currentPath}` || '/';
-    localStorage.setItem('language', lang);
-    localStorage.setItem('language_manual', 'true');
+    safeStorageSet('language', lang);
+    safeStorageSet('language_manual', 'true');
     window.location.href = `${window.location.origin}${newPath}`;
   }, []);
 
@@ -259,7 +260,7 @@ export const LanguageProvider: React.FC<LanguageProviderProps> = ({ children }) 
     const pathLang = detectLanguageFromPath();
     if (pathLang && pathLang !== language) {
       setLanguageState(pathLang);
-      localStorage.setItem('language', pathLang);
+      safeStorageSet('language', pathLang);
     }
   }, []); // Run once on mount
 
