@@ -7,7 +7,7 @@ import {
   getLanguageByCode,
   toBaseLanguage,
 } from '@/i18n/languages';
-import { loadTranslations, setTranslations, hasTranslations, getTranslations } from '@/i18n';
+import { loadTranslations, setTranslations, hasTranslations, getTranslations, getEnglishTranslations } from '@/i18n';
 
 interface LanguageContextType {
   language: LanguageCode;
