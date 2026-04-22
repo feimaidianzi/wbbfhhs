@@ -8,16 +8,19 @@ interface LogoProps {
   showLink?: boolean;
 }
 
+// Intrinsic dimensions matching the rendered size (h-10 = 40px, ratio ~2.9)
+// Reserves correct space immediately to prevent CLS.
 export const Logo = ({ className = "", showLink = true }: LogoProps) => {
   const logoContent = (
     <img
       src={LOGO_SRC}
       alt="CANI长凌科技 - 工业无人机核心配件制造商"
-      width={200}
-      height={69}
+      width={116}
+      height={40}
       fetchPriority="high"
       decoding="async"
       className={`h-8 md:h-10 w-auto ${className}`}
+      style={{ aspectRatio: '116 / 40' }}
     />
   );
 
@@ -32,9 +35,10 @@ export const LogoDark = ({ className = "" }: { className?: string }) => (
   <img
     src={LOGO_SRC}
     alt="CANI长凌科技 - 工业无人机核心配件制造商"
-    width={200}
-    height={69}
+    width={116}
+    height={40}
     decoding="async"
     className={`h-8 md:h-10 w-auto ${className}`}
+    style={{ aspectRatio: '116 / 40' }}
   />
 );

@@ -48,11 +48,32 @@ export default defineConfig(({ mode }) => ({
     cssCodeSplit: true,
     sourcemap: false,
     chunkSizeWarningLimit: 1500,
-    // NOTE: We intentionally DO NOT set rollupOptions.output.manualChunks here.
-    // A custom manualChunks function previously caused React to be duplicated
-    // into multiple vendor chunks (vendor-charts contained its own React copy),
-    // resulting in a blank white screen in production. Letting Rollup do its
-    // default automatic chunking keeps a single React instance.
+    rollupOptions: {
+      output: {
+        // Split heavy third-party libs out of the main app bundle so the LCP
+        // critical path downloads less code. React stays bundled together to
+        // guarantee a single instance (avoids the "blank screen" regression).
+        manualChunks(id) {
+          if (!id.includes("node_modules")) return undefined;
+          // Keep React + ReactDOM + Router + Helmet in ONE chunk to avoid
+          // duplicate instances / hook errors.
+          if (
+            id.includes("/react/") ||
+            id.includes("/react-dom/") ||
+            id.includes("/react-router") ||
+            id.includes("/react-helmet-async/") ||
+            id.includes("/scheduler/")
+          ) {
+            return "vendor-react";
+          }
+          if (id.includes("/framer-motion/")) return "vendor-motion";
+          if (id.includes("/@radix-ui/")) return "vendor-radix";
+          if (id.includes("/@supabase/") || id.includes("/@tanstack/")) return "vendor-data";
+          if (id.includes("/lucide-react/")) return "vendor-icons";
+          return "vendor-misc";
+        },
+      },
+    },
   },
   esbuild: {
     drop: mode === "production" ? ["console", "debugger"] : [],

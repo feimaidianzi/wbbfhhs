@@ -20,55 +20,8 @@ export const HeroSection = () => {
         }}
       />
 
-      {/* Animated circuit trace lines */}
-      <div className="absolute inset-0 pointer-events-none overflow-hidden">
-        {/* Horizontal scan line */}
-        <div
-          className="absolute left-0 right-0 h-[1px] opacity-[0.07]"
-          style={{
-            top: '30%',
-            background: 'linear-gradient(90deg, transparent, rgba(56,189,248,0.6) 20%, rgba(56,189,248,0.8) 50%, rgba(56,189,248,0.6) 80%, transparent)',
-            animation: 'heroScanLine 8s ease-in-out infinite',
-          }}
-        />
-        {/* Diagonal trace */}
-        <div
-          className="absolute opacity-[0.04]"
-          style={{
-            width: '200%',
-            height: '1px',
-            top: '55%',
-            left: '-50%',
-            background: 'linear-gradient(90deg, transparent, rgba(34,211,238,0.5) 30%, rgba(34,211,238,0.7) 50%, rgba(34,211,238,0.5) 70%, transparent)',
-            transform: 'rotate(-15deg)',
-            animation: 'heroScanLine 12s ease-in-out infinite reverse',
-          }}
-        />
-      </div>
-
-      {/* Floating tech particles */}
-      <div className="absolute inset-0 pointer-events-none">
-        {[...Array(6)].map((_, i) => (
-          <div
-            key={i}
-            className="absolute rounded-full"
-            style={{
-              width: `${2 + i % 3}px`,
-              height: `${2 + i % 3}px`,
-              left: `${15 + i * 14}%`,
-              top: `${20 + (i % 3) * 25}%`,
-              background: i % 2 === 0 ? 'rgba(56,189,248,0.4)' : 'rgba(34,211,238,0.3)',
-              boxShadow: `0 0 ${6 + i * 2}px ${i % 2 === 0 ? 'rgba(56,189,248,0.3)' : 'rgba(34,211,238,0.2)'}`,
-              animation: `heroParticleFloat ${4 + i * 1.5}s ease-in-out infinite`,
-              animationDelay: `${i * 0.8}s`,
-            }}
-          />
-        ))}
-      </div>
-
-      {/* Background circuit board pattern removed — was causing 12 non-composited
-          stroke-dashoffset animations flagged by PageSpeed. The hero already has
-          gradient + grid + scan lines + particles for visual depth. */}
+      {/* Decorative scan lines + floating particles removed to reduce main-thread
+          paint cost during LCP. Static gradient + grid pattern still provide depth. */}
 
       {/* Right-side hero product image with circuit tech overlay */}
       <div className="absolute right-0 top-0 bottom-0 w-[55%] hidden lg:block pointer-events-none">
@@ -102,47 +55,6 @@ export const HeroSection = () => {
                 non-composited stroke-dashoffset animations + heavy gaussian blur
                 filters. The static product photo + ambient glow + technical
                 labels still convey the "live electronics" feel. */}
-          </div>
-
-          {/* === Circuit trace lines connecting to image === */}
-          {/* Top-right: SMA connector label */}
-          <div className="absolute top-[18%] right-[12%] flex items-center gap-2 hero-tech-label" style={{ animation: 'heroLabelFadeIn 0.8s ease-out 1.5s both' }}>
-            <div className="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-pulse" />
-            <div className="w-20 h-[1px] bg-gradient-to-r from-cyan-400/60 to-transparent" />
-            <span className="text-[9px] font-mono text-cyan-400/60 tracking-wider uppercase">SMA·50Ω</span>
-          </div>
-
-          {/* Top-left: MCU label */}
-          <div className="absolute top-[28%] left-[12%] flex items-center gap-2" style={{ animation: 'heroLabelFadeIn 0.8s ease-out 1.8s both', opacity: 0 }}>
-            <span className="text-[9px] font-mono text-blue-400/50 tracking-wider">STM32H7</span>
-            <div className="w-16 h-[1px] bg-gradient-to-r from-transparent to-blue-400/50" />
-            <div className="w-1.5 h-1.5 rounded-full bg-blue-400/70 animate-pulse" style={{ animationDelay: '0.5s' }} />
-          </div>
-
-          {/* Mid-right: RF module annotation */}
-          <div className="absolute top-[45%] right-[8%] flex flex-col items-end gap-1" style={{ animation: 'heroLabelFadeIn 0.8s ease-out 2.1s both', opacity: 0 }}>
-            <div className="flex items-center gap-2">
-              <div className="w-1 h-1 rounded-full bg-cyan-400/80 animate-pulse" style={{ animationDelay: '1.2s' }} />
-              <div className="w-24 h-[1px] bg-gradient-to-r from-cyan-400/40 to-cyan-400/20" />
-            </div>
-            <span className="text-[8px] font-mono text-cyan-400/40 tracking-widest">RF·5.8GHz·37W</span>
-          </div>
-
-          {/* Bottom-left: IPEX label */}
-          <div className="absolute bottom-[35%] left-[18%] flex items-center gap-2" style={{ animation: 'heroLabelFadeIn 0.8s ease-out 2.4s both', opacity: 0 }}>
-            <span className="text-[8px] font-mono text-blue-300/40 tracking-wider">IPEX·IV</span>
-            <div className="w-14 h-[1px] bg-gradient-to-r from-transparent to-blue-300/40" />
-            <div className="w-1 h-1 rounded-full bg-blue-300/60 animate-pulse" style={{ animationDelay: '1.5s' }} />
-          </div>
-
-          {/* HUD coordinate text */}
-          <div className="absolute top-[22%] left-[18%] w-[64%] h-[56%]" style={{ animation: 'heroLabelFadeIn 1s ease-out 1.2s both', opacity: 0 }}>
-            <div className="absolute top-0 left-0 w-8 h-8 border-l-[1.5px] border-t-[1.5px] border-cyan-400/20" />
-            <div className="absolute top-0 right-0 w-8 h-8 border-r-[1.5px] border-t-[1.5px] border-cyan-400/20" />
-            <div className="absolute bottom-0 left-0 w-8 h-8 border-l-[1.5px] border-b-[1.5px] border-cyan-400/20" />
-            <div className="absolute bottom-0 right-0 w-8 h-8 border-r-[1.5px] border-b-[1.5px] border-cyan-400/20" />
-            <span className="absolute bottom-[-16px] left-0 text-[7px] font-mono text-cyan-400/25 tracking-widest">X:042.7 Y:118.3</span>
-            <span className="absolute top-[-16px] right-0 text-[7px] font-mono text-cyan-400/25 tracking-widest">LOCK</span>
           </div>
 
           {/* Bottom fade */}
