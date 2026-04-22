@@ -1,6 +1,7 @@
 import heroPcbBoard from "@/assets/hero-pcb-board.png";
 import { HeroContent } from "./hero/HeroContent";
 import { WaveTransition } from "./hero/WaveTransition";
+import { DeferredMount } from "./DeferredMount";
 
 export const HeroSection = () => {
   return (
