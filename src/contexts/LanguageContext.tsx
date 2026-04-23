@@ -108,21 +108,20 @@ export const LanguageProvider: React.FC<LanguageProviderProps> = ({ children }) 
         const stored = safeStorageGet(`translations_${lang}`);
       if (stored) {
         const parsed = JSON.parse(stored);
-        // Also merge cached en if available
+        // Also merge cached en if available (en is the fallback layer, target lang wins)
           const enStored = safeStorageGet('translations_en');
         if (enStored && lang !== 'en') {
           try { return { ...JSON.parse(enStored), ...parsed }; } catch { /* ignore */ }
         }
         return parsed;
       }
-      // Even for non-en/zh, try the bundled English cache
-      if (lang !== 'en') {
-          const enStored = safeStorageGet('translations_en');
-        if (enStored) return JSON.parse(enStored);
-      }
+      // For non-en languages without their own cache, do NOT seed with English —
+      // it would lock English in and prevent the zh-home chunk (loading in
+      // parallel) from ever showing through after merge. Render empty and let
+      // the home chunk fill in within ~200ms.
     } catch { /* ignore */ }
 
-    // First-ever visit: render with empty map; English chunk will populate within ~200ms
+    // First-ever visit: render with empty map; home chunk will populate within ~200ms
     return {};
   });
 
@@ -146,14 +145,15 @@ export const LanguageProvider: React.FC<LanguageProviderProps> = ({ children }) 
     if (targetLang === 'en') {
       setCurrentTranslations((prev) => Object.keys(prev).length === 0 ? enHomeBase : { ...enHomeBase, ...prev });
     } else {
+      // For non-en, English is just a fallback layer — keep prev (target-lang cache) on top
       setCurrentTranslations((prev) => ({ ...enHomeBase, ...prev }));
     }
 
     // For zh, also load zh-home chunk for instant Chinese first paint
     if (targetLang === 'zh') {
       const zhHomeBase = await loadHomeTranslations('zh');
-      const homeMerged = { ...enHomeBase, ...zhHomeBase };
-      setCurrentTranslations((prev) => ({ ...homeMerged, ...prev }));
+      // zh-home must override any English bootstrap that may have been cached
+      setCurrentTranslations((prev) => ({ ...prev, ...zhHomeBase }));
     }
 
     // Phase 2: schedule full chunk upgrade on idle (non-blocking)
@@ -194,7 +194,8 @@ export const LanguageProvider: React.FC<LanguageProviderProps> = ({ children }) 
         const zhBase = await loadTranslations('zh');
         const merged = { ...enBase, ...zhBase };
         setTranslations('zh', merged);
-        setCurrentTranslations((prev) => ({ ...merged, ...prev }));
+        // zh full chunk must override any prior English cache stuck in state
+        setCurrentTranslations((prev) => ({ ...prev, ...merged }));
 
         const checkSupabase = () => {
           supabase.from('system_settings').select('value').eq('key', 'translations_zh').maybeSingle()
