@@ -78,7 +78,7 @@ export const enTranslations: Record<string, string> = {
   
   // Digital FPV Hub Page
   'digitalFpv.title': 'Industrial Digital FPV & HD Video Links',
-  'digitalFpv.seo.title': 'Industrial Digital FPV Systems | HD 4K Low-Latency Video Links | CANI UAV',
+  'digitalFpv.seo.title': 'Industrial Digital FPV Systems | HD 4K Low-Latency | CANI',
   'digitalFpv.seo.description': 'High-definition digital FPV solutions for industrial and tactical UAVs. Featuring high-performance digital air units with low-latency 4K transmission, AES-256 encryption and secure integration for BVLOS missions.',
   'digitalFpv.seo.keywords': 'industrial digital FPV,HD low-latency video link,4K UAV transmission,AES-256 encrypted digital link,long-range HD digital transmission,COFDM datalink,BVLOS video system,MAVLink telemetry,digital radio,CaniUAV',
   'digitalFpv.backToAccessories': 'Back to Accessories',
@@ -847,7 +847,7 @@ export const enTranslations: Record<string, string> = {
   'template.emailConsult': 'Email Us',
 
   // Logistics SY800 Product Detail Page
-  'logistics.sy800.seo.title': 'Industrial Logistics Drones | Heavy-Lift Cargo UAV Platforms | CANI UAV',
+  'logistics.sy800.seo.title': 'Industrial Logistics Drones | Heavy-Lift Cargo | CANI UAV',
   'logistics.sy800.seo.desc': 'CANI UAV offers high-performance logistics drones for autonomous cargo delivery. Featuring heavy-lift capabilities up to 50kg, long-range flight, redundant propulsion, and robust carbon fiber frames for medical, industrial, and last-mile logistics.',
   'logistics.sy800.heroTitle': 'Autonomous Logistics & Heavy-Lift Cargo UAV Solutions',
   'logistics.sy800.heroSubtitle': 'Industrial-Grade Cargo Drone Platform for Commercial Operations',
@@ -1039,7 +1039,7 @@ export const enTranslations: Record<string, string> = {
   'nav.products.tethered': 'Tethered Drone',
 
   // ===== Tethered Page =====
-  'tethered.page.seo.title': 'Tethered Drone Systems | 24/7 Endurance & Emergency Communication Base Station | CANI UAV',
+  'tethered.page.seo.title': 'Tethered Drone Systems | 24/7 Endurance Platform | CANI UAV',
   'tethered.page.seo.desc': 'Professional tethered UAV systems with 24/7 persistent aerial capability. Uninterrupted high-voltage power supply with fiber-optic data transmission for emergency communication, event security, and long-term environmental monitoring.',
   'tethered.page.seo.keywords': 'tethered drone power system, emergency communication UAV base station, 24-hour long endurance UAV, tethered fiber optic link, high-altitude surveillance platform, tethered drone system, tethered UAV platform, persistent aerial surveillance, high-voltage UAV power link, OEM drone manufacturer',
   'tethered.page.hero.title': 'Industrial Tethered UAV Systems: 24/7 Persistent Aerial Operations Platform',
@@ -1127,7 +1127,7 @@ export const enTranslations: Record<string, string> = {
 
   // ===== Page-Level SEO Keys =====
   // Home Page SEO
-  'home.seo.title': 'Industrial UAV Components Manufacturer | HD Digital Video Transmission & 50km Digital Video Link | CANI',
+  'home.seo.title': 'Industrial UAV Components Manufacturer | HD Video Link | CANI',
   'home.seo.description': 'Leading supplier of HD digital video transmission systems, digital links, and AI guidance modules for industrial drones. 15+ years R&D, 200+ patents, with ISO certification capability. Specialized in power inspection & logistics solutions. Request a quote.',
   'home.seo.keywords': 'digital video transmission,high power video transmitter,industrial drone components,digital video link,AI guidance module,drone manufacturer,power inspection drone,NDAA compliant drone,drone accessories OEM',
   'home.structured.name': 'CANI Technology',
@@ -1138,7 +1138,7 @@ export const enTranslations: Record<string, string> = {
   'home.structured.availableLanguage': 'English',
 
   // Products Page SEO
-  'products.page.title': 'Industrial UAV Components & Systems Catalog | Secure Digital Video Links & AI Modules | CANI',
+  'products.page.title': 'Industrial UAV Components Catalog | AI & Video Links | CANI',
   'products.page.description': "Explore CANI's comprehensive catalog of industrial UAV components: 50km+ long-range digital HD video links, NDAA-compliant flight controllers, and AI-driven guidance modules. Precision engineered for smart grid monitoring, SAR, and surveying. Wholesale & custom OEM/ODM available.",
   'products.page.keywords': 'Industrial UAV Components Manufacturer,UAV Digital Video Link Supplier,Professional Flight Control System,UAV AI Module,BVLOS Drone Hardware',
   'products.hero.badge': 'CANI Technology · Product Center',
@@ -1182,12 +1182,12 @@ export const enTranslations: Record<string, string> = {
   'products.category.accessories': 'Core Components & Accessories',
 
   // Applications Page SEO
-  'applications.seo.title': 'Industrial UAV Applications | Mission-Critical Drone Solutions | CaniUAV',
+  'applications.seo.title': 'Industrial UAV Applications | Mission Solutions | CaniUAV',
   'applications.seo.description': 'Explore professional UAV applications in powerline inspection, search & rescue, high-precision surveying, and border security. Integrated hardware-software solutions designed for complex environments and BVLOS operations.',
   'applications.seo.keywords': 'industrial UAV applications,powerline inspection drone,search and rescue drone,drone surveying,BVLOS operations,mission-critical drone,thermal imaging inspection,digital twin',
 
   // Contact Page SEO (GEO Optimized)
-  'contact.page.title': 'Contact CANI Technology | Industrial UAV Payload Custom & Tech Support Center',
+  'contact.page.title': 'Contact CANI Technology | Industrial UAV Support Center',
   'contact.page.subtitle': 'From concept prototype to mass production integration, our engineering team solves SWaP-C balancing, signal integrity, and full-scenario adaptation challenges.',
   'contact.page.description': 'Seeking professional UAV payload OEM/ODM customization, 37W high-power VTX integration, or precision gimbal tech support? CANI Technology senior engineers provide 50km BVLOS link and EO/IR sensor fusion solutions. Contact us now.',
   'contact.page.keywords': 'contact CANI Technology,UAV payload custom,OEM/ODM consultation,37W VTX tech support,gimbal integration,industrial UAV service',
@@ -1560,7 +1560,7 @@ export const enTranslations: Record<string, string> = {
   'vtx.notes.intro': 'As professional high-power analog video transmission accessories, please strictly follow the installation requirements during system setup to ensure proper device operation and maximum NLOS performance.',
 
   // FC/ESC Category Page
-  'fcesc.seo.title': 'High-Performance UAV Flight Controllers & ESCs | H7 FC & FOC ESC Stacks | CANI Technology',
+  'fcesc.seo.title': 'UAV Flight Controllers & ESCs | H7 FC & FOC ESC | CANI',
   'fcesc.seo.description': 'Explore industrial-grade flight controllers and ESCs for UAVs. Features STM32 H743/753 MCUs, triple redundancy IMUs, and high-voltage FOC ESCs (up to 24S). Supports DroneCAN, MAVLink, and Betaflight protocols for BVLOS missions.',
   'fcesc.hero.title': 'Industrial UAV Flight Controllers & ESC Power Systems',
   'fcesc.hero.desc': 'High-performance FC/ESC product line featuring STM32 H7 autopilots with triple-redundant IMUs, FOC ESCs up to 200A/24S, and plug-and-play stacks for professional FPV & cinematography. NDAA-compliant hardware available.',
@@ -1736,7 +1736,7 @@ export const enTranslations: Record<string, string> = {
   'fcEscDetail.eeat.protocolTitle': 'Protocol Compatibility',
 
   // Gimbal SEO Content
-  'gimbal.seo.title': 'High-Precision 3-Axis UAV Gimbals | Industrial Camera Stabilization | CANI UAV',
+  'gimbal.seo.title': 'High-Precision 3-Axis UAV Gimbals | Stabilization | CANI',
   'gimbal.seo.description': 'Professional 3-axis brushless gimbals for industrial UAVs. Supporting optical, thermal, and multispectral cameras with high-precision stabilization and multi-protocol integration (MAVLink/SBUS/PWM).',
   'gimbal.seo.keywords': '3-axis brushless gimbal,UAV camera stabilization system,industrial drone gimbal payload,optical thermal camera integration,lightweight carbon fiber gimbal,PWM SBUS serial gimbal,power inspection gimbal,gimbal OEM manufacturer,anti-vibration gimbal,high-precision stabilization',
   'gimbal.hero.title': 'Industrial UAV Gimbals & ',
@@ -2205,7 +2205,7 @@ export const enTranslations: Record<string, string> = {
   'applications.viewAll': 'Explore All UAV Application Cases',
 
   // Water Conservancy Solution Page
-  'water.seo.title': 'Smart Water Management UAV Solutions | 50km BVLOS River & Dam Inspection',
+  'water.seo.title': 'Smart Water UAV Solutions | 50km River & Dam Inspection',
   'water.seo.desc': 'Advanced industrial UAV solutions for smart water affairs. Featuring 50km+ BVLOS river patrol, AI-driven illegal sand mining detection, and centimeter-level 3D dam health monitoring with HD digital video transmission and thermal imaging.',
   'water.seo.keywords': 'smart water UAV,river inspection drone,dam monitoring,BVLOS patrol,illegal sand mining surveillance,flood prevention drone,digital video transmission,water conservancy solution',
   'water.badge': 'Smart Water Solutions',
@@ -2250,7 +2250,7 @@ export const enTranslations: Record<string, string> = {
   'water.whitepaper.btn': 'Download Smart Water Whitepaper',
 
   // ===== Environmental Monitoring Solution =====
-  'envmon.seo.title': 'UAV Environmental Monitoring Solutions | Multispectral & Gas Sensing | CANI UAV',
+  'envmon.seo.title': 'UAV Environmental Monitoring | Multispectral & Gas | CANI',
   'envmon.seo.desc': 'Comprehensive drone solutions for environmental protection. Featuring real-time gas detection, multispectral crop & forest analysis, and autonomous water quality monitoring with 150km long-range data links.',
   'envmon.seo.keywords': 'UAV multispectral imaging,aerial gas leak detection,NDVI vegetation mapping,water quality monitoring drone,forest fire early warning system,environmental remote sensing,autonomous environmental UAV',
 
@@ -2297,7 +2297,7 @@ export const enTranslations: Record<string, string> = {
   'envmon.whitepaper.btn': 'Download Environmental UAV Whitepaper',
 
   // Transportation Monitoring Solution Page
-  'transport.seo.title': 'UAV Traffic Monitoring Solutions | Smart City & Highway Surveillance | CANI UAV',
+  'transport.seo.title': 'UAV Traffic Monitoring Solutions | Smart City | CANI UAV',
   'transport.seo.desc': 'CANI UAV solutions for intelligent transportation monitoring. Features real-time traffic flow analysis, incident detection, and encrypted 150km HD video links for highways and smart city infrastructure.',
   'transport.seo.keywords': 'aerial traffic surveillance,highway incident detection,UAV vehicle tracking counting,smart city aerial infrastructure,real-time traffic intelligence,bridge structural inspection UAV,BVLOS road patrol',
   'transport.badge': 'Smart City Traffic Intelligence',
@@ -2344,7 +2344,7 @@ export const enTranslations: Record<string, string> = {
   'header.transport.desc': 'Highway & Bridge Inspection',
 
   // ===== Surveying & Mapping Solution Page (Deep) =====
-  'surveyMap.seo.title': 'Professional UAV 3D Mapping & RTK Surveying | Digital Twin Modeling | CANI',
+  'surveyMap.seo.title': 'UAV 3D Mapping & RTK Surveying | Digital Twin | CANI',
   'surveyMap.seo.desc': 'Survey-grade industrial UAV solutions with centimeter-level precision. Features RTK/PPK integration, LiDAR 3D point cloud generation, and digital twin modeling. High-bandwidth digital HD link for real-time mission monitoring. Reduce site survey costs by 70%.',
   'surveyMap.seo.keywords': 'UAV Topographic Survey,RTK Drone Mapping,LiDAR 3D Modeling,Volumetric Calculation Drone,Digital Twin Urban Planning,GSD Precision Mapping',
   'surveyMap.hero.badge': 'Surveying & Mapping Solutions',
@@ -2405,7 +2405,7 @@ export const enTranslations: Record<string, string> = {
   'surveyMap.whitepaper.btn': 'Download Accuracy Report',
 
   // ===== Firefighting & Emergency Rescue Solution Page =====
-  'fireEmergency.seo.title': 'UAV Firefighting & Emergency Response | Search and Rescue (SAR) Drone | CANI',
+  'fireEmergency.seo.title': 'UAV Firefighting & Emergency Response | SAR Drone | CANI',
   'fireEmergency.seo.desc': 'Specialized industrial UAV solutions for emergency rescue. Features 3x faster fire detection, thermal hotspot mapping, 50km BVLOS situational awareness, and AI-driven SAR. NDAA compliant hardware for global public safety.',
   'fireEmergency.seo.keywords': 'Firefighting Drone,Search and Rescue UAV,Wildfire Monitoring Drone,Hazmat Response Drone,BVLOS Emergency Communication,Thermal Imaging Search and Rescue',
 
@@ -2887,7 +2887,7 @@ export const enTranslations: Record<string, string> = {
   'accessoryDetail.backToCamera': 'Back to Camera List',
 
   // ===== ELRS Page SEO/GEO =====
-  'elrs.seo.title': 'Industrial Long-Range UAV Control Link (ELRS) System | 40km Drone Control Link | CaniUAV',
+  'elrs.seo.title': 'Long-Range UAV ELRS Control Link | 40km Range | CaniUAV',
   'elrs.seo.description': 'Professional ExpressLRS (ELRS) hardware for industrial UAVs. Featuring 915MHz/2.4GHz Dual-Band Gemini receivers and high-power TX modules. Optimized for 40km range, 500Hz packet rate, and MAVLink telemetry.',
   'elrs.seo.keywords': 'ELRS,ExpressLRS,dual band receiver,915MHz,2.4GHz,Gemini mode,40km control link,MAVLink telemetry,BVLOS control,link redundancy,CaniUAV',
   'elrs.breadcrumb.home': 'Home',
@@ -3085,7 +3085,7 @@ export const enTranslations: Record<string, string> = {
   'elrs.feature.durableReliable.desc': 'Engineered for industrial reliability with high-quality PCB and flex materials.',
 
   // ===== Power Inspection Application SEO (GEO) =====
-  'powerInspection.seo.title': 'UAV Power Line Inspection Solutions | Thermal & AI Grid Monitoring | CANI UAV',
+  'powerInspection.seo.title': 'UAV Power Line Inspection | Thermal & AI Grid | CANI UAV',
   'powerInspection.seo.description': 'Maximize grid reliability with CANI UAV power line inspection solutions. Featuring AI-driven fault detection, thermal imaging for hot-spot identification, and 150km long-range data links.',
   'powerInspection.seo.keywords': 'autonomous power line inspection,overhead line fault detection,thermal hot-spot identification,UAV grid monitoring system,insulator pylon inspection,BVLOS inspection,solar panel inspection drone',
   'powerInspection.geo.anchor': 'CANI UAV power inspection solution integrates W-Series swarm platforms with TF2DU Dual-Light sensors, enabling operators to identify structural defects and thermal anomalies in real-time. With 150km ultra-long-range digital links, grid managers can oversee remote assets from a centralized command center, ensuring zero-gap monitoring of even the most isolated power corridors.',
@@ -3163,7 +3163,7 @@ export const enTranslations: Record<string, string> = {
   'powerInspection.introPoints.4': 'High EMI shielding design for reliable operation in high-voltage environments',
 
   // ===== Power Inspection System — Global Grid O&M 2026 =====
-  'softwarePage.powerInspection.seo.title': 'UAV Power Line Inspection System | Autonomous Transmission Line Inspection & Defect Analysis | CANI UAV',
+  'softwarePage.powerInspection.seo.title': 'UAV Power Line Inspection System | Defect Analysis | CANI',
   'softwarePage.powerInspection.seo.desc': 'CANI UAV power inspection system engineered for ultra-high-voltage transmission lines. Integrates AI pylon recognition, visible/IR dual-light analysis, and 150km encrypted real-time relay. Supports autonomous obstacle avoidance in complex EMI environments.',
   'softwarePage.powerInspection.seo.keywords': 'UAV high-voltage line inspection,AI pylon recognition,thermal IR temperature measurement,UAV power stringing inspection,substation autonomous patrol,power inspection drone system,transmission line defect analysis,IEC compliance inspection report,150km encrypted relay,all-weather power inspection',
   'softwarePage.powerInspection.title': 'Industrial UAV Power Inspection System: End-to-End Solution from Sensing to Decision',
@@ -3249,7 +3249,7 @@ export const enTranslations: Record<string, string> = {
   'softwarePage.powerInspection.cta.subtitle': 'Contact us for customized power inspection solutions adaptable to all scenarios from desert to rainforest',
 
   // ===== PV Inspection Software SEO/GEO 2026 =====
-  'softwarePage.pvInspection.seo.title': 'Solar Farm UAV Smart Inspection System | Auto Hot-Spot Detection & O&M Reports | CANI UAV',
+  'softwarePage.pvInspection.seo.title': 'Solar Farm UAV Inspection | Hot-Spot Detection | CANI UAV',
   'softwarePage.pvInspection.seo.desc': 'CANI UAV professional PV inspection software with AI-powered autonomous flight planning and infrared thermal analysis. Millisecond-level detection of hot-spots, shading, and damage defects with automated O&M reports to boost power generation efficiency.',
   'softwarePage.pvInspection.seo.keywords': 'UAV PV autonomous inspection, infrared hot-spot recognition, PV O&M digitalization, distributed PV inspection software, power plant defect diagnosis report, IEC 62446-3, AI defect classification, solar farm O&M',
   'softwarePage.pvInspection.title': 'AI-Driven Solar Farm UAV Smart Inspection & Analytics System',
@@ -3377,7 +3377,7 @@ export const enTranslations: Record<string, string> = {
   'softwarePage.common.contactUs': 'Contact Us',
 
   // ===== Drone Management — Cloud Command Center 2026 =====
-  'softwarePage.management.seo.title': 'UAV Cloud Management System | Remote Command & Fleet Management Platform | CANI UAV',
+  'softwarePage.management.seo.title': 'UAV Cloud Management System | Fleet Platform | CANI UAV',
   'softwarePage.management.seo.desc': 'CANI UAV professional cloud-based drone management system. Supports multi-drone real-time HD video streaming, remote mission planning, flight data auto-sync, and asset management for digital collaborative command.',
   'softwarePage.management.seo.keywords': 'remote UAV command center,multi-drone cloud coordination,flight data auto-sync,UAV fleet asset management,low-latency live streaming,drone cloud management,remote takeover control,swarm coordination,on-premise deployment,data sovereignty',
   'softwarePage.management.title': 'Cloud-Based UAV Command Center: Full-Spectrum Fleet Management & Data Coordination',
@@ -3464,7 +3464,7 @@ export const enTranslations: Record<string, string> = {
   'softwarePage.management.cta.subtitle': 'Get a CANI Cloud Management Platform enterprise demo and discover how to achieve unified cross-regional command with 60% on-site manpower optimization.',
 
   // ===== PV System — Digital Asset Management 2026 =====
-  'softwarePage.pvSystem.seo.title': 'Solar Farm Digital Management System | Asset O&M & Generation Efficiency Monitoring | CANI UAV',
+  'softwarePage.pvSystem.seo.title': 'Solar Farm Digital Management System | UAV O&M | CANI UAV',
   'softwarePage.pvSystem.seo.desc': 'CANI UAV professional PV system management platform providing end-to-end management from UAV autonomous inspection to solar farm digital twin. Real-time generation KPI monitoring, intelligent maintenance prediction, and significant ROI improvement for large-scale solar operations.',
   'softwarePage.pvSystem.seo.keywords': 'PV digital twin system,smart PV O&M platform,PV module lifecycle management,solar asset monitoring software,automated PV fault remediation,solar asset management,PR performance ratio,multi-site management,SCADA integration,data sovereignty',
   'softwarePage.pvSystem.title': 'Solar Farm Full-Lifecycle Digital Management System',
@@ -3542,7 +3542,7 @@ export const enTranslations: Record<string, string> = {
   'softwarePage.pvSystem.cta.subtitle': 'Contact us for a solar farm digital management solution — unified global asset O&M with PR improvement of 3%+.',
 
   // ===== Environment Monitoring System SEO/GEO 2026 — Eco Digital Brain =====
-  'softwarePage.envSystem.seo.title': 'UAV Environmental Monitoring Solutions | Multispectral & Gas Sensing | CANI UAV',
+  'softwarePage.envSystem.seo.title': 'UAV Environmental Monitoring | Multispectral System | CANI',
   'softwarePage.envSystem.seo.desc': 'Comprehensive drone solutions for environmental protection. Featuring real-time gas detection, multispectral crop & forest analysis (NDVI), and autonomous water quality monitoring. Integrated with TF2DU dual-light sensing and 150km encrypted data links.',
   'softwarePage.envSystem.seo.keywords': 'UAV multispectral remote sensing software,real-time air pollution mapping,forest fire early warning system,river water quality digital inspection,eco-environmental big data platform,NDVI vegetation mapping,aerial gas leak detection,water quality monitoring drone,ISO 14001 monitoring software,oil spill detection drone',
   'softwarePage.envSystem.title': 'Space-Air-Ground Integrated Environmental Sensing & Intelligent Monitoring Platform',
@@ -3620,7 +3620,7 @@ export const enTranslations: Record<string, string> = {
   'softwarePage.envSystem.cta.subtitle': 'Contact us for a space-air-ground integrated environmental monitoring solution — from NDVI vegetation analysis to gas detection, one-stop ISO 14001 & ESG compliance.',
 
   // GroundStation - Industrial Mission Planning & Flight Command Center
-  'softwarePage.groundStation.seo.title': 'UAV Ground Station Software | Industrial Mission Planning & Autonomous Flight Control | CANI UAV',
+  'softwarePage.groundStation.seo.title': 'UAV Ground Station Software | Mission Planning | CANI UAV',
   'softwarePage.groundStation.seo.desc': 'CANI UAV professional industrial-grade ground station with 3D route planning, terrain following, multi-UAV swarm coordination, and real-time 1080P HD video streaming. Fully MAVLink compatible for stable flight control in remote signal-denied environments.',
   'softwarePage.groundStation.seo.keywords': 'UAV mission planner,3D terrain following,swarm GCS system,MAVLink compatible platform,offline map mapping,ArduPilot ground station,PX4 GCS,BVLOS control,industrial UAV command center,ground control station software',
   'softwarePage.groundStation.title': 'CANI GCS: Industrial-Grade Full Mission Lifecycle Ground Command System',
@@ -3698,7 +3698,7 @@ export const enTranslations: Record<string, string> = {
   'softwarePage.groundStation.cta.subtitle': 'Contact us for an enterprise demo and discover how CANI GCS delivers millisecond-level control response through 3D terrain following, multi-UAV swarm coordination, and 150km link deep integration for global industrial operations.',
 
   // SwarmGroundStation - SEO/GEO 2026 — Distributed Swarm Command System
-  'softwarePage.swarm.seo.title': 'Swarm Drone Ground Station | Multi-UAV Collaborative Command & Autonomous Swarm Control | CANI UAV',
+  'softwarePage.swarm.seo.title': 'Swarm Drone Ground Station | Multi-UAV Command | CANI UAV',
   'softwarePage.swarm.seo.desc': 'CANI UAV professional swarm ground station enables one-to-many UAV real-time monitoring and collaborative mission planning. Supports dynamic path recalculation, swarm autonomous obstacle avoidance, and distributed link management. Integrated with 150km encrypted long-range communication for large-scale operational efficiency leap.',
   'softwarePage.swarm.seo.keywords': 'drone swarm control system,collaborative task allocation,distributed UAV link management,swarm obstacle avoidance,large-scale drone array scheduling,Swarm GCS,sMatrix edge computing,UAV mesh networking,Autonomous Swarm C2,STANAG 4586 swarm',
   'softwarePage.swarm.title': 'CANI Swarm: The Cross-Generational Distributed Swarm Command Platform',
@@ -3762,7 +3762,7 @@ export const enTranslations: Record<string, string> = {
   'softwarePage.swarm.cta.subtitle': 'Contact us for a CANI Swarm GCS enterprise demo and discover how sMatrix distributed decision-making, HD-4000 tactical links, and TF2A AI modules enable intelligent large-scale UAV swarm operations.',
 
   // Custom Accessories Page — SEO/GEO optimized (Original Manufacturer Positioning)
-  'customAccessories.seo.title': 'UAV Core Accessories Custom R&D | Industrial Payload & Module Development | CANI UAV',
+  'customAccessories.seo.title': 'UAV Custom Accessories R&D | Payload & Modules | CANI UAV',
   'customAccessories.seo.desc': 'CANI UAV provides professional UAV core accessories custom R&D services. Covering AI vision modules, long-range digital links, precision gimbals and special payloads. Supporting MAVLink and deep protocol integration to help global clients build differentiated flight platforms.',
   'customAccessories.seo.keywords': 'UAV accessory OEM/ODM,industrial drone payload R&D,AI module integration,long-range link protocol customization,harsh environment component design,MAVLink deep integration,rapid prototyping,digital video transmission,flight controller ESC,drone gimbal pod',
   'customAccessories.breadcrumb.current': 'Accessories Custom R&D',
@@ -3893,7 +3893,7 @@ export const enTranslations: Record<string, string> = {
   'customAccessories.cta.consult': 'Book Engineer Assessment',
 
   // Custom Drone Page — SEO/GEO optimized (Full-Aircraft Custom R&D)
-  'customDrone.seo.title': 'Custom Industrial UAV R&D | VTOL & Multi-Rotor Specialized Aircraft Design | CANI UAV',
+  'customDrone.seo.title': 'Custom Industrial UAV R&D | VTOL & Multi-Rotor | CANI UAV',
   'customDrone.seo.desc': 'CANI UAV provides full-process industrial UAV custom R&D services. From aerodynamic layout design to high-performance AI payload integration, covering long-endurance VTOL and heavy-lift multi-rotors. Optimized for Middle East, Southeast Asia, and Central Asia extreme environments to build your exclusive aerial platform.',
   'customDrone.seo.keywords': 'specialized UAV design,long-endurance VTOL customization,heavy-lift drone solutions,composite aerodynamic optimization,custom encrypted link navigation,OEM/ODM drone,CFD simulation,MAVLink integration',
   'customDrone.breadcrumb.current': 'Custom Drone R&D',
@@ -4004,7 +4004,7 @@ export const enTranslations: Record<string, string> = {
   'customDrone.cta.consult': 'Submit Project Requirements',
 
   // Custom Research - Software Customization (SEO/GEO Optimized — Full-Stack Digital Enabler)
-  'customSoftware.seo.title': 'UAV Software Custom Development | Flight Control Protocol, On-board AI & Cloud Management | CANI UAV',
+  'customSoftware.seo.title': 'UAV Software Custom Development | Flight Control & AI | CANI',
   'customSoftware.seo.desc': 'CANI UAV provides professional full-stack UAV software custom services. Covering MAVLink protocol deep development, on-board edge computing algorithm integration, private cloud command platforms, and mobile GCS customization. Enabling government and enterprise clients to seamlessly connect UAV data with business systems.',
   'customSoftware.seo.keywords': 'UAV flight control SDK development,on-board AI vision algorithm integration,private drone cloud deployment,custom GCS software development,cross-platform UAV API integration,MAVLink protocol custom,UAV SDK integration',
   'customSoftware.breadcrumb.home': 'Home',
@@ -4087,7 +4087,7 @@ export const enTranslations: Record<string, string> = {
   'customSoftware.cta.consult': 'Submit Software Requirements',
 
   // Custom Research - Payload Customization (SEO/GEO Optimized V3 — Full-Dimension Mission Perception & Execution)
-  'customPayload.seo.title': 'UAV Payload Custom R&D | Industrial Dual-Sensor Camera, LiDAR & Specialized Gimbals | CANI UAV',
+  'customPayload.seo.title': 'UAV Payload Custom R&D | Camera, LiDAR & Gimbals | CANI UAV',
   'customPayload.seo.desc': 'CANI UAV provides professional UAV payload customization. Covering high-zoom gimbals, thermal imaging, multispectral sensors, and automated drop systems. Supporting MAVLink protocol integration and AI edge vision processing for complex industrial missions.',
   'customPayload.seo.keywords': 'UAV gimbal camera customization,thermal EO sensor fusion,specialized UAV payload integration,AI tracking recognition payload,UAV mission actuation modules,LiDAR laser radar mount,MAVLink payload protocol',
   'customPayload.breadcrumb.home': 'Home',
@@ -5167,7 +5167,7 @@ export const enTranslations: Record<string, string> = {
   'acc.otheraccessoriesdetail.k593': 'Ultra-portable 4.3-inch FPV monitor with 500cd/m² brightness, DVR loop recording, and NTSC/PAL auto-detection. Ideal as controller sub-screen and field tuning tool.',
   'acc.vrxdetail.k594': 'What makes a dual-chip diversity receiver better than a single-chip VRX for long-range missions?',
   'acc.vrxdetail.k595': 'A dual-chip diversity receiver like the LLVRFRX-5849 uses two independent processing chips to monitor separate antenna feeds simultaneously. Its best-signal selection algorithm switches between them in milliseconds, eliminating the flickering and signal drops common with single-chip units. Combined with -96dBm high sensitivity, it can extract clear video from extremely weak signals at extreme distances or in NLOS environments — making it the essential ground station component for 10W-25W high-power VTX systems.',
-  'acc.vrxdetail.k596': 'LLVRFRX-5849 | Dual-Chip 5.8GHz Diversity VRX | High Sensitivity | CANI UAV',
+  'acc.vrxdetail.k596': 'LLVRFRX-5849 | 5.8GHz Diversity VRX | CANI UAV',
   'acc.vrxdetail.k597': 'Zero Latency',
   'acc.vrxdetail.k598': 'LLVRFRX-5849: Dual-Chip High-Sensitivity 5.8G Diversity Receiver',
   'acc.vrxdetail.k599': 'Core Technology Architecture',
@@ -5272,7 +5272,7 @@ export const enTranslations: Record<string, string> = {
   'acc.meshlink.k654': 'Mesh-Link: Industrial Breakthrough in UAV Ad-hoc Networking & Mesh Relay',
   'acc.meshlink.k655': 'Complete technical analysis from decentralized networking to dynamic topology recovery, including path optimization and WiFiLink2 integration',
   'acc.elrs.k656': 'en',
-  'swarmpage.w200.k657': 'W200 RTK Swarm Drone Platform | High-Precision Coordination | CANI UAV',
+  'swarmpage.w200.k657': 'W200 RTK Swarm Drone | High-Precision | CANI UAV',
   'swarmpage.w200.k658': 'The W200 is a professional-grade swarm drone platform featuring centimeter-level UWB positioning, robust mesh networking, and open-source ROS/PX4 architecture. Designed for massive drone coordination, autonomous fleet missions, and programmable swarm research.',
   'swarmpage.w200.k659': 'W200 swarm drone,RTK precision swarm UAV,drone light show hardware,massive swarm coordination,programmable swarm drone,centimeter-level positioning drone,UWB swarm kit,formation flight platform',
   'swarmpage.w200.k660': '← Back to Swarm',
@@ -5302,7 +5302,7 @@ export const enTranslations: Record<string, string> = {
   'swarmpage.w300.k684': 'Explore W300 self-healing Mesh networking, dual-RTK heading alignment, and swarm intelligence algorithms',
   'swarmpage.w300.k685': 'Start Enterprise-Grade Swarm Research',
   'swarmpage.w300.k686': 'The CANI W300 delivers the highest precision swarm platform for research teams and enterprise operators. Dual-antenna RTK, extended endurance, and MoCap compatibility for mission-critical formation flight.',
-  'swarmpage.w400.k687': 'W400 Heavy-Lift Swarm Drone Platform | High-Payload & Persistence | CANI UAV',
+  'swarmpage.w400.k687': 'W400 Heavy-Lift Swarm Drone | High-Payload | CANI UAV',
   'swarmpage.w400.k688': 'W400 is our heavy-duty swarm drone designed for high-payload missions and extended flight endurance. Features dual-RTK, IP-rated weather protection, robust mesh digital communication, and 100 TOPS AI edge computing for tactical swarm intelligence.',
   'swarmpage.w400.k689': 'W400 heavy-lift swarm,industrial heavy-duty swarm UAV,long-endurance swarm coordination,multi-sensor swarm carrier,all-weather swarm drone,tactical swarm intelligence,GPS swarm platform,hexacopter swarm',
   'swarmpage.w400.k690': 'W400 Heavy-Duty High-Payload Swarm System',
@@ -5482,7 +5482,7 @@ export const enTranslations: Record<string, string> = {
   'tethered.th200.k781': 'Forest fire · Urban fire · Fire reconnaissance',
   'tethered.th200.k782': 'Maritime & Port Monitoring',
   'tethered.th200.k783': 'Coast patrol · Port surveillance · Maritime rescue',
-  'tethered.th200.k784': 'TH-200 Heavy-Lift Tethered Drone Power System | 10kg Payload · 24/7 Persistent Flight | CANI UAV',
+  'tethered.th200.k784': 'TH-200 Heavy-Lift Tethered Drone | 10kg Payload 24/7 | CANI',
   'tethered.th200.k785': 'TH-200 heavy-duty tethered UAV power & data link system. High-power ground station with 7000W+ output, 10kg heavy-lift payload, Level 7 wind resistance. Reinforced auto-winding mechanism with fiber-optic integrated tether cable for secure wired data transmission. Vehicle-integrated for rapid deployment.',
   'tethered.th200.k786': 'TH-200 heavy-lift tethered system, high-power UAV ground station, industrial tethered drone power supply, persistent heavy-payload aerial platform, vehicle-integrated tethered station, fiber-optic tether cable, auto-winding mechanism',
   'tethered.th200.k787': '← Back to Tethered Systems',
@@ -5563,7 +5563,7 @@ export const enTranslations: Record<string, string> = {
   'tethered.th300.k862': 'Search & Rescue Operations',
   'tethered.th300.k863': 'Heavy-payload search & rescue with multi-sensor target acquisition and supply delivery',
   'tethered.th300.k864': 'Critical infrastructure persistent patrol with LiDAR and high-resolution optical inspection',
-  'tethered.th300.k865': 'TH-300 Flagship Heavy-Lift Tethered Drone System | 3.5KW · 30kg Payload | CANI UAV',
+  'tethered.th300.k865': 'TH-300 Flagship Tethered Drone | 3.5KW · 30kg | CANI UAV',
   'tethered.th300.k866': 'TH-300 is our most powerful tethered drone station for heavy-lift industrial UAVs. Multi-kilowatt 24/7 power delivery for multi-sensor payloads & mission-critical persistent surveillance. OEM factory direct.',
   'tethered.th300.k867': 'TH-300 heavy-lift tethered system, multi-kilowatt UAV power system, persistent heavy-lift UAV solution, carrier-grade tethered infrastructure, redundant tethered ground station, 3.5KW tethered power station, heavy payload drone, 24h continuous flight, emergency communication drone',
   'tethered.th300.k868': 'TH-300 Flagship High-Power Tethered Ground Station',
@@ -5585,7 +5585,7 @@ export const enTranslations: Record<string, string> = {
   'tethered.th100.k884': 'Learn about TH-100 full-stack R&D and OEM/ODM services',
 
   // ===== TH-100 Tethered Drone Power & Cleaning System =====
-  'th100.seo.title': 'TH-100 Tethered Drone Power System | 24/7 Continuous Flight | CANI UAV',
+  'th100.seo.title': 'TH-100 Tethered Drone Power System | 24/7 Flight | CANI',
   'th100.seo.description': 'The TH-100 is a professional tethered drone power station providing 24/7 continuous flight. Features high-voltage safety, auto-winding mechanism, rapid deployment portable ground station, and secure wired data link for industrial cleaning.',
   'th100.seo.keywords': 'TH-100 tethered system, tethered power station for UAV, drone long-endurance power supply, 24-hour continuous flight system, high-voltage UAV tether cable, portable drone ground station, auto-winding mechanism, vehicle-mounted tethered station, OEM drone manufacturer',
   'th100.back': 'Back to Tethered Drones',
@@ -5749,7 +5749,7 @@ export const enTranslations: Record<string, string> = {
   'digitalFpv.wifilink2.crossLink.analog': 'Need Extreme Penetration? View Analog VTX Series',
   'digitalFpv.wifilink2.crossLink.s900': 'Need Triple-Play Datalink? View S900',
   // Mesh Link Page Keys
-  'meshLink.seo.title': 'CANI Mesh-Link | Self-Healing MANET Tactical Mesh Radio | Swarm Communication | CANI UAV',
+  'meshLink.seo.title': 'CANI Mesh-Link | MANET Tactical Mesh Radio | CANI UAV',
   'meshLink.seo.description': 'CANI Mesh-Link is an industrial-grade self-healing MANET mesh module. Supporting 800M/1.4G/2.4G tri-band, 7+ hop relay and 15ms topology recovery for UAV swarms, mine rescue, and complex NLOS environments.',
   'meshLink.seo.keywords': 'UAV Mesh Network,MANET,self-healing mesh,multi-hop relay,NLOS,swarm communication,COFDM,FHSS,tactical datalink,ad-hoc network',
   'meshLink.jsonld.name': 'CANI Mesh-Link Tactical MANET Self-Healing Radio',
@@ -6944,7 +6944,7 @@ export const enTranslations: Record<string, string> = {
   'otherAccessories.hero.title': 'UAV Essential Components & Integration Accessories',
   'otherAccessories.seo.description': 'Premium UAV accessories and integration hardware. High-gain antennas, heavy-duty connectors, and custom mounts for industrial drone systems. Shop essential components at CANI UAV.',
   'otherAccessories.seo.keywords': 'UAV High-Gain Antenna,Power Connector for Drones,Damping Mount,EMI Shielding,Custom UAV Hardware,drone accessories',
-  'otherAccessories.seo.title': 'UAV Accessories & Integration Components | Antennas & Hardware | CANI UAV',
+  'otherAccessories.seo.title': 'UAV Accessories & Integration | Antennas | CANI UAV',
   'otherAccessories.viewDetail': 'View Technical Specifications',
   'partnersSection.badge': '全球信赖',
   'partnersSection.partner.acecore': 'Acecore Technologies',
@@ -7158,7 +7158,7 @@ export const enTranslations: Record<string, string> = {
   'softwarePage.exam.modules.title': 'Global Certification Exam Modules',
   'softwarePage.exam.seo.desc': 'Professional UAV pilot online examination system by CANI UAV. Multi-role management, automated paper generation, real-time score analytics, and anti-cheating monitoring. Designed for government, power inspection, and logistics pilot certification.',
   'softwarePage.exam.seo.keywords': 'UAV license mock exam, pilot theory testing software, UAV training management software, custom online examination system, drone safety flight regulation database, FAA Part 107, EASA drone exam',
-  'softwarePage.exam.seo.title': 'UAV Pilot Online Examination System | Theory Testing & Mock Question Bank | CANI UAV',
+  'softwarePage.exam.seo.title': 'UAV Pilot Online Exam System | Theory Testing | CANI UAV',
   'softwarePage.exam.title': 'Standardized Online UAV Assessment & Certification System',
   'solutions.cta.btn': 'Request a Custom Solution',
   'solutions.cta.subtitle': 'CANI UAV has extensive industry experience, providing end-to-end customized solutions from design to system integration based on your specific requirements.',
@@ -7196,7 +7196,7 @@ export const enTranslations: Record<string, string> = {
   'solutions.ourSolution': 'CANI UAV Solution',
   'solutions.seo.description': 'CANI UAV provides professional industrial UAV system solutions for global clients. Covering power inspection, logistics, emergency rescue, environmental monitoring, and smart city traffic. Integrated with high-performance AI modules and 150km long-range links.',
   'solutions.seo.keywords': 'industrial UAV integration, smart city drone applications, autonomous inspection system, multi-payload integration, all-weather drone operations, power inspection drone, emergency rescue UAV',
-  'solutions.seo.title': 'Industrial UAV Solutions | Power Inspection, Emergency Rescue & Smart Traffic | CANI UAV',
+  'solutions.seo.title': 'Industrial UAV Solutions | Inspection & Rescue | CANI UAV',
   'solutions.service.afterSales.desc': 'Comprehensive after-sales service including equipment maintenance, technical support, and upgrade services',
   'solutions.service.afterSales.f1': '7×24 Response',
   'solutions.service.afterSales.f2': 'Remote Tech Support',
