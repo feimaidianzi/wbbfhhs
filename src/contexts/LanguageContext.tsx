@@ -108,21 +108,20 @@ export const LanguageProvider: React.FC<LanguageProviderProps> = ({ children }) 
         const stored = safeStorageGet(`translations_${lang}`);
       if (stored) {
         const parsed = JSON.parse(stored);
-        // Also merge cached en if available
+        // Also merge cached en if available (en is the fallback layer, target lang wins)
           const enStored = safeStorageGet('translations_en');
         if (enStored && lang !== 'en') {
           try { return { ...JSON.parse(enStored), ...parsed }; } catch { /* ignore */ }
         }
         return parsed;
       }
-      // Even for non-en/zh, try the bundled English cache
-      if (lang !== 'en') {
-          const enStored = safeStorageGet('translations_en');
-        if (enStored) return JSON.parse(enStored);
-      }
+      // For non-en languages without their own cache, do NOT seed with English —
+      // it would lock English in and prevent the zh-home chunk (loading in
+      // parallel) from ever showing through after merge. Render empty and let
+      // the home chunk fill in within ~200ms.
     } catch { /* ignore */ }
 
-    // First-ever visit: render with empty map; English chunk will populate within ~200ms
+    // First-ever visit: render with empty map; home chunk will populate within ~200ms
     return {};
   });
 
