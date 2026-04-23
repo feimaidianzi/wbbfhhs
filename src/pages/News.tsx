@@ -51,8 +51,8 @@ const News = () => {
   const [articles, setArticles] = useState<NewsArticle[]>([]);
   const [loading, setLoading] = useState(true);
   const rawCategory = searchParams.get('category') || 'all';
-  // 'company' category is hidden — redirect to 'all'
-  const initialCategory = rawCategory === 'company' ? 'all' : rawCategory;
+  // Hidden categories redirect to 'all'
+  const initialCategory = HIDDEN_CATEGORY_KEYS.includes(rawCategory) ? 'all' : rawCategory;
   const [activeCategory, setActiveCategory] = useState<string>(initialCategory);
   const [searchTerm, setSearchTerm] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
