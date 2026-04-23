@@ -71,7 +71,8 @@ const News = () => {
           .order('published_at', { ascending: false });
 
         if (error) throw error;
-        setArticles(data || []);
+        const visible = (data || []).filter(a => !a.category || !HIDDEN_DB_CATEGORIES.includes(a.category));
+        setArticles(visible);
       } catch (error) {
         console.error('Error fetching articles:', error);
       } finally {
