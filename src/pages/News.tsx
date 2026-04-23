@@ -29,9 +29,10 @@ interface NewsArticle {
   keywords: string[] | null;
 }
 
-// 'company' (公司新闻) category is temporarily hidden from public site
-const CATEGORY_KEYS = ['all', 'industry', 'tech'] as const;
-const HIDDEN_DB_CATEGORIES = ['公司新闻'];
+// 'company' & 'industry' categories are temporarily hidden from public site
+const CATEGORY_KEYS = ['all', 'tech'] as const;
+const HIDDEN_DB_CATEGORIES = ['公司新闻', '行业动态'];
+const HIDDEN_CATEGORY_KEYS = ['company', 'industry'];
 
 // Map database category values to category keys
 const DB_CATEGORY_MAP: Record<string, string> = {
@@ -40,8 +41,8 @@ const DB_CATEGORY_MAP: Record<string, string> = {
   '技术分享': 'tech',
 };
 
-// Category SEO keys are now managed via i18n (excluding hidden 'company')
-const CATEGORY_SEO_KEYS = ['industry', 'tech'] as const;
+// Category SEO keys are now managed via i18n (excluding hidden categories)
+const CATEGORY_SEO_KEYS = ['tech'] as const;
 
 const News = () => {
   const { t, baseLang } = useLanguage();
