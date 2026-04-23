@@ -194,7 +194,8 @@ export const LanguageProvider: React.FC<LanguageProviderProps> = ({ children }) 
         const zhBase = await loadTranslations('zh');
         const merged = { ...enBase, ...zhBase };
         setTranslations('zh', merged);
-        setCurrentTranslations((prev) => ({ ...merged, ...prev }));
+        // zh full chunk must override any prior English cache stuck in state
+        setCurrentTranslations((prev) => ({ ...prev, ...merged }));
 
         const checkSupabase = () => {
           supabase.from('system_settings').select('value').eq('key', 'translations_zh').maybeSingle()
