@@ -80,29 +80,37 @@ const SEOApiKeyManager: React.FC<SEOApiKeyManagerProps> = ({ onKeysLoaded }) => 
   const saveApiKeys = async () => {
     setIsSaving(true);
     try {
-      const { data, error } = await supabase.functions.invoke('manage-seo-keys', {
+      const { error } = await supabase.functions.invoke('manage-seo-keys', {
         body: {
           action: 'save-keys',
           keys: {
             google_oauth_token: googleToken || null,
             baidu_token: baiduToken || null,
             bing_api_key: bingApiKey || null,
+            yandex_user_id: yandexUserId || null,
+            yandex_api_key: yandexApiKey || null,
+            so360_site_token: so360SiteToken || null,
           },
         },
       });
 
       if (error) throw error;
 
-      setConfiguredKeys({
-        google_oauth_token: !!googleToken,
-        baidu_token: !!baiduToken,
-        bing_api_key: !!bingApiKey,
-      });
+      setConfiguredKeys(prev => ({
+        google_oauth_token: googleToken ? true : prev.google_oauth_token,
+        baidu_token: baiduToken ? true : prev.baidu_token,
+        bing_api_key: bingApiKey ? true : prev.bing_api_key,
+        yandex_user_id: yandexUserId ? true : prev.yandex_user_id,
+        yandex_api_key: yandexApiKey ? true : prev.yandex_api_key,
+        so360_site_token: so360SiteToken ? true : prev.so360_site_token,
+      }));
 
-      // Clear local state after save - keys stay server-side only
       setGoogleToken('');
       setBaiduToken('');
       setBingApiKey('');
+      setYandexUserId('');
+      setYandexApiKey('');
+      setSo360SiteToken('');
 
       toast.success('API密钥已安全保存');
     } catch (error) {
