@@ -435,7 +435,7 @@ async function logSubmissionHistory(
 }
 
 // Helper to get API keys from database
-async function getApiKeys(supabase: any): Promise<{ googleToken?: string; baiduToken?: string; bingApiKey?: string; adminEmail?: string }> {
+async function getApiKeys(supabase: any): Promise<{ googleToken?: string; baiduToken?: string; bingApiKey?: string; yandexUserId?: string; yandexApiKey?: string; so360SiteToken?: string; adminEmail?: string }> {
   try {
     const { data } = await supabase
       .from('seo_api_keys')
@@ -453,6 +453,9 @@ async function getApiKeys(supabase: any): Promise<{ googleToken?: string; baiduT
       googleToken: keys['google_oauth_token'],
       baiduToken: keys['baidu_token'],
       bingApiKey: keys['bing_api_key'],
+      yandexUserId: keys['yandex_user_id'],
+      yandexApiKey: keys['yandex_api_key'],
+      so360SiteToken: keys['so360_site_token'],
       adminEmail: keys['admin_email'],
     };
   } catch (err) {
