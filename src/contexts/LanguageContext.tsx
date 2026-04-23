@@ -145,14 +145,15 @@ export const LanguageProvider: React.FC<LanguageProviderProps> = ({ children }) 
     if (targetLang === 'en') {
       setCurrentTranslations((prev) => Object.keys(prev).length === 0 ? enHomeBase : { ...enHomeBase, ...prev });
     } else {
+      // For non-en, English is just a fallback layer — keep prev (target-lang cache) on top
       setCurrentTranslations((prev) => ({ ...enHomeBase, ...prev }));
     }
 
     // For zh, also load zh-home chunk for instant Chinese first paint
     if (targetLang === 'zh') {
       const zhHomeBase = await loadHomeTranslations('zh');
-      const homeMerged = { ...enHomeBase, ...zhHomeBase };
-      setCurrentTranslations((prev) => ({ ...homeMerged, ...prev }));
+      // zh-home must override any English bootstrap that may have been cached
+      setCurrentTranslations((prev) => ({ ...prev, ...zhHomeBase }));
     }
 
     // Phase 2: schedule full chunk upgrade on idle (non-blocking)
