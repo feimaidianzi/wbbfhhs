@@ -90,7 +90,7 @@ export const enHomeTranslations: Record<string, string> = {
   'auth.success': 'Success',
   'auth.logout': 'Logout',
   'auth.logoutSuccess': 'Logged out successfully',
-  'home.seo.title': 'Industrial UAV Components Manufacturer | HD Digital Video Transmission & 50km Digital Video Link | CANI',
+  'home.seo.title': 'Industrial UAV Components Manufacturer | HD Video Link | CANI',
   'home.seo.description': 'Leading supplier of HD digital video transmission systems, digital links, and AI guidance modules for industrial drones. 15+ years R&D, 200+ patents, with ISO certification capability. Specialized in power inspection & logistics solutions. Request a quote.',
   'home.seo.keywords': 'digital video transmission,high power video transmitter,industrial drone components,digital video link,AI guidance module,drone manufacturer,power inspection drone,NDAA compliant drone,drone accessories OEM',
   'home.structured.description': 'Leading industrial UAV components manufacturer specializing in HD digital video transmission, digital video links, and AI guidance modules.',
