@@ -181,6 +181,14 @@ const SEOApiKeyManager: React.FC<SEOApiKeyManagerProps> = ({ onKeysLoaded }) => 
             <span className="text-sm font-medium">Bing:</span>
             {getConfigStatus(configuredKeys.bing_api_key)}
           </div>
+          <div className="flex items-center gap-2">
+            <span className="text-sm font-medium">Yandex:</span>
+            {getConfigStatus(configuredKeys.yandex_user_id && configuredKeys.yandex_api_key)}
+          </div>
+          <div className="flex items-center gap-2">
+            <span className="text-sm font-medium">360搜索:</span>
+            {getConfigStatus(configuredKeys.so360_site_token)}
+          </div>
         </div>
 
         {showConfig && (
@@ -234,6 +242,45 @@ const SEOApiKeyManager: React.FC<SEOApiKeyManagerProps> = ({ onKeysLoaded }) => 
                 />
                 <p className="text-xs text-muted-foreground">
                   从 Bing Webmaster Tools 获取
+                </p>
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="yandexUserId" className="text-sm">Yandex User ID</Label>
+                <Input
+                  id="yandexUserId"
+                  type={showKeys ? 'text' : 'password'}
+                  placeholder={configuredKeys.yandex_user_id ? '••••••••（已配置，留空不修改）' : 'Yandex 数字 User ID'}
+                  value={yandexUserId}
+                  onChange={(e) => setYandexUserId(e.target.value)}
+                />
+                <p className="text-xs text-muted-foreground">
+                  Yandex Webmaster &gt; Settings &gt; User ID
+                </p>
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="yandexApiKey" className="text-sm">Yandex OAuth Token</Label>
+                <Input
+                  id="yandexApiKey"
+                  type={showKeys ? 'text' : 'password'}
+                  placeholder={configuredKeys.yandex_api_key ? '••••••••（已配置，留空不修改）' : 'OAuth Token'}
+                  value={yandexApiKey}
+                  onChange={(e) => setYandexApiKey(e.target.value)}
+                />
+                <p className="text-xs text-muted-foreground">
+                  从 oauth.yandex.com 获取 webmaster.hostinfo 权限
+                </p>
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="so360SiteToken" className="text-sm">360 / IndexNow Key</Label>
+                <Input
+                  id="so360SiteToken"
+                  type={showKeys ? 'text' : 'password'}
+                  placeholder={configuredKeys.so360_site_token ? '••••••••（已配置，留空不修改）' : 'IndexNow Key (8-128 字符)'}
+                  value={so360SiteToken}
+                  onChange={(e) => setSo360SiteToken(e.target.value)}
+                />
+                <p className="text-xs text-muted-foreground">
+                  使用 IndexNow 协议（360/Bing/Yandex 通用），从 indexnow.org 生成
                 </p>
               </div>
             </div>
