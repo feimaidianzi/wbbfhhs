@@ -218,16 +218,16 @@ const ApplicationPageTemplate = ({
               </motion.div>
             )}
 
-            <motion.h1
-              initial={{ opacity: 0, y: 50 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.4 }}
-              className="text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-black mb-6 leading-tight"
-            >
-              <span className="inline-block px-6 py-4 rounded-3xl bg-background/70 backdrop-blur-md border border-border text-foreground">
+            <h1 className="text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-black mb-6 leading-tight">
+              <motion.span
+                initial={{ opacity: 0, y: 50 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, delay: 0.4 }}
+                className="inline-block px-6 py-4 rounded-3xl bg-background/70 backdrop-blur-md border border-border text-foreground"
+              >
                 {heroTitle}
-              </span>
-            </motion.h1>
+              </motion.span>
+            </h1>
 
             <motion.p
               initial={{ opacity: 0, y: 30 }}
