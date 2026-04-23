@@ -520,6 +520,9 @@ Deno.serve(async (req) => {
     const googleToken = inputGoogleToken || storedKeys.googleToken;
     const baiduToken = inputBaiduToken || storedKeys.baiduToken;
     const bingApiKey = inputBingApiKey || storedKeys.bingApiKey;
+    const yandexUserId = body.yandexUserId || storedKeys.yandexUserId;
+    const yandexApiKey = body.yandexApiKey || storedKeys.yandexApiKey;
+    const so360SiteToken = body.so360SiteToken || storedKeys.so360SiteToken;
 
     if (action === 'generate') {
       // Generate sitemaps for all or specified languages
@@ -587,6 +590,8 @@ Deno.serve(async (req) => {
           google: await submitToGoogle(sitemapUrl, googleToken),
           baidu: lang === 'zh' ? await submitToBaidu(sitemapUrl, baiduToken) : { success: false, message: 'Baidu only for Chinese' },
           bing: await submitToBing(sitemapUrl, bingApiKey),
+          yandex: await submitToYandex(sitemapUrl, yandexUserId, yandexApiKey),
+          so360: await submitTo360(sitemapUrl, so360SiteToken),
         };
       }
 
@@ -596,6 +601,8 @@ Deno.serve(async (req) => {
         url: indexUrl,
         google: await submitToGoogle(indexUrl, googleToken),
         bing: await submitToBing(indexUrl, bingApiKey),
+        yandex: await submitToYandex(indexUrl, yandexUserId, yandexApiKey),
+        so360: await submitTo360(indexUrl, so360SiteToken),
       };
 
       // Calculate status
