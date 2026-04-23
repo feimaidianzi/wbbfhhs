@@ -1741,9 +1741,9 @@ export const zhTranslations: Record<string, string> = {
   'about.faq.a3': '长凌科技的37W图传与EO/IR云台系统已广泛应用于电力巡检、安防搜救、森林防火、海事监控、测绘勘察等超视距 (BVLOS) 工业场景。',
 
   // ===== Index/Home Page Content =====
-  'home.seo.title': '工业无人机配件制造商 | 高清数字图传&数字视频链路 | CANI长凌科技',
-  'home.seo.description': '领先的高清数字图传、数字视频链路及AI制导模块供应商，15年以上研发积累，200+专利，具备ISO认证能力，专注电力巡检与物流无人机解决方案。立即获取报价。',
-  'home.seo.keywords': '数字图传,大功率视频发射器,工业无人机配件,数字视频链路,AI制导模块,无人机制造商,电力巡检无人机,CANI长凌科技,无人机配件OEM定制',
+  'home.seo.title': '专业无人机配件供应商 | 图传 飞控 云台 ELRS | CANI长凌科技',
+  'home.seo.description': 'CANI长凌科技是专业的无人机配件供应商与OEM制造商，专注于高清数字图传(VTX/VRX)、飞控、电调、云台、ELRS远距离遥控、AI模块等工业无人机核心配件。15年以上研发积累，200+专利，符合NDAA标准，欢迎询价。',
+  'home.seo.keywords': '无人机配件供应商,无人机配件制造商,工业无人机配件,数字图传,VTX,飞控,电调,无人机云台,ELRS远距离遥控,AI模块,OEM无人机配件,CANI长凌科技',
   'home.structured.name': '长凌科技',
   'home.structured.description': '领先的工业无人机配件制造商，专注高清数字图传、数字视频链路和AI制导模块研发制造',
   'home.structured.addressLocality': '长沙',

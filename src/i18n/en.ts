@@ -1127,9 +1127,9 @@ export const enTranslations: Record<string, string> = {
 
   // ===== Page-Level SEO Keys =====
   // Home Page SEO
-  'home.seo.title': 'Industrial UAV Components Manufacturer | HD Video Link | CANI',
-  'home.seo.description': 'Leading supplier of HD digital video transmission systems, digital links, and AI guidance modules for industrial drones. 15+ years R&D, 200+ patents, with ISO certification capability. Specialized in power inspection & logistics solutions. Request a quote.',
-  'home.seo.keywords': 'digital video transmission,high power video transmitter,industrial drone components,digital video link,AI guidance module,drone manufacturer,power inspection drone,NDAA compliant drone,drone accessories OEM',
+  'home.seo.title': 'Professional UAV Accessories Supplier | VTX, FC, Gimbal | CANI',
+  'home.seo.description': 'CANI is a professional UAV accessories supplier and OEM manufacturer specializing in HD digital video transmission (VTX/VRX), flight controllers, ESCs, gimbals, ELRS long-range links and AI modules for industrial drones. 15+ years R&D, 200+ patents, NDAA-compliant. Get a quote.',
+  'home.seo.keywords': 'UAV accessories supplier,drone accessories manufacturer,industrial UAV components,VTX VRX video transmitter,drone flight controller,drone ESC,UAV gimbal,ELRS long range,AI module,OEM drone parts,CANI',
   'home.structured.name': 'CANI Technology',
   'home.structured.description': 'Leading industrial UAV components manufacturer specializing in HD digital video transmission, digital video links, and AI guidance modules.',
   'home.structured.addressLocality': 'Changsha',
