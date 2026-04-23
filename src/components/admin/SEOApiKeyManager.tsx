@@ -61,11 +61,12 @@ const SEOApiKeyManager: React.FC<SEOApiKeyManagerProps> = ({ onKeysLoaded }) => 
           google_oauth_token: data.status.google_oauth_token || false,
           baidu_token: data.status.baidu_token || false,
           bing_api_key: data.status.bing_api_key || false,
+          yandex_user_id: data.status.yandex_user_id || false,
+          yandex_api_key: data.status.yandex_api_key || false,
+          so360_site_token: data.status.so360_site_token || false,
         });
       }
 
-      // Keys are no longer sent to client - notify parent with empty strings
-      // The submit-sitemap edge function reads keys server-side
       if (onKeysLoaded) {
         onKeysLoaded({ googleToken: '', baiduToken: '', bingApiKey: '' });
       }
