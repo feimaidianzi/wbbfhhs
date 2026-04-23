@@ -82,7 +82,7 @@ Deno.serve(async (req) => {
         });
       }
 
-      const allowedKeys = ['google_oauth_token', 'baidu_token', 'bing_api_key'];
+      const allowedKeys = ['google_oauth_token', 'baidu_token', 'bing_api_key', 'yandex_user_id', 'yandex_api_key', 'so360_site_token'];
       
       for (const [keyName, keyValue] of Object.entries(keys)) {
         if (!allowedKeys.includes(keyName)) continue;
