@@ -30,11 +30,17 @@ const SEOApiKeyManager: React.FC<SEOApiKeyManagerProps> = ({ onKeysLoaded }) => 
   const [googleToken, setGoogleToken] = useState('');
   const [baiduToken, setBaiduToken] = useState('');
   const [bingApiKey, setBingApiKey] = useState('');
+  const [yandexUserId, setYandexUserId] = useState('');
+  const [yandexApiKey, setYandexApiKey] = useState('');
+  const [so360SiteToken, setSo360SiteToken] = useState('');
   
   const [configuredKeys, setConfiguredKeys] = useState<Record<string, boolean>>({
     google_oauth_token: false,
     baidu_token: false,
     bing_api_key: false,
+    yandex_user_id: false,
+    yandex_api_key: false,
+    so360_site_token: false,
   });
 
   useEffect(() => {
