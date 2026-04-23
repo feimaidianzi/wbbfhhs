@@ -30,11 +30,17 @@ const SEOApiKeyManager: React.FC<SEOApiKeyManagerProps> = ({ onKeysLoaded }) => 
   const [googleToken, setGoogleToken] = useState('');
   const [baiduToken, setBaiduToken] = useState('');
   const [bingApiKey, setBingApiKey] = useState('');
+  const [yandexUserId, setYandexUserId] = useState('');
+  const [yandexApiKey, setYandexApiKey] = useState('');
+  const [so360SiteToken, setSo360SiteToken] = useState('');
   
   const [configuredKeys, setConfiguredKeys] = useState<Record<string, boolean>>({
     google_oauth_token: false,
     baidu_token: false,
     bing_api_key: false,
+    yandex_user_id: false,
+    yandex_api_key: false,
+    so360_site_token: false,
   });
 
   useEffect(() => {
@@ -55,11 +61,12 @@ const SEOApiKeyManager: React.FC<SEOApiKeyManagerProps> = ({ onKeysLoaded }) => 
           google_oauth_token: data.status.google_oauth_token || false,
           baidu_token: data.status.baidu_token || false,
           bing_api_key: data.status.bing_api_key || false,
+          yandex_user_id: data.status.yandex_user_id || false,
+          yandex_api_key: data.status.yandex_api_key || false,
+          so360_site_token: data.status.so360_site_token || false,
         });
       }
 
-      // Keys are no longer sent to client - notify parent with empty strings
-      // The submit-sitemap edge function reads keys server-side
       if (onKeysLoaded) {
         onKeysLoaded({ googleToken: '', baiduToken: '', bingApiKey: '' });
       }
@@ -73,29 +80,37 @@ const SEOApiKeyManager: React.FC<SEOApiKeyManagerProps> = ({ onKeysLoaded }) => 
   const saveApiKeys = async () => {
     setIsSaving(true);
     try {
-      const { data, error } = await supabase.functions.invoke('manage-seo-keys', {
+      const { error } = await supabase.functions.invoke('manage-seo-keys', {
         body: {
           action: 'save-keys',
           keys: {
             google_oauth_token: googleToken || null,
             baidu_token: baiduToken || null,
             bing_api_key: bingApiKey || null,
+            yandex_user_id: yandexUserId || null,
+            yandex_api_key: yandexApiKey || null,
+            so360_site_token: so360SiteToken || null,
           },
         },
       });
 
       if (error) throw error;
 
-      setConfiguredKeys({
-        google_oauth_token: !!googleToken,
-        baidu_token: !!baiduToken,
-        bing_api_key: !!bingApiKey,
-      });
+      setConfiguredKeys(prev => ({
+        google_oauth_token: googleToken ? true : prev.google_oauth_token,
+        baidu_token: baiduToken ? true : prev.baidu_token,
+        bing_api_key: bingApiKey ? true : prev.bing_api_key,
+        yandex_user_id: yandexUserId ? true : prev.yandex_user_id,
+        yandex_api_key: yandexApiKey ? true : prev.yandex_api_key,
+        so360_site_token: so360SiteToken ? true : prev.so360_site_token,
+      }));
 
-      // Clear local state after save - keys stay server-side only
       setGoogleToken('');
       setBaiduToken('');
       setBingApiKey('');
+      setYandexUserId('');
+      setYandexApiKey('');
+      setSo360SiteToken('');
 
       toast.success('API密钥已安全保存');
     } catch (error) {
@@ -166,6 +181,14 @@ const SEOApiKeyManager: React.FC<SEOApiKeyManagerProps> = ({ onKeysLoaded }) => 
             <span className="text-sm font-medium">Bing:</span>
             {getConfigStatus(configuredKeys.bing_api_key)}
           </div>
+          <div className="flex items-center gap-2">
+            <span className="text-sm font-medium">Yandex:</span>
+            {getConfigStatus(configuredKeys.yandex_user_id && configuredKeys.yandex_api_key)}
+          </div>
+          <div className="flex items-center gap-2">
+            <span className="text-sm font-medium">360搜索:</span>
+            {getConfigStatus(configuredKeys.so360_site_token)}
+          </div>
         </div>
 
         {showConfig && (
@@ -219,6 +242,45 @@ const SEOApiKeyManager: React.FC<SEOApiKeyManagerProps> = ({ onKeysLoaded }) => 
                 />
                 <p className="text-xs text-muted-foreground">
                   从 Bing Webmaster Tools 获取
+                </p>
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="yandexUserId" className="text-sm">Yandex User ID</Label>
+                <Input
+                  id="yandexUserId"
+                  type={showKeys ? 'text' : 'password'}
+                  placeholder={configuredKeys.yandex_user_id ? '••••••••（已配置，留空不修改）' : 'Yandex 数字 User ID'}
+                  value={yandexUserId}
+                  onChange={(e) => setYandexUserId(e.target.value)}
+                />
+                <p className="text-xs text-muted-foreground">
+                  Yandex Webmaster &gt; Settings &gt; User ID
+                </p>
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="yandexApiKey" className="text-sm">Yandex OAuth Token</Label>
+                <Input
+                  id="yandexApiKey"
+                  type={showKeys ? 'text' : 'password'}
+                  placeholder={configuredKeys.yandex_api_key ? '••••••••（已配置，留空不修改）' : 'OAuth Token'}
+                  value={yandexApiKey}
+                  onChange={(e) => setYandexApiKey(e.target.value)}
+                />
+                <p className="text-xs text-muted-foreground">
+                  从 oauth.yandex.com 获取 webmaster.hostinfo 权限
+                </p>
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="so360SiteToken" className="text-sm">360 / IndexNow Key</Label>
+                <Input
+                  id="so360SiteToken"
+                  type={showKeys ? 'text' : 'password'}
+                  placeholder={configuredKeys.so360_site_token ? '••••••••（已配置，留空不修改）' : 'IndexNow Key (8-128 字符)'}
+                  value={so360SiteToken}
+                  onChange={(e) => setSo360SiteToken(e.target.value)}
+                />
+                <p className="text-xs text-muted-foreground">
+                  使用 IndexNow 协议（360/Bing/Yandex 通用），从 indexnow.org 生成
                 </p>
               </div>
             </div>

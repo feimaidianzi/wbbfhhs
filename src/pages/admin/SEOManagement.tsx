@@ -43,6 +43,8 @@ interface SubmissionResult {
   google: { success: boolean; message: string };
   baidu: { success: boolean; message: string };
   bing: { success: boolean; message: string };
+  yandex?: { success: boolean; message: string };
+  so360?: { success: boolean; message: string };
 }
 
 interface SubmissionState {
@@ -228,6 +230,8 @@ const SEOManagement = () => {
         google: result.google || { success: false, message: 'Not attempted' },
         baidu: result.baidu || { success: false, message: 'Not attempted' },
         bing: result.bing || { success: false, message: 'Not attempted' },
+        yandex: result.yandex || { success: false, message: 'Not attempted' },
+        so360: result.so360 || { success: false, message: 'Not attempted' },
       }));
 
       setSubmissionState(prev => ({
@@ -238,7 +242,7 @@ const SEOManagement = () => {
       }));
 
       loadSubmissionHistory();
-      const successCount = results.filter(r => r.google.success || r.baidu.success || r.bing.success).length;
+      const successCount = results.filter(r => r.google.success || r.baidu.success || r.bing.success || r.yandex?.success || r.so360?.success).length;
       toast.success(`提交完成: ${successCount}/${results.length} 个语言版本成功提交`);
     } catch (err) {
       const errorMessage = err instanceof Error ? err.message : '提交失败';
@@ -337,7 +341,7 @@ const SEOManagement = () => {
               自动化Sitemap生成与提交
             </CardTitle>
             <CardDescription>
-              一键生成所有语言版本的Sitemap，并自动提交到Google、百度、Bing搜索引擎
+              一键生成所有语言版本的Sitemap，并自动提交到 Google、百度、Bing、Yandex、360 等搜索引擎
             </CardDescription>
           </CardHeader>
           <CardContent className="space-y-6">
@@ -446,7 +450,7 @@ const SEOManagement = () => {
                             <code className="text-xs text-muted-foreground">{result.url}</code>
                           </div>
                         </div>
-                        <div className="grid grid-cols-3 gap-2 text-sm">
+                        <div className="grid grid-cols-2 md:grid-cols-5 gap-2 text-sm">
                           <div className="flex items-center gap-2">
                             <StatusIcon success={result.google.success} />
                             <span>Google</span>
@@ -459,14 +463,28 @@ const SEOManagement = () => {
                             <StatusIcon success={result.bing.success} />
                             <span>Bing</span>
                           </div>
+                          <div className="flex items-center gap-2">
+                            <StatusIcon success={!!result.yandex?.success} />
+                            <span>Yandex</span>
+                          </div>
+                          <div className="flex items-center gap-2">
+                            <StatusIcon success={!!result.so360?.success} />
+                            <span>360</span>
+                          </div>
                         </div>
-                        {(!result.google.success || !result.bing.success) && (
+                        {(!result.google.success || !result.bing.success || !result.yandex?.success || !result.so360?.success) && (
                           <div className="text-xs text-muted-foreground space-y-1">
                             {!result.google.success && result.google.message && (
                               <p>Google: {result.google.message}</p>
                             )}
                             {!result.bing.success && result.bing.message && (
                               <p>Bing: {result.bing.message}</p>
+                            )}
+                            {!result.yandex?.success && result.yandex?.message && (
+                              <p>Yandex: {result.yandex.message}</p>
+                            )}
+                            {!result.so360?.success && result.so360?.message && (
+                              <p>360: {result.so360.message}</p>
                             )}
                           </div>
                         )}

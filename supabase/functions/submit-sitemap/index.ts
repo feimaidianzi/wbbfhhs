@@ -221,6 +221,94 @@ async function submitToBaidu(sitemapUrl: string, baiduToken?: string): Promise<{
   }
 }
 
+async function submitToYandex(
+  sitemapUrl: string,
+  userId?: string,
+  apiKey?: string
+): Promise<{ success: boolean; message: string }> {
+  if (!userId || !apiKey) {
+    return {
+      success: false,
+      message: '请在 Yandex Webmaster 手动提交: https://webmaster.yandex.com/sites/'
+    };
+  }
+  try {
+    // Yandex Webmaster API: POST /user/{user-id}/hosts/{host-id}/sitemaps
+    // We use the simpler "add sitemap" endpoint which requires the host-id
+    // Fallback to ping endpoint if host listing fails
+    const host = sitemapUrl.split('/sitemap')[0].replace('https://', '');
+    
+    // Step 1: Get host-id
+    const hostsRes = await fetch(
+      `https://api.webmaster.yandex.net/v4/user/${userId}/hosts`,
+      { headers: { 'Authorization': `OAuth ${apiKey}` } }
+    );
+    if (!hostsRes.ok) {
+      const err = await hostsRes.text();
+      return { success: false, message: `Yandex hosts fetch failed: ${err}` };
+    }
+    const hostsData = await hostsRes.json();
+    const hostEntry = hostsData.hosts?.find((h: any) => 
+      h.unicode_host_url?.includes(host) || h.ascii_host_url?.includes(host)
+    );
+    if (!hostEntry) {
+      return { success: false, message: `Yandex: 未找到站点 ${host}，请先在 Webmaster 添加并验证` };
+    }
+    
+    // Step 2: Submit sitemap
+    const submitRes = await fetch(
+      `https://api.webmaster.yandex.net/v4/user/${userId}/hosts/${hostEntry.host_id}/user-added-sitemaps`,
+      {
+        method: 'POST',
+        headers: {
+          'Authorization': `OAuth ${apiKey}`,
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ url: sitemapUrl }),
+      }
+    );
+    if (submitRes.ok || submitRes.status === 409) {
+      return { success: true, message: 'Successfully submitted to Yandex' };
+    }
+    const errText = await submitRes.text();
+    return { success: false, message: `Yandex submission failed: ${errText}` };
+  } catch (err) {
+    const errorMessage = err instanceof Error ? err.message : String(err);
+    return { success: false, message: `Yandex submission error: ${errorMessage}` };
+  }
+}
+
+async function submitTo360(sitemapUrl: string, siteToken?: string): Promise<{ success: boolean; message: string }> {
+  // 360 搜索没有官方 API，使用 IndexNow 协议提交（360 已支持 IndexNow）
+  if (!siteToken) {
+    return {
+      success: false,
+      message: '请在 360 站长平台手动提交: https://zhanzhang.so.com/'
+    };
+  }
+  try {
+    const host = sitemapUrl.split('/sitemap')[0].replace('https://', '');
+    // IndexNow endpoint (360 / Bing / Yandex 通用)
+    const response = await fetch('https://api.indexnow.org/indexnow', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json; charset=utf-8' },
+      body: JSON.stringify({
+        host,
+        key: siteToken,
+        urlList: [sitemapUrl],
+      }),
+    });
+    if (response.ok || response.status === 202) {
+      return { success: true, message: 'Successfully submitted via IndexNow (360/Yandex/Bing)' };
+    }
+    const errText = await response.text();
+    return { success: false, message: `IndexNow submission failed (${response.status}): ${errText}` };
+  } catch (err) {
+    const errorMessage = err instanceof Error ? err.message : String(err);
+    return { success: false, message: `360 submission error: ${errorMessage}` };
+  }
+}
+
 async function submitToBing(sitemapUrl: string, bingApiKey?: string): Promise<{ success: boolean; message: string }> {
   if (!bingApiKey) {
     return {
@@ -347,7 +435,7 @@ async function logSubmissionHistory(
 }
 
 // Helper to get API keys from database
-async function getApiKeys(supabase: any): Promise<{ googleToken?: string; baiduToken?: string; bingApiKey?: string; adminEmail?: string }> {
+async function getApiKeys(supabase: any): Promise<{ googleToken?: string; baiduToken?: string; bingApiKey?: string; yandexUserId?: string; yandexApiKey?: string; so360SiteToken?: string; adminEmail?: string }> {
   try {
     const { data } = await supabase
       .from('seo_api_keys')
@@ -365,6 +453,9 @@ async function getApiKeys(supabase: any): Promise<{ googleToken?: string; baiduT
       googleToken: keys['google_oauth_token'],
       baiduToken: keys['baidu_token'],
       bingApiKey: keys['bing_api_key'],
+      yandexUserId: keys['yandex_user_id'],
+      yandexApiKey: keys['yandex_api_key'],
+      so360SiteToken: keys['so360_site_token'],
       adminEmail: keys['admin_email'],
     };
   } catch (err) {
@@ -429,6 +520,9 @@ Deno.serve(async (req) => {
     const googleToken = inputGoogleToken || storedKeys.googleToken;
     const baiduToken = inputBaiduToken || storedKeys.baiduToken;
     const bingApiKey = inputBingApiKey || storedKeys.bingApiKey;
+    const yandexUserId = body.yandexUserId || storedKeys.yandexUserId;
+    const yandexApiKey = body.yandexApiKey || storedKeys.yandexApiKey;
+    const so360SiteToken = body.so360SiteToken || storedKeys.so360SiteToken;
 
     if (action === 'generate') {
       // Generate sitemaps for all or specified languages
@@ -496,6 +590,8 @@ Deno.serve(async (req) => {
           google: await submitToGoogle(sitemapUrl, googleToken),
           baidu: lang === 'zh' ? await submitToBaidu(sitemapUrl, baiduToken) : { success: false, message: 'Baidu only for Chinese' },
           bing: await submitToBing(sitemapUrl, bingApiKey),
+          yandex: await submitToYandex(sitemapUrl, yandexUserId, yandexApiKey),
+          so360: await submitTo360(sitemapUrl, so360SiteToken),
         };
       }
 
@@ -505,11 +601,13 @@ Deno.serve(async (req) => {
         url: indexUrl,
         google: await submitToGoogle(indexUrl, googleToken),
         bing: await submitToBing(indexUrl, bingApiKey),
+        yandex: await submitToYandex(indexUrl, yandexUserId, yandexApiKey),
+        so360: await submitTo360(indexUrl, so360SiteToken),
       };
 
       // Calculate status
       const successCount = Object.values(results).filter((r: any) => 
-        r.google?.success || r.baidu?.success || r.bing?.success
+        r.google?.success || r.baidu?.success || r.bing?.success || r.yandex?.success || r.so360?.success
       ).length;
       const totalCount = Object.keys(results).length;
       const status = successCount === totalCount ? 'success' : successCount > 0 ? 'partial' : 'failed';
@@ -527,6 +625,8 @@ Deno.serve(async (req) => {
               google: r.google?.success || false,
               baidu: r.baidu?.success || false,
               bing: r.bing?.success || false,
+              yandex: r.yandex?.success || false,
+              so360: r.so360?.success || false,
             })),
           }),
           description: 'Last sitemap submission to search engines',
