@@ -607,7 +607,7 @@ Deno.serve(async (req) => {
 
       // Calculate status
       const successCount = Object.values(results).filter((r: any) => 
-        r.google?.success || r.baidu?.success || r.bing?.success
+        r.google?.success || r.baidu?.success || r.bing?.success || r.yandex?.success || r.so360?.success
       ).length;
       const totalCount = Object.keys(results).length;
       const status = successCount === totalCount ? 'success' : successCount > 0 ? 'partial' : 'failed';
@@ -625,6 +625,8 @@ Deno.serve(async (req) => {
               google: r.google?.success || false,
               baidu: r.baidu?.success || false,
               bing: r.bing?.success || false,
+              yandex: r.yandex?.success || false,
+              so360: r.so360?.success || false,
             })),
           }),
           description: 'Last sitemap submission to search engines',
