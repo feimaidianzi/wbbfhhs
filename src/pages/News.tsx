@@ -29,7 +29,9 @@ interface NewsArticle {
   keywords: string[] | null;
 }
 
-const CATEGORY_KEYS = ['all', 'company', 'industry', 'tech'] as const;
+// 'company' (公司新闻) category is temporarily hidden from public site
+const CATEGORY_KEYS = ['all', 'industry', 'tech'] as const;
+const HIDDEN_DB_CATEGORIES = ['公司新闻'];
 
 // Map database category values to category keys
 const DB_CATEGORY_MAP: Record<string, string> = {
@@ -38,8 +40,8 @@ const DB_CATEGORY_MAP: Record<string, string> = {
   '技术分享': 'tech',
 };
 
-// Category SEO keys are now managed via i18n
-const CATEGORY_SEO_KEYS = ['company', 'industry', 'tech'] as const;
+// Category SEO keys are now managed via i18n (excluding hidden 'company')
+const CATEGORY_SEO_KEYS = ['industry', 'tech'] as const;
 
 const News = () => {
   const { t, baseLang } = useLanguage();
@@ -47,7 +49,9 @@ const News = () => {
   
   const [articles, setArticles] = useState<NewsArticle[]>([]);
   const [loading, setLoading] = useState(true);
-  const initialCategory = searchParams.get('category') || 'all';
+  const rawCategory = searchParams.get('category') || 'all';
+  // 'company' category is hidden — redirect to 'all'
+  const initialCategory = rawCategory === 'company' ? 'all' : rawCategory;
   const [activeCategory, setActiveCategory] = useState<string>(initialCategory);
   const [searchTerm, setSearchTerm] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
@@ -67,7 +71,8 @@ const News = () => {
           .order('published_at', { ascending: false });
 
         if (error) throw error;
-        setArticles(data || []);
+        const visible = (data || []).filter(a => !a.category || !HIDDEN_DB_CATEGORIES.includes(a.category));
+        setArticles(visible);
       } catch (error) {
         console.error('Error fetching articles:', error);
       } finally {
