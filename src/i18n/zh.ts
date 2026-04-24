@@ -1872,6 +1872,8 @@ export const zhTranslations: Record<string, string> = {
   'header.logistics.detail': 'WL系列重载物流机,10–30kg载重,智能航线+精准空投,适用于山区配送、应急救援、能源补给。',
   'header.multiRotor.detail': 'X系列工业级多旋翼,650–1600mm轴距,模块化挂载,适用于电力巡检、测绘、消防侦察。',
   'header.fpvDrone.detail': '第一视角穿越机平台,数字图传+低延迟链路,适用于工业巡检、室内复杂环境侦察、训练教学。',
+  'header.viewAllProducts': '所有产品',
+  'header.viewDetail': '查看详情',
   'header.vtx': 'VTX/VRX',
   'header.vtx.desc': '视频发射与接收模块',
   'header.fcEsc': '飞控/电调',
