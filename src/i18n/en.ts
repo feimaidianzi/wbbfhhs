@@ -619,9 +619,9 @@ export const enTranslations: Record<string, string> = {
   'notFound.about': 'About Us',
 
   // Hero Section
-  'hero.tagline': 'CANI · Professional Drone Accessories Supplier',
-  'hero.title': 'Smart Flight · Unlimited Possibilities',
-  'hero.subtitle': 'Focusing on industrial drone accessories, providing digital FPV, VTX video transmitters, flight controllers, gimbals and other professional accessories',
+  'hero.tagline': 'CANI · Industrial UAV Manufacturer',
+  'hero.title': 'Industrial UAV Platforms · Engineered for Mission Reliability',
+  'hero.subtitle': '10+ years of industrial UAV platform R&D and manufacturing — covering swarm, tethered, logistics, multi-rotor and FPV mission drones. End-to-end OEM/ODM flight platforms for global industrial customers.',
   'hero.products': 'View Products',
   'hero.contact': 'Contact Us',
 
@@ -681,8 +681,8 @@ export const enTranslations: Record<string, string> = {
 
   // HeroSection
   'hero.badge': 'CANI · Professional Drone Accessories Supplier',
-  'hero.title.line1': 'Industrial UAV Core',
-  'hero.title.line2': 'Systems & AI Components',
+  'hero.title.line1': 'Industrial UAV Platforms',
+  'hero.title.line2': 'Engineered for Mission Reliability',
   'hero.description': 'Focusing on industrial drone accessories, providing digital FPV, VTX video transmitters, flight controllers, gimbals and other professional accessories',
   'hero.btn.products': 'View Products',
   'hero.btn.contact': 'Contact Us',
@@ -1127,11 +1127,11 @@ export const enTranslations: Record<string, string> = {
 
   // ===== Page-Level SEO Keys =====
   // Home Page SEO
-  'home.seo.title': 'Professional UAV Accessories Supplier | VTX, FC, Gimbal | CANI',
-  'home.seo.description': 'CANI is a professional UAV accessories supplier and OEM manufacturer specializing in HD digital video transmission (VTX/VRX), flight controllers, ESCs, gimbals, ELRS long-range links and AI modules for industrial drones. 15+ years R&D, 200+ patents, NDAA-compliant. Get a quote.',
-  'home.seo.keywords': 'UAV accessories supplier,drone accessories manufacturer,industrial UAV components,VTX VRX video transmitter,drone flight controller,drone ESC,UAV gimbal,ELRS long range,AI module,OEM drone parts,CANI',
+  'home.seo.title': 'Industrial UAV Manufacturer | Swarm, Tethered, Logistics, Multi-Rotor & FPV Drones | CANI',
+  'home.seo.description': 'CANI is a professional industrial UAV manufacturer and OEM/ODM partner. Our flight platforms cover swarm drones (C20/C30), tethered UAV systems (T100/T200/T300), logistics drones (WL10/WL20/WL30), multi-rotor industrial platforms (X650/X850/X1200/X1600) and FPV mission drones. 10+ years of integrated drone R&D, NDAA-compliant. End-to-end solutions for power inspection, emergency response, surveying and security.',
+  'home.seo.keywords': 'industrial UAV manufacturer,industrial drone OEM,swarm drone,tethered UAV,logistics drone,multi-rotor industrial drone,FPV mission drone,power inspection drone,emergency response UAV,custom UAV manufacturer,ODM drone,CANI',
   'home.structured.name': 'CANI Technology',
-  'home.structured.description': 'Leading industrial UAV components manufacturer specializing in HD digital video transmission, digital video links, and AI guidance modules.',
+  'home.structured.description': 'Professional industrial UAV manufacturer delivering full-range flight platforms — swarm drones, tethered systems, logistics UAVs, multi-rotor industrial platforms and FPV mission drones — for global industrial customers.',
   'home.structured.addressLocality': 'Changsha',
   'home.structured.addressRegion': 'Hunan',
   'home.structured.contactType': 'customer service',
@@ -1454,8 +1454,8 @@ export const enTranslations: Record<string, string> = {
   // ===== SEO Content Optimization (Report) =====
 
   // Homepage SEO Intro
-  'home.seoIntro': 'CANI Technology — 10 years of expertise in industrial-grade drone core accessories R&D and manufacturing. Specializing in digital FPV transmission, flight controllers & ESCs, and gimbal pods. Serving 500+ global partners with customized drone accessory solutions. High-Tech Enterprise, quality guaranteed.',
-  'home.brandSummary': 'CANI Technology\'s core products cover three major series: digital video transmission systems, flight controller & ESC systems, and gimbal pods. These meet multi-scenario demands including industrial inspection, security monitoring, and FPV racing. As a professional drone core accessories manufacturer, we empower global partners with technology innovation, providing one-stop OEM/ODM customization services to deliver stable, efficient, and reliable drone accessory solutions.',
+  'home.seoIntro': 'CANI Technology — 10+ years of industrial UAV platform R&D and manufacturing across five core product lines: swarm, tethered, logistics, multi-rotor and FPV. Serving 500+ global industrial customers with end-to-end OEM/ODM solutions, from prototype definition to volume delivery. High-Tech Enterprise, fully traceable quality.',
+  'home.brandSummary': 'CANI Technology delivers a complete portfolio of industrial UAV platforms — swarm drones, tethered systems, logistics drones, multi-rotor industrial platforms and FPV mission drones — purpose-built for power inspection, emergency communications, low-altitude logistics, surveying and security operations. As a dedicated industrial UAV manufacturer, we empower global customers with self-developed flight platforms and stable, reliable, fully customizable mission-ready solutions.',
 
   // Products Page SEO
   'products.seo.overview': 'CANI Technology Product Center brings together a full range of industrial-grade drone core accessories, covering digital FPV transmission systems, flight controller & ESC systems, and gimbal pods — three core categories with 200+ product models. Compatible with multi-rotor, fixed-wing and other drone types, serving power inspection, firefighting, FPV racing, surveying and more. All products undergo strict quality testing with a 99.8% factory pass rate, supporting OEM/ODM customization.',
@@ -6663,8 +6663,8 @@ export const enTranslations: Record<string, string> = {
   'header.viewDetail': 'View Details',
   'header.vtx': 'VTX/VRX',
   'header.vtx.desc': '视频发射与接收模块',
-  'hero.cta.about': '了解长凌',
-  'hero.cta.explore': '探索产品',
+  'hero.cta.about': 'About CANI',
+  'hero.cta.explore': 'View UAV Lineup',
   'hero.scroll': '向下滚动',
   'hero.stat.years': '年深耕',
   'logistics.ctaDescription': '联系我们的专业团队，获取定制化配置方案和详细报价',
