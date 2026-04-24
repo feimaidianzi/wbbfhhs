@@ -132,7 +132,9 @@ export const Header = () => {
     navigate('/');
   };
 
-  // All categories now use t() function
+  // SITE FOCUS: Industrial UAV Flight Platforms (caniuav.com)
+  // Accessory categories (VTX/FC/Gimbal/Camera/ELRS/AI Module) are HIDDEN from navigation.
+  // They are migrated to canilink.com (link site) and remain accessible via direct URL only.
   const droneCategories = [
     { name: t('header.tethered'), href: "/products/tethered", description: t('header.tethered.desc') },
     { name: t('header.logistics'), href: "/products/logistics", description: t('header.logistics.desc') },
@@ -140,16 +142,8 @@ export const Header = () => {
     { name: t('header.fpvDrone'), href: "/fpv", description: t('header.fpvDrone.desc') },
   ];
 
-  const accessoryCategories = [
-    { name: t('header.vtx'), href: "/products/accessories/vtx-vrx", description: t('header.vtx.desc') },
-    { name: t('header.fcEsc'), href: "/products/accessories/fc-esc", description: t('header.fcEsc.desc') },
-    { name: t('header.gimbal'), href: "/products/accessories/gimbal", description: t('header.gimbal.desc') },
-    { name: t('header.digitalFpv'), href: "/products/accessories/digital-fpv", description: t('header.digitalFpv.desc') },
-    { name: t('header.camera'), href: "/products/accessories/camera", description: t('header.camera.desc') },
-    { name: t('header.elrs'), href: "/products/accessories/elrs", description: t('header.elrs.desc') },
-    { name: t('header.others'), href: "/products/accessories/others", description: t('header.others.desc') },
-    { name: t('header.aiModule'), href: "/products/accessories/ai-module", description: t('header.aiModule.desc') },
-  ];
+  // Accessories hidden — empty array keeps the structure intact for future restoration
+  const accessoryCategories: { name: string; href: string; description: string }[] = [];
 
   const applicationCategories = [
     { name: t('header.powerInspection'), href: "/applications/power-inspection", description: t('header.powerInspection.desc') },

@@ -48,13 +48,14 @@ const InstagramIcon = ({ className }: { className?: string }) => (
 export const Footer = () => {
   const { t } = useLanguage();
 
+  // SITE FOCUS: caniuav.com — Industrial UAV Flight Platforms only.
+  // Component links (VTX/FC/Gimbal/DigitalFPV/ELRS) migrated to canilink.com.
   const productLinks = [
+    { name: t('header.swarm'), path: "/products/swarm" },
+    { name: t('header.tethered'), path: "/products/tethered" },
+    { name: t('header.logistics'), path: "/products/logistics" },
     { name: t('product.multiRotor'), path: "/products/multi-rotor" },
-    { name: t('accessory.vtx'), path: "/products/accessories/vtx-vrx" },
-    { name: t('accessory.fc'), path: "/products/accessories/fc-esc" },
-    { name: t('accessory.gimbal'), path: "/products/accessories/gimbal" },
-    { name: t('accessory.digitalFpv'), path: "/products/accessories/digital-fpv" },
-    { name: t('accessory.elrs'), path: "/products/accessories/elrs" },
+    { name: t('header.fpvDrone'), path: "/fpv" },
   ];
 
   const applicationLinks = [
@@ -269,37 +270,31 @@ export const Footer = () => {
             <span>✅ {t('footer.trust.experience')}</span>
           </div>
 
-          {/* Core Keyword Anchors */}
+          {/* Core Keyword Anchors — Industrial UAV Flight Platforms */}
           <div className="flex flex-wrap justify-center gap-x-4 gap-y-1 text-xs text-background/40 mb-4">
-            <LangLink to="/" className="hover:text-background/60 transition-colors underline">{t('footer.seo.keyword.droneAccessories')}</LangLink>
+            <LangLink to="/products/swarm" className="hover:text-background/60 transition-colors underline">{t('header.swarm')}</LangLink>
             <span>|</span>
-            <LangLink to="/" className="hover:text-background/60 transition-colors underline">{t('footer.seo.keyword.industrialOEM')}</LangLink>
+            <LangLink to="/products/tethered" className="hover:text-background/60 transition-colors underline">{t('header.tethered')}</LangLink>
             <span>|</span>
-            <LangLink to="/products/accessories/vtx-vrx" className="hover:text-background/60 transition-colors underline">{t('footer.seo.keyword.digitalFPV')}</LangLink>
+            <LangLink to="/products/logistics" className="hover:text-background/60 transition-colors underline">{t('header.logistics')}</LangLink>
             <span>|</span>
-            <LangLink to="/products/accessories/fc-esc" className="hover:text-background/60 transition-colors underline">{t('footer.seo.keyword.fcEsc')}</LangLink>
-            <span>|</span>
-            <LangLink to="/products/accessories/gimbal" className="hover:text-background/60 transition-colors underline">{t('footer.seo.keyword.gimbal')}</LangLink>
+            <LangLink to="/products/multi-rotor" className="hover:text-background/60 transition-colors underline">{t('product.multiRotor')}</LangLink>
           </div>
 
-          {/* Comprehensive Sitemap Links for Crawlers */}
+          {/* Comprehensive Sitemap Links for Crawlers — platforms only */}
           <nav className="mt-4 flex flex-wrap justify-center gap-x-4 gap-y-1 text-xs text-background/30" aria-label={t('footer.siteMap')}>
             <LangLink to="/" className="hover:text-background/60 transition-colors">{t('nav.home')}</LangLink>
             <LangLink to="/products" className="hover:text-background/60 transition-colors">{t('footer.products')}</LangLink>
-            <LangLink to="/products/accessories/vtx-vrx" className="hover:text-background/60 transition-colors">{t('accessory.vtx')}</LangLink>
-            <LangLink to="/products/accessories/fc-esc" className="hover:text-background/60 transition-colors">{t('accessory.fc')}</LangLink>
-            <LangLink to="/products/accessories/gimbal" className="hover:text-background/60 transition-colors">{t('accessory.gimbal')}</LangLink>
-            <LangLink to="/products/accessories/digital-fpv" className="hover:text-background/60 transition-colors">{t('accessory.digitalFpv')}</LangLink>
-            <LangLink to="/products/accessories/elrs" className="hover:text-background/60 transition-colors">{t('accessory.elrs')}</LangLink>
-            <LangLink to="/products/tethered" className="hover:text-background/60 transition-colors">{t('product.tethered')}</LangLink>
-            <LangLink to="/products/logistics" className="hover:text-background/60 transition-colors">{t('product.logistics')}</LangLink>
+            <LangLink to="/products/swarm" className="hover:text-background/60 transition-colors">{t('header.swarm')}</LangLink>
+            <LangLink to="/products/tethered" className="hover:text-background/60 transition-colors">{t('header.tethered')}</LangLink>
+            <LangLink to="/products/logistics" className="hover:text-background/60 transition-colors">{t('header.logistics')}</LangLink>
             <LangLink to="/products/multi-rotor" className="hover:text-background/60 transition-colors">{t('product.multiRotor')}</LangLink>
+            <LangLink to="/fpv" className="hover:text-background/60 transition-colors">{t('header.fpvDrone')}</LangLink>
             <LangLink to="/applications" className="hover:text-background/60 transition-colors">{t('footer.applications')}</LangLink>
             <LangLink to="/applications/power-inspection" className="hover:text-background/60 transition-colors">{t('app.power')}</LangLink>
             <LangLink to="/solutions/uav-firefighting-emergency-rescue" className="hover:text-background/60 transition-colors">{t('app.firefighting')}</LangLink>
             <LangLink to="/solutions/industrial-uav-environmental-monitoring" className="hover:text-background/60 transition-colors">{t('app.environment')}</LangLink>
             <LangLink to="/applications/logistics" className="hover:text-background/60 transition-colors">{t('app.logistics')}</LangLink>
-            <LangLink to="/products/tethered" className="hover:text-background/60 transition-colors">{t('app.tethered')}</LangLink>
             <LangLink to="/software" className="hover:text-background/60 transition-colors">{t('footer.software')}</LangLink>
             <LangLink to="/custom-research" className="hover:text-background/60 transition-colors">{t('footer.custom')}</LangLink>
             <LangLink to="/projects" className="hover:text-background/60 transition-colors">{t('footer.projects')}</LangLink>

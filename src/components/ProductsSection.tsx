@@ -1,18 +1,21 @@
 import ArrowRight from "lucide-react/dist/esm/icons/arrow-right";
 import Sparkles from "lucide-react/dist/esm/icons/sparkles";
-import Zap from "lucide-react/dist/esm/icons/zap";
-import Radio from "lucide-react/dist/esm/icons/radio";
-import Camera from "lucide-react/dist/esm/icons/camera";
+import Plane from "lucide-react/dist/esm/icons/plane";
+import Users from "lucide-react/dist/esm/icons/users";
+import Link2 from "lucide-react/dist/esm/icons/link-2";
+import Truck from "lucide-react/dist/esm/icons/truck";
+import Box from "lucide-react/dist/esm/icons/box";
 import Gamepad2 from "lucide-react/dist/esm/icons/gamepad-2";
-import Cpu from "lucide-react/dist/esm/icons/cpu";
 import { LangLink } from "@/components/LangLink";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { useInViewLite } from "@/hooks/useInViewLite";
-import digitalFpvImg from "@/assets/products/digital-fpv-wifilink2.jpg";
-import vtxImg from "@/assets/products/vtx-2.5w.webp";
-import fcEscImg from "@/assets/products/fc-esc-stack.webp";
-import gimbalImg from "@/assets/products/gimbal-k40t.webp";
-import elrsImg from "@/assets/products/elrs-915-diversity.jpg";
+import c30HeroImg from "@/assets/products/cani-c30-hero-bg.webp";
+import w400HeroImg from "@/assets/products/cani-w400-hero-bg.webp";
+import c20HeroImg from "@/assets/products/cani-c20-hero-bg.webp";
+
+// SITE FOCUS: caniuav.com — Industrial UAV Flight Platforms
+// Showcases turnkey drones (C/W/T/X/WL series). Component cards (VTX/FC/Gimbal/etc.)
+// have been migrated to canilink.com and removed from this section.
 
 export const ProductsSection = () => {
   const { t } = useLanguage();
@@ -22,44 +25,44 @@ export const ProductsSection = () => {
 
   const categories = [
     {
-      name: t('productsSection.category.digitalFpv'),
-      description: t('productsSection.category.digitalFpv.desc'),
-      subtitle: t('productsSection.category.digitalFpv.subtitle'),
-      image: digitalFpvImg,
-      link: "/products/accessories/digital-fpv",
-      icon: Radio,
+      name: t('header.swarm'),
+      description: t('header.swarm.desc'),
+      subtitle: t('productsSection.exploreNow'),
+      image: c30HeroImg,
+      link: "/products/swarm",
+      icon: Users,
       isHot: true,
     },
     {
-      name: t('productsSection.category.vtx'),
-      description: t('productsSection.category.vtx.desc'),
-      subtitle: t('productsSection.category.vtx.subtitle'),
-      image: vtxImg,
-      link: "/products/accessories/vtx-vrx",
-      icon: Zap,
+      name: t('header.tethered'),
+      description: t('header.tethered.desc'),
+      subtitle: t('productsSection.exploreNow'),
+      image: c20HeroImg,
+      link: "/products/tethered",
+      icon: Link2,
     },
     {
-      name: t('productsSection.category.fc'),
-      description: t('productsSection.category.fc.desc'),
-      subtitle: t('productsSection.category.fc.subtitle'),
-      image: fcEscImg,
-      link: "/products/accessories/fc-esc",
-      icon: Cpu,
+      name: t('header.logistics'),
+      description: t('header.logistics.desc'),
+      subtitle: t('productsSection.exploreNow'),
+      image: w400HeroImg,
+      link: "/products/logistics",
+      icon: Truck,
     },
     {
-      name: t('productsSection.category.gimbal'),
-      description: t('productsSection.category.gimbal.desc'),
-      subtitle: t('productsSection.category.gimbal.subtitle'),
-      image: gimbalImg,
-      link: "/products/accessories/gimbal",
-      icon: Camera,
+      name: t('header.multiRotor'),
+      description: t('header.multiRotor.desc'),
+      subtitle: t('productsSection.exploreNow'),
+      image: c30HeroImg,
+      link: "/products/multi-rotor",
+      icon: Box,
     },
     {
-      name: t('productsSection.category.elrs'),
-      description: t('productsSection.category.elrs.desc'),
-      subtitle: t('productsSection.category.elrs.subtitle'),
-      image: elrsImg,
-      link: "/products/accessories/elrs",
+      name: t('header.fpvDrone'),
+      description: t('header.fpvDrone.desc'),
+      subtitle: t('productsSection.exploreNow'),
+      image: w400HeroImg,
+      link: "/fpv",
       icon: Gamepad2,
       isNew: true,
     },
@@ -104,7 +107,7 @@ export const ProductsSection = () => {
                 <div className="absolute inset-0">
                     <img
                       src={categories[0].image}
-                      alt={`CANI ${categories[0].name} - Industrial UAV HD Digital Video Transmission System`}
+                      alt={`CANI ${categories[0].name} - Industrial UAV Swarm Platform`}
                       width={800}
                       height={600}
                       className="w-full h-full object-cover group-hover:scale-110 transition-all duration-700"
@@ -154,7 +157,7 @@ export const ProductsSection = () => {
                   <div className="absolute inset-0">
                     <img
                       src={product.image}
-                      alt={`CANI ${product.name} - Professional UAV Component`}
+                      alt={`CANI ${product.name} - Industrial UAV Platform`}
                       width={400}
                       height={280}
                       className="w-full h-full object-cover group-hover:scale-110 transition-all duration-700"
