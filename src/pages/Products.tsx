@@ -28,9 +28,11 @@ const Products = () => {
       desc: t('products.cluster.platform.desc'),
       icon: Box,
       links: [
+        { label: t('products.anchor.swarm'), href: "/products/swarm" },
         { label: t('products.anchor.tethered'), href: "/products/tethered" },
         { label: t('products.anchor.logistics'), href: "/products/logistics" },
-        { label: t('products.anchor.swarm'), href: "/products/swarm" },
+        { label: t('products.anchor.multiRotor') || 'Multi-Rotor', href: "/products/multi-rotor" },
+        { label: t('products.anchor.fpv') || 'FPV', href: "/fpv" },
       ],
     },
   ];
