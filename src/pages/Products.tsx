@@ -38,10 +38,12 @@ const Products = () => {
   // Accessory categories hidden — empty array preserves layout for future restoration
   const accessoryCategories: { name: string; href: string; description: string; icon: typeof Box; anchor: string }[] = [];
 
+  // 5 vertical platform categories — caniuav.com industrial UAV focus
   const droneCategories = [
+    { name: t('header.swarm'), href: "/products/swarm", description: t('header.swarm.desc'), icon: Users, anchor: t('products.anchor.swarm') },
     { name: t('header.tethered'), href: "/products/tethered", description: t('header.tethered.desc'), icon: Link2, anchor: t('products.anchor.tethered') },
     { name: t('header.logistics'), href: "/products/logistics", description: t('header.logistics.desc'), icon: Truck, anchor: t('products.anchor.logistics') },
-    { name: t('header.swarm'), href: "/products/swarm", description: t('header.swarm.desc'), icon: Users, anchor: t('products.anchor.swarm') },
+    { name: t('header.multiRotor') || 'Multi-Rotor Platforms', href: "/products/multi-rotor", description: t('header.multiRotor.desc') || 'X650 / X850 / X1200 / X1600 industrial multi-rotor heavy-lift platforms', icon: Plane, anchor: t('products.anchor.multiRotor') || 'Multi-Rotor' },
     { name: t('header.fpvDrone'), href: "/fpv", description: t('header.fpvDrone.desc'), icon: Gamepad2, anchor: t('products.anchor.fpv') },
   ];
 
