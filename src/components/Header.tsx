@@ -335,45 +335,13 @@ export const Header = () => {
                     <div className="w-12 h-0.5 bg-accent mt-2"></div>
                   </div>
                   {item.href === '/products' ? (
-                    /* 产品中心:图文卡片版,带配图+详细介绍 */
-                    <div className="grid gap-4 grid-cols-2 md:grid-cols-3 lg:grid-cols-5">
-                      {item.children.map((child: any, index) => (
-                        <Link
-                          key={child.href}
-                          to={child.href}
-                          className="group rounded-xl overflow-hidden bg-secondary/50 hover:bg-secondary transition-all duration-300 hover:-translate-y-1 hover:shadow-lg flex flex-col"
-                          onClick={() => setActiveDropdown(null)}
-                          style={{ animationDelay: `${index * 30}ms` }}
-                        >
-                          {child.image && (
-                            <div className="aspect-[4/3] overflow-hidden bg-foreground/5">
-                              <img
-                                src={child.image}
-                                alt={child.name}
-                                width={400}
-                                height={300}
-                                loading="lazy"
-                                decoding="async"
-                                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                              />
-                            </div>
-                          )}
-                          <div className="p-3 flex-1 flex flex-col">
-                            <div className="font-semibold text-sm text-foreground group-hover:text-accent transition-colors mb-1">
-                              {child.name}
-                            </div>
-                            <div className="text-xs text-muted-foreground line-clamp-2 mb-2">
-                              {child.description}
-                            </div>
-                            {child.detail && (
-                              <div className="text-[11px] text-muted-foreground/80 line-clamp-3 mt-auto pt-2 border-t border-border/40">
-                                {child.detail}
-                              </div>
-                            )}
-                          </div>
-                        </Link>
-                      ))}
-                    </div>
+                    /* 产品中心:左侧分类列表 + 右侧大图介绍 (类似工业相机站标题栏) */
+                    <ProductCenterMegaMenu
+                      categories={item.children as any[]}
+                      onSelect={() => setActiveDropdown(null)}
+                      viewAllLabel={t('header.viewAllProducts') || '所有产品'}
+                      viewDetailLabel={t('header.viewDetail') || '查看详情'}
+                    />
                   ) : (
                     <div className={`grid gap-4 ${item.children.length <= 4 ? 'grid-cols-2 md:grid-cols-4' : 'grid-cols-2 md:grid-cols-3 lg:grid-cols-5'}`}>
                       {item.children.map((child, index) => (
