@@ -28,9 +28,11 @@ const Products = () => {
       desc: t('products.cluster.platform.desc'),
       icon: Box,
       links: [
+        { label: t('products.anchor.swarm'), href: "/products/swarm" },
         { label: t('products.anchor.tethered'), href: "/products/tethered" },
         { label: t('products.anchor.logistics'), href: "/products/logistics" },
-        { label: t('products.anchor.swarm'), href: "/products/swarm" },
+        { label: t('products.anchor.multiRotor') || 'Multi-Rotor', href: "/products/multi-rotor" },
+        { label: t('products.anchor.fpv') || 'FPV', href: "/fpv" },
       ],
     },
   ];
@@ -38,10 +40,12 @@ const Products = () => {
   // Accessory categories hidden — empty array preserves layout for future restoration
   const accessoryCategories: { name: string; href: string; description: string; icon: typeof Box; anchor: string }[] = [];
 
+  // 5 vertical platform categories — caniuav.com industrial UAV focus
   const droneCategories = [
+    { name: t('header.swarm'), href: "/products/swarm", description: t('header.swarm.desc'), icon: Users, anchor: t('products.anchor.swarm') },
     { name: t('header.tethered'), href: "/products/tethered", description: t('header.tethered.desc'), icon: Link2, anchor: t('products.anchor.tethered') },
     { name: t('header.logistics'), href: "/products/logistics", description: t('header.logistics.desc'), icon: Truck, anchor: t('products.anchor.logistics') },
-    { name: t('header.swarm'), href: "/products/swarm", description: t('header.swarm.desc'), icon: Users, anchor: t('products.anchor.swarm') },
+    { name: t('header.multiRotor') || 'Multi-Rotor Platforms', href: "/products/multi-rotor", description: t('header.multiRotor.desc') || 'X650 / X850 / X1200 / X1600 industrial multi-rotor heavy-lift platforms', icon: Plane, anchor: t('products.anchor.multiRotor') || 'Multi-Rotor' },
     { name: t('header.fpvDrone'), href: "/fpv", description: t('header.fpvDrone.desc'), icon: Gamepad2, anchor: t('products.anchor.fpv') },
   ];
 
@@ -184,7 +188,7 @@ const Products = () => {
               <h2 className="text-2xl md:text-3xl font-bold text-foreground mb-2">{t('products.cluster.platform.title')}</h2>
               <div className="w-12 h-0.5 bg-accent mt-2" />
             </div>
-            <motion.div variants={containerVariants} initial="hidden" whileInView="visible" viewport={{ once: true }} className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            <motion.div variants={containerVariants} initial="hidden" whileInView="visible" viewport={{ once: true }} className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6">
               {droneCategories.map((cat) => {
                 const Icon = cat.icon;
                 return (
