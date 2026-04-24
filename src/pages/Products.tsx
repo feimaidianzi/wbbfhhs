@@ -188,7 +188,7 @@ const Products = () => {
               <h2 className="text-2xl md:text-3xl font-bold text-foreground mb-2">{t('products.cluster.platform.title')}</h2>
               <div className="w-12 h-0.5 bg-accent mt-2" />
             </div>
-            <motion.div variants={containerVariants} initial="hidden" whileInView="visible" viewport={{ once: true }} className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            <motion.div variants={containerVariants} initial="hidden" whileInView="visible" viewport={{ once: true }} className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6">
               {droneCategories.map((cat) => {
                 const Icon = cat.icon;
                 return (
