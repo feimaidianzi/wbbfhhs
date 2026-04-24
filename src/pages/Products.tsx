@@ -19,35 +19,10 @@ import {
 const Products = () => {
   const { language, t } = useLanguage();
 
-  // Technical capability clusters
+  // SITE FOCUS: caniuav.com — Industrial UAV Flight Platforms only.
+  // Component clusters (VTX/FC/Gimbal/Camera/ELRS/AI Module) are migrated to canilink.com.
+  // techClusters keeps only platform-related entries.
   const techClusters = [
-    {
-      title: t('products.cluster.digitalLink.title'),
-      desc: t('products.cluster.digitalLink.desc'),
-      icon: Satellite,
-      links: [
-        { label: t('products.anchor.digitalFpv'), href: "/products/accessories/digital-fpv" },
-        { label: t('products.anchor.vtx'), href: "/products/accessories/vtx-vrx" },
-      ],
-    },
-    {
-      title: t('products.cluster.fc.title'),
-      desc: t('products.cluster.fc.desc'),
-      icon: Cpu,
-      links: [
-        { label: t('products.anchor.fc'), href: "/products/accessories/fc-esc" },
-      ],
-    },
-    {
-      title: t('products.cluster.ai.title'),
-      desc: t('products.cluster.ai.desc'),
-      icon: Brain,
-      links: [
-        { label: t('products.anchor.gimbal'), href: "/products/accessories/gimbal" },
-        { label: t('products.anchor.camera'), href: "/products/accessories/camera" },
-        { label: t('products.anchor.aiModule'), href: "/products/accessories/ai-module" },
-      ],
-    },
     {
       title: t('products.cluster.platform.title'),
       desc: t('products.cluster.platform.desc'),
@@ -60,16 +35,8 @@ const Products = () => {
     },
   ];
 
-  const accessoryCategories = [
-    { name: t('header.digitalFpv'), href: "/products/accessories/digital-fpv", description: t('header.digitalFpv.desc'), icon: Wifi, anchor: t('products.anchor.digitalFpv') },
-    { name: t('header.vtx'), href: "/products/accessories/vtx-vrx", description: t('header.vtx.desc'), icon: Radio, anchor: t('products.anchor.vtx') },
-    { name: t('header.fcEsc'), href: "/products/accessories/fc-esc", description: t('header.fcEsc.desc'), icon: Cpu, anchor: t('products.anchor.fc') },
-    { name: t('header.gimbal'), href: "/products/accessories/gimbal", description: t('header.gimbal.desc'), icon: Joystick, anchor: t('products.anchor.gimbal') },
-    { name: t('header.elrs'), href: "/products/accessories/elrs", description: t('header.elrs.desc'), icon: Plane, anchor: t('products.anchor.elrs') },
-    { name: t('header.camera'), href: "/products/accessories/camera", description: t('header.camera.desc'), icon: Camera, anchor: t('products.anchor.camera') },
-    { name: t('header.others'), href: "/products/accessories/others", description: t('header.others.desc'), icon: Package, anchor: t('products.anchor.others') },
-    { name: t('header.aiModule'), href: "/products/accessories/ai-module", description: t('header.aiModule.desc'), icon: Crosshair, anchor: t('products.anchor.aiModule') },
-  ];
+  // Accessory categories hidden — empty array preserves layout for future restoration
+  const accessoryCategories: { name: string; href: string; description: string; icon: typeof Box; anchor: string }[] = [];
 
   const droneCategories = [
     { name: t('header.tethered'), href: "/products/tethered", description: t('header.tethered.desc'), icon: Link2, anchor: t('products.anchor.tethered') },
@@ -240,7 +207,8 @@ const Products = () => {
           </div>
         </section>
 
-        {/* Accessories */}
+        {/* Accessories section hidden — components migrated to canilink.com */}
+        {accessoryCategories.length > 0 && (
         <section className="py-16 bg-background">
           <div className="container-custom">
             <div className="mb-10">
@@ -269,6 +237,7 @@ const Products = () => {
             </motion.div>
           </div>
         </section>
+        )}
 
         {/* PDF Download CTA */}
         <section className="py-12 bg-secondary">
