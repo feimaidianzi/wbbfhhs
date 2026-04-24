@@ -13,6 +13,11 @@ import { useLangNavigate } from "@/hooks/useLangNavigate";
 import { Logo } from "@/components/Logo";
 import { LanguageSwitcher } from "@/components/LanguageSwitcher";
 import { useLanguage } from "@/contexts/LanguageContext";
+import swarmHeroImg from "@/assets/products/cani-c30-hero-bg.webp";
+import tetheredHeroImg from "@/assets/products/cani-tethered-hero-bg.webp";
+import logisticsHeroImg from "@/assets/products/cani-logistics-hero-bg.webp";
+import multiRotorHeroImg from "@/assets/products/cani-multirotor-hero-bg.webp";
+import fpvHeroImg from "@/assets/products/cani-fpv-hero-bg.webp";
 
 // Supabase client + types are dynamically imported to keep them off the homepage's
 // critical JS path (~90KB gzip). They load during browser idle after first paint.
@@ -181,13 +186,43 @@ export const Header = () => {
     { name: t('header.cooperation'), href: "/projects/cooperation", description: t('header.cooperation.desc') },
   ];
 
-  // 5大整机品类平铺,每个直达对应品类总览页
+  // 5大整机品类平铺,每个直达对应品类总览页(带配图+详细介绍的可视化大菜单)
   const productCenterCategories = [
-    { name: t('header.swarm'), href: "/products/swarm", description: t('header.swarm.desc') },
-    { name: t('header.tethered'), href: "/products/tethered", description: t('header.tethered.desc') },
-    { name: t('header.logistics'), href: "/products/logistics", description: t('header.logistics.desc') },
-    { name: t('header.multiRotor'), href: "/products/multi-rotor", description: t('header.multiRotor.desc') },
-    { name: t('header.fpvDrone'), href: "/fpv", description: t('header.fpvDrone.desc') },
+    {
+      name: t('header.swarm'),
+      href: "/products/swarm",
+      description: t('header.swarm.desc'),
+      image: swarmHeroImg,
+      detail: t('header.swarm.detail'),
+    },
+    {
+      name: t('header.tethered'),
+      href: "/products/tethered",
+      description: t('header.tethered.desc'),
+      image: tetheredHeroImg,
+      detail: t('header.tethered.detail'),
+    },
+    {
+      name: t('header.logistics'),
+      href: "/products/logistics",
+      description: t('header.logistics.desc'),
+      image: logisticsHeroImg,
+      detail: t('header.logistics.detail'),
+    },
+    {
+      name: t('header.multiRotor'),
+      href: "/products/multi-rotor",
+      description: t('header.multiRotor.desc'),
+      image: multiRotorHeroImg,
+      detail: t('header.multiRotor.detail'),
+    },
+    {
+      name: t('header.fpvDrone'),
+      href: "/fpv",
+      description: t('header.fpvDrone.desc'),
+      image: fpvHeroImg,
+      detail: t('header.fpvDrone.detail'),
+    },
     ...accessoryCategories,
   ];
 
@@ -299,24 +334,66 @@ export const Header = () => {
                     <h3 className="text-lg font-semibold text-foreground">{item.name}</h3>
                     <div className="w-12 h-0.5 bg-accent mt-2"></div>
                   </div>
-                  <div className={`grid gap-4 ${item.children.length <= 4 ? 'grid-cols-2 md:grid-cols-4' : 'grid-cols-2 md:grid-cols-3 lg:grid-cols-5'}`}>
-                    {item.children.map((child, index) => (
-                      <Link
-                        key={child.href}
-                        to={child.href}
-                        className="group p-4 rounded-xl bg-secondary/50 hover:bg-secondary transition-all duration-300 hover:-translate-y-0.5"
-                        onClick={() => setActiveDropdown(null)}
-                        style={{ animationDelay: `${index * 30}ms` }}
-                      >
-                        <div className="font-medium text-foreground group-hover:text-accent transition-colors mb-1">
-                          {child.name}
-                        </div>
-                        <div className="text-sm text-muted-foreground line-clamp-2">
-                          {child.description}
-                        </div>
-                      </Link>
-                    ))}
-                  </div>
+                  {item.href === '/products' ? (
+                    /* 产品中心:图文卡片版,带配图+详细介绍 */
+                    <div className="grid gap-4 grid-cols-2 md:grid-cols-3 lg:grid-cols-5">
+                      {item.children.map((child: any, index) => (
+                        <Link
+                          key={child.href}
+                          to={child.href}
+                          className="group rounded-xl overflow-hidden bg-secondary/50 hover:bg-secondary transition-all duration-300 hover:-translate-y-1 hover:shadow-lg flex flex-col"
+                          onClick={() => setActiveDropdown(null)}
+                          style={{ animationDelay: `${index * 30}ms` }}
+                        >
+                          {child.image && (
+                            <div className="aspect-[4/3] overflow-hidden bg-foreground/5">
+                              <img
+                                src={child.image}
+                                alt={child.name}
+                                width={400}
+                                height={300}
+                                loading="lazy"
+                                decoding="async"
+                                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                              />
+                            </div>
+                          )}
+                          <div className="p-3 flex-1 flex flex-col">
+                            <div className="font-semibold text-sm text-foreground group-hover:text-accent transition-colors mb-1">
+                              {child.name}
+                            </div>
+                            <div className="text-xs text-muted-foreground line-clamp-2 mb-2">
+                              {child.description}
+                            </div>
+                            {child.detail && (
+                              <div className="text-[11px] text-muted-foreground/80 line-clamp-3 mt-auto pt-2 border-t border-border/40">
+                                {child.detail}
+                              </div>
+                            )}
+                          </div>
+                        </Link>
+                      ))}
+                    </div>
+                  ) : (
+                    <div className={`grid gap-4 ${item.children.length <= 4 ? 'grid-cols-2 md:grid-cols-4' : 'grid-cols-2 md:grid-cols-3 lg:grid-cols-5'}`}>
+                      {item.children.map((child, index) => (
+                        <Link
+                          key={child.href}
+                          to={child.href}
+                          className="group p-4 rounded-xl bg-secondary/50 hover:bg-secondary transition-all duration-300 hover:-translate-y-0.5"
+                          onClick={() => setActiveDropdown(null)}
+                          style={{ animationDelay: `${index * 30}ms` }}
+                        >
+                          <div className="font-medium text-foreground group-hover:text-accent transition-colors mb-1">
+                            {child.name}
+                          </div>
+                          <div className="text-sm text-muted-foreground line-clamp-2">
+                            {child.description}
+                          </div>
+                        </Link>
+                      ))}
+                    </div>
+                  )}
                 </div>
               </div>
             )
