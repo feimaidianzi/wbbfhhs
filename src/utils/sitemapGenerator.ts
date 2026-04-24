@@ -13,6 +13,10 @@ const allRoutes = [
   '/custom-research',
   '/projects',
   '/fpv',
+  // SITE FOCUS: caniuav.com — Industrial UAV Flight Platforms.
+  // Accessory routes (VTX/FC/Gimbal/Camera/DigitalFPV/ELRS/Others/MeshLink/AiModule)
+  // are excluded from the sitemap. They remain reachable via direct URL but won't be indexed.
+  // Migrated to canilink.com.
   // Products
   '/products/accessories',
   '/products/agriculture',
@@ -39,16 +43,7 @@ const allRoutes = [
   '/products/swarm/w200',
   '/products/swarm/w300',
   '/products/swarm/w400',
-  // Accessories
-  '/products/accessories/vtx-vrx',
-  '/products/accessories/fc-esc',
-  '/products/accessories/gimbal',
-  '/products/accessories/camera',
-  '/products/accessories/digital-fpv',
-  '/products/accessories/elrs',
-  '/products/accessories/others',
-  '/products/accessories/mesh-link',
-  '/products/accessories/ai-module',
+  // Accessories — REMOVED from sitemap (migrated to canilink.com)
   // Applications
   '/applications/power-inspection',
   '/applications/power-inspection/transmission-line',

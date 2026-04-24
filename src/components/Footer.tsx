@@ -48,13 +48,14 @@ const InstagramIcon = ({ className }: { className?: string }) => (
 export const Footer = () => {
   const { t } = useLanguage();
 
+  // SITE FOCUS: caniuav.com — Industrial UAV Flight Platforms only.
+  // Component links (VTX/FC/Gimbal/DigitalFPV/ELRS) migrated to canilink.com.
   const productLinks = [
+    { name: t('header.swarm'), path: "/products/swarm" },
+    { name: t('header.tethered'), path: "/products/tethered" },
+    { name: t('header.logistics'), path: "/products/logistics" },
     { name: t('product.multiRotor'), path: "/products/multi-rotor" },
-    { name: t('accessory.vtx'), path: "/products/accessories/vtx-vrx" },
-    { name: t('accessory.fc'), path: "/products/accessories/fc-esc" },
-    { name: t('accessory.gimbal'), path: "/products/accessories/gimbal" },
-    { name: t('accessory.digitalFpv'), path: "/products/accessories/digital-fpv" },
-    { name: t('accessory.elrs'), path: "/products/accessories/elrs" },
+    { name: t('header.fpvDrone'), path: "/fpv" },
   ];
 
   const applicationLinks = [
