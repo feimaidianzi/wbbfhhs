@@ -5,8 +5,10 @@ import Play from "lucide-react/dist/esm/icons/play";
 import ChevronDown from "lucide-react/dist/esm/icons/chevron-down";
 import { useLanguage } from "@/contexts/LanguageContext";
 
-// Mobile hero image — smaller real product photo for fast load
-const HERO_PCB_SRC = "/hero-fc-board-sm.webp";
+import flagshipDroneHero from "@/assets/hero/cani-flagship-drone-hero.webp";
+
+// Mobile hero image — flagship industrial UAV product shot
+const HERO_DRONE_SRC = flagshipDroneHero;
 
 export const HeroContent = () => {
   const { t } = useLanguage();
@@ -45,17 +47,17 @@ export const HeroContent = () => {
           {t('hero.subtitle')}
         </p>
 
-        {/* Mobile product image */}
+        {/* Mobile flagship UAV image */}
         <div className="lg:hidden mb-10 hero-animate-image">
           <img
-            src={HERO_PCB_SRC}
-            alt="CANI industrial drone flight controller PCBA"
-            width={640}
-            height={341}
+            src={HERO_DRONE_SRC}
+            alt="CANI industrial UAV flagship quadcopter platform"
+            width={800}
+            height={512}
             fetchPriority="high"
             decoding="async"
             className="w-full max-w-md mx-auto rounded-lg"
-            style={{ aspectRatio: '640 / 341' }}
+            style={{ aspectRatio: '1600 / 1024' }}
           />
         </div>
 
