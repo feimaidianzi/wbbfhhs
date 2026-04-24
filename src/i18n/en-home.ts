@@ -368,6 +368,8 @@ export const enHomeTranslations: Record<string, string> = {
   'header.logistics.detail': 'WL-series heavy-lift logistics drones, 10–30kg payload, autonomous waypoints + precision airdrop. For mountain delivery, emergency rescue, and energy resupply.',
   'header.multiRotor.detail': 'X-series industrial multirotors, 650–1600mm wheelbase, modular payloads. For power-line inspection, surveying, and firefighting reconnaissance.',
   'header.fpvDrone.detail': 'First-person-view platforms with digital HD video link and low-latency control. For industrial inspection, indoor reconnaissance, and pilot training.',
+  'header.viewAllProducts': 'All Products',
+  'header.viewDetail': 'View Details',
   'header.vtx': 'VTX/VRX',
   'header.vtx.desc': '视频发射与接收模块',
   'hero.cta.about': '了解长凌',
