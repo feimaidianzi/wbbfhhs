@@ -6,12 +6,12 @@ export const zhTranslations: Record<string, string> = {
   'common.learnMore': '了解更多',
 
   // ===== Hero Section =====
-  'hero.tagline': '无人机核心配件专家',
-  'hero.title.line1': '工业无人机核心',
-  'hero.title.line2': '系统与AI组件',
-  'hero.subtitle': '专注无人机图传、飞控、云台等核心配件研发，10年技术沉淀，为全球飞手提供专业级解决方案',
-  'hero.cta.explore': '探索产品',
-  'hero.cta.about': '了解长凌',
+  'hero.tagline': 'CANI · 工业无人机整机制造商',
+  'hero.title.line1': '工业级无人机整机',
+  'hero.title.line2': '一站式飞行平台',
+  'hero.subtitle': '深耕行业级无人机整机研发制造10年，覆盖集群机、系留机、物流机、多旋翼平台与FPV作业机，为全球客户提供稳定、可靠、可定制的飞行平台。',
+  'hero.cta.explore': '查看整机系列',
+  'hero.cta.about': '了解CANI',
   'hero.stat.products': '产品型号',
   'hero.stat.years': '年深耕',
   'hero.stat.partners': '合作伙伴',
@@ -7500,8 +7500,8 @@ export const zhTranslations: Record<string, string> = {
   // ===== SEO Content Optimization (Report) =====
 
   // Homepage SEO Intro
-  'home.seoIntro': '长凌科技——10年深耕工业级无人机核心配件研发制造，专注数字图传、飞控电调、云台吊舱生产，服务全球500+合作伙伴，提供定制化无人机配件解决方案，高新技术企业，品质有保障。',
-  'home.brandSummary': '长凌科技核心产品涵盖数字图传系统、飞控电调、云台吊舱三大系列，可满足工业巡检、安防监控、FPV竞速等多场景需求，作为专业无人机核心配件制造商，我们以技术创新赋能全球合作伙伴，提供一站式OEM/ODM定制服务，打造稳定、高效、可靠的无人机配件解决方案。',
+  'home.seoIntro': 'CANI长凌科技——10年深耕工业级无人机整机研发制造，覆盖集群、系留、物流、多旋翼与FPV五大产品线，服务全球500+行业客户，提供从样机定义到批量交付的一站式OEM/ODM解决方案，高新技术企业，品质可追溯。',
+  'home.brandSummary': 'CANI长凌科技核心产品涵盖集群无人机、系留无人机、物流无人机、多旋翼工业平台与FPV作业机五大整机系列，可承接电力巡检、应急通信、低空物流、地理测绘、安防监控等场景的端到端飞行任务。作为专业的工业无人机整机制造商，我们以自研整机平台赋能全球行业客户，提供稳定、可靠、可定制的飞行平台解决方案。',
 
   // Products Page SEO
   'products.seo.overview': '长凌科技产品中心，汇聚工业级无人机核心配件全系列产品，涵盖数字图传系统、飞控电调系统、云台吊舱三大核心品类，200+产品型号，适配多旋翼、固定翼等多种无人机机型，覆盖电力巡检、消防应急、FPV竞速、测绘勘探等全场景。所有产品经过严格质量检测，出厂合格率达99.8%，支持OEM/ODM定制，满足不同客户的个性化需求。',
