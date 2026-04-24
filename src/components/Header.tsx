@@ -13,6 +13,7 @@ import { useLangNavigate } from "@/hooks/useLangNavigate";
 import { Logo } from "@/components/Logo";
 import { LanguageSwitcher } from "@/components/LanguageSwitcher";
 import { useLanguage } from "@/contexts/LanguageContext";
+import { ProductCenterMegaMenu } from "@/components/ProductCenterMegaMenu";
 import swarmHeroImg from "@/assets/products/cani-c30-hero-bg.webp";
 import tetheredHeroImg from "@/assets/products/cani-tethered-hero-bg.webp";
 import logisticsHeroImg from "@/assets/products/cani-logistics-hero-bg.webp";
