@@ -1127,11 +1127,11 @@ export const enTranslations: Record<string, string> = {
 
   // ===== Page-Level SEO Keys =====
   // Home Page SEO
-  'home.seo.title': 'Professional UAV Accessories Supplier | VTX, FC, Gimbal | CANI',
-  'home.seo.description': 'CANI is a professional UAV accessories supplier and OEM manufacturer specializing in HD digital video transmission (VTX/VRX), flight controllers, ESCs, gimbals, ELRS long-range links and AI modules for industrial drones. 15+ years R&D, 200+ patents, NDAA-compliant. Get a quote.',
-  'home.seo.keywords': 'UAV accessories supplier,drone accessories manufacturer,industrial UAV components,VTX VRX video transmitter,drone flight controller,drone ESC,UAV gimbal,ELRS long range,AI module,OEM drone parts,CANI',
+  'home.seo.title': 'Industrial UAV Manufacturer | Swarm, Tethered, Logistics, Multi-Rotor & FPV Drones | CANI',
+  'home.seo.description': 'CANI is a professional industrial UAV manufacturer and OEM/ODM partner. Our flight platforms cover swarm drones (C20/C30), tethered UAV systems (T100/T200/T300), logistics drones (WL10/WL20/WL30), multi-rotor industrial platforms (X650/X850/X1200/X1600) and FPV mission drones. 10+ years of integrated drone R&D, NDAA-compliant. End-to-end solutions for power inspection, emergency response, surveying and security.',
+  'home.seo.keywords': 'industrial UAV manufacturer,industrial drone OEM,swarm drone,tethered UAV,logistics drone,multi-rotor industrial drone,FPV mission drone,power inspection drone,emergency response UAV,custom UAV manufacturer,ODM drone,CANI',
   'home.structured.name': 'CANI Technology',
-  'home.structured.description': 'Leading industrial UAV components manufacturer specializing in HD digital video transmission, digital video links, and AI guidance modules.',
+  'home.structured.description': 'Professional industrial UAV manufacturer delivering full-range flight platforms — swarm drones, tethered systems, logistics UAVs, multi-rotor industrial platforms and FPV mission drones — for global industrial customers.',
   'home.structured.addressLocality': 'Changsha',
   'home.structured.addressRegion': 'Hunan',
   'home.structured.contactType': 'customer service',
