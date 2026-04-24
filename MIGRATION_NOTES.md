@@ -1,18 +1,20 @@
 # 网站三站拆分 — 迁移交接文档
 
-> **本项目的定位 = `caniuav.com` 工业无人机飞行平台站**
+> **本项目的定位 = `caniuav.com` 工业无人机整机厂站**
 >
-> 本文档记录当前项目（caniuav.com）做的隐藏改造，方便另外两个 Remix 项目（canilink.com / canipower.com）按相反逻辑各自执行。
+> 本文档记录当前项目（caniuav.com）做的隐藏改造 + 整机厂叙事重塑，方便另外两个 Remix 项目（canilink.com / canipower.com）按相反逻辑各自执行。
+>
+> **最近一次更新**：完成首页"配件专家 → 工业整机厂"叙事切换。
 
 ---
 
 ## 一、三站定位总览
 
-| 站点 | 域名 | 保留品类 | 隐藏品类 |
-|---|---|---|---|
-| **飞行平台站**（本项目） | `caniuav.com` | C10/C20/C30、W200/W300/W400、T100/T200/T300、X650/X850/X1200/X1600、WL10/20/30、FPV 整机、农业/消防/测绘等行业整机 | VTX/VRX、MeshLink、ELRS、天线、FC/ESC、Gimbal、Camera、Digital FPV、AI Module、14S 电源、BMS、电池组 |
-| **链路通信站** | `canilink.com` | VTX/VRX、MeshLink、ELRS、天线、Digital FPV、Camera、Gimbal、AI Module、FC/ESC | 所有整机、电源类 |
-| **电源能源站** | `canipower.com` | 14S 高压系统、大电流 BMS、大载重电池组 | 整机、链路类、其他配件 |
+| 站点 | 域名 | 核心叙事 | 保留品类 | 隐藏品类 |
+|---|---|---|---|---|
+| **整机厂站**（本项目） | `caniuav.com` | Industrial UAV Manufacturer / 整机平台 OEM&ODM | C10/C20/C30、W200/W300/W400、T100/T200/T300、X650/X850/X1200/X1600、WL10/20/30、FPV 整机、农业/消防/测绘等行业整机 | VTX/VRX、MeshLink、ELRS、天线、FC/ESC、Gimbal、Camera、Digital FPV、AI Module、14S 电源、BMS、电池组 |
+| **链路通信站** | `canilink.com` | Long-range Datalink & Digital VTX 专家 | VTX/VRX、MeshLink、ELRS、天线、Digital FPV、Camera、Gimbal、AI Module、FC/ESC | 所有整机、电源类 |
+| **电源能源站** | `canipower.com` | 14S Heavy-Lift Power System 专家 | 14S 高压系统、大电流 BMS、大载重电池组 | 整机、链路类、其他配件 |
 
 ---
 
@@ -45,7 +47,32 @@
 - 删除 9 条 `/products/accessories/*` 路由（vtx-vrx / fc-esc / gimbal / camera / digital-fpv / elrs / others / mesh-link / ai-module）
 - 整机路由全部保留并被索引
 
-### 6. **路由保留**（重要）
+### 6. **首页 Hero 与叙事重塑**（本轮新增 ⭐）
+
+**视觉资产**
+- 新增旗舰整机棚拍图：`src/assets/hero/cani-flagship-drone-hero.webp`（同步至 `public/cani-flagship-drone-hero.webp` 用于 LCP 预加载）
+- 替换原 PCB / 配件类 hero 视觉
+
+**修改的文件**
+- `src/components/HeroSection.tsx`：右侧 hero 改为旗舰整机产品图，alt 标签强调 "industrial UAV / quadcopter platform / gimbal camera / carbon-fiber chassis"
+- `src/components/hero/HeroContent.tsx`：移动端 hero 同步换图
+- `index.html`：`<link rel="preload" as="image" href="/cani-flagship-drone-hero.webp" fetchpriority="high">` LCP 预加载
+
+**i18n 文案改造**（4 个文件）
+- `src/i18n/zh-home.ts` + `src/i18n/zh.ts`
+- `src/i18n/en-home.ts` + `src/i18n/en.ts`
+
+涉及的关键 key：
+- `hero.tagline` / `hero.title` / `hero.subtitle`：从"配件专家"改为"整机厂 / 5 大整机产品线（Swarm / Tethered / Logistics / Multi-Rotor / FPV）"
+- `home.seo.title` / `home.seo.description` / `home.seo.keywords`：核心关键词替换为 `industrial UAV manufacturer`、`OEM/ODM drone`、`heavy-lift quadcopter`、`tethered drone`、`logistics drone`、`drone swarm`
+- `home.brandSummary`：强调整机制造能力 + 行业平台
+- 修复 `en-home.ts` 中英文 hero CTA 误填为中文的 bug
+
+**结构化数据**（`src/pages/Index.tsx`）
+- `Organization` schema 的 `knowsAbout` 数组移除 VTX / MeshLink / ELRS 等配件关键词，替换为 `Industrial UAV Manufacturing`、`Drone Swarm Systems`、`Tethered UAV`、`Logistics Drone`、`Heavy-lift Multi-rotor`、`FPV Drone Platform`
+- `BreadcrumbList` 中产品集合面包屑同步更新
+
+### 7. **路由保留**（重要）
 `src/App.tsx` 中所有配件页面路由**未删除**，原因：
 - 防止外链直接访问导致 404，影响 Google 历史索引
 - 配件页面仍可通过直链访问，方便后续做「跳转到 canilink.com」的引导卡片
@@ -68,7 +95,7 @@
    - `productCenterCategories` 改为只展开 `accessoryCategories`，移除 `multiRotor` 入口
 
 2. **`src/components/ProductsSection.tsx`**
-   - 保持原版（已经是配件展示），可以把大卡片换成 **MeshLink 150km 链路**主推
+   - 重写为配件展示，可以把大卡片换成 **MeshLink 150km 链路**主推
 
 3. **`src/pages/Products.tsx`**
    - `techClusters` 保留 `digitalLink` / `fc` / `ai` 三个配件集群，移除 `platform`
@@ -85,11 +112,21 @@
    - 保留所有 `/products/accessories/*` 路由
    - 保留 `/fpv` 但建议改成「FPV 配件套装」定位
 
-6. **路由保留**：整机页面路由不要删，只是不索引
+6. **首页 Hero / 视觉**（参考本项目第二节第 6 条逆向操作）
+   - 替换 hero 主视觉为 **MeshLink 模块 / 数字图传 OSD 画面 / 长距天线阵列**棚拍图
+   - 同步更新 `index.html` 的 LCP 预加载图
 
-7. **首页 Hero / SEO 标题** 改成：
+7. **i18n 文案**（zh-home.ts / zh.ts / en-home.ts / en.ts）
+   - `hero.tagline / title / subtitle`：核心叙事改为 "150 km Long-range Datalink / Digital Video Transmission Specialist"
    - `home.seo.title`：`150km Long-Range UAV Datalink & Digital Video Transmission | CANI`
-   - 关键词：`long-range UAV datalink, 150km video transmission, MeshLink, digital VTX, 6-7GHz video link, long-range ground station`
+   - `home.seo.keywords`：`long-range UAV datalink, 150km video transmission, MeshLink, digital VTX, 6-7GHz video link, long-range ground station`
+   - `home.brandSummary`：强调链路 R&D 能力
+
+8. **结构化数据**（`src/pages/Index.tsx`）
+   - `Organization.knowsAbout` 替换为 MeshLink / Digital VTX / ELRS / Long-range Antenna 等关键词
+   - `BreadcrumbList` 同步更新
+
+9. **路由保留**：整机页面路由不要删，只是不索引
 
 ### 🟠 canipower.com（电源能源站）需要做的事
 
@@ -103,7 +140,11 @@
 3. **`src/pages/Products.tsx`**：清空 `techClusters` 后新增「Power & Energy」集群
 4. **`src/components/Footer.tsx`**：`productLinks` 改为电源产品链接，SEO 关键词改成 14S battery / heavy-lift UAV BMS / industrial battery management
 5. **`src/utils/sitemapGenerator.ts`**：删除所有整机和现有配件路由，保留 / 新增 `/products/power/*` 路由
-6. **首页 SEO 标题**：`14S Heavy-Lift UAV Power System & Smart BMS | CANI`
+6. **首页 Hero**：替换为 14S 电池组 / BMS 主板棚拍图，同步更新 `index.html` LCP 预加载
+7. **i18n 文案**：
+   - `home.seo.title`：`14S Heavy-Lift UAV Power System & Smart BMS | CANI`
+   - `hero.tagline / title / subtitle`：突出电源能源专长
+8. **结构化数据**：`Organization.knowsAbout` 改为 UAV Battery / BMS / 14S Power System / Smart Charger 等
 
 > ⚠️ **重要**：电源站可能需要新建产品页面（当前项目没有独立的 power 板块），可以让 AI 仿照 `src/pages/products/swarm/` 的结构新建 `src/pages/products/power/` 目录。
 
@@ -127,13 +168,29 @@
 ## 五、操作建议
 
 1. 先在 canilink.com 项目里和 AI 说：
-   > 「请参考 @caniuav-主项目 的 `MIGRATION_NOTES.md` 文档第三节 canilink.com 部分，按相反逻辑改造本项目，把整机隐藏，只保留链路和配件类目」
+   > 「请参考 @caniuav-主项目 的 `MIGRATION_NOTES.md` 文档第三节 canilink.com 部分，按相反逻辑改造本项目，把整机隐藏，只保留链路和配件类目，并完成首页 Hero 视觉 + i18n 文案 + 结构化数据的同步切换」
 
 2. 然后在 canipower.com 项目里说同样的话，让 AI 按第三节 canipower.com 部分操作。
 
 3. 三个站全部部署后，分别在各自首页加一条小卡片：
-   - caniuav.com → 「Looking for components? Visit canilink.com」
+   - caniuav.com → 「Looking for datalink components? Visit canilink.com」「Need high-voltage power? Visit canipower.com」
    - canilink.com → 「Need a complete UAV platform? Visit caniuav.com」
    - canipower.com → 「Power up your UAV at canilink.com or caniuav.com」
 
 这样三站独立 SEO + 互相导流，符合分析师建议的垂直化布局。
+
+---
+
+## 六、本项目改造的验证清单（给反向操作时的对照）
+
+完成后建议在浏览器和 Lighthouse 中确认：
+
+- [ ] 首页 Hero 主视觉为目标品类产品图，alt 标签语义正确
+- [ ] `index.html` 的 `<link rel="preload">` 指向新 hero 图
+- [ ] 中/英文首页 SEO title / description / keywords 完全反映新定位
+- [ ] 首页 5 张产品卡片为目标品类
+- [ ] 导航栏「产品中心」下拉只展示目标品类
+- [ ] 页脚 productLinks + SEO 锚点都是目标品类
+- [ ] sitemap.xml 不再包含被隐藏品类的路由
+- [ ] `Organization.knowsAbout` schema 不再出现旧品类关键词
+- [ ] 控制台无 `useLanguage must be used within a LanguageProvider` 等运行时报错（如有，硬刷新清 HMR 缓存即可）
