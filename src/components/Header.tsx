@@ -181,9 +181,14 @@ export const Header = () => {
     { name: t('header.cooperation'), href: "/projects/cooperation", description: t('header.cooperation.desc') },
   ];
 
+  // 5大整机品类平铺,每个直达对应品类总览页
   const productCenterCategories = [
-    { name: t('header.multiRotor'), href: "/products/multi-rotor", description: t('header.multiRotor.desc'), hasSubmenu: true, submenuItems: droneCategories },
-    ...accessoryCategories
+    { name: t('header.swarm'), href: "/products/swarm", description: t('header.swarm.desc') },
+    { name: t('header.tethered'), href: "/products/tethered", description: t('header.tethered.desc') },
+    { name: t('header.logistics'), href: "/products/logistics", description: t('header.logistics.desc') },
+    { name: t('header.multiRotor'), href: "/products/multi-rotor", description: t('header.multiRotor.desc') },
+    { name: t('header.fpvDrone'), href: "/fpv", description: t('header.fpvDrone.desc') },
+    ...accessoryCategories,
   ];
 
   const navItems = [
