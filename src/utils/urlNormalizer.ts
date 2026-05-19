@@ -1,11 +1,11 @@
 /**
  * Global URL normalizer for CANI UAV (caniuav.com)
- * Fixes: .html suffixes, http/non-www redirects, nested lang prefixes, trailing slashes
+ * Fixes: .html suffixes, http redirects, nested lang prefixes, trailing slashes
  * Called once on app mount to ensure canonical URL format.
  */
 
 const LANG_CODES = new Set(['en', 'zh', 'vi', 'th', 'ms', 'id', 'ja', 'ko', 'fr', 'de', 'es', 'ru', 'ar', 'tr']);
-const PRODUCTION_HOST = 'www.caniuav.com';
+const PRODUCTION_HOSTS = new Set(['caniuav.com', 'www.caniuav.com']);
 
 export const normalizeSiteUrl = (): void => {
   if (typeof window === 'undefined') return;
@@ -14,10 +14,11 @@ export const normalizeSiteUrl = (): void => {
   let pathname = url.pathname;
   let shouldRedirect = false;
 
-  // 1. Force HTTPS + www on production domain
-  if (url.hostname === 'caniuav.com' || (url.hostname === PRODUCTION_HOST && url.protocol === 'http:')) {
+  // 1. Force HTTPS on production domains. Do not rewrite apex ↔ www here:
+  // Cloudflare currently redirects www.caniuav.com → caniuav.com, and forcing
+  // the opposite in-app creates an endless reload loop.
+  if (PRODUCTION_HOSTS.has(url.hostname) && url.protocol === 'http:') {
     url.protocol = 'https:';
-    url.hostname = PRODUCTION_HOST;
     shouldRedirect = true;
   }
 

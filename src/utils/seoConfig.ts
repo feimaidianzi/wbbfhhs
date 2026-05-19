@@ -3,6 +3,7 @@ import { stripAllLangPrefixes } from '@/utils/langPathUtils';
 
 // Base domain configuration
 export const BASE_DOMAIN = 'caniuav.com';
+export const CANONICAL_ORIGIN = `https://${BASE_DOMAIN}`;
 
 // Get language path prefix (empty for English as international default)
 export const getLangPrefix = (lang: LanguageCode): string => {
@@ -12,7 +13,7 @@ export const getLangPrefix = (lang: LanguageCode): string => {
 
 // Get full domain URL for a language (path-prefix based)
 export const getDomainForLanguage = (lang: LanguageCode): string => {
-  return `https://www.${BASE_DOMAIN}`;
+  return CANONICAL_ORIGIN;
 };
 
 // Get full URL for a language + path (always strips any existing lang prefixes first)
@@ -21,7 +22,7 @@ export const getUrlForLanguage = (lang: LanguageCode, path: string): string => {
   // Always strip existing language prefixes to prevent nested prefixes in canonical/hreflang URLs
   const stripped = stripAllLangPrefixes(path);
   const cleanPath = stripped === '/' ? '' : stripped;
-  return `https://www.${BASE_DOMAIN}${prefix}${cleanPath}`;
+  return `${CANONICAL_ORIGIN}${prefix}${cleanPath}`;
 };
 
 // Get all alternate URLs for hreflang
@@ -92,7 +93,7 @@ export const createLocalizedOrganizationData = (lang: LanguageCode, t: (key: str
   name: lang === 'zh' ? '长凌科技' : 'CANI Technology',
   alternateName: 'CANI',
   url: getUrlForLanguage(lang, '/'),
-  logo: `https://www.${BASE_DOMAIN}/logo.png`,
+  logo: `${CANONICAL_ORIGIN}/logo.png`,
   description: t('footer.company.desc'),
   address: {
     '@type': 'PostalAddress',
