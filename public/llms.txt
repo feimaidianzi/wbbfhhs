@@ -1,52 +1,60 @@
 # CaniUAV — Industrial UAV Accessories & Custom R&D
-> High-performance UAV components and custom engineering services by CANI.
 
-## Core Products
+> High-performance UAV components and custom engineering services by CANI Technology. 37W high-power VTX, COFDM digital HD links, EO/IR gimbals, flight controllers and ESCs, ELRS receivers, AI vision modules, and full OEM/ODM engineering.
 
-### Digital Video Transmission (/products/accessories/fpv)
-1080P HD COFDM digital link, 30ms end-to-end latency, 50km range. AES-256-GCM encrypted. Ideal for BVLOS missions and power inspection.
+## Pages
 
-### Gimbal & Pods (/products/accessories/gimbal)
-IP67-rated tri-axis stabilized gimbals with IR + RGB dual-sensor fusion. Supports DJI PSDK and MAVLink interfaces. Operational range: -40°C to 60°C.
+- [Home](/): Industrial UAV components manufacturer — 37W VTX, digital HD links, AI guidance modules. 200+ patents, ISO-certified, NDAA-compliant.
+- [About CANI](/about): National High-Tech Enterprise founded 2015, specializing in industrial UAV core component R&D. Deployed in 30+ countries.
+- [Contact](/contact): Sales (market@caniuav.com) and tech support (support@caniuav.com) for OEM/ODM, 37W VTX integration, EO/IR gimbal support.
+- [News](/news): Industry news, technical analysis, and product announcements from CANI Technology.
 
-### High-Power VTX (/products/accessories/vtx)
-Analog video transmitters from 2.5W to 37W output. Long-range line-of-sight up to 50km. Multiple frequency band options.
+## Products
 
-### Flight Controller & ESC (/products/accessories/fc-esc)
-Industrial-grade FC/ESC combos with dual-redundancy IMU, DShot protocol, and programmable firmware. MIL-STD-461G EMC certified.
+- [Product Catalog](/products): Full catalog of industrial UAV components and turnkey systems.
+- [UAV Platforms](/products/multi-rotor): Tethered, cargo, swarm, and industrial FPV drone platforms.
+- [Accessories Overview](/products/accessories): Digital FPV, FC/ESC, gimbals, ELRS, VTX, cameras.
+- [Digital FPV Video Transmission](/products/accessories/fpv): 1080P HD COFDM digital link, 30ms latency, 50km range, AES-256-GCM encrypted.
+- [Gimbal & Pods](/products/accessories/gimbal): IP67 tri-axis stabilized gimbals with IR + RGB dual-sensor fusion; DJI PSDK and MAVLink.
+- [High-Power VTX](/products/accessories/vtx): Analog 2.5W–37W video transmitters with up to 50km line-of-sight.
+- [Flight Controller & ESC](/products/accessories/fc-esc): Industrial FC/ESC combos with dual-redundancy IMU, DShot, MIL-STD-461G certified.
+- [ELRS Control System](/products/accessories/elrs): ExpressLRS long-range control links, sub-millisecond latency, FHSS.
+- [Cameras](/products/accessories/camera): Action and FPV cameras for aerial photography and inspection.
+- [Tethered Drones](/products/tethered): Continuous-flight tethered systems for surveillance, comms relay, emergency lighting.
+- [Logistics Drones](/products/logistics): Cargo delivery UAVs for remote, island, and mountainous terrain.
+- [Drone Airport](/products/airport): Automatic drone docks for unattended operations and data management.
+- [Drone Swarm System](/products/swarm): Multi-drone swarm coordination for formation flight and collaborative missions.
 
-### ELRS Control System (/products/accessories/elrs)
-ExpressLRS-based long-range control links. Sub-millisecond latency, open-source protocol, frequency-hopping spread spectrum.
+## Solutions
 
-### AI Vision Modules (/products/accessories/ai-module)
-Edge AI modules with dual-light (visible + thermal) sensors for autonomous target tracking and defect detection.
+- [Industry Applications](/applications): Power inspection, logistics, firefighting, environment, police, traffic, surveying.
+- [Power Inspection](/applications/power-inspection): Transmission-line inspection with HD video and stabilized gimbals.
+- [Firefighting & Emergency Rescue](/solutions/uav-firefighting-emergency-rescue): Thermal hotspot mapping, BVLOS situational awareness, AI SAR.
+- [Logistics Delivery](/applications/logistics): Autonomous navigation for mountain and island delivery.
+- [Environmental Monitoring](/applications/environment): Air quality, water quality, ecological surveys.
+- [Police & Security](/applications/police): Aerial patrol and public-security operations.
+- [Traffic Management](/applications/traffic): Traffic monitoring, accident response, road inspection.
+- [Surveying & Mapping](/applications/surveying): Aerial surveying, 3D mapping, topographic measurement.
 
-## Custom R&D Services (/custom-research/accessories)
-Full OEM/ODM engineering: PCB layout → firmware development → structural design → extreme-environment testing (-40°C to 60°C). 200+ R&D engineers. Prototype delivery in 30 days.
+## Custom R&D Services
 
-## Custom Drone R&D (/custom-research/drone)
-150kg heavy-lift logistics platform, 30-day tethered continuous flight (500V HVDC), MAVLink 2.0 secure protocol (AES-256). CFD simulation, carbon fiber monocoque airframes, Level 8 wind resistance (17.1m/s). Full OEM/ODM from concept to mass production.
+- [Custom Accessories R&D](/custom-research/accessories): PCB layout, firmware, structural design, extreme-environment testing. 30-day prototypes.
+- [Custom Drone R&D](/custom-research/drone): 150kg heavy-lift, 30-day tethered (500V HVDC), AES-256 MAVLink 2.0, Level 8 wind resistance.
+- [Custom Software R&D](/custom-research/software): Custom GCS, MAVLink optimization, ≤30ms latency, edge AI (YOLOv8), RTK/PPK.
+- [Custom Payload R&D](/custom-research/payload): EO/IR, LiDAR, gas detection, logistics drop, BVLOS comms. PDK dev kit.
 
-## Custom UAV Software R&D (/custom-research/software)
-Industrial-grade UAV software development: custom GCS with multi-sensor 3D calibration, MAVLink protocol optimization, ≤30ms control latency. LibUtils C/C++/Python SDK. Edge AI integration (YOLOv8) for real-time defect detection. RTK/PPK cm-level positioning. Cross-platform: Windows, Android, Linux. BVLOS-compliant (Part 108/SORA). Digital twin sync with ArcGIS/BIM platforms.
+## Compliance
 
-## Custom Payload R&D (/custom-research/payload)
-Industrial UAV payload customization & OEM/ODM. Payload matrix: EO/IR (30x zoom, 640×512 thermal, AI tracking), Survey LiDAR (cm-level RTK/PPK 3D point cloud), Gas Detection (CH₄/CO/O₂/SO₂ TDLAS real-time), Logistics Drop (modular emergency supply), BVLOS Comms (37W VTX, 1080P/30ms, 50km link). Integration: G10D/FLYIR-TX130DA multi-sensor gimbals (≤0.1mrad stabilization, LRF, LWIR), NDT ultrasonic probes for tank inspection. SWaP-C optimized: E-Port ≤4A overcurrent protection, ≤500μF load capacitance. Native MAVLink/ELRS/DJI PSDK. EMI/EMC RF zone shielding for 37W VTX. IP67, -20°C to +55°C. PDK dev kit cuts R&D cycle 50%.
-
-## About CANI (/about)
-CANI Technology, founded 2015, is a National High-Tech Enterprise specializing in industrial UAV core component R&D. Core products: 37W high-power VTX (1080P/30ms, 50km range), ≤0.1mrad 3-axis stabilized EO/IR gimbal (640×512 IR), industrial FC/ESC systems. 50+ patents, ISO 9001 certified. Full OEM/ODM from interface definition to system integration. Deployed in 30+ countries for power inspection, security & SAR, wildfire prevention, and BVLOS surveying missions.
-
-## Contact & Support (/contact)
-Industrial UAV payload OEM/ODM consultation, 37W VTX integration support, EO/IR gimbal tech support. 24/7 technical hotline. PDK payload development kit available. Global BVLOS remote debugging. ICD and SDK documentation provided.
-
-## Compliance & Certifications
 - MIL-STD-461G (EMC)
 - RTCA DO-160G (Vibration)
 - IP67 Protection Rating
 - ISO 9001 Quality Management
 - AES-256-GCM Data Encryption
+- NDAA Compliant
 
 ## Contact
+
 - Website: https://www.caniuav.com
-- Email: market@caniuav.com (Sales) / support@caniuav.com (Tech)
+- Sales: market@caniuav.com
+- Technical Support: support@caniuav.com
 - Phone: +86 180 0845 1238
