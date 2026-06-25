@@ -107,18 +107,6 @@ const Index = () => {
             name: 'Home',
             item: 'https://www.caniuav.com',
           },
-          {
-            '@type': 'ListItem',
-            position: 2,
-            name: t('page.index.k891'),
-            item: 'https://www.caniuav.com/products',
-          },
-          {
-            '@type': 'ListItem',
-            position: 3,
-            name: t('header.swarm'),
-            item: 'https://www.caniuav.com/products/swarm',
-          },
         ],
       },
       {

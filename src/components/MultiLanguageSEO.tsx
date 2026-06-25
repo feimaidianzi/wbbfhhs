@@ -7,6 +7,7 @@ import {
   getOGLocale,
   getHtmlLang,
   createLocalizedOrganizationData,
+  CANONICAL_ORIGIN,
 } from '@/utils/seoConfig';
 
 interface MultiLanguageSEOProps {
@@ -81,7 +82,7 @@ export const MultiLanguageSEO = ({
       <meta property="og:description" content={description} />
       <meta property="og:type" content={type} />
       <meta property="og:url" content={canonicalUrl} />
-      <meta property="og:image" content={image.startsWith('http') ? image : `${canonicalUrl}${image}`} />
+      <meta property="og:image" content={image.startsWith('http') ? image : `${CANONICAL_ORIGIN}${image}`} />
       <meta property="og:image:width" content="1200" />
       <meta property="og:image:height" content="630" />
       <meta property="og:site_name" content={siteName} />
@@ -99,7 +100,7 @@ export const MultiLanguageSEO = ({
       <meta name="twitter:card" content="summary_large_image" />
       <meta name="twitter:title" content={fullTitle} />
       <meta name="twitter:description" content={description} />
-      <meta name="twitter:image" content={image.startsWith('http') ? image : `${canonicalUrl}${image}`} />
+      <meta name="twitter:image" content={image.startsWith('http') ? image : `${CANONICAL_ORIGIN}${image}`} />
 
       {/* Structured Data */}
       {allStructuredData.map((data, index) => (
