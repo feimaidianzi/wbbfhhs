@@ -317,7 +317,7 @@ const NewsManagement = () => {
 
       const { error } = await supabase
         .from('news_articles')
-        .update(updateData)
+        .update(updateData as any)
         .eq('id', reviewingArticle.id);
 
       if (error) throw error;
