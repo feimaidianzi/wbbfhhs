@@ -2,7 +2,7 @@ export const zhHomeTranslations: Record<string, string> = {
   'common.cancel': '取消',
   'hero.tagline': 'CANI · 工业无人机整机制造商',
   'hero.title.line1': '工业级无人机整机',
-  'hero.title.line2': '一站式飞行平台',
+  'hero.title.line2': '一站式制造商',
   'hero.subtitle': '深耕行业级无人机整机研发制造10年，覆盖集群机、系留机、物流机、多旋翼平台与FPV作业机，为全球客户提供稳定、可靠、可定制的飞行平台。',
   'hero.cta.explore': '查看整机系列',
   'hero.cta.about': '了解CANI',
