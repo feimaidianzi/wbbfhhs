@@ -2,7 +2,20 @@ import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { FloatingContact } from "@/components/FloatingContact";
 import { Button } from "@/components/ui/button";
-import { ArrowRight, Zap, Eye, Radio, Shield, Package, Gauge, Flower2, Plane, Navigation } from "lucide-react";
+import {
+  ArrowRight,
+  Zap,
+  Eye,
+  Radio,
+  Shield,
+  Gauge,
+  Wind,
+  Timer,
+  Package,
+  Cpu,
+  Palette,
+  Target,
+} from "lucide-react";
 import { LangLink as Link } from "@/components/LangLink";
 import { MultiLanguageSEO } from "@/components/MultiLanguageSEO";
 import { useLanguage } from "@/contexts/LanguageContext";
@@ -11,242 +24,425 @@ import fpvRacingImg from "@/assets/seo/fpv-racing-drone.jpg";
 import fpvFreestyleImg from "@/assets/seo/fpv-freestyle-drone.jpg";
 import fpvLongrangeImg from "@/assets/seo/fpv-longrange-drone.jpg";
 import fpvCinewhoopImg from "@/assets/seo/fpv-cinewhoop-drone.jpg";
+import fpvOutdoorImg from "@/assets/seo/fpv-outdoor.jpg";
+import fpvRodeoImg from "@/assets/seo/fpv-rodeo-110.jpg";
+
+interface FpvProduct {
+  code: string;
+  name: { zh: string; en: string };
+  tag: { zh: string; en: string };
+  positioning: { zh: string; en: string };
+  config: { zh: string[]; en: string[] };
+  specs: Array<{ value: string; label: { zh: string; en: string } }>;
+  image: string;
+  accent: string;
+}
 
 const FPV = () => {
-  const { t } = useLanguage();
+  const { t, baseLang } = useLanguage();
+  const isEn = baseLang === "en";
+  const tr = (v: { zh: string; en: string }) => (isEn ? v.en : v.zh);
+
+  const products: FpvProduct[] = [
+    {
+      code: "SF-C1S",
+      name: { zh: "SF-C1S 1S 微型穿越机", en: "SF-C1S 1S Micro FPV" },
+      tag: { zh: "入门 · 微型", en: "Entry · Micro" },
+      positioning: {
+        zh: "新手友好与专业性能兼具，极致轻便机身搭配灵活操控，从入门到进阶的完美选择。",
+        en: "Beginner-friendly with pro performance — ultra-light frame and agile control for first-flight to advanced.",
+      },
+      config: {
+        zh: ["1102 无刷电机 + 1S 电调", "F411 微型飞控", "40mm 三叶桨，推力充沛", "双频抗干扰，图传 500m"],
+        en: ["1102 brushless + 1S ESC", "F411 micro FC", "40mm tri-blade, strong thrust", "Dual-band VTX, 500m range"],
+      },
+      specs: [
+        { value: "30 km/h", label: { zh: "极速", en: "Top Speed" } },
+        { value: "3-5 min", label: { zh: "续航", en: "Flight Time" } },
+        { value: "Lv.2", label: { zh: "抗风", en: "Wind Rating" } },
+        { value: "15 g", label: { zh: "重量", en: "Weight" } },
+      ],
+      image: fpvHeroImg,
+      accent: "from-cyan-500/30 to-blue-500/10",
+    },
+    {
+      code: "SF-R5",
+      name: { zh: "爆闪 5 寸竞速穿越机", en: "Flash-5 Racing FPV" },
+      tag: { zh: "竞速 · 高级", en: "Racing · Advanced" },
+      positioning: {
+        zh: "高级竞速穿越机，极致性能与操控手感，专为赛道而生。",
+        en: "Advanced racing rig — extreme performance and feel, born for the track.",
+      },
+      config: {
+        zh: ["高强度碳纤维机架", "F722 竞速飞控", "2207 2700KV 电机", "2.5W 高清图传 + 1550mAh 120C 电池"],
+        en: ["High-strength carbon frame", "F722 racing FC", "2207 2700KV motor", "2.5W HD VTX + 1550mAh 120C pack"],
+      },
+      specs: [
+        { value: "170 km/h", label: { zh: "极速", en: "Top Speed" } },
+        { value: "5-7 min", label: { zh: "续航", en: "Flight Time" } },
+        { value: "Lv.6", label: { zh: "抗风", en: "Wind Rating" } },
+        { value: "-10~45℃", label: { zh: "温域", en: "Temp Range" } },
+      ],
+      image: fpvRacingImg,
+      accent: "from-orange-500/30 to-red-500/10",
+    },
+    {
+      code: "SF-F5XH",
+      name: { zh: "黑闪 5X H 花飞拍摄穿越机", en: "Black-Flash 5X H Freestyle FPV" },
+      tag: { zh: "花飞 · 拍摄", en: "Freestyle · Cinematic" },
+      positioning: {
+        zh: "沉浸式花飞体验，为追求极限视角与飞行艺术的飞手而生。",
+        en: "Immersive freestyle for pilots chasing extreme angles and aerial artistry.",
+      },
+      config: {
+        zh: ["2206 2050KV 电机", "60A 32-bit 4合1 电调", "F722 飞控", "数字图传 & 模拟图传全兼容"],
+        en: ["2206 2050KV motor", "60A 32-bit 4-in-1 ESC", "F722 FC", "Digital & analog VTX compatible"],
+      },
+      specs: [
+        { value: "150 km/h", label: { zh: "极速", en: "Top Speed" } },
+        { value: "6 min", label: { zh: "续航", en: "Flight Time" } },
+        { value: "Lv.5", label: { zh: "抗风", en: "Wind Rating" } },
+        { value: "-10~45℃", label: { zh: "温域", en: "Temp Range" } },
+      ],
+      image: fpvFreestyleImg,
+      accent: "from-purple-500/30 to-pink-500/10",
+    },
+    {
+      code: "SF-C7",
+      name: { zh: "SF-C7 7 寸重载穿越机", en: "SF-C7 7-inch Heavy-Lift FPV" },
+      tag: { zh: "中长航时 · 挂载", en: "Mid-Endurance · Payload" },
+      positioning: {
+        zh: "专为户外多任务场景设计的中长航时穿越机，平衡速度与续航，满足专业飞行与挂载需求。",
+        en: "Mid-endurance platform for outdoor multi-mission ops — balanced speed, range and payload capacity.",
+      },
+      config: {
+        zh: ["1307 无刷电机", "7S 1500mAh 电池", "F722 高性能飞控", "2.5W 模拟图传"],
+        en: ["1307 brushless motor", "7S 1500mAh pack", "F722 high-perf FC", "2.5W analog VTX"],
+      },
+      specs: [
+        { value: "120 km/h", label: { zh: "最大速度", en: "Top Speed" } },
+        { value: "10 min", label: { zh: "续航时间", en: "Flight Time" } },
+        { value: "Lv.5", label: { zh: "最大抗风", en: "Wind Rating" } },
+        { value: "1.5 kg", label: { zh: "载荷能力", en: "Payload" } },
+      ],
+      image: fpvCinewhoopImg,
+      accent: "from-emerald-500/30 to-teal-500/10",
+    },
+    {
+      code: "SF-C10",
+      name: { zh: "SF-C10 10 寸长航时穿越机", en: "SF-C10 10-inch Long-Endurance FPV" },
+      tag: { zh: "长航时 · 户外作业", en: "Long-Endurance · Field Ops" },
+      positioning: {
+        zh: "专为长时间户外作业设计，兼顾续航能力与飞行性能。同系列还提供 11/12 寸更大载重型号。",
+        en: "Engineered for sustained field missions — endurance plus performance. 11/12-inch variants available for heavier payloads.",
+      },
+      config: {
+        zh: ["2306 2400KV 电机", "6S 3000mAh 100C 电池", "F722 飞控", "2.5W 模拟图传"],
+        en: ["2306 2400KV motor", "6S 3000mAh 100C pack", "F722 FC", "2.5W analog VTX"],
+      },
+      specs: [
+        { value: "120 km/h", label: { zh: "速度", en: "Speed" } },
+        { value: "15 min", label: { zh: "续航", en: "Endurance" } },
+        { value: "Lv.6", label: { zh: "抗风", en: "Wind Rating" } },
+        { value: "3 kg", label: { zh: "载荷", en: "Payload" } },
+      ],
+      image: fpvLongrangeImg,
+      accent: "from-sky-500/30 to-indigo-500/10",
+    },
+    {
+      code: "SF-C15",
+      name: { zh: "SF-C15 15 寸重载穿越机", en: "SF-C15 15-inch Heavy-Load FPV" },
+      tag: { zh: "重载 · 强抗风", en: "Heavy-Load · High-Wind" },
+      positioning: {
+        zh: "重型穿越机，专为大型载重作业场景设计，具备出色的抗风能力与动力冗余。",
+        en: "Heavy-lift platform built for high-payload missions with class-leading wind resistance and power redundancy.",
+      },
+      config: {
+        zh: ["3110 1200KV 电机", "8S 5000mAh 100C 电池", "F722 飞控", "2.5W 图传"],
+        en: ["3110 1200KV motor", "8S 5000mAh 100C pack", "F722 FC", "2.5W VTX"],
+      },
+      specs: [
+        { value: "100 km/h", label: { zh: "速度", en: "Speed" } },
+        { value: "20 min", label: { zh: "续航", en: "Endurance" } },
+        { value: "Lv.8", label: { zh: "抗风", en: "Wind Rating" } },
+        { value: "10 kg", label: { zh: "载荷", en: "Payload" } },
+      ],
+      image: fpvOutdoorImg,
+      accent: "from-amber-500/30 to-orange-500/10",
+    },
+    {
+      code: "SF-AI",
+      name: { zh: "AI 火箭穿越机", en: "AI-Rocket FPV" },
+      tag: { zh: "智能 · 高速拦截", en: "Intelligent · High-Speed Intercept" },
+      positioning: {
+        zh: "新一代智能无人机，专为高速拦截与精准任务打造，AI 识别锁定保持 95% 以上命中率。",
+        en: "Next-gen intelligent UAV for high-speed intercept and precision missions — AI lock-on sustains 95%+ hit rate.",
+      },
+      config: {
+        zh: ["复合材料机身，冗余动力", "AI 识别锁定系统", "过载环境稳定飞行", "支持 500g 任务负载"],
+        en: ["Composite airframe, redundant power", "AI target lock-on system", "Stable under overload conditions", "Supports 500g mission payload"],
+      },
+      specs: [
+        { value: "480 km/h", label: { zh: "极速巡航", en: "Cruise Top" } },
+        { value: "5 min", label: { zh: "飞行续航", en: "Flight Time" } },
+        { value: "Lv.6", label: { zh: "抗风能力", en: "Wind Rating" } },
+        { value: "500 g", label: { zh: "任务负载", en: "Payload" } },
+      ],
+      image: fpvRodeoImg,
+      accent: "from-rose-500/30 to-fuchsia-500/10",
+    },
+  ];
 
   const features = [
-    { icon: Zap, title: t('fpv.features.speed.title'), description: t('fpv.features.speed.desc') },
-    { icon: Eye, title: t('fpv.features.fpv.title'), description: t('fpv.features.fpv.desc') },
-    { icon: Radio, title: t('fpv.features.latency.title'), description: t('fpv.features.latency.desc') },
-    { icon: Shield, title: t('fpv.features.durable.title'), description: t('fpv.features.durable.desc') },
+    { icon: Zap, title: t("fpv.features.speed.title"), description: t("fpv.features.speed.desc") },
+    { icon: Eye, title: t("fpv.features.fpv.title"), description: t("fpv.features.fpv.desc") },
+    { icon: Radio, title: t("fpv.features.latency.title"), description: t("fpv.features.latency.desc") },
+    { icon: Shield, title: t("fpv.features.durable.title"), description: t("fpv.features.durable.desc") },
   ];
 
-  const categories = [
-    { name: t('fpv.categories.kits'), description: t('fpv.categories.kits.desc'), icon: Package, image: fpvHeroImg, link: "/fpv/kit", products: 8 },
-    { name: t('fpv.categories.racing'), description: t('fpv.categories.racing.desc'), icon: Gauge, image: fpvRacingImg, link: "/fpv/racing", products: 6 },
-    { name: t('fpv.categories.freestyle'), description: t('fpv.categories.freestyle.desc'), icon: Flower2, image: fpvFreestyleImg, link: "/fpv/freestyle", products: 5 },
-    { name: t('fpv.categories.longRange'), description: t('fpv.categories.longRange.desc'), icon: Navigation, image: fpvLongrangeImg, link: "/fpv/longrange", products: 4 },
-    { name: t('fpv.categories.cinewhoop'), description: t('fpv.categories.cinewhoop.desc'), icon: Plane, image: fpvCinewhoopImg, link: "/fpv/cinematic", products: 5 },
-  ];
-
-  const hotProducts = [
-    { name: t('fpv.hot.product1.name'), category: t('fpv.categories.racing'), description: t('fpv.hot.product1.desc'), specs: [t('fpv.hot.product1.spec1'), t('fpv.hot.product1.spec2'), t('fpv.hot.product1.spec3')], image: fpvHeroImg, price: t('fpv.hot.product1.price') },
-    { name: t('fpv.hot.product2.name'), category: t('fpv.categories.freestyle'), description: t('fpv.hot.product2.desc'), specs: [t('fpv.hot.product2.spec1'), t('fpv.hot.product2.spec2'), t('fpv.hot.product2.spec3')], image: fpvRacingImg, price: t('fpv.hot.product2.price') },
-    { name: t('fpv.hot.product3.name'), category: t('fpv.categories.longRange'), description: t('fpv.hot.product3.desc'), specs: [t('fpv.hot.product3.spec1'), t('fpv.hot.product3.spec2'), t('fpv.hot.product3.spec3')], image: fpvFreestyleImg, price: t('fpv.hot.product3.price') },
-  ];
-
-  const accessories = [
-    { name: t('fpv.accessory.goggles'), price: t('fpv.accessory.goggles.price') },
-    { name: t('fpv.accessory.controller'), price: t('fpv.accessory.controller.price') },
-    { name: t('fpv.accessory.charger'), price: t('fpv.accessory.charger.price') },
-    { name: t('fpv.accessory.props'), price: t('fpv.accessory.props.price') },
-    { name: t('fpv.accessory.tools'), price: t('fpv.accessory.tools.price') },
-    { name: t('fpv.accessory.bag'), price: t('fpv.accessory.bag.price') },
-  ];
-
-  const articles = [
-    { title: t('fpv.article1.title'), excerpt: t('fpv.article1.excerpt'), image: fpvHeroImg, date: "2025-08-15" },
-    { title: t('fpv.article2.title'), excerpt: t('fpv.article2.excerpt'), image: fpvRacingImg, date: "2025-05-20" },
-    { title: t('fpv.article3.title'), excerpt: t('fpv.article3.excerpt'), image: fpvFreestyleImg, date: "2025-05-10" },
+  const customization = [
+    {
+      icon: Cpu,
+      title: { zh: "硬件定制", en: "Hardware" },
+      items: {
+        zh: ["动力系统：电机/电调/电池组合，匹配速度与续航需求", "飞控系统：定制算法与传感器配置", "机身结构：碳纤维气动优化与挂载能力"],
+        en: ["Powertrain: motor/ESC/battery combos tuned to speed & endurance", "Flight control: custom algorithms & sensor stacks", "Frame: carbon aero optimisation & payload mounts"],
+      },
+    },
+    {
+      icon: Radio,
+      title: { zh: "软件定制", en: "Software" },
+      items: {
+        zh: ["飞行控制：定制飞行模式与任务规划", "图传系统：多频段与传输距离适配", "地面站：实时数据/分析/远程操控"],
+        en: ["Flight control: custom modes & mission planning", "VTX: multi-band & range adaptation", "Ground station: live telemetry, analytics, remote ops"],
+      },
+    },
+    {
+      icon: Palette,
+      title: { zh: "外观定制", en: "Appearance" },
+      items: {
+        zh: ["个性化涂装：定制配色与图案", "品牌标识印刷：LOGO/型号/Slogan", "提升品牌辨识度"],
+        en: ["Custom liveries & patterns", "Brand printing: logo/model/slogan", "Stronger brand identity"],
+      },
+    },
+    {
+      icon: Target,
+      title: { zh: "场景定制", en: "Scenario" },
+      items: {
+        zh: ["竞速竞赛：极致动力与操控", "花飞拍摄：稳定灵活兼顾", "专业训练：高容错安全方案", "军警应用：稳定侦察平台"],
+        en: ["Racing: max power & control", "Freestyle/cine: stable + agile", "Training: high-tolerance safety", "Mil/LE: stable recon platform"],
+      },
+    },
   ];
 
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen bg-[#0a0f1a]">
       <MultiLanguageSEO
-        title={t('fpv.seo.title')}
-        description={t('fpv.seo.description')}
-        keywords={t('fpv.seo.keywords')}
+        title={t("fpv.seo.title")}
+        description={t("fpv.seo.description")}
+        keywords={t("fpv.seo.keywords")}
         path="/fpv"
       />
       <Header />
       <main className="pt-16 md:pt-20">
-        {/* Hero Section */}
-        <section className="relative h-[450px] md:h-[550px] overflow-hidden">
-          <div className="absolute inset-0 bg-cover bg-center" style={{ backgroundImage: `url(${fpvHeroImg})` }}>
-          </div>
+        {/* Hero */}
+        <section className="relative h-[460px] md:h-[560px] overflow-hidden">
+          <div className="absolute inset-0 bg-cover bg-center" style={{ backgroundImage: `url(${fpvHeroImg})` }} />
+          <div className="absolute inset-0 bg-gradient-to-r from-[#0a0f1a]/95 via-[#0a0f1a]/70 to-transparent" />
           <div className="relative container-custom h-full flex items-center">
-            <div className="max-w-2xl animate-fade-in rounded-3xl bg-black/70 border border-white/20 p-6 md:p-8 shadow-lg">
-              <div className="inline-block px-4 py-1 bg-white/10 rounded-full text-cyan-400 text-sm font-medium mb-4">
-                {t('fpv.hero.badge')}
+            <div className="max-w-2xl animate-fade-in">
+              <div className="inline-block px-4 py-1 bg-cyan-500/10 border border-cyan-400/30 rounded-full text-cyan-300 text-sm font-medium mb-4">
+                {isEn ? "SF FPV Drone Series" : "SF 穿越机系列"}
               </div>
               <h1 className="text-3xl md:text-5xl lg:text-6xl font-bold text-white mb-4 leading-tight">
-                {t('fpv.hero.title')}
+                {isEn ? "FPV Drone Series" : "FPV 穿越机系列"}
               </h1>
               <p className="text-lg md:text-xl text-white/80 mb-8 leading-relaxed">
-                {t('fpv.hero.subtitle')}
+                {isEn
+                  ? "From 1S micro trainers to 15-inch heavy-lift and AI intercept platforms — seven specialised airframes covering racing, freestyle, cinematic, long-range and mission roles."
+                  : "从 1S 微型入门机到 15 寸重载与 AI 拦截平台，七款专业机型覆盖竞速、花飞、拍摄、长航与任务场景。"}
               </p>
               <div className="flex flex-col sm:flex-row gap-4">
-                <Button className="bg-accent hover:bg-accent/90 text-accent-foreground px-8 py-6 text-lg shadow-lg">
-                  {t('fpv.hero.browse')}
-                  <ArrowRight className="w-5 h-5 ml-2" />
+                <Button asChild className="bg-cyan-500 hover:bg-cyan-400 text-[#0a0f1a] px-8 py-6 text-lg shadow-lg font-semibold">
+                  <a href="#fpv-lineup">
+                    {isEn ? "Browse Lineup" : "查看全部机型"}
+                    <ArrowRight className="w-5 h-5 ml-2" />
+                  </a>
                 </Button>
-                <Button variant="outline" className="border-accent/30 hover:border-accent text-foreground px-8 py-6 text-lg">
-                  {t('fpv.hero.guide')}
+                <Button asChild variant="outline" className="border-white/30 text-white hover:bg-white/10 px-8 py-6 text-lg">
+                  <Link to="/contact">{isEn ? "Request Quote" : "获取报价"}</Link>
                 </Button>
               </div>
             </div>
           </div>
-          <div className="absolute bottom-0 left-0 right-0 h-16 bg-gradient-to-t from-secondary to-transparent" />
         </section>
 
         {/* Features */}
-        <section className="py-16 bg-secondary">
+        <section className="py-16 bg-[#0d1424] border-y border-white/5">
           <div className="container-custom">
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            <div className="grid grid-cols-2 lg:grid-cols-4 gap-8">
               {features.map((feature, index) => (
                 <div key={index} className="text-center group">
-                  <div className="w-16 h-16 mx-auto mb-4 rounded-xl bg-accent/10 flex items-center justify-center group-hover:bg-accent/20 transition-colors">
-                    <feature.icon className="w-8 h-8 text-accent" />
+                  <div className="w-16 h-16 mx-auto mb-4 rounded-xl bg-cyan-500/10 border border-cyan-400/20 flex items-center justify-center group-hover:bg-cyan-500/20 transition-colors">
+                    <feature.icon className="w-8 h-8 text-cyan-400" />
                   </div>
-                  <h3 className="text-lg font-bold text-foreground mb-2">{feature.title}</h3>
-                  <p className="text-muted-foreground text-sm">{feature.description}</p>
+                  <h3 className="text-lg font-bold text-white mb-2">{feature.title}</h3>
+                  <p className="text-white/60 text-sm">{feature.description}</p>
                 </div>
               ))}
             </div>
           </div>
         </section>
 
-        {/* Product Categories */}
-        <section className="py-20 bg-background">
+        {/* Product Lineup */}
+        <section id="fpv-lineup" className="py-20 bg-[#0a0f1a]">
           <div className="container-custom">
             <div className="text-center mb-14">
-              <h2 className="text-2xl md:text-4xl font-bold mb-4">{t('fpv.categories.title')}</h2>
-              <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
-                {t('fpv.categories.subtitle')}
+              <h2 className="text-2xl md:text-4xl font-bold mb-4 text-white">
+                {isEn ? "FPV Lineup" : "穿越机机型阵列"}
+              </h2>
+              <p className="text-white/60 text-lg max-w-2xl mx-auto">
+                {isEn
+                  ? "Seven specialised platforms — from 15g micro to 10kg heavy-lift and 480km/h AI intercept."
+                  : "七款专业机型 — 从 15g 微型到 10kg 重载、480km/h AI 拦截全覆盖。"}
               </p>
-              <div className="w-20 h-1 bg-accent mx-auto rounded-full mt-4" />
+              <div className="w-20 h-1 bg-cyan-400 mx-auto rounded-full mt-4" />
             </div>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {categories.map((category, index) => (
-                <Link key={index} to={category.link} className="group bg-card rounded-2xl overflow-hidden shadow-card hover:shadow-card-hover transition-all duration-300 hover:-translate-y-1">
-                  <div className="aspect-[16/10] overflow-hidden relative">
-                    <img loading="lazy" decoding="async" src={category.image} alt={category.name} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" />
-                    <div className="absolute bottom-4 left-4 flex items-center gap-2">
-                      <div className="w-10 h-10 bg-accent rounded-lg flex items-center justify-center">
-                        <category.icon className="w-5 h-5 text-accent-foreground" />
-                      </div>
-                      <span className="text-sm text-card-foreground bg-card/80 px-2 py-1 rounded backdrop-blur-sm">
-                        {category.products} {t('fpv.products')}
+
+            <div className="space-y-10">
+              {products.map((p, idx) => (
+                <article
+                  key={p.code}
+                  className="grid grid-cols-1 lg:grid-cols-2 gap-0 bg-[#0d1424] border border-white/5 rounded-2xl overflow-hidden hover:border-cyan-400/30 transition-colors"
+                >
+                  <div className={`relative aspect-[16/10] lg:aspect-auto overflow-hidden ${idx % 2 === 1 ? "lg:order-2" : ""}`}>
+                    <img
+                      loading="lazy"
+                      decoding="async"
+                      src={p.image}
+                      alt={tr(p.name)}
+                      className="w-full h-full object-cover"
+                    />
+                    <div className={`absolute inset-0 bg-gradient-to-br ${p.accent} pointer-events-none`} />
+                    <div className="absolute top-4 left-4 flex gap-2">
+                      <span className="px-3 py-1 bg-[#0a0f1a]/80 border border-cyan-400/40 text-cyan-300 text-xs font-mono rounded">
+                        {p.code}
+                      </span>
+                      <span className="px-3 py-1 bg-[#0a0f1a]/80 border border-white/20 text-white/80 text-xs rounded">
+                        {tr(p.tag)}
                       </span>
                     </div>
                   </div>
-                  <div className="p-6">
-                    <h3 className="text-xl font-bold text-card-foreground mb-2 group-hover:text-accent transition-colors">{category.name}</h3>
-                    <p className="text-muted-foreground text-sm">{category.description}</p>
-                    <div className="mt-4 flex items-center text-accent text-sm font-medium">
-                      {t('fpv.viewAll')}
-                      <ArrowRight className="w-4 h-4 ml-1 group-hover:translate-x-1 transition-transform" />
-                    </div>
-                  </div>
-                </Link>
-              ))}
-            </div>
-          </div>
-        </section>
 
-        {/* Hot Products */}
-        <section className="py-20 bg-secondary">
-          <div className="container-custom">
-            <div className="text-center mb-14">
-              <h2 className="text-2xl md:text-4xl font-bold mb-4">{t('fpv.hot.title')}</h2>
-              <div className="w-20 h-1 bg-accent mx-auto rounded-full" />
-            </div>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-              {hotProducts.map((product, index) => (
-                <div key={index} className="group bg-card rounded-2xl overflow-hidden shadow-card hover:shadow-card-hover transition-all">
-                  <div className="aspect-[4/3] overflow-hidden relative">
-                    <img loading="lazy" decoding="async" src={product.image} alt={product.name} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
-                    <div className="absolute top-4 left-4 px-3 py-1 bg-accent text-accent-foreground text-xs font-medium rounded-full">{product.category}</div>
-                  </div>
-                  <div className="p-6">
-                    <h3 className="text-xl font-bold text-card-foreground mb-2">{product.name}</h3>
-                    <p className="text-muted-foreground mb-4 text-sm">{product.description}</p>
-                    <div className="space-y-2 mb-4">
-                      {product.specs.map((spec, i) => (<div key={i} className="text-sm text-foreground/80">• {spec}</div>))}
+                  <div className="p-6 md:p-8 flex flex-col justify-between">
+                    <div>
+                      <h3 className="text-xl md:text-2xl font-bold text-white mb-3">{tr(p.name)}</h3>
+                      <p className="text-white/70 leading-relaxed mb-6">{tr(p.positioning)}</p>
+
+                      <div className="mb-6">
+                        <div className="text-xs uppercase tracking-wider text-cyan-400 font-semibold mb-3">
+                          {isEn ? "Core Configuration" : "核心配置"}
+                        </div>
+                        <ul className="space-y-2">
+                          {(isEn ? p.config.en : p.config.zh).map((c, i) => (
+                            <li key={i} className="flex items-start gap-2 text-sm text-white/80">
+                              <span className="text-cyan-400 mt-1">▍</span>
+                              <span>{c}</span>
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
                     </div>
-                    <div className="flex items-center justify-between">
-                      <span className="text-2xl font-bold text-accent">{product.price}</span>
-                      <Button variant="outline" className="border-accent text-accent hover:bg-accent hover:text-accent-foreground">
-                        {t('fpv.learnMore')}
+
+                    <div className="grid grid-cols-2 md:grid-cols-4 gap-3 pt-6 border-t border-white/10">
+                      {p.specs.map((s, i) => (
+                        <div key={i} className="text-center">
+                          <div className="text-lg md:text-xl font-bold text-cyan-300">{s.value}</div>
+                          <div className="text-xs text-white/50 mt-1">{tr(s.label)}</div>
+                        </div>
+                      ))}
+                    </div>
+
+                    <div className="mt-6 flex items-center justify-between">
+                      <span className="text-xs text-white/40">
+                        {isEn ? "Specs depend on environment & payload." : "性能数据受环境与载荷影响"}
+                      </span>
+                      <Button asChild size="sm" variant="outline" className="border-cyan-400/40 text-cyan-300 hover:bg-cyan-400/10 min-h-[44px]">
+                        <Link to="/contact">
+                          {isEn ? "Get Quote" : "获取报价"}
+                          <ArrowRight className="w-4 h-4 ml-1" />
+                        </Link>
                       </Button>
                     </div>
                   </div>
-                </div>
+                </article>
               ))}
             </div>
           </div>
         </section>
 
-        {/* Accessories */}
-        <section className="py-16 bg-background">
-          <div className="container-custom">
-            <div className="text-center mb-12">
-              <h2 className="text-2xl md:text-3xl font-bold mb-4">{t('fpv.accessories.title')}</h2>
-              <div className="w-20 h-1 bg-accent mx-auto rounded-full" />
-            </div>
-            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
-              {accessories.map((item, index) => (
-                <div key={index} className="p-4 bg-card rounded-xl shadow-card hover:shadow-card-hover transition-all text-center group cursor-pointer">
-                  <span className="text-sm font-medium text-card-foreground group-hover:text-accent transition-colors block mb-1">{item.name}</span>
-                  <span className="text-xs text-muted-foreground">{item.price}</span>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        {/* Articles */}
-        <section className="py-20 bg-secondary">
+        {/* Customization */}
+        <section className="py-20 bg-[#0d1424] border-y border-white/5">
           <div className="container-custom">
             <div className="text-center mb-14">
-              <h2 className="text-2xl md:text-4xl font-bold mb-4">{t('fpv.articles.title')}</h2>
-              <p className="text-muted-foreground">{t('fpv.articles.subtitle')}</p>
-              <div className="w-20 h-1 bg-accent mx-auto rounded-full mt-4" />
+              <div className="inline-block px-4 py-1 bg-cyan-500/10 border border-cyan-400/30 rounded-full text-cyan-300 text-sm mb-4">
+                {isEn ? "OEM / ODM" : "OEM / ODM 服务"}
+              </div>
+              <h2 className="text-2xl md:text-4xl font-bold mb-4 text-white">
+                {isEn ? "FPV Customisation Services" : "穿越机系列 · 定制化服务"}
+              </h2>
+              <p className="text-white/60 max-w-2xl mx-auto">
+                {isEn
+                  ? "Hardware, software, livery and scenario-level customisation — built around your mission profile."
+                  : "硬件、软件、外观与场景四维定制 — 围绕您的任务需求量身打造。"}
+              </p>
             </div>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-              {articles.map((article, index) => (
-                <div key={index} className="group bg-card rounded-2xl overflow-hidden shadow-card hover:shadow-card-hover transition-all cursor-pointer">
-                  <div className="aspect-[16/10] overflow-hidden">
-                    <img loading="lazy" decoding="async" src={article.image} alt={article.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+              {customization.map((c, i) => (
+                <div key={i} className="bg-[#0a0f1a] border border-white/10 rounded-xl p-6 hover:border-cyan-400/30 transition-colors">
+                  <div className="w-12 h-12 rounded-lg bg-cyan-500/10 border border-cyan-400/20 flex items-center justify-center mb-4">
+                    <c.icon className="w-6 h-6 text-cyan-400" />
                   </div>
-                  <div className="p-6">
-                    <span className="text-xs text-muted-foreground">{article.date}</span>
-                    <h3 className="text-lg font-bold text-card-foreground mt-2 mb-3 group-hover:text-accent transition-colors line-clamp-2">{article.title}</h3>
-                    <p className="text-muted-foreground text-sm line-clamp-2">{article.excerpt}</p>
-                  </div>
+                  <h3 className="text-lg font-bold text-white mb-4">{tr(c.title)}</h3>
+                  <ul className="space-y-2">
+                    {(isEn ? c.items.en : c.items.zh).map((it, j) => (
+                      <li key={j} className="text-sm text-white/70 flex items-start gap-2">
+                        <span className="text-cyan-400 mt-1">·</span>
+                        <span>{it}</span>
+                      </li>
+                    ))}
+                  </ul>
                 </div>
               ))}
-            </div>
-            <div className="text-center mt-10">
-              <Button variant="outline" className="border-accent text-accent hover:bg-accent hover:text-accent-foreground">
-                {t('fpv.readMore')}
-                <ArrowRight className="w-4 h-4 ml-2" />
-              </Button>
             </div>
           </div>
         </section>
 
         {/* CTA */}
-        <section className="py-20 bg-primary relative overflow-hidden">
-          <div className="absolute inset-0 opacity-10">
-            <div className="absolute top-0 right-0 w-96 h-96 bg-accent rounded-full blur-3xl -translate-y-1/2 translate-x-1/2" />
-            <div className="absolute bottom-0 left-0 w-96 h-96 bg-accent rounded-full blur-3xl translate-y-1/2 -translate-x-1/2" />
+        <section className="py-20 bg-[#0a0f1a] relative overflow-hidden">
+          <div className="absolute inset-0 opacity-20">
+            <div className="absolute top-0 right-0 w-96 h-96 bg-cyan-500 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2" />
+            <div className="absolute bottom-0 left-0 w-96 h-96 bg-blue-500 rounded-full blur-3xl translate-y-1/2 -translate-x-1/2" />
           </div>
           <div className="container-custom text-center relative">
-            <h2 className="text-2xl md:text-4xl font-bold text-primary-foreground mb-4">
-              {t('fpv.cta.title')}
+            <h2 className="text-2xl md:text-4xl font-bold text-white mb-4">
+              {isEn ? "Need a tailored FPV platform?" : "需要定制专属 FPV 平台？"}
             </h2>
-            <p className="text-primary-foreground/80 mb-10 max-w-2xl mx-auto">
-              {t('fpv.cta.subtitle')}
+            <p className="text-white/70 mb-10 max-w-2xl mx-auto">
+              {isEn
+                ? "Talk to our engineering team about racing, cinematic, heavy-lift or AI mission requirements."
+                : "与我们的工程团队对接竞速、拍摄、重载或 AI 任务需求。"}
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button className="bg-accent hover:bg-accent/90 text-accent-foreground px-10 py-6 text-lg shadow-lg">
-                {t('fpv.cta.join')}
-                <ArrowRight className="w-5 h-5 ml-2" />
+              <Button asChild className="bg-cyan-500 hover:bg-cyan-400 text-[#0a0f1a] px-10 py-6 text-lg font-semibold shadow-lg min-h-[44px]">
+                <Link to="/contact">
+                  {isEn ? "Email Us" : "联系我们"}
+                  <ArrowRight className="w-5 h-5 ml-2" />
+                </Link>
               </Button>
-              <Button className="bg-primary-foreground/20 border border-primary-foreground/50 text-primary-foreground hover:bg-primary-foreground/30 px-10 py-6 text-lg backdrop-blur-sm">
-                {t('nav.contact')}
+              <Button asChild variant="outline" className="border-white/30 text-white hover:bg-white/10 px-10 py-6 text-lg min-h-[44px]">
+                <Link to="/custom-research">{isEn ? "Custom R&D" : "定制研发"}</Link>
               </Button>
             </div>
           </div>
