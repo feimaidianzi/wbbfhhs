@@ -191,21 +191,21 @@ const RichTextEditor = ({ content, onChange, placeholder }: RichTextEditorProps)
       {/* Toolbar */}
       <div className="flex flex-wrap gap-1 p-2 border-b border-slate-600 bg-slate-800">
         <ToolbarButton
-          onClick={() => editor.chain().focus().toggleHeading({ level: 1 }).run()}
+          onClick={() => (editor.chain().focus() as any).toggleHeading({ level: 1 }).run()}
           isActive={editor.isActive('heading', { level: 1 })}
           title="标题1"
         >
           <Heading1 className="w-4 h-4" />
         </ToolbarButton>
         <ToolbarButton
-          onClick={() => editor.chain().focus().toggleHeading({ level: 2 }).run()}
+          onClick={() => (editor.chain().focus() as any).toggleHeading({ level: 2 }).run()}
           isActive={editor.isActive('heading', { level: 2 })}
           title="标题2"
         >
           <Heading2 className="w-4 h-4" />
         </ToolbarButton>
         <ToolbarButton
-          onClick={() => editor.chain().focus().toggleHeading({ level: 3 }).run()}
+          onClick={() => (editor.chain().focus() as any).toggleHeading({ level: 3 }).run()}
           isActive={editor.isActive('heading', { level: 3 })}
           title="标题3"
         >
@@ -215,35 +215,35 @@ const RichTextEditor = ({ content, onChange, placeholder }: RichTextEditorProps)
         <div className="w-px bg-slate-600 mx-1" />
 
         <ToolbarButton
-          onClick={() => editor.chain().focus().toggleBold().run()}
+          onClick={() => (editor.chain().focus() as any).toggleBold().run()}
           isActive={editor.isActive('bold')}
           title="加粗"
         >
           <Bold className="w-4 h-4" />
         </ToolbarButton>
         <ToolbarButton
-          onClick={() => editor.chain().focus().toggleItalic().run()}
+          onClick={() => (editor.chain().focus() as any).toggleItalic().run()}
           isActive={editor.isActive('italic')}
           title="斜体"
         >
           <Italic className="w-4 h-4" />
         </ToolbarButton>
         <ToolbarButton
-          onClick={() => editor.chain().focus().toggleUnderline().run()}
+          onClick={() => (editor.chain().focus() as any).toggleUnderline().run()}
           isActive={editor.isActive('underline')}
           title="下划线"
         >
           <UnderlineIcon className="w-4 h-4" />
         </ToolbarButton>
         <ToolbarButton
-          onClick={() => editor.chain().focus().toggleStrike().run()}
+          onClick={() => (editor.chain().focus() as any).toggleStrike().run()}
           isActive={editor.isActive('strike')}
           title="删除线"
         >
           <Strikethrough className="w-4 h-4" />
         </ToolbarButton>
         <ToolbarButton
-          onClick={() => editor.chain().focus().toggleCode().run()}
+          onClick={() => (editor.chain().focus() as any).toggleCode().run()}
           isActive={editor.isActive('code')}
           title="行内代码"
         >
@@ -277,21 +277,21 @@ const RichTextEditor = ({ content, onChange, placeholder }: RichTextEditorProps)
         <div className="w-px bg-slate-600 mx-1" />
 
         <ToolbarButton
-          onClick={() => editor.chain().focus().toggleBulletList().run()}
+          onClick={() => (editor.chain().focus() as any).toggleBulletList().run()}
           isActive={editor.isActive('bulletList')}
           title="无序列表"
         >
           <List className="w-4 h-4" />
         </ToolbarButton>
         <ToolbarButton
-          onClick={() => editor.chain().focus().toggleOrderedList().run()}
+          onClick={() => (editor.chain().focus() as any).toggleOrderedList().run()}
           isActive={editor.isActive('orderedList')}
           title="有序列表"
         >
           <ListOrdered className="w-4 h-4" />
         </ToolbarButton>
         <ToolbarButton
-          onClick={() => editor.chain().focus().toggleBlockquote().run()}
+          onClick={() => (editor.chain().focus() as any).toggleBlockquote().run()}
           isActive={editor.isActive('blockquote')}
           title="引用"
         >
@@ -334,13 +334,13 @@ const RichTextEditor = ({ content, onChange, placeholder }: RichTextEditorProps)
         <div className="w-px bg-slate-600 mx-1" />
 
         <ToolbarButton
-          onClick={() => editor.chain().focus().undo().run()}
+          onClick={() => (editor.chain().focus() as any).undo().run()}
           title="撤销"
         >
           <Undo className="w-4 h-4" />
         </ToolbarButton>
         <ToolbarButton
-          onClick={() => editor.chain().focus().redo().run()}
+          onClick={() => (editor.chain().focus() as any).redo().run()}
           title="重做"
         >
           <Redo className="w-4 h-4" />
