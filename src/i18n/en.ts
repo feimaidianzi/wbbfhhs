@@ -9755,4 +9755,4 @@ export const enTranslations: Record<string, string> = {
   'workDrone.stat4.title': 'Autonomous Flight',
 };
 
-export default zhTranslations;
+export default enTranslations;
