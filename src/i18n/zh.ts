@@ -6477,7 +6477,8 @@ export const zhTranslations: Record<string, string> = {
   'fpvCategory.cinematic.product3.feature1': '电影级平台',
   'fpvCategory.cinematic.product3.feature2': '超强载荷',
   'fpvCategory.cinematic.product3.feature3': '精准控制',
-'fpvCategory.cinematic.product3.feature4': '专业团队支持',
+  'fpvCategory.cinematic.product3.feature4': '专业团队支持',
+  'fpvCategory.getQuote': '获取报价',
 
   // ===== Gimbal Products =====
   'gimbal.category.quad': '四光云台相机',
