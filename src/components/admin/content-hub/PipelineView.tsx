@@ -149,7 +149,7 @@ export const PipelineView = ({
           onRefresh();
           return;
       }
-      const { error } = await supabase.from('news_articles').update(updateData).eq('id', articleId);
+      const { error } = await supabase.from('news_articles').update(updateData as any).eq('id', articleId);
       if (error) throw error;
       toast({ title: action === 'approve' ? '已通过并发布' : action === 'reject' ? '已拒绝' : action === 'publish' ? '已发布' : '已取消发布' });
       onRefresh();

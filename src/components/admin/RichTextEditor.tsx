@@ -43,7 +43,7 @@ const RichTextEditor = ({ content, onChange, placeholder }: RichTextEditorProps)
   const fileInputRef = useRef<HTMLInputElement>(null);
   const editor = useEditor({
     extensions: [
-      StarterKit.configure({
+      (StarterKit as any).configure({
         heading: {
           levels: [1, 2, 3],
         },
