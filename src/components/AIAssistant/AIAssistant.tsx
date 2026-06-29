@@ -38,7 +38,7 @@ const getOrCreateVisitorId = (): string => {
 };
 
 export const AIAssistant = () => {
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
   const { toast } = useToast();
   const [isOpen, setIsOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
@@ -325,6 +325,7 @@ export const AIAssistant = () => {
             })),
             conversationId: convId,
             sessionId: visitorId,
+            language,
           }),
         }
       );
