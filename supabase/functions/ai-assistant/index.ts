@@ -5,9 +5,18 @@ const corsHeaders = {
   "Access-Control-Allow-Headers": "authorization, x-client-info, apikey, content-type",
 };
 
-// 使用豆包API
-const DOUBAO_API_URL = "https://ark.cn-beijing.volces.com/api/v3/chat/completions";
-const DOUBAO_MODEL = "doubao-seed-1-6-lite-251015";
+// 使用 DeepSeek API（OpenAI-compatible）
+const DEEPSEEK_API_URL = "https://api.deepseek.com/v1/chat/completions";
+const DEEPSEEK_MODEL = "deepseek-chat";
+const DEEPSEEK_SECRET_NAMES = [
+  "DEEPSEEK_API_KEY",
+  "DEEPSEEK_API_KEY_2",
+  "DEEPSEEK_API_KEY_3",
+  "DEEPSEEK_API_KEY_4",
+  "DEEPSEEK_API_KEY_5",
+  "DEEPSEEK_API_KEY_6",
+  "DEEPSEEK_API_KEY_7",
+];
 
 const SYSTEM_PROMPT = `你是长凌科技的AI客服助手"小凌"。长凌科技(CANI)是一家专业的工业无人机配件供应商,主要产品包括:
 
@@ -45,7 +54,15 @@ interface RequestBody {
   action?: "chat" | "extract_lead" | "transfer_human" | "auto_extract" | "load_history" | "save_message" | "create_conversation";
 }
 
-// 使用豆包自动提取线索信息
+function getDeepSeekApiKey() {
+  for (const name of DEEPSEEK_SECRET_NAMES) {
+    const value = Deno.env.get(name);
+    if (value) return value;
+  }
+  return null;
+}
+
+// 使用 DeepSeek 自动提取线索信息
 async function autoExtractLeadInfo(messages: Message[], apiKey: string): Promise<any> {
   const extractPrompt = `分析以下客服对话,提取客户信息。只返回JSON格式数据,不要有其他内容。
 
@@ -85,14 +102,14 @@ async function autoExtractLeadInfo(messages: Message[], apiKey: string): Promise
 ${messages.slice(-10).map(m => `${m.role}: ${m.content}`).join('\n')}`;
 
   try {
-    const response = await fetch(DOUBAO_API_URL, {
+    const response = await fetch(DEEPSEEK_API_URL, {
       method: "POST",
       headers: {
         "Authorization": `Bearer ${apiKey}`,
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        model: DOUBAO_MODEL,
+        model: DEEPSEEK_MODEL,
         messages: [
           { role: "system", content: "你是一个信息提取助手,只返回JSON格式的数据,不要有其他内容。确保JSON格式正确。" },
           { role: "user", content: extractPrompt }
@@ -188,10 +205,7 @@ Deno.serve(async (req) => {
   }
 
   try {
-    const DOUBAO_API_KEY = Deno.env.get("DOUBAO_API_KEY");
-    if (!DOUBAO_API_KEY) {
-      throw new Error("DOUBAO_API_KEY is not configured");
-    }
+    const deepSeekApiKey = getDeepSeekApiKey();
 
     const supabaseUrl = Deno.env.get("SUPABASE_URL")!;
     const supabaseKey = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!;
@@ -300,7 +314,14 @@ Deno.serve(async (req) => {
 
     // Handle lead extraction (manual)
     if (action === "extract_lead" && conversationId) {
-      const leadInfo = await autoExtractLeadInfo(messages, DOUBAO_API_KEY);
+      if (!deepSeekApiKey) {
+        return new Response(JSON.stringify({ error: "DeepSeek API key is not configured" }), {
+          status: 500,
+          headers: { ...corsHeaders, "Content-Type": "application/json" },
+        });
+      }
+
+      const leadInfo = await autoExtractLeadInfo(messages, deepSeekApiKey);
       
       if (leadInfo) {
         await saveOrUpdateLead(supabase, conversationId, leadInfo);
@@ -371,15 +392,22 @@ Deno.serve(async (req) => {
       });
     }
 
-    // Regular chat - call Doubao API
-    const response = await fetch(DOUBAO_API_URL, {
+    if (!deepSeekApiKey) {
+      return new Response(JSON.stringify({ error: "DeepSeek API key is not configured" }), {
+        status: 500,
+        headers: { ...corsHeaders, "Content-Type": "application/json" },
+      });
+    }
+
+    // Regular chat - call DeepSeek API
+    const response = await fetch(DEEPSEEK_API_URL, {
       method: "POST",
       headers: {
-        "Authorization": `Bearer ${DOUBAO_API_KEY}`,
+        "Authorization": `Bearer ${deepSeekApiKey}`,
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        model: DOUBAO_MODEL,
+        model: DEEPSEEK_MODEL,
         messages: [
           { role: "system", content: SYSTEM_PROMPT },
           ...messages,
@@ -392,7 +420,7 @@ Deno.serve(async (req) => {
 
     if (!response.ok) {
       const errorText = await response.text();
-      console.error("Doubao AI error:", response.status, errorText);
+      console.error("DeepSeek AI error:", response.status, errorText);
       
       if (response.status === 429) {
         return new Response(JSON.stringify({ error: "请求过于频繁,请稍后再试" }), {
@@ -407,14 +435,14 @@ Deno.serve(async (req) => {
         });
       }
       
-      throw new Error(`Doubao AI error: ${response.status}`);
+      throw new Error(`DeepSeek AI error: ${response.status}`);
     }
 
     // 异步提取线索信息(不阻塞响应) - 每次对话都尝试提取
     if (conversationId && messages.length >= 1) {
       (async () => {
         try {
-          const leadInfo = await autoExtractLeadInfo(messages, DOUBAO_API_KEY);
+          const leadInfo = await autoExtractLeadInfo(messages, deepSeekApiKey);
           if (leadInfo) {
             await saveOrUpdateLead(supabase, conversationId, leadInfo);
           }
