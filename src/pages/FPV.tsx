@@ -25,12 +25,16 @@ import sfR5Asset from "@/assets/fpv/sf-r5.png.asset.json";
 import sfF5xhAsset from "@/assets/fpv/sf-f5xh.png.asset.json";
 import sfC7Asset from "@/assets/fpv/sf-c7.png.asset.json";
 import sfC10Asset from "@/assets/fpv/sf-c10.png.asset.json";
+import sfC15Asset from "@/assets/fpv/sf-c15.png.asset.json";
+import sfAiAsset from "@/assets/fpv/sf-ai.png.asset.json";
 
 const fpvC1sImg = sfC1sAsset.url;
 const fpvR5Img = sfR5Asset.url;
 const fpvF5xhImg = sfF5xhAsset.url;
 const fpvC7Img = sfC7Asset.url;
 const fpvC10Img = sfC10Asset.url;
+const fpvC15Img = sfC15Asset.url;
+const fpvAiImg = sfAiAsset.url;
 
 interface FpvProduct {
   code: string;
@@ -153,6 +157,48 @@ const FPV = () => {
       ],
       image: fpvC10Img,
       accent: "from-sky-500/30 to-indigo-500/10",
+    },
+    {
+      code: "SF-C15",
+      name: { zh: "SF-C15 15 寸重载穿越机", en: "SF-C15 15-inch Heavy-Load FPV" },
+      tag: { zh: "重载 · 强抗风", en: "Heavy-Load · High-Wind" },
+      positioning: {
+        zh: "重型穿越机，专为大型载重作业场景设计，具备出色的抗风能力与动力冗余。",
+        en: "Heavy-lift platform built for high-payload missions with class-leading wind resistance and power redundancy.",
+      },
+      config: {
+        zh: ["3110 1200KV 电机", "8S 5000mAh 100C 电池", "F722 飞控", "2.5W 图传"],
+        en: ["3110 1200KV motor", "8S 5000mAh 100C pack", "F722 FC", "2.5W VTX"],
+      },
+      specs: [
+        { value: "100 km/h", label: { zh: "速度", en: "Speed" } },
+        { value: "20 min", label: { zh: "续航", en: "Endurance" } },
+        { value: "Lv.8", label: { zh: "抗风", en: "Wind Rating" } },
+        { value: "10 kg", label: { zh: "载荷", en: "Payload" } },
+      ],
+      image: fpvC15Img,
+      accent: "from-amber-500/30 to-orange-500/10",
+    },
+    {
+      code: "SF-AI",
+      name: { zh: "AI 火箭穿越机", en: "AI-Rocket FPV" },
+      tag: { zh: "智能 · 高速拦截", en: "Intelligent · High-Speed Intercept" },
+      positioning: {
+        zh: "新一代智能无人机，专为高速拦截与精准打击打造，AI 识别锁定保持 95% 以上命中率。",
+        en: "Next-gen intelligent UAV for high-speed intercept and precision strikes — AI lock-on sustains 95%+ hit rate.",
+      },
+      config: {
+        zh: ["复合材料机身，过冗余动力", "AI 识别锁定系统", "超载环境下稳定飞行", "支持 500g 任务负载"],
+        en: ["Composite airframe, redundant power", "AI target lock-on system", "Stable under overload conditions", "Supports 500g mission payload"],
+      },
+      specs: [
+        { value: "480 km/h", label: { zh: "极速巡航", en: "Cruise Top" } },
+        { value: "5 min", label: { zh: "飞行续航", en: "Flight Time" } },
+        { value: "Lv.6", label: { zh: "抗风能力", en: "Wind Rating" } },
+        { value: "500 g", label: { zh: "任务负载", en: "Payload" } },
+      ],
+      image: fpvAiImg,
+      accent: "from-rose-500/30 to-fuchsia-500/10",
     },
   ];
 
