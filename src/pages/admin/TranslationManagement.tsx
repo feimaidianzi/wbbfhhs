@@ -48,6 +48,7 @@ const TranslationManagement = () => {
           hasTranslation: true,
           keyCount: totalSourceKeys,
           lastUpdated: '内置',
+          missingKeys: [],
         });
         continue;
       }
@@ -62,21 +63,22 @@ const TranslationManagement = () => {
         if (data?.value) {
           const translations = JSON.parse(data.value);
           const translatedKeySet = new Set(Object.keys(translations));
-          // Count how many source keys (from zh.ts) exist in the DB translations
           const sourceKeys = Object.keys(zhTranslations);
-          const coveredCount = sourceKeys.filter(k => translatedKeySet.has(k)).length;
+          const missing = sourceKeys.filter(k => !translatedKeySet.has(k));
+          const coveredCount = sourceKeys.length - missing.length;
           results.push({
             lang: lang.code,
             name: lang.name,
             hasTranslation: true,
             keyCount: coveredCount,
             lastUpdated: new Date(data.updated_at).toLocaleString('zh-CN'),
+            missingKeys: missing,
           });
         } else {
-          results.push({ lang: lang.code, name: lang.name, hasTranslation: false, keyCount: 0 });
+          results.push({ lang: lang.code, name: lang.name, hasTranslation: false, keyCount: 0, missingKeys: Object.keys(zhTranslations) });
         }
       } catch {
-        results.push({ lang: lang.code, name: lang.name, hasTranslation: false, keyCount: 0 });
+        results.push({ lang: lang.code, name: lang.name, hasTranslation: false, keyCount: 0, missingKeys: Object.keys(zhTranslations) });
       }
     }
 
