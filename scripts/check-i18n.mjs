@@ -27,11 +27,14 @@ const IGNORE_PATH_PARTS = [
   "VisitorTracker",
   "VisitorProfile",
   "EnhancedVisitorProfile",
+  "RichSEOContent", // sr-only SEO catalog, English fallback for non-zh handled in component
 ];
 
 const CJK = /[\u4e00-\u9fff]/;
 // Match: a Chinese run that lives inside a t('...') call on the same line.
 const T_CALL_WITH_CN = /\bt\(\s*['"`][^'"`]*[\u4e00-\u9fff][^'"`]*['"`]/g;
+// Properties intentionally holding Chinese strings (gated by language===zh at render time).
+const ZH_PROPERTY_LINE = /^\s*\w*[Zz]h\s*:/;
 
 function shouldSkip(file) {
   return IGNORE_PATH_PARTS.some((part) => file.includes(part));
@@ -99,6 +102,9 @@ for (const dir of SCAN_DIRS) {
       if (trimmed.startsWith("import ") || trimmed.startsWith("export ")) {
         // imports rarely carry Chinese, but skip the leading specifier portion
       }
+
+      // Skip properties intentionally storing Chinese (e.g. titleZh:, descZh:, paragraphsZh:).
+      if (ZH_PROPERTY_LINE.test(line)) continue;
 
       const cleaned = stripCommentsAndTCalls(line);
       if (!CJK.test(cleaned)) continue;

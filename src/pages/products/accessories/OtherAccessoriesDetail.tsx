@@ -74,7 +74,7 @@ const OtherAccessoriesDetail = () => {
     'monitor-5-ips-dvr': {
       '@context': 'https://schema.org/',
       '@type': 'Product',
-      name: 'CANI 5寸 IPS 高清双接收 DVR 监视器',
+      name: 'CANI 5-inch IPS HD Dual-Receiver DVR Monitor',
       image: 'https://www.caniuav.com/images/products/others/monitor-5-ips-dvr-main.jpg',
       description: t('acc.otheraccessoriesdetail.k589'),
       brand: { '@type': 'Brand', name: 'CANI' },
@@ -82,9 +82,9 @@ const OtherAccessoriesDetail = () => {
       url: 'https://www.caniuav.com/zh/products/accessories/others/monitor-5-ips-dvr',
       offers: { '@type': 'Offer', priceCurrency: 'CNY', availability: 'https://schema.org/InStock' },
       additionalProperty: [
-        { '@type': 'PropertyValue', name: '屏幕亮度', value: '600cd/m²' },
-        { '@type': 'PropertyValue', name: '接收模式', value: '双天线多样性 (Diversity)' },
-        { '@type': 'PropertyValue', name: '录像存储', value: 'DVR (最高支持 32G TF卡)' },
+        { '@type': 'PropertyValue', name: 'Screen Brightness', value: '600cd/m²' },
+        { '@type': 'PropertyValue', name: 'Receive Mode', value: 'Dual-antenna diversity' },
+        { '@type': 'PropertyValue', name: 'Recording Storage', value: 'DVR (up to 32GB TF card)' },
       ],
     },
     'fpv-goggles-40ch': {
@@ -98,9 +98,9 @@ const OtherAccessoriesDetail = () => {
       url: 'https://www.caniuav.com/zh/products/accessories/others/fpv-goggles-40ch',
       offers: { '@type': 'Offer', priceCurrency: 'CNY', availability: 'https://schema.org/InStock' },
       additionalProperty: [
-        { '@type': 'PropertyValue', name: '接收灵敏度', value: '-90dBm' },
-        { '@type': 'PropertyValue', name: '屏幕比例', value: '16:9' },
-        { '@type': 'PropertyValue', name: '电池容量', value: '2000mAh (内置)' },
+        { '@type': 'PropertyValue', name: 'Receive Sensitivity', value: '-90dBm' },
+        { '@type': 'PropertyValue', name: 'Aspect Ratio', value: '16:9' },
+        { '@type': 'PropertyValue', name: 'Battery Capacity', value: '2000mAh (built-in)' },
       ],
     },
     'monitor-4-3-dvr': {
@@ -114,9 +114,9 @@ const OtherAccessoriesDetail = () => {
       url: 'https://www.caniuav.com/zh/products/accessories/others/monitor-4-3-dvr',
       offers: { '@type': 'Offer', priceCurrency: 'CNY', availability: 'https://schema.org/InStock' },
       additionalProperty: [
-        { '@type': 'PropertyValue', name: '屏幕尺寸', value: '4.3 英寸' },
-        { '@type': 'PropertyValue', name: '续航时间', value: '约 3 小时' },
-        { '@type': 'PropertyValue', name: '录像存储', value: 'DVR (支持循环覆盖)' },
+        { '@type': 'PropertyValue', name: 'Screen Size', value: '4.3 inch' },
+        { '@type': 'PropertyValue', name: 'Battery Life', value: '~3 hours' },
+        { '@type': 'PropertyValue', name: 'Recording Storage', value: 'DVR (loop recording)' },
       ],
     },
   };
