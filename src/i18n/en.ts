@@ -1625,8 +1625,8 @@ export const enTranslations: Record<string, string> = {
   'multiRotor.case.naturalResources.desc': 'Used X1200 for large-scale topographic mapping, achieving centimeter-level mapping accuracy',
 
   // ===== About Page Extended Content (SEO/GEO Optimized) =====
-  'about.seoTitle': 'About CANI Technology | Industrial UAV Core Payload & VTX System R&D Expert',
-  'about.seoDescription': 'CANI Technology, a High-Tech Enterprise founded in 2015, specializes in industrial UAV core component R&D. Core products include 37W high-power VTX, 50km long-range datalinks, and IP67-rated EO/IR gimbal pods for power inspection and security missions.',
+  'about.seoTitle': 'About CANI | Industrial UAV Payload & VTX R&D Expert',
+  'about.seoDescription': 'CANI Technology specializes in industrial UAV components: 37W VTX, 50km datalinks and IP67 EO/IR gimbal pods for power inspection and security missions.',
   'about.seoKeywords': 'CANI Technology,industrial UAV manufacturer,37W VTX R&D,UAV core board customization,high-tech drone enterprise',
 
   // About Hero
