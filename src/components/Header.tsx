@@ -17,7 +17,8 @@ import { ProductCenterMegaMenu } from "@/components/ProductCenterMegaMenu";
 import swarmHeroImg from "@/assets/products/swarm-uwb-showcase.jpg";
 import tetheredHeroImg from "@/assets/products/th-200-hero.png";
 import logisticsHeroImg from "@/assets/seo/logistics-hero.png";
-import fpvHeroImg from "@/assets/seo/fpv-drone-aerial.jpg";
+import fpvSfR5Asset from "@/assets/fpv/sf-r5.png.asset.json";
+const fpvHeroImg = fpvSfR5Asset.url;
 
 // Supabase client + types are dynamically imported to keep them off the homepage's
 // critical JS path (~90KB gzip). They load during browser idle after first paint.
