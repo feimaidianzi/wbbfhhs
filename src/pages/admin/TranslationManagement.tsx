@@ -16,6 +16,7 @@ interface TranslationStatus {
   hasTranslation: boolean;
   keyCount: number;
   lastUpdated?: string;
+  missingKeys: string[];
 }
 
 const TranslationManagement = () => {
@@ -47,6 +48,7 @@ const TranslationManagement = () => {
           hasTranslation: true,
           keyCount: totalSourceKeys,
           lastUpdated: '内置',
+          missingKeys: [],
         });
         continue;
       }
@@ -61,21 +63,22 @@ const TranslationManagement = () => {
         if (data?.value) {
           const translations = JSON.parse(data.value);
           const translatedKeySet = new Set(Object.keys(translations));
-          // Count how many source keys (from zh.ts) exist in the DB translations
           const sourceKeys = Object.keys(zhTranslations);
-          const coveredCount = sourceKeys.filter(k => translatedKeySet.has(k)).length;
+          const missing = sourceKeys.filter(k => !translatedKeySet.has(k));
+          const coveredCount = sourceKeys.length - missing.length;
           results.push({
             lang: lang.code,
             name: lang.name,
             hasTranslation: true,
             keyCount: coveredCount,
             lastUpdated: new Date(data.updated_at).toLocaleString('zh-CN'),
+            missingKeys: missing,
           });
         } else {
-          results.push({ lang: lang.code, name: lang.name, hasTranslation: false, keyCount: 0 });
+          results.push({ lang: lang.code, name: lang.name, hasTranslation: false, keyCount: 0, missingKeys: Object.keys(zhTranslations) });
         }
       } catch {
-        results.push({ lang: lang.code, name: lang.name, hasTranslation: false, keyCount: 0 });
+        results.push({ lang: lang.code, name: lang.name, hasTranslation: false, keyCount: 0, missingKeys: Object.keys(zhTranslations) });
       }
     }
 
@@ -153,6 +156,61 @@ const TranslationManagement = () => {
     loadTranslationStatuses();
     loadBackgroundStatus();
   }, []);
+
+  // 实时进度轮询：翻译进行中时每 4s 刷新一次各语言进度
+  useEffect(() => {
+    if (!isTranslating) return;
+    const id = setInterval(() => {
+      loadTranslationStatuses(false);
+    }, 4000);
+    return () => clearInterval(id);
+  }, [isTranslating]);
+
+  // 仅重试某语言的缺失键
+  const retryMissingForLang = async (lang: LanguageCode, missing: string[]) => {
+    if (missing.length === 0) {
+      toast.success('该语言已无缺失键');
+      return;
+    }
+    const langName = SUPPORTED_LANGUAGES.find(l => l.code === lang)?.name;
+    const source = zhTranslations as Record<string, string>;
+    // 分块避免单次过大
+    const chunkSize = 50;
+    const total = missing.length;
+    setIsTranslating(true);
+    setIsAutoMode(false);
+    setCurrentLang(lang);
+    setCurrentProgress({ done: 0, total, remaining: total });
+    setProgress(0);
+    try {
+      for (let i = 0; i < missing.length; i += chunkSize) {
+        const slice = missing.slice(i, i + chunkSize);
+        const sub: Record<string, string> = {};
+        for (const k of slice) if (source[k] !== undefined) sub[k] = source[k];
+        const { data, error } = await supabase.functions.invoke('batch-translate', {
+          body: {
+            mode: 'incremental',
+            languages: [lang],
+            sourceContent: sub,
+            forceTranslateKeys: slice,
+          },
+        });
+        if (error) throw error;
+        const r = data?.results?.[lang];
+        if (!r?.success) throw new Error(r?.error || '重试失败');
+        const done = Math.min(total, i + slice.length);
+        setCurrentProgress({ done, total, remaining: total - done });
+        setProgress(Math.floor((done / total) * 100));
+        await loadTranslationStatuses(false);
+      }
+      toast.success(`${langName} 缺失键已全部重试完成（${total} 条）`);
+    } catch (e: any) {
+      toast.error(`${langName} 重试失败：${e?.message || '未知错误'}`);
+    } finally {
+      setIsTranslating(false);
+      setCurrentLang('');
+    }
+  };
 
   // 翻译单个语言的一个批次
   const translateOneBatch = async (lang: LanguageCode): Promise<{ success: boolean; remaining: number; count: number; total: number; isTimeout?: boolean }> => {
@@ -577,20 +635,49 @@ const TranslationManagement = () => {
                         </div>
                       )}
                     </div>
+                    {status.lang !== 'zh' && status.missingKeys.length > 0 && (
+                      <details className="mt-3 text-xs">
+                        <summary className="cursor-pointer text-orange-600 hover:text-orange-700">
+                          查看缺失键 ({status.missingKeys.length})
+                        </summary>
+                        <div className="mt-2 max-h-32 overflow-y-auto bg-gray-50 rounded p-2 font-mono text-[10px] text-gray-600 space-y-0.5">
+                          {status.missingKeys.slice(0, 50).map(k => (
+                            <div key={k} className="truncate" title={k}>{k}</div>
+                          ))}
+                          {status.missingKeys.length > 50 && (
+                            <div className="text-gray-400 italic">…还有 {status.missingKeys.length - 50} 个未显示</div>
+                          )}
+                        </div>
+                      </details>
+                    )}
                     {status.lang !== 'zh' && (
-                      <Button
-                        variant="outline"
-                        size="sm"
-                        className="w-full mt-4"
-                        onClick={() => startAutoTranslateSingle(status.lang)}
-                        disabled={isTranslating}
-                      >
-                        {currentLang === status.lang ? (
-                          <><Loader2 className="h-4 w-4 mr-2 animate-spin" />翻译中...</>
-                        ) : (
-                          <><RefreshCw className="h-4 w-4 mr-2" />{isComplete ? '重新翻译' : status.hasTranslation ? '继续翻译' : '开始翻译'}</>
+                      <div className="space-y-2 mt-4">
+                        <Button
+                          variant="outline"
+                          size="sm"
+                          className="w-full"
+                          onClick={() => startAutoTranslateSingle(status.lang)}
+                          disabled={isTranslating}
+                        >
+                          {currentLang === status.lang ? (
+                            <><Loader2 className="h-4 w-4 mr-2 animate-spin" />翻译中...</>
+                          ) : (
+                            <><RefreshCw className="h-4 w-4 mr-2" />{isComplete ? '重新翻译' : status.hasTranslation ? '继续翻译' : '开始翻译'}</>
+                          )}
+                        </Button>
+                        {status.missingKeys.length > 0 && (
+                          <Button
+                            variant="secondary"
+                            size="sm"
+                            className="w-full"
+                            onClick={() => retryMissingForLang(status.lang, status.missingKeys)}
+                            disabled={isTranslating}
+                          >
+                            <RefreshCw className="h-4 w-4 mr-2" />
+                            仅重试缺失 ({status.missingKeys.length})
+                          </Button>
                         )}
-                      </Button>
+                      </div>
                     )}
                   </CardContent>
                 </Card>
