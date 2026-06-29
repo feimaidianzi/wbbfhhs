@@ -2291,9 +2291,6 @@ export const enTranslations: Record<string, string> = {
   'fpv.seo.title': 'FPV Drone',
   'fpv.seo.description': 'Changling Technology FPV drone series, including combo kits, racing series, freestyle series, and long-range series, experience the thrill of high-speed flight.',
   'fpv.seo.keywords': 'FPV drone, racing drone, freestyle FPV drone, FPV goggles, FPV drone kit',
-  'fpv.hero.badge': 'Changling Technology · FPV Drone Zone',
-  'fpv.hero.title': 'FPV Drone',
-  'fpv.hero.subtitle': 'First-person view flight experience, the perfect fusion of speed and passion. From entry-level kits to professional racing, meeting the needs of different pilots.',
   'fpv.hero.browse': 'Browse All Products',
   'fpv.hero.guide': 'Beginner\'s Guide',
   'fpv.features.speed.title': 'Instant Response',
@@ -4864,8 +4861,6 @@ export const enTranslations: Record<string, string> = {
   'software.integration.cta': 'Get Technical Documentation',
 
   // FPV CTA Section
-  'fpv.cta.title': 'Start Your FPV Flight Journey',
-  'fpv.cta.subtitle': 'Join the CANI FPV Player Community, exchange flying tips, share exciting videos, and get exclusive offers.',
   'fpv.cta.join': 'Join the Community',
 
   // Digital FPV Page

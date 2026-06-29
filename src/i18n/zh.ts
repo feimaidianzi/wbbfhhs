@@ -2291,9 +2291,6 @@ export const zhTranslations: Record<string, string> = {
   'fpv.seo.title': 'FPV穿越机',
   'fpv.seo.description': '长凌科技FPV穿越机系列，包括套装系列、竞速系列、花飞系列、远航系列，体验极速飞行的乐趣。',
   'fpv.seo.keywords': 'FPV穿越机,竞速无人机,花飞穿越机,FPV眼镜,穿越机套装',
-  'fpv.hero.badge': '长凌科技 · FPV穿越机专区',
-  'fpv.hero.title': 'FPV 穿越机',
-  'fpv.hero.subtitle': '第一视角飞行体验，感受速度与激情的完美融合。从入门套装到专业竞速，满足不同玩家需求',
   'fpv.hero.browse': '浏览全部产品',
   'fpv.hero.guide': '新手入门指南',
   'fpv.features.speed.title': '极速响应',
@@ -9871,6 +9868,8 @@ export const zhTranslations: Record<string, string> = {
   'fpv.custom.scenario.items.2': '专业训练：高容错安全方案',
   'fpv.custom.scenario.items.3': '军警应用：稳定侦察平台',
 
+  'fpv.cta.email': '联系我们',
+  'fpv.cta.customRd': '定制研发',
 };
 
 export default zhTranslations;
