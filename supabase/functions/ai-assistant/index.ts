@@ -442,7 +442,7 @@ Deno.serve(async (req) => {
     if (conversationId && messages.length >= 1) {
       (async () => {
         try {
-          const leadInfo = await autoExtractLeadInfo(messages, DOUBAO_API_KEY);
+          const leadInfo = await autoExtractLeadInfo(messages, deepSeekApiKey);
           if (leadInfo) {
             await saveOrUpdateLead(supabase, conversationId, leadInfo);
           }
