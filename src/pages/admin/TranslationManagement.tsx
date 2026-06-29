@@ -157,6 +157,61 @@ const TranslationManagement = () => {
     loadBackgroundStatus();
   }, []);
 
+  // 实时进度轮询：翻译进行中时每 4s 刷新一次各语言进度
+  useEffect(() => {
+    if (!isTranslating) return;
+    const id = setInterval(() => {
+      loadTranslationStatuses(false);
+    }, 4000);
+    return () => clearInterval(id);
+  }, [isTranslating]);
+
+  // 仅重试某语言的缺失键
+  const retryMissingForLang = async (lang: LanguageCode, missing: string[]) => {
+    if (missing.length === 0) {
+      toast.success('该语言已无缺失键');
+      return;
+    }
+    const langName = SUPPORTED_LANGUAGES.find(l => l.code === lang)?.name;
+    const source = zhTranslations as Record<string, string>;
+    // 分块避免单次过大
+    const chunkSize = 50;
+    const total = missing.length;
+    setIsTranslating(true);
+    setIsAutoMode(false);
+    setCurrentLang(lang);
+    setCurrentProgress({ done: 0, total, remaining: total });
+    setProgress(0);
+    try {
+      for (let i = 0; i < missing.length; i += chunkSize) {
+        const slice = missing.slice(i, i + chunkSize);
+        const sub: Record<string, string> = {};
+        for (const k of slice) if (source[k] !== undefined) sub[k] = source[k];
+        const { data, error } = await supabase.functions.invoke('batch-translate', {
+          body: {
+            mode: 'incremental',
+            languages: [lang],
+            sourceContent: sub,
+            forceTranslateKeys: slice,
+          },
+        });
+        if (error) throw error;
+        const r = data?.results?.[lang];
+        if (!r?.success) throw new Error(r?.error || '重试失败');
+        const done = Math.min(total, i + slice.length);
+        setCurrentProgress({ done, total, remaining: total - done });
+        setProgress(Math.floor((done / total) * 100));
+        await loadTranslationStatuses(false);
+      }
+      toast.success(`${langName} 缺失键已全部重试完成（${total} 条）`);
+    } catch (e: any) {
+      toast.error(`${langName} 重试失败：${e?.message || '未知错误'}`);
+    } finally {
+      setIsTranslating(false);
+      setCurrentLang('');
+    }
+  };
+
   // 翻译单个语言的一个批次
   const translateOneBatch = async (lang: LanguageCode): Promise<{ success: boolean; remaining: number; count: number; total: number; isTimeout?: boolean }> => {
     try {
