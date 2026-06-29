@@ -1625,8 +1625,8 @@ export const enTranslations: Record<string, string> = {
   'multiRotor.case.naturalResources.desc': 'Used X1200 for large-scale topographic mapping, achieving centimeter-level mapping accuracy',
 
   // ===== About Page Extended Content (SEO/GEO Optimized) =====
-  'about.seoTitle': 'About CANI Technology | Industrial UAV Core Payload & VTX System R&D Expert',
-  'about.seoDescription': 'CANI Technology, a High-Tech Enterprise founded in 2015, specializes in industrial UAV core component R&D. Core products include 37W high-power VTX, 50km long-range datalinks, and IP67-rated EO/IR gimbal pods for power inspection and security missions.',
+  'about.seoTitle': 'About CANI | Industrial UAV Payload & VTX R&D Expert',
+  'about.seoDescription': 'CANI Technology specializes in industrial UAV components: 37W VTX, 50km datalinks and IP67 EO/IR gimbal pods for power inspection and security missions.',
   'about.seoKeywords': 'CANI Technology,industrial UAV manufacturer,37W VTX R&D,UAV core board customization,high-tech drone enterprise',
 
   // About Hero
@@ -1741,8 +1741,8 @@ export const enTranslations: Record<string, string> = {
   'about.faq.a3': 'CANI\'s 37W VTX and EO/IR gimbal systems are widely deployed in power line inspection, security & SAR, wildfire prevention, maritime surveillance, and surveying — all BVLOS industrial scenarios.',
 
   // ===== Index/Home Page Content =====
-  'home.seo.title': 'Industrial UAV Manufacturer | Swarm, Tethered, Logistics, Multi-Rotor & FPV Drones | CANI',
-  'home.seo.description': 'CANI is a professional industrial UAV manufacturer and OEM/ODM partner. Our flight platforms cover swarm drones (C20/C30), tethered UAV systems (T100/T200/T300), logistics drones (WL10/WL20/WL30), multi-rotor industrial platforms (X650/X850/X1200/X1600) and FPV mission drones. 10+ years of integrated drone R&D, NDAA-compliant. End-to-end solutions for power inspection, emergency response, surveying and security.',
+  'home.seo.title': 'CANI | Industrial UAV Manufacturer — Swarm, Tethered, FPV',
+  'home.seo.description': 'CANI builds NDAA-compliant industrial drones — swarm, tethered, logistics, multi-rotor & FPV — for power inspection, emergency response, surveying & security.',
   'home.seo.keywords': 'industrial UAV manufacturer,industrial drone OEM,swarm drone,tethered UAV,logistics drone,multi-rotor industrial drone,FPV mission drone,power inspection drone,emergency response UAV,custom UAV manufacturer,ODM drone,CANI',
   'home.structured.name': 'CANI Technology',
   'home.structured.description': 'Professional industrial UAV manufacturer delivering full-range flight platforms — swarm drones, tethered systems, logistics UAVs, multi-rotor industrial platforms and FPV mission drones — for global industrial customers.',
