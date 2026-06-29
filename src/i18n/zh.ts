@@ -1741,8 +1741,8 @@ export const zhTranslations: Record<string, string> = {
   'about.faq.a3': '长凌科技的37W图传与EO/IR云台系统已广泛应用于电力巡检、安防搜救、森林防火、海事监控、测绘勘察等超视距 (BVLOS) 工业场景。',
 
   // ===== Index/Home Page Content =====
-  'home.seo.title': '工业无人机整机制造商 | 集群机/系留机/物流机/多旋翼/FPV | CANI',
-  'home.seo.description': 'CANI（长凌科技）是专业的工业无人机整机制造商与OEM/ODM合作伙伴，产品覆盖集群无人机（C20/C30）、系留无人机（T100/T200/T300）、物流无人机（WL10/WL20/WL30）、多旋翼工业平台（X650/X850/X1200/X1600）与FPV作业机。10年整机研发积累，符合NDAA标准，为电力巡检、应急救援、测绘、安防等行业提供端到端飞行平台解决方案。',
+  'home.seo.title': 'CANI | 工业无人机制造商 — 集群/系留/物流/FPV',
+  'home.seo.description': 'CANI 是工业无人机整机制造商与 OEM/ODM 伙伴，提供集群、系留、物流、多旋翼与 FPV 平台，符合 NDAA 标准，服务电力巡检、应急救援、测绘与安防。',
   'home.seo.keywords': '工业无人机整机制造商,工业无人机厂商,集群无人机,系留无人机,物流无人机,多旋翼无人机,FPV作业机,电力巡检无人机,应急救援无人机,OEM无人机,ODM无人机定制,CANI长凌科技',
   'home.structured.name': 'CANI 长凌科技',
   'home.structured.description': '专业的工业无人机整机制造商，提供集群机、系留机、物流机、多旋翼平台与FPV作业机等全系列工业级飞行平台解决方案。',
