@@ -16,6 +16,7 @@ interface TranslationStatus {
   hasTranslation: boolean;
   keyCount: number;
   lastUpdated?: string;
+  missingKeys: string[];
 }
 
 const TranslationManagement = () => {
