@@ -1,5 +1,5 @@
 # CANI Technology - Industrial Drone Manufacturer
-# https://www.caniuav.com
+# https://caniuav.com
 
 User-agent: Googlebot
 Allow: /
@@ -102,8 +102,8 @@ Disallow: /tr/tr/
 Disallow: /*/*/*/*/*/*/
 
 # Sitemaps — static (legacy hardcoded routes) + dynamic (full DB-driven feed)
-Sitemap: https://www.caniuav.com/sitemap.xml
+Sitemap: https://caniuav.com/sitemap.xml
 Sitemap: https://tuxslfemwkdmnkldlmmy.supabase.co/functions/v1/dynamic-sitemap
 
 # Host
-Host: https://www.caniuav.com
+Host: https://caniuav.com

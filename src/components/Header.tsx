@@ -259,6 +259,8 @@ export const Header = () => {
           <div className="hidden nav:flex items-center justify-center flex-1 min-w-0 mx-1 relative overflow-hidden">
             {showLeftArrow && (
               <button
+                type="button"
+                aria-label={t('header.scrollLeft') || 'Scroll navigation left'}
                 onClick={() => scrollNav('left')}
                 className={`absolute left-0 z-10 p-2 rounded-full shadow-lg border-2 transition-all hover:scale-115 active:scale-95 ${
                   isScrolled 
@@ -266,7 +268,7 @@ export const Header = () => {
                     : 'bg-background text-foreground border-border shadow-black/20 hover:bg-secondary'
                 }`}
               >
-                <ChevronLeft className="w-5 h-5 stroke-[3]" />
+                <ChevronLeft className="w-5 h-5 stroke-[3]" aria-hidden="true" />
               </button>
             )}
             <nav
@@ -302,6 +304,8 @@ export const Header = () => {
             </nav>
             {showRightArrow && (
               <button
+                type="button"
+                aria-label={t('header.scrollRight') || 'Scroll navigation right'}
                 onClick={() => scrollNav('right')}
                 className={`absolute right-0 z-10 p-2 rounded-full shadow-lg border-2 transition-all hover:scale-115 active:scale-95 ${
                   isScrolled 
@@ -309,7 +313,7 @@ export const Header = () => {
                     : 'bg-background text-foreground border-border shadow-black/20 hover:bg-secondary'
                 }`}
               >
-                <ChevronRight className="w-5 h-5 stroke-[3]" />
+                <ChevronRight className="w-5 h-5 stroke-[3]" aria-hidden="true" />
               </button>
             )}
           </div>
@@ -410,10 +414,12 @@ export const Header = () => {
             <Button
               variant="ghost"
               size="icon"
+              aria-label={isOpen ? (t('header.closeMenu') || 'Close menu') : (t('header.openMenu') || 'Open menu')}
+              aria-expanded={isOpen}
               className={`nav:hidden ${isScrolled ? 'text-foreground' : 'text-white'}`}
               onClick={() => setIsOpen(!isOpen)}
             >
-              {isOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+              {isOpen ? <X className="w-6 h-6" aria-hidden="true" /> : <Menu className="w-6 h-6" aria-hidden="true" />}
             </Button>
           </div>
         </div>

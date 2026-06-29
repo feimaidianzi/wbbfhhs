@@ -113,8 +113,13 @@ export const Footer = () => {
                   placeholder={t('footer.email.placeholder')} 
                   className="bg-background/10 border-background/20 text-background placeholder:text-background/50 focus:border-accent" 
                 />
-                <Button size="icon" className="bg-accent hover:bg-accent/90 text-accent-foreground shrink-0">
-                  <Send className="w-4 h-4" />
+                <Button
+                  type="submit"
+                  size="icon"
+                  aria-label={t('footer.subscribe') || 'Subscribe to newsletter'}
+                  className="bg-accent hover:bg-accent/90 text-accent-foreground shrink-0"
+                >
+                  <Send className="w-4 h-4" aria-hidden="true" />
                 </Button>
               </div>
             </div>
