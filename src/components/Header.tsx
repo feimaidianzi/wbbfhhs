@@ -210,11 +210,11 @@ export const Header = () => {
       detail: t('header.logistics.detail'),
     },
     {
-      name: t('header.multiRotor'),
-      href: "/products/multi-rotor",
-      description: t('header.multiRotor.desc'),
-      image: multiRotorHeroImg,
-      detail: t('header.multiRotor.detail'),
+      name: t('header.fpvDrone'),
+      href: "/fpv",
+      description: t('header.fpvDrone.desc'),
+      image: fpvHeroImg,
+      detail: t('header.fpvDrone.detail'),
     },
     {
       name: t('header.fpvDrone'),
