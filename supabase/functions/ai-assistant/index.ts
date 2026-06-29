@@ -42,7 +42,7 @@ interface RequestBody {
   messages: Message[];
   conversationId?: string;
   sessionId?: string;
-  action?: "chat" | "extract_lead" | "transfer_human" | "auto_extract" | "load_history" | "save_message";
+  action?: "chat" | "extract_lead" | "transfer_human" | "auto_extract" | "load_history" | "save_message" | "create_conversation";
 }
 
 // 使用豆包自动提取线索信息
@@ -216,6 +216,52 @@ Deno.serve(async (req) => {
     if (conversationId && (typeof conversationId !== 'string' || conversationId.length > 64)) {
       return new Response(JSON.stringify({ error: "Invalid conversationId" }), {
         status: 400,
+        headers: { ...corsHeaders, "Content-Type": "application/json" },
+      });
+    }
+
+    // Handle conversation creation server-side so visitors are not blocked by RLS return checks.
+    if (action === "create_conversation" && sessionId) {
+      const { data: existingConv } = await supabase
+        .from("ai_conversations")
+        .select("id, is_transferred_to_human")
+        .eq("session_id", sessionId)
+        .neq("status", "resolved")
+        .order("created_at", { ascending: false })
+        .limit(1)
+        .single();
+
+      if (existingConv) {
+        return new Response(JSON.stringify({ conversation: existingConv }), {
+          headers: { ...corsHeaders, "Content-Type": "application/json" },
+        });
+      }
+
+      const userAgent = req.headers.get("user-agent") || null;
+      const { data: createdConv, error: createError } = await supabase
+        .from("ai_conversations")
+        .insert({
+          session_id: sessionId,
+          visitor_device: userAgent,
+          is_visitor_online: true,
+        })
+        .select("id, is_transferred_to_human")
+        .single();
+
+      if (createError || !createdConv) {
+        console.error("Create conversation error:", createError);
+        return new Response(JSON.stringify({ error: "Failed to create conversation" }), {
+          status: 500,
+          headers: { ...corsHeaders, "Content-Type": "application/json" },
+        });
+      }
+
+      await supabase
+        .from("visitor_sessions")
+        .update({ ai_conversation_id: createdConv.id })
+        .eq("session_id", sessionId);
+
+      return new Response(JSON.stringify({ conversation: createdConv }), {
         headers: { ...corsHeaders, "Content-Type": "application/json" },
       });
     }

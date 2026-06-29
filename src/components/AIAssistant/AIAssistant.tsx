@@ -87,30 +87,32 @@ export const AIAssistant = () => {
         }
       }
 
-      // 创建新会话
-      const { data, error } = await supabase
-        .from("ai_conversations")
-        .insert({
-          session_id: visitorId,
-          visitor_device: navigator.userAgent,
-          is_visitor_online: true,
-        })
-        .select("id")
-        .single();
+      // 创建新会话也走后端函数，避免访客端 RLS 读回新会话 ID 时被拦截
+      const createResponse = await fetch(
+        `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/ai-assistant`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY}`,
+          },
+          body: JSON.stringify({ action: "create_conversation", sessionId: visitorId }),
+        }
+      );
 
-      if (error) {
-        console.error("Failed to create conversation:", error);
+      if (!createResponse.ok) {
+        console.error("Failed to create conversation:", await createResponse.text().catch(() => "unknown"));
         return null;
       }
-      setConversationId(data.id);
-      
-      // 关联到visitor_sessions表
-      await supabase
-        .from("visitor_sessions")
-        .update({ ai_conversation_id: data.id })
-        .eq("session_id", visitorId);
-      
-      return data.id;
+
+      const created = await createResponse.json();
+      const createdId = created?.conversation?.id;
+      if (!createdId) return null;
+
+      setConversationId(createdId);
+      setIsHumanMode(!!created.conversation.is_transferred_to_human);
+
+      return createdId;
     } catch (error) {
       console.error("Failed to create/load conversation:", error);
       return null;
