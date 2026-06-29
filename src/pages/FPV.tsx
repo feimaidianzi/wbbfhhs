@@ -450,7 +450,7 @@ const FPV = () => {
                   <ArrowRight className="w-5 h-5 ml-2" />
                 </Link>
               </Button>
-              <Button asChild variant="outline" className="border-white/30 text-white hover:bg-white/10 px-10 py-6 text-lg min-h-[44px]">
+              <Button asChild variant="outline" className="bg-transparent border-cyan-400/60 text-cyan-100 hover:bg-cyan-500/20 hover:text-white hover:border-cyan-300 px-10 py-6 text-lg min-h-[44px]">
                 <Link to="/custom-research">{isEn ? "Custom R&D" : "定制研发"}</Link>
               </Button>
             </div>
