@@ -278,7 +278,7 @@ const FPV = () => {
                     <ArrowRight className="w-5 h-5 ml-2" />
                   </a>
                 </Button>
-                <Button asChild variant="outline" className="border-white/30 text-white hover:bg-white/10 px-8 py-6 text-lg">
+                <Button asChild variant="outline" className="border-white/30 bg-white/5 text-white hover:bg-white/15 hover:text-white px-8 py-6 text-lg">
                   <Link to="/contact">{isEn ? "Request Quote" : "获取报价"}</Link>
                 </Button>
               </div>
