@@ -328,7 +328,7 @@ Deno.serve(async (req) => {
     const supabase = createClient(supabaseUrl, supabaseKey);
 
     const body = await req.json() as RequestBody;
-    const { messages, conversationId, sessionId, action = "chat" } = body;
+    const { messages, conversationId, sessionId, language, action = "chat" } = body;
 
     // Basic input validation
     if (messages && (!Array.isArray(messages) || messages.length > 50)) {
@@ -525,7 +525,7 @@ Deno.serve(async (req) => {
       body: JSON.stringify({
         model: DEEPSEEK_MODEL,
         messages: [
-          { role: "system", content: SYSTEM_PROMPT },
+          { role: "system", content: getSystemPrompt(language) },
           ...messages,
         ],
         temperature: 0.7,
