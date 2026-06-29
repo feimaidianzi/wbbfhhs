@@ -1625,8 +1625,8 @@ export const zhTranslations: Record<string, string> = {
   'multiRotor.case.naturalResources.desc': '使用X1200进行大比例尺地形测绘，成图精度达厘米级',
 
   // ===== About Page Extended Content (SEO/GEO Optimized) =====
-  'about.seoTitle': '关于长凌科技 | 工业级无人机核心载荷与图传系统研发专家',
-  'about.seoDescription': '长凌科技（CANI）是高新技术企业，专注工业无人机核心组件研发。核心产品包括37W高功率图传、50km远距离链路及IP67高精度云台吊舱。我们为全球电力巡检、安防搜救提供自主可控的底层技术支持。',
+  'about.seoTitle': '关于 CANI | 工业无人机核心载荷与图传研发专家',
+  'about.seoDescription': '长凌科技（CANI）专注工业无人机核心组件研发，提供 37W 高功率图传、50km 远距离链路与 IP67 高精度云台吊舱，服务全球电力巡检与安防搜救行业。',
   'about.seoKeywords': '长凌科技,CANI Technology,工业无人机厂家,37W图传研发,无人机核心板卡定制,高新无人机企业',
 
   // About Hero
