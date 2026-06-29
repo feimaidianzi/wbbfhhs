@@ -335,9 +335,9 @@ const AccessoriesCustom = () => {
               <Button className="bg-accent hover:bg-accent/90 text-accent-foreground px-10 py-6 text-lg">
                 <Mail className="w-5 h-5 mr-2" /> {t('customAccessories.cta.consult')}
               </Button>
-              <a href="tel:+8618008451238">
+              <a href="tel:+8618163685410">
                 <Button className="bg-primary-foreground/20 border border-primary-foreground/50 text-primary-foreground hover:bg-primary-foreground/30 px-10 py-6 text-lg">
-                  <Phone className="w-5 h-5 mr-2" /> 18008451238
+                  <Phone className="w-5 h-5 mr-2" /> 18163685410
                 </Button>
               </a>
             </div>
