@@ -371,7 +371,7 @@ export const AIAssistant = () => {
                 
                 try {
                   const parsed = JSON.parse(data);
-                  // Support both content and reasoning_content from Doubao models
+                  // Support OpenAI-compatible streaming chunks
                   const content = parsed.choices?.[0]?.delta?.content;
                   if (content) {
                     assistantContent += content;
