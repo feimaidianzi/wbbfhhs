@@ -103,6 +103,9 @@ for (const dir of SCAN_DIRS) {
         // imports rarely carry Chinese, but skip the leading specifier portion
       }
 
+      // Skip properties intentionally storing Chinese (e.g. titleZh:, descZh:, paragraphsZh:).
+      if (ZH_PROPERTY_LINE.test(line)) continue;
+
       const cleaned = stripCommentsAndTCalls(line);
       if (!CJK.test(cleaned)) continue;
 
