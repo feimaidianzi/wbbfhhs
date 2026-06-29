@@ -216,13 +216,6 @@ export const Header = () => {
       image: fpvHeroImg,
       detail: t('header.fpvDrone.detail'),
     },
-    {
-      name: t('header.fpvDrone'),
-      href: "/fpv",
-      description: t('header.fpvDrone.desc'),
-      image: fpvHeroImg,
-      detail: t('header.fpvDrone.detail'),
-    },
     ...accessoryCategories,
   ];
 
