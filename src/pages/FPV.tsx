@@ -376,7 +376,7 @@ const FPV = () => {
                       <span className="text-xs text-white/40">
                         {isEn ? "Specs depend on environment & payload." : "性能数据受环境与载荷影响"}
                       </span>
-                      <Button asChild size="sm" variant="outline" className="border-cyan-400/40 text-cyan-300 hover:bg-cyan-400/10 min-h-[44px]">
+                      <Button asChild size="sm" variant="outline" className="border-cyan-400/50 bg-cyan-400/10 text-cyan-200 hover:bg-cyan-400/25 hover:text-white hover:border-cyan-300 min-h-[44px]">
                         <Link to="/contact">
                           {isEn ? "Get Quote" : "获取报价"}
                           <ArrowRight className="w-4 h-4 ml-1" />
