@@ -14,11 +14,10 @@ import { Logo } from "@/components/Logo";
 import { LanguageSwitcher } from "@/components/LanguageSwitcher";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { ProductCenterMegaMenu } from "@/components/ProductCenterMegaMenu";
-import swarmHeroImg from "@/assets/products/cani-c30-hero-bg.webp";
-import tetheredHeroImg from "@/assets/products/cani-tethered-hero-bg.webp";
-import logisticsHeroImg from "@/assets/products/cani-logistics-hero-bg.webp";
-import multiRotorHeroImg from "@/assets/products/cani-multirotor-hero-bg.webp";
-import fpvHeroImg from "@/assets/products/cani-fpv-hero-bg.webp";
+import swarmHeroImg from "@/assets/products/swarm-uwb-showcase.jpg";
+import tetheredHeroImg from "@/assets/products/th-200-hero.png";
+import logisticsHeroImg from "@/assets/seo/logistics-hero.png";
+import fpvHeroImg from "@/assets/seo/fpv-drone-aerial.jpg";
 
 // Supabase client + types are dynamically imported to keep them off the homepage's
 // critical JS path (~90KB gzip). They load during browser idle after first paint.
@@ -209,13 +208,6 @@ export const Header = () => {
       description: t('header.logistics.desc'),
       image: logisticsHeroImg,
       detail: t('header.logistics.detail'),
-    },
-    {
-      name: t('header.multiRotor'),
-      href: "/products/multi-rotor",
-      description: t('header.multiRotor.desc'),
-      image: multiRotorHeroImg,
-      detail: t('header.multiRotor.detail'),
     },
     {
       name: t('header.fpvDrone'),
