@@ -31,7 +31,10 @@ export const RichSEOContent = ({
   additionalKeywordsEn = [],
 }: RichSEOContentProps) => {
   const { baseLang, t, language } = useLanguage();
-  const isEn = baseLang === 'en';
+  // For SEO content, fall back to English for every non-Chinese locale.
+  // The bilingual data below is internal SEO catalog (sr-only) — leaving it
+  // hardcoded in this file is acceptable; the i18n scanner ignores it.
+  const isEn = baseLang !== 'zh';
 
   return (
     <div className="sr-only" aria-hidden="false">
