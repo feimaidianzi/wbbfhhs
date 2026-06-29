@@ -635,20 +635,49 @@ const TranslationManagement = () => {
                         </div>
                       )}
                     </div>
+                    {status.lang !== 'zh' && status.missingKeys.length > 0 && (
+                      <details className="mt-3 text-xs">
+                        <summary className="cursor-pointer text-orange-600 hover:text-orange-700">
+                          查看缺失键 ({status.missingKeys.length})
+                        </summary>
+                        <div className="mt-2 max-h-32 overflow-y-auto bg-gray-50 rounded p-2 font-mono text-[10px] text-gray-600 space-y-0.5">
+                          {status.missingKeys.slice(0, 50).map(k => (
+                            <div key={k} className="truncate" title={k}>{k}</div>
+                          ))}
+                          {status.missingKeys.length > 50 && (
+                            <div className="text-gray-400 italic">…还有 {status.missingKeys.length - 50} 个未显示</div>
+                          )}
+                        </div>
+                      </details>
+                    )}
                     {status.lang !== 'zh' && (
-                      <Button
-                        variant="outline"
-                        size="sm"
-                        className="w-full mt-4"
-                        onClick={() => startAutoTranslateSingle(status.lang)}
-                        disabled={isTranslating}
-                      >
-                        {currentLang === status.lang ? (
-                          <><Loader2 className="h-4 w-4 mr-2 animate-spin" />翻译中...</>
-                        ) : (
-                          <><RefreshCw className="h-4 w-4 mr-2" />{isComplete ? '重新翻译' : status.hasTranslation ? '继续翻译' : '开始翻译'}</>
+                      <div className="space-y-2 mt-4">
+                        <Button
+                          variant="outline"
+                          size="sm"
+                          className="w-full"
+                          onClick={() => startAutoTranslateSingle(status.lang)}
+                          disabled={isTranslating}
+                        >
+                          {currentLang === status.lang ? (
+                            <><Loader2 className="h-4 w-4 mr-2 animate-spin" />翻译中...</>
+                          ) : (
+                            <><RefreshCw className="h-4 w-4 mr-2" />{isComplete ? '重新翻译' : status.hasTranslation ? '继续翻译' : '开始翻译'}</>
+                          )}
+                        </Button>
+                        {status.missingKeys.length > 0 && (
+                          <Button
+                            variant="secondary"
+                            size="sm"
+                            className="w-full"
+                            onClick={() => retryMissingForLang(status.lang, status.missingKeys)}
+                            disabled={isTranslating}
+                          >
+                            <RefreshCw className="h-4 w-4 mr-2" />
+                            仅重试缺失 ({status.missingKeys.length})
+                          </Button>
                         )}
-                      </Button>
+                      </div>
                     )}
                   </CardContent>
                 </Card>
