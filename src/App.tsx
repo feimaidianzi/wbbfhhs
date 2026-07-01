@@ -156,6 +156,7 @@ const publicRoutes = [
   { path: "/solutions/industrial-uav-water-conservancy", element: <WaterConservancy /> },
   { path: "/solutions/industrial-uav-transportation-monitoring", element: <TransportationMonitoring /> },
   { path: "/solutions/industrial-uav-surveying-mapping", element: <SurveyingMapping /> },
+  { path: "/solutions/tethered-drone-guide", element: <TetheredDroneGuide /> },
   { path: "/software", element: <Software /> },
   { path: "/software/exam-system", element: <ExamSystem /> },
   { path: "/software/pv-inspection", element: <PVInspection /> },
