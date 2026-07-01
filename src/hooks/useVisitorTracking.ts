@@ -233,24 +233,39 @@ export const useVisitorTracking = () => {
       return Math.min(n, max);
     };
 
-    await supabase.from('visitor_events').insert({
-      session_id: sanitize(sessionId, 100)!,
-      event_type: sanitize(eventData.eventType, 50) || 'unknown',
-      event_name: sanitize(eventData.eventName, 200),
-      event_data: eventData.eventData || {},
-      page_url: sanitize(eventData.pageUrl || window.location.href, 2000),
-      page_title: sanitize(eventData.pageTitle || document.title, 500),
-      page_path: sanitize(eventData.pagePath || location.pathname, 500),
-      element_id: sanitize(eventData.elementId, 200),
-      element_class: sanitize(eventData.elementClass, 500),
-      element_text: sanitize(eventData.elementText, 100),
-      element_tag: sanitize(eventData.elementTag, 50),
-      product_id: sanitize(eventData.productId, 100),
-      product_name: sanitize(eventData.productName, 200),
-      product_category: sanitize(eventData.productCategory, 100),
-      duration_seconds: safeNum(eventData.durationSeconds, 86400),
-      scroll_depth: safeNum(eventData.scrollDepth, 100),
-    });
+    const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
+    const supabaseKey = import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY;
+    try {
+      await fetch(`${supabaseUrl}/functions/v1/insert-visitor-event`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${supabaseKey}`,
+        },
+        body: JSON.stringify({
+          event: {
+            session_id: sanitize(sessionId, 100)!,
+            event_type: sanitize(eventData.eventType, 50) || 'unknown',
+            event_name: sanitize(eventData.eventName, 200),
+            event_data: eventData.eventData || {},
+            page_url: sanitize(eventData.pageUrl || window.location.href, 2000),
+            page_title: sanitize(eventData.pageTitle || document.title, 500),
+            page_path: sanitize(eventData.pagePath || location.pathname, 500),
+            element_id: sanitize(eventData.elementId, 200),
+            element_class: sanitize(eventData.elementClass, 500),
+            element_text: sanitize(eventData.elementText, 100),
+            element_tag: sanitize(eventData.elementTag, 50),
+            product_id: sanitize(eventData.productId, 100),
+            product_name: sanitize(eventData.productName, 200),
+            product_category: sanitize(eventData.productCategory, 100),
+            duration_seconds: safeNum(eventData.durationSeconds, 86400),
+            scroll_depth: safeNum(eventData.scrollDepth, 100),
+          },
+        }),
+      });
+    } catch (err) {
+      console.error('Failed to insert visitor event:', err);
+    }
 
     // Update session via edge function (service_role)
     await updateVisitorSession(sessionId, {
