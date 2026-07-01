@@ -148,8 +148,10 @@ export const Footer = () => {
                     rel={social.href.startsWith('http') ? 'noopener noreferrer' : undefined}
                     className="w-9 h-9 bg-background/10 rounded-full flex items-center justify-center text-background/70 hover:text-background hover:bg-background/20 transition-colors"
                     title={social.label}
+                    aria-label={social.label}
                   >
-                    <social.icon className="w-4 h-4" />
+                    <social.icon className="w-4 h-4" aria-hidden="true" />
+                    <span className="sr-only">{social.label}</span>
                   </a>
                 ))}
               </div>
