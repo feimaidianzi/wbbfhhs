@@ -77,6 +77,7 @@ const Solutions = React.lazy(() => import("./pages/applications/Solutions"));
 const TransportationMonitoring = React.lazy(() => import("./pages/applications/TransportationMonitoring"));
 const WaterConservancy = React.lazy(() => import("./pages/applications/WaterConservancy"));
 const SurveyingMapping = React.lazy(() => import("./pages/solutions/SurveyingMapping"));
+const TetheredDroneGuide = React.lazy(() => import("./pages/solutions/TetheredDroneGuide"));
 const VtxVrx = React.lazy(() => import("./pages/products/accessories/VtxVrx"));
 const VtxDetail = React.lazy(() => import("./pages/products/accessories/VtxDetail"));
 const VrxDetail = React.lazy(() => import("./pages/products/accessories/VrxDetail"));
