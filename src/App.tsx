@@ -77,6 +77,7 @@ const Solutions = React.lazy(() => import("./pages/applications/Solutions"));
 const TransportationMonitoring = React.lazy(() => import("./pages/applications/TransportationMonitoring"));
 const WaterConservancy = React.lazy(() => import("./pages/applications/WaterConservancy"));
 const SurveyingMapping = React.lazy(() => import("./pages/solutions/SurveyingMapping"));
+const TetheredDroneGuide = React.lazy(() => import("./pages/solutions/TetheredDroneGuide"));
 const VtxVrx = React.lazy(() => import("./pages/products/accessories/VtxVrx"));
 const VtxDetail = React.lazy(() => import("./pages/products/accessories/VtxDetail"));
 const VrxDetail = React.lazy(() => import("./pages/products/accessories/VrxDetail"));
@@ -155,6 +156,7 @@ const publicRoutes = [
   { path: "/solutions/industrial-uav-water-conservancy", element: <WaterConservancy /> },
   { path: "/solutions/industrial-uav-transportation-monitoring", element: <TransportationMonitoring /> },
   { path: "/solutions/industrial-uav-surveying-mapping", element: <SurveyingMapping /> },
+  { path: "/solutions/tethered-drone-guide", element: <TetheredDroneGuide /> },
   { path: "/software", element: <Software /> },
   { path: "/software/exam-system", element: <ExamSystem /> },
   { path: "/software/pv-inspection", element: <PVInspection /> },
