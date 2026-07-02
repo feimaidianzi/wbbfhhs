@@ -253,7 +253,7 @@ export const Header = () => {
       <div className="container-custom">
         <div className="flex items-center justify-between h-16 md:h-20">
           {/* Logo — invert filter on scroll so the light logo stays visible on the light header background */}
-          <Logo className={isScrolled ? 'invert brightness-0' : ''} />
+          <Logo className={isScrolled ? 'brightness-0' : ''} />
 
           {/* Desktop Navigation */}
           <div className="hidden nav:flex items-center justify-center flex-1 min-w-0 mx-1 relative overflow-hidden">
