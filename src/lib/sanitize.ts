@@ -6,8 +6,29 @@ import DOMPurify from 'dompurify';
  */
 export const sanitizeHtml = (html: string): string => {
   if (!html) return '';
-  
-  return DOMPurify.sanitize(html, {
+
+  // Strip inline color/background styles that clash with the dark theme.
+  // Keeps other style props (text-align, width, etc.) intact.
+  DOMPurify.removeHook('uponSanitizeAttribute');
+  DOMPurify.addHook('uponSanitizeAttribute', (_node, data) => {
+    if (data.attrName === 'style' && typeof data.attrValue === 'string') {
+      const cleaned = data.attrValue
+        .split(';')
+        .map((decl) => decl.trim())
+        .filter((decl) => {
+          if (!decl) return false;
+          const prop = decl.split(':')[0]?.trim().toLowerCase();
+          // Drop any color-related declaration so theme tokens win.
+          return prop !== 'color'
+            && prop !== 'background'
+            && prop !== 'background-color';
+        })
+        .join('; ');
+      data.attrValue = cleaned;
+    }
+  });
+
+  const clean = DOMPurify.sanitize(html, {
     ALLOWED_TAGS: [
       'p', 'br', 'strong', 'b', 'em', 'i', 'u', 's', 'strike',
       'h1', 'h2', 'h3', 'h4', 'h5', 'h6',
@@ -23,11 +44,13 @@ export const sanitizeHtml = (html: string): string => {
       'target', 'rel', 'width', 'height',
     ],
     ALLOW_DATA_ATTR: false,
-    // Force all links to open in new tab with secure attributes
     ADD_ATTR: ['target', 'rel'],
     FORBID_TAGS: ['script', 'style', 'iframe', 'object', 'embed', 'form', 'input'],
     FORBID_ATTR: ['onerror', 'onclick', 'onload', 'onmouseover'],
   });
+
+  DOMPurify.removeHook('uponSanitizeAttribute');
+  return clean;
 };
 
 /**
