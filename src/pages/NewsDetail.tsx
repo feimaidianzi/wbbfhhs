@@ -289,7 +289,8 @@ const NewsDetail = () => {
   const hasSidebar = mentionedProducts.length > 0 || (article.keywords && article.keywords.length > 0);
 
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen bg-white text-slate-900">
+
       <MultiLanguageSEO
         title={baseLang === 'en' && article.title_en ? article.title_en : article.title}
         description={baseLang === 'en' && article.summary_en ? article.summary_en : (article.summary || article.title)}
