@@ -382,7 +382,8 @@ const NewsDetail = () => {
                 ref={contentRef}
                 className="prose prose-lg dark:prose-invert max-w-none
                   prose-headings:text-foreground 
-                  prose-p:text-muted-foreground 
+                  prose-p:text-foreground/90
+                  prose-li:text-foreground/90
                   prose-a:text-accent hover:prose-a:text-orange-light
                   prose-strong:text-foreground
                   prose-img:rounded-xl prose-img:shadow-lg
