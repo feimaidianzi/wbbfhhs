@@ -70,7 +70,7 @@ export const enHomeTranslations: Record<string, string> = {
   'footer.applications': 'Applications',
   'footer.software': 'Software',
   'footer.custom': 'Customization',
-  'footer.copyright': 'CANI Technology',
+  'footer.copyright': 'Shaoyang Changling Electronic Technology Co., Ltd.',
   'footer.rights': 'All Rights Reserved',
   'footer.aboutUs': 'About Us',
   'footer.contactUs': 'Contact Us',
