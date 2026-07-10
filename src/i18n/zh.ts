@@ -693,7 +693,7 @@ export const zhTranslations: Record<string, string> = {
   'footer.custom': '产品定制',
   'footer.address': '公司地址',
   'footer.address.content': '湖南省长沙市望城区月亮岛街道罐子岭澳优全球总部大楼',
-  'footer.copyright': '长凌科技',
+  'footer.copyright': '邵阳长凌电子科技有限公司',
   'footer.rights': '版权所有',
   'footer.aboutUs': '关于我们',
   'footer.contactUs': '联系我们',
