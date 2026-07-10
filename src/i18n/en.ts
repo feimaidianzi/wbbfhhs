@@ -693,7 +693,7 @@ export const enTranslations: Record<string, string> = {
   'footer.custom': 'Customization',
   'footer.address': 'Address',
   'footer.address.content': 'Ausnutria Global Headquarters, Guanziling, Yueliangdao Street, Wangcheng District, Changsha, Hunan, China',
-  'footer.copyright': 'CANI Technology',
+  'footer.copyright': 'Shaoyang Changling Electronic Technology Co., Ltd.',
   'footer.rights': 'All Rights Reserved',
   'footer.aboutUs': 'About Us',
   'footer.contactUs': 'Contact Us',
