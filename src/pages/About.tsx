@@ -121,7 +121,8 @@ const About = () => {
     "mainEntity": {
       "@type": "Organization",
       "name": "长凌科技 (CANI)",
-      "alternateName": ["长凌", "CANI UAV", "CANI"],
+      "legalName": "邵阳长凌电子科技有限公司",
+      "alternateName": ["长凌", "CANI UAV", "CANI", "邵阳长凌电子科技有限公司"],
       "url": "https://www.caniuav.com/",
       "logo": "https://www.caniuav.com/images/logo.png",
       "foundingDate": "2015",
