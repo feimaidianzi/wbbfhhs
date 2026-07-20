@@ -474,10 +474,10 @@ const TH200 = () => {
                 {t('acc.canifmtdetail.k547')}
               </Button>
             </Link>
-            <a href="mailto:info@caniuav.com">
+            <a href="mailto:so_0307@qq.com">
               <Button variant="outline" className="border-gray-600 text-gray-300 hover:bg-gray-800 px-8 py-3 min-h-[44px]">
                 <Mail className="w-4 h-4 mr-2" />
-                info@caniuav.com
+                so_0307@qq.com
               </Button>
             </a>
           </div>

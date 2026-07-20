@@ -138,7 +138,7 @@ const About = () => {
       "contactPoint": [
         { "@type": "ContactPoint", "telephone": "+86-13574137503", "contactType": "sales and technical support", "email": "so_0307@qq.com", "availableLanguage": ["Chinese", "English"] },
         { "@type": "ContactPoint", "contactType": "Sales & OEM/ODM", "email": "so_0307@qq.com" },
-        { "@type": "ContactPoint", "contactType": "Technical Support", "email": "support@caniuav.com" }
+        { "@type": "ContactPoint", "contactType": "Technical Support", "email": "so_0307@qq.com" }
       ],
       "sameAs": ["https://linkedin.com/company/caniuav", "https://instagram.com/868163685410", "https://t.me/caniuav", "https://m.me/caniuav"],
       "knowsAbout": ["Industrial UAV Payload Customization", "37W High-Power Video Transmission Systems", "EO/IR Dual-Sensor Gimbal Pods", "Flight Controller & ESC Systems", "BVLOS Operations", "MAVLink Protocol Integration"],

@@ -1792,7 +1792,7 @@ export const enTranslations: Record<string, string> = {
   'seo.contact.info': 'Contact Information',
   'seo.contact.salesHotline': 'Sales Hotline: 181-7413-7503 (Weekdays 9:00-18:00)',
   'seo.contact.businessEmail': 'Business Email: so_0307@qq.com',
-  'seo.contact.technicalSupport': 'Technical Support: support@caniuav.com',
+  'seo.contact.technicalSupport': 'Technical Support: so_0307@qq.com',
   'seo.contact.address': 'Company Address',
   'seo.contact.addressDetail': 'Yida Smart Manufacturing Town, Wangcheng District, Changsha, Hunan, China',
 
