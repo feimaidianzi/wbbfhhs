@@ -131,7 +131,7 @@ const PayloadCustom = () => {
                   <Button className="bg-accent hover:bg-accent/90 text-accent-foreground px-8 py-6 text-lg">
                     {t('customPayload.btn.consult')} <ArrowRight className="w-5 h-5 ml-2" />
                   </Button>
-                  <a href="mailto:sales@caniuav.com">
+                  <a href="mailto:so_0307@qq.com">
                     <Button className="bg-primary/10 border border-primary/30 text-foreground hover:bg-primary/20 px-8 py-6 text-lg">
                       <Mail className="w-5 h-5 mr-2" /> {t('template.emailConsult')}
                     </Button>
@@ -261,9 +261,9 @@ const PayloadCustom = () => {
               <Button className="bg-accent hover:bg-accent/90 text-accent-foreground px-10 py-6 text-lg">
                 <Mail className="w-5 h-5 mr-2" /> {t('customPayload.cta.consult')}
               </Button>
-              <a href="mailto:sales@caniuav.com">
+              <a href="mailto:so_0307@qq.com">
                 <Button className="bg-primary-foreground/20 border border-primary-foreground/50 text-primary-foreground hover:bg-primary-foreground/30 px-10 py-6 text-lg">
-                  <Mail className="w-5 h-5 mr-2" /> sales@caniuav.com
+                  <Mail className="w-5 h-5 mr-2" /> so_0307@qq.com
                 </Button>
               </a>
             </div>

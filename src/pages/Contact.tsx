@@ -63,8 +63,8 @@ const Contact = () => {
   }, [cooldown]);
 
   const contactInfo = [
-    { icon: Mail, title: t('contact.info.email'), value: "market@caniuav.com", href: "mailto:market@caniuav.com" },
-    { icon: Mail, title: t('contact.info.salesEmail') || 'Sales', value: "sales@caniuav.com", href: "mailto:sales@caniuav.com" },
+    { icon: Mail, title: t('contact.info.email'), value: "so_0307@qq.com", href: "mailto:so_0307@qq.com" },
+    { icon: Mail, title: t('contact.info.salesEmail') || 'Sales', value: "so_0307@qq.com", href: "mailto:so_0307@qq.com" },
     { icon: Mail, title: t('contact.info.techEmail'), value: "support@caniuav.com", href: "mailto:support@caniuav.com" },
     { icon: Mail, title: t('contact.info.feedbackEmail') || 'Feedback', value: "feedback@caniuav.com", href: "mailto:feedback@caniuav.com" },
     { icon: MessageCircle, title: t('contact.info.wechat'), value: "+8617674048404", href: "weixin://dl/chat?+8617674048404" },
@@ -75,7 +75,7 @@ const Contact = () => {
     {
       city: t('contact.office.changsha'),
       address: t('contact.office.changsha.address'),
-      email: "market@caniuav.com",
+      email: "so_0307@qq.com",
     },
   ];
 
@@ -128,7 +128,7 @@ const Contact = () => {
 
       if (error) throw error;
 
-      let adminEmail = inquiryType === 'business' ? 'sales@caniuav.com' : 'support@caniuav.com';
+      let adminEmail = inquiryType === 'business' ? 'so_0307@qq.com' : 'support@caniuav.com';
       try {
         const { data: settingData } = await supabase
           .from('system_settings')
@@ -190,12 +190,12 @@ const Contact = () => {
       legalName: '邵阳长凌电子科技有限公司',
       url: 'https://www.caniuav.com/',
       logo: 'https://www.caniuav.com/logo.png',
-      email: 'market@caniuav.com',
+      email: 'so_0307@qq.com',
       contactPoint: [
         {
           '@type': 'ContactPoint',
           contactType: 'Sales & OEM/ODM',
-          email: 'sales@caniuav.com',
+          email: 'so_0307@qq.com',
           availableLanguage: ['Chinese', 'English'],
         },
         {

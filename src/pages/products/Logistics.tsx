@@ -456,7 +456,7 @@ const Logistics = () => {
                 {t('logistics.sy800.cta.contact')}
               </Button>
             </Link>
-            <a href="mailto:sales@caniuav.com">
+            <a href="mailto:so_0307@qq.com">
               <Button size="lg" variant="outline" className="bg-transparent border-primary-foreground text-primary-foreground hover:bg-primary-foreground hover:text-primary">
                 {t('template.emailConsult')}
               </Button>

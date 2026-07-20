@@ -53,7 +53,7 @@ export const CTASection = () => {
 
   const socialContacts = [
     { icon: WeChatIcon, label: "WeChat", id: "+8617674048404", href: "weixin://dl/chat?+8617674048404" },
-    { icon: WhatsAppIcon, label: "WhatsApp", href: "https://wa.me/8618163685410" },
+    { icon: WhatsAppIcon, label: "WhatsApp", href: "https://wa.me/8613574137503" },
     { icon: MessengerIcon, label: "Messenger", href: "https://m.me/caniuav" },
     { icon: TelegramIcon, label: "Telegram", href: "https://t.me/caniuav" },
     { icon: LinkedInIcon, label: "LinkedIn", href: "https://linkedin.com/company/caniuav" },
@@ -89,7 +89,7 @@ export const CTASection = () => {
                   <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform duration-300" />
                 </Button>
               </LangLink>
-              <a href="https://wa.me/8618163685410" target="_blank" rel="noopener noreferrer">
+              <a href="https://wa.me/8613574137503" target="_blank" rel="noopener noreferrer">
                 <Button variant="outline" className="border-green-500 text-green-600 hover:bg-green-50 hover:border-green-600 px-8 py-6 text-lg transition-all duration-300 min-h-[44px] min-w-[44px]">
                   <WhatsAppIcon className="w-5 h-5 mr-2" />
                   WhatsApp
@@ -113,7 +113,7 @@ export const CTASection = () => {
                   <div className="text-sm text-muted-foreground mb-1">
                     {t('ctaSection.email')}
                   </div>
-                  <div className="font-semibold text-foreground">sales@caniuav.com</div>
+                  <div className="font-semibold text-foreground">so_0307@qq.com</div>
                 </div>
               </div>
 

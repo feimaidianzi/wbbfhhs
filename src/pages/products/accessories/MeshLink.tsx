@@ -589,10 +589,10 @@ const MeshLink = () => {
                   <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
                 </Button>
               </LangLink>
-              <a href="mailto:sales@caniuav.com">
+              <a href="mailto:so_0307@qq.com">
                 <Button size="lg" className="bg-white/95 text-primary hover:bg-white font-bold shadow-lg">
                   <Mail className="mr-2 h-4 w-4" />
-                  sales@caniuav.com
+                  so_0307@qq.com
                 </Button>
               </a>
             </div>
