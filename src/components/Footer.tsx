@@ -130,10 +130,6 @@ export const Footer = () => {
                 <Mail className="w-4 h-4" />
                 <span className="text-sm">so_0307@qq.com</span>
               </a>
-              <a href="mailto:support@caniuav.com" className="flex items-center gap-3 text-background/70 hover:text-background transition-colors group">
-                <Mail className="w-4 h-4" />
-                <span className="text-sm">support@caniuav.com</span>
-              </a>
             </div>
 
             {/* Social Links */}
