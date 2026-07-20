@@ -692,7 +692,7 @@ export const enTranslations: Record<string, string> = {
   'footer.software': 'Software',
   'footer.custom': 'Customization',
   'footer.address': 'Address',
-  'footer.address.content': 'Ausnutria Global Headquarters, Guanziling, Yueliangdao Street, Wangcheng District, Changsha, Hunan, China',
+  'footer.address.content': 'Yida Smart Manufacturing Town, Wangcheng District, Changsha, Hunan, China',
   'footer.copyright': 'Shaoyang Changling Electronic Technology Co., Ltd.',
   'footer.rights': 'All Rights Reserved',
   'footer.aboutUs': 'About Us',
@@ -1761,7 +1761,7 @@ export const enTranslations: Record<string, string> = {
   'contact.info.workingHours': 'Working Hours',
   'contact.info.workingHours.value': 'Mon-Fri 9:00-18:00 (UTC+8)',
   'contact.office.changsha': 'Changsha Headquarters',
-  'contact.office.changsha.address': 'Aoyou Global Headquarters Building, Guanziling, Yueliangdao Street, Wangcheng District, Changsha, Hunan',
+  'contact.office.changsha.address': 'Yida Smart Manufacturing Town, Wangcheng District, Changsha, Hunan',
   
   // Contact Form Validation
   'contact.validation.pleaseWait': 'Please Wait',
@@ -1794,7 +1794,7 @@ export const enTranslations: Record<string, string> = {
   'seo.contact.businessEmail': 'Business Email: so_0307@qq.com',
   'seo.contact.technicalSupport': 'Technical Support: support@caniuav.com',
   'seo.contact.address': 'Company Address',
-  'seo.contact.addressDetail': 'Moon Island Street, Wangcheng District, Changsha, Hunan, China',
+  'seo.contact.addressDetail': 'Yida Smart Manufacturing Town, Wangcheng District, Changsha, Hunan, China',
 
   // ===== X1200 Product Details =====
   'multiRotor.x1200.feature.heavyPayload': 'Heavy Payload',
