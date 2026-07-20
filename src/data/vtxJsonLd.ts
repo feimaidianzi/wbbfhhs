@@ -11,7 +11,7 @@ export const pv02JsonLd = {
   "brand": { "@type": "Brand", "name": "CANI UAV" },
   "sku": "PV02W500-A1",
   "mpn": "FLYM-PV02W500-A1",
-  "image": "https://www.caniuav.com/assets/vtx/vtx-2.5w.png",
+  "image": "https://caniuav.com/assets/vtx/vtx-2.5w.png",
   "keywords": "2.5W analog VTX, 2500mW video transmitter, long-range FPV, NLOS video link, zero-latency analog transmission",
   "additionalProperty": [
     { "@type": "PropertyValue", "name": "RF Output Power", "value": "2500mW (2.5W)" },
@@ -27,7 +27,7 @@ export const pv02JsonLd = {
   ],
   "offers": {
     "@type": "Offer",
-    "url": "https://www.caniuav.com/products/accessories/vtx-vrx/flym-pv02w500-a1",
+    "url": "https://caniuav.com/products/accessories/vtx-vrx/flym-pv02w500-a1",
     "priceCurrency": "USD",
     "availability": "https://schema.org/InStock"
   }
@@ -47,7 +47,7 @@ export const pv03JsonLd = {
   "brand": { "@type": "Brand", "name": "CANI UAV" },
   "sku": "PV03W000-A1",
   "mpn": "FLYM-PV03W000-A1",
-  "image": "https://www.caniuav.com/assets/vtx/vtx-low-power.png",
+  "image": "https://caniuav.com/assets/vtx/vtx-low-power.png",
   "keywords": "3W analog VTX, 3000mW video transmitter, NLOS video transmission, tactical long-range analog system, military-grade signal penetration, zero-latency analog link, industrial UAV VTX",
   "additionalProperty": [
     { "@type": "PropertyValue", "name": "RF Output Power", "value": "3000mW (3W)" },
@@ -64,7 +64,7 @@ export const pv03JsonLd = {
   ],
   "offers": {
     "@type": "Offer",
-    "url": "https://www.caniuav.com/products/accessories/vtx-vrx/flym-pv03w000-a1",
+    "url": "https://caniuav.com/products/accessories/vtx-vrx/flym-pv03w000-a1",
     "priceCurrency": "USD",
     "availability": "https://schema.org/InStock"
   }
@@ -101,7 +101,7 @@ export const fv10wJsonLd = {
   ],
   "offers": {
     "@type": "Offer",
-    "url": "https://www.caniuav.com/products/accessories/vtx-vrx/fv10w-a1",
+    "url": "https://caniuav.com/products/accessories/vtx-vrx/fv10w-a1",
     "availability": "https://schema.org/InStock"
   }
 };
@@ -135,7 +135,7 @@ export const fv16wJsonLd = {
   ],
   "offers": {
     "@type": "Offer",
-    "url": "https://www.caniuav.com/products/accessories/vtx-vrx/fv16w-a1",
+    "url": "https://caniuav.com/products/accessories/vtx-vrx/fv16w-a1",
     "availability": "https://schema.org/InStock"
   }
 };
@@ -169,7 +169,7 @@ export const fv25wJsonLd = {
   ],
   "offers": {
     "@type": "Offer",
-    "url": "https://www.caniuav.com/products/accessories/vtx-vrx/fv25w-a1",
+    "url": "https://caniuav.com/products/accessories/vtx-vrx/fv25w-a1",
     "availability": "https://schema.org/InStock"
   }
 };
@@ -201,7 +201,7 @@ export const fv37wJsonLd = {
   ],
   "offers": {
     "@type": "Offer",
-    "url": "https://www.caniuav.com/products/accessories/vtx-vrx/fv37w-a1",
+    "url": "https://caniuav.com/products/accessories/vtx-vrx/fv37w-a1",
     "priceCurrency": "USD",
     "availability": "https://schema.org/InStock"
   }
@@ -236,7 +236,7 @@ export const buildFv10w72JsonLd = (descriptionFromT: string) => ({
   ],
   "offers": {
     "@type": "Offer",
-    "url": "https://www.caniuav.com/products/accessories/vtx-vrx/fv10w-72",
+    "url": "https://caniuav.com/products/accessories/vtx-vrx/fv10w-72",
     "availability": "https://schema.org/InStock"
   }
 });

@@ -74,7 +74,7 @@ const FcEsc = () => {
     'offers': {
       '@type': 'Offer',
       'availability': 'https://schema.org/InStock',
-      'url': 'https://www.caniuav.com/products/accessories/fc-esc',
+      'url': 'https://caniuav.com/products/accessories/fc-esc',
     },
   };
 

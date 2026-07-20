@@ -24,7 +24,7 @@ const SurveyingMapping = () => {
     provider: {
       '@type': 'Organization',
       name: 'CANI Technology',
-      url: 'https://www.caniuav.com',
+      url: 'https://caniuav.com',
     },
     description: t('surveyMap.seo.desc'),
     serviceType: 'Industrial UAV Surveying & Mapping Solutions',

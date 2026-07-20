@@ -37,7 +37,7 @@ const AiModuleDetail = () => {
     offers: {
       '@type': 'Offer',
       availability: 'https://schema.org/InStock',
-      url: `https://www.caniuav.com/products/accessories/ai-module/${productId}`,
+      url: `https://caniuav.com/products/accessories/ai-module/${productId}`,
     },
   };
 

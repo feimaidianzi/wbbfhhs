@@ -65,7 +65,7 @@ const EnvironmentSystem = () => {
           "@context": "https://schema.org",
           "@type": "SoftwareApplication",
           "name": "CANI Integrated Environment Monitoring System",
-          "url": "https://www.caniuav.com/software/environment-system",
+          "url": "https://caniuav.com/software/environment-system",
           "operatingSystem": "Cloud-based, Web, iOS, Android",
           "applicationCategory": "EnvironmentalSoftware",
           "description": "Industrial/government-grade UAV environment monitoring system with multi-sensor fusion, supporting atmosphere, water, vegetation, and thermal pollution 4D monitoring with ISO 14001 and ESG audit-compliant 3D visualization reporting.",

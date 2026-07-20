@@ -68,14 +68,14 @@ const Products = () => {
     '@type': 'CollectionPage',
     name: t('products.hero.title'),
     description: t('products.page.description'),
-    url: 'https://www.caniuav.com/products',
+    url: 'https://caniuav.com/products',
     mainEntity: {
       '@type': 'ItemList',
       numberOfItems: allCategories.length,
       itemListElement: allCategories.map((c, i) => ({
         '@type': 'ListItem',
         position: i + 1,
-        item: { '@type': 'Product', name: c.name, description: c.description, url: `https://www.caniuav.com${c.href}`, brand: { '@type': 'Brand', name: 'CANI' } },
+        item: { '@type': 'Product', name: c.name, description: c.description, url: `https://caniuav.com${c.href}`, brand: { '@type': 'Brand', name: 'CANI' } },
       })),
     },
   };

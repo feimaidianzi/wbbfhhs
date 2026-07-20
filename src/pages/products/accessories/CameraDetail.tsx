@@ -87,11 +87,11 @@ const CameraDetail = () => {
     '@context': 'https://schema.org/',
     '@type': 'Product',
     name: 'CANI SJ4000-WiFi 无人机可见光载荷相机',
-    image: 'https://www.caniuav.com/images/products/camera/sj4000-wifi-main.jpg',
+    image: 'https://caniuav.com/images/products/camera/sj4000-wifi-main.jpg',
     description: '58g极致轻量化无人机相机，1200万像素高清采集，支持1080P WiFi实时图传。专为电力巡检与农业植保设计的轻量化载荷模组，无缝适配WiFiLink2与Mesh-Link链路。',
     brand: { '@type': 'Brand', name: 'CANI' },
     sku: 'CANI-CAM-SJ4W',
-    url: 'https://www.caniuav.com/zh/products/accessories/camera/sj4000-wifi',
+    url: 'https://caniuav.com/zh/products/accessories/camera/sj4000-wifi',
     manufacturer: {
       '@type': 'Organization',
       name: t('acc.cameradetail.k454'),

@@ -30,12 +30,12 @@ const AccessoriesCustom = () => {
     "additionalType": "https://en.wikipedia.org/wiki/Unmanned_aerial_vehicle",
     "mainEntityOfPage": {
       "@type": "WebPage",
-      "@id": "https://www.caniuav.com/custom-research/accessories"
+      "@id": "https://caniuav.com/custom-research/accessories"
     },
     "manufacturer": {
       "@type": "Organization",
       "name": "CANI Technology",
-      "url": "https://www.caniuav.com"
+      "url": "https://caniuav.com"
     }
   };
 

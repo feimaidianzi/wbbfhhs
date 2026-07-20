@@ -149,7 +149,7 @@ const News = () => {
     '@type': 'CollectionPage',
     name: t('news.page.title'),
     description: t('news.page.metaDesc'),
-    url: 'https://www.caniuav.com/news',
+    url: 'https://caniuav.com/news',
     mainEntity: {
       '@type': 'ItemList',
       numberOfItems: articles.length,

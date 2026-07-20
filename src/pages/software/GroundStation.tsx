@@ -66,7 +66,7 @@ const GroundStation = () => {
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",
     "name": "CANI Ground Station Software",
-    "url": "https://www.caniuav.com/software/ground-station",
+    "url": "https://caniuav.com/software/ground-station",
     "operatingSystem": "Windows 10/11, Linux, Android",
     "applicationCategory": "MissionControlSoftware",
     "featureList": "MAVLink v2 protocol support, STANAG 4586 compliance, AES-256-GCM encryption, Post-Quantum Cryptography (PQC), Multi-UAV formation control, BVLOS mission planning, Offline 3D mapping, LiDAR point cloud integration, Terrain following, Emergency RTH",

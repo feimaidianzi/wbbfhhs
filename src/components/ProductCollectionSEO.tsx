@@ -72,7 +72,7 @@ export const ProductCollectionSEO = ({
         name: isEn && product.nameEn ? product.nameEn : product.name,
         description: isEn && product.descriptionEn ? product.descriptionEn : product.description,
         image: product.image,
-        url: product.link ? `https://www.caniuav.com${product.link}` : undefined,
+        url: product.link ? `https://caniuav.com${product.link}` : undefined,
         brand: {
           '@type': 'Brand',
           name: 'CANI',
@@ -97,13 +97,13 @@ export const ProductCollectionSEO = ({
     '@type': 'CollectionPage',
     name: isEn ? categoryEn : category,
     description: isEn ? categoryDescriptionEn : categoryDescription,
-    url: `https://www.caniuav.com/products/${category.toLowerCase().replace(/\s+/g, '-')}`,
+    url: `https://caniuav.com/products/${category.toLowerCase().replace(/\s+/g, '-')}`,
     mainEntity: itemListStructuredData,
     breadcrumb: {
       '@type': 'BreadcrumbList',
       itemListElement: [
-         { '@type': 'ListItem', position: 1, name: t('nav.home'), item: 'https://www.caniuav.com' },
-        { '@type': 'ListItem', position: 2, name: t('nav.products'), item: 'https://www.caniuav.com/products' },
+         { '@type': 'ListItem', position: 1, name: t('nav.home'), item: 'https://caniuav.com' },
+        { '@type': 'ListItem', position: 2, name: t('nav.products'), item: 'https://caniuav.com/products' },
         { '@type': 'ListItem', position: 3, name: isEn ? categoryEn : category },
       ],
     },

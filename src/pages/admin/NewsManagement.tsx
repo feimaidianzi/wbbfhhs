@@ -448,8 +448,8 @@ const NewsManagement = () => {
   // Fire-and-forget: push a newly-published article's URLs to Baidu
   const pushArticleToBaidu = (articleId: string) => {
     const urls = [
-      `https://www.caniuav.com/zh/news/${articleId}`,
-      `https://www.caniuav.com/en/news/${articleId}`,
+      `https://caniuav.com/zh/news/${articleId}`,
+      `https://caniuav.com/en/news/${articleId}`,
     ];
     supabase.functions.invoke('baidu-push', { body: { urls } }).catch(() => {
       /* silent: SEO push is best-effort */

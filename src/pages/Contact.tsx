@@ -188,8 +188,8 @@ const Contact = () => {
       '@type': 'Organization',
       name: '长凌科技 (CANI Technology)',
       legalName: '邵阳长凌电子科技有限公司',
-      url: 'https://www.caniuav.com/',
-      logo: 'https://www.caniuav.com/logo.png',
+      url: 'https://caniuav.com/',
+      logo: 'https://caniuav.com/logo.png',
       email: 'so_0307@qq.com',
       contactPoint: [
         {

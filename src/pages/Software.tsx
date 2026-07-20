@@ -17,7 +17,7 @@ const Software = () => {
     '@type': 'CollectionPage',
     name: t('software.page.title'),
     description: t('software.page.description'),
-    url: 'https://www.caniuav.com/software',
+    url: 'https://caniuav.com/software',
     mainEntity: {
       '@type': 'ItemList',
       itemListElement: [

@@ -24,8 +24,8 @@ const PayloadCustom = () => {
     "provider": {
       "@type": "Organization",
       "name": "CANI Technology",
-      "url": "https://www.caniuav.com/",
-      "logo": "https://www.caniuav.com/logo.png"
+      "url": "https://caniuav.com/",
+      "logo": "https://caniuav.com/logo.png"
     },
     "areaServed": "Global",
     "hasOfferCatalog": {

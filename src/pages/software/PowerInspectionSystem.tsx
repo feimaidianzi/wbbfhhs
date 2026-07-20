@@ -68,7 +68,7 @@ const PowerInspectionSystem = () => {
           "@context": "https://schema.org",
           "@type": "SoftwareApplication",
           "name": "CANI Power Inspection Intelligence System",
-          "url": "https://www.caniuav.com/software/power-inspection-system",
+          "url": "https://caniuav.com/software/power-inspection-system",
           "operatingSystem": "Web-based, Windows, Linux",
           "applicationCategory": "IndustrialSoftware",
           "description": "Enterprise-grade UAV power grid inspection system with YOLOv8 AI defect detection, 640×512 radiometric thermal imaging, LiDAR vegetation clearance analysis, and drone airport integration for unattended substation inspection.",

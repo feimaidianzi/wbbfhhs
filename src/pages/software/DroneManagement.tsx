@@ -47,7 +47,7 @@ const DroneManagement = () => {
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",
     "name": "CANI Drone Management System",
-    "url": "https://www.caniuav.com/software/drone-management",
+    "url": "https://caniuav.com/software/drone-management",
     "operatingSystem": "Web, iOS, Android",
     "applicationCategory": "BusinessApplication",
     "featureList": "Automated DJI flight logging, Fleet compliance monitoring, Battery cycle tracking, Mission planning, Pilot qualification management, Geofence safety controls",
