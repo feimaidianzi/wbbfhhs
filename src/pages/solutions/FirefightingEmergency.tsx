@@ -24,7 +24,7 @@ const FirefightingEmergency = () => {
     provider: {
       '@type': 'Organization',
       name: 'CANI Technology',
-      url: 'https://www.caniuav.com',
+      url: 'https://caniuav.com',
     },
     description: t('fireEmergency.seo.desc'),
     serviceType: 'Industrial UAV Emergency Solutions',

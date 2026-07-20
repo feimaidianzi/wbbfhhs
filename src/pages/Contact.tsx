@@ -67,7 +67,7 @@ const Contact = () => {
     { icon: Mail, title: t('contact.info.salesEmail') || 'Sales', value: "so_0307@qq.com", href: "mailto:so_0307@qq.com" },
     { icon: Mail, title: t('contact.info.techEmail'), value: "so_0307@qq.com", href: "mailto:so_0307@qq.com" },
     { icon: Mail, title: t('contact.info.feedbackEmail') || 'Feedback', value: "so_0307@qq.com", href: "mailto:so_0307@qq.com" },
-    { icon: MessageCircle, title: t('contact.info.wechat'), value: "+8617674048404", href: "weixin://dl/chat?+8617674048404" },
+    { icon: MessageCircle, title: t('contact.info.wechat'), value: "+8613574137503", href: "weixin://dl/chat?+8613574137503" },
     { icon: Clock, title: t('contact.info.workingHours'), value: t('contact.info.workingHours.value'), href: null },
   ];
 
@@ -188,8 +188,8 @@ const Contact = () => {
       '@type': 'Organization',
       name: '长凌科技 (CANI Technology)',
       legalName: '邵阳长凌电子科技有限公司',
-      url: 'https://www.caniuav.com/',
-      logo: 'https://www.caniuav.com/logo.png',
+      url: 'https://caniuav.com/',
+      logo: 'https://caniuav.com/logo.png',
       email: 'so_0307@qq.com',
       contactPoint: [
         {

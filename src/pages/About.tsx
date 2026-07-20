@@ -123,8 +123,8 @@ const About = () => {
       "name": "长凌科技 (CANI)",
       "legalName": "邵阳长凌电子科技有限公司",
       "alternateName": ["长凌", "CANI UAV", "CANI", "邵阳长凌电子科技有限公司"],
-      "url": "https://www.caniuav.com/",
-      "logo": "https://www.caniuav.com/images/logo.png",
+      "url": "https://caniuav.com/",
+      "logo": "https://caniuav.com/images/logo.png",
       "foundingDate": "2015",
       "description": "Founded in 2015, CANI Technology is a High-tech Enterprise specializing in industrial UAV payload R&D and manufacturing with 200+ technology patents and ISO 9001 certification capability. Core products include 37W high-power VTX systems (50km range), EO/IR gimbal pods, COFDM digital video links, and ELRS control systems.",
       "address": {
@@ -136,7 +136,7 @@ const About = () => {
         "addressCountry": "CN"
       },
       "contactPoint": [
-        { "@type": "ContactPoint", "telephone": "+86-13574137503", "contactType": "sales and technical support", "email": "so_0307@qq.com", "availableLanguage": ["Chinese", "English"] },
+        { "@type": "ContactPoint", "telephone": "+8613574137503", "contactType": "sales and technical support", "email": "so_0307@qq.com", "availableLanguage": ["Chinese", "English"] },
         { "@type": "ContactPoint", "contactType": "Sales & OEM/ODM", "email": "so_0307@qq.com" },
         { "@type": "ContactPoint", "contactType": "Technical Support", "email": "so_0307@qq.com" }
       ],

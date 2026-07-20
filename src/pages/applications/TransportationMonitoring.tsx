@@ -69,7 +69,7 @@ const TransportationMonitoring = () => {
     provider: {
       '@type': 'Organization',
       name: 'CANI Technology',
-      url: 'https://www.caniuav.com',
+      url: 'https://caniuav.com',
     },
     description: 'Integrated industrial UAV solutions for highway and bridge management with 50km long-range video backhaul and AI-powered traffic analysis.',
     areaServed: 'Global',

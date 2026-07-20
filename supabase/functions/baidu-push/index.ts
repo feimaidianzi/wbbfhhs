@@ -9,7 +9,7 @@ const corsHeaders = {
     "authorization, x-client-info, apikey, content-type",
 };
 
-const BAIDU_SITE = "https://www.caniuav.com";
+const BAIDU_SITE = "https://caniuav.com";
 const BAIDU_ENDPOINT = `http://data.zz.baidu.com/urls?site=${encodeURIComponent(BAIDU_SITE)}&token=`;
 
 // Pull all live URLs by reusing the dynamic-sitemap function output

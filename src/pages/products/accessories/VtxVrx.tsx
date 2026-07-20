@@ -136,7 +136,7 @@ const VtxVrx = () => {
     '@type': 'CollectionPage',
     name: t('vtx.seo.title'),
     description: t('vtx.seo.description'),
-    url: 'https://www.caniuav.com/products/accessories/vtx-vrx',
+    url: 'https://caniuav.com/products/accessories/vtx-vrx',
     mainEntity: {
       '@type': 'ItemList',
       itemListElement: [...products49to61, ...products61to72].map((p, i) => ({

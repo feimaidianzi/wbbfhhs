@@ -2,7 +2,7 @@
 const CACHE_NAME = 'cani-v3';
 const STATIC_CACHE = 'cani-static-v3';
 const RUNTIME_CACHE = 'cani-runtime-v3';
-const ALLOWED_HOSTS = new Set(['www.caniuav.com', 'caniuav.com']);
+const ALLOWED_HOSTS = new Set(['caniuav.com']);
 
 // Critical above-the-fold assets — precached on install for instant 2nd-visit LCP.
 const PRECACHE_URLS = [

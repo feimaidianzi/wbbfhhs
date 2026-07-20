@@ -121,14 +121,14 @@ const Applications = () => {
     '@type': 'CollectionPage',
     name: t('applications.seo.title'),
     description: t('applications.seo.description'),
-    url: 'https://www.caniuav.com/applications',
+    url: 'https://caniuav.com/applications',
     mainEntity: {
       '@type': 'ItemList',
       numberOfItems: applications.length,
       itemListElement: applications.map((app, i) => ({
         '@type': 'ListItem',
         position: i + 1,
-        item: { '@type': 'Service', name: app.name, description: app.description, url: `https://www.caniuav.com${app.href}` },
+        item: { '@type': 'Service', name: app.name, description: app.description, url: `https://caniuav.com${app.href}` },
       })),
     },
   };

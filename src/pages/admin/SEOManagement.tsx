@@ -648,7 +648,7 @@ const SEOManagement = () => {
                       onClick={() => {
                         const tags = SUPPORTED_LANGUAGES.map(l => 
                           `<link rel="alternate" hreflang="${getHtmlLang(l.code)}" href="${getDomainForLanguage(l.code)}/" />`
-                        ).join('\n') + '\n<link rel="alternate" hreflang="x-default" href="https://www.caniuav.com/en/" />';
+                        ).join('\n') + '\n<link rel="alternate" hreflang="x-default" href="https://caniuav.com/en/" />';
                         copyToClipboard(tags, 'hreflang');
                       }}
                     >
@@ -661,7 +661,7 @@ const SEOManagement = () => {
 {SUPPORTED_LANGUAGES.map(l => 
   `<link rel="alternate" hreflang="${getHtmlLang(l.code)}" href="${getDomainForLanguage(l.code)}/" />`
 ).join('\n')}
-{'\n<link rel="alternate" hreflang="x-default" href="https://www.caniuav.com/en/" />'}
+{'\n<link rel="alternate" hreflang="x-default" href="https://caniuav.com/en/" />'}
                     </pre>
                   </ScrollArea>
                 </div>

@@ -30,12 +30,12 @@ const AccessoriesCustom = () => {
     "additionalType": "https://en.wikipedia.org/wiki/Unmanned_aerial_vehicle",
     "mainEntityOfPage": {
       "@type": "WebPage",
-      "@id": "https://www.caniuav.com/custom-research/accessories"
+      "@id": "https://caniuav.com/custom-research/accessories"
     },
     "manufacturer": {
       "@type": "Organization",
       "name": "CANI Technology",
-      "url": "https://www.caniuav.com"
+      "url": "https://caniuav.com"
     }
   };
 
@@ -337,7 +337,7 @@ const AccessoriesCustom = () => {
               </Button>
               <a href="tel:+8613574137503">
                 <Button className="bg-primary-foreground/20 border border-primary-foreground/50 text-primary-foreground hover:bg-primary-foreground/30 px-10 py-6 text-lg">
-                  <Phone className="w-5 h-5 mr-2" /> 13574137503
+                  <Phone className="w-5 h-5 mr-2" /> +8613574137503
                 </Button>
               </a>
             </div>

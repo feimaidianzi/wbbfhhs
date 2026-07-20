@@ -22,7 +22,7 @@ const DroneCustom = () => {
     "provider": {
       "@type": "Organization",
       "name": "CANI Technology",
-      "logo": "https://www.caniuav.com/logo.png"
+      "logo": "https://caniuav.com/logo.png"
     },
     "description": baseLang === 'zh'
       ? "专业提供定制化无人机系统研发服务，涵盖系留动力工程、150kg重载物流平台及基于MAVLink 2.0的安全通讯集成。"
@@ -36,7 +36,7 @@ const DroneCustom = () => {
     "additionalType": "https://en.wikipedia.org/wiki/Unmanned_aerial_vehicle",
     "mainEntityOfPage": {
       "@type": "WebPage",
-      "@id": "https://www.caniuav.com/custom-research/drone"
+      "@id": "https://caniuav.com/custom-research/drone"
     }
   };
 
@@ -340,7 +340,7 @@ const DroneCustom = () => {
               </Link>
               <a href="tel:+8613574137503">
                 <Button className="bg-primary-foreground/20 border border-primary-foreground/50 text-primary-foreground hover:bg-primary-foreground/30 px-10 py-6 text-lg">
-                  <Phone className="w-5 h-5 mr-2" /> 13574137503
+                  <Phone className="w-5 h-5 mr-2" /> +8613574137503
                 </Button>
               </a>
             </div>

@@ -29,7 +29,7 @@ const VrxDetail = () => {
     "name": `CANI LongLink ${product.model}`,
     "description": t('acc.vrxdetail.metaDesc'),
     "brand": { "@type": "Brand", "name": "CANI UAV" },
-    "manufacturer": { "@type": "Organization", "name": "CANI长凌科技", "url": "https://www.caniuav.com" },
+    "manufacturer": { "@type": "Organization", "name": "CANI长凌科技", "url": "https://caniuav.com" },
     "sku": product.model,
     "category": "Industrial Diversity Video Receiver",
     "additionalProperty": [
@@ -44,7 +44,7 @@ const VrxDetail = () => {
     ],
     "offers": {
       "@type": "Offer",
-      "url": `https://www.caniuav.com/products/accessories/vtx-vrx/vrx/${product.id}`,
+      "url": `https://caniuav.com/products/accessories/vtx-vrx/vrx/${product.id}`,
       "availability": "https://schema.org/InStock"
     }
   };

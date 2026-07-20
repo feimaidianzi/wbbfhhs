@@ -65,7 +65,7 @@ const PVSystem = () => {
           "@context": "https://schema.org",
           "@type": "SoftwareApplication",
           "name": "CANI PV System Smart Monitoring Platform",
-          "url": "https://www.caniuav.com/software/pv-system",
+          "url": "https://caniuav.com/software/pv-system",
           "operatingSystem": "Cloud-based, Web, Android, iOS",
           "applicationCategory": "BusinessApplication",
           "description": "Enterprise-grade PV system monitoring platform with AI energy flow analysis, real-time Performance Ratio tracking, intelligent fault diagnosis, and IEC-compliant reporting for global multi-site solar asset management.",

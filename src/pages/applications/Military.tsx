@@ -27,7 +27,7 @@ const Military = () => {
     provider: {
       '@type': 'Organization',
       name: 'CANI Technology',
-      url: 'https://www.caniuav.com',
+      url: 'https://caniuav.com',
     },
     areaServed: 'Worldwide',
   };

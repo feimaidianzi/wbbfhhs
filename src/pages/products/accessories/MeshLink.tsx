@@ -30,11 +30,11 @@ const MeshLink = () => {
     '@context': 'https://schema.org/',
     '@type': 'Product',
     name: t('meshLink.jsonld.name'),
-    image: 'https://www.caniuav.com/images/products/accessories/mesh-link-main.jpg',
+    image: 'https://caniuav.com/images/products/accessories/mesh-link-main.jpg',
     description: t('meshLink.jsonld.desc'),
     brand: { '@type': 'Brand', name: 'CANI' },
     sku: 'CANI-MESH-V1',
-    url: `https://www.caniuav.com/${baseLang === 'en' ? 'en' : 'zh'}/products/accessories/mesh-link`,
+    url: `https://caniuav.com/${baseLang === 'en' ? 'en' : 'zh'}/products/accessories/mesh-link`,
     offers: {
       '@type': 'Offer',
       priceCurrency: 'CNY',

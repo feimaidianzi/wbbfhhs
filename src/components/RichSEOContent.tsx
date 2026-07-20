@@ -75,7 +75,7 @@ export const RichSEOContent = ({
           </footer>
         )}
 
-        <meta itemProp="url" content={`https://www.caniuav.com`} />
+        <meta itemProp="url" content={`https://caniuav.com`} />
         <meta itemProp="inLanguage" content={language === 'zh' ? 'zh-CN' : language} />
       </article>
     </div>

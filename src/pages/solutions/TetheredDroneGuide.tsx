@@ -48,9 +48,9 @@ const TetheredDroneGuide = () => {
       publisher: {
         "@type": "Organization",
         name: "CANI Technology",
-        logo: { "@type": "ImageObject", url: "https://www.caniuav.com/logo.png" },
+        logo: { "@type": "ImageObject", url: "https://caniuav.com/logo.png" },
       },
-      mainEntityOfPage: "https://www.caniuav.com/solutions/tethered-drone-guide",
+      mainEntityOfPage: "https://caniuav.com/solutions/tethered-drone-guide",
     },
     {
       "@context": "https://schema.org",

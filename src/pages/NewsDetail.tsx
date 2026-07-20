@@ -228,11 +228,11 @@ const NewsDetail = () => {
     publisher: {
       '@type': 'Organization',
       name: t('acc.cameradetail.k454'),
-      logo: { '@type': 'ImageObject', url: 'https://www.caniuav.com/logo.png' },
+      logo: { '@type': 'ImageObject', url: 'https://caniuav.com/logo.png' },
     },
     mainEntityOfPage: {
       '@type': 'WebPage',
-      '@id': `https://www.caniuav.com/news/${article.id}`,
+      '@id': `https://caniuav.com/news/${article.id}`,
     },
     // GEO: inject keywords + additionalProperty for AI search engines
     ...(article.keywords && article.keywords.length > 0 && {
@@ -246,7 +246,7 @@ const NewsDetail = () => {
       mentions: mentionedProducts.map(p => ({
         '@type': 'Product',
         name: baseLang === 'en' ? p.titleEn : p.titleZh,
-        url: `https://www.caniuav.com${p.url}`,
+        url: `https://caniuav.com${p.url}`,
       })),
     }),
   };

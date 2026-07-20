@@ -81,7 +81,7 @@ const PowerInspection = () => {
     '@context': 'https://schema.org/',
     '@type': 'Service',
     name: 'UAV Powerline Inspection Solution',
-    provider: { '@type': 'Organization', name: 'CaniUAV', url: 'https://www.caniuav.com' },
+    provider: { '@type': 'Organization', name: 'CaniUAV', url: 'https://caniuav.com' },
     description: 'Professional drone inspection solution for power grids using 640×512 radiometric thermal imaging and AI target identification to detect defects and vegetation risks.',
     areaServed: 'Global',
     serviceType: 'UAV Inspection',
@@ -89,8 +89,8 @@ const PowerInspection = () => {
       '@type': 'OfferCatalog',
       name: 'Inspection Hardware',
       itemListElement: [
-        { '@type': 'Offer', itemOffered: { '@type': 'Product', name: 'X850 Industrial UAV', url: 'https://www.caniuav.com/products/multi-rotor/x850' } },
-        { '@type': 'Offer', itemOffered: { '@type': 'Product', name: 'X1200 Industrial UAV', url: 'https://www.caniuav.com/products/multi-rotor/x1200' } },
+        { '@type': 'Offer', itemOffered: { '@type': 'Product', name: 'X850 Industrial UAV', url: 'https://caniuav.com/products/multi-rotor/x850' } },
+        { '@type': 'Offer', itemOffered: { '@type': 'Product', name: 'X1200 Industrial UAV', url: 'https://caniuav.com/products/multi-rotor/x1200' } },
       ],
     },
   };

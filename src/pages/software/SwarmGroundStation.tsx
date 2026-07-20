@@ -59,7 +59,7 @@ const SwarmGroundStation = () => {
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",
     "name": "CANI Swarm Drone Ground Station",
-    "url": "https://www.caniuav.com/software/swarm-ground-station",
+    "url": "https://caniuav.com/software/swarm-ground-station",
     "operatingSystem": "Linux (Ubuntu), Windows 10/11, Android",
     "applicationCategory": "SwarmControlSoftware",
     "featureList": "sMatrix edge computing, AI autonomous swarm coordination, 50+ UAV formation control, Auto-succession system, STANAG 4586 compliance, Mesh self-organizing network, GNSS-denied navigation, Dynamic mission replanning, Millisecond synchronization matrix, Choreography animation design",

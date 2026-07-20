@@ -53,7 +53,7 @@ const GimbalDetail = () => {
     offers: {
       '@type': 'Offer',
       availability: 'https://schema.org/InStock',
-      url: `https://www.caniuav.com/products/accessories/gimbal/${productId}`,
+      url: `https://caniuav.com/products/accessories/gimbal/${productId}`,
     },
   };
 
