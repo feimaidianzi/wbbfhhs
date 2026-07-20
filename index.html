@@ -575,7 +575,7 @@
     <script type="module" src="/src/main.tsx"></script>
     <script>
       if ('serviceWorker' in navigator) {
-        var isProductionHost = location.hostname === 'caniuav.com' || location.hostname === 'caniuav.com';
+        var isProductionHost = location.hostname === 'caniuav.com';
         if (!isProductionHost) {
           navigator.serviceWorker.getRegistrations().then(function(registrations) {
             registrations.forEach(function(registration) { registration.unregister(); });
