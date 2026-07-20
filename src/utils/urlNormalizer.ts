@@ -5,7 +5,7 @@
  */
 
 const LANG_CODES = new Set(['en', 'zh', 'vi', 'th', 'ms', 'id', 'ja', 'ko', 'fr', 'de', 'es', 'ru', 'ar', 'tr']);
-const PRODUCTION_HOSTS = new Set(['caniuav.com', 'caniuav.com']);
+const PRODUCTION_HOSTS = new Set(['caniuav.com']);
 
 export const normalizeSiteUrl = (): void => {
   if (typeof window === 'undefined') return;
