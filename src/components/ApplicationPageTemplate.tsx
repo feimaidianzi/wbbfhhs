@@ -269,7 +269,7 @@ const ApplicationPageTemplate = ({
                   <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" />
                 </Button>
               </LangLink>
-              <a href="mailto:sales@caniuav.com">
+              <a href="mailto:so_0307@qq.com">
                 <Button variant="outline" className="border-accent/30 hover:border-accent text-foreground px-8 py-6 text-lg font-semibold rounded-full">
                   <Mail className="w-5 h-5 mr-2" />
                   {t('template.emailConsult')}

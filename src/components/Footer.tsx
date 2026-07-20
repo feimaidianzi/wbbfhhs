@@ -83,7 +83,7 @@ export const Footer = () => {
 
   const socialLinks = [
     { icon: WeChatIcon, href: "weixin://dl/chat?+8617674048404", label: "WeChat", id: "+8617674048404" },
-    { icon: WhatsAppIcon, href: "https://wa.me/8618163685410", label: "WhatsApp" },
+    { icon: WhatsAppIcon, href: "https://wa.me/8613574137503", label: "WhatsApp" },
     { icon: MessengerIcon, href: "https://m.me/caniuav", label: "Messenger" },
     { icon: TelegramIcon, href: "https://t.me/caniuav", label: "Telegram" },
     { icon: LinkedInIcon, href: "https://linkedin.com/company/caniuav", label: "LinkedIn" },
@@ -126,9 +126,9 @@ export const Footer = () => {
 
             {/* Contact Info */}
             <div className="space-y-3 mb-6">
-              <a href="mailto:sales@caniuav.com" className="flex items-center gap-3 text-background/70 hover:text-background transition-colors group">
+              <a href="mailto:so_0307@qq.com" className="flex items-center gap-3 text-background/70 hover:text-background transition-colors group">
                 <Mail className="w-4 h-4" />
-                <span className="text-sm">sales@caniuav.com</span>
+                <span className="text-sm">so_0307@qq.com</span>
               </a>
               <a href="mailto:support@caniuav.com" className="flex items-center gap-3 text-background/70 hover:text-background transition-colors group">
                 <Mail className="w-4 h-4" />
@@ -262,7 +262,7 @@ export const Footer = () => {
               {t('footer.seo.companyTitle')}
             </p>
             <p className="text-xs text-background/50">
-              Email: market@caniuav.com | sales@caniuav.com | support@caniuav.com | feedback@caniuav.com
+              Email: market@caniuav.com | so_0307@qq.com | support@caniuav.com | feedback@caniuav.com
             </p>
           </div>
 

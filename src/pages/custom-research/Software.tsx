@@ -133,7 +133,7 @@ const SoftwareCustom = () => {
                     {t('customSoftware.btn.consult')} <ArrowRight className="w-5 h-5 ml-2" />
                   </Button>
                 </Link>
-                <a href="mailto:sales@caniuav.com">
+                <a href="mailto:so_0307@qq.com">
                   <Button className="bg-primary-foreground/20 border border-primary-foreground/50 text-primary-foreground hover:bg-primary-foreground/30 px-8 py-6 text-lg">
                     <Mail className="w-5 h-5 mr-2" /> {t('template.emailConsult')}
                   </Button>
@@ -369,9 +369,9 @@ const SoftwareCustom = () => {
                   <Mail className="w-5 h-5 mr-2" /> {t('customSoftware.cta.consult')}
                 </Button>
               </Link>
-              <a href="mailto:sales@caniuav.com">
+              <a href="mailto:so_0307@qq.com">
                 <Button className="bg-primary-foreground/20 border border-primary-foreground/50 text-primary-foreground hover:bg-primary-foreground/30 px-10 py-6 text-lg">
-                  <Mail className="w-5 h-5 mr-2" /> sales@caniuav.com
+                  <Mail className="w-5 h-5 mr-2" /> so_0307@qq.com
                 </Button>
               </a>
             </div>

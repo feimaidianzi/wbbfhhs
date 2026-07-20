@@ -399,16 +399,16 @@ export const Header = () => {
             </div>
             
             <a
-              href="mailto:sales@caniuav.com"
+              href="mailto:so_0307@qq.com"
               className={`hidden nav:flex items-center gap-1.5 px-3 py-1.5 rounded-full transition-colors ${
                 isScrolled 
                   ? 'bg-accent text-accent-foreground hover:bg-accent/90' 
                   : 'bg-white/10 text-white hover:bg-white/20'
               }`}
-              title="sales@caniuav.com"
+              title="so_0307@qq.com"
             >
               <Mail className="w-4 h-4" />
-              <span className="text-xs font-medium hidden 2xl:inline">sales@caniuav.com</span>
+              <span className="text-xs font-medium hidden 2xl:inline">so_0307@qq.com</span>
             </a>
 
             <Button

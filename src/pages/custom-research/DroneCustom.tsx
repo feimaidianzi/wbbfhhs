@@ -141,7 +141,7 @@ const DroneCustom = () => {
                       {t('customDrone.btn.consult')} <ArrowRight className="w-5 h-5 ml-2" />
                     </Button>
                   </Link>
-                  <a href="tel:+8618163685410">
+                  <a href="tel:+8613574137503">
                     <Button className="bg-primary/10 border border-primary/30 text-foreground hover:bg-primary/20 px-8 py-6 text-lg">
                       <Phone className="w-5 h-5 mr-2" /> {t('customDrone.btn.call')}
                     </Button>
@@ -338,7 +338,7 @@ const DroneCustom = () => {
                   <Mail className="w-5 h-5 mr-2" /> {t('customDrone.cta.consult')}
                 </Button>
               </Link>
-              <a href="tel:+8618163685410">
+              <a href="tel:+8613574137503">
                 <Button className="bg-primary-foreground/20 border border-primary-foreground/50 text-primary-foreground hover:bg-primary-foreground/30 px-10 py-6 text-lg">
                   <Phone className="w-5 h-5 mr-2" /> 18163685410
                 </Button>

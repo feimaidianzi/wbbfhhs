@@ -47,14 +47,14 @@ export const FloatingContact = () => {
           <Home className="w-4 h-4" />
         </LangLink>
         <a
-          href="mailto:sales@caniuav.com"
+          href="mailto:so_0307@qq.com"
           className="w-9 h-9 bg-primary/90 rounded-full shadow-md flex items-center justify-center text-primary-foreground hover:bg-primary transition-colors"
           title={t('floating.email')}
         >
           <Mail className="w-4 h-4" />
         </a>
         <a
-          href="https://wa.me/8618163685410"
+          href="https://wa.me/8613574137503"
           target="_blank"
           rel="noopener noreferrer"
           className="w-9 h-9 bg-green-500 rounded-full shadow-md flex items-center justify-center text-white hover:bg-green-600 transition-colors"
@@ -75,7 +75,7 @@ export const FloatingContact = () => {
 
       {/* Bottom floating WhatsApp button (mobile) */}
       <a
-        href="https://wa.me/8618163685410"
+        href="https://wa.me/8613574137503"
         target="_blank"
         rel="noopener noreferrer"
         className="fixed left-4 bottom-4 z-40 md:hidden flex items-center gap-2 bg-green-500 text-white px-4 py-3 rounded-full shadow-lg animate-pulse"

@@ -137,7 +137,7 @@ const About = () => {
       },
       "contactPoint": [
         { "@type": "ContactPoint", "telephone": "+86-18163685410", "contactType": "sales and technical support", "email": "market@caniuav.com", "availableLanguage": ["Chinese", "English"] },
-        { "@type": "ContactPoint", "contactType": "Sales & OEM/ODM", "email": "sales@caniuav.com" },
+        { "@type": "ContactPoint", "contactType": "Sales & OEM/ODM", "email": "so_0307@qq.com" },
         { "@type": "ContactPoint", "contactType": "Technical Support", "email": "support@caniuav.com" }
       ],
       "sameAs": ["https://linkedin.com/company/caniuav", "https://instagram.com/868163685410", "https://t.me/caniuav", "https://m.me/caniuav"],

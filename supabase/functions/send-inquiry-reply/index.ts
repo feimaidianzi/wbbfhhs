@@ -164,7 +164,7 @@ const handler = async (req: Request): Promise<Response> => {
               此邮件由长凌科技客服团队发送
             </p>
             <p style="color: #64748b; font-size: 12px; margin: 5px 0 0 0;">
-              电话: +8618163685410 | 邮箱: market@cani.com.cn
+              电话: +8613574137503 | 邮箱: market@cani.com.cn
             </p>
           </div>
         </div>
