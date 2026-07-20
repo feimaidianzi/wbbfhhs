@@ -97,7 +97,7 @@ export const createLocalizedOrganizationData = (lang: LanguageCode, t: (key: str
   description: t('footer.company.desc'),
   address: {
     '@type': 'PostalAddress',
-    streetAddress: lang === 'zh' ? '望城区月亮岛街道罐子岭澳优全球总部大楼' : 'Ausnutria Global HQ, Guanziling, Yueliangdao Street, Wangcheng District',
+    streetAddress: lang === 'zh' ? '亿达智造小镇' : 'Yida Smart Manufacturing Town, Wangcheng District',
     addressLocality: lang === 'zh' ? '长沙' : 'Changsha',
     addressRegion: lang === 'zh' ? '湖南' : 'Hunan',
     postalCode: '410200',

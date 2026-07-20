@@ -129,7 +129,7 @@ const About = () => {
       "description": "Founded in 2015, CANI Technology is a High-tech Enterprise specializing in industrial UAV payload R&D and manufacturing with 200+ technology patents and ISO 9001 certification capability. Core products include 37W high-power VTX systems (50km range), EO/IR gimbal pods, COFDM digital video links, and ELRS control systems.",
       "address": {
         "@type": "PostalAddress",
-        "streetAddress": "望城区月亮岛街道罐子岭澳优全球总部大楼",
+        "streetAddress": "亿达智造小镇",
         "addressLocality": "Changsha",
         "addressRegion": "Hunan",
         "postalCode": "410200",

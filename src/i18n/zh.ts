@@ -692,7 +692,7 @@ export const zhTranslations: Record<string, string> = {
   'footer.software': '软件系统',
   'footer.custom': '产品定制',
   'footer.address': '公司地址',
-  'footer.address.content': '湖南省长沙市望城区月亮岛街道罐子岭澳优全球总部大楼',
+  'footer.address.content': '湖南省长沙市望城区亿达智造小镇',
   'footer.copyright': '邵阳长凌电子科技有限公司',
   'footer.rights': '版权所有',
   'footer.aboutUs': '关于我们',
@@ -1761,7 +1761,7 @@ export const zhTranslations: Record<string, string> = {
   'contact.info.workingHours': '工作时间',
   'contact.info.workingHours.value': '周一至周五 9:00-18:00',
   'contact.office.changsha': '长沙总部',
-  'contact.office.changsha.address': '湖南省长沙市望城区月亮岛街道罐子岭澳优全球总部大楼',
+  'contact.office.changsha.address': '湖南省长沙市望城区亿达智造小镇',
   
   // Contact Form Validation
   'contact.validation.pleaseWait': '请稍候',
@@ -1794,7 +1794,7 @@ export const zhTranslations: Record<string, string> = {
   'seo.contact.businessEmail': '商务邮箱：so_0307@qq.com',
   'seo.contact.technicalSupport': '技术支持：support@caniuav.com',
   'seo.contact.address': '公司地址',
-  'seo.contact.addressDetail': '湖南省长沙市望城区月亮岛街道罐子岭澳优全球总部大楼',
+  'seo.contact.addressDetail': '湖南省长沙市望城区亿达智造小镇',
 
   // ===== X1200 Product Details =====
   'multiRotor.x1200.feature.heavyPayload': '重型载荷',
@@ -1943,7 +1943,7 @@ export const zhTranslations: Record<string, string> = {
   'footer.contactInfo': '联系方式',
   'footer.office.china': '中国',
   'footer.office.changsha': '长沙',
-  'footer.office.changsha.address': '湖南省长沙市望城区',
+  'footer.office.changsha.address': '湖南省长沙市望城区亿达智造小镇',
   'footer.office.vietnam': '越南',
   'footer.office.hochiminh': '胡志明市',
   'footer.office.hochiminh.address': '第一郡',

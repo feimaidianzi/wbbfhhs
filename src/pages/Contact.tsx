@@ -207,7 +207,7 @@ const Contact = () => {
       ],
       address: {
         '@type': 'PostalAddress',
-        streetAddress: '望城区月亮岛街道罐子岭澳优全球总部大楼',
+        streetAddress: '亿达智造小镇',
         addressLocality: 'Changsha',
         addressRegion: 'Hunan',
         postalCode: '410200',
