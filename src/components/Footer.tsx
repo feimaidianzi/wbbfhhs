@@ -258,7 +258,7 @@ export const Footer = () => {
               {t('footer.seo.companyTitle')}
             </p>
             <p className="text-xs text-background/50">
-              Email: so_0307@qq.com | support@caniuav.com | feedback@caniuav.com
+              Email: so_0307@qq.com
             </p>
           </div>
 

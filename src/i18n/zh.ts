@@ -1792,7 +1792,7 @@ export const zhTranslations: Record<string, string> = {
   'seo.contact.info': '联系方式',
   'seo.contact.salesHotline': '销售热线：181-7413-7503（工作日 9:00-18:00）',
   'seo.contact.businessEmail': '商务邮箱：so_0307@qq.com',
-  'seo.contact.technicalSupport': '技术支持：support@caniuav.com',
+  'seo.contact.technicalSupport': '技术支持：so_0307@qq.com',
   'seo.contact.address': '公司地址',
   'seo.contact.addressDetail': '湖南省长沙市望城区亿达智造小镇',
 

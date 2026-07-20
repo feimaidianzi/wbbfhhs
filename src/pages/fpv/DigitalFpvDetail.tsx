@@ -1090,7 +1090,7 @@ const DigitalFpvDetail = () => {
                   </div>
                   <div>
                     <div className="text-primary-foreground/60 text-sm">{t('contact.email')}</div>
-                    <div className="text-primary-foreground font-bold">support@example.com</div>
+                    <div className="text-primary-foreground font-bold">so_0307@qq.com</div>
                   </div>
                 </div>
               </div>
