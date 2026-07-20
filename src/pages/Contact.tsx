@@ -63,7 +63,7 @@ const Contact = () => {
   }, [cooldown]);
 
   const contactInfo = [
-    { icon: Mail, title: t('contact.info.email'), value: "market@caniuav.com", href: "mailto:market@caniuav.com" },
+    { icon: Mail, title: t('contact.info.email'), value: "so_0307@qq.com", href: "mailto:so_0307@qq.com" },
     { icon: Mail, title: t('contact.info.salesEmail') || 'Sales', value: "so_0307@qq.com", href: "mailto:so_0307@qq.com" },
     { icon: Mail, title: t('contact.info.techEmail'), value: "support@caniuav.com", href: "mailto:support@caniuav.com" },
     { icon: Mail, title: t('contact.info.feedbackEmail') || 'Feedback', value: "feedback@caniuav.com", href: "mailto:feedback@caniuav.com" },
@@ -75,7 +75,7 @@ const Contact = () => {
     {
       city: t('contact.office.changsha'),
       address: t('contact.office.changsha.address'),
-      email: "market@caniuav.com",
+      email: "so_0307@qq.com",
     },
   ];
 
@@ -190,7 +190,7 @@ const Contact = () => {
       legalName: '邵阳长凌电子科技有限公司',
       url: 'https://www.caniuav.com/',
       logo: 'https://www.caniuav.com/logo.png',
-      email: 'market@caniuav.com',
+      email: 'so_0307@qq.com',
       contactPoint: [
         {
           '@type': 'ContactPoint',

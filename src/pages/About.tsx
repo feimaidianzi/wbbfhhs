@@ -136,7 +136,7 @@ const About = () => {
         "addressCountry": "CN"
       },
       "contactPoint": [
-        { "@type": "ContactPoint", "telephone": "+86-18163685410", "contactType": "sales and technical support", "email": "market@caniuav.com", "availableLanguage": ["Chinese", "English"] },
+        { "@type": "ContactPoint", "telephone": "+86-13574137503", "contactType": "sales and technical support", "email": "so_0307@qq.com", "availableLanguage": ["Chinese", "English"] },
         { "@type": "ContactPoint", "contactType": "Sales & OEM/ODM", "email": "so_0307@qq.com" },
         { "@type": "ContactPoint", "contactType": "Technical Support", "email": "support@caniuav.com" }
       ],

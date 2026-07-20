@@ -6,7 +6,7 @@
 
 - [Home](/): Industrial UAV components manufacturer — 37W VTX, digital HD links, AI guidance modules. 200+ patents, ISO-certified, NDAA-compliant.
 - [About CANI](/about): National High-Tech Enterprise founded 2015, specializing in industrial UAV core component R&D. Deployed in 30+ countries.
-- [Contact](/contact): Sales (market@caniuav.com) and tech support (support@caniuav.com) for OEM/ODM, 37W VTX integration, EO/IR gimbal support.
+- [Contact](/contact): Sales (so_0307@qq.com) and tech support (support@caniuav.com) for OEM/ODM, 37W VTX integration, EO/IR gimbal support.
 - [News](/news): Industry news, technical analysis, and product announcements from CANI Technology.
 
 ## Products
@@ -55,6 +55,6 @@
 ## Contact
 
 - Website: https://www.caniuav.com
-- Sales: market@caniuav.com
+- Sales: so_0307@qq.com
 - Technical Support: support@caniuav.com
 - Phone: +86 181 6368 5410

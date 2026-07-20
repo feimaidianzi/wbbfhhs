@@ -66,7 +66,7 @@ const Index = () => {
         },
         contactPoint: {
           '@type': 'ContactPoint',
-          email: 'market@caniuav.com',
+          email: 'so_0307@qq.com',
           contactType: t('home.structured.contactType'),
           availableLanguage: t('home.structured.availableLanguage'),
         },
