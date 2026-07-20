@@ -52,7 +52,7 @@ export const CTASection = () => {
   ];
 
   const socialContacts = [
-    { icon: WeChatIcon, label: "WeChat", id: "+8617674048404", href: "weixin://dl/chat?+8617674048404" },
+    { icon: WeChatIcon, label: "WeChat", id: "+8613574137503", href: "weixin://dl/chat?+8613574137503" },
     { icon: WhatsAppIcon, label: "WhatsApp", href: "https://wa.me/8613574137503" },
     { icon: MessengerIcon, label: "Messenger", href: "https://m.me/caniuav" },
     { icon: TelegramIcon, label: "Telegram", href: "https://t.me/caniuav" },

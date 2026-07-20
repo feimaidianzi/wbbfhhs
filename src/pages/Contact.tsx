@@ -67,7 +67,7 @@ const Contact = () => {
     { icon: Mail, title: t('contact.info.salesEmail') || 'Sales', value: "so_0307@qq.com", href: "mailto:so_0307@qq.com" },
     { icon: Mail, title: t('contact.info.techEmail'), value: "so_0307@qq.com", href: "mailto:so_0307@qq.com" },
     { icon: Mail, title: t('contact.info.feedbackEmail') || 'Feedback', value: "so_0307@qq.com", href: "mailto:so_0307@qq.com" },
-    { icon: MessageCircle, title: t('contact.info.wechat'), value: "+8617674048404", href: "weixin://dl/chat?+8617674048404" },
+    { icon: MessageCircle, title: t('contact.info.wechat'), value: "+8613574137503", href: "weixin://dl/chat?+8613574137503" },
     { icon: Clock, title: t('contact.info.workingHours'), value: t('contact.info.workingHours.value'), href: null },
   ];
 
