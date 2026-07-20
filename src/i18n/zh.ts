@@ -1943,7 +1943,7 @@ export const zhTranslations: Record<string, string> = {
   'footer.contactInfo': '联系方式',
   'footer.office.china': '中国',
   'footer.office.changsha': '长沙',
-  'footer.office.changsha.address': '湖南省长沙市望城区',
+  'footer.office.changsha.address': '湖南省长沙市望城区亿达智造小镇',
   'footer.office.vietnam': '越南',
   'footer.office.hochiminh': '胡志明市',
   'footer.office.hochiminh.address': '第一郡',

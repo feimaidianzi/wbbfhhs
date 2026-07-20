@@ -1943,7 +1943,7 @@ export const enTranslations: Record<string, string> = {
   'footer.contactInfo': 'Contact Information',
   'footer.office.china': 'China',
   'footer.office.changsha': 'Changsha',
-  'footer.office.changsha.address': 'Wangcheng District, Changsha City, Hunan Province',
+  'footer.office.changsha.address': 'Yida Smart Manufacturing Town, Wangcheng District, Changsha, Hunan',
   'footer.office.vietnam': 'Vietnam',
   'footer.office.hochiminh': 'Ho Chi Minh City',
   'footer.office.hochiminh.address': 'District 1',
